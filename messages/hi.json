@@ -1,0 +1,36 @@
+{
+  "common": {
+    "compare": "तुलना करें",
+    "calculate": "गणना करें",
+    "learn": "सीखें",
+    "viewDetails": "विवरण देखें",
+    "lastUpdated": "अंतिम अपडेट",
+    "source": "स्रोत",
+    "methodology": "विधि",
+    "readMore": "और पढ़ें"
+  },
+  "products": {
+    "creditCards": "क्रेडिट कार्ड",
+    "mutualFunds": "म्यूचुअल फंड",
+    "personalLoans": "पर्सनल लोन",
+    "bestOverall": "सर्वश्रेष्ठ समग्र",
+    "bestValue": "सर्वश्रेष्ठ मूल्य",
+    "mostPopular": "सबसे लोकप्रिय"
+  },
+  "ranking": {
+    "score": "स्कोर",
+    "rank": "रैंक",
+    "breakdown": "स्कोर विवरण",
+    "strengths": "मजबूत पक्ष",
+    "weaknesses": "कमजोर पक्ष",
+    "explanation": "व्याख्या"
+  },
+  "data": {
+    "source": "डेटा स्रोत",
+    "lastUpdated": "अंतिम अपडेट",
+    "updateFrequency": "अपडेट आवृत्ति",
+    "verified": "सत्यापित",
+    "unverified": "असत्यापित"
+  }
+}
+

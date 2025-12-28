@@ -1,0 +1,36 @@
+{
+  "common": {
+    "compare": "Compare",
+    "calculate": "Calculate",
+    "learn": "Learn",
+    "viewDetails": "View Details",
+    "lastUpdated": "Last Updated",
+    "source": "Source",
+    "methodology": "Methodology",
+    "readMore": "Read More"
+  },
+  "products": {
+    "creditCards": "Credit Cards",
+    "mutualFunds": "Mutual Funds",
+    "personalLoans": "Personal Loans",
+    "bestOverall": "Best Overall",
+    "bestValue": "Best Value",
+    "mostPopular": "Most Popular"
+  },
+  "ranking": {
+    "score": "Score",
+    "rank": "Rank",
+    "breakdown": "Score Breakdown",
+    "strengths": "Strengths",
+    "weaknesses": "Weaknesses",
+    "explanation": "Explanation"
+  },
+  "data": {
+    "source": "Data Source",
+    "lastUpdated": "Last Updated",
+    "updateFrequency": "Update Frequency",
+    "verified": "Verified",
+    "unverified": "Unverified"
+  }
+}
+

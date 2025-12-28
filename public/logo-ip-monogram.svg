@@ -1,0 +1,32 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Letter I - Left vertical bar -->
+  <rect x="5" y="5" width="5" height="22" rx="1" fill="white"/>
+  
+  <!-- Letter P - Right side -->
+  <!-- P's vertical stem -->
+  <rect x="16" y="5" width="5" height="22" rx="1" fill="white"/>
+  
+  <!-- P's top rounded loop -->
+  <path d="M21 5 L21 14 C21 17.314 23.686 20 27 20 C30.314 20 33 17.314 33 14 C33 10.686 30.314 8 27 8 C23.686 8 21 10.686 21 14 Z" fill="white" transform="translate(-5, -5)"/>
+  
+  <!-- P's opening - create the bottom opening by covering part of the loop -->
+  <rect x="16" y="14" width="5" height="13" fill="#0d9488"/>
+</svg>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

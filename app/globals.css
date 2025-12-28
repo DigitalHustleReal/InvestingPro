@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-indigo: #6366f1;
+  --color-brand-emerald: #10b981;
+}
+
+@layer base {
+  body {
+    @apply font-sans selection:bg-indigo-500/30 selection:text-white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Sleek Dark Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-950;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-800 rounded-full border-2 border-slate-950 hover:bg-slate-700 transition-colors;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl;
+  }
+
+  .premium-gradient-text {
+    @apply bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Shimmer Animation */
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s infinite;
+  }
+}
