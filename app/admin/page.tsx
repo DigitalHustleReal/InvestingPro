@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/Button";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -47,6 +46,7 @@ import ContextualSidebar from "@/components/admin/ContextualSidebar";
 import { toast } from "sonner";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
 import ContentPerformanceTracking from "@/components/admin/ContentPerformanceTracking";
+import AutomationControls from "@/components/admin/AutomationControls";
 
 export default function AdminPage() {
     const [timeRange, setTimeRange] = useState('30d');
@@ -303,35 +303,6 @@ export default function AdminPage() {
                 </div>
                 
                 <div className="flex-1 overflow-y-auto px-8 py-6 max-w-7xl mx-auto w-full">
-                    {/* Horizontal Tabs Navigation */}
-                    <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
-                        <TabsList className="bg-white border border-slate-200 rounded-lg p-1 h-auto">
-                            <TabsTrigger value="overview" className="data-[state=active]:bg-teal-600 data-[state=active]:text-white">
-                                <LayoutDashboard className="w-4 h-4 mr-2" />
-                                Overview
-                            </TabsTrigger>
-                            <TabsTrigger value="performance" className="data-[state=active]:bg-teal-600 data-[state=active]:text-white">
-                                <BarChart3 className="w-4 h-4 mr-2" />
-                                Performance
-                            </TabsTrigger>
-                            <TabsTrigger value="content" className="data-[state=active]:bg-teal-600 data-[state=active]:text-white">
-                                <FileText className="w-4 h-4 mr-2" />
-                                Content Stats
-                            </TabsTrigger>
-                            <TabsTrigger value="automation" className="data-[state=active]:bg-teal-600 data-[state=active]:text-white">
-                                <Zap className="w-4 h-4 mr-2" />
-                                Automation
-                            </TabsTrigger>
-                            <TabsTrigger value="social" className="data-[state=active]:bg-teal-600 data-[state=active]:text-white">
-                                <Share2 className="w-4 h-4 mr-2" />
-                                Social Analytics
-                            </TabsTrigger>
-                            <TabsTrigger value="trends" className="data-[state=active]:bg-teal-600 data-[state=active]:text-white">
-                                <TrendingUp className="w-4 h-4 mr-2" />
-                                Trends
-                            </TabsTrigger>
-                        </TabsList>
-                    </Tabs>
 
                     {/* Main Stats Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -581,11 +552,10 @@ export default function AdminPage() {
                         </CardContent>
                     </Card>
 
-                    {/* Main Content - Tabs controlled by horizontal tabs */}
-                    <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-
+                    {/* Main Content - Controlled by ContextualSidebar */}
+                    <div className="space-y-6">
                         {/* Overview Tab - Key Metrics */}
-                        <TabsContent value="overview">
+                        {activeTab === 'overview' && (
                             <div className="space-y-6">
                                 {/* Content Overview */}
                                 <Card>
@@ -659,17 +629,15 @@ export default function AdminPage() {
                                     </CardContent>
                                 </Card>
                             </div>
-                        </TabsContent>
-
-                        {/* Moderation - REMOVED (Use sidebar "Review Queue" instead) */}
+                        )}
 
                         {/* Performance Tracking */}
-                        <TabsContent value="performance">
+                        {activeTab === 'performance' && (
                             <ContentPerformanceTracking timeRange={timeRange as '7d' | '30d' | '90d'} />
-                        </TabsContent>
+                        )}
 
                         {/* Content Stats - Tracking Only */}
-                        <TabsContent value="content">
+                        {activeTab === 'content' && (
                             <div className="space-y-6">
                                 {/* Content Statistics */}
                                 <Card>
@@ -764,259 +732,15 @@ export default function AdminPage() {
                                     </CardContent>
                                 </Card>
                             </div>
-                        </TabsContent>
+                        )}
 
-                        {/* Automation - Consolidated (Pipeline, RSS, Scrapers) */}
-                        <TabsContent value="automation">
-                            <div className="space-y-6">
-                                {/* Pipeline Section */}
-                                <Card>
-                                    <CardHeader>
-                                        <div className="flex items-center justify-between">
-                                            <CardTitle>Content Pipeline</CardTitle>
-                                            <Button size="sm">
-                                                <Play className="w-4 h-4 mr-2" />
-                                                Run Pipeline
-                                            </Button>
-                                        </div>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                                            <div className="text-center p-4 bg-blue-50 rounded-lg">
-                                                <div className="text-2xl font-bold text-blue-600">{pipelineStatus.active || 0}</div>
-                                                <div className="text-sm text-slate-600">Active</div>
-                                            </div>
-                                            <div className="text-center p-4 bg-emerald-50 rounded-lg">
-                                                <div className="text-2xl font-bold text-emerald-600">{pipelineStatus.completed || 0}</div>
-                                                <div className="text-sm text-slate-600">Completed</div>
-                                            </div>
-                                            <div className="text-center p-4 bg-rose-50 rounded-lg">
-                                                <div className="text-2xl font-bold text-rose-600">{pipelineStatus.failed || 0}</div>
-                                                <div className="text-sm text-slate-600">Failed</div>
-                                            </div>
-                                            <div className="text-center p-4 bg-amber-50 rounded-lg">
-                                                <div className="text-2xl font-bold text-amber-600">{pipelineStatus.pending || 0}</div>
-                                                <div className="text-sm text-slate-600">Pending</div>
-                                            </div>
-                                        </div>
-                                        <div className="space-y-2 text-sm">
-                                            <div className="flex items-center justify-between">
-                                                <span className="text-slate-600">Last Run</span>
-                                                <span className="font-medium">
-                                                    {pipelineStatus.lastRun ? new Date(pipelineStatus.lastRun).toLocaleString() : 'Never'}
-                                                </span>
-                                            </div>
-                                            <div className="flex items-center justify-between">
-                                                <span className="text-slate-600">Average Time</span>
-                                                <span className="font-medium">{pipelineStatus.avgTime || 'N/A'}</span>
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
+                        {/* Automation - Using AutomationControls Component */}
+                        {activeTab === 'automation' && (
+                            <AutomationControls />
+                        )}
 
-                                {/* RSS Feeds Section */}
-                                <Card>
-                                    <CardHeader className="flex flex-row items-center justify-between">
-                                        <CardTitle>RSS Feed Management</CardTitle>
-                                        <Button size="sm">Add Feed</Button>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="space-y-3">
-                                            {Array.isArray(rssFeeds) && rssFeeds.map((feed: any) => (
-                                                <div key={feed.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border">
-                                                    <div className="flex-1">
-                                                        <div className="flex items-center gap-2 mb-1">
-                                                            <Rss className="w-4 h-4 text-orange-600" />
-                                                            <h4 className="font-semibold text-slate-900">{feed.name}</h4>
-                                                            <Badge className={feed.status === 'active' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-700'}>
-                                                                {feed.status}
-                                                            </Badge>
-                                                        </div>
-                                                        <p className="text-sm text-slate-600 truncate">{feed.url}</p>
-                                                        <div className="flex items-center gap-4 mt-2 text-xs text-slate-500">
-                                                            <span className="flex items-center gap-1">
-                                                                <Clock className="w-3 h-3" />
-                                                                Last fetch: {feed.lastFetch ? new Date(feed.lastFetch).toLocaleString() : 'Never'}
-                                                            </span>
-                                                            <span className="flex items-center gap-1">
-                                                                <FileText className="w-3 h-3" />
-                                                                {feed.itemsCount || 0} items
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="flex gap-2">
-                                                        <Button variant="outline" size="sm">
-                                                            <RefreshCw className="w-4 h-4" />
-                                                        </Button>
-                                                        <Button variant="outline" size="sm">Edit</Button>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </CardContent>
-                                </Card>
-
-                                {/* Scrapers Section */}
-                                <Card>
-                                    <CardHeader>
-                                        <div className="flex items-center justify-between">
-                                            <CardTitle>Scraper Management</CardTitle>
-                                            <Button size="sm">
-                                                <Play className="w-4 h-4 mr-2" />
-                                                Run All Scrapers
-                                            </Button>
-                                        </div>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="space-y-4">
-                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                                <Card className="bg-blue-50">
-                                                    <CardContent className="p-4">
-                                                        <div className="flex items-center justify-between mb-2">
-                                                            <span className="text-sm font-semibold text-slate-900">Product Scraper</span>
-                                                            <Badge className="bg-emerald-100 text-emerald-700">Active</Badge>
-                                                        </div>
-                                                        <div className="text-2xl font-bold text-slate-900 mb-1">{scraperStatus.productsScraped || 0}</div>
-                                                        <div className="text-xs text-slate-600">Products scraped</div>
-                                                        <Button size="sm" variant="outline" className="w-full mt-3">
-                                                            <Play className="w-3 h-3 mr-2" />
-                                                            Run Now
-                                                        </Button>
-                                                    </CardContent>
-                                                </Card>
-                                                <Card className="bg-purple-50">
-                                                    <CardContent className="p-4">
-                                                        <div className="flex items-center justify-between mb-2">
-                                                            <span className="text-sm font-semibold text-slate-900">Review Scraper</span>
-                                                            <Badge className="bg-emerald-100 text-emerald-700">Active</Badge>
-                                                        </div>
-                                                        <div className="text-2xl font-bold text-slate-900 mb-1">{scraperStatus.reviewsScraped || 0}</div>
-                                                        <div className="text-xs text-slate-600">Reviews scraped</div>
-                                                        <Button size="sm" variant="outline" className="w-full mt-3">
-                                                            <Play className="w-3 h-3 mr-2" />
-                                                            Run Now
-                                                        </Button>
-                                                    </CardContent>
-                                                </Card>
-                                                <Card className="bg-emerald-50">
-                                                    <CardContent className="p-4">
-                                                        <div className="flex items-center justify-between mb-2">
-                                                            <span className="text-sm font-semibold text-slate-900">Rate Scraper</span>
-                                                            <Badge className="bg-emerald-100 text-emerald-700">Active</Badge>
-                                                        </div>
-                                                        <div className="text-2xl font-bold text-slate-900 mb-1">{scraperStatus.ratesScraped || 0}</div>
-                                                        <div className="text-xs text-slate-600">Rates scraped</div>
-                                                        <Button size="sm" variant="outline" className="w-full mt-3">
-                                                            <Play className="w-3 h-3 mr-2" />
-                                                            Run Now
-                                                        </Button>
-                                                    </CardContent>
-                                                </Card>
-                                            </div>
-                                            <div className="p-4 bg-slate-50 rounded-lg">
-                                                <div className="flex items-center justify-between mb-3">
-                                                    <span className="text-sm font-semibold text-slate-900">Overall Status</span>
-                                                    <Badge className={scraperStatus.status === 'running' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}>
-                                                        {scraperStatus.status === 'running' ? 'Running' : 'Paused'}
-                                                    </Badge>
-                                                </div>
-                                                <div className="grid grid-cols-2 gap-4 text-sm">
-                                                    <div>
-                                                        <span className="text-slate-600">Success Rate:</span>
-                                                        <span className="font-semibold ml-2">{scraperStatus.successRate || 0}%</span>
-                                                    </div>
-                                                    <div>
-                                                        <span className="text-slate-600">Last Run:</span>
-                                                        <span className="font-semibold ml-2">
-                                                            {scraperStatus.lastRun ? new Date(scraperStatus.lastRun).toLocaleString() : 'Never'}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            </div>
-                        </TabsContent>
-
-                        {/* OLD: Content Pipeline - REMOVED (now part of automation) */}
-                        <TabsContent value="pipeline" style={{ display: 'none' }}>
-                            <div className="space-y-6">
-                                <Card>
-                                    <CardHeader>
-                                        <div className="flex items-center justify-between">
-                                            <CardTitle>Pipeline Status</CardTitle>
-                                            <Button size="sm">
-                                                <Play className="w-4 h-4 mr-2" />
-                                                Run Pipeline
-                                            </Button>
-                                        </div>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                                            <div className="text-center p-4 bg-blue-50 rounded-lg">
-                                                <div className="text-2xl font-bold text-blue-600">{pipelineStatus.active || 0}</div>
-                                                <div className="text-sm text-slate-600">Active</div>
-                                            </div>
-                                            <div className="text-center p-4 bg-emerald-50 rounded-lg">
-                                                <div className="text-2xl font-bold text-emerald-600">{pipelineStatus.completed || 0}</div>
-                                                <div className="text-sm text-slate-600">Completed</div>
-                                            </div>
-                                            <div className="text-center p-4 bg-rose-50 rounded-lg">
-                                                <div className="text-2xl font-bold text-rose-600">{pipelineStatus.failed || 0}</div>
-                                                <div className="text-sm text-slate-600">Failed</div>
-                                            </div>
-                                            <div className="text-center p-4 bg-amber-50 rounded-lg">
-                                                <div className="text-2xl font-bold text-amber-600">{pipelineStatus.pending || 0}</div>
-                                                <div className="text-sm text-slate-600">Pending</div>
-                                            </div>
-                                        </div>
-                                        <div className="space-y-2 text-sm">
-                                            <div className="flex items-center justify-between">
-                                                <span className="text-slate-600">Last Run</span>
-                                                <span className="font-medium">
-                                                    {pipelineStatus.lastRun ? new Date(pipelineStatus.lastRun).toLocaleString() : 'Never'}
-                                                </span>
-                                            </div>
-                                            <div className="flex items-center justify-between">
-                                                <span className="text-slate-600">Average Time</span>
-                                                <span className="font-medium">{pipelineStatus.avgTime || 'N/A'}</span>
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-
-                                <Card>
-                                    <CardHeader>
-                                        <CardTitle>Recent Pipeline Runs</CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="space-y-2">
-                                            {[1, 2, 3].map((i) => (
-                                                <div key={i} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                                                    <div className="flex items-center gap-3">
-                                                        <CheckCircle className="w-5 h-5 text-emerald-600" />
-                                                        <div>
-                                                            <div className="font-medium text-slate-900">Content Generation Run #{i}</div>
-                                                            <div className="text-xs text-slate-500">2 minutes ago • 45 articles generated</div>
-                                                        </div>
-                                                    </div>
-                                                    <Badge className="bg-emerald-100 text-emerald-700">Success</Badge>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            </div>
-                        </TabsContent>
-
-                        {/* OLD: RSS Feeds - REMOVED (now part of automation) */}
-                        <TabsContent value="rss" style={{ display: 'none' }}>
-                            <div />
-                        </TabsContent>
-
-                        {/* OLD: Social Accounts Management - REMOVED (integrated into social analytics) */}
-                        <TabsContent value="social-accounts" style={{ display: 'none' }}>
+                        {/* Social Media Analytics */}
+                        {activeTab === 'social' && (
                             <div className="space-y-6">
                                 <Card>
                                     <CardHeader>
@@ -1129,14 +853,8 @@ export default function AdminPage() {
                                         </div>
                                     </CardContent>
                                 </Card>
-                            </div>
-                        </TabsContent>
 
-                        {/* Social Media Analytics */}
-                        <TabsContent value="social">
-                            <div className="space-y-6">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    {socialMetrics.facebook && (
+                                {socialMetrics.facebook && (
                                         <Card>
                                             <CardHeader>
                                                 <CardTitle className="flex items-center gap-2">
@@ -1276,17 +994,11 @@ export default function AdminPage() {
                                             </CardContent>
                                         </Card>
                                     )}
-                                </div>
                             </div>
-                        </TabsContent>
-
-                        {/* OLD: Scrapers - REMOVED (now part of automation) */}
-                        <TabsContent value="scrapers" style={{ display: 'none' }}>
-                            <div />
-                        </TabsContent>
+                        )}
 
                         {/* Trends */}
-                        <TabsContent value="trends">
+                        {activeTab === 'trends' && (
                             <Card>
                                 <CardHeader>
                                     <CardTitle>Keyword Trends & Analytics</CardTitle>
@@ -1319,14 +1031,8 @@ export default function AdminPage() {
                                     </div>
                                 </CardContent>
                             </Card>
-                        </TabsContent>
-
-                        {/* OLD: Reviews - REMOVED (Use sidebar "Review Queue" instead) */}
-                        <TabsContent value="reviews" style={{ display: 'none' }}>
-                            <div />
-                        </TabsContent>
-
-                    </Tabs>
+                        )}
+                    </div>
                 </div>
             </div>
             

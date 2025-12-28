@@ -184,3 +184,5 @@ console.log(PLATFORMS.investingpro.vocabulary); // ['explain', 'compare', ...]
 
 
 
+
+

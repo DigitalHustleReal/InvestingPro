@@ -126,12 +126,19 @@ export const api = {
                         ? `${prompt}\n\nVerified Data:\n${JSON.stringify(contextData, null, 2)}\n\nGenerate a draft summary based ONLY on this verified data. Include data sources and confidence levels.`
                         : prompt;
 
+                    // Check if prompt requests structured JSON output
+                    const requiresStructuredOutput = enhancedPrompt.includes('headings') && 
+                                                     enhancedPrompt.includes('sections') &&
+                                                     enhancedPrompt.includes('CRITICAL: You MUST respond');
+
                     const response = await openai.chat.completions.create({
                         model: process.env.OPENAI_MODEL || "gpt-4o-mini",
                         messages: [
                             {
                                 role: "system",
-                                content: systemPrompt
+                                content: requiresStructuredOutput 
+                                    ? `${systemPrompt}\n\nIMPORTANT: You MUST return structured JSON with headings, sections, tables, faqs, links, and images arrays. Never return raw markdown or HTML.`
+                                    : systemPrompt
                             },
                             {
                                 role: "user",
@@ -139,8 +146,8 @@ export const api = {
                             }
                         ],
                         response_format: { type: "json_object" },
-                        temperature: 0.3, // Lower temperature for more factual output
-                        max_tokens: 2000
+                        temperature: 0.2, // Lower temperature for deterministic, structured output
+                        max_tokens: 4000 // Increased for structured content
                     });
 
                     const content = response.choices[0]?.message?.content;

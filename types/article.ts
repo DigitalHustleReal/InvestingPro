@@ -11,6 +11,7 @@ export type ArticleCategory =
 export type ArticleLanguage = 'en' | 'hi' | 'ta' | 'te' | 'bn' | 'mr' | 'gu';
 export type ArticleStatus = 'draft' | 'published' | 'archived';
 export type SubmissionStatus = 'pending' | 'approved' | 'rejected' | 'revision-requested';
+export type ContentType = 'article' | 'pillar' | 'category-page';
 
 export interface Article {
     id: string;
@@ -20,6 +21,7 @@ export interface Article {
     excerpt?: string;
     content: string; // Markdown
 
+    content_type?: ContentType; // Default: 'article'
     category: ArticleCategory;
     language: ArticleLanguage;
     tags?: string[];
@@ -44,7 +46,19 @@ export interface Article {
     seo_title?: string;
     seo_description?: string;
 
+    // Schema-driven fields
+    primary_keyword?: string;
+    secondary_keywords?: string[];
+    search_intent?: 'informational' | 'commercial' | 'transactional';
+
     affiliate_products?: string[]; // IDs
+
+    // Pillar page specific fields (optional, only for content_type='pillar')
+    pillar_related_articles?: string[];
+    pillar_hub_content?: any; // JSONB
+    pillar_primary_topic?: string;
+    pillar_subtopics?: string[];
+    pillar_related_categories?: string[];
 
     created_at: string;
     updated_at: string;

@@ -37,11 +37,15 @@ import {
 } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { createClient } from '@/lib/supabase/client';
+import { structuredToMarkdown } from '@/types/structured-content';
+
+import type { StructuredContent } from '@/types/structured-content';
 
 interface GeneratedArticle {
     title: string;
     slug: string;
-    content: string;
+    content?: string; // Legacy format (markdown/HTML string)
+    structured_content?: StructuredContent; // New structured format
     excerpt: string;
     seo_title: string;
     meta_description: string;
@@ -226,8 +230,11 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
             const data = await response.json();
             
             if (data.success && data.article) {
-                // Validate article has content
-                if (!data.article.content || data.article.content.trim().length === 0) {
+                // Validate article has content (either structured or plain)
+                const hasContent = data.article.content || 
+                                 (data.article.structured_content && data.article.structured_content.sections?.length > 0);
+                
+                if (!hasContent) {
                     throw new Error('Generated article has no content. Please try again.');
                 }
                 
@@ -253,14 +260,24 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
         setStep('publishing');
         try {
             // Validate required fields
-            if (!generatedArticle.title || !generatedArticle.content) {
-                throw new Error('Article title and content are required');
+            if (!generatedArticle.title) {
+                throw new Error('Article title is required');
+            }
+
+            // Convert structured content to markdown if available
+            let content = generatedArticle.content;
+            if (generatedArticle.structured_content) {
+                content = structuredToMarkdown(generatedArticle.structured_content);
+            }
+
+            if (!content || content.trim().length === 0) {
+                throw new Error('Article content is required');
             }
 
             const article = await api.entities.Article.create({
                 title: generatedArticle.title,
                 slug: generatedArticle.slug,
-                content: generatedArticle.content,
+                content: content,
                 excerpt: generatedArticle.excerpt || generatedArticle.meta_description?.substring(0, 150),
                 seo_title: generatedArticle.seo_title || generatedArticle.title,
                 seo_description: generatedArticle.meta_description || generatedArticle.excerpt,
@@ -293,14 +310,24 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
         setStep('publishing');
         try {
             // Validate required fields
-            if (!generatedArticle.title || !generatedArticle.content) {
-                throw new Error('Article title and content are required');
+            if (!generatedArticle.title) {
+                throw new Error('Article title is required');
+            }
+
+            // Convert structured content to markdown if available
+            let content = generatedArticle.content;
+            if (generatedArticle.structured_content) {
+                content = structuredToMarkdown(generatedArticle.structured_content);
+            }
+
+            if (!content || content.trim().length === 0) {
+                throw new Error('Article content is required');
             }
 
             const article = await api.entities.Article.create({
                 title: generatedArticle.title,
                 slug: generatedArticle.slug,
-                content: generatedArticle.content,
+                content: content,
                 excerpt: generatedArticle.excerpt || generatedArticle.meta_description?.substring(0, 150),
                 seo_title: generatedArticle.seo_title || generatedArticle.title,
                 seo_description: generatedArticle.meta_description || generatedArticle.excerpt,
@@ -589,7 +616,11 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                                 <Label className="text-xs text-slate-600 mb-2 block">Content Preview</Label>
                                 <div 
                                     className="prose prose-slate max-w-none bg-white p-4 rounded-lg border border-slate-200 max-h-96 overflow-y-auto"
-                                    dangerouslySetInnerHTML={{ __html: generatedArticle.content.substring(0, 2000) + '...' }}
+                                    dangerouslySetInnerHTML={{ 
+                                        __html: generatedArticle.structured_content
+                                            ? structuredToMarkdown(generatedArticle.structured_content).substring(0, 2000) + '...'
+                                            : (generatedArticle.content || '').substring(0, 2000) + '...'
+                                    }}
                                 />
                             </div>
 

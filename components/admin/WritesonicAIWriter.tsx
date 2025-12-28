@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,6 +16,8 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { api } from "@/lib/api";
+import { toast } from "sonner";
+import { structuredToMarkdown } from "@/types/structured-content";
 import {
     Sparkles,
     Loader2,
@@ -205,6 +207,8 @@ export default function WritesonicAIWriter() {
             // Content type specific prompts
             switch (selectedContentType) {
                 case 'blog-post':
+                    // Use structured JSON API endpoint for blog posts
+                    // This will be handled separately below
                     prompt = `${basePrompt} ${stylePrompt} ${frameworkPrompt}
 Write a comprehensive blog post on: ${topic}
 Category: ${category}
@@ -286,47 +290,92 @@ Include features, benefits, and value proposition`;
                     break;
             }
 
-            const response = await api.integrations.Core.InvokeLLM({
-                prompt: prompt,
-                operation: 'summarize_factual_data', // Using allowed operation
-                dataSources: []
-            });
+            // For blog-post, use structured JSON API endpoint
+            if (selectedContentType === 'blog-post') {
+                try {
+                    const apiResponse = await fetch('/api/articles/generate-comprehensive', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            topic,
+                            category,
+                            targetKeywords: keywords.split(',').map(k => k.trim()).filter(Boolean),
+                            targetAudience: 'general',
+                            contentLength: wordCount >= 2000 ? 'comprehensive' : wordCount >= 1500 ? 'detailed' : 'standard',
+                            wordCount: parseInt(wordCount),
+                            language,
+                            tone,
+                        }),
+                    });
 
-            // Handle response - API returns structured object with content property
-            let content = '';
-            if (response && typeof response === 'object') {
-                // Extract content from structured response
-                if (selectedContentType === 'headlines') {
-                    // For headlines, try to parse as array or extract from content
-                    if (Array.isArray(response.content)) {
-                        content = response.content.join('\n\n');
-                    } else if (response.content) {
-                        // If content is a string, use it directly
-                        content = response.content;
-                    } else if (response.title) {
-                        // Sometimes response has title instead
-                        content = response.title;
-                    } else {
-                        // Fallback: stringify the whole response
-                        content = JSON.stringify(response, null, 2);
+                    if (!apiResponse.ok) {
+                        throw new Error(`API error: ${apiResponse.status}`);
                     }
-                } else {
-                    // For other content types, extract content field
-                    content = response.content || response.text || response.title || JSON.stringify(response, null, 2);
-                }
-            } else if (typeof response === 'string') {
-                content = response;
-            } else {
-                content = JSON.stringify(response, null, 2);
-            }
 
-            setGeneratedContent(content);
-            
-            // Calculate SEO score for relevant content types
-            if (['blog-post', 'seo-optimize', 'expand'].includes(selectedContentType)) {
-                const score = calculateSEOScore(content, keywords);
-                setSeoScore(score);
+                    const data = await apiResponse.json();
+                    if (data.success && data.article) {
+                        // Store the full article response (includes structured_content)
+                        const preview = data.article.structured_content 
+                            ? structuredToMarkdown(data.article.structured_content)
+                            : data.article.content || '';
+                        
+                        setGeneratedContent({
+                            type: 'structured',
+                            article: data.article,
+                            preview: preview
+                        });
+                    } else {
+                        throw new Error(data.error || 'Article generation failed');
+                    }
+                } catch (error: any) {
+                    toast.error('Error generating article: ' + error.message);
+                    setGenerating(false);
+                    return;
+                }
+            } else {
+                // For other content types, use direct API call
+                const response = await api.integrations.Core.InvokeLLM({
+                    prompt: prompt,
+                    operation: 'summarize_factual_data', // Using allowed operation
+                    dataSources: []
+                });
+
+                // Handle response - API returns structured object with content property
+                let content = '';
+                if (response && typeof response === 'object') {
+                    // Extract content from structured response
+                    if (selectedContentType === 'headlines') {
+                        // For headlines, try to parse as array or extract from content
+                        if (Array.isArray(response.content)) {
+                            content = response.content.join('\n\n');
+                        } else if (response.content) {
+                            // If content is a string, use it directly
+                            content = response.content;
+                        } else if (response.title) {
+                            // Sometimes response has title instead
+                            content = response.title;
+                        } else {
+                            // Fallback: stringify the whole response
+                            content = JSON.stringify(response, null, 2);
+                        }
+                    } else {
+                        // For other content types, extract content field
+                        content = response.content || response.text || response.title || JSON.stringify(response, null, 2);
+                    }
+                } else if (typeof response === 'string') {
+                    content = response;
+                } else {
+                    content = JSON.stringify(response, null, 2);
+                }
+
+                setGeneratedContent({
+                    type: 'simple',
+                    content: content
+                });
             }
+            
+            // Calculate SEO score for relevant content types (after content is set)
+            // This will be recalculated when generatedContent changes
         } catch (error: any) {
             toast.error('Error generating content: ' + error.message);
         } finally {
@@ -336,7 +385,10 @@ Include features, benefits, and value proposition`;
 
     const handleCopy = () => {
         if (generatedContent) {
-            navigator.clipboard.writeText(generatedContent);
+            const contentToCopy = typeof generatedContent === 'object' && generatedContent.type === 'structured'
+                ? generatedContent.preview
+                : (typeof generatedContent === 'object' ? generatedContent.content : generatedContent || '');
+            navigator.clipboard.writeText(contentToCopy);
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
         }
@@ -348,18 +400,49 @@ Include features, benefits, and value proposition`;
             return;
         }
 
+        // Only blog-post can be saved as article
+        if (selectedContentType !== 'blog-post') {
+            toast.error('Only blog posts can be saved as articles');
+            return;
+        }
+
         try {
-            const slug = topic.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-            await api.entities.Article.create({
-                title: topic,
-                slug: slug,
-                excerpt: generatedContent.substring(0, 150),
-                content: generatedContent,
-                category: category,
-                language: language,
-                status: 'draft',
-                ai_generated: true,
-            });
+            // Handle structured content
+            if (typeof generatedContent === 'object' && generatedContent.type === 'structured' && generatedContent.article) {
+                const article = generatedContent.article;
+                
+                const content = article.structured_content
+                    ? structuredToMarkdown(article.structured_content)
+                    : article.content || '';
+
+                await api.entities.Article.create({
+                    title: article.title || topic,
+                    slug: article.slug || topic.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+                    excerpt: article.excerpt || '',
+                    content: content,
+                    category: category,
+                    language: language,
+                    status: 'draft',
+                    ai_generated: true,
+                    seo_title: article.seo_title,
+                    seo_description: article.meta_description,
+                    tags: article.tags || [],
+                });
+            } else {
+                // Fallback for non-structured content
+                const content = typeof generatedContent === 'object' ? generatedContent.content : generatedContent || '';
+                const slug = topic.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+                await api.entities.Article.create({
+                    title: topic,
+                    slug: slug,
+                    excerpt: content.substring(0, 150),
+                    content: content,
+                    category: category,
+                    language: language,
+                    status: 'draft',
+                    ai_generated: true,
+                });
+            }
             toast.success('Article saved as draft successfully!');
         } catch (error: any) {
             toast.error('Error saving article: ' + error.message);
@@ -367,6 +450,17 @@ Include features, benefits, and value proposition`;
     };
 
     const selectedType = CONTENT_TYPES.find(t => t.id === selectedContentType);
+
+    // Calculate SEO score when content changes
+    useEffect(() => {
+        if (generatedContent && ['blog-post', 'seo-optimize', 'expand'].includes(selectedContentType || '')) {
+            const contentForScore = typeof generatedContent === 'object' && generatedContent.type === 'structured'
+                ? generatedContent.preview
+                : (typeof generatedContent === 'object' ? generatedContent.content : generatedContent || '');
+            const score = calculateSEOScore(contentForScore, keywords);
+            setSeoScore(score);
+        }
+    }, [generatedContent, selectedContentType, keywords]);
 
     return (
         <div className="space-y-6">
@@ -638,7 +732,9 @@ Include features, benefits, and value proposition`;
                     <CardContent>
                         <div className="prose max-w-none">
                             <pre className="whitespace-pre-wrap font-sans text-sm bg-slate-50 p-4 rounded-lg border">
-                                {generatedContent}
+                                {typeof generatedContent === 'object' && generatedContent.type === 'structured'
+                                    ? generatedContent.preview
+                                    : (typeof generatedContent === 'object' ? generatedContent.content : generatedContent || '')}
                             </pre>
                         </div>
                         {seoScore !== null && seoScore < 80 && (

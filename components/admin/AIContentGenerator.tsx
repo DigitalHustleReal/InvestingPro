@@ -17,6 +17,8 @@ import { api } from "@/lib/api"; // Adjusted path
 import { Sparkles, Loader2, AlertTriangle, CheckCircle2, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { AIContentMetadata, AIDataSource } from "@/lib/ai/constraints";
+import type { StructuredContent } from "@/types/structured-content";
+import { structuredToMarkdown } from "@/types/structured-content";
 
 /**
  * AI Content Generator - SUPPORT TOOL ONLY
@@ -66,7 +68,7 @@ export default function AIContentGenerator() {
 
     const [keywords, setKeywords] = useState('');
     const [generating, setGenerating] = useState(false);
-    const [generatedContent, setGeneratedContent] = useState<any>(null);
+    const [generatedContent, setGeneratedContent] = useState<{ article: any; structured?: StructuredContent } | null>(null);
     const [dataSources, setDataSources] = useState<AIDataSource[]>([]);
 
     const generateArticle = async () => {
@@ -82,55 +84,41 @@ export default function AIContentGenerator() {
                 }
             ];
             
-            const prompt = `
-Write a comprehensive, SEO-optimized article for an Indian investment website (InvestingPro.in) on the following topic:
+            // Use the structured JSON API endpoint
+            const response = await fetch('/api/articles/generate-comprehensive', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    topic,
+                    category: categoryStr,
+                    targetKeywords: keywords.split(',').map(k => k.trim()).filter(Boolean),
+                    targetAudience: 'general',
+                    contentLength: 'comprehensive',
+                    wordCount: 1500,
+                    language: languageStr,
+                    tone: toneStr,
+                }),
+            });
 
-Topic: ${topic}
-Category: ${categoryStr}
-Language: ${languageStr}
-Tone: ${toneStr}
-Keywords to include: ${keywords}
+            if (!response.ok) {
+                let errorMessage = 'Article generation failed';
+                try {
+                    const errorData = await response.json();
+                    errorMessage = errorData.error || errorData.message || errorMessage;
+                } catch (e) {
+                    errorMessage = `HTTP ${response.status}: ${response.statusText}`;
+                }
+                throw new Error(errorMessage);
+            }
 
-IMPORTANT CONSTRAINTS:
-- Use ONLY factual, verified information
-- Do NOT recommend products
-- Do NOT rank products
-- Use informational language only
-- Include data sources for all claims
-- Mark confidence level for each factual claim
-
-Requirements:
-- Write in ${languageStr === 'en' ? 'English' : 'native Indian language'}
-- Use ${toneStr} tone throughout
-- Include practical examples relevant to Indian investors
-- Add specific numbers, statistics from verified sources
-- Structure with clear headings (H2, H3)
-- Include a compelling introduction and conclusion
-- Optimize for SEO with natural keyword placement
-- Length: 1500-2000 words
-
-Return the article in markdown format with the following JSON structure:
-{
-  "title": "Article title",
-  "excerpt": "Brief 150-character excerpt",
-  "content": "Full article in markdown",
-  "seo_title": "SEO optimized title",
-  "seo_description": "Meta description",
-  "tags": ["tag1", "tag2", "tag3"],
-  "read_time": estimated_minutes,
-  "data_sources_used": ["source1", "source2"],
-  "confidence_level": 0.0-1.0
-}
-`;
-
-            const response = await api.integrations.Core.InvokeLLM({
-                prompt: prompt,
-                operation: 'summarize_factual_data',
-                dataSources: sources
-            } as any);
-
-            setGeneratedContent(response);
-            setDataSources(response.ai_metadata?.data_sources || sources);
+            const data = await response.json();
+            
+            if (data.success && data.article) {
+                setGeneratedContent(data);
+                setDataSources(sources);
+            } else {
+                throw new Error(data.error || 'Article generation failed');
+            }
         } catch (error: any) {
             alert('Error generating content: ' + error.message);
         } finally {
@@ -139,27 +127,35 @@ Return the article in markdown format with the following JSON structure:
     };
 
     const saveArticle = async () => {
-        if (!generatedContent) return;
+        if (!generatedContent || !generatedContent.article) return;
 
         try {
-            const slug = generatedContent.title
+            const article = generatedContent.article;
+            
+            // Convert structured content to markdown if available
+            let content = article.content;
+            if (article.structured_content) {
+                content = structuredToMarkdown(article.structured_content);
+            }
+
+            const slug = article.title
                 .toLowerCase()
                 .replace(/[^a-z0-9]+/g, '-')
                 .replace(/^-|-$/g, '');
 
             await api.entities.Article.create({
-                title: generatedContent.title,
+                title: article.title,
                 slug: slug,
-                excerpt: generatedContent.excerpt,
-                content: generatedContent.content,
+                excerpt: article.excerpt,
+                content: content, // Use converted markdown or original content
                 category: categoryStr,
                 language: languageStr,
-                read_time: generatedContent.read_time,
-                tags: generatedContent.tags,
+                read_time: article.read_time,
+                tags: article.tags || [],
                 status: 'draft',
                 ai_generated: true,
-                seo_title: generatedContent.seo_title,
-                seo_description: generatedContent.seo_description,
+                seo_title: article.seo_title || article.title,
+                seo_description: article.meta_description || article.excerpt,
                 published_date: new Date().toISOString()
             });
 
@@ -270,126 +266,53 @@ Return the article in markdown format with the following JSON structure:
                     )}
                 </Button>
 
-                {generatedContent && (
+                {generatedContent && generatedContent.article && (
                     <div className="space-y-4 border-t pt-6">
                         {/* AI Metadata Display */}
-                        {generatedContent.ai_metadata && (
+                        {generatedContent.article.ai_metadata && (
                             <div className="bg-slate-50 rounded-lg p-4 space-y-3 border border-slate-200">
                                 <div className="flex items-center gap-2 mb-3">
                                     <Info className="w-4 h-4 text-blue-600" />
                                     <h4 className="font-bold text-sm">AI Generation Metadata</h4>
                                 </div>
                                 
-                                {/* Confidence Level */}
-                                {generatedContent.ai_metadata.confidence && (
+                                {/* Structured Content Info */}
+                                {generatedContent.article.structured_content && (
                                     <div className="space-y-1">
-                                        <div className="flex items-center justify-between text-xs">
-                                            <span className="text-slate-600">Overall Confidence:</span>
-                                            <Badge className={
-                                                generatedContent.ai_metadata.confidence.overall >= 0.8 
-                                                    ? 'bg-emerald-100 text-emerald-700'
-                                                    : generatedContent.ai_metadata.confidence.overall >= 0.6
-                                                    ? 'bg-amber-100 text-amber-700'
-                                                    : 'bg-red-100 text-red-700'
-                                            }>
-                                                {(generatedContent.ai_metadata.confidence.overall * 100).toFixed(0)}%
-                                            </Badge>
-                                        </div>
-                                        <div className="w-full bg-slate-200 rounded-full h-2">
-                                            <div 
-                                                className={`h-2 rounded-full ${
-                                                    generatedContent.ai_metadata.confidence.overall >= 0.8 
-                                                        ? 'bg-emerald-500'
-                                                        : generatedContent.ai_metadata.confidence.overall >= 0.6
-                                                        ? 'bg-amber-500'
-                                                        : 'bg-red-500'
-                                                }`}
-                                                style={{ width: `${generatedContent.ai_metadata.confidence.overall * 100}%` }}
-                                            />
+                                        <span className="text-xs font-semibold text-slate-600">Structured Content:</span>
+                                        <div className="text-xs text-slate-600 space-y-1">
+                                            <div>• {generatedContent.article.structured_content.headings?.length || 0} headings</div>
+                                            <div>• {generatedContent.article.structured_content.sections?.length || 0} sections</div>
+                                            {generatedContent.article.structured_content.tables && generatedContent.article.structured_content.tables.length > 0 && (
+                                                <div>• {generatedContent.article.structured_content.tables.length} tables</div>
+                                            )}
+                                            {generatedContent.article.structured_content.faqs && generatedContent.article.structured_content.faqs.length > 0 && (
+                                                <div>• {generatedContent.article.structured_content.faqs.length} FAQs</div>
+                                            )}
                                         </div>
                                     </div>
                                 )}
-                                
-                                {/* Data Sources */}
-                                {generatedContent.ai_metadata.data_sources && generatedContent.ai_metadata.data_sources.length > 0 && (
-                                    <div className="space-y-1">
-                                        <span className="text-xs font-semibold text-slate-600">Data Sources:</span>
-                                        <div className="flex flex-wrap gap-2">
-                                            {generatedContent.ai_metadata.data_sources.map((source: AIDataSource, idx: number) => (
-                                                <Badge key={idx} variant="outline" className="text-xs">
-                                                    {source.source_name} ({(source.confidence * 100).toFixed(0)}%)
-                                                </Badge>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-                                
-                                {/* Forbidden Phrases Warning */}
-                                {generatedContent.ai_metadata.forbidden_phrases_found && 
-                                 generatedContent.ai_metadata.forbidden_phrases_found.length > 0 && (
-                                    <div className="bg-amber-50 border border-amber-200 rounded p-2 flex items-start gap-2">
-                                        <AlertTriangle className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
-                                        <div className="text-xs">
-                                            <span className="font-semibold text-amber-800">Warning:</span>
-                                            <span className="text-amber-700 ml-1">
-                                                Found {generatedContent.ai_metadata.forbidden_phrases_found.length} forbidden phrase(s). Review required.
-                                            </span>
-                                        </div>
-                                    </div>
-                                )}
-                                
-                                {/* Change Log */}
-                                {generatedContent.ai_metadata.change_log && generatedContent.ai_metadata.change_log.length > 0 && (
-                                    <div className="space-y-1">
-                                        <span className="text-xs font-semibold text-slate-600">Change Log:</span>
-                                        <div className="space-y-1">
-                                            {generatedContent.ai_metadata.change_log.map((log: any, idx: number) => (
-                                                <div key={idx} className="text-xs text-slate-600 flex items-start gap-2">
-                                                    <CheckCircle2 className="w-3 h-3 mt-0.5 shrink-0 text-emerald-600" />
-                                                    <div>
-                                                        <span className="font-medium">{log.change_type}</span>
-                                                        <span className="text-slate-400 ml-2">
-                                                            {new Date(log.timestamp).toLocaleString()}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-                                
-                                {/* Review Status */}
-                                <div className="pt-2 border-t border-slate-200">
-                                    <div className="flex items-center justify-between text-xs">
-                                        <span className="text-slate-600">Review Status:</span>
-                                        <Badge className={
-                                            generatedContent.ai_metadata.review_status === 'approved'
-                                                ? 'bg-emerald-100 text-emerald-700'
-                                                : generatedContent.ai_metadata.review_status === 'rejected'
-                                                ? 'bg-red-100 text-red-700'
-                                                : 'bg-amber-100 text-amber-700'
-                                        }>
-                                            {generatedContent.ai_metadata.review_status}
-                                        </Badge>
-                                    </div>
-                                </div>
                             </div>
                         )}
                         
                         <div className="space-y-2">
                             <Label>Generated Title</Label>
-                            <Input value={generatedContent.title} readOnly />
+                            <Input value={generatedContent.article.title} readOnly />
                         </div>
 
                         <div className="space-y-2">
                             <Label>Excerpt</Label>
-                            <Textarea value={generatedContent.excerpt} readOnly rows={2} />
+                            <Textarea value={generatedContent.article.excerpt || ''} readOnly rows={2} />
                         </div>
 
                         <div className="space-y-2">
-                            <Label>Content Preview (Markdown)</Label>
+                            <Label>Content Preview</Label>
                             <Textarea
-                                value={generatedContent.content.substring(0, 500) + '...'}
+                                value={
+                                    generatedContent.article.structured_content
+                                        ? structuredToMarkdown(generatedContent.article.structured_content).substring(0, 500) + '...'
+                                        : (generatedContent.article.content || '').substring(0, 500) + '...'
+                                }
                                 readOnly
                                 rows={8}
                                 className="font-mono text-sm"

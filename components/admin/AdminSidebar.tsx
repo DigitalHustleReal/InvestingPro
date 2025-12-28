@@ -15,7 +15,9 @@ import {
     CheckSquare,
     DollarSign,
     Megaphone,
-    Search
+    Search,
+    Target,
+    Rss
 } from 'lucide-react';
 
 interface NavItem {
@@ -35,6 +37,7 @@ const navSections: NavSection[] = [
         title: 'CONTENT',
         items: [
             { label: 'Articles', href: '/admin/articles', icon: FileText },
+            { label: 'Pillar Pages', href: '/admin/pillar-pages', icon: Target },
             { label: 'Categories', href: '/admin/categories', icon: Tag },
             { label: 'Tags', href: '/admin/tags', icon: Tag },
             { label: 'Media Library', href: '/admin/media', icon: ImageIcon },
@@ -45,13 +48,13 @@ const navSections: NavSection[] = [
         items: [
             { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
             { label: 'Content Calendar', href: '/admin/content-calendar', icon: Calendar },
-            { label: 'Research / Ideas', href: '/admin/research', icon: Lightbulb },
         ],
     },
     {
         title: 'AUTOMATION',
         items: [
             { label: 'AI Generator', href: '/admin/ai-generator', icon: Zap },
+            { label: 'RSS Feeds', href: '/admin/rss-feeds', icon: Rss },
             { label: 'Review Queue', href: '/admin/review-queue', icon: CheckSquare },
         ],
     },

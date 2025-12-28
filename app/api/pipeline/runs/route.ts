@@ -1,0 +1,52 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@/lib/supabase/server';
+import { logger } from '@/lib/logger';
+
+/**
+ * Pipeline Runs API
+ * 
+ * Returns list of pipeline execution runs
+ * Used by CMS dashboard for automation tracking
+ */
+export async function GET(request: NextRequest) {
+    try {
+        const searchParams = request.nextUrl.searchParams;
+        const limit = parseInt(searchParams.get('limit') || '10');
+
+        const supabase = await createClient();
+
+        // Query pipeline_runs table if it exists
+        // Fallback to empty array if table doesn't exist yet
+        let runs: any[] = [];
+        
+        try {
+            const { data, error } = await supabase
+                .from('pipeline_runs')
+                .select('*')
+                .order('created_at', { ascending: false })
+                .limit(limit);
+
+            if (!error && data) {
+                runs = data;
+            }
+        } catch (err) {
+            // Table might not exist yet - return empty array
+            logger.warn('pipeline_runs table not found, returning empty array');
+        }
+
+        return NextResponse.json({
+            success: true,
+            runs,
+            total: runs.length
+        });
+    } catch (error: any) {
+        logger.error('Pipeline runs API error', error as Error);
+        return NextResponse.json(
+            { success: false, error: error.message || 'Failed to fetch pipeline runs' },
+            { status: 500 }
+        );
+    }
+}
+
+
+
