@@ -39,14 +39,16 @@ export async function GET(request: NextRequest) {
             runs,
             total: runs.length
         });
-    } catch (error: any) {
-        logger.error('Pipeline runs API error', error as Error);
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Failed to fetch pipeline runs';
+        logger.error('Pipeline runs API error', error instanceof Error ? error : new Error(String(error)));
         return NextResponse.json(
-            { success: false, error: error.message || 'Failed to fetch pipeline runs' },
+            { success: false, error: errorMessage },
             { status: 500 }
         );
     }
 }
+
 
 
 

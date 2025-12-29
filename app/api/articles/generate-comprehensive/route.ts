@@ -191,10 +191,11 @@ Return ONLY valid JSON. No markdown, no code blocks, no explanations.
                 image_placeholders: structuredContent.images || []
             }
         });
-    } catch (error: any) {
-        logger.error('Article generation API error', error as Error);
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Article generation failed';
+        logger.error('Article generation API error', error instanceof Error ? error : new Error(String(error)));
         return NextResponse.json(
-            { success: false, error: error.message || 'Article generation failed' },
+            { success: false, error: errorMessage },
             { status: 500 }
         );
     }

@@ -46,10 +46,11 @@ export async function POST(request: NextRequest) {
             schedule_id: `schedule_${Date.now()}`,
             ...scheduleData
         });
-    } catch (error: any) {
-        logger.error('Pipeline schedule API error', error as Error);
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Failed to schedule pipeline';
+        logger.error('Pipeline schedule API error', error instanceof Error ? error : new Error(String(error)));
         return NextResponse.json(
-            { success: false, error: error.message || 'Failed to schedule pipeline' },
+            { success: false, error: errorMessage },
             { status: 500 }
         );
     }
@@ -87,10 +88,11 @@ export async function GET(request: NextRequest) {
             success: true,
             schedules: defaultSchedules
         });
-    } catch (error: any) {
-        logger.error('Pipeline schedule GET API error', error as Error);
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Failed to fetch pipeline schedules';
+        logger.error('Pipeline schedule GET API error', error instanceof Error ? error : new Error(String(error)));
         return NextResponse.json(
-            { success: false, error: error.message || 'Failed to fetch pipeline schedules' },
+            { success: false, error: errorMessage },
             { status: 500 }
         );
     }

@@ -37,10 +37,11 @@ export async function POST(request: NextRequest) {
             success: true,
             research: researchResult
         });
-    } catch (error: any) {
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Failed to perform keyword research';
         logger.error('Error performing keyword research', error instanceof Error ? error : new Error(String(error)));
         return NextResponse.json(
-            { success: false, error: error.message || 'Failed to perform keyword research' },
+            { success: false, error: errorMessage },
             { status: 500 }
         );
     }

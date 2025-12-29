@@ -40,10 +40,11 @@ export async function POST(request: NextRequest) {
             success: true,
             suggestions: results
         });
-    } catch (error: any) {
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Failed to generate suggestions';
         logger.error('Error generating keyword suggestions', error instanceof Error ? error : new Error(String(error)));
         return NextResponse.json(
-            { success: false, error: error.message || 'Failed to generate suggestions' },
+            { success: false, error: errorMessage },
             { status: 500 }
         );
     }

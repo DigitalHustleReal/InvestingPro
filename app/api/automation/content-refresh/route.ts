@@ -75,10 +75,11 @@ export async function POST(request: NextRequest) {
             status: 'triggered',
             triggered_at: new Date().toISOString()
         });
-    } catch (error: any) {
-        logger.error('Content refresh API error', error as Error);
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Failed to trigger content refresh';
+        logger.error('Content refresh API error', error instanceof Error ? error : new Error(String(error)));
         return NextResponse.json(
-            { success: false, error: error.message || 'Failed to trigger content refresh' },
+            { success: false, error: errorMessage },
             { status: 500 }
         );
     }

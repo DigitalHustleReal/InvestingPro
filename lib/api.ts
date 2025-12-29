@@ -279,12 +279,52 @@ export const api = {
         },
         Article: {
             list: async (order?: string, limit?: number) => {
-                let query = supabase.from('articles').select('*');
-                if (order === '-created_date' || order === '-published_date') query = query.order('created_at', { ascending: false });
-                if (limit) query = query.limit(limit);
-                const { data, error } = await query;
-                if (error) return [];
-                return data || [];
+                try {
+                    // First check if user is authenticated
+                    const { data: { user }, error: authError } = await supabase.auth.getUser();
+                    if (authError || !user) {
+                        console.warn('Article.list: User not authenticated', authError);
+                    } else {
+                        console.log('Article.list: User authenticated:', user.id);
+                    }
+
+                    let query = supabase.from('articles').select('*');
+                    if (order === '-updated_date') {
+                        query = query.order('updated_at', { ascending: false });
+                    } else if (order === '-created_date' || order === '-published_date') {
+                        query = query.order('created_at', { ascending: false });
+                    } else {
+                        // Default: order by updated_at DESC, fallback to created_at
+                        query = query.order('updated_at', { ascending: false, nullsLast: true });
+                    }
+                    if (limit) query = query.limit(limit);
+                    
+                    const { data, error, count } = await query;
+                    
+                    if (error) {
+                        console.error('Article.list error:', {
+                            message: error.message,
+                            code: error.code,
+                            details: error.details,
+                            hint: error.hint
+                        });
+                        return [];
+                    }
+                    
+                    console.log(`Article.list: Successfully fetched ${data?.length || 0} articles`);
+                    if (data && data.length > 0) {
+                        console.log('Sample article:', {
+                            id: data[0].id,
+                            title: data[0].title,
+                            status: data[0].status
+                        });
+                    }
+                    
+                    return data || [];
+                } catch (err) {
+                    console.error('Article.list exception:', err);
+                    return [];
+                }
             },
             filter: async (filters: any) => {
                 let query = supabase.from('articles').select('*');

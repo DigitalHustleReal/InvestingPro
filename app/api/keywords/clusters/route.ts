@@ -32,10 +32,11 @@ export async function GET(request: NextRequest) {
             success: true,
             clusters: data || []
         });
-    } catch (error: any) {
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Failed to fetch clusters';
         logger.error('Error fetching keyword clusters', error instanceof Error ? error : new Error(String(error)));
         return NextResponse.json(
-            { success: false, error: error.message || 'Failed to fetch clusters' },
+            { success: false, error: errorMessage },
             { status: 500 }
         );
     }

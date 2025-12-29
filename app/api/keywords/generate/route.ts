@@ -28,10 +28,11 @@ export async function POST(request: NextRequest) {
             keywords,
             count: keywords.length
         });
-    } catch (error: any) {
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Failed to generate keywords';
         logger.error('Error generating long-tail keywords', error instanceof Error ? error : new Error(String(error)));
         return NextResponse.json(
-            { success: false, error: error.message || 'Failed to generate keywords' },
+            { success: false, error: errorMessage },
             { status: 500 }
         );
     }

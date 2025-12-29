@@ -130,10 +130,10 @@ export default function AdminPage() {
         queryKey: ['rss-feeds'],
         queryFn: async () => {
             try {
-                const response = await fetch('/api/rss-feeds/scrape', { method: 'POST' });
+                const response = await fetch('/api/rss/feeds', { method: 'GET' });
                 if (!response.ok) return [];
                 const data = await response.json();
-                return data.results || [];
+                return data.feeds || [];
             } catch (error) {
                 console.error('Failed to fetch RSS feeds:', error);
                 return [];
@@ -142,15 +142,22 @@ export default function AdminPage() {
     });
     const rssFeeds = Array.isArray(rssFeedsData) ? rssFeedsData : [];
 
-    // Social Media Metrics - Real API
+    // Social Media Metrics - Real API (using schedulers endpoint)
     const { data: socialMetrics = {} } = useQuery({
         queryKey: ['social-metrics'],
         queryFn: async () => {
             try {
-                const response = await fetch('/api/social-media/metrics');
+                const response = await fetch('/api/social/schedulers');
                 if (!response.ok) return {};
                 const data = await response.json();
-                return data.metrics || {};
+                // Transform schedulers data to metrics format
+                const schedulers = data.schedulers || [];
+                return {
+                    facebook: schedulers.length > 0,
+                    twitter: schedulers.length > 0,
+                    linkedin: schedulers.length > 0,
+                    instagram: schedulers.length > 0
+                };
             } catch (error) {
                 console.error('Failed to fetch social media metrics:', error);
                 return {};
@@ -189,15 +196,14 @@ export default function AdminPage() {
         refetchInterval: 30000 // Refresh every 30 seconds
     });
 
-    // Trends Data - Real API
+    // Trends Data - Mock data for now (API endpoint doesn't exist yet)
     const { data: trendsData } = useQuery({
         queryKey: ['trends'],
         queryFn: async () => {
             try {
-                const response = await fetch('/api/scraper/trending');
-                if (!response.ok) return [];
-                const data = await response.json();
-                return data.topics || [];
+                // TODO: Implement /api/trends endpoint when Google Trends integration is ready
+                // For now, return empty array
+                return [];
             } catch (error) {
                 console.error('Failed to fetch trends:', error);
                 return [];

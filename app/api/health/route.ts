@@ -65,12 +65,13 @@ export async function GET() {
 
         const statusCode = health.status === 'ok' ? 200 : health.status === 'degraded' ? 503 : 500;
         return NextResponse.json(health, { status: statusCode });
-    } catch (error: any) {
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
         return NextResponse.json(
             {
                 status: 'error',
                 timestamp: new Date().toISOString(),
-                error: error.message,
+                error: errorMessage,
             },
             { status: 500 }
         );
