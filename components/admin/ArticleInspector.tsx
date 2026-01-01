@@ -15,9 +15,11 @@ import {
 import { Badge } from '@/components/ui/badge';
 import SEOScoreCalculator from '@/components/admin/SEOScoreCalculator';
 import CategorySelect from '@/components/admin/CategorySelect';
-import { Loader2, Save, Eye, Send, Sparkles, Calendar, Search } from 'lucide-react';
+import { Loader2, Save, Eye, Send, Sparkles, Calendar, Search, Wand2, Languages } from 'lucide-react';
+import { toast } from 'sonner';
 import type { ArticleCategory, ArticleLanguage, ArticleStatus, ContentType } from '@/types/article';
 import KeywordResearchQuickAccess from './KeywordResearchQuickAccess';
+import SubCategorySelect from './SubCategorySelect';
 
 /**
  * ArticleInspector - Right-side inspector panel for article editing
@@ -64,6 +66,7 @@ export default function ArticleInspector({
 }: ArticleInspectorProps) {
     // Local state for form fields
     const [category, setCategory] = useState<ArticleCategory>(article.category || 'investing-basics');
+    const [subCategory, setSubCategory] = useState(article.editorial_notes?.sub_category || '');
     const [language, setLanguage] = useState<ArticleLanguage>(article.language || 'en');
     const [status, setStatus] = useState<ArticleStatus>(article.status || 'draft');
     const [excerpt, setExcerpt] = useState(article.excerpt || '');
@@ -79,6 +82,63 @@ export default function ArticleInspector({
     const [searchIntent, setSearchIntent] = useState<'informational' | 'commercial' | 'transactional' | ''>(
         article.search_intent || ''
     );
+    const [isOptimizing, setIsOptimizing] = useState(false);
+    const [isTranslating, setIsTranslating] = useState(false);
+    const [targetLang, setTargetLang] = useState('hi');
+
+    const handleTranslate = async () => {
+        setIsTranslating(true);
+        try {
+            const res = await fetch('/api/admin/translate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    articleId: article.id,
+                    targetLang,
+                    title: article.title,
+                    content: article.content 
+                })
+            });
+            const json = await res.json();
+            if (!res.ok) throw new Error(json.error);
+            
+            toast.success(`Translation Created! Title: ${json.translated_title}`);
+        } catch (e: any) {
+            toast.error("Translation failed: " + e.message);
+        } finally {
+            setIsTranslating(false);
+        }
+    };
+
+    const handleAutoOptimize = async () => {
+        setIsOptimizing(true);
+        try {
+            const res = await fetch('/api/admin/editor-tools', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    action: 'optimize-seo',
+                    title: article.title || seoTitle,
+                    content: article.content 
+                })
+            });
+            const json = await res.json();
+            if (!res.ok) throw new Error(json.error);
+            
+            const data = json.data;
+            setSeoTitle(data.seo_title);
+            setSeoDescription(data.meta_description);
+            setPrimaryKeyword(data.primary_keyword);
+            setSecondaryKeywords(data.secondary_keywords || []);
+            setSearchIntent(data.search_intent);
+            
+            toast.success("SEO Metadata Optimized by AI!");
+        } catch (e: any) {
+            toast.error("Optimization failed: " + e.message);
+        } finally {
+            setIsOptimizing(false);
+        }
+    };
 
     // Extract keywords from tags if primary keyword not set
     const keywordsForSEO = useMemo(() => {
@@ -134,6 +194,10 @@ export default function ArticleInspector({
             primary_keyword: primaryKeyword,
             secondary_keywords: secondaryKeywords,
             search_intent: searchIntent || undefined,
+            editorial_notes: {
+                ...article.editorial_notes,
+                sub_category: subCategory
+            }
         });
     };
 
@@ -246,6 +310,15 @@ export default function ArticleInspector({
                                 value={category}
                                 onValueChange={(v: string) => setCategory(v as ArticleCategory)}
                             />
+                        </div>
+                        <div>
+                             <Label htmlFor="sub-category">Topic / Sub-Category</Label>
+                             <SubCategorySelect
+                                categorySlug={category}
+                                value={subCategory}
+                                onValueChange={setSubCategory}
+                                className="mt-1"
+                             />
                         </div>
                         <div>
                             <Label htmlFor="language">Language</Label>
@@ -387,9 +460,21 @@ export default function ArticleInspector({
 
                 {/* SEO Metadata */}
                 <div className="space-y-3">
-                    <h3 className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                        SEO Metadata
-                    </h3>
+                    <div className="flex items-center justify-between">
+                        <h3 className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
+                            SEO Metadata
+                        </h3>
+                        <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="h-6 text-purple-600 hover:bg-purple-50"
+                            onClick={handleAutoOptimize}
+                            disabled={isOptimizing}
+                        >
+                            {isOptimizing ? <Loader2 className="w-3 h-3 animate-spin mr-1"/> : <Wand2 className="w-3 h-3 mr-1"/>}
+                            Auto-Fix
+                        </Button>
+                    </div>
                     <div className="space-y-3">
                         <div>
                             <Label htmlFor="seo-title">SEO Title</Label>
@@ -419,6 +504,41 @@ export default function ArticleInspector({
                             </p>
                         </div>
                     </div>
+                </div>
+
+                {/* Translation Tool */}
+                <div className="space-y-3 pt-4 border-t border-slate-200">
+                    <h3 className="text-xs font-semibold text-slate-700 uppercase tracking-wider flex items-center gap-2">
+                        <Languages className="w-4 h-4" />
+                        Translate
+                    </h3>
+                    <div className="flex gap-2">
+                         <Select value={targetLang} onValueChange={setTargetLang}>
+                            <SelectTrigger className="flex-1">
+                                <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="hi">Hindi (हिंदी)</SelectItem>
+                                <SelectItem value="te">Telugu (తెలుగు)</SelectItem>
+                                <SelectItem value="mr">Marathi (मराठी)</SelectItem>
+                                <SelectItem value="ta">Tamil (தமிழ்)</SelectItem>
+                                <SelectItem value="bn">Bengali (বাংলা)</SelectItem>
+                                <SelectItem value="gu">Gujarati (ગુજરાતી)</SelectItem>
+                            </SelectContent>
+                        </Select>
+                        <Button 
+                            size="sm"
+                            variant="default"
+                            onClick={handleTranslate}
+                            disabled={isTranslating}
+                            className="bg-indigo-600 hover:bg-indigo-700"
+                        >
+                             {isTranslating ? <Loader2 className="w-4 h-4 animate-spin"/> : "Go"}
+                        </Button>
+                    </div>
+                    <p className="text-xs text-slate-500">
+                        Creates a new draft article in the selected language.
+                    </p>
                 </div>
 
                 {/* SEO Score Calculator */}

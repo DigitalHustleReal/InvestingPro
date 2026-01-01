@@ -1,0 +1,44 @@
+/**
+ * Semantic Image Placeholder Styles
+ * 
+ * WHY separate CSS:
+ * - Keeps component logic clean
+ * - Can be customized per theme
+ * - Loads independently of component
+ */
+
+.semantic-image-placeholder {
+    position: relative;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.semantic-image-placeholder::before {
+    content: '📷';
+    display: block;
+    font-size: 3rem;
+    opacity: 0.3;
+    margin-bottom: 0.5rem;
+}
+
+.semantic-image-placeholder::after {
+    content: attr(data-src);
+    display: block;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    color: #475569;
+    word-break: break-all;
+    padding: 0.25rem 0.5rem;
+    background-color: white;
+    border-radius: 0.25rem;
+    max-width: 90%;
+}
+
+.semantic-image-placeholder:hover {
+    border-color: #94a3b8;
+    background-color: #f1f5f9;
+}
+

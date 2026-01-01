@@ -4,10 +4,10 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import AdminLayout from '@/components/admin/AdminLayout';
 import ArticleInspector from '@/components/admin/ArticleInspector';
-import TipTapEditorWithMedia from '@/components/admin/TipTapEditorWithMedia';
+import ArticleEditor from '@/components/admin/ArticleEditor';
 import { Input } from '@/components/ui/input';
-import { api } from '@/lib/api';
-import { useMutation } from '@tanstack/react-query';
+import { articleService } from '@/lib/cms/article-service';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Save, Loader2 } from 'lucide-react';
 import { logger } from '@/lib/logger';
 import { toast } from 'sonner';
@@ -24,22 +24,126 @@ import { toast } from 'sonner';
 export default function NewArticlePage() {
     const router = useRouter();
     const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
+    const [bodyMarkdown, setBodyMarkdown] = useState<string>('');
+    const [bodyHtml, setBodyHtml] = useState<string>('');
     const [excerpt, setExcerpt] = useState('');
     const [saving, setSaving] = useState(false);
     const [lastSaved, setLastSaved] = useState<Date | null>(null);
+    const [articleId, setArticleId] = useState<string | null>(null); // Track if article was already created
+
+    const queryClient = useQueryClient();
 
     const createMutation = useMutation({
-        mutationFn: (data: any) => api.entities.Article.create(data),
-        onSuccess: (article: any) => {
+        mutationFn: async (data: any) => {
+            // Use articleService for unified workflow
+            return await articleService.createArticle(
+                {
+                    body_markdown: data.body_markdown || '',
+                    body_html: data.body_html || '',
+                    content: data.content || data.body_markdown || '',
+                },
+                {
+                    title: data.title,
+                    slug: data.slug,
+                    excerpt: data.excerpt || '',
+                    category: data.category || 'investing-basics',
+                    tags: data.tags || [],
+                    seo_title: data.seo_title || data.title,
+                    seo_description: data.meta_description || data.excerpt,
+                    featured_image: data.featured_image,
+                    read_time: data.read_time,
+                    language: data.language || 'en',
+                }
+            );
+        },
+        onSuccess: (result) => {
             setSaving(false);
             setLastSaved(new Date());
-            router.push(`/admin/articles/${article.id}/edit`);
+            
+            // Invalidate queries
+            queryClient.invalidateQueries({ queryKey: ['articles', 'admin'] });
+            
+            if (result && result.id) {
+                setArticleId(result.id); // Store article ID
+                // Redirect to edit page immediately
+                router.push(`/admin/articles/${result.id}/edit`);
+            } else {
+                toast.error('Article created but ID not returned. Please refresh the page.');
+            }
         },
         onError: (error: any) => {
             setSaving(false);
             logger.error('Failed to create article', error);
-            toast.error('Failed to save article. Please try again.');
+            
+            // Handle duplicate slug/409 error specifically
+            let errorMessage = error?.message || error?.error?.message || 'Failed to save article. Please try again.';
+            const isConflict = errorMessage.includes('duplicate key') || 
+                             errorMessage.includes('articles_slug_key') ||
+                             errorMessage.includes('409') ||
+                             error?.status === 409;
+            
+            if (isConflict) {
+                errorMessage = 'An article with this title already exists. Redirecting to edit page...';
+                toast.error(errorMessage);
+                // Try to find the existing article by slug and redirect
+                const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+                // Redirect will happen after a short delay to show the message
+                setTimeout(() => {
+                    router.push(`/admin/articles?slug=${slug}`);
+                }, 1500);
+            } else {
+                toast.error(errorMessage);
+            }
+            console.error('Article creation error:', error);
+        },
+    });
+    
+    const updateMutation = useMutation({
+        mutationFn: async (data: any) => {
+            if (!articleId) throw new Error('Article ID not found');
+            
+            // Use articleService for unified workflow
+            return await articleService.saveArticle(
+                articleId,
+                {
+                    body_markdown: data.body_markdown || '',
+                    body_html: data.body_html || '',
+                    content: data.content || data.body_markdown || '',
+                },
+                {
+                    title: data.title,
+                    slug: data.slug,
+                    excerpt: data.excerpt || '',
+                    category: data.category || 'investing-basics',
+                    tags: data.tags || [],
+                    seo_title: data.seo_title || data.title,
+                    seo_description: data.meta_description || data.excerpt,
+                    featured_image: data.featured_image,
+                    read_time: data.read_time,
+                    language: data.language || 'en',
+                }
+            );
+        },
+        onSuccess: (result) => {
+            setSaving(false);
+            setLastSaved(new Date());
+            
+            // Invalidate queries
+            queryClient.invalidateQueries({ queryKey: ['articles', 'admin'] });
+            queryClient.invalidateQueries({ queryKey: ['article', articleId] });
+            
+            toast.success('Article updated successfully');
+            // Redirect to edit page if not already there
+            if (result && result.id && !window.location.pathname.includes('/edit')) {
+                router.push(`/admin/articles/${result.id}/edit`);
+            }
+        },
+        onError: (error: any) => {
+            setSaving(false);
+            logger.error('Failed to update article', error);
+            const errorMessage = error?.message || error?.error?.message || 'Failed to save article. Please try again.';
+            toast.error(errorMessage);
+            console.error('Article update error:', error);
         },
     });
 
@@ -56,10 +160,11 @@ export default function NewArticlePage() {
                 .replace(/[^a-z0-9]+/g, '-')
                 .replace(/^-|-$/g, '');
 
-            await createMutation.mutateAsync({
+            const saveData = {
                 title,
                 slug,
-                content,
+                body_markdown: bodyMarkdown, // PRIMARY
+                body_html: bodyHtml, // DERIVED
                 excerpt,
                 status: metadata.status || 'draft',
                 seo_title: metadata.seo_title || title,
@@ -67,7 +172,14 @@ export default function NewArticlePage() {
                 category: metadata.category,
                 tags: metadata.tags || [],
                 featured_image: metadata.featured_image,
-            });
+            };
+
+            // If article was already created, update it instead of creating new one
+            if (articleId) {
+                await updateMutation.mutateAsync(saveData);
+            } else {
+                await createMutation.mutateAsync(saveData);
+            }
         } catch (error) {
             // Error handled in mutation
         }
@@ -96,7 +208,9 @@ export default function NewArticlePage() {
                 <ArticleInspector
                     article={{
                         title,
-                        content,
+                        body_markdown: bodyMarkdown,
+                        body_html: bodyHtml,
+                        content: bodyMarkdown || bodyHtml, // Legacy fallback
                     }}
                     onSave={handleSave}
                     onPublish={handlePublish}
@@ -129,11 +243,18 @@ export default function NewArticlePage() {
 
                 {/* Editor Canvas */}
                 <div className="flex-1 min-h-0">
-                    <TipTapEditorWithMedia
-                        content={content}
-                        onChange={setContent}
+                    <ArticleEditor
+                        initialContent={{
+                            body_markdown: bodyMarkdown,
+                            body_html: bodyHtml,
+                            content: bodyMarkdown || bodyHtml,
+                        }}
+                        onChange={(content) => {
+                            setBodyMarkdown(content.markdown);
+                            setBodyHtml(content.html);
+                        }}
                         placeholder="Start writing your article..."
-                        className="h-full"
+                        editable={true}
                     />
                 </div>
             </div>

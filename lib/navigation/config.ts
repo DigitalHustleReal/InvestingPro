@@ -102,6 +102,7 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                 slug: EDITORIAL_INTENTS.GUIDES,
                 description: 'Credit card guides and tips',
                 collections: [
+                    { name: 'All Credit Card Articles', slug: 'all-articles', href: '/category/credit-cards' },
                     { name: 'How to Choose a Credit Card', slug: 'how-to-choose', href: '/credit-cards/guides/how-to-choose' },
                     { name: 'Credit Card Benefits Guide', slug: 'benefits', href: '/credit-cards/guides/benefits' },
                     { name: 'Credit Score Guide', slug: 'credit-score', href: '/credit-cards/guides/credit-score' },
@@ -160,6 +161,7 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                 slug: EDITORIAL_INTENTS.GUIDES,
                 description: 'Loan guides and tips',
                 collections: [
+                    { name: 'All Loan Articles', slug: 'all-articles', href: '/category/loans' },
                     { name: 'Loan Eligibility Guide', slug: 'eligibility', href: '/loans/guides/eligibility' },
                     { name: 'Home Loan Guide', slug: 'home-loan', href: '/loans/guides/home-loan' },
                     { name: 'Compare Interest Rates', slug: 'interest-rates', href: '/loans/guides/interest-rates' },
@@ -255,6 +257,9 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                 slug: EDITORIAL_INTENTS.GUIDES,
                 description: 'Investment guides',
                 collections: [
+                    { name: 'All Investment Articles', slug: 'all-articles', href: '/category/investing-basics' },
+                    { name: 'Mutual Funds Articles', slug: 'mutual-funds', href: '/category/mutual-funds' },
+                    { name: 'Stocks Articles', slug: 'stocks', href: '/category/stocks' },
                     { name: 'SIP Guide', slug: 'sip', href: '/calculators/sip' },
                     { name: 'SIP vs Lumpsum', slug: 'sip-vs-lumpsum', href: '/investing/guides/sip-vs-lumpsum' },
                     { name: 'Tax Saving Funds', slug: 'tax-saving', href: '/mutual-funds?type=elss' },
@@ -307,6 +312,7 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                 slug: EDITORIAL_INTENTS.GUIDES,
                 description: 'Insurance guides',
                 collections: [
+                    { name: 'All Insurance Articles', slug: 'all-articles', href: '/category/insurance' },
                     { name: 'Health Insurance Guide', slug: 'health', href: '/insurance/guides/health' },
                     { name: 'Term Insurance Basics', slug: 'term', href: '/insurance/guides/term' },
                     { name: 'Claim Settlement Guide', slug: 'claims', href: '/insurance/guides/claims' },
@@ -399,6 +405,7 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                 slug: EDITORIAL_INTENTS.GUIDES,
                 description: 'Tax guides and tips',
                 collections: [
+                    { name: 'All Tax Articles', slug: 'all-articles', href: '/category/tax-planning' },
                     { name: 'ITR Filing Guide', slug: 'itr-filing', href: '/taxes/guides/itr-filing' },
                     { name: 'Tax-Saving Investments Guide', slug: 'tax-saving-investments', href: '/taxes/guides/tax-saving-investments' },
                     { name: 'GST Guide', slug: 'gst', href: '/taxes/guides/gst' },
@@ -451,6 +458,8 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                 slug: EDITORIAL_INTENTS.GUIDES,
                 description: 'Personal finance guides',
                 collections: [
+                    { name: 'All Personal Finance Articles', slug: 'all-articles', href: '/articles' },
+                    { name: 'Retirement Articles', slug: 'retirement', href: '/category/retirement' },
                     { name: 'Financial Planning Guide', slug: 'financial-planning', href: '/personal-finance/guides/financial-planning' },
                     { name: 'Budgeting Guide', slug: 'budgeting', href: '/personal-finance/guides/budgeting' },
                     { name: 'Debt Management Guide', slug: 'debt-management', href: '/personal-finance/guides/debt-management' },

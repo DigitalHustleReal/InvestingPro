@@ -13,7 +13,8 @@ export async function GET(request: NextRequest) {
         const searchParams = request.nextUrl.searchParams;
         const limit = parseInt(searchParams.get('limit') || '10');
 
-        const supabase = await createClient();
+        const { createServiceClient } = await import('@/lib/supabase/service');
+        const supabase = createServiceClient();
 
         // Query pipeline_runs table if it exists
         // Fallback to empty array if table doesn't exist yet

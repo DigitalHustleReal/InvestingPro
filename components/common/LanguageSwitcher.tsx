@@ -1,6 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import * as React from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { Globe, Check } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 import {
     Select,
     SelectContent,
@@ -8,52 +11,89 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { Globe } from "lucide-react";
 
-const languages = [
-    { code: 'en', name: 'English', nativeName: 'English' },
-    { code: 'hi', name: 'Hindi', nativeName: 'हिंदी' },
-    { code: 'ta', name: 'Tamil', nativeName: 'தமிழ்' },
-    { code: 'te', name: 'Telugu', nativeName: 'తెలుగు' },
-    { code: 'bn', name: 'Bengali', nativeName: 'বাংলা' },
-    { code: 'mr', name: 'Marathi', nativeName: 'मराठी' },
-    { code: 'gu', name: 'Gujarati', nativeName: 'ગુજરાતી' },
+const LANGUAGES = [
+    { code: 'en', name: 'English', label: 'EN' },
+    { code: 'hi', name: 'Hindi (हिंदी)', label: 'HI' },
+    { code: 'te', name: 'Telugu (తెలుగు)', label: 'TE' },
+    { code: 'mr', name: 'Marathi (मराठी)', label: 'MR' },
+    { code: 'ta', name: 'Tamil (தமிழ்)', label: 'TA' },
+    { code: 'bn', name: 'Bengali (বাংলা)', label: 'BN' },
+    { code: 'gu', name: 'Gujarati (ગુજરાતી)', label: 'GU' },
 ];
 
-export default function LanguageSwitcher() {
-    const [currentLang, setCurrentLang] = useState('en');
+export default function LanguageSwitcher({ isMobile = false }: { isMobile?: boolean }) {
+    const router = useRouter();
+    const pathname = usePathname();
+    const [currentLang, setCurrentLang] = React.useState('en');
 
-    useEffect(() => {
-        // Load saved language preference
-        const saved = localStorage.getItem('preferred_language');
-        if (saved) {
-            setCurrentLang(saved);
-        }
-    }, []);
+    // Detect language from URL
+    React.useEffect(() => {
+        if (!pathname) return;
+        
+        const found = LANGUAGES.find(l => 
+            l.code !== 'en' && (pathname.endsWith(`-${l.code}`) || pathname.includes(`/${l.code}/`))
+        );
+        
+        if (found) setCurrentLang(found.code);
+        else setCurrentLang('en');
+    }, [pathname]);
 
     const handleLanguageChange = (langCode: string) => {
-        setCurrentLang(langCode);
-        localStorage.setItem('preferred_language', langCode);
-        // You would typically trigger a re-render of content here
-        if (typeof window !== 'undefined') {
-            window.dispatchEvent(new CustomEvent('languageChanged', { detail: langCode }));
+        if (langCode === currentLang) return;
+        
+        let newPath = pathname;
+        // Is this an article page? (Very basic check)
+        const isArticle = pathname.startsWith('/articles/') || pathname.startsWith('/article/');
+
+        if (isArticle) {
+            if (currentLang !== 'en') {
+                newPath = newPath.replace(new RegExp(`-${currentLang}$`), '');
+            }
+            if (langCode !== 'en') {
+                newPath = `${newPath}-${langCode}`;
+            }
+            router.push(newPath);
+        } else {
+            if (langCode !== 'en') {
+                // For demo purposes, we alert if not on an article
+                // Ideally this would go to /te/home
+                alert("Translation is currently active for Articles pages.");
+            } else {
+                router.push('/');
+            }
         }
     };
 
-    const currentLabel = languages.find(l => l.code === currentLang)?.nativeName || "English";
+    if (isMobile) {
+        return (
+            <div className="grid grid-cols-2 gap-2">
+                {LANGUAGES.map((lang) => (
+                    <Button
+                        key={lang.code}
+                        variant={currentLang === lang.code ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => handleLanguageChange(lang.code)}
+                        className="w-full justify-start text-xs"
+                    >
+                        {lang.name}
+                        {currentLang === lang.code && <Check className="ml-auto w-3 h-3" />}
+                    </Button>
+                ))}
+            </div>
+        );
+    }
 
     return (
         <Select value={currentLang} onValueChange={handleLanguageChange}>
-            <SelectTrigger className="w-36 border-slate-300">
-                <div className="flex items-center">
-                    <Globe className="w-4 h-4 mr-2" />
-                    <span>{currentLabel}</span>
-                </div>
+            <SelectTrigger className="w-[110px] h-9 text-xs font-medium border-slate-200 bg-transparent hover:bg-slate-50 focus:ring-0">
+                <Globe className="w-3 h-3 mr-2 opacity-50" />
+                <SelectValue placeholder="Language" />
             </SelectTrigger>
-            <SelectContent>
-                {languages.map((lang) => (
-                    <SelectItem key={lang.code} value={lang.code}>
-                        {lang.nativeName}
+            <SelectContent align="end">
+                {LANGUAGES.map((lang) => (
+                    <SelectItem key={lang.code} value={lang.code} className="text-xs">
+                        {lang.name}
                     </SelectItem>
                 ))}
             </SelectContent>

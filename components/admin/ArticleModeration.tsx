@@ -23,11 +23,14 @@ import {
     AlertCircle,
     User,
     Calendar,
-    FileText
+    FileText,
+    Twitter
 } from "lucide-react";
 import ReactMarkdown from 'react-markdown';
 import { toast } from 'sonner';
 import ConfirmDialog from '@/components/ui/ConfirmDialog';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import SocialRepurposeView from './SocialRepurposeView';
 
 interface Article {
     id: string;
@@ -217,13 +220,31 @@ export default function ArticleModeration({ article }: { article: Article }) {
                             By {article.author_name} • {article.read_time} min read
                         </DialogDescription>
                     </DialogHeader>
-                    <div className="prose prose-slate max-w-none mt-4 dark:prose-invert overflow-y-auto flex-1 pr-2">
-                        {article.content ? (
-                            <ReactMarkdown>{article.content}</ReactMarkdown>
-                        ) : (
-                            <p className="text-slate-500 italic">No content available</p>
-                        )}
-                    </div>
+                    
+                    <Tabs defaultValue="content" className="mt-4 flex-1 flex flex-col overflow-hidden">
+                        <TabsList className="grid w-64 grid-cols-2 bg-slate-100 p-1 rounded-xl mb-4">
+                            <TabsTrigger value="content" className="rounded-lg data-[state=active]:bg-white">
+                                <FileText className="w-4 h-4 mr-2" />
+                                Content
+                            </TabsTrigger>
+                            <TabsTrigger value="social" className="rounded-lg data-[state=active]:bg-white">
+                                <Twitter className="w-4 h-4 mr-2" />
+                                Socials
+                            </TabsTrigger>
+                        </TabsList>
+
+                        <TabsContent value="content" className="prose prose-slate max-w-none dark:prose-invert overflow-y-auto flex-1 pr-2">
+                            {article.content ? (
+                                <ReactMarkdown>{article.content}</ReactMarkdown>
+                            ) : (
+                                <p className="text-slate-500 italic">No content available</p>
+                            )}
+                        </TabsContent>
+
+                        <TabsContent value="social" className="overflow-y-auto flex-1">
+                            <SocialRepurposeView articleId={article.id} />
+                        </TabsContent>
+                    </Tabs>
                 </DialogContent>
             </Dialog>
 

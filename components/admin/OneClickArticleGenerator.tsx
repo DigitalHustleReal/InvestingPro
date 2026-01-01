@@ -38,6 +38,8 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { createClient } from '@/lib/supabase/client';
 import { structuredToMarkdown } from '@/types/structured-content';
+import { Checkbox } from '@/components/ui/checkbox';
+import { usePipeline } from '@/hooks/usePipeline';
 
 import type { StructuredContent } from '@/types/structured-content';
 
@@ -78,6 +80,8 @@ export default function OneClickArticleGenerator() {
     const [generating, setGenerating] = useState(false);
     const [generatedArticle, setGeneratedArticle] = useState<GeneratedArticle | null>(null);
     const [step, setStep] = useState<'input' | 'generating' | 'review' | 'publishing'>('input');
+    const [runInBackground, setRunInBackground] = useState(false);
+    const { triggerPipeline } = usePipeline();
 
     // Fetch categories
     const { data: categories = [] } = useQuery({
@@ -118,6 +122,32 @@ export default function OneClickArticleGenerator() {
         }
 
         setGenerating(true);
+
+        // Background Pipeline Mode
+        if (runInBackground) {
+            try {
+                const keywords = targetKeywords.split(',').map(k => k.trim()).filter(Boolean);
+                const wordCount = contentLength === 'comprehensive' ? 2000 : contentLength === 'detailed' ? 1500 : 1000;
+
+                await triggerPipeline('generate_article', {
+                    topic,
+                    category,
+                    targetKeywords: keywords,
+                    targetAudience,
+                    contentLength,
+                    wordCount
+                });
+                
+                toast.success('Article generation queued! Check the Automation tab to track progress.');
+                reset(); // Reset form
+            } catch (error: any) {
+                // Error handled by hook
+            } finally {
+                setGenerating(false);
+            }
+            return;
+        }
+
         setStep('generating');
 
         try {
@@ -286,8 +316,8 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                 status: 'draft',
                 ai_generated: true,
                 // Add fields for review queue
-                is_user_submission: false, // AI-generated, not user submission
-                submission_status: 'approved', // Auto-approve AI-generated content, or set to 'pending' if you want review
+                is_user_submission: false, // AI-generated
+                submission_status: 'pending', // Enforce strict review workflow
             });
 
             if (!article || !article.id) {
@@ -484,6 +514,26 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                             </Select>
                         </div>
 
+                        {/* Background Option */}
+                        <div className="flex items-center space-x-2 py-2">
+                            <Checkbox 
+                                id="background-mode" 
+                                checked={runInBackground} 
+                                onCheckedChange={(checked) => setRunInBackground(checked as boolean)}
+                            />
+                            <div className="grid gap-1.5 leading-none">
+                                <Label 
+                                    htmlFor="background-mode" 
+                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                >
+                                    Generate in Background (Pipeline)
+                                </Label>
+                                <p className="text-xs text-slate-500">
+                                    Recommended for comprehensive articles. You can close this window and track progress in Automation tab.
+                                </p>
+                            </div>
+                        </div>
+
                         {/* Generate Button */}
                         <Button
                             onClick={generateArticle}
@@ -499,7 +549,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                             ) : (
                                 <>
                                     <Sparkles className="w-5 h-5 mr-2" />
-                                    Generate Complete SEO Article
+                                    {runInBackground ? 'Start Background Generation' : 'Generate Complete SEO Article'}
                                 </>
                             )}
                         </Button>

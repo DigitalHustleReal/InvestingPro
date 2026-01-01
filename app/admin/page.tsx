@@ -6,6 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/Button";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
+import { articleService } from '@/lib/cms/article-service';
+import { createClient } from '@/lib/supabase/client';
 import {
     BarChart3,
     FileText,
@@ -46,6 +48,7 @@ import ContextualSidebar from "@/components/admin/ContextualSidebar";
 import { toast } from "sonner";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
 import ContentPerformanceTracking from "@/components/admin/ContentPerformanceTracking";
+import { cn } from "@/lib/utils";
 import AutomationControls from "@/components/admin/AutomationControls";
 
 export default function AdminPage() {
@@ -56,10 +59,37 @@ export default function AdminPage() {
     const [contextualSidebarCollapsed, setContextualSidebarCollapsed] = useState(false);
     const queryClient = useQueryClient();
 
-    // Content Data
-    const { data: articles = [] } = useQuery({
-        queryKey: ['articles'],
-        queryFn: () => api.entities.Article.list('-created_date', 100),
+    // Optimized: Fetch aggregated stats via RPC
+    const { data: dashboardStats } = useQuery({
+        queryKey: ['admin-dashboard-stats'],
+        queryFn: async () => {
+             const supabase = createClient();
+             const { data, error } = await supabase.rpc('get_admin_dashboard_stats');
+             if (error) {
+                 console.error('Error fetching dashboard stats:', error);
+                 return null;
+             }
+             return data;
+        },
+        refetchInterval: 30000
+    });
+
+    // Fallback constants if RPC is null (loading/error)
+    const statsData = dashboardStats || {
+        total_articles: 0,
+        published_articles: 0,
+        draft_articles: 0,
+        total_views: 0,
+        articles_this_month: 0,
+        ai_generated_articles: 0,
+        recent_activity: [],
+        category_stats: []
+    };
+
+    // Articles data for lists (only fetch small subset now)
+    const { data: recentArticles = [] } = useQuery({
+        queryKey: ['recent-articles'],
+        queryFn: () => articleService.listArticles(10), // Only fetch 10
         initialData: []
     });
 
@@ -143,7 +173,13 @@ export default function AdminPage() {
     const rssFeeds = Array.isArray(rssFeedsData) ? rssFeedsData : [];
 
     // Social Media Metrics - Real API (using schedulers endpoint)
-    const { data: socialMetrics = {} } = useQuery({
+    const { data: socialMetrics = {} } = useQuery<{
+        facebook?: { followers: number, engagement: number, posts: number } | null;
+        twitter?: { followers: number, engagement: number, posts: number } | null;
+        linkedin?: { followers: number, engagement: number, posts: number } | null;
+        instagram?: { followers: number, engagement: number, posts: number } | null;
+        youtube?: { subscribers: number, views: number, videos: number } | null;
+    }>({
         queryKey: ['social-metrics'],
         queryFn: async () => {
             try {
@@ -152,11 +188,15 @@ export default function AdminPage() {
                 const data = await response.json();
                 // Transform schedulers data to metrics format
                 const schedulers = data.schedulers || [];
+                const hasScheduler = (platform: string) => schedulers.length > 0; // Simplified for now
+                
+                // Return objects with metrics if connected, otherwise null
                 return {
-                    facebook: schedulers.length > 0,
-                    twitter: schedulers.length > 0,
-                    linkedin: schedulers.length > 0,
-                    instagram: schedulers.length > 0
+                    facebook: hasScheduler('facebook') ? { followers: 0, engagement: 0, posts: 0 } : null,
+                    twitter: hasScheduler('twitter') ? { followers: 0, engagement: 0, posts: 0 } : null,
+                    linkedin: hasScheduler('linkedin') ? { followers: 0, engagement: 0, posts: 0 } : null,
+                    instagram: hasScheduler('instagram') ? { followers: 0, engagement: 0, posts: 0 } : null,
+                    youtube: hasScheduler('youtube') ? { subscribers: 0, views: 0, videos: 0 } : null
                 };
             } catch (error) {
                 console.error('Failed to fetch social media metrics:', error);
@@ -166,7 +206,7 @@ export default function AdminPage() {
     });
 
     // Content Pipeline Status - Real API
-    const { data: pipelineStatus = {} } = useQuery({
+    const { data: pipelineStatus = { active: 0, completed: 0, failed: 0, pending: 0, lastRun: null, avgTime: '0 min' } } = useQuery({
         queryKey: ['pipeline-status'],
         queryFn: async () => {
             try {
@@ -196,28 +236,29 @@ export default function AdminPage() {
         refetchInterval: 30000 // Refresh every 30 seconds
     });
 
-    // Trends Data - Mock data for now (API endpoint doesn't exist yet)
+    // Trends Data - Real API
     const { data: trendsData } = useQuery({
         queryKey: ['trends'],
         queryFn: async () => {
             try {
-                // TODO: Implement /api/trends endpoint when Google Trends integration is ready
-                // For now, return empty array
-                return [];
+                const response = await fetch('/api/trends');
+                if (!response.ok) return [];
+                const data = await response.json();
+                return data.trends || [];
             } catch (error) {
                 console.error('Failed to fetch trends:', error);
                 return [];
             }
         },
-        refetchInterval: 60000 // Refresh every minute
+        refetchInterval: 300000 // 5 minutes
     });
     const trends = Array.isArray(trendsData) ? trendsData : [];
 
     // Calculate metrics
-    const totalViews = Array.isArray(articles) ? articles.reduce((sum: number, a: any) => sum + (a.views || 0), 0) : 0;
+    const totalViews = statsData?.total_views ?? 0;
     const totalClicks = Array.isArray(affiliateProducts) ? affiliateProducts.reduce((sum: number, p: any) => sum + (p.clicks || 0), 0) : 0;
     const totalConversions = Array.isArray(affiliateProducts) ? affiliateProducts.reduce((sum: number, p: any) => sum + (p.conversions || 0), 0) : 0;
-    const conversionRate = totalClicks > 0 ? ((totalConversions / totalClicks) * 100).toFixed(2) : 0;
+    const conversionRate = totalClicks > 0 ? ((totalConversions / totalClicks) * 100).toFixed(2) : '0';
     const pendingReviews = Array.isArray(reviews) ? reviews.filter((r: any) => r.status === 'pending') : [];
     const pendingReviewsCount = pendingReviews.length;
     const pendingArticlesCount = pendingArticles.length;
@@ -225,35 +266,35 @@ export default function AdminPage() {
     const stats = [
         {
             label: 'Total Articles',
-            value: articles.length,
+            value: statsData?.total_articles ?? 0,
             icon: FileText,
             color: 'bg-blue-500',
-            change: '+12 this month',
+            change: `+${statsData?.articles_this_month ?? 0} this month`,
             trend: 'up'
         },
         {
             label: 'Total Views',
-            value: totalViews.toLocaleString(),
+            value: Number(statsData?.total_views ?? 0).toLocaleString(),
             icon: Eye,
             color: 'bg-purple-500',
-            change: '+23% vs last month',
+            change: 'Lifetime views',
             trend: 'up'
         },
         {
             label: 'Affiliate Clicks',
-            value: totalClicks.toLocaleString(),
+            value: (totalClicks ?? 0).toLocaleString(),
             icon: MousePointerClick,
             color: 'bg-emerald-500',
-            change: `${conversionRate}% conversion`,
+            change: `${conversionRate ?? 0}% conversion`,
             trend: 'up'
         },
         {
             label: 'Pending Reviews',
-            value: pendingReviewsCount,
+            value: pendingReviewsCount ?? 0,
             icon: Star,
             color: 'bg-amber-500',
             change: 'Needs moderation',
-            trend: pendingReviewsCount > 0 ? 'down' : 'up'
+            trend: (pendingReviewsCount ?? 0) > 0 ? 'down' : 'up'
         },
     ];
 
@@ -292,105 +333,116 @@ export default function AdminPage() {
                 />
             }
         >
-            <div className="h-full flex flex-col bg-slate-50">
-                <div className="bg-white border-b border-slate-200 px-8 py-6">
-                    <div className="flex items-center justify-between mb-4">
+            <div className="h-full flex flex-col">
+                <div className="px-10 py-8 border-b border-white/5 bg-white/[0.02] backdrop-blur-md">
+                    <div className="flex items-center justify-between mb-2">
                         <div>
-                            <h1 className="text-2xl font-bold text-slate-900 mb-2">Analyze</h1>
-                            <p className="text-sm text-slate-600">Track content performance, reviews, social media metrics, and platform analytics</p>
+                            <h1 className="text-3xl font-extrabold text-white tracking-tight mb-2">Analyze</h1>
+                            <p className="text-sm text-slate-400 font-medium tracking-wide">Orchestrating growth through data-driven precision.</p>
                         </div>
-                        <div className="flex gap-2">
-                            <Button variant="outline" size="sm" onClick={() => queryClient.invalidateQueries()}>
+                        <div className="flex gap-3">
+                            <Button 
+                                variant="outline" 
+                                size="sm" 
+                                onClick={() => {
+                                    queryClient.invalidateQueries();
+                                    toast.success('Analyzing latest data vectors...');
+                                }}
+                                className="bg-white/5 border-white/10 hover:bg-white/10 text-slate-300 rounded-xl px-5"
+                            >
                                 <RefreshCw className="w-4 h-4 mr-2" />
-                                Refresh All
+                                Re-sync Metrics
                             </Button>
                         </div>
                     </div>
                 </div>
                 
-                <div className="flex-1 overflow-y-auto px-8 py-6 max-w-7xl mx-auto w-full">
+                <div className="flex-1 overflow-y-auto px-10 py-10 max-w-[1600px] mx-auto w-full no-scrollbar">
 
                     {/* Main Stats Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
                         {[...stats, ...alertStats].slice(0, 4).map((stat, index) => (
-                            <Card key={index}>
-                                <CardContent className="p-6">
-                                    <div className="flex items-center justify-between mb-4">
-                                        <div className={`w-12 h-12 rounded-xl ${stat.color} flex items-center justify-center shadow-lg`}>
-                                            <stat.icon className="w-6 h-6 text-white" />
+                            <Card key={index} className="bg-white/[0.03] border-white/5 hover:border-indigo-500/30 transition-all duration-500 group relative overflow-hidden overflow-hidden rounded-2xl">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 blur-3xl -mr-16 -mt-16 group-hover:bg-indigo-500/10 transition-colors" />
+                                <CardContent className="p-7 relative z-10">
+                                    <div className="flex items-center justify-between mb-6">
+                                        <div className={`w-14 h-14 rounded-2xl ${stat.color} flex items-center justify-center shadow-2xl shadow-black/20 group-hover:scale-110 transition-transform duration-500`}>
+                                            <stat.icon className="w-7 h-7 text-white" />
                                         </div>
                                         {stat.trend && (
-                                            <div className={`flex items-center gap-1 text-xs font-semibold ${
-                                                stat.trend === 'up' ? 'text-emerald-600' : 'text-rose-600'
+                                            <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold ${
+                                                stat.trend === 'up' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'
                                             }`}>
                                                 {stat.trend === 'up' ? (
                                                     <ArrowUpRight className="w-4 h-4" />
                                                 ) : (
                                                     <ArrowDownRight className="w-4 h-4" />
                                                 )}
+                                                {stat.trend === 'up' ? 'Growth' : 'Alert'}
                                             </div>
                                         )}
                                     </div>
-                                    <p className="text-sm text-slate-500 mb-1">{stat.label}</p>
-                                    <p className="text-3xl font-bold text-slate-900 mb-1">{stat.value}</p>
-                                    <p className="text-xs text-slate-400 font-medium">{stat.change}</p>
+                                    <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">{stat.label}</p>
+                                    <p className="text-4xl font-extrabold text-white mb-2 tabular-nums tracking-tight">{stat.value}</p>
+                                    <p className="text-[11px] text-slate-400 font-bold uppercase tracking-wider flex items-center gap-2">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+                                        {stat.change}
+                                    </p>
                                 </CardContent>
                             </Card>
                         ))}
                     </div>
 
-                    {/* System Status Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                         {/* Scraper Status */}
-                        <Card>
-                            <CardHeader className="pb-3">
-                                <CardTitle className="text-base flex items-center gap-2">
-                                    <Database className="w-5 h-5 text-blue-600" />
-                                    Scraper Status
+                        <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                            <CardHeader className="pb-4 border-b border-white/5 px-7">
+                                <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                    <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                                        <Database className="w-4 h-4 text-blue-400" />
+                                    </div>
+                                    Scraper Network
                                 </CardTitle>
                             </CardHeader>
-                            <CardContent>
-                                <div className="space-y-3">
+                            <CardContent className="p-7">
+                                <div className="space-y-5">
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm text-slate-600">Status</span>
-                                        <Badge className={scraperStatus.status === 'running' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}>
-                                            {scraperStatus.status === 'running' ? (
-                                                <>
-                                                    <CheckCircle className="w-3 h-3 mr-1" />
-                                                    Running
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <Pause className="w-3 h-3 mr-1" />
-                                                    Paused
-                                                </>
-                                            )}
-                                        </Badge>
+                                        <span className="text-sm font-medium text-slate-400">Cluster Status</span>
+                                        <div className={cn(
+                                            "flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider",
+                                            scraperStatus.status === 'running' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'
+                                        )}>
+                                            <div className={cn(
+                                                "w-1.5 h-1.5 rounded-full animate-pulse",
+                                                scraperStatus.status === 'running' ? 'bg-emerald-500' : 'bg-amber-500'
+                                            )} />
+                                            {scraperStatus.status === 'running' ? 'Operational' : 'Idle'}
+                                        </div>
                                     </div>
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm text-slate-600">Success Rate</span>
-                                        <span className="text-sm font-semibold text-slate-900">{scraperStatus.successRate || 0}%</span>
+                                        <span className="text-sm font-medium text-slate-400">Accuracy</span>
+                                        <span className="text-sm font-bold text-white tabular-nums">{scraperStatus.successRate || 0}%</span>
                                     </div>
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm text-slate-600">Last Run</span>
-                                        <span className="text-xs text-slate-500">
-                                            {scraperStatus.lastRun ? new Date(scraperStatus.lastRun).toLocaleTimeString() : 'Never'}
+                                        <span className="text-sm font-medium text-slate-400">Last Telemetry</span>
+                                        <span className="text-xs font-bold text-slate-300">
+                                            {scraperStatus.lastRun ? new Date(scraperStatus.lastRun).toLocaleTimeString() : 'No Data'}
                                         </span>
                                     </div>
                                     {scraperStatus.productsScraped && (
-                                        <div className="pt-2 border-t">
-                                            <div className="grid grid-cols-3 gap-2 text-xs">
-                                                <div>
-                                                    <div className="text-slate-500">Products</div>
-                                                    <div className="font-semibold">{scraperStatus.productsScraped}</div>
+                                        <div className="pt-5 border-t border-white/5">
+                                            <div className="grid grid-cols-3 gap-4 text-center">
+                                                <div className="bg-white/5 p-3 rounded-xl border border-white/5">
+                                                    <div className="text-[10px] font-bold text-slate-500 uppercase mb-1">Assets</div>
+                                                    <div className="text-sm font-bold text-white tabular-nums">{scraperStatus.productsScraped}</div>
                                                 </div>
-                                                <div>
-                                                    <div className="text-slate-500">Reviews</div>
-                                                    <div className="font-semibold">{scraperStatus.reviewsScraped}</div>
+                                                <div className="bg-white/5 p-3 rounded-xl border border-white/5">
+                                                    <div className="text-[10px] font-bold text-slate-500 uppercase mb-1">Feed</div>
+                                                    <div className="text-sm font-bold text-white tabular-nums">{scraperStatus.reviewsScraped}</div>
                                                 </div>
-                                                <div>
-                                                    <div className="text-slate-500">Rates</div>
-                                                    <div className="font-semibold">{scraperStatus.ratesScraped}</div>
+                                                <div className="bg-white/5 p-3 rounded-xl border border-white/5">
+                                                    <div className="text-[10px] font-bold text-slate-500 uppercase mb-1">Rates</div>
+                                                    <div className="text-sm font-bold text-white tabular-nums">{scraperStatus.ratesScraped}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -400,69 +452,78 @@ export default function AdminPage() {
                         </Card>
 
                         {/* Content Pipeline */}
-                        <Card>
-                            <CardHeader className="pb-3">
-                                <CardTitle className="text-base flex items-center gap-2">
-                                    <Zap className="w-5 h-5 text-purple-600" />
-                                    Content Pipeline
+                        <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                            <CardHeader className="pb-4 border-b border-white/5 px-7">
+                                <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                    <div className="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                                        <Zap className="w-4 h-4 text-purple-400" />
+                                    </div>
+                                    AI Content Factory
                                 </CardTitle>
                             </CardHeader>
-                            <CardContent>
-                                <div className="space-y-3">
+                            <CardContent className="p-7">
+                                <div className="space-y-5">
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm text-slate-600">Active Jobs</span>
-                                        <Badge className="bg-blue-100 text-blue-700">{pipelineStatus.active || 0}</Badge>
+                                        <span className="text-sm font-medium text-slate-400">Parallel Jobs</span>
+                                        <span className="px-3 py-1 bg-indigo-500/10 text-indigo-400 text-[10px] font-bold rounded-full border border-indigo-500/20">
+                                            {pipelineStatus.active || 0} ACTIVE
+                                        </span>
                                     </div>
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm text-slate-600">Completed</span>
-                                        <span className="text-sm font-semibold text-slate-900">{pipelineStatus.completed || 0}</span>
+                                        <span className="text-sm font-medium text-slate-400">Total Outputs</span>
+                                        <span className="text-sm font-bold text-white tabular-nums">{pipelineStatus.completed || 0}</span>
                                     </div>
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm text-slate-600">Failed</span>
-                                        <span className="text-sm font-semibold text-rose-600">{pipelineStatus.failed || 0}</span>
+                                        <span className="text-sm font-medium text-slate-400">Drop Rate</span>
+                                        <span className="text-sm font-bold text-rose-400 tabular-nums">{pipelineStatus.failed || 0}</span>
                                     </div>
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm text-slate-600">Avg Time</span>
-                                        <span className="text-xs text-slate-500">{pipelineStatus.avgTime || 'N/A'}</span>
+                                        <span className="text-sm font-medium text-slate-400">Avg. Cycle</span>
+                                        <span className="text-xs font-bold text-slate-300 tabular-nums">{pipelineStatus.avgTime || 'N/A'}</span>
                                     </div>
-                                    <div className="pt-2 border-t">
-                                        <Button size="sm" variant="outline" className="w-full">
-                                            <Play className="w-4 h-4 mr-2" />
-                                            Run Pipeline
+                                    <div className="pt-2">
+                                        <Button 
+                                            size="sm" 
+                                            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl h-10 font-bold shadow-lg shadow-indigo-600/20 transition-all border-0"
+                                        >
+                                            <Play className="w-4 h-4 mr-2 fill-white" />
+                                            Ignite Factory
                                         </Button>
                                     </div>
                                 </div>
                             </CardContent>
                         </Card>
 
-                        {/* RSS Feeds */}
-                        <Card>
-                            <CardHeader className="pb-3">
-                                <CardTitle className="text-base flex items-center gap-2">
-                                    <Rss className="w-5 h-5 text-orange-600" />
-                                    RSS Feeds
+                        {/* RSS Dynamics */}
+                        <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                            <CardHeader className="pb-4 border-b border-white/5 px-7">
+                                <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                    <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center">
+                                        <Rss className="w-4 h-4 text-orange-400" />
+                                    </div>
+                                    RSS Dynamics
                                 </CardTitle>
                             </CardHeader>
-                            <CardContent>
-                                <div className="space-y-3">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm text-slate-600">Active Feeds</span>
-                                        <Badge className="bg-emerald-100 text-emerald-700">
-                                            {Array.isArray(rssFeeds) ? rssFeeds.filter((f: any) => f?.status === 'active').length : 0}
-                                        </Badge>
+                            <CardContent className="p-7">
+                                <div className="space-y-4">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <span className="text-sm font-medium text-slate-400">Sync Channels</span>
+                                        <span className="text-sm font-bold text-emerald-400">
+                                            {Array.isArray(rssFeeds) ? rssFeeds.filter((f: any) => f?.status === 'active').length : 0} LIVE
+                                        </span>
                                     </div>
-                                    <div className="space-y-2">
+                                    <div className="space-y-3">
                                         {Array.isArray(rssFeeds) && rssFeeds.slice(0, 3).map((feed: any) => (
-                                            <div key={feed.id} className="flex items-center justify-between text-xs">
-                                                <span className="text-slate-600 truncate flex-1">{feed.name}</span>
-                                                <Badge variant="outline" className="ml-2">{feed.itemsCount || 0}</Badge>
+                                            <div key={feed.id} className="flex items-center justify-between p-2.5 bg-white/5 rounded-xl border border-white/5">
+                                                <span className="text-xs font-bold text-slate-300 truncate flex-1">{feed.name}</span>
+                                                <Badge className="bg-white/10 text-white border-0 text-[10px] ml-2 font-bold">{feed.itemsCount || 0}</Badge>
                                             </div>
                                         ))}
                                     </div>
-                                    <div className="pt-2 border-t">
-                                        <Button size="sm" variant="outline" className="w-full">
+                                    <div className="pt-2">
+                                        <Button size="sm" variant="outline" className="w-full bg-white/5 border-white/10 hover:bg-white/10 text-slate-300 rounded-xl h-10 font-bold">
                                             <RefreshCw className="w-4 h-4 mr-2" />
-                                            Refresh All
+                                            Synchronize
                                         </Button>
                                     </div>
                                 </div>
@@ -471,53 +532,65 @@ export default function AdminPage() {
                     </div>
 
                     {/* Social Media Metrics */}
-                    <Card className="mb-8">
-                        <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                                <Share2 className="w-5 h-5 text-blue-600" />
-                                Social Media Metrics
+                    <Card className="mb-10 bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                        <CardHeader className="border-b border-white/5 px-8 py-6">
+                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                                    <Share2 className="w-4 h-4 text-blue-400" />
+                                </div>
+                                Omnichannel Presence
                             </CardTitle>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="p-8">
                             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                                 {socialMetrics.facebook && (
-                                    <div className="text-center p-4 bg-blue-50 rounded-lg">
-                                        <Facebook className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-                                        <div className="text-2xl font-bold text-slate-900">{socialMetrics.facebook.followers?.toLocaleString()}</div>
-                                        <div className="text-xs text-slate-600">Followers</div>
-                                        <div className="text-xs text-emerald-600 mt-1">+{socialMetrics.facebook.engagement}% engagement</div>
+                                    <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
+                                        <Facebook className="w-6 h-6 text-blue-500 mx-auto mb-4 group-hover:scale-110 transition-transform" />
+                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{socialMetrics.facebook.followers?.toLocaleString()}</div>
+                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
+                                        <div className="text-[10px] font-bold text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full inline-block">
+                                            +{socialMetrics.facebook.engagement}% Engagement
+                                        </div>
                                     </div>
                                 )}
                                 {socialMetrics.twitter && (
-                                    <div className="text-center p-4 bg-sky-50 rounded-lg">
-                                        <Twitter className="w-6 h-6 text-sky-600 mx-auto mb-2" />
-                                        <div className="text-2xl font-bold text-slate-900">{socialMetrics.twitter.followers?.toLocaleString()}</div>
-                                        <div className="text-xs text-slate-600">Followers</div>
-                                        <div className="text-xs text-emerald-600 mt-1">+{socialMetrics.twitter.engagement}% engagement</div>
+                                    <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
+                                        <Twitter className="w-6 h-6 text-sky-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
+                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{socialMetrics.twitter.followers?.toLocaleString()}</div>
+                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
+                                        <div className="text-[10px] font-bold text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full inline-block">
+                                            +{socialMetrics.twitter.engagement}% Engagement
+                                        </div>
                                     </div>
                                 )}
                                 {socialMetrics.linkedin && (
-                                    <div className="text-center p-4 bg-blue-50 rounded-lg">
-                                        <Linkedin className="w-6 h-6 text-blue-700 mx-auto mb-2" />
-                                        <div className="text-2xl font-bold text-slate-900">{socialMetrics.linkedin.followers?.toLocaleString()}</div>
-                                        <div className="text-xs text-slate-600">Followers</div>
-                                        <div className="text-xs text-emerald-600 mt-1">+{socialMetrics.linkedin.engagement}% engagement</div>
+                                    <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
+                                        <Linkedin className="w-6 h-6 text-blue-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
+                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{socialMetrics.linkedin.followers?.toLocaleString()}</div>
+                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
+                                        <div className="text-[10px] font-bold text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full inline-block">
+                                            +{socialMetrics.linkedin.engagement}% Engagement
+                                        </div>
                                     </div>
                                 )}
                                 {socialMetrics.instagram && (
-                                    <div className="text-center p-4 bg-pink-50 rounded-lg">
-                                        <Instagram className="w-6 h-6 text-pink-600 mx-auto mb-2" />
-                                        <div className="text-2xl font-bold text-slate-900">{socialMetrics.instagram.followers?.toLocaleString()}</div>
-                                        <div className="text-xs text-slate-600">Followers</div>
-                                        <div className="text-xs text-emerald-600 mt-1">+{socialMetrics.instagram.engagement}% engagement</div>
+                                    <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
+                                        <Instagram className="w-6 h-6 text-pink-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
+                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{socialMetrics.instagram.followers?.toLocaleString()}</div>
+                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
+                                        <div className="text-[10px] font-bold text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full inline-block">
+                                            +{socialMetrics.instagram.engagement}% Engagement
+                                        </div>
                                     </div>
                                 )}
                                 {socialMetrics.youtube && (
-                                    <div className="text-center p-4 bg-red-50 rounded-lg">
-                                        <Youtube className="w-6 h-6 text-red-600 mx-auto mb-2" />
-                                        <div className="text-2xl font-bold text-slate-900">{socialMetrics.youtube.subscribers?.toLocaleString()}</div>
-                                        <div className="text-xs text-slate-600">Subscribers</div>
-                                        <div className="text-xs text-slate-600 mt-1">{socialMetrics.youtube.views?.toLocaleString()} views</div>
+                                    <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
+                                        <Youtube className="w-6 h-6 text-red-500 mx-auto mb-4 group-hover:scale-110 transition-transform" />
+                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{socialMetrics.youtube.subscribers?.toLocaleString()}</div>
+                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Subscribers</div>
+                                        <div className="text-[10px] font-bold text-slate-300 bg-white/5 px-2 py-0.5 rounded-full inline-block">
+                                            {socialMetrics.youtube.views?.toLocaleString()} Views
+                                        </div>
                                     </div>
                                 )}
                             </div>
@@ -525,32 +598,39 @@ export default function AdminPage() {
                     </Card>
 
                     {/* Trends */}
-                    <Card className="mb-8">
-                        <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                                <TrendingUp className="w-5 h-5 text-emerald-600" />
-                                Trending Keywords
+                    <Card className="mb-10 bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                        <CardHeader className="border-b border-white/5 px-8 py-6">
+                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                                    <TrendingUp className="w-4 h-4 text-emerald-400" />
+                                </div>
+                                Intelligence Vectors
                             </CardTitle>
                         </CardHeader>
-                        <CardContent>
-                            <div className="space-y-3">
+                        <CardContent className="p-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {Array.isArray(trends) && trends.map((trend: any, index: number) => (
-                                    <div key={index} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                                    <div key={index} className="flex items-center justify-between p-5 bg-white/[0.03] border border-white/5 rounded-2xl hover:border-indigo-500/30 transition-all group">
                                         <div className="flex-1">
-                                            <div className="font-semibold text-slate-900">{trend.keyword}</div>
-                                            <div className="text-xs text-slate-500">Volume: {trend.volume?.toLocaleString()}</div>
+                                            <div className="font-bold text-white mb-1 group-hover:text-indigo-400 transition-colors">{trend.keyword}</div>
+                                            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Velocity: {trend.volume?.toLocaleString()}</div>
                                         </div>
                                         <div className="flex items-center gap-3">
-                                            <div className={`text-sm font-semibold ${
-                                                trend.trend === 'up' ? 'text-emerald-600' : 'text-rose-600'
+                                            <div className={`text-sm font-bold tabular-nums ${
+                                                trend.trend === 'up' ? 'text-emerald-400' : 'text-rose-400'
                                             }`}>
                                                 {trend.trend === 'up' ? '+' : ''}{trend.change}%
                                             </div>
-                                            {trend.trend === 'up' ? (
-                                                <ArrowUpRight className="w-5 h-5 text-emerald-600" />
-                                            ) : (
-                                                <ArrowDownRight className="w-5 h-5 text-rose-600" />
-                                            )}
+                                            <div className={cn(
+                                                "w-8 h-8 rounded-lg flex items-center justify-center",
+                                                trend.trend === 'up' ? 'bg-emerald-500/10' : 'bg-rose-500/10'
+                                            )}>
+                                                {trend.trend === 'up' ? (
+                                                    <ArrowUpRight className="w-4 h-4 text-emerald-400" />
+                                                ) : (
+                                                    <ArrowDownRight className="w-4 h-4 text-rose-400" />
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 ))}
@@ -563,73 +643,85 @@ export default function AdminPage() {
                         {/* Overview Tab - Key Metrics */}
                         {activeTab === 'overview' && (
                             <div className="space-y-6">
-                                {/* Content Overview */}
-                                <Card>
-                                    <CardHeader>
-                                        <CardTitle>Content Overview</CardTitle>
+                                {/* Content Snapshot */}
+                                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                                    <CardHeader className="border-b border-white/5 px-8 py-5">
+                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Content Snapshot</CardTitle>
                                     </CardHeader>
-                                    <CardContent>
-                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                            <div className="text-center p-4 bg-blue-50 rounded-lg">
-                                                <div className="text-2xl font-bold text-blue-600">{articles.length}</div>
-                                                <div className="text-sm text-slate-600">Total Articles</div>
-                                                <div className="text-xs text-slate-500 mt-1">
-                                                    {Array.isArray(articles) ? articles.filter((a: any) => a.status === 'published').length : 0} published
+                                    <CardContent className="p-8">
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 text-center">
+                                                <div className="text-3xl font-extrabold text-white mb-1">{statsData?.total_articles ?? 0}</div>
+                                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Grand Total</div>
+                                                <div className="mt-3 text-[10px] font-bold text-indigo-400">
+                                                    {statsData?.published_articles ?? 0} Published
                                                 </div>
                                             </div>
-                                            <div className="text-center p-4 bg-purple-50 rounded-lg">
-                                                <div className="text-2xl font-bold text-purple-600">{totalViews.toLocaleString()}</div>
-                                                <div className="text-sm text-slate-600">Total Views</div>
-                                                <div className="text-xs text-slate-500 mt-1">All time</div>
+                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 text-center">
+                                                <div className="text-3xl font-extrabold text-white mb-1">{Number(totalViews ?? 0).toLocaleString()}</div>
+                                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Total Impact</div>
+                                                <div className="mt-3 text-[10px] font-bold text-purple-400">
+                                                    Aggregate Views
+                                                </div>
                                             </div>
-                                            <div className="text-center p-4 bg-emerald-50 rounded-lg">
-                                                <div className="text-2xl font-bold text-emerald-600">{Array.isArray(articles) ? articles.filter((a: any) => a.ai_generated).length : 0}</div>
-                                                <div className="text-sm text-slate-600">AI Generated</div>
-                                                <div className="text-xs text-slate-500 mt-1">Articles</div>
+                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 text-center">
+                                                <div className="text-3xl font-extrabold text-white mb-1">{statsData?.ai_generated_articles ?? 0}</div>
+                                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">AI Synthesis</div>
+                                                <div className="mt-3 text-[10px] font-bold text-emerald-400">
+                                                    Automated Drafts
+                                                </div>
                                             </div>
-                                            <div className="text-center p-4 bg-amber-50 rounded-lg">
-                                                <div className="text-2xl font-bold text-amber-600">{pendingArticlesCount}</div>
-                                                <div className="text-sm text-slate-600">Pending</div>
-                                                <div className="text-xs text-slate-500 mt-1">Submissions</div>
+                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 text-center">
+                                                <div className="text-3xl font-extrabold text-amber-500 mb-1">{pendingArticlesCount ?? 0}</div>
+                                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Moderation</div>
+                                                <div className="mt-3 text-[10px] font-bold text-amber-500/80">
+                                                    Pending Review
+                                                </div>
                                             </div>
                                         </div>
                                     </CardContent>
                                 </Card>
 
-                                {/* Platform Performance */}
-                                <Card>
-                                    <CardHeader>
-                                        <CardTitle>Platform Performance</CardTitle>
+                                {/* System Performance Indicators */}
+                                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                                    <CardHeader className="border-b border-white/5 px-8 py-5">
+                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">System Performance Indicators</CardTitle>
                                     </CardHeader>
-                                    <CardContent>
-                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                            <div className="p-4 bg-slate-50 rounded-lg">
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <span className="text-sm font-semibold text-slate-700">Articles Published</span>
-                                                    <FileText className="w-4 h-4 text-slate-500" />
+                                    <CardContent className="p-8">
+                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 group hover:border-indigo-500/30 transition-all">
+                                                <div className="flex items-center justify-between mb-4">
+                                                    <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Publication Rate</span>
+                                                    <div className="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center">
+                                                        <FileText className="w-4 h-4 text-indigo-400" />
+                                                    </div>
                                                 </div>
-                                                <div className="text-2xl font-bold text-slate-900">
-                                                    {Array.isArray(articles) ? articles.filter((a: any) => a.status === 'published').length : 0}
+                                                <div className="text-2xl font-extrabold text-white mb-1">
+                                                    {statsData?.articles_this_month ?? 0}
                                                 </div>
-                                                <div className="text-xs text-slate-500 mt-1">This month</div>
+                                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Articles this cycle</div>
                                             </div>
-                                            <div className="p-4 bg-slate-50 rounded-lg">
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <span className="text-sm font-semibold text-slate-700">Reviews Received</span>
-                                                    <Star className="w-4 h-4 text-slate-500" />
+                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 group hover:border-emerald-500/30 transition-all">
+                                                <div className="flex items-center justify-between mb-4">
+                                                    <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Sentiment Stream</span>
+                                                    <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                                                        <Star className="w-4 h-4 text-emerald-400" />
+                                                    </div>
                                                 </div>
-                                                <div className="text-2xl font-bold text-slate-900">{reviews.length}</div>
-                                                <div className="text-xs text-slate-500 mt-1">
-                                                    {pendingReviewsCount} pending approval
+                                                <div className="text-2xl font-extrabold text-white mb-1">{reviews?.length ?? 0}</div>
+                                                <div className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">
+                                                    {pendingReviewsCount ?? 0} Pending Node Analysis
                                                 </div>
                                             </div>
-                                            <div className="p-4 bg-slate-50 rounded-lg">
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <span className="text-sm font-semibold text-slate-700">Affiliate Clicks</span>
-                                                    <MousePointerClick className="w-4 h-4 text-slate-500" />
+                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 group hover:border-purple-500/30 transition-all">
+                                                <div className="flex items-center justify-between mb-4">
+                                                    <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Monetization Velocity</span>
+                                                    <div className="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                                                        <MousePointerClick className="w-4 h-4 text-purple-400" />
+                                                    </div>
                                                 </div>
-                                                <div className="text-2xl font-bold text-slate-900">{totalClicks.toLocaleString()}</div>
-                                                <div className="text-xs text-slate-500 mt-1">{conversionRate}% conversion rate</div>
+                                                <div className="text-2xl font-extrabold text-white mb-1">{(totalClicks ?? 0).toLocaleString()}</div>
+                                                <div className="text-[10px] font-bold text-purple-400 uppercase tracking-widest">{conversionRate ?? 0}% Conversion Efficiency</div>
                                             </div>
                                         </div>
                                     </CardContent>
@@ -646,92 +738,105 @@ export default function AdminPage() {
                         {activeTab === 'content' && (
                             <div className="space-y-6">
                                 {/* Content Statistics */}
-                                <Card>
-                                    <CardHeader>
-                                        <CardTitle>Content Statistics</CardTitle>
+                                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                                    <CardHeader className="border-b border-white/5 px-8 py-5">
+                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 font-bold uppercase tracking-widest text-slate-400">Content Statistics</CardTitle>
                                     </CardHeader>
-                                    <CardContent>
-                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                                            <div className="text-center p-6 bg-blue-50 rounded-lg">
-                                                <div className="text-3xl font-bold text-blue-600 mb-2">
-                                                    {Array.isArray(articles) ? articles.filter((a: any) => a.status === 'published').length : 0}
+                                    <CardContent className="p-8">
+                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                                            <div className="text-center p-6 bg-white/[0.03] rounded-2xl border border-white/5">
+                                                <div className="text-3xl font-extrabold text-blue-400 mb-2 tabular-nums">
+                                                    {statsData.published_articles}
                                                 </div>
-                                                <div className="text-sm font-semibold text-slate-700 mb-1">Published Articles</div>
-                                                <div className="text-xs text-slate-500">
-                                                    {Array.isArray(articles) ? articles.filter((a: any) => a.status === 'draft').length : 0} drafts
+                                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Live Articles</div>
+                                                <div className="text-[10px] text-slate-500 italic">
+                                                    {statsData.draft_articles} Drafts staged
                                                 </div>
                                             </div>
-                                            <div className="text-center p-6 bg-purple-50 rounded-lg">
-                                                <div className="text-3xl font-bold text-purple-600 mb-2">
-                                                    {Array.isArray(articles) ? articles.filter((a: any) => a.ai_generated).length : 0}
+                                            <div className="text-center p-6 bg-white/[0.03] rounded-2xl border border-white/5">
+                                                <div className="text-3xl font-extrabold text-purple-400 mb-2 tabular-nums">
+                                                    {statsData.ai_generated_articles || 0}
                                                 </div>
-                                                <div className="text-sm font-semibold text-slate-700 mb-1">AI Generated</div>
-                                                <div className="text-xs text-slate-500">Articles created with AI</div>
+                                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">AI Synthesis</div>
+                                                <div className="text-[10px] text-slate-500 italic">Synthetic Content Yield</div>
                                             </div>
-                                            <div className="text-center p-6 bg-emerald-50 rounded-lg">
-                                                <div className="text-3xl font-bold text-emerald-600 mb-2">
-                                                    {Array.isArray(articles) ? articles.reduce((sum: number, a: any) => sum + (a.views || 0), 0).toLocaleString() : 0}
+                                            <div className="text-center p-6 bg-white/[0.03] rounded-2xl border border-white/5">
+                                                <div className="text-3xl font-extrabold text-emerald-400 mb-2 tabular-nums">
+                                                    {Number(statsData.total_views).toLocaleString()}
                                                 </div>
-                                                <div className="text-sm font-semibold text-slate-700 mb-1">Total Views</div>
-                                                <div className="text-xs text-slate-500">Across all articles</div>
+                                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Global Views</div>
+                                                <div className="text-[10px] text-slate-500 italic">Aggregate Impression Feed</div>
                                             </div>
                                         </div>
 
                                         {/* Articles by Category */}
-                                        <div className="mt-6">
-                                            <h4 className="text-sm font-semibold text-slate-700 mb-3">Articles by Category</h4>
-                                            <div className="space-y-2">
-                                                {['mutual-funds', 'stocks', 'insurance', 'loans', 'credit-cards', 'tax-planning', 'retirement', 'investing-basics'].map((cat) => {
-                                                    const count = Array.isArray(articles) ? articles.filter((a: any) => a.category === cat).length : 0;
-                                                    if (count === 0) return null;
-                                                    return (
-                                                        <div key={cat} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                                                            <span className="text-sm text-slate-700 capitalize">{cat.replace(/-/g, ' ')}</span>
-                                                            <Badge variant="outline" className="font-semibold">{count}</Badge>
+                                        <div className="mt-8">
+                                            <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">Distribution by Category</h4>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                                {statsData.category_stats && Array.isArray(statsData.category_stats) && statsData.category_stats.length > 0 ? (
+                                                    statsData.category_stats.map((cat: any) => (
+                                                        <div key={cat.category} className="flex items-center justify-between p-3.5 bg-white/[0.02] border border-white/5 rounded-xl">
+                                                            <div className="flex items-center gap-3">
+                                                                <div className="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.5)]"></div>
+                                                                <span className="capitalize text-sm font-medium text-slate-300">{cat.category?.replace(/-/g, ' ')}</span>
+                                                            </div>
+                                                            <span className="text-sm font-bold text-white tabular-nums">{cat.count}</span>
                                                         </div>
-                                                    );
-                                                })}
+                                                    ))
+                                                ) : (
+                                                    <p className="text-sm text-slate-500 italic">Categorization feed empty...</p>
+                                                )}
                                             </div>
                                         </div>
                                     </CardContent>
                                 </Card>
 
                                 {/* Recent Articles - View Only */}
-                                <Card>
-                                    <CardHeader>
-                                        <CardTitle>Recent Articles</CardTitle>
+                                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                                    <CardHeader className="border-b border-white/5 px-8 py-5">
+                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Ledger of Recent Assets</CardTitle>
                                     </CardHeader>
-                                    <CardContent>
-                                        <div className="space-y-2">
-                                            {articles.slice(0, 10).map((article: any) => (
+                                    <CardContent className="p-8">
+                                        <div className="space-y-3">
+                                            {recentArticles.map((article: any) => (
                                                 <div
                                                     key={article.id}
-                                                    className="flex items-center justify-between p-4 bg-slate-50 border border-transparent hover:border-slate-200 rounded-xl transition-all"
+                                                    className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/5 hover:border-indigo-500/30 rounded-2xl transition-all group"
                                                 >
-                                                    <div className="flex-1">
-                                                        <div className="flex items-center gap-2 mb-1">
-                                                            <h4 className="font-semibold text-slate-900">{article.title}</h4>
+                                                    <div className="flex-1 min-w-0">
+                                                        <div className="flex items-center gap-3 mb-1.5">
+                                                            <h4 className="font-bold text-white tracking-tight truncate group-hover:text-indigo-400 transition-colors">{article.title}</h4>
                                                             {article.ai_generated && (
-                                                                <Badge className="bg-purple-100 text-purple-700 border-0 text-[10px]">
+                                                                <Badge className="bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-[9px] font-bold uppercase tracking-wider px-2">
                                                                     <Sparkles className="w-3 h-3 mr-1" />
                                                                     AI
                                                                 </Badge>
                                                             )}
                                                         </div>
-                                                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
-                                                            <span className="capitalize">{article.category?.replace(/-/g, ' ')}</span>
-                                                            <span className="flex items-center gap-1">
-                                                                <Eye className="w-3 h-3" />
-                                                                {article.views || 0} views
+                                                        <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-[11px] font-bold text-slate-500 uppercase tracking-widest">
+                                                            <span className="text-slate-400">{article.category?.replace(/-/g, ' ')}</span>
+                                                            <span className="flex items-center gap-1.5">
+                                                                <Eye className="w-3.5 h-3.5" />
+                                                                {article.views || 0}
                                                             </span>
-                                                            <Badge className={`text-[10px] border-0 ${article.status === 'published' ? 'bg-emerald-100 text-emerald-700' :
-                                                                article.status === 'draft' ? 'bg-amber-100 text-amber-700' :
-                                                                    'bg-slate-200 text-slate-700'
-                                                                }`}>
+                                                            <div className={cn(
+                                                                "flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px]",
+                                                                article.status === 'published' ? 'bg-emerald-500/10 text-emerald-400' :
+                                                                article.status === 'draft' ? 'bg-amber-500/10 text-amber-400' :
+                                                                'bg-slate-500/10 text-slate-400'
+                                                            )}>
+                                                                <div className={cn("w-1 h-1 rounded-full",
+                                                                    article.status === 'published' ? 'bg-emerald-400' :
+                                                                    article.status === 'draft' ? 'bg-amber-400' :
+                                                                    'bg-slate-400'
+                                                                )} />
                                                                 {article.status}
-                                                            </Badge>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <Button variant="ghost" size="icon" className="text-slate-500 hover:text-white hover:bg-white/5 ml-4">
+                                                        <ArrowUpRight className="w-5 h-5" />
+                                                    </Button>
                                                 </div>
                                             ))}
                                         </div>
@@ -748,140 +853,150 @@ export default function AdminPage() {
                         {/* Social Media Analytics */}
                         {activeTab === 'social' && (
                             <div className="space-y-6">
-                                <Card>
-                                    <CardHeader>
-                                        <CardTitle className="flex items-center gap-2">
-                                            <Share2 className="w-5 h-5 text-blue-600" />
-                                            Connected Social Accounts
+                                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                                    <CardHeader className="border-b border-white/5 px-8 py-6">
+                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                            <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                                                <Share2 className="w-4 h-4 text-blue-400" />
+                                            </div>
+                                            Asset Distribution Channels
                                         </CardTitle>
-                                        <p className="text-sm text-slate-600 mt-2">
-                                            Manage your social media account connections and API keys
+                                        <p className="text-[11px] font-bold text-slate-500 uppercase tracking-[0.2em] mt-3">
+                                            Interface nodes for omnichannel data propagation
                                         </p>
                                     </CardHeader>
-                                    <CardContent>
+                                    <CardContent className="p-8">
                                         <div className="space-y-4">
                                             {/* Facebook */}
-                                            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border">
-                                                <div className="flex items-center gap-4">
-                                                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                                                        <Facebook className="w-6 h-6 text-blue-600" />
+                                            <div className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-blue-500/30 transition-all group">
+                                                <div className="flex items-center gap-5">
+                                                    <div className="w-14 h-14 bg-blue-500/10 rounded-xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                                        <Facebook className="w-6 h-6 text-blue-400" />
                                                     </div>
                                                     <div>
-                                                        <h4 className="font-semibold text-slate-900">Facebook</h4>
-                                                        <p className="text-sm text-slate-600">
-                                                            {socialMetrics.facebook ? 'Connected' : 'Not connected'}
+                                                        <h4 className="font-bold text-white tracking-tight">Facebook Interface</h4>
+                                                        <p className={cn(
+                                                            "text-[10px] font-bold uppercase tracking-widest mt-1",
+                                                            socialMetrics.facebook ? 'text-emerald-400' : 'text-rose-400'
+                                                        )}>
+                                                            {socialMetrics.facebook ? 'Node Active / Syncing' : 'Link Offline'}
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <Button size="sm" variant={socialMetrics.facebook ? "outline" : "default"}>
-                                                    {socialMetrics.facebook ? 'Disconnect' : 'Connect'}
+                                                <Button size="sm" variant="ghost" className={cn(
+                                                    "h-10 px-6 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all",
+                                                    socialMetrics.facebook ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-blue-500 text-white hover:bg-blue-600 shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+                                                )}>
+                                                    {socialMetrics.facebook ? 'Terminate' : 'Initialize'}
                                                 </Button>
                                             </div>
 
                                             {/* Twitter */}
-                                            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border">
-                                                <div className="flex items-center gap-4">
-                                                    <div className="w-12 h-12 bg-sky-100 rounded-lg flex items-center justify-center">
-                                                        <Twitter className="w-6 h-6 text-sky-600" />
+                                            <div className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-sky-500/30 transition-all group">
+                                                <div className="flex items-center gap-5">
+                                                    <div className="w-14 h-14 bg-sky-500/10 rounded-xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                                        <Twitter className="w-6 h-6 text-sky-400" />
                                                     </div>
                                                     <div>
-                                                        <h4 className="font-semibold text-slate-900">Twitter</h4>
-                                                        <p className="text-sm text-slate-600">
-                                                            {socialMetrics.twitter ? 'Connected' : 'Not connected'}
+                                                        <h4 className="font-bold text-white tracking-tight">Twitter Stream</h4>
+                                                        <p className={cn(
+                                                            "text-[10px] font-bold uppercase tracking-widest mt-1",
+                                                            socialMetrics.twitter ? 'text-emerald-400' : 'text-rose-400'
+                                                        )}>
+                                                            {socialMetrics.twitter ? 'Node Active / Syncing' : 'Link Offline'}
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <Button size="sm" variant={socialMetrics.twitter ? "outline" : "default"}>
-                                                    {socialMetrics.twitter ? 'Disconnect' : 'Connect'}
+                                                <Button size="sm" variant="ghost" className={cn(
+                                                    "h-10 px-6 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all",
+                                                    socialMetrics.twitter ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-sky-500 text-white hover:bg-sky-600 shadow-[0_0_15px_rgba(14,165,233,0.3)]"
+                                                )}>
+                                                    {socialMetrics.twitter ? 'Terminate' : 'Initialize'}
                                                 </Button>
                                             </div>
 
                                             {/* LinkedIn */}
-                                            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border">
-                                                <div className="flex items-center gap-4">
-                                                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                                                        <Linkedin className="w-6 h-6 text-blue-700" />
+                                            <div className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-blue-700/30 transition-all group">
+                                                <div className="flex items-center gap-5">
+                                                    <div className="w-14 h-14 bg-indigo-500/10 rounded-xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                                        <Linkedin className="w-6 h-6 text-indigo-400" />
                                                     </div>
                                                     <div>
-                                                        <h4 className="font-semibold text-slate-900">LinkedIn</h4>
-                                                        <p className="text-sm text-slate-600">
-                                                            {socialMetrics.linkedin ? 'Connected' : 'Not connected'}
+                                                        <h4 className="font-bold text-white tracking-tight">LinkedIn Authority</h4>
+                                                        <p className={cn(
+                                                            "text-[10px] font-bold uppercase tracking-widest mt-1",
+                                                            socialMetrics.linkedin ? 'text-emerald-400' : 'text-rose-400'
+                                                        )}>
+                                                            {socialMetrics.linkedin ? 'Node Active / Syncing' : 'Link Offline'}
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <Button size="sm" variant={socialMetrics.linkedin ? "outline" : "default"}>
-                                                    {socialMetrics.linkedin ? 'Disconnect' : 'Connect'}
+                                                <Button size="sm" variant="ghost" className={cn(
+                                                    "h-10 px-6 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all",
+                                                    socialMetrics.linkedin ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-indigo-600 text-white hover:bg-indigo-700 shadow-[0_0_15px_rgba(79,70,229,0.3)]"
+                                                )}>
+                                                    {socialMetrics.linkedin ? 'Terminate' : 'Initialize'}
                                                 </Button>
                                             </div>
 
                                             {/* Instagram */}
-                                            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border">
-                                                <div className="flex items-center gap-4">
-                                                    <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center">
-                                                        <Instagram className="w-6 h-6 text-pink-600" />
+                                            <div className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-pink-500/30 transition-all group">
+                                                <div className="flex items-center gap-5">
+                                                    <div className="w-14 h-14 bg-pink-500/10 rounded-xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                                        <Instagram className="w-6 h-6 text-pink-400" />
                                                     </div>
                                                     <div>
-                                                        <h4 className="font-semibold text-slate-900">Instagram</h4>
-                                                        <p className="text-sm text-slate-600">
-                                                            {socialMetrics.instagram ? 'Connected' : 'Not connected'}
+                                                        <h4 className="font-bold text-white tracking-tight">Instagram Visuals</h4>
+                                                        <p className={cn(
+                                                            "text-[10px] font-bold uppercase tracking-widest mt-1",
+                                                            socialMetrics.instagram ? 'text-emerald-400' : 'text-rose-400'
+                                                        )}>
+                                                            {socialMetrics.instagram ? 'Node Active / Syncing' : 'Link Offline'}
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <Button size="sm" variant={socialMetrics.instagram ? "outline" : "default"}>
-                                                    {socialMetrics.instagram ? 'Disconnect' : 'Connect'}
-                                                </Button>
-                                            </div>
-
-                                            {/* YouTube */}
-                                            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border">
-                                                <div className="flex items-center gap-4">
-                                                    <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                                                        <Youtube className="w-6 h-6 text-red-600" />
-                                                    </div>
-                                                    <div>
-                                                        <h4 className="font-semibold text-slate-900">YouTube</h4>
-                                                        <p className="text-sm text-slate-600">
-                                                            {socialMetrics.youtube ? 'Connected' : 'Not connected'}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <Button size="sm" variant={socialMetrics.youtube ? "outline" : "default"}>
-                                                    {socialMetrics.youtube ? 'Disconnect' : 'Connect'}
+                                                <Button size="sm" variant="ghost" className={cn(
+                                                    "h-10 px-6 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all",
+                                                    socialMetrics.instagram ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-pink-600 text-white hover:bg-pink-700 shadow-[0_0_15px_rgba(219,39,119,0.3)]"
+                                                )}>
+                                                    {socialMetrics.instagram ? 'Terminate' : 'Initialize'}
                                                 </Button>
                                             </div>
                                         </div>
 
-                                        <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                                            <p className="text-sm text-blue-900">
-                                                <strong>Note:</strong> Connect your social media accounts to track metrics and automate posting. 
-                                                API keys and tokens are securely stored.
-                                            </p>
+                                        <div className="mt-8 p-6 bg-indigo-500/10 rounded-2xl border border-indigo-500/20">
+                                            <div className="flex items-start gap-4">
+                                                <Zap className="w-5 h-5 text-indigo-400 mt-0.5" />
+                                                <p className="text-[11px] font-bold text-indigo-300/80 leading-relaxed uppercase tracking-wider">
+                                                    Strategic Node Linkage: <span className="text-white">Active accounts automate content distribution logic and aggregate real-time engagement vectors.</span>
+                                                </p>
+                                            </div>
                                         </div>
                                     </CardContent>
                                 </Card>
 
-                                {socialMetrics.facebook && (
-                                        <Card>
-                                            <CardHeader>
-                                                <CardTitle className="flex items-center gap-2">
-                                                    <Facebook className="w-5 h-5 text-blue-600" />
-                                                    Facebook
+                                    {socialMetrics.facebook && (
+                                        <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                                            <CardHeader className="border-b border-white/5 px-8 py-5">
+                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                                    <Facebook className="w-4 h-4 text-blue-400" />
+                                                    Facebook Node Analysis
                                                 </CardTitle>
                                             </CardHeader>
-                                            <CardContent>
-                                                <div className="space-y-4">
+                                            <CardContent className="p-8">
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                                     <div>
-                                                        <div className="text-3xl font-bold text-slate-900">{socialMetrics.facebook.followers?.toLocaleString()}</div>
-                                                        <div className="text-sm text-slate-600">Followers</div>
+                                                        <div className="text-4xl font-extrabold text-white mb-1 tabular-nums">{socialMetrics.facebook.followers?.toLocaleString()}</div>
+                                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Aggregate Followers</div>
                                                     </div>
                                                     <div className="grid grid-cols-2 gap-4">
-                                                        <div>
-                                                            <div className="text-lg font-semibold text-slate-900">{socialMetrics.facebook.engagement}%</div>
-                                                            <div className="text-xs text-slate-600">Engagement</div>
+                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
+                                                            <div className="text-lg font-bold text-emerald-400 mb-1 tabular-nums">{socialMetrics.facebook.engagement}%</div>
+                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Velocity</div>
                                                         </div>
-                                                        <div>
-                                                            <div className="text-lg font-semibold text-slate-900">{socialMetrics.facebook.posts}</div>
-                                                            <div className="text-xs text-slate-600">Posts</div>
+                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
+                                                            <div className="text-lg font-bold text-indigo-400 mb-1 tabular-nums">{socialMetrics.facebook.posts}</div>
+                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Staged Posts</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -889,27 +1004,27 @@ export default function AdminPage() {
                                         </Card>
                                     )}
                                     {socialMetrics.twitter && (
-                                        <Card>
-                                            <CardHeader>
-                                                <CardTitle className="flex items-center gap-2">
-                                                    <Twitter className="w-5 h-5 text-sky-600" />
-                                                    Twitter
+                                        <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                                            <CardHeader className="border-b border-white/5 px-8 py-5">
+                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                                    <Twitter className="w-4 h-4 text-sky-400" />
+                                                    Twitter Stream Pulse
                                                 </CardTitle>
                                             </CardHeader>
-                                            <CardContent>
-                                                <div className="space-y-4">
+                                            <CardContent className="p-8">
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                                     <div>
-                                                        <div className="text-3xl font-bold text-slate-900">{socialMetrics.twitter.followers?.toLocaleString()}</div>
-                                                        <div className="text-sm text-slate-600">Followers</div>
+                                                        <div className="text-4xl font-extrabold text-white mb-1 tabular-nums">{socialMetrics.twitter.followers?.toLocaleString()}</div>
+                                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Global Reach</div>
                                                     </div>
                                                     <div className="grid grid-cols-2 gap-4">
-                                                        <div>
-                                                            <div className="text-lg font-semibold text-slate-900">{socialMetrics.twitter.engagement}%</div>
-                                                            <div className="text-xs text-slate-600">Engagement</div>
+                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
+                                                            <div className="text-lg font-bold text-emerald-400 mb-1 tabular-nums">{socialMetrics.twitter.engagement}%</div>
+                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Impact</div>
                                                         </div>
-                                                        <div>
-                                                            <div className="text-lg font-semibold text-slate-900">{socialMetrics.twitter.posts}</div>
-                                                            <div className="text-xs text-slate-600">Posts</div>
+                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
+                                                            <div className="text-lg font-bold text-sky-400 mb-1 tabular-nums">{socialMetrics.twitter.posts}</div>
+                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Broadcasts</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -917,27 +1032,27 @@ export default function AdminPage() {
                                         </Card>
                                     )}
                                     {socialMetrics.linkedin && (
-                                        <Card>
-                                            <CardHeader>
-                                                <CardTitle className="flex items-center gap-2">
-                                                    <Linkedin className="w-5 h-5 text-blue-700" />
-                                                    LinkedIn
+                                        <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                                            <CardHeader className="border-b border-white/5 px-8 py-5">
+                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                                    <Linkedin className="w-4 h-4 text-indigo-400" />
+                                                    LinkedIn Authority Vector
                                                 </CardTitle>
                                             </CardHeader>
-                                            <CardContent>
-                                                <div className="space-y-4">
+                                            <CardContent className="p-8">
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                                     <div>
-                                                        <div className="text-3xl font-bold text-slate-900">{socialMetrics.linkedin.followers?.toLocaleString()}</div>
-                                                        <div className="text-sm text-slate-600">Followers</div>
+                                                        <div className="text-4xl font-extrabold text-white mb-1 tabular-nums">{socialMetrics.linkedin.followers?.toLocaleString()}</div>
+                                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Professional Network</div>
                                                     </div>
                                                     <div className="grid grid-cols-2 gap-4">
-                                                        <div>
-                                                            <div className="text-lg font-semibold text-slate-900">{socialMetrics.linkedin.engagement}%</div>
-                                                            <div className="text-xs text-slate-600">Engagement</div>
+                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
+                                                            <div className="text-lg font-bold text-emerald-400 mb-1 tabular-nums">{socialMetrics.linkedin.engagement}%</div>
+                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Efficiency</div>
                                                         </div>
-                                                        <div>
-                                                            <div className="text-lg font-semibold text-slate-900">{socialMetrics.linkedin.posts}</div>
-                                                            <div className="text-xs text-slate-600">Posts</div>
+                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
+                                                            <div className="text-lg font-bold text-indigo-400 mb-1 tabular-nums">{socialMetrics.linkedin.posts}</div>
+                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Placements</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -945,27 +1060,27 @@ export default function AdminPage() {
                                         </Card>
                                     )}
                                     {socialMetrics.instagram && (
-                                        <Card>
-                                            <CardHeader>
-                                                <CardTitle className="flex items-center gap-2">
-                                                    <Instagram className="w-5 h-5 text-pink-600" />
-                                                    Instagram
+                                        <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                                            <CardHeader className="border-b border-white/5 px-8 py-5">
+                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                                    <Instagram className="w-4 h-4 text-pink-400" />
+                                                    Instagram Visual Feed
                                                 </CardTitle>
                                             </CardHeader>
-                                            <CardContent>
-                                                <div className="space-y-4">
+                                            <CardContent className="p-8">
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                                     <div>
-                                                        <div className="text-3xl font-bold text-slate-900">{socialMetrics.instagram.followers?.toLocaleString()}</div>
-                                                        <div className="text-sm text-slate-600">Followers</div>
+                                                        <div className="text-4xl font-extrabold text-white mb-1 tabular-nums">{socialMetrics.instagram.followers?.toLocaleString()}</div>
+                                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Visual Impact</div>
                                                     </div>
                                                     <div className="grid grid-cols-2 gap-4">
-                                                        <div>
-                                                            <div className="text-lg font-semibold text-slate-900">{socialMetrics.instagram.engagement}%</div>
-                                                            <div className="text-xs text-slate-600">Engagement</div>
+                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
+                                                            <div className="text-lg font-bold text-emerald-400 mb-1 tabular-nums">{socialMetrics.instagram.engagement}%</div>
+                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Resonance</div>
                                                         </div>
-                                                        <div>
-                                                            <div className="text-lg font-semibold text-slate-900">{socialMetrics.instagram.posts}</div>
-                                                            <div className="text-xs text-slate-600">Posts</div>
+                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
+                                                            <div className="text-lg font-bold text-pink-400 mb-1 tabular-nums">{socialMetrics.instagram.posts}</div>
+                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Interactions</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -973,27 +1088,27 @@ export default function AdminPage() {
                                         </Card>
                                     )}
                                     {socialMetrics.youtube && (
-                                        <Card>
-                                            <CardHeader>
-                                                <CardTitle className="flex items-center gap-2">
-                                                    <Youtube className="w-5 h-5 text-red-600" />
-                                                    YouTube
+                                        <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                                            <CardHeader className="border-b border-white/5 px-8 py-5">
+                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                                    <Youtube className="w-4 h-4 text-red-400" />
+                                                    YouTube Broadcast Stream
                                                 </CardTitle>
                                             </CardHeader>
-                                            <CardContent>
-                                                <div className="space-y-4">
+                                            <CardContent className="p-8">
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                                     <div>
-                                                        <div className="text-3xl font-bold text-slate-900">{socialMetrics.youtube.subscribers?.toLocaleString()}</div>
-                                                        <div className="text-sm text-slate-600">Subscribers</div>
+                                                        <div className="text-4xl font-extrabold text-white mb-1 tabular-nums">{socialMetrics.youtube.subscribers?.toLocaleString()}</div>
+                                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Base Subscribers</div>
                                                     </div>
                                                     <div className="grid grid-cols-2 gap-4">
-                                                        <div>
-                                                            <div className="text-lg font-semibold text-slate-900">{socialMetrics.youtube.views?.toLocaleString()}</div>
-                                                            <div className="text-xs text-slate-600">Total Views</div>
+                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
+                                                            <div className="text-lg font-bold text-emerald-400 mb-1 tabular-nums">{socialMetrics.youtube.views?.toLocaleString()}</div>
+                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Playback Yield</div>
                                                         </div>
-                                                        <div>
-                                                            <div className="text-lg font-semibold text-slate-900">{socialMetrics.youtube.videos}</div>
-                                                            <div className="text-xs text-slate-600">Videos</div>
+                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
+                                                            <div className="text-lg font-bold text-red-400 mb-1 tabular-nums">{socialMetrics.youtube.videos}</div>
+                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Video Nodes</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1005,38 +1120,43 @@ export default function AdminPage() {
 
                         {/* Trends */}
                         {activeTab === 'trends' && (
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Keyword Trends & Analytics</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="space-y-3">
-                                        {Array.isArray(trends) && trends.map((trend: any, index: number) => (
-                                            <div key={index} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border">
-                                                <div className="flex-1">
-                                                    <div className="font-semibold text-slate-900 mb-1">{trend.keyword}</div>
-                                                    <div className="text-xs text-slate-500">Search Volume: {trend.volume?.toLocaleString()}</div>
-                                                </div>
-                                                <div className="flex items-center gap-4">
-                                                    <div className="text-right">
-                                                        <div className={`text-lg font-bold ${
-                                                            trend.trend === 'up' ? 'text-emerald-600' : 'text-rose-600'
-                                                        }`}>
-                                                            {trend.trend === 'up' ? '+' : ''}{trend.change}%
-                                                        </div>
-                                                        <div className="text-xs text-slate-500">Change</div>
+                                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                                    <CardHeader className="border-b border-white/5 px-8 py-6">
+                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Keyword Analytics Ledger</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="p-8">
+                                        <div className="space-y-4">
+                                            {Array.isArray(trends) && trends.map((trend: any, index: number) => (
+                                                <div key={index} className="flex items-center justify-between p-6 bg-white/[0.02] border border-white/5 hover:border-indigo-500/30 rounded-2xl transition-all group">
+                                                    <div className="flex-1">
+                                                        <div className="font-bold text-white text-lg tracking-tight mb-1 group-hover:text-indigo-400 transition-colors">{trend.keyword}</div>
+                                                        <div className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Global Search Intensity: {trend.volume?.toLocaleString()}</div>
                                                     </div>
-                                                    {trend.trend === 'up' ? (
-                                                        <ArrowUpRight className="w-6 h-6 text-emerald-600" />
-                                                    ) : (
-                                                        <ArrowDownRight className="w-6 h-6 text-rose-600" />
-                                                    )}
+                                                    <div className="flex items-center gap-8">
+                                                        <div className="text-right">
+                                                            <div className={`text-xl font-extrabold tabular-nums ${
+                                                                trend.trend === 'up' ? 'text-emerald-400' : 'text-rose-400'
+                                                            }`}>
+                                                                {trend.trend === 'up' ? '+' : ''}{trend.change}%
+                                                            </div>
+                                                            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Momentum</div>
+                                                        </div>
+                                                        <div className={cn(
+                                                            "w-12 h-12 rounded-xl flex items-center justify-center shadow-lg transition-transform group-hover:scale-110",
+                                                            trend.trend === 'up' ? 'bg-emerald-500/10' : 'bg-rose-500/10'
+                                                        )}>
+                                                            {trend.trend === 'up' ? (
+                                                                <ArrowUpRight className="w-6 h-6 text-emerald-400" />
+                                                            ) : (
+                                                                <ArrowDownRight className="w-6 h-6 text-rose-400" />
+                                                            )}
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </CardContent>
-                            </Card>
+                                            ))}
+                                        </div>
+                                    </CardContent>
+                                </Card>
                         )}
                     </div>
                 </div>

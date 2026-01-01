@@ -1,26 +1,28 @@
+/**
+ * WordPress-style Article Edit Page
+ * 
+ * GUARANTEES:
+ * - Editor loads ONLY after content is fetched
+ * - Save does NOT change status
+ * - Publish is atomic operation
+ * - UI updates optimistically
+ */
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useRouter, useParams } from 'next/navigation';
+import { useRouter, useParams, useSearchParams } from 'next/navigation';
 import AdminLayout from '@/components/admin/AdminLayout';
 import ArticleInspector from '@/components/admin/ArticleInspector';
-import TipTapEditorWithMedia from '@/components/admin/TipTapEditorWithMedia';
+import ArticleEditor from '@/components/admin/ArticleEditor';
 import { Input } from '@/components/ui/input';
-import { api } from '@/lib/api';
+import { articleService, type ArticleData } from '@/lib/cms/article-service';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Save, Loader2, FileText } from 'lucide-react';
-import { logger } from '@/lib/logger';
+import { Loader2, CheckCheck } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
 import { toast } from 'sonner';
+import { Badge } from '@/components/ui/badge';
 
-/**
- * Edit Article Page - Editor-first CMS experience
- * 
- * Layout:
- * - Full-height editor canvas
- * - Title input (separate from editor)
- * - TipTap rich text editor
- * - Inspector panel on the right
- */
 export default function EditArticlePage() {
     const router = useRouter();
     const params = useParams();
@@ -28,47 +30,232 @@ export default function EditArticlePage() {
     const id = params?.id as string;
 
     const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
     const [excerpt, setExcerpt] = useState('');
+    const [editorContent, setEditorContent] = useState<{ markdown: string; html: string } | null>(null);
     const [saving, setSaving] = useState(false);
     const [lastSaved, setLastSaved] = useState<Date | null>(null);
+    const [isProofreading, setIsProofreading] = useState(false);
+    const [editorKey, setEditorKey] = useState(0);
 
-    // Fetch existing article
-    const { data: article, isLoading } = useQuery({
+    const handleProofread = async () => {
+        if (!editorContent?.markdown) return;
+        
+        if (!confirm("This will replace current content with AI-polished version. Continue?")) return;
+
+        setIsProofreading(true);
+        try {
+            const res = await fetch('/api/admin/editor-tools', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    action: 'proofread',
+                    content: editorContent.markdown 
+                })
+            });
+            const json = await res.json();
+            if (!res.ok) throw new Error(json.error);
+            
+            // Update editor content
+            // We force remount to apply new content
+            const newContent = json.polished_content;
+            
+            // Update article query data locally to reflect change
+            queryClient.setQueryData(['article', id], (old: any) => ({
+                ...old,
+                body_markdown: newContent,
+                content: newContent
+            }));
+            
+            setEditorKey(prev => prev + 1);
+            toast.success("Content Proofread & Polished!");
+        } catch (e: any) {
+            toast.error("Proofreading failed: " + e.message);
+        } finally {
+            setIsProofreading(false);
+        }
+    };
+
+    // CRITICAL: Fetch article BEFORE editor mounts
+    const { data: article, isLoading, error } = useQuery({
         queryKey: ['article', id],
         queryFn: async () => {
-            const articles = await api.entities.Article.filter({ id });
-            if (articles.length === 0) {
+            const articleData = await articleService.getById(id);
+            if (!articleData) {
                 throw new Error('Article not found');
             }
-            return articles[0];
+            return articleData;
         },
         enabled: !!id,
+        retry: 1,
     });
 
-    // Initialize form with fetched data
+    // Initialize form when article loads
     useEffect(() => {
         if (article) {
             setTitle(article.title || '');
-            setContent(article.content || '');
             setExcerpt(article.excerpt || '');
+            // Editor will load content via initialContent prop
         }
     }, [article]);
 
-    const updateMutation = useMutation({
-        mutationFn: (data: any) => api.entities.Article.update(id, data),
-        onSuccess: () => {
+    // Save mutation (does NOT change status)
+    const saveMutation = useMutation({
+        mutationFn: async (metadata: Partial<ArticleData>) => {
+            if (!editorContent) {
+                throw new Error('No content to save');
+            }
+            
+            return await articleService.saveArticle(
+                id,
+                {
+                    body_markdown: editorContent.markdown,
+                    body_html: editorContent.html,
+                    content: editorContent.markdown, // Legacy
+                },
+                {
+                    title,
+                    slug: article?.slug || '',
+                    excerpt,
+                    ...metadata,
+                }
+            );
+        },
+        onMutate: async () => {
+            // Optimistic update
+            await queryClient.cancelQueries({ queryKey: ['article', id] });
+            await queryClient.cancelQueries({ queryKey: ['articles', 'admin'] });
+            
+            const previousArticle = queryClient.getQueryData(['article', id]);
+            const previousArticles = queryClient.getQueryData(['articles', 'admin']);
+            
+            return { previousArticle, previousArticles };
+        },
+        onSuccess: async (result) => {
             setSaving(false);
             setLastSaved(new Date());
-            queryClient.invalidateQueries({ queryKey: ['article', id] });
-            queryClient.invalidateQueries({ queryKey: ['articles'] });
+            
+            // Update local state with server response
+            if (article) {
+                // Refresh article data
+                await queryClient.invalidateQueries({ queryKey: ['article', id] });
+            }
+            
+            // Invalidate and refetch
+            await Promise.all([
+                queryClient.invalidateQueries({ queryKey: ['article', id] }),
+                queryClient.invalidateQueries({ queryKey: ['articles', 'admin'] }),
+            ]);
+            
+            router.refresh();
             toast.success('Article saved successfully');
         },
-        onError: (error: unknown) => {
+        onError: (error, variables, context) => {
+            // Rollback
+            if (context?.previousArticle) {
+                queryClient.setQueryData(['article', id], context.previousArticle);
+            }
+            if (context?.previousArticles) {
+                queryClient.setQueryData(['articles', 'admin'], context.previousArticles);
+            }
+            
             setSaving(false);
-            const errorMessage = error instanceof Error ? error.message : 'Failed to update article';
-            logger.error('Failed to update article', error instanceof Error ? error : new Error(String(error)));
-            toast.error('Failed to save article. Please try again.');
+            toast.error(error instanceof Error ? error.message : 'Failed to save article');
+        },
+    });
+
+    // Publish mutation (atomic operation)
+    const publishMutation = useMutation({
+        mutationFn: async (metadata: Partial<ArticleData>) => {
+            if (!editorContent) {
+                throw new Error('No content to publish');
+            }
+            
+            return await articleService.publishArticle(
+                id,
+                {
+                    body_markdown: editorContent.markdown,
+                    body_html: editorContent.html,
+                    content: editorContent.markdown,
+                },
+                {
+                    title,
+                    slug: article?.slug || '',
+                    excerpt,
+                    ...metadata,
+                }
+            );
+        },
+        onMutate: async () => {
+            // Optimistic update
+            await queryClient.cancelQueries({ queryKey: ['article', id] });
+            await queryClient.cancelQueries({ queryKey: ['articles', 'admin'] });
+            await queryClient.cancelQueries({ queryKey: ['articles', 'public'] });
+            
+            const previousArticle = queryClient.getQueryData(['article', id]);
+            const previousArticles = queryClient.getQueryData(['articles', 'admin']);
+            
+            // Optimistically update to published
+            if (previousArticle) {
+                queryClient.setQueryData(['article', id], {
+                    ...previousArticle,
+                    status: 'published',
+                    published_at: new Date().toISOString(),
+                });
+            }
+            
+            return { previousArticle, previousArticles };
+        },
+        onSuccess: async (result) => {
+            setSaving(false);
+            setLastSaved(new Date());
+            
+            // CRITICAL: Revalidate public routes
+            try {
+                await fetch('/api/revalidate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        paths: [
+                            `/articles/${result.slug}`,
+                            `/article/${result.slug}`,
+                            `/category/${article?.category || 'investing-basics'}`,
+                            `/articles`,
+                            `/`,
+                        ],
+                        tags: [
+                            `article-${result.id}`,
+                            `article-${result.slug}`,
+                            `blog-articles`,
+                            `homepage-content`,
+                        ],
+                    }),
+                });
+            } catch (revalidateError) {
+                console.error('Revalidation failed:', revalidateError);
+            }
+            
+            // Invalidate all queries
+            await Promise.all([
+                queryClient.invalidateQueries({ queryKey: ['article', id] }),
+                queryClient.invalidateQueries({ queryKey: ['articles', 'admin'] }),
+                queryClient.invalidateQueries({ queryKey: ['articles', 'public'] }),
+                queryClient.invalidateQueries({ queryKey: ['articles', 'category'] }),
+            ]);
+            
+            router.refresh();
+            toast.success(`Article published! Available at /articles/${result.slug}`);
+        },
+        onError: (error, variables, context) => {
+            // Rollback
+            if (context?.previousArticle) {
+                queryClient.setQueryData(['article', id], context.previousArticle);
+            }
+            if (context?.previousArticles) {
+                queryClient.setQueryData(['articles', 'admin'], context.previousArticles);
+            }
+            
+            setSaving(false);
+            toast.error(error instanceof Error ? error.message : 'Failed to publish article');
         },
     });
 
@@ -78,148 +265,155 @@ export default function EditArticlePage() {
             return;
         }
 
-        setSaving(true);
-        try {
-            const slug = title
-                .toLowerCase()
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/^-|-$/g, '');
-
-            await updateMutation.mutateAsync({
-                title,
-                slug,
-                content,
-                excerpt,
-                status: metadata.status || article?.status || 'draft',
-                seo_title: metadata.seo_title || title,
-                meta_description: metadata.meta_description || excerpt,
-                keywords: metadata.keywords || article?.keywords || [],
-                category: metadata.category || article?.category || 'investing-basics',
-                tags: metadata.tags || article?.tags || [],
-                featured_image: metadata.featured_image || article?.featured_image || null,
-            });
-        } catch (error) {
-            // Error handling is done in mutation onError
+        if (!editorContent) {
+            toast.error('No content to save');
+            return;
         }
+
+        setSaving(true);
+        await saveMutation.mutateAsync(metadata);
     };
 
-    const handlePublish = async (metadata: any) => {
-        await handleSave({ ...metadata, status: 'published' });
+    const handlePublish = async (metadata: any = {}) => {
+        if (!title.trim()) {
+            toast.error('Please enter a title');
+            return;
+        }
+
+        if (!editorContent) {
+            toast.error('No content to publish');
+            return;
+        }
+
+        setSaving(true);
+        // Ensure metadata is an object if called without args
+        const meta = typeof metadata === 'object' ? metadata : {};
+        await publishMutation.mutateAsync(meta);
     };
 
     const handlePreview = () => {
-        if (article?.slug) {
-            window.open(`/articles/${article.slug}`, '_blank');
+        if (!article?.slug) {
+            toast.error('Please save the article first to generate a slug');
+            return;
         }
+        // Preview uses same route with preview token
+        window.open(`/articles/${article.slug}?preview=true`, '_blank');
     };
 
+    // CRITICAL: Don't render editor until article is loaded
     if (isLoading) {
         return (
             <AdminLayout>
-                <div className="h-full flex items-center justify-center bg-slate-50">
-                    <div className="text-center">
-                        <Loader2 className="w-8 h-8 animate-spin mx-auto text-slate-400 mb-4" />
-                        <p className="text-slate-600">Loading article...</p>
-                    </div>
+                <div className="flex items-center justify-center min-h-screen">
+                    <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
                 </div>
             </AdminLayout>
         );
     }
 
-    if (!article) {
+    if (error || !article) {
         return (
             <AdminLayout>
-                <div className="h-full flex items-center justify-center bg-slate-50">
-                    <div className="text-center">
-                        <FileText className="w-12 h-12 text-slate-400 mx-auto mb-4" />
-                        <p className="text-slate-600">Article not found</p>
-                        <button
-                            onClick={() => router.push('/admin/articles')}
-                            className="mt-4 text-blue-600 hover:underline"
-                        >
-                            Back to Articles
-                        </button>
-                    </div>
+                <div className="flex flex-col items-center justify-center min-h-screen">
+                    <h1 className="text-2xl font-bold text-slate-900 mb-4">Article Not Found</h1>
+                    <p className="text-slate-600 mb-6">The article you're looking for doesn't exist.</p>
+                    <button
+                        onClick={() => router.push('/admin/articles')}
+                        className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700"
+                    >
+                        Back to Articles
+                    </button>
                 </div>
             </AdminLayout>
         );
     }
 
     return (
-        <AdminLayout>
-            <div className="h-full flex flex-col bg-white">
-                {/* Header */}
-                <div className="border-b border-slate-200 px-6 py-4 bg-white flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <button
-                            onClick={() => router.push('/admin/articles')}
-                            className="text-slate-600 hover:text-slate-900"
-                        >
-                            ← Back
-                        </button>
-                        <div>
-                            <h1 className="text-lg font-semibold text-slate-900">Edit Article</h1>
-                            {lastSaved && (
-                                <p className="text-xs text-slate-500">
-                                    Saved {lastSaved.toLocaleTimeString()}
-                                </p>
-                            )}
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <button
-                            onClick={() => handleSave({})}
-                            disabled={saving}
-                            className="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 disabled:opacity-50"
-                        >
-                            {saving ? (
-                                <>
-                                    <Loader2 className="w-4 h-4 inline-block animate-spin mr-2" />
-                                    Saving...
-                                </>
-                            ) : (
-                                <>
-                                    <Save className="w-4 h-4 inline-block mr-2" />
-                                    Save
-                                </>
-                            )}
-                        </button>
-                    </div>
-                </div>
-
-                {/* Main Content Area */}
-                <div className="flex-1 flex overflow-hidden">
-                    {/* Editor Canvas */}
-                    <div className="flex-1 flex flex-col min-h-0 border-r border-slate-200">
-                        {/* Title Input */}
-                        <div className="border-b border-slate-200 p-6 bg-slate-50">
+        <AdminLayout
+            showInspector={true}
+            inspectorContent={
+                <ArticleInspector
+                    article={{
+                        ...article,
+                        title,
+                        excerpt,
+                        category: (article.category as any) || 'investing-basics',
+                        language: (article.language as any) || 'en',
+                        body_markdown: editorContent?.markdown || article.body_markdown,
+                        body_html: editorContent?.html || article.body_html,
+                        content: editorContent?.markdown || article.content,
+                    }}
+                    onSave={handleSave}
+                    onPublish={handlePublish}
+                    onPreview={handlePreview}
+                    saving={saving}
+                />
+            }
+        >
+            <div className="flex flex-col h-screen bg-white">
+                {/* WordPress-style Header */}
+                <div className="border-b border-slate-200 bg-white px-8 py-4">
+                    <div className="flex items-center justify-between mb-2">
+                        <div className="flex-1">
                             <Input
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
-                                placeholder="Article Title"
-                                className="text-2xl font-bold border-0 bg-transparent px-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                                placeholder="Add title..."
+                                className="text-3xl font-bold border-0 bg-transparent px-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-auto py-2"
                             />
                         </div>
+                        <div className="flex items-center gap-3">
+                            <Button 
+                                variant="outline" 
+                                size="sm" 
+                                onClick={handleProofread}
+                                disabled={isProofreading || saving}
+                                className="h-8"
+                            >
+                                {isProofreading ? <Loader2 className="w-3 h-3 animate-spin mr-1"/> : <CheckCheck className="w-3 h-3 mr-1"/>}
+                                Proofread
+                            </Button>
 
-                        {/* Editor Canvas */}
-                        <div className="flex-1 min-h-0 p-6 overflow-y-auto">
-                            <TipTapEditorWithMedia
-                                content={content}
-                                onChange={setContent}
-                                placeholder="Start writing your article..."
-                                className="h-full"
-                            />
+                            {lastSaved && (
+                                <span className="text-xs text-slate-500">
+                                    Saved {lastSaved.toLocaleTimeString()}
+                                </span>
+                            )}
+                            {saving && (
+                                <div className="flex items-center gap-2 text-sm text-slate-500">
+                                    <Loader2 className="w-4 h-4 animate-spin" />
+                                    <span>Saving...</span>
+                                </div>
+                            )}
                         </div>
                     </div>
+                    <div className="flex items-center gap-4 text-sm text-slate-600">
+                        <Badge className={article.status === 'published' ? 'bg-green-100 text-green-800' : 'bg-slate-100 text-slate-800'}>
+                            {(article?.status ?? 'draft').charAt(0).toUpperCase() + (article?.status ?? 'draft').slice(1)}
+                        </Badge>
+                        {article.slug && (
+                            <span className="text-slate-500">
+                                /articles/{article.slug}
+                            </span>
+                        )}
+                    </div>
+                </div>
 
-                    {/* Inspector Panel */}
-                    <div className="w-96 bg-white border-l border-slate-200 overflow-y-auto">
-                        <ArticleInspector
-                            article={article}
-                            onSave={handleSave}
-                            onPublish={handlePublish}
-                            onPreview={handlePreview}
-                            saving={saving}
+                {/* Editor - WordPress-style */}
+                <div className="flex-1 overflow-auto bg-white">
+                    <div className="max-w-4xl mx-auto p-8">
+                        <ArticleEditor
+                            key={editorKey}
+                            initialContent={{
+                                body_markdown: article.body_markdown,
+                                body_html: article.body_html,
+                                content: article.content,
+                            }}
+                            onChange={(content) => {
+                                setEditorContent(content);
+                            }}
+                            placeholder="Start writing or type / to insert a block..."
+                            editable={true}
                         />
                     </div>
                 </div>

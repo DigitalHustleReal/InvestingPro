@@ -25,7 +25,7 @@ import {
 import Logo from "@/components/common/Logo";
 import { NAVIGATION_CONFIG, EDITORIAL_INTENTS } from "@/lib/navigation/config";
 // Language Switcher hidden until multilingual content is ready
-// import LanguageSwitcher from "@/components/common/LanguageSwitcher";
+import LanguageSwitcher from "@/components/common/LanguageSwitcher";
 
 // Navigation structure is now defined in lib/navigation/config.ts
 
@@ -346,7 +346,7 @@ export default function Navbar() {
                     {/* CTA Button - Hidden on mobile/tablet */}
                     <div className="hidden lg:flex items-center gap-3">
                         {/* Language Switcher hidden - will be reintroduced when multilingual content is ready */}
-                        {/* <LanguageSwitcher /> */}
+                        <LanguageSwitcher />
                         
                         {/* Profile and Admin links removed - will be accessible after login implementation */}
                         {/* Profile link will be shown after user authentication */}
@@ -505,6 +505,10 @@ export default function Navbar() {
                                             Calculators
                                         </Button>
                                     </Link>
+                                    <div className="pt-2 border-t border-slate-200">
+                                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Language</p>
+                                        <LanguageSwitcher isMobile={true} />
+                                    </div>
                                 </div>
                             </div>
                         </SheetContent>

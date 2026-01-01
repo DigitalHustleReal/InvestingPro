@@ -12,7 +12,9 @@ import { Calendar, Clock, User, Eye, Share2 } from "lucide-react";
 import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
-import AutoInternalLinks from '@/components/common/AutoInternalLinks';
+import { normalizeArticleBody } from '@/lib/content/normalize';
+// AutoInternalLinks temporarily disabled - causes glossary errors
+// import AutoInternalLinks from '@/components/common/AutoInternalLinks';
 import { generateSchema } from '@/lib/linking/schema';
 import { generateCanonicalUrl } from '@/lib/linking/canonical';
 import { generateBreadcrumbSchema } from '@/lib/linking/breadcrumbs';
@@ -23,6 +25,8 @@ interface Article {
     slug: string;
     excerpt: string;
     content: string;
+    body_html?: string;
+    body_markdown?: string;
     author_name: string;
     published_date: string;
     read_time: number;
@@ -48,13 +52,25 @@ export default function ArticleDetail() {
 
     const loadArticle = async () => {
         try {
-            const articles = await api.entities.Article.filter({ slug });
-            if (articles.length > 0) {
-                const articleData = articles[0];
-                setArticle(articleData);
-                // Increment views
-                await api.entities.Article.update(articleData.id, { views: (articleData.views || 0) + 1 });
+            // Public article fetch: MUST filter by status='published' AND published_at IS NOT NULL
+            const supabase = (await import('@/lib/supabase/client')).createClient();
+            const { data: articleData, error } = await supabase
+                .from('articles')
+                .select('*')
+                .eq('slug', slug)
+                .eq('status', 'published')
+                .not('published_at', 'is', null)
+                .single();
+            
+            if (error || !articleData) {
+                logger.error('Article not found or not published', error as Error, { slug });
+                setLoading(false);
+                return;
             }
+            
+            setArticle(articleData);
+            // Increment views
+            await api.entities.Article.update(articleData.id, { views: (articleData.views || 0) + 1 });
         } catch (error) {
             logger.error('Error loading article', error as Error, { slug });
         } finally {
@@ -122,13 +138,13 @@ export default function ArticleDetail() {
     // Generate canonical URL
     const canonicalUrl = generateCanonicalUrl(`/article/${article.slug}`);
 
-    // Generate automated internal links
-    const linkingContext = {
-        contentType: 'explainer' as const,
-        category: article.category,
-        slug: article.slug,
-        relatedTerms: article.tags || [],
-    };
+    // Generate automated internal links - temporarily disabled
+    // const linkingContext = {
+    //     contentType: 'explainer' as const,
+    //     category: article.category,
+    //     slug: article.slug,
+    //     relatedTerms: article.tags || [],
+    // };
 
     return (
         <div className="min-h-screen bg-white">
@@ -201,7 +217,42 @@ export default function ArticleDetail() {
 
                 {/* Content */}
                 <div className="prose prose-lg prose-slate max-w-none prose-headings:font-bold prose-a:text-teal-600 hover:prose-a:text-teal-700">
-                    <ReactMarkdown>{article.content}</ReactMarkdown>
+                    {(() => {
+                        // Get raw content from any source
+                        const rawContent = article.body_html || article.body_markdown || article.content || '';
+                        
+                        if (!rawContent || !rawContent.trim()) {
+                            return (
+                                <div className="p-8 bg-slate-50 rounded-lg border border-slate-200">
+                                    <p className="text-slate-500 text-center">
+                                        No content available for this article.
+                                    </p>
+                                </div>
+                            );
+                        }
+                        
+                        try {
+                            // NORMALIZE: Convert all content to clean HTML
+                            const normalizedHTML = normalizeArticleBody(rawContent);
+                            
+                            if (!normalizedHTML || normalizedHTML.trim().length < 10) {
+                                return (
+                                    <div className="p-8 bg-rose-50 rounded-lg border border-rose-200">
+                                        <p className="text-rose-800 text-center">
+                                            Error rendering content.
+                                        </p>
+                                    </div>
+                                );
+                            }
+                            
+                            // Render normalized HTML
+                            return <div dangerouslySetInnerHTML={{ __html: normalizedHTML }} />;
+                        } catch (error) {
+                            console.error('Error rendering article content:', error);
+                            // Fallback to ReactMarkdown
+                            return <ReactMarkdown>{rawContent}</ReactMarkdown>;
+                        }
+                    })()}
                 </div>
 
                 {/* Tags */}
@@ -218,8 +269,8 @@ export default function ArticleDetail() {
                     </div>
                 )}
 
-                {/* Automated Internal Links */}
-                <AutoInternalLinks context={linkingContext} />
+                {/* Automated Internal Links - Temporarily disabled due to glossary errors */}
+                {/* <AutoInternalLinks context={linkingContext} /> */}
             </article>
         </div>
     );

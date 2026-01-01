@@ -1,243 +1,142 @@
 "use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
+import React, { useState, useEffect } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
-import { useQuery } from '@tanstack/react-query';
-import { FileText, Plus, Calendar, Eye } from 'lucide-react';
+import { articleService } from '@/lib/cms/article-service';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+import WordPressStyleCMS from '@/components/admin/WordPressStyleCMS';
 
-/**
- * Articles List Page
- * 
- * Overview of all articles with quick actions
- */
-export default function ArticlesPage() {
-    const [selectedStatus, setSelectedStatus] = useState<'all' | 'draft' | 'review' | 'published'>('all');
-
-    const { data: articles = [], isLoading, error } = useQuery({
-        queryKey: ['admin-articles'],
+export default function AdminArticlesPage() {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [statusFilter, setStatusFilter] = useState<string>('all');
+    const queryClient = useQueryClient();
+    const router = useRouter();
+    
+    // Fetch all articles using articleService (unified workflow)
+    const { data: articles = [], isLoading, error: articlesError } = useQuery({
+        queryKey: ['articles', 'admin'],
         queryFn: async () => {
             try {
-                // Fetch from server-side API route (uses service_role, bypasses RLS)
-                const response = await fetch('/api/admin/articles');
-                
-                if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({}));
-                    console.error('Admin articles API error:', {
-                        status: response.status,
-                        statusText: response.statusText,
-                        error: errorData
-                    });
-                    throw new Error(`Failed to fetch articles: ${response.status} ${response.statusText}`);
+                // Try articleService first
+                const articles = await articleService.listArticles(500);
+                return articles;
+            } catch (error: any) {
+                console.error('articleService failed, falling back to API:', error);
+                // Fallback to API method
+                try {
+                    return await api.entities.Article.list('-created_date', 500);
+                } catch (apiError: any) {
+                    console.error('API method also failed:', apiError);
+                    toast.error('Failed to load articles');
+                    return [];
                 }
-                
-                const data = await response.json();
-                console.log('Admin articles fetched:', data.articles?.length || 0);
-                return data.articles || [];
-            } catch (err) {
-                console.error('Error fetching admin articles:', err);
-                throw err;
             }
         },
-        initialData: []
+        staleTime: 30_000,
+        gcTime: 5 * 60 * 1000,
+        refetchOnMount: true,
+        refetchOnWindowFocus: true,
+        retry: 1,
     });
 
-    // Client-side filtering by status
-    const filteredArticles = selectedStatus === 'all' 
-        ? articles 
-        : articles.filter((article: any) => (article.status || 'draft') === selectedStatus);
+    // Show error if articles failed to load
+    useEffect(() => {
+        if (articlesError) {
+            console.error('Articles query error:', articlesError);
+            toast.error('Failed to load articles. Check console for details.');
+        }
+    }, [articlesError]);
 
-    const getStatusBadge = (status: string) => {
-        const variants: Record<string, string> = {
-            published: 'bg-green-100 text-green-700',
-            draft: 'bg-slate-100 text-slate-700',
-            review: 'bg-amber-100 text-amber-700',
-        };
-        return variants[status] || 'bg-slate-100 text-slate-700';
+    const handleNewArticle = () => {
+        router.push('/admin/articles/new');
+    };
+
+    const handleEdit = (id: string) => {
+        router.push(`/admin/articles/${id}/edit`);
+    };
+
+    const handleDelete = async (id: string) => {
+        if (!confirm('Are you sure you want to delete this article?')) {
+            return;
+        }
+        try {
+            // Use articleService to delete
+            await articleService.deleteArticle(id);
+            queryClient.invalidateQueries({ queryKey: ['articles', 'admin'] });
+            toast.success('Article deleted successfully');
+        } catch (error: any) {
+            toast.error('Failed to delete article: ' + error.message);
+        }
+    };
+
+    const handleView = (id: string) => {
+        const article = articles.find(a => a.id === id);
+        if (article) {
+            if (article.status === 'published') {
+                window.open(`/articles/${article.slug}`, '_blank');
+            } else {
+                window.open(`/articles/${article.slug}?preview=true`, '_blank');
+            }
+        }
+    };
+
+    const handlePublish = async (id: string) => {
+        try {
+            const article = articles.find(a => a.id === id);
+            if (!article) {
+                toast.error('Article not found');
+                return;
+            }
+
+            // Use articleService to publish
+            await articleService.publishArticle(
+                id,
+                {
+                    body_markdown: article.body_markdown || '',
+                    body_html: article.body_html || '',
+                    content: article.content || article.body_markdown || '',
+                },
+                {
+                    title: article.title,
+                    slug: article.slug,
+                    excerpt: article.excerpt || '',
+                    category: article.category || 'investing-basics',
+                }
+            );
+
+            queryClient.invalidateQueries({ queryKey: ['articles', 'admin'] });
+            queryClient.invalidateQueries({ queryKey: ['articles', 'public'] });
+            toast.success('Article published successfully!');
+        } catch (error: any) {
+            toast.error('Failed to publish article: ' + error.message);
+        }
+    };
+
+    const handleGenerate = () => {
+        router.push('/admin/generator');
     };
 
     return (
         <AdminLayout>
-            <div className="h-full flex flex-col bg-slate-50">
-                {/* Header */}
-                <div className="bg-white border-b border-slate-200 px-8 py-6">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <h1 className="text-2xl font-bold text-slate-900">Articles</h1>
-                            <p className="text-sm text-slate-600 mt-1">Manage your editorial content</p>
-                        </div>
-                        <Link href="/admin/articles/new">
-                            <Button className="bg-teal-600 hover:bg-teal-700">
-                                <Plus className="w-4 h-4 mr-2" />
-                                New Article
-                            </Button>
-                        </Link>
-                    </div>
-                </div>
-
-                {/* Status Tabs */}
-                <div className="bg-white border-b border-slate-200 px-8 py-4">
-                    <div className="flex gap-2">
-                        <button
-                            onClick={() => setSelectedStatus('all')}
-                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                                selectedStatus === 'all'
-                                    ? 'bg-slate-900 text-white'
-                                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                            }`}
-                        >
-                            All
-                            <span className="ml-2 text-xs opacity-75">
-                                ({articles.length})
-                            </span>
-                        </button>
-                        <button
-                            onClick={() => setSelectedStatus('draft')}
-                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                                selectedStatus === 'draft'
-                                    ? 'bg-slate-900 text-white'
-                                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                            }`}
-                        >
-                            Draft
-                            <span className="ml-2 text-xs opacity-75">
-                                ({articles.filter((a: any) => (a.status || 'draft') === 'draft').length})
-                            </span>
-                        </button>
-                        <button
-                            onClick={() => setSelectedStatus('review')}
-                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                                selectedStatus === 'review'
-                                    ? 'bg-slate-900 text-white'
-                                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                            }`}
-                        >
-                            Review
-                            <span className="ml-2 text-xs opacity-75">
-                                ({articles.filter((a: any) => (a.status || 'draft') === 'review').length})
-                            </span>
-                        </button>
-                        <button
-                            onClick={() => setSelectedStatus('published')}
-                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                                selectedStatus === 'published'
-                                    ? 'bg-slate-900 text-white'
-                                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                            }`}
-                        >
-                            Published
-                            <span className="ml-2 text-xs opacity-75">
-                                ({articles.filter((a: any) => (a.status || 'draft') === 'published').length})
-                            </span>
-                        </button>
-                    </div>
-                </div>
-
-                {/* Articles List */}
-                <div className="flex-1 overflow-y-auto p-8">
-                    {error && (
-                        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-                            <p className="text-sm text-red-800">
-                                Error loading articles: {error instanceof Error ? error.message : 'Unknown error'}
-                            </p>
-                            <p className="text-xs text-red-600 mt-1">
-                                Check browser console for details. Make sure RLS policies are configured correctly.
-                            </p>
-                        </div>
-                    )}
-                    {isLoading ? (
-                        <div className="text-center py-12">
-                            <p className="text-slate-600">Loading articles...</p>
-                        </div>
-                    ) : filteredArticles.length === 0 ? (
-                        <Card className="p-12 text-center max-w-md mx-auto">
-                            <FileText className="w-12 h-12 text-slate-400 mx-auto mb-4" />
-                            <h3 className="text-lg font-semibold text-slate-900 mb-2">No articles yet</h3>
-                            <p className="text-sm text-slate-600 mb-6">
-                                {selectedStatus === 'all' 
-                                    ? 'Get started by creating your first article.'
-                                    : `No ${selectedStatus} articles found.`
-                                }
-                            </p>
-                            {selectedStatus === 'all' && (
-                                <Link href="/admin/articles/new">
-                                    <Button className="bg-teal-600 hover:bg-teal-700">
-                                        <Plus className="w-4 h-4 mr-2" />
-                                        Create Article
-                                    </Button>
-                                </Link>
-                            )}
-                        </Card>
-                    ) : (
-                        <div className="space-y-3">
-                            {filteredArticles.map((article: any) => (
-                                <Link key={article.id} href={`/admin/articles/${article.id}/edit`}>
-                                    <Card className="p-6 hover:shadow-md transition-shadow cursor-pointer">
-                                        <div className="flex items-start justify-between">
-                                            <div className="flex-1">
-                                                <div className="flex items-center gap-3 mb-2">
-                                                    <h3 className="text-lg font-semibold text-slate-900">
-                                                        {article.title || 'Untitled'}
-                                                    </h3>
-                                                    <Badge className={getStatusBadge(article.status || 'draft')}>
-                                                        {article.status || 'draft'}
-                                                    </Badge>
-                                                </div>
-                                                {article.excerpt && (
-                                                    <p className="text-sm text-slate-600 line-clamp-2 mb-3">
-                                                        {article.excerpt}
-                                                    </p>
-                                                )}
-                                                <div className="flex items-center gap-4 text-xs text-slate-500">
-                                                    {article.category && (
-                                                        <span className="font-medium text-slate-700">
-                                                            {article.category}
-                                                        </span>
-                                                    )}
-                                                    {(article.updated_at || article.created_at) && (
-                                                        <div className="flex items-center gap-1.5">
-                                                            <Calendar className="w-3.5 h-3.5" />
-                                                            <span>
-                                                                Updated {new Date(article.updated_at || article.created_at).toLocaleDateString()}
-                                                            </span>
-                                                        </div>
-                                                    )}
-                                                    {article.views !== undefined && (
-                                                        <div className="flex items-center gap-1.5">
-                                                            <Eye className="w-3.5 h-3.5" />
-                                                            <span>{article.views || 0} views</span>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Card>
-                                </Link>
-                            ))}
-                        </div>
-                    )}
-                </div>
+            <div className="p-8">
+                <WordPressStyleCMS
+                    articles={Array.isArray(articles) ? (articles as any[]) : []}
+                    isLoading={isLoading}
+                    onNewArticle={handleNewArticle}
+                    onGenerate={handleGenerate}
+                    onEdit={handleEdit}
+                    onDelete={handleDelete}
+                    onView={handleView}
+                    onPublish={handlePublish}
+                    searchTerm={searchTerm}
+                    onSearchChange={setSearchTerm}
+                    filterStatus={statusFilter}
+                    onFilterChange={setStatusFilter}
+                />
             </div>
         </AdminLayout>
     );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

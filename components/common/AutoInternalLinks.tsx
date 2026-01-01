@@ -19,9 +19,18 @@ interface AutoInternalLinksProps {
  * No manual linking required
  */
 export default function AutoInternalLinks({ context }: AutoInternalLinksProps) {
-    const links = use(React.useMemo(() => generateInternalLinks(context), [context]));
+    // Wrap in try-catch to prevent crashes from async errors
+    let links: any[] = [];
+    try {
+        const linksPromise = React.useMemo(() => generateInternalLinks(context), [context]);
+        links = use(linksPromise);
+    } catch (error) {
+        // Silently fail - internal links are optional
+        console.warn('AutoInternalLinks: Failed to generate links', error);
+        return null;
+    }
 
-    if (links.length === 0) {
+    if (!links || links.length === 0) {
         return null;
     }
 

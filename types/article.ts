@@ -1,15 +1,19 @@
 export type ArticleCategory =
-    | 'mutual-funds'
-    | 'stocks'
-    | 'insurance'
-    | 'loans'
     | 'credit-cards'
-    | 'tax-planning'
-    | 'retirement'
+    | 'loans'
+    | 'banking'
+    | 'investing'
+    | 'insurance'
+    | 'small-business'
+    | 'taxes'
+    | 'personal-finance'
+    | 'tools'
+    | 'mutual-funds' // Legacy/Sub
+    | 'stocks'
     | 'investing-basics';
 
 export type ArticleLanguage = 'en' | 'hi' | 'ta' | 'te' | 'bn' | 'mr' | 'gu';
-export type ArticleStatus = 'draft' | 'published' | 'archived';
+export type ArticleStatus = 'draft' | 'review' | 'scheduled' | 'published' | 'archived';
 export type SubmissionStatus = 'pending' | 'approved' | 'rejected' | 'revision-requested';
 export type ContentType = 'article' | 'pillar' | 'category-page';
 
@@ -42,6 +46,12 @@ export interface Article {
 
     views: number;
     ai_generated: boolean;
+    
+    // Pro Editorial Fields (New)
+    quality_score?: number; // 0-100
+    editorial_notes?: any; // JSON
+    difficulty_level?: 'beginner' | 'intermediate' | 'advanced';
+    verified_by_expert?: boolean;
 
     seo_title?: string;
     seo_description?: string;

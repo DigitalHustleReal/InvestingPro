@@ -1,279 +1,497 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { createClient } from '@/lib/supabase/server';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import SEOHead from '@/components/common/SEOHead';
-import {
-    generateCreditCardStructuredData,
-    generateBreadcrumbStructuredData,
-    combineStructuredData,
-} from '@/lib/seo/structured-data';
-import { CheckCircle2, XCircle, ExternalLink, Calendar } from 'lucide-react';
-import RankingExplanation from '@/components/ranking/RankingExplanation';
-import DataProvenance from '@/components/common/DataProvenance';
+import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { Button } from '@/components/ui/Button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { 
+  Star, 
+  CreditCard, 
+  Percent, 
+  IndianRupee, 
+  CheckCircle2, 
+  XCircle, 
+  ShieldCheck,
+  Gift,
+  Plane,
+  ShoppingBag,
+  Fuel,
+  AlertCircle,
+  ExternalLink
+} from 'lucide-react'
 
-interface CreditCardPageProps {
-    params: Promise<{ slug: string }>;
+interface CreditCardDetail {
+  id: string
+  name: string
+  provider: string
+  image?: string
+  rating: number
+  annualFee: number
+  joiningFee: number
+  rewardRate: string
+  welcomeBonus?: string
+  minCreditScore?: number
+  interestRate: string
+  description: string
+  applyLink: string
+  
+  // Detailed features
+  keyFeatures: string[]
+  rewardProgram: {
+    name: string
+    pointsPerRupee: number
+    redemptionValue: string
+    categories: { name: string; rate: string }[]
+  }
+  benefits: {
+    category: string
+    items: string[]
+  }[]
+  eligibility: {
+    minAge: number
+    minIncome: number
+    requiredDocuments: string[]
+  }
+  fees: {
+    name: string
+    amount: string
+    details?: string
+  }[]
+  pros: string[]
+  cons: string[]
 }
 
-export async function generateMetadata({ params }: CreditCardPageProps): Promise<Metadata> {
-    const { slug } = await params;
-    const supabase = await createClient();
-
-    const { data: product } = await supabase
-        .from('products')
-        .select('name, meta_title, meta_description, provider')
-        .eq('slug', slug)
-        .eq('product_type', 'credit_card')
-        .single();
-
-    if (!product) {
-        return {
-            title: 'Credit Card Not Found',
-        };
+// This would normally come from database or API
+async function getCreditCardData(slug: string): Promise<CreditCardDetail | null> {
+  // TODO: Replace with actual database query
+  // For now, return mock data for demonstration
+  
+  // Simulate database lookup
+  const mockCards: Record<string, CreditCardDetail> = {
+    'hdfc-regalia': {
+      id: 'hdfc-regalia',
+      name: 'HDFC Bank Regalia Credit Card',
+      provider: 'HDFC Bank',
+      rating: 4.5,
+      annualFee: 2500,
+      joiningFee: 2500,
+      rewardRate: '4 reward points per ₹150',
+      welcomeBonus: '10,000 bonus reward points',
+      minCreditScore: 750,
+      interestRate: '3.49% per month (41.88% per annum)',
+      description: 'Premium lifestyle credit card with comprehensive travel and dining benefits, lounge access, and accelerated rewards on select categories.',
+      applyLink: 'https://www.hdfcbank.com/personal/pay/cards/credit-cards/regalia-credit-card',
+      
+      keyFeatures: [
+        'Unlimited complimentary domestic and international airport lounge access',
+        '2 complimentary rounds of golf per month at select courses',
+        'Fuel surcharge waiver up to ₹250 per month',
+        'Welcome benefits worth ₹5,000+',
+        'Milestone benefits on annual spends',
+        'EMI conversion at nominal interest rates'
+      ],
+      
+      rewardProgram: {
+        name: 'HDFC Rewards Program',
+        pointsPerRupee: 4,
+        redemptionValue: '1 point = ₹0.20 - ₹0.50 (varies by redemption)',
+        categories: [
+          { name: 'Online Shopping', rate: '4 points per ₹150' },
+          { name: 'Travel Bookings', rate: '4 points per ₹150' },
+          { name: 'Dining', rate: '4 points per ₹150' },
+          { name: 'Fuel', rate: '1% fuel surcharge waiver' }
+        ]
+      },
+      
+      benefits: [
+        {
+          category: 'Travel',
+          items: [
+            'Unlimited domestic airport lounge access (Priority Pass)',
+            '6 complimentary international lounge visits per year',
+            'Comprehensive Travel Insurance up to ₹1 crore',
+            'Discounts on flight and hotel bookings'
+          ]
+        },
+        {
+          category: 'Dining',
+          items: [
+            '20% discount at partner restaurants',
+            'Buy 1 Get 1 offers on movie tickets',
+            'Exclusive dining experiences through SmartBuy'
+          ]
+        },
+        {
+          category: 'Shopping',
+          items: [
+            'Accelerated rewards on online shopping',
+            'No-cost EMI on purchases above ₹10,000',
+            'Purchase protection insurance up to ₹50,000'
+          ]
+        }
+      ],
+      
+      eligibility: {
+        minAge: 21,
+        minIncome: 300000,
+        requiredDocuments: [
+          'PAN Card',
+          'Aadhaar Card / Voter ID / Passport',
+          'Latest 3 months salary slips',
+          'Latest 6 months bank statements',
+          'Residence proof (utility bill, rent agreement)'
+        ]
+      },
+      
+      fees: [
+        { name: 'Joining Fee', amount: '₹2,500 + GST', details: 'Waived on spending ₹3 lakhs in first 90 days' },
+        { name: 'Annual Fee', amount: '₹2,500 + GST', details: 'Waived on annual spends of ₹3 lakhs' },
+        { name: 'Add-on Card Fee', amount: 'Free', details: 'Unlimited add-on cards' },
+        { name: 'Fuel Surcharge Waiver', amount: '1%', details: 'Max ₹250 per month' },
+        { name: 'Foreign Currency Markup', amount: '3.5%', details: 'On international transactions' },
+        { name: 'Cash Advance Fee', amount: '2.5%', details: 'Min ₹500 per transaction' },
+        { name: 'Late Payment Fee', amount: 'Up to ₹1,300', details: 'Based on outstanding amount' }
+      ],
+      
+      pros: [
+        'Excellent lounge access (domestic + international)',
+        'Strong rewards program with good redemption value',
+        'Comprehensive travel insurance coverage',
+        'Golf privileges and milestone benefits',
+        'Premium card at mid-range pricing (fee waiver possible)'
+      ],
+      
+      cons: [
+        'High income requirement (₹3 lakh+ per year)',
+        'Credit score requirement of 750+ may exclude many applicants',
+        'Reward redemption can be complex for beginners',
+        'Foreign currency markup higher than some competitors',
+        'Limited cashback offers compared to cashback-focused cards'
+      ]
     }
+  }
+  
+  return mockCards[slug] || null
+}
 
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const card = await getCreditCardData(params.slug)
+  
+  if (!card) {
     return {
-        title: product.meta_title || `${product.name} - Credit Card Review | InvestingPro`,
-        description: product.meta_description || `Detailed review and comparison of ${product.name} by ${product.provider}. Compare fees, rewards, and features.`,
-    };
+      title: 'Credit Card Not Found - InvestingPro',
+    }
+  }
+  
+  return {
+    title: `${card.name} Review - Features, Benefits & Apply Online | InvestingPro`,
+    description: `${card.description} Rating: ${card.rating}/5. Annual fee: ₹${card.annualFee}. Compare benefits, eligibility, and apply online.`,
+    keywords: `${card.name}, ${card.provider} credit card, credit card review, ${card.provider.toLowerCase()} card benefits, apply credit card online`,
+  }
 }
 
-export default async function CreditCardPage({ params }: CreditCardPageProps) {
-    const { slug } = await params;
-    const supabase = await createClient();
-
-    // Fetch product data
-    const { data: product } = await supabase
-        .from('products')
-        .select('*')
-        .eq('slug', slug)
-        .eq('product_type', 'credit_card')
-        .single();
-
-    if (!product) {
-        notFound();
-    }
-
-    // Fetch credit card specific data
-    const { data: cardData } = await supabase
-        .from('credit_cards')
-        .select('*')
-        .eq('product_id', product.id)
-        .single();
-
-    // Fetch data points with provenance
-    const { data: dataPoints } = await supabase
-        .from('product_data_points')
-        .select(`
-            *,
-            data_sources (
-                name,
-                url,
-                is_verified
-            )
-        `)
-        .eq('product_id', product.id)
-        .order('fetched_at', { ascending: false });
-
-    // Fetch ranking (optional - may not exist)
-    const { data: ranking } = await supabase
-        .from('rankings')
-        .select(`
-            *,
-            ranking_configurations (
-                name,
-                methodology
-            )
-        `)
-        .eq('product_id', product.id)
-        .eq('ranking_configurations.is_published', true)
-        .order('calculated_at', { ascending: false })
-        .limit(1)
-        .maybeSingle();
-
-    // Generate structured data
-    const productStructuredData = generateCreditCardStructuredData({
-        name: product.name,
-        provider: product.provider,
-        slug: product.slug,
-        annualFee: cardData?.annual_fee || undefined,
-        interestRate: cardData?.interest_rate_min || undefined,
-        rewardRate: cardData?.reward_rate || undefined,
-        description: product.meta_description || undefined,
-        url: `https://investingpro.in/credit-cards/${slug}`,
-        lastUpdated: product.last_updated_at || new Date().toISOString(),
-    });
-
-    const breadcrumbData = generateBreadcrumbStructuredData([
-        { name: 'Home', url: 'https://investingpro.in' },
-        { name: 'Credit Cards', url: 'https://investingpro.in/credit-cards' },
-        { name: product.name, url: `https://investingpro.in/credit-cards/${slug}` },
-    ]);
-
-    const structuredData = combineStructuredData(productStructuredData, breadcrumbData);
-
-    return (
-        <>
-            <SEOHead
-                title={product.meta_title || `${product.name} - Credit Card Review`}
-                description={product.meta_description || `Detailed review of ${product.name}`}
-                url={`https://investingpro.in/credit-cards/${slug}`}
-                structuredData={JSON.parse(structuredData)}
-            />
-            <div className="min-h-screen bg-slate-50">
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    {/* Breadcrumb */}
-                    <nav className="text-sm text-slate-600 mb-8">
-                        <a href="/" className="hover:text-slate-900">Home</a>
-                        {' / '}
-                        <a href="/credit-cards" className="hover:text-slate-900">Credit Cards</a>
-                        {' / '}
-                        <span className="text-slate-900">{product.name}</span>
-                    </nav>
-
-                    {/* Header */}
-                    <div className="mb-8">
-                        <div className="flex items-start justify-between mb-4">
-                            <div>
-                                <h1 className="text-4xl font-bold text-slate-900 mb-2">
-                                    {product.name}
-                                </h1>
-                                <p className="text-xl text-slate-600">{product.provider}</p>
-                            </div>
-                            {ranking && (
-                                <div className="text-right">
-                                    <div className="text-3xl font-bold text-teal-600">
-                                        {ranking.total_score.toFixed(1)}
-                                    </div>
-                                    <div className="text-sm text-slate-500">Score</div>
-                                    <div className="text-sm text-slate-500">Rank #{ranking.rank}</div>
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Last Updated */}
-                        <div className="flex items-center gap-2 text-sm text-slate-500">
-                            <Calendar className="w-4 h-4" />
-                            <span>
-                                Last updated: {new Date(product.last_updated_at).toLocaleDateString('en-IN', {
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric'
-                                })}
-                            </span>
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        {/* Main Content */}
-                        <div className="lg:col-span-2 space-y-8">
-                            {/* Key Features */}
-                            {cardData && (
-                                <Card>
-                                    <CardHeader>
-                                        <CardTitle>Key Features</CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="grid grid-cols-2 gap-4">
-                                            <div>
-                                                <div className="text-sm text-slate-500 mb-1">Annual Fee</div>
-                                                <div className="text-lg font-semibold">
-                                                    {cardData.annual_fee === 0 ? 'Free' : `₹${cardData.annual_fee?.toLocaleString('en-IN')}`}
-                                                </div>
-                                            </div>
-                                            {cardData.reward_rate && (
-                                                <div>
-                                                    <div className="text-sm text-slate-500 mb-1">Reward Rate</div>
-                                                    <div className="text-lg font-semibold">{cardData.reward_rate}%</div>
-                                                </div>
-                                            )}
-                                            {cardData.interest_rate_min && (
-                                                <div>
-                                                    <div className="text-sm text-slate-500 mb-1">Interest Rate</div>
-                                                    <div className="text-lg font-semibold">{cardData.interest_rate_min}% APR</div>
-                                                </div>
-                                            )}
-                                            {cardData.min_income && (
-                                                <div>
-                                                    <div className="text-sm text-slate-500 mb-1">Min Income</div>
-                                                    <div className="text-lg font-semibold">₹{(cardData.min_income / 100000).toFixed(1)}L</div>
-                                                </div>
-                                            )}
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            )}
-
-                            {/* Ranking Explanation - CORE FEATURE */}
-                            {ranking && ranking.factor_scores && Object.keys(ranking.factor_scores).length > 0 && (
-                                <RankingExplanation
-                                    totalScore={ranking.total_score}
-                                    rank={ranking.rank}
-                                    breakdown={Object.entries(ranking.factor_scores as Record<string, any>).map(([factor, data]) => ({
-                                        factor,
-                                        rawValue: data?.rawValue ?? '',
-                                        normalizedScore: data?.normalizedScore ?? 0,
-                                        weight: data?.weight ?? 0,
-                                        weightedScore: data?.weightedScore ?? 0,
-                                        explanation: data?.explanation || `Factor: ${factor.replace(/_/g, ' ')}`
-                                    }))}
-                                    strengths={(ranking.strengths as string[]) || []}
-                                    weaknesses={(ranking.weaknesses as string[]) || []}
-                                    explanation={ranking.explanation_text || undefined}
-                                    methodology={(ranking.ranking_configurations as any)?.methodology || undefined}
-                                    calculatedAt={ranking.calculated_at || undefined}
-                                    dataSnapshotDate={ranking.data_snapshot_date || undefined}
-                                />
-                            )}
-
-                            {/* Data Provenance - MANDATORY */}
-                            {dataPoints && dataPoints.length > 0 && (
-                                <DataProvenance
-                                    dataPoints={dataPoints as any}
-                                    lastUpdated={product.last_updated_at || undefined}
-                                />
-                            )}
-                        </div>
-
-                        {/* Sidebar */}
-                        <div className="space-y-6">
-                            {/* CTA Card */}
-                            <Card className="bg-teal-50 border-teal-200">
-                                <CardContent className="p-6">
-                                    <h3 className="font-semibold text-slate-900 mb-2">Apply Now</h3>
-                                    <p className="text-sm text-slate-600 mb-4">
-                                        Compare this card with others and apply directly through the bank.
-                                    </p>
-                                    <a
-                                        href={`/credit-cards/compare?cards=${product.slug}`}
-                                        className="block w-full text-center py-2 px-4 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors"
-                                    >
-                                        Compare Cards
-                                    </a>
-                                </CardContent>
-                            </Card>
-
-                            {/* Methodology Link */}
-                            <Card>
-                                <CardContent className="p-6">
-                                    <h3 className="font-semibold text-slate-900 mb-2">How We Rank</h3>
-                                    <p className="text-sm text-slate-600 mb-4">
-                                        Our rankings are transparent, data-driven, and unbiased.
-                                    </p>
-                                    <a
-                                        href="/methodology"
-                                        className="text-teal-600 hover:text-teal-700 text-sm font-medium"
-                                    >
-                                        View Methodology →
-                                    </a>
-                                </CardContent>
-                            </Card>
-                        </div>
-                    </div>
+export default async function CreditCardDetailPage({ params }: { params: { slug: string } }) {
+  const card = await getCreditCardData(params.slug)
+  
+  if (!card) {
+    notFound()
+  }
+  
+  return (
+    <div className="bg-slate-50 min-h-screen">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+            {/* Left: Card Info */}
+            <div className="lg:col-span-2">
+              <div className="flex items-center gap-2 text-emerald-400 mb-3">
+                <CreditCard className="w-5 h-5" />
+                <span className="text-sm font-semibold uppercase">{card.provider}</span>
+              </div>
+              <h1 className="text-4xl font-bold mb-4">{card.name}</h1>
+              <p className="text-lg text-slate-300 mb-6">{card.description}</p>
+              
+              {/* Rating */}
+              <div className="flex items-center gap-4 mb-6">
+                <div className="flex items-center gap-2 bg-amber-500 px-4 py-2 rounded-lg">
+                  <Star className="w-5 h-5 fill-white text-white" />
+                  <span className="font-bold text-lg">{card.rating}/5</span>
                 </div>
+                <span className="text-slate-300">Highly Rated</span>
+              </div>
+              
+              {/* Quick Stats */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div>
+                  <p className="text-sm text-slate-400">Annual Fee</p>
+                  <p className="text-xl font-bold">₹{card.annualFee.toLocaleString()}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-slate-400">Reward Rate</p>
+                  <p className="text-xl font-bold text-emerald-400">{card.rewardRate}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-slate-400">Min Credit Score</p>
+                  <p className="text-xl font-bold">{card.minCreditScore}+</p>
+                </div>
+                <div>
+                  <p className="text-sm text-slate-400">Interest Rate</p>
+                  <p className="text-xl font-bold">{card.interestRate.split(' ')[0]}</p>
+                </div>
+              </div>
             </div>
-        </>
-    );
+            
+            {/* Right: Apply Card */}
+            <div className="lg:col-span-1">
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20">
+                <CardContent className="p-6">
+                  <p className="text-sm text-slate-300 mb-4">Start your application now</p>
+                  <a href={card.applyLink} target="_blank" rel="noopener noreferrer">
+                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-6 text-lg mb-3">
+                      Apply Now <ExternalLink className="w-5 h-5 ml-2" />
+                    </Button>
+                  </a>
+                  {card.welcomeBonus && (
+                    <div className="bg-amber-500/20 border border-amber-500/50 rounded-lg p-3 text-center">
+                      <Gift className="w-5 h-5 mx-auto mb-1 text-amber-400" />
+                      <p className="text-sm text-amber-100 font-semibold">{card.welcomeBonus}</p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Column: Main Content */}
+          <div className="lg:col-span-2 space-y-8">
+            {/* Key Features */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <CheckCircle2 className="w-6 h-6 text-emerald-600" />
+                  Key Features
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  {card.keyFeatures.map((feature, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-700">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+            
+            {/* Rewards Program */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Gift className="w-6 h-6 text-purple-600" />
+                  Rewards Program
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <h3 className="font-semibold text-lg mb-2">{card.rewardProgram.name}</h3>
+                <p className="text-gray-600 mb-4">
+                  Earn <strong>{card.rewardProgram.pointsPerRupee} points per ₹150</strong> spent. 
+                  Redemption value: {card.rewardProgram.redemptionValue}
+                </p>
+                
+                <div className="space-y-3">
+                  {card.rewardProgram.categories.map((cat, index) => (
+                    <div key={index} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                      <span className="font-medium text-gray-700">{cat.name}</span>
+                      <span className="text-emerald-600 font-semibold">{cat.rate}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+            
+            {/* Benefits by Category */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Benefits Breakdown</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {card.benefits.map((benefit, index) => (
+                    <div key={index}>
+                      <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
+                        {benefit.category === 'Travel' && <Plane className="w-5 h-5 text-blue-600" />}
+                        {benefit.category === 'Dining' && <ShoppingBag className="w-5 h-5 text-orange-600" />}
+                        {benefit.category === 'Shopping' && <Gift className="w-5 h-5 text-purple-600" />}
+                        {benefit.category}
+                      </h3>
+                      <ul className="space-y-2 ml-7">
+                        {benefit.items.map((item, idx) => (
+                          <li key={idx} className="text-gray-600 flex items-start gap-2">
+                            <span className="text-emerald-500 mt-1">•</span>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+            
+            {/* Pros & Cons */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card className="border-emerald-200 bg-emerald-50/30">
+                <CardHeader>
+                  <CardTitle className="text-emerald-700 flex items-center gap-2">
+                    <CheckCircle2 className="w-5 h-5" />
+                    Pros
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2">
+                    {card.pros.map((pro, index) => (
+                      <li key={index} className="flex items-start gap-2 text-gray-700">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-1" />
+                        <span className="text-sm">{pro}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+              
+              <Card className="border-red-200 bg-red-50/30">
+                <CardHeader>
+                  <CardTitle className="text-red-700 flex items-center gap-2">
+                    <XCircle className="w-5 h-5" />
+                    Cons
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2">
+                    {card.cons.map((con, index) => (
+                      <li key={index} className="flex items-start gap-2 text-gray-700">
+                        <XCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-1" />
+                        <span className="text-sm">{con}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+            
+            {/* Fees & Charges */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <IndianRupee className="w-6 h-6 text-gray-600" />
+                  Fees & Charges
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {card.fees.map((fee, index) => (
+                    <div key={index} className="flex items-start justify-between p-3 border-b last:border-0">
+                      <div className="flex-1">
+                        <p className="font-medium text-gray-900">{fee.name}</p>
+                        {fee.details && <p className="text-sm text-gray-500 mt-1">{fee.details}</p>}
+                      </div>
+                      <p className="font-semibold text-gray-900 ml-4">{fee.amount}</p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          
+          {/* Right Column: Sidebar */}
+          <div className="lg:col-span-1 space-y-6">
+            {/* Apply CTA (Sticky) */}
+            <div className="sticky top-6">
+              <Card className="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white">
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-bold mb-2">Ready to Apply?</h3>
+                  <p className="text-sm text-emerald-100 mb-4">Get instant approval decision online</p>
+                  <a href={card.applyLink} target="_blank" rel="noopener noreferrer">
+                    <Button className="w-full bg-white text-emerald-600 hover:bg-gray-100 font-semibold py-6 mb-3">
+                      Apply Now <ExternalLink className="w-5 h-5 ml-2" />
+                    </Button>
+                  </a>
+                  <p className="text-xs text-emerald-100 text-center">
+                    Secure application • 2-3 min process
+                  </p>
+                </CardContent>
+              </Card>
+              
+              {/* Eligibility */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <ShieldCheck className="w-5 h-5 text-blue-600" />
+                    Eligibility Criteria
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm space-y-3">
+                  <div>
+                    <p className="text-gray-600">Minimum Age</p>
+                    <p className="font-semibold text-gray-900">{card.eligibility.minAge} years</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">Minimum Income</p>
+                    <p className="font-semibold text-gray-900">₹{(card.eligibility.minIncome / 100000).toFixed(1)} Lakh/year</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">Credit Score</p>
+                    <p className="font-semibold text-gray-900">{card.minCreditScore}+ (Good to Excellent)</p>
+                  </div>
+                  
+                  <div className="pt-3 border-t">
+                    <p className="font-medium text-gray-900 mb-2">Required Documents:</p>
+                    <ul className="space-y-1.5">
+                      {card.eligibility.requiredDocuments.map((doc, index) => (
+                        <li key={index} className="text-gray-600 text-xs flex items-start gap-2">
+                          <CheckCircle2 className="w-3 h-3 text-emerald-500 flex-shrink-0 mt-0.5" />
+                          {doc}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              {/* Important Notice */}
+              <Card className="bg-amber-50 border-amber-200">
+                <CardContent className="p-4">
+                  <div className="flex gap-3">
+                    <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                    <div className="text-xs text-amber-800">
+                      <p className="font-semibold mb-1">Important</p>
+                      <p>Credit approval is subject to the bank's discretion. Interest charges apply on unpaid balances. Borrow responsibly.</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Bottom CTA */}
+      <div className="bg-slate-900 text-white py-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold mb-4">Apply for {card.name} Today</h2>
+          <p className="text-slate-300 mb-8">Join thousands of satisfied cardholders. Apply online in minutes!</p>
+          <a href={card.applyLink} target="_blank" rel="noopener noreferrer">
+            <Button className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-12 py-6 text-lg">
+              Apply Now <ExternalLink className="w-5 h-5 ml-2" />
+            </Button>
+          </a>
+        </div>
+      </div>
+    </div>
+  )
 }

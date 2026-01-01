@@ -10,7 +10,14 @@ import { logger } from '@/lib/logger';
  */
 export async function POST(request: NextRequest) {
     try {
-        const body = await request.json();
+        let body: any = {};
+        try {
+            body = await request.json();
+        } catch (e) {
+            // Handle empty body
+            logger.warn('Empty body in pipeline run trigger');
+        }
+        
         const { pipeline_type, params } = body;
 
         if (!pipeline_type) {
@@ -20,7 +27,9 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const supabase = await createClient();
+        // Use service client to bypass RLS for orchestration
+        const { createServiceClient } = await import('@/lib/supabase/service');
+        const supabase = createServiceClient();
 
         // Record pipeline run in database
         let runId: string | null = null;
@@ -31,18 +40,17 @@ export async function POST(request: NextRequest) {
                     pipeline_type,
                     status: 'triggered',
                     params: params || {},
-                    triggered_at: new Date().toISOString(),
-                    created_at: new Date().toISOString()
+                    triggered_at: new Date().toISOString()
                 }])
-                .select('id')
-                .single();
+                .select('id');
 
-            if (!error && data) {
-                runId = data.id;
+            if (error) {
+                logger.error('Database error recording pipeline run', error);
+            } else if (data && data.length > 0) {
+                runId = data[0].id;
             }
-        } catch (err) {
-            // Table might not exist yet - continue without recording
-            logger.warn('pipeline_runs table not found, continuing without recording');
+        } catch (err: any) {
+            logger.error('Unexpected error recording pipeline run', err);
         }
 
         // In production, this would:

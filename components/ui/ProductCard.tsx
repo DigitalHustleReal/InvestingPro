@@ -88,7 +88,7 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
 
                 {/* Right: Actions */}
                 <div className="md:w-1/5 flex flex-col justify-center gap-3 border-t md:border-t-0 border-gray-100 pt-4 md:pt-0">
-                    <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold">
+                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold">
                         Apply Now
                     </Button>
                     <Link href={`/${product.category.replace('_', '-')}s/${product.id}`} className="w-full">

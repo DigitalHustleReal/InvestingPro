@@ -132,9 +132,13 @@ export default function AIContentGenerator() {
         try {
             const article = generatedContent.article;
             
-            // Convert structured content to markdown if available
+            // CRITICAL FIX: Use normalized content from API response
+            // API already normalized body_html and generated body_markdown
+            // We should use those instead of re-processing
+            
+            // Fallback: Convert structured content to markdown if body_markdown not available
             let content = article.content;
-            if (article.structured_content) {
+            if (article.structured_content && !article.body_markdown) {
                 content = structuredToMarkdown(article.structured_content);
             }
 
@@ -143,21 +147,28 @@ export default function AIContentGenerator() {
                 .replace(/[^a-z0-9]+/g, '-')
                 .replace(/^-|-$/g, '');
 
-            await api.entities.Article.create({
-                title: article.title,
-                slug: slug,
-                excerpt: article.excerpt,
-                content: content, // Use converted markdown or original content
-                category: categoryStr,
-                language: languageStr,
-                read_time: article.read_time,
-                tags: article.tags || [],
-                status: 'draft',
-                ai_generated: true,
-                seo_title: article.seo_title || article.title,
-                seo_description: article.meta_description || article.excerpt,
-                published_date: new Date().toISOString()
-            });
+            // UNIFIED WORKFLOW: Use articleService (same as manual creation)
+            const { articleService } = await import('@/lib/cms/article-service');
+            
+            await articleService.createArticle(
+                {
+                    body_markdown: article.body_markdown || content,  // PRIMARY
+                    body_html: article.body_html || '',                // DERIVED
+                    content: article.content || content,               // Legacy fallback
+                },
+                {
+                    title: article.title,
+                    slug: slug,
+                    excerpt: article.excerpt || '',
+                    category: categoryStr,
+                    language: languageStr,
+                    read_time: article.read_time,
+                    tags: article.tags || [],
+                    seo_title: article.seo_title || article.title,
+                    seo_description: article.meta_description || article.seo_description || article.excerpt,
+                    featured_image: article.featured_image,
+                }
+            );
 
             alert('Article saved as draft successfully!');
             setGeneratedContent(null);

@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/badge';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
-import { Calendar, Clock, FileText, Plus, Filter } from 'lucide-react';
+import { Calendar, Clock, FileText, Plus, Filter, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
 
 /**
@@ -97,6 +97,30 @@ export default function ContentCalendarPage() {
         return variants[status] || 'bg-slate-100 text-slate-700';
     };
 
+    const [planningTopic, setPlanningTopic] = useState('');
+    const [isPlanning, setIsPlanning] = useState(false);
+
+    const handleAutoPlan = async () => {
+        if (!planningTopic) return;
+        setIsPlanning(true);
+        try {
+            const res = await fetch('/api/admin/plan-content', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ topic: planningTopic })
+            });
+            if (!res.ok) throw new Error('Failed to plan');
+            
+            toast.success('Strategist has populated the calendar!');
+            queryClient.invalidateQueries({ queryKey: ['calendar-articles'] });
+            setPlanningTopic('');
+        } catch (error) {
+            toast.error('Failed to auto-plan content');
+        } finally {
+            setIsPlanning(false);
+        }
+    };
+
     return (
         <AdminLayout>
             <div className="h-full flex flex-col bg-slate-50">
@@ -114,6 +138,30 @@ export default function ContentCalendarPage() {
                         </div>
                         <div className="flex items-center gap-3">
                             <div className="flex gap-2">
+                                {/* Auto-Plan Input */}
+                                <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-lg border border-slate-200">
+                                    <input 
+                                        type="text" 
+                                        placeholder="Topic (e.g. Mutual Funds)"
+                                        className="bg-transparent border-none text-sm px-2 focus:ring-0 w-48"
+                                        value={planningTopic}
+                                        onChange={(e) => setPlanningTopic(e.target.value)}
+                                    />
+                                    <Button 
+                                        size="sm" 
+                                        onClick={handleAutoPlan}
+                                        disabled={isPlanning || !planningTopic}
+                                        className="bg-purple-600 hover:bg-purple-700 text-white"
+                                    >
+                                        {isPlanning ? (
+                                            <Clock className="w-3 h-3 animate-spin mr-1" />
+                                        ) : (
+                                            <Sparkles className="w-3 h-3 mr-1" />
+                                        )}
+                                        {isPlanning ? 'Planning...' : 'Auto-Plan'}
+                                    </Button>
+                                </div>
+
                                 <Button
                                     variant={viewMode === 'month' ? 'default' : 'outline'}
                                     size="sm"

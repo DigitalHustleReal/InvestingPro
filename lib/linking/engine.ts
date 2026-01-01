@@ -62,7 +62,16 @@ const LINKING_RULES = {
  */
 export async function generateInternalLinks(context: LinkingContext): Promise<InternalLink[]> {
     const links: InternalLink[] = [];
+    
+    // Validate context
+    if (!context || !context.contentType) {
+        return links;
+    }
+    
     const rules = LINKING_RULES[context.contentType];
+    if (!rules) {
+        return links;
+    }
 
     try {
         // Generate pillar links
@@ -230,41 +239,65 @@ async function generateExplainerLinks(context: LinkingContext, count: number): P
 async function generateGlossaryLinks(context: LinkingContext, count: number): Promise<InternalLink[]> {
     const links: InternalLink[] = [];
 
+    // Early return if glossary_terms table doesn't exist or is not accessible
+    // This prevents error spam when the table hasn't been set up yet
+    try {
+        // Quick check: try to fetch one term to see if table exists
+        const testQuery = await api.entities.Glossary.list(undefined, 1);
+        if (!testQuery || testQuery.length === 0) {
+            // Table might not exist or be empty - return empty links silently
+            return links;
+        }
+    } catch (error) {
+        // Table doesn't exist or RLS is blocking - return empty links silently
+        return links;
+    }
+
     try {
         // If specific terms are mentioned, use them
         if (context.relatedTerms && context.relatedTerms.length > 0) {
             for (const term of context.relatedTerms.slice(0, count)) {
-                const glossaryTerm = await api.entities.Glossary.getBySlug(term);
-                if (glossaryTerm) {
-                    links.push({
-                        text: glossaryTerm.term,
-                        url: `/glossary/${glossaryTerm.slug}`,
-                        type: 'glossary',
-                        priority: 9,
-                    });
+                try {
+                    const glossaryTerm = await api.entities.Glossary.getBySlug(term);
+                    if (glossaryTerm) {
+                        links.push({
+                            text: glossaryTerm.term,
+                            url: `/glossary/${glossaryTerm.slug}`,
+                            type: 'glossary',
+                            priority: 9,
+                        });
+                    }
+                } catch (error) {
+                    // Skip this term if it fails
+                    continue;
                 }
             }
         }
 
         // Fill remaining slots with category-relevant terms
         if (links.length < count) {
-            const terms = await api.entities.Glossary.getByCategory(context.category || 'Investing');
-            const filtered = terms
-                .filter((t: any) => !context.relatedTerms?.includes(t.slug))
-                .slice(0, count - links.length);
+            try {
+                const terms = await api.entities.Glossary.getByCategory(context.category || 'Investing');
+                const filtered = terms
+                    .filter((t: any) => !context.relatedTerms?.includes(t.slug))
+                    .slice(0, count - links.length);
 
-            for (const term of filtered) {
-                links.push({
-                    text: term.term,
-                    url: `/glossary/${term.slug}`,
-                    type: 'glossary',
-                    priority: 7,
-                });
+                for (const term of filtered) {
+                    links.push({
+                        text: term.term,
+                        url: `/glossary/${term.slug}`,
+                        type: 'glossary',
+                        priority: 7,
+                    });
+                }
+            } catch (error) {
+                // Silently fail - glossary terms are optional
             }
         }
 
     } catch (error) {
-        logger.error('Error fetching glossary terms', error as Error);
+        // Silently handle glossary fetch errors - don't spam logs
+        // Glossary terms are optional for internal linking
     }
 
     return links.slice(0, count);

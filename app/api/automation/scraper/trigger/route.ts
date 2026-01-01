@@ -20,7 +20,8 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const supabase = await createClient();
+        const { createServiceClient } = await import('@/lib/supabase/service');
+        const supabase = createServiceClient();
 
         // Record scraper trigger in database
         let triggerId: string | null = null;
@@ -35,19 +36,25 @@ export async function POST(request: NextRequest) {
                         target,
                         ...params
                     },
-                    triggered_at: new Date().toISOString(),
-                    created_at: new Date().toISOString()
+                    triggered_at: new Date().toISOString()
                 }])
-                .select('id')
-                .single();
+                .select('id');
 
-            if (!error && data) {
-                triggerId = data.id;
+            if (error) {
+                logger.error('Database error recording scraper trigger', error);
+            } else if (data && data.length > 0) {
+                triggerId = data[0].id;
             }
-        } catch (err) {
-            // Table might not exist yet - continue without recording
-            logger.warn('pipeline_runs table not found, continuing without recording');
+        } catch (err: any) {
+            logger.error('Unexpected error recording scraper trigger', err);
         }
+
+        // Trigger background processing immediately (simulated)
+        // This allows the local "Content Factory" to start working
+        fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/cron/process-pipeline`, {
+            method: 'POST',
+            headers: { 'x-internal-trigger': 'true' }
+        }).catch(e => logger.error('Background kickoff failed', e));
 
         // In production, this would:
         // 1. Trigger GitHub Actions workflow for Python scrapers

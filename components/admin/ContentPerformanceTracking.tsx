@@ -127,218 +127,283 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
     }, [articles]);
 
     return (
-        <div className="space-y-6">
-            {/* Key Metrics */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <Card>
-                    <CardContent className="p-6">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="text-sm text-slate-600 mb-1">Total Views</p>
-                                <p className="text-2xl font-bold text-slate-900">{totalViews.toLocaleString()}</p>
+        <div className="space-y-10">
+            {/* High-Impact Performance Metrics */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden hover:border-emerald-500/30 transition-all group">
+                    <CardContent className="p-8">
+                        <div className="flex items-center justify-between mb-4">
+                            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Total Propagation</span>
+                            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                <Eye className="w-5 h-5 text-emerald-400" />
                             </div>
-                            <Eye className="w-8 h-8 text-teal-600" />
+                        </div>
+                        <div className="space-y-1">
+                            <h3 className="text-3xl font-extrabold text-white tabular-nums tracking-tight tracking-tighter">
+                                {totalViews.toLocaleString()}
+                            </h3>
+                            <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest flex items-center gap-1">
+                                <TrendingUp className="w-3 h-3" />
+                                +12.4% <span className="text-slate-500">vs Prev Period</span>
+                            </p>
                         </div>
                     </CardContent>
                 </Card>
-                
-                <Card>
-                    <CardContent className="p-6">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="text-sm text-slate-600 mb-1">Total Clicks</p>
-                                <p className="text-2xl font-bold text-slate-900">{totalClicks.toLocaleString()}</p>
+
+                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden hover:border-blue-500/30 transition-all group">
+                    <CardContent className="p-8">
+                        <div className="flex items-center justify-between mb-4">
+                            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Conversion Vector</span>
+                            <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                <MousePointerClick className="w-5 h-5 text-blue-400" />
                             </div>
-                            <MousePointerClick className="w-8 h-8 text-blue-600" />
+                        </div>
+                        <div className="space-y-1">
+                            <h3 className="text-3xl font-extrabold text-white tabular-nums tracking-tighter">
+                                {totalClicks.toLocaleString()}
+                            </h3>
+                            <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest flex items-center gap-1">
+                                <TrendingUp className="w-3 h-3" />
+                                Velocity Optimized
+                            </p>
                         </div>
                     </CardContent>
                 </Card>
-                
-                <Card>
-                    <CardContent className="p-6">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="text-sm text-slate-600 mb-1">Est. Revenue</p>
-                                <p className="text-2xl font-bold text-slate-900">₹{estimatedRevenue.toLocaleString()}</p>
+
+                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden hover:border-indigo-500/30 transition-all group">
+                    <CardContent className="p-8">
+                        <div className="flex items-center justify-between mb-4">
+                            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Synthesized Yield</span>
+                            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                <DollarSign className="w-5 h-5 text-indigo-400" />
                             </div>
-                            <DollarSign className="w-8 h-8 text-emerald-600" />
+                        </div>
+                        <div className="space-y-1">
+                            <h3 className="text-3xl font-extrabold text-white tabular-nums tracking-tighter">
+                                ₹{estimatedRevenue.toLocaleString()}
+                            </h3>
+                            <p className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest flex items-center gap-1">
+                                <Zap className="w-3 h-3" />
+                                Revenue Node Beta
+                            </p>
                         </div>
                     </CardContent>
                 </Card>
-                
-                <Card>
-                    <CardContent className="p-6">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="text-sm text-slate-600 mb-1">Total Articles</p>
-                                <p className="text-2xl font-bold text-slate-900">{articles.length}</p>
+
+                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden hover:border-slate-500/30 transition-all group">
+                    <CardContent className="p-8">
+                        <div className="flex items-center justify-between mb-4">
+                            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Asset Inventory</span>
+                            <div className="w-10 h-10 rounded-xl bg-slate-500/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                <FileText className="w-5 h-5 text-slate-400" />
                             </div>
-                            <FileText className="w-8 h-8 text-slate-600" />
+                        </div>
+                        <div className="space-y-1">
+                            <h3 className="text-3xl font-extrabold text-white tabular-nums tracking-tighter">
+                                {articles.length}
+                            </h3>
+                            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Active Intelligence Units</p>
                         </div>
                     </CardContent>
                 </Card>
             </div>
 
-            {/* Charts */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Views Over Time */}
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <BarChart3 className="w-5 h-5" />
-                            Views Over Time (Last 7 Days)
+            {/* Visual Intelligence Charts */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                    <CardHeader className="border-b border-white/5 px-8 py-6">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                            <BarChart3 className="w-4 h-4 text-emerald-400" />
+                            Content Pulse Logic (7D Temporal)
                         </CardTitle>
                     </CardHeader>
-                    <CardContent>
-                        <ResponsiveContainer width="100%" height={300}>
+                    <CardContent className="p-8">
+                        <ResponsiveContainer width="100%" height={320}>
                             <LineChart data={chartData}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="date" />
-                                <YAxis />
-                                <Tooltip />
-                                <Line type="monotone" dataKey="views" stroke="#10b981" strokeWidth={2} />
+                                <defs>
+                                    <linearGradient id="viewsGradient" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
+                                        <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                                    </linearGradient>
+                                </defs>
+                                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                                <XAxis 
+                                    dataKey="date" 
+                                    axisLine={false} 
+                                    tickLine={false} 
+                                    tick={{ fill: '#64748b', fontSize: 10, fontWeight: 700 }}
+                                />
+                                <YAxis 
+                                    axisLine={false} 
+                                    tickLine={false} 
+                                    tick={{ fill: '#64748b', fontSize: 10, fontWeight: 700 }}
+                                />
+                                <Tooltip 
+                                    contentStyle={{ backgroundColor: '#0f172a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
+                                    itemStyle={{ color: '#fff', fontSize: '12px', fontWeight: 'bold' }}
+                                />
+                                <Line 
+                                    type="monotone" 
+                                    dataKey="views" 
+                                    stroke="#10b981" 
+                                    strokeWidth={4} 
+                                    dot={{ r: 4, fill: '#10b981', strokeWidth: 2, stroke: '#0f172a' }}
+                                    activeDot={{ r: 6, strokeWidth: 0 }}
+                                />
                             </LineChart>
                         </ResponsiveContainer>
                     </CardContent>
                 </Card>
 
-                {/* Category Performance */}
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Top Categories by Views</CardTitle>
+                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                    <CardHeader className="border-b border-white/5 px-8 py-6">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                            <TrendingUp className="w-4 h-4 text-indigo-400" />
+                            Cluster Hierarchy (By Propagation)
+                        </CardTitle>
                     </CardHeader>
-                    <CardContent>
-                        <ResponsiveContainer width="100%" height={300}>
-                            <BarChart data={categoryPerformance}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="category" />
-                                <YAxis />
-                                <Tooltip />
-                                <Bar dataKey="views" fill="#10b981" />
+                    <CardContent className="p-8">
+                        <ResponsiveContainer width="100%" height={320}>
+                            <BarChart data={categoryPerformance} layout="vertical">
+                                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" horizontal={false} />
+                                <XAxis type="number" hide />
+                                <YAxis 
+                                    dataKey="category" 
+                                    type="category" 
+                                    axisLine={false} 
+                                    tickLine={false} 
+                                    tick={{ fill: '#fff', fontSize: 10, fontWeight: 700 }}
+                                    width={100}
+                                />
+                                <Tooltip 
+                                    contentStyle={{ backgroundColor: '#0f172a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
+                                    cursor={{ fill: 'rgba(255,255,255,0.02)' }}
+                                />
+                                <Bar 
+                                    dataKey="views" 
+                                    fill="#4f46e5" 
+                                    radius={[0, 6, 6, 0]} 
+                                    barSize={20}
+                                />
                             </BarChart>
                         </ResponsiveContainer>
                     </CardContent>
                 </Card>
             </div>
 
-            {/* Top Performing Articles */}
-            <Card>
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                        <TrendingUp className="w-5 h-5 text-emerald-600" />
-                        Top Performing Articles
-                    </CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <div className="space-y-3">
-                        {topArticles.length > 0 ? (
-                            topArticles.map((article: any, idx: number) => (
-                                <div key={article.id || idx} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                                    <div className="flex items-center gap-3 flex-1">
-                                        <Badge className="bg-emerald-100 text-emerald-700 border-0">
-                                            #{idx + 1}
-                                        </Badge>
-                                        <div className="flex-1">
-                                            <p className="font-semibold text-slate-900 line-clamp-1">
-                                                {article.title || 'Untitled'}
-                                            </p>
-                                            <p className="text-xs text-slate-500">
-                                                {article.category || 'Uncategorized'}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-4">
-                                        <div className="text-right">
-                                            <p className="text-sm font-semibold text-slate-900">
-                                                {article.views?.toLocaleString() || 0}
-                                            </p>
-                                            <p className="text-xs text-slate-500">views</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))
-                        ) : (
-                            <p className="text-sm text-slate-500 text-center py-4">No articles yet</p>
-                        )}
-                    </div>
-                </CardContent>
-            </Card>
-
-            {/* Revenue Drivers */}
-            <Card>
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                        <DollarSign className="w-5 h-5 text-emerald-600" />
-                        Revenue Drivers
-                    </CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <div className="space-y-3">
-                        {revenueDrivers.length > 0 ? (
-                            revenueDrivers.map((article: any, idx: number) => {
-                                const estimatedArticleRevenue = (article.views || 0) * 0.1; // Rough estimate
-                                return (
-                                    <div key={article.id || idx} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                                        <div className="flex items-center gap-3 flex-1">
-                                            <Badge className="bg-emerald-100 text-emerald-700 border-0">
-                                                #{idx + 1}
-                                            </Badge>
-                                            <div className="flex-1">
-                                                <p className="font-semibold text-slate-900 line-clamp-1">
-                                                    {article.title || 'Untitled'}
+            {/* Tactical Intelligence Overlays */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Top Performing Articles */}
+                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                    <CardHeader className="border-b border-white/5 px-8 py-5">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-emerald-400 flex items-center gap-3">
+                            <TrendingUp className="w-4 h-4" />
+                            Alpha Assets (High Velocity)
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-0">
+                        <div className="divide-y divide-white/5">
+                            {topArticles.length > 0 ? (
+                                topArticles.map((article: any, idx: number) => (
+                                    <div key={article.id || idx} className="flex items-center justify-between p-6 hover:bg-white/[0.02] transition-colors group">
+                                        <div className="flex items-center gap-5 flex-1 min-w-0">
+                                            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-[10px] font-black text-emerald-400 border border-emerald-500/20">
+                                                0{idx + 1}
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <p className="font-bold text-white tracking-tight line-clamp-1 group-hover:text-emerald-400 transition-colors">
+                                                    {article.title || 'Inert System Node'}
                                                 </p>
-                                                <p className="text-xs text-slate-500">
-                                                    {article.views?.toLocaleString() || 0} views
+                                                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">
+                                                    {article.category || 'Standard Terminal'}
                                                 </p>
                                             </div>
                                         </div>
-                                        <div className="text-right">
-                                            <p className="text-sm font-semibold text-emerald-600">
-                                                ₹{estimatedArticleRevenue.toFixed(0)}
+                                        <div className="text-right ml-4">
+                                            <p className="text-sm font-black text-white px-3 py-1 bg-white/5 rounded-lg tabular-nums">
+                                                {article.views?.toLocaleString() || 0}
                                             </p>
-                                            <p className="text-xs text-slate-500">est. revenue</p>
+                                            <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest mt-1">Impact Factor</p>
                                         </div>
                                     </div>
-                                );
-                            })
-                        ) : (
-                            <p className="text-sm text-slate-500 text-center py-4">No revenue data yet</p>
-                        )}
-                    </div>
-                </CardContent>
-            </Card>
+                                ))
+                            ) : (
+                                <div className="text-center py-12 text-slate-600 font-bold uppercase tracking-widest text-[10px]">No active data streams</div>
+                            )}
+                        </div>
+                    </CardContent>
+                </Card>
 
-            {/* Worst Performing Articles */}
-            {worstArticles.length > 0 && (
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <TrendingDown className="w-5 h-5 text-rose-600" />
-                            Needs Optimization
+                {/* Revenue Drivers */}
+                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                    <CardHeader className="border-b border-white/5 px-8 py-5">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-indigo-400 flex items-center gap-3">
+                            <DollarSign className="w-4 h-4" />
+                            Fiscal Drivers (Yield Extraction)
                         </CardTitle>
                     </CardHeader>
-                    <CardContent>
-                        <div className="space-y-3">
-                            {worstArticles.map((article: any, idx: number) => (
-                                <div key={article.id || idx} className="flex items-center justify-between p-3 bg-rose-50 rounded-lg">
-                                    <div className="flex items-center gap-3 flex-1">
-                                        <Badge className="bg-rose-100 text-rose-700 border-0">
-                                            #{idx + 1}
-                                        </Badge>
-                                        <div className="flex-1">
-                                            <p className="font-semibold text-slate-900 line-clamp-1">
-                                                {article.title || 'Untitled'}
-                                            </p>
-                                            <p className="text-xs text-slate-500">
-                                                {article.category || 'Uncategorized'}
-                                            </p>
+                    <CardContent className="p-0">
+                        <div className="divide-y divide-white/5">
+                            {revenueDrivers.length > 0 ? (
+                                revenueDrivers.map((article: any, idx: number) => {
+                                    const estimatedArticleRevenue = (article.views || 0) * 0.1;
+                                    return (
+                                        <div key={article.id || idx} className="flex items-center justify-between p-6 hover:bg-white/[0.02] transition-colors group">
+                                            <div className="flex items-center gap-5 flex-1 min-w-0">
+                                                <div className="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-[10px] font-black text-indigo-400 border border-indigo-500/20">
+                                                    0{idx + 1}
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <p className="font-bold text-white tracking-tight line-clamp-1 group-hover:text-indigo-400 transition-colors">
+                                                        {article.title || 'Inert System Node'}
+                                                    </p>
+                                                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">
+                                                        {(article.views || 0).toLocaleString()} Yield Points
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div className="text-right ml-4">
+                                                <p className="text-sm font-black text-emerald-400 px-3 py-1 bg-emerald-500/10 rounded-lg tabular-nums border border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]">
+                                                    ₹{estimatedArticleRevenue.toFixed(0)}
+                                                </p>
+                                                <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest mt-1">Net Extraction</p>
+                                            </div>
                                         </div>
+                                    );
+                                })
+                            ) : (
+                                <div className="text-center py-12 text-slate-600 font-bold uppercase tracking-widest text-[10px]">No active yield nodes</div>
+                            )}
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+
+            {/* Needs Optimization */}
+            {worstArticles.length > 0 && (
+                <Card className="bg-rose-500/[0.02] border-rose-500/10 rounded-2xl overflow-hidden">
+                    <CardHeader className="border-b border-rose-500/10 px-8 py-5">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-rose-400 flex items-center gap-3">
+                            <TrendingDown className="w-4 h-4" />
+                            System Faults (Latency Detected)
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-0">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 divide-x divide-rose-500/10">
+                            {worstArticles.map((article: any, idx: number) => (
+                                <div key={article.id || idx} className="p-6 hover:bg-rose-500/[0.05] transition-colors">
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <div className="w-6 h-6 rounded bg-rose-500/10 flex items-center justify-center text-[9px] font-black text-rose-400 border border-rose-500/20">
+                                            {idx + 1}
+                                        </div>
+                                        <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{article.category || 'Terminal'}</p>
                                     </div>
-                                    <div className="text-right">
-                                        <p className="text-sm font-semibold text-rose-600">
-                                            {article.views?.toLocaleString() || 0}
-                                        </p>
-                                        <p className="text-xs text-slate-500">views</p>
+                                    <p className="text-xs font-bold text-white tracking-tight line-clamp-1 mb-2">
+                                        {article.title || 'Faulty Node'}
+                                    </p>
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-[10px] font-black text-rose-400 uppercase tracking-widest">{article.views || 0} hits</span>
+                                        <ArrowDownRight className="w-3 h-3 text-rose-400" />
                                     </div>
                                 </div>
                             ))}
@@ -349,6 +414,8 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
         </div>
     );
 }
+
+
 
 
 

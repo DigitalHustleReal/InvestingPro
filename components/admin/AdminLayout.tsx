@@ -26,27 +26,35 @@ export default function AdminLayout({
     inspectorContent 
 }: AdminLayoutProps) {
     return (
-        <div className="min-h-screen bg-slate-50 flex">
+        <div className="min-h-screen bg-[#0a0c10] flex overflow-hidden">
+            {/* Background Mesh Gradients for Premium feel */}
+            <div className="fixed inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-500/5 blur-[120px]" />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-purple-500/5 blur-[120px]" />
+            </div>
+
             {/* CMS Navigation Sidebar (Left) */}
             <AdminSidebar />
 
             {/* Middle + Content + Inspector Area */}
-            <div className="flex-1 flex overflow-hidden">
+            <div className="flex-1 flex overflow-hidden relative z-10">
                 {/* Contextual Sidebar (Middle - for Analyze dashboard) */}
                 {contextualSidebar && (
-                    <aside className="flex-shrink-0">
+                    <aside className="flex-shrink-0 border-r border-white/5">
                         {contextualSidebar}
                     </aside>
                 )}
 
                 {/* Main Content Area */}
-                <main className="flex-1 overflow-y-auto">
-                    {children}
+                <main className="flex-1 overflow-y-auto no-scrollbar bg-transparent">
+                    <div className="min-h-full">
+                        {children}
+                    </div>
                 </main>
 
                 {/* Inspector Panel (Right - for entity editing) */}
                 {showInspector && inspectorContent && (
-                    <aside className="w-80 border-l border-slate-200 bg-white flex-shrink-0 overflow-y-auto">
+                    <aside className="w-80 border-l border-white/5 bg-slate-900/50 backdrop-blur-xl flex-shrink-0 overflow-y-auto no-scrollbar">
                         {inspectorContent}
                     </aside>
                 )}

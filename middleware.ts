@@ -86,10 +86,10 @@ export async function middleware(request: NextRequest) {
         } = await supabase.auth.getUser()
 
         if (!user) {
-            // PRODUCTION ONLY: Redirect to login if not authenticated
+            // PRODUCTION ONLY: Redirect to admin login if not authenticated
             // This redirect only happens in production with full auth setup
             const url = request.nextUrl.clone()
-            url.pathname = '/login'
+            url.pathname = '/admin/login'
             url.searchParams.set('redirect', request.nextUrl.pathname)
             return NextResponse.redirect(url)
         }
