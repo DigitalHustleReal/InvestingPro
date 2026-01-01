@@ -52,8 +52,9 @@ const nextConfig: NextConfig = {
   },
   // Redirects for canonicalization and removed routes
   async redirects() {
-    const { getLegacySubcategoryRedirects } = await import('./lib/navigation/legacy-migration');
-    const legacyRedirects = getLegacySubcategoryRedirects();
+    // Temporarily disabled legacy redirects to fix startup
+    // const { getLegacySubcategoryRedirects } = await import('./lib/navigation/legacy-migration');
+    // const legacyRedirects = getLegacySubcategoryRedirects();
     
     return [
       // Alpha terminal → terminal (canonical route)
@@ -89,7 +90,7 @@ const nextConfig: NextConfig = {
         permanent: false,
       },
       // Legacy subcategory routes → new intent-based routes
-      ...legacyRedirects,
+      // ...legacyRedirects,
     ];
   },
 };

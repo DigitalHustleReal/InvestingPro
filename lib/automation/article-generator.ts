@@ -139,9 +139,24 @@ export async function generateArticleCore(topic: string, logFn: (msg: string) =>
         // 0. Deep Research
         logFn('0️⃣ Performing Deep Research (SERP Analysis)...');
         let brief: ResearchBrief | undefined;
+        let difficultyScore = 50; // Default medium difficulty
         try {
             brief = await serpAnalyzer.analyzeCompetitors(topic);
             logFn(`   ✅ Identified ${brief.content_gaps.length} Content Gaps`);
+            
+            // NEW: Score keyword difficulty (graceful fallback)
+            try {
+                const { scoreKeywordDifficulty } = await import('@/lib/seo/keyword-difficulty-scorer');
+                const difficulty = await scoreKeywordDifficulty(topic, { 
+                    useRealSERP: true,
+                    targetAuthority: 15 // Your current DA (update as you grow)
+                });
+                difficultyScore = difficulty.difficulty;
+                logFn(`   🎯 Keyword Difficulty: ${difficulty.level} (${difficultyScore}/100)`);
+                logFn(`   💡 ${difficulty.recommendation}`);
+            } catch (diffError) {
+                logFn('   ⚠️ Difficulty scoring unavailable, using default.');
+            }
         } catch (e) {
             logFn('   ⚠️ Research failed, proceeding with standard generation.');
         }
@@ -221,6 +236,11 @@ export async function generateArticleCore(topic: string, logFn: (msg: string) =>
             tags: tags,
             read_time: readTime,
             featured_image: imageUrl,
+            
+            // NEW: Keyword difficulty tracking
+            difficulty_score: difficultyScore,
+            target_authority: 15, // Your current DA
+            primary_keyword: topic,
             
             status: 'published', // AUTO-PUBLISH for one-click generator
             published_at: now,

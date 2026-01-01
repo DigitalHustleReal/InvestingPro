@@ -30,14 +30,27 @@ export interface ResearchBrief {
 
 export class SERPAnalyzer {
     private apiKey: string | undefined;
-    private genAI: GoogleGenAI;
+    private genAI: GoogleGenAI | null = null;
 
     constructor() {
         this.apiKey = process.env.SERPAPI_API_KEY; // Optional: Works with synthetic if missing
         
+        // Lazy initialization - only create when needed
         const geminiKey = process.env.GOOGLE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
-        if (!geminiKey) throw new Error("Missing Gemini API Key for Analysis");
-        this.genAI = new GoogleGenAI({ apiKey: geminiKey });
+        if (geminiKey) {
+            this.genAI = new GoogleGenAI({ apiKey: geminiKey });
+        }
+    }
+    
+    private ensureGenAI(): GoogleGenAI {
+        if (!this.genAI) {
+            const geminiKey = process.env.GOOGLE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+            if (!geminiKey) {
+                throw new Error("Missing Gemini API Key for Analysis");
+            }
+            this.genAI = new GoogleGenAI({ apiKey: geminiKey });
+        }
+        return this.genAI;
     }
 
     /**
@@ -132,7 +145,7 @@ export class SERPAnalyzer {
         - Groww.in
         `;
         
-        const response = await this.genAI.models.generateContent({
+        const response = await this.ensureGenAI().models.generateContent({
             model: "gemini-2.0-flash-exp",
             contents: prompt,
             config: { responseMimeType: "application/json" }
@@ -189,7 +202,7 @@ export class SERPAnalyzer {
         }
         `;
         
-        const response = await this.genAI.models.generateContent({
+        const response = await this.ensureGenAI().models.generateContent({
             model: "gemini-2.0-flash-exp",
             contents: prompt,
             config: { responseMimeType: "application/json" }
