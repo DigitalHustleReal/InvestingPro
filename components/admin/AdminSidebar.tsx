@@ -18,7 +18,9 @@ import {
     Search,
     Target,
     Rss,
-    File
+    File,
+    BarChart3,
+    Activity
 } from 'lucide-react';
 
 interface NavItem {
@@ -54,9 +56,16 @@ const navSections: NavSection[] = [
     {
         title: 'AUTOMATION',
         items: [
-            { label: 'Content Factory', href: '/admin/generator', icon: Zap },
+            { label: 'Content Factory', href: '/admin/content-factory', icon: Zap },
             { label: 'RSS Feeds', href: '/admin/rss-feeds', icon: Rss },
             { label: 'Review Queue', href: '/admin/review-queue', icon: CheckSquare },
+        ],
+    },
+    {
+        title: 'INSIGHTS',
+        items: [
+            { label: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
+            { label: 'SEO Health', href: '/admin/seo', icon: Activity },
         ],
     },
     {

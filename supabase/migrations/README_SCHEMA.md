@@ -1,147 +1,140 @@
-# Complete Database Schema
+# Database Migrations - Execution Guide
 
 ## Overview
 
-This file (`000_complete_schema.sql`) contains **all-inclusive SQL** for creating the complete InvestingPro database schema. It includes:
+This directory contains all SQL migrations for the InvestingPro application. Run them in order to set up a complete database schema.
 
-- ✅ 25+ tables covering all features
-- ✅ All indexes for performance
-- ✅ Row Level Security (RLS) policies
-- ✅ Triggers and functions
-- ✅ Proper foreign key relationships
-- ✅ Extensions (UUID, pg_trgm, vector)
+## Migration Files
 
-## How to Use
+| Order | File | Description |
+|-------|------|-------------|
+| 1 | `20260101_consolidated_schema.sql` | Core tables: products, articles, reviews, users |
+| 2 | `20260101_schema_fixes.sql` | Article enhancements + Analytics + RSS + Ads |
+| 3 | `20260101_monetization_schema.sql` | Affiliate partners, links, and click tracking |
+| 4 | `20260101_engagement_schema.sql` | Newsletter, bookmarks, notifications |
+| 5 | `20260101_rpc_functions.sql` | **⚠️ REQUIRED** Admin dashboard RPCs, search functions |
+
+## How to Run
 
 ### Option 1: Supabase Dashboard (Recommended)
 
-1. Go to your Supabase Dashboard: https://supabase.com/dashboard
+1. Go to [Supabase Dashboard](https://supabase.com/dashboard)
 2. Select your project
 3. Navigate to **SQL Editor**
 4. Click **New Query**
-5. Copy and paste the entire contents of `000_complete_schema.sql`
+5. Copy and paste contents of each migration file in order
 6. Click **Run** (or press `Ctrl+Enter`)
 
 ### Option 2: Supabase CLI
 
 ```bash
-# If you have Supabase CLI installed
+# Push all migrations
 supabase db push
 ```
 
-### Option 3: psql Command Line
+### Option 3: Direct psql
 
 ```bash
-psql -h <your-supabase-host> -U postgres -d postgres -f supabase/migrations/000_complete_schema.sql
+# Run each file in order
+psql -h <your-supabase-host> -U postgres -d postgres \
+  -f supabase/migrations/20260101_consolidated_schema.sql
+
+psql -h <your-supabase-host> -U postgres -d postgres \
+  -f supabase/migrations/20260101_schema_fixes.sql
+
+psql -h <your-supabase-host> -U postgres -d postgres \
+  -f supabase/migrations/20260101_monetization_schema.sql
+
+psql -h <your-supabase-host> -U postgres -d postgres \
+  -f supabase/migrations/20260101_engagement_schema.sql
 ```
 
-## Tables Included
+## Tables Created
 
-### Core Product Tables
-- `products` - Unified product table
-- `product_data_points` - Provenance tracking for all data
-- `data_sources` - Source tracking
-- `raw_data_snapshots` - Audit trail
-
-### Product-Specific Tables
+### Core (consolidated_schema)
+- `data_sources` - Data provenance
+- `authors` - CMS authors
+- `categories` - Content categories
+- `products` - Universal product table
 - `credit_cards` - Credit card details
 - `mutual_funds` - Mutual fund details
-- `personal_loans` - Personal loan details
-
-### User Management
-- `user_profiles` - User profile information
-- `user_subscriptions` - Stripe subscription management
-
-### Content Management
-- `articles` - Articles and guides
-- `content` - Alternative content table
-- `authors` - Author information
-- `categories` - Content categories
-- `comparisons` - Product comparisons
-
-### Analytics & Tracking
-- `rankings` - Product rankings
-- `ranking_configurations` - Ranking methodology
+- `personal_loans` - Loan details
+- `articles` - CMS articles
 - `reviews` - User reviews
-- `calculator_results` - Calculator usage tracking
-- `affiliate_clicks` - Affiliate click tracking
+- `user_profiles` - User data
+- `calculator_results` - Calculator usage
+- `pipeline_runs` - Automation logs
+- `affiliate_clicks` - Basic click tracking
+
+### Analytics & RSS (schema_fixes)
+- `article_views` - Detailed view events
+- `article_analytics` - Aggregated metrics
+- `rss_feeds` - RSS feed configs
+- `rss_items` - Imported items
+- `rss_jobs` - Import job logs
 - `ad_placements` - Ad management
+- `content_calendar` - Editorial calendar
+- `social_schedulers` - Social posting
 
-### Financial Data
-- `live_rates` - Live interest rates
-- `inflation_data` - Inflation tracking
+### Monetization (monetization_schema)
+- `affiliate_partners` - Partner programs
+- `affiliate_links` - Trackable short links
+- `affiliate_clicks` - Click events (extended)
 
-### Portfolio Management
-- `portfolios` - User portfolio holdings
-- `assets` - Universal asset model
-- `asset_price_history` - Price history for assets
-
-### Monetization
-- `affiliate_products` - Affiliate product inventory
-
-## Features
-
-### Row Level Security (RLS)
-All tables have RLS enabled with appropriate policies:
-- Public read access for published content
-- User-specific access for portfolios and profiles
-- Admin-only access for management operations
-- Service role access for automated operations
-
-### Automatic Triggers
-- `updated_at` timestamps automatically updated
-- User profile creation on signup
-- Data completeness score calculation
-
-### Performance Indexes
-- Full-text search indexes
-- Foreign key indexes
-- Composite indexes for common queries
-- GIN indexes for JSONB and arrays
-
-## Important Notes
-
-1. **Idempotent**: The script uses `CREATE TABLE IF NOT EXISTS` and `CREATE INDEX IF NOT EXISTS`, so it's safe to run multiple times.
-
-2. **Dependencies**: Tables are created in the correct order to handle foreign key dependencies.
-
-3. **Auth Integration**: Some tables reference `auth.users` which is managed by Supabase Auth. Make sure Supabase Auth is enabled.
-
-4. **Service Role**: Some operations require the `service_role` key. Keep this secure and never expose it in client-side code.
-
-5. **RLS Policies**: Review and adjust RLS policies based on your security requirements.
+### Engagement (engagement_schema)
+- `newsletter_subscribers` - Email subscriptions
+- `bookmarks` - Saved articles
+- `reading_progress` - Read tracking
+- `notifications` - User notifications
+- `user_preferences` - User settings
 
 ## Verification
 
-After running the schema, verify it worked:
+After running all migrations, verify with:
 
 ```sql
--- Check table count
+-- Count tables
 SELECT COUNT(*) FROM information_schema.tables 
 WHERE table_schema = 'public';
+-- Expected: ~25+
 
--- Check specific tables
+-- List all tables
 SELECT table_name FROM information_schema.tables 
 WHERE table_schema = 'public' 
 ORDER BY table_name;
 
--- Test a query
-SELECT * FROM products LIMIT 1;
+-- Test key tables
+SELECT COUNT(*) FROM articles;
+SELECT COUNT(*) FROM newsletter_subscribers;
+SELECT COUNT(*) FROM affiliate_partners;
 ```
 
-## Next Steps
+## Seed Data
 
-1. **Seed Data**: Add initial data to your tables
-2. **Test RLS**: Verify RLS policies work as expected
-3. **Set Up Scrapers**: Configure data sources and scrapers
-4. **Configure Stripe**: Set up subscription products
-5. **Add Content**: Start creating articles and guides
+The `monetization_schema` includes sample affiliate partners:
+- Groww (Mutual Funds)
+- Zerodha (Stocks)
+- ICICI Prudential (Mutual Funds)
+- HDFC Bank (Credit Cards)
+- Bajaj Finserv (Loans)
 
-## Support
+## Troubleshooting
 
-If you encounter any issues:
-1. Check Supabase logs in the dashboard
-2. Verify all extensions are enabled
-3. Ensure Supabase Auth is properly configured
-4. Review RLS policies if you have permission issues
+### "Table already exists"
+Migrations use `IF NOT EXISTS` - safe to re-run.
 
+### "Column already exists"
+The schema_fixes migration uses `ADD COLUMN IF NOT EXISTS` - safe to re-run.
+
+### "auth.users does not exist"
+Make sure Supabase Auth is enabled in your project settings.
+
+### RLS Policy errors
+Some policies may already exist. You can drop and recreate them:
+```sql
+DROP POLICY IF EXISTS "policy_name" ON table_name;
+```
+
+## Legacy Migrations
+
+The `legacy/` folder contains old migration files that are superseded by the consolidated schema. Do not run these.

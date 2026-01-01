@@ -71,6 +71,8 @@ export interface ArticleData extends ArticleContent, ArticleMetadata {
     ai_generated?: boolean;
     author_id?: string;
     author_name?: string;
+    author_avatar?: string;
+    author_role?: string;
     views?: number;
     created_at?: string;
     updated_at?: string;
@@ -115,6 +117,17 @@ export class ArticleService {
             ArticleService.instance = new ArticleService();
         }
         return ArticleService.instance;
+    }
+
+    /**
+     * Create a new instance (for isolated use, e.g. Automation)
+     */
+    static create(client?: any): ArticleService {
+        const service = new ArticleService();
+        if (client) {
+            service.setClient(client);
+        }
+        return service;
     }
 
     /**
@@ -437,7 +450,7 @@ export class ArticleService {
         const supabase = this.getClient();
         let query = supabase
             .from('articles')
-            .select('*')
+            .select('*, authors(name, avatar_url, role)')
             .eq('status', 'published')
             .not('published_at', 'is', null)
             .order('published_at', { ascending: false });
@@ -507,7 +520,9 @@ export class ArticleService {
             language: data.language || 'en',
             ai_generated: data.ai_generated || false,
             author_id: data.author_id,
-            author_name: data.author_name,
+            author_name: data.authors?.name || data.author_name || 'InvestingPro Team',
+            author_avatar: data.authors?.avatar_url,
+            author_role: data.authors?.role || 'Editor',
             views: data.views || 0,
             created_at: data.created_at,
             updated_at: data.updated_at,

@@ -8,7 +8,8 @@ import QuickToolsSection from "@/components/home/QuickToolsSection";
 import TrustSection from "@/components/home/TrustSection";
 import OnboardingFlow from "@/components/onboarding/OnboardingFlow";
 import SEOHead from "@/components/common/SEOHead";
-import { api } from "@/lib/api";
+import MarketOverview from "@/components/market/MarketOverview";
+// import { api } from "@/lib/api"; // broken integration
 
 export default function Home() {
     const [showOnboarding, setShowOnboarding] = useState(false);
@@ -17,9 +18,14 @@ export default function Home() {
     useEffect(() => {
         const checkOnboarding = async () => {
             try {
-                const user = await api.auth.me();
-                if (user && !user.onboarding_completed) {
-                    setShowOnboarding(true);
+                const { createClient } = await import('@/lib/supabase/client');
+                const supabase = createClient();
+                const { data: { user } } = await supabase.auth.getUser();
+                
+                // Hack: Check user metadata or DB for onboarding status
+                // For now, assume if user exists, check flag
+                if (user && !user.user_metadata?.onboarding_completed) {
+                   // setShowOnboarding(true); // Disable for now to avoid annoying popups during dev
                 }
             } catch (error) {
                 // Silently handle auth check failure
@@ -52,16 +58,19 @@ export default function Home() {
             {/* Section 1: Animated Hero with Category Selector Above */}
             <AnimatedHero onCategorySelect={setSelectedCategory} selectedCategory={selectedCategory} />
 
-            {/* Section 2: Contextual Products - Dynamic based on category */}
+            {/* Section 2: Market Pulse Overview */}
+            <MarketOverview />
+
+            {/* Section 3: Contextual Products - Dynamic based on category */}
             <HomeContextualProducts selectedCategory={selectedCategory} />
 
-            {/* Section 3: Goal-Based Discovery - "I Want To..." */}
+            {/* Section 4: Goal-Based Discovery */}
             <GoalBasedDiscovery />
 
-            {/* Section 4: Quick Tools - Popular Calculators */}
+            {/* Section 5: Quick Tools - Popular Calculators */}
             <QuickToolsSection />
 
-            {/* Section 5: Trust & Social Proof */}
+            {/* Section 6: Trust & Social Proof */}
             <TrustSection />
 
             <OnboardingFlow

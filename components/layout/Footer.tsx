@@ -11,6 +11,7 @@ import {
     Instagram
 } from "lucide-react";
 import Logo from "@/components/common/Logo";
+import NewsletterWidget from "@/components/engagement/NewsletterWidget";
 
 // Helper to replace createPageUrl
 const getHref = (pageName: string) => {
@@ -193,8 +194,17 @@ export function Footer() {
                     </div>
                 </div>
 
-                {/* Ecosystem Awareness - Institutional, footnote-style */}
+                {/* Newsletter Signup */}
                 <div className="border-t border-slate-800 mt-12 pt-8">
+                    <div className="max-w-2xl mx-auto text-center">
+                        <h4 className="text-white font-bold text-lg mb-2">Stay Updated</h4>
+                        <p className="text-slate-400 text-sm mb-4">Get weekly investing insights and market updates.</p>
+                        <NewsletterWidget variant="minimal" />
+                    </div>
+                </div>
+
+                {/* Ecosystem Awareness - Institutional, footnote-style */}
+                <div className="border-t border-slate-800 mt-8 pt-8">
                     <div className="mb-6">
                         <p className="text-[10px] font-medium text-slate-600 uppercase tracking-widest mb-3">
                             Related Platforms

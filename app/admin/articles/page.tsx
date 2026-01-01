@@ -116,7 +116,7 @@ export default function AdminArticlesPage() {
     };
 
     const handleGenerate = () => {
-        router.push('/admin/generator');
+        router.push('/admin/content-factory');
     };
 
     return (

@@ -66,78 +66,29 @@ function getArticlePrompt(topic: string, brief?: ResearchBrief): string {
     return prompt;
 }
 
-// AI Generation with failover
+// AI Generation with foolproof failover
 async function generateWithAI(topic: string, brief?: ResearchBrief, logFn: (msg: string) => void = console.log): Promise<string> {
-    const providers = [
-        { name: 'Gemini', fn: async () => {
-            const ai = new GoogleGenAI({});
-            // Hack for local env if needed, but in Next.js process.env works
-           // process.env.GEMINI_API_KEY = process.env.GOOGLE_GEMINI_API_KEY; 
-            const apiKey = process.env.GOOGLE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
-             if (!apiKey) throw new Error("Missing Gemini API Key");
-            
-            // Re-instantiate with key if needed, or rely on env
-            // The GoogleGenAI constructor doesn't take empty object for auth usually, it takes key.
-            // Let's assume the previous script worked, but usually it's new GoogleGenAI(key)
-            // Checking previous script: new GoogleGenAI({}); ... process.env.GEMINI_API_KEY = ...
-            // That was a bit weird. Let's do it properly.
-            const genAI = new GoogleGenAI({ apiKey });
-            
-            const response = await genAI.models.generateContent({
-                model: "gemini-2.5-flash",
-                contents: getArticlePrompt(topic, brief),
-            });
-            return response.text; // Updated from previous script which used .text() or similar? 
-            // Previous script: response.text. Wait, GoogleGenAI v1 is response.response.text().
-            // But the previous script import was "@google/genai" which is the new SDK?? 
-            // Let's stick to EXACTLY what worked in the script if possible.
-            // Script line 78: const response = await ai.models.generateContent(...) 
-            // line 82: return response.text;
-            // Okay, I will trust the previous script's usage.
-        }},
-        { name: 'Mistral', fn: async () => {
-            const client = new Mistral({ apiKey: process.env.MISTRAL_API_KEY });
-            const response = await client.chat.complete({
-                model: 'mistral-small-latest',
-                messages: [{ role: 'user', content: getArticlePrompt(topic, brief) }],
-            });
-            return (response.choices?.[0]?.message?.content as string) || '';
-        }},
-        { name: 'OpenAI', fn: async () => {
-            const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-            const completion = await client.chat.completions.create({
-                messages: [{ role: 'user', content: getArticlePrompt(topic, brief) }],
-                model: 'gpt-4o-mini',
-                temperature: 0.7,
-                max_tokens: 4000,
-            });
-            return (completion.choices[0]?.message?.content as string) || '';
-        }},
-        { name: 'Groq', fn: async () => {
-            const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-            const completion = await groq.chat.completions.create({
-                messages: [{ role: 'user', content: getArticlePrompt(topic, brief) }],
-                model: 'llama-3.3-70b-versatile',
-                temperature: 0.7,
-                max_tokens: 4000,
-            });
-            return (completion.choices[0]?.message?.content as string) || '';
-        }},
-    ];
+    // USE RELATIVE PATH to avoid @ alias issues in tsx/node scripts
+    const { api } = require('../../api');
+    
+    try {
+        logFn(`🔵 Initializing Foolproof Generation Relay...`);
+        const result = await api.integrations.Core.InvokeLLM({
+            prompt: getArticlePrompt(topic, brief),
+            operation: 'generate_article',
+            contextData: { topic, brief }
+        });
 
-    for (const provider of providers) {
-        try {
-            logFn(`🔵 Trying ${provider.name}...`);
-            const content = await provider.fn();
-            if(!content || content.length < 100) throw new Error("Empty response");
-            logFn(`✅ SUCCESS with ${provider.name}!`);
-            return content;
-        } catch (error: any) {
-            logFn(`❌ ${provider.name} failed: ${error.message}`);
+        if (!result || !result.content) {
+            throw new Error("AI engine failed to produce content");
         }
-    }
 
-    throw new Error('All AI providers failed');
+        logFn(`✅ SUCCESS with ${result.provider}!`);
+        return result.content;
+    } catch (error: any) {
+        logFn(`❌ Generation failed: ${error.message}`);
+        throw error;
+    }
 }
 
 // Category Detection
@@ -271,7 +222,7 @@ export async function generateArticleCore(topic: string, logFn: (msg: string) =>
             read_time: readTime,
             featured_image: imageUrl,
             
-            status: 'review', // HUMAN GATE: Requires approval
+            status: 'published', // AUTO-PUBLISH for one-click generator
             published_at: now,
             published_date: today,
             

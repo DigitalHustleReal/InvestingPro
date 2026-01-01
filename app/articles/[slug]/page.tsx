@@ -16,7 +16,7 @@ import SEOHead from '@/components/common/SEOHead';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/Button';
-import { Calendar, Clock, User, Eye } from 'lucide-react';
+import { Calendar, Clock, User, Eye, Share2 } from 'lucide-react';
 import Link from 'next/link';
 import ArticleRenderer from '@/components/articles/ArticleRenderer';
 import { generateSchema } from '@/lib/linking/schema';
@@ -24,6 +24,12 @@ import { generateCanonicalUrl } from '@/lib/linking/canonical';
 import { generateBreadcrumbSchema } from '@/lib/linking/breadcrumbs';
 import DraggableTableOfContents from '@/components/blog/DraggableTableOfContents';
 import './article-content.css';
+import { AuthorBadge } from '@/components/articles/AuthorBadge';
+import { AdvertiserDisclosure } from '@/components/common/AdvertiserDisclosure';
+// Engagement Components
+import { BookmarkButton, NewsletterWidget } from '@/components/engagement';
+import RelatedArticles from '@/components/articles/RelatedArticles';
+import ContextualCTA from '@/components/monetization/ContextualCTA';
 
 export default function ArticleDetailPage() {
     const params = useParams();
@@ -34,6 +40,20 @@ export default function ArticleDetailPage() {
     const [article, setArticle] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [notFound, setNotFound] = useState(false);
+    const [readingProgress, setReadingProgress] = useState(0);
+
+    // Reading Progress Logic
+    useEffect(() => {
+        const updateProgress = () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = scrollTop / docHeight;
+            setReadingProgress(Math.min(Math.max(scrollPercent * 100, 0), 100));
+        };
+
+        window.addEventListener('scroll', updateProgress);
+        return () => window.removeEventListener('scroll', updateProgress);
+    }, []);
 
     useEffect(() => {
         if (slug) {
@@ -116,20 +136,7 @@ export default function ArticleDetailPage() {
         );
     }
 
-    const [readingProgress, setReadingProgress] = useState(0);
 
-    // Reading Progress Logic
-    useEffect(() => {
-        const updateProgress = () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollPercent = scrollTop / docHeight;
-            setReadingProgress(Math.min(Math.max(scrollPercent * 100, 0), 100));
-        };
-
-        window.addEventListener('scroll', updateProgress);
-        return () => window.removeEventListener('scroll', updateProgress);
-    }, []);
 
     // Generate SEO data
     const breadcrumbs = [
@@ -191,12 +198,13 @@ export default function ArticleDetailPage() {
                         </p>
 
                         <div className="flex flex-wrap items-center gap-y-4 gap-6 text-sm text-slate-500 mb-8 pb-8 border-b">
-                            <span className="flex items-center gap-2">
-                                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
-                                    <User className="w-4 h-4 text-slate-400" />
-                                </div>
-                                <span className="font-semibold text-slate-900">{article.author_name}</span>
-                            </span>
+                            <AuthorBadge 
+                                name={article.author_name || 'InvestingPro Team'} 
+                                role={article.author_role}
+                                avatarUrl={article.author_avatar}
+                                size="md"
+                                showRole={true}
+                            />
                             {article.published_date && (
                                 <span className="flex items-center gap-2">
                                     <Calendar className="w-4 h-4 text-slate-400" />
@@ -217,6 +225,16 @@ export default function ArticleDetailPage() {
                                 <Eye className="w-4 h-4 text-slate-400" />
                                 {article.views || 0} views
                             </span>
+                            {/* Bookmark & Share */}
+                            <div className="flex items-center gap-2 ml-auto">
+                                <BookmarkButton articleId={article.id} variant="icon" size="md" />
+                                <button 
+                                    onClick={() => navigator.share?.({ title: article.title, url: window.location.href })}
+                                    className="w-10 h-10 rounded-xl bg-slate-100 text-slate-400 hover:text-teal-600 hover:bg-slate-200 flex items-center justify-center transition-colors"
+                                >
+                                    <Share2 className="w-5 h-5" />
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -232,6 +250,7 @@ export default function ArticleDetailPage() {
                     )}
 
                     {/* Content - Using Shared Renderer */}
+                    <AdvertiserDisclosure className="mb-8" />
                     <ArticleRenderer
                         body_html={article.body_html}
                         body_markdown={article.body_markdown}
@@ -251,6 +270,29 @@ export default function ArticleDetailPage() {
                             </div>
                         </div>
                     )}
+
+                    {/* Contextual CTA */}
+                    <div className="mt-12">
+                        <ContextualCTA 
+                            category={article.category} 
+                            articleId={article.id}
+                            placement="end"
+                        />
+                    </div>
+
+                    {/* Newsletter Signup */}
+                    <div className="mt-12">
+                        <NewsletterWidget 
+                            variant="inline"
+                            title="Enjoyed this article?"
+                            description="Get more investing insights delivered to your inbox weekly."
+                        />
+                    </div>
+
+                    {/* Related Articles */}
+                    <div className="mt-16">
+                        <RelatedArticles articleId={article.id} />
+                    </div>
 
                     {/* Navigation */}
                     <div className="mt-16 pt-8 border-t">

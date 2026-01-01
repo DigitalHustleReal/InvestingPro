@@ -96,66 +96,23 @@ export async function processLatestPipelineRun() {
             };
         } 
         else if (run.pipeline_type === 'scrape_and_generate') {
-             // 1. Scrape trends
-             const { trendsService } = await import('@/lib/trends/TrendsService');
-             const trends = await trendsService.getTrendingTopics('markets');
+             // 1. Execute Content Pipeline
+             const { ContentPipeline } = await import('@/lib/ai/content-pipeline');
              
-             if (!trends || trends.length === 0) {
-                 throw new Error('No trends found to generate content from');
+             // Pipeline handles scraping, generation, and saving internally with Admin privs
+             const pipelineResult = await ContentPipeline.run();
+
+             if (pipelineResult.status === 'skipped') {
+                 result = { status: 'skipped', reason: pipelineResult.reason || 'Unknown' };
+                 // Optional: Log this as a warning info, but keep pipeline status as completed
+                 logger.info(`Pipeline skipped: ${pipelineResult.reason}`);
+             } else {
+                 result = {
+                     processed_trend: pipelineResult.trend?.topic || 'Unknown Trend',
+                     article_id: pipelineResult.articleId,
+                     slug: pipelineResult.slug
+                 };
              }
-
-             // 2. Pick top trend (keyword)
-             const topTrend = trends[0];
-             logger.info(`Automating content for trend: ${topTrend.keyword}`);
-
-             // 3. Generate article
-             const generated = await generateArticleContent({
-                 topic: topTrend.keyword,
-                 category: topTrend.category,
-                 prompt: `Write a comprehensive news update and analysis about ${topTrend.keyword}. Include key takeaways and market impact.`
-             });
-
-             // 4. Create article
-             // Ensure category matches database check constraint: 
-             // ('mutual-funds', 'stocks', 'insurance', 'loans', 'credit-cards', 'tax-planning', 'retirement', 'investing-basics')
-             const allowedCategories = ['mutual-funds', 'stocks', 'insurance', 'loans', 'credit-cards', 'tax-planning', 'retirement', 'investing-basics'];
-             let category = (generated.category || 'investing-basics').toLowerCase().trim().replace(/\s+/g, '-');
-             
-             // Extra safety: map common variants
-             if (category.includes('investing')) category = 'investing-basics';
-             if (category.includes('stock')) category = 'stocks';
-             if (category.includes('fund')) category = 'mutual-funds';
-             if (category.includes('card')) category = 'credit-cards';
-             if (category.includes('loan')) category = 'loans';
-             if (category.includes('tax')) category = 'tax-planning';
-
-             if (!allowedCategories.includes(category)) {
-                 category = 'investing-basics';
-             }
-
-             const article = await articleService.createArticle(
-                {
-                    body_markdown: generated.body_markdown,
-                    body_html: generated.body_html,
-                    content: generated.body_markdown
-                },
-                {
-                    title: generated.title,
-                    slug: generated.slug,
-                    excerpt: generated.excerpt,
-                    featured_image: generated.featured_image,
-                    category: category,
-                    tags: [...(generated.tags || []), 'automation', 'trends'],
-                    ai_generated: true,
-                    submission_status: 'pending'
-                }
-            );
-
-            result = {
-                processed_trend: topTrend.keyword,
-                article_id: article.id,
-                slug: article.slug
-            };
         }
         else if (run.pipeline_type.startsWith('scraper_')) {
             // Updated: Use Native TypeScript Scrapers (Vercel Compatible)

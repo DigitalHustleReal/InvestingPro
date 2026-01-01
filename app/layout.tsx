@@ -11,36 +11,42 @@ import QueryProvider from "@/components/providers/QueryProvider";
 import ErrorBoundaryProvider from "@/components/providers/ErrorBoundaryProvider";
 import PageErrorBoundary from "@/components/common/PageErrorBoundary";
 import { Toaster } from "@/components/ui/toaster";
+import { getNavigation } from "@/lib/navigation/service";
+import InfiniteTicker from "@/components/market/InfiniteTicker";
+import { SearchProvider } from "@/components/search/SearchProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "InvestingPro - India's Best Financial Comparison Platform",
-  description: "Compare credit cards, loans, mutual funds, and more. Make smart financial decisions with InvestingPro India.",
-};
+// ... existing code ...
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Fetch navigation on the server
+  const navConfig = await getNavigation();
+
   return (
     <html lang="en">
       <body className={cn(inter.className, "min-h-screen flex flex-col bg-gray-50")}>
         <ErrorBoundaryProvider>
           <QueryProvider>
-            <Suspense fallback={null}>
-              <Analytics />
-            </Suspense>
-            <Navbar />
-            <main className="flex-grow">
-              <PageErrorBoundary pageName="Root Layout">
-                {children}
-              </PageErrorBoundary>
-            </main>
-            <Footer />
-            <CookieConsent />
-            <Toaster />
+            <SearchProvider>
+              <Suspense fallback={null}>
+                <Analytics />
+              </Suspense>
+              <InfiniteTicker />
+              <Navbar initialConfig={navConfig} />
+              <main className="flex-grow">
+                <PageErrorBoundary pageName="Root Layout">
+                  {children}
+                </PageErrorBoundary>
+              </main>
+              <Footer />
+              <CookieConsent />
+              <Toaster />
+            </SearchProvider>
           </QueryProvider>
         </ErrorBoundaryProvider>
       </body>

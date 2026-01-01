@@ -24,17 +24,52 @@ import {
 } from "@/components/ui/dialog";
 import Logo from "@/components/common/Logo";
 import { NAVIGATION_CONFIG, EDITORIAL_INTENTS } from "@/lib/navigation/config";
-// Language Switcher hidden until multilingual content is ready
 import LanguageSwitcher from "@/components/common/LanguageSwitcher";
+import { useSearch } from "@/components/search/SearchProvider";
+import { NotificationBell } from "@/components/engagement";
 
-// Navigation structure is now defined in lib/navigation/config.ts
+// Search Button Component (Desktop)
+function SearchButtonComponent({ isHomePage }: { isHomePage: boolean }) {
+    const { openSearch } = useSearch();
+    
+    return (
+        <Button
+            variant="ghost"
+            size="icon"
+            onClick={openSearch}
+            className={`hidden lg:flex ${isHomePage ? 'text-white hover:bg-white/10' : 'text-slate-700 hover:bg-slate-100'}`}
+            aria-label="Search (⌘K)"
+        >
+            <Search className="w-5 h-5" />
+        </Button>
+    );
+}
 
-export default function Navbar() {
+// Mobile Search Button
+function MobileSearchButton() {
+    const { openSearch } = useSearch();
+    
+    return (
+        <button 
+            onClick={openSearch}
+            className="w-full flex items-center gap-3 h-10 pl-4 pr-4 rounded-lg border border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100 transition-colors text-sm text-left"
+        >
+            <Search className="w-4 h-4 text-slate-400" />
+            <span>Search products, calculators, guides...</span>
+        </button>
+    );
+}
+
+interface NavbarProps {
+    initialConfig?: typeof NAVIGATION_CONFIG;
+}
+
+export default function Navbar({ initialConfig }: NavbarProps = {}) {
+    // Use passed config or fallback to static
+    const config = initialConfig || NAVIGATION_CONFIG;
+
     // Mobile menu state
     const [isOpen, setIsOpen] = useState(false);
-    
-    // Search modal state
-    const [isSearchOpen, setIsSearchOpen] = useState(false);
     
     // Track active intent per category for hover-driven dropdowns
     const [activeIntents, setActiveIntents] = useState<Record<string, number>>({});
@@ -62,7 +97,7 @@ export default function Navbar() {
     }, []);
     
     // Filter out Tools category from navigation (moved to footer)
-    const navigationCategories = NAVIGATION_CONFIG.filter(cat => cat.slug !== 'tools');
+    const navigationCategories = config.filter(cat => cat.slug !== 'tools');
     
     // Toggle dropdown on click - only one open at a time
     const toggleDropdown = (categorySlug: string) => {
@@ -307,41 +342,13 @@ export default function Navbar() {
                         </NavigationMenu>
                     </div>
 
-                    {/* Search Icon - Opens Search Modal */}
-                    <Dialog open={isSearchOpen} onOpenChange={setIsSearchOpen}>
-                        <DialogTrigger asChild>
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                className={`hidden lg:flex ${isHomePage ? 'text-white hover:bg-white/10' : 'text-slate-700 hover:bg-slate-100'}`}
-                                aria-label="Search"
-                            >
-                                <Search className="w-5 h-5" />
-                            </Button>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-2xl p-0">
-                            <div className="p-6">
-                                <div className="relative">
-                                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                                    <input
-                                        type="text"
-                                        placeholder="Search products, calculators, guides..."
-                                        autoFocus
-                                        className="w-full h-14 pl-12 pr-4 rounded-lg border-2 border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-base"
-                                        onKeyDown={(e) => {
-                                            if (e.key === 'Escape') {
-                                                setIsSearchOpen(false);
-                                            }
-                                        }}
-                                    />
-                                </div>
-                                {/* Search suggestions/results can be added here */}
-                                <div className="mt-4 text-sm text-slate-500">
-                                    <p>Search for products, calculators, guides, and more...</p>
-                                </div>
-                            </div>
-                        </DialogContent>
-                    </Dialog>
+                    {/* Search Button - Opens Command Palette */}
+                    <SearchButtonComponent isHomePage={isHomePage} />
+
+                    {/* Notification Bell */}
+                    <div className="hidden lg:flex">
+                        <NotificationBell />
+                    </div>
 
                     {/* CTA Button - Hidden on mobile/tablet */}
                     <div className="hidden lg:flex items-center gap-3">
@@ -383,38 +390,9 @@ export default function Navbar() {
                                     />
                                 </div>
 
-                                {/* Mobile Search - Opens Search Modal */}
+                                {/* Mobile Search - Opens Command Palette */}
                                 <div className="p-4 border-b border-slate-200">
-                                    <Dialog open={isSearchOpen} onOpenChange={setIsSearchOpen}>
-                                        <DialogTrigger asChild>
-                                            <button className="w-full flex items-center gap-3 h-10 pl-4 pr-4 rounded-lg border border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100 transition-colors text-sm text-left">
-                                                <Search className="w-4 h-4 text-slate-400" />
-                                                <span>Search products, calculators, guides...</span>
-                                            </button>
-                                        </DialogTrigger>
-                                        <DialogContent className="sm:max-w-2xl p-0">
-                                            <div className="p-6">
-                                                <div className="relative">
-                                                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                                                    <input
-                                                        type="text"
-                                                        placeholder="Search products, calculators, guides..."
-                                                        autoFocus
-                                                        className="w-full h-14 pl-12 pr-4 rounded-lg border-2 border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-base"
-                                                        onKeyDown={(e) => {
-                                                            if (e.key === 'Escape') {
-                                                                setIsSearchOpen(false);
-                                                            }
-                                                        }}
-                                                    />
-                                                </div>
-                                                {/* Search suggestions/results can be added here */}
-                                                <div className="mt-4 text-sm text-slate-500">
-                                                    <p>Search for products, calculators, guides, and more...</p>
-                                                </div>
-                                            </div>
-                                        </DialogContent>
-                                    </Dialog>
+                                    <MobileSearchButton />
                                 </div>
 
                                 {/* Mobile Navigation */}

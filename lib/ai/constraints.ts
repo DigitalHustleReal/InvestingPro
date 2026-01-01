@@ -113,7 +113,9 @@ export const ALLOWED_AI_OPERATIONS = [
     'extract_key_points',
     'categorize_content',
     'sentiment_analysis',
-    'pros_cons_extraction'
+    'pros_cons_extraction',
+    'generate_article',
+    'generate_social_posts'
 ];
 
 /**

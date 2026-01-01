@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { usePipeline } from '@/hooks/usePipeline';
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 
 /**
  * AutomationControls - UI component for triggering automation actions
@@ -24,6 +25,7 @@ interface AutomationControlsProps {
 }
 
 export default function AutomationControls({ className = "" }: AutomationControlsProps) {
+    const router = useRouter();
     const queryClient = useQueryClient();
     const [triggering, setTriggering] = useState<string | null>(null);
 
@@ -249,6 +251,36 @@ export default function AutomationControls({ className = "" }: AutomationControl
                                     Initialize Reactor
                                 </>
                             )}
+                        </Button>
+                    </div>
+                </CardContent>
+            </Card>
+
+           {/* Manual Content Factory */}
+            <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                <CardHeader className="border-b border-white/5 px-8 py-6">
+                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-pink-500/10 flex items-center justify-center">
+                            <Zap className="w-4 h-4 text-pink-400" />
+                        </div>
+                        Proactive Generation
+                    </CardTitle>
+                </CardHeader>
+                <CardContent className="p-8">
+                    <div className="flex flex-col md:flex-row items-center justify-between p-6 bg-white/[0.03] border border-white/5 rounded-2xl group hover:border-pink-500/30 transition-all">
+                        <div className="mb-4 md:mb-0">
+                            <h4 className="font-bold text-white tracking-tight text-lg mb-1">Writer Workspace</h4>
+                            <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">
+                                Manually trigger AI content generation for specific topics
+                            </p>
+                        </div>
+                        <Button
+                            size="lg"
+                            className="h-12 px-8 rounded-xl font-extrabold uppercase tracking-widest text-[11px] bg-pink-500 text-white hover:bg-pink-600 shadow-[0_0_20px_rgba(236,72,153,0.3)] transition-all active:scale-95 border-0"
+                            onClick={() => router.push('/admin/content-factory')}
+                        >
+                            <Play className="w-5 h-5 mr-3 fill-current" />
+                            Launch Workspace
                         </Button>
                     </div>
                 </CardContent>

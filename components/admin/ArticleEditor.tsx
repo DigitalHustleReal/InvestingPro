@@ -178,23 +178,6 @@ export default function ArticleEditor({
         hasInitializedRef.current = true;
     }, [editor, isReady, normalizedContent.html]);
 
-    // Don't render until ready (prevents hydration mismatch)
-    if (!isReady) {
-        return (
-            <div className="border border-slate-300 rounded-lg bg-white overflow-hidden min-h-[400px] flex items-center justify-center">
-                <div className="text-slate-400">Loading editor...</div>
-            </div>
-        );
-    }
-
-    if (!editor) {
-        return (
-            <div className="border border-slate-300 rounded-lg bg-white overflow-hidden min-h-[400px] flex items-center justify-center">
-                <div className="text-slate-400">Initializing editor...</div>
-            </div>
-        );
-    }
-
     // Toolbar actions
     const addLink = useCallback(() => {
         if (!editor) return;
@@ -223,6 +206,23 @@ export default function ArticleEditor({
         if (!editor) return;
         editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
     }, [editor]);
+
+    // Don't render until ready (prevents hydration mismatch)
+    if (!isReady) {
+        return (
+            <div className="border border-slate-300 rounded-lg bg-white overflow-hidden min-h-[400px] flex items-center justify-center">
+                <div className="text-slate-400">Loading editor...</div>
+            </div>
+        );
+    }
+
+    if (!editor) {
+        return (
+            <div className="border border-slate-300 rounded-lg bg-white overflow-hidden min-h-[400px] flex items-center justify-center">
+                <div className="text-slate-400">Initializing editor...</div>
+            </div>
+        );
+    }
 
     return (
         <div className="border border-slate-300 rounded-lg bg-white overflow-hidden">
