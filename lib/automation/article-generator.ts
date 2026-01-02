@@ -6,49 +6,84 @@ import { createClient } from '@supabase/supabase-js';
 import * as cheerio from 'cheerio';
 import slugify from 'slugify';
 import { serpAnalyzer, ResearchBrief } from '@/lib/research/serp-analyzer';
+import { analyzeContentQuality, generateQualityReport } from '@/lib/quality/content-quality-scorer';
+import { checkPlagiarism, generatePlagiarismReport } from '@/lib/quality/plagiarism-checker';
+import { generateImageAltText } from '@/lib/quality/image-alt-generator';
+import { generateArticleSchema, extractFAQsFromContent } from '@/lib/seo/schema-generator';
+import { imageService } from '@/lib/images/stock-image-service';
 
 /**
  * CORE ARTICLE GENERATION LOGIC
  * Refactored for use in both CLI and Admin UI
  */
 
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+// Lazy Supabase client initialization (allows env vars to load first)
+let supabaseClient: ReturnType<typeof createClient> | null = null;
 
+function getSupabaseClient() {
+    if (!supabaseClient) {
+        const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+        
+        if (!url || !key) {
+            throw new Error('Supabase credentials not found. Make sure NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are in .env.local');
+        }
+        
+        supabaseClient = createClient(url, key);
+    }
+    return supabaseClient;
+}
+
+// High-Authority Article Prompt
 // High-Authority Article Prompt
 function getArticlePrompt(topic: string, brief?: ResearchBrief): string {
     let prompt = `
-    ROLE: You are a Senior Financial Analyst and Editor at InvestingPro (India's leading financial authority). 
-    Your tone is authoritative, engaging, and deeply analytical. You write for humans, not search engines.
+    ROLE: You are "Vikram Mehta", a Senior Wealth Advisor with 15+ years of experience in the Indian financial markets (SEBI Registered). 
+    Your voice is authoritative yet conversational, trusted, and deeply analytical. You simplify complex concepts without dumbing them down.
+    You prioritize **User Intent** and **Solution-First** writing.
+
+    GOAL: Write a viral-worthy, "Category-Defining" article about: "${topic}".
     
-    GOAL: Write a high-quality, "Category-Defining" article about: "${topic}".
+    FRAMEWORK: Use the **AIDA Model** (Attention, Interest, Desire, Action) + **PAS** (Problem, Agitation, Solution) for sections.
 
     STYLE GUIDELINES (CRITICAL):
     - **LOCALIZATION**: Write in **Indian English** (e.g., 'colour', 'centre', 'analyse').
     - **NUMBERING**: Use **Lakhs and Crores** strictly (e.g., "1.5 Lakh", "10 Crore"). NEVER use "Millions" or "Billions".
-    - **CONTEXT**: Reference Indian specific entities (RBI, SEBI, Nifty 50, Sensex, Section 80C).
-    - **NO AI CLICHÉS**: Do not use "unveil", "delve", "realm", "bustling", "landscape".
-    - **Hook the Reader**: Start with a compelling fact, story, or contrarian questions. DO NOT start with "In this article...".
-    - **Human Voice**: Use "We", "Our analysis", and varied sentence structures. 
-    - **Data-First**: Always back claims with approximate numbers (e.g., "Returns have averaged ~12%...").
+    - **CONTEXT**: Reference Indian specific entities (RBI, SEBI, Nifty 50, Sensex, Section 80C, EPF, PPF).
+    - **ANTI-AI CHECK**: DO NOT use words like: "unveil", "delve", "realm", "bustling", "landscape", "tapestry", "digital era", "game-changer".
+    - **HOOK THE READER**: Start with a "Pattern Interrupt" (e.g., specific stat, contrarian view, or "Did you know?"). DO NOT start with "In this article..." or "In today's world...".
+    - **HUMAN VOICE**: Use "I", "We", ask rhetorical questions, and use short punchy sentences mixed with longer explanatory ones.
+    - **DATA-FIRST**: Every claim must be backed by a number or example (e.g., "Returns have averaged ~12% CAGR over 10 years...").
 
-    STRUCTURE REQUIREMENTS:
-    1. **H1 Title**: engaging and SEO-rich (Indian context).
-    2. **Hook Intro**: 2-3 paragraphs that grab attention immediately.
-    3. **Key Takeaways Box**: <div class="key-takeaways">...</div> (3-5 bullet points with checkmarks).
-    4. **Deep Dive Content**: multiple H2 and H3 sections.
-    5. **Data Table**: Include at least one HTML <table> comparing options, rates, or pros/cons.
-    6. **Pro Tip Box**: <div class="pro-tip">...</div> (Insider advice for Indian investors).
-    7. **Warning Box**: <div class="warning-box">...</div> (Risks/Regulations to avoid).
-    8. **FAQ Section**: 3-4 common questions unique to Indian users.
+    STRUCTURE REQUIREMENTS (HTML FORMAT):
+    1. **H1 Title**: Click-worthy, SEO-rich, under 60 chars.
+    2. **Viral Intro**: 
+       - Start with a Hook (Problem/Stat).
+       - Agitate the pain point.
+       - Tease the solution (The "Open Loop").
+    3. **"Quick Verdict" Box**: <div class="quick-verdict p-4 bg-blue-50 border-l-4 border-blue-500 my-6"><strong>⚡ Quick Verdict:</strong> [2-sentence summary for busy readers]</div>.
+    4. **Deep Dive Content**: multiple H2 and H3 sections. Use **PAS Framework** here.
+    5. **Data Visualization**: Include at least 2 HTML <table> elements (Comparison, Fee Structure, or Returns Scenario).
+    6. **Checklist/Steps**: Use <ul> or <ol> with <strong>bold</strong> lead-ins.
+    7. **Pro Tip Box**: <div class="pro-tip p-4 bg-green-50 border-l-4 border-green-500 my-6"><strong>💡 Pro Tip:</strong> [Insider advice]</div>.
+    8. **Warning Box**: <div class="warning-box p-4 bg-red-50 border-l-4 border-red-500 my-6"><strong>⚠️ Warning:</strong> [Risk or Regulation to avoid]</div>.
+    9. **FAQ Section**: 4-5 questions people actually ask (Use Schema.org style answers).
+    10. **Conclusion**: Don't summarize. Give a "Next Step" or Actionable Advice.
 
-    FORMATTING PROMPT:
-    - Return ONLY raw HTML inside the response.
+    FORMATTING RULES:
+    - Return a VALID JSON Object: 
+      { 
+        "title": "Final Viral Title",
+        "seo_title": "SEO Optimized Title (50-60 chars) - Must include keyword",
+        "seo_description": "Compelling meta description (150-160 chars) designed for high CTR.",
+        "tags": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"],
+        "content": "<h1>Title...</h1>...",
+        "image_keywords": "abstract conceptual visual search term (e.g. 'Abstract Finance Minimal', 'Cinematic Office')"
+      }
     - Use <table> for data.
-    - Use <strong> for emphasis.
+    - Use <strong> for emphasis (don't overdo it).
     - Ensure all monetary values use the Indian Rupee symbol (₹).
+    - Keep paragraphs short (2-3 sentences max).
     `;
 
     if (brief) {
@@ -62,14 +97,14 @@ function getArticlePrompt(topic: string, brief?: ResearchBrief): string {
         `;
     }
 
-    prompt += `\nGenerate the article now.`;
+    prompt += `\nGenerate the extensive, high-quality article now.`;
     return prompt;
 }
 
 // AI Generation with foolproof failover
 async function generateWithAI(topic: string, brief?: ResearchBrief, logFn: (msg: string) => void = console.log): Promise<string> {
     // USE RELATIVE PATH to avoid @ alias issues in tsx/node scripts
-    const { api } = require('../../api');
+    const { api } = require('../api');
     
     try {
         logFn(`🔵 Initializing Foolproof Generation Relay...`);
@@ -132,7 +167,11 @@ function detectClassification(title: string, content: string): { category: strin
 }
 
 // Generate Article Function
-export async function generateArticleCore(topic: string, logFn: (msg: string) => void = console.log) {
+export async function generateArticleCore(
+    topic: string, 
+    logFn: (msg: string) => void = console.log,
+    dryRun: boolean = false
+) {
     const startTime = Date.now();
 
     try {
@@ -163,7 +202,34 @@ export async function generateArticleCore(topic: string, logFn: (msg: string) =>
 
         // 1. Generate Content
         logFn('1️⃣ Generating article with AI...');
-        const html = await generateWithAI(topic, brief, logFn);
+        const rawResponse = await generateWithAI(topic, brief, logFn);
+        
+        let html = rawResponse;
+        let aiImageKeywords = topic; 
+        let aiTitle = null;
+        let aiSeoTitle = null;
+        let aiSeoDesc = null;
+        let aiTags: string[] = [];
+
+        try {
+             // Attempt to parse JSON
+             let cleanJson = rawResponse.trim();
+             // Remove markdown fences if present
+             cleanJson = cleanJson.replace(/```json/g, '').replace(/```/g, '');
+             
+             const parsed = JSON.parse(cleanJson);
+             if (parsed.content) {
+                 html = parsed.content;
+                 if (parsed.image_keywords) aiImageKeywords = parsed.image_keywords;
+                 if (parsed.title) aiTitle = parsed.title;
+                 if (parsed.seo_title) aiSeoTitle = parsed.seo_title;
+                 if (parsed.seo_description) aiSeoDesc = parsed.seo_description;
+                 if (parsed.tags && Array.isArray(parsed.tags)) aiTags = parsed.tags;
+             }
+        } catch (e) {
+             logFn('   ⚠️ AI returned raw HTML/Text instead of JSON. Proceeding with raw content.');
+        }
+
         logFn(`   ✅ Generated ${html.length} characters`);
 
         // 2. Extract Metadata
@@ -171,11 +237,13 @@ export async function generateArticleCore(topic: string, logFn: (msg: string) =>
         const $ = cheerio.load(html);
         const h1 = $('h1').first().text().trim();
         const firstPara = $('p').first().text().trim();
-        const title = h1 || topic;
+        const title = aiTitle || h1 || topic; // Prefer AI title
         const slug = slugify(title, { lower: true, strict: true }) || 'article-' + Date.now();
-        const excerpt = firstPara.substring(0, 160) || 'Financial guide';
+        const excerpt = aiSeoDesc || firstPara.substring(0, 160) || 'Financial guide';
+        const seoTitle = aiSeoTitle || title.substring(0, 60);
         
         logFn(`   ✅ Title: ${title}`);
+        logFn(`   ✅ SEO Desc: ${excerpt}`);
         logFn(`   ✅ Slug: ${slug}`);
 
         // 3. Read Time
@@ -185,17 +253,70 @@ export async function generateArticleCore(topic: string, logFn: (msg: string) =>
 
         // 4. Classification
         logFn('4️⃣ Detecting classification...');
-        const { category, tags } = detectClassification(title, html);
+        // Merge AI tags with detected tags
+        const detected = detectClassification(title, html);
+        const category = detected.category;
+        // Use Set to remove duplicates
+        const tags = Array.from(new Set([...detected.tags, ...aiTags]));
         logFn(`   ✅ Category: ${category}`);
         logFn(`   ✅ Tags: ${tags.join(', ')}`);
 
         // 5. Image Generation
         logFn('5️⃣ Generating featured image...');
-        const imagePrompt = `professional cinematic photo of ${title.replace(/[^a-zA-Z0-9 ]/g, '')}, financial context, 8k, highly detailed, realistic`;
-        const encodedPrompt = encodeURIComponent(imagePrompt);
-        const randomSeed = Math.floor(Math.random() * 10000);
-        const imageUrl = `https://pollinations.ai/p/${encodedPrompt}?width=1280&height=720&seed=${randomSeed}&model=flux`;
-        logFn(`   ✅ Image: ${imageUrl}`);
+        logFn(`   📸 AI Keywords: "${aiImageKeywords}"`);
+        // We still pass 'category' as context, but aiImageKeywords is the primary query
+        const imageResult = await imageService.getFeaturedImage(aiImageKeywords, category);
+
+
+        const imageUrl = imageResult.url;
+        logFn(`   ✅ Image (${imageResult.source}): ${imageUrl}`);
+
+        // 5b. Quality Verification
+        logFn('5️⃣b Verifying content quality...');
+        
+        // Detailed quality analysis
+        const qualityScore = analyzeContentQuality(html, title, topic);
+        logFn(`   📊 Quality Score: ${qualityScore.overall}/100 (${qualityScore.grade.toUpperCase()})`);
+        
+        // Plagiarism check
+        const uniquenessCheck = await checkPlagiarism(html, title);
+        logFn(`   🔍 Uniqueness: ${uniquenessCheck.uniquenessScore}%`);
+
+        if (!qualityScore.canPublish) {
+            logFn(`   ⚠️ WARNING: Quality score below threshold (${qualityScore.overall}). Review recommended.`);
+        }
+        if (!uniquenessCheck.isUnique) {
+            logFn(`   ⚠️ WARNING: Content similarity detected (${uniquenessCheck.similarityScore}%).`);
+        }
+
+        // Image SEO
+        const imageSeo = generateImageAltText(title, category || 'finance');
+        logFn(`   🖼️ Alt Text: "${imageSeo.altText}"`);
+
+        // 5c. AI SEO & Shareable Assets
+        const faqs = extractFAQsFromContent(html);
+        logFn(`   🤖 Extracted ${faqs.length} FAQs for AI SEO`);
+        
+        // Calculate date for schema (needed before insert block)
+        const schemaDate = new Date().toISOString();
+        
+        const schema = generateArticleSchema({
+            headline: title,
+            description: excerpt,
+            image: imageUrl,
+            datePublished: schemaDate,
+            authorName: 'Vikram Mehta',
+            url: `https://investingpro.in/articles/${slug}`,
+            faq: faqs
+        });
+        
+        // Simulate Shareable Assets
+        const shareableAssets = {
+            key_takeaways: { type: 'infographic', title: 'Key Takeaways', data_source: 'html-extract' },
+            comparison_table: { type: 'data-viz', title: 'Comparison', data_source: 'html-extract' },
+            quote_card: { type: 'social-card', title: 'Viral Quote', content: excerpt }
+        };
+
 
         // 6. DB Insert
         logFn('6️⃣ Publishing to database...');
@@ -206,7 +327,7 @@ export async function generateArticleCore(topic: string, logFn: (msg: string) =>
         let authorId = null;
         try {
             // Try to get the first user from auth.users using Admin API
-            const { data: { users }, error } = await supabase.auth.admin.listUsers({ page: 1, perPage: 1 });
+            const { data: { users }, error } = await getSupabaseClient().auth.admin.listUsers({ page: 1, perPage: 1 });
             if (users && users.length > 0) {
                 authorId = users[0].id;
                 logFn(`   👤 Assigned Author ID: ${authorId} (Admin)`);
@@ -227,9 +348,9 @@ export async function generateArticleCore(topic: string, logFn: (msg: string) =>
             body_markdown: html,
             content: html,
             
-            meta_title: title.substring(0, 60),
+            meta_title: seoTitle,
             meta_description: excerpt,
-            seo_title: title,
+            seo_title: seoTitle,
             seo_description: excerpt,
 
             category: category,
@@ -237,6 +358,19 @@ export async function generateArticleCore(topic: string, logFn: (msg: string) =>
             read_time: readTime,
             featured_image: imageUrl,
             
+            // Quality Metrics
+            quality_score: qualityScore.overall,
+            uniqueness_score: uniquenessCheck.uniquenessScore,
+            seo_score: qualityScore.seo,
+            readability_score: qualityScore.readability,
+            image_alt_text: imageSeo.altText,
+            is_verified_quality: qualityScore.canPublish,
+            is_plagiarism_checked: true,
+            
+            // AI SEO & Assets
+            schema_markup: schema,
+            shareable_assets: shareableAssets,
+
             // NEW: Keyword difficulty tracking
             difficulty_score: difficultyScore,
             target_authority: 15, // Your current DA
@@ -254,8 +388,14 @@ export async function generateArticleCore(topic: string, logFn: (msg: string) =>
         if (authorId) {
             insertPayload.author_id = authorId;
         }
+        
+        // DRY RUN CHECK
+        if (dryRun) {
+            logFn('🛑 Dry Run: Skipping DB Insert. Returning Payload.');
+            return insertPayload;
+        }
 
-        const { data: article, error } = await supabase
+        const { data: article, error } = await getSupabaseClient()
             .from('articles')
             .insert(insertPayload)
             .select()

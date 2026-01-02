@@ -13,6 +13,23 @@
  *   npx tsx scripts/master-content-generation.ts all      # All 210 articles
  */
 
+// Load environment variables FIRST
+import { config } from 'dotenv';
+import { resolve } from 'path';
+
+// Load .env.local
+config({ path: resolve(process.cwd(), '.env.local') });
+
+// Verify required env vars
+if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
+  console.error('❌ ERROR: NEXT_PUBLIC_SUPABASE_URL not found in .env.local');
+  process.exit(1);
+}
+if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  console.error('❌ ERROR: SUPABASE_SERVICE_ROLE_KEY not found in .env.local');
+  process.exit(1);
+}
+
 import { generateArticleCore } from '../lib/automation/article-generator';
 import { getCurrentAuthority } from '../lib/analytics/authority-tracker';
 import { recordAuthority } from '../lib/analytics/authority-tracker';
@@ -208,10 +225,13 @@ async function generateBatch(articles: string[], batchName: string) {
         console.error(`\n❌ FAILED: ${result.error}`);
       }
 
-      // Rate limiting: 2 minutes between articles
-      if (i < articles.length - 1) {
+      // Rate limiting: 2 minutes between articles (ONLY ON SUCCESS)
+      // If failed (duplicate), move fast to next one.
+      if (result.success && i < articles.length - 1) {
         console.log(`\n⏸️  Waiting 2 minutes before next article...`);
         await new Promise(resolve => setTimeout(resolve, 120000));
+      } else {
+        console.log(`\n⏩ Skipping wait (Failure/Duplicate detected)...`);
       }
 
     } catch (error: any) {

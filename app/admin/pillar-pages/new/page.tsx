@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import AdminLayout from '@/components/admin/AdminLayout';
 import ArticleInspector from '@/components/admin/ArticleInspector';
-import TipTapEditorWithMedia from '@/components/admin/TipTapEditorWithMedia';
+import ArticleEditor from '@/components/admin/ArticleEditor';
 import { Input } from '@/components/ui/input';
 import { api } from '@/lib/api';
 import { useMutation } from '@tanstack/react-query';
@@ -139,11 +139,10 @@ export default function NewPillarPage() {
 
                 {/* Editor Canvas */}
                 <div className="flex-1 min-h-0">
-                    <TipTapEditorWithMedia
-                        content={content}
-                        onChange={setContent}
+                    <ArticleEditor
+                        initialContent={{ content }}
+                        onChange={(data) => setContent(data.markdown)}
                         placeholder="Start writing your pillar page content..."
-                        className="h-full"
                     />
                 </div>
             </div>

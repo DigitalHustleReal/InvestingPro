@@ -21,7 +21,8 @@ import {
     CheckCircle2,
     Percent,
     Clock,
-    Info
+    Info,
+    ArrowRight
 } from "lucide-react";
 import Link from "next/link";
 import { SWPCalculator } from "@/components/calculators/SWPCalculator";
@@ -36,6 +37,7 @@ import { PPFCalculator } from "@/components/calculators/PPFCalculator";
 import { NPSCalculator } from "@/components/calculators/NPSCalculator";
 import { GoalPlanningCalculator } from "@/components/calculators/GoalPlanningCalculator";
 import { GSTCalculator } from "@/components/calculators/GSTCalculator";
+import { HomeLoanVsSIPCalculator } from "@/components/calculators/HomeLoanVsSIPCalculator";
 
 export default function CalculatorsPage() {
     return (
@@ -124,6 +126,10 @@ export default function CalculatorsPage() {
                             <Receipt className="w-4 h-4 mr-2" />
                             GST
                         </TabsTrigger>
+                        <TabsTrigger value="loan-vs-sip" className="px-4 py-2.5 data-[state=active]:bg-teal-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                            <ArrowRight className="w-4 h-4 mr-2" />
+                            Loan vs SIP
+                        </TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="sip">
@@ -211,6 +217,18 @@ export default function CalculatorsPage() {
                                 </Link>
                             </div>
                             <GSTCalculator />
+                        </div>
+                    </TabsContent>
+
+                    <TabsContent value="loan-vs-sip">
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <p className="text-slate-600">Compare the opportunity cost of loan prepayments against equity SIPs.</p>
+                                <Link href="/calculators/home-loan-vs-sip" className="text-teal-600 hover:text-teal-700 font-semibold">
+                                    View Full Page →
+                                </Link>
+                            </div>
+                            <HomeLoanVsSIPCalculator />
                         </div>
                     </TabsContent>
                 </Tabs>
@@ -350,27 +368,18 @@ export default function CalculatorsPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <CategoryCTA
                             href="/credit-score"
-                            title="Credit Score Checker"
+                            categoryName="Credit Score"
                             description="Check your credit score for free and get personalized recommendations"
-                            badge="Free"
-                            icon={<CheckCircle2 className="w-6 h-6" />}
-                            variant="primary"
                         />
                         <CategoryCTA
                             href="/compare"
-                            title="Compare Products"
+                            categoryName="Comparisons"
                             description="Side-by-side comparison of financial products"
-                            badge="Compare"
-                            icon={<BarChart3 className="w-6 h-6" />}
-                            variant="secondary"
                         />
                         <CategoryCTA
                             href="/calculators?type=tax"
-                            title="Tax Calculator"
+                            categoryName="Taxes"
                             description="Calculate your income tax for old and new regime"
-                            badge="2024-25"
-                            icon={<Receipt className="w-6 h-6" />}
-                            variant="primary"
                         />
                     </div>
                 </section>

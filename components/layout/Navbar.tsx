@@ -359,6 +359,14 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                         {/* Profile link will be shown after user authentication */}
                         {/* Admin link should be accessed via direct URL only */}
                         
+                        <Link href="/dashboard" className={`text-sm font-semibold ${isHomePage ? 'text-white/80 hover:text-white' : 'text-slate-600 hover:text-teal-600'}`}>
+                            Dashboard
+                        </Link>
+                        
+                        <Link href="/resources" className={`text-sm font-semibold ${isHomePage ? 'text-white/80 hover:text-white' : 'text-slate-600 hover:text-teal-600'}`}>
+                            Resources
+                        </Link>
+                        
                         <Link href="/mutual-funds">
                             <Button className="bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white shadow-lg shadow-teal-500/25">
                                 Compare Products

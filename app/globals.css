@@ -35,6 +35,38 @@
   .premium-gradient-text {
     @apply bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent;
   }
+
+  /* GLOBAL CONTENT THEME (Prose Overrides) */
+  .prose table {
+     @apply w-full border-collapse border border-slate-200 rounded-xl overflow-hidden my-8 shadow-sm;
+  }
+  
+  .prose thead {
+      @apply bg-emerald-50 border-b border-emerald-100;
+  }
+
+  /* Force headers to be visible and styled */
+  .prose th {
+     @apply text-emerald-900 font-bold p-4 text-left;
+     background-color: #ecfdf5 !important;
+     color: #064e3b !important;
+  }
+  
+  .prose td {
+     @apply p-4 border-b border-slate-100 text-slate-600;
+  }
+  
+  .prose tr:hover td {
+      @apply bg-slate-50/50 transition-colors;
+  }
+
+  .prose a {
+      @apply text-emerald-600 no-underline border-b border-emerald-200 hover:border-emerald-600 transition-colors hover:text-emerald-700;
+  }
+
+  .prose h2 {
+      @apply text-slate-900 scroll-mt-24;
+  }
 }
 
 @layer utilities {

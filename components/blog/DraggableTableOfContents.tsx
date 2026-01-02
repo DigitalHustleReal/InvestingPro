@@ -23,53 +23,96 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const tocRef = useRef<HTMLDivElement>(null);
 
-  // Extract headings from article
+  // Initialize headings with Retry Logic (to handle hydration/content delay)
   useEffect(() => {
-    const article = document.querySelector('article');
-    if (!article) return;
+    let attempts = 0;
+    const maxAttempts = 20; // Try for 2-3 seconds
 
-    const headingElements = article.querySelectorAll('h2, h3, h4');
-    const items: TOCItem[] = [];
+    const scanHeadings = () => {
+        // Target specifically the prose container (Content)
+        // This avoids picking up "Related Articles", "Newsletter", etc. which are outside .prose
+        const contentContainer = document.querySelector('.prose');
+        if (!contentContainer) return false;
 
-    headingElements.forEach((heading, index) => {
-      const id = heading.id || `heading-${index}`;
-      if (!heading.id) {
-        heading.id = id;
-      }
+        const headingElements = contentContainer.querySelectorAll('h1, h2, h3, h4');
+        // If only h1 is found, content usually isn't ready if we expect h2s
+        if (headingElements.length <= 1) return false;
 
-      items.push({
-        id,
-        text: heading.textContent || '',
-        level: parseInt(heading.tagName[1]),
-      });
-    });
+        const items: TOCItem[] = [];
+        headingElements.forEach((heading, index) => {
+          // Skip H1 (Main Title)
+          if (heading.tagName === 'H1') return;
 
-    setHeadings(items);
+          const id = heading.id || `section-${index}`;
+          heading.id = id; // Enforce ID injection
+
+          items.push({
+            id,
+            text: heading.textContent || '',
+            level: parseInt(heading.tagName[1]),
+          });
+        });
+
+        if (items.length > 0) {
+            setHeadings(items);
+            // Default active to first item
+            if (activeId === '') setActiveId(items[0].id);
+            return true;
+        }
+        return false;
+    };
+
+    // Initial scan
+    scanHeadings();
+
+    // Polling interval
+    const interval = setInterval(() => {
+        if (scanHeadings() || attempts > maxAttempts) {
+            clearInterval(interval);
+        }
+        attempts++;
+    }, 300);
+
+    return () => clearInterval(interval);
   }, []);
 
-  // Track active heading on scroll
+  // Scroll Spy Logic
   useEffect(() => {
     const handleScroll = () => {
-      const headingElements = headings.map(h => document.getElementById(h.id)).filter(Boolean);
+      // Find all heading elements
+      const headingElements = headings
+        .map(h => document.getElementById(h.id))
+        .filter((el): el is HTMLElement => el !== null);
       
+      // Determine which one is active
+      // Logic: The last heading that spans above the visual center or top third
+      const offset = 180; // px from top
+      
+      let currentActiveId = '';
       for (let i = headingElements.length - 1; i >= 0; i--) {
         const element = headingElements[i];
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 150) {
-            setActiveId(headings[i].id);
-            return;
-          }
+        const rect = element.getBoundingClientRect();
+        
+        // If the heading is above the threshold line
+        if (rect.top <= offset) {
+          currentActiveId = element.id;
+          break;
         }
+      }
+      
+      if (currentActiveId && currentActiveId !== activeId) {
+        setActiveId(currentActiveId);
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Run once
     handleScroll();
+    
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [headings]);
+  }, [headings, activeId]);
 
-  // Dragging functionality
+  // Drag Logic
   const handleMouseDown = (e: React.MouseEvent) => {
     if ((e.target as HTMLElement).closest('.toc-drag-handle')) {
       setIsDragging(true);
@@ -77,164 +120,226 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
         x: e.clientX - position.x,
         y: e.clientY - position.y,
       });
+      // Prevent selection during drag
+      document.body.style.userSelect = 'none';
     }
   };
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (isDragging) {
-        setPosition({
-          x: e.clientX - dragOffset.x,
-          y: e.clientY - dragOffset.y,
-        });
+        // Constraints? Maybe keep on screen
+        const newX = e.clientX - dragOffset.x;
+        const newY = e.clientY - dragOffset.y;
+        setPosition({ x: newX, y: newY });
       }
     };
 
     const handleMouseUp = () => {
       setIsDragging(false);
+      document.body.style.userSelect = '';
     };
 
     if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
     }
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
     };
   }, [isDragging, dragOffset]);
 
-  const scrollToHeading = (id: string) => {
-    const element = document.getElementById(id);
+  const scrollToHeading = (id: string, e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    
+    let element = document.getElementById(id);
+
+    // ROBUST FALLBACK: If element ID was wiped by React re-render, find it by text
+    if (!element) {
+        const targetHeading = headings.find(h => h.id === id);
+        if (targetHeading) {
+             const allHeadings = Array.from(document.querySelectorAll('.prose h1, .prose h2, .prose h3, .prose h4'));
+             const found = allHeadings.find(h => h.textContent?.trim() === targetHeading.text.trim());
+             if (found) {
+                 element = found as HTMLElement;
+                 element.id = id; // Re-inject ID
+             }
+        }
+    }
+
     if (element) {
-      const offset = 100;
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const headerOffset = 100;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
       window.scrollTo({
-        top: elementPosition - offset,
-        behavior: 'smooth',
+        top: offsetPosition,
+        behavior: 'smooth'
       });
       setIsMobileOpen(false);
+      setActiveId(id);
+      
+      // Update URL hash without jumping
+      history.pushState(null, '', `#${id}`);
     }
   };
 
-  if (headings.length === 0) return null;
+  /**
+   * SUB-COMPONENTS
+   */
 
-  // Mobile floating button
-  const MobileButton = () => (
-    <button
-      onClick={() => setIsMobileOpen(!isMobileOpen)}
-      className="lg:hidden fixed bottom-6 right-6 z-50 w-14 h-14 bg-gradient-to-r from-emerald-500 to-blue-500 text-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-all duration-300 animate-bounce-slow"
-      aria-label="Toggle Table of Contents"
-    >
-      {isMobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-    </button>
-  );
-
-  // Mobile modal
-  const MobileModal = () => (
-    <div
-      className={`lg:hidden fixed inset-0 z-40 transition-all duration-300 ${
-        isMobileOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-      }`}
-    >
-      <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-        onClick={() => setIsMobileOpen(false)}
-      />
-      <div className="absolute inset-x-4 top-20 bottom-20 bg-white rounded-2xl shadow-2xl overflow-hidden">
-        <div className="h-full flex flex-col">
-          <div className="bg-gradient-to-r from-emerald-500 to-blue-500 p-4 text-white">
-            <h3 className="font-bold text-lg">Table of Contents</h3>
-          </div>
-          <div className="flex-1 overflow-y-auto p-4">
-            {headings.map((heading) => (
-              <button
-                key={heading.id}
-                onClick={() => scrollToHeading(heading.id)}
-                className={`block w-full text-left py-2 px-3 rounded-lg transition-all duration-200 ${
-                  heading.level === 2 ? 'font-semibold' : 'text-sm'
-                } ${
-                  heading.level === 3 ? 'ml-4' : ''
-                } ${
-                  heading.level === 4 ? 'ml-8' : ''
-                } ${
-                  activeId === heading.id
-                    ? 'bg-gradient-to-r from-emerald-50 to-blue-50 text-emerald-700 font-semibold'
-                    : 'text-slate-600 hover:bg-slate-50'
-                }`}
-              >
-                {heading.text}
-              </button>
-            ))}
-          </div>
+  const StaticMobileTOC = () => (
+    <div className="lg:hidden mb-10 p-6 bg-slate-50/80 backdrop-blur-sm rounded-2xl border border-slate-200/60 shadow-sm">
+        <h3 className="font-bold text-lg text-slate-800 mb-4 flex items-center gap-2">
+            <Menu className="w-5 h-5 text-emerald-600" /> 
+            Table of Contents
+        </h3>
+        <div className="space-y-3 relative pl-2">
+             {/* Vertical Track */}
+             <div className="absolute left-[3px] top-2 bottom-2 w-0.5 bg-slate-200 rounded-full" />
+             
+             {headings.map((heading) => (
+               <button
+                 key={heading.id}
+                 onClick={() => scrollToHeading(heading.id)}
+                 className={`relative block w-full text-left text-sm transition-all duration-200 pl-6 ${
+                   heading.level === 3 ? 'ml-2' : ''
+                 } ${
+                   activeId === heading.id 
+                    ? 'text-emerald-700 font-semibold' 
+                    : 'text-slate-600'
+                 }`}
+               >
+                 {/* Dot */}
+                 <span className={`absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full border-2 transition-colors ${
+                     activeId === heading.id 
+                     ? 'bg-emerald-500 border-white ring-2 ring-emerald-100' 
+                     : 'bg-white border-slate-300'
+                 }`} />
+                 {heading.text}
+               </button>
+             ))}
         </div>
-      </div>
     </div>
   );
 
-  // Desktop draggable TOC
   const DesktopTOC = () => (
     <div
       ref={tocRef}
-      className={`hidden lg:block fixed z-30 ${className}`}
+      className={`hidden lg:block fixed z-30 transition-all duration-300 ${className}`}
       style={{
-        left: `${position.x}px`,
+        left: isCollapsed ? 'auto' : `${position.x}px`,
         top: `${position.y}px`,
-        cursor: isDragging ? 'grabbing' : 'default',
+        right: isCollapsed ? '24px' : 'auto', 
       }}
       onMouseDown={handleMouseDown}
     >
-      <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-200 overflow-hidden transition-all duration-300"
-        style={{ width: isCollapsed ? '60px' : '320px' }}
-      >
-        {/* Header with drag handle */}
-        <div className="bg-gradient-to-r from-emerald-500 to-blue-500 p-3 flex items-center justify-between cursor-grab toc-drag-handle">
-          <div className="flex items-center gap-2 text-white">
-            <GripVertical className="w-5 h-5" />
-            {!isCollapsed && <span className="font-semibold text-sm">Table of Contents</span>}
-          </div>
-          <button
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            className="text-white hover:bg-white/20 p-1 rounded transition-colors"
-            aria-label={isCollapsed ? 'Expand' : 'Collapse'}
-          >
-            {isCollapsed ? <Maximize2 className="w-4 h-4" /> : <Minimize2 className="w-4 h-4" />}
-          </button>
-        </div>
-
-        {/* Content */}
+      <div className={`bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl border border-slate-200/80 overflow-hidden transition-all duration-300 ${isCollapsed ? 'w-12 h-12 rounded-full cursor-pointer hover:bg-emerald-50' : 'w-80'}`}>
+        
+        {/* Header (Draggable) */}
         {!isCollapsed && (
-          <div className="max-h-[70vh] overflow-y-auto p-4 space-y-1">
-            {headings.map((heading) => (
-              <button
-                key={heading.id}
-                onClick={() => scrollToHeading(heading.id)}
-                className={`block w-full text-left py-2 px-3 rounded-lg transition-all duration-200 text-sm ${
-                  heading.level === 2 ? 'font-semibold' : 'text-xs'
-                } ${
-                  heading.level === 3 ? 'ml-3' : ''
-                } ${
-                  heading.level === 4 ? 'ml-6' : ''
-                } ${
-                  activeId === heading.id
-                    ? 'bg-gradient-to-r from-emerald-50 to-blue-50 text-emerald-700 font-semibold border-l-4 border-emerald-500'
-                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-                }`}
-              >
-                {heading.text}
-              </button>
-            ))}
+            <div className="bg-slate-50 border-b border-slate-100 p-3 flex items-center justify-between cursor-grab toc-drag-handle group">
+            <div className="flex items-center gap-2 text-slate-500 group-hover:text-slate-700 transition-colors">
+                <GripVertical className="w-5 h-5" />
+                <span className="font-semibold text-xs uppercase tracking-wider">Contents</span>
+            </div>
+            <button
+                onClick={() => setIsCollapsed(true)}
+                className="text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 p-1.5 rounded-lg transition-colors"
+            >
+                <Minimize2 className="w-4 h-4" />
+            </button>
+            </div>
+        )}
+
+        {/* Collapsed State Toggle */}
+        {isCollapsed && (
+             <div onClick={() => setIsCollapsed(false)} className="w-full h-full flex items-center justify-center text-emerald-600">
+                 <Menu className="w-6 h-6" />
+             </div>
+        )}
+
+        {/* List Content */}
+        {!isCollapsed && (
+          <div className="max-h-[70vh] overflow-y-auto p-5 relative custom-scrollbar">
+            {/* Thread Line */}
+            <div className="absolute left-[29px] top-5 bottom-5 w-0.5 bg-slate-100" />
+
+            <div className="space-y-4">
+                {headings.map((heading) => {
+                    const isActive = activeId === heading.id;
+                    return (
+                        <div key={heading.id} className="relative flex items-start group">
+                            {/* Node */}
+                            <div className={`relative z-10 flex-shrink-0 mt-1.5 w-2.5 h-2.5 rounded-full border-2 transition-all duration-300 ${
+                                isActive 
+                                    ? 'bg-emerald-500 border-white shadow-md scale-125' 
+                                    : 'bg-slate-200 border-white group-hover:border-emerald-200'
+                            }`} />
+                            
+                            {/* Link */}
+                            <button
+                                onClick={() => scrollToHeading(heading.id)}
+                                className={`ml-4 text-left text-sm leading-relaxed transition-all duration-200 ${
+                                    heading.level === 3 ? 'pl-2 text-xs opacity-90' : ''
+                                } ${
+                                    isActive 
+                                        ? 'text-emerald-700 font-bold translate-x-1' 
+                                        : 'text-slate-500 hover:text-slate-800'
+                                }`}
+                            >
+                                {heading.text}
+                            </button>
+                        </div>
+                    );
+                })}
+            </div>
           </div>
         )}
       </div>
     </div>
   );
 
+  // If no headings found yet, don't render anything (avoid layout shift? or show skeleton?)
+  if (headings.length === 0) return null;
+
   return (
     <>
-      <MobileButton />
-      <MobileModal />
+      <StaticMobileTOC />
+      
+      {/* Mobile Floating Button */}
+      <button
+        onClick={() => setIsMobileOpen(true)}
+        className="lg:hidden fixed bottom-6 right-6 z-50 w-12 h-12 bg-white text-emerald-600 border border-emerald-100 rounded-full shadow-lg flex items-center justify-center hover:scale-105 transition-all duration-300"
+      >
+        <Menu className="w-6 h-6" />
+      </button>
+
+      {/* Mobile Modal Overlay */}
+      <div className={`lg:hidden fixed inset-0 z-[150] transition-opacity duration-300 ${isMobileOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setIsMobileOpen(false)} />
+          <div className={`absolute right-4 bottom-24 w-80 max-h-[60vh] bg-white rounded-2xl shadow-2xl transition-transform duration-300 flex flex-col ${isMobileOpen ? 'translate-y-0' : 'translate-y-10'}`}>
+              <div className="flex items-center justify-between p-4 border-b border-slate-100">
+                  <h3 className="font-semibold text-slate-800">Table of Contents</h3>
+                  <button onClick={() => setIsMobileOpen(false)} className="p-1 hover:bg-slate-100 rounded-full"><X className="w-5 h-5 text-slate-500" /></button>
+              </div>
+              <div className="overflow-y-auto p-4 flex-1">
+                 {/* Re-use logic for list or simplify */}
+                 <div className="space-y-3 relative pl-2">
+                    <div className="absolute left-[5px] top-2 bottom-2 w-0.5 bg-slate-100" />
+                    {headings.map(h => (
+                        <button key={h.id} onClick={() => scrollToHeading(h.id)} className={`relative block w-full text-left pl-6 py-1 ${activeId === h.id ? 'text-emerald-600 font-medium' : 'text-slate-600'}`}>
+                            <span className={`absolute left-0 top-2.5 w-1.5 h-1.5 rounded-full ${activeId === h.id ? 'bg-emerald-500' : 'bg-slate-300'}`} />
+                            {h.text}
+                        </button>
+                    ))}
+                 </div>
+              </div>
+          </div>
+      </div>
+
       <DesktopTOC />
     </>
   );

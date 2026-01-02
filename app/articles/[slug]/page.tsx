@@ -30,6 +30,9 @@ import { AdvertiserDisclosure } from '@/components/common/AdvertiserDisclosure';
 import { BookmarkButton, NewsletterWidget } from '@/components/engagement';
 import RelatedArticles from '@/components/articles/RelatedArticles';
 import ContextualCTA from '@/components/monetization/ContextualCTA';
+import ContextualProducts from '@/components/products/ContextualProducts';
+import TopPicksSidebar from '@/components/products/TopPicksSidebar';
+import LeadMagnet from '@/components/monetization/LeadMagnet';
 
 export default function ArticleDetailPage() {
     const params = useParams();
@@ -87,7 +90,6 @@ export default function ArticleDetailPage() {
             }
 
             // Increment views (only for published, non-preview)
-            // Use direct Supabase update for views (non-critical, fire-and-forget)
             if (!previewToken && articleData.status === 'published' && articleData.id) {
                 try {
                     const { createClient } = await import('@/lib/supabase/client');
@@ -97,7 +99,6 @@ export default function ArticleDetailPage() {
                         .update({ views: (articleData.views || 0) + 1 })
                         .eq('id', articleData.id);
                 } catch (error) {
-                    // Non-critical - just log
                     console.error('Failed to increment views:', error);
                 }
             }
@@ -136,8 +137,6 @@ export default function ArticleDetailPage() {
         );
     }
 
-
-
     // Generate SEO data
     const breadcrumbs = [
         { label: 'Home', url: '/' },
@@ -145,9 +144,35 @@ export default function ArticleDetailPage() {
         { label: article.title, url: `/articles/${article.slug}` },
     ];
 
-    const structuredData = generateSchema(article);
+    const structuredData = article.schema_markup ? article.schema_markup.articleSchema : generateSchema(article);
+    const faqSchema = article.schema_markup?.faqSchema;
     const canonicalUrl = generateCanonicalUrl(`/articles/${article.slug}`);
     const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
+
+    // Lead Magnet Determination
+    const getLeadMagnet = () => {
+        if (article.category === 'credit-cards') {
+            return {
+                title: "Credit Card Rewards Tracker (Excel)",
+                description: "The ultimate spreadsheet to track your rewards, milestone benefits, and avoid expiry of points.",
+                type: 'excel' as const
+            };
+        }
+        if (article.category === 'loans') {
+            return {
+                title: "EMI Comparison & Prepayment Calculator",
+                description: "Find out how much you can save in interest by making small regular prepayments.",
+                type: 'excel' as const
+            };
+        }
+        return {
+            title: "Master Personal Finance Dashboard",
+            description: "Manage your income, expenses, and track your Net Worth in one professional Google Sheet.",
+            type: 'google-sheet' as const
+        };
+    };
+
+    const magnet = getLeadMagnet();
 
     return (
         <div className="min-h-screen bg-white relative">
@@ -163,7 +188,7 @@ export default function ArticleDetailPage() {
                 title={article.seo_title || `${article.title} | InvestingPro`}
                 description={article.seo_description || article.excerpt}
                 url={canonicalUrl}
-                structuredData={[structuredData, breadcrumbSchema]}
+                structuredData={[structuredData, breadcrumbSchema, faqSchema].filter(Boolean)}
             />
 
             {/* Preview Banner */}
@@ -178,136 +203,129 @@ export default function ArticleDetailPage() {
                 </div>
             )}
 
-            {/* Main Content with TOC */}
+            {/* Layout Grid */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                {/* Draggable Table of Contents */}
                 <DraggableTableOfContents />
                 
-                {/* Main Article Content */}
-                <article className="max-w-4xl mx-auto">
-                    {/* Header */}
-                    <div className="mb-8">
-                        <Badge className="mb-4 bg-teal-50 text-teal-700 border-teal-100">
-                            {article.category?.replace(/-/g, ' ')}
-                        </Badge>
-                        <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-6 leading-tight">
-                            {article.title}
-                        </h1>
-                        <p className="text-xl text-slate-500 mb-8 leading-relaxed">
-                            {article.excerpt}
-                        </p>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    {/* Main Content Column */}
+                    <article className="lg:col-span-8">
+                        {/* Header */}
+                        <div className="mb-8">
+                            <Badge className="mb-4 bg-teal-50 text-teal-700 border-teal-100">
+                                {article.category?.replace(/-/g, ' ')}
+                            </Badge>
+                            <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+                                {article.title}
+                            </h1>
+                            <p className="text-xl text-slate-500 mb-8 leading-relaxed">
+                                {article.excerpt}
+                            </p>
 
-                        <div className="flex flex-wrap items-center gap-y-4 gap-6 text-sm text-slate-500 mb-8 pb-8 border-b">
-                            <AuthorBadge 
-                                name={article.author_name || 'InvestingPro Team'} 
-                                role={article.author_role}
-                                avatarUrl={article.author_avatar}
-                                size="md"
-                                showRole={true}
-                            />
-                            {article.published_date && (
-                                <span className="flex items-center gap-2">
-                                    <Calendar className="w-4 h-4 text-slate-400" />
-                                    {new Date(article.published_date).toLocaleDateString('en-IN', {
-                                        year: 'numeric',
-                                        month: 'long',
-                                        day: 'numeric'
-                                    })}
-                                </span>
-                            )}
-                            {article.read_time && (
+                            <div className="flex flex-wrap items-center gap-y-4 gap-6 text-sm text-slate-500 mb-8 pb-8 border-b">
+                                <AuthorBadge 
+                                    name={article.author_name || 'InvestingPro Team'} 
+                                    role={article.author_role}
+                                    avatarUrl={article.author_avatar}
+                                    size="md"
+                                    showRole={true}
+                                />
+
+                                {article.published_date && (
+                                    <span className="flex items-center gap-2">
+                                        <Calendar className="w-4 h-4 text-slate-400" />
+                                        {new Date(article.published_date).toLocaleDateString('en-IN', {
+                                            year: 'numeric', month: 'long', day: 'numeric'
+                                        })}
+                                    </span>
+                                )}
                                 <span className="flex items-center gap-2">
                                     <Clock className="w-4 h-4 text-slate-400" />
-                                    {article.read_time} min read
+                                    {article.read_time || '5'} min read
                                 </span>
-                            )}
-                            <span className="flex items-center gap-2">
-                                <Eye className="w-4 h-4 text-slate-400" />
-                                {article.views || 0} views
-                            </span>
-                            {/* Bookmark & Share */}
-                            <div className="flex items-center gap-2 ml-auto">
-                                <BookmarkButton articleId={article.id} variant="icon" size="md" />
-                                <button 
-                                    onClick={() => navigator.share?.({ title: article.title, url: window.location.href })}
-                                    className="w-10 h-10 rounded-xl bg-slate-100 text-slate-400 hover:text-teal-600 hover:bg-slate-200 flex items-center justify-center transition-colors"
-                                >
-                                    <Share2 className="w-5 h-5" />
-                                </button>
+                                <span className="flex items-center gap-2">
+                                    <Eye className="w-4 h-4 text-slate-400" />
+                                    {article.views || 0} views
+                                </span>
+
+                                <div className="flex items-center gap-2 ml-auto">
+                                    <BookmarkButton articleId={article.id} variant="icon" size="md" />
+                                    <button 
+                                        onClick={() => navigator.share?.({ title: article.title, url: window.location.href })}
+                                        className="w-10 h-10 rounded-xl bg-slate-100 text-slate-400 hover:text-teal-600 hover:bg-slate-200 flex items-center justify-center transition-colors"
+                                    >
+                                        <Share2 className="w-5 h-5" />
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Featured Image */}
-                    {article.featured_image && (
-                        <div className="relative aspect-video w-full mb-12 rounded-3xl overflow-hidden shadow-2xl">
-                            <img
-                                src={article.featured_image}
-                                alt={article.title}
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
-                    )}
-
-                    {/* Content - Using Shared Renderer */}
-                    <AdvertiserDisclosure className="mb-8" />
-                    <ArticleRenderer
-                        body_html={article.body_html}
-                        body_markdown={article.body_markdown}
-                        content={article.content}
-                    />
-
-                    {/* Tags */}
-                    {article.tags && article.tags.length > 0 && (
-                        <div className="mt-16 pt-8 border-t">
-                            <p className="text-sm font-bold text-slate-900 mb-4 uppercase tracking-wider">Tags</p>
-                            <div className="flex flex-wrap gap-2">
-                                {article.tags.map((tag: string, idx: number) => (
-                                    <Badge key={idx} variant="secondary" className="bg-slate-100 text-slate-600">
-                                        {tag}
-                                    </Badge>
-                                ))}
+                        {/* Featured Image */}
+                        {article.featured_image && (
+                            <div className="relative aspect-video w-full mb-12 rounded-3xl overflow-hidden shadow-2xl">
+                                <img
+                                    src={article.featured_image}
+                                    alt={article.title}
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
+                        )}
+
+                        {/* Content */}
+                        <AdvertiserDisclosure className="mb-8" />
+                        <ArticleRenderer
+                            body_html={article.body_html}
+                            body_markdown={article.body_markdown}
+                            content={article.content}
+                        />
+
+                        {/* Lead Magnet Injection */}
+                        <LeadMagnet 
+                            title={magnet.title}
+                            description={magnet.description}
+                            type={magnet.type}
+                            downloadUrl="#"
+                        />
+
+                        {/* Contextual Products Block */}
+                        <ContextualProducts category={article.category} />
+
+                        {/* Tags */}
+                        {article.tags && article.tags.length > 0 && (
+                            <div className="mt-16 pt-8 border-t">
+                                <p className="text-sm font-bold text-slate-900 mb-4 uppercase tracking-wider">Tags</p>
+                                <div className="flex flex-wrap gap-2">
+                                    {article.tags.map((tag: string, idx: number) => (
+                                        <Badge key={idx} variant="secondary" className="bg-slate-100 text-slate-600 font-medium">
+                                            {tag}
+                                        </Badge>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Related Content */}
+                        <div className="mt-16 space-y-12">
+                            <RelatedArticles articleId={article.id} />
+                            <NewsletterWidget variant="inline" />
                         </div>
-                    )}
 
-                    {/* Contextual CTA */}
-                    <div className="mt-12">
-                        <ContextualCTA 
-                            category={article.category} 
-                            articleId={article.id}
-                            placement="end"
-                        />
-                    </div>
-
-                    {/* Newsletter Signup */}
-                    <div className="mt-12">
-                        <NewsletterWidget 
-                            variant="inline"
-                            title="Enjoyed this article?"
-                            description="Get more investing insights delivered to your inbox weekly."
-                        />
-                    </div>
-
-                    {/* Related Articles */}
-                    <div className="mt-16">
-                        <RelatedArticles articleId={article.id} />
-                    </div>
-
-                    {/* Navigation */}
-                    <div className="mt-16 pt-8 border-t">
-                        <div className="flex justify-between">
+                        {/* Navigation */}
+                        <div className="mt-16 pt-8 border-t flex justify-between">
                             <Link href="/articles">
                                 <Button variant="outline">← All Articles</Button>
                             </Link>
                             <Link href={`/category/${article.category}`}>
-                                <Button variant="outline">
-                                    More in {article.category?.replace(/-/g, ' ')} →
-                                </Button>
+                                <Button variant="outline">More in {article.category?.replace(/-/g, ' ')} →</Button>
                             </Link>
                         </div>
-                    </div>
-                </article>
+                    </article>
+
+                    {/* Sidebar Column */}
+                    <aside className="lg:col-span-4 hidden lg:block">
+                        <TopPicksSidebar category={article.category} />
+                    </aside>
+                </div>
             </div>
         </div>
     );

@@ -1,36 +1,47 @@
+
 import { NextRequest, NextResponse } from 'next/server';
 import { affiliateService } from '@/lib/monetization/affiliate-service';
 import { logger } from '@/lib/logger';
+import { createClient } from '@/lib/supabase/client';
 
 export async function GET(
     req: NextRequest,
     { params }: { params: { code: string } }
 ) {
     try {
-        const shortCode = params.code;
+        const codeOrSlug = params.code;
         
-        if (!shortCode) {
+        if (!codeOrSlug) {
             return NextResponse.redirect(new URL('/', req.url));
         }
 
-        // Get the affiliate link
-        const link = await affiliateService.getLinkByShortCode(shortCode);
-
-        if (!link) {
-            logger.warn('Affiliate link not found', { shortCode });
-            return NextResponse.redirect(new URL('/', req.url));
+        // 1. Try Affiliate Links (Shortcodes)
+        const link = await affiliateService.getLinkByShortCode(codeOrSlug);
+        if (link) {
+            const articleId = req.nextUrl.searchParams.get('article') || undefined;
+            affiliateService.recordClick(link.id, {
+                articleId,
+                referrer: req.headers.get('referer') || undefined,
+                userAgent: req.headers.get('user-agent') || undefined
+            }).catch(() => {});
+            return NextResponse.redirect(link.destination_url);
         }
 
-        // Record the click (async, don't wait)
-        const articleId = req.nextUrl.searchParams.get('article') || undefined;
-        affiliateService.recordClick(link.id, {
-            articleId,
-            referrer: req.headers.get('referer') || undefined,
-            userAgent: req.headers.get('user-agent') || undefined
-        }).catch(() => {});
+        // 2. Try Products (Slugs) as Fallback
+        const supabase = createClient();
+        const { data: product } = await supabase
+            .from('products')
+            .select('*')
+            .eq('slug', codeOrSlug)
+            .single();
 
-        // Redirect to destination
-        return NextResponse.redirect(link.destination_url);
+        if (product && (product.affiliate_link || product.official_link)) {
+            const destination = product.affiliate_link || product.official_link;
+            return NextResponse.redirect(destination || '/');
+        }
+
+        logger.warn('Monetization link not found', { codeOrSlug });
+        return NextResponse.redirect(new URL('/', req.url));
 
     } catch (error) {
         logger.error('Affiliate redirect failed', error as Error);

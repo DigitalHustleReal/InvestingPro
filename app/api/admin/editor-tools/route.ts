@@ -22,6 +22,22 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ success: true, polished_content: result });
         }
 
+        else if (action === 'generate-image') {
+            const keyword = body.keyword || title; // Use keyword if provided, else title
+            if (!keyword) return NextResponse.json({ error: 'Keyword or Title required' }, { status: 400 });
+            
+            // Lazy import to avoid circular dep if any (though unlikely here)
+            const { imageService } = await import('@/lib/images/stock-image-service');
+            const imageResult = await imageService.getFeaturedImage(keyword);
+            
+            return NextResponse.json({ 
+                success: true, 
+                url: imageResult.url, 
+                alt: imageResult.alt,
+                source: imageResult.source 
+            });
+        }
+
         return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
 
     } catch (error: any) {

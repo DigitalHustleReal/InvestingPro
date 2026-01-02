@@ -115,7 +115,9 @@ export const ALLOWED_AI_OPERATIONS = [
     'sentiment_analysis',
     'pros_cons_extraction',
     'generate_article',
-    'generate_social_posts'
+    'generate_social_posts',
+    'generate_glossary',
+    'optimize_seo'
 ];
 
 /**

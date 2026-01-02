@@ -20,6 +20,7 @@ import { toast } from 'sonner';
 import type { ArticleCategory, ArticleLanguage, ArticleStatus, ContentType } from '@/types/article';
 import KeywordResearchQuickAccess from './KeywordResearchQuickAccess';
 import SubCategorySelect from './SubCategorySelect';
+import FeaturedImageSelector from './FeaturedImageSelector';
 
 /**
  * ArticleInspector - Right-side inspector panel for article editing
@@ -74,6 +75,7 @@ export default function ArticleInspector({
     const [seoDescription, setSeoDescription] = useState(article.seo_description || article.excerpt || '');
     const [tags, setTags] = useState<string[]>(article.tags || []);
     const [tagInput, setTagInput] = useState('');
+    const [featuredImage, setFeaturedImage] = useState(article.featured_image || '');
     
     // Schema-driven fields
     const [primaryKeyword, setPrimaryKeyword] = useState(article.primary_keyword || '');
@@ -188,6 +190,7 @@ export default function ArticleInspector({
             language,
             status,
             excerpt,
+            featured_image: featuredImage,
             seo_title: seoTitle || article.title,
             meta_description: seoDescription || excerpt,
             tags,
@@ -297,6 +300,17 @@ export default function ArticleInspector({
                         </p>
                     </div>
                 )}
+
+                {/* Featured Image */}
+                <div className="space-y-3">
+                    <h3 className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
+                        Featured Media
+                    </h3>
+                    <FeaturedImageSelector 
+                        imageUrl={featuredImage}
+                        onImageSelect={setFeaturedImage}
+                    />
+                </div>
 
                 {/* Category & Language */}
                 <div className="space-y-3">

@@ -7,6 +7,8 @@
 
 import React from 'react';
 import { normalizeArticleBody } from '@/lib/content/normalize';
+import { enrichContent } from '@/lib/content/link-manager';
+import CalculatorHydrator from '@/components/tools/CalculatorHydrator';
 import ReactMarkdown from 'react-markdown';
 
 interface ArticleRendererProps {
@@ -20,8 +22,8 @@ export default function ArticleRenderer({
     body_html,
     body_markdown,
     content,
-    className = 'prose prose-lg prose-slate max-w-none prose-headings:font-bold prose-a:text-teal-600 hover:prose-a:text-teal-700',
-}: ArticleRendererProps) {
+    className = 'prose prose-lg prose-slate max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-a:text-teal-600 hover:prose-a:text-teal-700 prose-th:bg-teal-50 prose-th:text-teal-900 prose-th:p-4 prose-th:rounded-t-lg prose-td:p-4 prose-img:rounded-2xl prose-img:shadow-lg',
+    }: ArticleRendererProps) {
     // Get raw content from any source (priority: body_html > body_markdown > content)
     const rawContent = body_html || body_markdown || content || '';
 
@@ -36,7 +38,7 @@ export default function ArticleRenderer({
     }
 
     try {
-        // NORMALIZE: Convert all content to clean HTML
+        // 1. NORMALIZE: Convert all content to clean HTML
         const normalizedHTML = normalizeArticleBody(rawContent);
 
         if (!normalizedHTML || normalizedHTML.trim().length < 10) {
@@ -49,9 +51,15 @@ export default function ArticleRenderer({
             );
         }
 
-        // Render normalized HTML
+        // 2. ENRICH: Expand shortcodes and links
+        const enrichedHTML = enrichContent(normalizedHTML);
+
+        // Render normalized HTML + Hydrator
         return (
-            <div className={className} dangerouslySetInnerHTML={{ __html: normalizedHTML }} />
+            <>
+                <div className={className} dangerouslySetInnerHTML={{ __html: enrichedHTML }} />
+                <CalculatorHydrator />
+            </>
         );
     } catch (error) {
         console.error('Error rendering article content:', error);

@@ -1,391 +1,273 @@
-"use client";
+'use client';
 
-import React, { useState } from 'react';
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Loader2, PenTool, Save, RotateCcw, CheckCircle, AlertCircle, Sparkles, Zap, Twitter, Share2 } from "lucide-react";
-import { articleService } from '@/lib/cms/article-service';
-import { useRouter } from 'next/navigation';
-import { GeneratedArticle } from '@/lib/ai/article-writer';
-import AdminLayout from "@/components/admin/AdminLayout";
-import SocialDistributionPanel from "@/components/admin/SocialDistributionPanel";
-import AIHealthMonitor from "@/components/admin/AIHealthMonitor";
-import { toast } from 'sonner';
+import { useState, useEffect } from 'react';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/Button';
 
-interface SocialPosts {
-    twitter?: string[];
-    linkedin?: string;
-    instagram?: string;
-    generated_at?: string;
+/**
+ * 🤖 CONTENT FACTORY - ADMIN AUTOMATION PAGE
+ * 
+ * Features:
+ * - One-click bulk generation
+ * - Real-time progress tracking
+ * - Visual console output
+ * - Pause/Resume support
+ */
+
+interface GenerationProgress {
+    status: string;
+    current?: number;
+    total?: number;
+    topic?: string;
+    message?: string;
+    error?: string;
+    success?: number;
+    failed?: number;
+    authority?: number;
 }
 
 export default function ContentFactoryPage() {
-    const router = useRouter();
-    
-    // Input State
-    const [topic, setTopic] = useState('');
-    const [keywords, setKeywords] = useState('');
-    const [tone, setTone] = useState('educational');
-
-    // Process State
     const [isGenerating, setIsGenerating] = useState(false);
-    const [generatedArticle, setGeneratedArticle] = useState<GeneratedArticle | null>(null);
-    const [isPublishing, setIsPublishing] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-    
-    // Social Posts State
-    const [socialPosts, setSocialPosts] = useState<SocialPosts | null>(null);
-    const [isGeneratingSocial, setIsGeneratingSocial] = useState(false);
+    const [progress, setProgress] = useState<GenerationProgress[]>([]);
+    const [count, setCount] = useState(10);
+    const [phase, setPhase] = useState('mvl');
 
-    const handleGenerate = async () => {
-        if (!topic) return;
-        
+    const startGeneration = async () => {
         setIsGenerating(true);
-        setError(null);
-        setGeneratedArticle(null);
-        setSocialPosts(null);
+        setProgress([]);
 
         try {
-            const keywordList = keywords.split(',').map(k => k.trim()).filter(Boolean);
-            
-            const generatePromise = fetch('/api/admin/generate-article', {
+            const response = await fetch('/api/generate-articles', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ topic, keywords: keywordList, tone })
-            }).then(async (response) => {
-                if (!response.ok) {
-                    const data = await response.json().catch(() => ({}));
-                    throw new Error(data.error || data.details || 'Generation failed');
+                body: JSON.stringify({ count, phase })
+            });
+
+            if (!response.ok) throw new Error('Generation failed');
+
+            const reader = response.body?.getReader();
+            const decoder = new TextDecoder();
+
+            if (!reader) throw new Error('No response body');
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                const chunk = decoder.decode(value);
+                const lines = chunk.split('\n');
+
+                for (const line of lines) {
+                    if (line.startsWith('data: ')) {
+                        const data = JSON.parse(line.slice(6));
+                        setProgress(prev => [...prev, data]);
+
+                        if (data.status === 'complete' || data.status === 'fatal_error') {
+                            setIsGenerating(false);
+                        }
+                    }
                 }
-                const data = await response.json();
-                setGeneratedArticle(data);
-                return data;
-            });
-
-            toast.promise(generatePromise, {
-                loading: 'Initializing AI Writer...',
-                success: 'Content Generated Successfully',
-                error: (err: Error) => `Generation failed: ${err.message}`
-            });
-
-            await generatePromise;
-        } catch (err: any) {
-            setError(err.message || 'Failed to generate article. AI might be busy or token limit reached.');
-            console.error(err);
-        } finally {
+            }
+        } catch (error: any) {
+            setProgress(prev => [...prev, {
+                status: 'fatal_error',
+                error: error.message
+            }]);
             setIsGenerating(false);
         }
     };
 
-    const handlePublish = async (status: 'draft' | 'published') => {
-        if (!generatedArticle) return;
-        
-        setIsPublishing(true);
-        try {
-            const slug = generatedArticle.title
-                .toLowerCase()
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/(^-|-$)/g, '');
-
-            const result = await articleService.createArticle(
-                {
-                    body_markdown: generatedArticle.content,
-                    body_html: '', // Will be generated by service
-                },
-                {
-                    title: generatedArticle.title,
-                    slug: slug,
-                    excerpt: generatedArticle.excerpt,
-                    category: 'investing-basics', // Default, should be selectable
-                    tags: generatedArticle.tags,
-                    seo_title: generatedArticle.seo_title,
-                    seo_description: generatedArticle.seo_description,
-                    ai_generated: true,
-                    ai_metadata: generatedArticle.ai_metadata
-                }
-            );
-
-            if (status === 'published') {
-                await articleService.publishArticle(
-                    result.id, 
-                    { body_markdown: generatedArticle.content, body_html: '' }, 
-                    {} // No extra metadata updates needed
-                );
-            }
-
-            toast.success('Article Saved! Redirecting to Editor...');
-            router.push(`/admin/articles/${result.id}/edit`);
-        } catch (err) {
-            toast.error('Failed to save article.');
-            setError('Failed to save article.');
-            console.error(err);
-        } finally {
-            setIsPublishing(false);
-        }
-    };
-
-    const handleGenerateSocial = async () => {
-        if (!generatedArticle) return;
-        
-        setIsGeneratingSocial(true);
-        try {
-            const response = await fetch('/api/admin/generate-social', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    articleId: 'preview', // Placeholder for unsaved article
-                    title: generatedArticle.title,
-                    content: generatedArticle.content
-                })
-            });
-            
-            if (!response.ok) throw new Error('Failed to generate social posts');
-            
-            const data = await response.json();
-            setSocialPosts(data.posts);
-            toast.success('Social posts generated!');
-        } catch (err) {
-            toast.error('Failed to generate social posts');
-            console.error(err);
-        } finally {
-            setIsGeneratingSocial(false);
-        }
-    };
+    const latestStatus = progress[progress.length - 1];
+    const currentArticle = latestStatus?.current || 0;
+    const totalArticles = latestStatus?.total || count;
+    const percentage = totalArticles > 0 ? (currentArticle / totalArticles) * 100 : 0;
 
     return (
-        <AdminLayout>
-            <div className="p-8 max-w-[1600px] mx-auto w-full">
-                <div className="mb-10 border-b border-white/5 pb-8">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <h1 className="text-3xl font-extrabold text-white tracking-tight flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.15)]">
-                                    <Sparkles className="w-6 h-6 text-indigo-400" />
-                                </div>
-                                Content Factory
-                                <Badge className="bg-indigo-500/10 text-indigo-400 border-indigo-500/20 ml-2 font-bold tracking-wider">BETA</Badge>
-                            </h1>
-                            <p className="text-slate-400 mt-3 ml-16 font-medium tracking-wide max-w-2xl">
-                                Advanced autonomous content generation workspace using Alpha Intelligence.
-                            </p>
-                        </div>
-                        <AIHealthMonitor />
-                    </div>
+        <div className="min-h-screen bg-[#0A0118] text-white p-8">
+            <div className="max-w-6xl mx-auto space-y-8">
+                {/* Header */}
+                <div className="space-y-2">
+                    <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                        🤖 AI Content Factory
+                    </h1>
+                    <p className="text-gray-400">
+                        Automated bulk article generation with real-time progress tracking
+                    </p>
                 </div>
 
-                <div className="grid lg:grid-cols-12 gap-8 h-[calc(100vh-250px)]">
-                    {/* Left Panel: Controls */}
-                    <div className="lg:col-span-4 space-y-6 h-full flex flex-col">
-                        <Card className="bg-white/[0.03] border-white/5 rounded-2xl flex-1 flex flex-col">
-                            <CardHeader className="border-b border-white/5 px-6 py-5">
-                                <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2">
-                                    <PenTool className="w-4 h-4" />
-                                    Configuration Vectors
-                                </CardTitle>
-                            </CardHeader>
-                            <CardContent className="p-6 space-y-6 flex-1">
-                                <div className="space-y-4">
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                                            Topic / Title Idea
-                                        </label>
-                                        <Input 
-                                            placeholder="e.g. Benefits of SIP vs Lumpsum" 
-                                            value={topic}
-                                            onChange={(e) => setTopic(e.target.value)}
-                                            className="bg-black/20 border-white/10 text-white h-12 text-lg focus:border-indigo-500/50 focus:ring-indigo-500/20"
-                                        />
-                                    </div>
+                {/* Controls */}
+                <Card className="bg-[#1A1128]/50 border-purple-500/20 p-6 backdrop-blur-xl">
+                    <div className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {/* Article Count */}
+                            <div className="space-y-2">
+                                <label className="text-sm text-gray-400">Articles to Generate</label>
+                                <select 
+                                    value={count}
+                                    onChange={(e) => setCount(parseInt(e.target.value))}
+                                    disabled={isGenerating}
+                                    className="w-full bg-[#0A0118] border border-purple-500/30 rounded-lg px-4 py-2 text-white"
+                                >
+                                    <option value={5}>5 Articles</option>
+                                    <option value={10}>10 Articles</option>
+                                    <option value={25}>25 Articles</option>
+                                    <option value={50}>50 Articles</option>
+                                    <option value={60}>60 Articles (MVL)</option>
+                                </select>
+                            </div>
 
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                                            Keywords (Directives)
-                                        </label>
-                                        <Input 
-                                            placeholder="mutual funds, investing, wealth creation" 
-                                            value={keywords}
-                                            onChange={(e) => setKeywords(e.target.value)}
-                                            className="bg-black/20 border-white/10 text-slate-200 focus:border-indigo-500/50 focus:ring-indigo-500/20"
-                                        />
-                                    </div>
+                            {/* Phase Selection */}
+                            <div className="space-y-2">
+                                <label className="text-sm text-gray-400">Content Phase</label>
+                                <select 
+                                    value={phase}
+                                    onChange={(e) => setPhase(e.target.value)}
+                                    disabled={isGenerating}
+                                    className="w-full bg-[#0A0118] border border-purple-500/30 rounded-lg px-4 py-2 text-white"
+                                >
+                                    <option value="mvl">MVL Core</option>
+                                    <option value="month1">Month 1</option>
+                                    <option value="month2">Month 2</option>
+                                </select>
+                            </div>
 
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                                            Narrative Tone
-                                        </label>
-                                        <select 
-                                            className="w-full h-11 px-3 rounded-lg border border-white/10 bg-black/20 text-slate-200 text-sm focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 transition-all appearance-none"
-                                            value={tone}
-                                            onChange={(e) => setTone(e.target.value)}
-                                        >
-                                            <option value="educational">Educational (Beginner Friendly)</option>
-                                            <option value="professional">Professional (Expert Analysis)</option>
-                                            <option value="news">News style (Fact based)</option>
-                                        </select>
-                                    </div>
+                            {/* Action Button */}
+                            <div className="space-y-2">
+                                <label className="text-sm text-gray-400">Action</label>
+                                <Button
+                                    onClick={startGeneration}
+                                    disabled={isGenerating}
+                                    className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold py-2"
+                                >
+                                    {isGenerating ? '⏳ Generating...' : '🚀 Start Generation'}
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </Card>
 
-                                    <div className="pt-4">
-                                        <Button 
-                                            onClick={handleGenerate} 
-                                            disabled={!topic || isGenerating}
-                                            className="w-full h-14 text-base font-bold uppercase tracking-widest bg-indigo-600 hover:bg-indigo-700 shadow-[0_0_20px_rgba(99,102,241,0.3)] border-0 transition-all active:scale-95"
-                                        >
-                                            {isGenerating ? (
-                                                <>
-                                                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                                                    Synthesizing...
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <Zap className="mr-2 h-5 w-5 fill-current" />
-                                                    Generate Content
-                                                </>
-                                            )}
-                                        </Button>
-                                    </div>
+                {/* Progress Bar */}
+                {progress.length > 0 && (
+                    <Card className="bg-[#1A1128]/50 border-purple-500/20 p-6 backdrop-blur-xl">
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-xl font-semibold">Generation Progress</h2>
+                                <span className="text-gray-400">
+                                    {currentArticle} / {totalArticles} articles
+                                </span>
+                            </div>
 
-                                    {error && (
-                                        <div className="p-4 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl flex items-start gap-3 text-sm">
-                                            <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                                            {error}
+                            {/* Progress Bar */}
+                            <div className="w-full bg-[#0A0118] rounded-full h-4 overflow-hidden">
+                                <div 
+                                    className="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-500"
+                                    style={{ width: `${percentage}%` }}
+                                />
+                            </div>
+
+                            <div className="text-sm text-gray-400">
+                                {percentage.toFixed(0)}% Complete
+                            </div>
+
+                            {/* Stats */}
+                            {latestStatus?.status === 'complete' && (
+                                <div className="grid grid-cols-3 gap-4 pt-4 border-t border-purple-500/20">
+                                    <div className="text-center">
+                                        <div className="text-2xl font-bold text-green-400">
+                                            {latestStatus.success || 0}
+                                        </div>
+                                        <div className="text-sm text-gray-400">Successful</div>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className="text-2xl font-bold text-red-400">
+                                            {latestStatus.failed || 0}
+                                        </div>
+                                        <div className="text-sm text-gray-400">Failed</div>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className="text-2xl font-bold text-purple-400">
+                                            {latestStatus.total || 0}
+                                        </div>
+                                        <div className="text-sm text-gray-400">Total</div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </Card>
+                )}
+
+                {/* Console Output */}
+                {progress.length > 0 && (
+                    <Card className="bg-[#0A0118] border-purple-500/20 p-6 backdrop-blur-xl">
+                        <h2 className="text-xl font-semibold mb-4">Console Output</h2>
+                        <div className="space-y-2 max-h-96 overflow-y-auto font-mono text-sm">
+                            {progress.map((item, i) => (
+                                <div key={i} className="flex items-start gap-2">
+                                    {item.status === 'started' && (
+                                        <div className="text-blue-400">
+                                            ▶ Started generation: {item.total} articles (Authority: {item.authority})
+                                        </div>
+                                    )}
+                                    {item.status === 'generating' && (
+                                        <div className="text-yellow-400">
+                                            ⏳ [{item.current}/{item.total}] {item.topic}
+                                        </div>
+                                    )}
+                                    {item.status === 'log' && (
+                                        <div className="text-gray-400 pl-4">{item.message}</div>
+                                    )}
+                                    {item.status === 'success' && (
+                                        <div className="text-green-400">
+                                            ✅ [{item.current}/{item.total}] {item.topic}
+                                        </div>
+                                    )}
+                                    {item.status === 'error' && (
+                                        <div className="text-red-400">
+                                            ❌ [{item.current}/{item.total}] {item.topic}: {item.error}
+                                        </div>
+                                    )}
+                                    {item.status === 'complete' && (
+                                        <div className="text-green-400 font-bold">
+                                            🎉 Generation complete! {item.success}/{item.total} successful
+                                        </div>
+                                    )}
+                                    {item.status === 'fatal_error' && (
+                                        <div className="text-red-400 font-bold">
+                                            💥 Fatal error: {item.error}
                                         </div>
                                     )}
                                 </div>
-                            </CardContent>
-                        </Card>
-                    </div>
+                            ))}
+                        </div>
+                    </Card>
+                )}
 
-                    {/* Right Panel: Preview */}
-                    <div className="lg:col-span-8 space-y-6 h-full flex flex-col">
-                        {generatedArticle ? (
-                            <Card className="bg-white/[0.03] border-white/5 rounded-2xl flex-1 flex flex-col overflow-hidden h-full">
-                                <CardHeader className="border-b border-white/5 px-6 py-4 flex flex-row items-center justify-between bg-white/[0.01]">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
-                                            <CheckCircle className="w-4 h-4 text-emerald-400" />
-                                        </div>
-                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-emerald-400">
-                                            Output Verified
-                                        </CardTitle>
-                                    </div>
-                                    <div className="flex gap-3">
-                                        <Button 
-                                            variant="ghost" 
-                                            size="sm"
-                                            onClick={handleGenerate}
-                                            disabled={isPublishing}
-                                            className="text-slate-400 hover:text-white hover:bg-white/5"
-                                        >
-                                            <RotateCcw className="w-4 h-4 mr-2" />
-                                            Regenerate
-                                        </Button>
-                                        <Button 
-                                            size="sm"
-                                            onClick={() => handlePublish('published')}
-                                            disabled={isPublishing}
-                                            className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold border-0 shadow-[0_0_15px_rgba(16,185,129,0.3)]"
-                                        >
-                                            {isPublishing ? (
-                                                <Loader2 className="w-4 h-4 animate-spin" />
-                                            ) : (
-                                                <>
-                                                    <Save className="w-4 h-4 mr-2" />
-                                                    Push to CMS
-                                                </>
-                                            )}
-                                        </Button>
-                                    </div>
-                                </CardHeader>
+                {/* Quick Stats */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <Card className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-purple-500/20 p-6">
+                        <div className="text-sm text-gray-400 mb-2">Current Authority</div>
+                        <div className="text-3xl font-bold text-purple-400">
+                            {latestStatus?.authority || '...'}/100
+                        </div>
+                    </Card>
 
-                                <div className="flex-1 overflow-y-auto p-8 space-y-8 no-scrollbar bg-[#0f1115]">
-                                    <div>
-                                        <span className="text-[10px] uppercase font-bold text-slate-500 tracking-widest mb-2 block">Title Asset</span>
-                                        <h3 className="text-2xl font-bold text-white leading-tight">{generatedArticle.title}</h3>
-                                    </div>
-                                    
-                                    <div>
-                                        <span className="text-[10px] uppercase font-bold text-slate-500 tracking-widest mb-2 block">Excerpt / Meta</span>
-                                        <div className="p-4 bg-white/5 rounded-xl border border-white/5 text-slate-300 italic text-sm border-l-4 border-l-indigo-500">
-                                            {generatedArticle.excerpt}
-                                        </div>
-                                    </div>
+                    <Card className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border-blue-500/20 p-6">
+                        <div className="text-sm text-gray-400 mb-2">Articles Generated</div>
+                        <div className="text-3xl font-bold text-blue-400">
+                            {currentArticle}
+                        </div>
+                    </Card>
 
-                                    <div>
-                                        <span className="text-[10px] uppercase font-bold text-slate-500 tracking-widest mb-4 block">Markdown Preview</span>
-                                        <div className="prose prose-invert prose-sm max-w-none text-slate-300">
-                                            <pre className="whitespace-pre-wrap font-mono text-xs bg-black/30 p-6 rounded-xl border border-white/5 overflow-x-auto text-slate-400">
-                                                {generatedArticle.content}
-                                            </pre>
-                                        </div>
-                                    </div>
-
-                                    <div className="pt-6 border-t border-white/5">
-                                        <span className="text-[10px] uppercase font-bold text-slate-500 tracking-widest mb-3 block">Taxonomy Tags</span>
-                                        <div className="flex flex-wrap gap-2">
-                                            {generatedArticle.tags.map(tag => (
-                                                <Badge key={tag} className="bg-white/5 text-slate-300 border border-white/10 hover:bg-white/10 px-3 py-1">#{tag}</Badge>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Social Distribution Section */}
-                                    <div className="pt-6 border-t border-white/5">
-                                        <div className="flex items-center justify-between mb-4">
-                                            <span className="text-[10px] uppercase font-bold text-slate-500 tracking-widest flex items-center gap-2">
-                                                <Share2 className="w-4 h-4" />
-                                                Social Distribution
-                                            </span>
-                                            {!socialPosts && (
-                                                <Button
-                                                    size="sm"
-                                                    onClick={handleGenerateSocial}
-                                                    disabled={isGeneratingSocial}
-                                                    className="bg-pink-600 hover:bg-pink-700 text-white text-xs"
-                                                >
-                                                    {isGeneratingSocial ? (
-                                                        <Loader2 className="w-3 h-3 mr-1 animate-spin" />
-                                                    ) : (
-                                                        <Twitter className="w-3 h-3 mr-1" />
-                                                    )}
-                                                    Generate Posts
-                                                </Button>
-                                            )}
-                                        </div>
-                                        
-                                        {socialPosts ? (
-                                            <SocialDistributionPanel
-                                                articleId="preview"
-                                                articleTitle={generatedArticle.title}
-                                                articleContent={generatedArticle.content}
-                                                existingPosts={socialPosts}
-                                                onRegenerate={handleGenerateSocial}
-                                            />
-                                        ) : (
-                                            <div className="p-6 bg-white/[0.02] rounded-xl border border-dashed border-white/10 text-center">
-                                                <p className="text-slate-500 text-sm">
-                                                    Click "Generate Posts" to create Twitter threads, LinkedIn posts, and Instagram captions.
-                                                </p>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            </Card>
-                        ) : (
-                            <div className="bg-white/[0.01] border-2 border-dashed border-white/5 rounded-2xl h-full flex flex-col items-center justify-center text-slate-500 group">
-                                <div className="w-20 h-20 rounded-full bg-indigo-500/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_40px_rgba(99,102,241,0.1)]">
-                                    <Sparkles className="w-8 h-8 text-indigo-500/40" />
-                                </div>
-                                <h3 className="text-xl font-bold text-slate-400 mb-2">Awaiting Parameters</h3>
-                                <p className="text-sm text-slate-600 font-medium tracking-wide max-w-xs text-center">
-                                    Initialize the prompt vectors on the left to begin synthesis.
-                                </p>
-                            </div>
-                        )}
-                    </div>
+                    <Card className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border-green-500/20 p-6">
+                        <div className="text-sm text-gray-400 mb-2">Success Rate</div>
+                        <div className="text-3xl font-bold text-green-400">
+                            {latestStatus?.success && latestStatus?.total
+                                ? `${((latestStatus.success / latestStatus.total) * 100).toFixed(0)}%`
+                                : '...'}
+                        </div>
+                    </Card>
                 </div>
             </div>
-        </AdminLayout>
+        </div>
     );
 }

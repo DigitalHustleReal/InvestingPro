@@ -42,6 +42,8 @@ interface Article {
     read_time?: number;
     category?: string;
     featured_image?: string;
+    quality_score?: number;
+    seo_score?: number;
 }
 
 interface WordPressStyleCMSProps {
@@ -283,7 +285,7 @@ export default function WordPressStyleCMS({
                                         Status
                                     </th>
                                     <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider hidden lg:table-cell">
-                                        Date
+                                        Quality
                                     </th>
                                     <th className="px-4 md:px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">
                                         Actions
@@ -356,17 +358,20 @@ export default function WordPressStyleCMS({
                                             </Badge>
                                         </td>
                                         <td className="px-4 md:px-6 py-4 whitespace-nowrap hidden lg:table-cell">
-                                            <div className="text-sm text-slate-500">
-                                                {article.updated_at && (
-                                                    <div className="flex items-center gap-1">
-                                                        <Calendar className="w-3 h-3" />
-                                                        <span className="hidden xl:inline">
-                                                            {formatDistanceToNow(new Date(article.updated_at), { addSuffix: true })}
-                                                        </span>
-                                                        <span className="xl:hidden">
-                                                            {new Date(article.updated_at).toLocaleDateString()}
+                                            <div className="flex items-center gap-2">
+                                                {article.quality_score !== undefined ? (
+                                                    <div className="flex items-center gap-1.5">
+                                                        <div className={`w-2 h-2 rounded-full ${
+                                                            article.quality_score >= 80 ? 'bg-green-500' : 
+                                                            article.quality_score >= 50 ? 'bg-yellow-500' : 'bg-red-500'
+                                                        }`} />
+                                                        <span className="text-sm font-medium text-slate-900">
+                                                            {article.quality_score}
+                                                            <span className="text-[10px] text-slate-400 ml-0.5">/100</span>
                                                         </span>
                                                     </div>
+                                                ) : (
+                                                    <span className="text-xs text-slate-400 italic">Not Audited</span>
                                                 )}
                                             </div>
                                         </td>

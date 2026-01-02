@@ -160,7 +160,7 @@ export const api = {
                 const geminiKey = process.env.GOOGLE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
                 if (geminiKey && checkHealth('gemini')) {
                     try {
-                        const modelName = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+                        const modelName = process.env.GEMINI_MODEL || "gemini-1.5-flash";
                         const geminiResponse = await fetch(`https://generativelanguage.googleapis.com/v1/models/${modelName}:generateContent?key=${geminiKey}`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -169,7 +169,10 @@ export const api = {
                                     role: 'user', 
                                     parts: [{ text: `${systemPrompt}\n\n${enhancedPrompt}` }] 
                                 }],
-                                generationConfig: { temperature: 0.3 }
+                                generationConfig: { 
+                                    temperature: 0.3,
+                                    response_mime_type: "application/json"
+                                }
                             })
                         });
 
@@ -394,7 +397,7 @@ The AI was unable to reach a provider, so we've generated this professional outl
         // Legacy entities (to be refactored in Phase 3/4)
         MutualFund: {
             list: async () => {
-                const { data } = await supabase.from('products').select('*').eq('product_type', 'mutual_fund');
+                const { data } = await supabase.from('products').select('*').eq('category', 'mutual_fund');
                 return data || [];
             },
             filter: async (filters: any) => {
@@ -404,7 +407,7 @@ The AI was unable to reach a provider, so we've generated this professional outl
         },
         CreditCard: {
              list: async () => {
-                const { data } = await supabase.from('products').select('*').eq('product_type', 'credit_card');
+                const { data } = await supabase.from('products').select('*').eq('category', 'credit_card');
                 return data || [];
             },
             filter: async (filters: any) => { return []; }
@@ -458,33 +461,32 @@ The AI was unable to reach a provider, so we've generated this professional outl
              }
         },
         AffiliateProduct: {
-             list: async (order?: string, limit?: number) => { 
-                const supabase = getSupabaseClient();
-                let query = supabase.from('affiliate_products').select('*'); // Assuming table name
-                if (order) {
-                    const ascending = !order.startsWith('-');
-                    const col = order.replace('-', '');
-                    // Handle case where order is unknown or table doesn't have it, but for now trusting caller
-                    query = query.order(col, { ascending });
-                }
-                if (limit) query = query.limit(limit);
-                const { data } = await query;
-                return data || [];
-             },
-             filter: async (filters: any) => {
+              list: async (order?: string, limit?: number) => { 
                  const supabase = getSupabaseClient();
-                 let query = supabase.from('affiliate_products').select('*');
-                 Object.entries(filters).forEach(([key, value]) => {
-                     if (value !== undefined) query = query.eq(key, value);
-                 });
+                 let query = supabase.from('products').select('*'); 
+                 if (order) {
+                     const ascending = !order.startsWith('-');
+                     const col = order.replace('-', '');
+                     query = query.order(col, { ascending });
+                 }
+                 if (limit) query = query.limit(limit);
                  const { data } = await query;
                  return data || [];
-             },
-             update: async (id: string, data: any) => { 
-                 const supabase = getSupabaseClient();
-                 const { error } = await supabase.from('affiliate_products').update(data).eq('id', id);
-                 return !error;
-             }
+              },
+              filter: async (filters: any) => {
+                  const supabase = getSupabaseClient();
+                  let query = supabase.from('products').select('*');
+                  Object.entries(filters).forEach(([key, value]) => {
+                      if (value !== undefined) query = query.eq(key, value);
+                  });
+                  const { data } = await query;
+                  return data || [];
+              },
+              update: async (id: string, data: any) => { 
+                  const supabase = getSupabaseClient();
+                  const { error } = await supabase.from('products').update(data).eq('id', id);
+                  return !error;
+              }
         },
         AffiliateClick: {
             create: async () => { return null; },
