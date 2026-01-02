@@ -302,7 +302,7 @@ export function SIPCalculatorWithInflation() {
                         {/* Assumptions Section */}
                         <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl">
                             <div className="flex items-start gap-2 mb-3">
-                                <Info className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                                <Info className="w-4 h-4 text-primary-600 flex-shrink-0 mt-0.5" />
                                 <h4 className="text-sm font-semibold text-slate-900">Calculator Assumptions:</h4>
                             </div>
                             <ul className="text-xs text-slate-700 space-y-1.5 ml-6">
@@ -364,11 +364,11 @@ export function SIPCalculatorWithInflation() {
                     <div className="absolute top-0 right-0 w-64 h-64 bg-teal-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-3 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Invested</p>
                                 <p className="text-base sm:text-lg font-extrabold text-slate-900">{formatCurrency(sipResult.invested)}</p>
                             </div>
-                            <div className="text-center p-3 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Returns' : 'Returns'}
                                 </p>
@@ -380,7 +380,7 @@ export function SIPCalculatorWithInflation() {
                                     {formatCurrency(adjustForInflation ? sipResult.realReturns : sipResult.returns)}
                                 </p>
                             </div>
-                            <div className="text-center p-3 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Value' : 'Total'}
                                 </p>
@@ -490,11 +490,11 @@ export function SIPCalculatorWithInflation() {
                             <div className="grid grid-cols-2 gap-3">
                                 <div className="p-4 bg-teal-50 rounded-xl border border-teal-100">
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Annual Investment</p>
-                                    <p className="text-lg font-black text-slate-900">{formatCurrency(sipAmount * 12)}</p>
+                                    <p className="text-lg font-bold text-slate-900">{formatCurrency(sipAmount * 12)}</p>
                                 </div>
                                 <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Avg. Annual ROI</p>
-                                    <p className="text-lg font-black text-emerald-600">{sipReturn}%</p>
+                                    <p className="text-lg font-bold text-emerald-600">{sipReturn}%</p>
                                 </div>
                             </div>
 
@@ -521,7 +521,7 @@ export function SIPCalculatorWithInflation() {
                                                         }`}>
                                                             {formatCurrency(row.returns)}
                                                         </td>
-                                                        <td className="px-3 py-2.5 text-sm text-right font-black text-emerald-700">{formatCurrency(row.totalValue)}</td>
+                                                        <td className="px-3 py-2.5 text-sm text-right font-bold text-emerald-700">{formatCurrency(row.totalValue)}</td>
                                                     </tr>
                                                 ))}
                                                 {yearlyData.length > 10 && (
@@ -533,14 +533,14 @@ export function SIPCalculatorWithInflation() {
                                                 )}
                                                 {yearlyData.length > 0 && (
                                                     <tr className="bg-teal-50 border-t-2 border-teal-200">
-                                                        <td className="px-3 py-3 text-sm font-black text-slate-900">Final</td>
-                                                        <td className="px-3 py-3 text-sm text-right font-black text-slate-900">{formatCurrency(yearlyData[yearlyData.length - 1].cumulativeInvested)}</td>
-                                                        <td className={`px-3 py-3 text-sm text-right font-black ${
+                                                        <td className="px-3 py-3 text-sm font-bold text-slate-900">Final</td>
+                                                        <td className="px-3 py-3 text-sm text-right font-bold text-slate-900">{formatCurrency(yearlyData[yearlyData.length - 1].cumulativeInvested)}</td>
+                                                        <td className={`px-3 py-3 text-sm text-right font-bold ${
                                                             yearlyData[yearlyData.length - 1].returns < 0 ? 'text-red-600' : 'text-emerald-600'
                                                         }`}>
                                                             {formatCurrency(yearlyData[yearlyData.length - 1].returns)}
                                                         </td>
-                                                        <td className="px-3 py-3 text-sm text-right font-black text-emerald-700">{formatCurrency(yearlyData[yearlyData.length - 1].totalValue)}</td>
+                                                        <td className="px-3 py-3 text-sm text-right font-bold text-emerald-700">{formatCurrency(yearlyData[yearlyData.length - 1].totalValue)}</td>
                                                     </tr>
                                                 )}
                                             </tbody>
@@ -553,7 +553,7 @@ export function SIPCalculatorWithInflation() {
                             <div className="space-y-2">
                                 <div className="p-3 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
                                     <div className="flex items-start gap-2.5">
-                                        <Sparkles className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                                        <Sparkles className="w-4 h-4 text-primary-600 flex-shrink-0 mt-0.5" />
                                         <div>
                                             <p className="text-xs font-semibold text-slate-900 mb-1">Compound Growth</p>
                                             <p className="text-[11px] text-slate-600 leading-relaxed">
@@ -636,7 +636,7 @@ function SEOContentSection({ calculatorType }: { calculatorType: string }) {
             {/* What This Calculator Does */}
             <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50">
                 <CardHeader>
-                    <CardTitle className="text-2xl font-black text-slate-900 flex items-center gap-3">
+                    <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
                         <CheckCircle2 className="w-6 h-6 text-teal-600" />
                         What This Calculator Does
                     </CardTitle>
@@ -676,7 +676,7 @@ function SEOContentSection({ calculatorType }: { calculatorType: string }) {
             {/* What This Calculator Does NOT Do */}
             <Card className="border-0 shadow-lg rounded-2xl bg-amber-50">
                 <CardHeader>
-                    <CardTitle className="text-2xl font-black text-slate-900 flex items-center gap-3">
+                    <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
                         <AlertCircle className="w-6 h-6 text-amber-600" />
                         What This Calculator Does NOT Do
                     </CardTitle>
@@ -723,8 +723,8 @@ function SEOContentSection({ calculatorType }: { calculatorType: string }) {
             {/* Assumptions */}
             <Card className="border-0 shadow-lg rounded-2xl bg-blue-50">
                 <CardHeader>
-                    <CardTitle className="text-2xl font-black text-slate-900 flex items-center gap-3">
-                        <Info className="w-6 h-6 text-blue-600" />
+                    <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
+                        <Info className="w-6 h-6 text-primary-600" />
                         Calculator Assumptions
                     </CardTitle>
                 </CardHeader>
@@ -735,31 +735,31 @@ function SEOContentSection({ calculatorType }: { calculatorType: string }) {
                         </p>
                         <ul className="space-y-2 text-slate-700">
                             <li className="flex items-start gap-2">
-                                <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                                <Info className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
                                 <span><strong>Constant Return Rate:</strong> Assumes the expected return rate remains constant throughout the investment period. In reality, returns vary monthly based on market conditions, fund performance, and economic factors.</span>
                             </li>
                             <li className="flex items-start gap-2">
-                                <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                                <Info className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
                                 <span><strong>Investment Timing:</strong> Assumes investments are made at the beginning of each month, with immediate compounding from the first month.</span>
                             </li>
                             <li className="flex items-start gap-2">
-                                <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                                <Info className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
                                 <span><strong>No Interruptions:</strong> Assumes no withdrawals, pauses, or changes to the SIP amount during the investment period.</span>
                             </li>
                             <li className="flex items-start gap-2">
-                                <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                                <Info className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
                                 <span><strong>Constant Inflation:</strong> When inflation adjustment is enabled, assumes the inflation rate remains constant throughout the period.</span>
                             </li>
                             <li className="flex items-start gap-2">
-                                <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                                <Info className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
                                 <span><strong>No Charges:</strong> Does not account for expense ratios, entry/exit loads, transaction charges, or fund management fees.</span>
                             </li>
                             <li className="flex items-start gap-2">
-                                <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                                <Info className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
                                 <span><strong>No Taxes:</strong> Calculations do not consider tax implications such as Long-Term Capital Gains (LTCG) or Short-Term Capital Gains (STCG) taxes.</span>
                             </li>
                             <li className="flex items-start gap-2">
-                                <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                                <Info className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
                                 <span><strong>Formula Basis:</strong> Uses the standard future value of annuity formula: FV = P × [((1 + r)^n - 1) / r] × (1 + r)</span>
                             </li>
                         </ul>
@@ -770,7 +770,7 @@ function SEOContentSection({ calculatorType }: { calculatorType: string }) {
             {/* Example Calculation */}
             <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-slate-50 to-white">
                 <CardHeader>
-                    <CardTitle className="text-2xl font-black text-slate-900 flex items-center gap-3">
+                    <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
                         <Calculator className="w-6 h-6 text-teal-600" />
                         Example Calculation
                     </CardTitle>
@@ -822,7 +822,7 @@ function SEOContentSection({ calculatorType }: { calculatorType: string }) {
             {/* Introduction */}
             <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-slate-50 to-white">
                 <CardContent className="p-8">
-                    <h2 className="text-3xl font-black text-slate-900 mb-4">
+                    <h2 className="text-3xl font-bold text-slate-900 mb-4">
                         SIP Calculator India - Calculate SIP Returns with Inflation Adjustment
                     </h2>
                     <p className="text-lg text-slate-600 leading-relaxed mb-6">
@@ -853,7 +853,7 @@ function SEOContentSection({ calculatorType }: { calculatorType: string }) {
             {/* How It Works */}
             <Card className="border-0 shadow-lg rounded-2xl">
                 <CardHeader>
-                    <CardTitle className="text-2xl font-black text-slate-900">How to Use SIP Calculator</CardTitle>
+                    <CardTitle className="text-2xl font-bold text-slate-900">How to Use SIP Calculator</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -880,11 +880,11 @@ function SEOContentSection({ calculatorType }: { calculatorType: string }) {
                             }
                         ].map((step, idx) => (
                             <div key={idx} className="relative">
-                                <div className="absolute -left-2 top-0 w-8 h-8 rounded-full bg-teal-600 text-white flex items-center justify-center font-black text-sm">
+                                <div className="absolute -left-2 top-0 w-8 h-8 rounded-full bg-teal-600 text-white flex items-center justify-center font-semibold text-">
                                     {step.step}
                                 </div>
                                 <div className="pl-6">
-                                    <h3 className="font-black text-slate-900 mb-2">{step.title}</h3>
+                                    <h3 className="font-bold text-slate-900 mb-2">{step.title}</h3>
                                     <p className="text-sm text-slate-600 leading-relaxed">{step.description}</p>
                                 </div>
                             </div>
@@ -896,7 +896,7 @@ function SEOContentSection({ calculatorType }: { calculatorType: string }) {
             {/* FAQ Section */}
             <Card className="border-0 shadow-lg rounded-2xl">
                 <CardHeader>
-                    <CardTitle className="text-2xl font-black text-slate-900 flex items-center gap-3">
+                    <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
                         <Info className="w-6 h-6 text-teal-600" />
                         SIP Calculator FAQs
                     </CardTitle>
@@ -930,7 +930,7 @@ function SEOContentSection({ calculatorType }: { calculatorType: string }) {
                             }
                         ].map((faq, idx) => (
                             <div key={idx} className="border-b border-slate-200 pb-6 last:border-0">
-                                <h3 className="font-black text-slate-900 mb-2 text-lg">{faq.q}</h3>
+                                <h3 className="font-bold text-slate-900 mb-2 text-lg">{faq.q}</h3>
                                 <p className="text-slate-600 leading-relaxed">{faq.a}</p>
                             </div>
                         ))}

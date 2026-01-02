@@ -11,6 +11,7 @@ import { createClient } from '@/lib/supabase/client';
 import { normalizeArticleBody } from '@/lib/content/normalize';
 import { htmlToMarkdown } from '@/lib/editor/markdown';
 import { logger } from '@/lib/logger';
+import { TaxonomyService } from './taxonomy-service';
 
 /**
  * Article Status Lifecycle (WordPress-style)
@@ -450,7 +451,7 @@ export class ArticleService {
         const supabase = this.getClient();
         let query = supabase
             .from('articles')
-            .select('*, authors(name, avatar_url, role)')
+            .select('*')
             .eq('status', 'published')
             .not('published_at', 'is', null)
             .order('published_at', { ascending: false });
@@ -494,6 +495,13 @@ export class ArticleService {
             .toLowerCase()
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/^-|-$/g, '');
+    }
+
+    /**
+     * Suggest taxonomy for an article based on its content
+     */
+    public suggestTaxonomy(title: string, content: string = '') {
+        return TaxonomyService.categorizeContent(title, content);
     }
 
     /**

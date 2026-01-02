@@ -112,14 +112,14 @@ export default function SemanticTitleGenerator({
     return (
         <Card>
             <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-6 md:p-8">
                     <Sparkles className="w-5 h-5" />
                     Semantic Title Generator
                 </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
                 {/* Original Title Display */}
-                <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div className="p-6 md:p-8 bg-gray-50 dark:bg-gray-800 rounded-lg">
                     <Label className="text-xs text-gray-500 mb-1">Original Title</Label>
                     <p className="font-medium">{originalTitle}</p>
                 </div>
@@ -165,7 +165,7 @@ export default function SemanticTitleGenerator({
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-2 mb-2">
                                                     <p
-                                                        className="font-medium cursor-pointer hover:text-blue-600 dark:hover:text-blue-400"
+                                                        className="font-medium cursor-pointer hover:text-primary-600 dark:hover:text-blue-400"
                                                         onClick={() => handleTitleClick(variation.title_text)}
                                                     >
                                                         {variation.title_text}

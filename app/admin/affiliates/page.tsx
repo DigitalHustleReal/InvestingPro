@@ -55,7 +55,7 @@ export default function AffiliatesPage() {
             value: stats?.totalConversions || 0,
             icon: TrendingUp,
             color: 'text-emerald-400',
-            bg: 'bg-emerald-500/10',
+            bg: 'bg-primary-500/10',
             change: '+8%',
             changeType: 'up'
         },
@@ -101,7 +101,7 @@ export default function AffiliatesPage() {
                                     <DollarSign className="w-6 h-6 text-amber-400" />
                                 </div>
                                 Affiliate Dashboard
-                                <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 ml-2 font-bold tracking-wider">
+                                <Badge className="bg-primary-500/10 text-emerald-400 border-emerald-500/20 ml-2 font-bold tracking-wider">
                                     LIVE
                                 </Badge>
                             </h1>
@@ -151,7 +151,7 @@ export default function AffiliatesPage() {
                     {/* Top Partners */}
                     <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                         <CardHeader className="border-b border-white/5 px-6 py-4">
-                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2">
+                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                                 <TrendingUp className="w-4 h-4 text-emerald-400" />
                                 Top Partners
                             </CardTitle>
@@ -194,7 +194,7 @@ export default function AffiliatesPage() {
                     {/* Top Links */}
                     <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                         <CardHeader className="border-b border-white/5 px-6 py-4">
-                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2">
+                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                                 <Link2 className="w-4 h-4 text-indigo-400" />
                                 Top Performing Links
                             </CardTitle>
@@ -214,7 +214,7 @@ export default function AffiliatesPage() {
                                                 <Badge className="bg-blue-500/10 text-blue-400 border-0">
                                                     {link.clicks} clicks
                                                 </Badge>
-                                                <Badge className="bg-emerald-500/10 text-emerald-400 border-0">
+                                                <Badge className="bg-primary-500/10 text-emerald-400 border-0">
                                                     {link.conversions} conv
                                                 </Badge>
                                             </div>

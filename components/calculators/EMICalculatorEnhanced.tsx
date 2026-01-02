@@ -235,7 +235,7 @@ export function EMICalculatorEnhanced() {
                     {/* Decorative gradient overlay */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-amber-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
-                        <div className="text-center p-4 sm:p-6 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-amber-100 mb-4">
+                        <div className="text-center p-6 md:p-8 sm:p-6 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-amber-100 mb-4">
                             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Monthly EMI</p>
                             <p className="text-3xl sm:text-4xl font-extrabold text-amber-600">{formatCurrency(emiResult.emi)}</p>
                         </div>
@@ -324,11 +324,11 @@ export function EMICalculatorEnhanced() {
                             <div className="grid grid-cols-2 gap-3">
                                 <div className="p-4 bg-amber-50 rounded-xl border border-amber-100">
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Monthly EMI</p>
-                                    <p className="text-lg font-black text-amber-600">{formatCurrency(emiResult.emi)}</p>
+                                    <p className="text-lg font-bold text-amber-600">{formatCurrency(emiResult.emi)}</p>
                                 </div>
                                 <div className="p-4 bg-blue-50 rounded-xl border border-blue-100">
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Interest Rate</p>
-                                    <p className="text-lg font-black text-blue-600">{emiRate}%</p>
+                                    <p className="text-lg font-bold text-primary-600">{emiRate}%</p>
                                 </div>
                             </div>
 
@@ -349,7 +349,7 @@ export function EMICalculatorEnhanced() {
                                                 {yearlyData.slice(0, 10).map((row, idx) => (
                                                     <tr key={idx} className="hover:bg-slate-50 transition-colors">
                                                         <td className="px-3 py-2.5 text-sm font-semibold text-slate-900">Year {row.year}</td>
-                                                        <td className="px-3 py-2.5 text-sm text-right font-semibold text-blue-600">{formatCurrency(row.principal)}</td>
+                                                        <td className="px-3 py-2.5 text-sm text-right font-semibold text-primary-600">{formatCurrency(row.principal)}</td>
                                                         <td className="px-3 py-2.5 text-sm text-right font-semibold text-orange-600">{formatCurrency(row.interest)}</td>
                                                         <td className="px-3 py-2.5 text-sm text-right font-medium text-slate-600">{formatCurrency(row.remaining)}</td>
                                                     </tr>
@@ -363,10 +363,10 @@ export function EMICalculatorEnhanced() {
                                                 )}
                                                 {yearlyData.length > 0 && (
                                                     <tr className="bg-amber-50 border-t-2 border-amber-200">
-                                                        <td className="px-3 py-3 text-sm font-black text-slate-900">Total</td>
-                                                        <td className="px-3 py-3 text-sm text-right font-black text-blue-600">{formatCurrency(emiLoan)}</td>
-                                                        <td className="px-3 py-3 text-sm text-right font-black text-orange-600">{formatCurrency(emiResult.totalInterest)}</td>
-                                                        <td className="px-3 py-3 text-sm text-right font-black text-slate-900">-</td>
+                                                        <td className="px-3 py-3 text-sm font-bold text-slate-900">Total</td>
+                                                        <td className="px-3 py-3 text-sm text-right font-bold text-primary-600">{formatCurrency(emiLoan)}</td>
+                                                        <td className="px-3 py-3 text-sm text-right font-bold text-orange-600">{formatCurrency(emiResult.totalInterest)}</td>
+                                                        <td className="px-3 py-3 text-sm text-right font-bold text-slate-900">-</td>
                                                     </tr>
                                                 )}
                                             </tbody>
@@ -378,7 +378,7 @@ export function EMICalculatorEnhanced() {
                             {/* Key Insight */}
                             <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
                                 <div className="flex items-start gap-3">
-                                    <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                                    <Info className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
                                     <div>
                                         <p className="text-sm font-semibold text-slate-900 mb-1">Payment Structure</p>
                                         <p className="text-xs text-slate-600 leading-relaxed">

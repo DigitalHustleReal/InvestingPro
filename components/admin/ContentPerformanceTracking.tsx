@@ -134,7 +134,7 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                     <CardContent className="p-8">
                         <div className="flex items-center justify-between mb-4">
                             <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Total Propagation</span>
-                            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                            <div className="w-10 h-10 rounded-xl bg-primary-500/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
                                 <Eye className="w-5 h-5 text-emerald-400" />
                             </div>
                         </div>
@@ -212,7 +212,7 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                     <CardHeader className="border-b border-white/5 px-8 py-6">
-                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                             <BarChart3 className="w-4 h-4 text-emerald-400" />
                             Content Pulse Logic (7D Temporal)
                         </CardTitle>
@@ -257,7 +257,7 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
 
                 <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                     <CardHeader className="border-b border-white/5 px-8 py-6">
-                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                             <TrendingUp className="w-4 h-4 text-indigo-400" />
                             Cluster Hierarchy (By Propagation)
                         </CardTitle>
@@ -296,7 +296,7 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                 {/* Top Performing Articles */}
                 <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                     <CardHeader className="border-b border-white/5 px-8 py-5">
-                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-emerald-400 flex items-center gap-3">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-emerald-400 flex items-center gap-6 md:p-8">
                             <TrendingUp className="w-4 h-4" />
                             Alpha Assets (High Velocity)
                         </CardTitle>
@@ -307,7 +307,7 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                                 topArticles.map((article: any, idx: number) => (
                                     <div key={article.id || idx} className="flex items-center justify-between p-6 hover:bg-white/[0.02] transition-colors group">
                                         <div className="flex items-center gap-5 flex-1 min-w-0">
-                                            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-[10px] font-black text-emerald-400 border border-emerald-500/20">
+                                            <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center text-[10px] font-bold text-emerald-400 border border-emerald-500/20">
                                                 0{idx + 1}
                                             </div>
                                             <div className="flex-1 min-w-0">
@@ -320,10 +320,10 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                                             </div>
                                         </div>
                                         <div className="text-right ml-4">
-                                            <p className="text-sm font-black text-white px-3 py-1 bg-white/5 rounded-lg tabular-nums">
+                                            <p className="text-sm font-bold text-white px-3 py-1 bg-white/5 rounded-lg tabular-nums">
                                                 {article.views?.toLocaleString() || 0}
                                             </p>
-                                            <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest mt-1">Impact Factor</p>
+                                            <p className="text-[9px] font-semibold text-slate-600 uppercase tracking-st mt-1">Impact Factor</p>
                                         </div>
                                     </div>
                                 ))
@@ -337,7 +337,7 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                 {/* Revenue Drivers */}
                 <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                     <CardHeader className="border-b border-white/5 px-8 py-5">
-                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-indigo-400 flex items-center gap-3">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-indigo-400 flex items-center gap-6 md:p-8">
                             <DollarSign className="w-4 h-4" />
                             Fiscal Drivers (Yield Extraction)
                         </CardTitle>
@@ -350,7 +350,7 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                                     return (
                                         <div key={article.id || idx} className="flex items-center justify-between p-6 hover:bg-white/[0.02] transition-colors group">
                                             <div className="flex items-center gap-5 flex-1 min-w-0">
-                                                <div className="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-[10px] font-black text-indigo-400 border border-indigo-500/20">
+                                                <div className="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-[10px] font-bold text-indigo-400 border border-indigo-500/20">
                                                     0{idx + 1}
                                                 </div>
                                                 <div className="flex-1 min-w-0">
@@ -363,10 +363,10 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                                                 </div>
                                             </div>
                                             <div className="text-right ml-4">
-                                                <p className="text-sm font-black text-emerald-400 px-3 py-1 bg-emerald-500/10 rounded-lg tabular-nums border border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]">
+                                                <p className="text-sm font-bold text-emerald-400 px-3 py-1 bg-primary-500/10 rounded-lg tabular-nums border border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]">
                                                     ₹{estimatedArticleRevenue.toFixed(0)}
                                                 </p>
-                                                <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest mt-1">Net Extraction</p>
+                                                <p className="text-[9px] font-semibold text-slate-600 uppercase tracking-st mt-1">Net Extraction</p>
                                             </div>
                                         </div>
                                     );
@@ -383,7 +383,7 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
             {worstArticles.length > 0 && (
                 <Card className="bg-rose-500/[0.02] border-rose-500/10 rounded-2xl overflow-hidden">
                     <CardHeader className="border-b border-rose-500/10 px-8 py-5">
-                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-rose-400 flex items-center gap-3">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-rose-400 flex items-center gap-6 md:p-8">
                             <TrendingDown className="w-4 h-4" />
                             System Faults (Latency Detected)
                         </CardTitle>
@@ -393,7 +393,7 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                             {worstArticles.map((article: any, idx: number) => (
                                 <div key={article.id || idx} className="p-6 hover:bg-rose-500/[0.05] transition-colors">
                                     <div className="flex items-center gap-3 mb-3">
-                                        <div className="w-6 h-6 rounded bg-rose-500/10 flex items-center justify-center text-[9px] font-black text-rose-400 border border-rose-500/20">
+                                        <div className="w-6 h-6 rounded bg-rose-500/10 flex items-center justify-center text-[9px] font-bold text-rose-400 border border-rose-500/20">
                                             {idx + 1}
                                         </div>
                                         <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{article.category || 'Terminal'}</p>
@@ -402,7 +402,7 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                                         {article.title || 'Faulty Node'}
                                     </p>
                                     <div className="flex items-center justify-between">
-                                        <span className="text-[10px] font-black text-rose-400 uppercase tracking-widest">{article.views || 0} hits</span>
+                                        <span className="text-[10px] font-semibold text-rose-400 uppercase tracking-st">{article.views || 0} hits</span>
                                         <ArrowDownRight className="w-3 h-3 text-rose-400" />
                                     </div>
                                 </div>

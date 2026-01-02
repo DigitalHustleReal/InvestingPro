@@ -76,7 +76,7 @@ export default function GlossaryPage() {
                             <BookOpen className="w-8 h-8 text-teal-400" />
                             <span className="text-teal-400 font-bold text-sm uppercase tracking-widest">Glossary</span>
                         </div>
-                        <h1 className="text-4xl md:text-5xl font-black mb-4">Financial Terms Glossary</h1>
+                        <h1 className="text-4xl md:text-5xl font-bold mb-4">Financial Terms Glossary</h1>
                         <p className="text-xl text-slate-300 max-w-3xl">
                             Clear, factual explanations of financial terms and concepts relevant to Indian investors, 
                             borrowers, and savers. All definitions are sourced from verified, official sources.

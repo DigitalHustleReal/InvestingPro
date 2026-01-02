@@ -217,7 +217,7 @@ export default function GlobalSearch() {
             <Card className="relative w-full max-w-2xl shadow-2xl">
                 <CardContent className="p-0">
                     {/* Search Input */}
-                    <div className="flex items-center gap-2 p-4 border-b">
+                    <div className="flex items-center gap-2 p-6 md:p-8 border-b">
                         <Search className="w-5 h-5 text-slate-400" />
                         <Input
                             ref={inputRef}

@@ -10,46 +10,67 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
-                // Primary - Emerald
+                // Primary - Deep Forest Teal (Fintech-optimized)
                 primary: {
-                    50: '#ecfdf5',
-                    100: '#d1fae5',
-                    200: '#a7f3d0',
-                    300: '#6ee7b7',
-                    400: '#34d399',
-                    500: '#10b981',
-                    600: '#059669',
-                    700: '#047857',
-                    800: '#065f46',
-                    900: '#064e3b',
+                    50: '#F0FDFA',
+                    100: '#CCFBF1',
+                    200: '#99F6E4',
+                    300: '#5EEAD4',
+                    400: '#2DD4BF',
+                    500: '#14B8A6',   // Standard teal
+                    600: '#0A5F56',   // MAIN BRAND COLOR - Deep forest teal
+                    700: '#0F766E',   // Hover states
+                    800: '#115E59',
+                    900: '#134E4A',   // Text on light backgrounds
                 },
-                // Secondary - Blue
-                secondary: {
-                    50: '#eff6ff',
-                    100: '#dbeafe',
-                    200: '#bfdbfe',
-                    300: '#93c5fd',
-                    400: '#60a5fa',
-                    500: '#3b82f6',
-                    600: '#2563eb',
-                    700: '#1d4ed8',
-                    800: '#1e40af',
-                    900: '#1e3a8a',
+                // Stone - Warm Neutrals (Professional, not cold)
+                stone: {
+                    50: '#FAFAF9',    // Page background
+                    100: '#F5F5F4',   // Card alternate backgrounds
+                    200: '#E7E5E4',   // Borders, dividers
+                    300: '#D6D3D1',   // Disabled states
+                    400: '#A8A29E',   // Placeholder text
+                    500: '#78716C',   // Icons
+                    600: '#57534E',   // Secondary text, labels
+                    700: '#44403C',   // Tertiary text
+                    800: '#292524',   // Dark text
+                    900: '#1C1917',   // Primary text, headings
                 },
-                // Accent - Amber
+                // Accent - Amber Gold (Secondary CTAs, premium features)
                 accent: {
-                    50: '#fffbeb',
-                    100: '#fef3c7',
-                    200: '#fde68a',
-                    300: '#fcd34d',
-                    400: '#fbbf24',
-                    500: '#f59e0b',
-                    600: '#d97706',
-                    700: '#b45309',
-                    800: '#92400e',
-                    900: '#78350f',
+                    50: '#FFFBEB',
+                    100: '#FEF3C7',
+                    200: '#FDE68A',
+                    300: '#FCD34D',
+                    400: '#FBBF24',
+                    500: '#D97706',   // Main accent color
+                    600: '#B45309',   // Hover state
+                    700: '#92400E',
+                    800: '#78350F',
+                    900: '#78350F',
                 },
-                // Dark Theme
+                // Semantic - Financial Data Colors
+                success: {
+                    50: '#ECFDF5',
+                    500: '#10B981',
+                    700: '#047857',   // Gains, positive, verified
+                },
+                warning: {
+                    50: '#FFFBEB',
+                    500: '#F59E0B',
+                    700: '#B45309',   // Caution, review required
+                },
+                danger: {
+                    50: '#FEF2F2',
+                    500: '#EF4444',
+                    700: '#B91C1C',   // Losses, errors, high risk
+                },
+                info: {
+                    50: '#EFF6FF',
+                    500: '#3B82F6',
+                    800: '#1E40AF',   // Informational, help text
+                },
+                // Dark Theme (Keep for future)
                 dark: {
                     bg: '#0B1221',
                     surface: '#111827',
@@ -57,7 +78,8 @@ const config: Config = {
                 }
             },
             fontFamily: {
-                sans: ['Inter', 'system-ui', 'sans-serif'],
+                sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                serif: ['Source Serif 4', 'Georgia', 'serif'],
                 mono: ['JetBrains Mono', 'Courier New', 'monospace'],
             },
             fontSize: {
@@ -74,29 +96,35 @@ const config: Config = {
                 '7xl': '4.5rem',
             },
             spacing: {
-                '18': '4.5rem',
-                '88': '22rem',
-                '128': '32rem',
+                '0.5': '4px',    // Tight internal spacing (icon + text)
+                '1.5': '12px',   // Default gap (form fields)
+                '6': '48px',     // Generous spacing (desktop padding)
+                '12': '96px',    // Major section breaks (desktop)
+                '18': '4.5rem',  // 72px (keep for compatibility)
+                '20': '160px',   // Hero spacing
+                '24': '192px',   // Large hero spacing
+                '88': '22rem',   // Keep for compatibility
+                '128': '32rem',  // Container max-width
             },
             borderRadius: {
-                'sm': '0.375rem',
-                'base': '0.5rem',
-                'md': '0.75rem',
-                'lg': '1rem',
-                'xl': '1.5rem',
-                '2xl': '2rem',
-                '3xl': '3rem',
+                'sm': '4px',     // Tight corners (data tables, inputs)
+                'base': '8px',   // Standard (buttons, small cards)
+                'md': '0.75rem', // Keep for compatibility
+                'lg': '12px',    // Large cards, panels
+                'xl': '16px',    // Modals, hero sections (max for fintech)
+                '2xl': '2rem',   // Keep for compatibility (legacy)
+                '3xl': '3rem',   // Keep for compatibility (legacy)
             },
             boxShadow: {
-                'sm': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
-                'base': '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+                'sm': '0 1px 3px 0 rgb(0 0 0 / 0.08)',
+                'base': '0 4px 12px 0 rgb(0 0 0 / 0.08)',
                 'md': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-                'lg': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-                'xl': '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
+                'lg': '0 8px 24px -3px rgb(0 0 0 / 0.12)',
+                'xl': '0 16px 48px -5px rgb(0 0 0 / 0.16)',
                 '2xl': '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-                'primary': '0 10px 25px -5px rgba(16, 185, 129, 0.3)',
-                'secondary': '0 10px 25px -5px rgba(59, 130, 246, 0.3)',
-                'accent': '0 10px 25px -5px rgba(245, 158, 11, 0.3)',
+                'primary': '0 4px 12px rgba(10, 95, 86, 0.15)',      // Teal brand shadow
+                'primary-lg': '0 8px 20px rgba(10, 95, 86, 0.25)',  // Teal brand shadow (hover)
+                'accent': '0 4px 12px rgba(217, 119, 6, 0.15)',     // Amber accent shadow
             },
             animation: {
                 'fade-in': 'fadeIn 0.5s ease-in',

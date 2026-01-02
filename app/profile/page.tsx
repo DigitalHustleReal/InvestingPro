@@ -122,7 +122,7 @@ export default function ProfilePage() {
             {/* Authority Hero Section */}
             <div className="bg-slate-900 border-b border-white/5 pt-28 pb-32 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-20 pointer-events-none">
-                    <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-emerald-600 rounded-full blur-[140px] -translate-y-1/2" />
+                    <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary-600 rounded-full blur-[140px] -translate-y-1/2" />
                 </div>
 
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -146,8 +146,8 @@ export default function ProfilePage() {
                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                                 <div>
                                     <div className="flex items-center gap-3 mb-2">
-                                        <h1 className="text-4xl font-black text-white tracking-tight">{user.full_name}</h1>
-                                        <Badge className="bg-emerald-500 text-slate-900 font-black rounded-lg uppercase tracking-widest text-[9px] px-2.5">Verified Contributor</Badge>
+                                        <h1 className="text-4xl font-bold text-white tracking-tight">{user.full_name}</h1>
+                                        <Badge className="bg-primary-500 text-slate-900 font-semibold rounded-lg uppercase tracking-st text-[9px] px-2.5">Verified Contributor</Badge>
                                     </div>
                                     <div className="flex items-center gap-4 text-slate-400 font-bold mb-4">
                                         <div className="flex items-center gap-1.5">
@@ -161,7 +161,7 @@ export default function ProfilePage() {
                                         </div>
                                     </div>
                                 </div>
-                                <Button onClick={() => setShowEditDialog(true)} variant="outline" className="rounded-2xl border-white/10 text-white hover:bg-white/5 font-black h-12 px-8 uppercase tracking-widest text-[10px]">
+                                <Button onClick={() => setShowEditDialog(true)} variant="outline" className="rounded-2xl border-white/10 text-white hover:bg-white/5 font-semibold h-12 px-8 uppercase tracking-widest text-">
                                     <Settings className="w-4 h-4 mr-2" />
                                     Edit Credentials
                                 </Button>
@@ -175,7 +175,7 @@ export default function ProfilePage() {
                                 {user.expertise?.length > 0 && (
                                     <div className="flex flex-wrap gap-2 mt-6">
                                         {user.expertise.map((exp: string, idx: number) => (
-                                            <Badge key={idx} className="bg-white/5 text-slate-300 border-white/10 rounded-xl px-4 py-1.5 font-black uppercase text-[9px] tracking-widest">
+                                            <Badge key={idx} className="bg-white/5 text-slate-300 border-white/10 rounded-xl px-4 py-1.5 font-semibold uppercase text-[9px] tracking-st">
                                                 {exp}
                                             </Badge>
                                         ))}
@@ -196,7 +196,7 @@ export default function ProfilePage() {
                         </div>
                         <Card className="rounded-[2.5rem] border-0 shadow-2xl bg-white p-8 overflow-hidden relative group">
                             <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6 relative z-10">Achievements</h4>
+                            <h4 className="text-[10px] font-semibold text-slate-400 uppercase tracking-st mb-6 relative z-10">Achievements</h4>
                             <div className="relative z-10">
                                 <BadgeDisplay badges={user.badges} showTooltip={true} />
                                 {(!user.badges || user.badges.length === 0) && (
@@ -213,8 +213,8 @@ export default function ProfilePage() {
                                 <div className={`w-12 h-12 rounded-2xl ${stat.bg} ${stat.color} flex items-center justify-center mb-4 shadow-sm group-hover:rotate-6 transition-transform`}>
                                     <stat.icon className="w-5 h-5" />
                                 </div>
-                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{stat.label}</p>
-                                <p className="text-3xl font-black text-slate-900">{stat.value}</p>
+                                <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-st mb-1">{stat.label}</p>
+                                <p className="text-3xl font-bold text-slate-900">{stat.value}</p>
                             </Card>
                         ))}
                     </div>
@@ -222,10 +222,10 @@ export default function ProfilePage() {
                     {/* Content Hub Tabs */}
                     <Tabs defaultValue="articles" className="space-y-8">
                         <TabsList className="bg-white p-2 rounded-[2rem] shadow-xl border border-slate-100 flex h-auto max-w-fit mx-auto sm:mx-0">
-                            <TabsTrigger value="articles" className="rounded-3xl px-8 py-4 font-black uppercase tracking-widest text-[11px] data-[state=active]:bg-slate-900 data-[state=active]:text-white transition-all">
+                            <TabsTrigger value="articles" className="rounded-3xl px-8 py-4 font-semibold uppercase tracking-widest text- data-[state=active]:bg-slate-900 data-[state=active]:text-white transition-all">
                                 Analysis Hub <span className="ml-2 text-slate-400">{userArticles.length}</span>
                             </TabsTrigger>
-                            <TabsTrigger value="reviews" className="rounded-3xl px-8 py-4 font-black uppercase tracking-widest text-[11px] data-[state=active]:bg-slate-900 data-[state=active]:text-white transition-all">
+                            <TabsTrigger value="reviews" className="rounded-3xl px-8 py-4 font-semibold uppercase tracking-widest text- data-[state=active]:bg-slate-900 data-[state=active]:text-white transition-all">
                                 Community Reviews <span className="ml-2 text-slate-400">{userReviews.length}</span>
                             </TabsTrigger>
                         </TabsList>
@@ -237,9 +237,9 @@ export default function ProfilePage() {
                                     <div className="w-20 h-20 bg-slate-50 rounded-[2rem] flex items-center justify-center mx-auto mb-8 border border-slate-100">
                                         <FileText className="w-10 h-10 text-slate-300" />
                                     </div>
-                                    <h3 className="text-2xl font-black text-slate-900 mb-2">Authority Pending</h3>
+                                    <h3 className="text-2xl font-bold text-slate-900 mb-2">Authority Pending</h3>
                                     <p className="text-slate-500 font-medium mb-10">You haven't published any analysis articles yet. Share your market wisdom with the community.</p>
-                                    <Button className="rounded-2xl bg-slate-900 hover:bg-emerald-600 text-white font-black h-14 px-8 shadow-xl transition-all">Submit Your First Article</Button>
+                                    <Button className="rounded-2xl bg-slate-900 hover:bg-primary-600 text-white font-bold h-14 px-8 shadow-xl transition-all">Submit Your First Article</Button>
                                 </Card>
                             ) : (
                                 <div className="grid md:grid-cols-2 gap-6">
@@ -247,16 +247,16 @@ export default function ProfilePage() {
                                         <Card key={article.id} className="rounded-[3rem] border-0 shadow-lg bg-white overflow-hidden group hover:shadow-2xl transition-all">
                                             <div className="p-8">
                                                 <div className="flex justify-between items-start mb-6">
-                                                    <Badge className={`${getStatusBadge(article.submission_status || article.status)} border-0 rounded-xl px-4 py-1.5 font-black uppercase tracking-widest text-[9px]`}>
+                                                    <Badge className={`${getStatusBadge(article.submission_status || article.status)} border-0 rounded-xl px-4 py-1.5 font-bold uppercase tracking-widest text-[9px]`}>
                                                         {article.submission_status || article.status}
                                                     </Badge>
-                                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{new Date(article.created_at || article.created_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                                                    <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-st">{new Date(article.created_at || article.created_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                                                 </div>
-                                                <h4 className="text-xl font-black text-slate-900 mb-4 tracking-tight leading-tight group-hover:text-emerald-600 transition-colors">{article.title}</h4>
+                                                <h4 className="text-xl font-bold text-slate-900 mb-4 tracking-tight leading-tight group-hover:text-emerald-600 transition-colors">{article.title}</h4>
                                                 <div className="flex items-center gap-6 pt-4 border-t border-slate-50">
                                                     <div className="flex items-center gap-2">
                                                         <Eye className="w-4 h-4 text-slate-300" />
-                                                        <span className="text-xs font-black text-slate-500">{article.views || 0}</span>
+                                                        <span className="text-xs font-bold text-slate-500">{article.views || 0}</span>
                                                     </div>
                                                     <div className="flex items-center gap-2">
                                                         <Badge variant="outline" className="border-slate-100 font-bold text-[9px] uppercase">{article.category || 'General'}</Badge>
@@ -264,7 +264,7 @@ export default function ProfilePage() {
                                                 </div>
                                                 {article.rejection_reason && (
                                                     <div className="mt-6 p-4 bg-rose-50 rounded-2xl border border-rose-100 flex gap-3">
-                                                        <div className="w-6 h-6 rounded-full bg-rose-500 text-white flex items-center justify-center shrink-0 text-[10px] font-black pt-0.5">!</div>
+                                                        <div className="w-6 h-6 rounded-full bg-rose-500 text-white flex items-center justify-center shrink-0 text-[10px] font-bold pt-0.5">!</div>
                                                         <p className="text-xs font-bold text-rose-700 leading-relaxed italic">
                                                             {article.rejection_reason}
                                                         </p>
@@ -279,11 +279,11 @@ export default function ProfilePage() {
 
                         {/* Reviews Matrix */}
                         <TabsContent value="reviews" className="animate-in fade-in slide-in-from-bottom-3 duration-500">
-                            <Card className="rounded-[3rem] border-0 shadow-2xl bg-white p-10">
+                            <Card className="rounded-[3rem] border-0 shadow-2xl bg-white p-6 md:p-8">
                                 {userReviews.length === 0 ? (
                                     <div className="text-center py-12">
                                         <Star className="w-12 h-12 text-slate-200 mx-auto mb-6" />
-                                        <p className="text-slate-400 font-black uppercase tracking-widest text-[10px]">Conflict evidence not found</p>
+                                        <p className="text-slate-400 font-semibold uppercase tracking-widest text-">Conflict evidence not found</p>
                                     </div>
                                 ) : (
                                     <div className="grid gap-6">
@@ -304,21 +304,21 @@ export default function ProfilePage() {
                                                                 ))}
                                                             </div>
                                                             <span className="text-slate-300">•</span>
-                                                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                                                            <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-st">
                                                                 {new Date(review.created_at || review.created_date).toLocaleDateString()}
                                                             </span>
                                                         </div>
                                                         {review.title && (
-                                                            <h4 className="text-lg font-black text-slate-900 mb-4 tracking-tight leading-tight">{review.title}</h4>
+                                                            <h4 className="text-lg font-bold text-slate-900 mb-4 tracking-tight leading-tight">{review.title}</h4>
                                                         )}
                                                         <p className="text-slate-600 font-medium leading-relaxed">{review.review_text}</p>
                                                     </div>
-                                                    <Badge className={`${getStatusBadge(review.status)} border-0 rounded-xl px-4 py-1.5 font-black uppercase tracking-widest text-[9px]`}>
+                                                    <Badge className={`${getStatusBadge(review.status)} border-0 rounded-xl px-4 py-1.5 font-bold uppercase tracking-widest text-[9px]`}>
                                                         {review.status}
                                                     </Badge>
                                                 </div>
                                                 {review.status === 'approved' && review.helpful_count > 0 && (
-                                                    <div className="flex items-center gap-2 mt-4 text-[10px] font-black text-emerald-600 uppercase tracking-widest">
+                                                    <div className="flex items-center gap-2 mt-4 text-[10px] font-semibold text-emerald-600 uppercase tracking-st">
                                                         <TrendingUp className="w-3.5 h-3.5" />
                                                         {review.helpful_count} Verified Trust Ratings
                                                     </div>

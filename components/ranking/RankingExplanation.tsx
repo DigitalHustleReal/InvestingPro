@@ -89,7 +89,7 @@ export default function RankingExplanation({
             <CardContent className="pt-6">
                 {/* Overall Explanation */}
                 {explanation && (
-                    <div className="mb-6 p-4 bg-slate-50 rounded-lg">
+                    <div className="mb-6 p-6 md:p-8 bg-slate-50 rounded-lg">
                         <div className="flex items-start gap-2">
                             <Info className="w-5 h-5 text-teal-600 mt-0.5 flex-shrink-0" />
                             <p className="text-sm text-slate-700">{explanation}</p>

@@ -43,7 +43,7 @@ async function IntentPageContent({
                     <AutoBreadcrumbs />
                     
                     <div className="mb-8">
-                        <h1 className="text-4xl font-black text-slate-900 mb-4">
+                        <h1 className="text-4xl font-bold text-slate-900 mb-4">
                             {intent.name} {category.name}
                         </h1>
                         {intent.description && (

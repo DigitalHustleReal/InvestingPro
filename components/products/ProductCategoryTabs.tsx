@@ -4,14 +4,18 @@ import React from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
-import { CreditCard, TrendingUp, Shield, Landmark } from 'lucide-react';
+import { NAVIGATION_CATEGORIES } from '@/lib/navigation/categories';
 
 const CATEGORIES = [
     { id: 'all', label: 'All Products', icon: null },
-    { id: 'credit_card', label: 'Credit Cards', icon: CreditCard },
-    { id: 'broker', label: 'Brokers', icon: TrendingUp },
-    { id: 'insurance', label: 'Insurance', icon: Shield },
-    { id: 'loan', label: 'Loans', icon: Landmark },
+    ...NAVIGATION_CATEGORIES.map(cat => ({
+        id: cat.slug === 'credit-cards' ? 'credit_card' : 
+            cat.slug === 'investing' ? 'mutual_fund' : 
+            cat.slug === 'loans' ? 'loan' : 
+            cat.slug === 'insurance' ? 'insurance' : cat.slug,
+        label: cat.name,
+        icon: null
+    }))
 ];
 
 export default function ProductCategoryTabs() {

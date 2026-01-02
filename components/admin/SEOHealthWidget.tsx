@@ -71,7 +71,7 @@ export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetP
     const scoreColor = seoData.overall >= 80 ? 'text-emerald-400' : 
                        seoData.overall >= 50 ? 'text-amber-400' : 'text-rose-400';
     
-    const scoreBg = seoData.overall >= 80 ? 'bg-emerald-500' : 
+    const scoreBg = seoData.overall >= 80 ? 'bg-primary-500' : 
                     seoData.overall >= 50 ? 'bg-amber-500' : 'bg-rose-500';
 
     const checks = [
@@ -95,7 +95,7 @@ export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetP
     return (
         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
             <CardHeader className="border-b border-white/5 px-6 py-4">
-                <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2">
+                <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                     <Search className="w-4 h-4 text-indigo-400" />
                     SEO Health Score
                 </CardTitle>

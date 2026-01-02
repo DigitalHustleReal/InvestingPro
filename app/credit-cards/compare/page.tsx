@@ -79,11 +79,11 @@ function CreditCardCompareContent() {
                                     <button
                                         key={card.id}
                                         onClick={() => setSelectedCards(prev => [...prev, card])}
-                                        className="p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all text-left group"
+                                        className="p-6 md:p-8 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all text-left group"
                                     >
                                         <div className="flex items-center gap-2 mb-2">
-                                            <Plus className="w-4 h-4 text-gray-400 group-hover:text-blue-600" />
-                                            <span className="text-xs text-gray-500 group-hover:text-blue-600 font-medium">Add</span>
+                                            <Plus className="w-4 h-4 text-gray-400 group-hover:text-primary-600" />
+                                            <span className="text-xs text-gray-500 group-hover:text-primary-600 font-medium">Add</span>
                                         </div>
                                         <p className="font-bold text-sm text-gray-900 mb-1">{card.name}</p>
                                         <p className="text-xs text-gray-500">{card.provider}</p>

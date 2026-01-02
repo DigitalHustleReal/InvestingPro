@@ -32,7 +32,7 @@ export function Callout({ type, title, children, className }: CalloutProps) {
       icon: AlertCircle,
       bgColor: 'bg-blue-50',
       borderColor: 'border-blue-500',
-      iconColor: 'text-blue-600',
+      iconColor: 'text-primary-600',
       titleColor: 'text-blue-900',
       defaultTitle: 'Important'
     },
@@ -159,7 +159,7 @@ export function ComparisonBox({ title, items }: {
 }) {
   return (
     <div className="my-8 border-2 border-gray-200 rounded-lg overflow-hidden">
-      <div className="bg-emerald-600 text-white px-6 py-3">
+      <div className="bg-primary-600 text-white px-6 py-3">
         <h3 className="font-bold text-lg">{title}</h3>
       </div>
       <div className="divide-y divide-gray-200">
@@ -198,7 +198,7 @@ export function KeyTakeaways({ items }: { items: string[] }) {
       <ul className="space-y-3">
         {items.map((item, index) => (
           <li key={index} className="flex items-start gap-3">
-            <span className="flex-shrink-0 w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+            <span className="flex-shrink-0 w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
               {index + 1}
             </span>
             <span className="text-gray-800 flex-1">{item}</span>

@@ -235,11 +235,11 @@ export function LumpsumCalculatorWithInflation() {
                     <div className="absolute top-0 right-0 w-64 h-64 bg-teal-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-3 sm:p-4 bg-white rounded-xl shadow-sm border border-emerald-100">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-white rounded-xl shadow-sm border border-emerald-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Invested</p>
                                 <p className="text-base sm:text-lg font-extrabold text-slate-900">{formatCurrency(lumpsumResult.invested)}</p>
                             </div>
-                            <div className="text-center p-3 sm:p-4 bg-white rounded-xl shadow-sm border border-emerald-100">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-white rounded-xl shadow-sm border border-emerald-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Returns' : 'Returns'}
                                 </p>
@@ -247,7 +247,7 @@ export function LumpsumCalculatorWithInflation() {
                                     {formatCurrency(adjustForInflation ? lumpsumResult.realReturns : lumpsumResult.returns)}
                                 </p>
                             </div>
-                            <div className="text-center p-3 sm:p-4 bg-white rounded-xl shadow-sm border border-emerald-100">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-white rounded-xl shadow-sm border border-emerald-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Value' : 'Total'}
                                 </p>
@@ -345,11 +345,11 @@ export function LumpsumCalculatorWithInflation() {
                             <div className="grid grid-cols-2 gap-3">
                                 <div className="p-4 bg-teal-50 rounded-xl border border-teal-100">
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Investment</p>
-                                    <p className="text-lg font-black text-slate-900">{formatCurrency(lumpsum)}</p>
+                                    <p className="text-lg font-bold text-slate-900">{formatCurrency(lumpsum)}</p>
                                 </div>
                                 <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Expected ROI</p>
-                                    <p className="text-lg font-black text-emerald-600">{lumpsumReturn}%</p>
+                                    <p className="text-lg font-bold text-emerald-600">{lumpsumReturn}%</p>
                                 </div>
                             </div>
 
@@ -382,9 +382,9 @@ export function LumpsumCalculatorWithInflation() {
                                                 )}
                                                 {yearlyData.length > 0 && (
                                                     <tr className="bg-teal-50 border-t-2 border-teal-200">
-                                                        <td className="px-3 py-3 text-sm font-black text-slate-900">Final</td>
-                                                        <td className="px-3 py-3 text-sm text-right font-black text-emerald-600">{formatCurrency(adjustForInflation ? lumpsumResult.realReturns : lumpsumResult.returns)}</td>
-                                                        <td className="px-3 py-3 text-sm text-right font-black text-teal-600">{formatCurrency(adjustForInflation ? lumpsumResult.realValue : lumpsumResult.futureValue)}</td>
+                                                        <td className="px-3 py-3 text-sm font-bold text-slate-900">Final</td>
+                                                        <td className="px-3 py-3 text-sm text-right font-bold text-emerald-600">{formatCurrency(adjustForInflation ? lumpsumResult.realReturns : lumpsumResult.returns)}</td>
+                                                        <td className="px-3 py-3 text-sm text-right font-bold text-teal-600">{formatCurrency(adjustForInflation ? lumpsumResult.realValue : lumpsumResult.futureValue)}</td>
                                                     </tr>
                                                 )}
                                             </tbody>

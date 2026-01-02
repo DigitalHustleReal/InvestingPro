@@ -53,7 +53,7 @@ export default function SIPCalculator() {
     return (
         <Card className="max-w-md mx-auto my-8 border-teal-100 shadow-md">
             <CardHeader className="bg-teal-50/50 border-b border-teal-100 pb-4">
-                <CardTitle className="text-xl text-teal-900 flex items-center gap-2">
+                <CardTitle className="text-xl text-teal-900 flex items-center gap-6 md:p-8">
                     📊 SIP Calculator
                 </CardTitle>
             </CardHeader>

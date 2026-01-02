@@ -112,7 +112,7 @@ export default function GlossaryTemplate({
                         <div className="space-y-4">
                             {misunderstandings.map((item, idx) => (
                                 <Card key={idx} className="border-amber-200 bg-amber-50">
-                                    <CardContent className="p-4">
+                                    <CardContent className="p-6 md:p-8">
                                         <div className="flex gap-3">
                                             <div className="flex-shrink-0">
                                                 <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
@@ -170,7 +170,7 @@ export default function GlossaryTemplate({
                     {/* Disclaimer */}
                     <section className="mb-10">
                         <Card className="border-slate-300 bg-slate-100">
-                            <CardContent className="p-4">
+                            <CardContent className="p-6 md:p-8">
                                 <div className="flex items-start gap-3">
                                     <Info className="w-5 h-5 text-slate-600 flex-shrink-0 mt-0.5" />
                                     <p className="text-sm text-slate-700 leading-relaxed">

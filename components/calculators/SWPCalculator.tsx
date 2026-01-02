@@ -392,7 +392,7 @@ export function SWPCalculator() {
                     <div className="absolute top-0 right-0 w-64 h-64 bg-teal-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         {result.exhausted && (
-                            <div className="p-3 sm:p-4 bg-amber-50 border border-amber-200 rounded-xl mb-4">
+                            <div className="p-6 md:p-8 sm:p-4 bg-amber-50 border border-amber-200 rounded-xl mb-4">
                                 <div className="flex items-start gap-2">
                                     <AlertCircle className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
                                     <div>
@@ -424,7 +424,7 @@ export function SWPCalculator() {
 
                         <div className="p-4 bg-white rounded-xl border border-emerald-100 mb-4">
                             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Monthly Withdrawal</p>
-                            <p className="text-lg font-black text-teal-600">{formatCurrency(result.monthlyWithdrawal)}</p>
+                            <p className="text-lg font-bold text-teal-600">{formatCurrency(result.monthlyWithdrawal)}</p>
                             <p className="text-xs text-slate-500 mt-1">
                                 {adjustForInflation ? 'Inflation-adjusted amount' : 'Fixed amount per month'}
                             </p>
@@ -479,11 +479,11 @@ export function SWPCalculator() {
                             <div className="grid grid-cols-2 gap-3">
                                 <div className="p-4 bg-teal-50 rounded-xl border border-teal-100">
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Monthly Withdrawal</p>
-                                    <p className="text-lg font-black text-teal-600">{formatCurrency(result.monthlyWithdrawal)}</p>
+                                    <p className="text-lg font-bold text-teal-600">{formatCurrency(result.monthlyWithdrawal)}</p>
                                 </div>
                                 <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Expected Return</p>
-                                    <p className="text-lg font-black text-emerald-600">{expectedReturn}%</p>
+                                    <p className="text-lg font-bold text-emerald-600">{expectedReturn}%</p>
                                 </div>
                             </div>
 
@@ -516,9 +516,9 @@ export function SWPCalculator() {
                                                 )}
                                                 {yearlyData.length > 0 && (
                                                     <tr className="bg-teal-50 border-t-2 border-teal-200">
-                                                        <td className="px-3 py-3 text-sm font-black text-slate-900">Final</td>
-                                                        <td className="px-3 py-3 text-sm text-right font-black text-emerald-600">{formatCurrency(result.totalWithdrawn)}</td>
-                                                        <td className="px-3 py-3 text-sm text-right font-black text-teal-600">{formatCurrency(result.remainingCorpus)}</td>
+                                                        <td className="px-3 py-3 text-sm font-bold text-slate-900">Final</td>
+                                                        <td className="px-3 py-3 text-sm text-right font-bold text-emerald-600">{formatCurrency(result.totalWithdrawn)}</td>
+                                                        <td className="px-3 py-3 text-sm text-right font-bold text-teal-600">{formatCurrency(result.remainingCorpus)}</td>
                                                     </tr>
                                                 )}
                                             </tbody>

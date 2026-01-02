@@ -128,7 +128,7 @@ export default function BlogPage() {
                                         )}
                                         <div className="absolute inset-0 bg-black/20" />
                                     </div>
-                                    <CardContent className="p-8 md:p-12 flex flex-col justify-center bg-white">
+                                    <CardContent className="p-8 md:p-6 md:p-8 flex flex-col justify-center bg-white">
                                         <Badge className="w-fit mb-4 bg-teal-100 text-teal-700 border-0 text-[10px] uppercase font-bold tracking-wider">{featuredArticle.category?.replace(/-/g, ' ')}</Badge>
                                         <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 group-hover:text-teal-600 transition-colors leading-tight">
                                             {featuredArticle.title}

@@ -106,7 +106,7 @@ export default async function CompareMutualFunds({ searchParams }: { searchParam
                         <div className="hidden md:block"></div>
                         {funds.map(fund => (
                             <div key={fund!.id}>
-                                <Button className="w-full bg-emerald-600 hover:bg-emerald-700">Invest Now</Button>
+                                <Button className="w-full bg-primary-600 hover:bg-emerald-700">Invest Now</Button>
                             </div>
                         ))}
                         {[...Array(3 - funds.length)].map((_, i) => <div key={i} className="hidden md:block"></div>)}

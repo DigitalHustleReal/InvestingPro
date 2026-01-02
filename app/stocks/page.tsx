@@ -70,25 +70,25 @@ export default function StocksPage() {
             {/* High-Impact Hero Section */}
             <div className="bg-slate-900 border-b border-white/5 pt-28 pb-32 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-20 pointer-events-none">
-                    <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-emerald-600 rounded-full blur-[140px] -translate-y-1/2" />
-                    <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-600 rounded-full blur-[120px] translate-y-1/2" />
+                    <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary-600 rounded-full blur-[140px] -translate-y-1/2" />
+                    <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-primary-600 rounded-full blur-[120px] translate-y-1/2" />
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
                         <div className="max-w-2xl text-center lg:text-left">
-                            <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 px-4 py-2 mb-8 rounded-full">
+                            <Badge className="bg-primary-500/10 text-emerald-400 border-emerald-500/20 px-4 py-2 mb-8 rounded-full">
                                 <Activity className="w-3.5 h-3.5 mr-2" />
-                                <span className="text-[10px] font-black uppercase tracking-[0.2em]">Real-time Market Delta</span>
+                                <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Real-time Market Delta</span>
                             </Badge>
-                            <h1 className="text-5xl sm:text-7xl font-black text-white mb-6 tracking-tight leading-tight">
+                            <h1 className="text-5xl sm:text-7xl font-bold text-white mb-6 tracking-tight leading-tight">
                                 Precision <br /> <span className="text-emerald-400">Equity Hub</span>
                             </h1>
                             <p className="text-xl text-slate-400 mb-10 font-medium leading-relaxed">
                                 Professional-grade market tracking for retail power-traders. Monitor live IPO sentiments, breakouts, and benchmarking tools.
                             </p>
                             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                                <Button className="rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-black h-16 px-10 shadow-2xl shadow-emerald-500/20 text-lg">
+                                <Button className="rounded-2xl bg-primary-500 hover:bg-primary-600 text-slate-900 font-bold h-16 px-10 shadow-2xl shadow-emerald-500/20 text-lg">
                                     Start Trading Now
                                     <ArrowUpRight className="ml-2 w-6 h-6" />
                                 </Button>
@@ -104,15 +104,15 @@ export default function StocksPage() {
                                 <Card key={i} className="bg-white/5 backdrop-blur-3xl border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden group hover:bg-white/10 transition-all cursor-pointer">
                                     <CardContent className="p-6">
                                         <div className="flex items-center justify-between mb-2">
-                                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{index.name}</span>
+                                            <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-st">{index.name}</span>
                                             {index.isUp ? (
                                                 <TrendingUp className="w-4 h-4 text-emerald-400" />
                                             ) : (
                                                 <TrendingDown className="w-4 h-4 text-rose-400" />
                                             )}
                                         </div>
-                                        <p className="text-xl font-black text-white mb-1 tracking-tight">{index.value}</p>
-                                        <p className={`text-xs font-black ${index.isUp ? 'text-emerald-400' : 'text-rose-400'}`}>
+                                        <p className="text-xl font-bold text-white mb-1 tracking-tight">{index.value}</p>
+                                        <p className={`text-xs font-bold ${index.isUp ? 'text-emerald-400' : 'text-rose-400'}`}>
                                             {index.change}
                                         </p>
                                     </CardContent>
@@ -126,68 +126,68 @@ export default function StocksPage() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-20">
                 {/* Market Movers Section */}
                 <div className="grid lg:grid-cols-2 gap-8 mb-20">
-                    <Card className="rounded-[3rem] border-0 shadow-2xl bg-white p-10 group overflow-hidden">
+                    <Card className="rounded-[3rem] border-0 shadow-2xl bg-white p-6 md:p-8 group overflow-hidden">
                         <div className="flex items-center justify-between mb-8">
                             <div className="flex items-center gap-3">
                                 <div className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600">
                                     <TrendingUp className="w-6 h-6" />
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-black text-slate-900 tracking-tight">Top Gainers</h3>
+                                    <h3 className="text-xl font-bold text-slate-900 tracking-tight">Top Gainers</h3>
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Intraday Powerhouses</p>
                                 </div>
                             </div>
-                            <Button variant="ghost" className="rounded-xl font-black text-[10px] uppercase text-emerald-600 tracking-widest">View All</Button>
+                            <Button variant="ghost" className="rounded-xl font-semibold text- uppercase text-emerald-600 tracking-widest">View All</Button>
                         </div>
                         <div className="space-y-4">
                             {topGainers.map((stock, i) => (
                                 <div key={i} className="flex items-center justify-between p-5 bg-slate-50/50 rounded-2xl border border-transparent hover:border-emerald-100 hover:bg-white transition-all group/item">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center font-black text-[10px] text-slate-400 group-hover/item:bg-emerald-600 group-hover/item:text-white transition-colors">
+                                        <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center font-semibold text- text-slate-400 group-hover/item:bg-primary-600 group-hover/item:text-white transition-colors">
                                             {stock.name.substring(0, 1)}
                                         </div>
                                         <div>
-                                            <p className="font-black text-slate-900">{stock.name}</p>
+                                            <p className="font-bold text-slate-900">{stock.name}</p>
                                             <p className="text-[10px] font-bold text-slate-400 uppercase">{stock.sector}</p>
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <p className="font-black text-slate-900">{stock.price}</p>
-                                        <p className="text-xs font-black text-emerald-600">{stock.change}</p>
+                                        <p className="font-bold text-slate-900">{stock.price}</p>
+                                        <p className="text-xs font-bold text-emerald-600">{stock.change}</p>
                                     </div>
                                 </div>
                             ))}
                         </div>
                     </Card>
 
-                    <Card className="rounded-[3rem] border-0 shadow-2xl bg-white p-10 group overflow-hidden">
+                    <Card className="rounded-[3rem] border-0 shadow-2xl bg-white p-6 md:p-8 group overflow-hidden">
                         <div className="flex items-center justify-between mb-8">
                             <div className="flex items-center gap-3">
                                 <div className="w-12 h-12 rounded-2xl bg-rose-50 flex items-center justify-center text-rose-600">
                                     <TrendingDown className="w-6 h-6" />
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-black text-slate-900 tracking-tight">Top Losers</h3>
+                                    <h3 className="text-xl font-bold text-slate-900 tracking-tight">Top Losers</h3>
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Market Laggards</p>
                                 </div>
                             </div>
-                            <Button variant="ghost" className="rounded-xl font-black text-[10px] uppercase text-rose-600 tracking-widest">View All</Button>
+                            <Button variant="ghost" className="rounded-xl font-semibold text- uppercase text-rose-600 tracking-widest">View All</Button>
                         </div>
                         <div className="space-y-4">
                             {topLosers.map((stock, i) => (
                                 <div key={i} className="flex items-center justify-between p-5 bg-slate-50/50 rounded-2xl border border-transparent hover:border-rose-100 hover:bg-white transition-all group/item">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center font-black text-[10px] text-slate-400 group-hover/item:bg-rose-600 group-hover/item:text-white transition-colors">
+                                        <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center font-semibold text- text-slate-400 group-hover/item:bg-rose-600 group-hover/item:text-white transition-colors">
                                             {stock.name.substring(0, 2)}
                                         </div>
                                         <div>
-                                            <p className="font-black text-slate-900">{stock.name}</p>
+                                            <p className="font-bold text-slate-900">{stock.name}</p>
                                             <p className="text-[10px] font-bold text-slate-400 uppercase">{stock.sector}</p>
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <p className="font-black text-slate-900">{stock.price}</p>
-                                        <p className="text-xs font-black text-rose-600">{stock.change}</p>
+                                        <p className="font-bold text-slate-900">{stock.price}</p>
+                                        <p className="text-xs font-bold text-rose-600">{stock.change}</p>
                                     </div>
                                 </div>
                             ))}
@@ -199,11 +199,11 @@ export default function StocksPage() {
                 <div className="mb-24">
                     <div className="flex items-center justify-between mb-12">
                         <div>
-                            <h2 className="text-4xl font-black text-slate-900 tracking-tight">IPO Mainboard Pulse</h2>
+                            <h2 className="text-4xl font-bold text-slate-900 tracking-tight">IPO Mainboard Pulse</h2>
                             <p className="text-slate-500 font-bold mt-1 text-sm uppercase tracking-widest opacity-60">Live GMP & Subscription Levels</p>
                         </div>
                         <Link href="/calculators">
-                            <Button variant="outline" className="rounded-2xl border-slate-200 h-12 px-8 font-black text-[10px] uppercase tracking-widest">IPO Lot Calculator</Button>
+                            <Button variant="outline" className="rounded-2xl border-slate-200 h-12 px-8 font-semibold text- uppercase tracking-widest">IPO Lot Calculator</Button>
                         </Link>
                     </div>
 
@@ -215,37 +215,37 @@ export default function StocksPage() {
                         ) : ipoData.map((ipo: any, idx: number) => (
                             <Card key={idx} className="rounded-[3rem] border-0 shadow-xl overflow-hidden group hover:shadow-2xl transition-all bg-white p-8">
                                 <div className="flex justify-between items-start mb-8">
-                                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${ipo.color || 'from-slate-800 to-slate-900'} flex items-center justify-center text-white font-black text-2xl shadow-lg`}>
+                                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${ipo.color || 'from-slate-800 to-slate-900'} flex items-center justify-center text-white font-bold text-2xl shadow-lg`}>
                                         {ipo.name.substring(0, 1)}
                                     </div>
-                                    <Badge className={`border-0 rounded-xl px-3 py-1 text-[9px] font-black uppercase tracking-widest ${ipo.status === 'Open' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-400'}`}>
+                                    <Badge className={`border-0 rounded-xl px-3 py-1 text-[9px] font-bold uppercase tracking-widest ${ipo.status === 'Open' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-400'}`}>
                                         {ipo.status}
                                     </Badge>
                                 </div>
 
-                                <h3 className="text-2xl font-black text-slate-900 mb-2 leading-tight">{ipo.name}</h3>
+                                <h3 className="text-2xl font-bold text-slate-900 mb-2 leading-tight">{ipo.name}</h3>
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-8">Premium Mainboard Issuer</p>
 
                                 <div className="grid grid-cols-2 gap-6 p-6 bg-slate-50 rounded-3xl mb-8 border border-white">
                                     <div>
-                                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Issue Price</p>
-                                        <p className="font-black text-sm text-slate-900">{ipo.price}</p>
+                                        <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Issue Price</p>
+                                        <p className="font-semibold text- text-slate-900">{ipo.price}</p>
                                     </div>
                                     <div>
-                                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Subscription</p>
-                                        <p className="font-black text-sm text-emerald-600">{ipo.subscription}</p>
+                                        <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Subscription</p>
+                                        <p className="font-semibold text- text-emerald-600">{ipo.subscription}</p>
                                     </div>
                                     <div>
-                                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Lot Size</p>
-                                        <p className="font-black text-sm text-slate-900">{ipo.lot}</p>
+                                        <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Lot Size</p>
+                                        <p className="font-semibold text- text-slate-900">{ipo.lot}</p>
                                     </div>
                                     <div>
-                                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Listing Date</p>
-                                        <p className="font-black text-sm text-slate-900">{ipo.listing}</p>
+                                        <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Listing Date</p>
+                                        <p className="font-semibold text- text-slate-900">{ipo.listing}</p>
                                     </div>
                                 </div>
 
-                                <Button className="w-full h-14 rounded-2xl bg-slate-900 hover:bg-emerald-600 text-white font-black shadow-xl group/btn transition-all">
+                                <Button className="w-full h-14 rounded-2xl bg-slate-900 hover:bg-primary-600 text-white font-bold shadow-xl group/btn transition-all">
                                     Analyze GMP Analysis
                                     <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                                 </Button>
@@ -258,11 +258,11 @@ export default function StocksPage() {
                 <div className="mb-24">
                     <div className="flex items-center justify-between mb-12">
                         <div>
-                            <h2 className="text-4xl font-black text-slate-900 tracking-tight">Best Stock Brokers 2024</h2>
+                            <h2 className="text-4xl font-bold text-slate-900 tracking-tight">Best Stock Brokers 2024</h2>
                             <p className="text-slate-500 font-bold mt-1 text-sm uppercase tracking-widest opacity-60">Conflict-Free Benchmarking</p>
                         </div>
                         <Link href="/demat-accounts">
-                            <Button variant="ghost" className="font-black text-emerald-600 uppercase tracking-widest text-[10px]">Compare 15+ Platforms <ChevronRight className="w-4 h-4" /></Button>
+                            <Button variant="ghost" className="font-semibold text-emerald-600 uppercase tracking-widest text-">Compare 15+ Platforms <ChevronRight className="w-4 h-4" /></Button>
                         </Link>
                     </div>
 
@@ -272,37 +272,37 @@ export default function StocksPage() {
                                 <LoadingSpinner text="Scanning Brokerage Engines..." />
                             </div>
                         ) : brokers.slice(0, 4).map((broker: any, idx: number) => (
-                            <Card key={idx} className="rounded-[3.5rem] border-0 shadow-2xl bg-white overflow-hidden group hover:-translate-y-1 transition-all p-8 lg:p-10">
+                            <Card key={idx} className="rounded-[3.5rem] border-0 shadow-2xl bg-white overflow-hidden group hover:-translate-y-1 transition-all p-8 lg:p-6 md:p-8">
                                 <div className="flex flex-col sm:flex-row items-center gap-8 mb-8">
-                                    <div className={`w-20 h-20 rounded-[2rem] bg-gradient-to-br ${broker.color || 'from-slate-800 to-slate-900'} flex items-center justify-center text-white font-black text-3xl shadow-2xl shrink-0 group-hover:rotate-6 transition-transform`}>
+                                    <div className={`w-20 h-20 rounded-[2rem] bg-gradient-to-br ${broker.color || 'from-slate-800 to-slate-900'} flex items-center justify-center text-white font-bold text-3xl shadow-2xl shrink-0 group-hover:rotate-6 transition-transform`}>
                                         {broker.logo}
                                     </div>
                                     <div className="text-center sm:text-left flex-1">
                                         <div className="flex items-center justify-center sm:justify-between mb-2">
-                                            <h3 className="text-2xl font-black text-slate-900">{broker.name}</h3>
+                                            <h3 className="text-2xl font-bold text-slate-900">{broker.name}</h3>
                                             <div className="hidden sm:flex items-center gap-1 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-100">
                                                 <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                                                <span className="text-sm font-black text-amber-700">{broker.rating}</span>
+                                                <span className="text-sm font-bold text-amber-700">{broker.rating}</span>
                                             </div>
                                         </div>
                                         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4">
-                                            <span className="text-[10px] font-black text-slate-400 uppercase flex items-center gap-1.5">
+                                            <span className="text-[10px] font-bold text-slate-400 uppercase flex items-center gap-1.5">
                                                 <Users className="w-3.5 h-3.5" />
                                                 {broker.users} Verified Users
                                             </span>
-                                            <Badge className="rounded-xl border-slate-100 bg-slate-50 text-slate-600 text-[9px] font-black uppercase">{broker.bestFor}</Badge>
+                                            <Badge className="rounded-xl border-slate-100 bg-slate-50 text-slate-600 text-[9px] font-bold uppercase">{broker.bestFor}</Badge>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="grid items-center grid-cols-2 gap-4 mb-10 p-6 bg-slate-50 rounded-[2.5rem] border border-white">
                                     <div>
-                                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Equity Intraday</p>
+                                        <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Equity Intraday</p>
                                         <p className="font-extrabold text-slate-900">{broker.pricing?.intraday || '₹20'}</p>
                                     </div>
                                     <div>
-                                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Equity Delivery</p>
-                                        <p className="font-black text-emerald-600">{broker.pricing?.equity || '₹0'}</p>
+                                        <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Equity Delivery</p>
+                                        <p className="font-bold text-emerald-600">{broker.pricing?.equity || '₹0'}</p>
                                     </div>
                                 </div>
 
@@ -315,7 +315,7 @@ export default function StocksPage() {
                                     ))}
                                 </div>
 
-                                <Button className="w-full h-16 rounded-[1.5rem] bg-slate-900 hover:bg-emerald-600 text-white font-black text-lg transition-all shadow-2xl active:scale-95">
+                                <Button className="w-full h-16 rounded-[1.5rem] bg-slate-900 hover:bg-primary-600 text-white font-bold text-lg transition-all shadow-2xl active:scale-95">
                                     Open Paperless Account
                                     <ArrowUpRight className="ml-2 w-5 h-5" />
                                 </Button>
@@ -328,8 +328,8 @@ export default function StocksPage() {
                 <div className="bg-slate-900 rounded-[4rem] p-16 lg:p-24 text-white overflow-hidden relative group">
                     <Globe className="absolute -right-24 -bottom-24 w-96 h-96 text-white/5 group-hover:rotate-12 transition-transform duration-700" />
                     <div className="max-w-3xl relative z-10">
-                        <Badge className="bg-emerald-600 text-white border-0 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-10">Institutional View</Badge>
-                        <h2 className="text-4xl lg:text-6xl font-black mb-10 tracking-tight leading-tight">Master the <br /> <span className="text-emerald-400">Macro Variables</span></h2>
+                        <Badge className="bg-primary-600 text-white border-0 px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] mb-10">Institutional View</Badge>
+                        <h2 className="text-4xl lg:text-6xl font-bold mb-10 tracking-tight leading-tight">Master the <br /> <span className="text-emerald-400">Macro Variables</span></h2>
                         <p className="text-xl text-slate-400 font-medium leading-relaxed mb-16">
                             Retail traders look at prices. Professionals look at "Liquidity Clusters" and "Macro Correlations." Track NIFTY 500 sentiment deltas across all global gateways.
                         </p>
@@ -345,7 +345,7 @@ export default function StocksPage() {
                                         <stat.icon className="w-6 h-6" />
                                     </div>
                                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{stat.label}</p>
-                                    <p className="text-xl font-black text-white">{stat.value}</p>
+                                    <p className="text-xl font-bold text-white">{stat.value}</p>
                                 </div>
                             ))}
                         </div>

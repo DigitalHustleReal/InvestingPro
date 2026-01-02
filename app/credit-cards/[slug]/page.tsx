@@ -246,12 +246,12 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
                 <CardContent className="p-6">
                   <p className="text-sm text-slate-300 mb-4">Start your application now</p>
                   <a href={card.applyLink} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-6 text-lg mb-3">
+                    <Button className="w-full bg-primary-600 hover:bg-emerald-700 text-white font-semibold py-6 text-lg mb-3">
                       Apply Now <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
                   {card.welcomeBonus && (
-                    <div className="bg-amber-500/20 border border-amber-500/50 rounded-lg p-3 text-center">
+                    <div className="bg-amber-500/20 border border-amber-500/50 rounded-lg p-6 md:p-8 text-center">
                       <Gift className="w-5 h-5 mx-auto mb-1 text-amber-400" />
                       <p className="text-sm text-amber-100 font-semibold">{card.welcomeBonus}</p>
                     </div>
@@ -271,7 +271,7 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
             {/* Key Features */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-6 md:p-8">
                   <CheckCircle2 className="w-6 h-6 text-emerald-600" />
                   Key Features
                 </CardTitle>
@@ -291,7 +291,7 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
             {/* Rewards Program */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-6 md:p-8">
                   <Gift className="w-6 h-6 text-purple-600" />
                   Rewards Program
                 </CardTitle>
@@ -305,7 +305,7 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
                 
                 <div className="space-y-3">
                   {card.rewardProgram.categories.map((cat, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                    <div key={index} className="flex items-center justify-between p-6 md:p-8 bg-slate-50 rounded-lg">
                       <span className="font-medium text-gray-700">{cat.name}</span>
                       <span className="text-emerald-600 font-semibold">{cat.rate}</span>
                     </div>
@@ -324,7 +324,7 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
                   {card.benefits.map((benefit, index) => (
                     <div key={index}>
                       <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
-                        {benefit.category === 'Travel' && <Plane className="w-5 h-5 text-blue-600" />}
+                        {benefit.category === 'Travel' && <Plane className="w-5 h-5 text-primary-600" />}
                         {benefit.category === 'Dining' && <ShoppingBag className="w-5 h-5 text-orange-600" />}
                         {benefit.category === 'Shopping' && <Gift className="w-5 h-5 text-purple-600" />}
                         {benefit.category}
@@ -347,7 +347,7 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card className="border-emerald-200 bg-emerald-50/30">
                 <CardHeader>
-                  <CardTitle className="text-emerald-700 flex items-center gap-2">
+                  <CardTitle className="text-emerald-700 flex items-center gap-6 md:p-8">
                     <CheckCircle2 className="w-5 h-5" />
                     Pros
                   </CardTitle>
@@ -366,7 +366,7 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
               
               <Card className="border-red-200 bg-red-50/30">
                 <CardHeader>
-                  <CardTitle className="text-red-700 flex items-center gap-2">
+                  <CardTitle className="text-red-700 flex items-center gap-6 md:p-8">
                     <XCircle className="w-5 h-5" />
                     Cons
                   </CardTitle>
@@ -387,7 +387,7 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
             {/* Fees & Charges */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-6 md:p-8">
                   <IndianRupee className="w-6 h-6 text-gray-600" />
                   Fees & Charges
                 </CardTitle>
@@ -395,7 +395,7 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
               <CardContent>
                 <div className="space-y-3">
                   {card.fees.map((fee, index) => (
-                    <div key={index} className="flex items-start justify-between p-3 border-b last:border-0">
+                    <div key={index} className="flex items-start justify-between p-6 md:p-8 border-b last:border-0">
                       <div className="flex-1">
                         <p className="font-medium text-gray-900">{fee.name}</p>
                         {fee.details && <p className="text-sm text-gray-500 mt-1">{fee.details}</p>}
@@ -430,8 +430,8 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
               {/* Eligibility */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <ShieldCheck className="w-5 h-5 text-blue-600" />
+                  <CardTitle className="text-base flex items-center gap-6 md:p-8">
+                    <ShieldCheck className="w-5 h-5 text-primary-600" />
                     Eligibility Criteria
                   </CardTitle>
                 </CardHeader>
@@ -465,7 +465,7 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
               
               {/* Important Notice */}
               <Card className="bg-amber-50 border-amber-200">
-                <CardContent className="p-4">
+                <CardContent className="p-6 md:p-8">
                   <div className="flex gap-3">
                     <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
                     <div className="text-xs text-amber-800">
@@ -486,7 +486,7 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
           <h2 className="text-3xl font-bold mb-4">Apply for {card.name} Today</h2>
           <p className="text-slate-300 mb-8">Join thousands of satisfied cardholders. Apply online in minutes!</p>
           <a href={card.applyLink} target="_blank" rel="noopener noreferrer">
-            <Button className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-12 py-6 text-lg">
+            <Button className="bg-primary-600 hover:bg-emerald-700 text-white font-semibold px-12 py-6 text-lg">
               Apply Now <ExternalLink className="w-5 h-5 ml-2" />
             </Button>
           </a>

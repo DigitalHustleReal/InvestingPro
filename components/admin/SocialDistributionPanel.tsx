@@ -61,7 +61,7 @@ export default function SocialDistributionPanel({
     return (
         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
             <CardHeader className="border-b border-white/5 px-6 py-4 flex flex-row items-center justify-between">
-                <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2">
+                <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                     <Sparkles className="w-4 h-4 text-pink-400" />
                     Social Distribution Assets
                 </CardTitle>

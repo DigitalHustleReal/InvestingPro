@@ -41,7 +41,7 @@ export default function CookieConsent() {
                     <Button
                         size="sm"
                         onClick={acceptCookies}
-                        className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl h-10 border-0"
+                        className="flex-1 bg-primary-500 hover:bg-primary-600 text-white font-bold rounded-xl h-10 border-0"
                     >
                         Got it
                     </Button>

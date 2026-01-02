@@ -18,7 +18,7 @@ export default function HomeContextualProducts({ selectedCategory }: HomeContext
             <section className="bg-slate-50 py-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-4">
+                        <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
                             Explore Financial Products
                         </h2>
                         <p className="text-xl text-slate-600">
@@ -80,10 +80,10 @@ export default function HomeContextualProducts({ selectedCategory }: HomeContext
         <section className="bg-slate-50 py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <Card className="border-0 shadow-xl bg-white">
-                    <CardContent className="p-8 lg:p-12">
+                    <CardContent className="p-8 lg:p-6 md:p-8">
                         {/* Header */}
                         <div className="text-center mb-10">
-                            <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-4">
+                            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
                                 Want to view more options?
                             </h2>
                             <p className="text-xl text-slate-600 mb-2">

@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import Logo from "@/components/common/Logo";
 import NewsletterWidget from "@/components/engagement/NewsletterWidget";
+import { NAVIGATION_CATEGORIES } from '@/lib/navigation/categories';
+import { SecurityBadgeGroup } from '@/components/compliance/SecurityBadge';
 
 // Helper to replace createPageUrl
 const getHref = (pageName: string) => {
@@ -112,13 +114,13 @@ export function Footer() {
                     <div>
                         <h4 className="text-white font-semibold mb-4">Products</h4>
                         <ul className="space-y-3">
-                            {footerLinks.products.map((link, index) => (
+                            {NAVIGATION_CATEGORIES.slice(0, 6).map((category, index) => (
                                 <li key={index}>
                                     <Link
-                                        href={getHref(link.page)}
+                                        href={`/${category.slug}`}
                                         className="text-sm hover:text-teal-400 transition-colors"
                                     >
-                                        {link.name}
+                                        {category.name}
                                     </Link>
                                 </li>
                             ))}
@@ -259,14 +261,22 @@ export function Footer() {
                             </div>
                         </div>
 
-                        {/* Copyright */}
-                        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                            <p className="text-sm text-slate-500">
-                                © 2024 InvestingPro.in. All rights reserved.
-                            </p>
-                            <p className="text-xs text-slate-600 text-center md:text-right">
-                                InvestingPro.in is an independent platform. Not affiliated with SEBI or any financial institution.
-                            </p>
+                        {/* Copyright & Compliance */}
+                        <div className="space-y-4">
+                            {/* Security Badges */}
+                            <div className="flex justify-center md:justify-start">
+                                <SecurityBadgeGroup />
+                            </div>
+                            
+                            {/* Copyright */}
+                            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                                <p className="text-sm text-slate-500">
+                                    © 2024 InvestingPro.in. All rights reserved.
+                                </p>
+                                <p className="text-xs text-slate-600 text-center md:text-right">
+                                    InvestingPro.in is an independent platform. Not affiliated with SEBI or any financial institution.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>

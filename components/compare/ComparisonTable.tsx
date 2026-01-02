@@ -122,7 +122,7 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
             {productType === 'credit_card' && (
                 <>
                     <div className="grid grid-cols-1 md:grid-cols-4 border-b border-gray-200 bg-emerald-50/30">
-                        <div className="p-4 font-semibold text-gray-700 text-sm border-r border-gray-200">
+                        <div className="p-6 md:p-8 font-semibold text-gray-700 text-sm border-r border-gray-200">
                             ✅ Pros
                         </div>
                         {products.map((product) => (
@@ -139,7 +139,7 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
                         ))}
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-4 bg-red-50/30">
-                        <div className="p-4 font-semibold text-gray-700 text-sm border-r border-gray-200">
+                        <div className="p-6 md:p-8 font-semibold text-gray-700 text-sm border-r border-gray-200">
                             ⚠️ Cons
                         </div>
                         {products.map((product) => (
@@ -163,7 +163,7 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
                 <div className="p-4 border-r border-gray-200"></div>
                 {products.map((product) => (
                     <div key={product.id} className="p-4 border-r border-gray-200 last:border-r-0">
-                        <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold">
+                        <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold">
                             Apply Now
                         </Button>
                     </div>

@@ -198,7 +198,7 @@ export default function MutualFundsPage() {
             {/* Authority Hero Section */}
             <div className="bg-slate-900 border-b border-white/5 pt-28 pb-32 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-20 pointer-events-none">
-                    <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-blue-600 rounded-full blur-[140px] -translate-y-1/2" />
+                    <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-primary-600 rounded-full blur-[140px] -translate-y-1/2" />
                     <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-teal-600 rounded-full blur-[100px] translate-y-1/2" />
                 </div>
 
@@ -207,9 +207,9 @@ export default function MutualFundsPage() {
                         <div className="space-y-6">
                             <div className="inline-flex items-center gap-2 bg-blue-500/10 backdrop-blur-md rounded-full px-4 py-2 border border-blue-500/20">
                                 <ShieldCheck className="w-4 h-4 text-blue-400" />
-                                <span className="text-blue-400 font-black text-[10px] uppercase tracking-[0.2em] italic">Direct Fund Access Verified</span>
+                                <span className="text-blue-400 font-semibold text- uppercase tracking-[0.2em] italic">Direct Fund Access Verified</span>
                             </div>
-                            <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
+                            <h1 className="text-4xl sm:text-6xl font-bold text-white tracking-tight leading-tight">
                                 Alpha <span className="text-teal-400">Discovery</span> Hub
                             </h1>
                             <p className="text-xl text-slate-400 font-medium leading-relaxed max-w-xl">
@@ -244,8 +244,8 @@ export default function MutualFundsPage() {
                                         <item.icon className="w-6 h-6" />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1">{item.label}</p>
-                                        <p className="text-xl font-black text-white">{item.value}</p>
+                                        <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-st leading-none mb-1">{item.label}</p>
+                                        <p className="text-xl font-bold text-white">{item.value}</p>
                                     </div>
                                 </div>
                             ))}
@@ -260,11 +260,11 @@ export default function MutualFundsPage() {
 
                     {/* Sidebar / Filters (Horizontal on Mobile, Sticky on Desktop) */}
                     <Card className="w-full lg:w-72 rounded-[2.5rem] border-0 shadow-2xl bg-white p-8 lg:sticky lg:top-28">
-                        <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6">Tactical Filters</h3>
+                        <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-st mb-6">Tactical Filters</h3>
 
                         <div className="space-y-8">
                             <div>
-                                <p className="text-sm font-black text-slate-900 mb-4">Core Category</p>
+                                <p className="text-sm font-bold text-slate-900 mb-4">Core Category</p>
                                 <div className="flex flex-wrap lg:flex-col gap-2">
                                     {FUND_CATEGORIES.map((cat) => (
                                         <button
@@ -273,7 +273,7 @@ export default function MutualFundsPage() {
                                                 setSelectedCategory(cat);
                                                 setCurrentPage(1);
                                             }}
-                                            className={`text-left px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${selectedCategory === cat
+                                            className={`text-left px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-all ${selectedCategory === cat
                                                 ? 'bg-slate-900 text-white shadow-xl shadow-slate-900/20'
                                                 : 'bg-white text-slate-500 hover:bg-slate-50 border border-slate-100'}`}
                                         >
@@ -284,7 +284,7 @@ export default function MutualFundsPage() {
                             </div>
 
                             <div>
-                                <p className="text-sm font-black text-slate-900 mb-4">Sort Protocol</p>
+                                <p className="text-sm font-bold text-slate-900 mb-4">Sort Protocol</p>
                                 <Select value={sortBy} onValueChange={(val: string) => {
                                     setSortBy(val);
                                     setCurrentPage(1);
@@ -314,7 +314,7 @@ export default function MutualFundsPage() {
                                 <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
                                     <Search className="w-10 h-10 text-slate-200" />
                                 </div>
-                                <h3 className="text-2xl font-black text-slate-900 mb-2 tracking-tight">Zero Assets Found</h3>
+                                <h3 className="text-2xl font-bold text-slate-900 mb-2 tracking-tight">Zero Assets Found</h3>
                                 <p className="text-slate-500 font-medium">Try recalibrating your search parameters.</p>
                             </div>
                         ) : (
@@ -327,12 +327,12 @@ export default function MutualFundsPage() {
                                         {/* Primary Identity */}
                                         <div className="p-8 flex-1">
                                             <div className="flex items-start gap-4 mb-6">
-                                                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/10 to-teal-500/10 border border-teal-500/10 flex items-center justify-center text-teal-600 font-black text-xl group-hover/card:scale-110 transition-transform">
+                                                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/10 to-teal-500/10 border border-teal-500/10 flex items-center justify-center text-teal-600 font-bold text-xl group-hover/card:scale-110 transition-transform">
                                                     {(fund.name || "A").substring(0, 1)}
                                                 </div>
                                                 <div className="space-y-1">
                                                     <div className="flex items-center gap-2">
-                                                        <Badge className="bg-slate-900/5 text-slate-600 border-0 text-[10px] font-black uppercase tracking-widest px-2 py-0.5">
+                                                        <Badge className="bg-slate-900/5 text-slate-600 border-0 text-[10px] font-semibold uppercase tracking-st px-2 py-0.5">
                                                             {fund.category}
                                                         </Badge>
                                                         <div className="flex gap-0.5 grayscale group-hover/card:grayscale-0 transition-all">
@@ -345,7 +345,7 @@ export default function MutualFundsPage() {
                                                         </div>
                                                     </div>
                                                     <Link href={`/mutual-funds/${fund.id}`}>
-                                                        <h3 className="text-xl font-black text-slate-900 tracking-tight leading-tight group-hover/card:text-blue-600 transition-colors">
+                                                        <h3 className="text-xl font-bold text-slate-900 tracking-tight leading-tight group-hover/card:text-primary-600 transition-colors">
                                                             {fund.name}
                                                         </h3>
                                                     </Link>
@@ -357,13 +357,13 @@ export default function MutualFundsPage() {
                                             </div>
 
                                             <div className="flex flex-wrap gap-2">
-                                                <Badge className={`${riskColors[fund.risk] || riskColors["Moderate"]} border text-[10px] uppercase font-black tracking-widest px-3`}>
+                                                <Badge className={`${riskColors[fund.risk] || riskColors["Moderate"]} border text-[10px] uppercase font-bold tracking-widest px-3`}>
                                                     {fund.risk || "MODERATE"} RISK
                                                 </Badge>
-                                                <Badge variant="outline" className="border-slate-100 text-slate-400 text-[10px] uppercase font-black tracking-widest px-3">
+                                                <Badge variant="outline" className="border-slate-100 text-slate-400 text-[10px] uppercase font-bold tracking-widest px-3">
                                                     AUM: {fund.aum || "N/A"}
                                                 </Badge>
-                                                <Badge variant="outline" className="border-slate-100 text-slate-400 text-[10px] uppercase font-black tracking-widest px-3">
+                                                <Badge variant="outline" className="border-slate-100 text-slate-400 text-[10px] uppercase font-bold tracking-widest px-3">
                                                     EXP: {fund.expense_ratio || "0.00"}%
                                                 </Badge>
                                             </div>
@@ -378,9 +378,9 @@ export default function MutualFundsPage() {
                                                     { label: "5Y Yield", value: fund.returns_5y, trend: fund.returns_5y > 0 }
                                                 ].map((ret, i) => (
                                                     <div key={i} className="space-y-1">
-                                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{ret.label}</p>
+                                                        <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-st">{ret.label}</p>
                                                         <div className="flex items-center justify-center gap-1">
-                                                            <p className={`text-xl font-black ${ret.trend ? 'text-emerald-600' : 'text-slate-900'}`}>{ret.value}%</p>
+                                                            <p className={`text-xl font-bold ${ret.trend ? 'text-emerald-600' : 'text-slate-900'}`}>{ret.value}%</p>
                                                             {ret.trend ? <TrendingUp className="w-4 h-4 text-emerald-500" /> : <TrendingDown className="w-4 h-4 text-slate-400" />}
                                                         </div>
                                                     </div>
@@ -396,7 +396,7 @@ export default function MutualFundsPage() {
                                                 </Button>
                                             </Link>
                                             <Link href={`/mutual-funds/${fund.id}`} className="w-full">
-                                                <Button className="w-full h-12 rounded-2xl bg-slate-900 hover:bg-blue-600 text-white font-extrabold text-[11px] uppercase tracking-[0.2em] shadow-xl shadow-slate-900/10">
+                                                <Button className="w-full h-12 rounded-2xl bg-slate-900 hover:bg-primary-600 text-white font-extrabold text-[11px] uppercase tracking-[0.2em] shadow-xl shadow-slate-900/10">
                                                     Allocate
                                                     <ArrowUpRight className="w-4 h-4 ml-2" />
                                                 </Button>

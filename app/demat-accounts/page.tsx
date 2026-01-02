@@ -47,7 +47,7 @@ export default function DematAccountsPage() {
             {/* Premium Hero */}
             <div className="bg-slate-900 relative overflow-hidden pt-20 pb-32">
                 <div className="absolute inset-0 opacity-20 pointer-events-none">
-                    <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600 rounded-full blur-[120px]" />
+                    <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary-600 rounded-full blur-[120px]" />
                     <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-teal-600 rounded-full blur-[100px]" />
                 </div>
 
@@ -69,13 +69,13 @@ export default function DematAccountsPage() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-20">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                     {[
-                        { icon: Users, label: "Active Investors", value: "3.5Cr+", color: "bg-blue-600", shadow: "shadow-blue-500/20" },
-                        { icon: Zap, label: "Lowest Fees", value: "₹0 Delivery", color: "bg-emerald-600", shadow: "shadow-emerald-500/20" },
+                        { icon: Users, label: "Active Investors", value: "3.5Cr+", color: "bg-primary-600", shadow: "shadow-blue-500/20" },
+                        { icon: Zap, label: "Lowest Fees", value: "₹0 Delivery", color: "bg-primary-600", shadow: "shadow-emerald-500/20" },
                         { icon: Shield, label: "SEBI Certified", value: "Fully Secure", color: "bg-purple-600", shadow: "shadow-purple-500/20" },
                         { icon: Smartphone, label: "Digital KYC", value: "Paperless", color: "bg-amber-600", shadow: "shadow-amber-500/20" },
                     ].map((stat, index) => (
                         <Card key={index} className={`rounded-[2rem] border-0 shadow-2xl ${stat.shadow} bg-white overflow-hidden`}>
-                            <CardContent className="p-6 flex items-center gap-4">
+                            <CardContent className="p-6 flex items-center gap-6 md:p-8">
                                 <div className={`w-12 h-12 rounded-2xl ${stat.color} flex items-center justify-center text-white shrink-0 shadow-lg`}>
                                     <stat.icon className="w-6 h-6" />
                                 </div>
@@ -121,11 +121,11 @@ export default function DematAccountsPage() {
                                     {/* Identity */}
                                     <div className="lg:col-span-1 border-r border-slate-100 pr-8">
                                         <div className="flex items-center gap-4 mb-6">
-                                            <div className={`w-16 h-16 rounded-[2rem] bg-gradient-to-br ${broker.color} flex items-center justify-center text-white text-3xl font-black shadow-xl`}>
+                                            <div className={`w-16 h-16 rounded-[2rem] bg-gradient-to-br ${broker.color} flex items-center justify-center text-white text-3xl font-bold shadow-xl`}>
                                                 {broker.logo}
                                             </div>
                                             <div>
-                                                <h3 className="text-2xl font-black text-slate-900 tracking-tight">{broker.name}</h3>
+                                                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">{broker.name}</h3>
                                                 <div className="flex items-center gap-2 mt-1">
                                                     <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
                                                     <span className="text-sm font-extrabold text-slate-900">{broker.rating}</span>
@@ -142,7 +142,7 @@ export default function DematAccountsPage() {
 
                                     {/* Pricing Matrix */}
                                     <div className="lg:col-span-1 py-2">
-                                        <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+                                        <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
                                             <Info className="w-3.5 h-3.5" />
                                             Brokerage Fee
                                         </h4>
@@ -168,7 +168,7 @@ export default function DematAccountsPage() {
 
                                     {/* High Yield Features */}
                                     <div className="lg:col-span-1 py-2">
-                                        <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+                                        <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
                                             <Check className="w-3.5 h-3.5" />
                                             Premium Insights
                                         </h4>
@@ -192,7 +192,7 @@ export default function DematAccountsPage() {
                                                 <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Tailored for</p>
                                                 <p className="text-sm font-extrabold leading-tight mb-6">{broker.bestFor}</p>
                                             </div>
-                                            <Button className="w-full rounded-2xl bg-blue-500 hover:bg-blue-600 text-white font-black py-6 shadow-xl shadow-blue-500/20 transition-all active:scale-95">
+                                            <Button className="w-full rounded-2xl bg-blue-500 hover:bg-primary-600 text-white font-bold py-6 shadow-xl shadow-blue-500/20 transition-all active:scale-95">
                                                 Get Started
                                                 <ArrowUpRight className="w-4 h-4 ml-2" />
                                             </Button>
@@ -206,10 +206,10 @@ export default function DematAccountsPage() {
 
                 {/* Knowledge Center */}
                 <div className="mt-24 grid md:grid-cols-2 gap-8">
-                    <Card className="rounded-[3rem] border-0 shadow-lg bg-gradient-to-br from-blue-600 to-indigo-700 text-white overflow-hidden p-10 relative">
+                    <Card className="rounded-[3rem] border-0 shadow-lg bg-gradient-to-br from-blue-600 to-indigo-700 text-white overflow-hidden p-6 md:p-8 relative">
                         <Building2 className="absolute -right-8 -bottom-8 w-48 h-48 text-white/10" />
                         <CardHeader className="p-0 mb-6">
-                            <CardTitle className="text-2xl font-black tracking-tight">The Modern Demat Guide</CardTitle>
+                            <CardTitle className="text-2xl font-bold tracking-tight">The Modern Demat Guide</CardTitle>
                         </CardHeader>
                         <CardContent className="p-0">
                             <p className="text-blue-100 leading-relaxed font-medium mb-8">
@@ -231,9 +231,9 @@ export default function DematAccountsPage() {
                         </CardContent>
                     </Card>
 
-                    <Card className="rounded-[3rem] border-0 shadow-lg bg-white overflow-hidden p-10">
+                    <Card className="rounded-[3rem] border-0 shadow-lg bg-white overflow-hidden p-6 md:p-8">
                         <CardHeader className="p-0 mb-8">
-                            <CardTitle className="text-2xl font-black text-slate-900 flex items-center gap-3">
+                            <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
                                 <Zap className="w-7 h-7 text-amber-500" />
                                 Fast Track Activation
                             </CardTitle>
@@ -247,7 +247,7 @@ export default function DematAccountsPage() {
                                     { step: "04", text: "Receive unique BO-ID and start trading within 24 hours." }
                                 ].map((item, i) => (
                                     <div key={i} className="flex gap-4 group">
-                                        <span className="text-2xl font-black text-slate-200 group-hover:text-blue-500 transition-colors shrink-0 leading-none">{item.step}</span>
+                                        <span className="text-2xl font-bold text-slate-200 group-hover:text-blue-500 transition-colors shrink-0 leading-none">{item.step}</span>
                                         <p className="text-sm font-bold text-slate-600 leading-relaxed">{item.text}</p>
                                     </div>
                                 ))}

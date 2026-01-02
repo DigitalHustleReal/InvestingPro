@@ -126,7 +126,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
             {/* Scraper Triggers */}
             <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                 <CardHeader className="border-b border-white/5 px-8 py-6">
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                         <div className="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center">
                             <Zap className="w-4 h-4 text-indigo-400" />
                         </div>
@@ -138,7 +138,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                         <div className="p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:border-indigo-500/30 transition-all group">
                             <div className="flex items-center justify-between mb-4">
                                 <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Asset Crawler</span>
-                                <Badge className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
+                                <Badge className="bg-primary-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
                             </div>
                             <Button
                                 size="sm"
@@ -164,7 +164,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                         <div className="p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:border-purple-500/30 transition-all group">
                             <div className="flex items-center justify-between mb-4">
                                 <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Sentiment Crawler</span>
-                                <Badge className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
+                                <Badge className="bg-primary-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
                             </div>
                             <Button
                                 size="sm"
@@ -190,7 +190,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                         <div className="p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:border-emerald-500/30 transition-all group">
                             <div className="flex items-center justify-between mb-4">
                                 <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Market Feed Crawler</span>
-                                <Badge className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
+                                <Badge className="bg-primary-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
                             </div>
                             <Button
                                 size="sm"
@@ -219,7 +219,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
             {/* Pipeline Controls */}
             <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                 <CardHeader className="border-b border-white/5 px-8 py-6">
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                         <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
                             <Activity className="w-4 h-4 text-blue-400" />
                         </div>
@@ -259,7 +259,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
            {/* Manual Content Factory */}
             <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                 <CardHeader className="border-b border-white/5 px-8 py-6">
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                         <div className="w-8 h-8 rounded-lg bg-pink-500/10 flex items-center justify-center">
                             <Zap className="w-4 h-4 text-pink-400" />
                         </div>
@@ -289,7 +289,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
             {/* Recent Pipeline Runs */}
             <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                 <CardHeader className="border-b border-white/5 px-8 py-6 bg-white/[0.01]">
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                         <div className="w-8 h-8 rounded-lg bg-slate-500/10 flex items-center justify-center">
                             <Clock className="w-4 h-4 text-slate-400" />
                         </div>
@@ -318,8 +318,8 @@ export default function AutomationControls({ className = "" }: AutomationControl
                                                         {run.pipeline_type.replace(/_/g, ' ')}
                                                     </span>
                                                     <div className={cn(
-                                                        "flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-white/5 shadow-sm",
-                                                        run.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400' :
+                                                        "flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-widest border border-white/5 shadow-sm",
+                                                        run.status === 'completed' ? 'bg-primary-500/10 text-emerald-400' :
                                                         run.status === 'failed' ? 'bg-rose-500/10 text-rose-400' :
                                                         'bg-amber-500/10 text-amber-400'
                                                     )}>
@@ -375,7 +375,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
             {/* Content Refresh Controls */}
             <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                 <CardHeader className="border-b border-white/5 px-8 py-6">
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                         <div className="w-8 h-8 rounded-lg bg-teal-500/10 flex items-center justify-center">
                             <RefreshCw className="w-4 h-4 text-teal-400" />
                         </div>

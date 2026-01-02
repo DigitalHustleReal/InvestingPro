@@ -15,8 +15,8 @@ export default function ProductCard({ product }: { product: Product }) {
     const isSelected = isInCompare(product.id);
 
     // Extract key feature for display (e.g. Annual Fee)
-    const annualFee = product.features['annual_fee'];
-    const rewardRate = product.features['reward_rate'] || product.features['intraday_brokerage'];
+    const annualFee = product.features?.['annual_fee'];
+    const rewardRate = product.features?.['reward_rate'] || product.features?.['intraday_brokerage'];
 
     return (
         <Card className="flex flex-col h-full hover:shadow-xl transition-shadow relative overflow-hidden group border-slate-200">
@@ -43,7 +43,7 @@ export default function ProductCard({ product }: { product: Product }) {
                 />
             </div>
 
-            <CardContent className="flex-1 p-5">
+            <CardContent className="flex-1 p-6 md:p-8">
                 <div className="flex items-center gap-2 mb-2">
                     <Badge variant="outline" className="text-[10px] uppercase tracking-wider text-slate-500">
                         {product.provider_name}
@@ -88,7 +88,7 @@ export default function ProductCard({ product }: { product: Product }) {
                 </div>
             </CardContent>
 
-            <CardFooter className="p-5 pt-0 gap-3">
+            <CardFooter className="p-6 md:p-8 pt-0 gap-6 md:p-8">
                 <Link href={`/reviews/${product.slug}`} className="flex-1">
                     <Button variant="outline" className="w-full">Details</Button>
                 </Link>

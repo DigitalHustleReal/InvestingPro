@@ -30,7 +30,7 @@ const UserSegmentation = () => {
             desc: "Maximize Section 80C benefits with ELSS, PPF, and NPS shortlists.",
             icon: ShieldCheck,
             color: "text-emerald-400",
-            bg: "bg-emerald-500/10",
+            bg: "bg-primary-500/10",
             border: "border-emerald-500/20",
             link: "/ppf-nps",
             tag: "80C Shield"
@@ -61,7 +61,7 @@ const UserSegmentation = () => {
         <section className="py-24 bg-[#020617] relative overflow-hidden">
             {/* Background elements */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px]" />
-            <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-emerald-500/5 rounded-full blur-[100px]" />
+            <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-primary-500/5 rounded-full blur-[100px]" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
@@ -70,7 +70,7 @@ const UserSegmentation = () => {
                             <Zap size={14} className="text-amber-400" />
                             Personalized Experience
                         </div>
-                        <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+                        <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">
                             What describes you <span className="text-emerald-500">best?</span>
                         </h2>
                         <p className="text-lg text-slate-400 font-medium">
@@ -93,7 +93,7 @@ const UserSegmentation = () => {
                             <div className="flex-1">
                                 <div className="flex items-center justify-between mb-3">
                                     <h3 className="text-xl font-bold text-white tracking-tight">{item.title}</h3>
-                                    <div className={`text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${item.bg} ${item.color}`}>
+                                    <div className={`text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full ${item.bg} ${item.color}`}>
                                         {item.tag}
                                     </div>
                                 </div>

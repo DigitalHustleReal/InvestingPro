@@ -181,7 +181,7 @@ export default function AIContentGenerator() {
     return (
         <Card>
             <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-6 md:p-8">
                     <Sparkles className="w-5 h-5 text-purple-600" />
                     AI Content Generator
                 </CardTitle>
@@ -283,7 +283,7 @@ export default function AIContentGenerator() {
                         {generatedContent.article.ai_metadata && (
                             <div className="bg-slate-50 rounded-lg p-4 space-y-3 border border-slate-200">
                                 <div className="flex items-center gap-2 mb-3">
-                                    <Info className="w-4 h-4 text-blue-600" />
+                                    <Info className="w-4 h-4 text-primary-600" />
                                     <h4 className="font-bold text-sm">AI Generation Metadata</h4>
                                 </div>
                                 
@@ -331,7 +331,7 @@ export default function AIContentGenerator() {
                         </div>
 
                         <div className="flex gap-3">
-                            <Button onClick={saveArticle} className="bg-emerald-600 hover:bg-emerald-700">
+                            <Button onClick={saveArticle} className="bg-primary-600 hover:bg-emerald-700">
                                 Save as Draft
                             </Button>
                             <Button variant="outline" onClick={() => {

@@ -268,7 +268,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
             {/* EMI Calculator Example */}
             <Card className="bg-gradient-to-br from-indigo-600 to-indigo-700 text-white">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-white">
+                <CardTitle className="flex items-center gap-6 md:p-8 text-white">
                   <Calculator className="w-6 h-6" />
                   EMI Calculation Example
                 </CardTitle>
@@ -302,7 +302,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
             {/* Key Features */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-6 md:p-8">
                   <CheckCircle2 className="w-6 h-6 text-emerald-600" />
                   Key Features
                 </CardTitle>
@@ -322,8 +322,8 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
             {/* Benefits */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <TrendingDown className="w-6 h-6 text-blue-600" />
+                <CardTitle className="flex items-center gap-6 md:p-8">
+                  <TrendingDown className="w-6 h-6 text-primary-600" />
                   Loan Benefits
                 </CardTitle>
               </CardHeader>
@@ -350,7 +350,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card className="border-emerald-200 bg-emerald-50/30">
                 <CardHeader>
-                  <CardTitle className="text-emerald-700 flex items-center gap-2">
+                  <CardTitle className="text-emerald-700 flex items-center gap-6 md:p-8">
                     <CheckCircle2 className="w-5 h-5" />
                     Advantages
                   </CardTitle>
@@ -369,7 +369,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
               
               <Card className="border-red-200 bg-red-50/30">
                 <CardHeader>
-                  <CardTitle className="text-red-700 flex items-center gap-2">
+                  <CardTitle className="text-red-700 flex items-center gap-6 md:p-8">
                     <XCircle className="w-5 h-5" />
                     Disadvantages
                   </CardTitle>
@@ -390,7 +390,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
             {/* Fees & Charges */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-6 md:p-8">
                   <FileText className="w-6 h-6 text-gray-600" />
                   Fees & Charges
                 </CardTitle>
@@ -398,7 +398,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
               <CardContent>
                 <div className="space-y-3">
                   {loan.fees.map((fee, index) => (
-                    <div key={index} className="flex items-start justify-between p-3 border-b last:border-0">
+                    <div key={index} className="flex items-start justify-between p-6 md:p-8 border-b last:border-0">
                       <div className="flex-1">
                         <p className="font-medium text-gray-900">{fee.name}</p>
                         {fee.details && <p className="text-sm text-gray-500 mt-1">{fee.details}</p>}
@@ -433,8 +433,8 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
               {/* Eligibility */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <ShieldCheck className="w-5 h-5 text-blue-600" />
+                  <CardTitle className="text-base flex items-center gap-6 md:p-8">
+                    <ShieldCheck className="w-5 h-5 text-primary-600" />
                     Eligibility Criteria
                   </CardTitle>
                 </CardHeader>
@@ -476,7 +476,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
               
               {/* Important Notice */}
               <Card className="bg-red-50 border-red-200">
-                <CardContent className="p-4">
+                <CardContent className="p-6 md:p-8">
                   <div className="flex gap-3">
                     <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
                     <div className="text-xs text-red-800">

@@ -398,7 +398,7 @@ export default function MediaLibraryPage() {
                                     <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
                                 </div>
                             ) : filteredMedia.length === 0 ? (
-                                <Card className="p-12 text-center max-w-md mx-auto">
+                                <Card className="p-6 md:p-8 text-center max-w-md mx-auto">
                                     <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
                                         <ImageIcon className="w-8 h-8 text-slate-400" />
                                     </div>

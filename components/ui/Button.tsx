@@ -4,22 +4,23 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-    "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+    "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-semibold ring-offset-background transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed",
     {
         variants: {
             variant: {
-                default: "bg-blue-600 text-white hover:bg-blue-700",
-                destructive: "bg-red-500 text-white hover:bg-red-600",
-                outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-                secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-                ghost: "hover:bg-accent hover:text-accent-foreground",
-                link: "text-primary underline-offset-4 hover:underline",
+                default: "bg-primary-600 text-white hover:bg-primary-700 shadow-md hover:shadow-lg active:shadow-sm",
+                gradient: "bg-gradient-to-r from-primary-600 to-emerald-600 text-white hover:from-primary-700 hover:to-emerald-700 shadow-lg hover:shadow-primary-lg",
+                destructive: "bg-danger-500 text-white hover:bg-danger-700 shadow-md hover:shadow-lg",
+                outline: "border-2 border-primary-600 bg-white text-primary-600 hover:bg-primary-50",
+                secondary: "bg-accent-500 text-white hover:bg-accent-600 shadow-md hover:shadow-accent",
+                ghost: "text-stone-700 hover:bg-stone-100",
+                link: "text-primary-600 underline-offset-4 hover:underline",
             },
             size: {
-                default: "h-10 px-4 py-2",
-                sm: "h-9 rounded-md px-3",
-                lg: "h-11 rounded-md px-8",
-                icon: "h-10 w-10",
+                default: "h-11 px-6 py-2",      // 44px (minimum tap target)
+                sm: "h-10 px-4 py-2",           // 40px (secondary actions)
+                lg: "h-14 px-8 py-3",           // 56px (hero CTAs)
+                icon: "h-11 w-11",              // 44px square (icons only)
             },
         },
         defaultVariants: {

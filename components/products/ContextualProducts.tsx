@@ -48,13 +48,13 @@ export default function ContextualProducts({ category }: { category: string }) {
                 <p className="text-slate-400 mb-8 max-w-lg text-sm">Based on the analysis in this article, these are currently the best {category.replace('-', ' ')} options in India for 2026.</p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {products.map(p => (
+                    {Array.isArray(products) && products.map(p => (
                         <Card key={p.id} className="bg-slate-800/40 border-slate-700/50 p-6 flex flex-col hover:border-teal-500/50 transition-all group backdrop-blur-md">
                             <div className="flex justify-between items-start mb-5">
                                 <div className="p-2 bg-white rounded-xl w-14 h-14 flex items-center justify-center shadow-inner overflow-hidden">
                                      <img src={p.image_url} alt={p.name} className="w-full h-full object-contain" />
                                 </div>
-                                <div className="text-amber-400 flex items-center gap-1.5 text-xs font-black bg-slate-900/80 px-2.5 py-1 rounded-full border border-slate-700">
+                                <div className="text-amber-400 flex items-center gap-1.5 text-xs font-bold bg-slate-900/80 px-2.5 py-1 rounded-full border border-slate-700">
                                     <Star className="w-3.5 h-3.5 fill-current" /> {p.rating}
                                 </div>
                             </div>

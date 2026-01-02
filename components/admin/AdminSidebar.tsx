@@ -172,7 +172,7 @@ export default function AdminSidebar() {
                         <p className="text-sm font-bold text-white truncate">John Doe</p>
                         <p className="text-[10px] text-slate-500 truncate font-medium uppercase tracking-wider">Super Admin</p>
                     </div>
-                    <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]" />
+                    <div className="w-2 h-2 rounded-full bg-primary-500 shadow-[0_0_8px_#10b981]" />
                 </div>
             </div>
         </div>

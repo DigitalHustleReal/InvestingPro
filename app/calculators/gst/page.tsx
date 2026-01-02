@@ -123,7 +123,7 @@ export default function GSTCalculatorPage() {
             {/* Hero Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
                 <div className="text-center mb-6">
-                    <h1 className="text-4xl lg:text-5xl font-black text-slate-900 mb-4">
+                    <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
                         GST Calculator - Calculate GST Online
                     </h1>
                     <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-4">
@@ -141,8 +141,8 @@ export default function GSTCalculatorPage() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-8">
                 {/* Introduction */}
                 <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-slate-50 to-white">
-                    <CardContent className="p-8 lg:p-12">
-                        <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-6">
+                    <CardContent className="p-8 lg:p-6 md:p-8">
+                        <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
                             GST Calculator India - Calculate Goods and Services Tax
                         </h2>
                         <div className="prose prose-slate max-w-none">
@@ -178,7 +178,7 @@ export default function GSTCalculatorPage() {
                 {/* GST Rates Information */}
                 <Card className="border-0 shadow-lg rounded-2xl">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-black text-slate-900 flex items-center gap-3">
+                        <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
                             <Percent className="w-6 h-6 text-teal-600" />
                             GST Rates in India
                         </CardTitle>
@@ -209,7 +209,7 @@ export default function GSTCalculatorPage() {
                 {/* FAQ Section */}
                 <Card className="border-0 shadow-lg rounded-2xl">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-black text-slate-900 flex items-center gap-3">
+                        <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
                             <Info className="w-6 h-6 text-teal-600" />
                             GST Calculator - Frequently Asked Questions
                         </CardTitle>
@@ -243,7 +243,7 @@ export default function GSTCalculatorPage() {
                                 }
                             ].map((faq, idx) => (
                                 <div key={idx} className="border-b border-slate-200 pb-6 last:border-0">
-                                    <h3 className="font-black text-slate-900 mb-2 text-lg">{faq.q}</h3>
+                                    <h3 className="font-bold text-slate-900 mb-2 text-lg">{faq.q}</h3>
                                     <p className="text-slate-600 leading-relaxed">{faq.a}</p>
                                 </div>
                             ))}
@@ -254,7 +254,7 @@ export default function GSTCalculatorPage() {
                 {/* Related Calculators */}
                 <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-black text-slate-900">Related Business Calculators</CardTitle>
+                        <CardTitle className="text-2xl font-bold text-slate-900">Related Business Calculators</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

@@ -64,9 +64,9 @@ const steps = [
                 </p>
                 <div className="grid gap-4">
                     <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200">
-                        <CardContent className="p-4">
+                        <CardContent className="p-6 md:p-8">
                             <div className="flex items-start gap-3">
-                                <FileText className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
+                                <FileText className="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" />
                                 <div>
                                     <h4 className="font-semibold text-blue-900 mb-1">Write Articles</h4>
                                     <p className="text-sm text-blue-700">Share your investment knowledge and earn 50 points per published article</p>
@@ -75,7 +75,7 @@ const steps = [
                         </CardContent>
                     </Card>
                     <Card className="bg-gradient-to-br from-amber-50 to-orange-50 border-amber-200">
-                        <CardContent className="p-4">
+                        <CardContent className="p-6 md:p-8">
                             <div className="flex items-start gap-3">
                                 <Star className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" />
                                 <div>
@@ -120,7 +120,7 @@ const steps = [
                     </div>
                     <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
                         <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
-                            <Calculator className="w-5 h-5 text-blue-600" />
+                            <Calculator className="w-5 h-5 text-primary-600" />
                         </div>
                         <div>
                             <p className="font-medium text-slate-900">EMI Calculator</p>
@@ -144,7 +144,7 @@ const steps = [
                 <div className="space-y-3">
                     <Link href="/profile">
                         <Card className="hover:shadow-md transition-shadow cursor-pointer border-teal-200 bg-gradient-to-br from-teal-50 to-emerald-50">
-                            <CardContent className="p-4">
+                            <CardContent className="p-6 md:p-8">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
                                         <User className="w-5 h-5 text-teal-600" />
@@ -157,7 +157,7 @@ const steps = [
                     </Link>
                     <Link href="/risk-assessment">
                         <Card className="hover:shadow-md transition-shadow cursor-pointer border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50">
-                            <CardContent className="p-4">
+                            <CardContent className="p-6 md:p-8">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
                                         <TrendingUp className="w-5 h-5 text-purple-600" />

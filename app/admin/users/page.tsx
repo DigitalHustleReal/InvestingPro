@@ -55,7 +55,7 @@ export default function UsersPage() {
                         </div>
                     ) : users.length === 0 ? (
                         <Card>
-                            <CardContent className="p-12 text-center">
+                            <CardContent className="p-6 md:p-8 text-center">
                                 <Users className="w-12 h-12 text-slate-400 mx-auto mb-4" />
                                 <h3 className="text-lg font-semibold text-slate-900 mb-2">No users found</h3>
                                 <p className="text-slate-600">

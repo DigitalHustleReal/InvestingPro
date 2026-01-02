@@ -268,7 +268,7 @@ export default function EditorialDraftCard({
                             </Button>
                             <Button
                                 size="sm"
-                                className="bg-emerald-600 hover:bg-emerald-700 text-white"
+                                className="bg-primary-600 hover:bg-emerald-700 text-white"
                                 onClick={handleApprove}
                                 disabled={approveMutation.isPending}
                             >

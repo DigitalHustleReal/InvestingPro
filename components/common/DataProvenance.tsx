@@ -92,7 +92,7 @@ export default function DataProvenance({
     return (
         <Card className={className}>
             <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-6 md:p-8">
                     <Calendar className="w-5 h-5 text-teal-600" />
                     Data Sources & Provenance
                 </CardTitle>
@@ -111,7 +111,7 @@ export default function DataProvenance({
             <CardContent>
                 <div className="space-y-4">
                     {Object.entries(groupedBySource).map(([sourceId, group]) => (
-                        <div key={sourceId} className="border border-slate-200 rounded-lg p-4">
+                        <div key={sourceId} className="border border-slate-200 rounded-lg p-6 md:p-8">
                             {/* Source Header */}
                             {group.source && (
                                 <div className="flex items-start justify-between mb-3">

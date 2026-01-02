@@ -102,8 +102,8 @@ export default function EditorialPageTemplate({
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     <Card className="border-slate-200 shadow-sm rounded-2xl bg-blue-50">
                         <CardHeader>
-                            <CardTitle className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                                <Info className="w-5 h-5 text-blue-600" />
+                            <CardTitle className="text-lg font-bold text-slate-900 flex items-center gap-6 md:p-8">
+                                <Info className="w-5 h-5 text-primary-600" />
                                 Key Terms
                             </CardTitle>
                         </CardHeader>

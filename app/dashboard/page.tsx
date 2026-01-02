@@ -158,7 +158,7 @@ export default function PersonalDashboard() {
                     <Card className="border-none shadow-sm bg-white">
                         <CardContent className="p-6">
                             <div className="flex justify-between items-start mb-4">
-                                <TrendingUp className="w-5 h-5 text-blue-600" />
+                                <TrendingUp className="w-5 h-5 text-primary-600" />
                             </div>
                             <div className="text-2xl font-bold text-slate-900">₹2.4L</div>
                             <div className="text-xs text-slate-500 mt-1">Total Net Worth</div>
@@ -246,7 +246,7 @@ export default function PersonalDashboard() {
                     <div className="lg:col-span-4 space-y-8">
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-lg flex items-center gap-2">
+                                <CardTitle className="text-lg flex items-center gap-6 md:p-8">
                                     <PieChart className="w-4 h-4 text-teal-600" /> Spending Mix
                                 </CardTitle>
                             </CardHeader>

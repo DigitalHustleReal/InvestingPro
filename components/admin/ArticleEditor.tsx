@@ -123,7 +123,7 @@ export default function ArticleEditor({
                 heading: { levels: [1, 2, 3, 4] }, // H1-H4 support
                 link: {
                     openOnClick: false,
-                    HTMLAttributes: { class: 'text-blue-600 underline' },
+                    HTMLAttributes: { class: 'text-primary-600 underline' },
                 },
             }),
             Table.configure({

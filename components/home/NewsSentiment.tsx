@@ -48,27 +48,27 @@ export default function NewsSentiment() {
     return (
         <div className="space-y-4">
             <div className="flex items-center justify-between px-2">
-                <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-st flex items-center gap-2">
                     <MessageSquare size={14} className="text-indigo-400" />
                     News Sentiment Alpha
                 </h3>
-                <Badge variant="outline" className="text-[9px] font-black border-slate-800 text-slate-400">LIVE FEED</Badge>
+                <Badge variant="outline" className="text-[9px] font-bold border-slate-800 text-slate-400">LIVE FEED</Badge>
             </div>
 
             <div className="grid grid-cols-1 gap-3">
                 {newsItems.map((news) => (
                     <Card key={news.id} className="bg-slate-900/40 border-slate-800/60 hover:border-indigo-500/30 transition-all group cursor-pointer overflow-hidden rounded-2xl">
-                        <CardContent className="p-4">
+                        <CardContent className="p-6 md:p-8">
                             <div className="flex justify-between items-start mb-2">
                                 <div className="flex items-center gap-2">
-                                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-tighter">{news.source}</span>
+                                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">{news.source}</span>
                                     <span className="text-[10px] text-slate-700">•</span>
                                     <span className="text-[10px] font-bold text-slate-500 flex items-center gap-1">
                                         <Clock size={10} /> {news.time}
                                     </span>
                                 </div>
-                                <div className={`px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest flex items-center gap-1 ${news.sentiment === 'bullish' || news.sentiment === 'positive'
-                                        ? 'bg-emerald-500/10 text-emerald-400'
+                                <div className={`px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-widest flex items-center gap-1 ${news.sentiment === 'bullish' || news.sentiment === 'positive'
+                                        ? 'bg-primary-500/10 text-emerald-400'
                                         : 'bg-rose-500/10 text-rose-400'
                                     }`}>
                                     {news.sentiment === 'bullish' ? <TrendingUp size={10} /> : <TrendingDown size={10} />}
@@ -80,7 +80,7 @@ export default function NewsSentiment() {
                             </h4>
                             <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/5">
                                 <Badge className="bg-slate-800/50 text-slate-400 border-0 text-[10px] font-bold">{news.tag}</Badge>
-                                <div className="flex items-center gap-1 text-[10px] font-black text-slate-500 group-hover:text-white transition-colors">
+                                <div className="flex items-center gap-1 text-[10px] font-bold text-slate-500 group-hover:text-white transition-colors">
                                     Analyze <ChevronRight size={12} />
                                 </div>
                             </div>
@@ -89,7 +89,7 @@ export default function NewsSentiment() {
                 ))}
             </div>
 
-            <button className="w-full py-3 rounded-xl border border-dashed border-slate-800 text-[10px] font-black text-slate-500 uppercase tracking-widest hover:border-slate-700 hover:text-slate-400 transition-all">
+            <button className="w-full py-3 rounded-xl border border-dashed border-slate-800 text-[10px] font-semibold text-slate-500 uppercase tracking-st hover:border-slate-700 hover:text-slate-400 transition-all">
                 View Entire News Deck
             </button>
         </div>

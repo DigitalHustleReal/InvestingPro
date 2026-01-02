@@ -43,8 +43,8 @@ export default function TopPicksSidebar({ category }: { category: string }) {
                     ))}
                 </div>
             ) : (
-                products.map(p => (
-                    <Card key={p.id} className="p-4 border-slate-100 hover:border-teal-200 transition-colors group">
+                Array.isArray(products) && products.map(p => (
+                    <Card key={p.id} className="p-6 md:p-8 border-slate-100 hover:border-teal-200 transition-colors group">
                         <div className="flex gap-4">
                             <img src={p.image_url} alt={p.name} className="w-12 h-12 object-contain bg-slate-50 rounded p-1 shrink-0" />
                             <div className="flex-1 min-w-0">

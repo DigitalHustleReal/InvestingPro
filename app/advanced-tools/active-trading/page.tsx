@@ -60,7 +60,7 @@ export default function ActiveTradingPage() {
             </div>
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-3">
-                <BarChart3 className="w-6 h-6 text-blue-600" />
+                <BarChart3 className="w-6 h-6 text-primary-600" />
               </div>
               <h3 className="font-semibold text-slate-900 mb-1">Comparison</h3>
               <p className="text-sm text-slate-600">Choose brokers</p>

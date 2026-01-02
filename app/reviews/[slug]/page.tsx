@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Metadata } from 'next';
 import { productService } from '@/lib/products/product-service';
 import SEOHead from '@/components/common/SEOHead';
 import { Button } from '@/components/ui/Button';
@@ -7,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Check, X, Star, Link as LinkIcon, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug }  = await params;
     const product = await productService.getProductBySlug(slug);
     if (!product) return {};
@@ -75,7 +76,7 @@ export default async function ProductReviewPage({ params }: { params: Promise<{ 
                                     <Check className="w-5 h-5 bg-teal-100 rounded-full p-1" /> Pros
                                 </h3>
                                 <ul className="space-y-3">
-                                    {product.pros.map(pro => (
+                                    {(product.pros || []).map(pro => (
                                         <li key={pro} className="text-slate-700 text-sm flex gap-2">
                                             <span className="text-teal-500">•</span> {pro}
                                         </li>
@@ -87,7 +88,7 @@ export default async function ProductReviewPage({ params }: { params: Promise<{ 
                                     <X className="w-5 h-5 bg-rose-100 rounded-full p-1" /> Cons
                                 </h3>
                                 <ul className="space-y-3">
-                                    {product.cons.map(con => (
+                                    {(product.cons || []).map(con => (
                                         <li key={con} className="text-slate-700 text-sm flex gap-2">
                                             <span className="text-rose-500">•</span> {con}
                                         </li>
@@ -100,7 +101,7 @@ export default async function ProductReviewPage({ params }: { params: Promise<{ 
                         <div className="bg-white p-8 rounded-xl border border-slate-200">
                             <h2 className="text-2xl font-bold mb-6">Key Features</h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                {Object.entries(product.features).map(([key, value]) => (
+                                {Object.entries(product.features || {}).map(([key, value]) => (
                                     <div key={key} className="border-b border-slate-100 pb-2">
                                         <p className="text-sm text-slate-500 capitalize mb-1">{key.replace(/_/g, ' ')}</p>
                                         <p className="font-semibold text-slate-800">{String(value)}</p>

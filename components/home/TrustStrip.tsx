@@ -17,7 +17,7 @@ const TrustStrip = () => {
                     <div className="flex flex-col items-center md:items-start">
                         <div className="flex items-center gap-2 mb-2">
                             <ShieldCheck className="w-5 h-5 text-emerald-500" />
-                            <span className="text-white font-black text-xs uppercase tracking-[0.2em]">Institutional Trust</span>
+                            <span className="text-white font-semibold text- uppercase tracking-[0.2em]">Institutional Trust</span>
                         </div>
                         <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Verified Financial Data & Analysis</p>
                     </div>

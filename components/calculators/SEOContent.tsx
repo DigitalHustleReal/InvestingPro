@@ -248,7 +248,7 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
             {/* SEO-Optimized Introduction */}
             <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-slate-50 to-white">
                 <CardContent className="p-8">
-                    <h2 className="text-3xl font-black text-slate-900 mb-4">{content.h1}</h2>
+                    <h2 className="text-3xl font-bold text-slate-900 mb-4">{content.h1}</h2>
                     <p className="text-lg text-slate-600 leading-relaxed mb-6">{content.intro}</p>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -266,17 +266,17 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
             {'howItWorks' in content && content.howItWorks && (
                 <Card className="border-0 shadow-lg rounded-2xl">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-black text-slate-900">How to Use {content.title.split(' - ')[0]}</CardTitle>
+                        <CardTitle className="text-2xl font-bold text-slate-900">How to Use {content.title.split(' - ')[0]}</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {content.howItWorks.map((step, idx) => (
                                 <div key={idx} className="relative">
-                                    <div className="absolute -left-2 top-0 w-8 h-8 rounded-full bg-teal-600 text-white flex items-center justify-center font-black text-sm">
+                                    <div className="absolute -left-2 top-0 w-8 h-8 rounded-full bg-teal-600 text-white flex items-center justify-center font-semibold text-">
                                         {step.step}
                                     </div>
                                     <div className="pl-6">
-                                        <h3 className="font-black text-slate-900 mb-2">{step.title}</h3>
+                                        <h3 className="font-bold text-slate-900 mb-2">{step.title}</h3>
                                         <p className="text-sm text-slate-600 leading-relaxed">{step.description}</p>
                                     </div>
                                 </div>
@@ -290,7 +290,7 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
             {'faqs' in content && content.faqs && (
                 <Card className="border-0 shadow-lg rounded-2xl">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-black text-slate-900 flex items-center gap-3">
+                        <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
                             <Info className="w-6 h-6 text-teal-600" />
                             Frequently Asked Questions
                         </CardTitle>
@@ -315,7 +315,7 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
             {/* Related Calculators */}
             <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50">
                 <CardHeader>
-                    <CardTitle className="text-2xl font-black text-slate-900">Related Calculators</CardTitle>
+                    <CardTitle className="text-2xl font-bold text-slate-900">Related Calculators</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

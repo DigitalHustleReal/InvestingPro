@@ -111,7 +111,7 @@ export default function Pagination({
                                     variant={currentPage === page ? "default" : "outline"}
                                     size="sm"
                                     onClick={() => onPageChange(page as number)}
-                                    className={currentPage === page ? "bg-blue-600" : ""}
+                                    className={currentPage === page ? "bg-primary-600" : ""}
                                 >
                                     {page}
                                 </Button>

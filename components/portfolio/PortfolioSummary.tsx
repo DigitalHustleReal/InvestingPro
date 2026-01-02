@@ -19,7 +19,7 @@ export default function PortfolioSummary({ holdings = [] }: PortfolioSummaryProp
             label: "Current Value",
             value: `₹${totalValue.toLocaleString('en-IN')}`,
             icon: Wallet,
-            color: "text-blue-600",
+            color: "text-primary-600",
             bg: "bg-blue-50"
         },
         {
@@ -49,13 +49,13 @@ export default function PortfolioSummary({ holdings = [] }: PortfolioSummaryProp
                                 <stat.icon className="w-7 h-7" />
                             </div>
                             {stat.subValue && (
-                                <span className={`text-xs font-black px-3 py-1.5 rounded-full ${stat.bg} ${stat.color} uppercase tracking-widest`}>
+                                <span className={`text-xs font-bold px-3 py-1.5 rounded-full ${stat.bg} ${stat.color} uppercase tracking-widest`}>
                                     {stat.subValue}
                                 </span>
                             )}
                         </div>
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">{stat.label}</p>
-                        <h3 className="text-3xl font-black text-slate-900 tracking-tight">{stat.value}</h3>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">{stat.label}</p>
+                        <h3 className="text-3xl font-bold text-slate-900 tracking-tight">{stat.value}</h3>
                     </CardContent>
                 </Card>
             ))}

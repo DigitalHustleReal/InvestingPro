@@ -284,7 +284,7 @@ export default function AdminPage() {
             label: 'Affiliate Clicks',
             value: (totalClicks ?? 0).toLocaleString(),
             icon: MousePointerClick,
-            color: 'bg-emerald-500',
+            color: 'bg-primary-500',
             change: `${conversionRate ?? 0}% conversion`,
             trend: 'up'
         },
@@ -371,7 +371,7 @@ export default function AdminPage() {
                                         </div>
                                         {stat.trend && (
                                             <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold ${
-                                                stat.trend === 'up' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'
+                                                stat.trend === 'up' ? 'bg-primary-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'
                                             }`}>
                                                 {stat.trend === 'up' ? (
                                                     <ArrowUpRight className="w-4 h-4" />
@@ -397,7 +397,7 @@ export default function AdminPage() {
                         {/* Scraper Status */}
                         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                             <CardHeader className="pb-4 border-b border-white/5 px-7">
-                                <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                                     <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
                                         <Database className="w-4 h-4 text-blue-400" />
                                     </div>
@@ -410,11 +410,11 @@ export default function AdminPage() {
                                         <span className="text-sm font-medium text-slate-400">Cluster Status</span>
                                         <div className={cn(
                                             "flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider",
-                                            scraperStatus.status === 'running' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'
+                                            scraperStatus.status === 'running' ? 'bg-primary-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'
                                         )}>
                                             <div className={cn(
                                                 "w-1.5 h-1.5 rounded-full animate-pulse",
-                                                scraperStatus.status === 'running' ? 'bg-emerald-500' : 'bg-amber-500'
+                                                scraperStatus.status === 'running' ? 'bg-primary-500' : 'bg-amber-500'
                                             )} />
                                             {scraperStatus.status === 'running' ? 'Operational' : 'Idle'}
                                         </div>
@@ -454,7 +454,7 @@ export default function AdminPage() {
                         {/* Content Pipeline */}
                         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                             <CardHeader className="pb-4 border-b border-white/5 px-7">
-                                <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                                     <div className="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center">
                                         <Zap className="w-4 h-4 text-purple-400" />
                                     </div>
@@ -497,7 +497,7 @@ export default function AdminPage() {
                         {/* RSS Dynamics */}
                         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                             <CardHeader className="pb-4 border-b border-white/5 px-7">
-                                <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                                     <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center">
                                         <Rss className="w-4 h-4 text-orange-400" />
                                     </div>
@@ -534,7 +534,7 @@ export default function AdminPage() {
                     {/* Social Media Metrics */}
                     <Card className="mb-10 bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                         <CardHeader className="border-b border-white/5 px-8 py-6">
-                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                                 <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
                                     <Share2 className="w-4 h-4 text-blue-400" />
                                 </div>
@@ -600,8 +600,8 @@ export default function AdminPage() {
                     {/* Trends */}
                     <Card className="mb-10 bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                         <CardHeader className="border-b border-white/5 px-8 py-6">
-                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
+                                <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
                                     <TrendingUp className="w-4 h-4 text-emerald-400" />
                                 </div>
                                 Intelligence Vectors
@@ -623,7 +623,7 @@ export default function AdminPage() {
                                             </div>
                                             <div className={cn(
                                                 "w-8 h-8 rounded-lg flex items-center justify-center",
-                                                trend.trend === 'up' ? 'bg-emerald-500/10' : 'bg-rose-500/10'
+                                                trend.trend === 'up' ? 'bg-primary-500/10' : 'bg-rose-500/10'
                                             )}>
                                                 {trend.trend === 'up' ? (
                                                     <ArrowUpRight className="w-4 h-4 text-emerald-400" />
@@ -704,7 +704,7 @@ export default function AdminPage() {
                                             <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 group hover:border-emerald-500/30 transition-all">
                                                 <div className="flex items-center justify-between mb-4">
                                                     <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Sentiment Stream</span>
-                                                    <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                                                    <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
                                                         <Star className="w-4 h-4 text-emerald-400" />
                                                     </div>
                                                 </div>
@@ -821,7 +821,7 @@ export default function AdminPage() {
                                                             </span>
                                                             <div className={cn(
                                                                 "flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px]",
-                                                                article.status === 'published' ? 'bg-emerald-500/10 text-emerald-400' :
+                                                                article.status === 'published' ? 'bg-primary-500/10 text-emerald-400' :
                                                                 article.status === 'draft' ? 'bg-amber-500/10 text-amber-400' :
                                                                 'bg-slate-500/10 text-slate-400'
                                                             )}>
@@ -855,7 +855,7 @@ export default function AdminPage() {
                             <div className="space-y-6">
                                 <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                                     <CardHeader className="border-b border-white/5 px-8 py-6">
-                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                                             <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
                                                 <Share2 className="w-4 h-4 text-blue-400" />
                                             </div>
@@ -885,7 +885,7 @@ export default function AdminPage() {
                                                 </div>
                                                 <Button size="sm" variant="ghost" className={cn(
                                                     "h-10 px-6 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all",
-                                                    socialMetrics.facebook ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-blue-500 text-white hover:bg-blue-600 shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+                                                    socialMetrics.facebook ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-blue-500 text-white hover:bg-primary-600 shadow-[0_0_15px_rgba(59,130,246,0.3)]"
                                                 )}>
                                                     {socialMetrics.facebook ? 'Terminate' : 'Initialize'}
                                                 </Button>
@@ -978,7 +978,7 @@ export default function AdminPage() {
                                     {socialMetrics.facebook && (
                                         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                                             <CardHeader className="border-b border-white/5 px-8 py-5">
-                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                                                     <Facebook className="w-4 h-4 text-blue-400" />
                                                     Facebook Node Analysis
                                                 </CardTitle>
@@ -1006,7 +1006,7 @@ export default function AdminPage() {
                                     {socialMetrics.twitter && (
                                         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                                             <CardHeader className="border-b border-white/5 px-8 py-5">
-                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                                                     <Twitter className="w-4 h-4 text-sky-400" />
                                                     Twitter Stream Pulse
                                                 </CardTitle>
@@ -1034,7 +1034,7 @@ export default function AdminPage() {
                                     {socialMetrics.linkedin && (
                                         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                                             <CardHeader className="border-b border-white/5 px-8 py-5">
-                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                                                     <Linkedin className="w-4 h-4 text-indigo-400" />
                                                     LinkedIn Authority Vector
                                                 </CardTitle>
@@ -1062,7 +1062,7 @@ export default function AdminPage() {
                                     {socialMetrics.instagram && (
                                         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                                             <CardHeader className="border-b border-white/5 px-8 py-5">
-                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                                                     <Instagram className="w-4 h-4 text-pink-400" />
                                                     Instagram Visual Feed
                                                 </CardTitle>
@@ -1090,7 +1090,7 @@ export default function AdminPage() {
                                     {socialMetrics.youtube && (
                                         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                                             <CardHeader className="border-b border-white/5 px-8 py-5">
-                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                                                     <Youtube className="w-4 h-4 text-red-400" />
                                                     YouTube Broadcast Stream
                                                 </CardTitle>
@@ -1143,7 +1143,7 @@ export default function AdminPage() {
                                                         </div>
                                                         <div className={cn(
                                                             "w-12 h-12 rounded-xl flex items-center justify-center shadow-lg transition-transform group-hover:scale-110",
-                                                            trend.trend === 'up' ? 'bg-emerald-500/10' : 'bg-rose-500/10'
+                                                            trend.trend === 'up' ? 'bg-primary-500/10' : 'bg-rose-500/10'
                                                         )}>
                                                             {trend.trend === 'up' ? (
                                                                 <ArrowUpRight className="w-6 h-6 text-emerald-400" />

@@ -89,7 +89,7 @@ export default function TableOfContents({ className = '' }: TableOfContentsProps
               {/* Header with gradient */}
               <div className="bg-gradient-to-r from-emerald-50 to-blue-50 px-6 py-4 border-b border-emerald-100/50">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-emerald-500 rounded-lg shadow-lg animate-pulse-slow">
+                  <div className="p-2 bg-primary-500 rounded-lg shadow-lg animate-pulse-slow">
                     <List className="w-5 h-5 text-white" />
                   </div>
                   <h3 className="font-bold text-gray-900 text-lg">Table of Contents</h3>

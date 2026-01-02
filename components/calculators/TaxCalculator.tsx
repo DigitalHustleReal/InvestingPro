@@ -204,7 +204,7 @@ export function TaxCalculator() {
                     {/* Decorative gradient overlay */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-purple-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
-                        <div className="text-center p-5 bg-white rounded-xl shadow-sm border border-purple-100 mb-4">
+                        <div className="text-center p-6 md:p-8 bg-white rounded-xl shadow-sm border border-purple-100 mb-4">
                             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">
                                 {result.betterRegime} Regime is Better
                             </p>
@@ -217,7 +217,7 @@ export function TaxCalculator() {
                         <div className="grid grid-cols-2 gap-3 mb-4">
                             <div className="text-center p-5 bg-white rounded-2xl shadow-sm border border-blue-100">
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Old Tax</p>
-                                <p className="text-lg font-extrabold text-blue-600">{formatCurrency(result.oldTax)}</p>
+                                <p className="text-lg font-extrabold text-primary-600">{formatCurrency(result.oldTax)}</p>
                                 <p className="text-[10px] text-slate-500 mt-1">Net: {formatCurrency(result.oldNetIncome)}</p>
                             </div>
                             <div className="text-center p-5 bg-white rounded-2xl shadow-sm border border-emerald-100">
@@ -291,7 +291,7 @@ export function TaxCalculator() {
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4">
-                            <div className="p-4 bg-blue-50 rounded-xl border border-blue-100">
+                            <div className="p-6 md:p-8 bg-blue-50 rounded-xl border border-blue-100">
                                 <p className="text-xs font-bold text-blue-900 mb-2">Old Tax Regime</p>
                                 <div className="space-y-1 text-xs text-slate-700">
                                     <p>Up to ₹2.5L: 0%</p>
@@ -315,7 +315,7 @@ export function TaxCalculator() {
 
                             <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
                                 <div className="flex items-start gap-3">
-                                    <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                                    <Info className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
                                     <div>
                                         <p className="text-sm font-semibold text-slate-900 mb-1">Tax Regime Selection</p>
                                         <p className="text-xs text-slate-600 leading-relaxed">
@@ -342,7 +342,7 @@ function TaxSEOContentSection() {
             {/* Introduction */}
             <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-slate-50 to-white">
                 <CardContent className="p-8">
-                    <h2 className="text-3xl font-black text-slate-900 mb-4">
+                    <h2 className="text-3xl font-bold text-slate-900 mb-4">
                         Income Tax Calculator India 2024-25 - Compare Old vs New Tax Regime
                     </h2>
                     <p className="text-lg text-slate-600 leading-relaxed mb-6">
@@ -372,7 +372,7 @@ function TaxSEOContentSection() {
             {/* How It Works */}
             <Card className="border-0 shadow-lg rounded-2xl">
                 <CardHeader>
-                    <CardTitle className="text-2xl font-black text-slate-900">How to Use Income Tax Calculator</CardTitle>
+                    <CardTitle className="text-2xl font-bold text-slate-900">How to Use Income Tax Calculator</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -399,11 +399,11 @@ function TaxSEOContentSection() {
                             }
                         ].map((step, idx) => (
                             <div key={idx} className="relative">
-                                <div className="absolute -left-2 top-0 w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center font-black text-sm">
+                                <div className="absolute -left-2 top-0 w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center font-semibold text-">
                                     {step.step}
                                 </div>
                                 <div className="pl-6">
-                                    <h3 className="font-black text-slate-900 mb-2">{step.title}</h3>
+                                    <h3 className="font-bold text-slate-900 mb-2">{step.title}</h3>
                                     <p className="text-sm text-slate-600 leading-relaxed">{step.description}</p>
                                 </div>
                             </div>
@@ -415,7 +415,7 @@ function TaxSEOContentSection() {
             {/* FAQ Section */}
             <Card className="border-0 shadow-lg rounded-2xl">
                 <CardHeader>
-                    <CardTitle className="text-2xl font-black text-slate-900 flex items-center gap-3">
+                    <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
                         <Info className="w-6 h-6 text-purple-600" />
                         Income Tax Calculator FAQs
                     </CardTitle>
@@ -449,7 +449,7 @@ function TaxSEOContentSection() {
                             }
                         ].map((faq, idx) => (
                             <div key={idx} className="border-b border-slate-200 pb-6 last:border-0">
-                                <h3 className="font-black text-slate-900 mb-2 text-lg">{faq.q}</h3>
+                                <h3 className="font-bold text-slate-900 mb-2 text-lg">{faq.q}</h3>
                                 <p className="text-slate-600 leading-relaxed">{faq.a}</p>
                             </div>
                         ))}

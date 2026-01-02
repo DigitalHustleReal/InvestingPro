@@ -283,7 +283,7 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
                   </div>
                   
                   <a href={fund.applyLink} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-6 text-lg mb-2">
+                    <Button className="w-full bg-primary-600 hover:bg-emerald-700 text-white font-semibold py-6 text-lg mb-2">
                       Invest Now <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
@@ -303,7 +303,7 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
             {/* Investment Objective */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-6 md:p-8">
                   <Target className="w-6 h-6 text-indigo-600" />
                   Investment Objective
                 </CardTitle>
@@ -316,7 +316,7 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
             {/* Key Features */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-6 md:p-8">
                   <CheckCircle2 className="w-6 h-6 text-emerald-600" />
                   Key Features
                 </CardTitle>
@@ -336,8 +336,8 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
             {/* Portfolio Holdings */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BarChart3 className="w-6 h-6 text-blue-600" />
+                <CardTitle className="flex items-center gap-6 md:p-8">
+                  <BarChart3 className="w-6 h-6 text-primary-600" />
                   Portfolio Holdings
                 </CardTitle>
               </CardHeader>
@@ -399,7 +399,7 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card className="border-emerald-200 bg-emerald-50/30">
                 <CardHeader>
-                  <CardTitle className="text-emerald-700 flex items-center gap-2">
+                  <CardTitle className="text-emerald-700 flex items-center gap-6 md:p-8">
                     <CheckCircle2 className="w-5 h-5" />
                     Strengths
                   </CardTitle>
@@ -418,7 +418,7 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
               
               <Card className="border-red-200 bg-red-50/30">
                 <CardHeader>
-                  <CardTitle className="text-red-700 flex items-center gap-2">
+                  <CardTitle className="text-red-700 flex items-center gap-6 md:p-8">
                     <XCircle className="w-5 h-5" />
                     Limitations
                   </CardTitle>
@@ -487,7 +487,7 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
               {/* Suitable For */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-2">
+                  <CardTitle className="text-base flex items-center gap-6 md:p-8">
                     <ShieldCheck className="w-5 h-5 text-green-600" />
                     Suitable For
                   </CardTitle>
@@ -518,7 +518,7 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
               
               {/* Risk Warning */}
               <Card className="bg-amber-50 border-amber-200">
-                <CardContent className="p-4">
+                <CardContent className="p-6 md:p-8">
                   <div className="flex gap-3">
                     <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
                     <div className="text-xs text-amber-800">
@@ -539,7 +539,7 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
           <h2 className="text-3xl font-bold mb-4">Start Your Investment Journey with {fund.name}</h2>
           <p className="text-indigo-200 mb-8">Build wealth systematically through SIP or invest lumpsum</p>
           <a href={fund.applyLink} target="_blank" rel="noopener noreferrer">
-            <Button className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-12 py-6 text-lg">
+            <Button className="bg-primary-600 hover:bg-emerald-700 text-white font-semibold px-12 py-6 text-lg">
               Invest Now <ExternalLink className="w-5 h-5 ml-2" />
             </Button>
           </a>

@@ -57,7 +57,7 @@ export default function ContextualCTA({
                 </h4>
                 {links.map(link => (
                     <Card key={link.id} className="bg-white dark:bg-white/[0.03] border-slate-200 dark:border-white/5 hover:border-indigo-500/30 transition-all">
-                        <CardContent className="p-4">
+                        <CardContent className="p-6 md:p-8">
                             <div className="flex items-center gap-3 mb-3">
                                 {link.partner.logo_url ? (
                                     <img src={link.partner.logo_url} alt={link.partner.name} className="w-8 h-8 rounded" />

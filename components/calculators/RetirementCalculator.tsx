@@ -322,15 +322,15 @@ export function RetirementCalculator() {
                     <div className="absolute top-0 right-0 w-64 h-64 bg-teal-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-3 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Corpus at Retirement</p>
                                 <p className="text-base sm:text-lg font-extrabold text-teal-600">{formatCurrency(result.totalCorpus)}</p>
                             </div>
-                            <div className="text-center p-3 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Required Corpus</p>
                                 <p className="text-base sm:text-lg font-extrabold text-emerald-600">{formatCurrency(result.corpusRequired)}</p>
                             </div>
-                            <div className="text-center p-3 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {result.shortfall > 0 ? 'Shortfall' : 'Surplus'}
                                 </p>

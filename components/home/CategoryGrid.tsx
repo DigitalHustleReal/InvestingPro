@@ -32,7 +32,7 @@ const categories = [
         description: "Personal, home, car, education, gold, and business loans with lowest rates.",
         icon: Wallet,
         color: "text-emerald-500",
-        bg: "bg-emerald-500/5",
+        bg: "bg-primary-500/5",
         href: "/loans",
         tag: "Low Rates",
         subcategories: ["Personal", "Home", "Car", "Education", "Gold", "Business"]
@@ -85,7 +85,7 @@ export default function CategoryGrid() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
                     <div className="max-w-2xl">
-                        <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6">
+                        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight leading-[1.1] mb-6">
                             Asset <span className="text-slate-400">Inventory</span>
                         </h2>
                         <p className="text-lg text-slate-500 font-medium leading-relaxed">
@@ -106,21 +106,21 @@ export default function CategoryGrid() {
                                 <div className={`w-12 h-12 rounded-2xl ${category.bg} ${category.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
                                     <category.icon className="w-6 h-6" />
                                 </div>
-                                <Badge className="bg-slate-900/5 text-slate-500 border-0 text-[9px] font-black uppercase tracking-widest px-2 py-0.5 group-hover:bg-slate-900 group-hover:text-white transition-colors">
+                                <Badge className="bg-slate-900/5 text-slate-500 border-0 text-[9px] font-semibold uppercase tracking-st px-2 py-0.5 group-hover:bg-slate-900 group-hover:text-white transition-colors">
                                     {category.tag}
                                 </Badge>
                             </div>
 
                             <div className="flex flex-col justify-between">
                                 <div>
-                                    <h3 className="text-lg font-black text-slate-900 mb-2 tracking-tight group-hover:text-indigo-600 transition-colors">
+                                    <h3 className="text-lg font-bold text-slate-900 mb-2 tracking-tight group-hover:text-indigo-600 transition-colors">
                                         {category.name}
                                     </h3>
                                     <p className="text-slate-500 text-sm font-medium leading-relaxed mb-6">
                                         {category.description}
                                     </p>
                                 </div>
-                                <div className="flex items-center gap-1 text-[10px] font-black text-indigo-500/0 group-hover:text-indigo-500 transition-all uppercase tracking-widest">
+                                <div className="flex items-center gap-1 text-[10px] font-semibold text-indigo-500/0 group-hover:text-indigo-500 transition-all uppercase tracking-st">
                                     Analyze Inventory <ArrowUpRight size={12} />
                                 </div>
                             </div>

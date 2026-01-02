@@ -59,7 +59,7 @@ export default function SocialRepurposeView({ articleId }: SocialRepurposeViewPr
             <CardHeader className="pb-4">
                 <div className="flex items-center justify-between">
                     <div>
-                        <CardTitle className="text-lg font-bold flex items-center gap-2 text-indigo-900">
+                        <CardTitle className="text-lg font-bold flex items-center gap-6 md:p-8 text-indigo-900">
                             <Sparkles className="w-5 h-5 text-indigo-500" />
                             Omnichannel Repurposing
                         </CardTitle>
@@ -81,7 +81,7 @@ export default function SocialRepurposeView({ articleId }: SocialRepurposeViewPr
                             LinkedIn
                         </TabsTrigger>
                         <TabsTrigger value="facebook" className="rounded-lg data-[state=active]:bg-white">
-                            <Facebook className="w-4 h-4 mr-2 text-blue-600" />
+                            <Facebook className="w-4 h-4 mr-2 text-primary-600" />
                             Facebook
                         </TabsTrigger>
                         <TabsTrigger value="instagram" className="rounded-lg data-[state=active]:bg-white">
@@ -139,7 +139,7 @@ export default function SocialRepurposeView({ articleId }: SocialRepurposeViewPr
                                         Copy
                                     </Button>
                                     <Button 
-                                        className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl"
+                                        className="flex-1 bg-primary-600 hover:bg-emerald-700 text-white rounded-xl"
                                         onClick={() => toast.success('Sent to Social Scheduler!')}
                                     >
                                         <Send className="w-4 h-4 mr-2" />

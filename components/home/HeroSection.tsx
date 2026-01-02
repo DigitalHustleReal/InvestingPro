@@ -10,7 +10,7 @@ export default function HeroSection() {
         <section className="relative overflow-hidden bg-[#020617] pt-24 pb-32">
             {/* Dark Premium Background Effects */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[120px] opacity-50" />
+                <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-primary-500/10 rounded-full blur-[120px] opacity-50" />
                 <div className="absolute top-60 -left-20 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px] opacity-30" />
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03]" />
             </div>
@@ -19,12 +19,12 @@ export default function HeroSection() {
                 <div className="flex flex-col lg:flex-row items-center gap-16">
                     {/* Left Column: Content */}
                     <div className="lg:w-3/5 text-left">
-                        <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-2 mb-8">
+                        <div className="inline-flex items-center gap-2 bg-primary-500/10 border border-emerald-500/20 rounded-full px-4 py-2 mb-8">
                             <Shield className="w-4 h-4 text-emerald-400" />
                             <span className="text-emerald-300 text-xs font-bold uppercase tracking-widest">Independent Research & Education Platform</span>
                         </div>
 
-                        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.1] mb-8 tracking-tight">
+                        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-8 tracking-tight">
                             Research, Discover & Compare <br />
                             <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-blue-400 bg-clip-text text-transparent">
                                 Indian Financial Products
@@ -37,7 +37,7 @@ export default function HeroSection() {
 
                         <div className="flex flex-col sm:flex-row gap-5 mb-16">
                             <Link href="/risk-profiler">
-                                <Button size="lg" className="h-16 px-10 text-lg font-bold bg-emerald-500 hover:bg-emerald-600 text-white rounded-2xl shadow-[0_8px_30px_rgb(16,185,129,0.3)] transition-all hover:scale-[1.02] border-0">
+                                <Button size="lg" className="h-16 px-10 text-lg font-bold bg-primary-500 hover:bg-primary-600 text-white rounded-2xl shadow-[0_8px_30px_rgb(16,185,129,0.3)] transition-all hover:scale-[1.02] border-0">
                                     Analyze My Risk Profile
                                     <ArrowRight className="ml-2 w-5 h-5" />
                                 </Button>
@@ -57,7 +57,7 @@ export default function HeroSection() {
                                 { step: "03", title: "Invest via partners", desc: "Lowest fee platforms" }
                             ].map((item, i) => (
                                 <div key={i} className="flex gap-4">
-                                    <div className="text-2xl font-black text-emerald-500/20">{item.step}</div>
+                                    <div className="text-2xl font-bold text-emerald-500/20">{item.step}</div>
                                     <div>
                                         <div className="text-sm font-bold text-white mb-1 uppercase tracking-tight">{item.title}</div>
                                         <div className="text-xs text-slate-500 font-medium">{item.desc}</div>
@@ -71,8 +71,8 @@ export default function HeroSection() {
                     <div className="lg:w-2/5 w-full">
                         <div className="bg-slate-900/40 backdrop-blur-md border border-slate-800/80 rounded-[32px] p-8 relative">
                             <div className="absolute -top-6 -right-6 p-4">
-                                <div className="bg-emerald-500/20 backdrop-blur-xl border border-emerald-500/30 rounded-2xl p-4 shadow-2xl">
-                                    <div className="text-3xl font-black text-white">5K+</div>
+                                <div className="bg-primary-500/20 backdrop-blur-xl border border-emerald-500/30 rounded-2xl p-4 shadow-2xl">
+                                    <div className="text-3xl font-bold text-white">5K+</div>
                                     <div className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest text-center">Users</div>
                                 </div>
                             </div>
@@ -110,8 +110,8 @@ export default function HeroSection() {
                                 ))}
                             </div>
 
-                            <div className="mt-10 p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/10 text-center">
-                                <span className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.2em]">Research • Education • Discovery</span>
+                            <div className="mt-10 p-4 rounded-xl bg-primary-500/5 border border-emerald-500/10 text-center">
+                                <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-[0.2em]">Research • Education • Discovery</span>
                             </div>
                         </div>
                     </div>

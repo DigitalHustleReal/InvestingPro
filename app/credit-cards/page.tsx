@@ -67,7 +67,7 @@ const LendingAlphaHub = () => {
                             <Zap size={14} />
                             Institutional Alpha
                         </Badge>
-                        <h1 className="text-5xl md:text-6xl font-black tracking-tight mb-6 bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+                        <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
                             Lending Alpha <span className="text-indigo-500">Radar</span>
                         </h1>
                         <p className="text-xl text-slate-400 mb-8 max-w-2xl leading-relaxed">
@@ -142,7 +142,7 @@ const LendingAlphaHub = () => {
                                                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 to-indigo-900 rounded-2xl shadow-xl shadow-indigo-950/40 p-5 flex flex-col justify-between overflow-hidden">
                                                     <div className="flex justify-between items-start">
                                                         <Sparkles className="text-white/40" size={24} />
-                                                        <div className="text-white/20 font-black text-xs uppercase tracking-widest italic">{asset.bank || asset.provider}</div>
+                                                        <div className="text-white/20 font-semibold text- uppercase tracking-widest italic">{asset.bank || asset.provider}</div>
                                                     </div>
                                                     <div className="space-y-1">
                                                         <div className="text-[10px] text-white/60 font-medium tracking-[0.2em] uppercase">InvestingPro Selective</div>
@@ -152,7 +152,7 @@ const LendingAlphaHub = () => {
                                                 </div>
                                             </div>
                                             <div className="flex items-center justify-between px-2">
-                                                <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Premium Tier</div>
+                                                <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-st">Premium Tier</div>
                                                 <div className="flex items-center gap-1">
                                                     {[...Array(5)].map((_, j) => (
                                                         <div key={j} className={`w-1 h-1 rounded-full ${j < (asset.rating || 4) ? 'bg-indigo-400' : 'bg-slate-700'}`} />
@@ -164,7 +164,7 @@ const LendingAlphaHub = () => {
                                         {/* Reward Engine Analysis */}
                                         <div className="md:col-span-2 space-y-6 flex flex-col justify-center">
                                             <div>
-                                                <h3 className="text-2xl font-black text-white mb-1 group-hover:text-indigo-400 transition-colors tracking-tight">{asset.name}</h3>
+                                                <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-indigo-400 transition-colors tracking-tight">{asset.name}</h3>
                                                 <p className="text-sm text-slate-400 font-medium leading-relaxed max-w-lg italic">
                                                     {asset.description || "The dominant choice for high-volume rewarded spending and lounge-active travelers."}
                                                 </p>
@@ -172,19 +172,19 @@ const LendingAlphaHub = () => {
 
                                             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                                                 <div>
-                                                    <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Annual Fee</div>
+                                                    <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-st mb-1">Annual Fee</div>
                                                     <div className="text-lg font-bold text-slate-200">
                                                         {asset.annualFee === 0 || asset.metadata?.annual_fee === 0 ? "LIFE-FREE" : `₹${asset.annualFee || asset.metadata?.annual_fee}`}
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Reward Rate</div>
+                                                    <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-st mb-1">Reward Rate</div>
                                                     <div className="text-lg font-bold text-emerald-400">
                                                         {asset.rewardRate || asset.metadata?.reward_rate || "5.0% APY"}
                                                     </div>
                                                 </div>
                                                 <div className="hidden md:block">
-                                                    <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Lounge Access</div>
+                                                    <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-st mb-1">Lounge Access</div>
                                                     <div className="text-lg font-bold text-blue-400">
                                                         {asset.loungeAccess || item_meta(asset, 'lounge_access') || "UNLIMITED"}
                                                     </div>
@@ -194,7 +194,7 @@ const LendingAlphaHub = () => {
 
                                         {/* Action Stack */}
                                         <div className="flex flex-col justify-center gap-3">
-                                            <Button className="w-full h-14 bg-white text-slate-950 hover:bg-indigo-500 hover:text-white transition-all duration-300 font-black rounded-2xl shadow-xl hover:shadow-indigo-500/20 group/btn">
+                                            <Button className="w-full h-14 bg-white text-slate-950 hover:bg-indigo-500 hover:text-white transition-all duration-300 font-bold rounded-2xl shadow-xl hover:shadow-indigo-500/20 group/btn">
                                                 Apply Now
                                                 <ArrowRight size={18} className="ml-2 group-hover/btn:translate-x-1 transition-transform" />
                                             </Button>
@@ -213,25 +213,25 @@ const LendingAlphaHub = () => {
 
                 {/* --- Comparison Section --- */}
                 <div className="mt-24 grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <Card className="bg-gradient-to-br from-indigo-900/40 to-slate-900 border-indigo-500/20 p-10 rounded-[3rem] overflow-hidden relative group">
+                    <Card className="bg-gradient-to-br from-indigo-900/40 to-slate-900 border-indigo-500/20 p-6 md:p-8 rounded-[3rem] overflow-hidden relative group">
                         <Coins className="absolute -right-8 -bottom-8 w-64 h-64 text-white/5 group-hover:scale-110 transition-transform duration-1000" />
                         <div className="relative z-10">
                             <Badge className="bg-white/10 text-white border-0 px-3 py-1 mb-6 rounded-full font-bold uppercase tracking-widest text-[10px]">Lending Intelligence</Badge>
-                            <h3 className="text-3xl font-black text-white mb-6 leading-tight">Lowest APR <br /> Loan Radar</h3>
+                            <h3 className="text-3xl font-bold text-white mb-6 leading-tight">Lowest APR <br /> Loan Radar</h3>
                             <p className="text-indigo-100/60 font-medium leading-relaxed mb-10 max-w-sm">
                                 We've scraped data from 30+ lenders to find hidden arbitrage in personal and home loan interest rates.
                             </p>
                             <Link href="/loans">
-                                <Button className="h-14 px-10 bg-indigo-500 hover:bg-indigo-600 text-white border-0 font-black rounded-2xl shadow-xl shadow-indigo-500/20">
+                                <Button className="h-14 px-10 bg-indigo-500 hover:bg-indigo-600 text-white border-0 font-bold rounded-2xl shadow-xl shadow-indigo-500/20">
                                     Compare Loan Rates
                                 </Button>
                             </Link>
                         </div>
                     </Card>
 
-                    <Card className="bg-slate-900/40 border-slate-800 p-10 rounded-[3rem] flex flex-col justify-between">
+                    <Card className="bg-slate-900/40 border-slate-800 p-6 md:p-8 rounded-[3rem] flex flex-col justify-between">
                         <div>
-                            <h3 className="text-3xl font-black text-white mb-8 leading-tight">Master Your <br /> Credit DNA</h3>
+                            <h3 className="text-3xl font-bold text-white mb-8 leading-tight">Master Your <br /> Credit DNA</h3>
                             <div className="space-y-5">
                                 {[
                                     { title: "FOIR Check", desc: "Our algorithm analyzes your fixed obligation to income ratio." },
@@ -252,7 +252,7 @@ const LendingAlphaHub = () => {
                         </div>
                         <div className="mt-12 pt-8 border-t border-slate-800/60 flex items-center justify-between">
                             <div className="flex flex-col">
-                                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Global Support</span>
+                                <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-st">Global Support</span>
                                 <span className="text-sm font-bold text-slate-200 underline underline-offset-4 decoration-indigo-500/50">lending@investingpro.in</span>
                             </div>
                             <CardIcon className="w-10 h-10 text-slate-800" />

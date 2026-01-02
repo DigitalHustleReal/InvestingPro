@@ -19,22 +19,22 @@ export default function NotFound() {
     return (
         <div className="min-h-screen bg-slate-50 flex items-center justify-center py-20 px-4 relative overflow-hidden">
             {/* Dynamic Background Elements */}
-            <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-[140px] -translate-y-1/2" />
+            <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-primary-500/5 rounded-full blur-[140px] -translate-y-1/2" />
             <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] translate-y-1/2" />
 
             <div className="max-w-4xl mx-auto text-center relative z-10">
                 <div className="mb-12">
                     <div className="inline-flex items-center gap-2 bg-rose-500/10 rounded-full px-4 py-2 mb-8 border border-rose-500/20">
                         <ShieldAlert className="w-4 h-4 text-rose-500" />
-                        <span className="text-rose-600 font-black text-[10px] uppercase tracking-[0.2em]">Protocol Interrupted</span>
+                        <span className="text-rose-600 font-semibold text- uppercase tracking-[0.2em]">Protocol Interrupted</span>
                     </div>
 
-                    <h1 className="text-[10rem] sm:text-[14rem] font-black text-slate-900 leading-none tracking-tighter mb-4 select-none opacity-5">
+                    <h1 className="text-[10rem] sm:text-[14rem] font-bold text-slate-900 leading-none tracking-tighter mb-4 select-none opacity-5">
                         404
                     </h1>
 
                     <div className="-mt-32 relative">
-                        <h2 className="text-4xl sm:text-5xl font-black text-slate-900 mb-4 tracking-tight">
+                        <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 tracking-tight">
                             Page Asset <span className="text-emerald-500">Not Found</span>
                         </h2>
                         <p className="text-xl text-slate-500 font-medium max-w-xl mx-auto leading-relaxed">
@@ -45,13 +45,13 @@ export default function NotFound() {
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 px-4">
                     <Link href="/">
-                        <Button className="w-full sm:w-auto h-14 rounded-2xl bg-slate-900 hover:bg-emerald-600 text-white font-black px-10 uppercase tracking-widest text-[11px] shadow-2xl transition-all">
+                        <Button className="w-full sm:w-auto h-14 rounded-2xl bg-slate-900 hover:bg-primary-600 text-white font-semibold px-10 uppercase tracking-widest text- shadow-2xl transition-all">
                             <Home className="w-4 h-4 mr-2" />
                             Return to Command Center
                         </Button>
                     </Link>
                     <Link href="/mutual-funds">
-                        <Button variant="outline" className="w-full sm:w-auto h-14 rounded-2xl border-slate-200 bg-white hover:bg-slate-50 text-slate-900 font-black px-10 uppercase tracking-widest text-[11px]">
+                        <Button variant="outline" className="w-full sm:w-auto h-14 rounded-2xl border-slate-200 bg-white hover:bg-slate-50 text-slate-900 font-semibold px-10 uppercase tracking-widest text-">
                             Explore Safe Assets
                             <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>
@@ -93,13 +93,13 @@ export default function NotFound() {
                             <div className={`w-12 h-12 rounded-2xl ${item.bg} ${item.color} flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform`}>
                                 <item.icon className="w-6 h-6" />
                             </div>
-                            <h3 className="text-lg font-black text-slate-900 mb-1 tracking-tight">{item.title}</h3>
+                            <h3 className="text-lg font-bold text-slate-900 mb-1 tracking-tight">{item.title}</h3>
                             <p className="text-sm text-slate-500 font-medium">{item.desc}</p>
                         </Link>
                     ))}
                 </div>
 
-                <div className="mt-20 flex items-center justify-center gap-6 text-[10px] font-black text-slate-400 uppercase tracking-widest border-t border-slate-100 pt-10">
+                <div className="mt-20 flex items-center justify-center gap-6 text-[10px] font-semibold text-slate-400 uppercase tracking-st border-t border-slate-100 pt-10">
                     <div className="flex items-center gap-2">
                         <Activity className="w-3.5 h-3.5" />
                         System Status: 100% Operational

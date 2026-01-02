@@ -247,9 +247,9 @@ export default function RiskProfiler() {
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                     <Badge className="bg-purple-500/10 text-purple-400 border-purple-500/20 px-4 py-2 mb-8 rounded-full">
                         <Dna className="w-4 h-4 mr-2" />
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em]">Psychometric Analysis engine</span>
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Psychometric Analysis engine</span>
                     </Badge>
-                    <h1 className="text-4xl sm:text-6xl font-black text-white mb-6 tracking-tight leading-tight">
+                    <h1 className="text-4xl sm:text-6xl font-bold text-white mb-6 tracking-tight leading-tight">
                         Unlock Your <br /> <span className="text-purple-400">Investment DNA</span>
                     </h1>
                     <p className="text-lg text-slate-400 max-w-2xl mx-auto font-medium leading-relaxed">
@@ -265,10 +265,10 @@ export default function RiskProfiler() {
                         <Card className="rounded-[2rem] border-0 shadow-2xl bg-white p-8">
                             <div className="flex justify-between items-center mb-6">
                                 <div className="flex flex-col">
-                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Question Sequence</span>
-                                    <span className="text-2xl font-black text-slate-900">{currentStep + 1} <span className="text-slate-200">/ {questions.length}</span></span>
+                                    <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-st">Question Sequence</span>
+                                    <span className="text-2xl font-bold text-slate-900">{currentStep + 1} <span className="text-slate-200">/ {questions.length}</span></span>
                                 </div>
-                                <Badge className="bg-slate-900 text-white rounded-xl px-4 py-2 font-black italic">
+                                <Badge className="bg-slate-900 text-white rounded-xl px-4 py-2 font-bold italic">
                                     {Math.round(((currentStep + 1) / questions.length) * 100)}% ANALYZED
                                 </Badge>
                             </div>
@@ -281,11 +281,11 @@ export default function RiskProfiler() {
                         </Card>
 
                         {/* Question Architecture */}
-                        <Card className="rounded-[3rem] border-0 shadow-2xl bg-white p-12 overflow-hidden relative">
+                        <Card className="rounded-[3rem] border-0 shadow-2xl bg-white p-6 md:p-8 overflow-hidden relative">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50/50 rounded-bl-[4rem] -mr-8 -mt-8" />
 
                             <div className="relative z-10">
-                                <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-10 leading-snug">
+                                <h2 className="text-3xl font-bold text-slate-900 tracking-tight mb-10 leading-snug">
                                     {currentQuestion.question}
                                 </h2>
 
@@ -305,7 +305,7 @@ export default function RiskProfiler() {
                                                 htmlFor={`q${currentQuestion.id}-${idx}`}
                                                 className="flex items-center gap-4 p-6 rounded-3xl border-2 border-slate-50 bg-slate-50/50 cursor-pointer transition-all peer-data-[state=checked]:border-purple-500 peer-data-[state=checked]:bg-white peer-data-[state=checked]:shadow-xl group-hover:bg-white group-hover:border-slate-200"
                                             >
-                                                <div className="w-10 h-10 rounded-2xl bg-white border border-slate-100 flex items-center justify-center font-black group-hover:bg-slate-900 group-hover:text-white peer-data-[state=checked]:bg-purple-600 peer-data-[state=checked]:text-white transition-all text-xs">
+                                                <div className="w-10 h-10 rounded-2xl bg-white border border-slate-100 flex items-center justify-center font-semibold group-hover:bg-slate-900 group-hover:text-white peer-data-[state=checked]:bg-purple-600 peer-data-[state=checked]:text-white transition-all text-">
                                                     {String.fromCharCode(65 + idx)}
                                                 </div>
                                                 <span className="text-lg font-bold text-slate-700 peer-data-[state=checked]:text-slate-900">
@@ -324,7 +324,7 @@ export default function RiskProfiler() {
                                 variant="ghost"
                                 onClick={handlePrevious}
                                 disabled={currentStep === 0}
-                                className="flex-1 h-16 rounded-[1.5rem] font-black text-slate-400 hover:text-slate-900 transition-all uppercase tracking-widest text-[10px]"
+                                className="flex-1 h-16 rounded-[1.5rem] font-semibold text-slate-400 hover:text-slate-900 transition-all uppercase tracking-widest text-"
                             >
                                 <ChevronLeft className="w-4 h-4 mr-2" />
                                 Previous Question
@@ -332,7 +332,7 @@ export default function RiskProfiler() {
                             <Button
                                 onClick={handleNext}
                                 disabled={!isAnswered}
-                                className={`flex-1 h-16 rounded-[1.5rem] font-black text-white shadow-2xl transition-all uppercase tracking-widest text-[10px] active:scale-95 ${!isAnswered ? 'bg-slate-200' : 'bg-slate-900 hover:bg-purple-600 shadow-purple-500/20'}`}
+                                className={`flex-1 h-16 rounded-[1.5rem] font-bold text-white shadow-2xl transition-all uppercase tracking-widest text-[10px] active:scale-95 ${!isAnswered ? 'bg-slate-200' : 'bg-slate-900 hover:bg-purple-600 shadow-purple-500/20'}`}
                             >
                                 {currentStep === questions.length - 1 ? 'Generate DNA Results' : 'Confirm & Continue'}
                                 <ChevronRight className="w-4 h-4 ml-2" />
@@ -342,14 +342,14 @@ export default function RiskProfiler() {
                 ) : (
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-5 duration-700">
                         {/* Results Header */}
-                        <Card className="rounded-[4rem] border-0 shadow-2xl bg-white p-12 text-center overflow-hidden relative">
+                        <Card className="rounded-[4rem] border-0 shadow-2xl bg-white p-6 md:p-8 text-center overflow-hidden relative">
                             <div className={`absolute top-0 inset-x-0 h-4 bg-gradient-to-r ${profileData.color}`} />
                             <div className={`w-28 h-28 rounded-[2.5rem] bg-gradient-to-br ${profileData.color} mx-auto mb-8 flex items-center justify-center shadow-2xl group`}>
                                 {ProfileIcon && <ProfileIcon className="w-14 h-14 text-white group-hover:scale-110 transition-transform duration-500" />}
                             </div>
 
-                            <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mb-4">Investment Archetype</h2>
-                            <h1 className="text-5xl font-black text-slate-900 mb-6 tracking-tight">
+                            <h2 className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.4em] mb-4">Investment Archetype</h2>
+                            <h1 className="text-5xl font-bold text-slate-900 mb-6 tracking-tight">
                                 {result.profile} <br />
                                 <span className={`text-4xl opacity-40 italic font-medium`}>Strategist</span>
                             </h1>
@@ -360,8 +360,8 @@ export default function RiskProfiler() {
 
                             <div className="flex justify-center gap-12 border-t border-slate-50 pt-10">
                                 <div className="text-center">
-                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Risk Score</p>
-                                    <p className="text-3xl font-black text-slate-900">{result.score}<span className="text-slate-200">/100</span></p>
+                                    <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-st mb-1">Risk Score</p>
+                                    <p className="text-3xl font-bold text-slate-900">{result.score}<span className="text-slate-200">/100</span></p>
                                 </div>
                             </div>
                         </Card>
@@ -369,10 +369,10 @@ export default function RiskProfiler() {
                         {/* Asset Strategy Grid */}
                         <div className="grid lg:grid-cols-3 gap-8">
                             <div className="lg:col-span-2">
-                                <Card className="rounded-[3rem] border-0 shadow-2xl bg-white p-10">
+                                <Card className="rounded-[3rem] border-0 shadow-2xl bg-white p-6 md:p-8">
                                     <div className="flex items-center justify-between mb-10">
                                         <div>
-                                            <h3 className="text-2xl font-black text-slate-900 tracking-tight">Deployment Strategy</h3>
+                                            <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Deployment Strategy</h3>
                                             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Institutional Allocation Matrix</p>
                                         </div>
                                         <PieChart className="w-8 h-8 text-slate-100" />
@@ -385,11 +385,11 @@ export default function RiskProfiler() {
                                                     <div className={`w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-slate-400 group-hover:text-purple-600 transition-colors shadow-sm`}>
                                                         <rec.icon className="w-6 h-6" />
                                                     </div>
-                                                    <span className="text-lg font-black text-slate-900">{rec.category}</span>
+                                                    <span className="text-lg font-bold text-slate-900">{rec.category}</span>
                                                 </div>
                                                 <div className="flex flex-col items-end">
-                                                    <span className="text-2xl font-black text-slate-900">{rec.allocation}</span>
-                                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">Target Allocation</span>
+                                                    <span className="text-2xl font-bold text-slate-900">{rec.allocation}</span>
+                                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Target Allocation</span>
                                                 </div>
                                             </div>
                                         ))}
@@ -401,18 +401,18 @@ export default function RiskProfiler() {
                                 <Card className={`rounded-[3rem] border-0 shadow-xl p-10 bg-gradient-to-br ${profileData.color} text-white group overflow-hidden relative`}>
                                     <CheckCircle2 className="absolute -right-8 -bottom-8 w-48 h-48 text-white/10 group-hover:scale-110 transition-transform duration-700" />
                                     <div className="relative z-10">
-                                        <h4 className="text-[10px] font-black opacity-60 uppercase tracking-widest mb-6">Expert Verdict</h4>
+                                        <h4 className="text-[10px] font-semibold opacity-60 uppercase tracking-st mb-6">Expert Verdict</h4>
                                         <p className="text-lg font-bold leading-relaxed mb-10">
                                             Your profile suggests a robust threshold for market cycles. We recommend rebalancing your portfolio every <span className="underline decoration-white/30 underline-offset-4">90 days</span> to maintain this alignment.
                                         </p>
-                                        <Button className="w-full bg-white text-slate-900 rounded-2xl font-black h-14 hover:bg-slate-50">
+                                        <Button className="w-full bg-white text-slate-900 rounded-2xl font-bold h-14 hover:bg-slate-50">
                                             Download Analysis PDF
                                         </Button>
                                     </div>
                                 </Card>
 
                                 <Card className="rounded-[3rem] border-0 shadow-xl bg-white p-8">
-                                    <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6 px-2">Next Phase</h4>
+                                    <h4 className="text-[10px] font-semibold text-slate-400 uppercase tracking-st mb-6 px-2">Next Phase</h4>
                                     <div className="space-y-6">
                                         {[
                                             { link: "/mutual-funds", label: "Explore Direct Funds", desc: "Start SIPs in top funds." },
@@ -436,14 +436,14 @@ export default function RiskProfiler() {
                             <Button
                                 onClick={resetQuiz}
                                 variant="ghost"
-                                className="flex-1 h-20 rounded-[2rem] font-black text-slate-400 uppercase tracking-widest text-[11px] hover:text-slate-900 transition-all"
+                                className="flex-1 h-20 rounded-[2rem] font-semibold text-slate-400 uppercase tracking-widest text- hover:text-slate-900 transition-all"
                             >
                                 Reset Assessment Engine
                             </Button>
                             <Button
                                 onClick={saveToProfile}
                                 disabled={saving}
-                                className="flex-[2] h-20 rounded-[2.5rem] bg-slate-900 hover:bg-purple-600 text-white font-black text-xl shadow-2xl shadow-slate-900/20 active:scale-95 transition-all group"
+                                className="flex-[2] h-20 rounded-[2.5rem] bg-slate-900 hover:bg-purple-600 text-white font-bold text-xl shadow-2xl shadow-slate-900/20 active:scale-95 transition-all group"
                             >
                                 {saving ? (
                                     <span className="animate-pulse">Synchronizing Data...</span>

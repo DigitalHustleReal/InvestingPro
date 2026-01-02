@@ -12,7 +12,7 @@ const tools = [
         description: "Project multi-year wealth growth with inflation indexing and dynamic rebalancing alpha.",
         icon: Calculator,
         color: "text-emerald-500",
-        bg: "bg-emerald-500/10",
+        bg: "bg-primary-500/10",
         border: "border-emerald-500/20",
         href: "/calculators"
     },
@@ -51,11 +51,11 @@ export default function FeaturedTools() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-8">
                     <div>
-                        <Badge variant="outline" className="mb-4 border-slate-200 text-slate-500 font-black uppercase tracking-widest text-[10px]">
+                        <Badge variant="outline" className="mb-4 border-slate-200 text-slate-500 font-semibold uppercase tracking-widest text-">
                             <Sparkles size={12} className="mr-2 text-indigo-500" />
                             Quant Utilities
                         </Badge>
-                        <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-4">
+                        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight leading-tight mb-4">
                             Smarter <span className="text-indigo-600">Decision</span> Engines
                         </h2>
                         <p className="text-lg text-slate-500 font-medium max-w-xl leading-relaxed">
@@ -83,14 +83,14 @@ export default function FeaturedTools() {
                                     <div className={`w-14 h-14 rounded-2xl ${tool.bg} ${tool.color} flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500`}>
                                         <tool.icon className="w-7 h-7" />
                                     </div>
-                                    <h3 className="text-xl font-black text-slate-900 mb-4 group-hover:text-indigo-600 transition-colors tracking-tight">
+                                    <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-indigo-600 transition-colors tracking-tight">
                                         {tool.name}
                                     </h3>
                                     <p className="text-slate-500 text-sm font-medium leading-relaxed mb-8">
                                         {tool.description}
                                     </p>
                                 </div>
-                                <div className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:text-indigo-600 transition-colors">
+                                <div className="flex items-center gap-2 text-[10px] font-semibold text-slate-400 uppercase tracking-st group-hover:text-indigo-600 transition-colors">
                                     Launch Module <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
                                 </div>
                             </div>

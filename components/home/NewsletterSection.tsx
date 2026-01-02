@@ -58,7 +58,7 @@ export default function NewsletterSection() {
                             </Button>
                         </form>
                     ) : (
-                        <div className="flex items-center justify-center gap-3 text-emerald-400 bg-emerald-500/10 p-4 rounded-2xl border border-emerald-500/20 animate-in fade-in zoom-in duration-300">
+                        <div className="flex items-center justify-center gap-3 text-emerald-400 bg-primary-500/10 p-4 rounded-2xl border border-emerald-500/20 animate-in fade-in zoom-in duration-300">
                             <CheckCircle2 className="w-6 h-6" />
                             <span className="text-lg font-medium">Thanks for subscribing!</span>
                         </div>

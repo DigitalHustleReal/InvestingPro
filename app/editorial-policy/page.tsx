@@ -37,7 +37,7 @@ export default function EditorialPolicyPage() {
                     {/* Core Principles */}
                     <Card className="mb-8 border-2 border-teal-100">
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
+                            <CardTitle className="flex items-center gap-6 md:p-8">
                                 <Shield className="w-6 h-6 text-teal-600" />
                                 Core Principles
                             </CardTitle>
@@ -75,14 +75,14 @@ export default function EditorialPolicyPage() {
                     {/* AI Usage Policy */}
                     <Card className="mb-8">
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
+                            <CardTitle className="flex items-center gap-6 md:p-8">
                                 <Eye className="w-6 h-6 text-teal-600" />
                                 AI Usage Policy
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-4">
-                                <div className="p-4 bg-slate-50 rounded-lg">
+                                <div className="p-6 md:p-8 bg-slate-50 rounded-lg">
                                     <p className="text-sm text-slate-700 mb-3">
                                         <strong>Important:</strong> InvestingPro is NOT an AI content generator.
                                         We are an authoritative financial comparison and ranking engine.
@@ -166,7 +166,7 @@ export default function EditorialPolicyPage() {
                     {/* Content Review Process */}
                     <Card className="mb-8">
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
+                            <CardTitle className="flex items-center gap-6 md:p-8">
                                 <FileText className="w-6 h-6 text-teal-600" />
                                 Content Review Process
                             </CardTitle>
@@ -267,7 +267,7 @@ export default function EditorialPolicyPage() {
                     </Card>
 
                     {/* Disclaimer */}
-                    <div className="mt-8 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+                    <div className="mt-8 p-6 md:p-8 bg-amber-50 border border-amber-200 rounded-lg">
                         <p className="text-sm text-amber-900">
                             <strong>Important:</strong> InvestingPro.in is not registered with SEBI as an investment advisor.
                             All information on this platform is for educational and informational purposes only.

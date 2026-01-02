@@ -47,7 +47,7 @@ function ProcessDiagram({ title, steps }: { title: string; steps: Array<{ number
                         {/* Step Number */}
                         <div className="flex items-center gap-4 mb-4">
                             <div className="w-12 h-12 rounded-full bg-teal-100 border-2 border-teal-500 flex items-center justify-center shrink-0">
-                                <span className="text-teal-700 font-black text-lg">{step.number}</span>
+                                <span className="text-teal-700 font-bold text-lg">{step.number}</span>
                             </div>
                             {idx < steps.length - 1 && (
                                 <div className="hidden md:block flex-1 h-0.5 bg-slate-200 relative top-6 -z-10">

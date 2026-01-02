@@ -160,7 +160,7 @@ export default function CategoryHero({
                         </div>
 
                         {/* Headline */}
-                        <h1 className="text-4xl lg:text-5xl xl:text-6xl font-black leading-tight">
+                        <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
                             {config.headline}
                         </h1>
 

@@ -33,6 +33,7 @@ import ContextualCTA from '@/components/monetization/ContextualCTA';
 import ContextualProducts from '@/components/products/ContextualProducts';
 import TopPicksSidebar from '@/components/products/TopPicksSidebar';
 import LeadMagnet from '@/components/monetization/LeadMagnet';
+import SeamlessCTA from '@/components/articles/SeamlessCTA';
 
 export default function ArticleDetailPage() {
     const params = useParams();
@@ -278,6 +279,9 @@ export default function ArticleDetailPage() {
                             body_markdown={article.body_markdown}
                             content={article.content}
                         />
+
+                        {/* Seamless Actions */}
+                        <SeamlessCTA category={article.category} />
 
                         {/* Lead Magnet Injection */}
                         <LeadMagnet 

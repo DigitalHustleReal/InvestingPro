@@ -200,11 +200,11 @@ export function PPFCalculator() {
                 <Card className="border-slate-200 shadow-sm rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50">
                     <CardContent className="pt-4 sm:pt-6">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-3 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Contributed</p>
                                 <p className="text-base sm:text-lg font-extrabold text-slate-900">{formatCurrency(result.totalContributed)}</p>
                             </div>
-                            <div className="text-center p-3 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Returns' : 'Returns'}
                                 </p>
@@ -212,7 +212,7 @@ export function PPFCalculator() {
                                     {formatCurrency(adjustForInflation ? result.realReturns : result.returns)}
                                 </p>
                             </div>
-                            <div className="text-center p-3 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Value' : 'Maturity'}
                                 </p>

@@ -56,7 +56,7 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
                 <section className="py-16 bg-slate-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="max-w-4xl">
-                            <h2 className="text-3xl font-black text-slate-900 mb-6 flex items-center gap-3">
+                            <h2 className="text-3xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                                 <CheckCircle2 className="w-8 h-8 text-teal-600" />
                                 What Are {category.name}?
                             </h2>
@@ -73,7 +73,7 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
                 <section className="py-16">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="max-w-4xl">
-                            <h2 className="text-3xl font-black text-slate-900 mb-6 flex items-center gap-3">
+                            <h2 className="text-3xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                                 <Users className="w-8 h-8 text-teal-600" />
                                 Who Are {category.name} For?
                             </h2>
@@ -92,7 +92,7 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
                 <section className="py-16 bg-slate-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex items-center justify-between mb-8">
-                            <h2 className="text-3xl font-black text-slate-900 flex items-center gap-3">
+                            <h2 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
                                 <BarChart3 className="w-8 h-8 text-teal-600" />
                                 Product Comparison
                             </h2>
@@ -155,7 +155,7 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
                 {relatedCalculators.length > 0 && (
                     <section className="py-16">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <h2 className="text-3xl font-black text-slate-900 mb-8 flex items-center gap-3">
+                            <h2 className="text-3xl font-bold text-slate-900 mb-8 flex items-center gap-3">
                                 <Calculator className="w-8 h-8 text-teal-600" />
                                 Related Calculators
                             </h2>
@@ -190,7 +190,7 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
                 {latestGuides.length > 0 && (
                     <section className="py-16 bg-slate-50">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <h2 className="text-3xl font-black text-slate-900 mb-8 flex items-center gap-3">
+                            <h2 className="text-3xl font-bold text-slate-900 mb-8 flex items-center gap-3">
                                 <FileText className="w-8 h-8 text-teal-600" />
                                 Latest Guides
                             </h2>
@@ -229,7 +229,7 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
                 {glossaryHighlights.length > 0 && (
                     <section className="py-16">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <h2 className="text-3xl font-black text-slate-900 mb-8 flex items-center gap-3">
+                            <h2 className="text-3xl font-bold text-slate-900 mb-8 flex items-center gap-3">
                                 <BookOpen className="w-8 h-8 text-teal-600" />
                                 Key Terms to Know
                             </h2>
@@ -261,7 +261,7 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
                 {category.subcategories.length > 0 && (
                     <section className="py-16 bg-slate-50 border-t border-slate-200">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <h2 className="text-3xl font-black text-slate-900 mb-8">
+                            <h2 className="text-3xl font-bold text-slate-900 mb-8">
                                 Explore {category.name} Types
                             </h2>
                             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

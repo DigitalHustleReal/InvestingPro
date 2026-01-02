@@ -37,7 +37,7 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
     return (
         <div className="bg-white rounded-2xl border border-gray-100 hover:shadow-lg transition-all duration-300 p-6 relative group overflow-hidden">
             {product.isPopular && (
-                <div className="absolute top-0 right-0 bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                <div className="absolute top-0 right-0 bg-primary-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
                     POPULAR
                 </div>
             )}
@@ -48,7 +48,7 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
                     <div className="flex items-start justify-between mb-2">
                         <div>
                             <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider mb-1">{product.provider}</p>
-                            <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                            <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">
                                 <Link href={product.applyLink}>{product.name}</Link>
                             </h3>
                         </div>
@@ -88,7 +88,7 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
 
                 {/* Right: Actions */}
                 <div className="md:w-1/5 flex flex-col justify-center gap-3 border-t md:border-t-0 border-gray-100 pt-4 md:pt-0">
-                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold">
+                    <Button className="w-full bg-primary-600 hover:bg-emerald-700 text-white font-semibold">
                         Apply Now
                     </Button>
                     <Link href={`/${product.category.replace('_', '-')}s/${product.id}`} className="w-full">
@@ -99,7 +99,7 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
 
                     {showCompare && (
                         <div className="flex items-center justify-center gap-2 mt-1">
-                            <input type="checkbox" id={`cmp-${product.id}`} className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                            <input type="checkbox" id={`cmp-${product.id}`} className="rounded border-gray-300 text-primary-600 focus:ring-blue-500" />
                             <label htmlFor={`cmp-${product.id}`} className="text-xs text-gray-500 cursor-pointer select-none">Add to Compare</label>
                         </div>
                     )}

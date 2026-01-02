@@ -315,7 +315,9 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                                                                 href={`/${category.slug}/${activeIntent.slug}`}
                                                                                 className="block text-sm font-semibold text-slate-900 hover:text-teal-600"
                                                                             >
-                                                                                {category.name} {activeIntent.name} Guide
+                                                                                {activeIntent.slug === EDITORIAL_INTENTS.GUIDES 
+                                                                                    ? `${category.name} Expert Guides` 
+                                                                                    : `${category.name} ${activeIntent.name} Hub`}
                                                                             </Link>
                                                                             <p className="text-xs text-slate-500 leading-relaxed">
                                                                                 Expert insights and comprehensive analysis to help you make informed decisions.

@@ -42,7 +42,7 @@ const goals = [
         icon: Wallet,
         title: "Get a Loan",
         description: "Compare personal, home, car, and business loans",
-        color: "text-blue-600",
+        color: "text-primary-600",
         bg: "bg-blue-50",
         border: "border-blue-200",
         href: "/loans",
@@ -94,7 +94,7 @@ export default function GoalBasedDiscovery() {
                         <Target className="w-4 h-4 text-teal-600" />
                         <span className="text-sm font-semibold text-teal-700">Goal-Based Discovery</span>
                     </div>
-                    <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-4">
+                    <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
                         What do you want to achieve?
                     </h2>
                     <p className="text-xl text-slate-600 max-w-2xl mx-auto">

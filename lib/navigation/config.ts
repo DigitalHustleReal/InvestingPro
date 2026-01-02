@@ -205,6 +205,14 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                 ],
             },
             {
+                name: 'Reviews',
+                slug: EDITORIAL_INTENTS.REVIEWS,
+                description: 'Expert bank and account reviews',
+                collections: [
+                    { name: 'Bank Reviews', slug: 'all', href: '/banking/reviews' },
+                ],
+            },
+            {
                 name: 'Guides',
                 slug: EDITORIAL_INTENTS.GUIDES,
                 description: 'Banking guides',
@@ -250,6 +258,15 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                     { name: 'Lumpsum Calculator', slug: 'lumpsum', href: '/calculators/lumpsum' },
                     { name: 'Goal Planning', slug: 'goal-planning', href: '/calculators/goal-planning' },
                     { name: 'Retirement Calculator', slug: 'retirement', href: '/calculators/retirement' },
+                ],
+            },
+            {
+                name: 'Reviews',
+                slug: EDITORIAL_INTENTS.REVIEWS,
+                description: 'Investment platform and fund reviews',
+                collections: [
+                    { name: 'Mutual Fund Reviews', slug: 'mutual-funds', href: '/mutual-funds/reviews' },
+                    { name: 'Broker Reviews', slug: 'brokers', href: '/stocks/reviews' },
                 ],
             },
             {
@@ -352,6 +369,14 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                 ],
             },
             {
+                name: 'Reviews',
+                slug: EDITORIAL_INTENTS.REVIEWS,
+                description: 'Business service and tool reviews',
+                collections: [
+                    { name: 'Business Service Reviews', slug: 'all', href: '/small-business/reviews' },
+                ],
+            },
+            {
                 name: 'Guides',
                 slug: EDITORIAL_INTENTS.GUIDES,
                 description: 'Business guides',
@@ -398,6 +423,14 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                     { name: 'TDS Calculator', slug: 'tds', href: '/taxes/calculators/tds' },
                     { name: 'Tax-Saving Calculator', slug: 'tax-saving', href: '/taxes/calculators/tax-saving' },
                     { name: 'HRA Calculator', slug: 'hra', href: '/taxes/calculators/hra' },
+                ],
+            },
+            {
+                name: 'Reviews',
+                slug: EDITORIAL_INTENTS.REVIEWS,
+                description: 'Tax tool and consultant reviews',
+                collections: [
+                    { name: 'Tax Tool Reviews', slug: 'all', href: '/taxes/reviews' },
                 ],
             },
             {
@@ -451,6 +484,14 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                     { name: 'Debt Payoff Calculator', slug: 'debt-payoff', href: '/personal-finance/calculators/debt-payoff' },
                     { name: 'Retirement Calculator', slug: 'retirement', href: '/calculators/retirement' },
                     { name: 'Goal Planning Calculator', slug: 'goal-planning', href: '/calculators/goal-planning' },
+                ],
+            },
+            {
+                name: 'Reviews',
+                slug: EDITORIAL_INTENTS.REVIEWS,
+                description: 'Personal finance app and tool reviews',
+                collections: [
+                    { name: 'App Reviews', slug: 'apps', href: '/personal-finance/reviews/apps' },
                 ],
             },
             {

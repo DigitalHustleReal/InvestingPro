@@ -97,7 +97,7 @@ export default function InvestingPage() {
 
             {/* Investment Type Tabs */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20 mb-12">
-                <Card className="border-0 shadow-xl rounded-2xl bg-white p-2">
+                <Card className="border-0 shadow-xl rounded-2xl bg-white p-6 md:p-8">
                     <Tabs value={activeTab} onValueChange={setActiveTab}>
                         <TabsList className="grid grid-cols-3 md:grid-cols-6 gap-2 bg-transparent">
                             {investingTypes.map((type) => (
@@ -116,10 +116,10 @@ export default function InvestingPage() {
             </div>
 
             {/* Featured Products Section */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
                 <div className="flex items-center justify-between mb-8">
                     <div>
-                        <h2 className="text-3xl font-black text-slate-900 mb-2">Top Investment Options</h2>
+                        <h2 className="text-3xl font-bold text-slate-900 mb-2">Top Investment Options</h2>
                         <p className="text-slate-600">Handpicked by our investment experts</p>
                     </div>
                     <CTAButton href="/investing/compare" variant="outline">
@@ -148,8 +148,8 @@ export default function InvestingPage() {
             </section>
 
             {/* Category CTAs */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <h2 className="text-3xl font-black text-slate-900 mb-8">Explore Investment Options</h2>
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+                <h2 className="text-3xl font-bold text-slate-900 mb-8">Explore Investment Options</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <CategoryCTA
                         href="/mutual-funds"
@@ -181,7 +181,7 @@ export default function InvestingPage() {
             {/* Why Choose Section */}
             <section className="bg-white py-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h2 className="text-3xl font-black text-slate-900 mb-12 text-center">
+                    <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">
                         Why Compare Investments on InvestingPro?
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -205,7 +205,7 @@ export default function InvestingPage() {
                             <Card key={idx} className="border-0 shadow-lg rounded-2xl">
                                 <CardContent className="p-8 text-center">
                                     <div className="flex justify-center mb-4">{feature.icon}</div>
-                                    <h3 className="text-xl font-black text-slate-900 mb-2">{feature.title}</h3>
+                                    <h3 className="text-xl font-bold text-slate-900 mb-2">{feature.title}</h3>
                                     <p className="text-slate-600">{feature.description}</p>
                                 </CardContent>
                             </Card>

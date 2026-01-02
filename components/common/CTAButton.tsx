@@ -11,7 +11,7 @@ export function CTAButton({ text, href, variant = 'primary', className = '' }: C
   const baseStyles = 'inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold transition-all duration-200'
   
   const variantStyles = {
-    primary: 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-lg hover:shadow-xl',
+    primary: 'bg-primary-600 text-white hover:bg-emerald-700 shadow-lg hover:shadow-xl',
     secondary: 'bg-white text-emerald-600 border-2 border-emerald-600 hover:bg-emerald-50'
   }
   

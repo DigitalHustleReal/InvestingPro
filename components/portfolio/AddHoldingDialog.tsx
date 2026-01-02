@@ -56,14 +56,14 @@ export default function AddHoldingDialog({ onAdd, user }: AddHoldingDialogProps)
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="rounded-2xl bg-white text-slate-900 hover:bg-emerald-500 hover:text-white font-black h-12 px-8 uppercase tracking-widest text-[10px] shadow-xl shadow-black/10 transition-all active:scale-95 group">
+                <Button className="rounded-2xl bg-white text-slate-900 hover:bg-primary-500 hover:text-white font-semibold h-12 px-8 uppercase tracking-widest text- shadow-xl shadow-black/10 transition-all active:scale-95 group">
                     <Plus className="w-4 h-4 mr-2 group-hover:rotate-90 transition-transform" />
                     Add Position
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px] rounded-[2.5rem] p-8 border-0 shadow-2xl">
                 <DialogHeader>
-                    <DialogTitle className="text-2xl font-black text-slate-900 tracking-tight">Record New Position</DialogTitle>
+                    <DialogTitle className="text-2xl font-bold text-slate-900 tracking-tight">Record New Position</DialogTitle>
                     <DialogDescription className="text-slate-500 font-medium pt-1">
                         Synchronize your market holdings with your InvestingPro secure vault.
                     </DialogDescription>
@@ -72,7 +72,7 @@ export default function AddHoldingDialog({ onAdd, user }: AddHoldingDialogProps)
                 <form onSubmit={handleSubmit} className="space-y-6 pt-4">
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2 col-span-2">
-                            <Label className="text-[10px] font-black uppercase text-slate-400 tracking-widest px-1">Asset Identity</Label>
+                            <Label className="text-[10px] font-semibold uppercase text-slate-400 tracking-st px-1">Asset Identity</Label>
                             <div className="relative group">
                                 <Wallet className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                                 <Input
@@ -86,7 +86,7 @@ export default function AddHoldingDialog({ onAdd, user }: AddHoldingDialogProps)
                         </div>
 
                         <div className="space-y-2">
-                            <Label className="text-[10px] font-black uppercase text-slate-400 tracking-widest px-1">Symbol / Ticker</Label>
+                            <Label className="text-[10px] font-semibold uppercase text-slate-400 tracking-st px-1">Symbol / Ticker</Label>
                             <Input
                                 required
                                 placeholder="RELIANCE"
@@ -97,7 +97,7 @@ export default function AddHoldingDialog({ onAdd, user }: AddHoldingDialogProps)
                         </div>
 
                         <div className="space-y-2">
-                            <Label className="text-[10px] font-black uppercase text-slate-400 tracking-widest px-1">Asset Class</Label>
+                            <Label className="text-[10px] font-semibold uppercase text-slate-400 tracking-st px-1">Asset Class</Label>
                             <Select value={formData.asset_type} onValueChange={(v: string) => setFormData({ ...formData, asset_type: v })}>
                                 <SelectTrigger className="h-14 rounded-2xl border-slate-100 bg-slate-50/50 font-bold">
                                     <SelectValue placeholder="Select Type" />
@@ -112,7 +112,7 @@ export default function AddHoldingDialog({ onAdd, user }: AddHoldingDialogProps)
                         </div>
 
                         <div className="space-y-2">
-                            <Label className="text-[10px] font-black uppercase text-slate-400 tracking-widest px-1">Purchase Units</Label>
+                            <Label className="text-[10px] font-semibold uppercase text-slate-400 tracking-st px-1">Purchase Units</Label>
                             <div className="relative">
                                 <TrendingUp className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                                 <Input
@@ -127,7 +127,7 @@ export default function AddHoldingDialog({ onAdd, user }: AddHoldingDialogProps)
                         </div>
 
                         <div className="space-y-2">
-                            <Label className="text-[10px] font-black uppercase text-slate-400 tracking-widest px-1">Average Cost (₹)</Label>
+                            <Label className="text-[10px] font-semibold uppercase text-slate-400 tracking-st px-1">Average Cost (₹)</Label>
                             <div className="relative">
                                 <IndianRupee className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                                 <Input
@@ -145,7 +145,7 @@ export default function AddHoldingDialog({ onAdd, user }: AddHoldingDialogProps)
                     <DialogFooter className="pt-4">
                         <Button
                             type="submit"
-                            className="w-full rounded-2xl h-14 bg-slate-900 hover:bg-emerald-600 font-black uppercase tracking-widest text-[10px] text-white transition-all shadow-xl shadow-emerald-500/10"
+                            className="w-full rounded-2xl h-14 bg-slate-900 hover:bg-primary-600 font-semibold uppercase tracking-widest text- text-white transition-all shadow-xl shadow-emerald-500/10"
                         >
                             Commit to Ledger
                         </Button>

@@ -12,9 +12,13 @@ interface AnimatedHeroProps {
     onCategorySelect?: (category: string | null) => void;
 }
 
+// Single brand gradient for all categories (fintech-optimized)
+const BRAND_GRADIENT = 'from-teal-600 via-emerald-600 to-cyan-700';
+
 // Category-specific hero configurations
 const categoryHeroConfig: Record<string, {
     icon: React.ComponentType<{ className?: string }>;
+    iconColor: string;  // For badge differentiation
     gradient: string;
     headline: string;
     subheadline: string;
@@ -24,7 +28,8 @@ const categoryHeroConfig: Record<string, {
 }> = {
     'credit-cards': {
         icon: CreditCard,
-        gradient: 'from-indigo-600 via-purple-600 to-indigo-700',
+        iconColor: 'text-indigo-300',
+        gradient: BRAND_GRADIENT,
         headline: 'Find the perfect credit card for your lifestyle',
         subheadline: 'Compare rewards, cashback, and travel benefits from top Indian banks. Get matched in minutes.',
         image: '💳',
@@ -37,7 +42,8 @@ const categoryHeroConfig: Record<string, {
     },
     'loans': {
         icon: Wallet,
-        gradient: 'from-emerald-600 via-teal-600 to-emerald-700',
+        iconColor: 'text-amber-300',
+        gradient: BRAND_GRADIENT,
         headline: 'Get the best loan rates in India',
         subheadline: 'Compare personal, home, car, and business loans with lowest interest rates. Quick approval process.',
         image: '💰',
@@ -50,7 +56,8 @@ const categoryHeroConfig: Record<string, {
     },
     'banking': {
         icon: PiggyBank,
-        gradient: 'from-blue-600 via-cyan-600 to-blue-700',
+        iconColor: 'text-blue-300',
+        gradient: BRAND_GRADIENT,
         headline: 'Maximize your savings with best interest rates',
         subheadline: 'Compare savings accounts, fixed deposits, and recurring deposits. Find the highest returns.',
         image: '🏦',
@@ -63,7 +70,8 @@ const categoryHeroConfig: Record<string, {
     },
     'investing': {
         icon: TrendingUp,
-        gradient: 'from-teal-600 via-emerald-600 to-teal-700',
+        iconColor: 'text-emerald-300',
+        gradient: BRAND_GRADIENT,
         headline: 'Build wealth with smart investments',
         subheadline: 'Compare mutual funds, stocks, PPF, NPS, and ELSS. Make informed investment decisions.',
         image: '📈',
@@ -76,7 +84,8 @@ const categoryHeroConfig: Record<string, {
     },
     'insurance': {
         icon: Shield,
-        gradient: 'from-rose-600 via-pink-600 to-rose-700',
+        iconColor: 'text-rose-300',
+        gradient: BRAND_GRADIENT,
         headline: 'Protect what matters most',
         subheadline: 'Compare life, health, term, and vehicle insurance from top insurers. Get comprehensive coverage.',
         image: '🛡️',
@@ -89,7 +98,8 @@ const categoryHeroConfig: Record<string, {
     },
     'small-business': {
         icon: Building2,
-        gradient: 'from-violet-600 via-purple-600 to-violet-700',
+        iconColor: 'text-violet-300',
+        gradient: BRAND_GRADIENT,
         headline: 'Grow your business with the right financial products',
         subheadline: 'Compare business loans, credit cards, and banking solutions. Tools to manage your business finances.',
         image: '🏢',
@@ -102,7 +112,8 @@ const categoryHeroConfig: Record<string, {
     },
     'taxes': {
         icon: Calculator,
-        gradient: 'from-amber-600 via-orange-600 to-amber-700',
+        iconColor: 'text-amber-300',
+        gradient: BRAND_GRADIENT,
         headline: 'Save more with smart tax planning',
         subheadline: 'Compare tax-saving investments, calculate your tax liability, and file ITR. Maximize your savings.',
         image: '📊',
@@ -115,7 +126,8 @@ const categoryHeroConfig: Record<string, {
     },
     'personal-finance': {
         icon: FileText,
-        gradient: 'from-slate-700 via-slate-800 to-slate-900',
+        iconColor: 'text-slate-300',
+        gradient: BRAND_GRADIENT,
         headline: 'Take control of your finances',
         subheadline: 'Plan your budget, manage debt, build emergency fund, and achieve your financial goals.',
         image: '📋',
@@ -130,7 +142,8 @@ const categoryHeroConfig: Record<string, {
 
 const defaultHero = {
     icon: TrendingUp,
-    gradient: 'from-teal-600 via-emerald-600 to-teal-700',
+    iconColor: 'text-white',
+    gradient: BRAND_GRADIENT,
     headline: 'Find your perfect financial product in minutes',
     subheadline: 'Compare credit cards, loans, investments, insurance, and banking products from top Indian providers. Make informed decisions with unbiased data.',
     image: '🎯',
@@ -244,14 +257,14 @@ export default function AnimatedHero({ selectedCategory: propSelectedCategory, o
                     <div className="text-white space-y-6">
                         {/* Category Badge */}
                         <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30">
-                            <Icon className="w-5 h-5" />
-                            <span className="text-sm font-semibold">
+                            <Icon className={`w-5 h-5 ${heroConfig.iconColor || 'text-white'}`} />
+                            <span className="text-sm font-semibold text-white">
                                 {selectedCategory ? categories.find(c => c.slug === selectedCategory)?.name : 'All Categories'}
                             </span>
                         </div>
 
                         {/* Headline */}
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight">
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
                             {heroConfig.headline}
                         </h1>
 
@@ -296,7 +309,7 @@ export default function AnimatedHero({ selectedCategory: propSelectedCategory, o
                         <div className="flex flex-wrap gap-6 pt-4">
                             {heroConfig.stats.map((stat, index) => (
                                 <div key={index} className="text-center">
-                                    <div className="text-2xl font-black mb-1">{stat.value}</div>
+                                    <div className="text-2xl font-bold mb-1">{stat.value}</div>
                                     <div className="text-sm text-white/80">{stat.label}</div>
                                 </div>
                             ))}
@@ -327,12 +340,12 @@ export default function AnimatedHero({ selectedCategory: propSelectedCategory, o
                                 
                                 {/* Stats Cards - Floating */}
                                 <div className="absolute top-10 left-0 bg-white/20 backdrop-blur-xl rounded-2xl p-4 border border-white/30 shadow-xl animate-slide-in-left">
-                                    <div className="text-2xl font-black text-white mb-1">{heroConfig.stats[0]?.value}</div>
+                                    <div className="text-2xl font-bold text-white mb-1">{heroConfig.stats[0]?.value}</div>
                                     <div className="text-xs text-white/80 font-medium">{heroConfig.stats[0]?.label}</div>
                                 </div>
                                 
                                 <div className="absolute top-32 right-0 bg-white/20 backdrop-blur-xl rounded-2xl p-4 border border-white/30 shadow-xl animate-slide-in-right">
-                                    <div className="text-2xl font-black text-white mb-1">{heroConfig.stats[1]?.value}</div>
+                                    <div className="text-2xl font-bold text-white mb-1">{heroConfig.stats[1]?.value}</div>
                                     <div className="text-xs text-white/80 font-medium">{heroConfig.stats[1]?.label}</div>
                                 </div>
                                 

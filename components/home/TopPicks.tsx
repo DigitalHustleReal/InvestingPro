@@ -109,7 +109,7 @@ export default function TopPicks() {
                             ))}
                             <Link
                                 href="/mutual-funds"
-                                className="flex items-center justify-center gap-2 text-blue-600 font-semibold mt-auto pt-6 hover:text-blue-700 transition-colors"
+                                className="flex items-center justify-center gap-2 text-primary-600 font-semibold mt-auto pt-6 hover:text-blue-700 transition-colors"
                             >
                                 View All 5,000+ Funds
                                 <ChevronRight className="w-4 h-4" />

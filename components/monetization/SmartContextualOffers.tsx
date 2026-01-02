@@ -67,9 +67,9 @@ export default function SmartContextualOffers({
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {displayedProducts.map((product: any) => (
                         <Card key={product.id} className="bg-slate-800/50 border-slate-700 hover:border-teal-500/50 transition-all group backdrop-blur-sm">
-                            <CardContent className="p-5">
+                            <CardContent className="p-6 md:p-8">
                                 <div className="flex justify-between items-start mb-4">
-                                    <div className="p-2 bg-white rounded-lg w-12 h-12 flex items-center justify-center overflow-hidden">
+                                    <div className="p-6 md:p-8 bg-white rounded-lg w-12 h-12 flex items-center justify-center overflow-hidden">
                                         <img src={product.image_url} alt={product.name} className="w-full h-full object-contain" />
                                     </div>
                                     <div className="flex items-center text-amber-400 font-bold text-sm bg-slate-900/50 px-2 py-1 rounded-full border border-slate-700">

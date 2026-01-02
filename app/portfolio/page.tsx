@@ -84,7 +84,7 @@ export default function PortfolioPage() {
             {/* Authority Hero Section */}
             <div className="bg-slate-900 border-b border-white/5 pt-28 pb-32 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-20 pointer-events-none">
-                    <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-blue-600 rounded-full blur-[140px] -translate-y-1/2" />
+                    <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-primary-600 rounded-full blur-[140px] -translate-y-1/2" />
                     <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-indigo-600 rounded-full blur-[100px] translate-y-1/2" />
                 </div>
 
@@ -93,9 +93,9 @@ export default function PortfolioPage() {
                         <div className="space-y-4">
                             <div className="inline-flex items-center gap-2 bg-blue-500/10 backdrop-blur-md rounded-full px-4 py-2 border border-blue-500/20">
                                 <ShieldCheck className="w-4 h-4 text-blue-400" />
-                                <span className="text-blue-400 font-black text-[10px] uppercase tracking-[0.2em]">AES-256 Vault Protection</span>
+                                <span className="text-blue-400 font-semibold text- uppercase tracking-[0.2em]">AES-256 Vault Protection</span>
                             </div>
-                            <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
+                            <h1 className="text-4xl sm:text-6xl font-bold text-white tracking-tight leading-tight">
                                 Capital <span className="text-blue-400">Headquarters</span>
                             </h1>
                             <p className="text-xl text-slate-400 font-medium max-w-2xl leading-relaxed">
@@ -121,8 +121,8 @@ export default function PortfolioPage() {
                             <div key={i} className="flex items-center gap-3 bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-white/10 group hover:border-blue-500/50 transition-colors">
                                 <item.icon className="w-5 h-5 text-blue-400 group-hover:scale-110 transition-transform" />
                                 <div>
-                                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1">{item.label}</p>
-                                    <p className="text-sm font-black text-white">{item.value}</p>
+                                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-st leading-none mb-1">{item.label}</p>
+                                    <p className="text-sm font-bold text-white">{item.value}</p>
                                 </div>
                             </div>
                         ))}

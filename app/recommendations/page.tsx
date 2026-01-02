@@ -42,7 +42,7 @@ export default function SmartRecommendationsPage() {
     const getBadgeColor = (badge?: string) => {
         switch (badge) {
             case 'best_overall': return 'bg-amber-500 text-white';
-            case 'best_value': return 'bg-emerald-500 text-white';
+            case 'best_value': return 'bg-primary-500 text-white';
             case 'most_popular': return 'bg-blue-500 text-white';
             case 'editors_choice': return 'bg-purple-500 text-white';
             default: return 'bg-gray-200 text-gray-700';
@@ -53,7 +53,7 @@ export default function SmartRecommendationsPage() {
         <div className="min-h-screen bg-gray-50 pb-20">
             {/* Hero */}
             <section className="bg-gradient-to-br from-[#0B1221] via-blue-900 to-[#0B1221] text-white pt-16 pb-24 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl"></div>
+                <div className="absolute top-0 right-0 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl"></div>
                 <div className="container mx-auto px-6 relative z-10">
                     <div className="flex items-center gap-2 mb-4">
                         <Sparkles className="w-6 h-6 text-emerald-400" />
@@ -80,7 +80,7 @@ export default function SmartRecommendationsPage() {
                             key={key}
                             onClick={() => setSelectedCategory(key as any)}
                             className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all shadow-sm ${selectedCategory === key
-                                ? 'bg-emerald-600 text-white shadow-emerald-200'
+                                ? 'bg-primary-600 text-white shadow-emerald-200'
                                 : 'bg-white text-gray-600 hover:bg-gray-50'
                                 }`}
                         >
@@ -120,7 +120,7 @@ export default function SmartRecommendationsPage() {
                                 <ProductCard product={card} showCompare={false} />
 
                                 {/* Score Breakdown */}
-                                <div className="mt-4 bg-gray-50 rounded-xl p-4 border border-gray-200">
+                                <div className="mt-4 bg-gray-50 rounded-xl p-6 md:p-8 border border-gray-200">
                                     <div className="flex items-center justify-between mb-3">
                                         <span className="text-sm font-semibold text-gray-700">Our Score</span>
                                         <span className="text-2xl font-bold text-emerald-600">{score.totalScore}/100</span>

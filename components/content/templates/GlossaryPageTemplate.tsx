@@ -31,7 +31,7 @@ export default function GlossaryPageTemplate({ content }: GlossaryPageTemplatePr
                             <BookOpen className="w-8 h-8 text-teal-400" />
                             <Badge className="bg-teal-500/20 text-teal-400 border-teal-500/30">Glossary</Badge>
                         </div>
-                        <h1 className="text-4xl md:text-5xl font-black mb-4">
+                        <h1 className="text-4xl md:text-5xl font-bold mb-4">
                             {sections.definition.term}
                             {sections.definition.full_form && (
                                 <span className="text-2xl text-slate-400 ml-3">({sections.definition.full_form})</span>
@@ -85,7 +85,7 @@ export default function GlossaryPageTemplate({ content }: GlossaryPageTemplatePr
                             </h2>
                             <Card className="border-0 shadow-lg bg-white">
                                 <CardContent className="p-6">
-                                    <div className="bg-slate-50 p-4 rounded-lg mb-4">
+                                    <div className="bg-slate-50 p-6 md:p-8 rounded-lg mb-4">
                                         <code className="text-lg font-mono text-slate-900">{sections.formula.formula}</code>
                                     </div>
                                     <p className="text-slate-600">{sections.formula.explanation}</p>
@@ -115,7 +115,7 @@ export default function GlossaryPageTemplate({ content }: GlossaryPageTemplatePr
 
                 {/* Internal Links */}
                 {internal_links.length > 0 && (
-                    <section className="py-12 bg-slate-50 border-t border-slate-200">
+                    <section className="py-16 md:py-24 bg-slate-50 border-t border-slate-200">
                         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                             <h2 className="text-xl font-bold text-slate-900 mb-6">Learn More</h2>
                             <div className="flex flex-wrap gap-3">

@@ -81,7 +81,7 @@ export default function AdsPage() {
                         </div>
                     ) : adPlacements.length === 0 ? (
                         <Card>
-                            <CardContent className="p-12 text-center">
+                            <CardContent className="p-6 md:p-8 text-center">
                                 <Megaphone className="w-12 h-12 text-slate-400 mx-auto mb-4" />
                                 <h3 className="text-lg font-semibold text-slate-900 mb-2">No ad placements</h3>
                                 <p className="text-slate-600 mb-4">Create your first ad placement to get started</p>

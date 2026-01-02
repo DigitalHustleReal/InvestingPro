@@ -24,7 +24,7 @@ export default function PortfolioSummary({ holdings }: PortfolioSummaryProps) {
             label: 'Total Invested',
             value: `₹${totalInvested.toLocaleString('en-IN')}`,
             icon: Wallet,
-            color: 'text-blue-600',
+            color: 'text-primary-600',
             bgColor: 'bg-blue-100'
         },
         {

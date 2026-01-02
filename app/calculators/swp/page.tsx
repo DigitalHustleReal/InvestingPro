@@ -85,7 +85,7 @@ export default function SWPCalculatorPage() {
             {/* Hero Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
                 <div className="text-center mb-8">
-                    <h1 className="text-4xl lg:text-5xl font-black text-slate-900 mb-4">
+                    <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
                         SWP Calculator - Systematic Withdrawal Plan Calculator
                     </h1>
                     <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
@@ -107,7 +107,7 @@ export default function SWPCalculatorPage() {
                 {/* Expanded FAQ Section */}
                 <Card className="border-0 shadow-lg rounded-2xl">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-black text-slate-900 flex items-center gap-3">
+                        <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
                             <Info className="w-6 h-6 text-teal-600" />
                             SWP Calculator - Frequently Asked Questions (FAQs)
                         </CardTitle>
@@ -218,8 +218,8 @@ export default function SWPCalculatorPage() {
                                 }
                             ].map((faq, idx) => (
                                 <div key={idx} className="border-b border-slate-200 pb-8 last:border-0">
-                                    <h3 className="font-black text-slate-900 mb-3 text-xl flex items-start gap-3">
-                                        <span className="text-teal-600 font-black text-lg">Q{idx + 1}.</span>
+                                    <h3 className="font-bold text-slate-900 mb-3 text-xl flex items-start gap-3">
+                                        <span className="text-teal-600 font-bold text-lg">Q{idx + 1}.</span>
                                         <span>{faq.q}</span>
                                     </h3>
                                     <p className="text-slate-700 leading-relaxed text-lg ml-8">{faq.a}</p>

@@ -329,7 +329,7 @@ export default function TagsPage() {
                             <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
                         </div>
                     ) : filteredTags.length === 0 ? (
-                        <Card className="p-12 text-center max-w-md mx-auto">
+                        <Card className="p-6 md:p-8 text-center max-w-md mx-auto">
                             <TagIcon className="w-12 h-12 text-slate-400 mx-auto mb-4" />
                             <h3 className="text-lg font-semibold text-slate-900 mb-2">
                                 {searchQuery ? 'No tags found' : 'No tags yet'}

@@ -155,7 +155,7 @@ export default function HomeLoansPage() {
 
                     <Card className="border-amber-200 bg-amber-50 mb-6">
                         <CardHeader>
-                            <CardTitle className="text-lg font-semibold text-slate-900 flex items-center gap-2">
+                            <CardTitle className="text-lg font-semibold text-slate-900 flex items-center gap-6 md:p-8">
                                 <AlertTriangle className="w-5 h-5 text-amber-600" />
                                 Risks and Limitations
                             </CardTitle>

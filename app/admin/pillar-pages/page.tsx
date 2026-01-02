@@ -66,7 +66,7 @@ export default function PillarPagesPage() {
                             <p className="text-slate-600">Loading pillar pages...</p>
                         </div>
                     ) : articles.length === 0 ? (
-                        <Card className="p-12 text-center max-w-md mx-auto">
+                        <Card className="p-6 md:p-8 text-center max-w-md mx-auto">
                             <Target className="w-12 h-12 text-slate-400 mx-auto mb-4" />
                             <h3 className="text-lg font-semibold text-slate-900 mb-2">No pillar pages yet</h3>
                             <p className="text-sm text-slate-600 mb-6">

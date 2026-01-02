@@ -22,8 +22,8 @@ export default function RiskAnalysis({ holdings = [], user }: RiskAnalysisProps)
     };
 
     return (
-        <Card className="rounded-[3rem] border-0 shadow-2xl bg-slate-900 text-white overflow-hidden p-10 relative group">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2" />
+        <Card className="rounded-[3rem] border-0 shadow-2xl bg-slate-900 text-white overflow-hidden p-6 md:p-8 relative group">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2" />
 
             <CardHeader className="p-0 mb-8 relative z-10">
                 <div className="flex items-center gap-4">
@@ -31,7 +31,7 @@ export default function RiskAnalysis({ holdings = [], user }: RiskAnalysisProps)
                         <ShieldCheck className="w-6 h-6" />
                     </div>
                     <div>
-                        <CardTitle className="text-2xl font-black text-white tracking-tight">Risk Radar</CardTitle>
+                        <CardTitle className="text-2xl font-bold text-white tracking-tight">Risk Radar</CardTitle>
                         <p className="text-slate-500 font-medium text-sm">Targeting: {userRiskProfile}</p>
                     </div>
                 </div>
@@ -40,8 +40,8 @@ export default function RiskAnalysis({ holdings = [], user }: RiskAnalysisProps)
             <CardContent className="p-0 relative z-10 space-y-8">
                 <div>
                     <div className="flex justify-between items-end mb-3">
-                        <span className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Calculated Volatility</span>
-                        <span className={`text-2xl font-black ${getRiskColor(portfolioRiskScore)}`}>{portfolioRiskScore}/100</span>
+                        <span className="text-[10px] font-semibold uppercase text-slate-400 tracking-st">Calculated Volatility</span>
+                        <span className={`text-2xl font-bold ${getRiskColor(portfolioRiskScore)}`}>{portfolioRiskScore}/100</span>
                     </div>
                     <Progress value={portfolioRiskScore} className="h-3 rounded-full bg-white/5" />
                 </div>
@@ -61,7 +61,7 @@ export default function RiskAnalysis({ holdings = [], user }: RiskAnalysisProps)
                     </div>
                 </div>
 
-                <div className="flex items-center gap-2 pt-4 border-t border-white/5 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                <div className="flex items-center gap-2 pt-4 border-t border-white/5 text-[10px] font-semibold text-slate-500 uppercase tracking-st">
                     <Info className="w-3.5 h-3.5" />
                     Last synchronized with India VIX: Today
                 </div>

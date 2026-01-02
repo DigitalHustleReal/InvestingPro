@@ -148,7 +148,7 @@ export default function StockImageSearch({ onSelect, onClose }: StockImageSearch
                             <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
                         </div>
                     ) : pexelsImages.length === 0 ? (
-                        <Card className="p-12 text-center">
+                        <Card className="p-6 md:p-8 text-center">
                             <ImageIcon className="w-12 h-12 text-slate-400 mx-auto mb-4" />
                             <p className="text-slate-600">No images found. Try a different search term.</p>
                         </Card>
@@ -191,7 +191,7 @@ export default function StockImageSearch({ onSelect, onClose }: StockImageSearch
                             <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
                         </div>
                     ) : unsplashImages.length === 0 ? (
-                        <Card className="p-12 text-center">
+                        <Card className="p-6 md:p-8 text-center">
                             <ImageIcon className="w-12 h-12 text-slate-400 mx-auto mb-4" />
                             <p className="text-slate-600">No images found. Try a different search term.</p>
                         </Card>

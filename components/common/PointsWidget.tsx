@@ -49,7 +49,7 @@ export default function PointsWidget({ points = 0, level = 'Beginner' }: PointsW
     return (
         <Card className="overflow-hidden">
             <div className={`h-2 bg-gradient-to-r ${getLevelColor(level)}`}></div>
-            <CardContent className="p-4">
+            <CardContent className="p-6 md:p-8">
                 <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
                         <TrendingUp className="w-4 h-4 text-slate-500" />

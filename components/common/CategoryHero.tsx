@@ -70,7 +70,7 @@ export function CategoryHero({
                     )}
 
                     {/* Title */}
-                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-4 tracking-tight leading-tight">
+                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight leading-tight">
                         {title}
                         {subtitle && (
                             <span className="block text-white/90 text-3xl sm:text-4xl lg:text-5xl mt-2">
@@ -119,7 +119,7 @@ export function CategoryHero({
                                     {stat.icon && (
                                         <div className="text-white mb-2">{stat.icon}</div>
                                     )}
-                                    <div className="text-2xl font-black text-white mb-1">{stat.value}</div>
+                                    <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
                                     <div className="text-xs text-white/80 font-medium uppercase tracking-wider">
                                         {stat.label}
                                     </div>

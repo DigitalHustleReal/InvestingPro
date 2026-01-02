@@ -360,15 +360,15 @@ export function FDCalculator() {
                     <div className="absolute top-0 right-0 w-64 h-64 bg-amber-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-3 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Principal</p>
                                 <p className="text-base sm:text-lg font-extrabold text-slate-900">{formatCurrency(principal)}</p>
                             </div>
-                            <div className="text-center p-3 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Interest</p>
                                 <p className="text-base sm:text-lg font-extrabold text-orange-600">{formatCurrency(result.interestEarned)}</p>
                             </div>
-                            <div className="text-center p-3 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Value' : 'Maturity'}
                                 </p>
@@ -388,7 +388,7 @@ export function FDCalculator() {
 
                         <div className="p-4 bg-white rounded-xl border border-amber-100">
                             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Effective Annual Rate</p>
-                            <p className="text-lg font-black text-slate-900">{result.effectiveRate.toFixed(2)}% p.a.</p>
+                            <p className="text-lg font-bold text-slate-900">{result.effectiveRate.toFixed(2)}% p.a.</p>
                         </div>
                     </CardContent>
                 </Card>
@@ -447,11 +447,11 @@ export function FDCalculator() {
                             <div className="grid grid-cols-2 gap-3">
                                 <div className="p-4 bg-amber-50 rounded-xl border border-amber-100">
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Principal</p>
-                                    <p className="text-lg font-black text-slate-900">{formatCurrency(principal)}</p>
+                                    <p className="text-lg font-bold text-slate-900">{formatCurrency(principal)}</p>
                                 </div>
                                 <div className="p-4 bg-orange-50 rounded-xl border border-orange-100">
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Interest Rate</p>
-                                    <p className="text-lg font-black text-orange-600">{interestRate}%</p>
+                                    <p className="text-lg font-bold text-orange-600">{interestRate}%</p>
                                 </div>
                             </div>
 
@@ -484,9 +484,9 @@ export function FDCalculator() {
                                                 )}
                                                 {yearlyData.length > 0 && (
                                                     <tr className="bg-amber-50 border-t-2 border-amber-200">
-                                                        <td className="px-3 py-3 text-sm font-black text-slate-900">Final</td>
-                                                        <td className="px-3 py-3 text-sm text-right font-black text-orange-600">{formatCurrency(result.interestEarned)}</td>
-                                                        <td className="px-3 py-3 text-sm text-right font-black text-amber-600">{formatCurrency(adjustForInflation ? result.realValue : result.maturityAmount)}</td>
+                                                        <td className="px-3 py-3 text-sm font-bold text-slate-900">Final</td>
+                                                        <td className="px-3 py-3 text-sm text-right font-bold text-orange-600">{formatCurrency(result.interestEarned)}</td>
+                                                        <td className="px-3 py-3 text-sm text-right font-bold text-amber-600">{formatCurrency(adjustForInflation ? result.realValue : result.maturityAmount)}</td>
                                                     </tr>
                                                 )}
                                             </tbody>

@@ -235,18 +235,18 @@ export default function ContentCalendarPage() {
                     {/* Statistics Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                         <Card>
-                            <CardContent className="p-4">
+                            <CardContent className="p-6 md:p-8">
                                 <div className="flex items-center justify-between">
                                     <div>
                                         <p className="text-sm text-slate-600">Scheduled</p>
                                         <p className="text-2xl font-bold text-slate-900">{scheduledArticles.length}</p>
                                     </div>
-                                    <Calendar className="w-8 h-8 text-blue-600" />
+                                    <Calendar className="w-8 h-8 text-primary-600" />
                                 </div>
                             </CardContent>
                         </Card>
                         <Card>
-                            <CardContent className="p-4">
+                            <CardContent className="p-6 md:p-8">
                                 <div className="flex items-center justify-between">
                                     <div>
                                         <p className="text-sm text-slate-600">Drafts</p>
@@ -257,7 +257,7 @@ export default function ContentCalendarPage() {
                             </CardContent>
                         </Card>
                         <Card>
-                            <CardContent className="p-4">
+                            <CardContent className="p-6 md:p-8">
                                 <div className="flex items-center justify-between">
                                     <div>
                                         <p className="text-sm text-slate-600">Pending Review</p>
@@ -268,7 +268,7 @@ export default function ContentCalendarPage() {
                             </CardContent>
                         </Card>
                         <Card>
-                            <CardContent className="p-4">
+                            <CardContent className="p-6 md:p-8">
                                 <div className="flex items-center justify-between">
                                     <div>
                                         <p className="text-sm text-slate-600">Total Articles</p>
@@ -353,7 +353,7 @@ export default function ContentCalendarPage() {
                                     </div>
                                     {getArticlesForDate(selectedDate).map((article: any) => (
                                         <Card key={article.id}>
-                                            <CardContent className="p-4">
+                                            <CardContent className="p-6 md:p-8">
                                                 <div className="flex items-start justify-between">
                                                     <div className="flex-1">
                                                         <h3 className="font-semibold text-slate-900 mb-1">

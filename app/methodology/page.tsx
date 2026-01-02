@@ -37,7 +37,7 @@ export default function MethodologyPage() {
                     {/* Core Principles */}
                     <Card className="mb-8 border-2 border-teal-100">
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
+                            <CardTitle className="flex items-center gap-6 md:p-8">
                                 <Shield className="w-6 h-6 text-teal-600" />
                                 Core Principles
                             </CardTitle>
@@ -87,7 +87,7 @@ export default function MethodologyPage() {
                     {/* Credit Cards Methodology */}
                     <Card className="mb-8">
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
+                            <CardTitle className="flex items-center gap-6 md:p-8">
                                 <Scale className="w-6 h-6 text-teal-600" />
                                 Credit Cards Ranking
                             </CardTitle>
@@ -138,7 +138,7 @@ export default function MethodologyPage() {
                     {/* Mutual Funds Methodology */}
                     <Card className="mb-8">
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
+                            <CardTitle className="flex items-center gap-6 md:p-8">
                                 <TrendingUp className="w-6 h-6 text-teal-600" />
                                 Mutual Funds Ranking
                             </CardTitle>
@@ -177,7 +177,7 @@ export default function MethodologyPage() {
                     {/* Personal Loans Methodology */}
                     <Card className="mb-8">
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
+                            <CardTitle className="flex items-center gap-6 md:p-8">
                                 <FileText className="w-6 h-6 text-teal-600" />
                                 Personal Loans Ranking
                             </CardTitle>
@@ -270,7 +270,7 @@ export default function MethodologyPage() {
                     </Card>
 
                     {/* Disclaimer */}
-                    <div className="mt-8 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+                    <div className="mt-8 p-6 md:p-8 bg-amber-50 border border-amber-200 rounded-lg">
                         <p className="text-sm text-amber-900">
                             <strong>Important:</strong> Rankings are based on publicly available data and our transparent methodology.
                             Rankings are for informational purposes only and do not constitute financial advice.

@@ -65,7 +65,7 @@ export default function LeadMagnet({ title, description, downloadUrl, type }: Le
     const typeIcons = {
         'excel': <FileSpreadsheet className="w-12 h-12 text-green-600" />,
         'pdf': <Download className="w-12 h-12 text-red-600" />,
-        'google-sheet': <FileSpreadsheet className="w-12 h-12 text-blue-600" />
+        'google-sheet': <FileSpreadsheet className="w-12 h-12 text-primary-600" />
     };
 
     return (

@@ -36,7 +36,7 @@ export default function CategoryHero({
             <div className="relative z-10 h-full flex items-center justify-between px-8 lg:px-16">
                 {/* Left: Text */}
                 <div className="flex-1 max-w-2xl">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-tight">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
                         {title}
                     </h1>
                     {description && (

@@ -36,7 +36,7 @@ export default function AutomationPage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                     <Card>
                         <CardHeader className="pb-2">
-                            <CardTitle className="text-sm font-medium text-slate-500 uppercase flex items-center gap-2">
+                            <CardTitle className="text-sm font-medium text-slate-500 uppercase flex items-center gap-6 md:p-8">
                                 <CheckCircleIcon className="w-4 h-4 text-green-500" />
                                 Successful Jobs
                             </CardTitle>
@@ -48,7 +48,7 @@ export default function AutomationPage() {
 
                     <Card>
                         <CardHeader className="pb-2">
-                            <CardTitle className="text-sm font-medium text-slate-500 uppercase flex items-center gap-2">
+                            <CardTitle className="text-sm font-medium text-slate-500 uppercase flex items-center gap-6 md:p-8">
                                 <XCircleIcon className="w-4 h-4 text-red-500" />
                                 Failed Jobs
                             </CardTitle>
@@ -60,7 +60,7 @@ export default function AutomationPage() {
 
                     <Card>
                         <CardHeader className="pb-2">
-                            <CardTitle className="text-sm font-medium text-slate-500 uppercase flex items-center gap-2">
+                            <CardTitle className="text-sm font-medium text-slate-500 uppercase flex items-center gap-6 md:p-8">
                                 <ClockIcon className="w-4 h-4 text-blue-500" />
                                 Last Activity
                             </CardTitle>

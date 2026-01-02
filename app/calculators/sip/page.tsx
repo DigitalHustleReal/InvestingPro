@@ -202,7 +202,7 @@ export default function SIPCalculatorPage() {
             {/* Hero Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
                 <div className="text-center mb-6">
-                    <h1 className="text-4xl lg:text-5xl font-black text-slate-900 mb-4">
+                    <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
                         SIP Calculator - Calculate Systematic Investment Plan Returns
                     </h1>
                     <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-4">
@@ -248,7 +248,7 @@ export default function SIPCalculatorPage() {
                 {/* Expanded FAQ Section */}
                 <Card className="border-0 shadow-lg rounded-2xl">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-black text-slate-900 flex items-center gap-3">
+                        <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
                             <Info className="w-6 h-6 text-teal-600" />
                             SIP Calculator - Frequently Asked Questions (FAQs)
                         </CardTitle>
@@ -355,8 +355,8 @@ export default function SIPCalculatorPage() {
                                 }
                             ].map((faq, idx) => (
                                 <div key={idx} className="border-b border-slate-200 pb-8 last:border-0">
-                                    <h3 className="font-black text-slate-900 mb-3 text-xl flex items-start gap-3">
-                                        <span className="text-teal-600 font-black text-lg">Q{idx + 1}.</span>
+                                    <h3 className="font-bold text-slate-900 mb-3 text-xl flex items-start gap-3">
+                                        <span className="text-teal-600 font-bold text-lg">Q{idx + 1}.</span>
                                         <span>{faq.q}</span>
                                     </h3>
                                     <p className="text-slate-700 leading-relaxed text-lg ml-8">{faq.a}</p>
@@ -369,8 +369,8 @@ export default function SIPCalculatorPage() {
                 {/* External Authority Links */}
                 <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50">
                     <CardHeader>
-                        <CardTitle className="text-xl font-black text-slate-900 flex items-center gap-3">
-                            <Info className="w-6 h-6 text-blue-600" />
+                        <CardTitle className="text-xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
+                            <Info className="w-6 h-6 text-primary-600" />
                             Official Resources & Guidelines
                         </CardTitle>
                         <p className="text-slate-600 mt-2">Refer to these authoritative sources for official information about SIP investments and mutual funds in India.</p>
@@ -384,7 +384,7 @@ export default function SIPCalculatorPage() {
                                 className="flex items-center gap-3 p-4 bg-white rounded-xl border border-blue-200 hover:border-blue-300 hover:shadow-md transition-all group"
                             >
                                 <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
-                                    <ExternalLink className="w-5 h-5 text-blue-600" />
+                                    <ExternalLink className="w-5 h-5 text-primary-600" />
                                 </div>
                                 <div>
                                     <p className="font-bold text-slate-900">SEBI</p>
@@ -398,7 +398,7 @@ export default function SIPCalculatorPage() {
                                 className="flex items-center gap-3 p-4 bg-white rounded-xl border border-blue-200 hover:border-blue-300 hover:shadow-md transition-all group"
                             >
                                 <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
-                                    <ExternalLink className="w-5 h-5 text-blue-600" />
+                                    <ExternalLink className="w-5 h-5 text-primary-600" />
                                 </div>
                                 <div>
                                     <p className="font-bold text-slate-900">AMFI</p>
@@ -412,7 +412,7 @@ export default function SIPCalculatorPage() {
                                 className="flex items-center gap-3 p-4 bg-white rounded-xl border border-blue-200 hover:border-blue-300 hover:shadow-md transition-all group"
                             >
                                 <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
-                                    <ExternalLink className="w-5 h-5 text-blue-600" />
+                                    <ExternalLink className="w-5 h-5 text-primary-600" />
                                 </div>
                                 <div>
                                     <p className="font-bold text-slate-900">RBI</p>

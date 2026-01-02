@@ -54,7 +54,7 @@ export default function TerminalPage() {
                                     <Sparkles size={14} />
                                     The Alpha Terminal
                                 </Badge>
-                                <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+                                <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
                                     Real-time Market <span className="text-indigo-500">Intelligence</span>
                                 </h1>
                                 <p className="text-slate-400 font-medium text-lg leading-relaxed">
@@ -62,7 +62,7 @@ export default function TerminalPage() {
                                     Surface asymmetric opportunities across Indian equities and credit.
                                 </p>
                             </div>
-                            <Link href="/advanced-tools/active-trading" className="h-12 px-8 bg-white text-slate-950 font-black rounded-xl hover:bg-indigo-500 hover:text-white transition-all shadow-xl hover:shadow-indigo-500/20 flex items-center gap-2 group">
+                            <Link href="/advanced-tools/active-trading" className="h-12 px-8 bg-white text-slate-950 font-bold rounded-xl hover:bg-indigo-500 hover:text-white transition-all shadow-xl hover:shadow-indigo-500/20 flex items-center gap-2 group">
                                 Learn More
                                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                             </Link>
@@ -72,11 +72,11 @@ export default function TerminalPage() {
                             {/* Main Opportunities Deck */}
                             <div className="lg:col-span-8 space-y-6">
                                 <div className="flex items-center justify-between px-2">
-                                    <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                                    <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-st flex items-center gap-2">
                                         <Activity size={14} className="text-emerald-400" />
                                         Alpha Opportunity Deck
                                     </h3>
-                                    <Badge variant="outline" className="text-[9px] font-black border-slate-800 text-slate-400">
+                                    <Badge variant="outline" className="text-[9px] font-bold border-slate-800 text-slate-400">
                                         SIG-RATIO: 4.2
                                     </Badge>
                                 </div>
@@ -86,27 +86,27 @@ export default function TerminalPage() {
                                         <div key={i} className="bg-slate-900/40 border border-slate-800/60 hover:border-emerald-500/30 transition-all group rounded-[2rem] overflow-hidden shadow-lg">
                                             <div className="p-8">
                                                 <div className="flex justify-between items-start mb-6">
-                                                    <div className="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-black text-white">
+                                                    <div className="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-bold text-white">
                                                         {item.symbol[0]}
                                                     </div>
-                                                    <Badge className={`px-3 py-1 border-0 rounded-full text-[10px] font-black uppercase ${
-                                                        item.status === 'bullish' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'
+                                                    <Badge className={`px-3 py-1 border-0 rounded-full text-[10px] font-bold uppercase ${
+                                                        item.status === 'bullish' ? 'bg-primary-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'
                                                     }`}>
                                                         {item.signal}
                                                     </Badge>
                                                 </div>
 
                                                 <div className="space-y-1 mb-6">
-                                                    <div className="text-2xl font-black text-white tracking-tight">{item.symbol}</div>
+                                                    <div className="text-2xl font-bold text-white tracking-tight">{item.symbol}</div>
                                                     <div className="text-xs font-bold text-slate-500 uppercase tracking-widest">LTP: ₹{item.price}</div>
                                                 </div>
 
                                                 <div className="flex items-center justify-between pt-6 border-t border-white/5">
                                                     <div className="flex flex-col">
-                                                        <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Probability</span>
-                                                        <span className="text-lg font-black text-white">{item.prob}</span>
+                                                        <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-st mb-1">Probability</span>
+                                                        <span className="text-lg font-bold text-white">{item.prob}</span>
                                                     </div>
-                                                    <Link href="/advanced-tools/active-trading" className="p-3 bg-white/5 border border-white/5 rounded-2xl text-slate-400 group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                                                    <Link href="/advanced-tools/active-trading" className="p-3 bg-white/5 border border-white/5 rounded-2xl text-slate-400 group-hover:bg-primary-500 group-hover:text-white transition-all">
                                                         <ArrowRight size={20} />
                                                     </Link>
                                                 </div>
@@ -119,10 +119,10 @@ export default function TerminalPage() {
                                         <BarChart3 className="absolute -right-8 -bottom-8 w-48 h-48 text-white/10 group-hover:scale-110 transition-transform duration-700" />
                                         <div className="p-8 h-full flex flex-col justify-between relative z-10">
                                             <div>
-                                                <h4 className="text-2xl font-black text-white tracking-tight leading-tight mb-4">Unlock Full <br /> Quant Access</h4>
+                                                <h4 className="text-2xl font-bold text-white tracking-tight leading-tight mb-4">Unlock Full <br /> Quant Access</h4>
                                                 <p className="text-white/70 text-sm font-medium leading-relaxed">Join 500+ premium members receiving real-time breakout alerts via WhatsApp & App.</p>
                                             </div>
-                                            <Button variant="outline" className="w-fit bg-white/10 border-white/20 text-white hover:bg-white hover:text-slate-950 font-black rounded-xl border-0 h-12 px-6">
+                                            <Button variant="outline" className="w-fit bg-white/10 border-white/20 text-white hover:bg-white hover:text-slate-950 font-bold rounded-xl border-0 h-12 px-6">
                                                 Go Premium
                                             </Button>
                                         </div>
@@ -189,18 +189,18 @@ export default function TerminalPage() {
                                             <div key={i} className="bg-slate-900/40 border border-slate-800/60 hover:border-emerald-500/30 transition-all group rounded-xl overflow-hidden shadow-lg">
                                                 <div className="p-6">
                                                     <div className="flex justify-between items-start mb-4">
-                                                        <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-lg font-black text-white">
+                                                        <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-lg font-bold text-white">
                                                             {item.symbol[0]}
                                                         </div>
-                                                        <Badge className={`px-2 py-1 border-0 rounded-full text-[9px] font-black uppercase ${
-                                                            item.status === 'bullish' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'
+                                                        <Badge className={`px-2 py-1 border-0 rounded-full text-[9px] font-bold uppercase ${
+                                                            item.status === 'bullish' ? 'bg-primary-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'
                                                         }`}>
                                                             {item.signal}
                                                         </Badge>
                                                     </div>
 
                                                     <div className="space-y-1 mb-4">
-                                                        <div className="text-xl font-black text-white tracking-tight">{item.symbol}</div>
+                                                        <div className="text-xl font-bold text-white tracking-tight">{item.symbol}</div>
                                                         <div className="flex items-center gap-2">
                                                             <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">₹{item.price}</span>
                                                             <span className={`text-xs font-bold ${item.status === 'bullish' ? 'text-emerald-400' : 'text-rose-400'}`}>
@@ -211,10 +211,10 @@ export default function TerminalPage() {
 
                                                     <div className="flex items-center justify-between pt-4 border-t border-white/5">
                                                         <div className="flex flex-col">
-                                                            <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">Probability</span>
-                                                            <span className="text-base font-black text-white">{item.prob}</span>
+                                                            <span className="text-[9px] font-semibold text-slate-500 uppercase tracking-st mb-1">Probability</span>
+                                                            <span className="text-base font-bold text-white">{item.prob}</span>
                                                         </div>
-                                                        <button className="p-2 bg-white/5 border border-white/5 rounded-xl text-slate-400 group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                                                        <button className="p-2 bg-white/5 border border-white/5 rounded-xl text-slate-400 group-hover:bg-primary-500 group-hover:text-white transition-all">
                                                             <ArrowRight size={16} />
                                                         </button>
                                                     </div>
@@ -232,7 +232,7 @@ export default function TerminalPage() {
                                                 <div className="p-6">
                                                     <div className="flex items-center justify-between">
                                                         <div>
-                                                            <div className="text-xl font-black text-white">{item.symbol}</div>
+                                                            <div className="text-xl font-bold text-white">{item.symbol}</div>
                                                             <div className="text-sm text-slate-400">₹{item.price}</div>
                                                         </div>
                                                         <div className="flex items-center gap-2">
@@ -278,15 +278,15 @@ export default function TerminalPage() {
                                     <div className="space-y-4">
                                         <div>
                                             <div className="text-xs text-slate-500 uppercase tracking-widest mb-1">Total Signals</div>
-                                            <div className="text-2xl font-black text-white">24</div>
+                                            <div className="text-2xl font-bold text-white">24</div>
                                         </div>
                                         <div>
                                             <div className="text-xs text-slate-500 uppercase tracking-widest mb-1">Success Rate</div>
-                                            <div className="text-2xl font-black text-emerald-400">78%</div>
+                                            <div className="text-2xl font-bold text-emerald-400">78%</div>
                                         </div>
                                         <div>
                                             <div className="text-xs text-slate-500 uppercase tracking-widest mb-1">Avg. Return</div>
-                                            <div className="text-2xl font-black text-indigo-400">+12.4%</div>
+                                            <div className="text-2xl font-bold text-indigo-400">+12.4%</div>
                                         </div>
                                     </div>
                                 </div>

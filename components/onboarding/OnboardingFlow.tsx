@@ -116,17 +116,17 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                             <div className="w-12 h-12 rounded-2xl bg-teal-500 flex items-center justify-center mb-8 shadow-lg shadow-teal-500/20">
                                 <TrendingUp className="w-6 h-6 text-white" />
                             </div>
-                            <h2 className="text-2xl font-black tracking-tight mb-2">Build Your <br /> Alpha Profile</h2>
+                            <h2 className="text-2xl font-bold tracking-tight mb-2">Build Your <br /> Alpha Profile</h2>
                             <p className="text-slate-400 text-sm font-medium">Join 2.5k+ investors making data-driven decisions.</p>
                         </div>
 
                         <div className="relative z-10 space-y-6">
                             {steps.map((s, i) => (
                                 <div key={i} className={`flex items-center gap-4 transition-all duration-300 ${i === currentStep ? 'opacity-100 translate-x-1' : i < currentStep ? 'opacity-50' : 'opacity-20'}`}>
-                                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-black border ${i === currentStep ? 'bg-white text-slate-900 border-white' : 'border-white/50'}`}>
+                                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold border ${i === currentStep ? 'bg-white text-slate-900 border-white' : 'border-white/50'}`}>
                                         {i < currentStep ? <CheckCircle2 className="w-4 h-4" /> : i + 1}
                                     </div>
-                                    <span className="text-[10px] uppercase font-black tracking-[0.2em]">{s.title}</span>
+                                    <span className="text-[10px] uppercase font-bold tracking-[0.2em]">{s.title}</span>
                                 </div>
                             ))}
                         </div>
@@ -137,14 +137,14 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                         <div>
                             <div className="flex justify-between items-center mb-10">
                                 <Progress value={progress} className="h-1.5 flex-1 mr-4 bg-slate-100" />
-                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{Math.round(progress)}%</span>
+                                <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-st">{Math.round(progress)}%</span>
                             </div>
 
                             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
                                 <div className="w-14 h-14 bg-slate-50 rounded-[1.5rem] flex items-center justify-center mb-6">
                                     {React.createElement(steps[currentStep].icon, { className: "w-7 h-7 text-slate-900" })}
                                 </div>
-                                <h3 className="text-2xl font-black text-slate-900 tracking-tight">{steps[currentStep].title}</h3>
+                                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">{steps[currentStep].title}</h3>
                                 <p className="text-slate-500 text-sm leading-relaxed font-medium">{steps[currentStep].description}</p>
                             </div>
 
@@ -243,7 +243,7 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                             <Button
                                 onClick={handleNext}
                                 disabled={loading || (currentStep === 1 && !formData.goal) || (currentStep === 2 && !formData.risk)}
-                                className="rounded-[1.25rem] bg-slate-900 hover:bg-teal-600 text-white font-black px-10 h-14 flex-1 shadow-xl shadow-slate-900/10 transition-all active:scale-95"
+                                className="rounded-[1.25rem] bg-slate-900 hover:bg-teal-600 text-white font-bold px-10 h-14 flex-1 shadow-xl shadow-slate-900/10 transition-all active:scale-95"
                             >
                                 {loading ? "Initializing..." : currentStep === steps.length - 1 ? "Complete Profile" : currentStep === 0 ? "Get Started" : "Continue"}
                                 {!loading && <ChevronRight className="w-5 h-5 ml-2" />}

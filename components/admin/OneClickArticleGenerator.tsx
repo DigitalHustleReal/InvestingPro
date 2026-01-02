@@ -399,7 +399,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
             {step === 'input' && (
                 <Card>
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
+                        <CardTitle className="flex items-center gap-6 md:p-8">
                             <Zap className="w-6 h-6 text-teal-600" />
                             One-Click SEO Article Generator
                         </CardTitle>
@@ -565,7 +565,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
             {/* Generating Step */}
             {step === 'generating' && (
                 <Card>
-                    <CardContent className="p-12 text-center">
+                    <CardContent className="p-6 md:p-8 text-center">
                         <Loader2 className="w-12 h-12 animate-spin text-teal-600 mx-auto mb-4" />
                         <h3 className="text-xl font-semibold text-slate-900 mb-2">Generating Your Article</h3>
                         <p className="text-slate-600 mb-4">
@@ -626,7 +626,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                         </CardHeader>
                         <CardContent className="space-y-6">
                             {/* SEO Meta */}
-                            <div className="bg-slate-50 p-4 rounded-lg space-y-2">
+                            <div className="bg-slate-50 p-6 md:p-8 rounded-lg space-y-2">
                                 <div>
                                     <Label className="text-xs text-slate-600">SEO Title</Label>
                                     <p className="text-sm font-semibold text-slate-900">{generatedArticle.seo_title}</p>
@@ -728,7 +728,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
             {/* Publishing Step */}
             {step === 'publishing' && (
                 <Card>
-                    <CardContent className="p-12 text-center">
+                    <CardContent className="p-6 md:p-8 text-center">
                         <Loader2 className="w-12 h-12 animate-spin text-teal-600 mx-auto mb-4" />
                         <h3 className="text-xl font-semibold text-slate-900 mb-2">Processing...</h3>
                         <p className="text-slate-600">Saving your article...</p>

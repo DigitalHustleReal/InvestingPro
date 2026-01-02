@@ -19,8 +19,8 @@ interface ProgressBarProps {
  */
 export function ProgressBar({ label, percentage, color = 'emerald', showValue = true }: ProgressBarProps) {
   const colors = {
-    emerald: 'bg-emerald-600',
-    blue: 'bg-blue-600',
+    emerald: 'bg-primary-600',
+    blue: 'bg-primary-600',
     amber: 'bg-amber-500',
     red: 'bg-red-600',
     purple: 'bg-purple-600'
@@ -166,7 +166,7 @@ export function Timeline({ steps }: { steps: Array<{ title: string; description:
         <div key={index} className="flex gap-4 mb-6 last:mb-0">
           {/* Step Number Circle */}
           <div className="flex flex-col items-center">
-            <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
+            <div className="w-10 h-10 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
               {index + 1}
             </div>
             {index < steps.length - 1 && (
@@ -260,7 +260,7 @@ export function FeatureGrid({
           }`}
         >
           <div className={`w-6 h-6 rounded-full flex items-center justify-center ${
-            feature.available ? 'bg-emerald-600' : 'bg-gray-400'
+            feature.available ? 'bg-primary-600' : 'bg-gray-400'
           }`}>
             <span className="text-white text-sm font-bold">
               {feature.available ? '✓' : '✗'}

@@ -74,7 +74,7 @@ export default function CalculatorsPage() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <Tabs defaultValue="sip" className="space-y-8">
                     <div className="mb-8">
-                        <h2 className="text-3xl font-black text-slate-900 mb-2">All Calculators</h2>
+                        <h2 className="text-3xl font-bold text-slate-900 mb-2">All Calculators</h2>
                         <p className="text-slate-600">Choose a calculator to get started</p>
                     </div>
                     <TabsList className="bg-white border border-slate-200 p-1.5 h-auto inline-flex flex-wrap rounded-xl shadow-sm gap-2">
@@ -237,8 +237,8 @@ export default function CalculatorsPage() {
                 <section className="mt-16 space-y-12">
                     {/* Introduction */}
                     <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-slate-50 to-white">
-                        <CardContent className="p-8 lg:p-12">
-                            <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-6">
+                        <CardContent className="p-8 lg:p-6 md:p-8">
+                            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
                                 Free Financial Calculators India - Plan Your Financial Future
                             </h2>
                             <div className="prose prose-slate max-w-none">
@@ -282,7 +282,7 @@ export default function CalculatorsPage() {
                     {/* FAQ Section */}
                     <Card className="border-0 shadow-lg rounded-2xl">
                         <CardHeader>
-                            <CardTitle className="text-2xl font-black text-slate-900 flex items-center gap-3">
+                            <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
                                 <Info className="w-6 h-6 text-teal-600" />
                                 Financial Calculator FAQs
                             </CardTitle>
@@ -324,7 +324,7 @@ export default function CalculatorsPage() {
                                     }
                                 ].map((faq, idx) => (
                                     <div key={idx} className="border-b border-slate-200 pb-6 last:border-0">
-                                        <h3 className="font-black text-slate-900 mb-2 text-lg">{faq.q}</h3>
+                                        <h3 className="font-bold text-slate-900 mb-2 text-lg">{faq.q}</h3>
                                         <p className="text-slate-600 leading-relaxed">{faq.a}</p>
                                     </div>
                                 ))}
@@ -335,7 +335,7 @@ export default function CalculatorsPage() {
                     {/* Related Content */}
                     <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50">
                         <CardHeader>
-                            <CardTitle className="text-2xl font-black text-slate-900">Related Financial Tools & Resources</CardTitle>
+                            <CardTitle className="text-2xl font-bold text-slate-900">Related Financial Tools & Resources</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -364,7 +364,7 @@ export default function CalculatorsPage() {
 
                 {/* Quick Access Tools */}
                 <section className="mt-16">
-                    <h2 className="text-3xl font-black text-slate-900 mb-8">Quick Access Tools</h2>
+                    <h2 className="text-3xl font-bold text-slate-900 mb-8">Quick Access Tools</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <CategoryCTA
                             href="/credit-score"
@@ -387,7 +387,7 @@ export default function CalculatorsPage() {
                 {/* Why Choose Section */}
                 <section className="bg-white py-16 mt-16 rounded-2xl">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-3xl font-black text-slate-900 mb-12 text-center">
+                        <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">
                             Why Use Our Financial Calculators?
                         </h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -411,7 +411,7 @@ export default function CalculatorsPage() {
                                 <Card key={idx} className="border-0 shadow-lg rounded-2xl">
                                     <CardContent className="p-8 text-center">
                                         <div className="flex justify-center mb-4">{feature.icon}</div>
-                                        <h3 className="text-xl font-black text-slate-900 mb-2">{feature.title}</h3>
+                                        <h3 className="text-xl font-bold text-slate-900 mb-2">{feature.title}</h3>
                                         <p className="text-slate-600">{feature.description}</p>
                                     </CardContent>
                                 </Card>

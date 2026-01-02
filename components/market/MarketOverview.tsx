@@ -53,7 +53,7 @@ export default function MarketOverview() {
                         const colorClass = isPositive ? 'text-emerald-500' : isNegative ? 'text-rose-500' : 'text-slate-400';
                         
                         return (
-                            <Card key={item.id} className="p-4 hover:shadow-md transition-shadow border-slate-200">
+                            <Card key={item.id} className="p-6 md:p-8 hover:shadow-md transition-shadow border-slate-200">
                                 <div className="flex justify-between items-start mb-2">
                                     <div className="flex flex-col">
                                         <span className="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded w-fit">

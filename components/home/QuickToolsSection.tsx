@@ -19,7 +19,7 @@ const quickTools = [
         title: "EMI Calculator",
         description: "Calculate loan EMIs for home, personal, car loans",
         href: "/calculators/emi",
-        color: "text-blue-600",
+        color: "text-primary-600",
         bg: "bg-blue-50",
         popular: true
     },
@@ -80,7 +80,7 @@ export default function QuickToolsSection() {
                         <Sparkles className="w-4 h-4 text-teal-600" />
                         <span className="text-sm font-semibold text-teal-700">Quick Tools</span>
                     </div>
-                    <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-4">
+                    <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
                         Calculate, Plan & Compare
                     </h2>
                     <p className="text-xl text-slate-600 max-w-2xl mx-auto">

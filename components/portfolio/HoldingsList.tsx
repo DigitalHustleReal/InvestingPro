@@ -13,7 +13,7 @@ interface HoldingsListProps {
 
 export default function HoldingsList({ holdings = [], onDelete }: HoldingsListProps) {
     return (
-        <Card className="rounded-[3rem] border-0 shadow-2xl bg-white overflow-hidden p-10">
+        <Card className="rounded-[3rem] border-0 shadow-2xl bg-white overflow-hidden p-6 md:p-8">
             <CardHeader className="p-0 mb-10">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div className="flex items-center gap-4">
@@ -21,11 +21,11 @@ export default function HoldingsList({ holdings = [], onDelete }: HoldingsListPr
                             <BarChart3 className="w-6 h-6" />
                         </div>
                         <div>
-                            <CardTitle className="text-2xl font-black text-slate-900 tracking-tight">Investment Ledger</CardTitle>
+                            <CardTitle className="text-2xl font-bold text-slate-900 tracking-tight">Investment Ledger</CardTitle>
                             <p className="text-slate-500 font-medium text-sm">Detailed overview of your positions</p>
                         </div>
                     </div>
-                    <Badge className="bg-slate-100 text-slate-500 border-0 rounded-xl px-4 py-2 font-black uppercase tracking-widest text-[9px]">
+                    <Badge className="bg-slate-100 text-slate-500 border-0 rounded-xl px-4 py-2 font-semibold uppercase tracking-st text-[9px]">
                         {holdings.length} Active Positions
                     </Badge>
                 </div>
@@ -36,11 +36,11 @@ export default function HoldingsList({ holdings = [], onDelete }: HoldingsListPr
                     <table className="w-full text-left">
                         <thead>
                             <tr className="border-b border-slate-50">
-                                <th className="pb-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Asset Name</th>
-                                <th className="pb-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Avg Price</th>
-                                <th className="pb-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Quantity</th>
-                                <th className="pb-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Market Value</th>
-                                <th className="pb-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Returns</th>
+                                <th className="pb-6 text-[10px] font-semibold text-slate-400 uppercase tracking-st">Asset Name</th>
+                                <th className="pb-6 text-[10px] font-semibold text-slate-400 uppercase tracking-st text-right">Avg Price</th>
+                                <th className="pb-6 text-[10px] font-semibold text-slate-400 uppercase tracking-st text-right">Quantity</th>
+                                <th className="pb-6 text-[10px] font-semibold text-slate-400 uppercase tracking-st text-right">Market Value</th>
+                                <th className="pb-6 text-[10px] font-semibold text-slate-400 uppercase tracking-st text-right">Returns</th>
                                 <th className="pb-6 text-right"></th>
                             </tr>
                         </thead>
@@ -48,7 +48,7 @@ export default function HoldingsList({ holdings = [], onDelete }: HoldingsListPr
                             {holdings.length === 0 ? (
                                 <tr>
                                     <td colSpan={6} className="py-20 text-center">
-                                        <p className="text-slate-400 font-black uppercase tracking-widest text-[10px]">Your ledger is empty. Begin by adding a position.</p>
+                                        <p className="text-slate-400 font-semibold uppercase tracking-widest text-">Your ledger is empty. Begin by adding a position.</p>
                                     </td>
                                 </tr>
                             ) : (
@@ -63,11 +63,11 @@ export default function HoldingsList({ holdings = [], onDelete }: HoldingsListPr
                                         <tr key={holding.id} className="group hover:bg-slate-50/50 transition-colors">
                                             <td className="py-6">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-black text-xs uppercase">
+                                                    <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-semibold text- uppercase">
                                                         {holding.symbol?.slice(0, 2) || holding.asset_name?.slice(0, 2) || 'AS'}
                                                     </div>
                                                     <div>
-                                                        <p className="text-sm font-black text-slate-900 leading-none mb-1">{holding.asset_name}</p>
+                                                        <p className="text-sm font-bold text-slate-900 leading-none mb-1">{holding.asset_name}</p>
                                                         <Badge variant="outline" className="text-[8px] font-bold uppercase py-0 px-1.5 border-slate-100 text-slate-400">
                                                             {holding.asset_type || 'Equity'}
                                                         </Badge>
@@ -75,11 +75,11 @@ export default function HoldingsList({ holdings = [], onDelete }: HoldingsListPr
                                                 </div>
                                             </td>
                                             <td className="py-6 text-right font-bold text-slate-600 text-sm">₹{holding.average_price.toLocaleString('en-IN')}</td>
-                                            <td className="py-6 text-right font-black text-slate-900 text-sm">{holding.quantity}</td>
-                                            <td className="py-6 text-right font-black text-slate-900 text-sm">₹{currentValue.toLocaleString('en-IN')}</td>
+                                            <td className="py-6 text-right font-semibold text-slate-900 text-">{holding.quantity}</td>
+                                            <td className="py-6 text-right font-semibold text-slate-900 text-">₹{currentValue.toLocaleString('en-IN')}</td>
                                             <td className="py-6 text-right">
                                                 <div className="flex flex-col items-end">
-                                                    <div className={`flex items-center gap-1 font-black text-sm ${isProfit ? 'text-emerald-600' : 'text-rose-600'}`}>
+                                                    <div className={`flex items-center gap-1 font-bold text-sm ${isProfit ? 'text-emerald-600' : 'text-rose-600'}`}>
                                                         {isProfit ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
                                                         {profitPercent.toFixed(2)}%
                                                     </div>

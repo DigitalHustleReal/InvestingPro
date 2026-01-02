@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Source_Serif_4, JetBrains_Mono } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
@@ -17,7 +17,24 @@ import { SearchProvider } from "@/components/search/SearchProvider";
 import { CompareProvider } from "@/components/products/CompareContext";
 import CompareFloatingBar from "@/components/products/CompareFloatingBar";
 
-const inter = Inter({ subsets: ["latin"] });
+// Font configurations with CSS variables
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const serif = Source_Serif_4({
+  subsets: ["latin"],
+  variable: '--font-serif',
+  display: 'swap',
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: '--font-mono',
+  display: 'swap',
+});
 
 // ... existing code ...
 
@@ -31,7 +48,13 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={cn(inter.className, "min-h-screen flex flex-col bg-gray-50")}>
+      <body className={cn(
+        inter.variable,
+        serif.variable,
+        mono.variable,
+        inter.className,
+        "min-h-screen flex flex-col bg-gray-50"
+      )}>
         <ErrorBoundaryProvider>
           <QueryProvider>
             <SearchProvider>

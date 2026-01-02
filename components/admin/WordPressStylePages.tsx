@@ -146,7 +146,7 @@ export default function WordPressStylePages({
             {/* Stats Bar - Responsive */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-4">
                 <Card className="border-slate-200">
-                    <CardContent className="p-3 md:p-4">
+                    <CardContent className="p-6 md:p-8 md:p-6 md:p-8">
                         <div className="flex items-center justify-between">
                             <div className="min-w-0 flex-1">
                                 <p className="text-xs md:text-sm text-slate-500 truncate">Total</p>
@@ -157,7 +157,7 @@ export default function WordPressStylePages({
                     </CardContent>
                 </Card>
                 <Card className="border-slate-200">
-                    <CardContent className="p-3 md:p-4">
+                    <CardContent className="p-6 md:p-8 md:p-6 md:p-8">
                         <div className="flex items-center justify-between">
                             <div className="min-w-0 flex-1">
                                 <p className="text-xs md:text-sm text-slate-500 truncate">Published</p>
@@ -168,7 +168,7 @@ export default function WordPressStylePages({
                     </CardContent>
                 </Card>
                 <Card className="border-slate-200">
-                    <CardContent className="p-3 md:p-4">
+                    <CardContent className="p-6 md:p-8 md:p-6 md:p-8">
                         <div className="flex items-center justify-between">
                             <div className="min-w-0 flex-1">
                                 <p className="text-xs md:text-sm text-slate-500 truncate">Draft</p>
@@ -179,7 +179,7 @@ export default function WordPressStylePages({
                     </CardContent>
                 </Card>
                 <Card className="border-slate-200">
-                    <CardContent className="p-3 md:p-4">
+                    <CardContent className="p-6 md:p-8 md:p-6 md:p-8">
                         <div className="flex items-center justify-between">
                             <div className="min-w-0 flex-1">
                                 <p className="text-xs md:text-sm text-slate-500 truncate">Review</p>
@@ -190,7 +190,7 @@ export default function WordPressStylePages({
                     </CardContent>
                 </Card>
                 <Card className="border-slate-200">
-                    <CardContent className="p-3 md:p-4">
+                    <CardContent className="p-6 md:p-8 md:p-6 md:p-8">
                         <div className="flex items-center justify-between">
                             <div className="min-w-0 flex-1">
                                 <p className="text-xs md:text-sm text-slate-500 truncate">Archived</p>
@@ -203,7 +203,7 @@ export default function WordPressStylePages({
             </div>
 
             {/* Filters and Search - WordPress Style */}
-            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between bg-white p-4 rounded-lg border border-slate-200">
+            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between bg-white p-6 md:p-8 rounded-lg border border-slate-200">
                 <div className="flex-1 w-full sm:w-auto">
                     <div className="relative">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -245,7 +245,7 @@ export default function WordPressStylePages({
                 </div>
             ) : filteredPages.length === 0 ? (
                 <Card className="border-slate-200">
-                    <CardContent className="p-12 text-center">
+                    <CardContent className="p-6 md:p-8 text-center">
                         <FileText className="w-12 h-12 text-slate-400 mx-auto mb-4" />
                         <h3 className="text-lg font-semibold text-slate-900 mb-2">No pages found</h3>
                         <p className="text-slate-500 mb-4">

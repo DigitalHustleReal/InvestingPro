@@ -31,19 +31,19 @@ export default function ComponentShowcasePage() {
             </h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
+                <span className="flex-shrink-0 w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
                 <span className="text-gray-800">Professional components make your content stand out and improve user engagement</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
+                <span className="flex-shrink-0 w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
                 <span className="text-gray-800">Key Takeaways boxes should appear right after the introduction to summarize main points</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
+                <span className="flex-shrink-0 w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
                 <span className="text-gray-800">Use callout boxes to highlight important tips, warnings, and examples throughout your article</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-sm font-bold">4</span>
+                <span className="flex-shrink-0 w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">4</span>
                 <span className="text-gray-800">Stats boxes are perfect for displaying numbers, returns, and financial metrics</span>
               </li>
             </ul>
@@ -168,7 +168,7 @@ export default function ComponentShowcasePage() {
 
           {/* COMPARISON TABLE */}
           <div className="my-8 border-2 border-gray-200 rounded-lg overflow-hidden">
-            <div className="bg-emerald-600 text-white px-6 py-3">
+            <div className="bg-primary-600 text-white px-6 py-3">
               <h3 className="font-bold text-lg">SIP vs Lumpsum Comparison</h3>
             </div>
             <div className="divide-y divide-gray-200">
@@ -230,7 +230,7 @@ export default function ComponentShowcasePage() {
                 <span className="text-sm font-bold text-gray-900">70%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                <div className="h-3 rounded-full bg-emerald-600" style={{ width: '70%' }} />
+                <div className="h-3 rounded-full bg-primary-600" style={{ width: '70%' }} />
               </div>
             </div>
 
@@ -241,7 +241,7 @@ export default function ComponentShowcasePage() {
                 <span className="text-sm font-bold text-gray-900">25%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                <div className="h-3 rounded-full bg-blue-600" style={{ width: '25%' }} />
+                <div className="h-3 rounded-full bg-primary-600" style={{ width: '25%' }} />
               </div>
             </div>
 
@@ -277,12 +277,12 @@ export default function ComponentShowcasePage() {
             {/* Legend */}
             <div className="space-y-2">
               <div className="flex items-center gap-3">
-                <div className="w-4 h-4 rounded bg-emerald-600" />
+                <div className="w-4 h-4 rounded bg-primary-600" />
                 <span className="text-sm text-gray-700">Equity</span>
                 <span className="text-sm font-semibold text-gray-900">70%</span>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-4 h-4 rounded bg-blue-600" />
+                <div className="w-4 h-4 rounded bg-primary-600" />
                 <span className="text-sm text-gray-700">Debt</span>
                 <span className="text-sm font-semibold text-gray-900">25%</span>
               </div>
@@ -300,14 +300,14 @@ export default function ComponentShowcasePage() {
               <div className="flex flex-col items-center flex-1">
                 <div className="mb-2 text-sm font-semibold text-gray-900">12.5%</div>
                 <div className="w-full bg-gray-100 rounded-t-lg relative" style={{ height: '62.5%' }}>
-                  <div className="absolute bottom-0 w-full rounded-t-lg bg-emerald-600" style={{ height: '100%' }} />
+                  <div className="absolute bottom-0 w-full rounded-t-lg bg-primary-600" style={{ height: '100%' }} />
                 </div>
                 <div className="mt-2 text-xs text-center text-gray-600">SIP Returns</div>
               </div>
               <div className="flex flex-col items-center flex-1">
                 <div className="mb-2 text-sm font-semibold text-gray-900">8.5%</div>
                 <div className="w-full bg-gray-100 rounded-t-lg relative" style={{ height: '42.5%' }}>
-                  <div className="absolute bottom-0 w-full rounded-t-lg bg-blue-600" style={{ height: '100%' }} />
+                  <div className="absolute bottom-0 w-full rounded-t-lg bg-primary-600" style={{ height: '100%' }} />
                 </div>
                 <div className="mt-2 text-xs text-center text-gray-600">FD Returns</div>
               </div>
@@ -349,7 +349,7 @@ export default function ComponentShowcasePage() {
           <div className="my-6">
             <div className="flex gap-4 mb-6">
               <div className="flex flex-col items-center">
-                <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg">1</div>
+                <div className="w-10 h-10 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold text-lg">1</div>
                 <div className="w-0.5 h-full bg-emerald-200 mt-2" />
               </div>
               <div className="flex-1 pb-6">
@@ -359,7 +359,7 @@ export default function ComponentShowcasePage() {
             </div>
             <div className="flex gap-4 mb-6">
               <div className="flex flex-col items-center">
-                <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg">2</div>
+                <div className="w-10 h-10 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold text-lg">2</div>
                 <div className="w-0.5 h-full bg-emerald-200 mt-2" />
               </div>
               <div className="flex-1 pb-6">
@@ -369,7 +369,7 @@ export default function ComponentShowcasePage() {
             </div>
             <div className="flex gap-4">
               <div className="flex flex-col items-center">
-                <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg">3</div>
+                <div className="w-10 h-10 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold text-lg">3</div>
               </div>
               <div className="flex-1">
                 <h4 className="font-bold text-gray-900 mb-1">Get Approval</h4>
@@ -420,13 +420,13 @@ export default function ComponentShowcasePage() {
           <h3>Feature Comparison Grid</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 my-6">
             <div className="flex items-center gap-3 p-4 rounded-lg border-2 bg-emerald-50 border-emerald-200">
-              <div className="w-6 h-6 rounded-full flex items-center justify-center bg-emerald-600">
+              <div className="w-6 h-6 rounded-full flex items-center justify-center bg-primary-600">
                 <span className="text-white text-sm font-bold">✓</span>
               </div>
               <span className="text-sm font-medium text-gray-900">Zero Annual Fee</span>
             </div>
             <div className="flex items-center gap-3 p-4 rounded-lg border-2 bg-emerald-50 border-emerald-200">
-              <div className="w-6 h-6 rounded-full flex items-center justify-center bg-emerald-600">
+              <div className="w-6 h-6 rounded-full flex items-center justify-center bg-primary-600">
                 <span className="text-white text-sm font-bold">✓</span>
               </div>
               <span className="text-sm font-medium text-gray-900">Cashback on All Purchases</span>

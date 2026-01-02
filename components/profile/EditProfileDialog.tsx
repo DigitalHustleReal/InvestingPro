@@ -56,7 +56,7 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-[500px] rounded-[2.5rem] p-8 border-0 shadow-2xl">
                 <DialogHeader>
-                    <DialogTitle className="text-2xl font-black text-slate-900 tracking-tight">Refine Authority Profile</DialogTitle>
+                    <DialogTitle className="text-2xl font-bold text-slate-900 tracking-tight">Refine Authority Profile</DialogTitle>
                     <DialogDescription className="text-slate-500 font-medium pt-1">
                         Keep your credentials updated to maintain your status as a verified market contributor.
                     </DialogDescription>
@@ -64,7 +64,7 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
 
                 <form onSubmit={handleSubmit} className="space-y-6 pt-4">
                     <div className="space-y-2">
-                        <Label htmlFor="full_name" className="text-[10px] font-black uppercase text-slate-400 tracking-widest px-1">Display Identity</Label>
+                        <Label htmlFor="full_name" className="text-[10px] font-semibold uppercase text-slate-400 tracking-st px-1">Display Identity</Label>
                         <div className="relative group">
                             <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-purple-600 transition-colors" />
                             <Input
@@ -78,7 +78,7 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="bio" className="text-[10px] font-black uppercase text-slate-400 tracking-widest px-1">Authority Bio</Label>
+                        <Label htmlFor="bio" className="text-[10px] font-semibold uppercase text-slate-400 tracking-st px-1">Authority Bio</Label>
                         <div className="relative group">
                             <FileText className="absolute left-4 top-4 w-4 h-4 text-slate-400 group-focus-within:text-purple-600 transition-colors" />
                             <Textarea
@@ -92,7 +92,7 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="expertise" className="text-[10px] font-black uppercase text-slate-400 tracking-widest px-1">Domains of Expertise (Comma separated)</Label>
+                        <Label htmlFor="expertise" className="text-[10px] font-semibold uppercase text-slate-400 tracking-st px-1">Domains of Expertise (Comma separated)</Label>
                         <div className="relative group">
                             <Input
                                 id="expertise"
@@ -105,7 +105,7 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="profile_picture" className="text-[10px] font-black uppercase text-slate-400 tracking-widest px-1">Avatar URL</Label>
+                        <Label htmlFor="profile_picture" className="text-[10px] font-semibold uppercase text-slate-400 tracking-st px-1">Avatar URL</Label>
                         <div className="relative group">
                             <Camera className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-purple-600 transition-colors" />
                             <Input
@@ -123,14 +123,14 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
                             type="button"
                             variant="ghost"
                             onClick={() => onOpenChange(false)}
-                            className="rounded-2xl h-14 font-black uppercase tracking-widest text-[10px] text-slate-400 hover:text-slate-900"
+                            className="rounded-2xl h-14 font-semibold uppercase tracking-widest text- text-slate-400 hover:text-slate-900"
                         >
                             Discard Changes
                         </Button>
                         <Button
                             type="submit"
                             disabled={saving}
-                            className="rounded-2xl h-14 bg-slate-900 hover:bg-purple-600 font-black uppercase tracking-widest text-[10px] text-white transition-all px-8 shadow-xl shadow-purple-500/10"
+                            className="rounded-2xl h-14 bg-slate-900 hover:bg-purple-600 font-semibold uppercase tracking-widest text- text-white transition-all px-8 shadow-xl shadow-purple-500/10"
                         >
                             {saving ? 'Synchronizing...' : 'Save DNA Profile'}
                         </Button>

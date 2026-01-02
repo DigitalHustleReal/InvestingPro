@@ -379,7 +379,7 @@ export default function AIContentWriterPage() {
                                                         <div key={step.id} className="flex items-center gap-4">
                                                             <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
                                                                 isCompleted
-                                                                    ? 'bg-emerald-500 text-white'
+                                                                    ? 'bg-primary-500 text-white'
                                                                     : isActive
                                                                     ? 'bg-blue-500 text-white'
                                                                     : 'bg-slate-200 text-slate-600'
@@ -465,7 +465,7 @@ export default function AIContentWriterPage() {
                                             <Button
                                                 onClick={runAutoGenerator}
                                                 disabled={autoGenerating}
-                                                className="w-full bg-blue-600 hover:bg-blue-700 text-white h-12 text-lg font-semibold mt-6"
+                                                className="w-full bg-primary-600 hover:bg-primary-700 text-white h-12 text-lg font-semibold mt-6"
                                                 size="lg"
                                             >
                                                 {autoGenerating ? (
@@ -507,10 +507,10 @@ export default function AIContentWriterPage() {
                                                             }`}
                                                             onClick={() => setSelectedTemplate(template.id)}
                                                         >
-                                                            <CardContent className="p-4">
+                                                            <CardContent className="p-6 md:p-8">
                                                                 <div className="flex items-start gap-3">
                                                                     <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
-                                                                        <TemplateIcon className="w-5 h-5 text-blue-600" />
+                                                                        <TemplateIcon className="w-5 h-5 text-primary-600" />
                                                                     </div>
                                                                     <div className="flex-1">
                                                                         <h4 className="font-semibold text-slate-900 mb-1">{template.name}</h4>
@@ -598,7 +598,7 @@ export default function AIContentWriterPage() {
                                                         }`}
                                                         onClick={() => setSelectedPrompt(prompt.id)}
                                                     >
-                                                        <CardContent className="p-4">
+                                                        <CardContent className="p-6 md:p-8">
                                                             <div className="flex items-start justify-between mb-2">
                                                                 <h4 className="font-semibold text-slate-900">{prompt.name}</h4>
                                                                 <Badge variant="outline" className="text-xs">
@@ -710,7 +710,7 @@ export default function AIContentWriterPage() {
                                                                 </Button>
                                                                 <Button
                                                                     size="sm"
-                                                                    className="bg-emerald-600 hover:bg-emerald-700"
+                                                                    className="bg-primary-600 hover:bg-emerald-700"
                                                                     onClick={() => approveArticle(article.id)}
                                                                 >
                                                                     <CheckCircle2 className="w-4 h-4 mr-2" />

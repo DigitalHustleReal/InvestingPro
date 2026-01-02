@@ -115,7 +115,7 @@ export default function ContentGeneratorPage() {
                 {/* Console Output */}
                 <div className="lg:col-span-2">
                     <Card className="h-[500px] flex flex-col bg-slate-950 border-slate-800 shadow-2xl overflow-hidden font-mono">
-                        <div className="p-3 bg-slate-900 border-b border-slate-800 flex items-center gap-2">
+                        <div className="p-6 md:p-8 bg-slate-900 border-b border-slate-800 flex items-center gap-2">
                             <Terminal className="w-4 h-4 text-slate-400" />
                             <span className="text-xs text-slate-400">System Output</span>
                         </div>

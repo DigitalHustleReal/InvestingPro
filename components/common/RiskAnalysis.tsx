@@ -96,7 +96,7 @@ export default function RiskAnalysis({ holdings, user }: RiskAnalysisProps) {
                 </div>
             </CardHeader>
             <CardContent className="space-y-4">
-                <div className="bg-slate-50 rounded-lg p-4 border border-slate-100">
+                <div className="bg-slate-50 rounded-lg p-6 md:p-8 border border-slate-100">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-sm text-slate-600">Recommended Equity Allocation</span>
                         <span className="font-semibold text-slate-900">{profile.equity.min}-{profile.equity.max}%</span>

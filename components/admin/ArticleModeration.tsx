@@ -181,7 +181,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
                             <Button
                                 onClick={handleApprove}
                                 disabled={approveMutation.isPending}
-                                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
+                                className="w-full bg-primary-600 hover:bg-emerald-700 text-white"
                             >
                                 <CheckCircle2 className="w-4 h-4 mr-2" />
                                 Approve & Publish
@@ -310,7 +310,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
                         <Button
                             onClick={handleRevision}
                             disabled={revisionMutation.isPending}
-                            className="bg-blue-600 hover:bg-blue-700 text-white"
+                            className="bg-primary-600 hover:bg-primary-700 text-white"
                         >
                             Request Revision
                         </Button>

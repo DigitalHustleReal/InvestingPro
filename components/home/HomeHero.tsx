@@ -56,7 +56,7 @@ export default function HomeHero({ selectedCategory: propSelectedCategory, onCat
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
                 {/* Main Hero Content */}
                 <div className="text-center mb-12">
-                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight">
+                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
                         Find your perfect financial product in minutes
                     </h1>
                     <p className="text-xl lg:text-2xl text-white/90 max-w-3xl mx-auto mb-8">
@@ -108,15 +108,15 @@ export default function HomeHero({ selectedCategory: propSelectedCategory, onCat
                 {/* Quick Stats */}
                 <div className="flex flex-wrap items-center justify-center gap-8 mt-12 text-center">
                     <div>
-                        <div className="text-3xl font-black mb-1">10,000+</div>
+                        <div className="text-3xl font-bold mb-1">10,000+</div>
                         <div className="text-sm text-white/80">Products Compared</div>
                     </div>
                     <div>
-                        <div className="text-3xl font-black mb-1">5,000+</div>
+                        <div className="text-3xl font-bold mb-1">5,000+</div>
                         <div className="text-sm text-white/80">Active Users</div>
                     </div>
                     <div>
-                        <div className="text-3xl font-black mb-1">100%</div>
+                        <div className="text-3xl font-bold mb-1">100%</div>
                         <div className="text-sm text-white/80">Unbiased Data</div>
                     </div>
                 </div>

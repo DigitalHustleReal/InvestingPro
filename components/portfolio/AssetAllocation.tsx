@@ -23,14 +23,14 @@ export default function AssetAllocation({ holdings = [] }: AssetAllocationProps)
     const COLORS = ['#0ea5e9', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444'];
 
     return (
-        <Card className="rounded-[3rem] border-0 shadow-2xl bg-white overflow-hidden p-10">
+        <Card className="rounded-[3rem] border-0 shadow-2xl bg-white overflow-hidden p-6 md:p-8">
             <CardHeader className="p-0 mb-8">
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600">
+                    <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-primary-600">
                         <PieChart className="w-6 h-6" />
                     </div>
                     <div>
-                        <CardTitle className="text-2xl font-black text-slate-900 tracking-tight">Asset Allocation</CardTitle>
+                        <CardTitle className="text-2xl font-bold text-slate-900 tracking-tight">Asset Allocation</CardTitle>
                         <p className="text-slate-500 font-medium text-sm">Diversification across categories</p>
                     </div>
                 </div>

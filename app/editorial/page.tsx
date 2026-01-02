@@ -229,7 +229,7 @@ export default function EditorialDashboard() {
                 <div className="mb-8">
                     <div className="flex items-center justify-between mb-4">
                         <div>
-                            <h1 className="text-3xl font-black text-slate-900 mb-2">Editorial Dashboard</h1>
+                            <h1 className="text-3xl font-bold text-slate-900 mb-2">Editorial Dashboard</h1>
                             <p className="text-slate-600">Review and approve AI-generated content</p>
                         </div>
                         <div className="flex items-center gap-4">
@@ -245,26 +245,26 @@ export default function EditorialDashboard() {
                     {/* Stats */}
                     <div className="grid grid-cols-4 gap-4 mb-6">
                         <Card>
-                            <CardContent className="p-4">
-                                <div className="text-2xl font-black text-slate-900">{stats.total}</div>
+                            <CardContent className="p-6 md:p-8">
+                                <div className="text-2xl font-bold text-slate-900">{stats.total}</div>
                                 <div className="text-xs text-slate-500 font-medium">Total Drafts</div>
                             </CardContent>
                         </Card>
                         <Card className="border-rose-200 bg-rose-50">
-                            <CardContent className="p-4">
-                                <div className="text-2xl font-black text-rose-700">{stats.high}</div>
+                            <CardContent className="p-6 md:p-8">
+                                <div className="text-2xl font-bold text-rose-700">{stats.high}</div>
                                 <div className="text-xs text-rose-600 font-medium">High Risk</div>
                             </CardContent>
                         </Card>
                         <Card className="border-amber-200 bg-amber-50">
-                            <CardContent className="p-4">
-                                <div className="text-2xl font-black text-amber-700">{stats.medium}</div>
+                            <CardContent className="p-6 md:p-8">
+                                <div className="text-2xl font-bold text-amber-700">{stats.medium}</div>
                                 <div className="text-xs text-amber-600 font-medium">Medium Risk</div>
                             </CardContent>
                         </Card>
                         <Card className="border-emerald-200 bg-emerald-50">
-                            <CardContent className="p-4">
-                                <div className="text-2xl font-black text-emerald-700">{stats.low}</div>
+                            <CardContent className="p-6 md:p-8">
+                                <div className="text-2xl font-bold text-emerald-700">{stats.low}</div>
                                 <div className="text-xs text-emerald-600 font-medium">Low Risk</div>
                             </CardContent>
                         </Card>
@@ -273,7 +273,7 @@ export default function EditorialDashboard() {
 
                 {/* Filters and Actions */}
                 <Card className="mb-6">
-                    <CardContent className="p-4">
+                    <CardContent className="p-6 md:p-8">
                         <div className="flex flex-wrap items-center gap-4">
                             {/* Search */}
                             <div className="flex-1 min-w-[200px]">
@@ -320,7 +320,7 @@ export default function EditorialDashboard() {
                                     </span>
                                     <Button
                                         size="sm"
-                                        className="bg-emerald-600 hover:bg-emerald-700 text-white"
+                                        className="bg-primary-600 hover:bg-emerald-700 text-white"
                                         onClick={handleBatchApprove}
                                         disabled={batchApproveMutation.isPending}
                                     >
@@ -346,13 +346,13 @@ export default function EditorialDashboard() {
                 {/* Draft Queue */}
                 {isLoading ? (
                     <Card>
-                        <CardContent className="p-12 text-center">
+                        <CardContent className="p-6 md:p-8 text-center">
                             <div className="text-slate-500">Loading drafts...</div>
                         </CardContent>
                     </Card>
                 ) : filteredDrafts.length === 0 ? (
                     <Card>
-                        <CardContent className="p-12 text-center">
+                        <CardContent className="p-6 md:p-8 text-center">
                             <CheckCircle2 className="w-16 h-16 text-emerald-500 mx-auto mb-4" />
                             <h3 className="text-xl font-bold text-slate-900 mb-2">All Caught Up!</h3>
                             <p className="text-slate-500">No drafts pending review.</p>

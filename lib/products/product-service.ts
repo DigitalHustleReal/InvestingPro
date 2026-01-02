@@ -32,7 +32,7 @@ export class ProductService {
         
         const { data, error } = await query;
         if (error) throw error;
-        return data || [];
+        return (data || []).map((p: any) => this.normalizeProduct(p));
     }
 
     async getProductBySlug(slug: string): Promise<Product | null> {
@@ -44,7 +44,7 @@ export class ProductService {
             .single();
             
         if (error) return null;
-        return data;
+        return this.normalizeProduct(data);
     }
 
     async getProductsByIds(ids: string[]): Promise<Product[]> {
@@ -56,7 +56,17 @@ export class ProductService {
             .in('id', ids);
             
         if (error) throw error;
-        return data || [];
+        return (data || []).map((p: any) => this.normalizeProduct(p));
+    }
+
+    private normalizeProduct(data: any): Product {
+        if (!data) return data;
+        return {
+            ...data,
+            features: data.features || {},
+            pros: data.pros || [],
+            cons: data.cons || []
+        };
     }
 }
 

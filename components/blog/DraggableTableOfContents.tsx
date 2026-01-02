@@ -215,7 +215,7 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
                  {/* Dot */}
                  <span className={`absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full border-2 transition-colors ${
                      activeId === heading.id 
-                     ? 'bg-emerald-500 border-white ring-2 ring-emerald-100' 
+                     ? 'bg-primary-500 border-white ring-2 ring-emerald-100' 
                      : 'bg-white border-slate-300'
                  }`} />
                  {heading.text}
@@ -275,7 +275,7 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
                             {/* Node */}
                             <div className={`relative z-10 flex-shrink-0 mt-1.5 w-2.5 h-2.5 rounded-full border-2 transition-all duration-300 ${
                                 isActive 
-                                    ? 'bg-emerald-500 border-white shadow-md scale-125' 
+                                    ? 'bg-primary-500 border-white shadow-md scale-125' 
                                     : 'bg-slate-200 border-white group-hover:border-emerald-200'
                             }`} />
                             
@@ -331,7 +331,7 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
                     <div className="absolute left-[5px] top-2 bottom-2 w-0.5 bg-slate-100" />
                     {headings.map(h => (
                         <button key={h.id} onClick={() => scrollToHeading(h.id)} className={`relative block w-full text-left pl-6 py-1 ${activeId === h.id ? 'text-emerald-600 font-medium' : 'text-slate-600'}`}>
-                            <span className={`absolute left-0 top-2.5 w-1.5 h-1.5 rounded-full ${activeId === h.id ? 'bg-emerald-500' : 'bg-slate-300'}`} />
+                            <span className={`absolute left-0 top-2.5 w-1.5 h-1.5 rounded-full ${activeId === h.id ? 'bg-primary-500' : 'bg-slate-300'}`} />
                             {h.text}
                         </button>
                     ))}

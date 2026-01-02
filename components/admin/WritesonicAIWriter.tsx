@@ -467,7 +467,7 @@ Include features, benefits, and value proposition`;
             {/* Content Style Selector */}
             <Card>
                 <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
+                    <CardTitle className="flex items-center gap-6 md:p-8">
                         <Target className="w-5 h-5 text-purple-600" />
                         Content Style
                     </CardTitle>
@@ -496,8 +496,8 @@ Include features, benefits, and value proposition`;
             <Card>
                 <CardHeader>
                     <div className="flex items-center justify-between">
-                        <CardTitle className="flex items-center gap-2">
-                            <Zap className="w-5 h-5 text-blue-600" />
+                        <CardTitle className="flex items-center gap-6 md:p-8">
+                            <Zap className="w-5 h-5 text-primary-600" />
                             Content Type
                         </CardTitle>
                         <div className="flex gap-2">
@@ -528,13 +528,13 @@ Include features, benefits, and value proposition`;
                                     onClick={() => setSelectedContentType(type.id)}
                                     className={`p-4 rounded-lg border-2 transition-all text-center ${
                                         selectedContentType === type.id
-                                            ? 'border-blue-600 bg-blue-50'
+                                            ? 'border-primary-600 bg-blue-50'
                                             : 'border-slate-200 hover:border-slate-300'
                                     }`}
                                     title={type.description}
                                 >
                                     <Icon className={`w-6 h-6 mx-auto mb-2 ${
-                                        selectedContentType === type.id ? 'text-blue-600' : 'text-slate-500'
+                                        selectedContentType === type.id ? 'text-primary-600' : 'text-slate-500'
                                     }`} />
                                     <div className={`text-sm font-medium ${
                                         selectedContentType === type.id ? 'text-blue-900' : 'text-slate-700'
@@ -722,7 +722,7 @@ Include features, benefits, and value proposition`;
                                 <Button variant="outline" size="sm" onClick={handleCopy}>
                                     {copied ? <CheckCircle2 className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                                 </Button>
-                                <Button size="sm" onClick={handleSave} className="bg-emerald-600 hover:bg-emerald-700">
+                                <Button size="sm" onClick={handleSave} className="bg-primary-600 hover:bg-emerald-700">
                                     <Save className="w-4 h-4 mr-2" />
                                     Save as Draft
                                 </Button>
@@ -731,7 +731,7 @@ Include features, benefits, and value proposition`;
                     </CardHeader>
                     <CardContent>
                         <div className="prose max-w-none">
-                            <pre className="whitespace-pre-wrap font-sans text-sm bg-slate-50 p-4 rounded-lg border">
+                            <pre className="whitespace-pre-wrap font-sans text-sm bg-slate-50 p-6 md:p-8 rounded-lg border">
                                 {typeof generatedContent === 'object' && generatedContent.type === 'structured'
                                     ? generatedContent.preview
                                     : (typeof generatedContent === 'object' ? generatedContent.content : generatedContent || '')}
@@ -758,9 +758,9 @@ Include features, benefits, and value proposition`;
 
             {/* Model Information */}
             <Card className="bg-slate-50">
-                <CardContent className="p-4">
+                <CardContent className="p-6 md:p-8">
                     <div className="flex items-start gap-3">
-                        <Info className="w-5 h-5 text-blue-600 mt-0.5" />
+                        <Info className="w-5 h-5 text-primary-600 mt-0.5" />
                         <div className="flex-1">
                             <div className="font-semibold text-slate-900 mb-1">AI Model Information</div>
                             <div className="text-sm text-slate-600 space-y-1">
