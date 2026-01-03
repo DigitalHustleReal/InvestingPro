@@ -129,19 +129,18 @@ export function Footer() {
                             ))}
                         </div>
 
-                        {/* Get in Touch Removed */}
+                        {/* Get in Touch Removed - Pre-footer handles this now */}
                     </div>
 
-                    {/* Explore - Fat Column */}
+                    {/* FAT COLUMN 1: All Financial Products */}
                     <div>
                         <div className="mb-8">
                             <h4 className="text-white font-bold tracking-wide mb-4">Credit Cards</h4>
                             <ul className="space-y-2">
                                 {[
                                     { name: "Best Credit Cards", href: "/credit-cards" },
-                                    { name: "Best Rewards Cards", href: "/credit-cards" },
                                     { name: "Lifetime Free Cards", href: "/credit-cards" },
-                                    { name: "Travel Credit Cards", href: "/credit-cards" },
+                                    { name: "Travel Cards", href: "/credit-cards" },
                                 ].map((link, i) => (
                                     <li key={i}>
                                         <Link href={link.href} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
@@ -149,13 +148,12 @@ export function Footer() {
                                 ))}
                             </ul>
                         </div>
-                        <div>
+                        <div className="mb-8">
                             <h4 className="text-white font-bold tracking-wide mb-4">Loans</h4>
                             <ul className="space-y-2">
                                 {[
                                     { name: "Personal Loans", href: "/loans" },
                                     { name: "Home Loans", href: "/loans" },
-                                    { name: "Car Loans", href: "/loans" },
                                     { name: "Check Eligibility", href: "/loans" },
                                 ].map((link, i) => (
                                     <li key={i}>
@@ -164,18 +162,33 @@ export function Footer() {
                                 ))}
                             </ul>
                         </div>
-                    </div>
-
-                    {/* Growth - Fat Column */}
-                    <div>
-                        <div className="mb-8">
+                        <div>
                             <h4 className="text-white font-bold tracking-wide mb-4">Investing</h4>
                             <ul className="space-y-2">
                                 {[
-                                    { name: "Best Mutual Funds", href: "/mutual-funds" },
+                                    { name: "Mutual Funds", href: "/mutual-funds" },
+                                    { name: "Stocks", href: "/stocks" },
+                                    { name: "Fixed Deposits", href: "/fixed-deposits" },
+                                ].map((link, i) => (
+                                    <li key={i}>
+                                        <Link href={link.href} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+
+                    {/* FAT COLUMN 2: Tools & Knowledge */}
+                    <div>
+                        <div className="mb-8">
+                            <h4 className="text-white font-bold tracking-wide mb-4">Calculators</h4>
+                            <ul className="space-y-2">
+                                {[
                                     { name: "SIP Calculator", href: "/calculators" },
-                                    { name: "Compare Funds", href: "/mutual-funds" },
-                                    { name: "Stock Market News", href: "/news" },
+                                    { name: "EMI Calculator", href: "/calculators" },
+                                    { name: "Income Tax Calculator", href: "/calculators" },
+                                    { name: "PPF Calculator", href: "/calculators" },
+                                    { name: "GST Calculator", href: "/calculators" },
                                 ].map((link, i) => (
                                     <li key={i}>
                                         <Link href={link.href} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
@@ -184,13 +197,13 @@ export function Footer() {
                             </ul>
                         </div>
                         <div>
-                            <h4 className="text-white font-bold tracking-wide mb-4">Calculators</h4>
+                            <h4 className="text-white font-bold tracking-wide mb-4">Resources</h4>
                             <ul className="space-y-2">
                                 {[
-                                    { name: "SIP Calculator", href: "/calculators" },
-                                    { name: "EMI Calculator", href: "/calculators" },
-                                    { name: "Income Tax Calculator", href: "/calculators" },
-                                    { name: "PPF Calculator", href: "/calculators" },
+                                    { name: "Glossary", href: "/glossary" },
+                                    { name: "Financial Guides", href: "/guides" },
+                                    { name: "Market News", href: "/blog" },
+                                    { name: "Methodology", href: "/methodology" },
                                 ].map((link, i) => (
                                     <li key={i}>
                                         <Link href={link.href} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
@@ -200,17 +213,12 @@ export function Footer() {
                         </div>
                     </div>
 
-                    {/* Company & Legal - Fat Column */}
+                    {/* FAT COLUMN 3: Corporate & Legal */}
                     <div>
                         <div className="mb-8">
                             <h4 className="text-white font-bold tracking-wide mb-4">Company</h4>
                             <ul className="space-y-2">
                                 {footerLinks.company.map((link, i) => (
-                                    <li key={i}>
-                                        <Link href={getHref(link.page)} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
-                                    </li>
-                                ))}
-                                {footerLinks.resources.map((link, i) => (
                                     <li key={i}>
                                         <Link href={getHref(link.page)} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
                                     </li>
