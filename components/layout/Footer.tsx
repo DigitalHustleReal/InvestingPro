@@ -8,7 +8,8 @@ import {
     Twitter,
     Linkedin,
     Youtube,
-    Instagram
+    Instagram,
+    Mail
 } from "lucide-react";
 import Logo from "@/components/common/Logo";
 import NewsletterWidget from "@/components/engagement/NewsletterWidget";
@@ -75,19 +76,20 @@ export function Footer() {
     return (
         <footer className="bg-slate-900 text-slate-400">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <div className="grid grid-cols-2 md:grid-cols-6 gap-8 lg:gap-12">
-                    {/* Brand */}
-                    <div className="col-span-2 md:col-span-1">
-                        <div className="mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+                    {/* Brand & Contact */}
+                    <div className="space-y-6">
+                        <div>
                             <Logo 
                                 variant="dark"
                                 size="md"
                                 showText={true}
                             />
                         </div>
-                        <p className="text-sm leading-relaxed mb-6 text-slate-300">
+                        <p className="text-sm leading-relaxed text-slate-300">
                             India's most trusted platform for investment research and comparison.
                         </p>
+                        
                         <div className="flex gap-4">
                             {[
                                 { Icon: Facebook, url: process.env.NEXT_PUBLIC_FACEBOOK_URL || 'https://www.facebook.com/investingpro.in', label: 'Facebook' },
@@ -108,13 +110,24 @@ export function Footer() {
                                 </a>
                             ))}
                         </div>
+
+                        {/* Get in Touch */}
+                        <div className="pt-2">
+                            <h5 className="text-white font-semibold text-sm mb-2">Get in Touch</h5>
+                            <a href="mailto:support@investingpro.in" className="text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2 group">
+                                <span className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center group-hover:bg-slate-700 transition-colors">
+                                    <Mail className="w-4 h-4" />
+                                </span>
+                                support@investingpro.in
+                            </a>
+                        </div>
                     </div>
 
                     {/* Products */}
                     <div>
-                        <h4 className="text-white font-semibold mb-4">Products</h4>
+                        <h4 className="text-white font-semibold mb-6">Financial Products</h4>
                         <ul className="space-y-3">
-                            {NAVIGATION_CATEGORIES.slice(0, 6).map((category, index) => (
+                            {NAVIGATION_CATEGORIES.slice(0, 8).map((category, index) => (
                                 <li key={index}>
                                     <Link
                                         href={`/${category.slug}`}
@@ -127,9 +140,9 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    {/* Tools */}
+                    {/* Calculators */}
                     <div>
-                        <h4 className="text-white font-semibold mb-4">Calculators</h4>
+                        <h4 className="text-white font-semibold mb-6">Calculators</h4>
                         <ul className="space-y-3">
                             {footerLinks.tools.map((link, index) => (
                                 <li key={index}>
@@ -144,10 +157,10 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    {/* Company */}
+                    {/* Company & Legal (Consolidated) */}
                     <div>
-                        <h4 className="text-white font-semibold mb-4">Company</h4>
-                        <ul className="space-y-3">
+                        <h4 className="text-white font-semibold mb-6">Company</h4>
+                        <ul className="space-y-3 mb-8">
                             {footerLinks.company.map((link, index) => (
                                 <li key={index}>
                                     <Link
@@ -158,13 +171,6 @@ export function Footer() {
                                     </Link>
                                 </li>
                             ))}
-                        </ul>
-                    </div>
-
-                    {/* Resources */}
-                    <div>
-                        <h4 className="text-white font-semibold mb-4">Resources</h4>
-                        <ul className="space-y-3">
                             {footerLinks.resources.map((link, index) => (
                                 <li key={index}>
                                     <Link
@@ -176,10 +182,7 @@ export function Footer() {
                                 </li>
                             ))}
                         </ul>
-                    </div>
 
-                    {/* Legal */}
-                    <div>
                         <h4 className="text-white font-semibold mb-4">Legal</h4>
                         <ul className="space-y-3">
                             {footerLinks.legal.map((link, index) => (
@@ -196,14 +199,7 @@ export function Footer() {
                     </div>
                 </div>
 
-                {/* Newsletter Signup */}
-                <div className="border-t border-slate-800 mt-12 pt-8">
-                    <div className="max-w-2xl mx-auto text-center">
-                        <h4 className="text-white font-bold text-lg mb-2">Stay Updated</h4>
-                        <p className="text-slate-400 text-sm mb-4">Get weekly investing insights and market updates.</p>
-                        <NewsletterWidget variant="minimal" />
-                    </div>
-                </div>
+                {/* Newsletter Removed as per refinement request */}
 
                 {/* Ecosystem Awareness - Institutional, footnote-style */}
                 <div className="border-t border-slate-800 mt-8 pt-8">
