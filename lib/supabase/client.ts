@@ -4,6 +4,7 @@ export function createClient() {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
+
     // If environment variables are missing, return a mock client that handles errors gracefully
     if (!supabaseUrl || !supabaseAnonKey) {
         // Return a mock client that won't crash but will return empty results

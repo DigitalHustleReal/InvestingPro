@@ -174,19 +174,19 @@ const LendingAlphaHub = () => {
                                                 <div>
                                                     <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-st mb-1">Annual Fee</div>
                                                     <div className="text-lg font-bold text-slate-200">
-                                                        {asset.annualFee === 0 || asset.metadata?.annual_fee === 0 ? "LIFE-FREE" : `₹${asset.annualFee || asset.metadata?.annual_fee}`}
+                                                        {asset.features?.annual_fee ?? (asset.annualFee ? `₹${asset.annualFee}` : (asset.metadata?.annual_fee ? `₹${asset.metadata.annual_fee}` : "Free"))}
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-st mb-1">Reward Rate</div>
                                                     <div className="text-lg font-bold text-emerald-400">
-                                                        {asset.rewardRate || asset.metadata?.reward_rate || "5.0% APY"}
+                                                        {asset.features?.reward_rate || asset.rewardRate || asset.metadata?.reward_rate || "5.0% APY"}
                                                     </div>
                                                 </div>
                                                 <div className="hidden md:block">
                                                     <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-st mb-1">Lounge Access</div>
                                                     <div className="text-lg font-bold text-blue-400">
-                                                        {asset.loungeAccess || item_meta(asset, 'lounge_access') || "UNLIMITED"}
+                                                        {asset.features?.lounge_access || asset.loungeAccess || item_meta(asset, 'lounge_access') || "UNLIMITED"}
                                                     </div>
                                                 </div>
                                             </div>

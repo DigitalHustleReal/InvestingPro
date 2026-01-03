@@ -32,34 +32,49 @@ const loanTypes = [
 
 const mockLoans = [
     {
-        id: 1,
-        title: "HDFC Personal Loan",
+        id: "1",
+        category: 'loan',
+        name: "HDFC Personal Loan",
         provider: "HDFC Bank",
         rating: 4.6,
-        badge: "Lowest Rate",
         description: "Interest rates starting from 10.5% p.a. Quick approval and flexible repayment options.",
         features: ["10.5% Starting Rate", "Instant Approval", "No Collateral"],
-        href: "/loans/personal/hdfc"
+        applyLink: "/loans/personal/hdfc",
+        interestRateMin: 10.5,
+        interestRateMax: 15.0,
+        processingFee: "2.0%",
+        maxTenureMonths: 60,
+        isPopular: true
     },
     {
-        id: 2,
-        title: "SBI Home Loan",
+        id: "2",
+        category: 'loan',
+        name: "SBI Home Loan",
         provider: "State Bank of India",
         rating: 4.7,
-        badge: "Best for Home",
         description: "Home loans starting from 8.5% p.a. with flexible tenure up to 30 years.",
         features: ["8.5% Starting Rate", "Up to 30 Years", "Low Processing Fee"],
-        href: "/loans/home/sbi"
+        applyLink: "/loans/home/sbi",
+        interestRateMin: 8.5,
+        interestRateMax: 9.5,
+        processingFee: "0.5%",
+        maxTenureMonths: 360,
+        isPopular: true
     },
     {
-        id: 3,
-        title: "ICICI Car Loan",
+        id: "3",
+        category: 'loan',
+        name: "ICICI Car Loan",
         provider: "ICICI Bank",
         rating: 4.5,
-        badge: "Quick Disbursal",
         description: "Car loans with competitive rates and fast approval. Finance up to 100% of ex-showroom price.",
         features: ["9.5% Starting Rate", "100% Financing", "24hr Approval"],
-        href: "/loans/car/icici"
+        applyLink: "/loans/car/icici",
+        interestRateMin: 9.5,
+        interestRateMax: 11.0,
+        processingFee: "1.0%",
+        maxTenureMonths: 84,
+        isPopular: false
     },
 ];
 
@@ -123,7 +138,7 @@ export default function LoansPage() {
                         <h2 className="text-3xl font-bold text-slate-900 mb-2">Top Loan Offers</h2>
                         <p className="text-slate-600">Best rates from verified lenders</p>
                     </div>
-                    <CTAButton href="/loans/compare" variant="outline">
+                    <CTAButton href="/loans/compare" variant="secondary">
                         Compare All
                     </CTAButton>
                 </div>
@@ -132,17 +147,8 @@ export default function LoansPage() {
                     {mockLoans.map((loan, idx) => (
                         <ProductCard
                             key={loan.id}
-                            href={loan.href}
-                            title={loan.title}
-                            provider={loan.provider}
-                            rating={loan.rating}
-                            badge={loan.badge}
-                            badgeColor="bg-primary-500"
-                            description={loan.description}
-                            features={loan.features}
-                            highlight={idx === 0}
-                            icon={<Wallet className="w-5 h-5" />}
-                            ctaText="Apply Now"
+                            product={loan as any}
+                            showCompare={true}
                         />
                     ))}
                 </div>
@@ -154,27 +160,18 @@ export default function LoansPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <CategoryCTA
                         href="/loans?type=personal"
-                        title="Personal Loans"
+                        categoryName="Personal Loans"
                         description="Quick unsecured loans for your personal needs"
-                        badge="Popular"
-                        icon={<Wallet className="w-6 h-6" />}
-                        variant="primary"
                     />
                     <CategoryCTA
                         href="/loans?type=home"
-                        title="Home Loans"
+                        categoryName="Home Loans"
                         description="Buy your dream home with lowest interest rates"
-                        badge="Best Value"
-                        icon={<Home className="w-6 h-6" />}
-                        variant="secondary"
                     />
                     <CategoryCTA
                         href="/loans?type=car"
-                        title="Car Loans"
+                        categoryName="Car Loans"
                         description="Finance your vehicle with flexible repayment"
-                        badge="Quick Approval"
-                        icon={<Car className="w-6 h-6" />}
-                        variant="primary"
                     />
                 </div>
             </section>

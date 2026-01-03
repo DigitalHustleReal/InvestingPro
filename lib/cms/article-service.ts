@@ -425,6 +425,8 @@ export class ArticleService {
      */
     async listArticles(limit?: number): Promise<ArticleData[]> {
         const supabase = this.getClient();
+        
+        // First, try direct query (works for authenticated/admin users)
         let query = supabase
             .from('articles')
             .select('*')
@@ -437,11 +439,48 @@ export class ArticleService {
         const { data, error } = await query;
 
         if (error) {
+            console.error('[ArticleService] Direct query error:', error.message);
             logger.error('Failed to list articles', error);
-            return [];
         }
 
-        return (data || []).map((article: any) => this.normalizeArticle(article));
+        // If we got data, return it
+        if (data && data.length > 0) {
+            console.log(`[ArticleService] Direct query returned ${data.length} articles`);
+            return data.map((article: any) => this.normalizeArticle(article));
+        }
+
+        // FALLBACK: Use SECURITY DEFINER RPC to bypass RLS for public users
+        const { data: rpcData, error: rpcError } = await supabase.rpc('get_public_articles', { 
+            result_limit: limit || 100 
+        });
+        
+        if (!rpcError && rpcData) {
+            // Handle SETOF json response - data is already an array of objects
+            const articles = Array.isArray(rpcData) ? rpcData : [rpcData];
+            if (articles.length > 0) {
+                return articles.map((item: any) => this.normalizeArticle(item));
+            }
+        }
+        
+        if (rpcError) {
+            logger.error('get_public_articles RPC failed', rpcError);
+            
+            // Secondary fallback: try list_published_articles
+            const { data: altRpcData, error: altRpcError } = await supabase.rpc('list_published_articles', { 
+                result_limit: limit || 100 
+            });
+            
+            if (!altRpcError && altRpcData && altRpcData.length > 0) {
+                return (altRpcData as any[]).map(item => this.normalizeArticle(item));
+            }
+            
+            if (altRpcError) {
+                logger.error('All RPC fallbacks failed', altRpcError);
+            }
+        }
+
+        // Return empty array if all methods failed
+        return [];
     }
 
     /**

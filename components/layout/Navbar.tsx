@@ -37,7 +37,7 @@ function SearchButtonComponent({ isHomePage }: { isHomePage: boolean }) {
             variant="ghost"
             size="icon"
             onClick={openSearch}
-            className={`hidden lg:flex ${isHomePage ? 'text-white hover:bg-white/10' : 'text-slate-700 hover:bg-slate-100'}`}
+            className="hidden lg:flex text-slate-700 hover:bg-slate-100"
             aria-label="Search (⌘K)"
         >
             <Search className="w-5 h-5" />
@@ -152,12 +152,12 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
     };
 
     return (
-        <header className={`sticky top-0 z-50 ${isHomePage ? 'bg-slate-900/95' : 'bg-white border-b border-slate-200'} backdrop-blur-md transition-colors duration-200`}>
+        <header className="sticky top-0 z-50 bg-white border-b border-stone-200 backdrop-blur-md">
             <nav className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-14 lg:h-20">
                     {/* Logo */}
                     <Logo 
-                        variant={isHomePage ? 'dark' : 'default'}
+                        variant="default"
                         size="md"
                         showText={true}
                     />
@@ -171,10 +171,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                     return (
                                         <NavigationMenuItem key={category.slug} className="navigation-menu-item">
                                             <NavigationMenuTrigger 
-                                                className={`${isHomePage 
-                                                    ? 'text-white hover:border-white' 
-                                                    : 'text-slate-700 hover:border-teal-600'
-                                                }`}
+                                                className="text-slate-700 hover:border-primary-600"
                                                 onClick={() => toggleDropdown(category.slug)}
                                                 onMouseEnter={() => handleMouseEnter(category.slug)}
                                             >
@@ -361,11 +358,11 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                         {/* Profile link will be shown after user authentication */}
                         {/* Admin link should be accessed via direct URL only */}
                         
-                        <Link href="/dashboard" className={`text-sm font-semibold ${isHomePage ? 'text-white/80 hover:text-white' : 'text-slate-600 hover:text-teal-600'}`}>
+                        <Link href="/dashboard" className="text-sm font-semibold text-slate-600 hover:text-primary-600">
                             Dashboard
                         </Link>
                         
-                        <Link href="/resources" className={`text-sm font-semibold ${isHomePage ? 'text-white/80 hover:text-white' : 'text-slate-600 hover:text-teal-600'}`}>
+                        <Link href="/resources" className="text-sm font-semibold text-slate-600 hover:text-primary-600">
                             Resources
                         </Link>
                         
@@ -383,7 +380,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                 <Button 
                                     variant="ghost" 
                                     size="icon" 
-                                    className={isHomePage ? 'text-white hover:bg-white/10' : 'text-slate-700 hover:bg-slate-100'}
+                                    className="text-slate-700 hover:bg-slate-100"
                                     aria-label="Open menu"
                                 >
                                     <Menu className="w-6 h-6" />

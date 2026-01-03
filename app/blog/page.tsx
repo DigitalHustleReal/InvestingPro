@@ -20,10 +20,18 @@ export default function BlogPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 9;
 
-    const { data: articles = [], isLoading } = useQuery({
+    const { data: articles = [], isLoading, error } = useQuery({
         queryKey: ['blog-articles'],
-        queryFn: () => api.entities.Article.filter({ status: 'published' }),
-        initialData: []
+        queryFn: async () => {
+            const response = await fetch('/api/articles/public?limit=100');
+            if (!response.ok) {
+                throw new Error('Failed to fetch articles');
+            }
+            const data = await response.json();
+            return data.articles || [];
+        },
+        staleTime: 60000, // Cache for 1 minute
+        refetchOnMount: true,
     });
 
     const categories = [
@@ -36,8 +44,11 @@ export default function BlogPage() {
         'investing-basics'
     ];
 
-    const filteredArticles = articles.filter((article: any) => {
-        const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    // Ensure articles is always an array
+    const safeArticles = Array.isArray(articles) ? articles : [];
+
+    const filteredArticles = safeArticles.filter((article: any) => {
+        const matchesSearch = article.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             article.excerpt?.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesCategory = selectedCategory === 'all' || article.category === selectedCategory;
         return matchesSearch && matchesCategory;
@@ -59,7 +70,8 @@ export default function BlogPage() {
                     title="Investment Blog - Tips, Guides & Market Updates | InvestingPro"
                     description="Stay updated with the latest investment tips, financial guides, and market analysis. Expert articles on mutual funds, stocks, insurance, and more."
                 />
-
+            
+            
             {/* Hero */}
             <div className="bg-slate-900 border-b border-slate-800 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10 pointer-events-none">

@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { FileSpreadsheet, Download, ExternalLink, ShieldCheck, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import LeadMagnet from '@/components/monetization/LeadMagnet';

@@ -62,7 +62,7 @@ export default async function RootLayout({
                 <Suspense fallback={null}>
                   <Analytics />
                 </Suspense>
-                <InfiniteTicker />
+                {/* <InfiniteTicker /> */}
                 <Navbar initialConfig={navConfig} />
                 <main className="flex-grow">
                   <PageErrorBoundary pageName="Root Layout">
