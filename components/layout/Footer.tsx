@@ -9,7 +9,8 @@ import {
     Linkedin,
     Youtube,
     Instagram,
-    Mail
+    Mail,
+    Heart
 } from "lucide-react";
 import Logo from "@/components/common/Logo";
 import NewsletterWidget from "@/components/engagement/NewsletterWidget";
@@ -276,12 +277,16 @@ export function Footer() {
                                 <SecurityBadgeGroup />
                             </div>
                             
-                            {/* Copyright */}
                             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                                <p className="text-sm text-slate-500">
-                                    © {new Date().getFullYear()} InvestingPro.in. All rights reserved.
-                                </p>
-                                <p className="text-xs text-slate-600 text-center md:text-right">
+                                <div className="flex flex-col gap-1">
+                                    <p className="text-sm text-slate-500">
+                                        © {new Date().getFullYear()} InvestingPro.in. All rights reserved.
+                                    </p>
+                                    <p className="text-xs text-slate-500 font-medium flex items-center gap-1.5">
+                                        Made with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> in India <span className="text-base leading-none">🇮🇳</span>
+                                    </p>
+                                </div>
+                                <p className="text-xs text-slate-600 text-center md:text-right max-w-md">
                                     InvestingPro.in is an independent platform. Not affiliated with SEBI or any financial institution.
                                 </p>
                             </div>
