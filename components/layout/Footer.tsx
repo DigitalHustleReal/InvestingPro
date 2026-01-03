@@ -76,6 +76,19 @@ export function Footer() {
     return (
         <footer className="bg-slate-900 text-slate-400">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                {/* Newsletter - Pre-Footer */}
+                <div className="border-b border-slate-800 pb-12 mb-12">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div className="text-center md:text-left">
+                            <h3 className="text-xl font-bold text-white mb-2">Stay ahead of the market</h3>
+                            <p className="text-slate-400">Get the latest financial insights and news delivered to your inbox.</p>
+                        </div>
+                        <div className="w-full md:w-auto min-w-[320px]">
+                            <NewsletterWidget variant="minimal" />
+                        </div>
+                    </div>
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
                     {/* Brand & Contact */}
                     <div className="space-y-6">
@@ -111,16 +124,7 @@ export function Footer() {
                             ))}
                         </div>
 
-                        {/* Get in Touch */}
-                        <div className="pt-2">
-                            <h5 className="text-white font-bold tracking-wide text-sm mb-2">Get in Touch</h5>
-                            <a href="mailto:support@investingpro.in" className="text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2 group">
-                                <span className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center group-hover:bg-slate-700 transition-colors">
-                                    <Mail className="w-4 h-4" />
-                                </span>
-                                support@investingpro.in
-                            </a>
-                        </div>
+                        {/* Get in Touch Removed */}
                     </div>
 
                     {/* Explore - Fat Column */}
