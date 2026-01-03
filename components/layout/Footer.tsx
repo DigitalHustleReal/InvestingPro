@@ -84,16 +84,15 @@ export function Footer() {
         <footer className="bg-slate-900 text-slate-400">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 {/* Newsletter - Pre-Footer */}
-                {/* Newsletter - Vivid Blue Card */}
-                <div className="relative mb-20 p-8 md:p-12 rounded-3xl overflow-hidden shadow-2xl">
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-700" />
-                    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/10 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2" />
-                    <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-black/20 blur-[80px] rounded-full -translate-x-1/2 translate-y-1/2" />
+                {/* Newsletter - Theme-Aligned Card */}
+                <div className="relative mb-20 p-8 md:p-12 rounded-3xl overflow-hidden border border-slate-800 bg-slate-800/40">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-slate-900/0 to-slate-900/0" />
+                    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-500/5 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2" />
                     
                     <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                         <div className="text-center md:text-left max-w-xl">
                             <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Master the Market</h3>
-                            <p className="text-blue-100 text-lg">Join 15,000+ investors getting the best IPO insights delivered weekly.</p>
+                            <p className="text-slate-400 text-lg">Join 15,000+ investors getting the best IPO insights delivered weekly.</p>
                         </div>
                         <div className="w-full md:w-auto min-w-[340px] bg-white/10 p-1.5 rounded-xl backdrop-blur-sm border border-white/20">
                             <NewsletterWidget variant="minimal" className="w-full" />
