@@ -10,7 +10,8 @@ import {
     Youtube,
     Instagram,
     Mail,
-    Heart
+    Heart,
+    ArrowUp
 } from "lucide-react";
 import Logo from "@/components/common/Logo";
 import NewsletterWidget from "@/components/engagement/NewsletterWidget";
@@ -79,6 +80,10 @@ const footerLinks = {
 };
 
 export function Footer() {
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     return (
         <footer className="bg-slate-950 text-slate-400 border-t border-slate-900">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -243,12 +248,12 @@ export function Footer() {
                     </div>
                 </div>
 
-                {/* Newsletter Removed as per refinement request */}
 
-                <div className="border-t border-slate-800 pt-8 mt-12">
+
+                <div className="mt-12">
                     <div className="flex flex-col gap-6">
                         {/* Comprehensive Disclaimer */}
-                        <div className="bg-slate-800/50 rounded-lg p-6 border border-slate-700/50">
+                        <div className="bg-slate-900/50 rounded-lg p-6 border border-slate-800/50">
                             <h5 className="text-white font-semibold text-sm mb-3 flex items-center gap-2">
                                 <span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
                                 Important Legal Disclaimer
@@ -288,8 +293,15 @@ export function Footer() {
                                     </span>
                                 </div>
 
-                                <div className="order-3 flex items-center justify-end">
+                                <div className="order-3 flex items-center gap-4">
                                      <SecurityBadgeGroup />
+                                     <button 
+                                        onClick={scrollToTop}
+                                        className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-800 border border-slate-700 hover:bg-slate-700 transition-colors text-slate-400 hover:text-white"
+                                        aria-label="Scroll to top"
+                                     >
+                                        <ArrowUp className="w-4 h-4" />
+                                     </button>
                                 </div>
                             </div>
                             
