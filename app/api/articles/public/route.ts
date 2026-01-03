@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 export async function GET(request: Request) {
     try {
         const { searchParams } = new URL(request.url);
-        const limit = parseInt(searchParams.get('limit') || '100');
+        const limit = parseInt(searchParams.get('limit') || '1000');
         
         const supabase = await createClient();
         
