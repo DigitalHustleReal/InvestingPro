@@ -25,15 +25,21 @@ const trustPoints = [
     {
         icon: TrendingUp,
         stat: "Daily",
-        label: "Real-Time",
-        description: "Live market data and rate updates"
+        label: "Market Scans",
+        description: "Latest rates & product changes"
     }
 ];
 
 export default function TrustSection() {
     return (
-        <section className="py-24 bg-slate-900 text-white border-t border-slate-800">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="relative py-24 bg-slate-900 text-white border-t border-slate-800 overflow-hidden">
+            {/* Ambient Gradient Orbs - Restored */}
+            <div className="absolute inset-0 pointer-events-none">
+                 <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px]"></div>
+                 <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-teal-500/10 rounded-full blur-[100px]"></div>
+            </div>
+
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl lg:text-4xl font-bold mb-6">
                         Why Trust <span className="text-teal-400">InvestingPro?</span>
