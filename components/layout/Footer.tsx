@@ -113,7 +113,7 @@ export function Footer() {
 
                         {/* Get in Touch */}
                         <div className="pt-2">
-                            <h5 className="text-white font-semibold text-sm mb-2">Get in Touch</h5>
+                            <h5 className="text-white font-bold tracking-wide text-sm mb-2">Get in Touch</h5>
                             <a href="mailto:support@investingpro.in" className="text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2 group">
                                 <span className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center group-hover:bg-slate-700 transition-colors">
                                     <Mail className="w-4 h-4" />
@@ -126,31 +126,31 @@ export function Footer() {
                     {/* Explore - Fat Column */}
                     <div>
                         <div className="mb-8">
-                            <h4 className="text-white font-semibold mb-4">Credit Cards</h4>
+                            <h4 className="text-white font-bold tracking-wide mb-4">Credit Cards</h4>
                             <ul className="space-y-2">
                                 {[
-                                    { name: "Best Credit Cards", href: "/credit-cards/best" },
-                                    { name: "Best Rewards Cards", href: "/credit-cards/best/rewards" },
-                                    { name: "Lifetime Free Cards", href: "/credit-cards/best/lifetime-free" },
-                                    { name: "Travel Credit Cards", href: "/credit-cards/best/travel" },
+                                    { name: "Best Credit Cards", href: "/credit-cards" },
+                                    { name: "Best Rewards Cards", href: "/credit-cards" },
+                                    { name: "Lifetime Free Cards", href: "/credit-cards" },
+                                    { name: "Travel Credit Cards", href: "/credit-cards" },
                                 ].map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm hover:text-teal-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
                         </div>
                         <div>
-                            <h4 className="text-white font-semibold mb-4">Loans</h4>
+                            <h4 className="text-white font-bold tracking-wide mb-4">Loans</h4>
                             <ul className="space-y-2">
                                 {[
-                                    { name: "Personal Loans", href: "/loans/personal-loan" },
-                                    { name: "Home Loans", href: "/loans/home-loan" },
-                                    { name: "Car Loans", href: "/loans/car-loan" },
-                                    { name: "Check Eligibility", href: "/loans/calculators/eligibility" },
+                                    { name: "Personal Loans", href: "/loans" },
+                                    { name: "Home Loans", href: "/loans" },
+                                    { name: "Car Loans", href: "/loans" },
+                                    { name: "Check Eligibility", href: "/loans" },
                                 ].map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm hover:text-teal-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -160,31 +160,31 @@ export function Footer() {
                     {/* Growth - Fat Column */}
                     <div>
                         <div className="mb-8">
-                            <h4 className="text-white font-semibold mb-4">Investing</h4>
+                            <h4 className="text-white font-bold tracking-wide mb-4">Investing</h4>
                             <ul className="space-y-2">
                                 {[
-                                    { name: "Best Mutual Funds", href: "/mutual-funds/best" },
-                                    { name: "SIP Calculator", href: "/calculators/sip" },
-                                    { name: "Compare Funds", href: "/mutual-funds/compare" },
-                                    { name: "Stock Market News", href: "/news/markets" },
+                                    { name: "Best Mutual Funds", href: "/mutual-funds" },
+                                    { name: "SIP Calculator", href: "/calculators" },
+                                    { name: "Compare Funds", href: "/mutual-funds" },
+                                    { name: "Stock Market News", href: "/news" },
                                 ].map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm hover:text-teal-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
                         </div>
                         <div>
-                            <h4 className="text-white font-semibold mb-4">Calculators</h4>
+                            <h4 className="text-white font-bold tracking-wide mb-4">Calculators</h4>
                             <ul className="space-y-2">
                                 {[
-                                    { name: "SIP Calculator", href: "/calculators/sip" },
-                                    { name: "EMI Calculator", href: "/calculators/emi" },
-                                    { name: "Income Tax Calculator", href: "/calculators/income-tax" },
-                                    { name: "PPF Calculator", href: "/calculators/ppf" },
+                                    { name: "SIP Calculator", href: "/calculators" },
+                                    { name: "EMI Calculator", href: "/calculators" },
+                                    { name: "Income Tax Calculator", href: "/calculators" },
+                                    { name: "PPF Calculator", href: "/calculators" },
                                 ].map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm hover:text-teal-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -194,26 +194,26 @@ export function Footer() {
                     {/* Company & Legal - Fat Column */}
                     <div>
                         <div className="mb-8">
-                            <h4 className="text-white font-semibold mb-4">Company</h4>
+                            <h4 className="text-white font-bold tracking-wide mb-4">Company</h4>
                             <ul className="space-y-2">
                                 {footerLinks.company.map((link, i) => (
                                     <li key={i}>
-                                        <Link href={getHref(link.page)} className="text-sm hover:text-teal-400 transition-colors">{link.name}</Link>
+                                        <Link href={getHref(link.page)} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                                 {footerLinks.resources.map((link, i) => (
                                     <li key={i}>
-                                        <Link href={getHref(link.page)} className="text-sm hover:text-teal-400 transition-colors">{link.name}</Link>
+                                        <Link href={getHref(link.page)} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
                         </div>
                         <div>
-                            <h4 className="text-white font-semibold mb-4">Legal</h4>
+                            <h4 className="text-white font-bold tracking-wide mb-4">Legal</h4>
                             <ul className="space-y-2">
                                 {footerLinks.legal.map((link, i) => (
                                     <li key={i}>
-                                        <Link href={getHref(link.page)} className="text-sm hover:text-teal-400 transition-colors">{link.name}</Link>
+                                        <Link href={getHref(link.page)} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -223,34 +223,7 @@ export function Footer() {
 
                 {/* Newsletter Removed as per refinement request */}
 
-                {/* Ecosystem Awareness - Institutional, footnote-style */}
-                <div className="border-t border-slate-800 mt-8 pt-8">
-                    <div className="mb-6">
-                        <p className="text-[10px] font-medium text-slate-600 uppercase tracking-widest mb-3">
-                            Related Platforms
-                        </p>
-                        <div className="flex flex-wrap gap-x-8 gap-y-2 text-[11px] text-slate-500 leading-relaxed">
-                            <a
-                                href="https://beststockbrokers.org"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="hover:text-slate-300 transition-colors"
-                            >
-                                BestStockBrokers.org
-                            </a>
-                            <a
-                                href="https://swingtrader.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="hover:text-slate-300 transition-colors"
-                            >
-                                SwingTrader.com
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="border-t border-slate-800 pt-8">
+                <div className="border-t border-slate-800 pt-8 mt-12">
                     <div className="flex flex-col gap-6">
                         {/* Comprehensive Disclaimer */}
                         <div className="bg-slate-800/50 rounded-lg p-6 border border-slate-700/50">
