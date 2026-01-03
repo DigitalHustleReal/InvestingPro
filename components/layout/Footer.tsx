@@ -167,7 +167,7 @@ export function Footer() {
                             <ul className="space-y-2">
                                 {[
                                     { name: "Mutual Funds", href: "/mutual-funds" },
-                                    { name: "Stocks", href: "/stocks" },
+                                    { name: "IPOs", href: "/stocks" },
                                     { name: "Fixed Deposits", href: "/fixed-deposits" },
                                 ].map((link, i) => (
                                     <li key={i}>
