@@ -179,11 +179,12 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                     return (
                                         <NavigationMenuItem key={category.slug} className="navigation-menu-item">
                                             <NavigationMenuTrigger 
-                                                className="text-slate-700 hover:text-teal-600 hover:bg-transparent data-[state=open]:text-teal-600 font-semibold text-[15px] tracking-tight font-sans"
+                                                className={`gap-1 text-slate-700 hover:text-blue-600 data-[state=open]:text-blue-600 font-semibold text-[15px] tracking-tight font-sans ${isDropdownOpen ? 'text-blue-600 border-blue-600' : ''}`}
                                                 onClick={() => toggleDropdown(category.slug)}
                                                 onMouseEnter={() => handleMouseEnter(category.slug)}
                                             >
                                                 {displayName}
+                                                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180 text-blue-600' : 'text-slate-400 group-hover:text-blue-600'}`} />
                                             </NavigationMenuTrigger>
                                             <NavigationMenuContent 
                                                 isOpen={isDropdownOpen}
