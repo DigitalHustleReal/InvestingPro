@@ -123,79 +123,101 @@ export function Footer() {
                         </div>
                     </div>
 
-                    {/* Products */}
+                    {/* Explore - Fat Column */}
                     <div>
-                        <h4 className="text-white font-semibold mb-6">Financial Products</h4>
-                        <ul className="space-y-3">
-                            {NAVIGATION_CATEGORIES.slice(0, 8).map((category, index) => (
-                                <li key={index}>
-                                    <Link
-                                        href={`/${category.slug}`}
-                                        className="text-sm hover:text-teal-400 transition-colors"
-                                    >
-                                        {category.name}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
+                        <div className="mb-8">
+                            <h4 className="text-white font-semibold mb-4">Credit Cards</h4>
+                            <ul className="space-y-2">
+                                {[
+                                    { name: "Best Credit Cards", href: "/credit-cards/best" },
+                                    { name: "Best Rewards Cards", href: "/credit-cards/best/rewards" },
+                                    { name: "Lifetime Free Cards", href: "/credit-cards/best/lifetime-free" },
+                                    { name: "Travel Credit Cards", href: "/credit-cards/best/travel" },
+                                ].map((link, i) => (
+                                    <li key={i}>
+                                        <Link href={link.href} className="text-sm hover:text-teal-400 transition-colors">{link.name}</Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="text-white font-semibold mb-4">Loans</h4>
+                            <ul className="space-y-2">
+                                {[
+                                    { name: "Personal Loans", href: "/loans/personal-loan" },
+                                    { name: "Home Loans", href: "/loans/home-loan" },
+                                    { name: "Car Loans", href: "/loans/car-loan" },
+                                    { name: "Check Eligibility", href: "/loans/calculators/eligibility" },
+                                ].map((link, i) => (
+                                    <li key={i}>
+                                        <Link href={link.href} className="text-sm hover:text-teal-400 transition-colors">{link.name}</Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
 
-                    {/* Calculators */}
+                    {/* Growth - Fat Column */}
                     <div>
-                        <h4 className="text-white font-semibold mb-6">Calculators</h4>
-                        <ul className="space-y-3">
-                            {footerLinks.tools.map((link, index) => (
-                                <li key={index}>
-                                    <Link
-                                        href={getHref(link.page)}
-                                        className="text-sm hover:text-teal-400 transition-colors"
-                                    >
-                                        {link.name}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
+                        <div className="mb-8">
+                            <h4 className="text-white font-semibold mb-4">Investing</h4>
+                            <ul className="space-y-2">
+                                {[
+                                    { name: "Best Mutual Funds", href: "/mutual-funds/best" },
+                                    { name: "SIP Calculator", href: "/calculators/sip" },
+                                    { name: "Compare Funds", href: "/mutual-funds/compare" },
+                                    { name: "Stock Market News", href: "/news/markets" },
+                                ].map((link, i) => (
+                                    <li key={i}>
+                                        <Link href={link.href} className="text-sm hover:text-teal-400 transition-colors">{link.name}</Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="text-white font-semibold mb-4">Calculators</h4>
+                            <ul className="space-y-2">
+                                {[
+                                    { name: "SIP Calculator", href: "/calculators/sip" },
+                                    { name: "EMI Calculator", href: "/calculators/emi" },
+                                    { name: "Income Tax Calculator", href: "/calculators/income-tax" },
+                                    { name: "PPF Calculator", href: "/calculators/ppf" },
+                                ].map((link, i) => (
+                                    <li key={i}>
+                                        <Link href={link.href} className="text-sm hover:text-teal-400 transition-colors">{link.name}</Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
 
-                    {/* Company & Legal (Consolidated) */}
+                    {/* Company & Legal - Fat Column */}
                     <div>
-                        <h4 className="text-white font-semibold mb-6">Company</h4>
-                        <ul className="space-y-3 mb-8">
-                            {footerLinks.company.map((link, index) => (
-                                <li key={index}>
-                                    <Link
-                                        href={getHref(link.page)}
-                                        className="text-sm hover:text-teal-400 transition-colors"
-                                    >
-                                        {link.name}
-                                    </Link>
-                                </li>
-                            ))}
-                            {footerLinks.resources.map((link, index) => (
-                                <li key={index}>
-                                    <Link
-                                        href={getHref(link.page)}
-                                        className="text-sm hover:text-teal-400 transition-colors"
-                                    >
-                                        {link.name}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-
-                        <h4 className="text-white font-semibold mb-4">Legal</h4>
-                        <ul className="space-y-3">
-                            {footerLinks.legal.map((link, index) => (
-                                <li key={index}>
-                                    <Link
-                                        href={getHref(link.page)}
-                                        className="text-sm hover:text-teal-400 transition-colors"
-                                    >
-                                        {link.name}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
+                        <div className="mb-8">
+                            <h4 className="text-white font-semibold mb-4">Company</h4>
+                            <ul className="space-y-2">
+                                {footerLinks.company.map((link, i) => (
+                                    <li key={i}>
+                                        <Link href={getHref(link.page)} className="text-sm hover:text-teal-400 transition-colors">{link.name}</Link>
+                                    </li>
+                                ))}
+                                {footerLinks.resources.map((link, i) => (
+                                    <li key={i}>
+                                        <Link href={getHref(link.page)} className="text-sm hover:text-teal-400 transition-colors">{link.name}</Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="text-white font-semibold mb-4">Legal</h4>
+                            <ul className="space-y-2">
+                                {footerLinks.legal.map((link, i) => (
+                                    <li key={i}>
+                                        <Link href={getHref(link.page)} className="text-sm hover:text-teal-400 transition-colors">{link.name}</Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
