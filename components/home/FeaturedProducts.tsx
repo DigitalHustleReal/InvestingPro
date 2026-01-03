@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
-import { productService } from '@/lib/products/product-service';
+import { productService, Product } from '@/lib/products/product-service';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/badge';
@@ -28,14 +28,14 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
 };
 
 export default function FeaturedProducts() {
-    const { data, isLoading } = useQuery({
+    const { data: rawData, isLoading } = useQuery({
         queryKey: ['featured-products'],
         queryFn: () => productService.getFeaturedProducts(6),
         staleTime: 60000
     });
 
-    // Safely extract products array
-    const products = Array.isArray(data) ? data : (data?.products || []);
+    // Safely extract products array (handle potential API structure mismatches)
+    const products = Array.isArray(rawData) ? rawData : ((rawData as any)?.products || []);
 
     if (isLoading) {
         return (
@@ -72,7 +72,7 @@ export default function FeaturedProducts() {
                 </div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {products.map((product) => (
+                    {products.map((product: Product) => (
                         <Link 
                             key={product.id} 
                             href={`/products/${product.category}/${product.slug}`}
@@ -83,7 +83,7 @@ export default function FeaturedProducts() {
                                     <div className="p-6">
                                         {/* Header */}
                                         <div className="flex justify-between items-start mb-4">
-                                            <div className="p-3 bg-slate-50 rounded-xl group-hover:bg-teal-50 group-hover:text-teal-600 transition-colors">
+                                            <div className="p-3 bg-slate-100 text-slate-700 rounded-xl group-hover:bg-teal-50 group-hover:text-teal-600 transition-colors">
                                                 {CATEGORY_ICONS[product.category] || <Star className="w-5 h-5" />}
                                             </div>
                                             {product.trust_score && product.trust_score >= 80 && (
@@ -98,11 +98,11 @@ export default function FeaturedProducts() {
                                         <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-teal-600 transition-colors">
                                             {product.name}
                                         </h3>
-                                        <p className="text-sm text-slate-500 mb-4 font-medium">
+                                        <p className="text-sm text-slate-600 mb-4 font-medium">
                                             by {product.provider_name}
                                         </p>
                                         
-                                        <p className="text-slate-600 mb-6 line-clamp-2 min-h-[3rem]">
+                                        <p className="text-slate-700 mb-6 line-clamp-2 min-h-[3rem]">
                                             {product.meta_description}
                                         </p>
 
@@ -111,7 +111,7 @@ export default function FeaturedProducts() {
                                             <div className="flex items-center gap-2">
                                                 <TrendingUp className="w-4 h-4 text-green-500" />
                                                 <span className="font-bold text-slate-900">{product.trust_score}/100</span>
-                                                <span className="text-xs text-slate-500">Trust Score</span>
+                                                <span className="text-xs text-slate-600">Trust Score</span>
                                             </div>
                                             <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-teal-600 group-hover:text-white transition-all">
                                                 <ArrowRight className="w-4 h-4" />

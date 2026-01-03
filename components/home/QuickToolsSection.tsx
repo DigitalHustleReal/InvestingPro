@@ -111,7 +111,7 @@ export default function QuickToolsSection() {
                                                         </span>
                                                     )}
                                                 </div>
-                                                <p className="text-sm text-slate-600 leading-relaxed mb-4">
+                                                <p className="text-sm text-slate-700 leading-relaxed mb-4">
                                                     {tool.description}
                                                 </p>
                                                 <div className="flex items-center text-sm font-semibold text-teal-600 group-hover:text-teal-700">

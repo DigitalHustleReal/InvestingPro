@@ -132,10 +132,10 @@ export default function LatestInsights() {
                                     <h3 className="text-2xl font-bold text-slate-900 mb-4 line-clamp-2 group-hover:text-teal-600 transition-colors leading-tight">
                                         {featuredArticle.title}
                                     </h3>
-                                    <p className="text-slate-600 mb-6 line-clamp-3 leading-relaxed">
+                                    <p className="text-slate-700 mb-6 line-clamp-3 leading-relaxed">
                                         {featuredArticle.excerpt}
                                     </p>
-                                    <div className="flex items-center justify-between text-sm text-slate-500">
+                                    <div className="flex items-center justify-between text-sm text-slate-600">
                                         <div className="flex items-center gap-4">
                                             <span className="flex items-center gap-1.5">
                                                 <Calendar className="w-4 h-4" />
@@ -179,7 +179,7 @@ export default function LatestInsights() {
                                         {/* Content */}
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2 mb-2">
-                                                <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 border-slate-200 text-slate-500">
+                                                <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 border-slate-300 text-slate-600">
                                                     {formatCategory(article.category)}
                                                 </Badge>
                                                 <span className="text-xs text-slate-400 flex items-center gap-1">
