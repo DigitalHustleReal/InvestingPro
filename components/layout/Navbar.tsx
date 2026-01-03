@@ -156,7 +156,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
     };
 
     return (
-        <header className="sticky top-0 z-50 bg-white/80 border-b border-slate-200/60 backdrop-blur-xl transition-all duration-200 shadow-sm">
+        <header className="sticky top-0 z-50 bg-white/95 border-b border-slate-200 backdrop-blur-xl transition-all duration-200 shadow-sm">
             <nav className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-14 lg:h-20">
                     {/* Logo */}
