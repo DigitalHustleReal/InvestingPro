@@ -85,7 +85,7 @@ export function Footer() {
                                 showText={true}
                             />
                         </div>
-                        <p className="text-sm leading-relaxed mb-6">
+                        <p className="text-sm leading-relaxed mb-6 text-slate-300">
                             India's most trusted platform for investment research and comparison.
                         </p>
                         <div className="flex gap-4">
@@ -129,7 +129,7 @@ export function Footer() {
 
                     {/* Tools */}
                     <div>
-                        <h4 className="text-white font-semibold mb-4">Tools</h4>
+                        <h4 className="text-white font-semibold mb-4">Calculators</h4>
                         <ul className="space-y-3">
                             {footerLinks.tools.map((link, index) => (
                                 <li key={index}>
@@ -271,7 +271,7 @@ export function Footer() {
                             {/* Copyright */}
                             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                                 <p className="text-sm text-slate-500">
-                                    © 2024 InvestingPro.in. All rights reserved.
+                                    © {new Date().getFullYear()} InvestingPro.in. All rights reserved.
                                 </p>
                                 <p className="text-xs text-slate-600 text-center md:text-right">
                                     InvestingPro.in is an independent platform. Not affiliated with SEBI or any financial institution.
