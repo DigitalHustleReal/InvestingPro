@@ -80,7 +80,7 @@ export function Footer() {
                     <div className="col-span-2 md:col-span-1">
                         <div className="mb-6">
                             <Logo 
-                                variant="light"
+                                variant="dark"
                                 size="md"
                                 showText={true}
                             />
