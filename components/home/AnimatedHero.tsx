@@ -220,162 +220,154 @@ export default function AnimatedHero({ selectedCategory: propSelectedCategory, o
                 <div className="absolute top-[20%] left-[30%] w-[300px] h-[300px] bg-emerald-500/10 rounded-full blur-[80px] animate-float"></div>
             </div>
 
-            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-24">
-                {/* Category Selector */}
-                <div className="mb-12">
-                    <div className="flex flex-wrap items-center justify-center gap-3">
-                        {categories.map((category) => {
-                            const isActive = selectedCategory === category.slug;
-                            const categoryConfig = categoryHeroConfig[category.slug];
-                            const CategoryIcon = categoryConfig?.icon || TrendingUp;
-                            
-                            return (
-                                <button
-                                    key={category.slug}
-                                    onClick={() => handleCategorySelect(category.slug)}
-                                    className={`group relative px-5 py-2.5 rounded-full font-medium text-sm transition-all duration-300 ${
-                                        isActive
-                                            ? 'bg-teal-500 text-white shadow-lg shadow-teal-500/25 scale-105 z-10'
-                                            : 'bg-slate-800/50 hover:bg-slate-700/50 text-slate-300 border border-slate-700 hover:border-slate-600 hover:scale-105'
-                                    }`}
-                                >
-                                    <div className="flex items-center gap-2">
-                                        <CategoryIcon className={`w-4 h-4 transition-transform ${isActive ? 'scale-110' : ''}`} />
-                                        <span>{category.name}</span>
-                                    </div>
-                                </button>
-                            );
-                        })}
-                    </div>
+            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 lg:min-h-[800px] flex flex-col justify-center">
+                
+                {/* Global Brand Headline - Separate from widget */}
+                <div className="text-center mb-10 animate-fade-in-up">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight mb-4">
+                        The smartest way to <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-400">compare & grow.</span>
+                    </h1>
+                    <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                        Join 50,000+ investors making better financial decisions daily.
+                    </p>
                 </div>
 
-                {/* Hero Content - Animated */}
-                <div className={`grid lg:grid-cols-2 gap-16 items-center transition-all duration-500 ${isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
-                    {/* Left Column: Content */}
-                    <div className="text-white space-y-8 text-center lg:text-left">
-                        {/* Headline Group */}
-                        <div className="space-y-4">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-400 text-xs font-semibold uppercase tracking-wider mx-auto lg:mx-0">
-                                <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
-                                {selectedCategory ? categories.find(c => c.slug === selectedCategory)?.name : 'Comparing 5000+ Products'}
-                            </div>
-                            
-                            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight tracking-tight">
-                                {heroConfig.headline.split(' ').map((word, i) => (
-                                    i < 2 ? <span key={i} className="text-white">{word} </span> : 
-                                    <span key={i} className="text-transparent bg-clip-text bg-gradient-to-r from-teal-200 to-teal-500">{word} </span>
-                                ))}
-                            </h1>
-                            
-                            <p className="text-xl lg:text-2xl text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                                {heroConfig.subheadline}
-                            </p>
-                        </div>
-
-                        {/* Search Bar */}
-                        <form onSubmit={handleSearch} className="relative max-w-xl mx-auto lg:mx-0 group">
-                            <div className="absolute -inset-1 bg-gradient-to-r from-teal-500 to-blue-600 rounded-2xl opacity-20 group-hover:opacity-40 blur transition duration-500"></div>
-                            
-                            <div className="relative flex items-center bg-slate-900 rounded-xl overflow-hidden border border-slate-700 shadow-2xl">
-                                <Search className="absolute left-4 w-6 h-6 text-slate-500" />
-                                <Input
-                                    type="text"
-                                    placeholder="Search specific cards, banks, or guides..."
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full h-14 pl-14 pr-32 bg-transparent text-white placeholder:text-slate-500 border-none focus:ring-0 text-lg"
-                                />
-                                <Button
-                                    type="submit"
-                                    size="lg"
-                                    className="absolute right-1.5 top-1.5 bottom-1.5 px-6 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-lg transition-all"
-                                >
-                                    Search
-                                </Button>
-                            </div>
-                        </form>
-
-                        {/* Stats - Horizontal */}
-                        <div className="flex flex-wrap items-center justify-center lg:justify-start gap-8 lg:gap-12 pt-4 border-t border-white/5">
-                            {heroConfig.stats.map((stat, index) => (
-                                <div key={index} className="text-center lg:text-left">
-                                    <div className="text-2xl lg:text-3xl font-bold text-white mb-1">{stat.value}</div>
-                                    <div className="text-sm text-slate-400 font-medium">{stat.label}</div>
-                                </div>
-                            ))}
+                {/* THE NERDWALLET-STYLE TABBED WIDGET CONTAINER */}
+                <div className="w-full max-w-6xl mx-auto">
+                    
+                    {/* 1. TABS SCROLLER */}
+                    <div className="flex overflow-x-auto no-scrollbar pb-0 px-2 lg:px-0 lg:justify-center mb-[-1px] relative z-20">
+                        <div className="flex space-x-1 min-w-max">
+                            {categories.map((category) => {
+                                const isActive = selectedCategory === category.slug;
+                                const categoryConfig = categoryHeroConfig[category.slug];
+                                const CategoryIcon = categoryConfig?.icon || TrendingUp;
+                                
+                                return (
+                                    <button
+                                        key={category.slug}
+                                        onClick={() => handleCategorySelect(category.slug)}
+                                        className={`group relative flex items-center gap-2 px-6 py-4 rounded-t-2xl font-bold text-sm transition-all duration-200 border-t border-x ${
+                                            isActive
+                                                ? 'bg-slate-900 border-slate-700 text-teal-400 z-10'
+                                                : 'bg-slate-800/40 border-slate-800/40 text-slate-400 hover:bg-slate-800 hover:text-white border-b-transparent'
+                                        }`}
+                                    >
+                                        <CategoryIcon className={`w-4 h-4 ${isActive ? 'text-teal-400' : 'text-slate-500 group-hover:text-white'}`} />
+                                        <span>{category.name}</span>
+                                        {/* Seamless connector to card body */}
+                                        {isActive && <div className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-slate-900"></div>}
+                                    </button>
+                                );
+                            })}
                         </div>
                     </div>
 
-                    {/* Right Column: Visual - Glass comparison */}
-                    <div className="hidden lg:block relative perspective-1000">
-                        <div className="relative h-[600px] flex items-center justify-center">
-                             {/* Central Card Stack */}
-                            <div className="relative w-[400px] h-[500px]">
-                                {/* Back Card */}
-                                <div className="absolute top-0 right-0 w-[400px] h-[500px] bg-slate-800/40 rounded-3xl border border-slate-700/50 transform rotate-6 scale-95 backdrop-blur-sm"></div>
-                                {/* Middle Card */}
-                                <div className="absolute top-0 right-0 w-[400px] h-[500px] bg-slate-800/80 rounded-3xl border border-slate-600/50 transform rotate-3 scale-[0.98] backdrop-blur-md shadow-2xl"></div>
-                                
-                                {/* Front Card - Active Interface */}
-                                <div className="absolute inset-0 bg-slate-900/90 rounded-3xl border border-slate-600 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-                                    {/* Mock Header */}
-                                    <div className="h-16 border-b border-slate-800 flex items-center justify-between px-6 bg-slate-900/50">
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-8 h-8 rounded-lg bg-teal-500/20 flex items-center justify-center">
-                                                <Icon className="w-5 h-5 text-teal-400" />
-                                            </div>
-                                            <span className="font-semibold text-white">Analysis</span>
-                                        </div>
-                                        <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                                    </div>
-                                    
-                                    {/* Mock Content */}
-                                    <div className="p-6 space-y-6">
-                                        <div className="space-y-2">
-                                            <div className="h-2 w-20 bg-slate-700 rounded-full"></div>
-                                            <div className="h-8 w-full bg-slate-800 rounded-lg animate-pulse-slow"></div>
+                    {/* 2. MAIN CARD BODY */}
+                    <div className="relative z-10 bg-slate-900 border border-slate-700 rounded-b-3xl rounded-tr-3xl rounded-tl-3xl lg:rounded-tl-none shadow-2xl overflow-hidden min-h-[500px]">
+                        
+                        {/* Background Gradients inside Card */}
+                        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-b from-teal-500/10 to-transparent rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+
+                        <div className={`grid lg:grid-cols-2 gap-12 p-8 lg:p-14 items-center transition-all duration-500 ${isAnimating ? 'opacity-50 blur-sm' : 'opacity-100 blur-0'}`}>
+                            
+                            {/* Left: Actionable Content */}
+                            <div className="space-y-8 relative z-20">
+                                <div>
+                                    <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
+                                        {heroConfig.headline}
+                                    </h2>
+                                    <p className="text-lg text-slate-400 leading-relaxed">
+                                        {heroConfig.subheadline}
+                                    </p>
+                                </div>
+
+                                {/* Dynamic Action Module based on Category */}
+                                <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 backdrop-blur-sm">
+                                    <div className="space-y-4">
+                                        <div className="flex items-center justify-between text-sm text-slate-400 font-medium">
+                                            <span>Start your search</span>
+                                            <span className="text-teal-400">{heroConfig.stats[0]?.label}: {heroConfig.stats[0]?.value}</span>
                                         </div>
                                         
-                                        <div className="space-y-4">
-                                            {[1, 2, 3].map(i => (
-                                                <div key={i} className="flex items-center gap-4 p-3 rounded-xl bg-slate-800/50 border border-slate-700/50">
-                                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-700 to-slate-800"></div>
-                                                    <div className="flex-1 space-y-1">
-                                                        <div className="h-2 w-24 bg-slate-600 rounded-full"></div>
-                                                        <div className="h-2 w-16 bg-slate-700 rounded-full"></div>
+                                        <form onSubmit={handleSearch} className="relative group">
+                                            <div className="absolute -inset-0.5 bg-gradient-to-r from-teal-500 to-blue-500 rounded-xl opacity-30 group-hover:opacity-60 transition duration-300 blur-sm"></div>
+                                            <div className="relative flex shadow-xl">
+                                                <Input
+                                                    type="text"
+                                                    placeholder={`Search ${categories.find(c => c.slug === selectedCategory)?.name || 'products'}...`}
+                                                    value={searchQuery}
+                                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                                    className="w-full h-14 pl-5 pr-32 bg-slate-900 border-none text-white placeholder:text-slate-500 focus:ring-0 rounded-l-xl rounded-r-none font-medium text-lg"
+                                                />
+                                                <Button
+                                                    type="submit"
+                                                    className="h-14 px-8 bg-teal-500 hover:bg-teal-600 text-white font-bold rounded-r-xl rounded-l-none transition-all uppercase tracking-wide text-sm"
+                                                >
+                                                    Compare
+                                                </Button>
+                                            </div>
+                                        </form>
+
+                                        <div className="flex items-center gap-2 text-xs text-slate-500 mt-3">
+                                            <Shield className="w-3 h-3 text-teal-500" />
+                                            <span>100% Free & Unbiased • No text login required</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Quick Links / Pills */}
+                                <div className="flex flex-wrap gap-2">
+                                     <span className="text-sm text-slate-500 mr-2 py-1">Popular:</span>
+                                     {['Best Rates', 'Low Fees', 'Top Rated'].map((tag, i) => (
+                                         <span key={i} className="px-3 py-1 rounded-full bg-slate-800 text-slate-300 text-xs font-medium border border-slate-700 hover:border-teal-500/50 cursor-pointer transition-colors">
+                                             {tag}
+                                         </span>
+                                     ))}
+                                </div>
+                            </div>
+
+                            {/* Right: Immersive Visual */}
+                            <div className="hidden lg:block relative h-full min-h-[400px]">
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    {/* The Hero Illustration */}
+                                    <div className="relative w-full aspect-square max-w-[400px]">
+                                        {/* Abstract Shape Background */}
+                                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="absolute inset-0 text-slate-800 fill-current opacity-50 transform scale-110">
+                                            <path d="M44.9,-76.4C58.9,-69.2,71.8,-59.1,81.6,-46.9C91.4,-34.7,98.1,-20.4,95.8,-6.5C93.5,7.4,82.2,20.9,70.9,32.3C59.6,43.7,48.3,53,36.4,60.8C24.5,68.6,12,74.9,-0.3,75.5C-12.7,76,-25.3,70.8,-36.5,62.8C-47.7,54.8,-57.5,44,-66.1,31.7C-74.7,19.4,-82.1,5.6,-80.7,-7.4C-79.3,-20.4,-69.1,-32.6,-58.4,-42.1C-47.7,-51.6,-36.5,-58.4,-24.5,-67.1C-12.5,-75.8,-0,86.4,12.9,86.8L44.9,-76.4Z" transform="translate(100 100)" />
+                                        </svg>
+                                        
+                                        {/* Icon Container */}
+                                        <div className="relative z-10 flex flex-col items-center justify-center h-full">
+                                            <div className="w-32 h-32 bg-gradient-to-br from-teal-400 to-emerald-500 rounded-3xl flex items-center justify-center shadow-2xl shadow-teal-500/30 transform rotate-3 hover:rotate-6 transition-transform duration-500">
+                                                <Icon className="w-16 h-16 text-white" />
+                                            </div>
+                                            
+                                            {/* Floating Stat Card */}
+                                            <div className="absolute bottom-10 -right-4 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 shadow-xl animate-float-delayed">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center font-bold text-white">
+                                                        {heroConfig.stats[0]?.value.replace('+','')}
                                                     </div>
-                                                    <div className="h-6 w-16 bg-teal-500/20 rounded-md border border-teal-500/30"></div>
+                                                    <div className="text-left">
+                                                        <div className="text-xs text-white/60 uppercase font-bold tracking-wider">Active</div>
+                                                        <div className="text-sm font-semibold text-white">{heroConfig.stats[0]?.label}</div>
+                                                    </div>
                                                 </div>
-                                            ))}
-                                        </div>
+                                            </div>
 
-                                        {/* Graph Area */}
-                                        <div className="h-32 rounded-xl bg-gradient-to-b from-teal-500/5 to-transparent border border-teal-500/10 relative overflow-hidden">
-                                             <div className="absolute inset-x-0 bottom-0 h-20">
-                                                 <svg viewBox="0 0 100 20" preserveAspectRatio="none" className="w-full h-full text-teal-500">
-                                                     <path d="M0 20 Q 25 5 50 10 T 100 0 V 20 H 0 Z" fill="currentColor" fillOpacity="0.2" />
-                                                     <path d="M0 20 Q 25 5 50 10 T 100 0" fill="none" stroke="currentColor" strokeWidth="0.5" />
-                                                 </svg>
-                                             </div>
+                                            {/* Floating Badge */}
+                                            <div className="absolute top-10 -left-4 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-xl animate-float">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                                    <span className="text-xs font-bold text-white">Live Data</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                
-                                {/* Floating Badges */}
-                                <div className="absolute -left-12 top-20 bg-slate-800 p-4 rounded-xl border border-slate-600 shadow-xl animate-float">
-                                    <div className="flex items-center gap-3">
-                                        <div className="text-2xl font-bold text-teal-400">98%</div>
-                                        <div className="text-xs text-slate-400 font-medium">Match<br/>Score</div>
-                                    </div>
-                                </div>
-
-                                <div className="absolute -right-8 bottom-32 bg-slate-800 p-4 rounded-xl border border-slate-600 shadow-xl animate-float-delayed">
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                                        <div className="text-sm font-semibold text-white">Approved</div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
