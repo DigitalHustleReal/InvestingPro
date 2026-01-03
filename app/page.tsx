@@ -5,11 +5,11 @@ import AnimatedHero from "@/components/home/AnimatedHero";
 import HomeContextualProducts from "@/components/home/HomeContextualProducts";
 import GoalBasedDiscovery from "@/components/home/GoalBasedDiscovery";
 import QuickToolsSection from "@/components/home/QuickToolsSection";
+import LatestInsights from "@/components/home/LatestInsights";
 import TrustSection from "@/components/home/TrustSection";
 import OnboardingFlow from "@/components/onboarding/OnboardingFlow";
 import SEOHead from "@/components/common/SEOHead";
 import MarketOverview from "@/components/market/MarketOverview";
-// import { api } from "@/lib/api"; // broken integration
 
 export default function Home() {
     const [showOnboarding, setShowOnboarding] = useState(false);
@@ -70,7 +70,10 @@ export default function Home() {
             {/* Section 5: Quick Tools - Popular Calculators */}
             <QuickToolsSection />
 
-            {/* Section 6: Trust & Social Proof */}
+            {/* Section 6: Latest Insights - Blog Articles */}
+            <LatestInsights />
+
+            {/* Section 7: Trust & Social Proof */}
             <TrustSection />
 
             <OnboardingFlow
@@ -80,3 +83,4 @@ export default function Home() {
         </main>
     );
 }
+
