@@ -80,6 +80,17 @@ const footerLinks = {
 };
 
 export function Footer() {
+    const [showScrollTop, setShowScrollTop] = React.useState(false);
+
+    React.useEffect(() => {
+        const toggleVisibility = () => {
+            if (window.scrollY > 300) setShowScrollTop(true);
+            else setShowScrollTop(false);
+        };
+        window.addEventListener('scroll', toggleVisibility);
+        return () => window.removeEventListener('scroll', toggleVisibility);
+    }, []);
+
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
@@ -295,13 +306,7 @@ export function Footer() {
 
                                 <div className="order-3 flex items-center gap-4">
                                      <SecurityBadgeGroup />
-                                     <button 
-                                        onClick={scrollToTop}
-                                        className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-800 border border-slate-700 hover:bg-slate-700 transition-colors text-slate-400 hover:text-white"
-                                        aria-label="Scroll to top"
-                                     >
-                                        <ArrowUp className="w-4 h-4" />
-                                     </button>
+
                                 </div>
                             </div>
                             
@@ -314,6 +319,15 @@ export function Footer() {
                     </div>
                 </div>
             </div>
+
+            {/* Floating Scroll Top Button */}
+            <button 
+                onClick={scrollToTop}
+                aria-label="Back to top"
+                className={`fixed bottom-8 right-8 z-50 p-3 rounded-full bg-teal-500 text-white shadow-xl shadow-teal-500/20 hover:bg-teal-600 transition-all duration-300 transform ${showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
+            >
+                <ArrowUp className="w-6 h-6" />
+            </button>
         </footer>
     );
 }
