@@ -80,12 +80,12 @@ const footerLinks = {
 
 export function Footer() {
     return (
-        <footer className="bg-slate-900 text-slate-400">
+        <footer className="bg-slate-950 text-slate-400 border-t border-slate-900">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 {/* Newsletter - Pre-Footer */}
                 {/* Newsletter - Theme-Aligned Card */}
-                <div className="relative mb-20 p-8 md:p-12 rounded-3xl overflow-hidden border border-slate-800 bg-slate-800/40">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-slate-900/0 to-slate-900/0" />
+                <div className="relative mb-20 p-8 md:p-12 rounded-3xl overflow-hidden border border-slate-800 bg-slate-900 shadow-xl">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-slate-900/0 to-slate-900/0" />
                     <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-500/5 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2" />
                     
                     <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
