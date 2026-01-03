@@ -96,7 +96,7 @@ export function Footer() {
                     <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                         <div className="text-center md:text-left max-w-xl">
                             <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Master the Market</h3>
-                            <p className="text-slate-400 text-lg">Join 15,000+ investors getting the best IPO insights delivered weekly.</p>
+                            <p className="text-slate-400 text-lg">Join 25,000+ investors getting the best IPO insights delivered weekly.</p>
                         </div>
                         <div className="w-full md:w-auto min-w-[340px] bg-white/10 p-1.5 rounded-xl backdrop-blur-sm border border-white/20">
                             <NewsletterWidget variant="minimal" className="w-full" />
