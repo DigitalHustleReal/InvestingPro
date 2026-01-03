@@ -6,7 +6,6 @@ import QuickToolsSection from "@/components/home/QuickToolsSection";
 import LatestInsights from "@/components/home/LatestInsights";
 import TrustSection from "@/components/home/TrustSection";
 import SEOHead from "@/components/common/SEOHead";
-import MarketOverview from "@/components/market/MarketOverview";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
 
 export default function Home() {
@@ -36,13 +35,10 @@ export default function Home() {
             {/* Section 1: Hero */}
             <AnimatedHero onCategorySelect={setSelectedCategory} selectedCategory={selectedCategory} />
 
-            {/* Section 2: Market Pulse */}
-            <MarketOverview />
-
-            {/* Section 3: Quick Tools */}
+            {/* Section 2: Quick Tools */}
             <QuickToolsSection />
 
-            {/* Section 4: Featured Products */}
+            {/* Section 3: Featured Products */}
             <FeaturedProducts />
 
             {/* Section 5: Latest Articles */}
