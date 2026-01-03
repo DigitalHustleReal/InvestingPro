@@ -286,7 +286,7 @@ export default function AnimatedHero({ selectedCategory: propSelectedCategory, o
                             <Button
                                 type="submit"
                                 size="lg"
-                                className="absolute right-2 top-1/2 -translate-y-1/2 h-10 px-6 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg"
+                                className="absolute right-2 top-1/2 -translate-y-1/2 h-10 px-6 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg"
                             >
                                 Search
                             </Button>

@@ -169,7 +169,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                     </div>
 
                     {/* Desktop Navigation - Hidden on mobile/tablet */}
-                    <div className="hidden lg:flex items-center gap-1 xl:gap-6 ml-4 xl:ml-8">
+                    <div className="hidden lg:flex items-center gap-1 xl:gap-8 ml-auto">
                         <NavigationMenu>
                             <NavigationMenuList>
                                 {navigationCategories.map((category) => {
@@ -359,7 +359,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                             </Link>
                             
                             <Link href="/compare">
-                                <Button className="bg-slate-900 hover:bg-slate-800 text-white font-semibold shadow-lg hover:shadow-xl transition-all h-10 px-6 rounded-lg">
+                                <Button className="bg-primary-600 hover:bg-primary-700 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-primary-600/20 transition-all h-10 px-6 rounded-lg">
                                     Get Started
                                 </Button>
                             </Link>
@@ -474,7 +474,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                 {/* Mobile Menu Footer */}
                                 <div className="p-4 border-t border-slate-200 bg-slate-50 space-y-3">
                                     <Link href="/compare" onClick={() => setIsOpen(false)}>
-                                        <Button className="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold shadow-lg hover:shadow-xl transition-all h-10 rounded-lg">
+                                        <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-primary-600/20 transition-all h-10 rounded-lg">
                                             Get Started
                                         </Button>
                                     </Link>
