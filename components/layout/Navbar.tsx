@@ -156,7 +156,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
     };
 
     return (
-        <header className="sticky top-0 z-50 bg-white border-b border-stone-200 backdrop-blur-md transition-all duration-200">
+        <header className="sticky top-0 z-50 bg-white/80 border-b border-slate-200/60 backdrop-blur-xl transition-all duration-200 shadow-sm">
             <nav className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-14 lg:h-20">
                     {/* Logo */}
@@ -179,7 +179,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                     return (
                                         <NavigationMenuItem key={category.slug} className="navigation-menu-item">
                                             <NavigationMenuTrigger 
-                                                className="text-slate-700 hover:text-teal-600 hover:bg-transparent data-[state=open]:text-teal-600 font-semibold text-[15px]"
+                                                className="text-slate-700 hover:text-teal-600 hover:bg-transparent data-[state=open]:text-teal-600 font-semibold text-[15px] tracking-tight font-sans"
                                                 onClick={() => toggleDropdown(category.slug)}
                                                 onMouseEnter={() => handleMouseEnter(category.slug)}
                                             >
@@ -379,7 +379,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                     <Menu className="w-6 h-6" />
                                 </Button>
                             </SheetTrigger>
-                            <SheetContent side="right" className="w-full sm:w-96 p-0 bg-white flex flex-col h-full">
+                            <SheetContent side="right" className="w-full sm:w-96 p-0 bg-white/95 backdrop-blur-xl flex flex-col h-full border-l border-slate-200/60 shadow-2xl">
                                 <div className="flex flex-col h-full overflow-hidden">
                                     {/* Mobile Menu Header */}
                                 <div className="flex items-center p-4 border-b border-slate-200 sticky top-0 bg-white z-10">

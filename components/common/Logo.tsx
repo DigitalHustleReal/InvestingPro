@@ -23,9 +23,9 @@ export default function Logo({
 }: LogoProps) {
     // Size variants
     const sizeClasses = {
-        sm: { logo: 'w-8 h-8', text: 'text-lg', iconSize: 20 },
-        md: { logo: 'w-10 h-10', text: 'text-xl', iconSize: 24 },
-        lg: { logo: 'w-12 h-12', text: 'text-2xl', iconSize: 28 }
+        sm: { logo: 'w-6 h-6', text: 'text-lg', iconSize: 16 },
+        md: { logo: 'w-8 h-8', text: 'text-[1.25rem]', iconSize: 20 },
+        lg: { logo: 'w-10 h-10', text: 'text-2xl', iconSize: 24 }
     };
 
     // Color variants based on context
@@ -33,17 +33,20 @@ export default function Logo({
         default: {
             logoBg: 'bg-gradient-to-br from-teal-600 to-emerald-600',
             logoFill: 'white',
-            brandText: 'text-slate-900'
+            brandText: 'text-slate-900',
+            accent: 'text-teal-600'
         },
         light: {
             logoBg: 'bg-white',
             logoFill: '#0d9488', // teal-600
-            brandText: 'text-white'
+            brandText: 'text-white',
+            accent: 'text-emerald-200'
         },
         dark: {
             logoBg: 'bg-gradient-to-br from-teal-600 to-emerald-600',
             logoFill: 'white',
-            brandText: 'text-white'
+            brandText: 'text-white',
+            accent: 'text-teal-400'
         }
     };
 
@@ -53,64 +56,47 @@ export default function Logo({
     return (
         <Link 
             href="/" 
-            className={`flex items-center gap-2.5 ${className}`}
+            className={`flex items-center gap-2.5 group ${className}`}
             aria-label="InvestingPro Home"
         >
-            {/* Logo Icon - IP Monogram */}
-            <div className={`${currentSize.logo} ${currentVariant.logoBg} rounded-xl flex items-center justify-center shadow-lg shadow-teal-500/20`}>
+            {/* Logo Icon - Abstract Growth Symbol (3 Ascending Bars) */}
+            <div className={`relative flex items-center justify-center ${currentSize.logo} rounded-lg ${currentVariant.logoBg} shadow-sm transition-transform group-hover:scale-105 duration-300`}>
                 <svg 
                     width={currentSize.iconSize} 
                     height={currentSize.iconSize} 
                     viewBox="0 0 24 24" 
                     fill="none" 
                     xmlns="http://www.w3.org/2000/svg"
-                    className="flex-shrink-0"
+                    className="drop-shadow-sm"
                 >
-                    {/* Letter I - Left vertical bar */}
-                    <rect 
-                        x="3" 
-                        y="4" 
-                        width="4.5" 
-                        height="16" 
-                        rx="0.75" 
-                        fill={currentVariant.logoFill}
+                    <path 
+                        d="M6 20V14" 
+                        stroke={currentVariant.logoFill} 
+                        strokeWidth="2.5" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
                     />
-                    
-                    {/* Letter P - Right side */}
-                    {/* P's vertical stem */}
-                    <rect 
-                        x="11.5" 
-                        y="4" 
-                        width="4.5" 
-                        height="16" 
-                        rx="0.75" 
-                        fill={currentVariant.logoFill}
+                    <path 
+                        d="M12 20V10" 
+                        stroke={currentVariant.logoFill} 
+                        strokeWidth="2.5" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
                     />
-                    
-                    {/* P's top rounded loop - simplified path */}
-                    <ellipse 
-                        cx="18.5" 
-                        cy="10.5" 
-                        rx="4" 
-                        ry="3.5" 
-                        fill={currentVariant.logoFill}
-                    />
-                    
-                    {/* P's opening - create the bottom opening by masking */}
-                    <rect 
-                        x="11.5" 
-                        y="10.5" 
-                        width="4.5" 
-                        height="9.5" 
-                        fill={currentVariant.logoBg}
+                    <path 
+                        d="M18 20V4" 
+                        stroke={currentVariant.logoFill} 
+                        strokeWidth="2.5" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
                     />
                 </svg>
             </div>
             
             {/* Brand Text */}
             {showText && (
-                <span className={`${currentSize.text} font-bold ${currentVariant.brandText} tracking-tight`}>
-                    InvestingPro
+                <span className={`${currentSize.text} font-bold ${currentVariant.brandText} tracking-tight leading-none font-sans`}>
+                    Investing<span className={currentVariant.accent}>Pro</span>
                 </span>
             )}
         </Link>
