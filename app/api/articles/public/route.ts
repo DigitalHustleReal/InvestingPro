@@ -4,56 +4,84 @@ import { createClient } from '@/lib/supabase/server';
 export async function GET(request: Request) {
     try {
         const { searchParams } = new URL(request.url);
-        const limit = parseInt(searchParams.get('limit') || '1000');
+        const page = parseInt(searchParams.get('page') || '1');
+        const limit = parseInt(searchParams.get('limit') || '12');
+        const category = searchParams.get('category') || '';
+        const search = searchParams.get('search') || '';
         
+        const offset = (page - 1) * limit;
         const supabase = await createClient();
         
-        // Try direct query first
-        const { data: directData, error: directError } = await supabase
+        // Build the query
+        let query = supabase
             .from('articles')
-            .select('*')
+            .select('*', { count: 'exact' })
             .eq('status', 'published')
-            .order('published_at', { ascending: false })
-            .limit(limit);
+            .order('published_at', { ascending: false });
         
-        if (directData && directData.length > 0) {
-            console.log(`[API] Direct query returned ${directData.length} articles`);
-            return NextResponse.json({ articles: directData, source: 'direct' });
+        // Apply category filter
+        if (category && category !== 'all') {
+            query = query.eq('category', category);
         }
         
-        console.log('[API] Direct query empty, trying RPC...');
-        
-        // Fallback to RPC
-        const { data: rpcData, error: rpcError } = await supabase.rpc('get_public_articles', {
-            result_limit: limit
-        });
-        
-        console.log('[API] RPC response:', {
-            hasData: !!rpcData,
-            isArray: Array.isArray(rpcData),
-            length: Array.isArray(rpcData) ? rpcData.length : 'N/A',
-            error: rpcError?.message
-        });
-        
-        if (rpcError) {
-            console.error('[API] RPC error:', rpcError);
-            return NextResponse.json({ articles: [], source: 'error', error: rpcError.message });
+        // Apply search filter
+        if (search) {
+            query = query.or(`title.ilike.%${search}%,excerpt.ilike.%${search}%`);
         }
         
-        // Handle the JSON array response
-        const articles = Array.isArray(rpcData) ? rpcData : [];
+        // Apply pagination
+        query = query.range(offset, offset + limit - 1);
+        
+        const { data, error, count } = await query;
+        
+        if (error) {
+            console.error('[API] Query error:', error);
+            
+            // Fallback to RPC if direct query fails (RLS issue for anon users)
+            const { data: rpcData, error: rpcError } = await supabase.rpc('get_public_articles', {
+                result_limit: limit
+            });
+            
+            if (!rpcError && rpcData) {
+                const articles = Array.isArray(rpcData) ? rpcData : [];
+                // For RPC fallback, we can't easily filter/count, return what we have
+                return NextResponse.json({ 
+                    articles: articles.slice(0, limit), 
+                    total: articles.length,
+                    page,
+                    limit,
+                    totalPages: Math.ceil(articles.length / limit),
+                    source: 'rpc' 
+                });
+            }
+            
+            return NextResponse.json({ 
+                articles: [], 
+                total: 0,
+                page,
+                limit,
+                totalPages: 0,
+                error: error.message 
+            });
+        }
         
         return NextResponse.json({ 
-            articles, 
-            source: 'rpc',
-            count: articles.length 
+            articles: data || [], 
+            total: count || 0,
+            page,
+            limit,
+            totalPages: Math.ceil((count || 0) / limit),
+            source: 'direct'
         });
         
     } catch (error: any) {
         console.error('[API] Unexpected error:', error);
         return NextResponse.json({ 
             articles: [], 
-            source: 'error', 
+            total: 0,
+            page: 1,
+            limit: 12,
+            totalPages: 0,
             error: error.message 
         }, { status: 500 });
     }

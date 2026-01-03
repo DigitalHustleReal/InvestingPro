@@ -1,18 +1,26 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useQuery } from "@tanstack/react-query";
-import { api } from "@/lib/api";
 import SEOHead from "@/components/common/SEOHead";
 import Pagination from "@/components/common/Pagination";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/Button";
-import { Search, Clock, Calendar, TrendingUp, User, ArrowRight } from "lucide-react";
+import { Search, Clock, Calendar, TrendingUp, User, ArrowRight, Loader2 } from "lucide-react";
 import Link from 'next/link';
 import PageErrorBoundary from "@/components/common/PageErrorBoundary";
-import EmptyState from "@/components/common/EmptyState";
+
+// Debounce hook for search
+function useDebounce<T>(value: T, delay: number): T {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+    React.useEffect(() => {
+        const handler = setTimeout(() => setDebouncedValue(value), delay);
+        return () => clearTimeout(handler);
+    }, [value, delay]);
+    return debouncedValue;
+}
 
 export default function BlogPage() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -20,19 +28,43 @@ export default function BlogPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 9;
 
-    const { data: articles = [], isLoading, error } = useQuery({
-        queryKey: ['blog-articles'],
+    // Debounce search to avoid too many API calls
+    const debouncedSearch = useDebounce(searchTerm, 300);
+
+    // Server-side pagination query
+    const { data, isLoading, isFetching } = useQuery({
+        queryKey: ['blog-articles', currentPage, selectedCategory, debouncedSearch],
         queryFn: async () => {
-            const response = await fetch('/api/articles/public');
+            const params = new URLSearchParams({
+                page: currentPage.toString(),
+                limit: itemsPerPage.toString(),
+                ...(selectedCategory !== 'all' && { category: selectedCategory }),
+                ...(debouncedSearch && { search: debouncedSearch })
+            });
+            const response = await fetch(`/api/articles/public?${params}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch articles');
             }
-            const data = await response.json();
-            return data.articles || [];
+            return response.json();
         },
         staleTime: 60000, // Cache for 1 minute
-        refetchOnMount: true,
+        placeholderData: (previousData) => previousData, // Keep previous data while loading
     });
+
+    const articles = data?.articles || [];
+    const totalItems = data?.total || 0;
+    const totalPages = data?.totalPages || 0;
+
+    // Reset to page 1 when filters change
+    const handleCategoryChange = useCallback((cat: string) => {
+        setSelectedCategory(cat);
+        setCurrentPage(1);
+    }, []);
+
+    const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value);
+        setCurrentPage(1);
+    }, []);
 
     const categories = [
         'all',
@@ -44,24 +76,9 @@ export default function BlogPage() {
         'investing-basics'
     ];
 
-    // Ensure articles is always an array
-    const safeArticles = Array.isArray(articles) ? articles : [];
-
-    const filteredArticles = safeArticles.filter((article: any) => {
-        const matchesSearch = article.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            article.excerpt?.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesCategory = selectedCategory === 'all' || article.category === selectedCategory;
-        return matchesSearch && matchesCategory;
-    });
-
-    const featuredArticle = currentPage === 1 ? filteredArticles[0] : null;
-    const articlesForPagination = (currentPage === 1 && featuredArticle) ? filteredArticles.slice(1) : filteredArticles;
-
-    const totalPages = Math.ceil(articlesForPagination.length / itemsPerPage);
-    const paginatedArticles = articlesForPagination.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-    );
+    // Featured article only on first page with no search
+    const featuredArticle = currentPage === 1 && !debouncedSearch ? articles[0] : null;
+    const displayArticles = featuredArticle ? articles.slice(1) : articles;
 
     return (
         <PageErrorBoundary pageName="Blog Page">
@@ -93,7 +110,7 @@ export default function BlogPage() {
                             <Input
                                 placeholder="Search guide, strategy, or asset class..."
                                 value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
+                                onChange={handleSearchChange}
                                 className="pl-12 h-16 bg-white/5 border-slate-700 text-white placeholder:text-slate-500 rounded-2xl focus:bg-white/10 transition-all outline-none text-lg"
                             />
                         </div>
@@ -108,10 +125,7 @@ export default function BlogPage() {
                         <Button
                             key={cat}
                             variant={selectedCategory === cat ? "default" : "outline"}
-                            onClick={() => {
-                                setSelectedCategory(cat);
-                                setCurrentPage(1);
-                            }}
+                            onClick={() => handleCategoryChange(cat)}
                             className={`rounded-full px-6 transition-all ${selectedCategory === cat
                                 ? "bg-teal-600 hover:bg-teal-700 border-0 shadow-lg shadow-teal-500/30"
                                 : "bg-white hover:bg-slate-100 border-slate-200 text-slate-600"
@@ -174,52 +188,65 @@ export default function BlogPage() {
 
                 {/* Article Grid */}
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {paginatedArticles.map((article: any) => (
-                        <Link key={article.id} href={`/article/${article.slug}`}>
-                            <Card className="h-full flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-slate-200 group bg-white shadow-sm overflow-hidden">
-                                <div className="h-56 relative overflow-hidden bg-slate-100">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-slate-400 to-slate-600 opacity-20" />
-                                    {article.featured_image && (
-                                        <img
-                                            src={article.featured_image}
-                                            alt=""
-                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                        />
-                                    )}
-                                    <div className="absolute top-4 left-4">
-                                        <Badge className="bg-white/90 backdrop-blur-sm text-slate-900 border-0 text-[10px] font-bold shadow-sm">
-                                            {article.category?.replace(/-/g, ' ')}
-                                        </Badge>
-                                    </div>
-                                </div>
-                                <CardContent className="p-6 flex-1 flex flex-col">
-                                    <h3 className="text-xl font-bold text-slate-900 mb-3 line-clamp-2 group-hover:text-teal-600 transition-colors">
-                                        {article.title}
-                                    </h3>
-                                    <p className="text-slate-500 text-sm mb-6 line-clamp-3 leading-relaxed flex-1">
-                                        {article.excerpt}
-                                    </p>
-                                    <div className="pt-6 border-t border-slate-100 flex items-center justify-between">
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center">
-                                                <User className="w-3 h-3 text-slate-400" />
-                                            </div>
-                                            <span className="text-xs font-bold text-slate-900 uppercase tracking-tighter">
-                                                {article.author_name}
-                                            </span>
-                                        </div>
-                                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
-                                            <Clock className="w-3.5 h-3.5" />
-                                            {article.read_time} MIN
-                                        </span>
-                                    </div>
+                    {isLoading ? (
+                        // Loading skeleton
+                        Array.from({ length: 9 }).map((_, i) => (
+                            <Card key={i} className="h-full animate-pulse">
+                                <div className="h-56 bg-slate-200" />
+                                <CardContent className="p-6">
+                                    <div className="h-6 bg-slate-200 rounded mb-3" />
+                                    <div className="h-4 bg-slate-200 rounded w-3/4" />
                                 </CardContent>
                             </Card>
-                        </Link>
-                    ))}
+                        ))
+                    ) : (
+                        displayArticles.map((article: any) => (
+                            <Link key={article.id} href={`/article/${article.slug}`}>
+                                <Card className="h-full flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-slate-200 group bg-white shadow-sm overflow-hidden">
+                                    <div className="h-56 relative overflow-hidden bg-slate-100">
+                                        <div className="absolute inset-0 bg-gradient-to-br from-slate-400 to-slate-600 opacity-20" />
+                                        {article.featured_image && (
+                                            <img
+                                                src={article.featured_image}
+                                                alt=""
+                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                            />
+                                        )}
+                                        <div className="absolute top-4 left-4">
+                                            <Badge className="bg-white/90 backdrop-blur-sm text-slate-900 border-0 text-[10px] font-bold shadow-sm">
+                                                {article.category?.replace(/-/g, ' ')}
+                                            </Badge>
+                                        </div>
+                                    </div>
+                                    <CardContent className="p-6 flex-1 flex flex-col">
+                                        <h3 className="text-xl font-bold text-slate-900 mb-3 line-clamp-2 group-hover:text-teal-600 transition-colors">
+                                            {article.title}
+                                        </h3>
+                                        <p className="text-slate-500 text-sm mb-6 line-clamp-3 leading-relaxed flex-1">
+                                            {article.excerpt}
+                                        </p>
+                                        <div className="pt-6 border-t border-slate-100 flex items-center justify-between">
+                                            <div className="flex items-center gap-2">
+                                                <div className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center">
+                                                    <User className="w-3 h-3 text-slate-400" />
+                                                </div>
+                                                <span className="text-xs font-bold text-slate-900 uppercase tracking-tighter">
+                                                    {article.author_name}
+                                                </span>
+                                            </div>
+                                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
+                                                <Clock className="w-3.5 h-3.5" />
+                                                {article.read_time} MIN
+                                            </span>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            </Link>
+                        ))
+                    )}
                 </div>
 
-                {filteredArticles.length === 0 && (
+                {!isLoading && articles.length === 0 && (
                     <div className="text-center py-24 bg-white rounded-3xl border border-dashed border-slate-200">
                         <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4">
                             <Search className="w-8 h-8 text-slate-300" />
@@ -230,7 +257,7 @@ export default function BlogPage() {
                 )}
 
                 {/* Pagination */}
-                {articlesForPagination.length > itemsPerPage && (
+                {totalPages > 1 && (
                     <div className="mt-16 bg-white p-2 rounded-2xl shadow-sm border border-slate-100">
                         <Pagination
                             currentPage={currentPage}
@@ -240,7 +267,7 @@ export default function BlogPage() {
                                 window.scrollTo({ top: 0, behavior: 'smooth' });
                             }}
                             itemsPerPage={itemsPerPage}
-                            totalItems={articlesForPagination.length}
+                            totalItems={totalItems}
                         />
                     </div>
                 )}
