@@ -25,36 +25,8 @@ export default function NewsletterWidget({
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [message, setMessage] = useState('');
 
-    // Typing effect for placeholder
-    const [placeholderText, setPlaceholderText] = useState('');
-    const [isTyping, setIsTyping] = useState(true);
-    
-    React.useEffect(() => {
-        if (email || status !== 'idle') return;
-
-        const text = "rahul.sharma@gmail.com";
-        let currentIndex = 0;
-        let timeoutId: NodeJS.Timeout;
-
-        const typeChar = () => {
-            if (currentIndex <= text.length) {
-                setPlaceholderText(text.slice(0, currentIndex));
-                currentIndex++;
-                timeoutId = setTimeout(typeChar, 100 + Math.random() * 50); // Random typing speed
-            } else {
-                // Pause at end then reset
-                timeoutId = setTimeout(() => {
-                    currentIndex = 0;
-                    setPlaceholderText('');
-                    typeChar();
-                }, 3000);
-            }
-        };
-
-        timeoutId = setTimeout(typeChar, 1000);
-
-        return () => clearTimeout(timeoutId);
-    }, [email, status]);
+    // Static Professional Placeholder
+    const placeholderText = "Enter your work email";
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -83,7 +55,7 @@ export default function NewsletterWidget({
                 <div className="relative flex-1">
                     <Input
                         type="email"
-                        placeholder={placeholderText}
+                        placeholder="Enter your email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         disabled={status === 'loading' || status === 'success'}
