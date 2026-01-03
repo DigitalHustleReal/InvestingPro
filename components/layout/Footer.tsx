@@ -27,11 +27,14 @@ const getHref = (pageName: string) => {
         Insurance: '/insurance',
         Calculators: '/calculators',
         Blog: '/blog',
+        About: '/about',
         Methodology: '/methodology',
         EditorialPolicy: '/editorial-policy',
+        Disclosure: '/disclosure',
         Privacy: '/privacy',
         Terms: '/terms',
         Disclaimer: '/disclaimer',
+        Accessibility: '/accessibility',
         AlphaTerminal: '/terminal',
         Glossary: '/glossary',
         Guides: '/guides'
@@ -56,11 +59,6 @@ const footerLinks = {
         { name: "Tax Calculator", page: "Calculators" },
         { name: "Alpha Terminal", page: "AlphaTerminal" },
     ],
-    company: [
-        { name: "Blog", page: "Blog" },
-        { name: "Methodology", page: "Methodology" },
-        { name: "Editorial Policy", page: "EditorialPolicy" },
-    ],
     resources: [
         { name: "Glossary", page: "Glossary" },
         { name: "Guides", page: "Guides" },
@@ -69,6 +67,13 @@ const footerLinks = {
         { name: "Privacy Policy", page: "Privacy" },
         { name: "Terms of Service", page: "Terms" },
         { name: "Disclaimer", page: "Disclaimer" },
+        { name: "Accessibility", page: "Accessibility" },
+    ],
+    company: [
+        { name: "About Us", page: "About" },
+        { name: "How We Make Money", page: "Disclosure" },
+        { name: "Methodology", page: "Methodology" },
+        { name: "Editorial Policy", page: "EditorialPolicy" },
     ]
 };
 
