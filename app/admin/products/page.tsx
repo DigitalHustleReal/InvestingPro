@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { productService, ProductCategory } from '@/lib/products/product-service';
+import { productService } from '@/lib/products/product-service';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -19,7 +19,7 @@ import {
     AlertTriangle,
     Eye,
     EyeOff,
-    Star
+    TrendingUp
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { formatDistanceToNow } from 'date-fns';
@@ -166,7 +166,7 @@ export default function AdminProductsPage() {
                                 <tr className="border-b bg-slate-50">
                                     <th className="px-6 py-4 text-xs font-bold uppercase text-slate-500">Product</th>
                                     <th className="px-6 py-4 text-xs font-bold uppercase text-slate-500">Category</th>
-                                    <th className="px-6 py-4 text-xs font-bold uppercase text-slate-500">Rating</th>
+                                    <th className="px-6 py-4 text-xs font-bold uppercase text-slate-500">Trust Score</th>
                                     <th className="px-6 py-4 text-xs font-bold uppercase text-slate-500">Status</th>
                                     <th className="px-6 py-4 text-xs font-bold uppercase text-slate-500">Active</th>
                                     <th className="px-6 py-4 text-right text-xs font-bold uppercase text-slate-500">Actions</th>
@@ -182,13 +182,9 @@ export default function AdminProductsPage() {
                                         <tr key={product.id} className={`hover:bg-slate-50 ${!product.is_active ? 'opacity-50' : ''}`}>
                                             <td className="px-6 py-4">
                                                 <div className="flex items-center gap-3">
-                                                    {product.image_url ? (
-                                                        <img src={product.image_url} className="w-10 h-10 object-contain rounded border p-1" alt="" />
-                                                    ) : (
-                                                        <div className="w-10 h-10 rounded border bg-slate-100 flex items-center justify-center">
-                                                            <Package className="w-5 h-5 text-slate-400" />
-                                                        </div>
-                                                    )}
+                                                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center">
+                                                        <Package className="w-5 h-5 text-slate-500" />
+                                                    </div>
                                                     <div>
                                                         <div className="font-bold text-slate-900">{product.name}</div>
                                                         <div className="text-xs text-slate-500">{product.provider_name}</div>
@@ -202,8 +198,8 @@ export default function AdminProductsPage() {
                                             </td>
                                             <td className="px-6 py-4">
                                                 <div className="flex items-center gap-1">
-                                                    <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-                                                    <span className="font-medium">{product.rating?.toFixed(1)}</span>
+                                                    <TrendingUp className="w-4 h-4 text-teal-500" />
+                                                    <span className="font-medium">{product.trust_score || 0}</span>
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4">
@@ -231,8 +227,8 @@ export default function AdminProductsPage() {
                                                             <Edit className="w-4 h-4" />
                                                         </Button>
                                                     </Link>
-                                                    {product.affiliate_link && (
-                                                        <a href={product.affiliate_link} target="_blank" rel="noopener noreferrer">
+                                                    {product.canonical_url && (
+                                                        <a href={product.canonical_url} target="_blank" rel="noopener noreferrer">
                                                             <Button variant="ghost" size="sm">
                                                                 <ExternalLink className="w-4 h-4" />
                                                             </Button>

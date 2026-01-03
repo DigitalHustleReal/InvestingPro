@@ -1,7 +1,7 @@
 -- =====================================================
 -- FIX: Get Public Products RPC (SECURITY DEFINER)
 -- This function bypasses RLS for anonymous users
--- Run this in Supabase SQL Editor
+-- Matches actual products table schema
 -- =====================================================
 
 -- STEP 1: Ensure all active products are properly flagged
@@ -33,28 +33,26 @@ BEGIN
                     p.name,
                     p.category,
                     p.provider_name,
-                    p.description,
-                    p.image_url,
-                    COALESCE(p.rating, 4.0) as rating,
-                    COALESCE(p.features, '{}'::jsonb) as features,
-                    COALESCE(p.pros, '{}') as pros,
-                    COALESCE(p.cons, '{}') as cons,
-                    p.affiliate_link,
-                    p.official_link,
+                    p.provider_slug,
                     p.is_active,
+                    p.launch_date,
+                    p.meta_title,
+                    p.meta_description,
+                    p.canonical_url,
+                    COALESCE(p.data_completeness_score, 0) as data_completeness_score,
+                    p.last_updated_at,
+                    p.created_at,
                     p.last_verified_at,
                     COALESCE(p.verification_status, 'pending') as verification_status,
-                    COALESCE(p.trust_score, 0) as trust_score,
-                    p.created_at,
-                    p.updated_at
+                    p.verification_notes,
+                    COALESCE(p.trust_score, 0) as trust_score
                 FROM products p
                 WHERE p.is_active = true
-                    AND (category_filter IS NULL OR p.category::text = category_filter)
+                    AND (category_filter IS NULL OR p.category = category_filter)
                     AND (search_term IS NULL OR search_term = '' OR 
                          p.name ILIKE '%' || search_term || '%' OR 
-                         p.provider_name ILIKE '%' || search_term || '%' OR
-                         p.description ILIKE '%' || search_term || '%')
-                ORDER BY p.trust_score DESC NULLS LAST, p.rating DESC NULLS LAST, p.name ASC
+                         p.provider_name ILIKE '%' || search_term || '%')
+                ORDER BY p.trust_score DESC NULLS LAST, p.name ASC
                 LIMIT result_limit
                 OFFSET result_offset
             ) t),
@@ -64,11 +62,10 @@ BEGIN
             SELECT COUNT(*)
             FROM products p
             WHERE p.is_active = true
-                AND (category_filter IS NULL OR p.category::text = category_filter)
+                AND (category_filter IS NULL OR p.category = category_filter)
                 AND (search_term IS NULL OR search_term = '' OR 
                      p.name ILIKE '%' || search_term || '%' OR 
-                     p.provider_name ILIKE '%' || search_term || '%' OR
-                     p.description ILIKE '%' || search_term || '%')
+                     p.provider_name ILIKE '%' || search_term || '%')
         )
     ) INTO result;
     
@@ -76,10 +73,10 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql STABLE SECURITY DEFINER;
 
--- STEP 4: Grant permissions to anonymous and authenticated users
+-- STEP 4: Grant permissions
 GRANT EXECUTE ON FUNCTION get_public_products(TEXT, INTEGER, INTEGER, TEXT) TO anon, authenticated;
 
--- STEP 5: Verify it works (should return product count)
+-- STEP 5: Verify
 SELECT 
     (get_public_products()->>'total')::int as total_products,
     json_array_length(get_public_products()->'products') as returned_products;

@@ -19,7 +19,7 @@ export async function GET(request: Request) {
             .select('*', { count: 'exact' })
             .eq('is_active', true)
             .order('trust_score', { ascending: false, nullsFirst: false })
-            .order('rating', { ascending: false, nullsFirst: false });
+            .order('name', { ascending: true });
         
         // Apply category filter
         if (category && category !== 'all') {
@@ -28,10 +28,10 @@ export async function GET(request: Request) {
         
         // Apply search filter
         if (search) {
-            query = query.or(`name.ilike.%${search}%,provider_name.ilike.%${search}%,description.ilike.%${search}%`);
+            query = query.or(`name.ilike.%${search}%,provider_name.ilike.%${search}%`);
         }
         
-        // Apply featured filter
+        // Apply featured filter (high trust score)
         if (featured) {
             query = query.gte('trust_score', 80);
         }
@@ -73,14 +73,11 @@ export async function GET(request: Request) {
             });
         }
         
-        // Normalize products
+        // Normalize products to match schema
         const products = (data || []).map((p: any) => ({
             ...p,
-            features: p.features || {},
-            pros: p.pros || [],
-            cons: p.cons || [],
-            rating: p.rating || 4.0,
-            trust_score: p.trust_score || 0
+            trust_score: p.trust_score || 0,
+            data_completeness_score: p.data_completeness_score || 0
         }));
         
         return NextResponse.json({ 

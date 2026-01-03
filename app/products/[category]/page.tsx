@@ -3,7 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { productService, ProductCategory } from '@/lib/products/product-service';
+import { productService } from '@/lib/products/product-service';
 import SEOHead from '@/components/common/SEOHead';
 import Pagination from '@/components/common/Pagination';
 import { Card, CardContent } from '@/components/ui/card';
@@ -12,12 +12,11 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/Button';
 import { 
     Search, 
-    Star, 
-    ExternalLink, 
     ArrowRight, 
-    Filter,
+    TrendingUp,
     CheckCircle,
-    Sparkles
+    Shield,
+    Package
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -165,17 +164,9 @@ export default function ProductCategoryPage() {
                                         {/* Header */}
                                         <div className="flex items-start justify-between mb-4">
                                             <div className="flex items-center gap-3">
-                                                {product.image_url ? (
-                                                    <img 
-                                                        src={product.image_url} 
-                                                        alt="" 
-                                                        className="w-12 h-12 object-contain rounded-xl border p-1"
-                                                    />
-                                                ) : (
-                                                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center">
-                                                        <Sparkles className="w-6 h-6 text-white" />
-                                                    </div>
-                                                )}
+                                                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center">
+                                                    <Package className="w-6 h-6 text-white" />
+                                                </div>
                                                 <div>
                                                     <h3 className="font-bold text-slate-900 group-hover:text-teal-600 transition-colors line-clamp-1">
                                                         {product.name}
@@ -183,50 +174,43 @@ export default function ProductCategoryPage() {
                                                     <p className="text-sm text-slate-500">{product.provider_name}</p>
                                                 </div>
                                             </div>
-                                            <div className="flex items-center gap-1 bg-amber-50 px-2 py-1 rounded-lg">
-                                                <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
-                                                <span className="text-sm font-bold text-amber-700">{product.rating?.toFixed(1)}</span>
-                                            </div>
+                                            {product.trust_score && product.trust_score >= 70 && (
+                                                <div className="flex items-center gap-1 bg-teal-50 px-2 py-1 rounded-lg">
+                                                    <TrendingUp className="w-4 h-4 text-teal-600" />
+                                                    <span className="text-sm font-bold text-teal-700">{product.trust_score}</span>
+                                                </div>
+                                            )}
                                         </div>
 
-                                        {/* Description */}
-                                        <p className="text-slate-600 text-sm mb-4 line-clamp-2">
-                                            {product.description || 'A great financial product from a trusted provider.'}
-                                        </p>
-
-                                        {/* Features */}
-                                        {product.features && Object.keys(product.features).length > 0 && (
-                                            <div className="flex flex-wrap gap-2 mb-4">
-                                                {Object.entries(product.features).slice(0, 3).map(([key, value]) => (
-                                                    <Badge key={key} variant="outline" className="text-xs">
-                                                        {key.replace(/_/g, ' ')}: {String(value)}
-                                                    </Badge>
-                                                ))}
-                                            </div>
+                                        {/* Meta Description */}
+                                        {product.meta_description && (
+                                            <p className="text-slate-600 text-sm mb-4 line-clamp-2">
+                                                {product.meta_description}
+                                            </p>
                                         )}
 
-                                        {/* Pros */}
-                                        {product.pros && product.pros.length > 0 && (
-                                            <ul className="space-y-1 mb-4">
-                                                {product.pros.slice(0, 2).map((pro, i) => (
-                                                    <li key={i} className="flex items-center gap-2 text-sm text-green-700">
-                                                        <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                                                        <span className="line-clamp-1">{pro}</span>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        )}
+                                        {/* Status */}
+                                        <div className="flex flex-wrap gap-2 mb-4">
+                                            {product.verification_status === 'verified' && (
+                                                <Badge className="bg-green-100 text-green-700 border-0 text-xs flex items-center gap-1">
+                                                    <Shield className="w-3 h-3" /> Verified
+                                                </Badge>
+                                            )}
+                                            {product.launch_date && (
+                                                <Badge variant="outline" className="text-xs">
+                                                    Since {new Date(product.launch_date).getFullYear()}
+                                                </Badge>
+                                            )}
+                                        </div>
 
                                         {/* CTA */}
                                         <div className="flex items-center justify-between pt-4 border-t">
                                             <span className="text-sm text-teal-600 font-medium group-hover:underline flex items-center gap-1">
                                                 View Details <ArrowRight className="w-4 h-4" />
                                             </span>
-                                            {product.affiliate_link && (
-                                                <Button size="sm" className="bg-teal-600 hover:bg-teal-700 text-xs">
-                                                    Apply Now
-                                                </Button>
-                                            )}
+                                            <Button size="sm" className="bg-teal-600 hover:bg-teal-700 text-xs">
+                                                Learn More
+                                            </Button>
                                         </div>
                                     </CardContent>
                                 </Card>

@@ -3,30 +3,29 @@ import { createClient } from '@/lib/supabase/client';
 
 export type ProductCategory = 'credit_card' | 'broker' | 'loan' | 'mutual_fund' | 'insurance';
 
+// Matches actual products table schema
 export type Product = {
     id: string;
     slug: string;
     name: string;
-    category: ProductCategory;
+    category: string;
     provider_name: string;
-    description: string;
-    image_url: string;
-    rating: number;
-    features: Record<string, any>;
-    pros: string[];
-    cons: string[];
-    affiliate_link?: string;
-    official_link?: string;
+    provider_slug?: string;
     is_active: boolean;
+    launch_date?: string;
+    meta_title?: string;
+    meta_description?: string;
+    canonical_url?: string;
+    data_completeness_score?: number;
+    last_updated_at?: string;
+    created_at?: string;
     last_verified_at?: string;
     verification_status?: 'pending' | 'verified' | 'discrepancy' | 'outdated';
     verification_notes?: string;
     trust_score?: number;
-    created_at?: string;
-    updated_at?: string;
 };
 
-export type ProductInput = Omit<Product, 'id' | 'created_at' | 'updated_at'>;
+export type ProductInput = Omit<Product, 'id' | 'created_at' | 'last_updated_at'>;
 
 export interface ProductListParams {
     page?: number;
@@ -61,7 +60,7 @@ export class ProductService {
         }
         
         query = query.order('trust_score', { ascending: false, nullsFirst: false })
-                     .order('rating', { ascending: false, nullsFirst: false });
+                     .order('name', { ascending: true });
         
         const { data, error } = await query;
         if (error) throw error;
@@ -133,7 +132,7 @@ export class ProductService {
         return (data || []).map((p: any) => this.normalizeProduct(p));
     }
 
-    async getProductsByCategory(category: ProductCategory, limit?: number): Promise<Product[]> {
+    async getProductsByCategory(category: string, limit?: number): Promise<Product[]> {
         const supabase = createClient();
         let query = supabase
             .from('products')
@@ -141,7 +140,7 @@ export class ProductService {
             .eq('category', category)
             .eq('is_active', true)
             .order('trust_score', { ascending: false, nullsFirst: false })
-            .order('rating', { ascending: false, nullsFirst: false });
+            .order('name', { ascending: true });
         
         if (limit) {
             query = query.limit(limit);
@@ -168,14 +167,14 @@ export class ProductService {
 
     // === ADMIN CRUD OPERATIONS ===
 
-    async createProduct(input: ProductInput): Promise<Product> {
+    async createProduct(input: Partial<ProductInput>): Promise<Product> {
         const supabase = createClient();
         const { data, error } = await supabase
             .from('products')
             .insert({
                 ...input,
                 created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString()
+                last_updated_at: new Date().toISOString()
             })
             .select()
             .single();
@@ -190,7 +189,7 @@ export class ProductService {
             .from('products')
             .update({
                 ...updates,
-                updated_at: new Date().toISOString()
+                last_updated_at: new Date().toISOString()
             })
             .eq('id', id)
             .select()
@@ -228,12 +227,9 @@ export class ProductService {
         if (!data) return data;
         return {
             ...data,
-            features: data.features || {},
-            pros: data.pros || [],
-            cons: data.cons || [],
-            rating: data.rating || 4.0,
             trust_score: data.trust_score || 0,
-            is_active: data.is_active ?? true
+            is_active: data.is_active ?? true,
+            data_completeness_score: data.data_completeness_score || 0
         };
     }
 
@@ -246,3 +242,4 @@ export class ProductService {
 }
 
 export const productService = new ProductService();
+

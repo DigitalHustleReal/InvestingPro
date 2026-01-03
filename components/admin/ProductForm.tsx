@@ -5,26 +5,24 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { 
     Save, 
-    X, 
-    Plus, 
-    Trash2, 
-    ExternalLink,
-    Image as ImageIcon,
-    AlertCircle
+    ArrowLeft,
+    AlertCircle,
+    Globe,
+    Calendar
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { productService, Product, ProductCategory, ProductInput } from '@/lib/products/product-service';
+import { productService, Product } from '@/lib/products/product-service';
+import Link from 'next/link';
 
 interface ProductFormProps {
-    product?: Product; // If provided, we're editing
+    product?: Product;
     onSuccess?: (product: Product) => void;
     onCancel?: () => void;
 }
 
-const CATEGORIES: { value: ProductCategory; label: string }[] = [
+const CATEGORIES = [
     { value: 'credit_card', label: 'Credit Card' },
     { value: 'mutual_fund', label: 'Mutual Fund' },
     { value: 'loan', label: 'Loan' },
@@ -39,26 +37,19 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
     const [formData, setFormData] = useState({
         name: product?.name || '',
         slug: product?.slug || '',
-        category: product?.category || 'credit_card' as ProductCategory,
+        category: product?.category || 'credit_card',
         provider_name: product?.provider_name || '',
-        description: product?.description || '',
-        image_url: product?.image_url || '',
-        rating: product?.rating || 4.0,
-        affiliate_link: product?.affiliate_link || '',
-        official_link: product?.official_link || '',
+        provider_slug: product?.provider_slug || '',
+        meta_title: product?.meta_title || '',
+        meta_description: product?.meta_description || '',
+        canonical_url: product?.canonical_url || '',
+        launch_date: product?.launch_date || '',
         is_active: product?.is_active ?? true,
         trust_score: product?.trust_score || 0,
+        verification_status: product?.verification_status || 'pending',
+        verification_notes: product?.verification_notes || '',
     });
 
-    const [pros, setPros] = useState<string[]>(product?.pros || []);
-    const [cons, setCons] = useState<string[]>(product?.cons || []);
-    const [features, setFeatures] = useState<Record<string, string>>(
-        product?.features as Record<string, string> || {}
-    );
-    const [newPro, setNewPro] = useState('');
-    const [newCon, setNewCon] = useState('');
-    const [newFeatureKey, setNewFeatureKey] = useState('');
-    const [newFeatureValue, setNewFeatureValue] = useState('');
     const [saving, setSaving] = useState(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -71,26 +62,13 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
         }));
     };
 
-    const addPro = () => {
-        if (newPro.trim()) {
-            setPros([...pros, newPro.trim()]);
-            setNewPro('');
-        }
-    };
-
-    const addCon = () => {
-        if (newCon.trim()) {
-            setCons([...cons, newCon.trim()]);
-            setNewCon('');
-        }
-    };
-
-    const addFeature = () => {
-        if (newFeatureKey.trim() && newFeatureValue.trim()) {
-            setFeatures({ ...features, [newFeatureKey.trim()]: newFeatureValue.trim() });
-            setNewFeatureKey('');
-            setNewFeatureValue('');
-        }
+    // Auto-generate provider_slug from provider_name
+    const handleProviderChange = (provider_name: string) => {
+        setFormData(prev => ({
+            ...prev,
+            provider_name,
+            provider_slug: productService.generateSlug(provider_name)
+        }));
     };
 
     const validate = (): boolean => {
@@ -98,6 +76,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
         if (!formData.name) errs.name = 'Name is required';
         if (!formData.slug) errs.slug = 'Slug is required';
         if (!formData.provider_name) errs.provider_name = 'Provider is required';
+        if (!formData.category) errs.category = 'Category is required';
         setErrors(errs);
         return Object.keys(errs).length === 0;
     };
@@ -108,19 +87,12 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
 
         setSaving(true);
         try {
-            const input: ProductInput = {
-                ...formData,
-                pros,
-                cons,
-                features,
-            };
-
             let result: Product;
             if (isEditing && product?.id) {
-                result = await productService.updateProduct(product.id, input);
+                result = await productService.updateProduct(product.id, formData);
                 toast.success('Product updated successfully');
             } else {
-                result = await productService.createProduct(input);
+                result = await productService.createProduct(formData);
                 toast.success('Product created successfully');
             }
 
@@ -177,7 +149,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                             </label>
                             <select
                                 value={formData.category}
-                                onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value as ProductCategory }))}
+                                onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
                                 className="w-full h-10 px-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
                             >
                                 {CATEGORIES.map(cat => (
@@ -192,88 +164,91 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                             </label>
                             <Input
                                 value={formData.provider_name}
-                                onChange={(e) => setFormData(prev => ({ ...prev, provider_name: e.target.value }))}
+                                onChange={(e) => handleProviderChange(e.target.value)}
                                 placeholder="e.g., HDFC Bank"
                                 className={errors.provider_name ? 'border-red-500' : ''}
                             />
                         </div>
-                    </div>
 
-                    <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">
-                            Description
-                        </label>
-                        <textarea
-                            value={formData.description}
-                            onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-                            placeholder="Brief description of the product..."
-                            rows={4}
-                            className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-                        />
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-2">
-                                <ImageIcon className="w-4 h-4 inline mr-1" /> Image URL
+                                Provider Slug
                             </label>
                             <Input
-                                value={formData.image_url}
-                                onChange={(e) => setFormData(prev => ({ ...prev, image_url: e.target.value }))}
-                                placeholder="https://..."
+                                value={formData.provider_slug}
+                                onChange={(e) => setFormData(prev => ({ ...prev, provider_slug: e.target.value }))}
+                                placeholder="hdfc-bank"
                             />
                         </div>
 
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-2">
-                                Rating (1-5)
+                                <Calendar className="w-4 h-4 inline mr-1" /> Launch Date
                             </label>
                             <Input
-                                type="number"
-                                min={1}
-                                max={5}
-                                step={0.1}
-                                value={formData.rating}
-                                onChange={(e) => setFormData(prev => ({ ...prev, rating: parseFloat(e.target.value) }))}
+                                type="date"
+                                value={formData.launch_date}
+                                onChange={(e) => setFormData(prev => ({ ...prev, launch_date: e.target.value }))}
                             />
                         </div>
                     </div>
                 </CardContent>
             </Card>
 
-            {/* Links */}
+            {/* SEO & Meta */}
             <Card>
                 <CardHeader>
                     <CardTitle className="text-lg flex items-center gap-2">
-                        <ExternalLink className="w-5 h-5" /> Links & Monetization
+                        <Globe className="w-5 h-5" /> SEO & Meta
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-2">
-                                Affiliate Link
-                            </label>
-                            <Input
-                                value={formData.affiliate_link}
-                                onChange={(e) => setFormData(prev => ({ ...prev, affiliate_link: e.target.value }))}
-                                placeholder="https://affiliate.example.com/..."
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-2">
-                                Official Link
-                            </label>
-                            <Input
-                                value={formData.official_link}
-                                onChange={(e) => setFormData(prev => ({ ...prev, official_link: e.target.value }))}
-                                placeholder="https://provider.com/product"
-                            />
-                        </div>
+                    <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Meta Title
+                        </label>
+                        <Input
+                            value={formData.meta_title}
+                            onChange={(e) => setFormData(prev => ({ ...prev, meta_title: e.target.value }))}
+                            placeholder="SEO title for this product page"
+                        />
+                        <p className="text-xs text-slate-500 mt-1">{formData.meta_title.length}/60 characters</p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Meta Description
+                        </label>
+                        <textarea
+                            value={formData.meta_description}
+                            onChange={(e) => setFormData(prev => ({ ...prev, meta_description: e.target.value }))}
+                            placeholder="SEO description for search engines..."
+                            rows={3}
+                            className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                        />
+                        <p className="text-xs text-slate-500 mt-1">{formData.meta_description.length}/160 characters</p>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Canonical URL
+                        </label>
+                        <Input
+                            value={formData.canonical_url}
+                            onChange={(e) => setFormData(prev => ({ ...prev, canonical_url: e.target.value }))}
+                            placeholder="https://investingpro.in/products/..."
+                        />
+                    </div>
+                </CardContent>
+            </Card>
+
+            {/* Status & Trust */}
+            <Card>
+                <CardHeader>
+                    <CardTitle className="text-lg">Status & Trust</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-2">
                                 Trust Score (0-100)
@@ -283,8 +258,24 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                                 min={0}
                                 max={100}
                                 value={formData.trust_score}
-                                onChange={(e) => setFormData(prev => ({ ...prev, trust_score: parseInt(e.target.value) }))}
+                                onChange={(e) => setFormData(prev => ({ ...prev, trust_score: parseInt(e.target.value) || 0 }))}
                             />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-slate-700 mb-2">
+                                Verification Status
+                            </label>
+                            <select
+                                value={formData.verification_status}
+                                onChange={(e) => setFormData(prev => ({ ...prev, verification_status: e.target.value as 'pending' | 'verified' | 'discrepancy' | 'outdated' }))}
+                                className="w-full h-10 px-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                            >
+                                <option value="pending">Pending</option>
+                                <option value="verified">Verified</option>
+                                <option value="discrepancy">Discrepancy</option>
+                                <option value="outdated">Outdated</option>
+                            </select>
                         </div>
 
                         <div className="flex items-center gap-3 pt-8">
@@ -300,132 +291,29 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                             </label>
                         </div>
                     </div>
-                </CardContent>
-            </Card>
 
-            {/* Features */}
-            <Card>
-                <CardHeader>
-                    <CardTitle className="text-lg">Features (Key-Value)</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <div className="flex flex-wrap gap-2">
-                        {Object.entries(features).map(([key, value]) => (
-                            <Badge key={key} variant="outline" className="px-3 py-1.5 text-sm">
-                                <span className="font-bold text-slate-700">{key}:</span>
-                                <span className="ml-1">{value}</span>
-                                <button
-                                    type="button"
-                                    onClick={() => {
-                                        const newFeatures = { ...features };
-                                        delete newFeatures[key];
-                                        setFeatures(newFeatures);
-                                    }}
-                                    className="ml-2 text-red-500 hover:text-red-700"
-                                >
-                                    <X className="w-3 h-3" />
-                                </button>
-                            </Badge>
-                        ))}
-                    </div>
-                    <div className="flex gap-3">
-                        <Input
-                            value={newFeatureKey}
-                            onChange={(e) => setNewFeatureKey(e.target.value)}
-                            placeholder="Key (e.g., annual_fee)"
-                            className="flex-1"
+                    <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Verification Notes
+                        </label>
+                        <textarea
+                            value={formData.verification_notes}
+                            onChange={(e) => setFormData(prev => ({ ...prev, verification_notes: e.target.value }))}
+                            placeholder="Internal notes about verification..."
+                            rows={2}
+                            className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
                         />
-                        <Input
-                            value={newFeatureValue}
-                            onChange={(e) => setNewFeatureValue(e.target.value)}
-                            placeholder="Value (e.g., ₹999)"
-                            className="flex-1"
-                        />
-                        <Button type="button" variant="outline" onClick={addFeature}>
-                            <Plus className="w-4 h-4" />
-                        </Button>
                     </div>
                 </CardContent>
             </Card>
-
-            {/* Pros & Cons */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="text-lg text-green-600">Pros ✓</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        <ul className="space-y-2">
-                            {pros.map((pro, i) => (
-                                <li key={i} className="flex items-center gap-2 p-2 bg-green-50 rounded-lg">
-                                    <span className="flex-1 text-sm">{pro}</span>
-                                    <button 
-                                        type="button"
-                                        onClick={() => setPros(pros.filter((_, idx) => idx !== i))}
-                                        className="text-red-500"
-                                    >
-                                        <Trash2 className="w-4 h-4" />
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
-                        <div className="flex gap-2">
-                            <Input
-                                value={newPro}
-                                onChange={(e) => setNewPro(e.target.value)}
-                                placeholder="Add a pro..."
-                                onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addPro())}
-                            />
-                            <Button type="button" variant="outline" onClick={addPro}>
-                                <Plus className="w-4 h-4" />
-                            </Button>
-                        </div>
-                    </CardContent>
-                </Card>
-
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="text-lg text-red-600">Cons ✗</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        <ul className="space-y-2">
-                            {cons.map((con, i) => (
-                                <li key={i} className="flex items-center gap-2 p-2 bg-red-50 rounded-lg">
-                                    <span className="flex-1 text-sm">{con}</span>
-                                    <button 
-                                        type="button"
-                                        onClick={() => setCons(cons.filter((_, idx) => idx !== i))}
-                                        className="text-red-500"
-                                    >
-                                        <Trash2 className="w-4 h-4" />
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
-                        <div className="flex gap-2">
-                            <Input
-                                value={newCon}
-                                onChange={(e) => setNewCon(e.target.value)}
-                                placeholder="Add a con..."
-                                onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addCon())}
-                            />
-                            <Button type="button" variant="outline" onClick={addCon}>
-                                <Plus className="w-4 h-4" />
-                            </Button>
-                        </div>
-                    </CardContent>
-                </Card>
-            </div>
 
             {/* Actions */}
             <div className="flex justify-end gap-4 pt-6 border-t">
-                <Button 
-                    type="button" 
-                    variant="outline" 
-                    onClick={() => onCancel?.() || router.push('/admin/products')}
-                >
-                    Cancel
-                </Button>
+                <Link href="/admin/products">
+                    <Button type="button" variant="outline">
+                        <ArrowLeft className="w-4 h-4 mr-2" /> Cancel
+                    </Button>
+                </Link>
                 <Button 
                     type="submit" 
                     className="bg-teal-600 hover:bg-teal-700"
