@@ -23,7 +23,7 @@ export default function BlogPage() {
     const { data: articles = [], isLoading, error } = useQuery({
         queryKey: ['blog-articles'],
         queryFn: async () => {
-            const response = await fetch('/api/articles/public?limit=100');
+            const response = await fetch('/api/articles/public?limit=500');
             if (!response.ok) {
                 throw new Error('Failed to fetch articles');
             }

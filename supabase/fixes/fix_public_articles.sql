@@ -15,7 +15,7 @@ DROP FUNCTION IF EXISTS get_public_articles(INTEGER);
 
 -- STEP 3: Create SECURITY DEFINER RPC that returns JSON
 -- This avoids type mismatch issues and bypasses RLS
-CREATE OR REPLACE FUNCTION get_public_articles(result_limit INTEGER DEFAULT 100)
+CREATE OR REPLACE FUNCTION get_public_articles(result_limit INTEGER DEFAULT 500)
 RETURNS SETOF json AS $$
 BEGIN
     RETURN QUERY
