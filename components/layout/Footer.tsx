@@ -10,8 +10,7 @@ import {
     Youtube,
     Instagram,
     Mail,
-    Heart,
-    Sparkles
+    Heart
 } from "lucide-react";
 import Logo from "@/components/common/Logo";
 import NewsletterWidget from "@/components/engagement/NewsletterWidget";
