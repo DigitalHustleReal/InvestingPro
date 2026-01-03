@@ -203,24 +203,26 @@ export default function AnimatedHero({ selectedCategory: propSelectedCategory, o
 
     return (
         <section className="relative overflow-hidden">
-            {/* Animated Background */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${heroConfig.gradient} transition-all duration-500 ease-in-out ${isAnimating ? 'opacity-50' : 'opacity-100'}`}>
-                {/* Pattern Overlay */}
-                <div className="absolute inset-0 opacity-10">
+            {/* Animated Background - Dark Premium */}
+            <div className={`absolute inset-0 bg-slate-950 transition-all duration-500 ease-in-out ${isAnimating ? 'opacity-50' : 'opacity-100'}`}>
+                {/* Grid Pattern */}
+                <div className="absolute inset-0 opacity-[0.15]">
                     <div className="absolute inset-0" style={{
-                        backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+                        backgroundImage: `linear-gradient(to right, #334155 1px, transparent 1px), linear-gradient(to bottom, #334155 1px, transparent 1px)`,
                         backgroundSize: '40px 40px'
                     }}></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent"></div>
                 </div>
                 
-                {/* Animated Blobs */}
-                <div className="absolute -top-40 -right-40 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+                {/* Ambient Aurora Glows */}
+                <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-teal-500/20 rounded-full blur-[120px] animate-pulse-slow"></div>
+                <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-[120px] animate-pulse-slow delay-1000"></div>
+                <div className="absolute top-[20%] left-[30%] w-[300px] h-[300px] bg-emerald-500/10 rounded-full blur-[80px] animate-float"></div>
             </div>
 
-            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-                {/* Category Selector - Above Hero Content (NerdWallet Style) */}
-                <div className="mb-10">
+            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-24">
+                {/* Category Selector */}
+                <div className="mb-12">
                     <div className="flex flex-wrap items-center justify-center gap-3">
                         {categories.map((category) => {
                             const isActive = selectedCategory === category.slug;
@@ -231,20 +233,16 @@ export default function AnimatedHero({ selectedCategory: propSelectedCategory, o
                                 <button
                                     key={category.slug}
                                     onClick={() => handleCategorySelect(category.slug)}
-                                    className={`group relative px-5 py-3 rounded-xl font-semibold text-sm transition-all duration-300 ${
+                                    className={`group relative px-5 py-2.5 rounded-full font-medium text-sm transition-all duration-300 ${
                                         isActive
-                                            ? 'bg-white text-slate-900 shadow-2xl scale-105 z-10'
-                                            : 'bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:scale-105 hover:shadow-lg'
+                                            ? 'bg-teal-500 text-white shadow-lg shadow-teal-500/25 scale-105 z-10'
+                                            : 'bg-slate-800/50 hover:bg-slate-700/50 text-slate-300 border border-slate-700 hover:border-slate-600 hover:scale-105'
                                     }`}
                                 >
                                     <div className="flex items-center gap-2">
                                         <CategoryIcon className={`w-4 h-4 transition-transform ${isActive ? 'scale-110' : ''}`} />
                                         <span>{category.name}</span>
                                     </div>
-                                    {/* Active Indicator Line */}
-                                    {isActive && (
-                                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-b-xl"></div>
-                                    )}
                                 </button>
                             );
                         })}
@@ -252,125 +250,129 @@ export default function AnimatedHero({ selectedCategory: propSelectedCategory, o
                 </div>
 
                 {/* Hero Content - Animated */}
-                <div className={`grid lg:grid-cols-2 gap-12 items-center transition-all duration-500 ${isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
+                <div className={`grid lg:grid-cols-2 gap-16 items-center transition-all duration-500 ${isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
                     {/* Left Column: Content */}
-                    <div className="text-white space-y-6">
-                        {/* Category Badge */}
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30">
-                            <Icon className={`w-5 h-5 ${heroConfig.iconColor || 'text-white'}`} />
-                            <span className="text-sm font-semibold text-white">
-                                {selectedCategory ? categories.find(c => c.slug === selectedCategory)?.name : 'All Categories'}
-                            </span>
+                    <div className="text-white space-y-8 text-center lg:text-left">
+                        {/* Headline Group */}
+                        <div className="space-y-4">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-400 text-xs font-semibold uppercase tracking-wider mx-auto lg:mx-0">
+                                <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
+                                {selectedCategory ? categories.find(c => c.slug === selectedCategory)?.name : 'Comparing 5000+ Products'}
+                            </div>
+                            
+                            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight tracking-tight">
+                                {heroConfig.headline.split(' ').map((word, i) => (
+                                    i < 2 ? <span key={i} className="text-white">{word} </span> : 
+                                    <span key={i} className="text-transparent bg-clip-text bg-gradient-to-r from-teal-200 to-teal-500">{word} </span>
+                                ))}
+                            </h1>
+                            
+                            <p className="text-xl lg:text-2xl text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                                {heroConfig.subheadline}
+                            </p>
                         </div>
-
-                        {/* Headline */}
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight drop-shadow-md">
-                            {heroConfig.headline}
-                        </h1>
-
-                        {/* Subheadline */}
-                        <p className="text-xl lg:text-2xl text-white/90 leading-relaxed">
-                            {heroConfig.subheadline}
-                        </p>
 
                         {/* Search Bar */}
-                        <form onSubmit={handleSearch} className="relative max-w-xl">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-6 h-6 text-slate-400" />
-                            <Input
-                                type="text"
-                                placeholder="Search products, calculators, guides..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full h-14 pl-14 pr-32 bg-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-white/50 rounded-xl text-lg shadow-xl"
-                            />
-                            <Button
-                                type="submit"
-                                size="lg"
-                                className="absolute right-2 top-1/2 -translate-y-1/2 h-10 px-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg"
-                            >
-                                Search
-                            </Button>
+                        <form onSubmit={handleSearch} className="relative max-w-xl mx-auto lg:mx-0 group">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-teal-500 to-blue-600 rounded-2xl opacity-20 group-hover:opacity-40 blur transition duration-500"></div>
+                            
+                            <div className="relative flex items-center bg-slate-900 rounded-xl overflow-hidden border border-slate-700 shadow-2xl">
+                                <Search className="absolute left-4 w-6 h-6 text-slate-500" />
+                                <Input
+                                    type="text"
+                                    placeholder="Search specific cards, banks, or guides..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="w-full h-14 pl-14 pr-32 bg-transparent text-white placeholder:text-slate-500 border-none focus:ring-0 text-lg"
+                                />
+                                <Button
+                                    type="submit"
+                                    size="lg"
+                                    className="absolute right-1.5 top-1.5 bottom-1.5 px-6 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-lg transition-all"
+                                >
+                                    Search
+                                </Button>
+                            </div>
                         </form>
 
-                        {/* CTA Button */}
-                        <div className="flex items-center gap-4">
-                            <Link href={heroConfig.cta.href}>
-                                <Button 
-                                    size="lg"
-                                    className="bg-white text-slate-900 hover:bg-white/90 shadow-xl font-semibold px-8 py-6 text-base rounded-xl"
-                                >
-                                    {heroConfig.cta.label}
-                                    <ArrowRight className="ml-2 w-5 h-5" />
-                                </Button>
-                            </Link>
-                        </div>
-
-                        {/* Stats */}
-                        <div className="flex flex-wrap gap-6 pt-4">
+                        {/* Stats - Horizontal */}
+                        <div className="flex flex-wrap items-center justify-center lg:justify-start gap-8 lg:gap-12 pt-4 border-t border-white/5">
                             {heroConfig.stats.map((stat, index) => (
-                                <div key={index} className="text-center">
-                                    <div className="text-2xl font-bold mb-1">{stat.value}</div>
-                                    <div className="text-sm text-white/80">{stat.label}</div>
+                                <div key={index} className="text-center lg:text-left">
+                                    <div className="text-2xl lg:text-3xl font-bold text-white mb-1">{stat.value}</div>
+                                    <div className="text-sm text-slate-400 font-medium">{stat.label}</div>
                                 </div>
                             ))}
                         </div>
                     </div>
 
-                    {/* Right Column: Visual - Enhanced */}
-                    <div className="hidden lg:block relative">
-                        <div className="relative h-full min-h-[600px] flex items-center justify-center">
-                            {/* Main Visual Container */}
-                            <div className="relative w-full max-w-md">
-                                {/* Large Icon with Glow */}
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <div className="relative">
-                                        {/* Icon Background Glow */}
-                                        <div className="absolute inset-0 bg-white/30 rounded-full blur-3xl scale-150 animate-pulse-slow"></div>
+                    {/* Right Column: Visual - Glass comparison */}
+                    <div className="hidden lg:block relative perspective-1000">
+                        <div className="relative h-[600px] flex items-center justify-center">
+                             {/* Central Card Stack */}
+                            <div className="relative w-[400px] h-[500px]">
+                                {/* Back Card */}
+                                <div className="absolute top-0 right-0 w-[400px] h-[500px] bg-slate-800/40 rounded-3xl border border-slate-700/50 transform rotate-6 scale-95 backdrop-blur-sm"></div>
+                                {/* Middle Card */}
+                                <div className="absolute top-0 right-0 w-[400px] h-[500px] bg-slate-800/80 rounded-3xl border border-slate-600/50 transform rotate-3 scale-[0.98] backdrop-blur-md shadow-2xl"></div>
+                                
+                                {/* Front Card - Active Interface */}
+                                <div className="absolute inset-0 bg-slate-900/90 rounded-3xl border border-slate-600 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                                    {/* Mock Header */}
+                                    <div className="h-16 border-b border-slate-800 flex items-center justify-between px-6 bg-slate-900/50">
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-8 h-8 rounded-lg bg-teal-500/20 flex items-center justify-center">
+                                                <Icon className="w-5 h-5 text-teal-400" />
+                                            </div>
+                                            <span className="font-semibold text-white">Analysis</span>
+                                        </div>
+                                        <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                                    </div>
+                                    
+                                    {/* Mock Content */}
+                                    <div className="p-6 space-y-6">
+                                        <div className="space-y-2">
+                                            <div className="h-2 w-20 bg-slate-700 rounded-full"></div>
+                                            <div className="h-8 w-full bg-slate-800 rounded-lg animate-pulse-slow"></div>
+                                        </div>
                                         
-                                        {/* Main Icon */}
-                                        <div className="relative z-10">
-                                            <Icon className="w-48 h-48 text-white/90 drop-shadow-2xl animate-scale-breathe" />
+                                        <div className="space-y-4">
+                                            {[1, 2, 3].map(i => (
+                                                <div key={i} className="flex items-center gap-4 p-3 rounded-xl bg-slate-800/50 border border-slate-700/50">
+                                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-700 to-slate-800"></div>
+                                                    <div className="flex-1 space-y-1">
+                                                        <div className="h-2 w-24 bg-slate-600 rounded-full"></div>
+                                                        <div className="h-2 w-16 bg-slate-700 rounded-full"></div>
+                                                    </div>
+                                                    <div className="h-6 w-16 bg-teal-500/20 rounded-md border border-teal-500/30"></div>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        {/* Graph Area */}
+                                        <div className="h-32 rounded-xl bg-gradient-to-b from-teal-500/5 to-transparent border border-teal-500/10 relative overflow-hidden">
+                                             <div className="absolute inset-x-0 bottom-0 h-20">
+                                                 <svg viewBox="0 0 100 20" preserveAspectRatio="none" className="w-full h-full text-teal-500">
+                                                     <path d="M0 20 Q 25 5 50 10 T 100 0 V 20 H 0 Z" fill="currentColor" fillOpacity="0.2" />
+                                                     <path d="M0 20 Q 25 5 50 10 T 100 0" fill="none" stroke="currentColor" strokeWidth="0.5" />
+                                                 </svg>
+                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                {/* Floating Decorative Elements */}
-                                <div className="absolute top-0 right-0 w-40 h-40 bg-white/15 rounded-full blur-3xl animate-float"></div>
-                                <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full blur-2xl animate-float-delayed"></div>
-                                
-                                {/* Stats Cards - Floating */}
-                                <div className="absolute top-10 left-0 bg-white/20 backdrop-blur-xl rounded-2xl p-4 border border-white/30 shadow-xl animate-slide-in-left">
-                                    <div className="text-2xl font-bold text-white mb-1">{heroConfig.stats[0]?.value}</div>
-                                    <div className="text-xs text-white/80 font-medium">{heroConfig.stats[0]?.label}</div>
+                                {/* Floating Badges */}
+                                <div className="absolute -left-12 top-20 bg-slate-800 p-4 rounded-xl border border-slate-600 shadow-xl animate-float">
+                                    <div className="flex items-center gap-3">
+                                        <div className="text-2xl font-bold text-teal-400">98%</div>
+                                        <div className="text-xs text-slate-400 font-medium">Match<br/>Score</div>
+                                    </div>
                                 </div>
-                                
-                                <div className="absolute top-32 right-0 bg-white/20 backdrop-blur-xl rounded-2xl p-4 border border-white/30 shadow-xl animate-slide-in-right">
-                                    <div className="text-2xl font-bold text-white mb-1">{heroConfig.stats[1]?.value}</div>
-                                    <div className="text-xs text-white/80 font-medium">{heroConfig.stats[1]?.label}</div>
-                                </div>
-                                
-                                {/* Comparison Card - Bottom */}
-                                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-white/15 backdrop-blur-xl rounded-3xl p-6 border border-white/30 shadow-2xl w-full max-w-sm animate-slide-up">
-                                    <div className="space-y-4">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-12 h-12 bg-white/25 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                                                <Icon className="w-6 h-6 text-white" />
-                                            </div>
-                                            <div>
-                                                <div className="text-sm font-bold text-white">Quick Comparison</div>
-                                                <div className="text-xs text-white/70">Side-by-side analysis</div>
-                                            </div>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <div className="h-2 bg-white/25 rounded-full w-full backdrop-blur-sm"></div>
-                                            <div className="h-2 bg-white/25 rounded-full w-3/4 backdrop-blur-sm"></div>
-                                            <div className="h-2 bg-white/25 rounded-full w-1/2 backdrop-blur-sm"></div>
-                                        </div>
-                                        <Link href={heroConfig.cta.href}>
-                                            <div className="pt-2 text-xs text-white/80 font-medium hover:text-white transition-colors cursor-pointer">
-                                                Compare products →
-                                            </div>
-                                        </Link>
+
+                                <div className="absolute -right-8 bottom-32 bg-slate-800 p-4 rounded-xl border border-slate-600 shadow-xl animate-float-delayed">
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                                        <div className="text-sm font-semibold text-white">Approved</div>
                                     </div>
                                 </div>
                             </div>
