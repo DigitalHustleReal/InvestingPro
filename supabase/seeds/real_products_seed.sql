@@ -26,7 +26,7 @@ INSERT INTO products (
     'Detailed review of HDFC Regalia Gold. Get complimentary lounge access, 5x reward points on Marks & Spencer, Myntra, Reliance Digital. Best premium lifestyle card.',
     '2023-01-15',
     NOW(), NOW(), NOW(),
-    9.5
+    0.95
 ),
 (
     'SBI Card ELITE', 
@@ -39,7 +39,7 @@ INSERT INTO products (
     'Get welcome e-gift voucher worth ₹5,000. Free movie tickets worth ₹6,000 every year. 5X Reward Points on Dining, Departmental stores and Grocery.',
     '2022-06-10',
     NOW(), NOW(), NOW(),
-    9.0
+    0.90
 ),
 (
     'Axis Bank Magnus Credit Card', 
@@ -52,7 +52,7 @@ INSERT INTO products (
     'Unlimited domestic & international lounge access. 25,000 EDGE REWARD Points on achieving monthly spends of ₹1 Lakh. Metal card for premium lifestyle.',
     '2022-09-01',
     NOW(), NOW(), NOW(),
-    9.4
+    0.94
 );
 
 -- === MUTUAL FUNDS ===
@@ -74,7 +74,7 @@ INSERT INTO products (
     'Invest in a diversified equity portfolio. Low expense ratio, consistent returns, and international equity exposure. Rated 5-star by Morningstar.',
     '2013-05-24',
     NOW(), NOW(), NOW(),
-    9.8
+    0.98
 ),
 (
     'Quant Small Cap Fund', 
@@ -87,7 +87,7 @@ INSERT INTO products (
     'High growth small cap fund. Historically high returns but higher risk. Suitable for aggressive investors with long-term horizon.',
     '1996-01-01',
     NOW(), NOW(), NOW(),
-    8.5
+    0.85
 ),
 (
     'SBI Nifty 50 ETF', 
@@ -100,7 +100,7 @@ INSERT INTO products (
     'Passive investment in India top 50 companies. Extremely low expense ratio. Good for long-term wealth creation matching market returns.',
     '2015-07-20',
     NOW(), NOW(), NOW(),
-    9.2
+    0.92
 );
 
 -- === STOCK BROKERS ===
@@ -122,7 +122,7 @@ INSERT INTO products (
     'India #1 discount broker. Zero brokerage on equity delivery. ₹20 per order for Intraday and F&O. Best-in-class trading platform Kite.',
     '2010-08-15',
     NOW(), NOW(), NOW(),
-    9.6
+    0.96
 ),
 (
     'Groww Investment Platform', 
@@ -135,7 +135,7 @@ INSERT INTO products (
     'Simple app for stocks and mutual funds. Zero account opening fee. Zero AMC. User-friendly interface perfect for beginners.',
     '2016-04-01',
     NOW(), NOW(), NOW(),
-    9.3
+    0.93
 ),
 (
     'Angel One', 
@@ -148,7 +148,7 @@ INSERT INTO products (
     'Zero brokerage on delivery. Smart API for algorithmic trading. Advisory services included. Trusted brand with large offline presence.',
     '1996-12-13',
     NOW(), NOW(), NOW(),
-    8.8
+    0.88
 );
 
 -- === LOANS ===
@@ -170,7 +170,7 @@ INSERT INTO products (
     'Get personal loan up to ₹40 Lakhs. Interest rates starting from 10.50%. Quick disbursal in 10 seconds for pre-approved customers.',
     '2000-01-01',
     NOW(), NOW(), NOW(),
-    9.1
+    0.91
 ),
 (
     'Bajaj Finserv Personal Loan', 
@@ -183,7 +183,7 @@ INSERT INTO products (
     'Instant approval. Flexi loan facility available. Money in bank in 24 hours. Minimal documentation required.',
     '2007-05-01',
     NOW(), NOW(), NOW(),
-    8.7
+    0.87
 );
 
 -- === INSURANCE ===
@@ -205,7 +205,7 @@ INSERT INTO products (
     'Whole life assurance plan. Annual survival benefits from end of premium paying term till maturity. Lump sum maturity benefit.',
     '1956-09-01',
     NOW(), NOW(), NOW(),
-    9.4
+    0.94
 ),
 (
     'HDFC ERGO Optima Secure', 
@@ -218,5 +218,5 @@ INSERT INTO products (
     '4X coverage benefit at no extra cost. 100% restore benefit. Protect benefit. No room rent capping. One of the best detailed health plans.',
     '2021-07-01',
     NOW(), NOW(), NOW(),
-    9.5
+    0.95
 );
