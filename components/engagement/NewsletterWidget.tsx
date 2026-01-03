@@ -32,7 +32,7 @@ export default function NewsletterWidget({
     React.useEffect(() => {
         if (email || status !== 'idle') return;
 
-        const text = "shivam@investingpro.in";
+        const text = "rahul.sharma@gmail.com";
         let currentIndex = 0;
         let timeoutId: NodeJS.Timeout;
 
