@@ -84,21 +84,18 @@ export function Footer() {
         <footer className="bg-slate-900 text-slate-400">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 {/* Newsletter - Pre-Footer */}
-                {/* Newsletter - Glassmorphic Card */}
-                <div className="relative mb-16 p-8 md:p-12 rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-slate-900 to-slate-900" />
-                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/10 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
+                {/* Newsletter - Vivid Blue Card */}
+                <div className="relative mb-20 p-8 md:p-12 rounded-3xl overflow-hidden shadow-2xl">
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-700" />
+                    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/10 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2" />
+                    <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-black/20 blur-[80px] rounded-full -translate-x-1/2 translate-y-1/2" />
                     
                     <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                         <div className="text-center md:text-left max-w-xl">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wide mb-4">
-                                <Sparkles className="w-3 h-3" />
-                                <span>Market Intelligence</span>
-                            </div>
-                            <h3 className="text-3xl font-bold text-white mb-3">Stay ahead of the trend</h3>
-                            <p className="text-slate-400 text-lg">Join 15,000+ investors getting our weekly breakdown of IPOs and market moves.</p>
+                            <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Master the Market</h3>
+                            <p className="text-blue-100 text-lg">Join 15,000+ investors getting the best IPO insights delivered weekly.</p>
                         </div>
-                        <div className="w-full md:w-auto min-w-[360px] bg-slate-900/50 p-2 rounded-xl backdrop-blur-md border border-white/10 shadow-inner">
+                        <div className="w-full md:w-auto min-w-[340px] bg-white/10 p-1.5 rounded-xl backdrop-blur-sm border border-white/20">
                             <NewsletterWidget variant="minimal" className="w-full" />
                         </div>
                     </div>
@@ -280,25 +277,29 @@ export function Footer() {
                         </div>
 
                         {/* Copyright & Compliance */}
-                        <div className="space-y-4">
-                            {/* Security Badges */}
-                            <div className="flex justify-center md:justify-start">
-                                <SecurityBadgeGroup />
+                        <div className="flex flex-col gap-6 pt-2">
+                            <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
+                                <p className="text-sm text-slate-500 order-2 md:order-1">
+                                    © {new Date().getFullYear()} InvestingPro.in. All rights reserved.
+                                </p>
+
+                                {/* Centered India Badge - The Heart of the App */}
+                                <div className="order-1 md:order-2 flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-800/50 border border-slate-700/50 hover:bg-slate-800 transition-colors cursor-default">
+                                    <span className="text-xs font-medium text-slate-300 flex items-center gap-1.5">
+                                        Made with <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" /> in India
+                                    </span>
+                                </div>
+
+                                <div className="order-3 flex items-center justify-end">
+                                     <SecurityBadgeGroup />
+                                </div>
                             </div>
                             
-                            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                                <div className="flex flex-col gap-1">
-                                    <p className="text-sm text-slate-500">
-                                        © {new Date().getFullYear()} InvestingPro.in. All rights reserved.
-                                    </p>
-                                    <p className="text-xs text-slate-500 font-medium flex items-center gap-1.5">
-                                        Made with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> in India <span className="text-base leading-none">🇮🇳</span>
-                                    </p>
-                                </div>
-                                <p className="text-xs text-slate-600 text-center md:text-right max-w-md">
-                                    InvestingPro.in is an independent platform. Not affiliated with SEBI or any financial institution.
-                                </p>
-                            </div>
+                            <p className="text-[11px] text-slate-600 text-center max-w-3xl mx-auto leading-relaxed">
+                                InvestingPro.in is an independent research platform. We are not a SEBI registered investment advisor. 
+                                <br className="hidden md:block" />
+                                All content is for educational purposes only.
+                            </p>
                         </div>
                     </div>
                 </div>
