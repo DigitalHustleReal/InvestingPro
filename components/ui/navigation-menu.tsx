@@ -62,7 +62,7 @@ const NavigationMenuContent = ({
     return (
         <div 
             className={cn(
-                "absolute top-full left-0 w-auto p-2 transition-all duration-200 transform origin-top-left -mt-1 pt-2",
+                "absolute top-full left-0 w-auto p-2 transition-all duration-75 ease-out transform origin-top-left -mt-1 pt-2",
                 // Only show if explicitly open via state, not via group-hover (to prevent multiple dropdowns)
                 isOpen 
                     ? "opacity-100 visible z-50" 

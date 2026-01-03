@@ -184,7 +184,6 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                                 onMouseEnter={() => handleMouseEnter(category.slug)}
                                             >
                                                 {displayName}
-                                                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180 text-blue-600' : 'text-slate-400 group-hover:text-blue-600'}`} />
                                             </NavigationMenuTrigger>
                                             <NavigationMenuContent 
                                                 isOpen={isDropdownOpen}
