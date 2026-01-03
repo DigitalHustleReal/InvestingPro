@@ -10,7 +10,8 @@ import {
     Youtube,
     Instagram,
     Mail,
-    Heart
+    Heart,
+    Sparkles
 } from "lucide-react";
 import Logo from "@/components/common/Logo";
 import NewsletterWidget from "@/components/engagement/NewsletterWidget";
@@ -83,14 +84,22 @@ export function Footer() {
         <footer className="bg-slate-900 text-slate-400">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 {/* Newsletter - Pre-Footer */}
-                <div className="border-b border-slate-800 pb-12 mb-12">
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                        <div className="text-center md:text-left">
-                            <h3 className="text-xl font-bold text-white mb-2">Stay ahead of the market</h3>
-                            <p className="text-slate-400">Get the latest financial insights and news delivered to your inbox.</p>
+                {/* Newsletter - Glassmorphic Card */}
+                <div className="relative mb-16 p-8 md:p-12 rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-slate-900 to-slate-900" />
+                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/10 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
+                    
+                    <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                        <div className="text-center md:text-left max-w-xl">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wide mb-4">
+                                <Sparkles className="w-3 h-3" />
+                                <span>Market Intelligence</span>
+                            </div>
+                            <h3 className="text-3xl font-bold text-white mb-3">Stay ahead of the trend</h3>
+                            <p className="text-slate-400 text-lg">Join 15,000+ investors getting our weekly breakdown of IPOs and market moves.</p>
                         </div>
-                        <div className="w-full md:w-auto min-w-[320px]">
-                            <NewsletterWidget variant="minimal" />
+                        <div className="w-full md:w-auto min-w-[360px] bg-slate-900/50 p-2 rounded-xl backdrop-blur-md border border-white/10 shadow-inner">
+                            <NewsletterWidget variant="minimal" className="w-full" />
                         </div>
                     </div>
                 </div>
