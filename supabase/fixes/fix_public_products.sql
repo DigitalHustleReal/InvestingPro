@@ -81,5 +81,6 @@ GRANT EXECUTE ON FUNCTION get_public_products(TEXT, INTEGER, INTEGER, TEXT) TO a
 
 -- STEP 5: Verify it works (should return product count)
 SELECT 
-    (get_public_products()->'total')::int as total_products,
+    (get_public_products()->>'total')::int as total_products,
     json_array_length(get_public_products()->'products') as returned_products;
+
