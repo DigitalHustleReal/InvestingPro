@@ -27,7 +27,7 @@ export default function Home() {
     return (
         <main className="flex flex-col min-h-screen bg-white">
             <SEOHead
-                title="InvestingPro - India's High-Yield Financial Command Center"
+                title="InvestingP₹o - India's High-Yield Financial Command Center"
                 description="Compare mutual funds, credit cards, and loans with institutional-grade data. Access our Alpha Terminal for real-time opportunities and risk profiling."
                 structuredData={structuredData}
             />

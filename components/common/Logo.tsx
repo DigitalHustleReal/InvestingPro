@@ -96,7 +96,7 @@ export default function Logo({
             {/* Brand Text */}
             {showText && (
                 <span className={`${currentSize.text} font-bold ${currentVariant.brandText} tracking-tight leading-none font-sans`}>
-                    Investing<span className={currentVariant.accent}>Pro</span>
+                    Investing<span className={currentVariant.accent}>P<span className="font-sans">₹</span>o</span>
                 </span>
             )}
         </Link>
