@@ -11,6 +11,8 @@ import OnboardingFlow from "@/components/onboarding/OnboardingFlow";
 import SEOHead from "@/components/common/SEOHead";
 import MarketOverview from "@/components/market/MarketOverview";
 
+import FeaturedProducts from "@/components/home/FeaturedProducts";
+
 export default function Home() {
     const [showOnboarding, setShowOnboarding] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -60,6 +62,9 @@ export default function Home() {
 
             {/* Section 2: Market Pulse Overview */}
             <MarketOverview />
+
+            {/* Section 2.5: Featured Products (New) */}
+            <FeaturedProducts />
 
             {/* Section 3: Contextual Products - Dynamic based on category */}
             <HomeContextualProducts selectedCategory={selectedCategory} />
