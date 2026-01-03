@@ -6,27 +6,27 @@ import { Shield, TrendingUp, Users, Database, CheckCircle2 } from "lucide-react"
 const trustPoints = [
     {
         icon: Database,
-        stat: "10,000+",
-        label: "Products Compared",
-        description: "Comprehensive database of financial products"
+        stat: "5,000+",
+        label: "Products Analyzed",
+        description: "Comprehensive database of schemes & cards"
     },
     {
         icon: Users,
-        stat: "5,000+",
-        label: "Active Users",
-        description: "Trusted by thousands of investors"
+        stat: "50,000+",
+        label: "Monthly Readers",
+        description: "Trusted by India's smartest investors"
     },
     {
         icon: Shield,
         stat: "100%",
-        label: "Unbiased Data",
-        description: "Independent research, no paid promotions"
+        label: "Unbiased",
+        description: "Independent research, zero paid bias"
     },
     {
         icon: TrendingUp,
         stat: "Daily",
-        label: "Updated",
-        description: "Fresh data and latest rates"
+        label: "Real-Time",
+        description: "Live market data and rate updates"
     }
 ];
 
