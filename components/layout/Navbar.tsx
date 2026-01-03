@@ -359,7 +359,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                             </Link>
                             
                             <Link href="/compare">
-                                <Button className="bg-primary-600 hover:bg-primary-700 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-primary-600/20 transition-all h-10 px-6 rounded-lg">
+                                <Button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-blue-600/20 transition-all h-10 px-6 rounded-lg">
                                     Get Started
                                 </Button>
                             </Link>
@@ -474,7 +474,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                 {/* Mobile Menu Footer */}
                                 <div className="p-4 border-t border-slate-200 bg-slate-50 space-y-3">
                                     <Link href="/compare" onClick={() => setIsOpen(false)}>
-                                        <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-primary-600/20 transition-all h-10 rounded-lg">
+                                        <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-blue-600/20 transition-all h-10 rounded-lg">
                                             Get Started
                                         </Button>
                                     </Link>
