@@ -28,11 +28,14 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
 };
 
 export default function FeaturedProducts() {
-    const { data: products = [], isLoading } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey: ['featured-products'],
         queryFn: () => productService.getFeaturedProducts(6),
         staleTime: 60000
     });
+
+    // Safely extract products array
+    const products = Array.isArray(data) ? data : (data?.products || []);
 
     if (isLoading) {
         return (
