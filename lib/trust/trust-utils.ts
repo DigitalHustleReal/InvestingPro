@@ -88,19 +88,19 @@ export function calculateTrustScoreBreakdown(
     const userReviews = Math.floor(remaining * 0.4);
     const marketPresence = remaining - userReviews;
     
-    // Determine label and color - NO RED, use amber for warnings
+    // Vibrant colors are GOOD - just replace red with amber for low scores
     let label = 'Needs Review';
-    let color = 'amber'; // Amber for low scores, not red
+    let color = 'amber'; // Amber instead of red for low scores
     
-    if (trustScore >= 75) {
+    if (trustScore >= 80) {
         label = 'Excellent';
-        color = 'blue'; // Professional blue instead of emerald
+        color = 'emerald'; // Keep vibrant emerald
     } else if (trustScore >= 60) {
         label = 'Good';
-        color = 'slate'; // Neutral slate-blue
+        color = 'teal'; // Keep vibrant teal
     } else if (trustScore >= 40) {
         label = 'Fair';
-        color = 'amber'; // Warning amber, not negative red
+        color = 'amber'; // Amber for caution, not red
     }
     
     return {
@@ -140,7 +140,7 @@ export function getVerificationBadge(
                 label: 'Verified',
                 description: `Data verified ${daysSince} days ago by our editorial team`,
                 icon: 'check',
-                color: 'blue' // Professional blue instead of emerald
+                color: 'emerald' // Keep vibrant emerald for success
             };
         } else {
             return {
