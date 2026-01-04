@@ -26,11 +26,11 @@ import {
 import Link from "next/link";
 
 const categoryCards = [
-    { id: 'credit-cards', label: 'Credit Cards', icon: CreditCard, color: 'indigo', count: '500+' },
-    { id: 'loans', label: 'Loans', icon: Wallet, color: 'amber', count: '1,000+' },
-    { id: 'investing', label: 'Investing', icon: TrendingUp, color: 'emerald', count: '5,000+' },
-    { id: 'insurance', label: 'Insurance', icon: Shield, color: 'rose', count: '2,000+' },
-    { id: 'banking', label: 'Banking', icon: PiggyBank, color: 'blue', count: '50+' },
+    { id: 'credit-cards', label: 'Credit Cards', icon: CreditCard, color: 'indigo', count: '150+' }, // Realistic
+    { id: 'loans', label: 'Loans', icon: Wallet, color: 'amber', count: '200+' }, // Realistic
+    { id: 'investing', label: 'Investing', icon: TrendingUp, color: 'emerald', count: '800+' }, // Realistic (most products are mutual funds)
+    { id: 'insurance', label: 'Insurance', icon: Shield, color: 'amber', count: '120+' }, // Amber instead of rose, realistic
+    { id: 'banking', label: 'Banking', icon: PiggyBank, color: 'blue', count: '60+' }, // Realistic
     { id: 'ipo', label: 'IPOs', icon: BarChart3, color: 'violet', count: 'Live' },
 ];
 
