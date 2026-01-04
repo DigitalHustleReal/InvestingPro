@@ -26,6 +26,7 @@ import Logo from "@/components/common/Logo";
 import { NAVIGATION_CONFIG, EDITORIAL_INTENTS } from "@/lib/navigation/config";
 import LanguageSwitcher from "@/components/common/LanguageSwitcher";
 import { useSearch } from "@/components/search/SearchProvider";
+import { ThemeToggle } from "@/components/common/ThemeToggle";
 
 
 // Search Button Component (Desktop)
@@ -37,7 +38,7 @@ function SearchButtonComponent({ isHomePage }: { isHomePage: boolean }) {
             variant="ghost"
             size="icon"
             onClick={openSearch}
-            className="hidden lg:flex text-slate-700 hover:bg-slate-100"
+            className="hidden lg:flex text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
             aria-label="Search (⌘K)"
         >
             <Search className="w-5 h-5" />
@@ -156,7 +157,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
     };
 
     return (
-        <header className="sticky top-0 z-50 bg-white/95 border-b border-slate-200 backdrop-blur-xl transition-all duration-200 shadow-sm">
+        <header className="sticky top-0 z-50 bg-white/95 dark:bg-slate-950/95 border-b border-slate-200 dark:border-slate-800 backdrop-blur-xl transition-all duration-200 shadow-sm dark:shadow-slate-900/20">
             <nav className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-14 lg:h-20">
                     {/* Logo */}
@@ -179,7 +180,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                     return (
                                         <NavigationMenuItem key={category.slug} className="navigation-menu-item">
                                             <NavigationMenuTrigger 
-                                                className={`gap-1 text-slate-700 hover:text-blue-600 data-[state=open]:text-blue-600 font-semibold text-[15px] tracking-tight font-sans ${isDropdownOpen ? 'text-blue-600 border-blue-600' : ''}`}
+                                                className={`gap-1 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 data-[state=open]:text-blue-600 dark:data-[state=open]:text-blue-400 font-semibold text-[15px] tracking-tight font-sans bg-transparent hover:bg-transparent focus:bg-transparent ${isDropdownOpen ? 'text-blue-600 dark:text-blue-400' : ''}`}
                                                 onClick={() => toggleDropdown(category.slug)}
                                                 onMouseEnter={() => handleMouseEnter(category.slug)}
                                             >
@@ -350,11 +351,12 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
 
                     {/* Search Button - Opens Command Palette */}
                     <div className="flex items-center gap-2">
+                        <ThemeToggle />
                         <SearchButtonComponent isHomePage={isHomePage} />
 
                         {/* CTA Button - Hidden on mobile/tablet */}
                         <div className="hidden lg:flex items-center gap-4 ml-2">
-                            <Link href="/login" className="text-sm font-semibold text-slate-600 hover:text-teal-600 transition-colors">
+                            <Link href="/login" className="text-sm font-semibold text-slate-600 dark:text-slate-200 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
                                 Log In
                             </Link>
                             
@@ -367,7 +369,8 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                     </div>
 
                     {/* Mobile Menu */}
-                    <div className="lg:hidden">
+                    <div className="lg:hidden flex items-center gap-2 ml-2">
+                        <ThemeToggle />
                         <Sheet open={isOpen} onOpenChange={setIsOpen}>
                             <SheetTrigger asChild>
                                 <Button 

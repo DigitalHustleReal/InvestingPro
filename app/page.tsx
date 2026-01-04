@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from 'react';
+import React from 'react';
 import AnimatedHero from "@/components/home/AnimatedHero";
+import SmartAdvisorWidget from "@/components/home/SmartAdvisorWidget";
 import QuickToolsSection from "@/components/home/QuickToolsSection";
 import LatestInsights from "@/components/home/LatestInsights";
 import TrustSection from "@/components/home/TrustSection";
@@ -9,8 +10,6 @@ import SEOHead from "@/components/common/SEOHead";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
 
 export default function Home() {
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "FinancialService",
@@ -33,9 +32,12 @@ export default function Home() {
             />
 
             {/* Section 1: Hero */}
-            <AnimatedHero onCategorySelect={setSelectedCategory} selectedCategory={selectedCategory} />
+            <AnimatedHero />
 
-            {/* Section 2: Quick Tools */}
+            {/* Section 2: Smart Financial Advisor (Conversion Widget) */}
+            <SmartAdvisorWidget />
+
+            {/* Section 3: Quick Tools */}
             <QuickToolsSection />
 
             {/* Section 3: Featured Products */}

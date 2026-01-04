@@ -33,8 +33,8 @@ export default function Logo({
         default: {
             logoBg: 'bg-gradient-to-br from-teal-600 to-emerald-600',
             logoFill: 'white',
-            brandText: 'text-slate-900',
-            accent: 'text-teal-600'
+            brandText: 'text-slate-900 dark:text-white',
+            accent: 'text-teal-600 dark:text-teal-400'
         },
         light: {
             logoBg: 'bg-white',

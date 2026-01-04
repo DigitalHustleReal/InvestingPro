@@ -21,7 +21,10 @@ import {
     File,
     BarChart3,
     Activity,
-    Package
+    Package,
+    Factory, // Added Factory icon
+    FlaskConical,
+    Shield
 } from 'lucide-react';
 
 interface NavItem {
@@ -57,7 +60,7 @@ const navSections: NavSection[] = [
     {
         title: 'AUTOMATION',
         items: [
-            { label: 'Content Factory', href: '/admin/content-factory', icon: Zap },
+            { label: 'Content Factory', href: '/admin/automation/batch', icon: Factory }, // Added link
             { label: 'RSS Feeds', href: '/admin/rss-feeds', icon: Rss },
             { label: 'Review Queue', href: '/admin/review-queue', icon: CheckSquare },
         ],
@@ -67,6 +70,7 @@ const navSections: NavSection[] = [
         items: [
             { label: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
             { label: 'SEO Health', href: '/admin/seo', icon: Activity },
+            { label: 'Experiments', href: '/admin/seo/experiments', icon: FlaskConical },
         ],
     },
     {
@@ -75,6 +79,12 @@ const navSections: NavSection[] = [
             { label: 'Product Catalog', href: '/admin/products', icon: Package },
             { label: 'Affiliates', href: '/admin/affiliates', icon: DollarSign },
             { label: 'Ads', href: '/admin/ads', icon: Megaphone },
+        ],
+    },
+    {
+        title: 'SETTINGS',
+        items: [
+            { label: 'Secure Vault', href: '/admin/settings/vault', icon: Shield },
         ],
     },
 ];
@@ -87,12 +97,12 @@ export default function AdminSidebar() {
             {/* Logo/Brand Area */}
             <div className="p-6 mb-2">
                 <Link href="/admin" className="flex items-center gap-3 group">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:scale-110 transition-transform duration-300">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-transform duration-300">
                         <Zap className="w-6 h-6 text-white fill-white/20" />
                     </div>
                     <div>
-                        <h2 className="font-bold text-lg leading-tight tracking-tight">InvestingPro</h2>
-                        <p className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest opacity-80">Authority CMS</p>
+                        <h2 className="font-bold text-lg leading-tight tracking-tight">InvestingP₹o</h2>
+                        <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest opacity-80">Authority CMS</p>
                     </div>
                 </Link>
             </div>
@@ -133,18 +143,18 @@ export default function AdminSidebar() {
                                             className={cn(
                                                 "group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 relative overflow-hidden",
                                                 isActive
-                                                    ? "bg-indigo-600/10 text-white shadow-[inset_0_0_20px_rgba(79,70,229,0.1)] border border-indigo-500/20"
+                                                    ? "bg-emerald-600/10 text-white shadow-[inset_0_0_20px_rgba(16,185,129,0.1)] border border-emerald-500/20"
                                                     : "text-slate-400 hover:text-white hover:bg-white/5"
                                             )}
                                         >
                                             {/* Active Glow Indicator */}
                                             {isActive && (
-                                                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-indigo-500 rounded-r-full shadow-[0_0_10px_#6366f1]" />
+                                                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-emerald-500 rounded-r-full shadow-[0_0_10px_#10b981]" />
                                             )}
                                             
                                             <Icon className={cn(
                                                 "w-5 h-5 transition-transform duration-300 group-hover:scale-110",
-                                                isActive ? "text-indigo-400" : "text-slate-500 group-hover:text-slate-300"
+                                                isActive ? "text-emerald-400" : "text-slate-500 group-hover:text-slate-300"
                                             )} />
                                             <span className="flex-1">{item.label}</span>
                                             

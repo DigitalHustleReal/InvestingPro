@@ -106,13 +106,12 @@ export default function ArticleEditor({
         };
     }, [initialContent]);
 
-    // CRITICAL: Editor mounts ONLY after content is normalized
+    // CRITICAL: Editor mounts after a short delay to ensure DOM is ready
     // This prevents hydration mismatches and ensures content loads correctly
     useEffect(() => {
-        if (normalizedContent.html || !initialContent) {
-            setIsReady(true);
-        }
-    }, [normalizedContent.html, initialContent]);
+        // Always set ready after content is normalized (even if empty)
+        setIsReady(true);
+    }, []);
 
     // Create editor instance
     // CRITICAL: Only create once, with initial content

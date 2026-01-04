@@ -33,10 +33,37 @@ export default function Icon() {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M13 2L3 14H12L11 22L21 10H12L13 2Z"
-            fill="white"
+            d="M6 3h12"
             stroke="white"
-            strokeWidth="2"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M6 8h12"
+            stroke="white"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="m6 13 8.5 10"
+            stroke="white"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M6 13h3"
+            stroke="white"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M9 13c6.667 0 6.667-10 0-10"
+            stroke="white"
+            strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
           />

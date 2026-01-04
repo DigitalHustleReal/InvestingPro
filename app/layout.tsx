@@ -38,6 +38,10 @@ const mono = JetBrains_Mono({
 
 // ... existing code ...
 
+import { ThemeProvider } from "@/components/theme-provider";
+
+// ... existing imports ...
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -47,14 +51,20 @@ export default async function RootLayout({
   const navConfig = await getNavigation();
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={cn(
         inter.variable,
         serif.variable,
         mono.variable,
         inter.className,
-        "min-h-screen flex flex-col bg-gray-50"
+        "min-h-screen flex flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-300"
       )}>
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
         <ErrorBoundaryProvider>
           <QueryProvider>
             <SearchProvider>
@@ -83,6 +93,7 @@ export default async function RootLayout({
             </SearchProvider>
           </QueryProvider>
         </ErrorBoundaryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

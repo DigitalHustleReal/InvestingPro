@@ -1,12 +1,8 @@
 {
   "crons": [
     {
-      "path": "/api/pipeline/schedule",
-      "schedule": "0 6 * * *"
-    },
-    {
-      "path": "/api/pipeline/schedule",
-      "schedule": "0 18 * * *"
+      "path": "/api/cron/publish-scheduled",
+      "schedule": "0 * * * *"
     }
   ]
 }

@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import SEOScoreCalculator from '@/components/admin/SEOScoreCalculator';
+import { SocialPostManager } from '@/components/admin/SocialPostManager';
 import CategorySelect from '@/components/admin/CategorySelect';
 import { Loader2, Save, Eye, Send, Sparkles, Calendar, Search, Wand2, Languages } from 'lucide-react';
 import { toast } from 'sonner';
@@ -86,25 +87,76 @@ export default function ArticleInspector({
     );
     const [isOptimizing, setIsOptimizing] = useState(false);
     const [isTranslating, setIsTranslating] = useState(false);
+    const [isAutoCategorizing, setIsAutoCategorizing] = useState(false);
+    const [isAutoTagging, setIsAutoTagging] = useState(false);
     const [targetLang, setTargetLang] = useState('hi');
 
-    const handleTranslate = async () => {
-        setIsTranslating(true);
+    // Auto-categorize handler
+    const handleAutoCategorize = async () => {
+        setIsAutoCategorizing(true);
         try {
-            const res = await fetch('/api/admin/translate', {
+            const res = await fetch('/api/auto-categorize', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    articleId: article.id,
-                    targetLang,
+                body: JSON.stringify({
                     title: article.title,
-                    content: article.content 
+                    excerpt,
+                    content: article.content
                 })
             });
             const json = await res.json();
             if (!res.ok) throw new Error(json.error);
             
-            toast.success(`Translation Created! Title: ${json.translated_title}`);
+            setCategory(json.category as ArticleCategory);
+            toast.success(`Auto-categorized as: ${json.category}`);
+        } catch (e: any) {
+            toast.error("Auto-categorization failed: " + e.message);
+        } finally {
+            setIsAutoCategorizing(false);
+        }
+    };
+
+    // Auto-tag handler
+    const handleAutoTag = async () => {
+        setIsAutoTagging(true);
+        try {
+            const res = await fetch('/api/auto-tags', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    title: article.title,
+                    excerpt,
+                    content: article.content,
+                    maxTags: 5
+                })
+            });
+            const json = await res.json();
+            if (!res.ok) throw new Error(json.error);
+            
+            setTags(json.tags);
+            toast.success(`Generated ${json.tags.length} tags!`);
+        } catch (e: any) {
+            toast.error("Auto-tagging failed: " + e.message);
+        } finally {
+            setIsAutoTagging(false);
+        }
+    };
+
+    const handleTranslate = async () => {
+        setIsTranslating(true);
+        try {
+            const res = await fetch('/api/translate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    articleId: article.id,
+                    targetLang
+                })
+            });
+            const json = await res.json();
+            if (!res.ok) throw new Error(json.error);
+            
+            toast.success(json.message || `Translation created!`);
         } catch (e: any) {
             toast.error("Translation failed: " + e.message);
         } finally {
@@ -243,10 +295,11 @@ export default function ArticleInspector({
                             </Select>
                         </div>
                         <div className="flex gap-2">
+                            {/* 1. SAVE - Most frequent action */}
                             <Button
                                 onClick={handleSave}
                                 disabled={saving}
-                                className="flex-1"
+                                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
                                 size="sm"
                             >
                                 {saving ? (
@@ -261,27 +314,31 @@ export default function ArticleInspector({
                                     </>
                                 )}
                             </Button>
+
+                            {/* 2. PREVIEW - Check before publishing */}
+                            {onPreview && (
+                                <Button
+                                    onClick={onPreview}
+                                    variant="outline"
+                                    size="sm"
+                                    className="flex-1 border-gray-600 text-gray-700 hover:bg-gray-50"
+                                >
+                                    <Eye className="w-4 h-4 mr-2" />
+                                    Preview
+                                </Button>
+                            )}
+
+                            {/* 3. PUBLISH - Final step */}
                             {onPublish && (
                                 <Button
                                     onClick={handlePublish}
                                     disabled={saving || status === 'published'}
                                     variant="outline"
                                     size="sm"
-                                    className="flex-1"
+                                    className="flex-1 border-green-600 text-green-600 hover:bg-green-50"
                                 >
                                     <Send className="w-4 h-4 mr-2" />
                                     Publish
-                                </Button>
-                            )}
-                            {onPreview && (
-                                <Button
-                                    onClick={onPreview}
-                                    variant="outline"
-                                    size="sm"
-                                    className="flex-1"
-                                >
-                                    <Eye className="w-4 h-4 mr-2" />
-                                    Preview
                                 </Button>
                             )}
                         </div>
@@ -309,6 +366,9 @@ export default function ArticleInspector({
                     <FeaturedImageSelector 
                         imageUrl={featuredImage}
                         onImageSelect={setFeaturedImage}
+                        articleTitle={article.title}
+                        articleCategory={category}
+                        keywords={[primaryKeyword, ...secondaryKeywords].filter(Boolean)}
                     />
                 </div>
 
@@ -319,7 +379,19 @@ export default function ArticleInspector({
                     </h3>
                     <div className="space-y-3">
                         <div>
-                            <Label htmlFor="category">Category</Label>
+                            <div className="flex items-center justify-between mb-1">
+                                <Label htmlFor="category">Category</Label>
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="h-6 text-purple-600 hover:bg-purple-50"
+                                    onClick={handleAutoCategorize}
+                                    disabled={isAutoCategorizing}
+                                >
+                                    {isAutoCategorizing ? <Loader2 className="w-3 h-3 animate-spin mr-1"/> : <Wand2 className="w-3 h-3 mr-1"/>}
+                                    Auto
+                                </Button>
+                            </div>
                             <CategorySelect
                                 value={category}
                                 onValueChange={(v: string) => setCategory(v as ArticleCategory)}
@@ -430,9 +502,21 @@ export default function ArticleInspector({
 
                 {/* Tags */}
                 <div className="space-y-3">
-                    <h3 className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                        Tags
-                    </h3>
+                    <div className="flex items-center justify-between">
+                        <h3 className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
+                            Tags
+                        </h3>
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-6 text-purple-600 hover:bg-purple-50"
+                            onClick={handleAutoTag}
+                            disabled={isAutoTagging}
+                        >
+                            {isAutoTagging ? <Loader2 className="w-3 h-3 animate-spin mr-1"/> : <Wand2 className="w-3 h-3 mr-1"/>}
+                            Generate
+                        </Button>
+                    </div>
                     <div>
                         <Input
                             value={tagInput}
@@ -553,6 +637,11 @@ export default function ArticleInspector({
                     <p className="text-xs text-slate-500">
                         Creates a new draft article in the selected language.
                     </p>
+                </div>
+
+                {/* Social Media Distribution */}
+                <div className="pt-4 border-t border-slate-200">
+                    <SocialPostManager articleId={article.id} />
                 </div>
 
                 {/* SEO Score Calculator */}

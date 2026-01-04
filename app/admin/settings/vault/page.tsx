@@ -1,0 +1,84 @@
+"use client";
+
+import { useState, useEffect } from 'react';
+import AdminLayout from '@/components/admin/AdminLayout';
+import { Button } from '@/components/ui/Button';
+import { Textarea } from '@/components/ui/textarea';
+import { Shield, Lock, Eye, EyeOff, Save, Key } from 'lucide-react';
+import { toast } from 'sonner';
+
+export default function CredentialVaultPage() {
+    // In a real app, this should fetch from an encrypted DB column
+    // For this MVP, we use localStorage for device-only privacy or a simple mock
+    // User requested "notepad" style
+    
+    const [notes, setNotes] = useState('');
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const saved = localStorage.getItem('admin_vault_notes');
+        if (saved) setNotes(saved);
+    }, []);
+
+    const handleSave = () => {
+        localStorage.setItem('admin_vault_notes', notes);
+        toast.success('Vault updated locally');
+    };
+
+    return (
+        <AdminLayout>
+            <div className="p-6 max-w-4xl mx-auto">
+                <div className="flex items-center gap-3 mb-8">
+                    <div className="p-3 bg-slate-900 rounded-lg text-yellow-500">
+                        <Shield className="w-8 h-8" />
+                    </div>
+                    <div>
+                        <h1 className="text-2xl font-bold text-slate-900">Secure Vault</h1>
+                        <p className="text-slate-500">Private notepad for API keys and credentials. (Stored Locally)</p>
+                    </div>
+                </div>
+
+                <div className="bg-slate-950 rounded-xl overflow-hidden shadow-2xl border border-slate-800">
+                    <div className="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/50">
+                        <div className="flex items-center gap-2 text-slate-400">
+                            <Key className="w-4 h-4" />
+                            <span className="text-sm font-mono tracking-wider">CREDENTIAL_STORE.txt</span>
+                        </div>
+                        <div className="flex gap-2">
+                            <Button 
+                                variant="ghost" 
+                                size="sm" 
+                                className="text-slate-400 hover:text-white"
+                                onClick={() => setIsVisible(!isVisible)}
+                            >
+                                {isVisible ? <EyeOff className="w-4 h-4 mr-2" /> : <Eye className="w-4 h-4 mr-2" />}
+                                {isVisible ? 'Hide Text' : 'Show Text'}
+                            </Button>
+                            <Button size="sm" onClick={handleSave} className="bg-yellow-600 hover:bg-yellow-700 text-white border-none">
+                                <Save className="w-4 h-4 mr-2" />
+                                Save Updates
+                            </Button>
+                        </div>
+                    </div>
+
+                    <div className="relative">
+                        {!isVisible && (
+                            <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-sm z-10 flex flex-col items-center justify-center text-slate-500">
+                                <Lock className="w-12 h-12 mb-4 opacity-20" />
+                                <p>Content Hidden</p>
+                                <Button variant="link" onClick={() => setIsVisible(true)}>Click to Reveal</Button>
+                            </div>
+                        )}
+                        <Textarea
+                            value={notes}
+                            onChange={(e) => setNotes(e.target.value)}
+                            className="min-h-[500px] w-full bg-slate-950 text-green-400 font-mono text-sm p-6 border-none focus:ring-0 resize-none leading-relaxed"
+                            placeholder={"// Paste your keys here\nOPENAI_API_KEY=sk-...\nSUPABASE_KEY=ey...\n\n// Note: This is stored in your browser's LocalStorage only."}
+                            spellCheck={false}
+                        />
+                    </div>
+                </div>
+            </div>
+        </AdminLayout>
+    );
+}

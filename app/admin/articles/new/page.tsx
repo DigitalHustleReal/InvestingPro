@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import AdminLayout from '@/components/admin/AdminLayout';
 import ArticleInspector from '@/components/admin/ArticleInspector';
 import ArticleEditor from '@/components/admin/ArticleEditor';
+import { PreviewModal } from '@/components/preview/PreviewModal';
 import { Input } from '@/components/ui/input';
 import { articleService } from '@/lib/cms/article-service';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -20,6 +21,7 @@ import { toast } from 'sonner';
  * - Title input (separate from editor)
  * - TipTap rich text editor
  * - Inspector panel on the right
+ * - Preview modal
  */
 export default function NewArticlePage() {
     const router = useRouter();
@@ -30,6 +32,8 @@ export default function NewArticlePage() {
     const [saving, setSaving] = useState(false);
     const [lastSaved, setLastSaved] = useState<Date | null>(null);
     const [articleId, setArticleId] = useState<string | null>(null); // Track if article was already created
+    const [showPreview, setShowPreview] = useState(false);
+    const [currentMetadata, setCurrentMetadata] = useState<any>({});
 
     const queryClient = useQueryClient();
 
@@ -174,6 +178,9 @@ export default function NewArticlePage() {
                 featured_image: metadata.featured_image,
             };
 
+            // Store current metadata for preview
+            setCurrentMetadata(metadata);
+
             // If article was already created, update it instead of creating new one
             if (articleId) {
                 await updateMutation.mutateAsync(saveData);
@@ -190,7 +197,11 @@ export default function NewArticlePage() {
     };
 
     const handlePreview = () => {
-        toast.info('Save the article first to preview it. After saving, you can preview it from the edit page.');
+        if (!title.trim()) {
+            toast.error('Please add a title before previewing');
+            return;
+        }
+        setShowPreview(true);
     };
 
     // Auto-save indicator (mocked - could implement actual auto-save)
@@ -258,6 +269,23 @@ export default function NewArticlePage() {
                     />
                 </div>
             </div>
+
+            {/* Preview Modal */}
+            <PreviewModal
+                article={{
+                    title,
+                    content: bodyMarkdown,
+                    excerpt,
+                    featured_image: currentMetadata.featured_image,
+                    category: currentMetadata.category,
+                    tags: currentMetadata.tags || [],
+                    slug: title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+                    seo_title: currentMetadata.seo_title,
+                    seo_description: currentMetadata.meta_description
+                }}
+                isOpen={showPreview}
+                onClose={() => setShowPreview(false)}
+            />
         </AdminLayout>
     );
 }

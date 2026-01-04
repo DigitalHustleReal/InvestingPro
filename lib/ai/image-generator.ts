@@ -11,9 +11,20 @@
 
 import OpenAI from 'openai'
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-})
+// Lazy initialization - only create when needed
+let openaiClient: OpenAI | null = null;
+
+function getOpenAI(): OpenAI {
+  if (!openaiClient) {
+    if (!process.env.OPENAI_API_KEY) {
+      throw new Error('OPENAI_API_KEY environment variable is not set');
+    }
+    openaiClient = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY
+    });
+  }
+  return openaiClient;
+}
 
 /**
  * Brand colors for image generation
@@ -30,6 +41,7 @@ const BRAND_COLORS = {
  */
 export async function generateFeaturedImage(articleTitle: string, category: string): Promise<string | null> {
   try {
+    const openai = getOpenAI();
     const prompt = createFeaturedImagePrompt(articleTitle, category)
     
     const response = await openai.images.generate({
@@ -53,6 +65,7 @@ export async function generateFeaturedImage(articleTitle: string, category: stri
  */
 export async function generateArticleIllustration(concept: string, style: 'chart' | 'diagram' | 'infographic' = 'infographic'): Promise<string | null> {
   try {
+    const openai = getOpenAI();
     const prompt = createIllustrationPrompt(concept, style)
     
     const response = await openai.images.generate({

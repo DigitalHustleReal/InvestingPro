@@ -13,7 +13,8 @@
     "test:watch": "jest --watch",
     "preview": "npm run build && npm run start",
     "generate:content": "tsx scripts/ai-content-generator.ts",
-    "generate:sample": "tsx scripts/sample-article-data.ts"
+    "generate:sample": "tsx scripts/sample-article-data.ts",
+    "generate:author-images": "tsx scripts/generate-author-images.ts"
   },
   "dependencies": {
     "@blocknote/core": "^0.45.0",
@@ -60,6 +61,7 @@
     "marked": "^17.0.1",
     "next": "^16.1.1",
     "next-intl": "^4.6.1",
+    "next-themes": "^0.4.6",
     "openai": "^6.15.0",
     "papaparse": "^5.5.3",
     "react": "^19.2.3",

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 
 export async function GET(request: Request) {
+    // Force rebuild
     try {
         const { searchParams } = new URL(request.url);
         const page = parseInt(searchParams.get('page') || '1');

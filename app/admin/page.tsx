@@ -363,7 +363,7 @@ export default function AdminPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
                         {[...stats, ...alertStats].slice(0, 4).map((stat, index) => (
                             <Card key={index} className="bg-white/[0.03] border-white/5 hover:border-indigo-500/30 transition-all duration-500 group relative overflow-hidden overflow-hidden rounded-2xl">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 blur-3xl -mr-16 -mt-16 group-hover:bg-indigo-500/10 transition-colors" />
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 blur-3xl -mr-16 -mt-16 group-hover:bg-emerald-500/10 transition-colors" />
                                 <CardContent className="p-7 relative z-10">
                                     <div className="flex items-center justify-between mb-6">
                                         <div className={`w-14 h-14 rounded-2xl ${stat.color} flex items-center justify-center shadow-2xl shadow-black/20 group-hover:scale-110 transition-transform duration-500`}>
@@ -385,7 +385,7 @@ export default function AdminPage() {
                                     <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">{stat.label}</p>
                                     <p className="text-4xl font-extrabold text-white mb-2 tabular-nums tracking-tight">{stat.value}</p>
                                     <p className="text-[11px] text-slate-400 font-bold uppercase tracking-wider flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+                                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                                         {stat.change}
                                     </p>
                                 </CardContent>
@@ -465,7 +465,7 @@ export default function AdminPage() {
                                 <div className="space-y-5">
                                     <div className="flex items-center justify-between">
                                         <span className="text-sm font-medium text-slate-400">Parallel Jobs</span>
-                                        <span className="px-3 py-1 bg-indigo-500/10 text-indigo-400 text-[10px] font-bold rounded-full border border-indigo-500/20">
+                                        <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-bold rounded-full border border-emerald-500/20">
                                             {pipelineStatus.active || 0} ACTIVE
                                         </span>
                                     </div>
@@ -484,7 +484,7 @@ export default function AdminPage() {
                                     <div className="pt-2">
                                         <Button 
                                             size="sm" 
-                                            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl h-10 font-bold shadow-lg shadow-indigo-600/20 transition-all border-0"
+                                            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl h-10 font-bold shadow-lg shadow-emerald-600/20 transition-all border-0"
                                         >
                                             <Play className="w-4 h-4 mr-2 fill-white" />
                                             Ignite Factory
