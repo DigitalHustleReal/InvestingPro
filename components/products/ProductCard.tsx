@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/badge';
 import { Star, Check } from 'lucide-react';
 import Link from 'next/link';
+import VerificationBadge, { LastUpdated } from '../trust/VerificationBadge';
 
 export default function ProductCard({ product }: { product: Product }) {
     const { addToCompare, removeFromCompare, isInCompare } = useCompare();
@@ -53,6 +54,15 @@ export default function ProductCard({ product }: { product: Product }) {
                         {product.rating}
                     </div>
                 </div>
+                
+                {/* Verification Badge */}
+                <div className="mb-2">
+                    <VerificationBadge 
+                        verificationStatus={product.verification_status || 'pending'}
+                        productId={product.id}
+                        size="sm"
+                    />
+                </div>
 
                 <h3 className="font-bold text-lg text-slate-900 mb-2 leading-tight">
                     {product.name}
@@ -88,13 +98,23 @@ export default function ProductCard({ product }: { product: Product }) {
                 </div>
             </CardContent>
 
-            <CardFooter className="p-6 md:p-8 pt-0 gap-6">
-                <Link href={`/${product.category.replace(/_/g, '-')}/${product.slug}`} className="flex-1">
-                    <Button variant="outline" className="w-full">Details</Button>
-                </Link>
-                <Link href={product.affiliate_link || '#'} className="flex-1" target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full bg-teal-600 hover:bg-teal-700">Apply Now</Button>
-                </Link>
+            <CardFooter className="p-6 md:p-8 pt-0 gap-3 flex-col">
+                <div className="flex gap-3 w-full">
+                    <Link href={`/${product.category.replace(/_/g, '-')}/${product.slug}`} className="flex-1">
+                        <Button variant="outline" className="w-full">Details</Button>
+                    </Link>
+                    <Link href={product.affiliate_link || '#'} className="flex-1" target="_blank" rel="noopener noreferrer">
+                        <Button className="w-full bg-teal-600 hover:bg-teal-700">Apply Now</Button>
+                    </Link>
+                </div>
+                
+                {/* Last Updated Timestamp */}
+                <div className="w-full pt-2 border-t border-slate-100 flex items-center justify-between">
+                    <LastUpdated productId={product.id} />
+                    <Link href="/editorial-policy" className="text-[10px] text-slate-400 hover:text-teal-600 transition-colors">
+                        How we rate
+                    </Link>
+                </div>
             </CardFooter>
         </Card>
     );
