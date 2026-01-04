@@ -58,6 +58,10 @@ export class ProductService {
         if (category) {
             query = query.eq('category', category);
         }
+
+        if (params.search) {
+            query = query.or(`name.ilike.%${params.search}%,description.ilike.%${params.search}%,provider_name.ilike.%${params.search}%`);
+        }
         
         query = query.order('trust_score', { ascending: false, nullsFirst: false })
                      .order('name', { ascending: true });

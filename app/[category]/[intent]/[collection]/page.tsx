@@ -5,6 +5,7 @@ import { NAVIGATION_CONFIG } from '@/lib/navigation/config';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import SEOHead from '@/components/common/SEOHead';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
+import { productService, Product } from '@/lib/products/product-service';
 
 interface CollectionPageProps {
     params: Promise<{ category: string; intent: string; collection: string }>;
@@ -51,11 +52,18 @@ async function CollectionPageContent({
     };
 
     const categoryForProducts = productCategoryMap[categorySlug];
-    let products = [];
+    let products: Product[] = [];
     if (categoryForProducts) {
-        const { productService } = await import('@/lib/products/product-service');
-        products = await productService.getProducts(categoryForProducts);
+        // Search by collection slug if it's not 'all'
+        const searchTerm = collectionSlug !== 'all' ? collectionSlug : undefined;
+        products = await productService.getProducts({ 
+            category: categoryForProducts,
+            search: searchTerm
+        });
     }
+
+    const title = `${collection.name} | ${category.name} | InvestingPro`;
+    const description = collection.description || `Expert analysis and rankings of the best ${collection.name.toLowerCase()} in India. Compare rewards, fees, and benefits.`;
 
     return (
         <>

@@ -88,11 +88,11 @@ export default function ProductCard({ product }: { product: Product }) {
                 </div>
             </CardContent>
 
-            <CardFooter className="p-6 md:p-8 pt-0 gap-6 md:p-8">
-                <Link href={`/reviews/${product.slug}`} className="flex-1">
+            <CardFooter className="p-6 md:p-8 pt-0 gap-6">
+                <Link href={`/${product.category.replace(/_/g, '-')}/${product.slug}`} className="flex-1">
                     <Button variant="outline" className="w-full">Details</Button>
                 </Link>
-                <Link href={product.affiliate_link || '#'} className="flex-1">
+                <Link href={product.affiliate_link || '#'} className="flex-1" target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-teal-600 hover:bg-teal-700">Apply Now</Button>
                 </Link>
             </CardFooter>
