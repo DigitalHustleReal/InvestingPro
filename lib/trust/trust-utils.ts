@@ -88,19 +88,19 @@ export function calculateTrustScoreBreakdown(
     const userReviews = Math.floor(remaining * 0.4);
     const marketPresence = remaining - userReviews;
     
-    // Determine label and color
-    let label = 'Needs Improvement';
-    let color = 'rose';
+    // Determine label and color - NO RED, use amber for warnings
+    let label = 'Needs Review';
+    let color = 'amber'; // Amber for low scores, not red
     
-    if (trustScore >= 80) {
+    if (trustScore >= 75) {
         label = 'Excellent';
-        color = 'emerald';
+        color = 'blue'; // Professional blue instead of emerald
     } else if (trustScore >= 60) {
         label = 'Good';
-        color = 'teal';
+        color = 'slate'; // Neutral slate-blue
     } else if (trustScore >= 40) {
         label = 'Fair';
-        color = 'amber';
+        color = 'amber'; // Warning amber, not negative red
     }
     
     return {
@@ -140,23 +140,23 @@ export function getVerificationBadge(
                 label: 'Verified',
                 description: `Data verified ${daysSince} days ago by our editorial team`,
                 icon: 'check',
-                color: 'emerald'
+                color: 'blue' // Professional blue instead of emerald
             };
         } else {
             return {
                 status: 'outdated',
-                label: 'Needs Update',
-                description: 'Verification pending - data may be outdated',
+                label: 'Pending Review',
+                description: 'Verification due - data may need update',
                 icon: 'alert',
-                color: 'amber'
+                color: 'amber' // Amber for warnings, not red
             };
         }
     }
     
     return {
         status: 'pending',
-        label: 'Pending Verification',
-        description: 'Our team is currently verifying this data',
+        label: 'Under Review',
+        description: 'Our team is verifying this information',
         icon: 'clock',
         color: 'slate'
     };
