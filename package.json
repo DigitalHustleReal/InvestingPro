@@ -17,6 +17,7 @@
     "generate:author-images": "tsx scripts/generate-author-images.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.2",
     "@blocknote/core": "^0.45.0",
     "@blocknote/react": "^0.45.0",
     "@cloudflare/ai": "^1.2.2",

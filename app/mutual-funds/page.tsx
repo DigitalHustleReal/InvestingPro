@@ -46,69 +46,6 @@ import { ResponsiveFilterContainer } from "@/components/products/ResponsiveFilte
 
 const FUND_CATEGORIES = ["All", "Equity", "Debt", "Hybrid", "ELSS", "Index"];
 
-const MOCK_FUNDS = [
-    {
-        id: "mf_1",
-        name: "Parag Parikh Flexi Cap Fund",
-        category: "Flexi Cap",
-        type: "Equity",
-        aum: "₹50,234 Cr",
-        returns_1y: 28.5,
-        returns_3y: 18.2,
-        returns_5y: 21.4,
-        rating: 5,
-        risk: "Moderately High",
-        expense_ratio: 0.67,
-        min_investment: "₹1,000",
-        fund_house: "PPFAS Mutual Fund"
-    },
-    {
-        id: "mf_2",
-        name: "Mirae Asset Large Cap Fund",
-        category: "Large Cap",
-        type: "Equity",
-        aum: "₹38,456 Cr",
-        returns_1y: 22.3,
-        returns_3y: 15.8,
-        returns_5y: 17.2,
-        rating: 5,
-        risk: "Moderately High",
-        expense_ratio: 0.52,
-        min_investment: "₹1,000",
-        fund_house: "Mirae Asset"
-    },
-    {
-        id: "mf_3",
-        name: "Axis Small Cap Fund",
-        category: "Small Cap",
-        type: "Equity",
-        aum: "₹18,234 Cr",
-        returns_1y: 35.2,
-        returns_3y: 22.8,
-        returns_5y: 24.6,
-        rating: 4,
-        risk: "Very High",
-        expense_ratio: 0.72,
-        min_investment: "₹500",
-        fund_house: "Axis Mutual Fund"
-    },
-    {
-        id: "mf_4",
-        name: "HDFC Mid-Cap Opportunities",
-        category: "Mid Cap",
-        type: "Equity",
-        aum: "₹45,123 Cr",
-        returns_1y: 32.1,
-        returns_3y: 19.5,
-        returns_5y: 20.8,
-        rating: 5,
-        risk: "Very High",
-        expense_ratio: 0.85,
-        min_investment: "₹1,000",
-        fund_house: "HDFC Mutual Fund"
-    }
-];
-
 const riskColors: Record<string, string> = {
     "Low": "bg-green-50 text-green-700 border-green-100",
     "Low to Moderate": "bg-teal-50 text-teal-700 border-teal-100",
@@ -182,11 +119,14 @@ export default function MutualFundsPage() {
                 });
                 setFunds(normalizedFunds);
             } else {
-                setFunds(MOCK_FUNDS);
+                // NO MOCK DATA - show empty state
+                setFunds([]);
+                logger.warn('No mutual funds found in database');
             }
         } catch (error) {
             logger.error('Error loading mutual funds', error as Error);
-            setFunds(MOCK_FUNDS);
+            // NO MOCK DATA - show error state
+            setFunds([]);
         } finally {
             setLoading(false);
         }
