@@ -207,28 +207,44 @@ export default function AnimatedHero() {
                 {/* Stats Bar */}
                 <div className="max-w-4xl mx-auto mt-16">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                        {[
-                            { label: 'Products Analyzed', value: '10,000+', icon: Target },
-                            { label: 'Monthly Users', value: '50,000+', icon: TrendingUp },
-                            { label: 'Avg. Rating', value: '4.9/5', icon: Star },
-                            { label: 'Money Saved', value: '₹50Cr+', icon: Sparkles },
-                        ].map((stat, i) => {
-                            const Icon = stat.icon;
-                            return (
-                                <div 
-                                    key={i} 
-                                    className="p-6 rounded-2xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800"
-                                >
-                                    <Icon className="w-6 h-6 text-teal-500 mx-auto mb-2" />
-                                    <div className="text-3xl font-bold text-slate-900 dark:text-white mb-1">
-                                        {stat.value}
+                        {(() => {
+                            const { getDisplayStats } = require('@/lib/platform-stats');
+                            const { AnimatedCounter } = require('@/components/common/AnimatedCounter');
+                            const stats = getDisplayStats();
+                            
+                            const displayStats = [
+                                { ...stats.productsAnalyzed, icon: Target, animated: true },
+                                { ...stats.monthlyUsers, icon: TrendingUp, animated: true },
+                                { ...stats.averageRating, icon: Star, display: `${stats.averageRating.display}/5`, animated: true, decimals: 1 },
+                                { ...stats.moneySaved, icon: Sparkles, animated: false }, // Too large to animate smoothly
+                            ];
+                            
+                            return displayStats.map((stat, i) => {
+                                const Icon = stat.icon;
+                                return (
+                                    <div 
+                                        key={i} 
+                                        className="p-6 rounded-2xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800"
+                                    >
+                                        <Icon className="w-6 h-6 text-teal-500 mx-auto mb-2" />
+                                        <div className="text-3xl font-bold text-slate-900 dark:text-white mb-1">
+                                            {stat.animated && stat.value ? (
+                                                <AnimatedCounter 
+                                                    end={stat.value} 
+                                                    duration={2000}
+                                                    decimals={stat.decimals || 0}
+                                                />
+                                            ) : (
+                                                stat.display
+                                            )}
+                                        </div>
+                                        <div className="text-sm text-slate-600 dark:text-slate-400 font-medium">
+                                            {stat.label}
+                                        </div>
                                     </div>
-                                    <div className="text-sm text-slate-600 dark:text-slate-400 font-medium">
-                                        {stat.label}
-                                    </div>
-                                </div>
-                            );
-                        })}
+                                );
+                            });
+                        })()}
                     </div>
                 </div>
             </div>

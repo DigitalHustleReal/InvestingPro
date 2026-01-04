@@ -1,39 +1,52 @@
 "use client";
 
 import React from 'react';
-import { Shield, TrendingUp, Users, Database, CheckCircle2 } from "lucide-react";
-
-const trustPoints = [
-    {
-        icon: Database,
-        stat: "5,000+",
-        label: "Products Analyzed",
-        description: "Comprehensive database of schemes & cards"
-    },
-    {
-        icon: Users,
-        stat: "50,000+",
-        label: "Monthly Readers",
-        description: "Trusted by India's smartest investors"
-    },
-    {
-        icon: Shield,
-        stat: "100%",
-        label: "Unbiased",
-        description: "Independent research, zero paid bias"
-    },
-    {
-        icon: TrendingUp,
-        stat: "Daily",
-        label: "Market Scans",
-        description: "Latest rates & product changes"
-    }
-];
+import { Shield, TrendingUp, Users, Database, CheckCircle2, Star } from "lucide-react";
+import { getDisplayStats } from '@/lib/platform-stats';
+import { AnimatedCounter } from '../common/AnimatedCounter';
 
 export default function TrustSection() {
+    const stats = getDisplayStats();
+    
+    const trustPoints = [
+        {
+            icon: Database,
+            value: stats.productsAnalyzed.value,
+            display: stats.productsAnalyzed.display,
+            label: stats.productsAnalyzed.label,
+            description: stats.productsAnalyzed.description,
+            animated: true
+        },
+        {
+            icon: Users,
+            value: stats.monthlyUsers.value,
+            display: stats.monthlyUsers.display,
+            label: stats.monthlyUsers.label,
+            description: stats.monthlyUsers.description,
+            animated: true
+        },
+        {
+            icon: Star,
+            value: stats.averageRating.value,
+            display: `${stats.averageRating.display}/5`,
+            label: stats.averageRating.label,
+            description: stats.averageRating.description,
+            animated: true,
+            decimals: 1
+        },
+        {
+            icon: TrendingUp,
+            value: 0, // Not animated
+            display: stats.marketScans.display,
+            label: stats.marketScans.label,
+            description: stats.marketScans.description,
+            animated: false
+        }
+    ];
+
     return (
         <section className="relative py-24 bg-white dark:bg-slate-900 text-slate-900 dark:text-white border-t border-slate-200 dark:border-slate-800 overflow-hidden transition-colors duration-300">
-            {/* Ambient Gradient Orbs - Restored & Adapted */}
+            {/* Ambient Gradient Orbs */}
             <div className="absolute inset-0 pointer-events-none">
                  <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-100/50 dark:bg-blue-500/10 rounded-full blur-[100px]"></div>
                  <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-teal-100/50 dark:bg-teal-500/10 rounded-full blur-[100px]"></div>
@@ -58,7 +71,16 @@ export default function TrustSection() {
                                     <Icon className="w-7 h-7" />
                                 </div>
                                 <div className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
-                                    {point.stat}
+                                    {point.animated && point.value > 0 ? (
+                                        <AnimatedCounter 
+                                            end={point.value} 
+                                            duration={2000}
+                                            decimals={point.decimals || 0}
+                                            suffix={point.decimals ? '/5' : ''}
+                                        />
+                                    ) : (
+                                        point.display
+                                    )}
                                 </div>
                                 <div className="text-sm font-semibold text-teal-600 dark:text-teal-400 mb-3 uppercase tracking-wider">
                                     {point.label}
@@ -96,4 +118,3 @@ export default function TrustSection() {
         </section>
     );
 }
-
