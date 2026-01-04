@@ -58,7 +58,7 @@ const PRODUCTS_TO_POPULATE = {
         
         // Shopping (30 cards)
         "Shoppers Stop ICICI", "Big Bazaar Future Pay", "More SBI", "DMart RBL",
-        "Westside HDFC",' "Pantaloons Citibank", "Lifestyle ICICI", "Reliance Smart",
+        "Westside HDFC", "Pantaloons Citibank", "Lifestyle ICICI", "Reliance Smart",
         "Metro HDFC", "Walmart SBI", "Star Bazaar ICICI", "Spencer's Axis",
         "Hypercity HDFC", "Food Bazaar SBI", "EasyDay ICICI", "24Seven RBL",
         "Jiomart HDFC", "Grofers Axis", "Milk Basket ICICI", "Dunzo SBI",
