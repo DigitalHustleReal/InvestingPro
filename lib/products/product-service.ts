@@ -45,7 +45,7 @@ export interface ProductListResult {
 
 export class ProductService {
     async getProducts(params: ProductListParams = {}): Promise<Product[]> {
-        const { category, includeInactive = false } = params;
+        const { category, includeInactive = false, limit } = params;
         const supabase = createClient();
         
         let query = supabase.from('products').select('*');
@@ -60,10 +60,18 @@ export class ProductService {
         
         query = query.order('trust_score', { ascending: false, nullsFirst: false })
                      .order('name', { ascending: true });
+                     
+        if (limit) {
+            query = query.limit(limit);
+        }
         
         const { data, error } = await query;
         if (error) throw error;
         return (data || []).map((p: any) => this.normalizeProduct(p));
+    }
+
+    async getFeaturedProducts(limit: number = 6): Promise<Product[]> {
+        return this.getProducts({ limit });
     }
 
     async getProductBySlug(slug: string): Promise<Product | null> {
