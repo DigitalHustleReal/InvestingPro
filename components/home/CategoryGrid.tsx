@@ -61,8 +61,8 @@ const categories = [
         name: "Insurance",
         description: "Life, health, term, car, bike, and travel insurance from top insurers.",
         icon: Shield,
-        color: "text-rose-500",
-        bg: "bg-rose-500/5",
+        color: "text-amber-500", // Amber instead of rose/red
+        bg: "bg-amber-500/5",    // Amber instead of rose/red
         href: "/insurance",
         tag: "Best Coverage",
         subcategories: ["Life", "Health", "Term", "Car", "Bike", "Travel"]

@@ -133,7 +133,7 @@ function getCategoryColorScheme(category: string): {
         'loans': { primary: '#10b981', secondary: '#0d9488', grid: '#475569' },
         'banking': { primary: '#3b82f6', secondary: '#06b6d4', grid: '#475569' },
         'investing': { primary: '#14b8a6', secondary: '#10b981', grid: '#475569' },
-        'insurance': { primary: '#f43f5e', secondary: '#ec4899', grid: '#475569' },
+        'insurance': { primary: '#f59e0b', secondary: '#f97316', grid: '#475569' }, // Amber/Orange instead of red/pink
         'small-business': { primary: '#f59e0b', secondary: '#f97316', grid: '#475569' },
     };
     
