@@ -1,116 +1,67 @@
 import React from 'react';
 import Link from 'next/link';
-import { Button } from "@/components/ui/Button";
-import {
-    Home,
-    Search,
-    TrendingUp,
-    ArrowRight,
-    AlertCircle,
-    ShieldAlert,
-    HelpCircle,
-    BookOpen,
-    Calculator,
-    Activity,
-    Lock
-} from "lucide-react";
+import { Search, Map, ChevronRight, Home } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
 
 export default function NotFound() {
-    return (
-        <div className="min-h-screen bg-slate-50 flex items-center justify-center py-20 px-4 relative overflow-hidden">
-            {/* Dynamic Background Elements */}
-            <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-primary-500/5 rounded-full blur-[140px] -translate-y-1/2" />
-            <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] translate-y-1/2" />
-
-            <div className="max-w-4xl mx-auto text-center relative z-10">
-                <div className="mb-12">
-                    <div className="inline-flex items-center gap-2 bg-rose-500/10 rounded-full px-4 py-2 mb-8 border border-rose-500/20">
-                        <ShieldAlert className="w-4 h-4 text-rose-500" />
-                        <span className="text-rose-600 font-semibold text- uppercase tracking-[0.2em]">Protocol Interrupted</span>
-                    </div>
-
-                    <h1 className="text-[10rem] sm:text-[14rem] font-bold text-slate-900 leading-none tracking-tighter mb-4 select-none opacity-5">
-                        404
-                    </h1>
-
-                    <div className="-mt-32 relative">
-                        <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 tracking-tight">
-                            Page Asset <span className="text-emerald-500">Not Found</span>
-                        </h2>
-                        <p className="text-xl text-slate-500 font-medium max-w-xl mx-auto leading-relaxed">
-                            Target address is either undergoing maintenance or has been liquidated from our platform indexing.
-                        </p>
-                    </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 px-4">
-                    <Link href="/">
-                        <Button className="w-full sm:w-auto h-14 rounded-2xl bg-slate-900 hover:bg-primary-600 text-white font-semibold px-10 uppercase tracking-widest text- shadow-2xl transition-all">
-                            <Home className="w-4 h-4 mr-2" />
-                            Return to Command Center
-                        </Button>
-                    </Link>
-                    <Link href="/mutual-funds">
-                        <Button variant="outline" className="w-full sm:w-auto h-14 rounded-2xl border-slate-200 bg-white hover:bg-slate-50 text-slate-900 font-semibold px-10 uppercase tracking-widest text-">
-                            Explore Safe Assets
-                            <ArrowRight className="w-4 h-4 ml-2" />
-                        </Button>
-                    </Link>
-                </div>
-
-                <div className="grid md:grid-cols-3 gap-6 text-left">
-                    {[
-                        {
-                            title: "Mutual Funds",
-                            desc: "Institutional analysis",
-                            href: "/mutual-funds",
-                            icon: TrendingUp,
-                            color: "text-emerald-500",
-                            bg: "bg-emerald-50"
-                        },
-                        {
-                            title: "Tax Tactics",
-                            desc: "PPF & NPS benchmarks",
-                            href: "/ppf-nps",
-                            icon: ShieldAlert,
-                            color: "text-purple-500",
-                            bg: "bg-purple-50"
-                        },
-                        {
-                            title: "Calculators",
-                            desc: "Financial logic units",
-                            href: "/calculators",
-                            icon: Calculator,
-                            color: "text-blue-500",
-                            bg: "bg-blue-50"
-                        }
-                    ].map((item, i) => (
-                        <Link
-                            key={i}
-                            href={item.href}
-                            className="p-8 bg-white rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:-translate-y-1 transition-all group"
-                        >
-                            <div className={`w-12 h-12 rounded-2xl ${item.bg} ${item.color} flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform`}>
-                                <item.icon className="w-6 h-6" />
-                            </div>
-                            <h3 className="text-lg font-bold text-slate-900 mb-1 tracking-tight">{item.title}</h3>
-                            <p className="text-sm text-slate-500 font-medium">{item.desc}</p>
-                        </Link>
-                    ))}
-                </div>
-
-                <div className="mt-20 flex items-center justify-center gap-6 text-[10px] font-semibold text-slate-400 uppercase tracking-st border-t border-slate-100 pt-10">
-                    <div className="flex items-center gap-2">
-                        <Activity className="w-3.5 h-3.5" />
-                        System Status: 100% Operational
-                    </div>
-                    <span className="opacity-20 text-slate-900">•</span>
-                    <div className="flex items-center gap-2">
-                        <Lock className="w-3.5 h-3.5" />
-                        Secure Verification
-                    </div>
-                </div>
-            </div>
+  return (
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
+      <div className="max-w-xl w-full">
+        {/* Visual Header */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center justify-center w-24 h-24 rounded-[2rem] bg-gradient-to-br from-blue-500 to-indigo-600 shadow-xl shadow-blue-500/20 mb-8 transform rotate-3">
+             <span className="text-4xl font-black text-white italic">404</span>
+          </div>
+          <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">
+            Asset Not Found
+          </h1>
+          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-md mx-auto">
+            The resource you're looking for has been moved, archived, or never existed in our directory.
+          </p>
         </div>
-    );
+
+        {/* Suggestion Links */}
+        <div className="grid gap-4 mb-12">
+          {[
+            { title: 'Looking for a Credit Card?', description: 'Compare the best rewards and LTF cards.', href: '/credit-cards' },
+            { title: 'Analyzing Mutual Funds?', description: 'Data-driven insights for long-term growth.', href: '/mutual-funds' },
+            { title: 'Need a Loan?', description: 'Check eligibility across 20+ banks.', href: '/loans' },
+          ].map((item, i) => (
+            <Link 
+              key={i}
+              href={item.href}
+              className="group flex items-center justify-between p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl hover:border-blue-500 dark:hover:border-blue-500/50 hover:shadow-lg transition-all"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center group-hover:bg-blue-500/10 transition-colors">
+                  <Search className="w-5 h-5 text-slate-500 group-hover:text-blue-500" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 dark:text-white">{item.title}</h3>
+                  <p className="text-sm text-slate-500">{item.description}</p>
+                </div>
+              </div>
+              <ChevronRight className="w-5 h-5 text-slate-300 group-helper:text-blue-500 transition-transform group-hover:translate-x-1" />
+            </Link>
+          ))}
+        </div>
+
+        {/* Actions */}
+        <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+            <Button asChild className="w-full sm:w-auto px-8 h-12 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-bold gap-2">
+                <Link href="/">
+                    <Home className="w-4 h-4" />
+                    Back to Command Center
+                </Link>
+            </Button>
+            <Button variant="ghost" asChild className="w-full sm:w-auto h-12 rounded-xl text-slate-500">
+                <Link href="/glossary">
+                    <Map className="w-4 h-4 mr-2" />
+                    Explore Glossary
+                </Link>
+            </Button>
+        </div>
+      </div>
+    </div>
+  );
 }

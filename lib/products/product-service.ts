@@ -1,5 +1,6 @@
 
 import { createClient } from '@/lib/supabase/client';
+import { logger } from '@/lib/logger';
 
 export type ProductCategory = 'credit_card' | 'broker' | 'loan' | 'mutual_fund' | 'insurance';
 
@@ -65,9 +66,17 @@ export class ProductService {
             query = query.limit(limit);
         }
         
-        const { data, error } = await query;
-        if (error) throw error;
-        return (data || []).map((p: any) => this.normalizeProduct(p));
+        try {
+            const { data, error } = await query;
+            if (error) {
+                logger.error('Failed to fetch products', error, { query: params });
+                return [];
+            }
+            return (data || []).map((p: any) => this.normalizeProduct(p));
+        } catch (e: any) {
+            logger.error('Unexpected error in getProducts', e);
+            return [];
+        }
     }
 
     async getFeaturedProducts(limit: number = 6): Promise<Product[]> {
@@ -75,65 +84,105 @@ export class ProductService {
     }
 
     async getProductBySlug(slug: string): Promise<Product | null> {
-        const supabase = createClient();
-        const { data, error } = await supabase
-            .from('products')
-            .select('*')
-            .eq('slug', slug)
-            .single();
-            
-        if (error) return null;
-        return this.normalizeProduct(data);
+        try {
+            const supabase = createClient();
+            const { data, error } = await supabase
+                .from('products')
+                .select('*')
+                .eq('slug', slug)
+                .single();
+                
+            if (error) {
+                logger.warn(`Product not found for slug: ${slug}`, { error });
+                return null;
+            }
+            return this.normalizeProduct(data);
+        } catch (e: any) {
+            logger.error(`Error in getProductBySlug for ${slug}`, e);
+            return null;
+        }
     }
 
     async getProductById(id: string): Promise<Product | null> {
-        const supabase = createClient();
-        const { data, error } = await supabase
-            .from('products')
-            .select('*')
-            .eq('id', id)
-            .single();
-            
-        if (error) return null;
-        return this.normalizeProduct(data);
+        try {
+            const supabase = createClient();
+            const { data, error } = await supabase
+                .from('products')
+                .select('*')
+                .eq('id', id)
+                .single();
+                
+            if (error) {
+                logger.warn(`Product not found for ID: ${id}`, { error });
+                return null;
+            }
+            return this.normalizeProduct(data);
+        } catch (e: any) {
+            logger.error(`Error in getProductById for ${id}`, e);
+            return null;
+        }
     }
 
     async createProduct(input: Partial<ProductInput>): Promise<Product> {
-        const supabase = createClient();
-        const { data, error } = await supabase
-            .from('products')
-            .insert({
-                ...input,
-                created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString()
-            })
-            .select()
-            .single();
-            
-        if (error) throw error;
-        return this.normalizeProduct(data);
+        try {
+            const supabase = createClient();
+            const { data, error } = await supabase
+                .from('products')
+                .insert({
+                    ...input,
+                    created_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString()
+                })
+                .select()
+                .single();
+                
+            if (error) {
+                logger.error('Failed to create product', error, { input });
+                throw error;
+            }
+            return this.normalizeProduct(data);
+        } catch (e: any) {
+            logger.error('Unexpected error in createProduct', e);
+            throw e;
+        }
     }
 
     async updateProduct(id: string, updates: Partial<ProductInput>): Promise<Product> {
-        const supabase = createClient();
-        const { data, error } = await supabase
-            .from('products')
-            .update({
-                ...updates,
-                updated_at: new Date().toISOString()
-            })
-            .eq('id', id)
-            .select()
-            .single();
-            
-        if (error) throw error;
-        return this.normalizeProduct(data);
+        try {
+            const supabase = createClient();
+            const { data, error } = await supabase
+                .from('products')
+                .update({
+                    ...updates,
+                    updated_at: new Date().toISOString()
+                })
+                .eq('id', id)
+                .select()
+                .single();
+                
+            if (error) {
+                logger.error(`Failed to update product ${id}`, error, { updates });
+                throw error;
+            }
+            return this.normalizeProduct(data);
+        } catch (e: any) {
+            logger.error(`Unexpected error in updateProduct for ${id}`, e);
+            throw e;
+        }
     }
 
     async deleteProduct(id: string): Promise<void> {
-        const supabase = createClient();
-        const { error } = await supabase.from('products').delete().eq('id', id);
-        if (error) throw error;
+        try {
+            const supabase = createClient();
+            const { error } = await supabase.from('products').delete().eq('id', id);
+            if (error) {
+                logger.error(`Failed to delete product ${id}`, error);
+                throw error;
+            }
+        } catch (e: any) {
+            logger.error(`Unexpected error in deleteProduct for ${id}`, e);
+            throw e;
+        }
     }
 
     generateSlug(name: string): string {

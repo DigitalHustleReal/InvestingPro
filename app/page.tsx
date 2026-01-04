@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React from 'react';
 import AnimatedHero from "@/components/home/AnimatedHero";
@@ -8,8 +8,20 @@ import LatestInsights from "@/components/home/LatestInsights";
 import TrustSection from "@/components/home/TrustSection";
 import SEOHead from "@/components/common/SEOHead";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
-
 import CategoryDiscovery from "@/components/home/CategoryDiscovery";
+import PageErrorBoundary from "@/components/common/PageErrorBoundary";
+
+/**
+ * Section wrapper that provides isolation.
+ * If one vertical fails, the rest of the command center stays operational.
+ */
+function CommandCenterSection({ children, name }: { children: React.ReactNode, name: string }) {
+    return (
+        <PageErrorBoundary pageName={`Home Section: ${name}`}>
+            {children}
+        </PageErrorBoundary>
+    );
+}
 
 export default function Home() {
     const structuredData = {
@@ -33,27 +45,40 @@ export default function Home() {
                 structuredData={structuredData}
             />
 
-            {/* Section 1: Hero */}
-            <AnimatedHero />
+            {/* Hero Tier: Mission Critical */}
+            <CommandCenterSection name="Hero">
+                <AnimatedHero />
+            </CommandCenterSection>
 
-            {/* Section 2: Smart Financial Advisor (Conversion Widget) */}
-            <SmartAdvisorWidget />
+            {/* Intelligence Tier: Lead Generation */}
+            <CommandCenterSection name="Smart Advisor">
+                <SmartAdvisorWidget />
+            </CommandCenterSection>
 
-            {/* Section 3: Quick Tools */}
-            <QuickToolsSection />
+            {/* Utility Tier: User Engagement */}
+            <CommandCenterSection name="Quick Tools">
+                <QuickToolsSection />
+            </CommandCenterSection>
 
-            {/* Section 4: Featured Products */}
-            <FeaturedProducts />
+            {/* Product Tier: High-intent Selection (Resilient with fallbacks) */}
+            <CommandCenterSection name="Featured Products">
+                <FeaturedProducts />
+            </CommandCenterSection>
 
-             {/* Section 5: Discovery Grid */}
-            <CategoryDiscovery />
+            {/* Discovery Tier: Navigation & SEO */}
+            <CommandCenterSection name="Category Discovery">
+                <CategoryDiscovery />
+            </CommandCenterSection>
 
-            {/* Section 6: Latest Articles */}
-            <LatestInsights />
+            {/* Editorial Tier: Authority & SEO */}
+            <CommandCenterSection name="Latest Insights">
+                <LatestInsights />
+            </CommandCenterSection>
 
-            {/* Section 6: Trust */}
-            <TrustSection />
+            {/* Trust Tier: Brand Credibility */}
+            <CommandCenterSection name="Trust">
+                <TrustSection />
+            </CommandCenterSection>
         </main>
     );
 }
-
