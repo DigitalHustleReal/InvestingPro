@@ -1,9 +1,10 @@
 import React from 'react';
 import { productService } from '@/lib/products/product-service';
 import { getComparisonVerdict } from '@/lib/products/comparison-service';
+import { createServiceClient } from '@/lib/supabase/service';
 import SEOHead from '@/components/common/SEOHead';
 import { Badge } from '@/components/ui/badge';
-import { Star, Check, X, ShieldCheck, ArrowLeftRight, TrendingUp, AlertCircle } from 'lucide-react';
+import { Star, Check, X, ShieldCheck, ArrowLeftRight, TrendingUp, AlertCircle, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
@@ -16,7 +17,7 @@ export default async function VersusPage({
 }) {
     const { combination } = await params;
     
-    // 1. Parse URL Segment (e.g. hdfc-vs-sbi)
+    // 1. Parse URL Segment (e.g. hdfc-regalia-vs-axis-magnus)
     const parts = combination.split('-vs-');
     if (parts.length !== 2) {
         return (
@@ -29,47 +30,78 @@ export default async function VersusPage({
         );
     }
 
-    // 2. Fetch both products
-    const [p1, p2] = await Promise.all([
-        productService.getProductBySlug(parts[0]),
-        productService.getProductBySlug(parts[1])
-    ]);
+    // 2. Check if we have pre-generated content (Programmatic SEO)
+    const supabase = createServiceClient();
+    const { data: versusPage } = await supabase
+        .from('versus_pages')
+        .select('*')
+        .eq('slug', combination)
+        .single();
 
-    if (!p1 || !p2) {
-        return (
-            <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
-                <X className="w-12 h-12 text-rose-300 mb-4" />
-                <h1 className="text-xl font-bold mb-2">Product Not Found</h1>
-                <p className="text-slate-500 mb-6">One or both of the products you are comparing don't exist in our database.</p>
-                <Link href="/products"><Button>Go Back</Button></Link>
-            </div>
-        );
+    let verdict = '';
+    let p1: any, p2: any;
+    let isProgrammatic = false;
+
+    if (versusPage) {
+        // Use pre-generated content
+        isProgrammatic = true;
+        verdict = versusPage.verdict;
+        
+        // Fetch products
+        [p1, p2] = await Promise.all([
+            productService.getProductBySlug(versusPage.product1_id),
+            productService.getProductBySlug(versusPage.product2_id)
+        ]);
+        
+        // Update view count
+        await supabase
+            .from('versus_pages')
+            .update({ 
+                view_count: (versusPage.view_count || 0) + 1,
+                last_viewed_at: new Date().toISOString()
+            })
+            .eq('id', versusPage.id);
+    } else {
+        // Generate on-the-fly (fallback)
+        [p1, p2] = await Promise.all([
+            productService.getProductBySlug(parts[0]),
+            productService.getProductBySlug(parts[1])
+        ]);
+
+        if (!p1 || !p2) {
+            return (
+                <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
+                    <X className="w-12 h-12 text-rose-300 mb-4" />
+                    <h1 className="text-xl font-bold mb-2">Product Not Found</h1>
+                    <p className="text-slate-500 mb-6">One or both products don't exist in our database.</p>
+                    <Link href="/products"><Button>Go Back</Button></Link>
+                </div>
+            );
+        }
+
+        // Category safety check
+        if (p1.category !== p2.category) {
+            return (
+                <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
+                    <AlertCircle className="w-12 h-12 text-amber-500 mb-4" />
+                    <h1 className="text-xl font-bold mb-2">Incompatible Comparison</h1>
+                    <p className="text-slate-500 mb-6">
+                        Comparing a <strong>{p1.category.replace('_', ' ')}</strong> with a <strong>{p2.category.replace('_', ' ')}</strong> isn't helpful.
+                    </p>
+                    <Link href="/products"><Button variant="outline">Browse {p1.category.replace('_', ' ')}s</Button></Link>
+                </div>
+            );
+        }
+
+        // Generate AI verdict on-the-fly
+        verdict = await getComparisonVerdict(p1, p2);
     }
-
-    // 3. Category Safety: Don't compare Credit Card vs Broker
-    if (p1.category !== p2.category) {
-        return (
-            <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
-                <AlertCircle className="w-12 h-12 text-amber-500 mb-4" />
-                <h1 className="text-xl font-bold mb-2">Incompatible Comparison</h1>
-                <p className="text-slate-500 mb-6">
-                    You are trying to compare a <strong>{p1.category.replace('_', ' ')}</strong> 
-                    with a <strong>{p2.category.replace('_', ' ')}</strong>. 
-                    Please compare products of the same type.
-                </p>
-                <Link href="/products"><Button variant="outline">Browse {p1.category.replace('_', ' ')}s</Button></Link>
-            </div>
-        );
-    }
-
-    // 4. Generate AI Verdict
-    const verdict = await getComparisonVerdict(p1, p2);
 
     return (
         <div className="min-h-screen bg-slate-50 pt-24 pb-20">
             <SEOHead 
-                title={`${p1.name} vs ${p2.name} Comparison (2026): Which is better?`}
-                description={`Side-by-side comparison of ${p1.name} and ${p2.name}. fees, features, rewards, and our expert verdict.`}
+                title={versusPage?.title || `${p1.name} vs ${p2.name} Comparison (2026): Which is better?`}
+                description={versusPage?.meta_description || `Side-by-side comparison of ${p1.name} and ${p2.name}. Features, fees, rewards, and expert verdict.`}
             />
 
             <div className="max-w-6xl mx-auto px-4">
@@ -98,9 +130,19 @@ export default async function VersusPage({
                     <h1 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4 leading-tight">
                         {p1.name} vs {p2.name}
                     </h1>
-                    <div className="flex items-center justify-center gap-4 mt-6">
-                         <Badge className="bg-teal-50 text-teal-700 border-teal-100 px-3">Category: {p1.category.replace('_', ' ')}</Badge>
-                         <Badge variant="outline" className="text-slate-400">Comparison Engine v1.0</Badge>
+                    <div className="flex items-center justify-center gap-4 mt-6 flex-wrap">
+                         <Badge className="bg-teal-50 text-teal-700 border-teal-100 px-3">
+                            Category: {p1.category.replace('_', ' ')}
+                         </Badge>
+                         {isProgrammatic && (
+                            <Badge className="bg-emerald-50 text-emerald-700 border-emerald-100 flex items-center gap-1">
+                                <Sparkles className="w-3 h-3" />
+                                Programmatic SEO
+                            </Badge>
+                         )}
+                         <Badge variant="outline" className="text-slate-400">
+                            Updated {new Date().toLocaleDateString()}
+                         </Badge>
                          <ComparisonPDFButton 
                             targetId="versus-report" 
                             productNames={[p1.name, p2.name]} 
@@ -122,7 +164,7 @@ export default async function VersusPage({
                             </div>
                         </div>
 
-                        {/* Mobile Specs (Accordion style or stacked) - already handled by grid if responsive enough */}
+                        {/* Mobile Specs */}
                         <div className="lg:hidden space-y-6">
                             <ProductSpecs p={p1} />
                             <ProductSpecs p={p2} />
@@ -147,14 +189,27 @@ function ProductSpecs({ p }: { p: any }) {
                 <TrendingUp className="w-5 h-5 text-teal-600" /> {p.name}
             </h3>
             <div className="space-y-4">
-                {Object.entries(p.features).map(([key, val]) => (
+                <div className="flex items-center gap-2 mb-3">
+                    <div className="flex">
+                        {[...Array(5)].map((_, i) => (
+                            <Star 
+                                key={i} 
+                                className={`w-4 h-4 ${i < Math.floor(p.rating || 0) ? 'fill-amber-400 text-amber-400' : 'text-slate-200'}`}
+                            />
+                        ))}
+                    </div>
+                    <span className="text-sm font-semibold">{p.rating}/5</span>
+                </div>
+                
+                {Object.entries(p.features || {}).slice(0, 6).map(([key, val]) => (
                     <div key={key} className="flex justify-between border-b border-slate-50 pb-2">
                         <span className="text-sm text-slate-400 capitalize">{key.replace(/_/g, ' ')}</span>
                         <span className="text-sm font-semibold">{val as string}</span>
                     </div>
                 ))}
+                
                 <div className="pt-4">
-                    <Link href={p.affiliate_link || '#'}>
+                    <Link href={p.official_link || '#'} target="_blank">
                         <Button className="w-full bg-teal-600">Apply for {p.provider_name}</Button>
                     </Link>
                 </div>
