@@ -32,12 +32,20 @@ const loanTypes = [
     { id: 'business', label: 'Business', icon: Briefcase, rate: '12.0%+' },
 ];
 
+import { api } from '@/lib/api';
+import { RichProductCard } from "@/components/products/RichProductCard";
+import { RichProduct } from "@/types/rich-product";
+
 export default function LoansPage() {
     // Calculator State
     const [amount, setAmount] = useState(500000);
     const [tenure, setTenure] = useState(3); // Years
     const [rate, setRate] = useState(10.5);
     const [emi, setEmi] = useState(0);
+    
+    // Product State
+    const [assets, setAssets] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         // EMI Calculation: P * r * (1+r)^n / ((1+r)^n - 1)
@@ -45,6 +53,21 @@ export default function LoansPage() {
         const n = tenure * 12;
         const e = amount * r * (Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1));
         setEmi(Math.round(e));
+
+        // Fetch Loans
+        const loadAssets = async () => {
+            try {
+                // Assuming api.entities.Loan.list() returns products with category='loan'
+                // If not implemented, we can force category filter here if endpoint supports, or rely on implementation
+                 const data = await api.entities.Loan.list(); // Ensure api.ts has Loan.list implemented correctly
+                 setAssets(data || []);
+            } catch (err) {
+                console.error("Failed to load loans", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadAssets();
     }, [amount, tenure, rate]);
 
     const formatRupee = (num: number) => {
@@ -54,6 +77,35 @@ export default function LoansPage() {
             maximumFractionDigits: 0
         }).format(num);
     };
+
+    // Transform to RichProduct
+    const richProducts: RichProduct[] = assets.map(a => ({
+        id: a.id,
+        name: a.name,
+        slug: a.slug,
+        category: 'loan',
+        provider_name: a.provider_name || a.provider || "Lender",
+        image_url: a.image_url,
+        description: a.description || "",
+        rating: {
+           overall: a.rating || 4.2,
+           trust_score: a.trust_score || 90,
+           breakdown: {}
+        },
+        specs: {
+           type: a.metadata?.type || 'Personal Loan'
+        },
+        key_features: a.features 
+            ? Object.entries(a.features).map(([k,v]) => ({ label: k, value: String(v) }))
+            : [],
+        features: a.features || {},
+        pros: a.pros || [],
+        cons: a.cons || [],
+        is_verified: true,
+        updated_at: a.updated_at || new Date().toISOString(),
+        affiliate_link: a.affiliate_link || a.link,
+        official_link: a.official_link
+    }));
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300 font-sans">
@@ -68,7 +120,6 @@ export default function LoansPage() {
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-500/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2 dark:bg-emerald-500/20" />
                     <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3 dark:bg-blue-500/20" />
-                    {/* Grid Pattern */}
                     <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 dark:opacity-5"></div>
                 </div>
 
@@ -196,32 +247,97 @@ export default function LoansPage() {
                 </div>
             </div>
 
-            {/* --- LOAN TYPES GRID --- */}
+            {/* --- MAIN CONTENT & WIDGETS --- */}
             <main className="container mx-auto px-4 py-16">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">Choose Your Solution</h2>
-                    <p className="text-slate-600 dark:text-slate-400">Tailored financial products for every need.</p>
-                </div>
+                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                    
+                    {/* LEFT COLUMN: PRODUCTS */}
+                    <div className="lg:col-span-3 space-y-6">
+                        <div className="flex items-center justify-between mb-2">
+                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Top Loan Offers</h2>
+                        </div>
+                        
+                        {/* Static Categories for filtering (Visual only for now) */}
+                        <div className="flex gap-2 overflow-x-auto pb-4 no-scrollbar">
+                             {loanTypes.map((type) => (
+                                <button key={type.id} className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full text-sm font-semibold hover:border-emerald-500 dark:hover:border-emerald-500 transition-colors whitespace-nowrap">
+                                    <type.icon className="w-4 h-4 text-slate-500" />
+                                    {type.label}
+                                </button>
+                             ))}
+                        </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                    {loanTypes.map((type) => (
-                        <Link href={`/loans?type=${type.id}`} key={type.id}>
-                            <Card className="hover:border-emerald-500 dark:hover:border-emerald-500 transition-all cursor-pointer group hover:-translate-y-1 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
-                                <CardContent className="p-6 flex flex-col items-center text-center">
-                                    <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 group-hover:bg-emerald-50 dark:group-hover:bg-emerald-900/20 flex items-center justify-center mb-4 transition-colors">
-                                        <type.icon className="w-6 h-6 text-slate-600 dark:text-slate-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400" />
+                        {loading ? (
+                             [...Array(3)].map((_, i) => (
+                                <div key={i} className="h-64 w-full bg-slate-100 dark:bg-slate-900 animate-pulse rounded-3xl" />
+                            ))
+                        ) : richProducts.length > 0 ? (
+                            richProducts.map((product) => (
+                                <RichProductCard 
+                                    key={product.id} 
+                                    product={product} 
+                                    layout="list"
+                                />
+                            ))
+                        ) : (
+                            <div className="text-center py-24 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700">
+                                <Search className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+                                <h3 className="text-lg font-medium text-slate-900 dark:text-white">No loan offers found</h3>
+                                <p className="text-slate-500">Check back soon for updated rates.</p>
+                                <Button className="mt-4" variant="outline" asChild>
+                                    <Link href="/admin/products">Admin: Add Loans</Link>
+                                </Button>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* RIGHT SIDEBAR WIDGETS */}
+                    <div className="space-y-8">
+                        
+                        {/* Eligibility Widget (Quick) */}
+                         <Card className="bg-slate-900 text-white rounded-[2rem] overflow-hidden">
+                             <div className="h-1 bg-gradient-to-r from-blue-500 to-purple-500" />
+                            <CardContent className="p-6">
+                                <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
+                                    <CheckCircle2 className="w-5 h-5 text-emerald-400" /> Eligibility Check
+                                </h3>
+                                <div className="space-y-3">
+                                    <div className="space-y-1">
+                                        <label className="text-xs uppercase font-semibold text-slate-400">Monthly Salary</label>
+                                        <Input className="bg-white/10 border-white/10 text-white" placeholder="e.g. 50000" />
                                     </div>
-                                    <div className="font-bold text-slate-900 dark:text-white mb-1">{type.label}</div>
-                                    <div className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">{type.rate}</div>
-                                </CardContent>
-                            </Card>
-                        </Link>
-                    ))}
-                </div>
+                                    <div className="space-y-1">
+                                        <label className="text-xs uppercase font-semibold text-slate-400">Current EMIs</label>
+                                        <Input className="bg-white/10 border-white/10 text-white" placeholder="e.g. 15000" />
+                                    </div>
+                                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700 font-bold mt-2">
+                                        Calculate Amount
+                                    </Button>
+                                </div>
+                            </CardContent>
+                        </Card>
 
-                {/* Additional Sections can go here (Testimonials, Steps etc) */}
-                
+                        {/* Documents Checklist Widget */}
+                        <Card className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem]">
+                            <CardContent className="p-6">
+                                <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4">Required Documents</h3>
+                                <ul className="space-y-3">
+                                    {['PAN Card', 'Aadhaar Card', 'Last 3 Months Salary Slips', '6 Months Bank Statement'].map((doc, i) => (
+                                        <li key={i} className="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
+                                            <div className="w-5 h-5 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 mt-0.5">
+                                                <span className="text-xs font-bold text-slate-500">{i+1}</span>
+                                            </div>
+                                            {doc}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </CardContent>
+                        </Card>
+
+                    </div>
+                 </div>
             </main>
         </div>
     );
 }
+

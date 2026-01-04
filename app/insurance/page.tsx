@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Shield,
     Heart,
@@ -16,7 +16,8 @@ import {
     Home,
     Zap,
     Target,
-    ArrowRight
+    ArrowRight,
+    Search
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/Button";
@@ -33,9 +34,17 @@ const insuranceTypes = [
     { id: 'travel', label: 'Travel', icon: Plane, color: 'teal' },
 ];
 
+import { api } from '@/lib/api';
+import { RichProductCard } from "@/components/products/RichProductCard";
+import { RichProduct } from "@/types/rich-product";
+
 export default function InsurancePage() {
     const [protectionScore, setProtectionScore] = useState(0);
     const [hasCalculated, setHasCalculated] = useState(false);
+
+    // Dynamic Data State
+    const [assets, setAssets] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
 
     // Simple quiz state
     const [answers, setAnswers] = useState({
@@ -45,6 +54,22 @@ export default function InsurancePage() {
         hasDependents: false,
         hasHome: false
     });
+
+    useEffect(() => {
+        const loadAssets = async () => {
+            try {
+                // Fetch Insurance Products via Generic or specific
+                // api.entities.Insurance doesn't exist? Use Generic product fetch
+                 const data = await api.entities.Insurance?.list() || [];
+                 setAssets(data);
+            } catch (err) {
+                 // Fallback or silence
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadAssets();
+    }, []);
 
     const calculateProtectionScore = () => {
         let score = 0;
@@ -69,6 +94,36 @@ export default function InsurancePage() {
         if (score >= 50) return { text: 'Moderately Protected', color: 'yellow', icon: AlertTriangle };
         return { text: 'Needs Urgent Attention', color: 'red', icon: AlertTriangle };
     };
+
+    // Transform to RichProduct
+    const richProducts: RichProduct[] = assets.map(a => ({
+        id: a.id,
+        name: a.name,
+        slug: a.slug,
+        category: 'insurance',
+        provider_name: a.provider || "Insurer",
+        image_url: a.image_url,
+        description: a.description || "",
+        rating: {
+           overall: a.rating || 4.0,
+           trust_score: a.trust_score || 92,
+           breakdown: {}
+        },
+        specs: {
+           type: a.metadata?.type || 'Term Life'
+        },
+        key_features: a.features 
+            ? Object.entries(a.features).map(([k,v]) => ({ label: k, value: String(v) }))
+            : [],
+        features: a.features || {},
+        pros: a.pros || [],
+        cons: a.cons || [],
+        is_verified: true,
+        updated_at: a.updated_at || new Date().toISOString(),
+        affiliate_link: a.affiliate_link || a.link,
+        official_link: a.official_link
+    }));
+
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
@@ -169,6 +224,7 @@ export default function InsurancePage() {
                                     })()}
                                 </CardHeader>
 
+                                {/* Quiz Content */}
                                 <CardContent className="p-8 pt-0">
                                     {!hasCalculated ? (
                                         <div className="space-y-4">
@@ -215,7 +271,7 @@ export default function InsurancePage() {
                                         </div>
                                     ) : (
                                         <div className="space-y-4">
-                                            <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-6">
+                                             <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-6">
                                                 <h4 className="font-bold text-slate-900 dark:text-white mb-3">Recommended Actions:</h4>
                                                 <ul className="space-y-2">
                                                     {!answers.hasHealthInsurance && (
@@ -238,14 +294,11 @@ export default function InsurancePage() {
                                                     )}
                                                 </ul>
                                             </div>
-                                            
-                                            <Button className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl">
-                                                View Recommended Plans
-                                                <ArrowRight className="w-4 h-4 ml-2" />
-                                            </Button>
-                                            
-                                            <button
-                                                onClick={() => {
+                                            <div className="flex gap-2">
+                                                <Button className="flex-1 h-12 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl" onClick={() => setHasCalculated(false)}>
+                                                    View Plans
+                                                </Button>
+                                                <Button variant="outline" className="h-12 border-slate-200 dark:border-slate-700" onClick={() => {
                                                     setHasCalculated(false);
                                                     setProtectionScore(0);
                                                     setAnswers({
@@ -255,11 +308,10 @@ export default function InsurancePage() {
                                                         hasDependents: false,
                                                         hasHome: false
                                                     });
-                                                }}
-                                                className="w-full text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 underline"
-                                            >
-                                                Retake Quiz
-                                            </button>
+                                                }}>
+                                                    Retake Quiz
+                                                </Button>
+                                            </div>
                                         </div>
                                     )}
                                 </CardContent>
@@ -269,55 +321,76 @@ export default function InsurancePage() {
                 </div>
             </div>
 
-            {/* --- INSURANCE TYPES GRID --- */}
+            {/* --- MAIN CONTENT & WIDGETS --- */}
             <main className="container mx-auto px-4 py-16">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">Choose Your Shield</h2>
-                    <p className="text-slate-600 dark:text-slate-400">Tailored protection for every life stage.</p>
-                </div>
-
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-24">
-                    {insuranceTypes.map((type) => (
-                        <Link href={`/insurance?type=${type.id}`} key={type.id}>
-                            <Card className={`hover:border-${type.color}-500 dark:hover:border-${type.color}-500 transition-all cursor-pointer group hover:-translate-y-1 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800`}>
-                                <CardContent className="p-6 flex flex-col items-center text-center">
-                                    <div className={`w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 group-hover:bg-${type.color}-50 dark:group-hover:bg-${type.color}-900/20 flex items-center justify-center mb-4 transition-colors`}>
-                                        <type.icon className={`w-6 h-6 text-slate-600 dark:text-slate-400 group-hover:text-${type.color}-600 dark:group-hover:text-${type.color}-400`} />
-                                    </div>
-                                    <div className="font-bold text-slate-900 dark:text-white mb-1">{type.label}</div>
-                                    <div className={`text-xs text-${type.color}-600 dark:text-${type.color}-400 font-semibold`}>From ₹399/mo</div>
-                                </CardContent>
-                            </Card>
-                        </Link>
-                    ))}
-                </div>
-
-                {/* Claim Settlement Transparency */}
-                <Card className="bg-gradient-to-br from-slate-900 to-slate-800 dark:from-slate-950 dark:to-slate-900 text-white border-0 rounded-[2.5rem] overflow-hidden">
-                    <CardContent className="p-12">
-                        <div className="flex items-center gap-3 mb-8">
-                            <Zap className="w-8 h-8 text-yellow-400" />
-                            <h2 className="text-3xl font-bold">Why We're Different</h2>
+                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                     {/* LEFT COLUMN: PRODUCTS */}
+                    <div className="lg:col-span-3 space-y-6">
+                        <div className="flex items-center justify-between mb-2">
+                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Recommended Plans</h2>
                         </div>
-                        <div className="grid md:grid-cols-3 gap-8">
-                            <div>
-                                <ShieldCheck className="w-12 h-12 text-emerald-400 mb-4" />
-                                <h3 className="text-xl font-bold mb-2">95% Claim Settlement Ratio</h3>
-                                <p className="text-slate-400">We only list insurers with proven track records. No spam, no hidden clauses.</p>
-                            </div>
-                            <div>
-                                <Target className="w-12 h-12 text-blue-400 mb-4" />
-                                <h3 className="text-xl font-bold mb-2">Protection Score First</h3>
-                                <p className="text-slate-400">We help you understand your gaps before selling you anything.</p>
-                            </div>
-                            <div>
-                                <TrendingUp className="w-12 h-12 text-purple-400 mb-4" />
-                                <h3 className="text-xl font-bold mb-2">Save up to ₹14,000/year</h3>
-                                <p className="text-slate-400">Compare apples-to-apples. No jargon, just real savings.</p>
-                            </div>
+                        
+                        {/* Static Categories */}
+                        <div className="flex gap-2 overflow-x-auto pb-4 no-scrollbar">
+                             {insuranceTypes.map((type) => (
+                                <button key={type.id} className={`flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full text-sm font-semibold transition-colors whitespace-nowrap hover:border-${type.color}-500 dark:hover:border-${type.color}-500`}>
+                                    <type.icon className="w-4 h-4 text-slate-500" />
+                                    {type.label}
+                                </button>
+                             ))}
                         </div>
-                    </CardContent>
-                </Card>
+
+                        {loading ? (
+                             [...Array(3)].map((_, i) => (
+                                <div key={i} className="h-64 w-full bg-slate-100 dark:bg-slate-900 animate-pulse rounded-3xl" />
+                            ))
+                        ) : richProducts.length > 0 ? (
+                            richProducts.map((product) => (
+                                <RichProductCard 
+                                    key={product.id} 
+                                    product={product} 
+                                    layout="list"
+                                />
+                            ))
+                        ) : (
+                            <div className="text-center py-24 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700">
+                                <Search className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+                                <h3 className="text-lg font-medium text-slate-900 dark:text-white">No insurance plans found</h3>
+                                <p className="text-slate-500">Contact admin to add providers.</p>
+                                <Button className="mt-4" variant="outline" asChild>
+                                    <Link href="/admin/products">Admin: Add Plans</Link>
+                                </Button>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* RIGHT SIDEBAR WIDGETS */}
+                    <div className="space-y-8">
+                         {/* Claim Settlement Widget */}
+                        <Card className="bg-gradient-to-br from-slate-900 to-slate-800 dark:from-slate-950 dark:to-slate-900 text-white border-0 rounded-[2rem] overflow-hidden">
+                            <CardContent className="p-6">
+                                <ShieldCheck className="w-8 h-8 text-emerald-400 mb-4" />
+                                <h3 className="text-xl font-bold mb-2">95% Claim Ratio</h3>
+                                <p className="text-slate-400 text-sm mb-4">We only list insurers with proven track records.</p>
+                            </CardContent>
+                        </Card>
+
+                         {/* Human Life Value Mini Widget */}
+                        <Card className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem]">
+                            <CardContent className="p-6">
+                                <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                                     <Heart className="w-5 h-5 text-rose-500" /> Life Cover Needed?
+                                </h3>
+                                <div className="space-y-3">
+                                    <p className="text-xs text-slate-500">Rule of Thumb: 15x Annual Income</p>
+                                    <Button className="w-full bg-rose-600 hover:bg-rose-700 font-bold" variant="outline">
+                                        Check Calculator
+                                    </Button>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </div>
+                 </div>
             </main>
         </div>
     );

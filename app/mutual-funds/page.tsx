@@ -300,6 +300,26 @@ export default function MutualFundsPage() {
                                     </SelectContent>
                                 </Select>
                             </div>
+
+                            {/* SIP Quick Check Widget */}
+                            <div className="pt-6 border-t border-slate-100">
+                                <Link href="/calculators/sip">
+                                <div className="bg-emerald-50 rounded-2xl p-6 cursor-pointer hover:bg-emerald-100 transition-colors group">
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <div className="p-2 bg-emerald-500 rounded-lg text-white">
+                                            <TrendingUp className="w-4 h-4" />
+                                        </div>
+                                        <span className="font-bold text-slate-900 text-sm">SIP Check</span>
+                                    </div>
+                                    <p className="text-xs text-slate-600 mb-3 leading-relaxed">
+                                        Calculate future returns for your monthly investment.
+                                    </p>
+                                    <div className="text-xs font-bold text-emerald-700 flex items-center group-hover:gap-2 transition-all">
+                                        Open Calculator <ArrowUpRight className="w-3 h-3 ml-1" />
+                                    </div>
+                                </div>
+                                </Link>
+                            </div>
                         </div>
                     </Card>
 

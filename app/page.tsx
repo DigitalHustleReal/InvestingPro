@@ -9,6 +9,8 @@ import TrustSection from "@/components/home/TrustSection";
 import SEOHead from "@/components/common/SEOHead";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
 
+import CategoryDiscovery from "@/components/home/CategoryDiscovery";
+
 export default function Home() {
     const structuredData = {
         "@context": "https://schema.org",
@@ -40,10 +42,13 @@ export default function Home() {
             {/* Section 3: Quick Tools */}
             <QuickToolsSection />
 
-            {/* Section 3: Featured Products */}
+            {/* Section 4: Featured Products */}
             <FeaturedProducts />
 
-            {/* Section 5: Latest Articles */}
+             {/* Section 5: Discovery Grid */}
+            <CategoryDiscovery />
+
+            {/* Section 6: Latest Articles */}
             <LatestInsights />
 
             {/* Section 6: Trust */}
