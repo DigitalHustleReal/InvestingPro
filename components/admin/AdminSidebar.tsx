@@ -24,7 +24,8 @@ import {
     Package,
     Factory, // Added Factory icon
     FlaskConical,
-    Shield
+    Shield,
+    Users
 } from 'lucide-react';
 
 interface NavItem {
@@ -44,6 +45,7 @@ const navSections: NavSection[] = [
         title: 'CONTENT',
         items: [
             { label: 'Articles', href: '/admin/articles', icon: FileText },
+            { label: 'Authors', href: '/admin/authors', icon: Users },
             { label: 'Pages', href: '/admin/pages', icon: File },
             { label: 'Categories', href: '/admin/categories', icon: Tag },
             { label: 'Tags', href: '/admin/tags', icon: Tag },
