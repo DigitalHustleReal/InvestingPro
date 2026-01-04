@@ -178,10 +178,10 @@ export default function AdminSidebar() {
             <div className="p-4 border-t border-white/5 bg-slate-900/50 backdrop-blur-md">
                 <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group">
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-slate-800 to-slate-700 border border-white/10 flex items-center justify-center text-slate-300 text-sm font-bold shadow-inner group-hover:border-indigo-500/50 transition-colors">
-                        JD
+                        DH
                     </div>
                     <div className="flex-1 overflow-hidden">
-                        <p className="text-sm font-bold text-white truncate">John Doe</p>
+                        <p className="text-sm font-bold text-white truncate">Digital Hustle</p>
                         <p className="text-[10px] text-slate-500 truncate font-medium uppercase tracking-wider">Super Admin</p>
                     </div>
                     <div className="w-2 h-2 rounded-full bg-primary-500 shadow-[0_0_8px_#10b981]" />
