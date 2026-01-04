@@ -73,110 +73,76 @@ interface MutualFundDetail {
   }
 }
 
-// This would normally come from database or API
+import { getProductBySlug } from '@/lib/products/server-service'
+
 async function getMutualFundData(slug: string): Promise<MutualFundDetail | null> {
-  // TODO: Replace with actual database query
-  const mockFunds: Record<string, MutualFundDetail> = {
-    'axis-bluechip-fund': {
-      id: 'axis-bluechip-fund',
-      name: 'Axis Bluechip Fund',
-      amc: 'Axis Mutual Fund',
-      category: 'Equity',
-      subCategory: 'Large Cap',
-      nav: 45.32,
-      rating: 4.5,
-      riskLevel: 'moderate',
-      expenseRatio: 0.48,
-      exitLoad: '1% if redeemed within 1 year',
-      minInvestment: 5000,
-      sipMinInvestment: 500,
-      
-      returns: {
-        '1Y': 24.5,
-        '3Y': 18.7,
-        '5Y': 16.3,
-        '10Y': 14.8,
-        sinceInception: 15.2
-      },
-      
-      aum: 35000, // in crores
-      launchDate: '2010-01-01',
-      benchmarkName: 'Nifty 50 TRI',
-      benchmarkReturns: {
-        '1Y': 22.3,
-        '3Y': 16.5,
-        '5Y': 14.2
-      },
-      
-      description: 'A large-cap equity fund that invests primarily in blue-chip companies with strong fundamentals. Suitable for long-term wealth creation with moderate risk.',
-      applyLink: 'https://www.axismf.com/schemes/axis-bluechip-fund',
-      
-      investmentObjective: 'To generate long-term capital appreciation by investing predominantly in equity and equity-related securities of large-cap companies.',
-      
-      portfolioHoldings: {
-        topStocks: [
-          { name: 'HDFC Bank', weight: 8.5 },
-          { name: 'ICICI Bank', weight: 7.2 },
-          { name: 'Infosys', weight: 6.8 },
-          { name: 'Reliance Industries', weight: 6.5 },
-          { name: 'TCS', weight: 5.9 }
-        ],
-        sectorAllocation: [
-          { sector: 'Financial Services', weight: 35.2 },
-          { sector: 'Information Technology', weight: 22.5 },
-          { sector: 'Consumer Goods', weight: 12.3 },
-          { sector: 'Energy', weight: 9.8 },
-          { sector: 'Healthcare', weight: 7.6 }
-        ],
-        assetAllocation: [
-          { type: 'Equity', weight: 95.5 },
-          { type: 'Debt & Cash', weight: 4.5 }
-        ]
-      },
-      
-      keyFeatures: [
-        'Invests in well-established large-cap companies',
-        'Diversified portfolio across sectors',
-        'Experienced fund management team',
-        'Consistent performance vs. benchmark',
-        'Suitable for SIP investments',
-        'Low expense ratio (0.48%)'
-      ],
-      
-      suitableFor: [
-        'Long-term investors (5+ years)',
-        'First-time mutual fund investors',
-        'Those seeking steady capital appreciation',
-        'SIP investors looking for disciplined investing',
-        'Moderate risk takers'
-      ],
-      
-      taxBenefits: 'Long-term capital gains (LTCG) above ₹1 lakh taxed at 10%. Short-term capital gains (STCG) taxed at 15%.',
-      
-      pros: [
-        'Consistent outperformance vs. Nifty 50',
-        'Low expense ratio compared to category average',
-        'Well-diversified portfolio with quality stocks',
-        'Strong track record since inception',
-        'Experienced fund manager with 15+ years experience'
-      ],
-      
-      cons: [
-        'Returns may be volatile in short term',
-        '1% exit load if redeemed within 1 year',
-        'Limited exposure to mid/small-cap opportunities',
-        'Concentrated in top 10 holdings (45%+)',
-        'Market risk remains moderate to high'
-      ],
-      
-      fundManager: {
-        name: 'Shreyash Devalkar',
-        experience: 15
-      }
-    }
-  }
+  const product = await getProductBySlug(slug);
+  if (!product || product.category !== 'mutual_fund') return null;
+
+  const features = product.features || {};
   
-  return mockFunds[slug] || null
+  return {
+    id: product.id,
+    name: product.name,
+    amc: product.provider_name,
+    category: features.category || 'Equity',
+    subCategory: features.sub_category || 'Large Cap',
+    nav: parseFloat(features.nav || '0'),
+    rating: product.rating,
+    riskLevel: (features.risk_level?.toLowerCase() as any) || 'high',
+    expenseRatio: parseFloat(features.expense_ratio || '0'),
+    exitLoad: features.exit_load || '1% for 1 year',
+    minInvestment: parseInt(features.min_lumpsum || '5000'),
+    sipMinInvestment: parseInt(features.min_sip || '500'),
+    
+    returns: {
+      '1Y': parseFloat(features.returns_1y || '0'),
+      '3Y': parseFloat(features.returns_3y || '0'),
+      '5Y': parseFloat(features.returns_5y || '0'),
+      '10Y': features.returns_10y ? parseFloat(features.returns_10y) : undefined,
+      sinceInception: parseFloat(features.returns_inception || '0')
+    },
+    
+    aum: parseInt(features.aum_crores || '0'),
+    launchDate: features.launch_date || '2010-01-01',
+    benchmarkName: features.benchmark || 'Nifty 50 TRI',
+    benchmarkReturns: {
+      '1Y': parseFloat(features.benchmark_1y || '0'),
+      '3Y': parseFloat(features.benchmark_3y || '0'),
+      '5Y': parseFloat(features.benchmark_5y || '0')
+    },
+    
+    description: product.description || '',
+    applyLink: product.affiliate_link || product.official_link || '#',
+    
+    investmentObjective: features.objective || 'To generate long-term capital appreciation.',
+    
+    portfolioHoldings: features.portfolio_holdings || {
+      topStocks: features.top_holdings || [],
+      sectorAllocation: features.sector_allocation || [],
+      assetAllocation: features.asset_allocation || [
+        { type: 'Equity', weight: 95 },
+        { type: 'Cash', weight: 5 }
+      ]
+    },
+    
+    keyFeatures: features.key_highlights || product.pros.slice(0, 5) || [],
+    suitableFor: features.suitability || [
+      'Long term investors',
+      'Investors seeking growth',
+      'SIP investors'
+    ],
+    
+    taxBenefits: features.tax_implication || 'LTCG applies for gains above 1L.',
+    
+    pros: product.pros,
+    cons: product.cons,
+    
+    fundManager: {
+      name: features.manager_name || 'Expert Manager',
+      experience: parseInt(features.manager_exp || '10')
+    }
+  };
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {

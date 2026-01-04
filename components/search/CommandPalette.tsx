@@ -7,17 +7,28 @@ import { cn } from '@/lib/utils';
 
 interface SearchResult {
     id: string;
+    type: 'article' | 'product' | 'tool';
     title: string;
     slug: string;
     excerpt: string;
     category: string;
-    tags: string[];
+    url: string;
+    image_url?: string;
+    featured_image?: string;
+    provider?: string;
 }
 
 interface CommandPaletteProps {
     isOpen: boolean;
     onClose: () => void;
 }
+
+const SUGGESTIONS = [
+    { label: 'Credit Cards', query: 'credit card' },
+    { label: 'Mutual Funds', query: 'mutual fund' },
+    { label: 'SIP Calculator', query: 'sip' },
+    { label: 'Market Outlook', query: 'market outlook' }
+];
 
 export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
     const router = useRouter();
@@ -31,7 +42,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
     // Focus input when opened
     useEffect(() => {
         if (isOpen) {
-            inputRef.current?.focus();
+            setTimeout(() => inputRef.current?.focus(), 100);
             fetchTrending();
         } else {
             setQuery('');
@@ -43,22 +54,12 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
     // Keyboard shortcuts
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            // Open with Cmd/Ctrl + K
-            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-                e.preventDefault();
-                if (!isOpen) {
-                    // This assumes parent manages open state
-                }
-            }
-
             if (!isOpen) return;
 
-            // Close with Escape
             if (e.key === 'Escape') {
                 onClose();
             }
 
-            // Navigate results
             const items = results.length > 0 ? results : trending;
             if (e.key === 'ArrowDown') {
                 e.preventDefault();
@@ -72,7 +73,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                 e.preventDefault();
                 const item = items[selectedIndex];
                 if (item) {
-                    navigateToArticle(item.slug);
+                    navigateToResult(item.url);
                 }
             }
         };
@@ -97,7 +98,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
 
     const fetchTrending = async () => {
         try {
-            const response = await fetch('/api/search?type=trending&limit=5');
+            const response = await fetch('/api/search?type=trending&limit=4');
             const data = await response.json();
             setTrending(data.results || []);
         } catch (error) {
@@ -119,54 +120,79 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
         }
     };
 
-    const navigateToArticle = (slug: string) => {
-        router.push(`/articles/${slug}`);
+    const navigateToResult = (url: string) => {
+        router.push(url);
         onClose();
     };
 
     if (!isOpen) return null;
 
     const displayItems = results.length > 0 ? results : trending;
-    const showTrending = results.length === 0 && query.length < 2;
+    const showSuggestions = results.length === 0 && query.length < 2 && trending.length === 0;
+
+    const getIcon = (item: SearchResult) => {
+        if (item.type === 'product') return <TrendingUp className="w-5 h-5 text-emerald-400" />;
+        if (item.type === 'tool') return <Loader2 className="w-5 h-5 text-amber-400" />;
+        return <FileText className="w-5 h-5 text-indigo-400" />;
+    };
 
     return (
         <>
             {/* Backdrop */}
             <div 
-                className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 animate-in fade-in duration-200"
+                className="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-[100] animate-in fade-in duration-300"
                 onClick={onClose}
             />
 
             {/* Palette */}
-            <div className="fixed left-1/2 top-[15%] -translate-x-1/2 w-full max-w-2xl z-50 animate-in slide-in-from-top-4 fade-in duration-300">
-                <div className="bg-slate-900 border border-white/10 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden">
+            <div className="fixed left-1/2 top-[12%] -translate-x-1/2 w-[95%] max-w-2xl z-[101] animate-in zoom-in-95 slide-in-from-top-8 fade-in duration-300">
+                <div className="bg-slate-900/90 border border-white/10 rounded-2xl shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] backdrop-blur-xl overflow-hidden ring-1 ring-white/5">
+                    
                     {/* Search Input */}
-                    <div className="flex items-center gap-4 px-6 py-4 border-b border-white/5">
-                        <Search className="w-5 h-5 text-slate-400" />
+                    <div className="relative flex items-center gap-4 px-6 py-5 border-b border-white/10 group">
+                        <div className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent opacity-0 group-focus-within:opacity-100 transition-opacity" />
+                        
+                        <Search className="w-6 h-6 text-slate-400 group-focus-within:text-indigo-400 transition-colors" />
                         <input
                             ref={inputRef}
                             type="text"
-                            placeholder="Search articles, guides, topics..."
+                            placeholder="Search products, articles, or tools..."
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                            className="flex-1 bg-transparent text-white text-lg placeholder-slate-500 focus:outline-none"
+                            className="flex-1 bg-transparent text-white text-xl placeholder-slate-500 focus:outline-none font-light"
                         />
-                        {isLoading && <Loader2 className="w-5 h-5 text-indigo-400 animate-spin" />}
-                        <button 
-                            onClick={onClose}
-                            className="p-1.5 rounded-lg hover:bg-white/5 text-slate-400 hover:text-white transition-colors"
-                        >
-                            <X className="w-5 h-5" />
-                        </button>
+                        
+                        {isLoading ? (
+                            <Loader2 className="w-5 h-5 text-indigo-400 animate-spin" />
+                        ) : (
+                            <div className="hidden sm:flex items-center gap-1 px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] font-mono text-slate-500">
+                                <span>ESC</span>
+                            </div>
+                        )}
                     </div>
 
-                    {/* Results */}
-                    <div className="max-h-[400px] overflow-y-auto">
-                        {showTrending && trending.length > 0 && (
-                            <div className="px-4 py-3">
-                                <div className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 px-2">
-                                    <TrendingUp className="w-3 h-3" />
-                                    Trending
+                    {/* Content Area */}
+                    <div className="max-h-[480px] overflow-y-auto scrollbar-thin scrollbar-thumb-white/10">
+                        {/* Suggestions Header */}
+                        {!query && trending.length > 0 && (
+                            <div className="px-6 pt-4 pb-2">
+                                <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Trending Now</h3>
+                            </div>
+                        )}
+
+                        {query.length < 2 && results.length === 0 && (
+                            <div className="px-4 pb-4">
+                                <div className="grid grid-cols-2 gap-2 mt-2">
+                                    {SUGGESTIONS.map((s) => (
+                                        <button
+                                            key={s.label}
+                                            onClick={() => setQuery(s.query)}
+                                            className="px-4 py-3 rounded-xl bg-white/5 border border-white/5 hover:border-indigo-500/30 hover:bg-indigo-500/5 text-left transition-all group/s"
+                                        >
+                                            <div className="text-xs font-semibold text-slate-300 group-hover/s:text-white transition-colors">{s.label}</div>
+                                            <div className="text-[10px] text-slate-500 mt-0.5">Quick Search</div>
+                                        </button>
+                                    ))}
                                 </div>
                             </div>
                         )}
@@ -176,70 +202,92 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                                 {displayItems.map((item, index) => (
                                     <button
                                         key={item.id}
-                                        onClick={() => navigateToArticle(item.slug)}
+                                        onClick={() => navigateToResult(item.url)}
                                         onMouseEnter={() => setSelectedIndex(index)}
                                         className={cn(
-                                            "w-full text-left px-4 py-3 rounded-xl flex items-start gap-4 transition-colors",
+                                            "w-full text-left px-4 py-3 rounded-xl flex items-start gap-4 transition-all duration-200 group/item",
                                             selectedIndex === index 
-                                                ? "bg-indigo-500/20 text-white" 
-                                                : "text-slate-300 hover:bg-white/5"
+                                                ? "bg-indigo-500/10 ring-1 ring-indigo-500/20" 
+                                                : "hover:bg-white/5"
                                         )}
                                     >
                                         <div className={cn(
-                                            "w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5",
-                                            selectedIndex === index 
-                                                ? "bg-indigo-500/30" 
-                                                : "bg-white/5"
+                                            "w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300",
+                                            selectedIndex === index ? "bg-indigo-500/20 scale-110" : "bg-white/5",
+                                            item.type === 'product' && selectedIndex === index && "bg-emerald-500/20",
+                                            item.type === 'tool' && selectedIndex === index && "bg-amber-500/20"
                                         )}>
-                                            <FileText className={cn(
-                                                "w-5 h-5",
-                                                selectedIndex === index ? "text-indigo-400" : "text-slate-500"
-                                            )} />
+                                            {item.image_url || item.featured_image ? (
+                                                <img 
+                                                    src={item.image_url || item.featured_image} 
+                                                    alt="" 
+                                                    className="w-full h-full object-cover rounded-xl"
+                                                />
+                                            ) : getIcon(item)}
                                         </div>
-                                        <div className="flex-1 min-w-0">
-                                            <div className="font-semibold line-clamp-1">{item.title}</div>
-                                            <div className="text-xs text-slate-500 line-clamp-1 mt-1">
-                                                {item.excerpt}
-                                            </div>
-                                            <div className="flex items-center gap-2 mt-2">
-                                                <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-slate-400 capitalize">
-                                                    {item.category?.replace(/-/g, ' ')}
+
+                                        <div className="flex-1 min-w-0 py-0.5">
+                                            <div className="flex items-center gap-2">
+                                                <span className="font-semibold text-slate-100 group-hover/item:text-white transition-colors">
+                                                    {item.title}
+                                                </span>
+                                                <span className={cn(
+                                                    "text-[9px] px-1.5 py-0.5 rounded-full uppercase tracking-wider font-bold",
+                                                    item.type === 'product' ? "bg-emerald-500/10 text-emerald-400" :
+                                                    item.type === 'tool' ? "bg-amber-500/10 text-amber-400" :
+                                                    "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
+                                                )}>
+                                                    {item.type}
                                                 </span>
                                             </div>
+                                            
+                                            {item.provider && (
+                                                <div className="text-[10px] text-indigo-400/80 font-medium mt-0.5">{item.provider}</div>
+                                            )}
+
+                                            <div className="text-xs text-slate-500 line-clamp-1 mt-1 font-light leading-relaxed">
+                                                {item.excerpt}
+                                            </div>
                                         </div>
-                                        <ArrowRight className={cn(
-                                            "w-4 h-4 flex-shrink-0 mt-3 transition-transform",
-                                            selectedIndex === index ? "text-indigo-400 translate-x-1" : "text-slate-600"
-                                        )} />
+
+                                        <div className={cn(
+                                            "w-8 h-8 rounded-full border border-white/5 flex items-center justify-center transition-all duration-300 opacity-0 group-hover/item:opacity-100",
+                                            selectedIndex === index && "translate-x-0 opacity-100 bg-indigo-500/20 border-indigo-500/30"
+                                        )}>
+                                            <ArrowRight className={cn(
+                                                "w-4 h-4",
+                                                selectedIndex === index ? "text-indigo-400" : "text-slate-600"
+                                            )} />
+                                        </div>
                                     </button>
                                 ))}
                             </div>
                         ) : query.length >= 2 && !isLoading ? (
-                            <div className="py-12 text-center text-slate-500">
-                                <Search className="w-8 h-8 mx-auto mb-3 text-slate-600" />
-                                <p className="text-sm font-medium">No results found for "{query}"</p>
-                                <p className="text-xs mt-1">Try different keywords</p>
+                            <div className="py-20 text-center animate-in fade-in zoom-in-95 duration-500">
+                                <Search className="w-12 h-12 mx-auto mb-4 text-slate-700 stroke-[1]" />
+                                <p className="text-lg font-light text-slate-300">Nothing found for "{query}"</p>
+                                <p className="text-sm text-slate-500 mt-2">Try searching for 'hdfc', 'sip', or 'mutual funds'</p>
                             </div>
                         ) : null}
                     </div>
 
-                    {/* Footer */}
-                    <div className="px-6 py-3 border-t border-white/5 flex items-center justify-between text-xs text-slate-500">
-                        <div className="flex items-center gap-4">
-                            <span className="flex items-center gap-1">
-                                <kbd className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 font-mono">↑</kbd>
-                                <kbd className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 font-mono">↓</kbd>
-                                to navigate
-                            </span>
-                            <span className="flex items-center gap-1">
-                                <kbd className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 font-mono">↵</kbd>
-                                to open
-                            </span>
+                    {/* Footer Nav Hints */}
+                    <div className="px-6 py-4 bg-black/20 border-t border-white/5 backdrop-blur-md flex items-center justify-between">
+                        <div className="flex items-center gap-6">
+                            <div className="flex items-center gap-2 text-[10px] text-slate-500">
+                                <kbd className="flex items-center justify-center w-5 h-5 rounded border border-white/10 bg-white/5 text-slate-400">↑↓</kbd>
+                                <span>Navigate</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-[10px] text-slate-500">
+                                <kbd className="flex items-center justify-center w-8 h-5 rounded border border-white/10 bg-white/5 text-slate-400">↵</kbd>
+                                <span>Select</span>
+                            </div>
                         </div>
-                        <span className="flex items-center gap-1">
-                            <kbd className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 font-mono">esc</kbd>
-                            to close
-                        </span>
+                        
+                        <div className="flex items-center gap-2 text-[10px] text-slate-300 font-medium px-2 py-1 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/10">
+                            <Clock className="w-3 h-3" />
+                            <span>Quick Access</span>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -197,6 +197,19 @@ export function Footer() {
                                 ))}
                             </ul>
                         </div>
+                        <div className="mt-8">
+                            <h4 className="text-white font-bold tracking-wide mb-4">Business & Taxes</h4>
+                            <ul className="space-y-2">
+                                {[
+                                    { name: "Income Tax Hub", href: "/taxes" },
+                                    { name: "Small Business Finance", href: "/small-business" },
+                                ].map((link, i) => (
+                                    <li key={i}>
+                                        <Link href={link.href} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
 
                     {/* FAT COLUMN 2: Tools & Knowledge */}

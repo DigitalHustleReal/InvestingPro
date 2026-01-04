@@ -4,18 +4,18 @@ import { logger } from '@/lib/logger';
 
 export interface SearchResult {
     id: string;
+    type: 'article' | 'product' | 'tool';
     title: string;
     slug: string;
     excerpt: string;
     category: string;
     tags: string[];
-    published_at: string;
+    published_at?: string;
     featured_image?: string;
+    image_url?: string;
     relevance: number;
-    highlight?: {
-        title?: string;
-        excerpt?: string;
-    };
+    url: string;
+    provider?: string;
 }
 
 export interface SearchOptions {
@@ -36,100 +36,106 @@ class SearchService {
     private supabase = createClient();
 
     /**
-     * Search articles using text matching
+     * Search across articles and products
      */
     async search(query: string, options: SearchOptions = {}): Promise<SearchResponse> {
-        const { limit = 10, category, sortBy = 'relevance' } = options;
+        const { limit = 10, category } = options;
         
         if (!query || query.length < 2) {
             return { results: [], total: 0, query, suggestions: await this.getSuggestions() };
         }
 
         try {
-            // Build the search query
-            let baseQuery = this.supabase
+            const queryLower = query.toLowerCase();
+            const searchTerms = queryLower.split(' ').filter(t => t.length > 1);
+
+            // 1. Search Articles
+            let articleQuery = this.supabase
                 .from('articles')
                 .select('id, title, slug, excerpt, category, tags, published_at, featured_image, views')
                 .eq('status', 'published')
-                .not('published_at', 'is', null);
+                .or(`title.ilike.%${query}%,excerpt.ilike.%${query}%`)
+                .limit(limit);
 
-            // Category filter
-            if (category) {
-                baseQuery = baseQuery.eq('category', category);
-            }
+            if (category) articleQuery = articleQuery.eq('category', category);
 
-            // Text search - use ilike for flexible matching
-            // Search in title, excerpt, and tags
-            const searchTerms = query.toLowerCase().split(' ').filter(t => t.length > 1);
-            
-            // For simple implementation, search title and excerpt
-            baseQuery = baseQuery.or(
-                `title.ilike.%${query}%,excerpt.ilike.%${query}%`
-            );
+            // 2. Search Products
+            let productQuery = this.supabase
+                .from('products')
+                .select('id, name, slug, description, category, provider_name, image_url')
+                .eq('is_active', true)
+                .or(`name.ilike.%${query}%,description.ilike.%${query}%,provider_name.ilike.%${query}%`)
+                .limit(limit);
 
-            // Sort
-            if (sortBy === 'date') {
-                baseQuery = baseQuery.order('published_at', { ascending: false });
-            } else if (sortBy === 'views') {
-                baseQuery = baseQuery.order('views', { ascending: false });
-            } else {
-                // Relevance - prioritize title matches
-                baseQuery = baseQuery.order('published_at', { ascending: false });
-            }
+            const [articleRes, productRes] = await Promise.all([articleQuery, productQuery]);
 
-            baseQuery = baseQuery.limit(limit);
+            const results: SearchResult[] = [];
 
-            const { data: articles, error } = await baseQuery;
-
-            if (error) {
-                logger.error('Search query failed', error);
-                return { results: [], total: 0, query };
-            }
-
-            // Calculate relevance and highlight matches
-            const results: SearchResult[] = (articles || []).map(article => {
-                let relevance = 0;
-                const titleLower = article.title?.toLowerCase() || '';
-                const excerptLower = article.excerpt?.toLowerCase() || '';
-                const queryLower = query.toLowerCase();
-
-                // Title exact match - highest relevance
-                if (titleLower.includes(queryLower)) {
-                    relevance += 100;
-                }
-                // Title word match
-                searchTerms.forEach(term => {
-                    if (titleLower.includes(term)) relevance += 30;
-                    if (excerptLower.includes(term)) relevance += 10;
+            // Process Articles
+            if (articleRes.data) {
+                articleRes.data.forEach((a: any) => {
+                    let score = 0;
+                    const title = a.title?.toLowerCase() || '';
+                    if (title.includes(queryLower)) score += 100;
+                    searchTerms.forEach(t => { if (title.includes(t)) score += 30; });
+                    
+                    results.push({
+                        id: a.id,
+                        type: 'article',
+                        title: a.title,
+                        slug: a.slug,
+                        excerpt: a.excerpt,
+                        category: a.category,
+                        tags: a.tags || [],
+                        published_at: a.published_at,
+                        featured_image: a.featured_image,
+                        relevance: score,
+                        url: `/article/${a.slug}`
+                    });
                 });
-                // Tag match
-                if (article.tags?.some((tag: string) => tag.toLowerCase().includes(queryLower))) {
-                    relevance += 20;
-                }
+            }
 
-                return {
-                    id: article.id,
-                    title: article.title,
-                    slug: article.slug,
-                    excerpt: article.excerpt,
-                    category: article.category,
-                    tags: article.tags || [],
-                    published_at: article.published_at,
-                    featured_image: article.featured_image,
-                    relevance,
-                    highlight: {
-                        title: this.highlightMatch(article.title, query),
-                        excerpt: this.highlightMatch(article.excerpt, query)
-                    }
-                };
-            });
+            // Process Products
+            if (productRes.data) {
+                productRes.data.forEach((p: any) => {
+                    let score = 0;
+                    const name = p.name?.toLowerCase() || '';
+                    const provider = p.provider_name?.toLowerCase() || '';
+                    if (name.includes(queryLower)) score += 120; // Boost products slightly
+                    if (provider.includes(queryLower)) score += 80;
+                    searchTerms.forEach(t => { if (name.includes(t)) score += 40; });
 
-            // Sort by relevance
+                    results.push({
+                        id: p.id,
+                        type: 'product',
+                        title: p.name,
+                        slug: p.slug,
+                        excerpt: p.description || '',
+                        category: p.category,
+                        tags: [],
+                        image_url: p.image_url,
+                        provider: p.provider_name,
+                        relevance: score,
+                        url: (() => {
+                            switch(p.category) {
+                                case 'credit_card': return `/credit-cards/${p.slug}`;
+                                case 'mutual_fund': return `/mutual-funds/${p.slug}`;
+                                case 'loan': return `/loans/${p.slug}`;
+                                case 'insurance': return `/insurance/${p.slug}`;
+                                default: return `/products/${(p.category || 'general').replace(/_/g, '-')}/${p.slug}`;
+                            }
+                        })()
+                    });
+                });
+            }
+
+            // Sort and Limit
             results.sort((a, b) => b.relevance - a.relevance);
+            const finalResults = results.slice(0, limit);
 
             return {
-                results,
-                total: results.length,
+                results: finalResults,
+                total: finalResults.length,
                 query
             };
 
@@ -179,7 +185,7 @@ class SearchService {
             // Score by tag overlap
             const currentTags = new Set((currentArticle.tags || []).map((t: string) => t.toLowerCase()));
             
-            const scored = relatedArticles.map(article => {
+            const scored = relatedArticles.map((article: any) => {
                 let score = 0;
                 const articleTags = (article.tags || []).map((t: string) => t.toLowerCase());
                 
@@ -195,9 +201,9 @@ class SearchService {
             });
 
             // Sort by score and take top results
-            scored.sort((a, b) => b.relevance - a.relevance);
+            scored.sort((a: any, b: any) => b.relevance - a.relevance);
             
-            return scored.slice(0, limit).map(a => ({
+            return scored.slice(0, limit).map((a: any) => ({
                 id: a.id,
                 title: a.title,
                 slug: a.slug,
@@ -232,7 +238,7 @@ class SearchService {
                 return [];
             }
 
-            return articles.map(a => ({
+            return articles.map((a: any) => ({
                 id: a.id,
                 title: a.title,
                 slug: a.slug,

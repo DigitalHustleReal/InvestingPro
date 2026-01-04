@@ -69,106 +69,60 @@ interface LoanDetail {
   cons: string[]
 }
 
-// This would normally come from database or API
+import { getProductBySlug } from '@/lib/products/server-service'
+
 async function getLoanData(slug: string): Promise<LoanDetail | null> {
-  // TODO: Replace with actual database query
-  const mockLoans: Record<string, LoanDetail> = {
-    'hdfc-personal-loan': {
-      id: 'hdfc-personal-loan',
-      name: 'HDFC Bank Personal Loan',
-      provider: 'HDFC Bank',
-      loanType: 'Personal Loan',
-      rating: 4.3,
-      interestRateMin: 10.5,
-      interestRateMax: 21.0,
-      maxLoanAmount: 4000000,
-      minLoanAmount: 50000,
-      processingFee: 'Upto 2.5% of loan amount',
-      maxTenureMonths: 60,
-      minTenureMonths: 12,
-      minCreditScore: 750,
-      prepaymentCharges: '4% + GST (reducing annually)',
-      
-      description: 'Get instant personal loan approval from HDFC Bank with minimal documentation. Quick disbursal within 48 hours for salaried and self-employed individuals.',
-      applyLink: 'https://www.hdfcbank.com/personal/borrow/popular-loans/personal-loan',
-      
-      keyFeatures: [
-        'Instant loan approval in 10 seconds (for pre-approved customers)',
-        'Minimal documentation required',
-        'Flexible repayment tenure (1-5 years)',
-        'No collateral or security needed',
-        'Quick disbursal within 48 hours',
-        'Special interest rates for existing HDFC customers',
-        'Balance transfer facility available'
-      ],
-      
-      eligibility: {
-        minAge: 21,
-        maxAge: 60,
-        minIncome: 25000,
-        employmentType: ['Salaried', 'Self-Employed Professional', 'Self-Employed Business Owner'],
-        requiredDocuments: [
-          'PAN Card (mandatory)',
-          'Aadhaar Card / Voter ID / Passport',
-          'Latest 3 months salary slips (salaried)',
-          'Latest 6 months bank statements',
-          'Latest 2 years ITR with computation (self-employed)',
-          'Current residence proof',
-          'Passport size photographs'
-        ]
-      },
-      
-      fees: [
-        { name: 'Processing Fee', amount: 'Up to 2.5%', details: 'Of loan amount + GST' },
-        { name: 'Prepayment Charges', amount: '4% + GST', details: 'Reduces annually (Year 1: 4%, Year 2: 3%, Year 3+: 2%)' },
-        { name: 'Late Payment Penalty', amount: '2% per month', details: 'On overdue amount' },
-        { name: 'Cheque Bounce Charges', amount: '₹500 + GST', details: 'Per bounce' },
-        { name: 'Loan Cancellation', amount: '₹3,000 + GST', details: 'If cancelled after sanction' },
-        { name: 'EMI/Cheque Swapping', amount: '₹500 + GST', details: 'Per swap' }
-      ],
-      
-      benefits: [
-        'No end-use restrictions (use for any purpose)',
-        'Flexible repayment options (monthly EMI)',
-        'Balance transfer from other banks at lower rates',
-        'Top-up loan facility on existing loan',
-        'Insurance coverage option available',
-        'Pre-closure allowed (with charges)',
-        'Special rates for women borrowers',
-        'Dedicated relationship manager'
-      ],
-      
-      specialOffers: 'Get 0.5% interest rate discount for HDFC account holders. No processing fee for loan amount above ₹10 lakhs (limited period offer).',
-      
-      emiExample: {
-        loanAmount: 500000,
-        tenure: 36,
-        interestRate: 12.5,
-        emi: 16680,
-        totalInterest: 100480
-      },
-      
-      pros: [
-        'Quick approval and fast disbursal (48 hours)',
-        'Minimal documentation for existing customers',
-        'Competitive interest rates (10.5% onwards)',
-        'High loan amount (up to ₹40 lakhs)',
-        'Good customer service and support',
-        'Balance transfer facility helps save on interest'
-      ],
-      
-      cons: [
-        'High credit score requirement (750+)',
-        'Processing fee can be expensive (up to 2.5%)',
-        'Prepayment charges apply for first 3 years',
-        'Interest rate varies significantly based on profile',
-        'Late payment penalties are strict',
-        'Not suitable for low-income borrowers (min ₹25k/month)'
-      ]
-    }
-  }
+  const product = await getProductBySlug(slug);
+  if (!product || product.category !== 'loan') return null;
+
+  const features = product.features || {};
   
-  return mockLoans[slug] || null
+  return {
+    id: product.id,
+    name: product.name,
+    provider: product.provider_name,
+    loanType: features.type || 'Personal Loan',
+    rating: product.rating,
+    interestRateMin: parseFloat(features.rate_min || '10.5'),
+    interestRateMax: parseFloat(features.rate_max || '21.0'),
+    maxLoanAmount: parseInt(features.max_amount || '4000000'),
+    minLoanAmount: parseInt(features.min_amount || '50000'),
+    processingFee: features.processing_fee || 'Up to 2.5%',
+    maxTenureMonths: parseInt(features.max_tenure_months || '60'),
+    minTenureMonths: parseInt(features.min_tenure_months || '12'),
+    minCreditScore: parseInt(features.min_score || '750'),
+    prepaymentCharges: features.prepayment || '4% + GST',
+    
+    description: product.description || '',
+    applyLink: product.affiliate_link || product.official_link || '#',
+    
+    keyFeatures: features.key_highlights || product.pros.slice(0, 5) || [],
+    eligibility: {
+      minAge: features.min_age || 21,
+      maxAge: features.max_age || 60,
+      minIncome: features.min_income || 25000,
+      employmentType: features.employment_types || ['Salaried', 'Self-Employed'],
+      requiredDocuments: features.docs || ['PAN Card', 'Aadhaar Card', 'Salary Slips']
+    },
+    
+    fees: features.fee_schedule || [
+      { name: 'Processing Fee', amount: features.processing_fee || 'Up to 2.5%' },
+      { name: 'Prepayment Charges', amount: features.prepayment || '4% + GST' }
+    ],
+    
+    benefits: features.benefit_items || product.pros.slice(0, 5) || [],
+    
+    emiExample: features.emi_example || {
+      loanAmount: 500000,
+      tenure: 36,
+      interestRate: 12.5,
+      emi: 16680,
+      totalInterest: 100480
+    },
+    
+    pros: product.pros,
+    cons: product.cons
+  };
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {

@@ -1,516 +1,381 @@
 "use client";
 
-import React, { useState } from 'react';
-import { Card, CardContent } from "@/components/ui/card";
+import React, { useState, useEffect } from 'react';
+import { 
+    Calculator, 
+    ArrowRight, 
+    ShieldCheck, 
+    PieChart, 
+    Clock, 
+    Info, 
+    CheckCircle2, 
+    ArrowDownCircle,
+    BadgePercent,
+    TrendingUp
+} from 'lucide-react';
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/badge";
-import {
-    Calculator,
-    TrendingDown,
-    Wallet,
-    FileText,
-    Calendar,
-    CheckCircle2,
-    ArrowRight,
-    Shield,
-    PiggyBank,
-    Home,
-    Heart,
-    Briefcase,
-    GraduationCap,
-    Target,
-    Info,
-    Sparkles,
-    Clock,
-    Award
-} from "lucide-react";
-import SEOHead from "@/components/common/SEOHead";
+import { 
+    Tabs, 
+    TabsContent, 
+    TabsList, 
+    TabsTrigger 
+} from "@/components/ui/tabs";
+import { Slider } from "@/components/ui/slider";
+import { 
+    Card, 
+    CardContent, 
+    CardDescription, 
+    CardHeader, 
+    CardTitle 
+} from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
-export default function TaxesPage() {
-    const [annualIncome, setAnnualIncome] = useState(1000000);
-    const [regime, setRegime] = useState<'old' | 'new'>('new');
-    const [deductions, setDeductions] = useState(150000); // Section 80C
-    
-    // Tax calculation logic
-    const calculateTax = (income: number, isOldRegime: boolean, deductions: number) => {
-        let taxableIncome = income;
-        
-        if (isOldRegime) {
-            // Old regime with deductions
-            taxableIncome = Math.max(0, income - 50000 - deductions); // Standard deduction + 80C
+// --- Tax Calculator Component ---
+
+const TaxHeroCalculator = () => {
+    const [income, setIncome] = useState(1200000); // 12 Lakhs
+    const [deductions, setDeductions] = useState(250000); // 1.5L (80C) + 50k (80D) + 50k (Standard)
+
+    // Rough calculation for FY 2025-26
+    const calculateTax = (inc: number, ded: number, type: 'old' | 'new') => {
+        if (type === 'old') {
+            const taxable = Math.max(0, inc - ded);
+            let tax = 0;
+            if (taxable <= 250000) return 0;
+            if (taxable <= 500000) tax = (taxable - 250000) * 0.05;
+            else if (taxable <= 1000000) tax = 12500 + (taxable - 500000) * 0.20;
+            else tax = 112500 + (taxable - 1000000) * 0.30;
+            
+            // Rebate u/s 87A for old regime is up to 5L
+            if (taxable <= 500000) tax = 0;
+            return tax * 1.04; // Cess
         } else {
-            // New regime (no deductions, but lower rates)
-            taxableIncome = Math.max(0, income - 50000); // Only standard deduction
+            // New Regime (Budget 2024 Simplification)
+            // 0-3L: NIL, 3-7L: 5%, 7-10L: 10%, 10-12L: 15%, 12-15L: 20%, Above 15L: 30%
+            // Standard deduction of 75k in new regime
+            const taxable = Math.max(0, inc - 75000);
+            let tax = 0;
+            if (taxable <= 300000) tax = 0;
+            else if (taxable <= 700000) tax = (taxable - 300000) * 0.05;
+            else if (taxable <= 1000000) tax = 20000 + (taxable - 700000) * 0.10;
+            else if (taxable <= 1200000) tax = 50000 + (taxable - 1000000) * 0.15;
+            else if (taxable <= 1500000) tax = 80000 + (taxable - 1200000) * 0.20;
+            else tax = 140000 + (taxable - 1500000) * 0.30;
+
+            // Rebate up to 7L taxable in new regime
+            if (taxable <= 700000) tax = 0;
+            return tax * 1.04;
         }
-        
-        let tax = 0;
-        
-        if (isOldRegime) {
-            // Old tax slabs
-            if (taxableIncome > 1000000) tax += (taxableIncome - 1000000) * 0.30;
-            if (taxableIncome > 500000) tax += Math.min(taxableIncome - 500000, 500000) * 0.20;
-            if (taxableIncome > 250000) tax += Math.min(taxableIncome - 250000, 250000) * 0.05;
-        } else {
-            // New tax slabs (2024-25)
-            if (taxableIncome > 1500000) tax += (taxableIncome - 1500000) * 0.30;
-            if (taxableIncome > 1200000) tax += Math.min(taxableIncome - 1200000, 300000) * 0.25;
-            if (taxableIncome > 900000) tax += Math.min(taxableIncome - 900000, 300000) * 0.20;
-            if (taxableIncome > 600000) tax += Math.min(taxableIncome - 600000, 300000) * 0.15;
-            if (taxableIncome > 300000) tax += Math.min(taxableIncome - 300000, 300000) * 0.10;
-        }
-        
-        // Add 4% cess
-        tax = tax * 1.04;
-        
-        return Math.round(tax);
     };
-    
-    const oldRegimeTax = calculateTax(annualIncome, true, deductions);
-    const newRegimeTax = calculateTax(annualIncome, false, 0);
-    const recommendedRegime = oldRegimeTax < newRegimeTax ? 'old' : 'new';
-    const savings = Math.abs(oldRegimeTax - newRegimeTax);
 
-    const taxSavingInstruments = [
-        {
-            section: '80C',
-            title: 'Tax Saving Investments',
-            limit: '₹1,50,000',
-            options: ['ELSS Mutual Funds', 'PPF', 'EPF', 'NSC', 'Tax Saver FD', 'Life Insurance Premium', 'Home Loan Principal'],
-            icon: PiggyBank,
-            color: 'emerald'
-        },
-        {
-            section: '80D',
-            title: 'Health Insurance',
-            limit: '₹25,000 - ₹50,000',
-            options: ['Self & Family Premium', 'Parents Premium', 'Preventive Health Checkup'],
-            icon: Heart,
-            color: 'rose'
-        },
-        {
-            section: '80CCD(1B)',
-            title: 'NPS Contribution',
-            limit: '₹50,000',
-            options: ['Additional NPS Investment', 'Over & Above 80C Limit'],
-            icon: Wallet,
-            color: 'blue'
-        },
-        {
-            section: '24',
-            title: 'Home Loan Interest',
-            limit: '₹2,00,000',
-            options: ['Self-Occupied Property', 'Interest on Home Loan'],
-            icon: Home,
-            color: 'amber'
-        },
-    ];
-
-    const taxPlanningCards = [
-        {
-            title: 'For Salaried Employees',
-            icon: Briefcase,
-            tips: [
-                'Submit investment proofs to employer',
-                'Plan tax-saving investments early',
-                'Check Form 16 before filing',
-                'Claim HRA exemption if applicable'
-            ],
-            color: 'from-blue-500 to-indigo-600'
-        },
-        {
-            title: 'For Freelancers',
-            icon: GraduationCap,
-            tips: [
-                'Pay advance tax quarterly',
-                'Maintain GST compliance',
-                'Claim business expenses',
-                'Keep all income receipts'
-            ],
-            color: 'from-purple-500 to-pink-600'
-        },
-        {
-            title: 'For Business Owners',
-            icon: Target,
-            tips: [
-                'Separate business & personal expenses',
-                'Maintain proper accounting books',
-                'Claim depreciation on assets',
-                'Hire tax consultant for complex cases'
-            ],
-            color: 'from-emerald-500 to-teal-600'
-        },
-    ];
-
-    const filingDeadlines = [
-        { date: 'Mar 31, 2026', event: 'Financial Year Ends', status: 'upcoming' },
-        { date: 'Jun 15, 2026', event: '1st Advance Tax Payment', status: 'upcoming' },
-        { date: 'Jul 31, 2026', event: 'ITR Filing (Individuals)', status: 'upcoming' },
-        { date: 'Oct 31, 2026', event: 'ITR Filing (Audit Cases)', status: 'upcoming' },
-    ];
-
-    const structuredData = {
-        "@context": "https://schema.org",
-        "@type": "FinancialService",
-        "name": "Tax Planning & Savings Calculator - InvestingPro",
-        "description": "Calculate income tax, compare old vs new tax regime, and discover tax-saving investment options. Free tax calculator for FY 2025-26.",
-    };
+    const oldTax = calculateTax(income, deductions, 'old');
+    const newTax = calculateTax(income, deductions, 'new');
+    const savings = Math.abs(oldTax - newTax);
+    const recommended = newTax < oldTax ? 'New Regime' : 'Old Regime';
 
     return (
-        <main className="flex flex-col min-h-screen bg-white dark:bg-slate-950">
-            <SEOHead
-                title="Tax Savings Calculator 2026 | Income Tax Planning India | InvestingPro"
-                description="Free income tax calculator for FY 2025-26. Compare old vs new tax regime, discover tax-saving investments under 80C, 80D, NPS, and plan your taxes smartly."
-                structuredData={structuredData}
-            />
-
-            {/* HERO SECTION - Interactive Tax Calculator */}
-            <section className="relative overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-20 bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
-                {/* Background Decor */}
-                <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-300/20 dark:bg-emerald-500/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2" />
-                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-teal-300/20 dark:bg-teal-500/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3" />
-                </div>
-
-                <div className="container mx-auto px-4 relative z-10">
-                    {/* Top Badge */}
-                    <div className="flex justify-center mb-6">
-                        <Badge className="px-4 py-2 bg-white dark:bg-slate-900 text-emerald-600 dark:text-emerald-400 border-2 border-emerald-100 dark:border-emerald-500/20 font-bold uppercase tracking-wide text-xs inline-flex items-center gap-2 rounded-full shadow-lg">
-                            <Calculator className="w-4 h-4" />
-                            FY 2025-26 Tax Calculator
-                        </Badge>
+        <div className="w-full bg-slate-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
+            <div className="grid lg:grid-cols-2 gap-0">
+                {/* Inputs */}
+                <div className="p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-white/10">
+                    <div className="flex items-center gap-3 mb-8">
+                        <div className="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center">
+                            <Calculator className="w-6 h-6 text-orange-400" />
+                        </div>
+                        <h2 className="text-2xl font-bold text-white tracking-tight">Tax Optimizer</h2>
                     </div>
 
-                    {/* Main Headline */}
-                    <div className="text-center mb-8 max-w-4xl mx-auto">
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white leading-tight mb-4">
-                            Smart Tax Planning with{' '}
-                            <span className="bg-gradient-to-r from-emerald-500 via-teal-500 to-blue-500 bg-clip-text text-transparent">
-                                Instant Calculator
-                            </span>
-                        </h1>
-                        <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                            Compare old vs new tax regime, calculate your tax liability, and discover smart ways to save taxes legally.
-                        </p>
-                    </div>
-
-                    {/* Interactive Calculator Card */}
-                    <div className="max-w-5xl mx-auto">
-                        <Card className="bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 shadow-2xl rounded-3xl overflow-hidden">
-                            <div className="bg-gradient-to-r from-emerald-500 to-teal-600 p-6">
-                                <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
-                                    <Calculator className="w-6 h-6" />
-                                    Income Tax Calculator
-                                </h2>
-                                <p className="text-emerald-100 text-sm">
-                                    Instantly calculate your tax and find the best regime for you
-                                </p>
+                    <div className="space-y-10">
+                        <div>
+                            <div className="flex justify-between mb-4">
+                                <label className="text-sm font-medium text-slate-400">Annual Income (CTC)</label>
+                                <span className="text-lg font-bold text-white">₹ {(income / 100000).toFixed(1)} Lakhs</span>
                             </div>
+                            <Slider 
+                                value={[income]} 
+                                min={300000} 
+                                max={5000000} 
+                                step={50000}
+                                onValueChange={(val) => setIncome(val[0])}
+                                className="py-2"
+                            />
+                            <div className="flex justify-between mt-2 text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+                                <span>3L</span>
+                                <span>50L</span>
+                            </div>
+                        </div>
 
-                            <CardContent className="p-8">
-                                {/* Annual Income Slider */}
-                                <div className="mb-8">
-                                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
-                                        Annual Income (CTC)
-                                    </label>
-                                    <div className="flex items-center gap-4">
-                                        <input
-                                            type="range"
-                                            min="300000"
-                                            max="5000000"
-                                            step="50000"
-                                            value={annualIncome}
-                                            onChange={(e) => setAnnualIncome(Number(e.target.value))}
-                                            className="flex-1 h-3 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-500"
-                                        />
-                                        <div className="min-w-[140px] text-right">
-                                            <div className="text-2xl font-bold text-slate-900 dark:text-white">
-                                                ₹{(annualIncome / 100000).toFixed(1)}L
-                                            </div>
-                                            <div className="text-xs text-slate-500 dark:text-slate-400">per annum</div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div>
+                            <div className="flex justify-between mb-4">
+                                <label className="text-sm font-medium text-slate-400">Investments & Deductions (Old Regime)</label>
+                                <span className="text-lg font-bold text-white">₹ {(deductions / 1000).toFixed(0)}k</span>
+                            </div>
+                            <Slider 
+                                value={[deductions]} 
+                                min={50000} 
+                                max={500000} 
+                                step={5000}
+                                onValueChange={(val) => setDeductions(val[0])}
+                                className="py-2"
+                            />
+                            <p className="mt-3 text-[11px] text-slate-500 leading-relaxed italic">
+                                *Includes 80C, 80D, HRA, etc. Standard deduction (₹50k) is automatically handled.
+                            </p>
+                        </div>
+                    </div>
 
-                                {/* Deductions Slider (Old Regime Only) */}
-                                <div className="mb-8">
-                                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
-                                        Tax Deductions (80C, 80D, etc.) - Old Regime Only
-                                    </label>
-                                    <div className="flex items-center gap-4">
-                                        <input
-                                            type="range"
-                                            min="0"
-                                            max="250000"
-                                            step="10000"
-                                            value={deductions}
-                                            onChange={(e) => setDeductions(Number(e.target.value))}
-                                            className="flex-1 h-3 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
-                                        />
-                                        <div className="min-w-[140px] text-right">
-                                            <div className="text-2xl font-bold text-slate-900 dark:text-white">
-                                                ₹{(deductions / 1000).toFixed(0)}k
-                                            </div>
-                                            <div className="text-xs text-slate-500 dark:text-slate-400">deductions</div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div className="mt-12 p-4 rounded-2xl bg-white/5 border border-white/5 flex items-start gap-3">
+                        <Info className="w-5 h-5 text-indigo-400 mt-0.5" />
+                        <p className="text-xs text-slate-400 leading-relaxed">
+                            Calculations are based on FY 2025-26 rules. New regime now includes ₹75,000 standard deduction and Nil tax up to ₹7 Lakhs taxable income.
+                        </p>
+                    </div>
+                </div>
 
-                                {/* Regime Comparison */}
-                                <div className="grid md:grid-cols-2 gap-6 mb-6">
-                                    {/* Old Regime */}
-                                    <Card className={`border-2 transition-all cursor-pointer ${
-                                        recommendedRegime === 'old' 
-                                            ? 'border-emerald-500 dark:border-emerald-400 bg-emerald-50 dark:bg-emerald-900/20' 
-                                            : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
-                                    }`}>
-                                        <CardContent className="p-6">
-                                            <div className="flex items-start justify-between mb-4">
-                                                <div>
-                                                    <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">
-                                                        Old Tax Regime
-                                                    </h3>
-                                                    <p className="text-xs text-slate-600 dark:text-slate-400">
-                                                        With deductions & exemptions
-                                                    </p>
-                                                </div>
-                                                {recommendedRegime === 'old' && (
-                                                    <Badge className="bg-emerald-500 text-white text-xs">
-                                                        <Award className="w-3 h-3 mr-1" />
-                                                        Best for You
-                                                    </Badge>
-                                                )}
-                                            </div>
-                                            <div className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
-                                                ₹{oldRegimeTax.toLocaleString('en-IN')}
-                                            </div>
-                                            <div className="text-sm text-slate-600 dark:text-slate-400">
-                                                Annual tax liability
-                                            </div>
-                                            <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
-                                                <div className="flex items-center justify-between text-sm mb-2">
-                                                    <span className="text-slate-600 dark:text-slate-400">Taxable Income:</span>
-                                                    <span className="font-semibold text-slate-900 dark:text-white">
-                                                        ₹{(annualIncome - 50000 - deductions).toLocaleString('en-IN')}
-                                                    </span>
-                                                </div>
-                                                <div className="flex items-center justify-between text-sm">
-                                                    <span className="text-slate-600 dark:text-slate-400">Deductions Used:</span>
-                                                    <span className="font-semibold text-emerald-600 dark:text-emerald-400">
-                                                        ₹{deductions.toLocaleString('en-IN')}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </CardContent>
-                                    </Card>
+                {/* Results */}
+                <div className="p-8 lg:p-12 bg-slate-800/50">
+                    <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-8">Comparison View</h3>
+                    
+                    <div className="space-y-6">
+                        {/* Old Regime Card */}
+                        <div className={cn(
+                            "p-6 rounded-2xl border transition-all duration-300",
+                            recommended === 'Old Regime' ? "bg-teal-500/10 border-teal-500/30" : "bg-white/5 border-white/5"
+                        )}>
+                            <div className="flex justify-between items-center mb-4">
+                                <span className="text-sm font-semibold text-slate-300">Old Tax Regime</span>
+                                {recommended === 'Old Regime' && (
+                                    <Badge className="bg-teal-500 text-white border-0">Best Choice</Badge>
+                                )}
+                            </div>
+                            <div className="text-3xl font-bold text-white">₹ {oldTax.toLocaleString('en-IN')}</div>
+                            <div className="text-xs text-slate-500 mt-1">Effective tax rate: {((oldTax / income) * 100).toFixed(1)}%</div>
+                        </div>
 
-                                    {/* New Regime */}
-                                    <Card className={`border-2 transition-all cursor-pointer ${
-                                        recommendedRegime === 'new' 
-                                            ? 'border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20' 
-                                            : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
-                                    }`}>
-                                        <CardContent className="p-6">
-                                            <div className="flex items-start justify-between mb-4">
-                                                <div>
-                                                    <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">
-                                                        New Tax Regime
-                                                    </h3>
-                                                    <p className="text-xs text-slate-600 dark:text-slate-400">
-                                                        Lower rates, no deductions
-                                                    </p>
-                                                </div>
-                                                {recommendedRegime === 'new' && (
-                                                    <Badge className="bg-blue-500 text-white text-xs">
-                                                        <Award className="w-3 h-3 mr-1" />
-                                                        Best for You
-                                                    </Badge>
-                                                )}
-                                            </div>
-                                            <div className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
-                                                ₹{newRegimeTax.toLocaleString('en-IN')}
-                                            </div>
-                                            <div className="text-sm text-slate-600 dark:text-slate-400">
-                                                Annual tax liability
-                                            </div>
-                                            <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
-                                                <div className="flex items-center justify-between text-sm mb-2">
-                                                    <span className="text-slate-600 dark:text-slate-400">Taxable Income:</span>
-                                                    <span className="font-semibold text-slate-900 dark:text-white">
-                                                        ₹{(annualIncome - 50000).toLocaleString('en-IN')}
-                                                    </span>
-                                                </div>
-                                                <div className="flex items-center justify-between text-sm">
-                                                    <span className="text-slate-600 dark:text-slate-400">Deductions Used:</span>
-                                                    <span className="font-semibold text-slate-500 dark:text-slate-400">
-                                                        ₹0
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                </div>
+                        {/* New Regime Card */}
+                        <div className={cn(
+                            "p-6 rounded-2xl border transition-all duration-300",
+                            recommended === 'New Regime' ? "bg-indigo-500/10 border-indigo-500/30 shadow-[0_0_30px_-10px_rgba(99,102,241,0.3)]" : "bg-white/5 border-white/5"
+                        )}>
+                            <div className="flex justify-between items-center mb-4">
+                                <span className="text-sm font-semibold text-slate-300">New Simplified Regime</span>
+                                {recommended === 'New Regime' && (
+                                    <Badge className="bg-indigo-500 text-white border-0">Best Choice</Badge>
+                                )}
+                            </div>
+                            <div className="text-3xl font-bold text-white">₹ {newTax.toLocaleString('en-IN')}</div>
+                            <div className="text-xs text-slate-500 mt-1">Effective tax rate: {((newTax / income) * 100).toFixed(1)}%</div>
+                        </div>
+                    </div>
 
-                                {/* Savings Highlight */}
-                                <div className="p-6 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-2xl border border-emerald-200 dark:border-emerald-800">
-                                    <div className="flex items-center justify-between">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-12 h-12 rounded-full bg-emerald-500 flex items-center justify-center">
-                                                <TrendingDown className="w-6 h-6 text-white" />
-                                            </div>
-                                            <div>
-                                                <div className="text-sm text-slate-600 dark:text-slate-400">
-                                                    You save with <strong>{recommendedRegime === 'old' ? 'Old' : 'New'} Regime</strong>
-                                                </div>
-                                                <div className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">
-                                                    ₹{savings.toLocaleString('en-IN')}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
-                                            Download Report
-                                            <ArrowRight className="w-4 h-4 ml-2" />
-                                        </Button>
-                                    </div>
-                                </div>
-                            </CardContent>
-                        </Card>
+                    {/* Recommendation Footer */}
+                    <div className="mt-8 pt-8 border-t border-white/10 text-center">
+                        <p className="text-slate-400 text-sm mb-2">You save approximately</p>
+                        <div className="text-4xl font-black text-white mb-2">
+                            ₹ {savings.toLocaleString('en-IN')}
+                        </div>
+                        <p className="text-xs text-indigo-400 font-bold uppercase tracking-wider">in the {recommended}</p>
+                        
+                        <Button className="w-full mt-8 bg-white hover:bg-slate-100 text-slate-900 font-bold h-12 rounded-xl group">
+                            Full Tax Breakdown
+                            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+
+export default function TaxesPage() {
+    return (
+        <div className="min-h-screen bg-white dark:bg-slate-950 font-sans selection:bg-orange-100 selection:text-orange-900">
+            {/* 1. Hero Section */}
+            <section className="relative pt-12 pb-24 overflow-hidden border-b border-slate-200 dark:border-slate-800">
+                {/* Background Accents */}
+                <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-orange-500/5 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" />
+
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="max-w-4xl mx-auto text-center mb-16">
+                        <Badge className="mb-4 bg-orange-50 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-100 dark:border-orange-500/20 px-4 py-1.5 rounded-full font-bold tracking-wide">
+                            FINANCIAL YEAR 2025-26
+                        </Badge>
+                        <h1 className="text-5xl sm:text-7xl font-black text-slate-900 dark:text-white mb-6 leading-[1.1] tracking-tight">
+                            Save More. <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-600">Tax Less.</span>
+                        </h1>
+                        <p className="text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                            Stop overpaying taxes. Compare regimes, track deadlines, and optimize your 80C investments with India's most advanced tax toolkit.
+                        </p>
+                    </div>
+
+                    {/* Tax Calculator Hub */}
+                    <div className="max-w-5xl mx-auto">
+                        <TaxHeroCalculator />
                     </div>
                 </div>
             </section>
 
-            {/* SECTION 2: Tax-Saving Instruments */}
-            <section className="py-20 bg-white dark:bg-slate-900">
-                <div className="container mx-auto px-4">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-                            Tax-Saving Investment Options
-                        </h2>
-                        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                            Reduce your tax liability with these government-approved investment instruments
-                        </p>
+            {/* 2. Tax Saving Instruments (The Grid) */}
+            <section className="py-24 bg-slate-50 dark:bg-slate-900/50">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                        <div className="max-w-2xl">
+                            <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">Tax Saving Radar</h2>
+                            <p className="text-lg text-slate-500 dark:text-slate-400">
+                                Most people leave money on the table. Are you maximizing these deductuions?
+                            </p>
+                        </div>
+                        <Button variant="outline" className="rounded-full border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+                            Download Tax Checklist
+                        </Button>
                     </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-                        {taxSavingInstruments.map((instrument, idx) => {
-                            const Icon = instrument.icon;
-                            return (
-                                <Card key={idx} className="group hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-                                    <CardContent className="p-6">
-                                        <div className={`w-14 h-14 mx-auto mb-4 rounded-2xl bg-${instrument.color}-100 dark:bg-${instrument.color}-900/30 flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                                            <Icon className={`w-7 h-7 text-${instrument.color}-600 dark:text-${instrument.color}-400`} />
-                                        </div>
-                                        <Badge className="mb-3 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-0">
-                                            Section {instrument.section}
-                                        </Badge>
-                                        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
-                                            {instrument.title}
-                                        </h3>
-                                        <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mb-4">
-                                            {instrument.limit}
-                                        </div>
-                                        <div className="space-y-2">
-                                            {instrument.options.map((option, i) => (
-                                                <div key={i} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
-                                                    <CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
-                                                    <span>{option}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            );
-                        })}
-                    </div>
-                </div>
-            </section>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {/* 80C Card */}
+                        <div className="group p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-orange-500/50 hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-500 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                                <ShieldCheck className="w-24 h-24 text-orange-500" />
+                            </div>
+                            <div className="w-14 h-14 rounded-2xl bg-orange-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                                <ShieldCheck className="w-7 h-7 text-orange-500" />
+                            </div>
+                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">Section 80C</h3>
+                            <p className="text-slate-500 dark:text-slate-400 mb-6 line-clamp-2">
+                                Deductions up to ₹1.5 Lakhs through ELSS, PPF, Insurance premiums, and Home Loan principal.
+                            </p>
+                            <div className="flex items-center gap-2 group/btn cursor-pointer">
+                                <span className="text-sm font-bold text-orange-600 dark:text-orange-400 uppercase tracking-widest">Explore Options</span>
+                                <ChevronRight className="w-4 h-4 text-orange-500 group-hover/btn:translate-x-1 transition-transform" />
+                            </div>
+                        </div>
 
-            {/* SECTION 3: Tax Planning Cards */}
-            <section className="py-20 bg-slate-50 dark:bg-slate-950">
-                <div className="container mx-auto px-4">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-                            Tax Planning by Profile
-                        </h2>
-                        <p className="text-lg text-slate-600 dark:text-slate-400">
-                            Personalized tax-saving strategies for your situation
-                        </p>
-                    </div>
+                        {/* 80D Card */}
+                        <div className="group p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-emerald-500/50 hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-500 relative overflow-hidden">
+                            <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-6">
+                                <BadgePercent className="w-7 h-7 text-emerald-500" />
+                            </div>
+                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">Health (80D)</h3>
+                            <p className="text-slate-500 dark:text-slate-400 mb-6 line-clamp-2">
+                                Claim up to ₹1 Lakh for medical insurance premiums for you, your spouse, and senior citizen parents.
+                            </p>
+                            <div className="flex items-center gap-2 group/btn cursor-pointer">
+                                <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Calculators</span>
+                                <ChevronRight className="w-4 h-4 text-emerald-500 group-hover/btn:translate-x-1 transition-transform" />
+                            </div>
+                        </div>
 
-                    <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                        {taxPlanningCards.map((card, idx) => {
-                            const Icon = card.icon;
-                            return (
-                                <Card key={idx} className="group hover:shadow-2xl transition-all duration-300 border-2 border-slate-200 dark:border-slate-800 overflow-hidden">
-                                    <div className={`h-2 bg-gradient-to-r ${card.color}`} />
-                                    <CardContent className="p-8">
-                                        <Icon className="w-12 h-12 text-slate-700 dark:text-slate-300 mb-4" />
-                                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-                                            {card.title}
-                                        </h3>
-                                        <ul className="space-y-3">
-                                            {card.tips.map((tip, i) => (
-                                                <li key={i} className="flex items-start gap-3">
-                                                    <CheckCircle2 className="w-5 h-5 text-emerald-500 mt-0.5 shrink-0" />
-                                                    <span className="text-slate-600 dark:text-slate-400">{tip}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </CardContent>
-                                </Card>
-                            );
-                        })}
-                    </div>
-                </div>
-            </section>
-
-            {/* SECTION 4: Filing Deadlines */}
-            <section className="py-20 bg-white dark:bg-slate-900">
-                <div className="container mx-auto px-4">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-                            Important Tax Deadlines
-                        </h2>
-                        <p className="text-lg text-slate-600 dark:text-slate-400">
-                            Mark your calendar - Don't miss these critical dates
-                        </p>
-                    </div>
-
-                    <div className="max-w-4xl mx-auto">
-                        <div className="relative">
-                            {/* Timeline line */}
-                            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-800" />
-                            
-                            <div className="space-y-8">
-                                {filingDeadlines.map((deadline, idx) => (
-                                    <div key={idx} className="relative flex items-start gap-6 pl-20">
-                                        <div className="absolute left-0 w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg">
-                                            <Calendar className="w-7 h-7 text-white" />
-                                        </div>
-                                        <Card className="flex-1 border-2 border-slate-200 dark:border-slate-800">
-                                            <CardContent className="p-6">
-                                                <div className="flex items-start justify-between">
-                                                    <div>
-                                                        <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mb-2">
-                                                            {deadline.date}
-                                                        </div>
-                                                        <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                                                            {deadline.event}
-                                                        </h3>
-                                                    </div>
-                                                    <Badge className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border-0">
-                                                        <Clock className="w-3 h-3 mr-1" />
-                                                        Upcoming
-                                                    </Badge>
-                                                </div>
-                                            </CardContent>
-                                        </Card>
-                                    </div>
-                                ))}
+                        {/* 80CCD (NPS) Card */}
+                        <div className="group p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 relative overflow-hidden">
+                            <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-6">
+                                <TrendingUp className="w-7 h-7 text-blue-500" />
+                            </div>
+                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">NPS (80CCD)</h3>
+                            <p className="text-slate-500 dark:text-slate-400 mb-6 line-clamp-2">
+                                Additional deduction of ₹50,000 above the 80C limit specifically for National Pension Scheme.
+                            </p>
+                            <div className="flex items-center gap-2 group/btn cursor-pointer">
+                                <span className="text-sm font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">NPS Guide</span>
+                                <ChevronRight className="w-4 h-4 text-blue-500 group-hover/btn:translate-x-1 transition-transform" />
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-        </main>
+
+            {/* 3. Deadlines & Timeline */}
+            <section className="py-24">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="max-w-5xl mx-auto">
+                        <div className="text-center mb-16">
+                            <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">Crucial Tax Deadlines</h2>
+                            <p className="text-lg text-slate-500 dark:text-slate-400">Mark your calendars to avoid heavy penalties and interest.</p>
+                        </div>
+
+                        <div className="space-y-8">
+                            {[
+                                { date: 'March 31', title: 'Investment Proof Submission', desc: 'Last day to complete your 80C investments for FY 2024-25.', color: 'bg-indigo-500' },
+                                { date: 'July 31', title: 'ITR Filing Deadline', desc: 'Standard deadline for individual tax payers and salaried employees.', color: 'bg-orange-500' },
+                                { date: 'Sept 30', title: 'Tax Audit Deadline', desc: 'Deadline for businesses and professionals requiring a tax audit.', color: 'bg-emerald-500' },
+                                { date: 'Dec 31', title: 'Belated ITR Return', desc: 'Last chance to file your taxes with a penalty for late submission.', color: 'bg-rose-500' },
+                            ].map((item, idx) => (
+                                <div key={idx} className="flex group">
+                                    <div className="flex flex-col items-center mr-6">
+                                        <div className={cn("w-4 h-4 rounded-full ring-4 ring-slate-100 dark:ring-slate-800", item.color)} />
+                                        <div className="w-px h-full bg-slate-200 dark:bg-slate-800" />
+                                    </div>
+                                    <div className="pb-12">
+                                        <span className="text-lg font-black text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">{item.date}</span>
+                                        <h4 className="text-xl font-bold text-slate-900 dark:text-white mt-1">{item.title}</h4>
+                                        <p className="text-slate-500 dark:text-slate-400 mt-2">{item.desc}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 4. FAQ / Guides Grid */}
+            <section className="py-24 bg-slate-900 overflow-hidden relative">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div>
+                            <h2 className="text-4xl font-black text-white mb-6 leading-tight">Master Tax Planning with Our Free Guides</h2>
+                            <p className="text-lg text-slate-400 mb-10 leading-relaxed">
+                                Our chartered accountants have written comprehensive blueprints to help you navigate complex tax laws effortlessly.
+                            </p>
+                            <div className="space-y-4">
+                                {[
+                                    "Guide to Real Estate & Capital Gains",
+                                    "How to claim HRA without receipts",
+                                    "Taxation for Cryptocurrency in India",
+                                    "Best ELSS Mutual Funds for 2026"
+                                ].map((guide, i) => (
+                                    <div key={i} className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors cursor-pointer group">
+                                        <CheckCircle2 className="w-5 h-5 text-indigo-400" />
+                                        <span className="font-semibold text-slate-200 group-hover:text-white">{guide}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="relative">
+                            <div className="absolute inset-0 bg-indigo-500/20 blur-[100px]" />
+                            <div className="relative p-8 rounded-[40px] bg-slate-800 border border-white/10 shadow-2xl skew-y-3">
+                                <div className="flex items-center gap-4 mb-6">
+                                    <div className="w-12 h-12 rounded-full bg-slate-700 overflow-hidden">
+                                        <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=100&auto=format&fit=crop" alt="CA" />
+                                    </div>
+                                    <div>
+                                        <div className="font-bold text-white">Ask a Tax Expert</div>
+                                        <div className="text-xs text-slate-500">Response in {'<'} 2 hours</div>
+                                    </div>
+                                </div>
+                                <div className="space-y-4">
+                                    <div className="p-4 rounded-2xl bg-white/5 text-sm text-slate-300">
+                                        "Which regime is better for 18L income with home loan?"
+                                    </div>
+                                    <div className="p-4 rounded-2xl bg-indigo-500/20 border border-indigo-500/20 text-sm text-indigo-200 italic">
+                                        "For your profile, the Old Regime saves you ₹42,000 specifically due to Section 24(b)..."
+                                    </div>
+                                    <Button className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold h-12 rounded-xl mt-4">
+                                        Start Live Consultation
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     );
 }
+
+// Reuse lucide icons not imported
+const ChevronRight = ({ className }: { className?: string }) => (
+    <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+);

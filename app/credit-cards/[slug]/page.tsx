@@ -59,117 +59,64 @@ interface CreditCardDetail {
   cons: string[]
 }
 
-// This would normally come from database or API
+import { getProductBySlug } from '@/lib/products/server-service'
+
 async function getCreditCardData(slug: string): Promise<CreditCardDetail | null> {
-  // TODO: Replace with actual database query
-  // For now, return mock data for demonstration
+  const product = await getProductBySlug(slug);
+  if (!product || product.category !== 'credit_card') return null;
+
+  // Map Supabase Product to CreditCardDetail
+  const features = product.features || {};
   
-  // Simulate database lookup
-  const mockCards: Record<string, CreditCardDetail> = {
-    'hdfc-regalia': {
-      id: 'hdfc-regalia',
-      name: 'HDFC Bank Regalia Credit Card',
-      provider: 'HDFC Bank',
-      rating: 4.5,
-      annualFee: 2500,
-      joiningFee: 2500,
-      rewardRate: '4 reward points per ₹150',
-      welcomeBonus: '10,000 bonus reward points',
-      minCreditScore: 750,
-      interestRate: '3.49% per month (41.88% per annum)',
-      description: 'Premium lifestyle credit card with comprehensive travel and dining benefits, lounge access, and accelerated rewards on select categories.',
-      applyLink: 'https://www.hdfcbank.com/personal/pay/cards/credit-cards/regalia-credit-card',
-      
-      keyFeatures: [
-        'Unlimited complimentary domestic and international airport lounge access',
-        '2 complimentary rounds of golf per month at select courses',
-        'Fuel surcharge waiver up to ₹250 per month',
-        'Welcome benefits worth ₹5,000+',
-        'Milestone benefits on annual spends',
-        'EMI conversion at nominal interest rates'
-      ],
-      
-      rewardProgram: {
-        name: 'HDFC Rewards Program',
-        pointsPerRupee: 4,
-        redemptionValue: '1 point = ₹0.20 - ₹0.50 (varies by redemption)',
-        categories: [
-          { name: 'Online Shopping', rate: '4 points per ₹150' },
-          { name: 'Travel Bookings', rate: '4 points per ₹150' },
-          { name: 'Dining', rate: '4 points per ₹150' },
-          { name: 'Fuel', rate: '1% fuel surcharge waiver' }
-        ]
-      },
-      
-      benefits: [
-        {
-          category: 'Travel',
-          items: [
-            'Unlimited domestic airport lounge access (Priority Pass)',
-            '6 complimentary international lounge visits per year',
-            'Comprehensive Travel Insurance up to ₹1 crore',
-            'Discounts on flight and hotel bookings'
-          ]
-        },
-        {
-          category: 'Dining',
-          items: [
-            '20% discount at partner restaurants',
-            'Buy 1 Get 1 offers on movie tickets',
-            'Exclusive dining experiences through SmartBuy'
-          ]
-        },
-        {
-          category: 'Shopping',
-          items: [
-            'Accelerated rewards on online shopping',
-            'No-cost EMI on purchases above ₹10,000',
-            'Purchase protection insurance up to ₹50,000'
-          ]
-        }
-      ],
-      
-      eligibility: {
-        minAge: 21,
-        minIncome: 300000,
-        requiredDocuments: [
-          'PAN Card',
-          'Aadhaar Card / Voter ID / Passport',
-          'Latest 3 months salary slips',
-          'Latest 6 months bank statements',
-          'Residence proof (utility bill, rent agreement)'
-        ]
-      },
-      
-      fees: [
-        { name: 'Joining Fee', amount: '₹2,500 + GST', details: 'Waived on spending ₹3 lakhs in first 90 days' },
-        { name: 'Annual Fee', amount: '₹2,500 + GST', details: 'Waived on annual spends of ₹3 lakhs' },
-        { name: 'Add-on Card Fee', amount: 'Free', details: 'Unlimited add-on cards' },
-        { name: 'Fuel Surcharge Waiver', amount: '1%', details: 'Max ₹250 per month' },
-        { name: 'Foreign Currency Markup', amount: '3.5%', details: 'On international transactions' },
-        { name: 'Cash Advance Fee', amount: '2.5%', details: 'Min ₹500 per transaction' },
-        { name: 'Late Payment Fee', amount: 'Up to ₹1,300', details: 'Based on outstanding amount' }
-      ],
-      
-      pros: [
-        'Excellent lounge access (domestic + international)',
-        'Strong rewards program with good redemption value',
-        'Comprehensive travel insurance coverage',
-        'Golf privileges and milestone benefits',
-        'Premium card at mid-range pricing (fee waiver possible)'
-      ],
-      
-      cons: [
-        'High income requirement (₹3 lakh+ per year)',
-        'Credit score requirement of 750+ may exclude many applicants',
-        'Reward redemption can be complex for beginners',
-        'Foreign currency markup higher than some competitors',
-        'Limited cashback offers compared to cashback-focused cards'
+  return {
+    id: product.id,
+    name: product.name,
+    provider: product.provider_name,
+    image: product.image_url || undefined,
+    rating: product.rating,
+    annualFee: parseInt(String(features.annual_fee || '0').replace(/[^0-9]/g, '')) || 0,
+    joiningFee: parseInt(String(features.joining_fee || '0').replace(/[^0-9]/g, '')) || 0,
+    rewardRate: features.rewards || 'Standard rewards',
+    welcomeBonus: features.welcome_bonus,
+    minCreditScore: features.min_score || 700,
+    interestRate: features.interest_rate || '3.5% pm',
+    description: product.description || '',
+    applyLink: product.affiliate_link || product.official_link || '#',
+    
+    keyFeatures: product.features.key_highlights || product.pros.slice(0, 5) || [],
+    rewardProgram: {
+      name: features.reward_program_name || `${product.name} Rewards`,
+      pointsPerRupee: features.points_per_100 || 2,
+      redemptionValue: features.point_value || '1 point = ₹0.25',
+      categories: features.reward_categories || [
+        { name: 'Dining', rate: features.dining_rate || '3x points' },
+        { name: 'Shopping', rate: features.shopping_rate || '2x points' },
+        { name: 'Travel', rate: features.travel_rate || '2x points' },
       ]
-    }
-  }
-  
-  return mockCards[slug] || null
+    },
+    benefits: features.benefit_structure || [
+      {
+        category: 'Travel',
+        items: features.travel_benefits || ['Airport lounge access', 'Travel insurance']
+      },
+      {
+        category: 'Dining',
+        items: features.dining_benefits || ['Dining discounts', 'Complimentary meals']
+      }
+    ],
+    eligibility: {
+      minAge: features.min_age || 21,
+      minIncome: features.min_income || 300000,
+      requiredDocuments: features.docs || ['PAN Card', 'Aadhaar Card', 'Salary Slips']
+    },
+    fees: features.fee_schedule || [
+      { name: 'Joining Fee', amount: `₹${features.joining_fee || '0'}`, details: features.joining_waiver },
+      { name: 'Annual Fee', amount: `₹${features.annual_fee || '0'}`, details: features.annual_waiver },
+      { name: 'Markup Fee', amount: features.forex_fee || '3.5%', details: 'On international spends' }
+    ],
+    pros: product.pros,
+    cons: product.cons
+  };
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {

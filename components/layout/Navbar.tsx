@@ -36,12 +36,15 @@ function SearchButtonComponent({ isHomePage }: { isHomePage: boolean }) {
     return (
         <Button
             variant="ghost"
-            size="icon"
             onClick={openSearch}
-            className="hidden lg:flex text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
-            aria-label="Search (⌘K)"
+            className="hidden lg:flex items-center gap-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 px-3 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 rounded-full transition-all"
+            aria-label="Search"
         >
-            <Search className="w-5 h-5" />
+            <Search className="w-4 h-4" />
+            <span className="text-sm font-medium">Search</span>
+            <kbd className="hidden xl:inline-flex ml-2 pointer-events-none h-5 select-none items-center gap-1 rounded border bg-slate-50 dark:bg-slate-900 px-1.5 font-mono text-[10px] font-medium text-slate-500 opacity-100">
+                <span className="text-xs">⌘</span>K
+            </kbd>
         </Button>
     );
 }
@@ -53,10 +56,10 @@ function MobileSearchButton() {
     return (
         <button 
             onClick={openSearch}
-            className="w-full flex items-center gap-3 h-10 pl-4 pr-4 rounded-lg border border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100 transition-colors text-sm text-left"
+            className="w-full flex items-center gap-3 h-12 pl-4 pr-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 hover:bg-slate-100 transition-all text-sm text-left shadow-inner"
         >
             <Search className="w-4 h-4 text-slate-400" />
-            <span>Search products, calculators, guides...</span>
+            <span>Search products, taxes, or guides...</span>
         </button>
     );
 }
@@ -82,6 +85,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
     const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>({});
 
     const pathname = usePathname();
+    const { openSearch } = useSearch();
     const isHomePage = pathname === "/";
     
     // Close dropdowns when clicking outside
@@ -98,7 +102,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
     }, []);
     
     // Filter and reorder categories based on high-intent search volume
-    const PRIORITY_SLUGS = ['credit-cards', 'loans', 'investing', 'insurance', 'tools', 'banking'];
+    const PRIORITY_SLUGS = ['credit-cards', 'loans', 'investing', 'insurance', 'banking', 'taxes', 'small-business', 'tools'];
     
     const navigationCategories = PRIORITY_SLUGS
         .map(slug => config.find(c => c.slug === slug))
@@ -368,9 +372,20 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                         </div>
                     </div>
 
-                    {/* Mobile Menu */}
-                    <div className="lg:hidden flex items-center gap-2 ml-2">
+                    <div className="lg:hidden flex items-center gap-1 ml-1">
                         <ThemeToggle />
+                        
+                        {/* Direct Mobile Search Icon */}
+                        <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            onClick={openSearch}
+                            className="text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+                            aria-label="Search"
+                        >
+                            <Search className="w-5 h-5" />
+                        </Button>
+
                         <Sheet open={isOpen} onOpenChange={setIsOpen}>
                             <SheetTrigger asChild>
                                 <Button 

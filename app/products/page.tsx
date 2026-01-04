@@ -21,7 +21,7 @@ export default async function ProductsPage({
     let error = null;
 
     try {
-        products = await productService.getProducts(category);
+        products = await productService.getProducts({ category });
     } catch (e: any) {
         console.error('Failed to fetch products:', e);
         error = e;

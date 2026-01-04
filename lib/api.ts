@@ -413,13 +413,19 @@ The AI was unable to reach a provider, so we've generated this professional outl
             filter: async (filters: any) => { return []; }
         },
         Loan: {
-             list: async () => { return []; }
+             list: async () => {
+                const { data } = await supabase.from('products').select('*').eq('category', 'loan');
+                return data || [];
+            }
         },
         FixedDeposit: {
-             list: async () => { return []; }
+             list: async () => { return []; } // FDs usually not in products yet
         },
         Insurance: {
-             list: async () => { return []; }
+             list: async () => {
+                const { data } = await supabase.from('products').select('*').eq('category', 'insurance');
+                return data || [];
+            }
         },
         AdPlacement: {
              list: async () => { return []; },

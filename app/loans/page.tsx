@@ -36,6 +36,10 @@ import { api } from '@/lib/api';
 import { RichProductCard } from "@/components/products/RichProductCard";
 import { RichProduct } from "@/types/rich-product";
 
+
+import { LoanFilterSidebar, LoanFilterState } from "@/components/loans/FilterSidebar";
+import { ResponsiveFilterContainer } from "@/components/products/ResponsiveFilterContainer";
+
 export default function LoansPage() {
     // Calculator State
     const [amount, setAmount] = useState(500000);
@@ -46,6 +50,17 @@ export default function LoansPage() {
     // Product State
     const [assets, setAssets] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [searchTerm, setSearchTerm] = useState("");
+
+    // Filter State
+    const [filters, setFilters] = useState<LoanFilterState>({
+        maxRate: 15,
+        maxProcessingFee: 2,
+        loanTypes: [],
+        banks: []
+    });
+
+    const [selectedForCompare, setSelectedForCompare] = useState<string[]>([]);
 
     useEffect(() => {
         // EMI Calculation: P * r * (1+r)^n / ((1+r)^n - 1)
@@ -58,7 +73,6 @@ export default function LoansPage() {
         const loadAssets = async () => {
             try {
                 // Assuming api.entities.Loan.list() returns products with category='loan'
-                // If not implemented, we can force category filter here if endpoint supports, or rely on implementation
                  const data = await api.entities.Loan.list(); // Ensure api.ts has Loan.list implemented correctly
                  setAssets(data || []);
             } catch (err) {
@@ -70,6 +84,12 @@ export default function LoansPage() {
         loadAssets();
     }, [amount, tenure, rate]);
 
+    const handleCompareToggle = (id: string) => {
+        setSelectedForCompare(prev => 
+            prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+        );
+    };
+
     const formatRupee = (num: number) => {
         return new Intl.NumberFormat('en-IN', {
             style: 'currency',
@@ -78,8 +98,35 @@ export default function LoansPage() {
         }).format(num);
     };
 
+    // Filter Logic
+    const filteredAssets = assets.filter(asset => {
+        const name = (asset.name || "").toLowerCase();
+        const provider = (asset.provider_name || asset.provider || "").toLowerCase();
+        const searchMatch = name.includes(searchTerm.toLowerCase()) || provider.includes(searchTerm.toLowerCase());
+        
+        // Bank Filter
+        const bankMatch = filters.banks.length === 0 || 
+            filters.banks.some(b => provider.includes(b.toLowerCase()) || name.includes(b.toLowerCase()));
+
+        // Type Filter (metadata.type or from features)
+        const type = (asset.metadata?.type || 'Personal Loan').toLowerCase();
+        const typeMatch = filters.loanTypes.length === 0 ||
+            filters.loanTypes.some(t => type.includes(t.toLowerCase()));
+
+        // Rate Check (Basic parsing if possible, else ignored)
+        // Ignoring rate filter for now as data is unstructured string
+
+        return searchMatch && bankMatch && typeMatch;
+    });
+
+    // Count active filters for mobile badge
+    const activeFiltersCount = 
+        (filters.loanTypes.length > 0 ? 1 : 0) + 
+        (filters.banks.length > 0 ? 1 : 0) +
+        (filters.maxRate < 15 ? 1 : 0);
+
     // Transform to RichProduct
-    const richProducts: RichProduct[] = assets.map(a => ({
+    const richProducts: RichProduct[] = filteredAssets.map(a => ({
         id: a.id,
         name: a.name,
         slug: a.slug,
@@ -143,16 +190,19 @@ export default function LoansPage() {
                                 Digital approval in <span className="font-semibold text-slate-900 dark:text-white">5 minutes</span>.
                             </p>
 
-                            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                                <Button className="h-14 px-8 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl font-bold text-lg shadow-xl shadow-emerald-600/20 w-full sm:w-auto transition-all hover:scale-105">
-                                    Compare Rates
-                                </Button>
-                                <Button variant="outline" className="h-14 px-8 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl font-semibold text-lg w-full sm:w-auto">
-                                    Check Eligibility
-                                </Button>
+                            <div className="relative group max-w-md mx-auto lg:mx-0 mb-8">
+                                <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                                    <Search className="h-5 w-5 text-slate-500 group-focus-within:text-emerald-500 transition-colors" />
+                                </div>
+                                <Input
+                                    placeholder="Search lenders (e.g. 'HDFC', 'SBI Home Loan')..."
+                                    className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-md border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-500 focus:border-emerald-500 transition-all font-medium shadow-sm"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                />
                             </div>
 
-                             <div className="mt-12 flex flex-wrap justify-center lg:justify-start gap-8">
+                             <div className="mt-8 flex flex-wrap justify-center lg:justify-start gap-8">
                                 {[
                                     { label: "Lenders", value: "30+", icon: ShieldCheck },
                                     { label: "Starting ROI", value: "8.50%", icon: Percent },
@@ -197,10 +247,6 @@ export default function LoansPage() {
                                             onChange={(e) => setAmount(Number(e.target.value))}
                                             className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500"
                                         />
-                                        <div className="flex justify-between mt-2 text-xs text-slate-400">
-                                            <span>₹50K</span>
-                                            <span>₹50L</span>
-                                        </div>
                                     </div>
 
                                     {/* Tenure Slider */}
@@ -218,10 +264,6 @@ export default function LoansPage() {
                                             onChange={(e) => setTenure(Number(e.target.value))}
                                             className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
                                         />
-                                         <div className="flex justify-between mt-2 text-xs text-slate-400">
-                                            <span>1 Yr</span>
-                                            <span>30 Yrs</span>
-                                        </div>
                                     </div>
 
                                     {/* Result Box */}
@@ -247,96 +289,67 @@ export default function LoansPage() {
                 </div>
             </div>
 
-            {/* --- MAIN CONTENT & WIDGETS --- */}
-            <main className="container mx-auto px-4 py-16">
-                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            {/* --- MAIN CONTENT SCRENER --- */}
+            <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20 pb-20">
+                <div className="flex flex-col lg:flex-row gap-8 items-start">
                     
-                    {/* LEFT COLUMN: PRODUCTS */}
-                    <div className="lg:col-span-3 space-y-6">
-                        <div className="flex items-center justify-between mb-2">
-                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Top Loan Offers</h2>
-                        </div>
+                    {/* Filter Sidebar */}
+                    <ResponsiveFilterContainer activeFiltersCount={activeFiltersCount}>
+                         <LoanFilterSidebar filters={filters} setFilters={setFilters} />
+                         
+                         {/* Marketing Widgets in Sidebar - Hidden on Mobile Drawer for better UX */}
+                         <div className="hidden lg:block mt-8 space-y-6">
+                            {/* Documents Checklist Widget */}
+                            <Card className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem]">
+                                <CardContent className="p-6">
+                                    <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4">Required Documents</h3>
+                                    <ul className="space-y-3">
+                                        {['PAN Card', 'Aadhaar Card', 'Last 3 Months Salary Slips', '6 Months Bank Statement'].map((doc, i) => (
+                                            <li key={i} className="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
+                                                <div className="w-5 h-5 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 mt-0.5">
+                                                    <span className="text-xs font-bold text-slate-500">{i+1}</span>
+                                                </div>
+                                                {doc}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </CardContent>
+                            </Card>
+                         </div>
+                    </ResponsiveFilterContainer>
+
+                    {/* Results Grid */}
+                    <div className="flex-1">
                         
-                        {/* Static Categories for filtering (Visual only for now) */}
-                        <div className="flex gap-2 overflow-x-auto pb-4 no-scrollbar">
-                             {loanTypes.map((type) => (
-                                <button key={type.id} className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full text-sm font-semibold hover:border-emerald-500 dark:hover:border-emerald-500 transition-colors whitespace-nowrap">
-                                    <type.icon className="w-4 h-4 text-slate-500" />
-                                    {type.label}
-                                </button>
-                             ))}
+                        {/* Status Bar */}
+                        <div className="flex justify-between items-center mb-6">
+                            <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+                                Top Loan Offers <span className="text-slate-400 font-medium text-sm ml-2">({filteredAssets.length})</span>
+                            </h2>
                         </div>
 
                         {loading ? (
-                             [...Array(3)].map((_, i) => (
-                                <div key={i} className="h-64 w-full bg-slate-100 dark:bg-slate-900 animate-pulse rounded-3xl" />
-                            ))
-                        ) : richProducts.length > 0 ? (
-                            richProducts.map((product) => (
-                                <RichProductCard 
-                                    key={product.id} 
-                                    product={product} 
-                                    layout="list"
-                                />
-                            ))
-                        ) : (
-                            <div className="text-center py-24 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700">
+                             <div className="grid md:grid-cols-2 gap-6 animate-pulse">
+                                {[1,2,3,4].map(i => (
+                                    <div key={i} className="h-96 bg-slate-200 dark:bg-slate-800 rounded-[2.5rem]" />
+                                ))}
+                             </div>
+                        ) : filteredAssets.length === 0 ? (
+                            <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800">
                                 <Search className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-                                <h3 className="text-lg font-medium text-slate-900 dark:text-white">No loan offers found</h3>
-                                <p className="text-slate-500">Check back soon for updated rates.</p>
-                                <Button className="mt-4" variant="outline" asChild>
-                                    <Link href="/admin/products">Admin: Add Loans</Link>
-                                </Button>
+                                <p className="text-slate-500 font-medium">No loans match your filters.</p>
+                            </div>
+                        ) : (
+                            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                                {richProducts.map((product) => (
+                                    <RichProductCard key={product.id} product={product} onCompare={handleCompareToggle} />
+                                ))}
                             </div>
                         )}
                     </div>
+                </div>
+            </div>
 
-                    {/* RIGHT SIDEBAR WIDGETS */}
-                    <div className="space-y-8">
-                        
-                        {/* Eligibility Widget (Quick) */}
-                         <Card className="bg-slate-900 text-white rounded-[2rem] overflow-hidden">
-                             <div className="h-1 bg-gradient-to-r from-blue-500 to-purple-500" />
-                            <CardContent className="p-6">
-                                <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
-                                    <CheckCircle2 className="w-5 h-5 text-emerald-400" /> Eligibility Check
-                                </h3>
-                                <div className="space-y-3">
-                                    <div className="space-y-1">
-                                        <label className="text-xs uppercase font-semibold text-slate-400">Monthly Salary</label>
-                                        <Input className="bg-white/10 border-white/10 text-white" placeholder="e.g. 50000" />
-                                    </div>
-                                    <div className="space-y-1">
-                                        <label className="text-xs uppercase font-semibold text-slate-400">Current EMIs</label>
-                                        <Input className="bg-white/10 border-white/10 text-white" placeholder="e.g. 15000" />
-                                    </div>
-                                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700 font-bold mt-2">
-                                        Calculate Amount
-                                    </Button>
-                                </div>
-                            </CardContent>
-                        </Card>
-
-                        {/* Documents Checklist Widget */}
-                        <Card className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem]">
-                            <CardContent className="p-6">
-                                <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4">Required Documents</h3>
-                                <ul className="space-y-3">
-                                    {['PAN Card', 'Aadhaar Card', 'Last 3 Months Salary Slips', '6 Months Bank Statement'].map((doc, i) => (
-                                        <li key={i} className="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
-                                            <div className="w-5 h-5 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 mt-0.5">
-                                                <span className="text-xs font-bold text-slate-500">{i+1}</span>
-                                            </div>
-                                            {doc}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </CardContent>
-                        </Card>
-
-                    </div>
-                 </div>
-            </main>
         </div>
     );
 }

@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -22,21 +23,15 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import SEOHead from "@/components/common/SEOHead";
 import Link from 'next/link';
-
-const insuranceTypes = [
-    { id: 'life', label: 'Life', icon: Heart, color: 'rose' },
-    { id: 'health', label: 'Health', icon: Shield, color: 'emerald' },
-    { id: 'term', label: 'Term', icon: FileText, color: 'blue' },
-    { id: 'car', label: 'Car', icon: Car, color: 'violet' },
-    { id: 'bike', label: 'Bike', icon: Bike, color: 'orange' },
-    { id: 'travel', label: 'Travel', icon: Plane, color: 'teal' },
-];
 
 import { api } from '@/lib/api';
 import { RichProductCard } from "@/components/products/RichProductCard";
 import { RichProduct } from "@/types/rich-product";
+import { InsuranceFilterSidebar, InsuranceFilterState } from "@/components/insurance/FilterSidebar";
+import { ResponsiveFilterContainer } from "@/components/products/ResponsiveFilterContainer";
 
 export default function InsurancePage() {
     const [protectionScore, setProtectionScore] = useState(0);
@@ -45,6 +40,15 @@ export default function InsurancePage() {
     // Dynamic Data State
     const [assets, setAssets] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [searchTerm, setSearchTerm] = useState("");
+
+    // Filter State
+    const [filters, setFilters] = useState<InsuranceFilterState>({
+        maxPremium: 50000,
+        minCover: 5000000,
+        insurers: [],
+        policyTypes: []
+    });
 
     // Simple quiz state
     const [answers, setAnswers] = useState({
@@ -55,11 +59,13 @@ export default function InsurancePage() {
         hasHome: false
     });
 
+    const [selectedForCompare, setSelectedForCompare] = useState<string[]>([]);
+
     useEffect(() => {
         const loadAssets = async () => {
             try {
                 // Fetch Insurance Products via Generic or specific
-                // api.entities.Insurance doesn't exist? Use Generic product fetch
+                 // @ts-ignore
                  const data = await api.entities.Insurance?.list() || [];
                  setAssets(data);
             } catch (err) {
@@ -70,6 +76,12 @@ export default function InsurancePage() {
         };
         loadAssets();
     }, []);
+
+    const handleCompareToggle = (id: string) => {
+        setSelectedForCompare(prev => 
+            prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+        );
+    };
 
     const calculateProtectionScore = () => {
         let score = 0;
@@ -95,8 +107,34 @@ export default function InsurancePage() {
         return { text: 'Needs Urgent Attention', color: 'red', icon: AlertTriangle };
     };
 
+    // Filter Logic
+    const filteredAssets = assets.filter(asset => {
+        const name = (asset.name || "").toLowerCase();
+        const provider = (asset.provider_name || asset.provider || "").toLowerCase();
+        const searchMatch = name.includes(searchTerm.toLowerCase()) || provider.includes(searchTerm.toLowerCase());
+        
+        // Insurer Filter
+        const insurerMatch = filters.insurers.length === 0 || 
+            filters.insurers.some(i => provider.includes(i.toLowerCase()));
+
+        // Type Filter (metadata.type or from features)
+        const type = (asset.metadata?.type || 'Term Life').toLowerCase();
+        const typeMatch = filters.policyTypes.length === 0 ||
+            filters.policyTypes.some(t => type.includes(t.toLowerCase()));
+
+        // Premium Check (If available in features/metadata)
+        // Ignored for now as unstructured
+
+        return searchMatch && insurerMatch && typeMatch;
+    });
+
+    // Count active filters for mobile badge
+    const activeFiltersCount = 
+        (filters.insurers.length > 0 ? 1 : 0) + 
+        (filters.policyTypes.length > 0 ? 1 : 0);
+
     // Transform to RichProduct
-    const richProducts: RichProduct[] = assets.map(a => ({
+    const richProducts: RichProduct[] = filteredAssets.map(a => ({
         id: a.id,
         name: a.name,
         slug: a.slug,
@@ -160,16 +198,19 @@ export default function InsurancePage() {
                                 to find your coverage gaps. Then compare 20+ insurers with zero spam.
                             </p>
 
-                            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                                <Button className="h-14 px-8 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold text-lg shadow-xl shadow-blue-600/20 w-full sm:w-auto transition-all hover:scale-105">
-                                    Check Your Score
-                                </Button>
-                                <Button variant="outline" className="h-14 px-8 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl font-semibold text-lg w-full sm:w-auto">
-                                    Compare Plans
-                                </Button>
+                            <div className="relative group max-w-md mx-auto lg:mx-0 mb-8">
+                                <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                                    <Search className="h-5 w-5 text-slate-500 group-focus-within:text-blue-500 transition-colors" />
+                                </div>
+                                <Input
+                                    placeholder="Search plans (e.g. 'HDFC Life', 'Health Insurance')..."
+                                    className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-md border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-500 focus:border-blue-500 transition-all font-medium shadow-sm"
+                                    value={searchTerm}
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
+                                />
                             </div>
 
-                             <div className="mt-12 flex flex-wrap justify-center lg:justify-start gap-8">
+                             <div className="mt-8 flex flex-wrap justify-center lg:justify-start gap-8">
                                 {[
                                     { label: "Verified Insurers", value: "20+", icon: ShieldCheck },
                                     { label: "Claim Settlement", value: "95%", icon: CheckCircle2 },
@@ -322,76 +363,59 @@ export default function InsurancePage() {
             </div>
 
             {/* --- MAIN CONTENT & WIDGETS --- */}
-            <main className="container mx-auto px-4 py-16">
-                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-                     {/* LEFT COLUMN: PRODUCTS */}
-                    <div className="lg:col-span-3 space-y-6">
+            <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20 pb-20">
+                 <div className="flex flex-col lg:flex-row gap-8 items-start">
+                     
+                     {/* Filter Sidebar */}
+                    <ResponsiveFilterContainer activeFiltersCount={activeFiltersCount}>
+                         <InsuranceFilterSidebar filters={filters} setFilters={setFilters} />
+                         
+                         <div className="hidden lg:block mt-8 space-y-6">
+                            {/* Claim Settlement Widget */}
+                            <Card className="bg-gradient-to-br from-slate-900 to-slate-800 dark:from-slate-950 dark:to-slate-900 text-white border-0 rounded-[2rem] overflow-hidden">
+                                <CardContent className="p-6">
+                                    <ShieldCheck className="w-8 h-8 text-emerald-400 mb-4" />
+                                    <h3 className="text-xl font-bold mb-2">95% Claim Ratio</h3>
+                                    <p className="text-slate-400 text-sm mb-4">We only list insurers with proven track records.</p>
+                                </CardContent>
+                            </Card>
+                         </div>
+                    </ResponsiveFilterContainer>
+
+                    {/* Results Grid */}
+                    <div className="flex-1">
                         <div className="flex items-center justify-between mb-2">
-                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Recommended Plans</h2>
+                             <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+                                Recommended Plans <span className="text-slate-400 font-medium text-sm ml-2">({filteredAssets.length})</span>
+                            </h2>
                         </div>
                         
-                        {/* Static Categories */}
-                        <div className="flex gap-2 overflow-x-auto pb-4 no-scrollbar">
-                             {insuranceTypes.map((type) => (
-                                <button key={type.id} className={`flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full text-sm font-semibold transition-colors whitespace-nowrap hover:border-${type.color}-500 dark:hover:border-${type.color}-500`}>
-                                    <type.icon className="w-4 h-4 text-slate-500" />
-                                    {type.label}
-                                </button>
-                             ))}
-                        </div>
-
                         {loading ? (
-                             [...Array(3)].map((_, i) => (
-                                <div key={i} className="h-64 w-full bg-slate-100 dark:bg-slate-900 animate-pulse rounded-3xl" />
-                            ))
-                        ) : richProducts.length > 0 ? (
-                            richProducts.map((product) => (
-                                <RichProductCard 
-                                    key={product.id} 
-                                    product={product} 
-                                    layout="list"
-                                />
-                            ))
-                        ) : (
-                            <div className="text-center py-24 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700">
+                             <div className="grid md:grid-cols-2 gap-6 animate-pulse">
+                                {[1,2,3,4].map(i => (
+                                    <div key={i} className="h-96 bg-slate-200 dark:bg-slate-800 rounded-[2.5rem]" />
+                                ))}
+                             </div>
+                        ) : filteredAssets.length === 0 ? (
+                            <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800">
                                 <Search className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-                                <h3 className="text-lg font-medium text-slate-900 dark:text-white">No insurance plans found</h3>
+                                <h3 className="text-lg font-medium text-slate-900 dark:text-white">No plans match filters</h3>
                                 <p className="text-slate-500">Contact admin to add providers.</p>
                                 <Button className="mt-4" variant="outline" asChild>
                                     <Link href="/admin/products">Admin: Add Plans</Link>
                                 </Button>
                             </div>
+                        ) : (
+                            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                                {richProducts.map((product) => (
+                                    <RichProductCard key={product.id} product={product} onCompare={handleCompareToggle} />
+                                ))}
+                            </div>
                         )}
                     </div>
-
-                    {/* RIGHT SIDEBAR WIDGETS */}
-                    <div className="space-y-8">
-                         {/* Claim Settlement Widget */}
-                        <Card className="bg-gradient-to-br from-slate-900 to-slate-800 dark:from-slate-950 dark:to-slate-900 text-white border-0 rounded-[2rem] overflow-hidden">
-                            <CardContent className="p-6">
-                                <ShieldCheck className="w-8 h-8 text-emerald-400 mb-4" />
-                                <h3 className="text-xl font-bold mb-2">95% Claim Ratio</h3>
-                                <p className="text-slate-400 text-sm mb-4">We only list insurers with proven track records.</p>
-                            </CardContent>
-                        </Card>
-
-                         {/* Human Life Value Mini Widget */}
-                        <Card className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem]">
-                            <CardContent className="p-6">
-                                <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                                     <Heart className="w-5 h-5 text-rose-500" /> Life Cover Needed?
-                                </h3>
-                                <div className="space-y-3">
-                                    <p className="text-xs text-slate-500">Rule of Thumb: 15x Annual Income</p>
-                                    <Button className="w-full bg-rose-600 hover:bg-rose-700 font-bold" variant="outline">
-                                        Check Calculator
-                                    </Button>
-                                </div>
-                            </CardContent>
-                        </Card>
-                    </div>
                  </div>
-            </main>
+            </div>
+
         </div>
     );
 }

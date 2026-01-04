@@ -4,20 +4,37 @@
 import React from 'react';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import { ShieldCheck, Star, ExternalLink, ArrowRight, Check, Info } from 'lucide-react';
 import { RichProduct } from '@/types/rich-product';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
+import { useCompare } from './CompareContext';
+
 interface RichProductCardProps {
     product: RichProduct;
     layout?: 'grid' | 'list';
-    onCompare?: (id: string) => void;
+    onCompare?: (id: string) => void; // Keep for backward compatibility if needed, but we'll use context
 }
 
 export function RichProductCard({ product, layout = 'grid', onCompare }: RichProductCardProps) {
     const isList = layout === 'list';
+    const { addToCompare, removeFromCompare, isInCompare } = useCompare();
+    const isSelected = isInCompare(product.id);
+
+    const handleCompareClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (isSelected) {
+            removeFromCompare(product.id);
+        } else {
+            // Note: product in context is expected to match Product type
+            // casting to any for now if types slightly differ, or align them
+            addToCompare(product as any);
+        }
+        if (onCompare) onCompare(product.id);
+    };
 
     // Helper: Trust Score Color
     const getTrustColor = (score: number) => {
@@ -33,13 +50,35 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
             isList ? "flex flex-col md:flex-row" : "flex flex-col"
         )}>
             {/* Trust Ribbon */}
-            {product.trust_score >= 90 && (
+            {product.rating.trust_score >= 90 && (
                 <div className="absolute top-0 right-0 z-10">
                     <div className="bg-emerald-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl shadow-lg">
                         TOP RATED
                     </div>
                 </div>
             )}
+
+            {/* Comparison Checkbox - Redesigned for Mobile (Larger Hit Area) */}
+            <div className="absolute top-3 left-3 z-10">
+                <button 
+                    onClick={handleCompareClick}
+                    className={cn(
+                        "p-2 rounded-xl border transition-all shadow-sm flex items-center gap-1.5",
+                        isSelected 
+                            ? "bg-emerald-600 border-emerald-500 text-white" 
+                            : "bg-white/90 backdrop-blur-md border-slate-200 text-slate-400 hover:border-emerald-500 hover:text-emerald-500"
+                    )}
+                    aria-label={isSelected ? "Remove from comparison" : "Add to comparison"}
+                >
+                    <div className={cn(
+                        "w-5 h-5 rounded-md border flex items-center justify-center transition-colors",
+                        isSelected ? "bg-white border-white" : "border-slate-300"
+                    )}>
+                        {isSelected && <Check className="w-3.5 h-3.5 text-emerald-600 font-black" />}
+                    </div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider pr-1">Compare</span>
+                </button>
+            </div>
 
             {/* Header / Image Section */}
             <div className={cn(

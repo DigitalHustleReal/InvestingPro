@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     TrendingUp,
     Landmark,
@@ -22,6 +22,8 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import SEOHead from "@/components/common/SEOHead";
 import Link from 'next/link';
+import { api } from '@/lib/api';
+
 const investingTypes = [
     { id: 'mutual-funds', label: 'Mutual Funds', icon: TrendingUp },
     { id: 'stocks', label: 'Stocks & IPOs', icon: Landmark },
@@ -65,6 +67,37 @@ const mockProducts = [
 ];
 
 export default function InvestingPage() {
+    const [products, setProducts] = useState<any[]>(mockProducts);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function loadFeatured() {
+            setLoading(true);
+            try {
+                // Fetch mutual funds as a proxy for featured investing products
+                const data = await api.entities.MutualFund.list();
+                if (data && data.length > 0) {
+                    const normalized = data.slice(0, 3).map((p: any) => ({
+                        id: p.id,
+                        title: p.name,
+                        provider: p.provider_name,
+                        rating: p.rating || 4.5,
+                        badge: "Featured",
+                        description: p.description || "Top rated investment option.",
+                        features: p.pros?.slice(0, 3) || ["Verified", "Growth", "Direct"],
+                        href: `/investing/${p.category === 'mutual_fund' ? 'mutual-funds' : 'demat'}/${p.slug || p.id}`
+                    }));
+                    setProducts(normalized);
+                }
+            } catch (err) {
+                console.error("Error loading investing products:", err);
+            } finally {
+                setLoading(false);
+            }
+        }
+        loadFeatured();
+    }, []);
+
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-300 font-sans">
             <SEOHead
@@ -102,12 +135,16 @@ export default function InvestingPage() {
                             </p>
 
                             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                                <Button className="h-14 px-8 bg-teal-600 hover:bg-teal-700 text-white rounded-2xl font-bold text-lg shadow-xl shadow-teal-600/20 w-full sm:w-auto transition-all hover:scale-105">
-                                    Start Investing
-                                </Button>
-                                <Button variant="outline" className="h-14 px-8 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl font-semibold text-lg w-full sm:w-auto">
-                                    Compare Funds
-                                </Button>
+                                <Link href="/mutual-funds" className="w-full sm:w-auto">
+                                    <Button className="h-14 px-8 bg-teal-600 hover:bg-teal-700 text-white rounded-2xl font-bold text-lg shadow-xl shadow-teal-600/20 w-full transition-all hover:scale-105">
+                                        Start Investing
+                                    </Button>
+                                </Link>
+                                <Link href="/mutual-funds/compare" className="w-full sm:w-auto">
+                                    <Button variant="outline" className="h-14 px-8 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl font-semibold text-lg w-full">
+                                        Compare Funds
+                                    </Button>
+                                </Link>
                             </div>
 
                              <div className="mt-12 flex flex-wrap justify-center lg:justify-start gap-8">
@@ -217,13 +254,13 @@ export default function InvestingPage() {
                         <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Top Rated Funds</h2>
                         <p className="text-slate-600 dark:text-slate-400">Handpicked by SEBI-registered analysts.</p>
                     </div>
-                    <Link href="/investing/compare">
+                    <Link href="/mutual-funds">
                          <Button variant="outline" className="border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">View All</Button>
                     </Link>
                 </div>
 
                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                    {mockProducts.map((product, idx) => (
+                    {products.map((product) => (
                         <Link href={product.href} key={product.id}>
                             <Card className="h-full hover:border-teal-500 dark:hover:border-teal-500 transition-all cursor-pointer hover:-translate-y-1 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 group">
                                 <CardContent className="p-6">
@@ -265,7 +302,7 @@ export default function InvestingPage() {
                                     
                                     {/* Features */}
                                     <ul className="space-y-2 mb-6">
-                                        {product.features.map((feature, i) => (
+                                        {(product.features || []).map((feature: string, i: number) => (
                                             <li key={i} className="flex items-start text-sm">
                                                 <CheckCircle2 className="w-4 h-4 text-teal-500 mr-2 flex-shrink-0 mt-0.5" />
                                                 <span className="text-slate-700 dark:text-slate-300">{feature}</span>

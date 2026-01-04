@@ -13,8 +13,7 @@ import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 import { normalizeArticleBody } from '@/lib/content/normalize';
-// AutoInternalLinks temporarily disabled - causes glossary errors
-// import AutoInternalLinks from '@/components/common/AutoInternalLinks';
+import AutoInternalLinks from '@/components/common/AutoInternalLinks';
 import { generateSchema } from '@/lib/linking/schema';
 import { generateCanonicalUrl } from '@/lib/linking/canonical';
 import { generateBreadcrumbSchema } from '@/lib/linking/breadcrumbs';
@@ -138,13 +137,13 @@ export default function ArticleDetail() {
     // Generate canonical URL
     const canonicalUrl = generateCanonicalUrl(`/article/${article.slug}`);
 
-    // Generate automated internal links - temporarily disabled
-    // const linkingContext = {
-    //     contentType: 'explainer' as const,
-    //     category: article.category,
-    //     slug: article.slug,
-    //     relatedTerms: article.tags || [],
-    // };
+    // Generate automated internal links
+    const linkingContext = {
+        contentType: 'explainer' as const,
+        category: article.category,
+        slug: article.slug,
+        relatedTerms: article.tags || [],
+    };
 
     return (
         <div className="min-h-screen bg-white">
@@ -269,8 +268,8 @@ export default function ArticleDetail() {
                     </div>
                 )}
 
-                {/* Automated Internal Links - Temporarily disabled due to glossary errors */}
-                {/* <AutoInternalLinks context={linkingContext} /> */}
+                {/* Automated Internal Links */}
+                <AutoInternalLinks context={linkingContext} />
             </article>
         </div>
     );
