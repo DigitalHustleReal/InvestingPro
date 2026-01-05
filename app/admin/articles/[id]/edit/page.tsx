@@ -1,27 +1,19 @@
-/**
- * WordPress-style Article Edit Page
- * 
- * GUARANTEES:
- * - Editor loads ONLY after content is fetched
- * - Save does NOT change status
- * - Publish is atomic operation
- * - UI updates optimistically
- */
-
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useRouter, useParams, useSearchParams } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import AdminLayout from '@/components/admin/AdminLayout';
 import ArticleInspector from '@/components/admin/ArticleInspector';
 import ArticleEditor from '@/components/admin/ArticleEditor';
 import { Input } from '@/components/ui/input';
 import { articleService, type ArticleData } from '@/lib/cms/article-service';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Loader2, CheckCheck } from 'lucide-react';
+import { Loader2, CheckCheck, Eye, ArrowLeft, Save, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { toast } from 'sonner';
 import { Badge } from '@/components/ui/badge';
+import { PreviewPane } from '@/components/admin/preview/PreviewPane';
+import Link from 'next/link';
 
 export default function EditArticlePage() {
     const router = useRouter();
@@ -36,6 +28,7 @@ export default function EditArticlePage() {
     const [lastSaved, setLastSaved] = useState<Date | null>(null);
     const [isProofreading, setIsProofreading] = useState(false);
     const [editorKey, setEditorKey] = useState(0);
+    const [showPreview, setShowPreview] = useState(false);
 
     const handleProofread = async () => {
         if (!editorContent?.markdown) return;
@@ -207,8 +200,6 @@ export default function EditArticlePage() {
         },
         onSuccess: async (result) => {
             setSaving(false);
-            setLastSaved(new Date());
-            
             // CRITICAL: Revalidate public routes
             try {
                 await fetch('/api/revalidate', {
@@ -233,6 +224,8 @@ export default function EditArticlePage() {
             } catch (revalidateError) {
                 console.error('Revalidation failed:', revalidateError);
             }
+            
+            setLastSaved(new Date());
             
             // Invalidate all queries
             await Promise.all([
@@ -271,7 +264,9 @@ export default function EditArticlePage() {
         }
 
         setSaving(true);
-        await saveMutation.mutateAsync(metadata);
+        // Ensure metadata is an object if called without args
+        const meta = typeof metadata === 'object' ? metadata : {};
+        await saveMutation.mutateAsync(meta);
     };
 
     const handlePublish = async (metadata: any = {}) => {
@@ -350,58 +345,82 @@ export default function EditArticlePage() {
                 />
             }
         >
-            <div className="flex flex-col h-screen bg-white">
-                {/* WordPress-style Header */}
-                <div className="border-b border-slate-200 bg-white px-8 py-4">
-                    <div className="flex items-center justify-between mb-2">
-                        <div className="flex-1">
-                            <Input
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
-                                placeholder="Add title..."
-                                className="text-3xl font-bold border-0 bg-transparent px-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-auto py-2"
-                            />
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <Button 
-                                variant="outline" 
-                                size="sm" 
-                                onClick={handleProofread}
-                                disabled={isProofreading || saving}
-                                className="h-8"
+            <div className="flex flex-col h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+                {/* Header */}
+                <div className="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/50 backdrop-blur-md px-8 py-4 transition-colors duration-300">
+                    <div className="max-w-5xl mx-auto w-full">
+                        <div className="flex items-center gap-2 mb-4">
+                            <Link
+                                href="/admin/articles"
+                                className="flex items-center gap-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors text-sm"
                             >
-                                {isProofreading ? <Loader2 className="w-3 h-3 animate-spin mr-1"/> : <CheckCheck className="w-3 h-3 mr-1"/>}
-                                Proofread
-                            </Button>
-
-                            {lastSaved && (
-                                <span className="text-xs text-slate-500">
-                                    Saved {lastSaved.toLocaleTimeString()}
-                                </span>
-                            )}
-                            {saving && (
-                                <div className="flex items-center gap-2 text-sm text-slate-500">
-                                    <Loader2 className="w-4 h-4 animate-spin" />
-                                    <span>Saving...</span>
-                                </div>
-                            )}
+                                <ArrowLeft className="w-4 h-4" />
+                                Back to Articles
+                            </Link>
                         </div>
-                    </div>
-                    <div className="flex items-center gap-4 text-sm text-slate-600">
-                        <Badge className={article.status === 'published' ? 'bg-green-100 text-green-800' : 'bg-slate-100 text-slate-800'}>
-                            {(article?.status ?? 'draft').charAt(0).toUpperCase() + (article?.status ?? 'draft').slice(1)}
-                        </Badge>
-                        {article.slug && (
-                            <span className="text-slate-500">
-                                /articles/{article.slug}
-                            </span>
-                        )}
+
+                        <div className="flex items-center justify-between gap-4">
+                            <div className="flex-1">
+                                <Input
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                    placeholder="Add title..."
+                                    className="text-3xl font-bold border-0 bg-transparent px-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-auto py-2 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 transition-colors"
+                                />
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <Button
+                                    variant="outline"
+                                    onClick={() => setShowPreview(true)}
+                                    className="gap-2 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                                >
+                                    <Eye className="w-4 h-4" />
+                                    Preview
+                                </Button>
+                                <Button
+                                    onClick={handleSave}
+                                    disabled={saving}
+                                    className="gap-2 bg-teal-600 hover:bg-teal-700 text-white"
+                                >
+                                    {saving ? (
+                                        <>
+                                            <Loader2 className="w-4 h-4 animate-spin" />
+                                            Saving...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Save className="w-4 h-4" />
+                                            {article?.status === 'published' ? 'Update' : 'Save Draft'}
+                                        </>
+                                    )}
+                                </Button>
+                                {article?.status !== 'published' && (
+                                    <Button
+                                        onClick={handlePublish}
+                                        disabled={publishMutation.isPending || saving}
+                                        className="gap-2 bg-blue-600 hover:bg-blue-700 text-white"
+                                    >
+                                        {publishMutation.isPending ? (
+                                            <>
+                                                <Loader2 className="w-4 h-4 animate-spin" />
+                                                Publishing...
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Globe className="w-4 h-4" />
+                                                Publish
+                                            </>
+                                        )}
+                                    </Button>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                {/* Editor - WordPress-style */}
-                <div className="flex-1 overflow-auto bg-white">
-                    <div className="max-w-4xl mx-auto p-8">
+                {/* Editor Area */}
+                <div className="flex-1 overflow-auto bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+                    <div className="max-w-5xl mx-auto px-8 py-8">
                         <ArticleEditor
                             key={editorKey}
                             initialContent={{
@@ -417,6 +436,14 @@ export default function EditArticlePage() {
                         />
                     </div>
                 </div>
+
+                {/* Live Preview Pane */}
+                <PreviewPane
+                    content={editorContent?.markdown || article.body_markdown || ''}
+                    title={title}
+                    isOpen={showPreview}
+                    onClose={() => setShowPreview(false)}
+                />
             </div>
         </AdminLayout>
     );

@@ -96,7 +96,7 @@ export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetP
         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
             <CardHeader className="border-b border-white/5 px-6 py-4">
                 <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                    <Search className="w-4 h-4 text-indigo-400" />
+                    <Search className="w-4 h-4 text-primary-400" />
                     SEO Health Score
                 </CardTitle>
             </CardHeader>
@@ -196,7 +196,7 @@ export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetP
                         {seoData.recommendations.slice(0, 3).map((rec, idx) => (
                             <div 
                                 key={idx}
-                                className="text-xs text-slate-400 p-3 bg-indigo-500/5 rounded-lg border border-indigo-500/10"
+                                className="text-xs text-slate-400 p-3 bg-primary-500/5 rounded-lg border border-primary-500/10"
                             >
                                 {rec}
                             </div>

@@ -102,7 +102,7 @@ export function Footer() {
                 {/* Newsletter - Theme-Aligned Card */}
                 <div className="relative mb-20 p-8 md:p-12 rounded-3xl overflow-hidden border border-slate-800 bg-slate-900 shadow-xl">
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-slate-900/0 to-slate-900/0" />
-                    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-500/5 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2" />
+                    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-secondary-500/5 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2" />
                     
                     <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                         <div className="text-center md:text-left max-w-xl">
@@ -164,7 +164,7 @@ export function Footer() {
                                     { name: "Travel Cards", href: "/credit-cards" },
                                 ].map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-400 hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -178,7 +178,7 @@ export function Footer() {
                                     { name: "Check Eligibility", href: "/loans" },
                                 ].map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-400 hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -192,7 +192,7 @@ export function Footer() {
                                     { name: "Fixed Deposits", href: "/fixed-deposits" },
                                 ].map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-400 hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -205,7 +205,7 @@ export function Footer() {
                                     { name: "Small Business Finance", href: "/small-business" },
                                 ].map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-400 hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -225,7 +225,7 @@ export function Footer() {
                                     { name: "GST Calculator", href: "/calculators" },
                                 ].map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-400 hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -240,7 +240,7 @@ export function Footer() {
                                     { name: "Methodology", href: "/methodology" },
                                 ].map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-400 hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -254,7 +254,7 @@ export function Footer() {
                             <ul className="space-y-2">
                                 {footerLinks.company.map((link, i) => (
                                     <li key={i}>
-                                        <Link href={getHref(link.page)} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
+                                        <Link href={getHref(link.page)} className="text-sm text-slate-400 hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -264,7 +264,7 @@ export function Footer() {
                             <ul className="space-y-2">
                                 {footerLinks.legal.map((link, i) => (
                                     <li key={i}>
-                                        <Link href={getHref(link.page)} className="text-sm text-slate-400 hover:text-blue-400 transition-colors">{link.name}</Link>
+                                        <Link href={getHref(link.page)} className="text-sm text-slate-400 hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>

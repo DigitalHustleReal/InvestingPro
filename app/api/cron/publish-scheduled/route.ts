@@ -1,7 +1,7 @@
 /**
  * Scheduled Publishing Cron Job
  * Auto-publishes articles at their scheduled time
- * Run this via cron: 0 * * * * (every hour) or */5 * * * * (every 5 min)
+ * Run this via cron: 0 * * * * (every hour) or *\/5 * * * * (every 5 min)
  */
 
 import { createClient } from '@supabase/supabase-js';

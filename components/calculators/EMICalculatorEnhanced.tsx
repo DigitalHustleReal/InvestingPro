@@ -98,7 +98,7 @@ export function EMICalculatorEnhanced() {
                                 <Badge variant="secondary" className="bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100">
                                     <CheckCircle2 className="w-3 h-3 mr-1" /> Free
                                 </Badge>
-                                <Badge variant="secondary" className="bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100 text-[10px]">
+                                <Badge variant="secondary" className="bg-secondary-50 text-secondary-700 border-secondary-200 hover:bg-secondary-100 text-[10px]">
                                     No Registration
                                 </Badge>
                             </div>
@@ -326,7 +326,7 @@ export function EMICalculatorEnhanced() {
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Monthly EMI</p>
                                     <p className="text-lg font-bold text-amber-600">{formatCurrency(emiResult.emi)}</p>
                                 </div>
-                                <div className="p-4 bg-blue-50 rounded-xl border border-blue-100">
+                                <div className="p-4 bg-secondary-50 rounded-xl border border-secondary-100">
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Interest Rate</p>
                                     <p className="text-lg font-bold text-primary-600">{emiRate}%</p>
                                 </div>
@@ -376,7 +376,7 @@ export function EMICalculatorEnhanced() {
                             </div>
 
                             {/* Key Insight */}
-                            <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
+                            <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-secondary-100">
                                 <div className="flex items-start gap-3">
                                     <Info className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
                                     <div>

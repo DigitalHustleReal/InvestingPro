@@ -132,7 +132,7 @@ export default function WordPressStyleCMS({
                     {onGenerate && (
                         <Button
                             onClick={onGenerate}
-                            className="bg-purple-600 hover:bg-purple-700 text-white"
+                            className="bg-secondary-600 hover:bg-secondary-700 text-white"
                         >
                             <Sparkles className="w-4 h-4 mr-2" />
                             Generate with AI

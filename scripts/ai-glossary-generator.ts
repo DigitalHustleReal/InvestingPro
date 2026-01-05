@@ -1,7 +1,5 @@
-/**
- * Script to generate glossary terms using AI
- * Run: npx tsx scripts/ai-glossary-generator.ts
- */
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.local' });
 
 import { aiContentGenerator } from '../lib/ai/content-generator';
 import { GLOSSARY_TERMS } from '../lib/data/glossary-seed-terms';

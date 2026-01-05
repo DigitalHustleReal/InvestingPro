@@ -30,10 +30,10 @@ export function Callout({ type, title, children, className }: CalloutProps) {
     },
     'important': {
       icon: AlertCircle,
-      bgColor: 'bg-blue-50',
-      borderColor: 'border-blue-500',
+      bgColor: 'bg-secondary-50',
+      borderColor: 'border-secondary-500',
       iconColor: 'text-primary-600',
-      titleColor: 'text-blue-900',
+      titleColor: 'text-secondary-900',
       defaultTitle: 'Important'
     },
     'tip': {
@@ -54,10 +54,10 @@ export function Callout({ type, title, children, className }: CalloutProps) {
     },
     'example': {
       icon: TrendingUp,
-      bgColor: 'bg-purple-50',
-      borderColor: 'border-purple-500',
-      iconColor: 'text-purple-600',
-      titleColor: 'text-purple-900',
+      bgColor: 'bg-secondary-50',
+      borderColor: 'border-secondary-500',
+      iconColor: 'text-secondary-600',
+      titleColor: 'text-secondary-900',
       defaultTitle: 'Example'
     },
     'definition': {
@@ -70,9 +70,9 @@ export function Callout({ type, title, children, className }: CalloutProps) {
     },
     'calculation': {
       icon: Calculator,
-      bgColor: 'bg-indigo-50',
-      borderColor: 'border-indigo-500',
-      iconColor: 'text-indigo-600',
+      bgColor: 'bg-primary-50',
+      borderColor: 'border-primary-500',
+      iconColor: 'text-primary-600',
       titleColor: 'text-indigo-900',
       defaultTitle: 'Calculation'
     }
@@ -108,9 +108,9 @@ export function Callout({ type, title, children, className }: CalloutProps) {
 export function Highlight({ children, color = 'emerald' }: { children: React.ReactNode, color?: 'emerald' | 'blue' | 'amber' | 'purple' }) {
   const colors = {
     emerald: 'bg-emerald-100 text-emerald-900 border-emerald-300',
-    blue: 'bg-blue-100 text-blue-900 border-blue-300',
+    blue: 'bg-secondary-100 text-secondary-900 border-secondary-300',
     amber: 'bg-amber-100 text-amber-900 border-amber-300',
-    purple: 'bg-purple-100 text-purple-900 border-purple-300'
+    purple: 'bg-secondary-100 text-secondary-900 border-secondary-300'
   }
 
   return (
@@ -218,9 +218,9 @@ export function FormulaBox({ title, formula, explanation }: {
   explanation?: string
 }) {
   return (
-    <div className="my-6 bg-indigo-50 border-2 border-indigo-400 rounded-lg p-6">
+    <div className="my-6 bg-primary-50 border-2 border-indigo-400 rounded-lg p-6">
       <div className="flex items-center gap-2 mb-3">
-        <Calculator className="w-5 h-5 text-indigo-600" />
+        <Calculator className="w-5 h-5 text-primary-600" />
         <h4 className="font-bold text-indigo-900">{title}</h4>
       </div>
       <div className="bg-white rounded p-4 font-mono text-center text-lg font-semibold text-gray-900 mb-3">

@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/Button';
 import { Activity, Search, CheckCircle2, AlertTriangle, XCircle, FileText, Loader2, RefreshCw } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
+import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
 
 interface ArticleSEOSummary {
     id: string;
@@ -61,16 +62,19 @@ export default function SEOHealthPage() {
     return (
         <AdminLayout>
             <div className="p-8 max-w-[1600px] mx-auto w-full">
+                {/* Breadcrumb */}
+                <AdminBreadcrumb />
+                
                 {/* Header */}
                 <div className="mb-10 border-b border-white/5 pb-8">
                     <div className="flex items-center justify-between">
                         <div>
                             <h1 className="text-3xl font-extrabold text-white tracking-tight flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.15)]">
-                                    <Activity className="w-6 h-6 text-indigo-400" />
+                                <div className="w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.15)]">
+                                    <Activity className="w-6 h-6 text-primary-400" />
                                 </div>
                                 SEO Health Monitor
-                                <Badge className="bg-indigo-500/10 text-indigo-400 border-indigo-500/20 ml-2 font-bold tracking-wider">
+                                <Badge className="bg-primary-500/10 text-primary-400 border-primary-500/20 ml-2 font-bold tracking-wider">
                                     BETA
                                 </Badge>
                             </h1>
@@ -105,7 +109,7 @@ export default function SEOHealthPage() {
                                                 onClick={() => setSelectedArticleId(article.id)}
                                                 className={cn(
                                                     "w-full text-left px-6 py-4 hover:bg-white/[0.02] transition-colors flex items-center justify-between gap-4",
-                                                    selectedArticleId === article.id && "bg-indigo-500/10 border-l-2 border-l-indigo-500"
+                                                    selectedArticleId === article.id && "bg-primary-500/10 border-l-2 border-l-indigo-500"
                                                 )}
                                             >
                                                 <div className="flex-1 min-w-0">

@@ -98,7 +98,7 @@ export function StockPhotosBrowser({ onSelect }: StockPhotosBrowserProps) {
                     <button
                         onClick={handleSearch}
                         disabled={loading}
-                        className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium disabled:opacity-50"
+                        className="px-6 py-2 bg-secondary-600 text-white rounded-lg hover:bg-secondary-700 font-medium disabled:opacity-50"
                     >
                         {loading ? 'Searching...' : '🔍 Search'}
                     </button>
@@ -126,7 +126,7 @@ export function StockPhotosBrowser({ onSelect }: StockPhotosBrowserProps) {
                 {loading ? (
                     <div className="flex items-center justify-center h-64">
                         <div className="text-center">
-                            <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent mx-auto mb-4"></div>
+                            <div className="animate-spin rounded-full h-12 w-12 border-4 border-secondary-600 border-t-transparent mx-auto mb-4"></div>
                             <p className="text-gray-500">Loading stock photos...</p>
                         </div>
                     </div>
@@ -158,7 +158,7 @@ export function StockPhotosBrowser({ onSelect }: StockPhotosBrowserProps) {
                                         <button
                                             onClick={() => handleDownloadAndUpload(photo)}
                                             disabled={downloading === photo.id}
-                                            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium disabled:opacity-50"
+                                            className="px-4 py-2 bg-secondary-600 text-white rounded-lg hover:bg-secondary-700 font-medium disabled:opacity-50"
                                         >
                                             {downloading === photo.id ? (
                                                 <>⏳ Downloading...</>
@@ -180,7 +180,7 @@ export function StockPhotosBrowser({ onSelect }: StockPhotosBrowserProps) {
                                         href={photo.photographerUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-xs text-gray-600 hover:text-blue-600 truncate block"
+                                        className="text-xs text-gray-600 hover:text-secondary-600 truncate block"
                                         title={`Photo by ${photo.photographer}`}
                                     >
                                         📸 {photo.photographer}

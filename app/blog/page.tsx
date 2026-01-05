@@ -93,7 +93,7 @@ export default function BlogPage() {
             <div className="bg-slate-900 border-b border-slate-800 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10 pointer-events-none">
                     <div className="absolute top-0 left-1/4 w-96 h-96 bg-teal-500 rounded-full blur-[128px]" />
-                    <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500 rounded-full blur-[128px]" />
+                    <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary-500 rounded-full blur-[128px]" />
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
@@ -144,7 +144,7 @@ export default function BlogPage() {
                             <Card className="overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 border-slate-200 group">
                                 <div className="grid md:grid-cols-2">
                                     <div className="h-64 md:h-auto overflow-hidden relative">
-                                        <div className="absolute inset-0 bg-gradient-to-br from-teal-500 to-blue-600 transition-transform duration-700 group-hover:scale-110" />
+                                        <div className="absolute inset-0 bg-gradient-to-br from-teal-500 to-secondary-600 transition-transform duration-700 group-hover:scale-110" />
                                         {featuredArticle.featured_image && (
                                             <img
                                                 src={featuredArticle.featured_image}

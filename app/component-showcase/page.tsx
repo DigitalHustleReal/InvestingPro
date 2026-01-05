@@ -63,8 +63,8 @@ export default function ComponentShowcasePage() {
           </div>
 
           {/* IMPORTANT */}
-          <div className="my-6 p-6 rounded-lg border-l-4 bg-blue-50 border-blue-500">
-            <h4 className="font-bold text-lg mb-2 text-blue-900">ℹ️ Important</h4>
+          <div className="my-6 p-6 rounded-lg border-l-4 bg-secondary-50 border-secondary-500">
+            <h4 className="font-bold text-lg mb-2 text-secondary-900">ℹ️ Important</h4>
             <p className="text-gray-700">
               Important boxes highlight critical information that readers must not miss. Use these for regulatory requirements, deadlines, or essential details.
             </p>
@@ -79,8 +79,8 @@ export default function ComponentShowcasePage() {
           </div>
 
           {/* EXAMPLE */}
-          <div className="my-6 p-6 rounded-lg border-l-4 bg-purple-50 border-purple-500">
-            <h4 className="font-bold text-lg mb-2 text-purple-900">📊 Example</h4>
+          <div className="my-6 p-6 rounded-lg border-l-4 bg-secondary-50 border-secondary-500">
+            <h4 className="font-bold text-lg mb-2 text-secondary-900">📊 Example</h4>
             <p className="text-gray-700 mb-2">
               <strong>Scenario:</strong> Rajesh invests ₹10,000 per month in a SIP for 20 years at 12% annual returns.
             </p>
@@ -149,7 +149,7 @@ export default function ComponentShowcasePage() {
           </p>
 
           {/* FORMULA BOX */}
-          <div className="my-6 bg-indigo-50 border-2 border-indigo-400 rounded-lg p-6">
+          <div className="my-6 bg-primary-50 border-2 border-indigo-400 rounded-lg p-6">
             <h4 className="font-bold text-indigo-900 mb-3 flex items-center gap-2">
               🧮 SIP Return Calculation
             </h4>
@@ -212,7 +212,7 @@ export default function ComponentShowcasePage() {
           <p>
             Highlight important numbers or terms inline: 
             <span className="px-2 py-0.5 mx-1 rounded border font-semibold bg-emerald-100 text-emerald-900 border-emerald-300">₹10 lakh coverage</span>,
-            <span className="px-2 py-0.5 mx-1 rounded border font-semibold bg-blue-100 text-blue-900 border-blue-300">12.5% returns</span>, or
+            <span className="px-2 py-0.5 mx-1 rounded border font-semibold bg-secondary-100 text-secondary-900 border-secondary-300">12.5% returns</span>, or
             <span className="px-2 py-0.5 mx-1 rounded border font-semibold bg-amber-100 text-amber-900 border-amber-300">Section 80C benefit</span>.
           </p>
 
@@ -321,7 +321,7 @@ export default function ComponentShowcasePage() {
               <div className="flex flex-col items-center flex-1">
                 <div className="mb-2 text-sm font-semibold text-gray-900">20%</div>
                 <div className="w-full bg-gray-100 rounded-t-lg relative" style={{ height: '100%' }}>
-                  <div className="absolute bottom-0 w-full rounded-t-lg bg-purple-600" style={{ height: '100%' }} />
+                  <div className="absolute bottom-0 w-full rounded-t-lg bg-secondary-600" style={{ height: '100%' }} />
                 </div>
                 <div className="mt-2 text-xs text-center text-gray-600">Gold</div>
               </div>
@@ -338,7 +338,7 @@ export default function ComponentShowcasePage() {
               <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-emerald-500 to-emerald-600 flex items-center justify-end pr-4" style={{ width: '65%' }}>
                 <span className="text-white font-bold text-sm">65%</span>
               </div>
-              <div className="absolute right-0 top-0 h-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-start pl-4" style={{ width: '35%' }}>
+              <div className="absolute right-0 top-0 h-full bg-gradient-to-r from-secondary-500 to-secondary-600 flex items-center justify-start pl-4" style={{ width: '35%' }}>
                 <span className="text-white font-bold text-sm">35%</span>
               </div>
             </div>

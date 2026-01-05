@@ -1,36 +1,54 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp, BarChart3, ArrowRight, Sparkles, Activity, Zap, TrendingDown, AlertCircle } from 'lucide-react';
 import SEOHead from "@/components/common/SEOHead";
 import Link from 'next/link';
 import NewsSentiment from '@/components/home/NewsSentiment';
-
-const mainOpportunities = [
-    { symbol: "RELIANCE", signal: "Breakout", prob: "82%", price: "2,534", status: "bullish" },
-    { symbol: "HDFC BANK", signal: "Support Zone", prob: "75%", price: "1,745", status: "bullish" },
-    { symbol: "TCS", signal: "Overbought", prob: "68%", price: "3,890", status: "bearish" },
-];
-
-const allOpportunities = [
-    { symbol: "RELIANCE", signal: "Breakout", prob: "82%", price: "2,534", status: "bullish", change: "+2.4%" },
-    { symbol: "HDFC BANK", signal: "Support Zone", prob: "75%", price: "1,745", status: "bullish", change: "+1.8%" },
-    { symbol: "TCS", signal: "Overbought", prob: "68%", price: "3,890", status: "bearish", change: "-0.9%" },
-    { symbol: "INFY", signal: "Momentum", prob: "79%", price: "1,542", status: "bullish", change: "+3.2%" },
-    { symbol: "ICICIBANK", signal: "Resistance", prob: "65%", price: "1,089", status: "bearish", change: "-1.1%" },
-    { symbol: "BHARTIARTL", signal: "Breakout", prob: "88%", price: "1,234", status: "bullish", change: "+4.5%" },
-];
-
-const watchlist = [
-    { symbol: "NIFTY 50", price: "22,456", change: "+0.8%", trend: "up" },
-    { symbol: "SENSEX", price: "73,892", change: "+0.6%", trend: "up" },
-    { symbol: "BANK NIFTY", price: "48,234", change: "+1.2%", trend: "up" },
-];
+import { productService, Product } from '@/lib/products/product-service';
 
 export default function TerminalPage() {
     const [activeTab, setActiveTab] = useState<'opportunities' | 'watchlist' | 'alerts'>('opportunities');
+    const [opportunities, setOpportunities] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                // Fetch real products to show as "Intelligence"
+                const products = await productService.getProducts({ limit: 6 });
+                
+                const mapped = products.map(p => ({
+                    symbol: p.name.toUpperCase(),
+                    signal: p.rating >= 4.5 ? "Strong Buy" : p.rating >= 4.0 ? "Momentum" : "Observing",
+                    prob: `${Math.floor(p.trust_score / 10 * 100)}%`, // Map trust score to probability
+                    price: p.category === 'mutual_fund' ? (p.features.returns_3y || "12.5") + "% (3Y)" : "LTP Available",
+                    status: p.rating >= 4.0 ? "bullish" : "neutral",
+                    change: p.rating >= 4.5 ? "+2.4%" : "+0.8%",
+                    slug: p.slug,
+                    category: p.category
+                }));
+
+                setOpportunities(mapped);
+            } catch (error) {
+                console.error("Failed to load terminal intelligence:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const displayOpps = opportunities.length > 0 ? opportunities : [
+        { symbol: "RELIANCE", signal: "Breakout", prob: "82%", price: "2,534", status: "bullish", change: "+2.4%" },
+        { symbol: "HDFC BANK", signal: "Support Zone", prob: "75%", price: "1,745", status: "bullish", change: "+1.8%" },
+        { symbol: "TCS", signal: "Overbought", prob: "68%", price: "3,890", status: "bearish", change: "-0.9%" },
+    ];
+
 
     return (
         <>
@@ -44,25 +62,25 @@ export default function TerminalPage() {
                 {/* MAIN SECTION - Original TerminalOverview Design */}
                 <section className="py-24 relative overflow-hidden">
                     {/* Background elements */}
-                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent" />
-                    <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/10 to-transparent" />
+                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-500/20 to-transparent" />
+                    <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-500/10 to-transparent" />
 
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
                             <div className="max-w-2xl">
-                                <Badge className="mb-4 bg-indigo-500/10 text-indigo-400 border-indigo-500/20 px-3 py-1 flex w-fit items-center gap-2">
+                                <Badge className="mb-4 bg-primary-500/10 text-primary-400 border-primary-500/20 px-3 py-1 flex w-fit items-center gap-2">
                                     <Sparkles size={14} />
                                     The Alpha Terminal
                                 </Badge>
                                 <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
-                                    Real-time Market <span className="text-indigo-500">Intelligence</span>
+                                    Real-time Market <span className="text-primary-500">Intelligence</span>
                                 </h1>
                                 <p className="text-slate-400 font-medium text-lg leading-relaxed">
                                     Institutional-grade data streams analyzed by our proprietary quant models.
                                     Surface asymmetric opportunities across Indian equities and credit.
                                 </p>
                             </div>
-                            <Link href="/advanced-tools/active-trading" className="h-12 px-8 bg-white text-slate-950 font-bold rounded-xl hover:bg-indigo-500 hover:text-white transition-all shadow-xl hover:shadow-indigo-500/20 flex items-center gap-2 group">
+                            <Link href="/advanced-tools/active-trading" className="h-12 px-8 bg-white text-slate-950 font-bold rounded-xl hover:bg-primary-500 hover:text-white transition-all shadow-xl hover:shadow-primary-500/20 flex items-center gap-2 group">
                                 Learn More
                                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                             </Link>
@@ -82,7 +100,7 @@ export default function TerminalPage() {
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    {mainOpportunities.map((item, i) => (
+                                    {displayOpps.slice(0, 3).map((item, i) => (
                                         <div key={i} className="bg-slate-900/40 border border-slate-800/60 hover:border-emerald-500/30 transition-all group rounded-[2rem] overflow-hidden shadow-lg">
                                             <div className="p-8">
                                                 <div className="flex justify-between items-start mb-6">
@@ -115,7 +133,7 @@ export default function TerminalPage() {
                                     ))}
 
                                     {/* Premium CTA Card */}
-                                    <div className="bg-gradient-to-br from-indigo-600 to-blue-700 border-0 rounded-[2rem] overflow-hidden group cursor-pointer relative shadow-xl">
+                                    <div className="bg-gradient-to-br from-primary-600 to-emerald-700 border-0 rounded-[2rem] overflow-hidden group cursor-pointer relative shadow-xl">
                                         <BarChart3 className="absolute -right-8 -bottom-8 w-48 h-48 text-white/10 group-hover:scale-110 transition-transform duration-700" />
                                         <div className="p-8 h-full flex flex-col justify-between relative z-10">
                                             <div>
@@ -152,7 +170,7 @@ export default function TerminalPage() {
                                 onClick={() => setActiveTab('opportunities')}
                                 className={`px-6 py-3 font-semibold text-sm transition-colors ${
                                     activeTab === 'opportunities'
-                                        ? 'text-indigo-400 border-b-2 border-indigo-400'
+                                        ? 'text-primary-400 border-b-2 border-primary-400'
                                         : 'text-slate-500 hover:text-slate-300'
                                 }`}
                             >
@@ -162,7 +180,7 @@ export default function TerminalPage() {
                                 onClick={() => setActiveTab('watchlist')}
                                 className={`px-6 py-3 font-semibold text-sm transition-colors ${
                                     activeTab === 'watchlist'
-                                        ? 'text-indigo-400 border-b-2 border-indigo-400'
+                                        ? 'text-primary-400 border-b-2 border-primary-400'
                                         : 'text-slate-500 hover:text-slate-300'
                                 }`}
                             >
@@ -172,7 +190,7 @@ export default function TerminalPage() {
                                 onClick={() => setActiveTab('alerts')}
                                 className={`px-6 py-3 font-semibold text-sm transition-colors ${
                                     activeTab === 'alerts'
-                                        ? 'text-indigo-400 border-b-2 border-indigo-400'
+                                        ? 'text-primary-400 border-b-2 border-primary-400'
                                         : 'text-slate-500 hover:text-slate-300'
                                 }`}
                             >
@@ -185,7 +203,7 @@ export default function TerminalPage() {
                             <div className="lg:col-span-8 space-y-6">
                                 {activeTab === 'opportunities' && (
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        {allOpportunities.map((item, i) => (
+                                        {displayOpps.map((item, i) => (
                                             <div key={i} className="bg-slate-900/40 border border-slate-800/60 hover:border-emerald-500/30 transition-all group rounded-xl overflow-hidden shadow-lg">
                                                 <div className="p-6">
                                                     <div className="flex justify-between items-start mb-4">
@@ -227,7 +245,11 @@ export default function TerminalPage() {
                                 {activeTab === 'watchlist' && (
                                     <div className="space-y-4">
                                         <h3 className="text-lg font-bold text-white mb-4">Market Indices</h3>
-                                        {watchlist.map((item, i) => (
+                                        {[
+                                        { symbol: "NIFTY 50", price: "22,456", change: "+0.8%", trend: "up" },
+                                        { symbol: "SENSEX", price: "73,892", change: "+0.6%", trend: "up" },
+                                        { symbol: "BANK NIFTY", price: "48,234", change: "+1.2%", trend: "up" },
+                                    ].map((item, i) => (
                                             <div key={i} className="bg-slate-900/40 border border-slate-800/60 rounded-xl shadow-lg">
                                                 <div className="p-6">
                                                     <div className="flex items-center justify-between">
@@ -286,7 +308,7 @@ export default function TerminalPage() {
                                         </div>
                                         <div>
                                             <div className="text-xs text-slate-500 uppercase tracking-widest mb-1">Avg. Return</div>
-                                            <div className="text-2xl font-bold text-indigo-400">+12.4%</div>
+                                            <div className="text-2xl font-bold text-primary-400">+12.4%</div>
                                         </div>
                                     </div>
                                 </div>

@@ -7,6 +7,8 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import OpenAI from 'openai';
 import Anthropic from '@anthropic-ai/sdk';
+import { Mistral } from '@mistralai/mistralai';
+import Groq from 'groq-sdk';
 import { logger } from './logger';
 
 interface AIProvider {
@@ -18,30 +20,73 @@ interface AIProvider {
 class AIService {
     private providers: AIProvider[] = [];
     private currentProviderIndex = 0;
+    private initialized = false;
 
     constructor() {
+        // Initialization moved to lazy load
+    }
+
+    private ensureInitialized() {
+        if (this.initialized) return;
         this.initializeProviders();
+        this.initialized = true;
     }
 
     /**
      * Initialize all available AI providers
      */
     private initializeProviders() {
-        // Provider 1: Google Gemini
+        // Provider 1: Google Gemini - TEMPORARILY DISABLED (404 errors)
+        // TODO: Investigate SDK version mismatch with model names
+        /*
         if (process.env.GOOGLE_GEMINI_API_KEY) {
             const gemini = new GoogleGenerativeAI(process.env.GOOGLE_GEMINI_API_KEY);
             this.providers.push({
                 name: 'Gemini',
                 isAvailable: () => !!process.env.GOOGLE_GEMINI_API_KEY,
                 generate: async (prompt: string) => {
-                    const model = gemini.getGenerativeModel({ model: 'gemini-1.5-flash' });
+                    const model = gemini.getGenerativeModel({ model: 'gemini-pro' });
                     const result = await model.generateContent(prompt);
                     return result.response.text();
                 }
             });
         }
+        */
 
-        // Provider 2: OpenAI (GPT-4)
+        // Provider 2: Groq (Ultra Fast - Llama3/Mixtral)
+        if (process.env.GROQ_API_KEY) {
+            const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+            this.providers.push({
+                name: 'Groq',
+                isAvailable: () => !!process.env.GROQ_API_KEY,
+                generate: async (prompt: string) => {
+                    const completion = await groq.chat.completions.create({
+                        messages: [{ role: 'user', content: prompt }],
+                        model: 'llama-3.1-8b-instant',
+                        temperature: 0.7,
+                    });
+                    return completion.choices[0]?.message?.content || '';
+                }
+            });
+        }
+
+        // Provider 3: Mistral (Stable European Provider)
+        if (process.env.MISTRAL_API_KEY) {
+            const mistral = new Mistral({ apiKey: process.env.MISTRAL_API_KEY });
+            this.providers.push({
+                name: 'Mistral',
+                isAvailable: () => !!process.env.MISTRAL_API_KEY,
+                generate: async (prompt: string) => {
+                    const result = await mistral.chat.complete({
+                        model: process.env.MISTRAL_MODEL || 'mistral-small-latest',
+                        messages: [{ role: 'user', content: prompt }],
+                    });
+                    return (result.choices?.[0]?.message?.content as string) || '';
+                }
+            });
+        }
+
+        // Provider 4: OpenAI (Industry Standard)
         if (process.env.OPENAI_API_KEY) {
             const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
             this.providers.push({
@@ -59,7 +104,7 @@ class AIService {
             });
         }
 
-        // Provider 3: Anthropic (Claude)
+        // Provider 5: Anthropic (Claude-3)
         if (process.env.ANTHROPIC_API_KEY) {
             const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
             this.providers.push({
@@ -86,6 +131,7 @@ class AIService {
         logger.info(`AI Service initialized with ${this.providers.length} provider(s): ${this.providers.map(p => p.name).join(', ')}`);
     }
 
+
     /**
      * Generate content with automatic fallback
      */
@@ -93,7 +139,14 @@ class AIService {
         format?: 'text' | 'json';
         maxRetries?: number;
     }): Promise<string> {
+        this.ensureInitialized();
         const { format = 'text', maxRetries = 3 } = options || {};
+        
+        // Enforce JSON structure in prompt if requested
+        let finalPrompt = prompt;
+        if (format === 'json') {
+            finalPrompt += `\n\nCRITICAL INSTRUCTION: Return ONLY valid JSON. Do not use Markdown code blocks (no \`\`\`json). Do not add any conversational text. Start with { and end with }.`;
+        }
         
         let lastError: Error | null = null;
         let attemptedProviders: string[] = [];
@@ -111,7 +164,7 @@ class AIService {
                 logger.info(`Attempting generation with ${provider.name}...`);
                 attemptedProviders.push(provider.name);
                 
-                const result = await provider.generate(prompt);
+                const result = await provider.generate(finalPrompt);
                 
                 // Validate JSON if required
                 if (format === 'json') {
@@ -140,18 +193,36 @@ class AIService {
      * Generate JSON with validation
      */
     async generateJSON<T = any>(prompt: string): Promise<T> {
+        this.ensureInitialized();
         const result = await this.generate(prompt, { format: 'json' });
         
-        // Extract JSON from markdown code blocks if present
-        const jsonMatch = result.match(/```json\s*([\s\S]*?)\s*```/) || 
-                         result.match(/```\s*([\s\S]*?)\s*```/) ||
-                         result.match(/\{[\s\S]*\}/);
+        let jsonContent = result.trim();
         
-        if (!jsonMatch) {
-            throw new Error('No valid JSON found in response');
+        // 1. Try to extract from ```json ... ```
+        const jsonBlockMatch = result.match(/```json\s*([\s\S]*?)\s*```/);
+        if (jsonBlockMatch) {
+            jsonContent = jsonBlockMatch[1];
+        } else {
+            // 2. Try to extract from ``` ... ```
+            const codeBlockMatch = result.match(/```\s*([\s\S]*?)\s*```/);
+            if (codeBlockMatch) {
+                jsonContent = codeBlockMatch[1];
+            } else {
+                // 3. Try to find the first { and last }
+                const firstBrace = result.indexOf('{');
+                const lastBrace = result.lastIndexOf('}');
+                if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+                    jsonContent = result.substring(firstBrace, lastBrace + 1);
+                }
+            }
         }
         
-        return JSON.parse(jsonMatch[0].replace(/```json|```/g, '').trim());
+        try {
+            return JSON.parse(jsonContent.trim());
+        } catch (error: any) {
+            logger.error('JSON Parse Error', error, { content: jsonContent });
+            throw new Error(`Failed to parse AI response as JSON: ${error.message}`);
+        }
     }
 
     /**
@@ -221,6 +292,7 @@ Return ONLY valid JSON:
      * Get service status
      */
     getStatus() {
+        this.ensureInitialized();
         return {
             totalProviders: this.providers.length,
             activeProviders: this.providers.filter(p => p.isAvailable()).map(p => p.name),

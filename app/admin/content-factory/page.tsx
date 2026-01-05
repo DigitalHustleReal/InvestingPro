@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/Button';
+import AdminLayout from '@/components/admin/AdminLayout';
+import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
 
 /**
  * 🤖 CONTENT FACTORY - ADMIN AUTOMATION PAGE
@@ -83,191 +85,196 @@ export default function ContentFactoryPage() {
     const percentage = totalArticles > 0 ? (currentArticle / totalArticles) * 100 : 0;
 
     return (
-        <div className="min-h-screen bg-[#0A0118] text-white p-8">
-            <div className="max-w-6xl mx-auto space-y-8">
-                {/* Header */}
-                <div className="space-y-2">
-                    <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                        🤖 AI Content Factory
-                    </h1>
-                    <p className="text-gray-400">
-                        Automated bulk article generation with real-time progress tracking
-                    </p>
-                </div>
-
-                {/* Controls */}
-                <Card className="bg-[#1A1128]/50 border-purple-500/20 p-6 backdrop-blur-xl">
-                    <div className="space-y-4">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            {/* Article Count */}
-                            <div className="space-y-2">
-                                <label className="text-sm text-gray-400">Articles to Generate</label>
-                                <select 
-                                    value={count}
-                                    onChange={(e) => setCount(parseInt(e.target.value))}
-                                    disabled={isGenerating}
-                                    className="w-full bg-[#0A0118] border border-purple-500/30 rounded-lg px-4 py-2 text-white"
-                                >
-                                    <option value={5}>5 Articles</option>
-                                    <option value={10}>10 Articles</option>
-                                    <option value={25}>25 Articles</option>
-                                    <option value={50}>50 Articles</option>
-                                    <option value={60}>60 Articles (MVL)</option>
-                                </select>
-                            </div>
-
-                            {/* Phase Selection */}
-                            <div className="space-y-2">
-                                <label className="text-sm text-gray-400">Content Phase</label>
-                                <select 
-                                    value={phase}
-                                    onChange={(e) => setPhase(e.target.value)}
-                                    disabled={isGenerating}
-                                    className="w-full bg-[#0A0118] border border-purple-500/30 rounded-lg px-4 py-2 text-white"
-                                >
-                                    <option value="mvl">MVL Core</option>
-                                    <option value="month1">Month 1</option>
-                                    <option value="month2">Month 2</option>
-                                </select>
-                            </div>
-
-                            {/* Action Button */}
-                            <div className="space-y-2">
-                                <label className="text-sm text-gray-400">Action</label>
-                                <Button
-                                    onClick={startGeneration}
-                                    disabled={isGenerating}
-                                    className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold py-2"
-                                >
-                                    {isGenerating ? '⏳ Generating...' : '🚀 Start Generation'}
-                                </Button>
-                            </div>
-                        </div>
+        <AdminLayout>
+            <div className="min-h-screen text-white p-8">
+                <div className="max-w-6xl mx-auto space-y-8">
+                    {/* Breadcrumb */}
+                    <AdminBreadcrumb />
+                    
+                    {/* Header */}
+                    <div className="space-y-2">
+                        <h1 className="text-4xl font-bold bg-gradient-to-r from-secondary-400 to-pink-400 bg-clip-text text-transparent">
+                            🤖 AI Content Factory
+                        </h1>
+                        <p className="text-gray-400">
+                            Automated bulk article generation with real-time progress tracking
+                        </p>
                     </div>
-                </Card>
 
-                {/* Progress Bar */}
-                {progress.length > 0 && (
-                    <Card className="bg-[#1A1128]/50 border-purple-500/20 p-6 backdrop-blur-xl">
+                    {/* Controls */}
+                    <Card className="bg-[#1A1128]/50 border-secondary-500/20 p-6 backdrop-blur-xl">
                         <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <h2 className="text-xl font-semibold">Generation Progress</h2>
-                                <span className="text-gray-400">
-                                    {currentArticle} / {totalArticles} articles
-                                </span>
-                            </div>
-
-                            {/* Progress Bar */}
-                            <div className="w-full bg-[#0A0118] rounded-full h-4 overflow-hidden">
-                                <div 
-                                    className="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-500"
-                                    style={{ width: `${percentage}%` }}
-                                />
-                            </div>
-
-                            <div className="text-sm text-gray-400">
-                                {percentage.toFixed(0)}% Complete
-                            </div>
-
-                            {/* Stats */}
-                            {latestStatus?.status === 'complete' && (
-                                <div className="grid grid-cols-3 gap-4 pt-4 border-t border-purple-500/20">
-                                    <div className="text-center">
-                                        <div className="text-2xl font-bold text-green-400">
-                                            {latestStatus.success || 0}
-                                        </div>
-                                        <div className="text-sm text-gray-400">Successful</div>
-                                    </div>
-                                    <div className="text-center">
-                                        <div className="text-2xl font-bold text-red-400">
-                                            {latestStatus.failed || 0}
-                                        </div>
-                                        <div className="text-sm text-gray-400">Failed</div>
-                                    </div>
-                                    <div className="text-center">
-                                        <div className="text-2xl font-bold text-purple-400">
-                                            {latestStatus.total || 0}
-                                        </div>
-                                        <div className="text-sm text-gray-400">Total</div>
-                                    </div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                {/* Article Count */}
+                                <div className="space-y-2">
+                                    <label className="text-sm text-gray-400">Articles to Generate</label>
+                                    <select 
+                                        value={count}
+                                        onChange={(e) => setCount(parseInt(e.target.value))}
+                                        disabled={isGenerating}
+                                        className="w-full bg-[#0A0118] border border-secondary-500/30 rounded-lg px-4 py-2 text-white"
+                                    >
+                                        <option value={5}>5 Articles</option>
+                                        <option value={10}>10 Articles</option>
+                                        <option value={25}>25 Articles</option>
+                                        <option value={50}>50 Articles</option>
+                                        <option value={60}>60 Articles (MVL)</option>
+                                    </select>
                                 </div>
-                            )}
-                        </div>
-                    </Card>
-                )}
 
-                {/* Console Output */}
-                {progress.length > 0 && (
-                    <Card className="bg-[#0A0118] border-purple-500/20 p-6 backdrop-blur-xl">
-                        <h2 className="text-xl font-semibold mb-4">Console Output</h2>
-                        <div className="space-y-2 max-h-96 overflow-y-auto font-mono text-sm">
-                            {progress.map((item, i) => (
-                                <div key={i} className="flex items-start gap-2">
-                                    {item.status === 'started' && (
-                                        <div className="text-blue-400">
-                                            ▶ Started generation: {item.total} articles (Authority: {item.authority})
-                                        </div>
-                                    )}
-                                    {item.status === 'generating' && (
-                                        <div className="text-yellow-400">
-                                            ⏳ [{item.current}/{item.total}] {item.topic}
-                                        </div>
-                                    )}
-                                    {item.status === 'log' && (
-                                        <div className="text-gray-400 pl-4">{item.message}</div>
-                                    )}
-                                    {item.status === 'success' && (
-                                        <div className="text-green-400">
-                                            ✅ [{item.current}/{item.total}] {item.topic}
-                                        </div>
-                                    )}
-                                    {item.status === 'error' && (
-                                        <div className="text-red-400">
-                                            ❌ [{item.current}/{item.total}] {item.topic}: {item.error}
-                                        </div>
-                                    )}
-                                    {item.status === 'complete' && (
-                                        <div className="text-green-400 font-bold">
-                                            🎉 Generation complete! {item.success}/{item.total} successful
-                                        </div>
-                                    )}
-                                    {item.status === 'fatal_error' && (
-                                        <div className="text-red-400 font-bold">
-                                            💥 Fatal error: {item.error}
-                                        </div>
-                                    )}
+                                {/* Phase Selection */}
+                                <div className="space-y-2">
+                                    <label className="text-sm text-gray-400">Content Phase</label>
+                                    <select 
+                                        value={phase}
+                                        onChange={(e) => setPhase(e.target.value)}
+                                        disabled={isGenerating}
+                                        className="w-full bg-[#0A0118] border border-secondary-500/30 rounded-lg px-4 py-2 text-white"
+                                    >
+                                        <option value="mvl">MVL Core</option>
+                                        <option value="month1">Month 1</option>
+                                        <option value="month2">Month 2</option>
+                                    </select>
                                 </div>
-                            ))}
-                        </div>
-                    </Card>
-                )}
 
-                {/* Quick Stats */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <Card className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-purple-500/20 p-6">
-                        <div className="text-sm text-gray-400 mb-2">Current Authority</div>
-                        <div className="text-3xl font-bold text-purple-400">
-                            {latestStatus?.authority || '...'}/100
-                        </div>
-                    </Card>
-
-                    <Card className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border-blue-500/20 p-6">
-                        <div className="text-sm text-gray-400 mb-2">Articles Generated</div>
-                        <div className="text-3xl font-bold text-blue-400">
-                            {currentArticle}
+                                {/* Action Button */}
+                                <div className="space-y-2">
+                                    <label className="text-sm text-gray-400">Action</label>
+                                    <Button
+                                        onClick={startGeneration}
+                                        disabled={isGenerating}
+                                        className="w-full bg-gradient-to-r from-secondary-500 to-pink-500 hover:from-secondary-600 hover:to-pink-600 text-white font-semibold py-2"
+                                    >
+                                        {isGenerating ? '⏳ Generating...' : '🚀 Start Generation'}
+                                    </Button>
+                                </div>
+                            </div>
                         </div>
                     </Card>
 
-                    <Card className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border-green-500/20 p-6">
-                        <div className="text-sm text-gray-400 mb-2">Success Rate</div>
-                        <div className="text-3xl font-bold text-green-400">
-                            {latestStatus?.success && latestStatus?.total
-                                ? `${((latestStatus.success / latestStatus.total) * 100).toFixed(0)}%`
-                                : '...'}
-                        </div>
-                    </Card>
+                    {/* Progress Bar */}
+                    {progress.length > 0 && (
+                        <Card className="bg-[#1A1128]/50 border-secondary-500/20 p-6 backdrop-blur-xl">
+                            <div className="space-y-4">
+                                <div className="flex items-center justify-between">
+                                    <h2 className="text-xl font-semibold">Generation Progress</h2>
+                                    <span className="text-gray-400">
+                                        {currentArticle} / {totalArticles} articles
+                                    </span>
+                                </div>
+
+                                {/* Progress Bar */}
+                                <div className="w-full bg-[#0A0118] rounded-full h-4 overflow-hidden">
+                                    <div 
+                                        className="h-full bg-gradient-to-r from-secondary-500 to-pink-500 transition-all duration-500"
+                                        style={{ width: `${percentage}%` }}
+                                    />
+                                </div>
+
+                                <div className="text-sm text-gray-400">
+                                    {percentage.toFixed(0)}% Complete
+                                </div>
+
+                                {/* Stats */}
+                                {latestStatus?.status === 'complete' && (
+                                    <div className="grid grid-cols-3 gap-4 pt-4 border-t border-secondary-500/20">
+                                        <div className="text-center">
+                                            <div className="text-2xl font-bold text-green-400">
+                                                {latestStatus.success || 0}
+                                            </div>
+                                            <div className="text-sm text-gray-400">Successful</div>
+                                        </div>
+                                        <div className="text-center">
+                                            <div className="text-2xl font-bold text-red-400">
+                                                {latestStatus.failed || 0}
+                                            </div>
+                                            <div className="text-sm text-gray-400">Failed</div>
+                                        </div>
+                                        <div className="text-center">
+                                            <div className="text-2xl font-bold text-secondary-400">
+                                                {latestStatus.total || 0}
+                                            </div>
+                                            <div className="text-sm text-gray-400">Total</div>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </Card>
+                    )}
+
+                    {/* Console Output */}
+                    {progress.length > 0 && (
+                        <Card className="bg-[#0A0118] border-secondary-500/20 p-6 backdrop-blur-xl">
+                            <h2 className="text-xl font-semibold mb-4">Console Output</h2>
+                            <div className="space-y-2 max-h-96 overflow-y-auto font-mono text-sm">
+                                {progress.map((item, i) => (
+                                    <div key={i} className="flex items-start gap-2">
+                                        {item.status === 'started' && (
+                                            <div className="text-secondary-400">
+                                                ▶ Started generation: {item.total} articles (Authority: {item.authority})
+                                            </div>
+                                        )}
+                                        {item.status === 'generating' && (
+                                            <div className="text-yellow-400">
+                                                ⏳ [{item.current}/{item.total}] {item.topic}
+                                            </div>
+                                        )}
+                                        {item.status === 'log' && (
+                                            <div className="text-gray-400 pl-4">{item.message}</div>
+                                        )}
+                                        {item.status === 'success' && (
+                                            <div className="text-green-400">
+                                                ✅ [{item.current}/{item.total}] {item.topic}
+                                            </div>
+                                        )}
+                                        {item.status === 'error' && (
+                                            <div className="text-red-400">
+                                                ❌ [{item.current}/{item.total}] {item.topic}: {item.error}
+                                            </div>
+                                        )}
+                                        {item.status === 'complete' && (
+                                            <div className="text-green-400 font-bold">
+                                                🎉 Generation complete! {item.success}/{item.total} successful
+                                            </div>
+                                        )}
+                                        {item.status === 'fatal_error' && (
+                                            <div className="text-red-400 font-bold">
+                                                💥 Fatal error: {item.error}
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </Card>
+                    )}
+
+                    {/* Quick Stats */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <Card className="bg-gradient-to-br from-secondary-500/10 to-pink-500/10 border-secondary-500/20 p-6">
+                            <div className="text-sm text-gray-400 mb-2">Current Authority</div>
+                            <div className="text-3xl font-bold text-secondary-400">
+                                {latestStatus?.authority || '...'}/100
+                            </div>
+                        </Card>
+
+                        <Card className="bg-gradient-to-br from-secondary-500/10 to-cyan-500/10 border-secondary-500/20 p-6">
+                            <div className="text-sm text-gray-400 mb-2">Articles Generated</div>
+                            <div className="text-3xl font-bold text-secondary-400">
+                                {currentArticle}
+                            </div>
+                        </Card>
+
+                        <Card className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border-green-500/20 p-6">
+                            <div className="text-sm text-gray-400 mb-2">Success Rate</div>
+                            <div className="text-3xl font-bold text-green-400">
+                                {latestStatus?.success && latestStatus?.total
+                                    ? `${((latestStatus.success / latestStatus.total) * 100).toFixed(0)}%`
+                                    : '...'}
+                            </div>
+                        </Card>
+                    </div>
                 </div>
             </div>
-        </div>
+        </AdminLayout>
     );
 }

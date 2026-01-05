@@ -60,7 +60,7 @@ export default function SocialRepurposeView({ articleId }: SocialRepurposeViewPr
                 <div className="flex items-center justify-between">
                     <div>
                         <CardTitle className="text-lg font-bold flex items-center gap-6 md:p-8 text-indigo-900">
-                            <Sparkles className="w-5 h-5 text-indigo-500" />
+                            <Sparkles className="w-5 h-5 text-primary-500" />
                             Omnichannel Repurposing
                         </CardTitle>
                         <CardDescription>
@@ -77,7 +77,7 @@ export default function SocialRepurposeView({ articleId }: SocialRepurposeViewPr
                             X
                         </TabsTrigger>
                         <TabsTrigger value="linkedin" className="rounded-lg data-[state=active]:bg-white">
-                            <LinkedIn className="w-4 h-4 mr-2 text-blue-700" />
+                            <LinkedIn className="w-4 h-4 mr-2 text-secondary-700" />
                             LinkedIn
                         </TabsTrigger>
                         <TabsTrigger value="facebook" className="rounded-lg data-[state=active]:bg-white">
@@ -97,7 +97,7 @@ export default function SocialRepurposeView({ articleId }: SocialRepurposeViewPr
                                 <Button 
                                     onClick={handleRepurpose}
                                     disabled={generating}
-                                    className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-6"
+                                    className="bg-primary-600 hover:bg-indigo-700 text-white rounded-xl px-6"
                                 >
                                     {generating ? 'Processing with AI...' : `Generate ${platform} Post`}
                                 </Button>
@@ -106,7 +106,7 @@ export default function SocialRepurposeView({ articleId }: SocialRepurposeViewPr
                             <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
                                 <div className="p-5 bg-slate-50 rounded-2xl border border-slate-200">
                                     <div className="flex items-center gap-2 mb-3">
-                                        <Badge variant="outline" className="bg-white text-indigo-600 border-indigo-100">
+                                        <Badge variant="outline" className="bg-white text-primary-600 border-indigo-100">
                                             {platform.toUpperCase()} DRAFT
                                         </Badge>
                                         <span className="text-xs text-slate-400">Word count: {postContent.content_text.length} chars</span>
@@ -116,7 +116,7 @@ export default function SocialRepurposeView({ articleId }: SocialRepurposeViewPr
                                     </p>
                                     <div className="mt-4 flex flex-wrap gap-2">
                                         {postContent.hashtags?.map((tag: string, idx: number) => (
-                                            <span key={idx} className="text-xs font-bold text-indigo-600">#{tag}</span>
+                                            <span key={idx} className="text-xs font-bold text-primary-600">#{tag}</span>
                                         ))}
                                     </div>
                                 </div>

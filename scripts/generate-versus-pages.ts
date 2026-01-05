@@ -11,6 +11,11 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local' });
 
+console.log('--- Env Debug ---');
+console.log('GOOGLE_GEMINI_API_KEY present:', !!process.env.GOOGLE_GEMINI_API_KEY);
+console.log('OPENAI_API_KEY present:', !!process.env.OPENAI_API_KEY);
+console.log('------------------');
+
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!

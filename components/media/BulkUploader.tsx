@@ -101,7 +101,7 @@ export function BulkUploader() {
                 {stats.total > 0 && (
                     <div className="flex gap-4 mb-4 text-sm">
                         <span className="text-gray-600">Total: <strong>{stats.total}</strong></span>
-                        {stats.pending > 0 && <span className="text-blue-600">Pending: <strong>{stats.pending}</strong></span>}
+                        {stats.pending > 0 && <span className="text-secondary-600">Pending: <strong>{stats.pending}</strong></span>}
                         {stats.uploading > 0 && <span className="text-orange-600">Uploading: <strong>{stats.uploading}</strong></span>}
                         {stats.complete > 0 && <span className="text-green-600">Complete: <strong>{stats.complete}</strong></span>}
                         {stats.error > 0 && <span className="text-red-600">Error: <strong>{stats.error}</strong></span>}
@@ -121,7 +121,7 @@ export function BulkUploader() {
                     <button
                         onClick={() => fileInputRef.current?.click()}
                         disabled={uploading}
-                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium disabled:opacity-50"
+                        className="px-4 py-2 bg-secondary-600 text-white rounded-lg hover:bg-secondary-700 font-medium disabled:opacity-50"
                     >
                         ➕ Select Files
                     </button>
@@ -182,7 +182,7 @@ export function BulkUploader() {
                                         : item.status === 'error'
                                         ? 'bg-red-50 border-red-200'
                                         : item.status === 'uploading'
-                                        ? 'bg-blue-50 border-blue-200'
+                                        ? 'bg-secondary-50 border-secondary-200'
                                         : 'bg-gray-50 border-gray-200'
                                 }`}
                             >
@@ -208,7 +208,7 @@ export function BulkUploader() {
                                             <div className="mt-2">
                                                 <div className="w-full bg-gray-200 rounded-full h-2">
                                                     <div
-                                                        className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                                                        className="bg-secondary-600 h-2 rounded-full transition-all duration-300"
                                                         style={{ width: `${item.progress.progress}%` }}
                                                     />
                                                 </div>
@@ -252,11 +252,11 @@ export function BulkUploader() {
 
             {/* Footer Tips */}
             {items.length === 0 && (
-                <div className="border-t p-4 bg-blue-50">
-                    <h4 className="text-sm font-medium text-blue-900 mb-2">
+                <div className="border-t p-4 bg-secondary-50">
+                    <h4 className="text-sm font-medium text-secondary-900 mb-2">
                         💡 Bulk Upload Tips:
                     </h4>
-                    <ul className="text-sm text-blue-700 space-y-1">
+                    <ul className="text-sm text-secondary-700 space-y-1">
                         <li>• Select multiple files at once (Ctrl/Cmd + Click)</li>
                         <li>• All images will be automatically optimized to WebP</li>
                         <li>• Typical savings: 50-80% per image</li>

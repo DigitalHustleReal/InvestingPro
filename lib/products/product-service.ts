@@ -60,15 +60,18 @@ export class ProductService {
         }
 
         if (params.search) {
-            query = query.or(`name.ilike.%${params.search}%,description.ilike.%${params.search}%,provider_name.ilike.%${params.search}%`);
+            const term = params.search.toLowerCase();
+            // Search in name, description, provider_name OR in the JSONB features values
+            query = query.or(`name.ilike.%${term}%,description.ilike.%${term}%,provider_name.ilike.%${term}%,features->>sub_category.ilike.%${term}%,features->>card_type.ilike.%${term}%`);
         }
         
-        query = query.order('trust_score', { ascending: false, nullsFirst: false })
-                     .order('name', { ascending: true });
+        query = query.order('rating', { ascending: false })
+                     .order('trust_score', { ascending: false, nullsFirst: false });
                      
         if (limit) {
             query = query.limit(limit);
         }
+
         
         try {
             const { data, error } = await query;

@@ -100,7 +100,7 @@ export default function EditorialPageTemplate({
             {/* Glossary Terms */}
             {glossaryTerms.length > 0 && (
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                    <Card className="border-slate-200 shadow-sm rounded-2xl bg-blue-50">
+                    <Card className="border-slate-200 shadow-sm rounded-2xl bg-secondary-50">
                         <CardHeader>
                             <CardTitle className="text-lg font-bold text-slate-900 flex items-center gap-6 md:p-8">
                                 <Info className="w-5 h-5 text-primary-600" />
@@ -113,7 +113,7 @@ export default function EditorialPageTemplate({
                                     <Link
                                         key={idx}
                                         href={`/glossary#${term.toLowerCase().replace(/\s+/g, '-')}`}
-                                        className="px-3 py-1.5 bg-white rounded-lg text-sm font-medium text-blue-700 hover:bg-blue-100 transition-colors border border-blue-200"
+                                        className="px-3 py-1.5 bg-white rounded-lg text-sm font-medium text-secondary-700 hover:bg-secondary-100 transition-colors border border-secondary-200"
                                     >
                                         {term}
                                     </Link>

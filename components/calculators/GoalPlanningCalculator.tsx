@@ -189,7 +189,7 @@ export function GoalPlanningCalculator() {
                         {/* Inflation Toggle */}
                         <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200">
                             <div className="flex items-center gap-2">
-                                <TrendingDown className="w-4 h-4 text-purple-600" />
+                                <TrendingDown className="w-4 h-4 text-secondary-600" />
                                 <div>
                                     <Label className="text-sm text-slate-700 font-semibold">Adjust Goal for Inflation</Label>
                                     <p className="text-xs text-slate-500">Project future goal amount with inflation</p>

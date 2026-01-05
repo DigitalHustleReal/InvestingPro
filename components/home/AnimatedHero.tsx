@@ -26,18 +26,18 @@ import {
 import Link from "next/link";
 
 const categoryCards = [
-    { id: 'credit-cards', label: 'Credit Cards', icon: CreditCard, color: 'indigo', count: '150+' }, // Realistic
-    { id: 'loans', label: 'Loans', icon: Wallet, color: 'amber', count: '200+' }, // Realistic
-    { id: 'investing', label: 'Investing', icon: TrendingUp, color: 'emerald', count: '800+' }, // Realistic (most products are mutual funds)
-    { id: 'insurance', label: 'Insurance', icon: Shield, color: 'amber', count: '120+' }, // Amber instead of rose, realistic
-    { id: 'banking', label: 'Banking', icon: PiggyBank, color: 'blue', count: '60+' }, // Realistic
-    { id: 'ipo', label: 'IPOs', icon: BarChart3, color: 'violet', count: 'Live' },
+    { id: 'credit-cards', label: 'Credit Cards', icon: CreditCard, color: 'primary', count: '150+' },
+    { id: 'loans', label: 'Loans', icon: Wallet, color: 'primary', count: '200+' },
+    { id: 'investing', label: 'Investing', icon: TrendingUp, color: 'primary', count: '800+' },
+    { id: 'insurance', label: 'Insurance', icon: Shield, color: 'primary', count: '120+' },
+    { id: 'banking', label: 'Banking', icon: PiggyBank, color: 'primary', count: '60+' },
+    { id: 'ipo', label: 'IPOs', icon: BarChart3, color: 'primary', count: 'Live' },
 ];
 
 const trustBadges = [
     { icon: CheckCircle2, text: '100% Unbiased', color: 'emerald' },
-    { icon: Shield, text: 'Data Security', color: 'blue' },
-    { icon: Sparkles, text: 'AI-Powered', color: 'purple' },
+    { icon: Shield, text: 'Data Security', color: 'primary' },
+    { icon: Sparkles, text: 'AI-Powered', color: 'primary' },
 ];
 
 export default function AnimatedHero() {
@@ -56,8 +56,8 @@ export default function AnimatedHero() {
             {/* Background Decor - Premium Ambient Lighting */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-teal-300/20 dark:bg-teal-500/20 rounded-full blur-[140px] translate-x-1/2 -translate-y-1/2 animate-pulse-slow" />
-                <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-blue-300/20 dark:bg-blue-600/20 rounded-full blur-[120px] -translate-x-1/3 translate-y-1/3 animate-pulse-slow" style={{ animationDelay: '1s' }} />
-                <div className="absolute top-1/3 left-1/2 w-[600px] h-[600px] bg-purple-300/10 dark:bg-purple-500/10 rounded-full blur-[100px] -translate-x-1/2 animate-float" />
+                <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-secondary-300/20 dark:bg-secondary-600/20 rounded-full blur-[120px] -translate-x-1/3 translate-y-1/3 animate-pulse-slow" style={{ animationDelay: '1s' }} />
+                <div className="absolute top-1/3 left-1/2 w-[600px] h-[600px] bg-secondary-300/10 dark:bg-secondary-500/10 rounded-full blur-[100px] -translate-x-1/2 animate-float" />
                 
                 {/* Grain texture overlay */}
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 dark:opacity-5" />
@@ -92,7 +92,7 @@ export default function AnimatedHero() {
                 <div className="max-w-3xl mx-auto mb-16">
                     <form onSubmit={handleSearch} className="relative group">
                         {/* Glow effect */}
-                        <div className="absolute -inset-1 bg-gradient-to-r from-teal-500 via-blue-500 to-purple-500 rounded-2xl opacity-20 dark:opacity-30 group-hover:opacity-40 dark:group-hover:opacity-50 blur-xl transition duration-500" />
+                        <div className="absolute -inset-1 bg-gradient-to-r from-teal-500 via-secondary-500 to-secondary-500 rounded-2xl opacity-20 dark:opacity-30 group-hover:opacity-40 dark:group-hover:opacity-50 blur-xl transition duration-500" />
                         
                         <div className="relative bg-white dark:bg-slate-900 rounded-2xl border-2 border-slate-200 dark:border-slate-800 shadow-2xl">
                             <div className="flex items-center p-2">

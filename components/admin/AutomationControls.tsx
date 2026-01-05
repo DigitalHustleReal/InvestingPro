@@ -114,7 +114,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
     const getStatusBadge = (status: string) => {
         const variants: Record<string, { bg: string; text: string; icon: any }> = {
             completed: { bg: 'bg-green-100', text: 'text-green-700', icon: CheckCircle2 },
-            running: { bg: 'bg-blue-100', text: 'text-blue-700', icon: Loader2 },
+            running: { bg: 'bg-secondary-100', text: 'text-secondary-700', icon: Loader2 },
             failed: { bg: 'bg-red-100', text: 'text-red-700', icon: XCircle },
             triggered: { bg: 'bg-amber-100', text: 'text-amber-700', icon: Clock },
         };
@@ -127,15 +127,15 @@ export default function AutomationControls({ className = "" }: AutomationControl
             <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                 <CardHeader className="border-b border-white/5 px-8 py-6">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                        <div className="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center">
-                            <Zap className="w-4 h-4 text-indigo-400" />
+                        <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
+                            <Zap className="w-4 h-4 text-primary-400" />
                         </div>
                         Content Extraction Nodes
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="p-8">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div className="p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:border-indigo-500/30 transition-all group">
+                        <div className="p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:border-primary-500/30 transition-all group">
                             <div className="flex items-center justify-between mb-4">
                                 <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Asset Crawler</span>
                                 <Badge className="bg-primary-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
@@ -149,19 +149,19 @@ export default function AutomationControls({ className = "" }: AutomationControl
                             >
                                 {triggering === 'scraper-products' ? (
                                     <>
-                                        <Loader2 className="w-4 h-4 mr-2 animate-spin text-indigo-400" />
+                                        <Loader2 className="w-4 h-4 mr-2 animate-spin text-primary-400" />
                                         Syncing
                                     </>
                                 ) : (
                                     <>
-                                        <Play className="w-3.5 h-3.5 mr-2 text-indigo-400" />
+                                        <Play className="w-3.5 h-3.5 mr-2 text-primary-400" />
                                         Execute
                                     </>
                                 )}
                             </Button>
                         </div>
 
-                        <div className="p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:border-purple-500/30 transition-all group">
+                        <div className="p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:border-secondary-500/30 transition-all group">
                             <div className="flex items-center justify-between mb-4">
                                 <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Sentiment Crawler</span>
                                 <Badge className="bg-primary-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
@@ -175,12 +175,12 @@ export default function AutomationControls({ className = "" }: AutomationControl
                             >
                                 {triggering === 'scraper-reviews' ? (
                                     <>
-                                        <Loader2 className="w-4 h-4 mr-2 animate-spin text-purple-400" />
+                                        <Loader2 className="w-4 h-4 mr-2 animate-spin text-secondary-400" />
                                         Syncing
                                     </>
                                 ) : (
                                     <>
-                                        <Play className="w-3.5 h-3.5 mr-2 text-purple-400" />
+                                        <Play className="w-3.5 h-3.5 mr-2 text-secondary-400" />
                                         Execute
                                     </>
                                 )}
@@ -220,14 +220,14 @@ export default function AutomationControls({ className = "" }: AutomationControl
             <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                 <CardHeader className="border-b border-white/5 px-8 py-6">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                        <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                            <Activity className="w-4 h-4 text-blue-400" />
+                        <div className="w-8 h-8 rounded-lg bg-secondary-500/10 flex items-center justify-center">
+                            <Activity className="w-4 h-4 text-secondary-400" />
                         </div>
                         Synthesis Engine
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="p-8">
-                    <div className="flex flex-col md:flex-row items-center justify-between p-6 bg-white/[0.03] border border-white/5 rounded-2xl group hover:border-indigo-500/30 transition-all">
+                    <div className="flex flex-col md:flex-row items-center justify-between p-6 bg-white/[0.03] border border-white/5 rounded-2xl group hover:border-primary-500/30 transition-all">
                         <div className="mb-4 md:mb-0">
                             <h4 className="font-bold text-white tracking-tight text-lg mb-1">Content Factory Pipeline</h4>
                             <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">
@@ -236,7 +236,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                         </div>
                         <Button
                             size="lg"
-                            className="h-12 px-8 rounded-xl font-extrabold uppercase tracking-widest text-[11px] bg-indigo-500 text-white hover:bg-indigo-600 shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all active:scale-95"
+                            className="h-12 px-8 rounded-xl font-extrabold uppercase tracking-widest text-[11px] bg-primary-500 text-white hover:bg-primary-600 shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all active:scale-95"
                             onClick={handleTriggerPipeline}
                             disabled={isTriggering === 'scrape_and_generate'}
                         >

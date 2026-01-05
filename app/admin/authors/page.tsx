@@ -33,6 +33,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from 'sonner';
+import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
 
 export default function AuthorsPage() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -142,20 +143,27 @@ export default function AuthorsPage() {
 
     return (
         <AdminLayout>
-            <div className="min-h-screen bg-slate-950 text-slate-100 p-8 font-sans">
+            <div className="min-h-screen text-slate-100 p-8 font-sans">
+                {/* Breadcrumb */}
+                <AdminBreadcrumb />
+                
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-                    <div>
-                        <h1 className="text-3xl font-bold text-white flex items-center gap-3">
-                            <Users className="w-8 h-8 text-teal-500" />
-                            Editorial Team
-                        </h1>
-                        <p className="text-slate-400 mt-2">Manage the experts behind your content authority.</p>
+                    <div className="flex items-center gap-4">
+                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 shadow-lg shadow-emerald-500/25 flex items-center justify-center">
+                            <Users className="w-7 h-7 text-white" />
+                        </div>
+                        <div>
+                            <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
+                                Editorial Team
+                            </h1>
+                            <p className="text-slate-400 mt-1">Manage the experts behind your content authority.</p>
+                        </div>
                     </div>
                     <div className="flex gap-3">
                         <Button 
                             onClick={handleCreate} 
-                            className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-lg shadow-emerald-500/20"
+                            className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl shadow-lg shadow-emerald-500/25"
                         >
                             <Plus className="w-4 h-4 mr-2" />
                             Recruit Expert
@@ -207,7 +215,7 @@ export default function AuthorsPage() {
                                         </a>
                                     )}
                                     {author.social_links?.linkedin && (
-                                        <a href={author.social_links.linkedin} target="_blank" className="p-2 rounded-lg bg-white/5 hover:bg-blue-600/20 hover:text-blue-500 text-slate-500 transition-colors">
+                                        <a href={author.social_links.linkedin} target="_blank" className="p-2 rounded-lg bg-white/5 hover:bg-secondary-600/20 hover:text-secondary-500 text-slate-500 transition-colors">
                                             <Linkedin className="w-4 h-4" />
                                         </a>
                                     )}

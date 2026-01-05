@@ -70,7 +70,7 @@ export default function SmartAdvisorWidget() {
                     title: 'Cashback Credit Cards',
                     description: 'Earn rewards while building your credit score',
                     link: '/credit-cards',
-                    icon: <CreditCard className="w-5 h-5 text-blue-600" />,
+                    icon: <CreditCard className="w-5 h-5 text-secondary-600" />,
                     priority: 'medium'
                 });
             }
@@ -83,7 +83,7 @@ export default function SmartAdvisorWidget() {
                 title: 'High-Yield Savings Accounts',
                 description: 'Earn up to 7.5% interest on your savings',
                 link: '/banking',
-                icon: <PiggyBank className="w-5 h-5 text-blue-600" />,
+                icon: <PiggyBank className="w-5 h-5 text-secondary-600" />,
                 priority: 'high'
             });
             recs.push({
@@ -91,7 +91,7 @@ export default function SmartAdvisorWidget() {
                 title: 'Zero-Fee Credit Cards',
                 description: 'Save on annual fees while earning rewards',
                 link: '/credit-cards',
-                icon: <CreditCard className="w-5 h-5 text-purple-600" />,
+                icon: <CreditCard className="w-5 h-5 text-secondary-600" />,
                 priority: 'medium'
             });
         }
@@ -103,7 +103,7 @@ export default function SmartAdvisorWidget() {
                 title: 'Term Life Insurance',
                 description: 'Comprehensive family protection starting at ₹399/month',
                 link: '/insurance',
-                icon: <Shield className="w-5 h-5 text-purple-600" />,
+                icon: <Shield className="w-5 h-5 text-secondary-600" />,
                 priority: 'high'
             });
             recs.push({
@@ -132,7 +132,7 @@ export default function SmartAdvisorWidget() {
                     title: 'Personal Credit Line',
                     description: 'Flexible credit to manage expenses responsibly',
                     link: '/loans',
-                    icon: <TrendingUp className="w-5 h-5 text-blue-600" />,
+                    icon: <TrendingUp className="w-5 h-5 text-secondary-600" />,
                     priority: 'medium'
                 });
             }
@@ -172,13 +172,13 @@ export default function SmartAdvisorWidget() {
                 <div className="max-w-5xl mx-auto">
                     <Card className="rounded-[2.5rem] bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden">
                         {/* Top Accent Bar */}
-                        <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-teal-400 via-blue-500 to-purple-500" />
+                        <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-teal-400 via-secondary-500 to-secondary-500" />
 
                         <CardContent className="p-8 md:p-12">
                             {/* INTRO STATE */}
                             {step === 'intro' && (
                                 <div className="text-center">
-                                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-teal-500 to-blue-600 mb-6">
+                                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-teal-500 to-secondary-600 mb-6">
                                         <Sparkles className="w-8 h-8 text-white" />
                                     </div>
                                     <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
@@ -189,7 +189,7 @@ export default function SmartAdvisorWidget() {
                                     </p>
                                     <Button 
                                         onClick={() => setStep('questions')}
-                                        className="h-14 px-10 bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white rounded-2xl font-bold text-lg shadow-xl shadow-teal-500/30"
+                                        className="h-14 px-10 bg-gradient-to-r from-teal-500 to-secondary-600 hover:from-teal-600 hover:to-blue-700 text-white rounded-2xl font-bold text-lg shadow-xl shadow-teal-500/30"
                                     >
                                         Start Smart Advisor
                                         <ArrowRight className="w-5 h-5 ml-2" />
@@ -243,7 +243,7 @@ export default function SmartAdvisorWidget() {
                                     {/* Question 2: Life Stage */}
                                     <div>
                                         <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
-                                            <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center text-sm font-bold">2</div>
+                                            <div className="w-8 h-8 rounded-full bg-secondary-500 text-white flex items-center justify-center text-sm font-bold">2</div>
                                             What's your current life stage?
                                         </h3>
                                         <div className="grid grid-cols-2 gap-4">
@@ -253,15 +253,15 @@ export default function SmartAdvisorWidget() {
                                                     onClick={() => setLifeStage(stage.id)}
                                                     className={`p-5 rounded-2xl border-2 transition-all ${
                                                         lifeStage === stage.id
-                                                            ? 'border-blue-500 bg-blue-50 dark:bg-blue-500/10'
+                                                            ? 'border-secondary-500 bg-secondary-50 dark:bg-secondary-500/10'
                                                             : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
                                                     }`}
                                                 >
                                                     <div className="flex items-center gap-3">
-                                                        <div className={`p-2 rounded-lg ${lifeStage === stage.id ? 'bg-blue-100 dark:bg-blue-900/30' : 'bg-slate-100 dark:bg-slate-800'}`}>
-                                                            <stage.icon className={`w-5 h-5 ${lifeStage === stage.id ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500'}`} />
+                                                        <div className={`p-2 rounded-lg ${lifeStage === stage.id ? 'bg-secondary-100 dark:bg-secondary-900/30' : 'bg-slate-100 dark:bg-slate-800'}`}>
+                                                            <stage.icon className={`w-5 h-5 ${lifeStage === stage.id ? 'text-secondary-600 dark:text-secondary-400' : 'text-slate-500'}`} />
                                                         </div>
-                                                        <span className={`font-semibold text-sm ${lifeStage === stage.id ? 'text-blue-900 dark:text-blue-100' : 'text-slate-700 dark:text-slate-300'}`}>
+                                                        <span className={`font-semibold text-sm ${lifeStage === stage.id ? 'text-secondary-900 dark:text-secondary-100' : 'text-slate-700 dark:text-slate-300'}`}>
                                                             {stage.label}
                                                         </span>
                                                     </div>
@@ -277,7 +277,7 @@ export default function SmartAdvisorWidget() {
                                             disabled={!primaryGoal || !lifeStage}
                                             className={`w-full h-14 rounded-2xl font-bold text-lg ${
                                                 primaryGoal && lifeStage
-                                                    ? 'bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white shadow-xl shadow-teal-500/30'
+                                                    ? 'bg-gradient-to-r from-teal-500 to-secondary-600 hover:from-teal-600 hover:to-blue-700 text-white shadow-xl shadow-teal-500/30'
                                                     : 'bg-slate-200 dark:bg-slate-800 text-slate-400 cursor-not-allowed'
                                             }`}
                                         >

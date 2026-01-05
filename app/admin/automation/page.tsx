@@ -3,12 +3,12 @@
 import React from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import AutomationControls from '@/components/admin/AutomationControls';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Activity, Database, Rss, Zap } from 'lucide-react';
+import { CheckCircle2, XCircle, Clock, Zap, Rss, Play } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
+import { AdminPageHeader, StatCard, ContentSection } from '@/components/admin/AdminUIKit';
+import Link from 'next/link';
 
 export default function AutomationPage() {
-    // Fetch pipeline stats for the header
     const { data: pipelineStatus = { completed: 0, failed: 0, lastRun: null } } = useQuery({
         queryKey: ['pipeline-status-summary'],
         queryFn: async () => {
@@ -27,115 +27,90 @@ export default function AutomationPage() {
 
     return (
         <AdminLayout>
-            <div className="p-8">
-                <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-slate-900 mb-2">Content Automation Factory</h1>
-                    <p className="text-slate-600">Control and monitor the AI-driven content generation pipeline.</p>
+            <div className="p-8 space-y-8">
+                <AdminPageHeader
+                    title="Automation Hub"
+                    subtitle="Control and monitor the AI-driven content generation pipeline"
+                    icon={Zap}
+                    iconColor="amber"
+                    actions={
+                        <Link href="/admin/content-factory">
+                            <button className="px-4 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl text-sm font-medium flex items-center gap-2 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 transition-shadow">
+                                <Play className="w-4 h-4" /> Open Content Factory
+                            </button>
+                        </Link>
+                    }
+                />
+
+                {/* Stats */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <StatCard 
+                        label="Successful Jobs" 
+                        value={pipelineStatus.completed} 
+                        icon={CheckCircle2} 
+                        color="teal" 
+                    />
+                    <StatCard 
+                        label="Failed Jobs" 
+                        value={pipelineStatus.failed} 
+                        icon={XCircle} 
+                        color="rose" 
+                    />
+                    <StatCard 
+                        label="Last Activity" 
+                        value={pipelineStatus.lastRun ? new Date(pipelineStatus.lastRun).toLocaleTimeString() : 'Never'} 
+                        icon={Clock} 
+                        color="blue" 
+                    />
+                    <StatCard 
+                        label="Active Pipelines" 
+                        value="0" 
+                        icon={Rss} 
+                        color="purple" 
+                    />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <Card>
-                        <CardHeader className="pb-2">
-                            <CardTitle className="text-sm font-medium text-slate-500 uppercase flex items-center gap-6 md:p-8">
-                                <CheckCircleIcon className="w-4 h-4 text-green-500" />
-                                Successful Jobs
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold text-slate-900">{pipelineStatus.completed}</div>
-                        </CardContent>
-                    </Card>
+                {/* Quick Actions */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <ContentSection title="Content Factory" subtitle="AI-powered bulk generation">
+                        <div className="space-y-4">
+                            <p className="text-sm text-slate-400">Generate multiple articles at once using AI with real-time progress tracking.</p>
+                            <Link href="/admin/content-factory">
+                                <button className="w-full px-4 py-3 bg-gradient-to-r from-secondary-500/20 to-pink-500/20 hover:from-secondary-500/30 hover:to-pink-500/30 text-secondary-400 rounded-xl text-sm font-medium border border-secondary-500/30 transition-colors">
+                                    Open Content Factory →
+                                </button>
+                            </Link>
+                        </div>
+                    </ContentSection>
 
-                    <Card>
-                        <CardHeader className="pb-2">
-                            <CardTitle className="text-sm font-medium text-slate-500 uppercase flex items-center gap-6 md:p-8">
-                                <XCircleIcon className="w-4 h-4 text-red-500" />
-                                Failed Jobs
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold text-slate-900">{pipelineStatus.failed}</div>
-                        </CardContent>
-                    </Card>
+                    <ContentSection title="Scheduled Publishing" subtitle="Automate your content calendar">
+                        <div className="space-y-4">
+                            <p className="text-sm text-slate-400">Schedule articles to publish automatically at optimal times.</p>
+                            <Link href="/admin/content-calendar">
+                                <button className="w-full px-4 py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl text-sm font-medium border border-white/10 transition-colors">
+                                    View Calendar →
+                                </button>
+                            </Link>
+                        </div>
+                    </ContentSection>
 
-                    <Card>
-                        <CardHeader className="pb-2">
-                            <CardTitle className="text-sm font-medium text-slate-500 uppercase flex items-center gap-6 md:p-8">
-                                <ClockIcon className="w-4 h-4 text-blue-500" />
-                                Last Activity
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-lg font-semibold text-slate-900">
-                                {pipelineStatus.lastRun ? new Date(pipelineStatus.lastRun).toLocaleTimeString() : 'Never'}
-                            </div>
-                        </CardContent>
-                    </Card>
+                    <ContentSection title="Review Queue" subtitle="Pending editorial approval">
+                        <div className="space-y-4">
+                            <p className="text-sm text-slate-400">Review and approve articles waiting for publication.</p>
+                            <Link href="/admin/review-queue">
+                                <button className="w-full px-4 py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl text-sm font-medium border border-white/10 transition-colors">
+                                    View Queue →
+                                </button>
+                            </Link>
+                        </div>
+                    </ContentSection>
                 </div>
 
-                <AutomationControls />
+                {/* Automation Controls */}
+                <ContentSection title="Pipeline Controls" subtitle="Manage automation triggers and schedules">
+                    <AutomationControls />
+                </ContentSection>
             </div>
         </AdminLayout>
     );
-}
-
-function CheckCircleIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-      <polyline points="22 4 12 14.01 9 11.01" />
-    </svg>
-  )
-}
-
-function XCircleIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="12" cy="12" r="10" />
-      <line x1="15" y1="9" x2="9" y2="15" />
-      <line x1="9" y1="9" x2="15" y2="15" />
-    </svg>
-  )
-}
-
-function ClockIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="12" cy="12" r="10" />
-      <polyline points="12 6 12 12 16 14" />
-    </svg>
-  )
 }

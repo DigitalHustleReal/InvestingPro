@@ -53,7 +53,7 @@ export default function ComparisonTable({ title = "Side-by-Side Comparison", pro
                                             {product.name}
                                         </div>
                                         <div className="flex items-center gap-1">
-                                            <span className="text-xs font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded">
+                                            <span className="text-xs font-bold bg-secondary-100 text-secondary-700 px-1.5 py-0.5 rounded">
                                                 {product.rating}/10
                                             </span>
                                         </div>
@@ -93,7 +93,7 @@ export default function ComparisonTable({ title = "Side-by-Side Comparison", pro
                             <td className="p-4 bg-white border-none"></td>
                             {products.map((product) => (
                                 <td key={product.id} className="p-4 bg-white border-none text-center pb-6">
-                                    <Button size="sm" className="w-full bg-blue-600 hover:bg-blue-700 text-white shadow-sm">
+                                    <Button size="sm" className="w-full bg-secondary-600 hover:bg-secondary-700 text-white shadow-sm">
                                         Check Eligibility
                                     </Button>
                                 </td>

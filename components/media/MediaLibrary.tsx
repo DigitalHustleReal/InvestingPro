@@ -116,7 +116,7 @@ export function MediaLibrary({
                             onClick={() => setView('grid')}
                             className={`px-3 py-2 rounded-lg font-medium transition-colors text-sm ${
                                 view === 'grid'
-                                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                                    ? 'bg-secondary-600 text-white hover:bg-secondary-700'
                                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                             }`}
                         >
@@ -126,7 +126,7 @@ export function MediaLibrary({
                             onClick={() => setView('upload')}
                             className={`px-3 py-2 rounded-lg font-medium transition-colors text-sm ${
                                 view === 'upload'
-                                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                                    ? 'bg-secondary-600 text-white hover:bg-secondary-700'
                                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                             }`}
                         >
@@ -136,7 +136,7 @@ export function MediaLibrary({
                             onClick={() => setView('stock')}
                             className={`px-3 py-2 rounded-lg font-medium transition-colors text-sm ${
                                 view === 'stock'
-                                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                                    ? 'bg-secondary-600 text-white hover:bg-secondary-700'
                                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                             }`}
                         >
@@ -146,7 +146,7 @@ export function MediaLibrary({
                             onClick={() => setView('bulk')}
                             className={`px-3 py-2 rounded-lg font-medium transition-colors text-sm ${
                                 view === 'bulk'
-                                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                                    ? 'bg-secondary-600 text-white hover:bg-secondary-700'
                                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                             }`}
                         >
@@ -156,7 +156,7 @@ export function MediaLibrary({
                             onClick={() => setView('ai')}
                             className={`px-3 py-2 rounded-lg font-medium transition-colors text-sm ${
                                 view === 'ai'
-                                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                                    ? 'bg-secondary-600 text-white hover:bg-secondary-700'
                                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                             }`}
                         >
@@ -179,7 +179,7 @@ export function MediaLibrary({
                             />
                             <button
                                 onClick={handleSearch}
-                                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
+                                className="px-4 py-2 bg-secondary-600 text-white rounded-lg hover:bg-secondary-700 font-medium"
                             >
                                 🔍 Search
                             </button>
@@ -280,7 +280,7 @@ export function MediaLibrary({
                             {!searchQuery && (
                                 <button
                                     onClick={() => setView('upload')}
-                                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
+                                    className="px-6 py-2 bg-secondary-600 text-white rounded-lg hover:bg-secondary-700 font-medium"
                                 >
                                     Upload Image
                                 </button>

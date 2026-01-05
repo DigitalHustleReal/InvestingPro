@@ -150,19 +150,19 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                     </CardContent>
                 </Card>
 
-                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden hover:border-blue-500/30 transition-all group">
+                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden hover:border-secondary-500/30 transition-all group">
                     <CardContent className="p-8">
                         <div className="flex items-center justify-between mb-4">
                             <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Conversion Vector</span>
-                            <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                <MousePointerClick className="w-5 h-5 text-blue-400" />
+                            <div className="w-10 h-10 rounded-xl bg-secondary-500/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                <MousePointerClick className="w-5 h-5 text-secondary-400" />
                             </div>
                         </div>
                         <div className="space-y-1">
                             <h3 className="text-3xl font-extrabold text-white tabular-nums tracking-tighter">
                                 {totalClicks.toLocaleString()}
                             </h3>
-                            <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest flex items-center gap-1">
+                            <p className="text-[10px] font-bold text-secondary-400 uppercase tracking-widest flex items-center gap-1">
                                 <TrendingUp className="w-3 h-3" />
                                 Velocity Optimized
                             </p>
@@ -170,19 +170,19 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                     </CardContent>
                 </Card>
 
-                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden hover:border-indigo-500/30 transition-all group">
+                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden hover:border-primary-500/30 transition-all group">
                     <CardContent className="p-8">
                         <div className="flex items-center justify-between mb-4">
                             <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Synthesized Yield</span>
-                            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                <DollarSign className="w-5 h-5 text-indigo-400" />
+                            <div className="w-10 h-10 rounded-xl bg-primary-500/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                <DollarSign className="w-5 h-5 text-primary-400" />
                             </div>
                         </div>
                         <div className="space-y-1">
                             <h3 className="text-3xl font-extrabold text-white tabular-nums tracking-tighter">
                                 ₹{estimatedRevenue.toLocaleString()}
                             </h3>
-                            <p className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest flex items-center gap-1">
+                            <p className="text-[10px] font-bold text-primary-400 uppercase tracking-widest flex items-center gap-1">
                                 <Zap className="w-3 h-3" />
                                 Revenue Node Beta
                             </p>
@@ -258,7 +258,7 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                 <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                     <CardHeader className="border-b border-white/5 px-8 py-6">
                         <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                            <TrendingUp className="w-4 h-4 text-indigo-400" />
+                            <TrendingUp className="w-4 h-4 text-primary-400" />
                             Cluster Hierarchy (By Propagation)
                         </CardTitle>
                     </CardHeader>
@@ -337,7 +337,7 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                 {/* Revenue Drivers */}
                 <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                     <CardHeader className="border-b border-white/5 px-8 py-5">
-                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-indigo-400 flex items-center gap-6 md:p-8">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-primary-400 flex items-center gap-6 md:p-8">
                             <DollarSign className="w-4 h-4" />
                             Fiscal Drivers (Yield Extraction)
                         </CardTitle>
@@ -350,11 +350,11 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                                     return (
                                         <div key={article.id || idx} className="flex items-center justify-between p-6 hover:bg-white/[0.02] transition-colors group">
                                             <div className="flex items-center gap-5 flex-1 min-w-0">
-                                                <div className="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-[10px] font-bold text-indigo-400 border border-indigo-500/20">
+                                                <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center text-[10px] font-bold text-primary-400 border border-primary-500/20">
                                                     0{idx + 1}
                                                 </div>
                                                 <div className="flex-1 min-w-0">
-                                                    <p className="font-bold text-white tracking-tight line-clamp-1 group-hover:text-indigo-400 transition-colors">
+                                                    <p className="font-bold text-white tracking-tight line-clamp-1 group-hover:text-primary-400 transition-colors">
                                                         {article.title || 'Inert System Node'}
                                                     </p>
                                                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">

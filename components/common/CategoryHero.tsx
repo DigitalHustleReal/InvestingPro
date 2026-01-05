@@ -42,11 +42,11 @@ export function CategoryHero({
     className
 }: CategoryHeroProps) {
     const gradients = {
-        teal: "from-teal-600 via-emerald-600 to-green-700",
-        indigo: "from-indigo-600 via-purple-600 to-pink-700",
-        emerald: "from-emerald-600 via-teal-600 to-cyan-700",
-        purple: "from-purple-600 via-indigo-600 to-blue-700",
-        blue: "from-blue-600 via-cyan-600 to-teal-700"
+        teal: "from-primary-600 via-emerald-600 to-emerald-700",
+        indigo: "from-primary-600 via-cyan-600 to-teal-700", // Remapped to Primary Spectrum
+        emerald: "from-emerald-600 via-primary-600 to-teal-700",
+        purple: "from-teal-500 via-primary-600 to-emerald-700", // Remapped to Primary Spectrum
+        blue: "from-sky-600 via-primary-600 to-teal-700" // Remapped to Primary Spectrum
     };
 
     return (
@@ -91,7 +91,7 @@ export function CategoryHero({
                                 href={primaryCTA.href}
                                 variant="primary"
                                 size="lg"
-                                className="bg-white text-teal-600 hover:bg-white/90 shadow-xl"
+                                className="bg-white text-primary-600 hover:bg-white/90 shadow-xl"
                             >
                                 {primaryCTA.text}
                             </CTAButton>

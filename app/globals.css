@@ -1,10 +1,7 @@
-@import "tailwindcss";
-@variant dark (&:where(.dark, .dark *));
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --color-brand-indigo: #6366f1;
-  --color-brand-emerald: #10b981;
-}
 
 @layer base {
   body {
@@ -39,34 +36,35 @@
 
   /* GLOBAL CONTENT THEME (Prose Overrides) */
   .prose table {
-     @apply w-full border-collapse border border-slate-200 rounded-xl overflow-hidden my-8 shadow-sm;
+     @apply w-full border-collapse border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden my-8 shadow-sm;
   }
   
   .prose thead {
-      @apply bg-emerald-50 border-b border-emerald-100;
+      @apply bg-primary-50 dark:bg-primary-950 border-b border-primary-100 dark:border-primary-900;
   }
 
-  /* Force headers to be visible and styled */
+  /* Theme-aware headers using primary color */
   .prose th {
-     @apply text-emerald-900 font-bold p-4 text-left;
-     background-color: #ecfdf5 !important;
-     color: #064e3b !important;
+     @apply text-primary-900 dark:text-primary-100 font-bold p-4 text-left;
+     /* ❌ REMOVED: background-color: #ecfdf5 !important; */
+     /* ❌ REMOVED: color: #064e3b !important; */
   }
-  
+
   .prose td {
-     @apply p-4 border-b border-slate-100 text-slate-600;
+     @apply p-4 border-b border-slate-100 dark:border-slate-800 text-slate-600 dark:text-slate-300;
   }
   
   .prose tr:hover td {
-      @apply bg-slate-50/50 transition-colors;
+      @apply bg-slate-50/50 dark:bg-slate-800/50 transition-colors;
   }
 
+  /* Use secondary blue for links (NerdWallet pattern) */
   .prose a {
-      @apply text-emerald-600 no-underline border-b border-emerald-200 hover:border-emerald-600 transition-colors hover:text-emerald-700;
+      @apply text-secondary-600 dark:text-secondary-400 no-underline border-b border-secondary-200 dark:border-secondary-800 hover:border-secondary-600 transition-colors hover:text-secondary-700 dark:hover:text-secondary-300;
   }
 
   .prose h2 {
-      @apply text-slate-900 scroll-mt-24;
+      @apply text-slate-900 dark:text-slate-100 scroll-mt-24;
   }
 }
 

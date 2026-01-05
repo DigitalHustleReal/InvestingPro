@@ -28,7 +28,9 @@ async function checkTable(name: string) {
 async function run() {
     await checkTable('posts');
     await checkTable('articles');
-    await checkTable('news');
+    await checkTable('products');
+    await checkTable('glossary_terms');
+    await checkTable('ai_provider_health');
 }
 
 run();

@@ -140,7 +140,7 @@ export default function SocialDistributionPanel({
                             <div className="space-y-3">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
-                                        <Linkedin className="w-4 h-4 text-blue-400" />
+                                        <Linkedin className="w-4 h-4 text-secondary-400" />
                                         <span className="text-xs font-bold uppercase tracking-widest text-slate-400">
                                             LinkedIn Post
                                         </span>

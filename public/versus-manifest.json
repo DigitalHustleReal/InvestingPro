@@ -1,0 +1,45 @@
+{
+  "generated_at": "2026-01-04T06:44:50.802Z",
+  "total_pages": 2,
+  "by_category": [
+    {
+      "category": "mutual_fund",
+      "products": 6,
+      "comparisons": 2
+    },
+    {
+      "category": "credit_card",
+      "products": 12,
+      "comparisons": 0
+    },
+    {
+      "category": "insurance",
+      "products": 8,
+      "comparisons": 0
+    },
+    {
+      "category": "broker",
+      "products": 6,
+      "comparisons": 0
+    },
+    {
+      "category": "loan",
+      "products": 10,
+      "comparisons": 0
+    }
+  ],
+  "pages": [
+    {
+      "url": "/compare/parag-parikh-flexi-cap-fund-vs-mirae-asset-large-cap-fund",
+      "title": "Parag Parikh Flexi Cap Fund vs Mirae Asset Large Cap Fund (2026): Which Is Better?",
+      "category": "mutual_fund",
+      "winner": "parag-parikh-flexi-cap-fund"
+    },
+    {
+      "url": "/compare/parag-parikh-flexi-cap-fund-vs-hdfc-flexi-cap-fund",
+      "title": "Parag Parikh Flexi Cap Fund vs HDFC Flexi Cap Fund (2026): Which Is Better?",
+      "category": "mutual_fund",
+      "winner": "parag-parikh-flexi-cap-fund"
+    }
+  ]
+}

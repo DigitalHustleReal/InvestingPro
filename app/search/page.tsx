@@ -96,9 +96,9 @@ export default function SearchPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-[#0a0c10]">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
             {/* Hero Search */}
-            <div className="bg-gradient-to-b from-indigo-500/10 to-transparent py-16 px-6">
+            <div className="bg-gradient-to-b from-primary-500/10 to-transparent py-16 px-6">
                 <div className="max-w-4xl mx-auto text-center">
                     <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white mb-4">
                         Search Articles
@@ -129,7 +129,7 @@ export default function SearchPage() {
                                 className={cn(
                                     "rounded-full text-sm",
                                     category === cat.value
-                                        ? "bg-indigo-500 text-white hover:bg-indigo-600"
+                                        ? "bg-primary-500 text-white hover:bg-primary-600"
                                         : "bg-white dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/10"
                                 )}
                             >
@@ -154,7 +154,7 @@ export default function SearchPage() {
                             <div className="space-y-4">
                                 {results.map(result => (
                                     <Link key={result.id} href={`/articles/${result.slug}`}>
-                                        <Card className="bg-white dark:bg-white/[0.03] border-slate-200 dark:border-white/5 hover:border-indigo-500/30 hover:shadow-lg hover:shadow-indigo-500/5 transition-all group">
+                                        <Card className="bg-white dark:bg-white/[0.03] border-slate-200 dark:border-white/5 hover:border-primary-500/30 hover:shadow-lg hover:shadow-primary-500/5 transition-all group">
                                             <CardContent className="p-6">
                                                 <div className="flex gap-6">
                                                     {result.featured_image ? (
@@ -164,15 +164,15 @@ export default function SearchPage() {
                                                             className="w-32 h-24 rounded-lg object-cover flex-shrink-0"
                                                         />
                                                     ) : (
-                                                        <div className="w-32 h-24 rounded-lg bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center flex-shrink-0">
-                                                            <FileText className="w-8 h-8 text-indigo-500/50" />
+                                                        <div className="w-32 h-24 rounded-lg bg-gradient-to-br from-primary-500/20 to-emerald-500/20 flex items-center justify-center flex-shrink-0">
+                                                            <FileText className="w-8 h-8 text-primary-500/50" />
                                                         </div>
                                                     )}
                                                     <div className="flex-1 min-w-0">
-                                                        <Badge className="mb-2 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-0 text-[10px] font-bold uppercase tracking-wider">
+                                                        <Badge className="mb-2 bg-primary-500/10 text-primary-600 dark:text-primary-400 border-0 text-[10px] font-bold uppercase tracking-wider">
                                                             {result.category?.replace(/-/g, ' ')}
                                                         </Badge>
-                                                        <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
+                                                        <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-1">
                                                             {result.title}
                                                         </h3>
                                                         <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mt-2">
@@ -208,7 +208,7 @@ export default function SearchPage() {
                 ) : (
                     <div>
                         <div className="flex items-center gap-2 mb-8">
-                            <TrendingUp className="w-5 h-5 text-indigo-500" />
+                            <TrendingUp className="w-5 h-5 text-primary-500" />
                             <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                                 Trending Topics
                             </h2>
@@ -217,12 +217,12 @@ export default function SearchPage() {
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {trending.map(article => (
                                 <Link key={article.id} href={`/articles/${article.slug}`}>
-                                    <Card className="h-full bg-white dark:bg-white/[0.03] border-slate-200 dark:border-white/5 hover:border-indigo-500/30 hover:shadow-lg hover:shadow-indigo-500/5 transition-all group">
+                                    <Card className="h-full bg-white dark:bg-white/[0.03] border-slate-200 dark:border-white/5 hover:border-primary-500/30 hover:shadow-lg hover:shadow-primary-500/5 transition-all group">
                                         <CardContent className="p-6">
-                                            <Badge className="mb-3 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-0 text-[10px] font-bold uppercase tracking-wider">
+                                            <Badge className="mb-3 bg-primary-500/10 text-primary-600 dark:text-primary-400 border-0 text-[10px] font-bold uppercase tracking-wider">
                                                 {article.category?.replace(/-/g, ' ')}
                                             </Badge>
-                                            <h3 className="font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">
+                                            <h3 className="font-bold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2">
                                                 {article.title}
                                             </h3>
                                             <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 mt-2">

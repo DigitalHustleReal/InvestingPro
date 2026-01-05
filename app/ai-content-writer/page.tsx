@@ -381,7 +381,7 @@ export default function AIContentWriterPage() {
                                                                 isCompleted
                                                                     ? 'bg-primary-500 text-white'
                                                                     : isActive
-                                                                    ? 'bg-blue-500 text-white'
+                                                                    ? 'bg-secondary-500 text-white'
                                                                     : 'bg-slate-200 text-slate-600'
                                                             }`}>
                                                                 {isCompleted ? (
@@ -394,7 +394,7 @@ export default function AIContentWriterPage() {
                                                                 <div className="flex items-center gap-2">
                                                                     <h4 className="font-semibold text-slate-900">{step.title}</h4>
                                                                     {isActive && (
-                                                                        <Badge className="bg-blue-100 text-blue-700 border-0">
+                                                                        <Badge className="bg-secondary-100 text-secondary-700 border-0">
                                                                             Running...
                                                                         </Badge>
                                                                     )}
@@ -427,7 +427,7 @@ export default function AIContentWriterPage() {
                                                     </div>
                                                     <div className="w-full bg-slate-200 rounded-full h-2">
                                                         <div
-                                                            className="bg-blue-500 h-2 rounded-full transition-all duration-300"
+                                                            className="bg-secondary-500 h-2 rounded-full transition-all duration-300"
                                                             style={{ width: `${autoProgress}%` }}
                                                         />
                                                     </div>
@@ -502,14 +502,14 @@ export default function AIContentWriterPage() {
                                                     return (
                                                         <Card
                                                             key={template.id}
-                                                            className={`cursor-pointer transition-all hover:border-blue-500 ${
-                                                                selectedTemplate === template.id ? 'border-blue-500 bg-blue-50' : ''
+                                                            className={`cursor-pointer transition-all hover:border-secondary-500 ${
+                                                                selectedTemplate === template.id ? 'border-secondary-500 bg-secondary-50' : ''
                                                             }`}
                                                             onClick={() => setSelectedTemplate(template.id)}
                                                         >
                                                             <CardContent className="p-6 md:p-8">
                                                                 <div className="flex items-start gap-3">
-                                                                    <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
+                                                                    <div className="w-10 h-10 rounded-lg bg-secondary-100 flex items-center justify-center flex-shrink-0">
                                                                         <TemplateIcon className="w-5 h-5 text-primary-600" />
                                                                     </div>
                                                                     <div className="flex-1">
@@ -593,8 +593,8 @@ export default function AIContentWriterPage() {
                                                 {PROMPTS_LIBRARY.map((prompt) => (
                                                     <Card
                                                         key={prompt.id}
-                                                        className={`cursor-pointer transition-all hover:border-purple-500 ${
-                                                            selectedPrompt === prompt.id ? 'border-purple-500 bg-purple-50' : ''
+                                                        className={`cursor-pointer transition-all hover:border-secondary-500 ${
+                                                            selectedPrompt === prompt.id ? 'border-secondary-500 bg-secondary-50' : ''
                                                         }`}
                                                         onClick={() => setSelectedPrompt(prompt.id)}
                                                     >
@@ -688,7 +688,7 @@ export default function AIContentWriterPage() {
                                                                             {new Date(article.created_at || article.created_date).toLocaleDateString()}
                                                                         </span>
                                                                         {article.ai_generated && (
-                                                                            <Badge className="bg-purple-100 text-purple-700 border-0">
+                                                                            <Badge className="bg-secondary-100 text-secondary-700 border-0">
                                                                                 <Sparkles className="w-3 h-3 mr-1" />
                                                                                 AI Generated
                                                                             </Badge>

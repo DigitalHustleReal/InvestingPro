@@ -93,3 +93,115 @@ CREATE POLICY "Authenticated users full access reviews" ON article_reviews FOR A
 CREATE POLICY "Authenticated users full access ab_tests" ON ab_tests FOR ALL USING (auth.role() = 'authenticated');
 CREATE POLICY "Authenticated users full access ab_variants" ON ab_variants FOR ALL USING (auth.role() = 'authenticated');
 CREATE POLICY "Authenticated users full access repurposed" ON repurposed_content FOR ALL USING (auth.role() = 'authenticated');
+
+-- =====================================================
+-- HOTFIX: Align Authors attribution with is_active schema
+-- Resolves "column active does not exist" error in triggers
+-- =====================================================
+
+-- 1. Fix get_expert_reviewer_for_category to use is_active
+CREATE OR REPLACE FUNCTION get_expert_reviewer_for_category(p_category TEXT)
+RETURNS UUID AS $$
+DECLARE
+    v_reviewer_id UUID;
+BEGIN
+    SELECT id INTO v_reviewer_id
+    FROM public.authors
+    WHERE role = 'editor'
+      AND is_active = true
+      AND editor_type IN ('subject_matter_expert', 'both')
+      AND p_category = ANY(sme_categories)
+    ORDER BY total_reviews ASC
+    LIMIT 1;
+    
+    IF v_reviewer_id IS NULL THEN
+        SELECT id INTO v_reviewer_id
+        FROM public.authors
+        WHERE slug = 'rajesh-mehta';
+    END IF;
+    
+    RETURN v_reviewer_id;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 2. Fix auto_assign_blog_attribution to use is_active
+CREATE OR REPLACE FUNCTION auto_assign_blog_attribution() 
+RETURNS TRIGGER AS $$
+DECLARE
+    v_content_type TEXT;
+BEGIN
+    v_content_type := COALESCE(NEW.content_type, 'article');
+    
+    CASE v_content_type
+        WHEN 'article', 'guide', 'how_to' THEN
+            IF NEW.author_id IS NULL THEN
+                SELECT id INTO NEW.author_id
+                FROM public.authors
+                WHERE role = 'writer' AND is_active = true
+                ORDER BY total_articles ASC
+                LIMIT 1;
+                
+                SELECT name INTO NEW.author_name FROM public.authors WHERE id = NEW.author_id;
+            END IF;
+            
+            IF NEW.editor_id IS NULL THEN
+                NEW.editor_id := get_expert_reviewer_for_category(NEW.category);
+                SELECT name INTO NEW.editor_name FROM public.authors WHERE id = NEW.editor_id;
+            END IF;
+            
+            NEW.show_author := true;
+            NEW.show_reviewer := true;
+            NEW.reviewer_label := 'Reviewed by';
+            
+        WHEN 'comparison', 'review', 'list' THEN
+            IF NEW.author_id IS NULL THEN
+                SELECT id INTO NEW.author_id
+                FROM public.authors
+                WHERE role = 'writer' AND is_active = true AND NEW.category = ANY(assigned_categories)
+                ORDER BY total_articles ASC LIMIT 1;
+                
+                SELECT name INTO NEW.author_name FROM public.authors WHERE id = NEW.author_id;
+            END IF;
+            NEW.show_author := true;
+            NEW.show_reviewer := false;
+            
+        WHEN 'news' THEN
+            IF NEW.author_id IS NULL THEN
+                SELECT id INTO NEW.author_id
+                FROM public.authors
+                WHERE role = 'writer' AND is_active = true
+                ORDER BY total_articles ASC LIMIT 1;
+                
+                SELECT name INTO NEW.author_name FROM public.authors WHERE id = NEW.author_id;
+            END IF;
+            NEW.show_author := true;
+            NEW.show_reviewer := false;
+    END CASE;
+    
+    NEW.last_reviewed_at := NOW();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 3. Ensure all columns exist on glossary_terms for attribution
+ALTER TABLE public.authors ADD COLUMN IF NOT EXISTS total_reviews INTEGER DEFAULT 0;
+ALTER TABLE public.authors ADD COLUMN IF NOT EXISTS total_articles INTEGER DEFAULT 0;
+ALTER TABLE public.authors ADD COLUMN IF NOT EXISTS assigned_categories TEXT[];
+
+ALTER TABLE public.glossary_terms ADD COLUMN IF NOT EXISTS author_id UUID;
+ALTER TABLE public.glossary_terms ADD COLUMN IF NOT EXISTS editor_id UUID;
+ALTER TABLE public.glossary_terms ADD COLUMN IF NOT EXISTS author_name TEXT;
+ALTER TABLE public.glossary_terms ADD COLUMN IF NOT EXISTS editor_name TEXT;
+ALTER TABLE public.glossary_terms ADD COLUMN IF NOT EXISTS is_active BOOLEAN DEFAULT true;
+
+
+-- 4. CONTENT TYPES & ATTRIBUTION
+ALTER TABLE articles ADD COLUMN IF NOT EXISTS content_type TEXT DEFAULT 'article';
+-- Types: 'article', 'news', 'deep_insight', 'guide', 'analysis'
+
+-- Attach attribution trigger to ARTICLES (consolidating from blog_posts)
+DROP TRIGGER IF EXISTS trigger_auto_assign_article_attribution ON articles;
+CREATE TRIGGER trigger_auto_assign_article_attribution
+    BEFORE INSERT ON articles
+    FOR EACH ROW
+    EXECUTE FUNCTION auto_assign_blog_attribution(); -- Renaming strictly recommended later

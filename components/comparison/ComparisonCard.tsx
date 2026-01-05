@@ -63,7 +63,7 @@ const badgeConfig = {
   },
   popular: {
     label: 'Popular',
-    color: 'bg-blue-600 text-white',
+    color: 'bg-secondary-600 text-white',
   },
 };
 

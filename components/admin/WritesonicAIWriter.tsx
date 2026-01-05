@@ -468,7 +468,7 @@ Include features, benefits, and value proposition`;
             <Card>
                 <CardHeader>
                     <CardTitle className="flex items-center gap-6 md:p-8">
-                        <Target className="w-5 h-5 text-purple-600" />
+                        <Target className="w-5 h-5 text-secondary-600" />
                         Content Style
                     </CardTitle>
                 </CardHeader>
@@ -480,7 +480,7 @@ Include features, benefits, and value proposition`;
                                 onClick={() => setContentStyle(style.value)}
                                 className={`p-4 rounded-lg border-2 transition-all text-left ${
                                     contentStyle === style.value
-                                        ? 'border-purple-600 bg-purple-50'
+                                        ? 'border-purple-600 bg-secondary-50'
                                         : 'border-slate-200 hover:border-slate-300'
                                 }`}
                             >
@@ -528,7 +528,7 @@ Include features, benefits, and value proposition`;
                                     onClick={() => setSelectedContentType(type.id)}
                                     className={`p-4 rounded-lg border-2 transition-all text-center ${
                                         selectedContentType === type.id
-                                            ? 'border-primary-600 bg-blue-50'
+                                            ? 'border-primary-600 bg-secondary-50'
                                             : 'border-slate-200 hover:border-slate-300'
                                     }`}
                                     title={type.description}
@@ -537,7 +537,7 @@ Include features, benefits, and value proposition`;
                                         selectedContentType === type.id ? 'text-primary-600' : 'text-slate-500'
                                     }`} />
                                     <div className={`text-sm font-medium ${
-                                        selectedContentType === type.id ? 'text-blue-900' : 'text-slate-700'
+                                        selectedContentType === type.id ? 'text-secondary-900' : 'text-slate-700'
                                     }`}>
                                         {type.label}
                                     </div>
@@ -686,7 +686,7 @@ Include features, benefits, and value proposition`;
                     <Button
                         onClick={generateContent}
                         disabled={!selectedContentType || generating || (!topic.trim() && !existingContent.trim())}
-                        className="w-full bg-purple-600 hover:bg-purple-700"
+                        className="w-full bg-secondary-600 hover:bg-secondary-700"
                     >
                         {generating ? (
                             <>

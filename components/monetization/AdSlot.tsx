@@ -147,13 +147,13 @@ export function PromotionCard({
 }) {
     const themeStyles = {
         teal: "from-teal-500/10 to-teal-600/10 border-teal-500/20",
-        indigo: "from-indigo-500/10 to-indigo-600/10 border-indigo-500/20",
+        indigo: "from-primary-500/10 to-indigo-600/10 border-primary-500/20",
         amber: "from-amber-500/10 to-amber-600/10 border-amber-500/20"
     };
 
     const iconStyles = {
         teal: "text-teal-500",
-        indigo: "text-indigo-500",
+        indigo: "text-primary-500",
         amber: "text-amber-500"
     };
 
@@ -199,7 +199,7 @@ export function ComparisonWidget({
     return (
         <Card className="p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10">
             <h4 className="text-sm font-bold uppercase tracking-widest text-slate-400 mb-4 flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-indigo-500" />
+                <Sparkles className="w-4 h-4 text-primary-500" />
                 Quick Compare
             </h4>
             <div className="space-y-3">
@@ -212,7 +212,7 @@ export function ComparisonWidget({
                         className={cn(
                             "flex items-center justify-between p-4 rounded-xl border transition-all hover:shadow-md",
                             product.featured 
-                                ? "bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-500/10 dark:to-purple-500/10 border-indigo-200 dark:border-indigo-500/20" 
+                                ? "bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-primary-500/10 dark:to-secondary-500/10 border-primary-200 dark:border-primary-500/20" 
                                 : "bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-white/5"
                         )}
                     >
@@ -220,7 +220,7 @@ export function ComparisonWidget({
                             <div className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
                                 {product.name}
                                 {product.featured && (
-                                    <span className="text-[10px] font-bold uppercase bg-indigo-500 text-white px-2 py-0.5 rounded-full">
+                                    <span className="text-[10px] font-bold uppercase bg-primary-500 text-white px-2 py-0.5 rounded-full">
                                         Top Pick
                                     </span>
                                 )}

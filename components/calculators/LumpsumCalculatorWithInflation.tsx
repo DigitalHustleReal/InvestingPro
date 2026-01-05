@@ -97,7 +97,7 @@ export function LumpsumCalculatorWithInflation() {
                                 <Badge variant="secondary" className="bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100">
                                     <CheckCircle2 className="w-3 h-3 mr-1" /> Free
                                 </Badge>
-                                <Badge variant="secondary" className="bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100 text-[10px]">
+                                <Badge variant="secondary" className="bg-secondary-50 text-secondary-700 border-secondary-200 hover:bg-secondary-100 text-[10px]">
                                     No Registration
                                 </Badge>
                             </div>
@@ -194,7 +194,7 @@ export function LumpsumCalculatorWithInflation() {
                         {/* Inflation Toggle */}
                         <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200">
                             <div className="flex items-center gap-2">
-                                <TrendingDown className="w-4 h-4 text-purple-600" />
+                                <TrendingDown className="w-4 h-4 text-secondary-600" />
                                 <div>
                                     <Label className="text-sm text-slate-700 font-semibold">Adjust for Inflation</Label>
                                     <p className="text-xs text-slate-500">Show real returns</p>
@@ -258,7 +258,7 @@ export function LumpsumCalculatorWithInflation() {
                         </div>
 
                         {adjustForInflation && (
-                            <div className="p-3 bg-white rounded-xl border border-purple-100 mb-4">
+                            <div className="p-3 bg-white rounded-xl border border-secondary-100 mb-4">
                                 <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Nominal Value</p>
                                 <p className="text-sm font-bold text-slate-600">{formatCurrency(lumpsumResult.futureValue)}</p>
                                 <p className="text-xs text-slate-500 mt-1">Before inflation adjustment</p>
@@ -394,7 +394,7 @@ export function LumpsumCalculatorWithInflation() {
                             </div>
 
                             {/* Key Insight */}
-                            <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
+                            <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-secondary-100">
                                 <div className="flex items-start gap-3">
                                     <Info className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" />
                                     <div>

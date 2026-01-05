@@ -26,7 +26,7 @@ export default function AdminLayout({
     inspectorContent 
 }: AdminLayoutProps) {
     return (
-        <div className="min-h-screen bg-[#0a0c10] flex overflow-hidden">
+        <div className="min-h-screen bg-surface-darkest flex overflow-hidden">
             {/* Background Mesh Gradients for Premium feel */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-emerald-500/5 blur-[120px]" />

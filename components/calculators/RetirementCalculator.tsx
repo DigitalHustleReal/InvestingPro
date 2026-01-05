@@ -104,7 +104,7 @@ export function RetirementCalculator() {
                                 <Badge variant="secondary" className="bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100">
                                     <CheckCircle2 className="w-3 h-3 mr-1" /> Free
                                 </Badge>
-                                <Badge variant="secondary" className="bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100 text-[10px]">
+                                <Badge variant="secondary" className="bg-secondary-50 text-secondary-700 border-secondary-200 hover:bg-secondary-100 text-[10px]">
                                     No Registration
                                 </Badge>
                             </div>
@@ -281,7 +281,7 @@ export function RetirementCalculator() {
                         {/* Inflation Toggle */}
                         <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200">
                             <div className="flex items-center gap-2">
-                                <TrendingDown className="w-4 h-4 text-purple-600" />
+                                <TrendingDown className="w-4 h-4 text-secondary-600" />
                                 <div>
                                     <Label className="text-sm text-slate-700 font-semibold">Adjust Expenses for Inflation</Label>
                                     <p className="text-xs text-slate-500">Project future expenses with inflation</p>

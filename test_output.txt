@@ -1,0 +1,119 @@
+[dotenv@17.2.3] injecting env (14) from .env.local -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+🚦 STARTING GENERATION TEST...
+
+--------------------------------
+📘 TEST 1: Generating Glossary Term...
+[WARN] {
+  level: 'warn',
+  message: '❌ Gemini failed:',
+  timestamp: '2026-01-04T09:48:33.382Z',
+  context: '[GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent: [404 Not Found] models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.',
+  error: undefined
+}
+[WARN] {
+  level: 'warn',
+  message: '❌ Groq failed:',
+  timestamp: '2026-01-04T09:48:34.270Z',
+  context: 'Unexpected token \'`\', "```json\n{\n"... is not valid JSON',
+  error: undefined
+}
+[WARN] {
+  level: 'warn',
+  message: '❌ Mistral failed:',
+  timestamp: '2026-01-04T09:48:38.879Z',
+  context: 'Unexpected token \'`\', "```json\n{\n"... is not valid JSON',
+  error: undefined
+}
+[WARN] {
+  level: 'warn',
+  message: '❌ OpenAI failed:',
+  timestamp: '2026-01-04T09:49:20.120Z',
+  context: '429 Rate limit reached for gpt-4o-mini in organization org-79Ha94FkdjklOTErqaQNklR2 on requests per min (RPM): Limit 3, Used 3, Requested 1. Please try again in 20s. Visit https://platform.openai.com/account/rate-limits to learn more. You can increase your rate limit by adding a payment method to your account at https://platform.openai.com/account/billing.',
+  error: undefined
+}
+[ERROR] {
+  level: 'error',
+  message: 'All AI providers failed. Attempted: Gemini, Groq, Mistral, OpenAI. Last error: 429 Rate limit reached for gpt-4o-mini in organization org-79Ha94FkdjklOTErqaQNklR2 on requests per min (RPM): Limit 3, Used 3, Requested 1. Please try again in 20s. Visit https://platform.openai.com/account/rate-limits to learn more. You can increase your rate limit by adding a payment method to your account at https://platform.openai.com/account/billing.',
+  timestamp: '2026-01-04T09:49:20.120Z',
+  context: undefined,
+  error: undefined
+}
+❌ Glossary Gen Failed: All AI providers failed. Attempted: Gemini, Groq, Mistral, OpenAI. Last error: 429 Rate limit reached for gpt-4o-mini in organization org-79Ha94FkdjklOTErqaQNklR2 on requests per min (RPM): Limit 3, Used 3, Requested 1. Please try again in 20s. Visit https://platform.openai.com/account/rate-limits to learn more. You can increase your rate limit by adding a payment method to your account at https://platform.openai.com/account/billing.
+
+--------------------------------
+📄 TEST 2: Generating Standard Article...
+[WARN] {
+  level: 'warn',
+  message: '❌ Gemini failed:',
+  timestamp: '2026-01-04T09:49:20.285Z',
+  context: '[GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent: [404 Not Found] models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.',
+  error: undefined
+}
+[WARN] {
+  level: 'warn',
+  message: '❌ Groq failed:',
+  timestamp: '2026-01-04T09:49:21.596Z',
+  context: `Unexpected token '*', "**Benefits"... is not valid JSON`,
+  error: undefined
+}
+[WARN] {
+  level: 'warn',
+  message: '❌ Mistral failed:',
+  timestamp: '2026-01-04T09:49:26.584Z',
+  context: `Unexpected token 'H', "Here's a s"... is not valid JSON`,
+  error: undefined
+}
+[WARN] {
+  level: 'warn',
+  message: '❌ OpenAI failed:',
+  timestamp: '2026-01-04T09:50:07.947Z',
+  context: '429 Rate limit reached for gpt-4o-mini in organization org-79Ha94FkdjklOTErqaQNklR2 on requests per min (RPM): Limit 3, Used 3, Requested 1. Please try again in 20s. Visit https://platform.openai.com/account/rate-limits to learn more. You can increase your rate limit by adding a payment method to your account at https://platform.openai.com/account/billing.',
+  error: undefined
+}
+[ERROR] {
+  level: 'error',
+  message: 'All AI providers failed. Attempted: Gemini, Groq, Mistral, OpenAI. Last error: 429 Rate limit reached for gpt-4o-mini in organization org-79Ha94FkdjklOTErqaQNklR2 on requests per min (RPM): Limit 3, Used 3, Requested 1. Please try again in 20s. Visit https://platform.openai.com/account/rate-limits to learn more. You can increase your rate limit by adding a payment method to your account at https://platform.openai.com/account/billing.',
+  timestamp: '2026-01-04T09:50:07.947Z',
+  context: undefined,
+  error: undefined
+}
+❌ Article Gen Failed: All AI providers failed. Attempted: Gemini, Groq, Mistral, OpenAI. Last error: 429 Rate limit reached for gpt-4o-mini in organization org-79Ha94FkdjklOTErqaQNklR2 on requests per min (RPM): Limit 3, Used 3, Requested 1. Please try again in 20s. Visit https://platform.openai.com/account/rate-limits to learn more. You can increase your rate limit by adding a payment method to your account at https://platform.openai.com/account/billing.
+
+--------------------------------
+⚖️ TEST 3: Generating Comparison Article...
+[WARN] {
+  level: 'warn',
+  message: '❌ Gemini failed:',
+  timestamp: '2026-01-04T09:50:08.174Z',
+  context: '[GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent: [404 Not Found] models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.',
+  error: undefined
+}
+[WARN] {
+  level: 'warn',
+  message: '❌ Groq failed:',
+  timestamp: '2026-01-04T09:50:09.856Z',
+  context: `Unexpected token '*', "**FD vs Mu"... is not valid JSON`,
+  error: undefined
+}
+[WARN] {
+  level: 'warn',
+  message: '❌ Mistral failed:',
+  timestamp: '2026-01-04T09:50:14.224Z',
+  context: `Unexpected token 'H', "Here's a J"... is not valid JSON`,
+  error: undefined
+}
+[WARN] {
+  level: 'warn',
+  message: '❌ OpenAI failed:',
+  timestamp: '2026-01-04T09:50:55.251Z',
+  context: '429 Rate limit reached for gpt-4o-mini in organization org-79Ha94FkdjklOTErqaQNklR2 on requests per min (RPM): Limit 3, Used 3, Requested 1. Please try again in 20s. Visit https://platform.openai.com/account/rate-limits to learn more. You can increase your rate limit by adding a payment method to your account at https://platform.openai.com/account/billing.',
+  error: undefined
+}
+[ERROR] {
+  level: 'error',
+  message: 'All AI providers failed. Attempted: Gemini, Groq, Mistral, OpenAI. Last error: 429 Rate limit reached for gpt-4o-mini in organization org-79Ha94FkdjklOTErqaQNklR2 on requests per min (RPM): Limit 3, Used 3, Requested 1. Please try again in 20s. Visit https://platform.openai.com/account/rate-limits to learn more. You can increase your rate limit by adding a payment method to your account at https://platform.openai.com/account/billing.',
+  timestamp: '2026-01-04T09:50:55.252Z',
+  context: undefined,
+  error: undefined
+}
+❌ Comparison Gen Failed: All AI providers failed. Attempted: Gemini, Groq, Mistral, OpenAI. Last error: 429 Rate limit reached for gpt-4o-mini in organization org-79Ha94FkdjklOTErqaQNklR2 on requests per min (RPM): Limit 3, Used 3, Requested 1. Please try again in 20s. Visit https://platform.openai.com/account/rate-limits to learn more. You can increase your rate limit by adding a payment method to your account at https://platform.openai.com/account/billing.

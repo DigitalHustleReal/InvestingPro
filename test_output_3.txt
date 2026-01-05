@@ -1,0 +1,52 @@
+[dotenv@17.2.3] injecting env (14) from .env.local -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
+🚦 STARTING GENERATION TEST...
+
+--------------------------------
+📘 TEST 1: Generating Glossary Term...
+❌ Glossary Insert Failed: {
+  code: '42703',
+  details: null,
+  hint: 'Perhaps you meant to reference the column "authors.is_active".',
+  message: 'column "active" does not exist'
+}
+
+--------------------------------
+📄 TEST 2: Generating Standard Article...
+❌ Article Insert Failed: {
+  code: '42703',
+  details: null,
+  hint: 'Perhaps you meant to reference the column "authors.is_active".',
+  message: 'column "active" does not exist'
+}
+
+--------------------------------
+⚖️ TEST 3: Generating Comparison Article...
+[WARN] {
+  level: 'warn',
+  message: '❌ Groq failed:',
+  timestamp: '2026-01-04T10:13:26.453Z',
+  context: 'Bad control character in string literal in JSON at position 294 (line 3 column 260)',
+  error: undefined
+}
+[WARN] {
+  level: 'warn',
+  message: '❌ Mistral failed:',
+  timestamp: '2026-01-04T10:13:31.244Z',
+  context: 'Unexpected token \'`\', "```json\n{\n"... is not valid JSON',
+  error: undefined
+}
+[WARN] {
+  level: 'warn',
+  message: '❌ OpenAI failed:',
+  timestamp: '2026-01-04T10:13:33.950Z',
+  context: '429 Rate limit reached for gpt-4o-mini in organization org-79Ha94FkdjklOTErqaQNklR2 on requests per day (RPD): Limit 200, Used 200, Requested 1. Please try again in 7m12s. Visit https://platform.openai.com/account/rate-limits to learn more. You can increase your rate limit by adding a payment method to your account at https://platform.openai.com/account/billing.',
+  error: undefined
+}
+[ERROR] {
+  level: 'error',
+  message: 'All AI providers failed. Attempted: Groq, Mistral, OpenAI. Last error: 429 Rate limit reached for gpt-4o-mini in organization org-79Ha94FkdjklOTErqaQNklR2 on requests per day (RPD): Limit 200, Used 200, Requested 1. Please try again in 7m12s. Visit https://platform.openai.com/account/rate-limits to learn more. You can increase your rate limit by adding a payment method to your account at https://platform.openai.com/account/billing.',
+  timestamp: '2026-01-04T10:13:33.950Z',
+  context: undefined,
+  error: undefined
+}
+❌ Comparison Gen Failed: All AI providers failed. Attempted: Groq, Mistral, OpenAI. Last error: 429 Rate limit reached for gpt-4o-mini in organization org-79Ha94FkdjklOTErqaQNklR2 on requests per day (RPD): Limit 200, Used 200, Requested 1. Please try again in 7m12s. Visit https://platform.openai.com/account/rate-limits to learn more. You can increase your rate limit by adding a payment method to your account at https://platform.openai.com/account/billing.

@@ -45,8 +45,8 @@ const navSections: NavSection[] = [
         title: 'CONTENT',
         items: [
             { label: 'Articles', href: '/admin/articles', icon: FileText },
+            { label: 'Pillar Pages', href: '/admin/pillar-pages', icon: File },
             { label: 'Authors', href: '/admin/authors', icon: Users },
-            { label: 'Pages', href: '/admin/pages', icon: File },
             { label: 'Categories', href: '/admin/categories', icon: Tag },
             { label: 'Tags', href: '/admin/tags', icon: Tag },
             { label: 'Media Library', href: '/admin/media', icon: ImageIcon },
@@ -62,8 +62,8 @@ const navSections: NavSection[] = [
     {
         title: 'AUTOMATION',
         items: [
-            { label: 'Content Factory', href: '/admin/automation/batch', icon: Factory }, // Added link
-            { label: 'RSS Feeds', href: '/admin/rss-feeds', icon: Rss },
+            { label: 'Content Factory', href: '/admin/content-factory', icon: Factory },
+            { label: 'Automation Hub', href: '/admin/automation', icon: Rss },
             { label: 'Review Queue', href: '/admin/review-queue', icon: CheckSquare },
         ],
     },
@@ -112,7 +112,7 @@ export default function AdminSidebar() {
             {/* Search Bar - Glassmorphic */}
             <div className="px-4 mb-6">
                 <div className="relative group">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-indigo-400 transition-colors" />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-primary-400 transition-colors" />
                     <input
                         type="text"
                         placeholder="Quick search..."
@@ -161,7 +161,7 @@ export default function AdminSidebar() {
                                             <span className="flex-1">{item.label}</span>
                                             
                                             {item.badge !== undefined && item.badge > 0 && (
-                                                <span className="px-2 py-0.5 text-[10px] font-bold bg-indigo-500 text-white rounded-full shadow-lg shadow-indigo-500/30 animate-pulse">
+                                                <span className="px-2 py-0.5 text-[10px] font-bold bg-primary-500 text-white rounded-full shadow-lg shadow-indigo-500/30 animate-pulse">
                                                     {item.badge}
                                                 </span>
                                             )}
@@ -177,7 +177,7 @@ export default function AdminSidebar() {
             {/* Bottom Profile Area */}
             <div className="p-4 border-t border-white/5 bg-slate-900/50 backdrop-blur-md">
                 <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-slate-800 to-slate-700 border border-white/10 flex items-center justify-center text-slate-300 text-sm font-bold shadow-inner group-hover:border-indigo-500/50 transition-colors">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-slate-800 to-slate-700 border border-white/10 flex items-center justify-center text-slate-300 text-sm font-bold shadow-inner group-hover:border-primary-500/50 transition-colors">
                         DH
                     </div>
                     <div className="flex-1 overflow-hidden">

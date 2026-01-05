@@ -4,9 +4,6 @@ import React, { useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { productService } from '@/lib/products/product-service';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { 
     Package, 
     Plus, 
@@ -19,11 +16,12 @@ import {
     AlertTriangle,
     Eye,
     EyeOff,
-    TrendingUp
+    TrendingUp,
+    ShoppingBag
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { formatDistanceToNow } from 'date-fns';
 import Link from 'next/link';
+import { AdminPageHeader, ContentSection, StatCard, ActionButton } from '@/components/admin/AdminUIKit';
 
 const CATEGORIES = [
     { value: 'all', label: 'All Products' },
@@ -54,9 +52,7 @@ export default function AdminProductsPage() {
             queryClient.invalidateQueries({ queryKey: ['admin-products'] });
             toast.success('Product status updated');
         },
-        onError: (error: any) => {
-            toast.error(error.message || 'Failed to update product');
-        }
+        onError: (error: any) => toast.error(error.message)
     });
 
     const deleteMutation = useMutation({
@@ -65,9 +61,7 @@ export default function AdminProductsPage() {
             queryClient.invalidateQueries({ queryKey: ['admin-products'] });
             toast.success('Product deleted');
         },
-        onError: (error: any) => {
-            toast.error(error.message || 'Failed to delete product');
-        }
+        onError: (error: any) => toast.error(error.message)
     });
 
     const filteredProducts = products.filter(p => 
@@ -75,173 +69,157 @@ export default function AdminProductsPage() {
         p.provider_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    const getStatusIcon = (status: string) => {
-        switch (status) {
-            case 'verified': return <CheckCircle2 className="w-4 h-4 text-green-500" />;
-            case 'discrepancy': return <AlertTriangle className="w-4 h-4 text-amber-500" />;
-            default: return <RefreshCcw className="w-4 h-4 text-slate-300" />;
-        }
-    };
-
     const handleDelete = (id: string, name: string) => {
-        if (confirm(`Are you sure you want to delete "${name}"?`)) {
-            deleteMutation.mutate(id);
-        }
+        if (confirm(`Delete "${name}"?`)) deleteMutation.mutate(id);
     };
 
     return (
         <AdminLayout>
-            <div className="p-8 space-y-6">
-                {/* Header */}
-                <div className="flex justify-between items-center">
-                    <div>
-                        <h1 className="text-3xl font-bold text-slate-900">Product Database</h1>
-                        <p className="text-slate-500">Manage affiliate products and verification status</p>
-                    </div>
-                    <div className="flex gap-3">
-                        <Button variant="outline" onClick={() => refetch()}>
-                            <RefreshCcw className="w-4 h-4 mr-2" />
-                            Refresh
-                        </Button>
-                        <Link href="/admin/products/new">
-                            <Button className="bg-teal-600 hover:bg-teal-700">
-                                <Plus className="w-4 h-4 mr-2" />
-                                Add Product
-                            </Button>
-                        </Link>
-                    </div>
-                </div>
-
-                {/* Category Tabs */}
-                <div className="flex flex-wrap gap-2">
-                    {CATEGORIES.map(cat => (
-                        <Button
-                            key={cat.value}
-                            variant={selectedCategory === cat.value ? "default" : "outline"}
-                            size="sm"
-                            onClick={() => setSelectedCategory(cat.value)}
-                            className={selectedCategory === cat.value ? "bg-teal-600" : ""}
-                        >
-                            {cat.label}
-                        </Button>
-                    ))}
-                </div>
-
-                {/* Search */}
-                <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                    <input 
-                        className="w-full pl-10 pr-4 py-2 border rounded-xl"
-                        placeholder="Search products..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                </div>
+            <div className="p-8 space-y-8">
+                <AdminPageHeader
+                    title="Product Catalog"
+                    subtitle="Manage affiliate products and verification status"
+                    icon={ShoppingBag}
+                    iconColor="rose"
+                    actions={
+                        <div className="flex gap-3">
+                            <button onClick={() => refetch()} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm flex items-center gap-2">
+                                <RefreshCcw className="w-4 h-4" /> Refresh
+                            </button>
+                            <Link href="/admin/products/new">
+                                <ActionButton icon={Plus}>Add Product</ActionButton>
+                            </Link>
+                        </div>
+                    }
+                />
 
                 {/* Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <Card className="p-4">
-                        <div className="text-2xl font-bold text-slate-900">{products.length}</div>
-                        <div className="text-sm text-slate-500">Total Products</div>
-                    </Card>
-                    <Card className="p-4">
-                        <div className="text-2xl font-bold text-green-600">{products.filter(p => p.is_active).length}</div>
-                        <div className="text-sm text-slate-500">Active</div>
-                    </Card>
-                    <Card className="p-4">
-                        <div className="text-2xl font-bold text-blue-600">{products.filter(p => p.verification_status === 'verified').length}</div>
-                        <div className="text-sm text-slate-500">Verified</div>
-                    </Card>
-                    <Card className="p-4">
-                        <div className="text-2xl font-bold text-amber-600">{products.filter(p => p.verification_status === 'discrepancy').length}</div>
-                        <div className="text-sm text-slate-500">Needs Review</div>
-                    </Card>
+                    <StatCard label="Total Products" value={products.length} icon={Package} color="rose" />
+                    <StatCard label="Active" value={products.filter(p => p.is_active).length} icon={Eye} color="teal" />
+                    <StatCard label="Verified" value={products.filter(p => p.verification_status === 'verified').length} icon={CheckCircle2} color="blue" />
+                    <StatCard label="Needs Review" value={products.filter(p => p.verification_status === 'discrepancy').length} icon={AlertTriangle} color="amber" />
                 </div>
 
+                {/* Filters */}
+                <ContentSection>
+                    <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+                        <div className="relative flex-1 max-w-md">
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                            <input 
+                                className="w-full pl-10 pr-4 py-2.5 bg-slate-800/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-rose-500/50"
+                                placeholder="Search products..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </div>
+                        <div className="flex gap-2 flex-wrap">
+                            {CATEGORIES.map(cat => (
+                                <button
+                                    key={cat.value}
+                                    onClick={() => setSelectedCategory(cat.value)}
+                                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                                        selectedCategory === cat.value
+                                            ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/25'
+                                            : 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
+                                    }`}
+                                >
+                                    {cat.label}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </ContentSection>
+
                 {/* Table */}
-                <Card>
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left">
+                <ContentSection>
+                    <div className="overflow-x-auto -mx-6">
+                        <table className="w-full min-w-[900px]">
                             <thead>
-                                <tr className="border-b bg-slate-50">
-                                    <th className="px-6 py-4 text-xs font-bold uppercase text-slate-500">Product</th>
-                                    <th className="px-6 py-4 text-xs font-bold uppercase text-slate-500">Category</th>
-                                    <th className="px-6 py-4 text-xs font-bold uppercase text-slate-500">Trust Score</th>
-                                    <th className="px-6 py-4 text-xs font-bold uppercase text-slate-500">Status</th>
-                                    <th className="px-6 py-4 text-xs font-bold uppercase text-slate-500">Active</th>
-                                    <th className="px-6 py-4 text-right text-xs font-bold uppercase text-slate-500">Actions</th>
+                                <tr className="border-b border-white/10">
+                                    <th className="px-6 py-4 text-left text-xs font-medium text-slate-500 uppercase">Product</th>
+                                    <th className="px-4 py-4 text-left text-xs font-medium text-slate-500 uppercase">Category</th>
+                                    <th className="px-4 py-4 text-left text-xs font-medium text-slate-500 uppercase">Trust Score</th>
+                                    <th className="px-4 py-4 text-left text-xs font-medium text-slate-500 uppercase">Status</th>
+                                    <th className="px-4 py-4 text-left text-xs font-medium text-slate-500 uppercase">Active</th>
+                                    <th className="px-4 py-4 text-right text-xs font-medium text-slate-500 uppercase">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y">
+                            <tbody className="divide-y divide-white/5">
                                 {isLoading ? (
-                                    <tr><td colSpan={6} className="p-10 text-center text-slate-400">Loading products...</td></tr>
+                                    <tr><td colSpan={6} className="p-16 text-center">
+                                        <div className="w-10 h-10 border-4 border-rose-500/30 border-t-rose-500 rounded-full animate-spin mx-auto" />
+                                    </td></tr>
                                 ) : filteredProducts.length === 0 ? (
-                                    <tr><td colSpan={6} className="p-10 text-center text-slate-400">No products found</td></tr>
+                                    <tr><td colSpan={6} className="p-16 text-center text-slate-500">No products found</td></tr>
                                 ) : (
                                     filteredProducts.map(product => (
-                                        <tr key={product.id} className={`hover:bg-slate-50 ${!product.is_active ? 'opacity-50' : ''}`}>
+                                        <tr key={product.id} className={`group hover:bg-white/5 transition-colors ${!product.is_active ? 'opacity-50' : ''}`}>
                                             <td className="px-6 py-4">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center">
-                                                        <Package className="w-5 h-5 text-slate-500" />
+                                                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500/20 to-pink-500/20 border border-rose-500/30 flex items-center justify-center">
+                                                        <Package className="w-5 h-5 text-rose-400" />
                                                     </div>
                                                     <div>
-                                                        <div className="font-bold text-slate-900">{product.name}</div>
+                                                        <div className="font-medium text-white">{product.name}</div>
                                                         <div className="text-xs text-slate-500">{product.provider_name}</div>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4">
-                                                <Badge variant="secondary" className="capitalize">
+                                            <td className="px-4 py-4">
+                                                <span className="inline-flex px-2.5 py-1 rounded-lg text-xs font-medium bg-white/5 text-slate-400 border border-white/10 capitalize">
                                                     {product.category.replace('_', ' ')}
-                                                </Badge>
+                                                </span>
                                             </td>
-                                            <td className="px-6 py-4">
-                                                <div className="flex items-center gap-1">
-                                                    <TrendingUp className="w-4 h-4 text-teal-500" />
-                                                    <span className="font-medium">{product.trust_score || 0}</span>
-                                                </div>
-                                            </td>
-                                            <td className="px-6 py-4">
+                                            <td className="px-4 py-4">
                                                 <div className="flex items-center gap-2">
-                                                    {getStatusIcon(product.verification_status || 'pending')}
-                                                    <span className="text-sm capitalize">{product.verification_status || 'Pending'}</span>
+                                                    <TrendingUp className="w-4 h-4 text-teal-400" />
+                                                    <span className="font-medium text-white">{product.trust_score || 0}</span>
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4">
+                                            <td className="px-4 py-4">
+                                                <div className="flex items-center gap-2">
+                                                    {product.verification_status === 'verified' ? (
+                                                        <><CheckCircle2 className="w-4 h-4 text-emerald-400" /><span className="text-emerald-400 text-sm">Verified</span></>
+                                                    ) : product.verification_status === 'discrepancy' ? (
+                                                        <><AlertTriangle className="w-4 h-4 text-amber-400" /><span className="text-amber-400 text-sm">Review</span></>
+                                                    ) : (
+                                                        <><RefreshCcw className="w-4 h-4 text-slate-500" /><span className="text-slate-500 text-sm">Pending</span></>
+                                                    )}
+                                                </div>
+                                            </td>
+                                            <td className="px-4 py-4">
                                                 <button
                                                     onClick={() => toggleMutation.mutate({ id: product.id, isActive: !product.is_active })}
                                                     className={`p-2 rounded-lg transition-colors ${
                                                         product.is_active 
-                                                            ? 'bg-green-100 text-green-600 hover:bg-green-200' 
-                                                            : 'bg-slate-100 text-slate-400 hover:bg-slate-200'
+                                                            ? 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30' 
+                                                            : 'bg-white/5 text-slate-500 hover:bg-white/10'
                                                     }`}
                                                 >
                                                     {product.is_active ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
                                                 </button>
                                             </td>
-                                            <td className="px-6 py-4 text-right">
-                                                <div className="flex justify-end gap-2">
+                                            <td className="px-4 py-4">
+                                                <div className="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                                     <Link href={`/admin/products/${product.id}`}>
-                                                        <Button variant="ghost" size="sm">
+                                                        <button className="p-2 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition-colors">
                                                             <Edit className="w-4 h-4" />
-                                                        </Button>
+                                                        </button>
                                                     </Link>
                                                     {product.canonical_url && (
                                                         <a href={product.canonical_url} target="_blank" rel="noopener noreferrer">
-                                                            <Button variant="ghost" size="sm">
+                                                            <button className="p-2 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition-colors">
                                                                 <ExternalLink className="w-4 h-4" />
-                                                            </Button>
+                                                            </button>
                                                         </a>
                                                     )}
-                                                    <Button 
-                                                        variant="ghost" 
-                                                        size="sm" 
-                                                        className="text-red-500 hover:text-red-700"
+                                                    <button 
                                                         onClick={() => handleDelete(product.id, product.name)}
+                                                        className="p-2 hover:bg-rose-500/20 rounded-lg text-slate-400 hover:text-rose-400 transition-colors"
                                                     >
                                                         <Trash2 className="w-4 h-4" />
-                                                    </Button>
+                                                    </button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -250,9 +228,8 @@ export default function AdminProductsPage() {
                             </tbody>
                         </table>
                     </div>
-                </Card>
+                </ContentSection>
             </div>
         </AdminLayout>
     );
 }
-

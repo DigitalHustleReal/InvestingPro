@@ -67,7 +67,7 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
                             className={cn(
                                 "block text-sm py-1.5 transition-colors border-l-2 -ml-[17px] pl-4",
                                 activeId === item.id
-                                    ? "border-blue-600 text-blue-600 font-medium"
+                                    ? "border-secondary-600 text-secondary-600 font-medium"
                                     : "border-transparent text-slate-500 hover:text-slate-900 group"
                             )}
                         >

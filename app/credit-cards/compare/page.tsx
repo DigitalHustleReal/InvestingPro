@@ -50,16 +50,16 @@ function CreditCardCompareContent() {
     }, [selectedCards]);
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-20">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-20 transition-colors duration-300">
             {/* Header */}
-            <div className="bg-[#0B1221] text-white py-12">
+            <div className="bg-slate-900 dark:bg-slate-950 text-white py-12 border-b border-slate-800">
                 <div className="container mx-auto px-6">
-                    <Link href="/credit-cards" className="inline-flex items-center text-gray-400 hover:text-white mb-4 transition-colors">
+                    <Link href="/credit-cards" className="inline-flex items-center text-slate-400 hover:text-white mb-4 transition-colors">
                         <ArrowLeft className="w-4 h-4 mr-2" />
                         Back to Credit Cards
                     </Link>
                     <h1 className="text-3xl md:text-4xl font-bold mb-2">Compare Credit Cards</h1>
-                    <p className="text-gray-400">Side-by-side comparison of features, fees, and rewards</p>
+                    <p className="text-slate-400">Side-by-side comparison of features, features, and rewards</p>
                 </div>
             </div>
 
@@ -69,24 +69,24 @@ function CreditCardCompareContent() {
                 {/* Add More Cards */}
                 {selectedCards.length < 4 && (
                     <div className="mb-8">
-                        <div className="bg-white rounded-xl p-6 border border-gray-200">
+                        <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
                             <div className="flex items-center justify-between mb-4">
-                                <h2 className="font-bold text-gray-900">Add More Cards to Compare</h2>
-                                <span className="text-sm text-gray-500">{selectedCards.length}/4 selected</span>
+                                <h2 className="font-bold text-slate-900 dark:text-white">Add More Cards to Compare</h2>
+                                <span className="text-sm text-slate-500 dark:text-slate-400">{selectedCards.length}/4 selected</span>
                             </div>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 {availableCards.slice(0, 4).map((card) => (
                                     <button
                                         key={card.id}
                                         onClick={() => setSelectedCards(prev => [...prev, card])}
-                                        className="p-6 md:p-8 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all text-left group"
+                                        className="p-6 md:p-8 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg hover:border-primary-500 dark:hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-500/10 transition-all text-left group"
                                     >
                                         <div className="flex items-center gap-2 mb-2">
-                                            <Plus className="w-4 h-4 text-gray-400 group-hover:text-primary-600" />
-                                            <span className="text-xs text-gray-500 group-hover:text-primary-600 font-medium">Add</span>
+                                            <Plus className="w-4 h-4 text-slate-400 group-hover:text-primary-600 dark:group-hover:text-primary-400" />
+                                            <span className="text-xs text-slate-500 dark:text-slate-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 font-medium">Add</span>
                                         </div>
-                                        <p className="font-bold text-sm text-gray-900 mb-1">{card.name}</p>
-                                        <p className="text-xs text-gray-500">{card.provider}</p>
+                                        <p className="font-bold text-sm text-slate-900 dark:text-white mb-1">{card.name}</p>
+                                        <p className="text-xs text-slate-500 dark:text-slate-400">{card.provider}</p>
                                     </button>
                                 ))}
                             </div>
@@ -98,9 +98,9 @@ function CreditCardCompareContent() {
                 <ComparisonTable products={selectedCards} onRemove={handleRemove} />
 
                 {/* Help Section */}
-                <div className="mt-12 bg-blue-50 rounded-xl p-8 border border-blue-100">
-                    <h3 className="font-bold text-blue-900 mb-4">How to Choose the Right Credit Card?</h3>
-                    <div className="grid md:grid-cols-3 gap-6 text-sm text-blue-800">
+                <div className="mt-12 bg-primary-50 dark:bg-primary-900/10 rounded-xl p-8 border border-primary-100 dark:border-primary-900/20">
+                    <h3 className="font-bold text-primary-900 dark:text-primary-100 mb-4">How to Choose the Right Credit Card?</h3>
+                    <div className="grid md:grid-cols-3 gap-6 text-sm text-primary-800 dark:text-primary-200">
                         <div>
                             <h4 className="font-semibold mb-2">1. Identify Your Spending Pattern</h4>
                             <p>Travel frequently? Choose travel cards. Shop online? Go for cashback cards.</p>
@@ -123,9 +123,9 @@ function CreditCardCompareContent() {
 export default function CreditCardComparePage() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+            <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
                 <div className="text-center">
-                    <p className="text-gray-600">Loading comparison...</p>
+                    <p className="text-slate-600 dark:text-slate-400">Loading comparison...</p>
                 </div>
             </div>
         }>

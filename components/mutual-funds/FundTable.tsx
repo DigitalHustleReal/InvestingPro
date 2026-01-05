@@ -67,7 +67,7 @@ export function FundTable({ funds }: FundTableProps) {
                                                     {fund.category}
                                                 </Badge>
                                                 <span className="text-[9px] text-slate-400 font-bold flex items-center gap-1 uppercase">
-                                                    <CheckCircle2 className="w-2.5 h-2.5 text-blue-500" />
+                                                    <CheckCircle2 className="w-2.5 h-2.5 text-secondary-500" />
                                                     Direct
                                                 </span>
                                             </div>

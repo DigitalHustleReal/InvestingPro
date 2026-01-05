@@ -1,0 +1,28 @@
+[dotenv@17.2.3] injecting env (14) from .env.local -- tip: ⚙️  override existing env vars with { override: true }
+🚦 STARTING GENERATION TEST...
+
+--------------------------------
+📘 TEST 1: Generating Glossary Term...
+✅ Glossary Insert Success!
+
+--------------------------------
+📄 TEST 2: Generating Standard Article...
+✅ Article Insert Success!
+
+--------------------------------
+⚖️ TEST 3: Generating Comparison Article...
+[WARN] {
+  level: 'warn',
+  message: '❌ Groq failed:',
+  timestamp: '2026-01-04T10:51:20.730Z',
+  context: 'Bad control character in string literal in JSON at position 304 (line 3 column 270)',
+  error: undefined
+}
+[WARN] {
+  level: 'warn',
+  message: '❌ Mistral failed:',
+  timestamp: '2026-01-04T10:51:26.525Z',
+  context: 'Unexpected token \'`\', "```json\n{\n"... is not valid JSON',
+  error: undefined
+}
+✅ Comparison Insert Success!

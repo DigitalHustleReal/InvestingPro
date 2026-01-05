@@ -104,7 +104,7 @@ export default function BankingPage() {
             <section className="relative overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-emerald-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
                 {/* Background Decor */}
                 <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-300/20 dark:bg-blue-500/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2" />
+                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-secondary-300/20 dark:bg-secondary-500/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2" />
                     <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-emerald-300/20 dark:bg-emerald-500/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3" />
                 </div>
 
@@ -121,7 +121,7 @@ export default function BankingPage() {
                     <div className="text-center mb-8 max-w-4xl mx-auto">
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white leading-tight mb-4">
                             Maximize Your Savings with{' '}
-                            <span className="bg-gradient-to-r from-emerald-500 via-teal-500 to-blue-500 bg-clip-text text-transparent">
+                            <span className="bg-gradient-to-r from-emerald-500 via-teal-500 to-secondary-500 bg-clip-text text-transparent">
                                 Live Rate Radar
                             </span>
                         </h1>
@@ -203,7 +203,7 @@ export default function BankingPage() {
                                                                     <div className="font-bold text-slate-900 dark:text-white flex items-center gap-2">
                                                                         {bank.bank}
                                                                         {bank.verified && (
-                                                                            <Badge className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border-0 text-xs">
+                                                                            <Badge className="bg-secondary-100 dark:bg-secondary-900/30 text-secondary-700 dark:text-secondary-400 border-0 text-xs">
                                                                                 <Shield className="w-3 h-3 mr-1" />
                                                                                 Verified
                                                                             </Badge>

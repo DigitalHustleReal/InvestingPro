@@ -116,7 +116,7 @@ export default function TrustScoreWidget({
                     <div>
                         <div className="flex items-center justify-between mb-1">
                             <div className="flex items-center gap-2 text-sm">
-                                <TrendingUp className="w-3.5 h-3.5 text-blue-600" />
+                                <TrendingUp className="w-3.5 h-3.5 text-secondary-600" />
                                 <span className="font-medium text-slate-700">User Reviews</span>
                             </div>
                             <span className="text-sm font-bold text-slate-900">
@@ -125,7 +125,7 @@ export default function TrustScoreWidget({
                         </div>
                         <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
                             <div 
-                                className="h-full bg-blue-500 rounded-full transition-all duration-1000 ease-out"
+                                className="h-full bg-secondary-500 rounded-full transition-all duration-1000 ease-out"
                                 style={{ 
                                     width: `${(breakdown.components.userReviews / 30) * 100}%`,
                                     transitionDelay: '400ms'
@@ -138,7 +138,7 @@ export default function TrustScoreWidget({
                     <div>
                         <div className="flex items-center justify-between mb-1">
                             <div className="flex items-center gap-2 text-sm">
-                                <TrendingUp className="w-3.5 h-3.5 text-purple-600" />
+                                <TrendingUp className="w-3.5 h-3.5 text-secondary-600" />
                                 <span className="font-medium text-slate-700">Market Presence</span>
                             </div>
                             <span className="text-sm font-bold text-slate-900">
@@ -147,7 +147,7 @@ export default function TrustScoreWidget({
                         </div>
                         <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
                             <div 
-                                className="h-full bg-purple-500 rounded-full transition-all duration-1000 ease-out"
+                                className="h-full bg-secondary-500 rounded-full transition-all duration-1000 ease-out"
                                 style={{ 
                                     width: `${(breakdown.components.marketPresence / 15) * 100}%`,
                                     transitionDelay: '600ms'

@@ -20,7 +20,7 @@ export default function PortfolioSummary({ holdings = [] }: PortfolioSummaryProp
             value: `₹${totalValue.toLocaleString('en-IN')}`,
             icon: Wallet,
             color: "text-primary-600",
-            bg: "bg-blue-50"
+            bg: "bg-secondary-50"
         },
         {
             label: "Total Investment",

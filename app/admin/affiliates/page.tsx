@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
+import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
 
 interface AffiliateStats {
     totalClicks: number;
@@ -45,8 +46,8 @@ export default function AffiliatesPage() {
             label: 'Total Clicks',
             value: stats?.totalClicks || 0,
             icon: MousePointer2,
-            color: 'text-blue-400',
-            bg: 'bg-blue-500/10',
+            color: 'text-secondary-400',
+            bg: 'bg-secondary-500/10',
             change: '+12%',
             changeType: 'up'
         },
@@ -72,8 +73,8 @@ export default function AffiliatesPage() {
             label: 'Conversion Rate',
             value: `${(stats?.conversionRate || 0).toFixed(1)}%`,
             icon: BarChart3,
-            color: 'text-purple-400',
-            bg: 'bg-purple-500/10',
+            color: 'text-secondary-400',
+            bg: 'bg-secondary-500/10',
             change: '-2%',
             changeType: 'down'
         }
@@ -83,7 +84,7 @@ export default function AffiliatesPage() {
         return (
             <AdminLayout>
                 <div className="p-8 flex items-center justify-center h-screen">
-                    <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />
+                    <Loader2 className="w-8 h-8 animate-spin text-primary-500" />
                 </div>
             </AdminLayout>
         );
@@ -92,8 +93,11 @@ export default function AffiliatesPage() {
     return (
         <AdminLayout>
             <div className="p-8 max-w-[1600px] mx-auto w-full">
+                {/* Breadcrumb */}
+                <AdminBreadcrumb />
+                
                 {/* Header */}
-                <div className="mb-10 border-b border-white/5 pb-8">
+                <div className="mb-10 border-b border-white/5 pb-8 mt-4">
                     <div className="flex items-center justify-between">
                         <div>
                             <h1 className="text-3xl font-extrabold text-white tracking-tight flex items-center gap-4">
@@ -109,7 +113,7 @@ export default function AffiliatesPage() {
                                 Track affiliate performance, clicks, conversions, and revenue.
                             </p>
                         </div>
-                        <Button className="bg-indigo-600 hover:bg-indigo-700 text-white">
+                        <Button className="bg-primary-600 hover:bg-indigo-700 text-white">
                             <Plus className="w-4 h-4 mr-2" />
                             New Link
                         </Button>
@@ -195,7 +199,7 @@ export default function AffiliatesPage() {
                     <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                         <CardHeader className="border-b border-white/5 px-6 py-4">
                             <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                                <Link2 className="w-4 h-4 text-indigo-400" />
+                                <Link2 className="w-4 h-4 text-primary-400" />
                                 Top Performing Links
                             </CardTitle>
                         </CardHeader>
@@ -211,7 +215,7 @@ export default function AffiliatesPage() {
                                                 <span className="text-sm font-medium text-white line-clamp-1">{link.name}</span>
                                             </div>
                                             <div className="flex items-center gap-4 text-sm">
-                                                <Badge className="bg-blue-500/10 text-blue-400 border-0">
+                                                <Badge className="bg-secondary-500/10 text-secondary-400 border-0">
                                                     {link.clicks} clicks
                                                 </Badge>
                                                 <Badge className="bg-primary-500/10 text-emerald-400 border-0">
@@ -232,10 +236,10 @@ export default function AffiliatesPage() {
 
                 {/* Quick Actions */}
                 <div className="mt-8 grid grid-cols-3 gap-6">
-                    <Card className="bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border-indigo-500/20 rounded-2xl p-6">
+                    <Card className="bg-gradient-to-br from-primary-500/10 to-secondary-500/10 border-primary-500/20 rounded-2xl p-6">
                         <h4 className="font-bold text-white mb-2">Create Short Link</h4>
                         <p className="text-sm text-slate-400 mb-4">Generate trackable affiliate links</p>
-                        <Button variant="ghost" className="text-indigo-400 hover:text-indigo-300 p-0 h-auto">
+                        <Button variant="ghost" className="text-primary-400 hover:text-primary-300 p-0 h-auto">
                             Create Link →
                         </Button>
                     </Card>

@@ -104,7 +104,7 @@ export default function FeaturedImageSelector({
                     disabled={autoSelecting || !articleTitle}
                     variant="default"
                     size="sm"
-                    className="flex-1 bg-purple-600 hover:bg-purple-700 text-white"
+                    className="flex-1 bg-secondary-600 hover:bg-secondary-700 text-white"
                     title="Automatically select image based on article title"
                 >
                     {autoSelecting ? (

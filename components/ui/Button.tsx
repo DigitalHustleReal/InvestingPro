@@ -9,12 +9,13 @@ const buttonVariants = cva(
         variants: {
             variant: {
                 default: "bg-primary-600 text-white hover:bg-primary-700 shadow-md hover:shadow-lg active:shadow-sm",
-                gradient: "bg-gradient-to-r from-primary-600 to-emerald-600 text-white hover:from-primary-700 hover:to-emerald-700 shadow-lg hover:shadow-primary-lg",
+                secondary: "bg-secondary-600 text-white hover:bg-secondary-700 shadow-md hover:shadow-lg active:shadow-sm",
+                gradient: "bg-gradient-to-r from-primary-600 to-primary-800 text-white hover:from-primary-700 hover:to-primary-900 shadow-lg hover:shadow-primary-lg",
                 destructive: "bg-danger-500 text-white hover:bg-danger-700 shadow-md hover:shadow-lg",
                 outline: "border-2 border-primary-600 bg-white text-primary-600 hover:bg-primary-50",
-                secondary: "bg-accent-500 text-white hover:bg-accent-600 shadow-md hover:shadow-accent",
-                ghost: "text-stone-700 hover:bg-stone-100",
-                link: "text-primary-600 underline-offset-4 hover:underline",
+                success: "bg-success-600 text-white hover:bg-success-700 shadow-md hover:shadow-lg",
+                ghost: "text-stone-700 hover:bg-stone-100 dark:text-stone-300 dark:hover:bg-stone-800",
+                link: "text-secondary-600 underline-offset-4 hover:underline dark:text-secondary-400",
             },
             size: {
                 default: "h-11 px-6 py-2",      // 44px (minimum tap target)

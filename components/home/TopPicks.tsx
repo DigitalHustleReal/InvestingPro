@@ -77,7 +77,7 @@ export default function TopPicks() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Mutual Funds */}
                     <div className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
-                        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-5">
+                        <div className="bg-gradient-to-r from-secondary-600 to-indigo-600 px-6 py-5">
                             <div className="flex items-center gap-3">
                                 <TrendingUp className="w-6 h-6 text-white/90" />
                                 <h3 className="text-xl font-bold text-white">Best Mutual Funds</h3>
@@ -109,7 +109,7 @@ export default function TopPicks() {
                             ))}
                             <Link
                                 href="/mutual-funds"
-                                className="flex items-center justify-center gap-2 text-primary-600 font-semibold mt-auto pt-6 hover:text-blue-700 transition-colors"
+                                className="flex items-center justify-center gap-2 text-primary-600 font-semibold mt-auto pt-6 hover:text-secondary-700 transition-colors"
                             >
                                 View All 5,000+ Funds
                                 <ChevronRight className="w-4 h-4" />
@@ -154,7 +154,7 @@ export default function TopPicks() {
 
                     {/* Credit Cards */}
                     <div className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
-                        <div className="bg-gradient-to-r from-purple-600 to-violet-600 px-6 py-5">
+                        <div className="bg-gradient-to-r from-secondary-600 to-violet-600 px-6 py-5">
                             <div className="flex items-center gap-3">
                                 <Star className="w-6 h-6 text-white/90" />
                                 <h3 className="text-xl font-bold text-white">Best Credit Cards</h3>
@@ -168,7 +168,7 @@ export default function TopPicks() {
                                             <p className="font-semibold text-slate-900">{card.name}</p>
                                             <p className="text-sm text-slate-500">{card.highlight}</p>
                                         </div>
-                                        <Badge className="bg-purple-100 text-purple-700 hover:bg-purple-100 border-0">
+                                        <Badge className="bg-secondary-100 text-secondary-700 hover:bg-secondary-100 border-0">
                                             {card.reward}
                                         </Badge>
                                     </div>
@@ -179,7 +179,7 @@ export default function TopPicks() {
                             ))}
                             <Link
                                 href="/credit-cards"
-                                className="flex items-center justify-center gap-2 text-purple-600 font-semibold mt-auto pt-6 hover:text-purple-700 transition-colors"
+                                className="flex items-center justify-center gap-2 text-secondary-600 font-semibold mt-auto pt-6 hover:text-secondary-700 transition-colors"
                             >
                                 Compare 150+ Reward Tiers
                                 <ChevronRight className="w-4 h-4" />

@@ -25,14 +25,14 @@ export default function PortfolioSummary({ holdings }: PortfolioSummaryProps) {
             value: `₹${totalInvested.toLocaleString('en-IN')}`,
             icon: Wallet,
             color: 'text-primary-600',
-            bgColor: 'bg-blue-100'
+            bgColor: 'bg-secondary-100'
         },
         {
             label: 'Current Value',
             value: `₹${totalCurrent.toLocaleString('en-IN')}`,
             icon: Target,
-            color: 'text-purple-600',
-            bgColor: 'bg-purple-100'
+            color: 'text-secondary-600',
+            bgColor: 'bg-secondary-100'
         },
         {
             label: 'Total Returns',

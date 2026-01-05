@@ -35,7 +35,7 @@ export default function KeywordResearchQuickAccess({
                 <div className="flex items-center gap-2">
                     <Search className="w-4 h-4" />
                     <span>Research Keywords</span>
-                    <Sparkles className="w-3 h-3 text-blue-500" />
+                    <Sparkles className="w-3 h-3 text-secondary-500" />
                 </div>
                 {expanded ? (
                     <ChevronUp className="w-4 h-4" />

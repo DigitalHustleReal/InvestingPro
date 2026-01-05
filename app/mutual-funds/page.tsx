@@ -49,7 +49,7 @@ const FUND_CATEGORIES = ["All", "Equity", "Debt", "Hybrid", "ELSS", "Index"];
 const riskColors: Record<string, string> = {
     "Low": "bg-green-50 text-green-700 border-green-100",
     "Low to Moderate": "bg-teal-50 text-teal-700 border-teal-100",
-    "Moderate": "bg-blue-50 text-blue-700 border-blue-100",
+    "Moderate": "bg-secondary-50 text-secondary-700 border-secondary-100",
     "Moderately High": "bg-amber-50 text-amber-700 border-amber-100",
     "High": "bg-orange-50 text-orange-700 border-orange-100",
     "Very High": "bg-red-50 text-red-700 border-red-100",
@@ -83,20 +83,23 @@ export default function MutualFundsPage() {
         (filters.categories.length > 0 ? 1 : 0) +
         (filters.amcs.length > 0 ? 1 : 0);
 
+    const [totalCount, setTotalCount] = useState(0);
+
     useEffect(() => {
         loadFunds();
-    }, []);
-
-    const handleCompareToggle = (id: string) => {
-        // This page still uses selectedForCompare locally in some spots, 
-        // but RichProductCard (when used) will use context.
-        // For FundTable, we'll need to update it to use context too or pass context down.
-    };
+    }, [currentPage, sortBy, searchTerm, selectedCategory]);
 
     const loadFunds = async () => {
         setLoading(true);
         try {
-            const data = await api.entities.MutualFund.list();
+            const { data, count } = await api.entities.MutualFund.list({
+                page: currentPage,
+                limit: itemsPerPage,
+                categoryType: selectedCategory,
+                sortBy: `${sortBy}:desc`,
+                searchTerm: searchTerm
+            });
+
             if (data && data.length > 0) {
                 // Normalize Supabase Product to UI Fund structure
                 const normalizedFunds = data.map((p: any) => {
@@ -118,15 +121,16 @@ export default function MutualFundsPage() {
                     };
                 });
                 setFunds(normalizedFunds);
+                setTotalCount(count);
             } else {
-                // NO MOCK DATA - show empty state
                 setFunds([]);
+                setTotalCount(0);
                 logger.warn('No mutual funds found in database');
             }
         } catch (error) {
             logger.error('Error loading mutual funds', error as Error);
-            // NO MOCK DATA - show error state
             setFunds([]);
+            setTotalCount(0);
         } finally {
             setLoading(false);
         }
@@ -161,11 +165,8 @@ export default function MutualFundsPage() {
     });
 
 
-    const totalPages = Math.ceil(filteredFunds.length / itemsPerPage);
-    const paginatedFunds = filteredFunds.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-    );
+    const totalPages = Math.ceil(totalCount / itemsPerPage);
+    const paginatedFunds = funds; // Already paginated from server
 
     const structuredData = {
         "@context": "https://schema.org",
@@ -240,7 +241,7 @@ export default function MutualFundsPage() {
                         {/* Toolbar */}
                         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
                             <div className="text-sm text-slate-500 font-medium">
-                                Showing <span className="font-bold text-slate-900 dark:text-white">{filteredFunds.length}</span> Funds
+                                Showing <span className="font-bold text-slate-900 dark:text-white">{funds.length}</span> of <span className="font-bold text-slate-900 dark:text-white">{totalCount}</span> Funds
                             </div>
                             <div className="flex items-center gap-3">
                                 <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg p-1">
@@ -310,7 +311,7 @@ export default function MutualFundsPage() {
                                                 {/* Primary Identity */}
                                                 <div className="p-8 flex-1">
                                                     <div className="flex items-start gap-4 mb-6">
-                                                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/10 to-teal-500/10 border border-teal-500/10 flex items-center justify-center text-teal-600 font-bold text-xl group-hover/card:scale-110 transition-transform">
+                                                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-secondary-500/10 to-teal-500/10 border border-teal-500/10 flex items-center justify-center text-teal-600 font-bold text-xl group-hover/card:scale-110 transition-transform">
                                                             {(fund.name || "A").substring(0, 1)}
                                                         </div>
                                                         <div className="space-y-1">
@@ -391,7 +392,7 @@ export default function MutualFundsPage() {
                         )}
 
                         {/* Pagination Integration */}
-                        {!loading && filteredFunds.length > itemsPerPage && (
+                        {!loading && totalCount > itemsPerPage && (
                             <div className="pt-10">
                                 <Pagination
                                     currentPage={currentPage}

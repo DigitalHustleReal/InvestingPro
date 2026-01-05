@@ -160,7 +160,7 @@ export default function DiffView({ draft, onClose }: DiffViewProps) {
                                             )}
                                         </div>
                                         {source.confidence && (
-                                            <Badge className="bg-blue-100 text-blue-700 text-xs">
+                                            <Badge className="bg-secondary-100 text-secondary-700 text-xs">
                                                 {Math.round(source.confidence * 100)}%
                                             </Badge>
                                         )}

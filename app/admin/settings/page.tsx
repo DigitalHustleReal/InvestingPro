@@ -2,13 +2,12 @@
 
 import React from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Settings, Save } from 'lucide-react';
+import { Settings, Save, Globe, Search, Key, Database, Zap, Shield } from 'lucide-react';
 import { toast } from 'sonner';
+import { AdminPageHeader, ContentSection, ActionButton } from '@/components/admin/AdminUIKit';
 
 export default function SettingsPage() {
     const [siteName, setSiteName] = React.useState('InvestingPro');
@@ -17,125 +16,143 @@ export default function SettingsPage() {
 
     const handleSave = async () => {
         setSaving(true);
-        // Simulate save
         await new Promise(resolve => setTimeout(resolve, 1000));
         setSaving(false);
-        toast.success('Settings saved successfully!');
+        toast.success('Settings saved!');
     };
 
     return (
         <AdminLayout>
-            <div className="h-full flex flex-col bg-slate-50">
-                <div className="bg-white border-b border-slate-200 px-8 py-6">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <h1 className="text-2xl font-bold text-slate-900">Settings</h1>
-                            <p className="text-sm text-slate-600 mt-1">Configure site settings and preferences</p>
+            <div className="p-8 space-y-8">
+                <AdminPageHeader
+                    title="Settings"
+                    subtitle="Configure site settings and preferences"
+                    icon={Settings}
+                    iconColor="blue"
+                    actions={
+                        <ActionButton onClick={handleSave} icon={Save} disabled={saving}>
+                            {saving ? 'Saving...' : 'Save Settings'}
+                        </ActionButton>
+                    }
+                />
+
+                <div className="max-w-4xl space-y-6">
+                    {/* General Settings */}
+                    <ContentSection title="General Settings" subtitle="Basic site configuration">
+                        <div className="space-y-4">
+                            <div className="space-y-2">
+                                <Label className="text-slate-300 flex items-center gap-2">
+                                    <Globe className="w-4 h-4 text-slate-500" /> Site Name
+                                </Label>
+                                <Input
+                                    value={siteName}
+                                    onChange={(e) => setSiteName(e.target.value)}
+                                    placeholder="InvestingPro"
+                                    className="bg-slate-800/50 border-slate-600 text-white"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <Label className="text-slate-300">Site Description</Label>
+                                <Textarea
+                                    value={siteDescription}
+                                    onChange={(e) => setSiteDescription(e.target.value)}
+                                    placeholder="India's Best Financial Comparison Platform"
+                                    rows={3}
+                                    className="bg-slate-800/50 border-slate-600 text-white"
+                                />
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </ContentSection>
 
-                <div className="flex-1 overflow-y-auto p-8">
-                    <div className="max-w-3xl mx-auto space-y-6">
-                        {/* General Settings */}
-                        <Card>
-                            <CardHeader>
-                                <CardTitle className="flex items-center gap-6 md:p-8">
-                                    <Settings className="w-5 h-5" />
-                                    General Settings
-                                </CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-4">
-                                <div className="space-y-2">
-                                    <Label htmlFor="siteName">Site Name</Label>
-                                    <Input
-                                        id="siteName"
-                                        value={siteName}
-                                        onChange={(e) => setSiteName(e.target.value)}
-                                        placeholder="InvestingPro"
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="siteDescription">Site Description</Label>
-                                    <Textarea
-                                        id="siteDescription"
-                                        value={siteDescription}
-                                        onChange={(e) => setSiteDescription(e.target.value)}
-                                        placeholder="India's Best Financial Comparison Platform"
-                                        rows={3}
-                                    />
-                                </div>
-                            </CardContent>
-                        </Card>
-
-                        {/* SEO Settings */}
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>SEO Settings</CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-4">
-                                <div className="space-y-2">
-                                    <Label htmlFor="metaTitle">Default Meta Title</Label>
-                                    <Input
-                                        id="metaTitle"
-                                        placeholder="InvestingPro - Compare Financial Products"
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="metaDescription">Default Meta Description</Label>
-                                    <Textarea
-                                        id="metaDescription"
-                                        placeholder="Compare credit cards, loans, mutual funds, and more..."
-                                        rows={3}
-                                    />
-                                </div>
-                            </CardContent>
-                        </Card>
-
-                        {/* API Settings */}
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>API & Integrations</CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-4">
-                                <div className="space-y-2">
-                                    <Label htmlFor="openaiKey">OpenAI API Key</Label>
-                                    <Input
-                                        id="openaiKey"
-                                        type="password"
-                                        placeholder="sk-..."
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="supabaseUrl">Supabase URL</Label>
-                                    <Input
-                                        id="supabaseUrl"
-                                        placeholder="https://your-project.supabase.co"
-                                    />
-                                </div>
-                            </CardContent>
-                        </Card>
-
-                        {/* Save Button */}
-                        <div className="flex justify-end">
-                            <Button 
-                                onClick={handleSave}
-                                disabled={saving}
-                                className="bg-teal-600 hover:bg-teal-700"
-                            >
-                                {saving ? (
-                                    <>
-                                        <span className="mr-2">Saving...</span>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Save className="w-4 h-4 mr-2" />
-                                        Save Settings
-                                    </>
-                                )}
-                            </Button>
+                    {/* SEO Settings */}
+                    <ContentSection title="SEO Settings" subtitle="Search engine optimization defaults">
+                        <div className="space-y-4">
+                            <div className="space-y-2">
+                                <Label className="text-slate-300 flex items-center gap-2">
+                                    <Search className="w-4 h-4 text-slate-500" /> Default Meta Title
+                                </Label>
+                                <Input
+                                    placeholder="InvestingPro - Compare Financial Products"
+                                    className="bg-slate-800/50 border-slate-600 text-white"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <Label className="text-slate-300">Default Meta Description</Label>
+                                <Textarea
+                                    placeholder="Compare credit cards, loans, mutual funds, and more..."
+                                    rows={3}
+                                    className="bg-slate-800/50 border-slate-600 text-white"
+                                />
+                            </div>
                         </div>
-                    </div>
+                    </ContentSection>
+
+                    {/* API & Integrations */}
+                    <ContentSection title="API & Integrations" subtitle="Third-party service connections">
+                        <div className="grid md:grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                                <Label className="text-slate-300 flex items-center gap-2">
+                                    <Zap className="w-4 h-4 text-amber-500" /> OpenAI API Key
+                                </Label>
+                                <Input
+                                    type="password"
+                                    placeholder="sk-..."
+                                    className="bg-slate-800/50 border-slate-600 text-white"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <Label className="text-slate-300 flex items-center gap-2">
+                                    <Key className="w-4 h-4 text-secondary-500" /> Google Gemini Key
+                                </Label>
+                                <Input
+                                    type="password"
+                                    placeholder="AIza..."
+                                    className="bg-slate-800/50 border-slate-600 text-white"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <Label className="text-slate-300 flex items-center gap-2">
+                                    <Database className="w-4 h-4 text-teal-500" /> Supabase URL
+                                </Label>
+                                <Input
+                                    placeholder="https://your-project.supabase.co"
+                                    className="bg-slate-800/50 border-slate-600 text-white"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <Label className="text-slate-300 flex items-center gap-2">
+                                    <Shield className="w-4 h-4 text-secondary-500" /> Supabase Anon Key
+                                </Label>
+                                <Input
+                                    type="password"
+                                    placeholder="eyJhbGciOiJIUzI1NiIs..."
+                                    className="bg-slate-800/50 border-slate-600 text-white"
+                                />
+                            </div>
+                        </div>
+                    </ContentSection>
+
+                    {/* Environment Info */}
+                    <ContentSection title="Environment" subtitle="Current deployment information">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div className="p-4 bg-white/5 rounded-xl border border-white/10">
+                                <div className="text-xs text-slate-500 uppercase tracking-wider mb-1">Mode</div>
+                                <div className="text-sm font-medium text-emerald-400">Development</div>
+                            </div>
+                            <div className="p-4 bg-white/5 rounded-xl border border-white/10">
+                                <div className="text-xs text-slate-500 uppercase tracking-wider mb-1">Region</div>
+                                <div className="text-sm font-medium text-white">Asia (Mumbai)</div>
+                            </div>
+                            <div className="p-4 bg-white/5 rounded-xl border border-white/10">
+                                <div className="text-xs text-slate-500 uppercase tracking-wider mb-1">Version</div>
+                                <div className="text-sm font-medium text-white">v1.0.0</div>
+                            </div>
+                            <div className="p-4 bg-white/5 rounded-xl border border-white/10">
+                                <div className="text-xs text-slate-500 uppercase tracking-wider mb-1">Database</div>
+                                <div className="text-sm font-medium text-teal-400">Connected</div>
+                            </div>
+                        </div>
+                    </ContentSection>
                 </div>
             </div>
         </AdminLayout>

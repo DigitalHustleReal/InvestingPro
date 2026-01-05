@@ -96,8 +96,8 @@ export default function BookmarkButton({
                 className={cn(
                     "rounded-xl flex items-center justify-center transition-all",
                     isBookmarked 
-                        ? "bg-indigo-500/10 text-indigo-500 hover:bg-indigo-500/20" 
-                        : "bg-slate-100 dark:bg-white/5 text-slate-400 hover:text-indigo-500 hover:bg-slate-200 dark:hover:bg-white/10",
+                        ? "bg-primary-500/10 text-primary-500 hover:bg-primary-500/20" 
+                        : "bg-slate-100 dark:bg-white/5 text-slate-400 hover:text-primary-500 hover:bg-slate-200 dark:hover:bg-white/10",
                     sizeStyles[size],
                     className
                 )}
@@ -122,7 +122,7 @@ export default function BookmarkButton({
                 disabled={isLoading}
                 variant={isBookmarked ? 'default' : 'outline'}
                 className={cn(
-                    isBookmarked && "bg-indigo-600 hover:bg-indigo-700",
+                    isBookmarked && "bg-primary-600 hover:bg-indigo-700",
                     className
                 )}
             >
@@ -146,8 +146,8 @@ export default function BookmarkButton({
             className={cn(
                 "inline-flex items-center gap-1.5 text-sm font-medium transition-colors",
                 isBookmarked 
-                    ? "text-indigo-600 dark:text-indigo-400" 
-                    : "text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400",
+                    ? "text-primary-600 dark:text-primary-400" 
+                    : "text-slate-500 hover:text-primary-600 dark:hover:text-primary-400",
                 className
             )}
         >

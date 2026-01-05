@@ -57,7 +57,7 @@ export default function DematAccountsPage() {
                         <span className="text-white font-bold text-xs uppercase tracking-[0.2em]">2024 Broker Awards</span>
                     </div>
                     <h1 className="text-4xl sm:text-6xl font-extrabold text-white mb-6 tracking-tight leading-tight">
-                        Unlock the <span className="text-blue-400">Indian Markets</span>
+                        Unlock the <span className="text-secondary-400">Indian Markets</span>
                     </h1>
                     <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
                         Compare India's leading stockbrokers. Save on brokerage, access world-class trading tools, and start your wealth journey today.
@@ -71,7 +71,7 @@ export default function DematAccountsPage() {
                     {[
                         { icon: Users, label: "Active Investors", value: "3.5Cr+", color: "bg-primary-600", shadow: "shadow-blue-500/20" },
                         { icon: Zap, label: "Lowest Fees", value: "₹0 Delivery", color: "bg-primary-600", shadow: "shadow-emerald-500/20" },
-                        { icon: Shield, label: "SEBI Certified", value: "Fully Secure", color: "bg-purple-600", shadow: "shadow-purple-500/20" },
+                        { icon: Shield, label: "SEBI Certified", value: "Fully Secure", color: "bg-secondary-600", shadow: "shadow-purple-500/20" },
                         { icon: Smartphone, label: "Digital KYC", value: "Paperless", color: "bg-amber-600", shadow: "shadow-amber-500/20" },
                     ].map((stat, index) => (
                         <Card key={index} className={`rounded-[2rem] border-0 shadow-2xl ${stat.shadow} bg-white overflow-hidden`}>
@@ -110,7 +110,7 @@ export default function DematAccountsPage() {
                     {brokers.map((broker: any, index: number) => (
                         <Card key={index} className={`rounded-[2.5rem] border-0 shadow-xl shadow-slate-200/50 overflow-hidden transition-all hover:-translate-y-1 hover:shadow-2xl ${broker.featured ? 'ring-2 ring-blue-500' : ''}`}>
                             {broker.featured && (
-                                <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white text-center py-2 text-[10px] font-bold uppercase tracking-[0.3em] flex items-center justify-center gap-2">
+                                <div className="bg-gradient-to-r from-secondary-600 to-blue-700 text-white text-center py-2 text-[10px] font-bold uppercase tracking-[0.3em] flex items-center justify-center gap-2">
                                     <Star className="w-3 h-3 fill-white" />
                                     Editor's Premier Choice
                                 </div>
@@ -134,7 +134,7 @@ export default function DematAccountsPage() {
                                             </div>
                                         </div>
                                         <p className="text-xs text-slate-500 font-bold leading-relaxed italic mb-6">"{broker.tagline}"</p>
-                                        <Badge className="bg-blue-50 text-blue-700 border-0 text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full">
+                                        <Badge className="bg-secondary-50 text-secondary-700 border-0 text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full">
                                             <Users className="w-3 h-3 mr-1.5" />
                                             {broker.users} Community
                                         </Badge>
@@ -192,7 +192,7 @@ export default function DematAccountsPage() {
                                                 <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Tailored for</p>
                                                 <p className="text-sm font-extrabold leading-tight mb-6">{broker.bestFor}</p>
                                             </div>
-                                            <Button className="w-full rounded-2xl bg-blue-500 hover:bg-primary-600 text-white font-bold py-6 shadow-xl shadow-blue-500/20 transition-all active:scale-95">
+                                            <Button className="w-full rounded-2xl bg-secondary-500 hover:bg-primary-600 text-white font-bold py-6 shadow-xl shadow-blue-500/20 transition-all active:scale-95">
                                                 Get Started
                                                 <ArrowUpRight className="w-4 h-4 ml-2" />
                                             </Button>
@@ -206,13 +206,13 @@ export default function DematAccountsPage() {
 
                 {/* Knowledge Center */}
                 <div className="mt-24 grid md:grid-cols-2 gap-8">
-                    <Card className="rounded-[3rem] border-0 shadow-lg bg-gradient-to-br from-blue-600 to-indigo-700 text-white overflow-hidden p-6 md:p-8 relative">
+                    <Card className="rounded-[3rem] border-0 shadow-lg bg-gradient-to-br from-secondary-600 to-indigo-700 text-white overflow-hidden p-6 md:p-8 relative">
                         <Building2 className="absolute -right-8 -bottom-8 w-48 h-48 text-white/10" />
                         <CardHeader className="p-0 mb-6">
                             <CardTitle className="text-2xl font-bold tracking-tight">The Modern Demat Guide</CardTitle>
                         </CardHeader>
                         <CardContent className="p-0">
-                            <p className="text-blue-100 leading-relaxed font-medium mb-8">
+                            <p className="text-secondary-100 leading-relaxed font-medium mb-8">
                                 A Demat (Dematerialized) account is the digital foundation of your financial journey. It holds your stocks, ETFs, and bonds in high-security electronic format.
                             </p>
                             <div className="grid grid-cols-2 gap-4">
@@ -247,7 +247,7 @@ export default function DematAccountsPage() {
                                     { step: "04", text: "Receive unique BO-ID and start trading within 24 hours." }
                                 ].map((item, i) => (
                                     <div key={i} className="flex gap-4 group">
-                                        <span className="text-2xl font-bold text-slate-200 group-hover:text-blue-500 transition-colors shrink-0 leading-none">{item.step}</span>
+                                        <span className="text-2xl font-bold text-slate-200 group-hover:text-secondary-500 transition-colors shrink-0 leading-none">{item.step}</span>
                                         <p className="text-sm font-bold text-slate-600 leading-relaxed">{item.text}</p>
                                     </div>
                                 ))}

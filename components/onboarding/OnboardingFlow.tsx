@@ -188,7 +188,7 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                                                 key={opt.id}
                                                 onClick={() => setFormData({ ...formData, risk: opt.id })}
                                                 className={`p-4 rounded-2xl border-2 text-left transition-all ${formData.risk === opt.id
-                                                    ? 'bg-indigo-50 border-indigo-500 shadow-lg shadow-indigo-500/5'
+                                                    ? 'bg-primary-50 border-primary-500 shadow-lg shadow-indigo-500/5'
                                                     : 'bg-white border-slate-100 hover:border-slate-200'
                                                     }`}
                                             >

@@ -37,7 +37,7 @@ const categoryConfigs: Record<string, {
 }> = {
     'credit-cards': {
         icon: CreditCard,
-        gradient: 'from-indigo-600 to-purple-600',
+        gradient: 'from-indigo-600 to-secondary-600',
         headline: 'Find the perfect credit card for your lifestyle',
         subheadline: 'Compare rewards, cashback, and travel benefits from top Indian banks. Get matched in minutes.',
         searchPlaceholder: 'Search credit cards by bank, rewards, or benefits...',
@@ -57,7 +57,7 @@ const categoryConfigs: Record<string, {
     },
     'banking': {
         icon: PiggyBank,
-        gradient: 'from-blue-600 to-cyan-600',
+        gradient: 'from-secondary-600 to-cyan-600',
         headline: 'Maximize your savings with best interest rates',
         subheadline: 'Compare savings accounts, fixed deposits, and recurring deposits. Find the highest returns.',
         searchPlaceholder: 'Search banking products by interest rate or bank...',
@@ -87,7 +87,7 @@ const categoryConfigs: Record<string, {
     },
     'small-business': {
         icon: Building2,
-        gradient: 'from-violet-600 to-purple-600',
+        gradient: 'from-violet-600 to-secondary-600',
         headline: 'Grow your business with the right financial products',
         subheadline: 'Compare business loans, credit cards, and banking solutions. Tools to manage your business finances.',
         searchPlaceholder: 'Search business products or tools...',

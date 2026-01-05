@@ -80,8 +80,8 @@ const TaxHeroCalculator = () => {
                 {/* Inputs */}
                 <div className="p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-white/10">
                     <div className="flex items-center gap-3 mb-8">
-                        <div className="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center">
-                            <Calculator className="w-6 h-6 text-orange-400" />
+                        <div className="w-10 h-10 rounded-xl bg-primary-500/20 flex items-center justify-center">
+                            <Calculator className="w-6 h-6 text-primary-400" />
                         </div>
                         <h2 className="text-2xl font-bold text-white tracking-tight">Tax Optimizer</h2>
                     </div>
@@ -126,7 +126,7 @@ const TaxHeroCalculator = () => {
                     </div>
 
                     <div className="mt-12 p-4 rounded-2xl bg-white/5 border border-white/5 flex items-start gap-3">
-                        <Info className="w-5 h-5 text-indigo-400 mt-0.5" />
+                        <Info className="w-5 h-5 text-primary-400 mt-0.5" />
                         <p className="text-xs text-slate-400 leading-relaxed">
                             Calculations are based on FY 2025-26 rules. New regime now includes ₹75,000 standard deduction and Nil tax up to ₹7 Lakhs taxable income.
                         </p>
@@ -156,12 +156,12 @@ const TaxHeroCalculator = () => {
                         {/* New Regime Card */}
                         <div className={cn(
                             "p-6 rounded-2xl border transition-all duration-300",
-                            recommended === 'New Regime' ? "bg-indigo-500/10 border-indigo-500/30 shadow-[0_0_30px_-10px_rgba(99,102,241,0.3)]" : "bg-white/5 border-white/5"
+                            recommended === 'New Regime' ? "bg-primary-500/10 border-primary-500/30 shadow-[0_0_30px_-10px_rgba(13,148,136,0.3)]" : "bg-white/5 border-white/5"
                         )}>
                             <div className="flex justify-between items-center mb-4">
                                 <span className="text-sm font-semibold text-slate-300">New Simplified Regime</span>
                                 {recommended === 'New Regime' && (
-                                    <Badge className="bg-indigo-500 text-white border-0">Best Choice</Badge>
+                                    <Badge className="bg-primary-500 text-white border-0">Best Choice</Badge>
                                 )}
                             </div>
                             <div className="text-3xl font-bold text-white">₹ {newTax.toLocaleString('en-IN')}</div>
@@ -175,7 +175,7 @@ const TaxHeroCalculator = () => {
                         <div className="text-4xl font-black text-white mb-2">
                             ₹ {savings.toLocaleString('en-IN')}
                         </div>
-                        <p className="text-xs text-indigo-400 font-bold uppercase tracking-wider">in the {recommended}</p>
+                        <p className="text-xs text-primary-400 font-bold uppercase tracking-wider">in the {recommended}</p>
                         
                         <Button className="w-full mt-8 bg-white hover:bg-slate-100 text-slate-900 font-bold h-12 rounded-xl group">
                             Full Tax Breakdown
@@ -191,20 +191,21 @@ const TaxHeroCalculator = () => {
 
 export default function TaxesPage() {
     return (
-        <div className="min-h-screen bg-white dark:bg-slate-950 font-sans selection:bg-orange-100 selection:text-orange-900">
+
+        <div className="min-h-screen bg-white dark:bg-slate-950 font-sans selection:bg-primary-100 selection:text-primary-900">
             {/* 1. Hero Section */}
             <section className="relative pt-12 pb-24 overflow-hidden border-b border-slate-200 dark:border-slate-800">
                 {/* Background Accents */}
-                <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-orange-500/5 rounded-full blur-3xl pointer-events-none" />
-                <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-primary-500/5 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
 
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto text-center mb-16">
-                        <Badge className="mb-4 bg-orange-50 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-100 dark:border-orange-500/20 px-4 py-1.5 rounded-full font-bold tracking-wide">
+                        <Badge className="mb-4 bg-primary-50 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400 border-primary-100 dark:border-primary-500/20 px-4 py-1.5 rounded-full font-bold tracking-wide">
                             FINANCIAL YEAR 2025-26
                         </Badge>
                         <h1 className="text-5xl sm:text-7xl font-black text-slate-900 dark:text-white mb-6 leading-[1.1] tracking-tight">
-                            Save More. <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-600">Tax Less.</span>
+                            Save More. <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-primary-500 to-cyan-500">Tax Less.</span>
                         </h1>
                         <p className="text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
                             Stop overpaying taxes. Compare regimes, track deadlines, and optimize your 80C investments with India's most advanced tax toolkit.
@@ -235,20 +236,20 @@ export default function TaxesPage() {
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {/* 80C Card */}
-                        <div className="group p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-orange-500/50 hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-500 relative overflow-hidden">
+                        <div className="group p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary-500/50 hover:shadow-2xl hover:shadow-primary-500/10 transition-all duration-500 relative overflow-hidden">
                             <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                                <ShieldCheck className="w-24 h-24 text-orange-500" />
+                                <ShieldCheck className="w-24 h-24 text-primary-500" />
                             </div>
-                            <div className="w-14 h-14 rounded-2xl bg-orange-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
-                                <ShieldCheck className="w-7 h-7 text-orange-500" />
+                            <div className="w-14 h-14 rounded-2xl bg-primary-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                                <ShieldCheck className="w-7 h-7 text-primary-500" />
                             </div>
                             <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">Section 80C</h3>
                             <p className="text-slate-500 dark:text-slate-400 mb-6 line-clamp-2">
                                 Deductions up to ₹1.5 Lakhs through ELSS, PPF, Insurance premiums, and Home Loan principal.
                             </p>
                             <div className="flex items-center gap-2 group/btn cursor-pointer">
-                                <span className="text-sm font-bold text-orange-600 dark:text-orange-400 uppercase tracking-widest">Explore Options</span>
-                                <ChevronRight className="w-4 h-4 text-orange-500 group-hover/btn:translate-x-1 transition-transform" />
+                                <span className="text-sm font-bold text-primary-600 dark:text-primary-400 uppercase tracking-widest">Explore Options</span>
+                                <ChevronRight className="w-4 h-4 text-primary-500 group-hover/btn:translate-x-1 transition-transform" />
                             </div>
                         </div>
 
@@ -268,17 +269,17 @@ export default function TaxesPage() {
                         </div>
 
                         {/* 80CCD (NPS) Card */}
-                        <div className="group p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 relative overflow-hidden">
-                            <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-6">
-                                <TrendingUp className="w-7 h-7 text-blue-500" />
+                        <div className="group p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary-500/50 hover:shadow-2xl hover:shadow-primary-500/10 transition-all duration-500 relative overflow-hidden">
+                            <div className="w-14 h-14 rounded-2xl bg-primary-500/10 flex items-center justify-center mb-6">
+                                <TrendingUp className="w-7 h-7 text-primary-500" />
                             </div>
                             <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">NPS (80CCD)</h3>
                             <p className="text-slate-500 dark:text-slate-400 mb-6 line-clamp-2">
                                 Additional deduction of ₹50,000 above the 80C limit specifically for National Pension Scheme.
                             </p>
                             <div className="flex items-center gap-2 group/btn cursor-pointer">
-                                <span className="text-sm font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">NPS Guide</span>
-                                <ChevronRight className="w-4 h-4 text-blue-500 group-hover/btn:translate-x-1 transition-transform" />
+                                <span className="text-sm font-bold text-primary-600 dark:text-primary-400 uppercase tracking-widest">NPS Guide</span>
+                                <ChevronRight className="w-4 h-4 text-primary-500 group-hover/btn:translate-x-1 transition-transform" />
                             </div>
                         </div>
                     </div>
@@ -296,7 +297,7 @@ export default function TaxesPage() {
 
                         <div className="space-y-8">
                             {[
-                                { date: 'March 31', title: 'Investment Proof Submission', desc: 'Last day to complete your 80C investments for FY 2024-25.', color: 'bg-indigo-500' },
+                                { date: 'March 31', title: 'Investment Proof Submission', desc: 'Last day to complete your 80C investments for FY 2024-25.', color: 'bg-primary-500' },
                                 { date: 'July 31', title: 'ITR Filing Deadline', desc: 'Standard deadline for individual tax payers and salaried employees.', color: 'bg-orange-500' },
                                 { date: 'Sept 30', title: 'Tax Audit Deadline', desc: 'Deadline for businesses and professionals requiring a tax audit.', color: 'bg-emerald-500' },
                                 { date: 'Dec 31', title: 'Belated ITR Return', desc: 'Last chance to file your taxes with a penalty for late submission.', color: 'bg-rose-500' },
@@ -335,14 +336,14 @@ export default function TaxesPage() {
                                     "Best ELSS Mutual Funds for 2026"
                                 ].map((guide, i) => (
                                     <div key={i} className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors cursor-pointer group">
-                                        <CheckCircle2 className="w-5 h-5 text-indigo-400" />
+                                        <CheckCircle2 className="w-5 h-5 text-primary-400" />
                                         <span className="font-semibold text-slate-200 group-hover:text-white">{guide}</span>
                                     </div>
                                 ))}
                             </div>
                         </div>
                         <div className="relative">
-                            <div className="absolute inset-0 bg-indigo-500/20 blur-[100px]" />
+                            <div className="absolute inset-0 bg-primary-500/20 blur-[100px]" />
                             <div className="relative p-8 rounded-[40px] bg-slate-800 border border-white/10 shadow-2xl skew-y-3">
                                 <div className="flex items-center gap-4 mb-6">
                                     <div className="w-12 h-12 rounded-full bg-slate-700 overflow-hidden">
@@ -357,10 +358,10 @@ export default function TaxesPage() {
                                     <div className="p-4 rounded-2xl bg-white/5 text-sm text-slate-300">
                                         "Which regime is better for 18L income with home loan?"
                                     </div>
-                                    <div className="p-4 rounded-2xl bg-indigo-500/20 border border-indigo-500/20 text-sm text-indigo-200 italic">
+                                    <div className="p-4 rounded-2xl bg-primary-500/20 border border-primary-500/20 text-sm text-primary-200 italic">
                                         "For your profile, the Old Regime saves you ₹42,000 specifically due to Section 24(b)..."
                                     </div>
-                                    <Button className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold h-12 rounded-xl mt-4">
+                                    <Button className="w-full bg-primary-500 hover:bg-primary-600 text-white font-bold h-12 rounded-xl mt-4">
                                         Start Live Consultation
                                     </Button>
                                 </div>

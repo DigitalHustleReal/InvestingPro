@@ -115,8 +115,8 @@ export default function NotificationBell() {
                 className={cn(
                     "relative w-10 h-10 rounded-xl flex items-center justify-center transition-all",
                     isOpen 
-                        ? "bg-indigo-500/10 text-indigo-500" 
-                        : "bg-slate-100 dark:bg-white/5 text-slate-500 hover:text-indigo-500 hover:bg-slate-200 dark:hover:bg-white/10"
+                        ? "bg-primary-500/10 text-primary-500" 
+                        : "bg-slate-100 dark:bg-white/5 text-slate-500 hover:text-primary-500 hover:bg-slate-200 dark:hover:bg-white/10"
                 )}
             >
                 <Bell className="w-5 h-5" />
@@ -138,7 +138,7 @@ export default function NotificationBell() {
                                 variant="ghost"
                                 size="sm"
                                 onClick={() => markAllAsReadMutation.mutate()}
-                                className="text-xs text-indigo-600 dark:text-indigo-400"
+                                className="text-xs text-primary-600 dark:text-primary-400"
                             >
                                 <Check className="w-3 h-3 mr-1" />
                                 Mark all read
@@ -159,7 +159,7 @@ export default function NotificationBell() {
                                         key={notification.id}
                                         className={cn(
                                             "px-4 py-3 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors cursor-pointer",
-                                            !notification.is_read && "bg-indigo-50/50 dark:bg-indigo-500/5"
+                                            !notification.is_read && "bg-primary-50/50 dark:bg-primary-500/5"
                                         )}
                                         onClick={() => {
                                             if (!notification.is_read) {
@@ -178,7 +178,7 @@ export default function NotificationBell() {
                                                         {notification.title}
                                                     </span>
                                                     {!notification.is_read && (
-                                                        <span className="w-2 h-2 rounded-full bg-indigo-500 flex-shrink-0" />
+                                                        <span className="w-2 h-2 rounded-full bg-primary-500 flex-shrink-0" />
                                                     )}
                                                 </div>
                                                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">
@@ -209,7 +209,7 @@ export default function NotificationBell() {
                             <Button
                                 variant="ghost"
                                 size="sm"
-                                className="text-xs text-slate-500 hover:text-indigo-600"
+                                className="text-xs text-slate-500 hover:text-primary-600"
                                 onClick={() => {
                                     setIsOpen(false);
                                     window.location.href = '/notifications';

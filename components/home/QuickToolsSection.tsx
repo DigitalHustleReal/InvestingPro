@@ -20,7 +20,7 @@ const quickTools = [
         description: "Calculate loan EMIs for home, personal, car loans",
         href: "/calculators/emi",
         color: "text-primary-600",
-        bg: "bg-blue-50",
+        bg: "bg-primary-50",
         popular: true
     },
     {
@@ -28,8 +28,8 @@ const quickTools = [
         title: "SIP Calculator",
         description: "Plan your mutual fund SIP investments",
         href: "/calculators/sip",
-        color: "text-emerald-600",
-        bg: "bg-emerald-50",
+        color: "text-primary-600",
+        bg: "bg-primary-50",
         popular: true
     },
     {
@@ -37,8 +37,8 @@ const quickTools = [
         title: "Tax Calculator",
         description: "Calculate income tax and plan tax savings",
         href: "/calculators/tax",
-        color: "text-amber-600",
-        bg: "bg-amber-50",
+        color: "text-primary-600",
+        bg: "bg-primary-50",
         popular: true
     },
     {
@@ -46,8 +46,8 @@ const quickTools = [
         title: "FD Calculator",
         description: "Calculate fixed deposit returns and maturity",
         href: "/calculators/fd",
-        color: "text-cyan-600",
-        bg: "bg-cyan-50",
+        color: "text-primary-600",
+        bg: "bg-primary-50",
         popular: false
     },
     {
@@ -55,8 +55,8 @@ const quickTools = [
         title: "Goal Planning",
         description: "Plan for retirement, education, home purchase",
         href: "/calculators/goal-planning",
-        color: "text-purple-600",
-        bg: "bg-purple-50",
+        color: "text-primary-600",
+        bg: "bg-primary-50",
         popular: false
     },
     {
@@ -64,26 +64,26 @@ const quickTools = [
         title: "GST Calculator",
         description: "Calculate GST for goods and services",
         href: "/calculators/gst",
-        color: "text-violet-600",
-        bg: "bg-violet-50",
+        color: "text-primary-600",
+        bg: "bg-primary-50",
         popular: false
     }
 ];
 
 export default function QuickToolsSection() {
     return (
-        <section className="py-20 bg-gradient-to-br from-slate-50 to-white">
+        <section className="py-20 bg-gradient-to-br from-slate-50 to-white dark:from-slate-950 dark:to-slate-900 transition-colors">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-teal-50 border border-teal-200 rounded-full mb-6">
-                        <Sparkles className="w-4 h-4 text-teal-600" />
-                        <span className="text-sm font-semibold text-teal-700">Quick Tools</span>
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 dark:bg-primary-500/10 border border-primary-200 dark:border-primary-500/20 rounded-full mb-6">
+                        <Sparkles className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+                        <span className="text-sm font-semibold text-primary-700 dark:text-primary-400">Quick Tools</span>
                     </div>
-                    <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+                    <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
                         Calculate, Plan & Compare
                     </h2>
-                    <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+                    <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                         Use our free calculators to make informed financial decisions
                     </p>
                 </div>
@@ -94,27 +94,27 @@ export default function QuickToolsSection() {
                         const Icon = tool.icon;
                         return (
                             <Link key={index} href={tool.href}>
-                                <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer h-full">
+                                <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer h-full bg-white dark:bg-slate-900 dark:border dark:border-slate-800">
                                     <CardContent className="p-6">
                                         <div className="flex items-start gap-4">
-                                            <div className={`w-14 h-14 ${tool.bg} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                                                <Icon className={`w-7 h-7 ${tool.color}`} />
+                                            <div className={`w-14 h-14 ${tool.bg} dark:bg-primary-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                                                <Icon className={`w-7 h-7 ${tool.color} dark:text-primary-400`} />
                                             </div>
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-2 mb-2">
-                                                    <h3 className="text-lg font-bold text-slate-900 group-hover:text-teal-700 transition-colors">
+                                                    <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors">
                                                         {tool.title}
                                                     </h3>
                                                     {tool.popular && (
-                                                        <span className="px-2 py-0.5 bg-teal-100 text-teal-700 text-xs font-semibold rounded">
+                                                        <span className="px-2 py-0.5 bg-primary-100 dark:bg-primary-500/20 text-primary-700 dark:text-primary-300 text-xs font-semibold rounded">
                                                             Popular
                                                         </span>
                                                     )}
                                                 </div>
-                                                <p className="text-sm text-slate-700 leading-relaxed mb-4">
+                                                <p className="text-sm text-slate-700 dark:text-slate-400 leading-relaxed mb-4">
                                                     {tool.description}
                                                 </p>
-                                                <div className="flex items-center text-sm font-semibold text-teal-600 group-hover:text-teal-700">
+                                                <div className="flex items-center text-sm font-semibold text-primary-600 dark:text-primary-400 group-hover:text-primary-700 dark:group-hover:text-primary-300">
                                                     Calculate Now
                                                     <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                                 </div>
@@ -133,7 +133,7 @@ export default function QuickToolsSection() {
                         <Button 
                             variant="outline"
                             size="lg"
-                            className="border-2 border-slate-300 hover:border-teal-500 text-slate-700 hover:text-teal-700 font-semibold px-8 py-6 rounded-xl"
+                            className="border-2 border-slate-300 dark:border-slate-700 hover:border-primary-500 dark:hover:border-primary-500 text-slate-700 dark:text-slate-300 hover:text-primary-700 dark:hover:text-primary-400 font-semibold px-8 py-6 rounded-xl hover:bg-transparent dark:hover:bg-slate-900/50"
                         >
                             View All Calculators
                             <ArrowRight className="ml-2 w-5 h-5" />

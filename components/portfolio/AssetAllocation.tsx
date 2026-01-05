@@ -26,7 +26,7 @@ export default function AssetAllocation({ holdings = [] }: AssetAllocationProps)
         <Card className="rounded-[3rem] border-0 shadow-2xl bg-white overflow-hidden p-6 md:p-8">
             <CardHeader className="p-0 mb-8">
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-primary-600">
+                    <div className="w-12 h-12 rounded-2xl bg-secondary-50 flex items-center justify-center text-primary-600">
                         <PieChart className="w-6 h-6" />
                     </div>
                     <div>

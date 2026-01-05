@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServiceClient } from '@/lib/supabase/service';
+import { createClient as createServerClient } from '@/lib/supabase/server';
 
 /**
  * Analytics Event Tracking API
@@ -41,6 +42,26 @@ export async function POST(request: NextRequest) {
  */
 export async function GET(request: NextRequest) {
     try {
+        // 1. Check Authentication & Role
+        const serverSupabase = await createServerClient();
+        const { data: { user } } = await serverSupabase.auth.getUser();
+
+        if (!user) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
+        // Check for admin role in user_profiles
+        const { data: profile } = await serverSupabase
+            .from('user_profiles')
+            .select('role')
+            .eq('id', user.id)
+            .single();
+
+        if (profile?.role !== 'admin') {
+            return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+        }
+
+        // 2. Process Request
         const { searchParams } = new URL(request.url);
         const period = searchParams.get('period') || 'today';
         const supabase = createServiceClient();
@@ -88,6 +109,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: 'Failed to fetch stats' }, { status: 500 });
     }
 }
+
 
 function getTopProducts(events: any[]): Array<{ name: string; views: number }> {
     const productViews: Record<string, number> = {};

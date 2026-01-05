@@ -124,27 +124,30 @@ const CreditCardsPage = () => {
                 description="Compare premium credit cards, discover hidden rewards, and find the lowest interest rates. Expert analysis of cards from HDFC, SBI, Axis, and more."
             />
 
-            {/* Premium Dark Hero */}
-            <div className="bg-slate-900 border-b border-white/5 pt-32 pb-24 relative overflow-hidden">
-                <div className="absolute inset-0 opacity-20 pointer-events-none">
-                     <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-indigo-600 rounded-full blur-[140px] -translate-y-1/2" />
+            {/* Premium Light Hero - Unified Theme */}
+            <div className="bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 pt-32 pb-24 relative overflow-hidden">
+                <div className="absolute inset-0 opacity-10 pointer-events-none">
+                     <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary-500 rounded-full blur-[140px] -translate-y-1/2" />
                 </div>
                 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                    <div className="inline-flex items-center gap-2 bg-indigo-500/10 backdrop-blur-md rounded-full px-4 py-2 border border-indigo-500/20 mb-6">
-                        <Sparkles className="w-4 h-4 text-indigo-400" />
-                        <span className="text-indigo-400 font-semibold text-xs uppercase tracking-widest">Premium Rewards Collection</span>
+                    <div className="inline-flex items-center gap-2 bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-full px-4 py-2 mb-6">
+                        <Sparkles className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+                        <span className="text-primary-700 dark:text-primary-300 font-semibold text-xs uppercase tracking-widest">50+ Cards Analyzed Weekly</span>
                     </div>
-                    <h1 className="text-4xl sm:text-6xl font-bold text-white tracking-tight leading-tight mb-6">
-                        Unlock <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Elite Privileges</span>
+                    <h1 className="text-4xl sm:text-6xl font-bold text-stone-900 dark:text-white tracking-tight leading-tight mb-6">
+                        Find Your Perfect <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-secondary-600">Credit Card</span>
                     </h1>
+                    <p className="text-xl text-stone-600 dark:text-slate-400 max-w-2xl mx-auto mb-8">
+                        We analyzed 10 million transactions to find which cards give <strong className="text-stone-900 dark:text-white">YOU</strong> the most value. Takes 30 seconds.
+                    </p>
                      <div className="relative group max-w-xl mx-auto">
                         <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-                            <Search className="h-5 w-5 text-slate-500 group-focus-within:text-indigo-400 transition-colors" />
+                            <Search className="h-5 w-5 text-stone-400 group-focus-within:text-primary-600 transition-colors" />
                         </div>
                         <Input
                             placeholder="Find your perfect card (e.g. 'HDFC Regalia', 'Travel')..."
-                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 text-white placeholder:text-slate-400 focus:border-indigo-500/50 transition-all font-medium"
+                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-stone-200 dark:border-slate-700 text-stone-900 dark:text-white placeholder:text-stone-400 dark:placeholder:text-slate-500 focus:border-primary-500 dark:focus:border-primary-500 transition-all font-medium"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -162,14 +165,14 @@ const CreditCardsPage = () => {
                          {/* Marketing Widgets in Sidebar */}
                          <div className="mt-8 space-y-6">
                             {/* Card Matcher Teaser */}
-                            <div className="bg-gradient-to-br from-indigo-600 to-purple-700 rounded-[2rem] p-6 text-white relative overflow-hidden shadow-xl shadow-indigo-900/20">
+                            <div className="bg-gradient-to-br from-teal-600 to-emerald-700 rounded-[2rem] p-6 text-white relative overflow-hidden shadow-xl shadow-teal-900/20">
                                 <div className="relative z-10">
                                     <div className="h-10 w-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center mb-4">
                                         <Zap className="w-6 h-6 text-yellow-300" />
                                     </div>
                                     <h3 className="font-bold text-lg mb-2">Not sure which card?</h3>
-                                    <p className="text-indigo-100 text-sm mb-4">Take our 30-second quiz to find your perfect financial match.</p>
-                                    <Button size="sm" className="w-full bg-white text-indigo-600 font-bold hover:bg-indigo-50">
+                                    <p className="text-teal-50 text-sm mb-4">Take our 30-second quiz to find your perfect financial match.</p>
+                                    <Button size="sm" className="w-full bg-white text-teal-700 font-bold hover:bg-teal-50">
                                         Start Quiz
                                     </Button>
                                 </div>
@@ -239,7 +242,7 @@ const CreditCardsPage = () => {
                             <Button size="sm" variant="ghost" className="text-slate-400 hover:text-white" onClick={() => setSelectedForCompare([])}>
                                 Clear
                             </Button>
-                            <Button size="sm" className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 shadow-lg shadow-indigo-600/20" disabled={selectedForCompare.length < 2}>
+                            <Button size="sm" className="bg-primary-600 hover:bg-primary-500 text-white font-bold px-6 shadow-lg shadow-indigo-600/20" disabled={selectedForCompare.length < 2}>
                                 Compare Now
                             </Button>
                         </div>

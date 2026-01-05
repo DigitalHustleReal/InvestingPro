@@ -41,7 +41,7 @@ export default function AIHealthMonitor() {
     return (
         <div className="flex items-center gap-4 bg-white/[0.03] border border-white/5 px-4 py-2 rounded-xl">
             <span className="text-[10px] uppercase font-bold text-slate-500 tracking-widest flex items-center gap-2">
-                <Activity className="w-3 h-3 text-indigo-400" />
+                <Activity className="w-3 h-3 text-primary-400" />
                 Provider Status:
             </span>
             <div className="flex gap-2">

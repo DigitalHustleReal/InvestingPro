@@ -51,8 +51,8 @@ export default function AnalyticsDashboard() {
             label: 'Total Articles',
             value: analytics?.totalArticles || 0,
             icon: FileText,
-            color: 'text-indigo-400',
-            bg: 'bg-indigo-500/10'
+            color: 'text-primary-400',
+            bg: 'bg-primary-500/10'
         },
         {
             label: 'Total Views',
@@ -151,7 +151,7 @@ export default function AnalyticsDashboard() {
             <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                 <CardHeader className="border-b border-white/5 px-6 py-4">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                        <BarChart3 className="w-4 h-4 text-indigo-400" />
+                        <BarChart3 className="w-4 h-4 text-primary-400" />
                         Category Performance
                     </CardTitle>
                 </CardHeader>
@@ -174,7 +174,7 @@ export default function AnalyticsDashboard() {
                                         </div>
                                         <div className="h-2 bg-white/5 rounded-full overflow-hidden">
                                             <div 
-                                                className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-500"
+                                                className="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full transition-all duration-500"
                                                 style={{ width: `${percentage}%` }}
                                             />
                                         </div>

@@ -184,7 +184,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                     return (
                                         <NavigationMenuItem key={category.slug} className="navigation-menu-item">
                                             <NavigationMenuTrigger 
-                                                className={`gap-1 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 data-[state=open]:text-blue-600 dark:data-[state=open]:text-blue-400 font-semibold text-[15px] tracking-tight font-sans bg-transparent hover:bg-transparent focus:bg-transparent ${isDropdownOpen ? 'text-blue-600 dark:text-blue-400' : ''}`}
+                                                className={`gap-1 text-slate-700 dark:text-slate-300 hover:text-secondary-600 dark:hover:text-secondary-400 data-[state=open]:text-secondary-600 dark:data-[state=open]:text-secondary-400 font-semibold text-[15px] tracking-tight font-sans bg-transparent hover:bg-transparent focus:bg-transparent ${isDropdownOpen ? 'text-secondary-600 dark:text-secondary-400' : ''}`}
                                                 onClick={() => toggleDropdown(category.slug)}
                                                 onMouseEnter={() => handleMouseEnter(category.slug)}
                                             >
@@ -365,7 +365,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                             </Link>
                             
                             <Link href="/compare">
-                                <Button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-blue-600/20 transition-all h-10 px-6 rounded-lg">
+                                <Button className="bg-secondary-600 hover:bg-secondary-700 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-blue-600/20 transition-all h-10 px-6 rounded-lg">
                                     Get Started
                                 </Button>
                             </Link>
@@ -492,7 +492,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                 {/* Mobile Menu Footer */}
                                 <div className="p-4 border-t border-slate-200 bg-slate-50 space-y-3">
                                     <Link href="/compare" onClick={() => setIsOpen(false)}>
-                                        <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-blue-600/20 transition-all h-10 rounded-lg">
+                                        <Button className="w-full bg-secondary-600 hover:bg-secondary-700 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-blue-600/20 transition-all h-10 rounded-lg">
                                             Get Started
                                         </Button>
                                     </Link>

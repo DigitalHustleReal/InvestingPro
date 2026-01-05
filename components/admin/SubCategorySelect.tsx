@@ -51,12 +51,16 @@ export default function SubCategorySelect({
     return (
         <div className={className}>
             <Select value={value} onValueChange={onValueChange}>
-                <SelectTrigger className="w-full">
+                <SelectTrigger className="w-full bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200">
                     <SelectValue placeholder="Select Topic / Sub-category" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200">
                     {subCategories.map((sub) => (
-                        <SelectItem key={sub.slug} value={sub.slug}>
+                        <SelectItem 
+                            key={sub.slug} 
+                            value={sub.slug}
+                            className="text-slate-900 dark:text-slate-200 focus:bg-slate-100 dark:focus:bg-slate-800 focus:text-slate-900 dark:focus:text-white cursor-pointer"
+                        >
                             {sub.name}
                         </SelectItem>
                     ))}

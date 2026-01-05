@@ -48,7 +48,7 @@ export default function TrustSection() {
         <section className="relative py-24 bg-white dark:bg-slate-900 text-slate-900 dark:text-white border-t border-slate-200 dark:border-slate-800 overflow-hidden transition-colors duration-300">
             {/* Ambient Gradient Orbs */}
             <div className="absolute inset-0 pointer-events-none">
-                 <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-100/50 dark:bg-blue-500/10 rounded-full blur-[100px]"></div>
+                 <div className="absolute -top-24 -left-24 w-96 h-96 bg-secondary-100/50 dark:bg-secondary-500/10 rounded-full blur-[100px]"></div>
                  <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-teal-100/50 dark:bg-teal-500/10 rounded-full blur-[100px]"></div>
             </div>
 

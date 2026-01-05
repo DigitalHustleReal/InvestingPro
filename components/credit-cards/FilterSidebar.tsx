@@ -86,7 +86,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                                 onClick={() => toggleArrayItem('issuers', issuer)}
                                 className={`px-3 py-2 rounded-xl text-xs font-semibold text-center transition-all border ${
                                     filters.issuers.includes(issuer)
-                                        ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 border-blue-200 dark:border-blue-700'
+                                        ? 'bg-secondary-50 dark:bg-secondary-900/20 text-secondary-700 border-secondary-200 dark:border-secondary-700'
                                         : 'bg-slate-50 dark:bg-slate-800 text-slate-600 border-transparent hover:border-slate-200'
                                 }`}
                             >

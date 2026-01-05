@@ -84,7 +84,7 @@ export default function ResourcesPage() {
                                 <div className="flex justify-between items-start mb-4">
                                     <div className={`p-3 rounded-xl ${
                                         resource.type === 'excel' ? 'bg-green-50 text-green-600' : 
-                                        resource.type === 'google-sheet' ? 'bg-blue-50 text-primary-600' : 'bg-red-50 text-red-600'
+                                        resource.type === 'google-sheet' ? 'bg-secondary-50 text-primary-600' : 'bg-red-50 text-red-600'
                                     }`}>
                                         <FileSpreadsheet className="w-6 h-6" />
                                     </div>

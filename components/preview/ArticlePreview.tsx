@@ -33,7 +33,7 @@ export function ArticlePreview({ article, mode = 'desktop' }: ArticlePreviewProp
     if (!mounted) {
         return (
             <div className="flex items-center justify-center h-64">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary-600"></div>
             </div>
         );
     }
@@ -67,7 +67,7 @@ export function ArticlePreview({ article, mode = 'desktop' }: ArticlePreviewProp
                     {/* Category & Read Time */}
                     <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
                         {article.category && (
-                            <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full font-medium">
+                            <span className="px-3 py-1 bg-secondary-100 text-secondary-700 rounded-full font-medium">
                                 {article.category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                             </span>
                         )}
@@ -99,7 +99,7 @@ export function ArticlePreview({ article, mode = 'desktop' }: ArticlePreviewProp
                                     className="w-12 h-12 rounded-full object-cover"
                                 />
                             ) : (
-                                <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold">
+                                <div className="w-12 h-12 rounded-full bg-secondary-600 flex items-center justify-center text-white font-semibold">
                                     {article.author.name.charAt(0).toUpperCase()}
                                 </div>
                             )}
@@ -140,7 +140,7 @@ export function ArticlePreview({ article, mode = 'desktop' }: ArticlePreviewProp
                                 a: ({ href, children }) => (
                                     <a
                                         href={href}
-                                        className="text-blue-600 hover:text-blue-700 underline"
+                                        className="text-secondary-600 hover:text-secondary-700 underline"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >
@@ -149,7 +149,7 @@ export function ArticlePreview({ article, mode = 'desktop' }: ArticlePreviewProp
                                 ),
                                 // Style blockquotes
                                 blockquote: ({ children }) => (
-                                    <blockquote className="border-l-4 border-blue-500 pl-4 italic text-gray-700 my-4">
+                                    <blockquote className="border-l-4 border-secondary-500 pl-4 italic text-gray-700 my-4">
                                         {children}
                                     </blockquote>
                                 ),

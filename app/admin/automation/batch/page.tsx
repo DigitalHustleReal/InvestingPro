@@ -142,7 +142,7 @@ export default function BatchGeneratorPage() {
         <AdminLayout>
             <div className="p-6 max-w-5xl mx-auto">
                 <div className="flex items-center gap-3 mb-8">
-                    <div className="p-3 bg-purple-100 rounded-lg text-purple-600">
+                    <div className="p-3 bg-secondary-100 rounded-lg text-secondary-600">
                         <Factory className="w-8 h-8" />
                     </div>
                     <div>
@@ -230,7 +230,7 @@ export default function BatchGeneratorPage() {
                             <Button 
                                 onClick={handleCreateBatch} 
                                 disabled={isCreating || isProcessing}
-                                className="w-full h-12 text-lg bg-purple-600 hover:bg-purple-700"
+                                className="w-full h-12 text-lg bg-secondary-600 hover:bg-secondary-700"
                             >
                                 {isCreating ? (
                                     <>
@@ -290,7 +290,7 @@ export default function BatchGeneratorPage() {
                                     </div>
                                     <div className="h-4 bg-slate-200 rounded-full overflow-hidden">
                                         <div 
-                                            className="h-full bg-purple-600 transition-all duration-500 ease-out"
+                                            className="h-full bg-secondary-600 transition-all duration-500 ease-out"
                                             style={{ width: `${((batchProgress?.completed || 0) / (batchProgress?.total || 1)) * 100}%` }}
                                         />
                                     </div>
@@ -308,7 +308,7 @@ export default function BatchGeneratorPage() {
                                         </div>
                                     ))}
                                     {isProcessing && (
-                                        <div className="flex items-center text-blue-400">
+                                        <div className="flex items-center text-secondary-400">
                                             <Loader2 className="w-3 h-3 mr-2 animate-spin shrink-0" />
                                             Processing next item...
                                         </div>

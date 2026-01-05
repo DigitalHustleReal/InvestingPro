@@ -268,7 +268,7 @@ export default function AdminPage() {
             label: 'Total Articles',
             value: statsData?.total_articles ?? 0,
             icon: FileText,
-            color: 'bg-blue-500',
+            color: 'bg-secondary-600',
             change: `+${statsData?.articles_this_month ?? 0} this month`,
             trend: 'up'
         },
@@ -276,7 +276,7 @@ export default function AdminPage() {
             label: 'Total Views',
             value: Number(statsData?.total_views ?? 0).toLocaleString(),
             icon: Eye,
-            color: 'bg-purple-500',
+            color: 'bg-secondary-500',
             change: 'Lifetime views',
             trend: 'up'
         },
@@ -362,7 +362,7 @@ export default function AdminPage() {
                     {/* Main Stats Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
                         {[...stats, ...alertStats].slice(0, 4).map((stat, index) => (
-                            <Card key={index} className="bg-white/[0.03] border-white/5 hover:border-indigo-500/30 transition-all duration-500 group relative overflow-hidden overflow-hidden rounded-2xl">
+                            <Card key={index} className="bg-white/[0.03] border-white/5 hover:border-primary-500/30 transition-all duration-500 group relative overflow-hidden overflow-hidden rounded-2xl">
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 blur-3xl -mr-16 -mt-16 group-hover:bg-emerald-500/10 transition-colors" />
                                 <CardContent className="p-7 relative z-10">
                                     <div className="flex items-center justify-between mb-6">
@@ -398,8 +398,8 @@ export default function AdminPage() {
                         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                             <CardHeader className="pb-4 border-b border-white/5 px-7">
                                 <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                                    <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                                        <Database className="w-4 h-4 text-blue-400" />
+                                    <div className="w-8 h-8 rounded-lg bg-secondary-500/10 flex items-center justify-center">
+                                        <Database className="w-4 h-4 text-secondary-400" />
                                     </div>
                                     Scraper Network
                                 </CardTitle>
@@ -455,8 +455,8 @@ export default function AdminPage() {
                         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                             <CardHeader className="pb-4 border-b border-white/5 px-7">
                                 <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                                    <div className="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center">
-                                        <Zap className="w-4 h-4 text-purple-400" />
+                                    <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
+                                        <Zap className="w-4 h-4 text-primary-400" />
                                     </div>
                                     AI Content Factory
                                 </CardTitle>
@@ -535,8 +535,8 @@ export default function AdminPage() {
                     <Card className="mb-10 bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                         <CardHeader className="border-b border-white/5 px-8 py-6">
                             <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                                <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                                    <Share2 className="w-4 h-4 text-blue-400" />
+                                <div className="w-8 h-8 rounded-lg bg-secondary-500/10 flex items-center justify-center">
+                                    <Share2 className="w-4 h-4 text-secondary-400" />
                                 </div>
                                 Omnichannel Presence
                             </CardTitle>
@@ -545,7 +545,7 @@ export default function AdminPage() {
                             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                                 {socialMetrics.facebook && (
                                     <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
-                                        <Facebook className="w-6 h-6 text-blue-500 mx-auto mb-4 group-hover:scale-110 transition-transform" />
+                                        <Facebook className="w-6 h-6 text-secondary-500 mx-auto mb-4 group-hover:scale-110 transition-transform" />
                                         <div className="text-2xl font-bold text-white tabular-nums mb-1">{socialMetrics.facebook.followers?.toLocaleString()}</div>
                                         <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
                                         <div className="text-[10px] font-bold text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full inline-block">
@@ -565,7 +565,7 @@ export default function AdminPage() {
                                 )}
                                 {socialMetrics.linkedin && (
                                     <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
-                                        <Linkedin className="w-6 h-6 text-blue-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
+                                        <Linkedin className="w-6 h-6 text-secondary-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
                                         <div className="text-2xl font-bold text-white tabular-nums mb-1">{socialMetrics.linkedin.followers?.toLocaleString()}</div>
                                         <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
                                         <div className="text-[10px] font-bold text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full inline-block">
@@ -610,9 +610,9 @@ export default function AdminPage() {
                         <CardContent className="p-8">
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {Array.isArray(trends) && trends.map((trend: any, index: number) => (
-                                    <div key={index} className="flex items-center justify-between p-5 bg-white/[0.03] border border-white/5 rounded-2xl hover:border-indigo-500/30 transition-all group">
+                                    <div key={index} className="flex items-center justify-between p-5 bg-white/[0.03] border border-white/5 rounded-2xl hover:border-primary-500/30 transition-all group">
                                         <div className="flex-1">
-                                            <div className="font-bold text-white mb-1 group-hover:text-indigo-400 transition-colors">{trend.keyword}</div>
+                                            <div className="font-bold text-white mb-1 group-hover:text-primary-400 transition-colors">{trend.keyword}</div>
                                             <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Velocity: {trend.volume?.toLocaleString()}</div>
                                         </div>
                                         <div className="flex items-center gap-3">
@@ -653,14 +653,14 @@ export default function AdminPage() {
                                             <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 text-center">
                                                 <div className="text-3xl font-extrabold text-white mb-1">{statsData?.total_articles ?? 0}</div>
                                                 <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Grand Total</div>
-                                                <div className="mt-3 text-[10px] font-bold text-indigo-400">
+                                                <div className="mt-3 text-[10px] font-bold text-sky-400">
                                                     {statsData?.published_articles ?? 0} Published
                                                 </div>
                                             </div>
                                             <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 text-center">
                                                 <div className="text-3xl font-extrabold text-white mb-1">{Number(totalViews ?? 0).toLocaleString()}</div>
                                                 <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Total Impact</div>
-                                                <div className="mt-3 text-[10px] font-bold text-purple-400">
+                                                <div className="mt-3 text-[10px] font-bold text-primary-400">
                                                     Aggregate Views
                                                 </div>
                                             </div>
@@ -689,11 +689,11 @@ export default function AdminPage() {
                                     </CardHeader>
                                     <CardContent className="p-8">
                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 group hover:border-indigo-500/30 transition-all">
+                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 group hover:border-primary-500/30 transition-all">
                                                 <div className="flex items-center justify-between mb-4">
                                                     <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Publication Rate</span>
-                                                    <div className="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center">
-                                                        <FileText className="w-4 h-4 text-indigo-400" />
+                                                    <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
+                                                        <FileText className="w-4 h-4 text-primary-400" />
                                                     </div>
                                                 </div>
                                                 <div className="text-2xl font-extrabold text-white mb-1">
@@ -713,15 +713,15 @@ export default function AdminPage() {
                                                     {pendingReviewsCount ?? 0} Pending Node Analysis
                                                 </div>
                                             </div>
-                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 group hover:border-purple-500/30 transition-all">
+                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 group hover:border-primary-500/30 transition-all">
                                                 <div className="flex items-center justify-between mb-4">
                                                     <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Monetization Velocity</span>
-                                                    <div className="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center">
-                                                        <MousePointerClick className="w-4 h-4 text-purple-400" />
+                                                    <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
+                                                        <MousePointerClick className="w-4 h-4 text-primary-400" />
                                                     </div>
                                                 </div>
                                                 <div className="text-2xl font-extrabold text-white mb-1">{(totalClicks ?? 0).toLocaleString()}</div>
-                                                <div className="text-[10px] font-bold text-purple-400 uppercase tracking-widest">{conversionRate ?? 0}% Conversion Efficiency</div>
+                                                <div className="text-[10px] font-bold text-primary-400 uppercase tracking-widest">{conversionRate ?? 0}% Conversion Efficiency</div>
                                             </div>
                                         </div>
                                     </CardContent>
@@ -745,7 +745,7 @@ export default function AdminPage() {
                                     <CardContent className="p-8">
                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                                             <div className="text-center p-6 bg-white/[0.03] rounded-2xl border border-white/5">
-                                                <div className="text-3xl font-extrabold text-blue-400 mb-2 tabular-nums">
+                                                <div className="text-3xl font-extrabold text-secondary-400 mb-2 tabular-nums">
                                                     {statsData.published_articles}
                                                 </div>
                                                 <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Live Articles</div>
@@ -754,7 +754,7 @@ export default function AdminPage() {
                                                 </div>
                                             </div>
                                             <div className="text-center p-6 bg-white/[0.03] rounded-2xl border border-white/5">
-                                                <div className="text-3xl font-extrabold text-purple-400 mb-2 tabular-nums">
+                                                <div className="text-3xl font-extrabold text-secondary-400 mb-2 tabular-nums">
                                                     {statsData.ai_generated_articles || 0}
                                                 </div>
                                                 <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">AI Synthesis</div>
@@ -777,7 +777,7 @@ export default function AdminPage() {
                                                     statsData.category_stats.map((cat: any) => (
                                                         <div key={cat.category} className="flex items-center justify-between p-3.5 bg-white/[0.02] border border-white/5 rounded-xl">
                                                             <div className="flex items-center gap-3">
-                                                                <div className="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.5)]"></div>
+                                                                <div className="w-2 h-2 rounded-full bg-primary-500 shadow-[0_0_8px_rgba(99,102,241,0.5)]"></div>
                                                                 <span className="capitalize text-sm font-medium text-slate-300">{cat.category?.replace(/-/g, ' ')}</span>
                                                             </div>
                                                             <span className="text-sm font-bold text-white tabular-nums">{cat.count}</span>
@@ -801,13 +801,13 @@ export default function AdminPage() {
                                             {recentArticles.map((article: any) => (
                                                 <div
                                                     key={article.id}
-                                                    className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/5 hover:border-indigo-500/30 rounded-2xl transition-all group"
+                                                    className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/5 hover:border-primary-500/30 rounded-2xl transition-all group"
                                                 >
                                                     <div className="flex-1 min-w-0">
                                                         <div className="flex items-center gap-3 mb-1.5">
-                                                            <h4 className="font-bold text-white tracking-tight truncate group-hover:text-indigo-400 transition-colors">{article.title}</h4>
+                                                            <h4 className="font-bold text-white tracking-tight truncate group-hover:text-primary-400 transition-colors">{article.title}</h4>
                                                             {article.ai_generated && (
-                                                                <Badge className="bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-[9px] font-bold uppercase tracking-wider px-2">
+                                                                <Badge className="bg-primary-500/10 text-primary-400 border border-primary-500/20 text-[9px] font-bold uppercase tracking-wider px-2">
                                                                     <Sparkles className="w-3 h-3 mr-1" />
                                                                     AI
                                                                 </Badge>
@@ -856,8 +856,8 @@ export default function AdminPage() {
                                 <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                                     <CardHeader className="border-b border-white/5 px-8 py-6">
                                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                                            <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                                                <Share2 className="w-4 h-4 text-blue-400" />
+                                            <div className="w-8 h-8 rounded-lg bg-secondary-500/10 flex items-center justify-center">
+                                                <Share2 className="w-4 h-4 text-secondary-400" />
                                             </div>
                                             Asset Distribution Channels
                                         </CardTitle>
@@ -868,10 +868,10 @@ export default function AdminPage() {
                                     <CardContent className="p-8">
                                         <div className="space-y-4">
                                             {/* Facebook */}
-                                            <div className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-blue-500/30 transition-all group">
+                                            <div className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-secondary-500/30 transition-all group">
                                                 <div className="flex items-center gap-5">
-                                                    <div className="w-14 h-14 bg-blue-500/10 rounded-xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                                        <Facebook className="w-6 h-6 text-blue-400" />
+                                                    <div className="w-14 h-14 bg-secondary-500/10 rounded-xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                                        <Facebook className="w-6 h-6 text-secondary-400" />
                                                     </div>
                                                     <div>
                                                         <h4 className="font-bold text-white tracking-tight">Facebook Interface</h4>
@@ -885,7 +885,7 @@ export default function AdminPage() {
                                                 </div>
                                                 <Button size="sm" variant="ghost" className={cn(
                                                     "h-10 px-6 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all",
-                                                    socialMetrics.facebook ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-blue-500 text-white hover:bg-primary-600 shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+                                                    socialMetrics.facebook ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-secondary-500 text-white hover:bg-primary-600 shadow-[0_0_15px_rgba(59,130,246,0.3)]"
                                                 )}>
                                                     {socialMetrics.facebook ? 'Terminate' : 'Initialize'}
                                                 </Button>
@@ -916,10 +916,10 @@ export default function AdminPage() {
                                             </div>
 
                                             {/* LinkedIn */}
-                                            <div className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-blue-700/30 transition-all group">
+                                            <div className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-secondary-700/30 transition-all group">
                                                 <div className="flex items-center gap-5">
-                                                    <div className="w-14 h-14 bg-indigo-500/10 rounded-xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                                        <Linkedin className="w-6 h-6 text-indigo-400" />
+                                                    <div className="w-14 h-14 bg-primary-500/10 rounded-xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                                        <Linkedin className="w-6 h-6 text-primary-400" />
                                                     </div>
                                                     <div>
                                                         <h4 className="font-bold text-white tracking-tight">LinkedIn Authority</h4>
@@ -933,7 +933,7 @@ export default function AdminPage() {
                                                 </div>
                                                 <Button size="sm" variant="ghost" className={cn(
                                                     "h-10 px-6 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all",
-                                                    socialMetrics.linkedin ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-indigo-600 text-white hover:bg-indigo-700 shadow-[0_0_15px_rgba(79,70,229,0.3)]"
+                                                    socialMetrics.linkedin ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-primary-600 text-white hover:bg-indigo-700 shadow-[0_0_15px_rgba(79,70,229,0.3)]"
                                                 )}>
                                                     {socialMetrics.linkedin ? 'Terminate' : 'Initialize'}
                                                 </Button>
@@ -964,10 +964,10 @@ export default function AdminPage() {
                                             </div>
                                         </div>
 
-                                        <div className="mt-8 p-6 bg-indigo-500/10 rounded-2xl border border-indigo-500/20">
+                                        <div className="mt-8 p-6 bg-primary-500/10 rounded-2xl border border-primary-500/20">
                                             <div className="flex items-start gap-4">
-                                                <Zap className="w-5 h-5 text-indigo-400 mt-0.5" />
-                                                <p className="text-[11px] font-bold text-indigo-300/80 leading-relaxed uppercase tracking-wider">
+                                                <Zap className="w-5 h-5 text-primary-400 mt-0.5" />
+                                                <p className="text-[11px] font-bold text-primary-300/80 leading-relaxed uppercase tracking-wider">
                                                     Strategic Node Linkage: <span className="text-white">Active accounts automate content distribution logic and aggregate real-time engagement vectors.</span>
                                                 </p>
                                             </div>
@@ -979,7 +979,7 @@ export default function AdminPage() {
                                         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                                             <CardHeader className="border-b border-white/5 px-8 py-5">
                                                 <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                                                    <Facebook className="w-4 h-4 text-blue-400" />
+                                                    <Facebook className="w-4 h-4 text-secondary-400" />
                                                     Facebook Node Analysis
                                                 </CardTitle>
                                             </CardHeader>
@@ -995,7 +995,7 @@ export default function AdminPage() {
                                                             <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Velocity</div>
                                                         </div>
                                                         <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-indigo-400 mb-1 tabular-nums">{socialMetrics.facebook.posts}</div>
+                                                            <div className="text-lg font-bold text-primary-400 mb-1 tabular-nums">{socialMetrics.facebook.posts}</div>
                                                             <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Staged Posts</div>
                                                         </div>
                                                     </div>
@@ -1035,7 +1035,7 @@ export default function AdminPage() {
                                         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                                             <CardHeader className="border-b border-white/5 px-8 py-5">
                                                 <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                                                    <Linkedin className="w-4 h-4 text-indigo-400" />
+                                                    <Linkedin className="w-4 h-4 text-primary-400" />
                                                     LinkedIn Authority Vector
                                                 </CardTitle>
                                             </CardHeader>
@@ -1051,7 +1051,7 @@ export default function AdminPage() {
                                                             <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Efficiency</div>
                                                         </div>
                                                         <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-indigo-400 mb-1 tabular-nums">{socialMetrics.linkedin.posts}</div>
+                                                            <div className="text-lg font-bold text-primary-400 mb-1 tabular-nums">{socialMetrics.linkedin.posts}</div>
                                                             <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Placements</div>
                                                         </div>
                                                     </div>
@@ -1127,9 +1127,9 @@ export default function AdminPage() {
                                     <CardContent className="p-8">
                                         <div className="space-y-4">
                                             {Array.isArray(trends) && trends.map((trend: any, index: number) => (
-                                                <div key={index} className="flex items-center justify-between p-6 bg-white/[0.02] border border-white/5 hover:border-indigo-500/30 rounded-2xl transition-all group">
+                                                <div key={index} className="flex items-center justify-between p-6 bg-white/[0.02] border border-white/5 hover:border-primary-500/30 rounded-2xl transition-all group">
                                                     <div className="flex-1">
-                                                        <div className="font-bold text-white text-lg tracking-tight mb-1 group-hover:text-indigo-400 transition-colors">{trend.keyword}</div>
+                                                        <div className="font-bold text-white text-lg tracking-tight mb-1 group-hover:text-primary-400 transition-colors">{trend.keyword}</div>
                                                         <div className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Global Search Intensity: {trend.volume?.toLocaleString()}</div>
                                                     </div>
                                                     <div className="flex items-center gap-8">

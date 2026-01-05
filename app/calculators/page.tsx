@@ -41,7 +41,7 @@ import { HomeLoanVsSIPCalculator } from "@/components/calculators/HomeLoanVsSIPC
 
 export default function CalculatorsPage() {
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
             <SEOHead
                 title="Free Financial Calculators India 2024 - SIP, SWP, EMI, Tax, Retirement Calculator | InvestingPro"
                 description="Free financial calculators with inflation adjustment. Calculate SIP returns, SWP withdrawals, EMI for loans, income tax, retirement corpus, FD maturity, PPF, NPS and more. Best calculator tools for financial planning in India."
@@ -74,10 +74,10 @@ export default function CalculatorsPage() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <Tabs defaultValue="sip" className="space-y-8">
                     <div className="mb-8">
-                        <h2 className="text-3xl font-bold text-slate-900 mb-2">All Calculators</h2>
-                        <p className="text-slate-600">Choose a calculator to get started</p>
+                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">All Calculators</h2>
+                        <p className="text-slate-600 dark:text-slate-400">Choose a calculator to get started</p>
                     </div>
-                    <TabsList className="bg-white border border-slate-200 p-1.5 h-auto inline-flex flex-wrap rounded-xl shadow-sm gap-2">
+                    <TabsList className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-1.5 h-auto inline-flex flex-wrap rounded-xl shadow-sm gap-2">
                         <TabsTrigger value="sip" className="px-4 py-2.5 data-[state=active]:bg-teal-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <TrendingUp className="w-4 h-4 mr-2" />
                             SIP
@@ -236,13 +236,13 @@ export default function CalculatorsPage() {
                 {/* SEO Content Section - All Calculators */}
                 <section className="mt-16 space-y-12">
                     {/* Introduction */}
-                    <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-slate-50 to-white">
+                    <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 dark:border dark:border-slate-800">
                         <CardContent className="p-8 lg:p-6 md:p-8">
-                            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+                            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-6">
                                 Free Financial Calculators India - Plan Your Financial Future
                             </h2>
-                            <div className="prose prose-slate max-w-none">
-                                <p className="text-lg text-slate-600 leading-relaxed mb-6">
+                            <div className="prose prose-slate dark:prose-invert max-w-none">
+                                <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
                                     Use our comprehensive suite of free financial calculators to plan your investments, loans, taxes, and retirement. 
                                     All calculators include inflation adjustment to show real returns, helping you make informed financial decisions. 
                                     Whether you're calculating SIP returns, planning loan EMIs, estimating tax liability, or planning for retirement, 
@@ -280,9 +280,9 @@ export default function CalculatorsPage() {
                     </Card>
 
                     {/* FAQ Section */}
-                    <Card className="border-0 shadow-lg rounded-2xl">
+                    <Card className="border-0 shadow-lg rounded-2xl dark:bg-slate-900 dark:border dark:border-slate-800">
                         <CardHeader>
-                            <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
+                            <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-6 md:p-8">
                                 <Info className="w-6 h-6 text-teal-600" />
                                 Financial Calculator FAQs
                             </CardTitle>
@@ -323,9 +323,9 @@ export default function CalculatorsPage() {
                                         a: "Yes, all our calculators are updated for the current financial year (FY 2024-25). Tax calculators include the latest tax slabs and rates. Interest rate calculators use current market rates. We regularly update our calculators to reflect the latest regulations and rates."
                                     }
                                 ].map((faq, idx) => (
-                                    <div key={idx} className="border-b border-slate-200 pb-6 last:border-0">
-                                        <h3 className="font-bold text-slate-900 mb-2 text-lg">{faq.q}</h3>
-                                        <p className="text-slate-600 leading-relaxed">{faq.a}</p>
+                                    <div key={idx} className="border-b border-slate-200 dark:border-slate-800 pb-6 last:border-0">
+                                        <h3 className="font-bold text-slate-900 dark:text-white mb-2 text-lg">{faq.q}</h3>
+                                        <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{faq.a}</p>
                                     </div>
                                 ))}
                             </div>
@@ -364,7 +364,7 @@ export default function CalculatorsPage() {
 
                 {/* Quick Access Tools */}
                 <section className="mt-16">
-                    <h2 className="text-3xl font-bold text-slate-900 mb-8">Quick Access Tools</h2>
+                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8">Quick Access Tools</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <CategoryCTA
                             href="/credit-score"
@@ -385,15 +385,15 @@ export default function CalculatorsPage() {
                 </section>
 
                 {/* Why Choose Section */}
-                <section className="bg-white py-16 mt-16 rounded-2xl">
+                <section className="bg-white dark:bg-slate-900 py-16 mt-16 rounded-2xl border border-slate-200 dark:border-slate-800">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">
+                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">
                             Why Use Our Financial Calculators?
                         </h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             {[
                                 {
-                                    icon: <CheckCircle2 className="w-8 h-8 text-teal-600" />,
+                                    icon: <CheckCircle2 className="w-8 h-8 text-primary-600" />,
                                     title: "100% Free",
                                     description: "All calculators are completely free with no hidden charges"
                                 },
@@ -403,16 +403,16 @@ export default function CalculatorsPage() {
                                     description: "All calculators include inflation adjustment for real returns"
                                 },
                                 {
-                                    icon: <Clock className="w-8 h-8 text-indigo-600" />,
+                                    icon: <Clock className="w-8 h-8 text-primary-600" />,
                                     title: "Real-Time Calculations",
                                     description: "Instant results with accurate financial formulas"
                                 }
                             ].map((feature, idx) => (
-                                <Card key={idx} className="border-0 shadow-lg rounded-2xl">
+                                <Card key={idx} className="border-0 shadow-lg rounded-2xl bg-slate-50 dark:bg-slate-800/50">
                                     <CardContent className="p-8 text-center">
                                         <div className="flex justify-center mb-4">{feature.icon}</div>
-                                        <h3 className="text-xl font-bold text-slate-900 mb-2">{feature.title}</h3>
-                                        <p className="text-slate-600">{feature.description}</p>
+                                        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{feature.title}</h3>
+                                        <p className="text-slate-600 dark:text-slate-400">{feature.description}</p>
                                     </CardContent>
                                 </Card>
                             ))}

@@ -18,12 +18,12 @@ interface BadgeDisplayProps {
 }
 
 const BADGE_CONFIG: Record<string, { icon: any, color: string, bg: string }> = {
-    'Beta Tester': { icon: Zap, color: 'text-purple-600', bg: 'bg-purple-50' },
-    'Pioneer': { icon: Target, color: 'text-primary-600', bg: 'bg-blue-50' },
+    'Beta Tester': { icon: Zap, color: 'text-secondary-600', bg: 'bg-secondary-50' },
+    'Pioneer': { icon: Target, color: 'text-primary-600', bg: 'bg-secondary-50' },
     'Top Contributor': { icon: Star, color: 'text-amber-600', bg: 'bg-amber-50' },
     'Expert Reviewer': { icon: ShieldCheck, color: 'text-emerald-600', bg: 'bg-emerald-50' },
     'Power Trader': { icon: Flame, color: 'text-rose-600', bg: 'bg-rose-50' },
-    'Certified Pro': { icon: Award, color: 'text-indigo-600', bg: 'bg-indigo-50' }
+    'Certified Pro': { icon: Award, color: 'text-primary-600', bg: 'bg-primary-50' }
 };
 
 export default function BadgeDisplay({ badges = [], showTooltip = false }: BadgeDisplayProps) {

@@ -16,27 +16,27 @@ const opportunities = [
 
 export default function TerminalOverview() {
     return (
-        <section className="py-24 bg-[#020617] relative overflow-hidden">
+        <section className="py-24 bg-white relative overflow-hidden">
             {/* Background elements */}
             <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent" />
-            <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/10 to-transparent" />
+            <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-secondary-500/10 to-transparent" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
                     <div className="max-w-2xl">
-                        <Badge className="mb-4 bg-indigo-500/10 text-indigo-400 border-indigo-500/20 px-3 py-1 flex w-fit items-center gap-2">
+                        <Badge className="mb-4 bg-primary-500/10 text-primary-400 border-primary-500/20 px-3 py-1 flex w-fit items-center gap-2">
                             <Sparkles size={14} />
                             The Alpha Terminal
                         </Badge>
                         <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
-                            Real-time Market <span className="text-indigo-500">Intelligence</span>
+                            Real-time Market <span className="text-primary-500">Intelligence</span>
                         </h2>
                         <p className="text-slate-400 font-medium text-lg leading-relaxed">
                             Institutional-grade data streams analyzed by our proprietary quant models.
                             Surface asymmetric opportunities across Indian equities and credit.
                         </p>
                     </div>
-                    <Link href="/advanced-tools/active-trading" className="h-12 px-8 bg-white text-slate-950 font-bold rounded-xl hover:bg-indigo-500 hover:text-white transition-all shadow-xl hover:shadow-indigo-500/20 flex items-center gap-2 group">
+                    <Link href="/advanced-tools/active-trading" className="h-12 px-8 bg-white text-slate-950 font-bold rounded-xl hover:bg-primary-500 hover:text-white transition-all shadow-xl hover:shadow-indigo-500/20 flex items-center gap-2 group">
                         Learn More
                         <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                     </Link>

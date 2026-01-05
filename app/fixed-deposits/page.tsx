@@ -108,7 +108,7 @@ export default function FixedDepositsPage() {
                         { label: "Bank Max Yield", value: "7.85%", sub: "For Senior Citizens", icon: Percent, color: "bg-primary-600" },
                         { label: "NBFC Max Yield", value: "8.65%", sub: "Aggressive Returns", icon: Zap, color: "bg-amber-600" },
                         { label: "Insured Amount", value: "₹5 Lakh", sub: "DICGC per Bank", icon: Shield, color: "bg-primary-600" },
-                        { label: "Minimum Lock-in", value: "7 Days", sub: "Maximum Liquidity", icon: Clock, color: "bg-purple-600" },
+                        { label: "Minimum Lock-in", value: "7 Days", sub: "Maximum Liquidity", icon: Clock, color: "bg-secondary-600" },
                     ].map((stat, index) => (
                         <Card key={index} className="rounded-[2.5rem] border-0 shadow-2xl bg-white overflow-hidden group">
                             <CardContent className="p-6 flex items-center gap-6 md:p-8">
@@ -249,7 +249,7 @@ export default function FixedDepositsPage() {
                                             DICGC Insured (5L)
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <IndianRupee className="w-4 h-4 text-blue-500" />
+                                            <IndianRupee className="w-4 h-4 text-secondary-500" />
                                             Instant Liquidity Available
                                         </div>
                                     </div>
@@ -295,7 +295,7 @@ export default function FixedDepositsPage() {
                     <Card className="rounded-[3rem] border-0 shadow-2xl bg-white p-6 md:p-8 overflow-hidden flex flex-col justify-between">
                         <div>
                             <CardHeader className="p-0 mb-10">
-                                <div className="w-16 h-16 bg-blue-50 rounded-[2rem] flex items-center justify-center mb-6">
+                                <div className="w-16 h-16 bg-secondary-50 rounded-[2rem] flex items-center justify-center mb-6">
                                     <Calculator className="w-8 h-8 text-primary-600" />
                                 </div>
                                 <CardTitle className="text-3xl font-bold text-slate-900 tracking-tight">Strategy: The FD Ladder</CardTitle>

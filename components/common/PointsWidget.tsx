@@ -24,8 +24,8 @@ export default function PointsWidget({ points = 0, level = 'Beginner' }: PointsW
     const getLevelColor = (lvl: Level) => {
         const colors: Record<Level, string> = {
             'Beginner': 'from-slate-400 to-slate-500',
-            'Contributor': 'from-blue-400 to-blue-600',
-            'Expert': 'from-purple-400 to-purple-600',
+            'Contributor': 'from-secondary-400 to-secondary-600',
+            'Expert': 'from-secondary-400 to-secondary-600',
             'Guru': 'from-amber-400 to-amber-600',
             'Legend': 'from-orange-500 to-red-600'
         };

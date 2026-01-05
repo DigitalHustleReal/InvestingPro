@@ -67,7 +67,7 @@ export default function GlobalError({
           <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800">
             <Link 
               href="/support" 
-              className="text-sm font-medium text-slate-500 hover:text-blue-500 flex items-center justify-center gap-2 transition-colors"
+              className="text-sm font-medium text-slate-500 hover:text-secondary-500 flex items-center justify-center gap-2 transition-colors"
             >
               <MessageSquare className="w-4 h-4" />
               Report this behavior

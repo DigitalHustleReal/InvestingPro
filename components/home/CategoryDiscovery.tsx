@@ -21,48 +21,48 @@ const categories = [
         icon: CreditCard,
         description: "Compare reward rates, cashback & fees",
         href: "/credit-cards",
-        color: "text-blue-500",
-        bg: "bg-blue-50 dark:bg-blue-900/20"
+        color: "text-secondary-500",
+        bg: "bg-secondary-50 dark:bg-secondary-900/20"
     },
     {
         title: "Loans",
         icon: Landmark,
         description: "Lowest rates for Home, Personal & Car loans",
         href: "/loans",
-        color: "text-emerald-500",
-        bg: "bg-emerald-50 dark:bg-emerald-900/20"
+        color: "text-primary-600",
+        bg: "bg-primary-50 dark:bg-primary-900/20"
     },
     {
         title: "Insurance",
         icon: Shield,
         description: "Protect your family with curated plans",
         href: "/insurance",
-        color: "text-rose-500",
-        bg: "bg-rose-50 dark:bg-rose-900/20"
+        color: "text-primary-600",
+        bg: "bg-primary-50 dark:bg-primary-900/20"
     },
     {
         title: "Mutual Funds",
         icon: TrendingUp,
         description: "Direct plans with zero commission",
         href: "/mutual-funds",
-        color: "text-purple-500",
-        bg: "bg-purple-50 dark:bg-purple-900/20"
+        color: "text-secondary-500",
+        bg: "bg-secondary-50 dark:bg-purple-900/20"
     },
     {
         title: "Calculators",
         icon: Calculator,
         description: "SIP, EMI, Tax & Retirement planners",
         href: "/calculators",
-        color: "text-orange-500",
-        bg: "bg-orange-50 dark:bg-orange-900/20"
+        color: "text-primary-600",
+        bg: "bg-primary-50 dark:bg-primary-900/20"
     },
     {
         title: "Market News",
         icon: Newspaper,
         description: "Real-time updates & expert analysis",
         href: "/news",
-        color: "text-cyan-500",
-        bg: "bg-cyan-50 dark:bg-cyan-900/20"
+        color: "text-primary-600",
+        bg: "bg-primary-50 dark:bg-primary-900/20"
     }
 ];
 

@@ -167,9 +167,9 @@ export function CreditScoreGauge({
           </div>
 
           {/* Rating Guide */}
-          <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-xs font-semibold text-blue-900 mb-2">Credit Score Guide:</p>
-            <div className="space-y-1 text-xs text-blue-800">
+          <div className="mt-4 p-4 bg-secondary-50 border border-secondary-200 rounded-lg">
+            <p className="text-xs font-semibold text-secondary-900 mb-2">Credit Score Guide:</p>
+            <div className="space-y-1 text-xs text-secondary-800">
               <div className="flex justify-between">
                 <span>• 750+ (Excellent)</span>
                 <span className="text-success-700 font-medium">Best rates</span>

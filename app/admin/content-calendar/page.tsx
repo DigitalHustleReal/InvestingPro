@@ -11,6 +11,7 @@ import { api } from '@/lib/api';
 import { Calendar, Clock, FileText, Plus, Filter, Sparkles, LayoutList, Table as TableIcon } from 'lucide-react';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
 
 export default function ContentCalendarPage() {
     const queryClient = useQueryClient();
@@ -85,9 +86,12 @@ export default function ContentCalendarPage() {
 
     return (
         <AdminLayout>
-             <div className="h-full flex flex-col px-10 py-8 bg-slate-950/95">
+             <div className="h-full flex flex-col px-10 py-8">
+                {/* Breadcrumb */}
+                <AdminBreadcrumb />
+                
                 {/* Header */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 border-b border-white/5 pb-8">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 border-b border-white/5 pb-8 mt-4">
                     <div>
                         <h1 className="text-3xl font-extrabold text-white tracking-tight mb-2 flex items-center gap-3">
                             <Calendar className="w-8 h-8 text-teal-500" />
@@ -110,7 +114,7 @@ export default function ContentCalendarPage() {
                                 size="sm" 
                                 onClick={handleAutoPlan}
                                 disabled={isPlanning || !planningTopic}
-                                className="bg-purple-600 hover:bg-purple-700 text-white rounded-lg"
+                                className="bg-secondary-600 hover:bg-secondary-700 text-white rounded-lg"
                             >
                                 {isPlanning ? <Clock className="w-3 h-3 animate-spin mr-1" /> : <Sparkles className="w-3 h-3 mr-1" />}
                                 Auto-Plan
@@ -132,7 +136,7 @@ export default function ContentCalendarPage() {
                                 { label: 'Scheduled', val: scheduledArticles.length, icon: Calendar, color: 'text-emerald-400' },
                                 { label: 'Drafts', val: draftArticles.length, icon: FileText, color: 'text-slate-400' },
                                 { label: 'Pending Review', val: reviewArticles.length, icon: Clock, color: 'text-amber-400' },
-                                { label: 'Total Assets', val: articles.length, icon: LayoutList, color: 'text-indigo-400' },
+                                { label: 'Total Assets', val: articles.length, icon: LayoutList, color: 'text-primary-400' },
                              ].map((stat, i) => (
                                 <Card key={i} className="bg-white/[0.03] border-white/5">
                                     <CardContent className="p-6 flex items-center justify-between">

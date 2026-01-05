@@ -148,10 +148,10 @@ export function GSTCalculator() {
                         </div>
 
                         {/* Info Card */}
-                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <div className="bg-secondary-50 border border-secondary-200 rounded-lg p-4">
                             <div className="flex items-start gap-3">
                                 <Info className="w-5 h-5 text-primary-600 shrink-0 mt-0.5" />
-                                <div className="text-sm text-blue-800">
+                                <div className="text-sm text-secondary-800">
                                     <p className="font-semibold mb-1">GST Breakdown:</p>
                                     <ul className="space-y-1 text-xs">
                                         <li>• <strong>CGST:</strong> Central GST (half of GST rate)</li>

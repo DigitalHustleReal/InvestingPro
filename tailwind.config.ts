@@ -10,72 +10,104 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
-                // Primary - Deep Forest Teal (Fintech-optimized)
-                // Primary - Trust Blue (Fintech Standard like Zoom/PayPal/Amex)
+                // Primary - Trust Teal (Growth + Stability - NerdWallet of India)
                 primary: {
-                    50: '#EFF6FF',
-                    100: '#DBEAFE',
-                    200: '#BFDBFE',
-                    300: '#93C5FD',
-                    400: '#60A5FA',
-                    500: '#3B82F6',   // Standard blue
-                    600: '#2563EB',   // MAIN BRAND COLOR - Trust Blue
-                    700: '#1D4ED8',   // Hover states
-                    800: '#1E40AF',
-                    900: '#1E3A8A',   // Text on light backgrounds
+                    50: '#f0fdfa',
+                    100: '#ccfbf1',
+                    200: '#99f6e4',
+                    300: '#5eead4',
+                    400: '#2dd4bf',
+                    500: '#14b8a6',
+                    600: '#0d9488',   // MAIN BRAND COLOR - Trust Teal
+                    700: '#0f766e',
+                    800: '#115e59',
+                    900: '#134e4a',
+                    950: '#042f2e',
+                    DEFAULT: '#0d9488', // ✅ Enables bg-primary
                 },
-                // Stone - Warm Neutrals (Professional, not cold)
+                // Secondary - Information Blue (Trust & Authority)
+                secondary: {
+                    50: '#eff6ff',
+                    100: '#dbeafe',
+                    200: '#bfdbfe',
+                    300: '#93c5fd',
+                    400: '#60a5fa',
+                    500: '#3b82f6',
+                    600: '#2563eb',   // Information, links, trust badges
+                    700: '#1d4ed8',
+                    800: '#1e40af',
+                    900: '#1e3a8a',
+                    950: '#172554',
+                    DEFAULT: '#2563eb',
+                },
+                // Stone - Warm Neutrals (Professional)
                 stone: {
-                    50: '#FAFAF9',    // Page background
-                    100: '#F5F5F4',   // Card alternate backgrounds
-                    200: '#E7E5E4',   // Borders, dividers
-                    300: '#D6D3D1',   // Disabled states
-                    400: '#A8A29E',   // Placeholder text
-                    500: '#78716C',   // Icons
-                    600: '#57534E',   // Secondary text, labels
-                    700: '#44403C',   // Tertiary text
-                    800: '#292524',   // Dark text
-                    900: '#1C1917',   // Primary text, headings
+                    50: '#FAFAF9',
+                    100: '#F5F5F4',
+                    200: '#E7E5E4',
+                    300: '#D6D3D1',
+                    400: '#A8A29E',
+                    500: '#78716C',
+                    600: '#57534E',
+                    700: '#44403C',
+                    800: '#292524',
+                    900: '#1C1917',
                 },
-                // Accent - Amber Gold (Secondary CTAs, premium features)
+                // Accent - Amber Gold (Secondary CTAs)
                 accent: {
-                    50: '#FFFBEB',
-                    100: '#FEF3C7',
-                    200: '#FDE68A',
-                    300: '#FCD34D',
-                    400: '#FBBF24',
-                    500: '#D97706',   // Main accent color
-                    600: '#B45309',   // Hover state
-                    700: '#92400E',
-                    800: '#78350F',
-                    900: '#78350F',
+                    50: '#fffbeb',
+                    100: '#fef3c7',
+                    200: '#fde68a',
+                    300: '#fcd34d',
+                    400: '#fbbf24',
+                    500: '#f59e0b',
+                    600: '#d97706',
+                    700: '#b45309',
+                    800: '#92400e',
+                    900: '#78350f',
+                    DEFAULT: '#d97706',
                 },
-                // Semantic - Financial Data Colors
+                // Semantic Colors
                 success: {
-                    50: '#ECFDF5',
-                    500: '#10B981',
-                    700: '#047857',   // Gains, positive, verified
+                    50: '#ecfdf5',
+                    100: '#d1fae5',
+                    500: '#10b981', // Emerald - Gains, positive trends
+                    600: '#059669',
+                    700: '#047857',
+                    DEFAULT: '#10b981',
                 },
                 warning: {
-                    50: '#FFFBEB',
-                    500: '#F59E0B',
-                    700: '#B45309',   // Caution, review required
+                    50: '#fffbeb',
+                    100: '#fef3c7',
+                    500: '#f59e0b', // Amber
+                    600: '#d97706',
+                    700: '#b45309',
+                    DEFAULT: '#f59e0b',
                 },
                 danger: {
-                    50: '#FEF2F2',
-                    500: '#EF4444',
-                    700: '#B91C1C',   // Losses, errors, high risk
+                    50: '#fef2f2',
+                    100: '#fee2e2',
+                    500: '#ef4444', // Red - Losses, warnings
+                    600: '#dc2626',
+                    700: '#b91c1c',
+                    DEFAULT: '#ef4444',
                 },
                 info: {
-                    50: '#EFF6FF',
-                    500: '#3B82F6',
-                    800: '#1E40AF',   // Informational, help text
+                    50: '#eff6ff',
+                    100: '#dbeafe',
+                    500: '#3b82f6', // Blue
+                    600: '#2563eb',
+                    700: '#1d4ed8',
+                    DEFAULT: '#3b82f6',
                 },
-                // Dark Theme (Keep for future)
-                dark: {
-                    bg: '#0B1221',
-                    surface: '#111827',
-                    border: '#1f2937',
+                // Surface Tokens (Replaces Hardcoded Hex Values)
+                surface: {
+                    page: '#fafaf9',      // stone-50 - Main page background (light)
+                    card: '#ffffff',      // white - Card backgrounds
+                    border: '#e7e5e4',    // stone-200 - Borders
+                    dark: '#020617',      // Replaces bg-[#020617]
+                    darker: '#0f172a',    // Replaces bg-[#0f172a] 
+                    darkest: '#0a0c10',   // Replaces bg-[#0a0c10]
                 }
             },
             fontFamily: {

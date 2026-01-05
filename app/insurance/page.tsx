@@ -174,8 +174,8 @@ export default function InsurancePage() {
             <div className="relative overflow-hidden pt-32 pb-24 lg:pt-40 lg:pb-32 bg-gradient-to-b from-blue-50 to-slate-50 dark:from-slate-900 dark:to-slate-950">
                 {/* Background Decor */}
                 <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-500/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2 dark:bg-blue-500/20" />
-                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3 dark:bg-purple-500/20" />
+                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-secondary-500/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2 dark:bg-secondary-500/20" />
+                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary-500/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3 dark:bg-primary-500/20" />
                 </div>
 
                 <div className="container mx-auto px-4 relative z-10">
@@ -183,14 +183,14 @@ export default function InsurancePage() {
                         
                         {/* Hero Text */}
                         <div className="flex-1 text-center lg:text-left">
-                            <Badge className="mb-6 px-4 py-1.5 bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400 border border-blue-100 dark:border-blue-500/20 font-semibold uppercase tracking-wide text-[11px] inline-flex items-center gap-2 rounded-full">
+                            <Badge className="mb-6 px-4 py-1.5 bg-secondary-50 text-secondary-600 dark:bg-secondary-500/10 dark:text-secondary-400 border border-secondary-100 dark:border-secondary-500/20 font-semibold uppercase tracking-wide text-[11px] inline-flex items-center gap-2 rounded-full">
                                 <Shield className="w-3.5 h-3.5" />
                                 Smart Protection Planning
                             </Badge>
                             
                             <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-8 text-slate-900 dark:text-white leading-[1.1]">
                                 Buy Only What <br className="hidden lg:block" />
-                                <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">You Need</span>
+                                <span className="bg-gradient-to-r from-primary-600 to-secondary-500 bg-clip-text text-transparent">You Need</span>
                             </h1>
                             
                             <p className="text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
@@ -200,11 +200,11 @@ export default function InsurancePage() {
 
                             <div className="relative group max-w-md mx-auto lg:mx-0 mb-8">
                                 <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-                                    <Search className="h-5 w-5 text-slate-500 group-focus-within:text-blue-500 transition-colors" />
+                                    <Search className="h-5 w-5 text-slate-500 group-focus-within:text-secondary-500 transition-colors" />
                                 </div>
                                 <Input
                                     placeholder="Search plans (e.g. 'HDFC Life', 'Health Insurance')..."
-                                    className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-md border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-500 focus:border-blue-500 transition-all font-medium shadow-sm"
+                                    className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-md border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-500 focus:border-secondary-500 transition-all font-medium shadow-sm"
                                     value={searchTerm}
                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
                                 />
@@ -229,12 +229,12 @@ export default function InsurancePage() {
                         {/* Protection Score Widget */}
                         <div className="flex-1 w-full max-w-md lg:max-w-lg">
                             <Card className="rounded-[2.5rem] bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xl shadow-blue-500/10 overflow-hidden">
-                                <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500" />
+                                <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-primary-400 via-primary-600 to-secondary-500" />
                                 
                                 <CardHeader className="p-8 pb-6">
                                     <div className="flex items-center justify-between mb-2">
                                         <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                                            <Target className="w-5 h-5 text-blue-500" />
+                                            <Target className="w-5 h-5 text-secondary-500" />
                                             Protection Score
                                         </h3>
                                         {!hasCalculated && (
@@ -281,19 +281,19 @@ export default function InsurancePage() {
                                                     onClick={() => setAnswers({...answers, [q.key]: !answers[q.key as keyof typeof answers]})}
                                                     className={`w-full flex items-center justify-between p-4 rounded-xl border-2 transition-all ${
                                                         answers[q.key as keyof typeof answers]
-                                                            ? 'border-blue-500 bg-blue-50 dark:bg-blue-500/10'
+                                                            ? 'border-secondary-500 bg-secondary-50 dark:bg-secondary-500/10'
                                                             : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
                                                     }`}
                                                 >
                                                     <div className="flex items-center gap-3">
-                                                        <q.icon className={`w-4 h-4 ${answers[q.key as keyof typeof answers] ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400'}`} />
-                                                        <span className={`text-sm font-medium ${answers[q.key as keyof typeof answers] ? 'text-blue-900 dark:text-blue-100' : 'text-slate-700 dark:text-slate-300'}`}>
+                                                        <q.icon className={`w-4 h-4 ${answers[q.key as keyof typeof answers] ? 'text-secondary-600 dark:text-secondary-400' : 'text-slate-400'}`} />
+                                                        <span className={`text-sm font-medium ${answers[q.key as keyof typeof answers] ? 'text-secondary-900 dark:text-secondary-100' : 'text-slate-700 dark:text-slate-300'}`}>
                                                             {q.label}
                                                         </span>
                                                     </div>
                                                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                                                         answers[q.key as keyof typeof answers]
-                                                            ? 'border-blue-500 bg-blue-500'
+                                                            ? 'border-secondary-500 bg-secondary-500'
                                                             : 'border-slate-300 dark:border-slate-600'
                                                     }`}>
                                                         {answers[q.key as keyof typeof answers] && (
@@ -336,7 +336,7 @@ export default function InsurancePage() {
                                                 </ul>
                                             </div>
                                             <div className="flex gap-2">
-                                                <Button className="flex-1 h-12 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl" onClick={() => setHasCalculated(false)}>
+                                                <Button className="flex-1 h-12 bg-secondary-600 hover:bg-secondary-700 text-white font-bold rounded-xl" onClick={() => setHasCalculated(false)}>
                                                     View Plans
                                                 </Button>
                                                 <Button variant="outline" className="h-12 border-slate-200 dark:border-slate-700" onClick={() => {

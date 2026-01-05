@@ -191,7 +191,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
                                 <Button
                                     onClick={() => setShowRevisionDialog(true)}
                                     variant="outline"
-                                    className="w-full border-blue-300 text-blue-700 hover:bg-blue-50 bg-white"
+                                    className="w-full border-secondary-300 text-secondary-700 hover:bg-secondary-50 bg-white"
                                 >
                                     <AlertCircle className="w-4 h-4 mr-1 sm:mr-2" />
                                     Review

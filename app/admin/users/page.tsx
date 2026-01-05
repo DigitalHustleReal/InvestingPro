@@ -2,98 +2,104 @@
 
 import React from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Users, Search } from 'lucide-react';
+import { Users, Search, Shield, UserCheck, Mail } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
-import { api } from '@/lib/api';
+import { AdminPageHeader, ContentSection, StatCard, EmptyState, StatusBadge } from '@/components/admin/AdminUIKit';
 
 export default function UsersPage() {
     const [searchQuery, setSearchQuery] = React.useState('');
 
-    // Note: This would need a proper users API endpoint
     const { data: users = [], isLoading } = useQuery({
         queryKey: ['users', searchQuery],
-        queryFn: async () => {
-            // Placeholder - would need actual users API
-            return [];
-        },
+        queryFn: async () => [],
         initialData: []
     });
 
+    const filteredUsers = users.filter((u: any) => 
+        u.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        u.full_name?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const getRoleVariant = (role: string): 'default' | 'success' | 'warning' | 'danger' | 'info' => {
+        switch (role) {
+            case 'admin': return 'danger';
+            case 'editor': return 'info';
+            case 'author': return 'success';
+            default: return 'default';
+        }
+    };
+
     return (
         <AdminLayout>
-            <div className="h-full flex flex-col bg-slate-50">
-                <div className="bg-white border-b border-slate-200 px-8 py-6">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <h1 className="text-2xl font-bold text-slate-900">Users</h1>
-                            <p className="text-sm text-slate-600 mt-1">Manage user accounts and permissions</p>
-                        </div>
-                    </div>
+            <div className="p-8 space-y-8">
+                <AdminPageHeader
+                    title="Users"
+                    subtitle="Manage user accounts and permissions"
+                    icon={Users}
+                    iconColor="purple"
+                />
+
+                {/* Stats */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <StatCard label="Total Users" value={users.length} icon={Users} color="purple" />
+                    <StatCard label="Admins" value={users.filter((u: any) => u.role === 'admin').length} icon={Shield} color="rose" />
+                    <StatCard label="Editors" value={users.filter((u: any) => u.role === 'editor').length} icon={UserCheck} color="blue" />
+                    <StatCard label="Active" value={users.filter((u: any) => u.is_active).length} icon={UserCheck} color="teal" />
                 </div>
 
-                <div className="flex-1 overflow-y-auto p-8">
-                    {/* Search */}
-                    <div className="mb-6">
-                        <div className="relative">
-                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
-                            <Input
-                                placeholder="Search users by name or email..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="pl-10"
-                            />
-                        </div>
+                {/* Search */}
+                <ContentSection>
+                    <div className="relative max-w-md">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                        <input
+                            placeholder="Search users by name or email..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full pl-10 pr-4 py-2.5 bg-slate-800/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                        />
                     </div>
+                </ContentSection>
 
-                    {/* Users List */}
-                    {isLoading ? (
-                        <div className="text-center py-12">
-                            <p className="text-slate-600">Loading...</p>
-                        </div>
-                    ) : users.length === 0 ? (
-                        <Card>
-                            <CardContent className="p-6 md:p-8 text-center">
-                                <Users className="w-12 h-12 text-slate-400 mx-auto mb-4" />
-                                <h3 className="text-lg font-semibold text-slate-900 mb-2">No users found</h3>
-                                <p className="text-slate-600">
-                                    {searchQuery ? 'Try a different search query' : 'Users will appear here once they register'}
-                                </p>
-                            </CardContent>
-                        </Card>
-                    ) : (
-                        <div className="space-y-4">
-                            {users.map((user: any) => (
-                                <Card key={user.id}>
-                                    <CardContent className="p-6">
-                                        <div className="flex items-center justify-between">
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center">
-                                                    <Users className="w-6 h-6 text-slate-500" />
-                                                </div>
-                                                <div>
-                                                    <h3 className="font-semibold text-slate-900">{user.full_name || user.email}</h3>
-                                                    <p className="text-sm text-slate-600">{user.email}</p>
-                                                </div>
-                                            </div>
-                                            <Badge className={
-                                                user.role === 'admin' 
-                                                    ? 'bg-purple-100 text-purple-700'
-                                                    : user.role === 'editor'
-                                                    ? 'bg-blue-100 text-blue-700'
-                                                    : 'bg-slate-100 text-slate-700'
-                                            }>
-                                                {user.role || 'user'}
-                                            </Badge>
+                {/* Users List */}
+                {isLoading ? (
+                    <div className="flex items-center justify-center py-20">
+                        <div className="w-10 h-10 border-4 border-secondary-500/30 border-t-purple-500 rounded-full animate-spin" />
+                    </div>
+                ) : filteredUsers.length === 0 ? (
+                    <ContentSection>
+                        <EmptyState
+                            icon={Users}
+                            title={searchQuery ? 'No users found' : 'No users yet'}
+                            description={searchQuery ? 'Try a different search query' : 'Users will appear here once they register'}
+                        />
+                    </ContentSection>
+                ) : (
+                    <div className="space-y-4">
+                        {filteredUsers.map((user: any) => (
+                            <ContentSection key={user.id}>
+                                <div className="flex items-center justify-between -m-6 p-6">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary-500/20 to-pink-500/20 border border-secondary-500/30 flex items-center justify-center">
+                                            <span className="text-lg font-bold text-secondary-400">
+                                                {(user.full_name || user.email || 'U')[0].toUpperCase()}
+                                            </span>
                                         </div>
-                                    </CardContent>
-                                </Card>
-                            ))}
-                        </div>
-                    )}
-                </div>
+                                        <div>
+                                            <h3 className="font-semibold text-white">{user.full_name || user.email}</h3>
+                                            <div className="flex items-center gap-1 text-sm text-slate-500">
+                                                <Mail className="w-3 h-3" />
+                                                {user.email}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <StatusBadge variant={getRoleVariant(user.role || 'user')}>
+                                        {user.role || 'user'}
+                                    </StatusBadge>
+                                </div>
+                            </ContentSection>
+                        ))}
+                    </div>
+                )}
             </div>
         </AdminLayout>
     );

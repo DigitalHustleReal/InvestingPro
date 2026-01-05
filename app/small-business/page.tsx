@@ -23,13 +23,13 @@ import { Badge } from "@/components/ui/badge";
 import Link from 'next/link';
 
 const BusinessTool = ({ icon: Icon, title, desc, href }: { icon: any, title: string, desc: string, href: string }) => (
-    <Link href={href} className="group p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-blue-500/50 hover:shadow-xl transition-all duration-300">
-        <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <Icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+    <Link href={href} className="group p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-primary-500/50 hover:shadow-xl transition-all duration-300">
+        <div className="w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <Icon className="w-6 h-6 text-primary-600 dark:text-primary-400" />
         </div>
         <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">{title}</h3>
         <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">{desc}</p>
-        <div className="flex items-center gap-1 text-xs font-bold text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="flex items-center gap-1 text-xs font-bold text-primary-600 dark:text-primary-400 opacity-0 group-hover:opacity-100 transition-opacity">
             Explore <ArrowRight className="w-3 h-3" />
         </div>
     </Link>
@@ -41,16 +41,16 @@ export default function SmallBusinessPage() {
             {/* 1. Hero Section - "Finance Toolkit Hub" */}
             <section className="relative pt-20 pb-32 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 overflow-hidden">
                 {/* Background Shapes */}
-                <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px]" />
-                <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-indigo-500/10 rounded-full blur-[100px]" />
+                <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary-500/10 rounded-full blur-[100px]" />
+                <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-[100px]" />
 
                 <div className="container mx-auto px-4 text-center relative z-10">
-                    <Badge className="mb-6 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-100 dark:border-blue-500/20 px-4 py-1.5 rounded-full font-bold uppercase tracking-widest text-[10px]">
+                    <Badge className="mb-6 bg-primary-50 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400 border-primary-100 dark:border-primary-500/20 px-4 py-1.5 rounded-full font-bold uppercase tracking-widest text-[10px]">
                         The MSME Command Center
                     </Badge>
                     <h1 className="text-5xl sm:text-7xl font-black text-slate-900 dark:text-white mb-8 tracking-tighter leading-[1.1]">
                         Finance Your <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Business Growth.</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-emerald-600">Business Growth.</span>
                     </h1>
                     <p className="text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
                         From Seed to Scale—get access to machinery loans, GST tools, business credit cards, and expert compliance guides for your startup or enterprise.
@@ -120,10 +120,10 @@ export default function SmallBusinessPage() {
                         ].map((loan, idx) => (
                             <div key={idx} className="group bg-white dark:bg-slate-900 p-8 rounded-[32px] border border-slate-200 dark:border-slate-800 hover:shadow-2xl transition-all duration-300">
                                 <div className="w-16 h-16 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform">
-                                    <loan.icon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                                    <loan.icon className="w-8 h-8 text-primary-600 dark:text-primary-400" />
                                 </div>
                                 <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{loan.type}</h3>
-                                <div className="text-sm font-bold text-blue-600 mb-6">Rates from {loan.rate} p.a.</div>
+                                <div className="text-sm font-bold text-primary-600 mb-6">Rates from {loan.rate} p.a.</div>
                                 
                                 <ul className="space-y-3 mb-8">
                                     {loan.features.map((f, i) => (
@@ -144,24 +144,24 @@ export default function SmallBusinessPage() {
             </section>
 
             {/* 3. Government Schemes Slider/Grid */}
-            <section className="py-24 bg-blue-600 relative overflow-hidden">
-                <div className="absolute inset-0 bg-blue-700/50 skew-y-3 -translate-y-20 origin-left" />
+            <section className="py-24 bg-primary-600 relative overflow-hidden">
+                <div className="absolute inset-0 bg-primary-700/50 skew-y-3 -translate-y-20 origin-left" />
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div>
                             <Badge className="bg-white/20 text-white border-0 mb-6 px-4 py-1">Govt. of India Initiatives</Badge>
                             <h2 className="text-4xl lg:text-5xl font-black text-white mb-8 leading-tight">Mudra to MSME: <br />Subsidies You Must Know.</h2>
-                            <p className="text-xl text-blue-100 mb-10 font-light">
+                            <p className="text-xl text-primary-100 mb-10 font-light">
                                 Leverage government-backed schemes with lower interest rates and credit guarantees. Our experts help you navigate the paperwork.
                             </p>
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20">
                                     <div className="text-3xl font-bold text-white mb-1">95%</div>
-                                    <div className="text-xs text-blue-100 uppercase font-bold tracking-widest">Success Rate</div>
+                                    <div className="text-xs text-primary-100 uppercase font-bold tracking-widest">Success Rate</div>
                                 </div>
                                 <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20">
                                     <div className="text-3xl font-bold text-white mb-1">₹50L</div>
-                                    <div className="text-xs text-blue-100 uppercase font-bold tracking-widest">Avg. Subsidy</div>
+                                    <div className="text-xs text-primary-100 uppercase font-bold tracking-widest">Avg. Subsidy</div>
                                 </div>
                             </div>
                         </div>
@@ -177,7 +177,7 @@ export default function SmallBusinessPage() {
                                         <div className="font-bold text-slate-900">{scheme.name}</div>
                                         <div className="text-sm text-slate-500">{scheme.desc}</div>
                                     </div>
-                                    <div className="w-10 h-10 rounded-full border border-slate-100 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all">
+                                    <div className="w-10 h-10 rounded-full border border-slate-100 flex items-center justify-center group-hover:bg-primary-600 group-hover:text-white transition-all">
                                         <ArrowRight className="w-4 h-4" />
                                     </div>
                                 </div>
@@ -202,11 +202,11 @@ export default function SmallBusinessPage() {
                             { name: 'ClearTax', type: 'GST Filing', logo: '📂' },
                             { name: 'Tally Prime', type: 'ERP', logo: '📊' }
                         ].map((tool, idx) => (
-                            <div key={idx} className="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center hover:border-blue-500 transition-colors">
+                            <div key={idx} className="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center hover:border-primary-500 transition-colors">
                                 <div className="text-4xl mb-4">{tool.logo}</div>
                                 <h4 className="text-xl font-bold text-slate-900 dark:text-white">{tool.name}</h4>
                                 <p className="text-xs text-slate-500 dark:text-slate-400 mb-6">{tool.type}</p>
-                                <Button variant="link" className="text-blue-600 dark:text-blue-400 font-bold p-0">
+                                <Button variant="link" className="text-primary-600 dark:text-primary-400 font-bold p-0">
                                     Get Partner Offer
                                 </Button>
                             </div>

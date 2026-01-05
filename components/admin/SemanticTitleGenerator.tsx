@@ -83,11 +83,11 @@ export default function SemanticTitleGenerator({
     const getVariationBadgeColor = (type: string) => {
         switch (type) {
             case 'question':
-                return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
+                return 'bg-secondary-100 text-secondary-800 dark:bg-secondary-900 dark:text-secondary-200';
             case 'number':
                 return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
             case 'emotional':
-                return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
+                return 'bg-secondary-100 text-secondary-800 dark:bg-purple-900 dark:text-secondary-200';
             case 'power-word':
                 return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
             default:
@@ -157,15 +157,15 @@ export default function SemanticTitleGenerator({
                                         key={index}
                                         className={`p-4 border rounded-lg transition-all ${
                                             isSelected
-                                                ? 'border-blue-500 bg-blue-50 dark:bg-blue-950'
-                                                : 'border-gray-200 dark:border-gray-700 hover:border-blue-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                                                ? 'border-secondary-500 bg-secondary-50 dark:bg-blue-950'
+                                                : 'border-gray-200 dark:border-gray-700 hover:border-secondary-300 hover:bg-gray-50 dark:hover:bg-gray-800'
                                         }`}
                                     >
                                         <div className="flex items-start justify-between gap-3">
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-2 mb-2">
                                                     <p
-                                                        className="font-medium cursor-pointer hover:text-primary-600 dark:hover:text-blue-400"
+                                                        className="font-medium cursor-pointer hover:text-primary-600 dark:hover:text-secondary-400"
                                                         onClick={() => handleTitleClick(variation.title_text)}
                                                     >
                                                         {variation.title_text}
@@ -222,7 +222,7 @@ export default function SemanticTitleGenerator({
                         {selectedTitle && (
                             <div className="pt-4 border-t">
                                 <Label>Selected Title</Label>
-                                <div className="p-3 bg-blue-50 dark:bg-blue-950 rounded-lg mt-2">
+                                <div className="p-3 bg-secondary-50 dark:bg-blue-950 rounded-lg mt-2">
                                     <p className="font-medium">{selectedTitle}</p>
                                 </div>
                             </div>

@@ -92,9 +92,9 @@ export default function WordPressStylePages({
     const getPageTypeIcon = (contentType?: string) => {
         switch (contentType) {
             case 'pillar':
-                return <Home className="w-4 h-4 text-blue-500" />;
+                return <Home className="w-4 h-4 text-secondary-500" />;
             case 'category-page':
-                return <File className="w-4 h-4 text-purple-500" />;
+                return <File className="w-4 h-4 text-secondary-500" />;
             default:
                 return <FileText className="w-4 h-4 text-slate-400" />;
         }

@@ -126,28 +126,28 @@ export default function CategorySelect({
         <>
             <div className={className}>
                 <Select value={value} onValueChange={onValueChange}>
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200">
                         <SelectValue placeholder="Select category" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200">
                         {/* Search input */}
                         <div className="px-2 pb-2">
                             <Input
                                 placeholder="Search categories..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="h-8"
+                                className="h-8 bg-slate-50 dark:bg-surface-dark border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600"
                                 onClick={(e) => e.stopPropagation()}
                                 onKeyDown={(e) => e.stopPropagation()}
                             />
                         </div>
                         
                         {/* Create new button */}
-                        <div className="px-2 pb-2 border-b border-slate-200">
+                        <div className="px-2 pb-2 border-b border-slate-200 dark:border-slate-700">
                             <Button
                                 variant="outline"
                                 size="sm"
-                                className="w-full"
+                                className="w-full border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white"
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     setIsCreateDialogOpen(true);
@@ -162,7 +162,11 @@ export default function CategorySelect({
                         <div className="max-h-[200px] overflow-y-auto">
                             {filteredCategories.length > 0 ? (
                                 filteredCategories.map((cat: any) => (
-                                    <SelectItem key={cat.id || cat.slug} value={cat.slug || cat.name}>
+                                    <SelectItem 
+                                        key={cat.id || cat.slug} 
+                                        value={cat.slug || cat.name}
+                                        className="text-slate-900 dark:text-slate-200 focus:bg-slate-100 dark:focus:bg-slate-800 focus:text-slate-900 dark:focus:text-white cursor-pointer"
+                                    >
                                         {cat.name}
                                     </SelectItem>
                                 ))
@@ -178,32 +182,32 @@ export default function CategorySelect({
 
             {/* Create Category Dialog */}
             <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-                <DialogContent>
+                <DialogContent className="bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 sm:max-w-md">
                     <DialogHeader>
-                        <DialogTitle>Create New Category</DialogTitle>
-                        <DialogDescription>
+                        <DialogTitle className="text-slate-900 dark:text-slate-100">Create New Category</DialogTitle>
+                        <DialogDescription className="text-slate-500 dark:text-slate-400">
                             Add a new category to organize your articles.
                         </DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4 py-4">
                         <div>
-                            <Label htmlFor="create-cat-name">Name *</Label>
+                            <Label htmlFor="create-cat-name" className="text-slate-700 dark:text-slate-300">Name *</Label>
                             <Input
                                 id="create-cat-name"
                                 value={newCategoryName}
                                 onChange={(e) => handleNameChange(e.target.value)}
                                 placeholder="e.g., Mutual Funds"
-                                className="mt-1"
+                                className="mt-1 bg-white dark:bg-surface-dark border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600"
                             />
                         </div>
                         <div>
-                            <Label htmlFor="create-cat-slug">Slug *</Label>
+                            <Label htmlFor="create-cat-slug" className="text-slate-700 dark:text-slate-300">Slug *</Label>
                             <Input
                                 id="create-cat-slug"
                                 value={newCategorySlug}
                                 onChange={(e) => setNewCategorySlug(e.target.value)}
                                 placeholder="e.g., mutual-funds"
-                                className="mt-1 font-mono text-sm"
+                                className="mt-1 font-mono text-sm bg-white dark:bg-surface-dark border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600"
                             />
                             <p className="text-xs text-slate-500 mt-1">
                                 URL-friendly version (auto-generated from name)
@@ -218,10 +222,11 @@ export default function CategorySelect({
                                 setNewCategoryName('');
                                 setNewCategorySlug('');
                             }}
+                            className="border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white"
                         >
                             Cancel
                         </Button>
-                        <Button onClick={handleCreateCategory}>
+                        <Button onClick={handleCreateCategory} className="bg-primary-600 hover:bg-indigo-700 text-white">
                             Create Category
                         </Button>
                     </DialogFooter>

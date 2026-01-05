@@ -52,7 +52,7 @@ export default async function CompareMutualFunds({ searchParams }: { searchParam
                                     <h3 className="font-bold text-gray-900 text-sm leading-tight mb-1">{fund!.name}</h3>
                                 </Link>
                                 <div className="flex items-center gap-1">
-                                    <span className="text-xs font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded">
+                                    <span className="text-xs font-bold bg-secondary-100 text-secondary-700 px-1.5 py-0.5 rounded">
                                         {fund!.rating}.0 ★
                                     </span>
                                 </div>

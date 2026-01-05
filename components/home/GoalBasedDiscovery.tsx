@@ -43,8 +43,8 @@ const goals = [
         title: "Get a Loan",
         description: "Compare personal, home, car, and business loans",
         color: "text-primary-600",
-        bg: "bg-blue-50",
-        border: "border-blue-200",
+        bg: "bg-secondary-50",
+        border: "border-secondary-200",
         href: "/loans",
         cta: "Compare Loans",
         features: ["EMI Calculator", "Eligibility Check", "Rate Comparison"]
@@ -75,9 +75,9 @@ const goals = [
         icon: Building2,
         title: "Grow My Business",
         description: "Business loans, credit cards, and GST tools for entrepreneurs",
-        color: "text-purple-600",
-        bg: "bg-purple-50",
-        border: "border-purple-200",
+        color: "text-secondary-600",
+        bg: "bg-secondary-50",
+        border: "border-secondary-200",
         href: "/small-business",
         cta: "Business Solutions",
         features: ["GST Calculator", "Business Loans", "Credit Cards"]

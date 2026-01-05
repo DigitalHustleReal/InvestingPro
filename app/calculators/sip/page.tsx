@@ -185,7 +185,7 @@ export default function SIPCalculatorPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
             <SEOHead
                 title="SIP Calculator India 2024 - Calculate SIP Returns with Inflation Adjustment | InvestingPro"
                 description="Free SIP calculator to calculate returns on Systematic Investment Plans (SIP). Calculate SIP maturity value, returns, and inflation-adjusted real returns. Plan your financial goals with accurate SIP projections. No registration required."
@@ -202,10 +202,10 @@ export default function SIPCalculatorPage() {
             {/* Hero Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
                 <div className="text-center mb-6">
-                    <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+                    <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
                         SIP Calculator - Calculate Systematic Investment Plan Returns
                     </h1>
-                    <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-4">
+                    <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed mb-4">
                         Calculate returns on your SIP investments with our free SIP calculator. Includes inflation adjustment to show real returns and help you plan your financial goals.
                     </p>
                     
@@ -246,13 +246,13 @@ export default function SIPCalculatorPage() {
                 <AutoInternalLinks context={linkingContext} />
 
                 {/* Expanded FAQ Section */}
-                <Card className="border-0 shadow-lg rounded-2xl">
+                <Card className="border-0 shadow-lg rounded-2xl dark:bg-slate-900 dark:border dark:border-slate-800">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
+                        <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-6 md:p-8">
                             <Info className="w-6 h-6 text-teal-600" />
                             SIP Calculator - Frequently Asked Questions (FAQs)
                         </CardTitle>
-                        <p className="text-slate-600 mt-2">Find answers to the most common questions about SIP calculator and SIP investments</p>
+                        <p className="text-slate-600 dark:text-slate-400 mt-2">Find answers to the most common questions about SIP calculator and SIP investments</p>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-8">
@@ -381,9 +381,9 @@ export default function SIPCalculatorPage() {
                                 href="https://www.sebi.gov.in/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-3 p-4 bg-white rounded-xl border border-blue-200 hover:border-blue-300 hover:shadow-md transition-all group"
+                                className="flex items-center gap-3 p-4 bg-white rounded-xl border border-secondary-200 hover:border-secondary-300 hover:shadow-md transition-all group"
                             >
-                                <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                                <div className="w-10 h-10 rounded-lg bg-secondary-100 flex items-center justify-center group-hover:bg-secondary-200 transition-colors">
                                     <ExternalLink className="w-5 h-5 text-primary-600" />
                                 </div>
                                 <div>
@@ -395,9 +395,9 @@ export default function SIPCalculatorPage() {
                                 href="https://www.amfiindia.com/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-3 p-4 bg-white rounded-xl border border-blue-200 hover:border-blue-300 hover:shadow-md transition-all group"
+                                className="flex items-center gap-3 p-4 bg-white rounded-xl border border-secondary-200 hover:border-secondary-300 hover:shadow-md transition-all group"
                             >
-                                <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                                <div className="w-10 h-10 rounded-lg bg-secondary-100 flex items-center justify-center group-hover:bg-secondary-200 transition-colors">
                                     <ExternalLink className="w-5 h-5 text-primary-600" />
                                 </div>
                                 <div>
@@ -409,9 +409,9 @@ export default function SIPCalculatorPage() {
                                 href="https://www.rbi.org.in/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-3 p-4 bg-white rounded-xl border border-blue-200 hover:border-blue-300 hover:shadow-md transition-all group"
+                                className="flex items-center gap-3 p-4 bg-white rounded-xl border border-secondary-200 hover:border-secondary-300 hover:shadow-md transition-all group"
                             >
-                                <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                                <div className="w-10 h-10 rounded-lg bg-secondary-100 flex items-center justify-center group-hover:bg-secondary-200 transition-colors">
                                     <ExternalLink className="w-5 h-5 text-primary-600" />
                                 </div>
                                 <div>

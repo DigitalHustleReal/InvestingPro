@@ -36,7 +36,7 @@ const TrustStrip = () => {
 
                     <div className="hidden lg:flex items-center gap-8">
                         <div className="flex items-center gap-3">
-                            <Lock className="w-4 h-4 text-blue-500" />
+                            <Lock className="w-4 h-4 text-secondary-500" />
                             <div className="flex flex-col">
                                 <span className="text-white font-bold text-[10px] uppercase tracking-wider leading-none">AES-256</span>
                                 <span className="text-slate-500 text-[9px] font-medium uppercase tracking-tighter">Bank-Grade encryption</span>

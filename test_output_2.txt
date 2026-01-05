@@ -1,0 +1,66 @@
+[dotenv@17.2.3] injecting env (14) from .env.local -- tip: ⚙️  write to custom object with { processEnv: myObject }
+🚦 STARTING GENERATION TEST...
+
+--------------------------------
+📘 TEST 1: Generating Glossary Term...
+[WARN] {
+  level: 'warn',
+  message: '❌ Gemini failed:',
+  timestamp: '2026-01-04T09:52:58.475Z',
+  context: '[GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.',
+  error: undefined
+}
+❌ Glossary Insert Failed: {
+  code: 'PGRST204',
+  details: null,
+  hint: null,
+  message: "Could not find the 'ai_generated' column of 'glossary_terms' in the schema cache"
+}
+
+--------------------------------
+📄 TEST 2: Generating Standard Article...
+[WARN] {
+  level: 'warn',
+  message: '❌ Groq failed:',
+  timestamp: '2026-01-04T09:53:00.509Z',
+  context: 'Bad control character in string literal in JSON at position 300 (line 3 column 261)',
+  error: undefined
+}
+[WARN] {
+  level: 'warn',
+  message: '❌ Mistral failed:',
+  timestamp: '2026-01-04T09:53:05.195Z',
+  context: 'Unexpected token \'`\', "```json\n{\n"... is not valid JSON',
+  error: undefined
+}
+[WARN] {
+  level: 'warn',
+  message: '❌ OpenAI failed:',
+  timestamp: '2026-01-04T09:53:26.978Z',
+  context: '429 Rate limit reached for gpt-4o-mini in organization org-79Ha94FkdjklOTErqaQNklR2 on requests per min (RPM): Limit 3, Used 3, Requested 1. Please try again in 20s. Visit https://platform.openai.com/account/rate-limits to learn more. You can increase your rate limit by adding a payment method to your account at https://platform.openai.com/account/billing.',
+  error: undefined
+}
+[WARN] {
+  level: 'warn',
+  message: '❌ Gemini failed:',
+  timestamp: '2026-01-04T09:53:27.138Z',
+  context: '[GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.',
+  error: undefined
+}
+[ERROR] {
+  level: 'error',
+  message: 'All AI providers failed. Attempted: Groq, Mistral, OpenAI, Gemini. Last error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.',
+  timestamp: '2026-01-04T09:53:27.139Z',
+  context: undefined,
+  error: undefined
+}
+❌ Article Gen Failed: All AI providers failed. Attempted: Groq, Mistral, OpenAI, Gemini. Last error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+
+--------------------------------
+⚖️ TEST 3: Generating Comparison Article...
+❌ Comparison Insert Failed: {
+  code: 'PGRST204',
+  details: null,
+  hint: null,
+  message: "Could not find the 'content_type' column of 'blog_posts' in the schema cache"
+}

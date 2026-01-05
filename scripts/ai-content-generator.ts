@@ -10,6 +10,9 @@
  *   npx tsx scripts/ai-content-generator.ts
  */
 
+import dotenv from 'dotenv'
+dotenv.config({ path: '.env.local' })
+
 import OpenAI from 'openai'
 import { createClient } from '@supabase/supabase-js'
 
@@ -110,12 +113,12 @@ Write a comprehensive, SEO-optimized article on: "${topic.title}"
 REQUIREMENTS:
 1. **Target Audience:** ${topic.target_audience}
 2. **Keywords to include:** ${topic.keywords}
-3. **Length:** 1000-1200 words
+3. **Length:** 1500+ words (Comprehensive Guide)
 4. **Tone:** Professional yet approachable, helpful, non-promotional
 5. **Format:** CLEAN HTML ONLY with PROFESSIONAL COMPONENTS (see below)
 
 FORMATTING RULES (CRITICAL):
-- Use ONLY these HTML tags: <h2>, <h3>, <p>, <ul>, <li>, <strong>, <em>, <blockquote>, <hr>, <div>
+- Use ONLY these HTML tags: <h2>, <h3>, <p>, <ul>, <li>, <strong>, <em>, blockquote, <hr>, <div>
 - NO <h1> tags (title is separate)
 - NO Markdown symbols (#, ##, **, etc.)
 - Start with <h2>Introduction</h2>
@@ -440,16 +443,12 @@ async function generateArticles(count: number = 10) {
         meta_title: `${topic.title} | InvestingPro`,
         meta_description,
         status: 'published', // Auto-publish
-        reading_time,
-        word_count,
-        structured_content: {
-          h2_count: (body_html.match(/<h2>/g) || []).length,
-          h3_count: (body_html.match(/<h3>/g) || []).length,
-          word_count,
-          reading_time,
-          has_lists: body_html.includes('<ul>'),
-          has_blockquote: body_html.includes('<blockquote>')
-        }
+        published_at: new Date().toISOString(),
+        published_date: new Date().toISOString().split('T')[0],
+        content_type: 'article', // Default type
+        read_time: reading_time, // Map to correct column
+        // word_count, // Column missing in DB
+        // structured_content // Column missing in DB
       }
       
       // Step 7: Save to database

@@ -43,8 +43,8 @@ export default function SmartRecommendationsPage() {
         switch (badge) {
             case 'best_overall': return 'bg-amber-500 text-white';
             case 'best_value': return 'bg-primary-500 text-white';
-            case 'most_popular': return 'bg-blue-500 text-white';
-            case 'editors_choice': return 'bg-purple-500 text-white';
+            case 'most_popular': return 'bg-secondary-500 text-white';
+            case 'editors_choice': return 'bg-secondary-500 text-white';
             default: return 'bg-gray-200 text-gray-700';
         }
     };

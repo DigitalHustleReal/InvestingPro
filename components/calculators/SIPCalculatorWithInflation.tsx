@@ -139,7 +139,7 @@ export function SIPCalculatorWithInflation() {
                                 <Badge variant="secondary" className="bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100">
                                     <CheckCircle2 className="w-3 h-3 mr-1" /> Free
                                 </Badge>
-                                <Badge variant="secondary" className="bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100 text-[10px]">
+                                <Badge variant="secondary" className="bg-secondary-50 text-secondary-700 border-secondary-200 hover:bg-secondary-100 text-[10px]">
                                     No Registration
                                 </Badge>
                             </div>
@@ -300,7 +300,7 @@ export function SIPCalculatorWithInflation() {
                         </div>
 
                         {/* Assumptions Section */}
-                        <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl">
+                        <div className="p-4 bg-secondary-50 border border-secondary-200 rounded-xl">
                             <div className="flex items-start gap-2 mb-3">
                                 <Info className="w-4 h-4 text-primary-600 flex-shrink-0 mt-0.5" />
                                 <h4 className="text-sm font-semibold text-slate-900">Calculator Assumptions:</h4>
@@ -551,7 +551,7 @@ export function SIPCalculatorWithInflation() {
 
                             {/* Key Insights */}
                             <div className="space-y-2">
-                                <div className="p-3 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
+                                <div className="p-3 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-secondary-100">
                                     <div className="flex items-start gap-2.5">
                                         <Sparkles className="w-4 h-4 text-primary-600 flex-shrink-0 mt-0.5" />
                                         <div>
@@ -721,7 +721,7 @@ function SEOContentSection({ calculatorType }: { calculatorType: string }) {
             </Card>
 
             {/* Assumptions */}
-            <Card className="border-0 shadow-lg rounded-2xl bg-blue-50">
+            <Card className="border-0 shadow-lg rounded-2xl bg-secondary-50">
                 <CardHeader>
                     <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
                         <Info className="w-6 h-6 text-primary-600" />

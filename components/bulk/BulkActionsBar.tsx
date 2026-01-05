@@ -113,7 +113,7 @@ export function BulkActionsBar({
             <div className="bg-slate-900 text-white rounded-lg shadow-2xl px-6 py-4 flex items-center gap-4 min-w-[500px]">
                 {/* Selection Count */}
                 <div className="flex items-center gap-2">
-                    <CheckSquare className="w-5 h-5 text-blue-400" />
+                    <CheckSquare className="w-5 h-5 text-secondary-400" />
                     <span className="font-semibold">{selectedIds.length} Selected</span>
                 </div>
 
@@ -203,7 +203,7 @@ export function BulkActionsBar({
 
                 {/* Processing Indicator */}
                 {isProcessing && (
-                    <Loader2 className="w-5 h-5 animate-spin text-blue-400" />
+                    <Loader2 className="w-5 h-5 animate-spin text-secondary-400" />
                 )}
 
                 {/* Clear Selection */}

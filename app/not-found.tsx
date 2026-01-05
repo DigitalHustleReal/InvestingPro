@@ -9,7 +9,7 @@ export default function NotFound() {
       <div className="max-w-xl w-full">
         {/* Visual Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-24 h-24 rounded-[2rem] bg-gradient-to-br from-blue-500 to-indigo-600 shadow-xl shadow-blue-500/20 mb-8 transform rotate-3">
+          <div className="inline-flex items-center justify-center w-24 h-24 rounded-[2rem] bg-gradient-to-br from-secondary-500 to-indigo-600 shadow-xl shadow-blue-500/20 mb-8 transform rotate-3">
              <span className="text-4xl font-black text-white italic">404</span>
           </div>
           <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">
@@ -30,18 +30,18 @@ export default function NotFound() {
             <Link 
               key={i}
               href={item.href}
-              className="group flex items-center justify-between p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl hover:border-blue-500 dark:hover:border-blue-500/50 hover:shadow-lg transition-all"
+              className="group flex items-center justify-between p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl hover:border-secondary-500 dark:hover:border-secondary-500/50 hover:shadow-lg transition-all"
             >
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center group-hover:bg-blue-500/10 transition-colors">
-                  <Search className="w-5 h-5 text-slate-500 group-hover:text-blue-500" />
+                <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center group-hover:bg-secondary-500/10 transition-colors">
+                  <Search className="w-5 h-5 text-slate-500 group-hover:text-secondary-500" />
                 </div>
                 <div>
                   <h3 className="font-bold text-slate-900 dark:text-white">{item.title}</h3>
                   <p className="text-sm text-slate-500">{item.description}</p>
                 </div>
               </div>
-              <ChevronRight className="w-5 h-5 text-slate-300 group-helper:text-blue-500 transition-transform group-hover:translate-x-1" />
+              <ChevronRight className="w-5 h-5 text-slate-300 group-helper:text-secondary-500 transition-transform group-hover:translate-x-1" />
             </Link>
           ))}
         </div>

@@ -194,11 +194,11 @@ export function MediaUploader({
 
             {/* Upload Tips */}
             {!uploading && !error && (
-                <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                    <h4 className="text-sm font-medium text-blue-900 mb-2">
+                <div className="mt-4 p-4 bg-secondary-50 border border-secondary-200 rounded-lg">
+                    <h4 className="text-sm font-medium text-secondary-900 mb-2">
                         💡 Upload Tips:
                     </h4>
-                    <ul className="text-sm text-blue-700 space-y-1">
+                    <ul className="text-sm text-secondary-700 space-y-1">
                         <li>• Use descriptive filenames for better SEO</li>
                         <li>• Optimize images before upload (recommended: under 500KB)</li>
                         <li>• Landscape images work best for featured images (16:9 ratio)</li>

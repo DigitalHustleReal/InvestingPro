@@ -41,8 +41,8 @@ export default function RiskAnalysis({ holdings, user }: RiskAnalysisProps) {
         moderate: {
             equity: { min: 40, max: 60 },
             debt: { min: 40, max: 60 },
-            colorClass: 'bg-blue-100 text-blue-700',
-            borderClass: 'border-blue-200'
+            colorClass: 'bg-secondary-100 text-secondary-700',
+            borderClass: 'border-secondary-200'
         },
         aggressive: {
             equity: { min: 70, max: 90 },
@@ -114,7 +114,7 @@ export default function RiskAnalysis({ holdings, user }: RiskAnalysisProps) {
                         const Icon = insight.type === 'success' ? CheckCircle2 : insight.type === 'warning' ? AlertCircle : TrendingUp;
                         const styleClass = insight.type === 'success' ? 'text-emerald-700 bg-emerald-50 border-emerald-100' :
                             insight.type === 'warning' ? 'text-amber-700 bg-amber-50 border-amber-100' :
-                                'text-blue-700 bg-blue-50 border-blue-100';
+                                'text-secondary-700 bg-secondary-50 border-secondary-100';
 
                         return (
                             <div key={idx} className={`p-3 rounded-lg border ${styleClass}`}>

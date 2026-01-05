@@ -31,14 +31,14 @@ export function SEOPreview({ title, metaDescription, slug, featuredImage }: SEOP
                 <div className="bg-white border border-gray-200 rounded-lg p-4">
                     {/* URL */}
                     <div className="flex items-center gap-2 mb-1">
-                        <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold">
+                        <div className="w-6 h-6 rounded-full bg-secondary-600 flex items-center justify-center text-white text-xs font-bold">
                             I
                         </div>
                         <span className="text-sm text-gray-600">{fullUrl}</span>
                     </div>
 
                     {/* Title */}
-                    <div className="text-blue-600 text-xl font-medium hover:underline cursor-pointer mb-1">
+                    <div className="text-secondary-600 text-xl font-medium hover:underline cursor-pointer mb-1">
                         {title || 'Your Article Title Here'}
                     </div>
 

@@ -5,11 +5,15 @@ import AdminLayout from '@/components/admin/AdminLayout';
 import AnalyticsDashboard from '@/components/admin/AnalyticsDashboard';
 import { Badge } from '@/components/ui/badge';
 import { BarChart3, TrendingUp } from 'lucide-react';
+import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
 
 export default function AnalyticsPage() {
     return (
         <AdminLayout>
             <div className="p-8 max-w-[1600px] mx-auto w-full">
+                {/* Breadcrumb */}
+                <AdminBreadcrumb />
+                
                 {/* Header */}
                 <div className="mb-10 border-b border-white/5 pb-8">
                     <div className="flex items-center justify-between">

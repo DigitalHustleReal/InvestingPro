@@ -8,28 +8,25 @@ import {
     CheckCircle2, 
     XCircle, 
     Eye, 
-    MessageSquare, 
     Clock, 
     FileText,
     AlertCircle,
-    User
+    User,
+    Inbox
 } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import {
     Dialog,
     DialogContent,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
     DialogFooter
 } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 import { formatDistanceToNow } from 'date-fns';
 import Link from 'next/link';
+import { AdminPageHeader, ContentSection, StatCard, StatusBadge, ActionButton } from '@/components/admin/AdminUIKit';
 
-// Simple supabase client for this page
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -42,7 +39,6 @@ export default function ReviewQueuePage() {
     const [dialogOpen, setDialogOpen] = useState(false);
     const [actionType, setActionType] = useState<'approve' | 'reject'>('approve');
 
-    // Fetch articles in review
     const { data: reviews = [], refetch, isLoading } = useQuery({
         queryKey: ['review-queue'],
         queryFn: async () => {
@@ -62,19 +58,16 @@ export default function ReviewQueuePage() {
         setIsSubmitting(true);
 
         try {
-            // 1. Log the review
             const { error: reviewError } = await supabase
                 .from('article_reviews')
                 .insert({
                     article_id: selectedArticle.id,
                     status: actionType === 'approve' ? 'approved' : 'changes_requested',
                     notes: reviewNotes,
-                    // reviewer_id: user.id (Requires auth context, skipping for simplicity)
                 });
 
             if (reviewError) throw reviewError;
 
-            // 2. Update article status
             const newStatus = actionType === 'approve' ? 'published' : 'draft';
             const { error: updateError } = await supabase
                 .from('articles')
@@ -106,138 +99,157 @@ export default function ReviewQueuePage() {
 
     return (
         <AdminLayout>
-            <div className="p-6 max-w-6xl mx-auto">
-                <div className="flex items-center justify-between mb-8">
-                    <div>
-                        <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-                            <CheckCircle2 className="w-8 h-8 text-indigo-600" />
-                            Editorial Review Queue
-                        </h1>
-                        <p className="text-slate-500">Approve or request changes for pending articles.</p>
-                    </div>
-                    <Badge variant="outline" className="px-4 py-1.5 text-sm">
-                        {reviews.length} Pending
-                    </Badge>
+            <div className="p-8 space-y-8">
+                <AdminPageHeader
+                    title="Review Queue"
+                    subtitle="Approve or request changes for pending articles"
+                    icon={Inbox}
+                    iconColor="purple"
+                    actions={
+                        <div className="px-4 py-2 bg-secondary-500/20 rounded-xl border border-secondary-500/30">
+                            <span className="text-secondary-400 text-sm font-medium">{reviews.length} Pending</span>
+                        </div>
+                    }
+                />
+
+                {/* Stats */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <StatCard label="Pending" value={reviews.length} icon={Clock} color="amber" />
+                    <StatCard label="Approved Today" value="--" icon={CheckCircle2} color="teal" />
+                    <StatCard label="Rejected Today" value="--" icon={XCircle} color="rose" />
+                    <StatCard label="Avg Review Time" value="--" icon={Clock} color="blue" />
                 </div>
 
                 {isLoading ? (
-                    <div className="p-12 text-center text-slate-500">Loading queue...</div>
-                ) : reviews.length === 0 ? (
-                    <div className="bg-slate-50 border-2 border-dashed border-slate-200 rounded-xl p-12 text-center flex flex-col items-center">
-                        <CheckCircle2 className="w-12 h-12 text-green-500 mb-4 opacity-20" />
-                        <h3 className="text-lg font-semibold text-slate-700">All Caught Up!</h3>
-                        <p className="text-slate-500">No articles pending review.</p>
+                    <div className="flex items-center justify-center py-20">
+                        <div className="w-10 h-10 border-4 border-secondary-500/30 border-t-purple-500 rounded-full animate-spin" />
                     </div>
+                ) : reviews.length === 0 ? (
+                    <ContentSection>
+                        <div className="text-center py-16">
+                            <div className="w-20 h-20 rounded-2xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
+                                <CheckCircle2 className="w-10 h-10 text-emerald-400" />
+                            </div>
+                            <h3 className="text-xl font-semibold text-white mb-2">All Caught Up!</h3>
+                            <p className="text-slate-400">No articles pending review.</p>
+                        </div>
+                    </ContentSection>
                 ) : (
                     <div className="grid gap-4">
                         {reviews.map((article: any) => (
-                            <div key={article.id} className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex items-start gap-6 group">
-                                <div className="p-3 bg-indigo-50 rounded-lg text-indigo-600 hidden md:block">
-                                    <FileText className="w-6 h-6" />
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <Badge variant="secondary" className="text-xs font-normal">
-                                            {article.category}
-                                        </Badge>
-                                        <span className="text-xs text-slate-400 flex items-center gap-1">
-                                            <Clock className="w-3 h-3" />
-                                            {formatDistanceToNow(new Date(article.updated_at), { addSuffix: true })}
-                                        </span>
+                            <ContentSection key={article.id}>
+                                <div className="flex flex-col md:flex-row items-start gap-6">
+                                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-secondary-500/20 to-pink-500/20 border border-secondary-500/30 flex items-center justify-center shrink-0">
+                                        <FileText className="w-7 h-7 text-secondary-400" />
                                     </div>
-                                    <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors">
-                                        {article.title}
-                                    </h3>
-                                    <p className="text-slate-500 text-sm line-clamp-2 mb-4">
-                                        {article.excerpt || 'No excerpt provided...'}
-                                    </p>
-                                    <div className="flex items-center gap-4 text-sm text-slate-500">
-                                        <div className="flex items-center gap-1">
-                                            <User className="w-4 h-4" />
-                                            <span className="text-xs">Author ID: {article.author_id?.slice(0, 6) || 'Unknown'}</span>
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            {article.category && (
+                                                <span className="px-2.5 py-1 rounded-lg text-xs font-medium bg-white/5 text-slate-400 border border-white/10">
+                                                    {article.category.replace(/-/g, ' ')}
+                                                </span>
+                                            )}
+                                            <span className="text-xs text-slate-500 flex items-center gap-1">
+                                                <Clock className="w-3 h-3" />
+                                                {formatDistanceToNow(new Date(article.updated_at), { addSuffix: true })}
+                                            </span>
+                                        </div>
+                                        <h3 className="text-lg font-bold text-white mb-2 hover:text-secondary-400 transition-colors">
+                                            {article.title}
+                                        </h3>
+                                        <p className="text-slate-400 text-sm line-clamp-2 mb-4">
+                                            {article.excerpt || 'No excerpt provided...'}
+                                        </p>
+                                        <div className="flex items-center gap-2 text-sm text-slate-500">
+                                            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-slate-600 to-slate-700 flex items-center justify-center">
+                                                <User className="w-3 h-3 text-slate-300" />
+                                            </div>
+                                            <span className="text-xs">Author: {article.author_id?.slice(0, 8) || 'Unknown'}...</span>
                                         </div>
                                     </div>
+                                    <div className="flex flex-row md:flex-col gap-2 w-full md:w-auto">
+                                        <Link href={`/admin/articles/${article.id}/edit`} className="flex-1 md:flex-none">
+                                            <button className="w-full px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors">
+                                                <Eye className="w-4 h-4" /> Review
+                                            </button>
+                                        </Link>
+                                        <button 
+                                            className="flex-1 md:flex-none px-4 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors"
+                                            onClick={() => openReviewDialog(article, 'approve')}
+                                        >
+                                            <CheckCircle2 className="w-4 h-4" /> Approve
+                                        </button>
+                                        <button 
+                                            className="flex-1 md:flex-none px-4 py-2 bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors"
+                                            onClick={() => openReviewDialog(article, 'reject')}
+                                        >
+                                            <XCircle className="w-4 h-4" /> Changes
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className="flex flex-col gap-2 min-w-[140px]">
-                                    <Link href={`/admin/articles/new?id=${article.id}`} target="_blank">
-                                        <Button variant="outline" size="sm" className="w-full justify-start">
-                                            <Eye className="w-4 h-4 mr-2" />
-                                            Review
-                                        </Button>
-                                    </Link>
-                                    <Button 
-                                        size="sm" 
-                                        className="w-full justify-start bg-green-600 hover:bg-green-700"
-                                        onClick={() => openReviewDialog(article, 'approve')}
-                                    >
-                                        <CheckCircle2 className="w-4 h-4 mr-2" />
-                                        Approve
-                                    </Button>
-                                    <Button 
-                                        variant="destructive" 
-                                        size="sm" 
-                                        className="w-full justify-start"
-                                        onClick={() => openReviewDialog(article, 'reject')}
-                                    >
-                                        <XCircle className="w-4 h-4 mr-2" />
-                                        Request Changes
-                                    </Button>
-                                </div>
-                            </div>
+                            </ContentSection>
                         ))}
                     </div>
                 )}
 
-                {/* Review Action Dialog */}
+                {/* Review Dialog */}
                 <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-                    <DialogContent>
+                    <DialogContent className="bg-slate-900 border-slate-700 text-white">
                         <DialogHeader>
-                            <DialogTitle>
+                            <DialogTitle className="text-white">
                                 {actionType === 'approve' ? 'Approve Article' : 'Request Changes'}
                             </DialogTitle>
                         </DialogHeader>
                         <div className="space-y-4 py-4">
                             {actionType === 'approve' ? (
-                                <div className="bg-green-50 p-4 rounded-lg flex items-start gap-3 text-green-800 text-sm">
+                                <div className="bg-emerald-500/10 border border-emerald-500/30 p-4 rounded-lg flex items-start gap-3 text-emerald-400 text-sm">
                                     <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
                                     <div>
                                         <p className="font-semibold">Ready to publish?</p>
-                                        <p>This will change status to 'Published' and make it live immediately.</p>
+                                        <p className="text-emerald-400/80">This will change status to 'Published' and make it live immediately.</p>
                                     </div>
                                 </div>
                             ) : (
-                                <div className="bg-amber-50 p-4 rounded-lg flex items-start gap-3 text-amber-800 text-sm">
+                                <div className="bg-amber-500/10 border border-amber-500/30 p-4 rounded-lg flex items-start gap-3 text-amber-400 text-sm">
                                     <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
                                     <div>
                                         <p className="font-semibold">Requesting Changes</p>
-                                        <p>This will send the article back to 'Draft' status for the author to revise.</p>
+                                        <p className="text-amber-400/80">This will send the article back to 'Draft' status for revision.</p>
                                     </div>
                                 </div>
                             )}
                             
                             <div className="space-y-2">
-                                <label className="text-sm font-medium">
-                                    Editorial Notes {actionType === 'reject' && <span className="text-red-500">*</span>}
+                                <label className="text-sm font-medium text-slate-300">
+                                    Editorial Notes {actionType === 'reject' && <span className="text-rose-400">*</span>}
                                 </label>
                                 <Textarea 
-                                    placeholder={actionType === 'approve' ? "Optional: Good job on..." : "Required: Please fix..."}
+                                    placeholder={actionType === 'approve' ? "Optional: Great work on..." : "Required: Please fix..."}
                                     value={reviewNotes}
                                     onChange={e => setReviewNotes(e.target.value)}
-                                    className="min-h-[100px]"
+                                    className="min-h-[100px] bg-slate-800/50 border-slate-600 text-white placeholder-slate-500"
                                 />
                             </div>
                         </div>
-                        <DialogFooter>
-                            <Button variant="ghost" onClick={() => setDialogOpen(false)} disabled={isSubmitting}>
+                        <DialogFooter className="gap-2">
+                            <button 
+                                onClick={() => setDialogOpen(false)} 
+                                disabled={isSubmitting}
+                                className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm font-medium transition-colors"
+                            >
                                 Cancel
-                            </Button>
-                            <Button 
+                            </button>
+                            <button 
                                 onClick={handleReviewAction}
                                 disabled={isSubmitting || (actionType === 'reject' && !reviewNotes.trim())}
-                                className={actionType === 'approve' ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'}
+                                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 ${
+                                    actionType === 'approve' 
+                                        ? 'bg-emerald-500 hover:bg-emerald-600 text-white' 
+                                        : 'bg-rose-500 hover:bg-rose-600 text-white'
+                                }`}
                             >
                                 {isSubmitting ? 'Processing...' : (actionType === 'approve' ? 'Confirm Approval' : 'Send Request')}
-                            </Button>
+                            </button>
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>

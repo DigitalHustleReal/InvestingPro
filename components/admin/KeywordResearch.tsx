@@ -105,8 +105,8 @@ export default function KeywordResearch({
             <div
                 className={`p-3 border rounded-lg cursor-pointer transition-all ${
                     isSelected
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-950'
-                        : 'border-gray-200 dark:border-gray-700 hover:border-blue-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                        ? 'border-secondary-500 bg-secondary-50 dark:bg-blue-950'
+                        : 'border-gray-200 dark:border-gray-700 hover:border-secondary-300 hover:bg-gray-50 dark:hover:bg-gray-800'
                 }`}
                 onClick={() => handleKeywordClick(keyword.keyword_text)}
             >
@@ -132,7 +132,7 @@ export default function KeywordResearch({
                         </div>
                     </div>
                     {isSelected && (
-                        <div className="ml-2 text-blue-500">
+                        <div className="ml-2 text-secondary-500">
                             <ArrowRight className="w-4 h-4" />
                         </div>
                     )}
@@ -192,7 +192,7 @@ export default function KeywordResearch({
                             <button
                                 className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
                                     activeTab === 'long-tail'
-                                        ? 'border-blue-500 text-primary-600'
+                                        ? 'border-secondary-500 text-primary-600'
                                         : 'border-transparent text-gray-500 hover:text-gray-700'
                                 }`}
                                 onClick={() => setActiveTab('long-tail')}
@@ -202,7 +202,7 @@ export default function KeywordResearch({
                             <button
                                 className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
                                     activeTab === 'semantic'
-                                        ? 'border-blue-500 text-primary-600'
+                                        ? 'border-secondary-500 text-primary-600'
                                         : 'border-transparent text-gray-500 hover:text-gray-700'
                                 }`}
                                 onClick={() => setActiveTab('semantic')}
@@ -212,7 +212,7 @@ export default function KeywordResearch({
                             <button
                                 className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
                                     activeTab === 'alternative'
-                                        ? 'border-blue-500 text-primary-600'
+                                        ? 'border-secondary-500 text-primary-600'
                                         : 'border-transparent text-gray-500 hover:text-gray-700'
                                 }`}
                                 onClick={() => setActiveTab('alternative')}
@@ -222,7 +222,7 @@ export default function KeywordResearch({
                             <button
                                 className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
                                     activeTab === 'lsi'
-                                        ? 'border-blue-500 text-primary-600'
+                                        ? 'border-secondary-500 text-primary-600'
                                         : 'border-transparent text-gray-500 hover:text-gray-700'
                                 }`}
                                 onClick={() => setActiveTab('lsi')}

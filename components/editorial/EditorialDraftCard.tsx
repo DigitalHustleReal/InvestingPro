@@ -158,7 +158,7 @@ export default function EditorialDraftCard({
                                         {draft.risk.toUpperCase()} RISK
                                     </Badge>
                                     {draft.ai_generated && (
-                                        <Badge className="bg-purple-100 text-purple-700 border-0 text-xs">
+                                        <Badge className="bg-secondary-100 text-secondary-700 border-0 text-xs">
                                             <Sparkles className="w-3 h-3 mr-1" />
                                             AI
                                         </Badge>
@@ -199,7 +199,7 @@ export default function EditorialDraftCard({
                                 </Badge>
                             )}
                             {dataSources.length > 0 && (
-                                <Badge className="bg-blue-100 text-blue-700 border-blue-300 text-xs">
+                                <Badge className="bg-secondary-100 text-secondary-700 border-secondary-300 text-xs">
                                     {dataSources.length} source(s)
                                 </Badge>
                             )}

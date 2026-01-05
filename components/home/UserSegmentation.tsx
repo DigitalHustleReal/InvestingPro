@@ -19,9 +19,9 @@ const UserSegmentation = () => {
             title: "New to Investing",
             desc: "Start with low-risk funds and build your first ₹1 Lakh portfolio.",
             icon: UserPlus,
-            color: "text-blue-400",
-            bg: "bg-blue-500/10",
-            border: "border-blue-500/20",
+            color: "text-secondary-400",
+            bg: "bg-secondary-500/10",
+            border: "border-secondary-500/20",
             link: "/risk-profiler",
             tag: "Safe Start"
         },
@@ -39,9 +39,9 @@ const UserSegmentation = () => {
             title: "Goal-Based Investor",
             desc: "Planned SIPs for retirement, home buying, or children's education.",
             icon: Target,
-            color: "text-purple-400",
-            bg: "bg-purple-500/10",
-            border: "border-purple-500/20",
+            color: "text-secondary-400",
+            bg: "bg-secondary-500/10",
+            border: "border-secondary-500/20",
             link: "/calculators",
             tag: "Future Proof"
         },
@@ -58,9 +58,9 @@ const UserSegmentation = () => {
     ];
 
     return (
-        <section className="py-24 bg-[#020617] relative overflow-hidden">
+        <section className="py-24 bg-white relative overflow-hidden">
             {/* Background elements */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px]" />
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-secondary-500/5 rounded-full blur-[100px]" />
             <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-primary-500/5 rounded-full blur-[100px]" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

@@ -1,136 +1,120 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { api } from '@/lib/api';
 import { articleService } from '@/lib/cms/article-service';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
-import WordPressStyleCMS from '@/components/admin/WordPressStyleCMS';
+import DarkThemeCMS from '@/components/admin/DarkThemeCMS';
+import { createClient } from '@supabase/supabase-js';
 
 export default function AdminArticlesPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState<string>('all');
     const queryClient = useQueryClient();
     const router = useRouter();
+    const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
     
-    // Fetch all articles using articleService (unified workflow)
-    const { data: articles = [], isLoading, error: articlesError } = useQuery({
+    // Fetch all articles
+    const { data: articles = [], isLoading
+    } = useQuery({
         queryKey: ['articles', 'admin'],
         queryFn: async () => {
             try {
-                // Try articleService first
-                const articles = await articleService.listArticles(500);
-                return articles;
+                return await articleService.listArticles(500);
             } catch (error: any) {
-                console.error('articleService failed, falling back to API:', error);
-                // Fallback to API method
-                try {
-                    return await api.entities.Article.list('-created_date', 500);
-                } catch (apiError: any) {
-                    console.error('API method also failed:', apiError);
-                    toast.error('Failed to load articles');
-                    return [];
-                }
+                console.error('Failed to load articles:', error);
+                toast.error('Failed to load articles');
+                return [];
             }
         },
         staleTime: 30_000,
-        gcTime: 5 * 60 * 1000,
         refetchOnMount: true,
-        refetchOnWindowFocus: true,
-        retry: 1,
     });
 
-    // Show error if articles failed to load
-    useEffect(() => {
-        if (articlesError) {
-            console.error('Articles query error:', articlesError);
-            toast.error('Failed to load articles. Check console for details.');
-        }
-    }, [articlesError]);
-
-    const handleNewArticle = () => {
-        router.push('/admin/articles/new');
-    };
-
-    const handleEdit = (id: string) => {
-        router.push(`/admin/articles/${id}/edit`);
-    };
-
+    const handleNewArticle = () => router.push('/admin/articles/new');
+    const handleGenerate = () => router.push('/admin/content-factory');
+    const handleEdit = (id: string) => router.push(`/admin/articles/${id}/edit`);
+    
     const handleDelete = async (id: string) => {
-        if (!confirm('Are you sure you want to delete this article?')) {
-            return;
-        }
         try {
-            // Use articleService to delete
             await articleService.deleteArticle(id);
             queryClient.invalidateQueries({ queryKey: ['articles', 'admin'] });
-            toast.success('Article deleted successfully');
+            toast.success('Article deleted');
         } catch (error: any) {
-            toast.error('Failed to delete article: ' + error.message);
-        }
-    };
-
-    const handleView = (id: string) => {
-        const article = articles.find(a => a.id === id);
-        if (article) {
-            if (article.status === 'published') {
-                window.open(`/articles/${article.slug}`, '_blank');
-            } else {
-                window.open(`/articles/${article.slug}?preview=true`, '_blank');
-            }
+            toast.error('Failed to delete: ' + error.message);
         }
     };
 
     const handlePublish = async (id: string) => {
         try {
             const article = articles.find(a => a.id === id);
-            if (!article) {
-                toast.error('Article not found');
-                return;
-            }
+            if (!article) return;
 
-            // Use articleService to publish
-            await articleService.publishArticle(
-                id,
-                {
-                    body_markdown: article.body_markdown || '',
-                    body_html: article.body_html || '',
-                    content: article.content || article.body_markdown || '',
-                },
-                {
-                    title: article.title,
-                    slug: article.slug,
-                    excerpt: article.excerpt || '',
-                    category: article.category || 'investing-basics',
-                }
-            );
+            await articleService.publishArticle(id, {
+                body_markdown: article.body_markdown || '',
+                body_html: article.body_html || '',
+                content: article.content || '',
+            }, {
+                title: article.title,
+                slug: article.slug,
+                excerpt: article.excerpt || '',
+                category: article.category || 'investing-basics',
+            });
 
-            queryClient.invalidateQueries({ queryKey: ['articles', 'admin'] });
-            queryClient.invalidateQueries({ queryKey: ['articles', 'public'] });
-            toast.success('Article published successfully!');
+            queryClient.invalidateQueries({ queryKey: ['articles'] });
+            toast.success('Article published!');
         } catch (error: any) {
-            toast.error('Failed to publish article: ' + error.message);
+            toast.error('Failed to publish: ' + error.message);
         }
     };
 
-    const handleGenerate = () => {
-        router.push('/admin/content-factory');
+    // Bulk Operations
+    const handleBulkPublish = async (ids: string[]) => {
+        const { error } = await supabase
+            .from('articles')
+            .update({ status: 'published', published_at: new Date().toISOString() })
+            .in('id', ids);
+        if (error) throw error;
+        queryClient.invalidateQueries({ queryKey: ['articles'] });
+    };
+
+    const handleBulkArchive = async (ids: string[]) => {
+        const { error } = await supabase
+            .from('articles')
+            .update({ status: 'archived' })
+            .in('id', ids);
+        if (error) throw error;
+        queryClient.invalidateQueries({ queryKey: ['articles'] });
+    };
+
+    const handleBulkDelete = async (ids: string[]) => {
+        const { error } = await supabase
+            .from('articles')
+            .delete()
+            .in('id', ids);
+        if (error) throw error;
+        queryClient.invalidateQueries({ queryKey: ['articles'] });
     };
 
     return (
         <AdminLayout>
             <div className="p-8">
-                <WordPressStyleCMS
+                <DarkThemeCMS
                     articles={Array.isArray(articles) ? (articles as any[]) : []}
                     isLoading={isLoading}
                     onNewArticle={handleNewArticle}
                     onGenerate={handleGenerate}
                     onEdit={handleEdit}
                     onDelete={handleDelete}
-                    onView={handleView}
                     onPublish={handlePublish}
+                    onBulkPublish={handleBulkPublish}
+                    onBulkArchive={handleBulkArchive}
+                    onBulkDelete={handleBulkDelete}
                     searchTerm={searchTerm}
                     onSearchChange={setSearchTerm}
                     filterStatus={statusFilter}

@@ -92,7 +92,7 @@ export function AIImageGenerator() {
                     <button
                         onClick={handleGenerate}
                         disabled={generating || !prompt.trim()}
-                        className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full px-6 py-3 bg-secondary-600 text-white rounded-lg hover:bg-secondary-700 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         {generating ? (
                             <>
@@ -178,7 +178,7 @@ export function AIImageGenerator() {
                             <a
                                 href={generatedUrl}
                                 download={`ai-generated-${Date.now()}.png`}
-                                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium text-center"
+                                className="px-6 py-3 bg-secondary-600 text-white rounded-lg hover:bg-secondary-700 font-medium text-center"
                             >
                                 ⬇️ Download
                             </a>
@@ -195,7 +195,7 @@ export function AIImageGenerator() {
                                 This may take 10-30 seconds
                             </p>
                             <div className="mt-4 w-64 mx-auto bg-gray-200 rounded-full h-2">
-                                <div className="bg-blue-600 h-2 rounded-full animate-pulse" style={{ width: '60%' }}></div>
+                                <div className="bg-secondary-600 h-2 rounded-full animate-pulse" style={{ width: '60%' }}></div>
                             </div>
                         </div>
                     </div>

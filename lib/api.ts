@@ -53,6 +53,35 @@ const providerHealth: Record<string, ProviderHealth> = {
 const CIRCUIT_BREAKER_THRESHOLD = 3;
 const COOLDOWN_PERIOD = 10 * 60 * 1000; // 10 minutes
 
+// Local cache to avoid DB hits on every check
+let lastHealthSync = 0;
+const HEALTH_SYNC_INTERVAL = 30 * 1000; // 30 seconds
+
+async function syncHealthFromDB() {
+    if (typeof window !== 'undefined') return; // Only on server
+    if (Date.now() - lastHealthSync < HEALTH_SYNC_INTERVAL) return;
+
+    try {
+        const { data, error } = await supabase
+            .from('ai_provider_health')
+            .select('*');
+
+        if (data && !error) {
+            data.forEach((p: any) => {
+                providerHealth[p.provider_name] = {
+                    status: p.status as any,
+                    failureCount: p.failure_count,
+                    lastError: p.last_error,
+                    lastFailureTime: p.last_failure_time ? new Date(p.last_failure_time).getTime() : undefined
+                };
+            });
+            lastHealthSync = Date.now();
+        }
+    } catch (e) {
+        console.warn('Failed to sync AI health from DB:', e);
+    }
+}
+
 function checkHealth(name: string): boolean {
     const health = providerHealth[name];
     if (health.status === 'healthy') return true;
@@ -66,7 +95,7 @@ function checkHealth(name: string): boolean {
     return false;
 }
 
-function reportFailure(name: string, error: string) {
+async function reportFailure(name: string, error: string) {
     const health = providerHealth[name];
     health.failureCount++;
     health.lastError = error;
@@ -76,12 +105,35 @@ function reportFailure(name: string, error: string) {
         health.status = 'degraded';
         logger.error(`CIRCUIT BREAKER: Provider ${name} marked as DEGRADED due to repeated failures.`, new Error(error));
     }
+
+    // Persist to DB
+    if (typeof window === 'undefined') {
+        await supabase.from('ai_provider_health').upsert({
+            provider_name: name,
+            status: health.status,
+            last_error: error,
+            last_failure_time: new Date(health.lastFailureTime).toISOString(),
+            failure_count: health.failureCount,
+            updated_at: new Date().toISOString()
+        });
+    }
 }
 
-function reportSuccess(name: string) {
+async function reportSuccess(name: string) {
     const health = providerHealth[name];
+    const wasDegraded = health.status !== 'healthy';
     health.failureCount = 0;
     health.status = 'healthy';
+
+    // Persist to DB if state changed
+    if (wasDegraded && typeof window === 'undefined') {
+        await supabase.from('ai_provider_health').upsert({
+            provider_name: name,
+            status: 'healthy',
+            failure_count: 0,
+            updated_at: new Date().toISOString()
+        });
+    }
 }
 
 /**
@@ -123,6 +175,26 @@ function extractJSON(text: string): any {
  * DO NOT write raw logic here. Delegate.
  */
 export const api = {
+    auth: {
+        me: async () => {
+            const supabase = getSupabaseClient();
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) return null;
+            
+            // Fetch public profile data
+            const { data: profile } = await supabase
+                .from('users')
+                .select('*')
+                .eq('id', user.id)
+                .single();
+                
+            return profile ? { ...user, ...profile } : user;
+        },
+        signOut: async () => {
+            const supabase = getSupabaseClient();
+            return await supabase.auth.signOut();
+        }
+    },
     integrations: {
         Core: {
             /**
@@ -155,6 +227,9 @@ export const api = {
                 const enhancedPrompt = contextData 
                     ? `${prompt}\n\nVerified Data:\n${JSON.stringify(contextData, null, 2)}`
                     : prompt;
+
+                // Sync health from DB once at start of operation
+                await syncHealthFromDB();
 
                 // 1. Try Google Gemini (Primary)
                 const geminiKey = process.env.GOOGLE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
@@ -311,12 +386,57 @@ The AI was unable to reach a provider, so we've generated this professional outl
                 };
             },
             UploadFile: async ({ file }: { file: File }) => {
-                // Mock upload for now
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                const supabase = getSupabaseClient();
+                
+                // 1. Generate unique file name
+                const fileExt = file.name.split('.').pop() || 'jpg';
+                const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 10)}.${fileExt}`;
+                const filePath = `uploads/${fileName}`;
+
+                // 2. Upload to Supabase Storage
+                const { data: uploadData, error: uploadError } = await supabase.storage
+                    .from('media')
+                    .upload(filePath, file, {
+                        cacheControl: '3600',
+                        upsert: false
+                    });
+
+                if (uploadError) {
+                    logger.error(`Supabase Storage Upload Error: ${uploadError.message}`, uploadError);
+                    throw new Error(`Upload failed: ${uploadError.message}`);
+                }
+
+                // 3. Get Public URL
+                const { data: { publicUrl } } = supabase.storage
+                    .from('media')
+                    .getPublicUrl(filePath);
+
+                // 4. Register in public.media table for gallery management
+                try {
+                    // Get current user if possible
+                    const { data: { user } } = await supabase.auth.getUser();
+                    
+                    await supabase.from('media').insert({
+                        filename: fileName,
+                        original_filename: file.name,
+                        file_path: filePath,
+                        public_url: publicUrl,
+                        mime_type: file.type,
+                        file_size: file.size,
+                        folder: 'uploads',
+                        uploaded_by: user?.id || null
+                    });
+                } catch (dbError) {
+                    // Log but don't fail the upload just because DB registration failed
+                    logger.warn('Media registered in Storage but failed to record in DB table.');
+                }
+
                 return {
-                    file_url: `https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop`
+                    file_url: publicUrl,
+                    file_path: filePath
                 };
             },
+
             getAIHealth: () => {
                 return providerHealth;
             }
@@ -396,15 +516,65 @@ The AI was unable to reach a provider, so we've generated this professional outl
 
         // Legacy entities (to be refactored in Phase 3/4)
         MutualFund: {
-            list: async () => {
-                const { data } = await supabase.from('products').select('*').eq('category', 'mutual_fund');
-                return data || [];
+            list: async (options: { 
+                page?: number; 
+                limit?: number; 
+                categoryType?: string;
+                subCategory?: string;
+                sortBy?: string;
+                searchTerm?: string;
+            } = {}) => {
+                const { page = 1, limit = 10, categoryType, subCategory, sortBy, searchTerm } = options;
+                const from = (page - 1) * limit;
+                const to = from + limit - 1;
+
+                let query = supabase
+                    .from('products')
+                    .select('*', { count: 'exact' })
+                    .eq('category', 'mutual_fund');
+                
+                if (categoryType && categoryType !== 'All') {
+                    query = query.filter('features->>category', 'eq', categoryType);
+                }
+
+                if (subCategory && subCategory !== 'All') {
+                    query = query.filter('features->>sub_category', 'eq', subCategory);
+                }
+
+                if (searchTerm) {
+                    query = query.ilike('name', `%${searchTerm}%`);
+                }
+
+                if (sortBy) {
+                    const [column, order] = sortBy.split(':');
+                    const isAscending = order === 'asc';
+                    
+                    if (column.startsWith('returns_')) {
+                        // Cast JSONB property to float for correct numeric sorting
+                        query = query.order(`features->>${column}`, { ascending: isAscending });
+                    } else {
+                        query = query.order(column, { ascending: isAscending });
+                    }
+                } else {
+                    query = query.order('rating', { ascending: false });
+                }
+
+                const { data, count, error } = await query.range(from, to);
+                
+                if (error) {
+                    logger.error('Error fetching mutual funds from Supabase', error);
+                    return { data: [], count: 0 };
+                }
+
+                return { data: data || [], count: count || 0 };
             },
             filter: async (filters: any) => {
-               // ... simplified
+               // ... kept for compatibility but the list() method is now preferred
                return [];
             }
         },
+
+
         CreditCard: {
              list: async () => {
                 const { data } = await supabase.from('products').select('*').eq('category', 'credit_card');

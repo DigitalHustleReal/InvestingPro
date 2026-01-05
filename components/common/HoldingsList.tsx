@@ -60,7 +60,7 @@ export default function HoldingsList({ holdings, onDelete }: HoldingsListProps) 
                                         <Badge variant="outline" className="text-[10px] uppercase tracking-wider">
                                             {holding.asset_type}
                                         </Badge>
-                                        <Badge className="text-[10px] bg-blue-100 text-blue-700 hover:bg-blue-100 border-0 uppercase">
+                                        <Badge className="text-[10px] bg-secondary-100 text-secondary-700 hover:bg-secondary-100 border-0 uppercase">
                                             {holding.asset_category}
                                         </Badge>
                                     </div>

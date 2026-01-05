@@ -182,7 +182,7 @@ export default function AIContentGenerator() {
         <Card>
             <CardHeader>
                 <CardTitle className="flex items-center gap-6 md:p-8">
-                    <Sparkles className="w-5 h-5 text-purple-600" />
+                    <Sparkles className="w-5 h-5 text-secondary-600" />
                     AI Content Generator
                 </CardTitle>
             </CardHeader>
@@ -262,7 +262,7 @@ export default function AIContentGenerator() {
                 <Button
                     onClick={generateArticle}
                     disabled={!topic || generating}
-                    className="w-full bg-purple-600 hover:bg-purple-700"
+                    className="w-full bg-secondary-600 hover:bg-secondary-700"
                 >
                     {generating ? (
                         <>

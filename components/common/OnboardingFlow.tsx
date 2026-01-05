@@ -63,13 +63,13 @@ const steps = [
                     Become a contributor and share your investment insights!
                 </p>
                 <div className="grid gap-4">
-                    <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200">
+                    <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-secondary-200">
                         <CardContent className="p-6 md:p-8">
                             <div className="flex items-start gap-3">
                                 <FileText className="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" />
                                 <div>
-                                    <h4 className="font-semibold text-blue-900 mb-1">Write Articles</h4>
-                                    <p className="text-sm text-blue-700">Share your investment knowledge and earn 50 points per published article</p>
+                                    <h4 className="font-semibold text-secondary-900 mb-1">Write Articles</h4>
+                                    <p className="text-sm text-secondary-700">Share your investment knowledge and earn 50 points per published article</p>
                                 </div>
                             </div>
                         </CardContent>
@@ -110,8 +110,8 @@ const steps = [
                         </div>
                     </div>
                     <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
-                        <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
-                            <TrendingUp className="w-5 h-5 text-purple-600" />
+                        <div className="w-10 h-10 rounded-lg bg-secondary-100 flex items-center justify-center">
+                            <TrendingUp className="w-5 h-5 text-secondary-600" />
                         </div>
                         <div>
                             <p className="font-medium text-slate-900">Risk Profiler</p>
@@ -119,7 +119,7 @@ const steps = [
                         </div>
                     </div>
                     <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
-                        <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-lg bg-secondary-100 flex items-center justify-center">
                             <Calculator className="w-5 h-5 text-primary-600" />
                         </div>
                         <div>
@@ -156,11 +156,11 @@ const steps = [
                         </Card>
                     </Link>
                     <Link href="/risk-assessment">
-                        <Card className="hover:shadow-md transition-shadow cursor-pointer border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50">
+                        <Card className="hover:shadow-md transition-shadow cursor-pointer border-secondary-200 bg-gradient-to-br from-purple-50 to-pink-50">
                             <CardContent className="p-6 md:p-8">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
-                                        <TrendingUp className="w-5 h-5 text-purple-600" />
+                                        <TrendingUp className="w-5 h-5 text-secondary-600" />
                                         <span className="font-medium text-slate-900">Take Risk Profiler Assessment</span>
                                     </div>
                                     <ArrowRight className="w-5 h-5 text-slate-400" />

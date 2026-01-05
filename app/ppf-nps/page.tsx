@@ -35,18 +35,18 @@ export default function PPFandNPSPage() {
             {/* Authority Hero Section */}
             <div className="bg-slate-900 border-b border-white/5 pt-28 pb-32 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-20 pointer-events-none">
-                    <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-purple-600 rounded-full blur-[140px] -translate-y-1/2" />
-                    <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-indigo-600 rounded-full blur-[100px] translate-y-1/2" />
+                    <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-secondary-600 rounded-full blur-[140px] -translate-y-1/2" />
+                    <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-primary-600 rounded-full blur-[100px] translate-y-1/2" />
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="max-w-3xl space-y-6">
-                        <div className="inline-flex items-center gap-2 bg-purple-500/10 backdrop-blur-md rounded-full px-4 py-2 border border-purple-500/20">
-                            <ShieldCheck className="w-4 h-4 text-purple-400" />
-                            <span className="text-purple-400 font-semibold text- uppercase tracking-[0.2em]">Sovereign Guaranteed Assets</span>
+                        <div className="inline-flex items-center gap-2 bg-secondary-500/10 backdrop-blur-md rounded-full px-4 py-2 border border-secondary-500/20">
+                            <ShieldCheck className="w-4 h-4 text-secondary-400" />
+                            <span className="text-secondary-400 font-semibold text- uppercase tracking-[0.2em]">Sovereign Guaranteed Assets</span>
                         </div>
                         <h1 className="text-4xl sm:text-6xl font-bold text-white tracking-tight leading-tight">
-                            Retirement <span className="text-purple-400">Tactics</span>: PPF & NPS
+                            Retirement <span className="text-secondary-400">Tactics</span>: PPF & NPS
                         </h1>
                         <p className="text-xl text-slate-400 font-medium leading-relaxed">
                             Strategic deployment into EEE-status savings and market-linked pension systems. Build your multi-generational wealth fortress.
@@ -60,8 +60,8 @@ export default function PPFandNPSPage() {
                             { icon: Target, label: "Objective", value: "Retirement" },
                             { icon: Activity, label: "Returns", value: "Benchmark+" }
                         ].map((item, i) => (
-                            <div key={i} className="flex items-center gap-3 bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-white/10 group hover:border-purple-500/50 transition-colors">
-                                <item.icon className="w-5 h-5 text-purple-400 group-hover:scale-110 transition-transform" />
+                            <div key={i} className="flex items-center gap-3 bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-white/10 group hover:border-secondary-500/50 transition-colors">
+                                <item.icon className="w-5 h-5 text-secondary-400 group-hover:scale-110 transition-transform" />
                                 <div>
                                     <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-st leading-none mb-1">{item.label}</p>
                                     <p className="text-sm font-bold text-white">{item.value}</p>
@@ -91,7 +91,7 @@ export default function PPFandNPSPage() {
                             <div className="lg:col-span-2 space-y-8">
                                 <Card className="rounded-[3rem] border-0 shadow-2xl bg-white overflow-hidden p-6 md:p-8">
                                     <div className="flex items-center gap-4 mb-8">
-                                        <div className="w-14 h-14 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600">
+                                        <div className="w-14 h-14 rounded-2xl bg-secondary-50 flex items-center justify-center text-secondary-600">
                                             <ShieldCheck className="w-7 h-7" />
                                         </div>
                                         <div>
@@ -102,8 +102,8 @@ export default function PPFandNPSPage() {
 
                                     <div className="grid md:grid-cols-3 gap-6 mb-10">
                                         {[
-                                            { label: "Interest Rate", value: "7.1%", sub: "P.A. (Tax Free)", icon: IndianRupee, color: "text-purple-600", bg: "bg-purple-50" },
-                                            { label: "Lock-in Period", value: "15 Yrs", sub: "Extendable by 5", icon: Clock, color: "text-primary-600", bg: "bg-blue-50" },
+                                            { label: "Interest Rate", value: "7.1%", sub: "P.A. (Tax Free)", icon: IndianRupee, color: "text-secondary-600", bg: "bg-secondary-50" },
+                                            { label: "Lock-in Period", value: "15 Yrs", sub: "Extendable by 5", icon: Clock, color: "text-primary-600", bg: "bg-secondary-50" },
                                             { label: "Tax Benefit", value: "EEE", sub: "80C Status", icon: Shield, color: "text-emerald-600", bg: "bg-emerald-50" },
                                         ].map((stat, i) => (
                                             <div key={i} className={`p-6 rounded-3xl ${stat.bg} border border-transparent hover:border-white/50 transition-all`}>
@@ -145,7 +145,7 @@ export default function PPFandNPSPage() {
                                             { step: "04", title: "Strategic Automation", desc: "Set up monthly standing instructions to maximize compounding before 5th of each month." },
                                         ].map((item, index) => (
                                             <div key={index} className="flex gap-6 p-6 hover:bg-slate-50 rounded-3xl transition-colors border border-transparent hover:border-slate-100">
-                                                <div className="text-4xl font-semibold text-slate-100 group-hover:text-purple-100 transition-colors uppercase tracking-st">
+                                                <div className="text-4xl font-semibold text-slate-100 group-hover:text-secondary-100 transition-colors uppercase tracking-st">
                                                     {item.step}
                                                 </div>
                                                 <div>
@@ -161,10 +161,10 @@ export default function PPFandNPSPage() {
                             {/* Calculator Sidebar */}
                             <div className="space-y-8">
                                 <Card className="rounded-[3rem] border-0 shadow-2xl bg-slate-900 text-white p-6 md:p-8 sticky top-28 overflow-hidden">
-                                    <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-[40px] -translate-y-1/2 translate-x-1/2" />
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-secondary-500/10 rounded-full blur-[40px] -translate-y-1/2 translate-x-1/2" />
                                     <div className="relative z-10">
                                         <div className="flex items-center gap-3 mb-8">
-                                            <Calculator className="w-6 h-6 text-purple-400" />
+                                            <Calculator className="w-6 h-6 text-secondary-400" />
                                             <h3 className="text-xl font-bold tracking-tight">Compounding Logic</h3>
                                         </div>
 
@@ -178,7 +178,7 @@ export default function PPFandNPSPage() {
                                             <div className="grid grid-cols-2 gap-4">
                                                 <div className="p-4 bg-white/5 rounded-2xl border border-white/5">
                                                     <p className="text-[9px] font-semibold text-slate-500 uppercase tracking-st mb-1">Capital Invested</p>
-                                                    <p className="text-lg font-bold text-blue-400">₹22.5 L</p>
+                                                    <p className="text-lg font-bold text-secondary-400">₹22.5 L</p>
                                                 </div>
                                                 <div className="p-4 bg-white/5 rounded-2xl border border-white/5">
                                                     <p className="text-[9px] font-semibold text-slate-500 uppercase tracking-st mb-1">Wealth Created</p>
@@ -186,7 +186,7 @@ export default function PPFandNPSPage() {
                                                 </div>
                                             </div>
 
-                                            <Button className="w-full h-14 rounded-2xl bg-white text-slate-900 hover:bg-purple-500 hover:text-white font-semibold uppercase tracking-widest text- transition-all">
+                                            <Button className="w-full h-14 rounded-2xl bg-white text-slate-900 hover:bg-secondary-500 hover:text-white font-semibold uppercase tracking-widest text- transition-all">
                                                 Open PPF Terminal
                                                 <ArrowUpRight className="w-4 h-4 ml-2" />
                                             </Button>
@@ -203,7 +203,7 @@ export default function PPFandNPSPage() {
                             <div className="lg:col-span-2 space-y-8">
                                 <Card className="rounded-[3rem] border-0 shadow-2xl bg-white overflow-hidden p-6 md:p-8">
                                     <div className="flex items-center gap-4 mb-8">
-                                        <div className="w-14 h-14 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600">
+                                        <div className="w-14 h-14 rounded-2xl bg-primary-50 flex items-center justify-center text-primary-600">
                                             <TrendingUp className="w-7 h-7" />
                                         </div>
                                         <div>
@@ -214,8 +214,8 @@ export default function PPFandNPSPage() {
 
                                     <div className="grid md:grid-cols-3 gap-6 mb-10">
                                         {[
-                                            { label: "Avg Returns", value: "9-12%", sub: "10Y Benchmark", icon: TrendingUp, color: "text-indigo-600", bg: "bg-indigo-50" },
-                                            { label: "Exit Maturity", value: "60 Yrs", sub: "Retirement Goal", icon: Target, color: "text-primary-600", bg: "bg-blue-50" },
+                                            { label: "Avg Returns", value: "9-12%", sub: "10Y Benchmark", icon: TrendingUp, color: "text-primary-600", bg: "bg-primary-50" },
+                                            { label: "Exit Maturity", value: "60 Yrs", sub: "Retirement Goal", icon: Target, color: "text-primary-600", bg: "bg-secondary-50" },
                                             { label: "Tier-1 Deduction", value: "₹2.0L", sub: "80C + 80CCD(1B)", icon: Zap, color: "text-emerald-600", bg: "bg-emerald-50" },
                                         ].map((stat, i) => (
                                             <div key={i} className={`p-6 rounded-3xl ${stat.bg} border border-transparent hover:border-white/50 transition-all`}>
@@ -236,11 +236,11 @@ export default function PPFandNPSPage() {
                                                 <p className="text-2xl font-bold tracking-tight mb-2">₹1,50,000</p>
                                                 <p className="text-sm text-slate-400 font-medium leading-relaxed">Integrated within the shared Section 80C umbrella for annual exemptions.</p>
                                             </div>
-                                            <div className="p-6 bg-indigo-600 text-white rounded-[2.5rem] relative overflow-hidden group">
+                                            <div className="p-6 bg-primary-600 text-white rounded-[2.5rem] relative overflow-hidden group">
                                                 <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform" />
-                                                <h4 className="text-[10px] font-semibold uppercase text-indigo-200 tracking-st mb-3">Exclusive Add-on (80CCD-1B)</h4>
+                                                <h4 className="text-[10px] font-semibold uppercase text-primary-200 tracking-st mb-3">Exclusive Add-on (80CCD-1B)</h4>
                                                 <p className="text-2xl font-bold tracking-tight mb-2">₹50,000</p>
-                                                <p className="text-sm text-indigo-100 font-medium leading-relaxed">Unique sovereign benefit available only for NPS contributors above the 80C cap.</p>
+                                                <p className="text-sm text-primary-100 font-medium leading-relaxed">Unique sovereign benefit available only for NPS contributors above the 80C cap.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -249,9 +249,9 @@ export default function PPFandNPSPage() {
                                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                         {[
                                             { name: "Equity (E)", desc: "Market Linked", color: "bg-rose-50 text-rose-600", border: 'border-rose-100' },
-                                            { name: "Corp Bond (C)", desc: "Fixed Yield", color: "bg-blue-50 text-primary-600", border: 'border-blue-100' },
+                                            { name: "Corp Bond (C)", desc: "Fixed Yield", color: "bg-secondary-50 text-primary-600", border: 'border-secondary-100' },
                                             { name: "Gov Bond (G)", desc: "Zero Risk", color: "bg-emerald-50 text-emerald-600", border: 'border-emerald-100' },
-                                            { name: "Alt Assets (A)", desc: "Global Real Estate", color: "bg-purple-50 text-purple-600", border: 'border-purple-100' },
+                                            { name: "Alt Assets (A)", desc: "Global Real Estate", color: "bg-secondary-50 text-secondary-600", border: 'border-secondary-100' },
                                         ].map((asset, index) => (
                                             <div key={index} className={`p-4 rounded-3xl ${asset.color} border ${asset.border} text-center`}>
                                                 <p className="text-xs font-semibold uppercase tracking-st mb-1">{asset.name}</p>
@@ -288,10 +288,10 @@ export default function PPFandNPSPage() {
                             {/* NPS Calculator */}
                             <div className="space-y-8">
                                 <Card className="rounded-[3rem] border-0 shadow-2xl bg-slate-900 text-white p-6 md:p-8 sticky top-28 overflow-hidden">
-                                    <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-[40px] -translate-y-1/2 translate-x-1/2" />
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/10 rounded-full blur-[40px] -translate-y-1/2 translate-x-1/2" />
                                     <div className="relative z-10">
                                         <div className="flex items-center gap-3 mb-8">
-                                            <Calculator className="w-6 h-6 text-indigo-400" />
+                                            <Calculator className="w-6 h-6 text-primary-400" />
                                             <h3 className="text-xl font-bold tracking-tight">Pension Estimator</h3>
                                         </div>
 
@@ -305,7 +305,7 @@ export default function PPFandNPSPage() {
                                             <div className="grid grid-cols-2 gap-4">
                                                 <div className="p-4 bg-white/5 rounded-2xl border border-white/5">
                                                     <p className="text-[9px] font-semibold text-slate-500 uppercase tracking-st mb-1">Monthly Pension</p>
-                                                    <p className="text-lg font-bold text-indigo-400">₹52.8k</p>
+                                                    <p className="text-lg font-bold text-primary-400">₹52.8k</p>
                                                 </div>
                                                 <div className="p-4 bg-white/5 rounded-2xl border border-white/5">
                                                     <p className="text-[9px] font-semibold text-slate-500 uppercase tracking-st mb-1">Tax-Free Lump</p>
@@ -313,7 +313,7 @@ export default function PPFandNPSPage() {
                                                 </div>
                                             </div>
 
-                                            <Button className="w-full h-14 rounded-2xl bg-white text-slate-900 hover:bg-indigo-500 hover:text-white font-semibold uppercase tracking-widest text- transition-all">
+                                            <Button className="w-full h-14 rounded-2xl bg-white text-slate-900 hover:bg-primary-500 hover:text-white font-semibold uppercase tracking-widest text- transition-all">
                                                 Initiate PRAN Enrollment
                                                 <ArrowUpRight className="w-4 h-4 ml-2" />
                                             </Button>
@@ -344,8 +344,8 @@ export default function PPFandNPSPage() {
                             <thead>
                                 <tr className="border-b border-slate-100">
                                     <th className="pb-6 text-[11px] font-semibold text-slate-400 uppercase tracking-st">Asset Parameters</th>
-                                    <th className="pb-6 text-[11px] font-semibold text-purple-600 uppercase tracking-st text-center">PPF Protocol</th>
-                                    <th className="pb-6 text-[11px] font-semibold text-indigo-600 uppercase tracking-st text-center">NPS Infrastructure</th>
+                                    <th className="pb-6 text-[11px] font-semibold text-secondary-600 uppercase tracking-st text-center">PPF Protocol</th>
+                                    <th className="pb-6 text-[11px] font-semibold text-primary-600 uppercase tracking-st text-center">NPS Infrastructure</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-50">

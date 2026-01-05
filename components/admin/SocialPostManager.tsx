@@ -105,7 +105,7 @@ export function SocialPostManager({ articleId }: SocialPostManagerProps) {
             {articleId && posts.length === 0 && !generating && (
                 <div className="text-center py-8 text-slate-500 text-sm border-2 border-dashed rounded-lg bg-slate-50">
                     <p>No social posts yet.</p>
-                    <Button variant="link" onClick={generatePosts} className="mt-2 text-purple-600">
+                    <Button variant="link" onClick={generatePosts} className="mt-2 text-secondary-600">
                         Generate with AI
                     </Button>
                 </div>
@@ -115,13 +115,13 @@ export function SocialPostManager({ articleId }: SocialPostManagerProps) {
                 {posts.map((post) => (
                     <div 
                         key={post.id} 
-                        className="border rounded-lg p-4 space-y-3 bg-white hover:border-purple-200 transition-colors group relative"
+                        className="border rounded-lg p-4 space-y-3 bg-white hover:border-secondary-200 transition-colors group relative"
                     >
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                                 {post.platform === 'twitter' && <Twitter className="w-4 h-4 text-sky-500" />}
-                                {post.platform === 'linkedin' && <Linkedin className="w-4 h-4 text-blue-700" />}
-                                {post.platform === 'facebook' && <Facebook className="w-4 h-4 text-blue-600" />}
+                                {post.platform === 'linkedin' && <Linkedin className="w-4 h-4 text-secondary-700" />}
+                                {post.platform === 'facebook' && <Facebook className="w-4 h-4 text-secondary-600" />}
                                 <span className="text-sm font-medium capitalize">{post.platform}</span>
                             </div>
                             <Badge variant="outline" className="text-xs uppercase scale-90">
@@ -147,7 +147,7 @@ export function SocialPostManager({ articleId }: SocialPostManagerProps) {
                             <Button
                                 size="sm"
                                 variant="ghost"
-                                className="h-7 text-xs text-blue-600 hover:text-blue-700"
+                                className="h-7 text-xs text-secondary-600 hover:text-secondary-700"
                             >
                                 <Save className="w-3 h-3 mr-1" />
                                 Save

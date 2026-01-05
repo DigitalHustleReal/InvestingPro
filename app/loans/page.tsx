@@ -166,7 +166,7 @@ export default function LoansPage() {
                 {/* Background Decor */}
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-500/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2 dark:bg-emerald-500/20" />
-                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3 dark:bg-blue-500/20" />
+                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-secondary-500/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3 dark:bg-secondary-500/20" />
                     <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 dark:opacity-5"></div>
                 </div>
 
@@ -221,7 +221,7 @@ export default function LoansPage() {
                         {/* Interactive Calculator Widget */}
                         <div className="flex-1 w-full max-w-md lg:max-w-lg">
                             <Card className="rounded-[2.5rem] bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xl shadow-emerald-500/10 overflow-hidden relative">
-                                <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-emerald-400 via-teal-500 to-blue-500" />
+                                <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-emerald-400 via-teal-500 to-secondary-500" />
                                 
                                 <CardContent className="p-8">
                                     <div className="flex items-center justify-between mb-8">

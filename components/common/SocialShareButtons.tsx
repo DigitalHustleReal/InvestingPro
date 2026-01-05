@@ -63,7 +63,7 @@ export default function SocialShareButtons({ title, url, description }: SocialSh
                 href={shareLinks.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg text-sm font-medium transition-colors border border-blue-200"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-secondary-50 hover:bg-secondary-100 text-secondary-700 rounded-lg text-sm font-medium transition-colors border border-secondary-200"
                 aria-label="Share on Facebook"
             >
                 <Facebook className="w-4 h-4" />

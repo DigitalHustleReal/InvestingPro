@@ -133,7 +133,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
     const getIcon = (item: SearchResult) => {
         if (item.type === 'product') return <TrendingUp className="w-5 h-5 text-emerald-400" />;
         if (item.type === 'tool') return <Loader2 className="w-5 h-5 text-amber-400" />;
-        return <FileText className="w-5 h-5 text-indigo-400" />;
+        return <FileText className="w-5 h-5 text-primary-400" />;
     };
 
     return (
@@ -152,7 +152,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                     <div className="relative flex items-center gap-4 px-6 py-5 border-b border-white/10 group">
                         <div className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent opacity-0 group-focus-within:opacity-100 transition-opacity" />
                         
-                        <Search className="w-6 h-6 text-slate-400 group-focus-within:text-indigo-400 transition-colors" />
+                        <Search className="w-6 h-6 text-slate-400 group-focus-within:text-primary-400 transition-colors" />
                         <input
                             ref={inputRef}
                             type="text"
@@ -163,7 +163,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                         />
                         
                         {isLoading ? (
-                            <Loader2 className="w-5 h-5 text-indigo-400 animate-spin" />
+                            <Loader2 className="w-5 h-5 text-primary-400 animate-spin" />
                         ) : (
                             <div className="hidden sm:flex items-center gap-1 px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] font-mono text-slate-500">
                                 <span>ESC</span>
@@ -187,7 +187,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                                         <button
                                             key={s.label}
                                             onClick={() => setQuery(s.query)}
-                                            className="px-4 py-3 rounded-xl bg-white/5 border border-white/5 hover:border-indigo-500/30 hover:bg-indigo-500/5 text-left transition-all group/s"
+                                            className="px-4 py-3 rounded-xl bg-white/5 border border-white/5 hover:border-primary-500/30 hover:bg-primary-500/5 text-left transition-all group/s"
                                         >
                                             <div className="text-xs font-semibold text-slate-300 group-hover/s:text-white transition-colors">{s.label}</div>
                                             <div className="text-[10px] text-slate-500 mt-0.5">Quick Search</div>
@@ -207,13 +207,13 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                                         className={cn(
                                             "w-full text-left px-4 py-3 rounded-xl flex items-start gap-4 transition-all duration-200 group/item",
                                             selectedIndex === index 
-                                                ? "bg-indigo-500/10 ring-1 ring-indigo-500/20" 
+                                                ? "bg-primary-500/10 ring-1 ring-indigo-500/20" 
                                                 : "hover:bg-white/5"
                                         )}
                                     >
                                         <div className={cn(
                                             "w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300",
-                                            selectedIndex === index ? "bg-indigo-500/20 scale-110" : "bg-white/5",
+                                            selectedIndex === index ? "bg-primary-500/20 scale-110" : "bg-white/5",
                                             item.type === 'product' && selectedIndex === index && "bg-emerald-500/20",
                                             item.type === 'tool' && selectedIndex === index && "bg-amber-500/20"
                                         )}>
@@ -235,14 +235,14 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                                                     "text-[9px] px-1.5 py-0.5 rounded-full uppercase tracking-wider font-bold",
                                                     item.type === 'product' ? "bg-emerald-500/10 text-emerald-400" :
                                                     item.type === 'tool' ? "bg-amber-500/10 text-amber-400" :
-                                                    "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
+                                                    "bg-primary-500/10 text-primary-400 border border-primary-500/20"
                                                 )}>
                                                     {item.type}
                                                 </span>
                                             </div>
                                             
                                             {item.provider && (
-                                                <div className="text-[10px] text-indigo-400/80 font-medium mt-0.5">{item.provider}</div>
+                                                <div className="text-[10px] text-primary-400/80 font-medium mt-0.5">{item.provider}</div>
                                             )}
 
                                             <div className="text-xs text-slate-500 line-clamp-1 mt-1 font-light leading-relaxed">
@@ -252,11 +252,11 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
 
                                         <div className={cn(
                                             "w-8 h-8 rounded-full border border-white/5 flex items-center justify-center transition-all duration-300 opacity-0 group-hover/item:opacity-100",
-                                            selectedIndex === index && "translate-x-0 opacity-100 bg-indigo-500/20 border-indigo-500/30"
+                                            selectedIndex === index && "translate-x-0 opacity-100 bg-primary-500/20 border-primary-500/30"
                                         )}>
                                             <ArrowRight className={cn(
                                                 "w-4 h-4",
-                                                selectedIndex === index ? "text-indigo-400" : "text-slate-600"
+                                                selectedIndex === index ? "text-primary-400" : "text-slate-600"
                                             )} />
                                         </div>
                                     </button>
@@ -284,7 +284,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                             </div>
                         </div>
                         
-                        <div className="flex items-center gap-2 text-[10px] text-slate-300 font-medium px-2 py-1 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/10">
+                        <div className="flex items-center gap-2 text-[10px] text-slate-300 font-medium px-2 py-1 rounded bg-primary-500/10 text-primary-400 border border-primary-500/10">
                             <Clock className="w-3 h-3" />
                             <span>Quick Access</span>
                         </div>

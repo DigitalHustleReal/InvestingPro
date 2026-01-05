@@ -23,7 +23,7 @@ export function ProgressBar({ label, percentage, color = 'emerald', showValue = 
     blue: 'bg-primary-600',
     amber: 'bg-amber-500',
     red: 'bg-red-600',
-    purple: 'bg-purple-600'
+    purple: 'bg-secondary-600'
   }
 
   return (
@@ -146,7 +146,7 @@ export function ComparisonSlider({
           <span className="text-white font-bold text-sm">{percentage}%</span>
         </div>
         <div 
-          className="absolute right-0 top-0 h-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-start pl-4"
+          className="absolute right-0 top-0 h-full bg-gradient-to-r from-secondary-500 to-secondary-600 flex items-center justify-start pl-4"
           style={{ width: `${100 - percentage}%` }}
         >
           <span className="text-white font-bold text-sm">{100 - percentage}%</span>

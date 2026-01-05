@@ -42,7 +42,7 @@ export default function HomeLoanVsSIPPage() {
                             </p>
                         </div>
                         <div>
-                            <h3 className="text-xl font-bold text-indigo-600 mb-4">Case for SIP</h3>
+                            <h3 className="text-xl font-bold text-primary-600 mb-4">Case for SIP</h3>
                             <p className="text-slate-600">
                                 Investing in equity SIPs historically yields 12-15% over long periods (10+ years). 
                                 If your loan rate is low (8-9%) and you are disciplined, you create a <strong>positive arbitrage</strong> 

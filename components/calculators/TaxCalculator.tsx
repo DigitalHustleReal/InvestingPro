@@ -99,7 +99,7 @@ export function TaxCalculator() {
                                 <Badge variant="secondary" className="bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100">
                                     <CheckCircle2 className="w-3 h-3 mr-1" /> Free
                                 </Badge>
-                                <Badge variant="secondary" className="bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100 text-[10px]">
+                                <Badge variant="secondary" className="bg-secondary-50 text-secondary-700 border-secondary-200 hover:bg-secondary-100 text-[10px]">
                                     No Registration
                                 </Badge>
                             </div>
@@ -202,20 +202,20 @@ export function TaxCalculator() {
                 {/* Right: Comparison Results Card */}
                 <Card className="border-slate-200 shadow-sm rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 relative overflow-hidden">
                     {/* Decorative gradient overlay */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-purple-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-secondary-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
-                        <div className="text-center p-6 md:p-8 bg-white rounded-xl shadow-sm border border-purple-100 mb-4">
+                        <div className="text-center p-6 md:p-8 bg-white rounded-xl shadow-sm border border-secondary-100 mb-4">
                             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">
                                 {result.betterRegime} Regime is Better
                             </p>
-                            <p className="text-3xl font-extrabold text-purple-600 mb-1">
+                            <p className="text-3xl font-extrabold text-secondary-600 mb-1">
                                 Save {formatCurrency(result.savings)}
                             </p>
                             <p className="text-xs text-slate-500">per year</p>
                         </div>
 
                         <div className="grid grid-cols-2 gap-3 mb-4">
-                            <div className="text-center p-5 bg-white rounded-2xl shadow-sm border border-blue-100">
+                            <div className="text-center p-5 bg-white rounded-2xl shadow-sm border border-secondary-100">
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Old Tax</p>
                                 <p className="text-lg font-extrabold text-primary-600">{formatCurrency(result.oldTax)}</p>
                                 <p className="text-[10px] text-slate-500 mt-1">Net: {formatCurrency(result.oldNetIncome)}</p>
@@ -291,8 +291,8 @@ export function TaxCalculator() {
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4">
-                            <div className="p-6 md:p-8 bg-blue-50 rounded-xl border border-blue-100">
-                                <p className="text-xs font-bold text-blue-900 mb-2">Old Tax Regime</p>
+                            <div className="p-6 md:p-8 bg-secondary-50 rounded-xl border border-secondary-100">
+                                <p className="text-xs font-bold text-secondary-900 mb-2">Old Tax Regime</p>
                                 <div className="space-y-1 text-xs text-slate-700">
                                     <p>Up to ₹2.5L: 0%</p>
                                     <p>₹2.5L - ₹5L: 5%</p>
@@ -313,7 +313,7 @@ export function TaxCalculator() {
                                 </div>
                             </div>
 
-                            <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
+                            <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-secondary-100">
                                 <div className="flex items-start gap-3">
                                     <Info className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
                                     <div>
@@ -399,7 +399,7 @@ function TaxSEOContentSection() {
                             }
                         ].map((step, idx) => (
                             <div key={idx} className="relative">
-                                <div className="absolute -left-2 top-0 w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center font-semibold text-">
+                                <div className="absolute -left-2 top-0 w-8 h-8 rounded-full bg-secondary-600 text-white flex items-center justify-center font-semibold text-">
                                     {step.step}
                                 </div>
                                 <div className="pl-6">
@@ -416,7 +416,7 @@ function TaxSEOContentSection() {
             <Card className="border-0 shadow-lg rounded-2xl">
                 <CardHeader>
                     <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
-                        <Info className="w-6 h-6 text-purple-600" />
+                        <Info className="w-6 h-6 text-secondary-600" />
                         Income Tax Calculator FAQs
                     </CardTitle>
                 </CardHeader>

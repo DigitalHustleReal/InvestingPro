@@ -42,7 +42,7 @@ export default function ContextualSidebar({
     return (
         <div
             className={cn(
-                "bg-[#0d1117] border-r border-white/5 flex flex-col transition-all duration-300 relative z-30",
+                "bg-surface-darker border-r border-white/5 flex flex-col transition-all duration-300 relative z-30",
                 collapsed ? 'w-20' : 'w-64'
             )}
             style={{ height: 'calc(100vh)' }}
@@ -85,26 +85,26 @@ export default function ContextualSidebar({
                                 className={cn(
                                     "w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-left relative group",
                                     active
-                                        ? 'bg-indigo-600/10 text-white shadow-[inset_0_0_20px_rgba(79,70,229,0.05)] border border-indigo-500/20'
+                                        ? 'bg-primary-600/10 text-white shadow-[inset_0_0_20px_rgba(79,70,229,0.05)] border border-primary-500/20'
                                         : 'text-slate-500 hover:bg-white/5 hover:text-slate-300'
                                 )}
                                 title={collapsed ? item.label : undefined}
                             >
                                 {active && (
-                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-indigo-500 rounded-r-full shadow-[0_0_8px_#6366f1]" />
+                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-primary-500 rounded-r-full shadow-[0_0_8px_#6366f1]" />
                                 )}
 
                                 {Icon && (
                                     <Icon className={cn(
                                         "w-5 h-5 flex-shrink-0 transition-transform group-hover:scale-110",
-                                        active ? 'text-indigo-400' : 'text-slate-500'
+                                        active ? 'text-primary-400' : 'text-slate-500'
                                     )} />
                                 )}
                                 {!collapsed && (
                                     <>
                                         <span className="flex-1 truncate text-sm font-medium">{item.label}</span>
                                         {item.badge !== undefined && item.badge > 0 && (
-                                            <span className="px-2 py-0.5 text-[10px] font-bold bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 rounded-full">
+                                            <span className="px-2 py-0.5 text-[10px] font-bold bg-primary-500/20 text-primary-400 border border-primary-500/30 rounded-full">
                                                 {item.badge}
                                             </span>
                                         )}

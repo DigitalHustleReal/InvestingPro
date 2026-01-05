@@ -91,9 +91,9 @@ const riskProfiles: Record<string, any> = {
     Conservative: {
         name: "Conservative",
         icon: Shield,
-        color: "from-blue-500 to-indigo-600",
-        bgLight: "bg-blue-50",
-        text: "text-blue-700",
+        color: "from-secondary-500 to-indigo-600",
+        bgLight: "bg-secondary-50",
+        text: "text-secondary-700",
         description: "You prefer stable, low-risk investments with predictable returns. Your priority is wealth preservation over short-term spikes.",
         recommendations: [
             { category: "Fixed Deposits & Liquid Funds", allocation: "40%", icon: Shield },
@@ -119,9 +119,9 @@ const riskProfiles: Record<string, any> = {
     Aggressive: {
         name: "Aggressive",
         icon: Zap,
-        color: "from-purple-600 to-pink-600",
-        bgLight: "bg-purple-50",
-        text: "text-purple-700",
+        color: "from-secondary-600 to-pink-600",
+        bgLight: "bg-secondary-50",
+        text: "text-secondary-700",
         description: "You seek maximum returns and can handle high volatility. You have a long-term horizon and view market dips as buying opportunities.",
         recommendations: [
             { category: "Mid & Small Cap Equities", allocation: "40%", icon: Zap },
@@ -241,16 +241,16 @@ export default function RiskProfiler() {
             {/* Authority Hero Section */}
             <div className="bg-slate-900 border-b border-white/5 pt-28 pb-32 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-20 pointer-events-none">
-                    <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-purple-600 rounded-full blur-[140px] -translate-y-1/2" />
+                    <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-secondary-600 rounded-full blur-[140px] -translate-y-1/2" />
                 </div>
 
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                    <Badge className="bg-purple-500/10 text-purple-400 border-purple-500/20 px-4 py-2 mb-8 rounded-full">
+                    <Badge className="bg-secondary-500/10 text-secondary-400 border-secondary-500/20 px-4 py-2 mb-8 rounded-full">
                         <Dna className="w-4 h-4 mr-2" />
                         <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Psychometric Analysis engine</span>
                     </Badge>
                     <h1 className="text-4xl sm:text-6xl font-bold text-white mb-6 tracking-tight leading-tight">
-                        Unlock Your <br /> <span className="text-purple-400">Investment DNA</span>
+                        Unlock Your <br /> <span className="text-secondary-400">Investment DNA</span>
                     </h1>
                     <p className="text-lg text-slate-400 max-w-2xl mx-auto font-medium leading-relaxed">
                         Our proprietary algorithm analyzes your psychology, financial capacity, and goal horizon to architect a personalized allocation strategy.
@@ -274,7 +274,7 @@ export default function RiskProfiler() {
                             </div>
                             <div className="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
                                 <div
-                                    className="bg-gradient-to-r from-purple-500 to-indigo-600 h-full transition-all duration-700 ease-out rounded-full"
+                                    className="bg-gradient-to-r from-secondary-500 to-indigo-600 h-full transition-all duration-700 ease-out rounded-full"
                                     style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
                                 />
                             </div>
@@ -303,9 +303,9 @@ export default function RiskProfiler() {
                                             />
                                             <Label
                                                 htmlFor={`q${currentQuestion.id}-${idx}`}
-                                                className="flex items-center gap-4 p-6 rounded-3xl border-2 border-slate-50 bg-slate-50/50 cursor-pointer transition-all peer-data-[state=checked]:border-purple-500 peer-data-[state=checked]:bg-white peer-data-[state=checked]:shadow-xl group-hover:bg-white group-hover:border-slate-200"
+                                                className="flex items-center gap-4 p-6 rounded-3xl border-2 border-slate-50 bg-slate-50/50 cursor-pointer transition-all peer-data-[state=checked]:border-secondary-500 peer-data-[state=checked]:bg-white peer-data-[state=checked]:shadow-xl group-hover:bg-white group-hover:border-slate-200"
                                             >
-                                                <div className="w-10 h-10 rounded-2xl bg-white border border-slate-100 flex items-center justify-center font-semibold group-hover:bg-slate-900 group-hover:text-white peer-data-[state=checked]:bg-purple-600 peer-data-[state=checked]:text-white transition-all text-">
+                                                <div className="w-10 h-10 rounded-2xl bg-white border border-slate-100 flex items-center justify-center font-semibold group-hover:bg-slate-900 group-hover:text-white peer-data-[state=checked]:bg-secondary-600 peer-data-[state=checked]:text-white transition-all text-">
                                                     {String.fromCharCode(65 + idx)}
                                                 </div>
                                                 <span className="text-lg font-bold text-slate-700 peer-data-[state=checked]:text-slate-900">
@@ -332,7 +332,7 @@ export default function RiskProfiler() {
                             <Button
                                 onClick={handleNext}
                                 disabled={!isAnswered}
-                                className={`flex-1 h-16 rounded-[1.5rem] font-bold text-white shadow-2xl transition-all uppercase tracking-widest text-[10px] active:scale-95 ${!isAnswered ? 'bg-slate-200' : 'bg-slate-900 hover:bg-purple-600 shadow-purple-500/20'}`}
+                                className={`flex-1 h-16 rounded-[1.5rem] font-bold text-white shadow-2xl transition-all uppercase tracking-widest text-[10px] active:scale-95 ${!isAnswered ? 'bg-slate-200' : 'bg-slate-900 hover:bg-secondary-600 shadow-purple-500/20'}`}
                             >
                                 {currentStep === questions.length - 1 ? 'Generate DNA Results' : 'Confirm & Continue'}
                                 <ChevronRight className="w-4 h-4 ml-2" />
@@ -382,7 +382,7 @@ export default function RiskProfiler() {
                                         {profileData.recommendations.map((rec: any, idx: number) => (
                                             <div key={idx} className="flex items-center justify-between p-6 bg-slate-50 rounded-3xl border border-transparent hover:border-slate-100 hover:bg-white transition-all group">
                                                 <div className="flex items-center gap-4">
-                                                    <div className={`w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-slate-400 group-hover:text-purple-600 transition-colors shadow-sm`}>
+                                                    <div className={`w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-slate-400 group-hover:text-secondary-600 transition-colors shadow-sm`}>
                                                         <rec.icon className="w-6 h-6" />
                                                     </div>
                                                     <span className="text-lg font-bold text-slate-900">{rec.category}</span>
@@ -420,7 +420,7 @@ export default function RiskProfiler() {
                                         ].map((next, i) => (
                                             <Link href={next.link} key={i} className="flex items-center justify-between group p-2">
                                                 <div>
-                                                    <p className="font-bold text-slate-900 group-hover:text-purple-600 transition-colors">{next.label}</p>
+                                                    <p className="font-bold text-slate-900 group-hover:text-secondary-600 transition-colors">{next.label}</p>
                                                     <p className="text-[10px] font-bold text-slate-400 uppercase mt-0.5">{next.desc}</p>
                                                 </div>
                                                 <ChevronRight className="w-4 h-4 text-slate-300 group-hover:translate-x-1 transition-transform" />
@@ -443,7 +443,7 @@ export default function RiskProfiler() {
                             <Button
                                 onClick={saveToProfile}
                                 disabled={saving}
-                                className="flex-[2] h-20 rounded-[2.5rem] bg-slate-900 hover:bg-purple-600 text-white font-bold text-xl shadow-2xl shadow-slate-900/20 active:scale-95 transition-all group"
+                                className="flex-[2] h-20 rounded-[2.5rem] bg-slate-900 hover:bg-secondary-600 text-white font-bold text-xl shadow-2xl shadow-slate-900/20 active:scale-95 transition-all group"
                             >
                                 {saving ? (
                                     <span className="animate-pulse">Synchronizing Data...</span>

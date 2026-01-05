@@ -1,0 +1,42 @@
+[dotenv@17.2.3] injecting env (14) from .env.local -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+🚦 STARTING GENERATION TEST...
+
+--------------------------------
+📘 TEST 1: Generating Glossary Term...
+✅ Glossary Insert Success!
+
+--------------------------------
+📄 TEST 2: Generating Standard Article...
+[WARN] {
+  level: 'warn',
+  message: '❌ Groq failed:',
+  timestamp: '2026-01-04T10:43:49.897Z',
+  context: 'Bad control character in string literal in JSON at position 314 (line 3 column 275)',
+  error: undefined
+}
+[WARN] {
+  level: 'warn',
+  message: '❌ Mistral failed:',
+  timestamp: '2026-01-04T10:43:55.442Z',
+  context: 'Unexpected token \'`\', "```json\n{\n"... is not valid JSON',
+  error: undefined
+}
+❌ Article Insert Failed: {
+  code: '23502',
+  details: 'Failing row contains (cb754da4-a34c-4af8-8332-eba4d8ca3a80, Benefits of SIP in 2026, benefits-of-sip-in-2026-1767523441445, investing, Explore the advantages of Systematic Investment Plans (SIPs) in ..., # Introduction\n' +
+    'In 2026, the investment landscape has evolved sig..., null, null, null, InvestingPro Editorial Team, null, 0, 0, null, null, null, null, t, 2026-01-04 10:44:01.445+00, null, t, test-runner, f, null, null, 2026-01-04 10:44:01.46883+00, 2026-01-04 10:44:01.46883+00, 57ea214d-dce7-416f-8109-d8bd9c33ce82, 2032817b-efa4-424a-8f23-c78a165c314d, Vikram Singh, Rajesh Mehta, article, t, t, Reviewed by, 2026-01-04 10:44:01.46883+00).',
+  hint: null,
+  message: 'null value in column "meta_description" of relation "blog_posts" violates not-null constraint'
+}
+
+--------------------------------
+⚖️ TEST 3: Generating Comparison Article...
+❌ Comparison Insert Failed: {
+  code: '23502',
+  details: 'Failing row contains (94657097-306b-43a8-aa0c-df6e2213d12a, FD vs Mutual Funds, fd-vs-mutual-funds-1767523447585, investing, This article compares Fixed Deposits and Mutual Funds, highlight..., # FD vs Mutual Funds\n' +
+    '\n' +
+    '## Introduction\n' +
+    '- Brief overview of Fixed ..., null, null, null, InvestingPro Editorial Team, null, 0, 0, null, null, null, null, t, 2026-01-04 10:44:07.585+00, null, t, test-runner, f, null, null, 2026-01-04 10:44:07.465185+00, 2026-01-04 10:44:07.465185+00, null, null, null, null, comparison, t, f, Reviewed by, 2026-01-04 10:44:07.465185+00).',
+  hint: null,
+  message: 'null value in column "meta_description" of relation "blog_posts" violates not-null constraint'
+}

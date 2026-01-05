@@ -26,7 +26,7 @@ export function DeviceSwitcher({ currentDevice, onDeviceChange }: DeviceSwitcher
                         onClick={() => onDeviceChange(device.id)}
                         className={`flex items-center gap-2 px-4 py-2 rounded-md transition-all ${
                             isActive
-                                ? 'bg-white text-blue-600 shadow-sm font-medium'
+                                ? 'bg-white text-secondary-600 shadow-sm font-medium'
                                 : 'text-gray-600 hover:text-gray-900'
                         }`}
                         title={`${device.label} view (${device.width})`}

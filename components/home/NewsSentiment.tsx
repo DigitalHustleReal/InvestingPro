@@ -49,7 +49,7 @@ export default function NewsSentiment() {
         <div className="space-y-4">
             <div className="flex items-center justify-between px-2">
                 <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-st flex items-center gap-2">
-                    <MessageSquare size={14} className="text-indigo-400" />
+                    <MessageSquare size={14} className="text-primary-400" />
                     News Sentiment Alpha
                 </h3>
                 <Badge variant="outline" className="text-[9px] font-bold border-slate-800 text-slate-400">LIVE FEED</Badge>
@@ -57,7 +57,7 @@ export default function NewsSentiment() {
 
             <div className="grid grid-cols-1 gap-3">
                 {newsItems.map((news) => (
-                    <Card key={news.id} className="bg-slate-900/40 border-slate-800/60 hover:border-indigo-500/30 transition-all group cursor-pointer overflow-hidden rounded-2xl">
+                    <Card key={news.id} className="bg-slate-900/40 border-slate-800/60 hover:border-primary-500/30 transition-all group cursor-pointer overflow-hidden rounded-2xl">
                         <CardContent className="p-6 md:p-8">
                             <div className="flex justify-between items-start mb-2">
                                 <div className="flex items-center gap-2">
@@ -75,7 +75,7 @@ export default function NewsSentiment() {
                                     {(news.score * 10).toFixed(1)} Sentiment
                                 </div>
                             </div>
-                            <h4 className="text-sm font-bold text-slate-200 group-hover:text-indigo-300 transition-colors leading-snug">
+                            <h4 className="text-sm font-bold text-slate-200 group-hover:text-primary-300 transition-colors leading-snug">
                                 {news.title}
                             </h4>
                             <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/5">

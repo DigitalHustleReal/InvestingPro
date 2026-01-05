@@ -33,41 +33,8 @@ const investingTypes = [
     { id: 'demat', label: 'Demat Accounts', icon: Building2 },
 ];
 
-const mockProducts = [
-    {
-        id: "1",
-        title: "SBI Bluechip Fund",
-        provider: "SBI Mutual Fund",
-        rating: 4.7,
-        badge: "Top Performer",
-        description: "Large-cap equity fund with consistent returns. 5-year return: 15.2% p.a.",
-        features: ["15.2% 5Y Return", "Large Cap", "Low Expense Ratio"],
-        href: "/investing/mutual-funds/sbi-bluechip"
-    },
-    {
-        id: "2",
-        title: "HDFC Tax Saver Fund",
-        provider: "HDFC Mutual Fund",
-        rating: 4.6,
-        badge: "Tax Saving",
-        description: "ELSS fund with tax benefits under 80C. Lock-in period: 3 years.",
-        features: ["80C Benefits", "3Y Lock-in", "12.8% 5Y Return"],
-        href: "/investing/elss/hdfc-tax-saver"
-    },
-    {
-        id: "3",
-        title: "Zerodha Demat Account",
-        provider: "Zerodha",
-        rating: 4.8,
-        badge: "Zero Brokerage",
-        description: "India's largest stock broker with zero brokerage on equity delivery.",
-        features: ["Zero Brokerage", "Free Equity Delivery", "Advanced Platform"],
-        href: "/investing/demat/zerodha"
-    },
-];
-
 export default function InvestingPage() {
-    const [products, setProducts] = useState<any[]>(mockProducts);
+    const [products, setProducts] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -75,7 +42,9 @@ export default function InvestingPage() {
             setLoading(true);
             try {
                 // Fetch mutual funds as a proxy for featured investing products
-                const data = await api.entities.MutualFund.list();
+                const response = await api.entities.MutualFund.list();
+                const data = response.data || [];
+                
                 if (data && data.length > 0) {
                     const normalized = data.slice(0, 3).map((p: any) => ({
                         id: p.id,
@@ -109,8 +78,8 @@ export default function InvestingPage() {
             <div className="relative overflow-hidden pt-32 pb-24 lg:pt-40 lg:pb-32 bg-slate-50 dark:bg-slate-900">
                 {/* Background Decor */}
                 <div className="absolute inset-0 pointer-events-none">
-                     <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-teal-500/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2 dark:bg-teal-500/20" />
-                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3 dark:bg-indigo-500/20" />
+                     <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary-500/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2 dark:bg-primary-500/20" />
+                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3 dark:bg-emerald-500/20" />
                     <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 dark:opacity-5"></div>
                 </div>
 
@@ -119,14 +88,14 @@ export default function InvestingPage() {
                         
                         {/* Hero Text */}
                         <div className="flex-1 text-center lg:text-left">
-                            <Badge className="mb-6 px-4 py-1.5 bg-teal-50 text-teal-600 dark:bg-teal-500/10 dark:text-teal-400 border border-teal-100 dark:border-teal-500/20 font-semibold uppercase tracking-wide text-[11px] inline-flex items-center gap-2 rounded-full">
+                            <Badge className="mb-6 px-4 py-1.5 bg-primary-50 text-primary-600 dark:bg-primary-500/10 dark:text-primary-400 border border-primary-100 dark:border-primary-500/20 font-semibold uppercase tracking-wide text-[11px] inline-flex items-center gap-2 rounded-full">
                                 <Coins className="w-3.5 h-3.5" />
                                 Smart Wealth Generation
                             </Badge>
                             
                             <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-8 text-slate-900 dark:text-white leading-[1.1]">
                                 Grow Your Wealth <br className="hidden lg:block" />
-                                <span className="bg-gradient-to-r from-teal-500 to-emerald-500 bg-clip-text text-transparent">With Confidence</span>
+                                <span className="bg-gradient-to-r from-primary-500 to-emerald-500 bg-clip-text text-transparent">With Confidence</span>
                             </h1>
                             
                             <p className="text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
@@ -136,7 +105,7 @@ export default function InvestingPage() {
 
                             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                                 <Link href="/mutual-funds" className="w-full sm:w-auto">
-                                    <Button className="h-14 px-8 bg-teal-600 hover:bg-teal-700 text-white rounded-2xl font-bold text-lg shadow-xl shadow-teal-600/20 w-full transition-all hover:scale-105">
+                                    <Button className="h-14 px-8 bg-primary-600 hover:bg-primary-700 text-white rounded-2xl font-bold text-lg shadow-xl shadow-primary-600/20 w-full transition-all hover:scale-105">
                                         Start Investing
                                     </Button>
                                 </Link>
@@ -175,7 +144,7 @@ export default function InvestingPage() {
                                             <ArrowUpRight size={16} /> +22.4% this year
                                         </div>
                                     </div>
-                                    <div className="w-12 h-12 bg-teal-50 dark:bg-teal-500/10 rounded-2xl flex items-center justify-center text-teal-600 dark:text-teal-400">
+                                    <div className="w-12 h-12 bg-primary-50 dark:bg-primary-500/10 rounded-2xl flex items-center justify-center text-primary-600 dark:text-primary-400">
                                         <TrendingUp size={24} />
                                     </div>
                                 </div>
@@ -213,7 +182,7 @@ export default function InvestingPage() {
                                 {/* Floating Insight Card */}
                                 <div className="absolute bottom-8 right-8 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-lg border border-slate-100 dark:border-slate-700 max-w-[180px] animate-bounce" style={{animationDuration: '4s'}}>
                                     <div className="flex items-center gap-2 mb-2">
-                                        <Gem className="w-4 h-4 text-purple-500" />
+                                        <Gem className="w-4 h-4 text-secondary-500" />
                                         <span className="text-[10px] uppercase font-bold text-slate-400">Top Pick</span>
                                     </div>
                                     <div className="text-xs font-semibold text-slate-800 dark:text-white">HDFC Mid-Cap Fund</div>
@@ -235,13 +204,13 @@ export default function InvestingPage() {
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-24">
                     {investingTypes.map((type) => (
                         <Link href={`/investing?type=${type.id}`} key={type.id}>
-                            <Card className="hover:border-teal-500 dark:hover:border-teal-500 transition-all cursor-pointer group hover:-translate-y-1 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
+                            <Card className="hover:border-primary-500 dark:hover:border-primary-500 transition-all cursor-pointer group hover:-translate-y-1 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
                                 <CardContent className="p-6 flex flex-col items-center text-center">
-                                    <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 group-hover:bg-teal-50 dark:group-hover:bg-teal-900/20 flex items-center justify-center mb-4 transition-colors">
-                                        <type.icon className="w-6 h-6 text-slate-600 dark:text-slate-400 group-hover:text-teal-600 dark:group-hover:text-teal-400" />
+                                    <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 group-hover:bg-primary-50 dark:group-hover:bg-primary-900/20 flex items-center justify-center mb-4 transition-colors">
+                                        <type.icon className="w-6 h-6 text-slate-600 dark:text-slate-400 group-hover:text-primary-600 dark:group-hover:text-primary-400" />
                                     </div>
                                     <div className="font-bold text-slate-900 dark:text-white mb-1">{type.label}</div>
-                                    <div className="text-xs text-teal-600 dark:text-teal-400 font-semibold">High Growth</div>
+                                    <div className="text-xs text-primary-600 dark:text-primary-400 font-semibold">High Growth</div>
                                 </CardContent>
                             </Card>
                         </Link>
@@ -262,12 +231,12 @@ export default function InvestingPage() {
                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                     {products.map((product) => (
                         <Link href={product.href} key={product.id}>
-                            <Card className="h-full hover:border-teal-500 dark:hover:border-teal-500 transition-all cursor-pointer hover:-translate-y-1 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 group">
+                            <Card className="h-full hover:border-primary-500 dark:hover:border-primary-500 transition-all cursor-pointer hover:-translate-y-1 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 group">
                                 <CardContent className="p-6">
                                     {/* Badge */}
                                     {product.badge && (
                                         <div className="inline-block mb-4">
-                                            <Badge className="bg-teal-50 text-teal-600 dark:bg-teal-500/10 dark:text-teal-400 border border-teal-100 dark:border-teal-500/20 font-semibold text-xs px-3 py-1">
+                                            <Badge className="bg-primary-50 text-primary-600 dark:bg-primary-500/10 dark:text-primary-400 border border-primary-100 dark:border-primary-500/20 font-semibold text-xs px-3 py-1">
                                                 {product.badge}
                                             </Badge>
                                         </div>
@@ -278,7 +247,7 @@ export default function InvestingPage() {
                                         <div className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wide mb-2">
                                             {product.provider}
                                         </div>
-                                        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                                        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                                             {product.title}
                                         </h3>
                                         
@@ -304,14 +273,14 @@ export default function InvestingPage() {
                                     <ul className="space-y-2 mb-6">
                                         {(product.features || []).map((feature: string, i: number) => (
                                             <li key={i} className="flex items-start text-sm">
-                                                <CheckCircle2 className="w-4 h-4 text-teal-500 mr-2 flex-shrink-0 mt-0.5" />
+                                                <CheckCircle2 className="w-4 h-4 text-primary-500 mr-2 flex-shrink-0 mt-0.5" />
                                                 <span className="text-slate-700 dark:text-slate-300">{feature}</span>
                                             </li>
                                         ))}
                                     </ul>
                                     
                                     {/* CTA */}
-                                    <Button className="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-xl">
+                                    <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl">
                                         Invest Now
                                         <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                                     </Button>

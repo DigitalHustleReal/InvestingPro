@@ -177,8 +177,8 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
                   {formatINR(results.totalInvested, { compact: true })}
                 </p>
               </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <IndianRupee className="w-6 h-6 text-blue-600" />
+              <div className="w-12 h-12 bg-secondary-100 rounded-lg flex items-center justify-center">
+                <IndianRupee className="w-6 h-6 text-secondary-600" />
               </div>
             </div>
 
@@ -204,7 +204,7 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
             <p className="text-xs font-semibold text-stone-700 mb-2">Investment Composition</p>
             <div className="h-8 flex rounded-lg overflow-hidden">
               <div
-                className="bg-blue-500 flex items-center justify-center text-white text-xs font-semibold"
+                className="bg-secondary-500 flex items-center justify-center text-white text-xs font-semibold"
                 style={{
                   width: `${(results.totalInvested / results.futureValue) * 100}%`,
                 }}

@@ -93,7 +93,7 @@ export default function IPOPage() {
     const getStatusColor = (status: string) => {
         switch(status) {
             case 'open': return 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400 border-emerald-100 dark:border-emerald-500/20';
-            case 'upcoming': return 'bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400 border-blue-100 dark:border-blue-500/20';
+            case 'upcoming': return 'bg-primary-50 text-primary-600 dark:bg-primary-500/10 dark:text-primary-400 border-primary-100 dark:border-primary-500/20';
             case 'closed': return 'bg-slate-100 text-slate-600 dark:bg-slate-500/10 dark:text-slate-400 border-slate-200 dark:border-slate-500/20';
             default: return 'bg-slate-100 text-slate-600 dark:bg-slate-500/10 dark:text-slate-400';
         }
@@ -123,7 +123,7 @@ export default function IPOPage() {
         return (
             <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
                 <div className="text-center">
-                    <RefreshCw className="w-12 h-12 text-indigo-500 animate-spin mx-auto mb-4" />
+                    <RefreshCw className="w-12 h-12 text-primary-500 animate-spin mx-auto mb-4" />
                     <p className="text-slate-600 dark:text-slate-400">Loading IPO data...</p>
                 </div>
             </div>
@@ -141,7 +141,7 @@ export default function IPOPage() {
                         <p className="text-slate-600 dark:text-slate-400 mb-4">
                             {error instanceof Error ? error.message : 'Unknown error occurred'}
                         </p>
-                        <Button onClick={() => refetch()} className="bg-indigo-600 hover:bg-indigo-700">
+                        <Button onClick={() => refetch()} className="bg-primary-600 hover:bg-primary-700">
                             <RefreshCw className="w-4 h-4 mr-2" />
                             Try Again
                         </Button>
@@ -162,20 +162,20 @@ export default function IPOPage() {
             <div className="relative overflow-hidden pt-32 pb-24 lg:pt-40 lg:pb-32">
                 {/* Background Decor */}
                 <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-indigo-500/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2 dark:bg-indigo-500/20" />
-                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3 dark:bg-purple-500/20" />
+                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary-500/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2 dark:bg-primary-500/20" />
+                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3 dark:bg-emerald-500/20" />
                 </div>
 
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="max-w-4xl mx-auto text-center">
-                        <Badge className="mb-6 px-4 py-1.5 bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-500/20 font-semibold uppercase tracking-wide text-[11px] inline-flex items-center gap-2 rounded-full">
+                        <Badge className="mb-6 px-4 py-1.5 bg-primary-50 text-primary-600 dark:bg-primary-500/10 dark:text-primary-400 border border-primary-100 dark:border-primary-500/20 font-semibold uppercase tracking-wide text-[11px] inline-flex items-center gap-2 rounded-full">
                             <Activity className="w-3.5 h-3.5" />
                             Live Market Data
                         </Badge>
                         
                         <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-8 text-slate-900 dark:text-white leading-[1.1]">
                             IPO Calendar & <br className="hidden lg:block" />
-                            <span className="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">GMP Tracker</span>
+                            <span className="bg-gradient-to-r from-primary-500 to-emerald-500 bg-clip-text text-transparent">GMP Tracker</span>
                         </h1>
                         
                         <p className="text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed">
@@ -236,7 +236,7 @@ export default function IPOPage() {
                             <TabsTrigger value="open" className="data-[state=active]:bg-emerald-500 data-[state=active]:text-white">
                                 Open Now
                             </TabsTrigger>
-                            <TabsTrigger value="upcoming" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">
+                            <TabsTrigger value="upcoming" className="data-[state=active]:bg-primary-500 data-[state=active]:text-white">
                                 Upcoming
                             </TabsTrigger>
                             <TabsTrigger value="closed" className="data-[state=active]:bg-slate-500 data-[state=active]:text-white">
@@ -269,13 +269,13 @@ export default function IPOPage() {
                                 : 0;
 
                             return (
-                                <Card key={ipo.id} className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all hover:shadow-xl rounded-3xl overflow-hidden group">
+                                <Card key={ipo.id} className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-primary-500 dark:hover:border-primary-500 transition-all hover:shadow-xl rounded-3xl overflow-hidden group">
                             <CardContent className="p-0">
                                 <div className="flex flex-col lg:flex-row">
                                     {/* Left: Company Info */}
                                     <div className="lg:w-72 p-8 border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50">
                                         <div className="flex items-start gap-4">
-                                            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
+                                            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-emerald-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
                                                                 {ipo.companyName.substring(0, 3).toUpperCase()}
                                             </div>
                                             <div className="flex-1 min-w-0">
@@ -379,7 +379,7 @@ export default function IPOPage() {
 
                                     {/* Right: Actions */}
                                     <div className="lg:w-48 p-8 border-t lg:border-t-0 lg:border-l border-slate-100 dark:border-slate-800 flex flex-col justify-center gap-3">
-                                        <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl">
+                                        <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-xl">
                                             View Details
                                         </Button>
                                         <Button variant="outline" className="w-full border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl">
@@ -398,7 +398,7 @@ export default function IPOPage() {
                 <div className="grid md:grid-cols-2 gap-6">
                     <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-3xl">
                         <CardContent className="p-8">
-                            <Sparkles className="w-8 h-8 text-indigo-500 mb-4" />
+                            <Sparkles className="w-8 h-8 text-primary-500 mb-4" />
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">What is Grey Market Premium (GMP)?</h3>
                             <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
                                 GMP is the price at which IPO shares trade in the unofficial "grey market" before listing. 
@@ -409,7 +409,7 @@ export default function IPOPage() {
 
                     <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-3xl">
                         <CardContent className="p-8">
-                            <BarChart3 className="w-8 h-8 text-purple-500 mb-4" />
+                            <BarChart3 className="w-8 h-8 text-emerald-500 mb-4" />
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Understanding Subscription Data</h3>
                             <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
                                 QIB (banks/funds), NII (wealthy investors), and Retail subscription numbers help gauge 

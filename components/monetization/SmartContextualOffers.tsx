@@ -56,7 +56,7 @@ export default function SmartContextualOffers({
         <div className="my-12 p-8 bg-slate-900 rounded-3xl border border-slate-700 shadow-2xl relative overflow-hidden">
             {/* Background elements */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl -mr-32 -mt-32" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -ml-32 -mb-32" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary-500/10 rounded-full blur-3xl -ml-32 -mb-32" />
 
             <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-6">

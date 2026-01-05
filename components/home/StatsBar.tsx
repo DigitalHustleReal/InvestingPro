@@ -60,7 +60,7 @@ export function StatsBar() {
             icon={Shield}
             value="100%"
             label="Unbiased Reviews"
-            iconColor="bg-blue-600"
+            iconColor="bg-secondary-600"
           />
         </div>
       </div>

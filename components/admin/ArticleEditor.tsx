@@ -118,12 +118,7 @@ export default function ArticleEditor({
     const editor = useEditor({
         extensions: [
             StarterKit.configure({
-                history: { depth: 50 },
                 heading: { levels: [1, 2, 3, 4] }, // H1-H4 support
-                link: {
-                    openOnClick: false,
-                    HTMLAttributes: { class: 'text-primary-600 underline' },
-                },
             }),
             Table.configure({
                 resizable: true,
@@ -142,7 +137,21 @@ export default function ArticleEditor({
         immediatelyRender: false,
         editorProps: {
             attributes: {
-                class: `prose prose-slate max-w-none focus:outline-none min-h-[400px] p-4 ${className}`,
+                class: `prose prose-slate dark:prose-invert max-w-none focus:outline-none min-h-[400px] p-4 
+                text-slate-900 dark:text-slate-100 
+                [&_h1]:text-slate-900 dark:[&_h1]:text-white 
+                [&_h2]:text-slate-900 dark:[&_h2]:text-white 
+                [&_h3]:text-slate-900 dark:[&_h3]:text-white 
+                [&_h4]:text-slate-900 dark:[&_h4]:text-white
+                [&_p]:text-slate-700 dark:[&_p]:text-slate-300 
+                [&_ul]:text-slate-700 dark:[&_ul]:text-slate-300 
+                [&_ol]:text-slate-700 dark:[&_ol]:text-slate-300 
+                [&_li]:text-slate-700 dark:[&_li]:text-slate-300 
+                [&_strong]:text-slate-900 dark:[&_strong]:text-white 
+                [&_blockquote]:text-slate-600 dark:[&_blockquote]:text-slate-400 [&_blockquote]:border-slate-300 dark:[&_blockquote]:border-slate-700
+                [&_code]:text-slate-800 dark:[&_code]:text-slate-200 [&_code]:bg-slate-100 dark:[&_code]:bg-slate-800 [&_code]:px-1 [&_code]:rounded
+                [&_a]:text-primary-600 dark:[&_a]:text-primary-400 [&_a]:no-underline hover:[&_a]:underline
+                ${className}`,
                 'data-placeholder': placeholder,
             },
         },
@@ -171,7 +180,7 @@ export default function ArticleEditor({
         if (!editor || !isReady || hasInitializedRef.current) return;
 
         if (normalizedContent.html) {
-            editor.commands.setContent(normalizedContent.html, false);
+            editor.commands.setContent(normalizedContent.html, { emitUpdate: false });
         }
         
         hasInitializedRef.current = true;
@@ -224,15 +233,15 @@ export default function ArticleEditor({
     }
 
     return (
-        <div className="border border-slate-300 rounded-lg bg-white overflow-hidden">
+        <div className="border border-slate-200 dark:border-slate-800 rounded-lg bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl overflow-hidden shadow-sm dark:shadow-2xl transition-colors duration-300">
             {/* Toolbar */}
             {editable && (
-                <div className="border-b border-slate-200 p-2 flex flex-wrap gap-1 bg-slate-50">
+                <div className="border-b border-slate-200 dark:border-slate-800 p-2 flex flex-wrap gap-1 bg-slate-50/50 dark:bg-slate-900/50 transition-colors duration-300">
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-                        className={editor.isActive('heading', { level: 1 }) ? 'bg-slate-200' : ''}
+                        className={editor.isActive('heading', { level: 1 }) ? 'bg-slate-200 text-teal-600 dark:bg-slate-800 dark:text-teal-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
                     >
                         <Heading1 className="w-4 h-4" />
                     </Button>
@@ -240,7 +249,7 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-                        className={editor.isActive('heading', { level: 2 }) ? 'bg-slate-200' : ''}
+                        className={editor.isActive('heading', { level: 2 }) ? 'bg-slate-200 text-teal-600 dark:bg-slate-800 dark:text-teal-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
                     >
                         <Heading2 className="w-4 h-4" />
                     </Button>
@@ -248,16 +257,16 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-                        className={editor.isActive('heading', { level: 3 }) ? 'bg-slate-200' : ''}
+                        className={editor.isActive('heading', { level: 3 }) ? 'bg-slate-200 text-teal-600 dark:bg-slate-800 dark:text-teal-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
                     >
                         <Heading3 className="w-4 h-4" />
                     </Button>
-                    <div className="w-px h-6 bg-slate-300 mx-1" />
+                    <div className="w-px h-6 bg-slate-200 dark:bg-slate-800 mx-1" />
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleBold().run()}
-                        className={editor.isActive('bold') ? 'bg-slate-200' : ''}
+                        className={editor.isActive('bold') ? 'bg-slate-200 text-teal-600 dark:bg-slate-800 dark:text-teal-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
                     >
                         <Bold className="w-4 h-4" />
                     </Button>
@@ -265,7 +274,7 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleItalic().run()}
-                        className={editor.isActive('italic') ? 'bg-slate-200' : ''}
+                        className={editor.isActive('italic') ? 'bg-slate-200 text-teal-600 dark:bg-slate-800 dark:text-teal-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
                     >
                         <Italic className="w-4 h-4" />
                     </Button>
@@ -273,16 +282,16 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleCode().run()}
-                        className={editor.isActive('code') ? 'bg-slate-200' : ''}
+                        className={editor.isActive('code') ? 'bg-slate-200 text-teal-600 dark:bg-slate-800 dark:text-teal-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
                     >
                         <Code className="w-4 h-4" />
                     </Button>
-                    <div className="w-px h-6 bg-slate-300 mx-1" />
+                    <div className="w-px h-6 bg-slate-200 dark:bg-slate-800 mx-1" />
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleBulletList().run()}
-                        className={editor.isActive('bulletList') ? 'bg-slate-200' : ''}
+                        className={editor.isActive('bulletList') ? 'bg-slate-200 text-teal-600 dark:bg-slate-800 dark:text-teal-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
                     >
                         <List className="w-4 h-4" />
                     </Button>
@@ -290,7 +299,7 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleOrderedList().run()}
-                        className={editor.isActive('orderedList') ? 'bg-slate-200' : ''}
+                        className={editor.isActive('orderedList') ? 'bg-slate-200 text-teal-600 dark:bg-slate-800 dark:text-teal-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
                     >
                         <ListOrdered className="w-4 h-4" />
                     </Button>
@@ -298,16 +307,16 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleBlockquote().run()}
-                        className={editor.isActive('blockquote') ? 'bg-slate-200' : ''}
+                        className={editor.isActive('blockquote') ? 'bg-slate-200 text-teal-600 dark:bg-slate-800 dark:text-teal-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
                     >
                         <Quote className="w-4 h-4" />
                     </Button>
-                    <div className="w-px h-6 bg-slate-300 mx-1" />
+                    <div className="w-px h-6 bg-slate-200 dark:bg-slate-800 mx-1" />
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={addLink}
-                        className={editor.isActive('link') ? 'bg-slate-200' : ''}
+                        className={editor.isActive('link') ? 'bg-slate-200 text-teal-600 dark:bg-slate-800 dark:text-teal-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
                     >
                         <LinkIcon className="w-4 h-4" />
                     </Button>
@@ -315,6 +324,7 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={addSemanticImage}
+                        className="text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800"
                     >
                         <ImageIcon className="w-4 h-4" />
                     </Button>
@@ -322,6 +332,7 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={insertTable}
+                        className="text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800"
                     >
                         <Grid3x3 className="w-4 h-4" />
                     </Button>
@@ -329,6 +340,7 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().setHorizontalRule().run()}
+                        className="text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800"
                     >
                         <Minus className="w-4 h-4" />
                     </Button>
@@ -336,7 +348,9 @@ export default function ArticleEditor({
             )}
 
             {/* Editor Content */}
-            <EditorContent editor={editor} />
+            <div className="bg-white/30 dark:bg-surface-darker/30 transition-colors duration-300">
+                <EditorContent editor={editor} />
+            </div>
         </div>
     );
 }
