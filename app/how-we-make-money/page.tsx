@@ -2,6 +2,7 @@ import React from 'react';
 import { Shield, ExternalLink, Check, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import SEOHead from '@/components/common/SEOHead';
+import { STAT_STRINGS } from '@/lib/constants/platform-stats';
 
 export default function HowWeMakeMoneyPage() {
     return (
@@ -196,7 +197,7 @@ export default function HowWeMakeMoneyPage() {
                         Ready to Find Your Best Financial Product?
                     </h3>
                     <p className="text-stone-600 dark:text-slate-400 mb-6">
-                        We've already helped 2.1M+ Indians save money. You're next.
+                        {STAT_STRINGS.testimonial}
                     </p>
                     <Link
                         href="/"

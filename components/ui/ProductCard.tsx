@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/Button";
 import { CheckCircle2, Star, ChevronRight, Info } from "lucide-react";
 import { FinancialProduct, CreditCard, Loan, MutualFund } from "@/types";
 import { formatCurrency, formatPercentage } from "@/lib/utils";
+import BestForBadge from "@/components/products/BestForBadge";
+import AffiliateDisclosure from '@/components/common/AffiliateDisclosure';
 
 interface ProductCardProps {
     product: FinancialProduct;
@@ -51,6 +53,12 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
                             <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">
                                 <Link href={product.applyLink}>{product.name}</Link>
                             </h3>
+                            {/* Best For Badge */}
+                            {product.bestFor && (
+                                <div className="mt-2">
+                                    <BestForBadge category={product.bestFor} size="sm" />
+                                </div>
+                            )}
                         </div>
                         <div className="flex items-center bg-amber-50 px-2 py-1 rounded text-amber-700 text-sm font-bold border border-amber-100">
                             {product.rating} <Star className="w-3 h-3 ml-1 fill-amber-500 text-amber-500" />
@@ -88,9 +96,17 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
 
                 {/* Right: Actions */}
                 <div className="md:w-1/5 flex flex-col justify-center gap-3 border-t md:border-t-0 border-gray-100 pt-4 md:pt-0">
-                    <Button className="w-full bg-primary-600 hover:bg-emerald-700 text-white font-semibold">
-                        Apply Now
-                    </Button>
+                    <div className="flex flex-col gap-1">
+                        <Button className="w-full bg-primary-600 hover:bg-emerald-700 text-white font-semibold">
+                            Apply Now
+                        </Button>
+                        {/* Affiliate Disclosure - FTC Compliance */}
+                        <AffiliateDisclosure 
+                            variant="button" 
+                            hasAffiliateLink={!!product.applyLink}
+                        />
+                    </div>
+                    
                     <Link href={`/${product.category.replace('_', '-')}s/${product.id}`} className="w-full">
                         <Button variant="outline" className="w-full text-xs h-9">
                             View Details

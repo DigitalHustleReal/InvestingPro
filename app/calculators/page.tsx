@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import SEOHead from "@/components/common/SEOHead";
 import { CategoryHero } from "@/components/common/CategoryHero";
 import { CategoryCTA } from "@/components/common/CTAButton";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -47,28 +48,54 @@ export default function CalculatorsPage() {
                 description="Free financial calculators with inflation adjustment. Calculate SIP returns, SWP withdrawals, EMI for loans, income tax, retirement corpus, FD maturity, PPF, NPS and more. Best calculator tools for financial planning in India."
             />
             
-            <CategoryHero
-                title="Financial Tools"
-                subtitle="Free Calculators & Tools"
-                description="Plan your investments, calculate EMIs, taxes, and retirement with our comprehensive calculators. All calculators include inflation-adjusted projections."
-                badge="12 Free Tools"
-                badgeIcon={<Calculator className="w-3 h-3" />}
-                gradient="teal"
-                primaryCTA={{
-                    href: "/calculators?type=sip",
-                    text: "Start Calculating"
-                }}
-                secondaryCTA={{
-                    href: "/credit-score",
-                    text: "Check Credit Score"
-                }}
-                stats={[
-                    { label: "Calculators", value: "12+", icon: <Calculator className="w-5 h-5" /> },
-                    { label: "Inflation Adjusted", value: "All", icon: <Percent className="w-5 h-5" /> },
-                    { label: "Free Forever", value: "100%", icon: <CheckCircle2 className="w-5 h-5" /> },
-                    { label: "Updated Daily", value: "24/7", icon: <Clock className="w-5 h-5" /> }
-                ]}
-            />
+            {/* Light Theme Hero Section - Consistent with Platform */}
+            <div className="bg-white border-b border-slate-200 pt-28 pb-20 relative overflow-hidden">
+                {/* Subtle background decoration */}
+                <div className="absolute inset-0 opacity-10 pointer-events-none">
+                    <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-teal-500 rounded-full blur-[140px] -translate-y-1/2" />
+                </div>
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="max-w-3xl mx-auto text-center">
+                        {/* Badge */}
+                        <Badge className="mb-6 bg-teal-50 text-teal-700 border-teal-200 px-4 py-2 uppercase tracking-widest text-xs font-bold inline-flex items-center gap-2">
+                            <Calculator className="w-3 h-3" />
+                            12 Free Tools
+                        </Badge>
+
+                        {/* Title */}
+                        <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 tracking-tight leading-tight">
+                            Financial Calculators
+                            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-blue-600 mt-2">
+                                Plan Your Future
+                            </span>
+                        </h1>
+
+                        {/* Description */}
+                        <p className="text-lg text-slate-600 mb-8 leading-relaxed max-w-2xl mx-auto">
+                            Plan your investments, calculate EMIs, taxes, and retirement with our comprehensive calculators. All tools include inflation-adjusted projections.
+                        </p>
+
+                        {/* Stats */}
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+                            {[
+                                { label: "Calculators", value: "12+", icon: <Calculator className="w-5 h-5" /> },
+                                { label: "Inflation Adjusted", value: "All", icon: <Percent className="w-5 h-5" /> },
+                                { label: "Free Forever", value: "100%", icon: <CheckCircle2 className="w-5 h-5" /> },
+                                { label: "Updated Daily", value: "24/7", icon: <Clock className="w-5 h-5" /> }
+                            ].map((stat, idx) => (
+                                <div key={idx} className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                                    <div className="text-teal-600 mb-2 flex justify-center">{stat.icon}</div>
+                                    <div className="text-2xl font-bold text-slate-900 mb-1">{stat.value}</div>
+                                    <div className="text-xs text-slate-600 fond-medium uppercase tracking-wider">
+                                        {stat.label}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             {/* Calculators */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

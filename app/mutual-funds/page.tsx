@@ -196,26 +196,26 @@ export default function MutualFundsPage() {
                     structuredData={structuredData}
                 />
 
-            {/* Authority Hero Section */}
-            <div className="bg-slate-900 border-b border-white/5 pt-28 pb-20 relative overflow-hidden">
-                <div className="absolute inset-0 opacity-20 pointer-events-none">
-                     <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-emerald-600 rounded-full blur-[140px] -translate-y-1/2" />
+            {/* Light Theme Hero Section - Consistent with Platform */}
+            <div className="bg-white border-b border-slate-200 pt-28 pb-20 relative overflow-hidden">
+                <div className="absolute inset-0 opacity-10 pointer-events-none">
+                     <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-teal-500 rounded-full blur-[140px] -translate-y-1/2" />
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                    <Badge className="mb-6 bg-slate-800 text-emerald-400 border-emerald-500/20 px-4 py-1.5 uppercase tracking-widest text-xs font-bold">
-                        Alpha Discovery v2.0
+                    <Badge className="mb-6 bg-teal-50 text-teal-700 border-teal-200 px-4 py-1.5 uppercase tracking-widest text-xs font-bold">
+                        Data-Driven Fund Analysis
                     </Badge>
-                     <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
-                        Find the <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">Perfect Fund</span>
+                     <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight leading-tight mb-6">
+                        Find Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-blue-600">Perfect Mutual Fund</span>
                     </h1>
                      <div className="relative group max-w-xl mx-auto">
                         <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-                            <Search className="h-5 w-5 text-slate-500 group-focus-within:text-emerald-400 transition-colors" />
+                            <Search className="h-5 w-5 text-slate-400 group-focus-within:text-teal-600 transition-colors" />
                         </div>
                         <Input
-                            placeholder="Data Search: Fund Name, ISIN, or Manager Code..."
-                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 text-white placeholder:text-slate-400 focus:border-emerald-500/50 transition-all font-medium"
+                            placeholder="Search by fund name, AMC, or category..."
+                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white border border-slate-200 text-slate-900 placeholder:text-slate-500 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all"
                             value={searchTerm}
                             onChange={(e) => {
                                 setSearchTerm(e.target.value);

@@ -11,6 +11,7 @@ export interface Product {
   applyLink: string;
   isPopular?: boolean;
   isSponsored?: boolean;
+  bestFor?: string; // NEW: Category ID from BEST_FOR_CATEGORIES (e.g., 'travel-rewards')
 }
 
 // ------------------------------------------

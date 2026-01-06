@@ -12,10 +12,9 @@ import ErrorBoundaryProvider from "@/components/providers/ErrorBoundaryProvider"
 import PageErrorBoundary from "@/components/common/PageErrorBoundary";
 import { Toaster } from "@/components/ui/toaster";
 import { getNavigation } from "@/lib/navigation/service";
-import InfiniteTicker from "@/components/market/InfiniteTicker";
 import { SearchProvider } from "@/components/search/SearchProvider";
-import { CompareProvider } from "@/components/products/CompareContext";
-import CompareFloatingBar from "@/components/products/CompareFloatingBar";
+import { CompareProvider } from "@/contexts/CompareContext";
+import CompareBar from "@/components/compare/CompareBar";
 
 // Font configurations with CSS variables
 const inter = Inter({ 
@@ -72,14 +71,13 @@ export default async function RootLayout({
                 <Suspense fallback={null}>
                   <Analytics />
                 </Suspense>
-                {/* <InfiniteTicker /> */}
                 <Navbar initialConfig={navConfig} />
                 <main className="flex-grow">
                   <PageErrorBoundary pageName="Root Layout">
                     {children}
                   </PageErrorBoundary>
                 </main>
-                <CompareFloatingBar />
+                {/* <CompareBar /> */}
                 
                 {/* 
                    AUTOMATED AFFILIATE SCRIPT (Cuelinks / Skimlinks)

@@ -101,6 +101,7 @@ const CreditCardsPage = () => {
            trust_score: a.trust_score || 85,
            breakdown: {}
         },
+        bestFor: a.best_for, // Database value
         specs: {
            network: a.metadata?.network || "Visa",
            type: a.metadata?.type || "Credit"

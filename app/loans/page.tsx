@@ -139,6 +139,7 @@ export default function LoansPage() {
            trust_score: a.trust_score || 90,
            breakdown: {}
         },
+        bestFor: a.best_for, // Database value
         specs: {
            type: a.metadata?.type || 'Personal Loan'
         },

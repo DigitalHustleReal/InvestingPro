@@ -9,8 +9,10 @@ import { ShieldCheck, Star, ExternalLink, ArrowRight, Check, Info } from 'lucide
 import { RichProduct } from '@/types/rich-product';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import BestForBadge from './BestForBadge';
+import AffiliateDisclosure from '@/components/common/AffiliateDisclosure';
 
-import { useCompare } from './CompareContext';
+import { useCompare } from '@/contexts/CompareContext';
 
 interface RichProductCardProps {
     product: RichProduct;
@@ -20,18 +22,19 @@ interface RichProductCardProps {
 
 export function RichProductCard({ product, layout = 'grid', onCompare }: RichProductCardProps) {
     const isList = layout === 'list';
-    const { addToCompare, removeFromCompare, isInCompare } = useCompare();
-    const isSelected = isInCompare(product.id);
+    const { addProduct, removeProduct, isSelected } = useCompare();
+    const isCompareSelected = isSelected(product.id);
 
     const handleCompareClick = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        if (isSelected) {
-            removeFromCompare(product.id);
+        if (isCompareSelected) {
+            removeProduct(product.id);
         } else {
-            // Note: product in context is expected to match Product type
-            // casting to any for now if types slightly differ, or align them
-            addToCompare(product as any);
+            const success = addProduct(product);
+            if (!success) {
+                console.warn('Maximum products reached');
+            }
         }
         if (onCompare) onCompare(product.id);
     };
@@ -64,17 +67,17 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
                     onClick={handleCompareClick}
                     className={cn(
                         "p-2 rounded-xl border transition-all shadow-sm flex items-center gap-1.5",
-                        isSelected 
+                        isCompareSelected 
                             ? "bg-emerald-600 border-emerald-500 text-white" 
                             : "bg-white/90 backdrop-blur-md border-slate-200 text-slate-400 hover:border-emerald-500 hover:text-emerald-500"
                     )}
-                    aria-label={isSelected ? "Remove from comparison" : "Add to comparison"}
+                    aria-label={isCompareSelected ? "Remove from comparison" : "Add to comparison"}
                 >
                     <div className={cn(
                         "w-5 h-5 rounded-md border flex items-center justify-center transition-colors",
-                        isSelected ? "bg-white border-white" : "border-slate-300"
+                        isCompareSelected ? "bg-white border-white" : "border-slate-300"
                     )}>
-                        {isSelected && <Check className="w-3.5 h-3.5 text-emerald-600 font-black" />}
+                        {isCompareSelected && <Check className="w-3.5 h-3.5 text-emerald-600 font-black" />}
                     </div>
                     <span className="text-[10px] font-bold uppercase tracking-wider pr-1">Compare</span>
                 </button>
@@ -107,11 +110,15 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
             <div className="flex-1 flex flex-col">
                 <CardHeader className="pb-2">
                     <div className="flex justify-between items-start gap-4">
-                        <div>
+                        <div className="flex-1">
                             <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">{product.provider_name}</p>
-                            <h3 className="text-lg font-bold text-slate-900 leading-tight group-hover:text-emerald-700 transition-colors">
+                            <h3 className="text-lg font-bold text-slate-900 leading-tight group-hover:text-emerald-700 transition-colors mb-2">
                                 {product.name}
                             </h3>
+                            {/* Best For Badge */}
+                            {product.bestFor && (
+                                <BestForBadge category={product.bestFor} size="sm" />
+                            )}
                         </div>
                         {/* Rating Star */}
                         <div className="flex flex-col items-end">
@@ -157,17 +164,27 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
                     )}
                 </CardContent>
 
-                <CardFooter className="pt-0 gap-3 border-t border-slate-50 p-4 bg-slate-50/30">
-                    <Button variant="outline" className="flex-1 text-xs h-9 border-slate-200 hover:border-emerald-200 hover:text-emerald-700 hover:bg-emerald-50" asChild>
-                        <Link href={`/product/${product.slug}`}>
-                            View Details
-                        </Link>
-                    </Button>
-                    <Button className="flex-1 text-xs h-9 bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-200 hover:shadow-emerald-300 shadow-lg transition-all" asChild>
-                        <Link href={product.affiliate_link || product.official_link || '#'} target="_blank">
-                            Apply Now <ArrowRight className="w-3 h-3 ml-1.5" />
-                        </Link>
-                    </Button>
+                <CardFooter className="pt-0 gap-3 border-t border-slate-50 p-4 bg-slate-50/30 flex-col items-stretch">
+                    {/* CTA Buttons */}
+                    <div className="flex gap-3">
+                        <Button variant="outline" className="flex-1 text-xs h-9 border-slate-200 hover:border-emerald-200 hover:text-emerald-700 hover:bg-emerald-50" asChild>
+                            <Link href={`/product/${product.slug}`}>
+                                View Details
+                            </Link>
+                        </Button>
+                        <Button className="flex-1 text-xs h-9 bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-200 hover:shadow-emerald-300 shadow-lg transition-all" asChild>
+                            <Link href={product.affiliate_link || product.official_link || '#'} target="_blank">
+                                Apply Now <ArrowRight className="w-3 h-3 ml-1.5" />
+                            </Link>
+                        </Button>
+                    </div>
+                    
+                    {/* Affiliate Disclosure - FTC Compliance */}
+                    <AffiliateDisclosure 
+                        variant="button" 
+                        className="mt-1" 
+                        hasAffiliateLink={!!product.affiliate_link}
+                    />
                 </CardFooter>
             </div>
         </Card>

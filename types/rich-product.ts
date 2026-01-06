@@ -37,6 +37,12 @@ export interface RichProduct {
     pros: string[];
     cons: string[];
     
+    // Badge System
+    bestFor?: string; // Category ID from BEST_FOR_CATEGORIES (e.g., 'travel-rewards')
+    
+    // Specs (used for filtering/display)
+    specs?: Record<string, any>;
+    
     // Links
     affiliate_link?: string;
     official_link?: string;

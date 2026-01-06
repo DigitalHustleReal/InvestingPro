@@ -4,6 +4,7 @@ import React from 'react';
 import { Button } from "@/components/ui/Button";
 import { ArrowRight, TrendingUp, Shield, Award } from "lucide-react";
 import Link from "next/link";
+import { PLATFORM_STATS, STAT_STRINGS } from "@/lib/constants/platform-stats";
 
 export default function HeroSection() {
     return (
@@ -34,7 +35,7 @@ export default function HeroSection() {
 
                         {/* Value Prop with Specificity - REVISED */}
                         <p className="text-xl text-stone-600 mb-10 max-w-2xl leading-relaxed">
-                            Stop overpaying on fees and interest. We analyze <strong className="text-stone-900">500+ products from 50+ banks</strong> to find the best match for YOUR financial situation.
+                            Stop overpaying on fees and interest. We analyze <strong className="text-stone-900">{STAT_STRINGS.coverage}</strong> to find the best match for YOUR financial situation.
                         </p>
 
                         {/* Primary CTA - Search Bar (Low Friction) - NEW */}
@@ -55,20 +56,20 @@ export default function HeroSection() {
                                 <div className="flex items-center gap-2 text-stone-500 text-sm font-medium mb-1">
                                     <TrendingUp size={14} className="text-primary-600" /> Indians Helped
                                 </div>
-                                <div className="text-3xl font-bold text-stone-900">2.1M+</div>
+                                <div className="text-3xl font-bold text-stone-900">{PLATFORM_STATS.usersHelped}</div>
                             </div>
                             <div className="flex flex-col">
                                 <div className="flex items-center gap-2 text-stone-500 text-sm font-medium mb-1">
                                     <Award size={14} className="text-primary-600" /> Average Rating
                                 </div>
-                                <div className="text-3xl font-bold text-stone-900">4.9/5</div>
-                                <div className="text-xs text-stone-500">(12,450+ reviews)</div>
+                                <div className="text-3xl font-bold text-stone-900">{PLATFORM_STATS.rating}/{PLATFORM_STATS.ratingOutOf}</div>
+                                <div className="text-xs text-stone-500">({Math.round(parseInt(PLATFORM_STATS.usersHelped.replace(/\D/g, '')) * 0.01).toLocaleString()}+ reviews)</div>
                             </div>
                             <div className="flex flex-col">
                                 <div className="flex items-center gap-2 text-stone-500 text-sm font-medium mb-1">
                                     <Shield size={14} className="text-primary-600" /> Independent
                                 </div>
-                                <div className="text-3xl font-bold text-stone-900">100%</div>
+                                <div className="text-3xl font-bold text-stone-900">{PLATFORM_STATS.independence}</div>
                             </div>
                         </div>
 
@@ -92,8 +93,8 @@ export default function HeroSection() {
                         <div className="bg-white border border-stone-200 rounded-3xl p-8 shadow-lg relative">
                             <div className="absolute -top-6 -right-6 p-4">
                                 <div className="bg-primary-50 border-2 border-primary-200 rounded-2xl p-4 shadow-xl">
-                                    <div className="text-3xl font-bold text-primary-900">5K+</div>
-                                    <div className="text-[10px] font-bold text-primary-600 uppercase tracking-widest text-center">Users</div>
+                                    <div className="text-3xl font-bold text-primary-900">{PLATFORM_STATS.usersHelped}</div>
+                                    <div className="text-[10px] font-bold text-primary-600 uppercase tracking-widest text-center">Indians Helped</div>
                                 </div>
                             </div>
 

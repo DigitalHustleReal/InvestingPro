@@ -17,6 +17,7 @@ const PRODUCTS = [
         description: 'Premium travel and lifestyle credit card with extensive lounge access.',
         image_url: 'https://www.hdfcbank.com/content/api/contentstream-id/723fb80a-2dde-42a3-9793-7ae1be57c87f/c6f7b1b3-4043-4670-82af-5f6c8d626388/Regalia_Gold_Credit_Card_264x167.png',
         rating: 4.5,
+        best_for: 'travel-rewards',
         features: {
             annual_fee: '₹2,500',
             reward_rate: '4%',
@@ -34,6 +35,7 @@ const PRODUCTS = [
         description: 'All-rounder premium card with movie tickets and shopping rewards.',
         image_url: 'https://www.sbicard.com/sbi-card-en/assets/media/images/personal/credit-cards/lifestyle/sbi-card-elite/card-face-elite.png',
         rating: 4.2,
+        best_for: 'shopping-rewards',
         features: {
             annual_fee: '₹4,999',
             reward_rate: '2.5%',
@@ -51,6 +53,7 @@ const PRODUCTS = [
         description: 'super-premium card for high spenders with unlimited lounge access.',
         image_url: 'https://www.axisbank.com/images/default-source/revamp-new/cards/credit-cards/desktop/magnus-credit-card.png',
         rating: 4.8,
+        best_for: 'premium-lifestyle',
         features: {
             annual_fee: '₹12,500',
             reward_rate: '6%',
@@ -68,6 +71,7 @@ const PRODUCTS = [
         description: 'Premium lifestyle card with BOGO movie offers and golf privileges.',
         image_url: 'https://www.icicibank.com/content/dam/icicibank/india/managed-assets/images/personal-banking/cards/credit-cards/sapphiro-credit-card-new.png',
         rating: 4.0,
+        best_for: 'cashback-dining',
         features: {
             annual_fee: '₹6,500',
             reward_rate: '2%',

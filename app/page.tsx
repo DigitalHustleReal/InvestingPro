@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import AnimatedHero from "@/components/home/AnimatedHero";
+import HeroSection from "@/components/home/HeroSection";
 import SmartAdvisorWidget from "@/components/home/SmartAdvisorWidget";
 import QuickToolsSection from "@/components/home/QuickToolsSection";
 import LatestInsights from "@/components/home/LatestInsights";
@@ -10,6 +10,7 @@ import SEOHead from "@/components/common/SEOHead";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
 import CategoryDiscovery from "@/components/home/CategoryDiscovery";
 import PageErrorBoundary from "@/components/common/PageErrorBoundary";
+import { STAT_STRINGS, STRUCTURED_DATA_STATS } from "@/lib/constants/platform-stats";
 
 /**
  * Section wrapper that provides isolation.
@@ -26,28 +27,24 @@ function CommandCenterSection({ children, name }: { children: React.ReactNode, n
 export default function Home() {
     const structuredData = {
         "@context": "https://schema.org",
-        "@type": "FinancialService",
+        "@type": "Organization", // Changed from FinancialService
         "name": "InvestingPro.in",
         "description": "India's Best Financial Platform. Compare investments, access terminal-grade tools, and optimize your wealth.",
         "url": "https://investingpro.in",
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.9",
-            "reviewCount": "5200"
-        }
+        "aggregateRating": STRUCTURED_DATA_STATS.aggregateRating // Using imported constant
     };
 
     return (
         <main className="flex flex-col min-h-screen bg-white">
             <SEOHead
-                title="InvestingP₹o - India's High-Yield Financial Command Center"
-                description="Compare mutual funds, credit cards, and loans with institutional-grade data. Access our Alpha Terminal for real-time opportunities and risk profiling."
+                title="InvestingPro - Find Your Perfect Financial Product In 30 Seconds"
+                description={STAT_STRINGS.fullDescription} // Using imported constant
                 structuredData={structuredData}
             />
 
-            {/* Hero Tier: Mission Critical */}
+            {/* Hero Tier: Mission Critical - UPDATED TO NEW DESIGN */}
             <CommandCenterSection name="Hero">
-                <AnimatedHero />
+                <HeroSection />
             </CommandCenterSection>
 
             {/* Intelligence Tier: Lead Generation */}

@@ -32,7 +32,7 @@ const getHref = (pageName: string) => {
         About: '/about',
         Methodology: '/methodology',
         EditorialPolicy: '/editorial-policy',
-        Disclosure: '/disclosure',
+        Disclosure: '/how-we-make-money', // Fixed: was '/disclosure', now '/how-we-make-money'
         Privacy: '/privacy',
         Terms: '/terms',
         Disclaimer: '/disclaimer',
@@ -98,6 +98,49 @@ export function Footer() {
     return (
         <footer className="bg-slate-950 text-slate-400 border-t border-slate-900">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                {/* PROMINENT Trust & Transparency Banner - FTC Compliance */}
+                <div className="mb-16 p-8 rounded-2xl border-2 border-teal-600/30 bg-gradient-to-r from-teal-950/30 via-slate-900/50 to-slate-900/30 relative overflow-hidden">
+                    {/* Decorative Element */}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/5 blur-[100px] rounded-full" />
+                    
+                    <div className="relative z-10">
+                        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+                            {/* Left: Trust Message */}
+                            <div className="text-center md:text-left max-w-xl">
+                                <div className="inline-flex items-center gap-2 bg-teal-900/50 border border-teal-600/50 rounded-full px-4 py-1.5 mb-4">
+                                    <span className="w-2 h-2 bg-teal-400 rounded-full animate-pulse" />
+                                    <span className="text-teal-300 text-xs font-bold uppercase tracking-widest">100% Independent</span>
+                                </div>
+                                <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                                    Zero Ads. Zero BS. <br className="hidden md:block" />
+                                    <span className="text-teal-400">100% Honest</span>
+                                </h3>
+                                <p className="text-slate-300 text-sm leading-relaxed">
+                                    We only make money through affiliate partnerships when you apply for products. 
+                                    <strong className="text-white"> Our editorial team has ZERO access to commercial deals.</strong>
+                                </p>
+                            </div>
+
+                            {/* Right: Disclosure Links */}
+                            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                                <Link 
+                                    href="/how-we-make-money"
+                                    className="px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-white font-semibold text-sm transition-all flex items-center gap-2 justify-center group"
+                                >
+                                    <span>How We Make Money</span>
+                                    <ArrowUp className="w-4 h-4 rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                                </Link>
+                                <Link 
+                                    href="/methodology"
+                                    className="px-6 py-3 bg-teal-600/20 hover:bg-teal-600/30 border border-teal-600/50 rounded-xl text-teal-300 font-semibold text-sm transition-all flex items-center gap-2 justify-center group"
+                                >
+                                    <span>Our Methodology</span>
+                                    <ArrowUp className="w-4 h-4 rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {/* Newsletter - Pre-Footer */}
                 {/* Newsletter - Theme-Aligned Card */}
                 <div className="relative mb-20 p-8 md:p-12 rounded-3xl overflow-hidden border border-slate-800 bg-slate-900 shadow-xl">
@@ -117,7 +160,7 @@ export function Footer() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
                     {/* Brand & Contact */}
-                    <div className="space-y-6">
+                    <div className="space-y-6 max-w-xs mx-auto md:mx-0">
                         <div>
                             <Logo 
                                 variant="dark"
@@ -154,7 +197,7 @@ export function Footer() {
                     </div>
 
                     {/* FAT COLUMN 1: All Financial Products */}
-                    <div>
+                    <div className="max-w-xs mx-auto md:mx-0">
                         <div className="mb-8">
                             <h4 className="text-white font-bold tracking-wide mb-4">Credit Cards</h4>
                             <ul className="space-y-2">
@@ -213,7 +256,7 @@ export function Footer() {
                     </div>
 
                     {/* FAT COLUMN 2: Tools & Knowledge */}
-                    <div>
+                    <div className="max-w-xs mx-auto md:mx-0">
                         <div className="mb-8">
                             <h4 className="text-white font-bold tracking-wide mb-4">Calculators</h4>
                             <ul className="space-y-2">
@@ -248,7 +291,7 @@ export function Footer() {
                     </div>
 
                     {/* FAT COLUMN 3: Corporate & Legal */}
-                    <div>
+                    <div className="max-w-xs mx-auto md:mx-0">
                         <div className="mb-8">
                             <h4 className="text-white font-bold tracking-wide mb-4">Company</h4>
                             <ul className="space-y-2">
