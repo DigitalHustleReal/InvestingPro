@@ -148,7 +148,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                                 <Checkbox 
                                     id={`amc-${amc}`} 
                                     checked={filters.amcs.includes(amc)}
-                                    // amc logic here
+                                    onCheckedChange={() => toggleArrayItem('amcs', amc)}
                                 />
                                 <Label htmlFor={`amc-${amc}`} className="text-sm text-slate-600 dark:text-slate-400">
                                     {amc} Mutual Fund

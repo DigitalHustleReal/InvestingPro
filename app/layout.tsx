@@ -77,7 +77,7 @@ export default async function RootLayout({
                     {children}
                   </PageErrorBoundary>
                 </main>
-                {/* <CompareBar /> */}
+                <CompareBar />
                 
                 {/* 
                    AUTOMATED AFFILIATE SCRIPT (Cuelinks / Skimlinks)

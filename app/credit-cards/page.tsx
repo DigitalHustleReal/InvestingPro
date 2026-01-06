@@ -42,8 +42,6 @@ const CreditCardsPage = () => {
         features: []
     });
 
-    const [selectedForCompare, setSelectedForCompare] = useState<string[]>([]);
-
     useEffect(() => {
         const loadAssets = async () => {
             try {
@@ -58,12 +56,6 @@ const CreditCardsPage = () => {
         };
         loadAssets();
     }, []);
-
-    const handleCompareToggle = (id: string) => {
-        setSelectedForCompare(prev => 
-            prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
-        );
-    };
 
     // Filter Logic
     const filteredAssets = assets.filter(asset => {
@@ -207,7 +199,6 @@ const CreditCardsPage = () => {
                                     <RichProductCard 
                                         key={product.id} 
                                         product={product} 
-                                        onCompare={handleCompareToggle}
                                     />
                                 ))}
                             </div>
@@ -216,40 +207,7 @@ const CreditCardsPage = () => {
                 </div>
             </div>
 
-            {/* Sticky Compare Bar */}
-            {selectedForCompare.length > 0 && (
-                <div className="fixed bottom-8 inset-x-0 z-50 flex justify-center px-4 animate-in slide-in-from-bottom-5">
-                    <div className="bg-slate-900/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl p-4 flex items-center gap-6 min-w-[320px] max-w-2xl">
-                        <div className="flex -space-x-3 overflow-hidden">
-                            {selectedForCompare.slice(0, 3).map((id) => {
-                                const card = assets.find(a => a.id === id);
-                                return (
-                                    <div key={id} className="w-10 h-10 rounded-lg border-2 border-slate-900 bg-white flex items-center justify-center p-1 shadow-md">
-                                        <img src={card?.image_url} alt="" className="w-full h-full object-contain" />
-                                    </div>
-                                );
-                            })}
-                            {selectedForCompare.length > 3 && (
-                                <div className="w-10 h-10 rounded-lg border-2 border-slate-900 bg-slate-800 flex items-center justify-center text-[10px] text-white font-bold">
-                                    +{selectedForCompare.length - 3}
-                                </div>
-                            )}
-                        </div>
-                        <div className="flex-1">
-                            <p className="text-white font-bold text-sm">{selectedForCompare.length} Cards Selected</p>
-                            <p className="text-slate-400 text-[10px]">Add up to 4 cards to compare</p>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Button size="sm" variant="ghost" className="text-slate-400 hover:text-white" onClick={() => setSelectedForCompare([])}>
-                                Clear
-                            </Button>
-                            <Button size="sm" className="bg-primary-600 hover:bg-primary-500 text-white font-bold px-6 shadow-lg shadow-indigo-600/20" disabled={selectedForCompare.length < 2}>
-                                Compare Now
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            )}
+
         </div>
     );
 };

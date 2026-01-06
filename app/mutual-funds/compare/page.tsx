@@ -1,4 +1,4 @@
-import { getMutualFundById } from "@/lib/supabase/mock";
+import { api } from "@/lib/api";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import { ArrowLeft, Check, X, Minus } from "lucide-react";
@@ -10,7 +10,7 @@ export default async function CompareMutualFunds({ searchParams }: { searchParam
 
     // Fetch selected funds
     const selectedFunds = await Promise.all(
-        fundIds.map(id => getMutualFundById(id))
+        fundIds.map(id => api.entities.MutualFund.getById(id))
     );
 
     // Filter out undefined results

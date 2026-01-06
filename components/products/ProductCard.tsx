@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Product } from '@/lib/products/product-service';
-import { useCompare } from './CompareContext';
+import { useCompare } from '@/contexts/CompareContext';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/Button';
@@ -12,8 +12,8 @@ import Link from 'next/link';
 import VerificationBadge, { LastUpdated } from '../trust/VerificationBadge';
 
 export default function ProductCard({ product }: { product: Product }) {
-    const { addToCompare, removeFromCompare, isInCompare } = useCompare();
-    const isSelected = isInCompare(product.id);
+    const { addProduct, removeProduct, isSelected } = useCompare();
+    const selected = isSelected(product.id);
 
     // Extract key feature for display (e.g. Annual Fee)
     const annualFee = product.features?.['annual_fee'];
@@ -25,8 +25,8 @@ export default function ProductCard({ product }: { product: Product }) {
             <div className="absolute top-3 right-3 z-10 bg-white/95 p-1.5 rounded-lg shadow-sm backdrop-blur-sm border border-slate-100 flex items-center gap-2">
                 <Checkbox 
                     id={`compare-${product.id}`}
-                    checked={isSelected}
-                    onCheckedChange={(c) => c ? addToCompare(product) : removeFromCompare(product.id)}
+                    checked={selected}
+                    onCheckedChange={(c) => c ? addProduct(product) : removeProduct(product.id)}
                     className="data-[state=checked]:bg-teal-600 data-[state=checked]:border-teal-600"
                 />
                 <label htmlFor={`compare-${product.id}`} className="text-xs font-medium text-slate-700 cursor-pointer select-none">

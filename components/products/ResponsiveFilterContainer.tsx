@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import { Filter, SlidersHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useCompare } from './CompareContext';
+import { useCompare } from '@/contexts/CompareContext';
 
 interface ResponsiveFilterContainerProps {
     children: React.ReactNode;

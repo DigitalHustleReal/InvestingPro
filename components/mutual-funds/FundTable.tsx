@@ -15,7 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/Button";
 import { Star, TrendingUp, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useCompare } from '../products/CompareContext';
+import { useCompare } from '@/contexts/CompareContext';
 import { cn } from '@/lib/utils';
 
 interface FundTableProps {
@@ -23,7 +23,7 @@ interface FundTableProps {
 }
 
 export function FundTable({ funds }: FundTableProps) {
-    const { addToCompare, removeFromCompare, isInCompare } = useCompare();
+    const { addProduct, removeProduct, isSelected } = useCompare();
 
     return (
         <div className="rounded-[2rem] border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-xl animate-in fade-in duration-500">
@@ -45,15 +45,15 @@ export function FundTable({ funds }: FundTableProps) {
                     </TableHeader>
                     <TableBody>
                         {funds.map((fund) => {
-                            const isSelected = isInCompare(fund.id);
+                            const selected = isSelected(fund.id);
                             return (
                                 <TableRow key={fund.id} className="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors border-slate-50 dark:border-slate-800">
                                     <TableCell className="pl-6 sticky left-0 bg-white dark:bg-slate-900 z-20 group-hover:bg-slate-50 dark:group-hover:bg-slate-800/50">
                                         <Checkbox 
-                                            checked={isSelected} 
+                                            checked={selected} 
                                             onCheckedChange={(checked) => {
-                                                if (checked) addToCompare(fund);
-                                                else removeFromCompare(fund.id);
+                                                if (checked) addProduct(fund);
+                                                else removeProduct(fund.id);
                                             }}
                                         />
                                     </TableCell>
@@ -117,7 +117,7 @@ export function FundTable({ funds }: FundTableProps) {
                                                     <TrendingUp className="w-4 h-4" />
                                                 </Link>
                                             </Button>
-                                            <Button size="sm" className="h-9 px-4 text-[10px] font-black bg-slate-900 hover:bg-emerald-600 text-white rounded-xl uppercase tracking-widest transition-all shadow-lg hover:shadow-emerald-500/25">
+                                            <Button size="sm" className="h-9 px-4 text-[10px] font-black bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl uppercase tracking-widest transition-all shadow-lg hover:shadow-emerald-500/25">
                                                 Invest
                                             </Button>
                                         </div>

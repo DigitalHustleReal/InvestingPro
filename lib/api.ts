@@ -568,6 +568,38 @@ The AI was unable to reach a provider, so we've generated this professional outl
 
                 return { data: data || [], count: count || 0 };
             },
+            getById: async (id: string) => {
+                const supabase = getSupabaseClient();
+                const { data, error } = await supabase
+                    .from('products')
+                    .select('*')
+                    .eq('id', id)
+                    .single();
+
+                if (error || !data) return undefined;
+
+                const p = data;
+                const f = p.features || {};
+                
+                // Normalize to UI structure
+                return {
+                    id: p.slug || p.id,
+                    name: p.name,
+                    category: f.sub_category || 'Large Cap',
+                    type: f.category || 'Equity',
+                    aum: f.aum_crores ? `₹${f.aum_crores} Cr` : 'N/A',
+                    returns_1y: parseFloat(f.returns_1y || '0'),
+                    returns_3y: parseFloat(f.returns_3y || '0'),
+                    returns_5y: parseFloat(f.returns_5y || '0'),
+                    rating: p.rating || 4,
+                    risk: f.risk_level || 'Moderate',
+                    expense_ratio: parseFloat(f.expense_ratio || '0'),
+                    min_investment: f.min_sip ? `₹${f.min_sip}` : '₹500',
+                    fund_house: p.provider_name,
+                    provider: p.provider_name,
+                    risk_level: f.risk_level || 'moderate'
+                };
+            },
             filter: async (filters: any) => {
                // ... kept for compatibility but the list() method is now preferred
                return [];

@@ -1,7 +1,7 @@
 'use client';
 
 import { useCompare } from '@/contexts/CompareContext';
-import { X, ArrowRight } from 'lucide-react';
+import { X, ArrowRight, ChevronUp, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -38,7 +38,7 @@ export default function CompareBar() {
         className="absolute -top-8 right-4 sm:hidden p-2 bg-emerald-500 text-white rounded-t-lg shadow-lg"
         aria-label={isCollapsed ? 'Expand' : 'Collapse'}
       >
-        {isCollapsed ? '▲' : '▼'}
+        {isCollapsed ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
       </button>
 
       <div className="container mx-auto px-4 h-full flex items-center gap-4">
