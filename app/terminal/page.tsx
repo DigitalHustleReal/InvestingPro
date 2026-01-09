@@ -91,7 +91,7 @@ export default function TerminalPage() {
                             <div className="lg:col-span-8 space-y-6">
                                 <div className="flex items-center justify-between px-2">
                                     <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-st flex items-center gap-2">
-                                        <Activity size={14} className="text-emerald-400" />
+                                        <Activity size={14} className="text-primary-400" />
                                         Alpha Opportunity Deck
                                     </h3>
                                     <Badge variant="outline" className="text-[9px] font-bold border-slate-800 text-slate-400">
@@ -101,14 +101,14 @@ export default function TerminalPage() {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     {displayOpps.slice(0, 3).map((item, i) => (
-                                        <div key={i} className="bg-slate-900/40 border border-slate-800/60 hover:border-emerald-500/30 transition-all group rounded-[2rem] overflow-hidden shadow-lg">
+                                        <div key={i} className="bg-slate-900/40 border border-slate-800/60 hover:border-primary-500/30 transition-all group rounded-[2rem] overflow-hidden shadow-lg">
                                             <div className="p-8">
                                                 <div className="flex justify-between items-start mb-6">
                                                     <div className="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-bold text-white">
                                                         {item.symbol[0]}
                                                     </div>
                                                     <Badge className={`px-3 py-1 border-0 rounded-full text-[10px] font-bold uppercase ${
-                                                        item.status === 'bullish' ? 'bg-primary-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'
+                                                        item.status === 'bullish' ? 'bg-primary-500/10 text-primary-400' : 'bg-rose-500/10 text-rose-400'
                                                     }`}>
                                                         {item.signal}
                                                     </Badge>
@@ -204,14 +204,14 @@ export default function TerminalPage() {
                                 {activeTab === 'opportunities' && (
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         {displayOpps.map((item, i) => (
-                                            <div key={i} className="bg-slate-900/40 border border-slate-800/60 hover:border-emerald-500/30 transition-all group rounded-xl overflow-hidden shadow-lg">
+                                            <div key={i} className="bg-slate-900/40 border border-slate-800/60 hover:border-primary-500/30 transition-all group rounded-xl overflow-hidden shadow-lg">
                                                 <div className="p-6">
                                                     <div className="flex justify-between items-start mb-4">
                                                         <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-lg font-bold text-white">
                                                             {item.symbol[0]}
                                                         </div>
                                                         <Badge className={`px-2 py-1 border-0 rounded-full text-[9px] font-bold uppercase ${
-                                                            item.status === 'bullish' ? 'bg-primary-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'
+                                                            item.status === 'bullish' ? 'bg-primary-500/10 text-primary-400' : 'bg-rose-500/10 text-rose-400'
                                                         }`}>
                                                             {item.signal}
                                                         </Badge>
@@ -221,7 +221,7 @@ export default function TerminalPage() {
                                                         <div className="text-xl font-bold text-white tracking-tight">{item.symbol}</div>
                                                         <div className="flex items-center gap-2">
                                                             <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">₹{item.price}</span>
-                                                            <span className={`text-xs font-bold ${item.status === 'bullish' ? 'text-emerald-400' : 'text-rose-400'}`}>
+                                                            <span className={`text-xs font-bold ${item.status === 'bullish' ? 'text-primary-400' : 'text-rose-400'}`}>
                                                                 {item.change}
                                                             </span>
                                                         </div>
@@ -259,11 +259,11 @@ export default function TerminalPage() {
                                                         </div>
                                                         <div className="flex items-center gap-2">
                                                             {item.trend === 'up' ? (
-                                                                <TrendingUp className="w-5 h-5 text-emerald-400" />
+                                                                <TrendingUp className="w-5 h-5 text-primary-400" />
                                                             ) : (
                                                                 <TrendingDown className="w-5 h-5 text-rose-400" />
                                                             )}
-                                                            <span className={`text-lg font-bold ${item.trend === 'up' ? 'text-emerald-400' : 'text-rose-400'}`}>
+                                                            <span className={`text-lg font-bold ${item.trend === 'up' ? 'text-primary-400' : 'text-rose-400'}`}>
                                                                 {item.change}
                                                             </span>
                                                         </div>
@@ -304,7 +304,7 @@ export default function TerminalPage() {
                                         </div>
                                         <div>
                                             <div className="text-xs text-slate-500 uppercase tracking-widest mb-1">Success Rate</div>
-                                            <div className="text-2xl font-bold text-emerald-400">78%</div>
+                                            <div className="text-2xl font-bold text-primary-400">78%</div>
                                         </div>
                                         <div>
                                             <div className="text-xs text-slate-500 uppercase tracking-widest mb-1">Avg. Return</div>

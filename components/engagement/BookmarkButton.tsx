@@ -122,7 +122,7 @@ export default function BookmarkButton({
                 disabled={isLoading}
                 variant={isBookmarked ? 'default' : 'outline'}
                 className={cn(
-                    isBookmarked && "bg-primary-600 hover:bg-indigo-700",
+                    isBookmarked && "bg-primary-600 hover:bg-primary-700",
                     className
                 )}
             >

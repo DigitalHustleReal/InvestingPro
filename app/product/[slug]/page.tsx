@@ -48,7 +48,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
                     {/* Main Info */}
                     <div className="flex-1 space-y-4">
                         <div className="flex items-center gap-3">
-                            <Badge variant="outline" className="text-emerald-600 border-emerald-200 bg-emerald-50 dark:bg-emerald-500/10">
+                            <Badge variant="outline" className="text-primary-600 border-primary-200 bg-primary-50 dark:bg-primary-500/10">
                                 {product.provider_name}
                             </Badge>
                             {product.is_verified && (
@@ -70,7 +70,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
                            </div>
                            <div className="w-px h-4 bg-slate-300" />
                            <div className={`font-bold ${
-                               product.rating.trust_score > 80 ? 'text-emerald-500' : 'text-amber-500'
+                               product.rating.trust_score > 80 ? 'text-primary-500' : 'text-amber-500'
                            }`}>
                                 {product.rating.trust_score}% Trust Score
                            </div>
@@ -81,7 +81,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
                         </p>
 
                         <div className="pt-4 flex flex-col sm:flex-row gap-4">
-                            <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 h-12 rounded-xl text-lg shadow-lg shadow-emerald-500/20" asChild>
+                            <Button size="lg" className="bg-primary-600 hover:bg-primary-700 text-white font-bold px-8 h-12 rounded-xl text-lg shadow-lg shadow-primary-500/20" asChild>
                                 <a href={product.affiliate_link || product.official_link || '#'} target="_blank" rel="noopener noreferrer">
                                    Apply Now <ArrowRight className="ml-2 w-5 h-5" />
                                 </a>
@@ -102,7 +102,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
                     <Card className="border-0 shadow-lg bg-white dark:bg-slate-900 rounded-3xl overflow-hidden">
                         <CardHeader className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800">
                              <CardTitle className="flex items-center gap-2">
-                                <Info className="w-5 h-5 text-indigo-500" />
+                                <Info className="w-5 h-5 text-primary-500" />
                                 Key Specs
                              </CardTitle>
                         </CardHeader>
@@ -123,15 +123,15 @@ export default async function ProductPage({ params }: { params: { slug: string }
 
                     {/* Pros & Cons */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <Card className="border border-emerald-100 bg-emerald-50/30 dark:bg-emerald-900/10 dark:border-emerald-500/20">
+                        <Card className="border border-primary-100 bg-primary-50/30 dark:bg-primary-900/10 dark:border-primary-500/20">
                             <CardHeader>
-                                <CardTitle className="text-emerald-700 dark:text-emerald-400">Pros</CardTitle>
+                                <CardTitle className="text-primary-700 dark:text-primary-400">Pros</CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <ul className="space-y-3">
                                     {product.pros.length > 0 ? product.pros.map((pro, i) => (
                                         <li key={i} className="flex gap-3 text-slate-700 dark:text-slate-300">
-                                            <Check className="w-5 h-5 text-emerald-500 shrink-0" />
+                                            <Check className="w-5 h-5 text-primary-500 shrink-0" />
                                             {pro}
                                         </li>
                                     )) : <li className="text-slate-400 italic">No specific pros listed.</li>}
@@ -168,7 +168,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
                                 We analyze financial products with a standardized 45-point checklist verifying fees, rewards, and hidden terms. Our ratings are never influenced by commissions.
                             </p>
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center font-bold">IP</div>
+                                <div className="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center font-bold">IP</div>
                                 <div>
                                     <p className="font-bold text-sm">Editorial Team</p>
                                     <p className="text-xs text-slate-400">Verified Analysis</p>

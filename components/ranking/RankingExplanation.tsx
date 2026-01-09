@@ -66,12 +66,12 @@ export default function RankingExplanation({
     );
 
     return (
-        <Card className="border-2 border-teal-100">
-            <CardHeader className="bg-teal-50">
+        <Card className="border-2 border-teal-100 dark:border-teal-900/50 dark:bg-slate-900">
+            <CardHeader className="bg-teal-50 dark:bg-teal-900/20">
                 <div className="flex items-start justify-between">
                     <div>
-                        <CardTitle className="text-2xl mb-2">Ranking Score</CardTitle>
-                        <p className="text-sm text-slate-600">
+                        <CardTitle className="text-2xl mb-2 dark:text-white">Ranking Score</CardTitle>
+                        <p className="text-sm text-slate-600 dark:text-slate-400">
                             Transparent, data-driven ranking based on verified information
                         </p>
                     </div>
@@ -89,17 +89,17 @@ export default function RankingExplanation({
             <CardContent className="pt-6">
                 {/* Overall Explanation */}
                 {explanation && (
-                    <div className="mb-6 p-6 md:p-8 bg-slate-50 rounded-lg">
+                    <div className="mb-6 p-6 md:p-8 bg-slate-50 dark:bg-slate-800 rounded-lg">
                         <div className="flex items-start gap-2">
                             <Info className="w-5 h-5 text-teal-600 mt-0.5 flex-shrink-0" />
-                            <p className="text-sm text-slate-700">{explanation}</p>
+                            <p className="text-sm text-slate-700 dark:text-slate-300">{explanation}</p>
                         </div>
                     </div>
                 )}
 
                 {/* Score Breakdown */}
                 <div className="mb-6">
-                    <h3 className="font-semibold text-slate-900 mb-4 flex items-center gap-2">
+                    <h3 className="font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                         <TrendingUp className="w-5 h-5 text-teal-600" />
                         Score Breakdown
                     </h3>
@@ -112,7 +112,7 @@ export default function RankingExplanation({
                                 <div key={index} className="space-y-2">
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-2">
-                                            <span className="font-medium text-slate-900">
+                                            <span className="font-medium text-slate-900 dark:text-white">
                                                 {factorName}
                                             </span>
                                             <TooltipProvider>
@@ -132,15 +132,15 @@ export default function RankingExplanation({
                                             </TooltipProvider>
                                         </div>
                                         <div className="text-right">
-                                            <div className="text-sm font-semibold text-slate-900">
+                                            <div className="text-sm font-semibold text-slate-900 dark:text-white">
                                                 {item.weightedScore.toFixed(1)} pts
                                             </div>
-                                            <div className="text-xs text-slate-500">
+                                            <div className="text-xs text-slate-500 dark:text-slate-400">
                                                 {item.normalizedScore.toFixed(1)} × {(item.weight * 100).toFixed(0)}%
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+                                    <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-3 overflow-hidden">
                                         <div
                                             className="bg-teal-600 h-3 rounded-full transition-all duration-300"
                                             style={{ width: `${(item.weightedScore / totalScore) * 100}%` }}
@@ -159,14 +159,14 @@ export default function RankingExplanation({
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     {strengths.length > 0 && (
                         <div>
-                            <h4 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
-                                <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                            <h4 className="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+                                <CheckCircle2 className="w-5 h-5 text-primary-600" />
                                 Strengths
                             </h4>
                             <ul className="space-y-2">
                                 {strengths.map((strength, idx) => (
-                                    <li key={idx} className="flex items-start gap-2 text-sm text-slate-700">
-                                        <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                                    <li key={idx} className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300">
+                                        <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
                                         <span>{strength}</span>
                                     </li>
                                 ))}
@@ -176,13 +176,13 @@ export default function RankingExplanation({
 
                     {weaknesses.length > 0 && (
                         <div>
-                            <h4 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
+                            <h4 className="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
                                 <XCircle className="w-5 h-5 text-rose-600" />
                                 Areas for Improvement
                             </h4>
                             <ul className="space-y-2">
                                 {weaknesses.map((weakness, idx) => (
-                                    <li key={idx} className="flex items-start gap-2 text-sm text-slate-700">
+                                    <li key={idx} className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300">
                                         <XCircle className="w-4 h-4 text-rose-600 mt-0.5 flex-shrink-0" />
                                         <span>{weakness}</span>
                                     </li>
@@ -194,8 +194,8 @@ export default function RankingExplanation({
 
                 {/* Methodology Link */}
                 {methodology && (
-                    <div className="pt-4 border-t border-slate-200">
-                        <p className="text-xs text-slate-600 mb-2">
+                    <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
+                        <p className="text-xs text-slate-600 dark:text-slate-400 mb-2">
                             <strong>Note:</strong> Rankings are calculated using a transparent, weighted methodology.
                             Rankings are not influenced by monetization or affiliate relationships.
                         </p>
@@ -210,8 +210,8 @@ export default function RankingExplanation({
 
                 {/* Metadata */}
                 {(calculatedAt || dataSnapshotDate) && (
-                    <div className="mt-4 pt-4 border-t border-slate-200">
-                        <div className="text-xs text-slate-500 space-y-1">
+                    <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                        <div className="text-xs text-slate-500 dark:text-slate-400 space-y-1">
                             {calculatedAt && (
                                 <div>
                                     <strong>Calculated:</strong> {new Date(calculatedAt).toLocaleString('en-IN')}

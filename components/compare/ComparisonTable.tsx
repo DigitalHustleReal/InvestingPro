@@ -231,11 +231,11 @@ export default function ComparisonTable({ products, onRemoveProduct }: Compariso
                     </Button>
                   </Link>
                   <Button
-                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
+                    className="w-full bg-primary-600 hover:bg-primary-700 text-white"
                     size="sm"
                     asChild
                   >
-                    <Link href={product.affiliate_link || product.official_link || '#'} target="_blank">
+                    <Link href={`/go/${product.slug}`} target="_blank">
                       Apply Now
                     </Link>
                   </Button>
@@ -303,11 +303,11 @@ export default function ComparisonTable({ products, onRemoveProduct }: Compariso
                   </Button>
                 </Link>
                 <Button
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs"
+                  className="w-full bg-primary-600 hover:bg-primary-700 text-white text-xs"
                   size="sm"
                   asChild
                 >
-                  <Link href={product.affiliate_link || '#'} target="_blank">
+                  <Link href={`/go/${product.slug}`} target="_blank">
                     Apply
                   </Link>
                 </Button>

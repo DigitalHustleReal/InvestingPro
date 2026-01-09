@@ -22,7 +22,7 @@ export default function CompareFloatingBar() {
                     <div className="bg-slate-950/95 sm:bg-slate-900/95 backdrop-blur-xl text-slate-50 p-4 sm:p-3 sm:pl-5 rounded-t-3xl sm:rounded-2xl shadow-2xl pointer-events-auto flex flex-col sm:flex-row items-center justify-between border-t sm:border border-slate-700/50 ring-1 ring-white/10 gap-4 sm:gap-0">
                         {/* Status + Thumbnails */}
                         <div className="flex items-center justify-between w-full sm:w-auto gap-6 sm:gap-6">
-                            <div className="flex items-center gap-2 text-sm font-bold text-teal-400">
+                            <div className="flex items-center gap-2 text-sm font-bold text-primary-400">
                                 <Layers className="w-5 h-5" />
                                 <span className="whitespace-nowrap">Compare ({selectedProducts.length}/4)</span>
                             </div>

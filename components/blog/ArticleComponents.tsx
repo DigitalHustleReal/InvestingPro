@@ -22,10 +22,10 @@ export function Callout({ type, title, children, className }: CalloutProps) {
   const config = {
     'key-takeaway': {
       icon: CheckCircle2,
-      bgColor: 'bg-emerald-50',
-      borderColor: 'border-emerald-500',
-      iconColor: 'text-emerald-600',
-      titleColor: 'text-emerald-900',
+      bgColor: 'bg-primary-50',
+      borderColor: 'border-primary-500',
+      iconColor: 'text-primary-600',
+      titleColor: 'text-primary-900',
       defaultTitle: 'Key Takeaway'
     },
     'important': {
@@ -73,7 +73,7 @@ export function Callout({ type, title, children, className }: CalloutProps) {
       bgColor: 'bg-primary-50',
       borderColor: 'border-primary-500',
       iconColor: 'text-primary-600',
-      titleColor: 'text-indigo-900',
+      titleColor: 'text-primary-900',
       defaultTitle: 'Calculation'
     }
   }
@@ -107,7 +107,7 @@ export function Callout({ type, title, children, className }: CalloutProps) {
  */
 export function Highlight({ children, color = 'emerald' }: { children: React.ReactNode, color?: 'emerald' | 'blue' | 'amber' | 'purple' }) {
   const colors = {
-    emerald: 'bg-emerald-100 text-emerald-900 border-emerald-300',
+    emerald: 'bg-primary-100 text-primary-900 border-primary-300',
     blue: 'bg-secondary-100 text-secondary-900 border-secondary-300',
     amber: 'bg-amber-100 text-amber-900 border-amber-300',
     purple: 'bg-secondary-100 text-secondary-900 border-secondary-300'
@@ -133,9 +133,9 @@ export function StatBox({ label, value, trend, trendDirection }: {
   trendDirection?: 'up' | 'down' | 'neutral'
 }) {
   return (
-    <div className="bg-white border-2 border-emerald-200 rounded-lg p-4 text-center">
+    <div className="bg-white border-2 border-primary-200 rounded-lg p-4 text-center">
       <p className="text-sm text-gray-600 mb-1">{label}</p>
-      <p className="text-3xl font-bold text-emerald-600">{value}</p>
+      <p className="text-3xl font-bold text-primary-600">{value}</p>
       {trend && (
         <p className={cn(
           'text-xs mt-1 font-medium',
@@ -190,10 +190,10 @@ export function ComparisonBox({ title, items }: {
  */
 export function KeyTakeaways({ items }: { items: string[] }) {
   return (
-    <div className="my-8 bg-gradient-to-br from-emerald-50 to-emerald-100 border-2 border-emerald-500 rounded-lg p-6">
+    <div className="my-8 bg-gradient-to-br from-emerald-50 to-emerald-100 border-2 border-primary-500 rounded-lg p-6">
       <div className="flex items-center gap-2 mb-4">
-        <CheckCircle2 className="w-6 h-6 text-emerald-600" />
-        <h3 className="text-xl font-bold text-emerald-900">Key Takeaways</h3>
+        <CheckCircle2 className="w-6 h-6 text-primary-600" />
+        <h3 className="text-xl font-bold text-primary-900">Key Takeaways</h3>
       </div>
       <ul className="space-y-3">
         {items.map((item, index) => (
@@ -221,13 +221,13 @@ export function FormulaBox({ title, formula, explanation }: {
     <div className="my-6 bg-primary-50 border-2 border-indigo-400 rounded-lg p-6">
       <div className="flex items-center gap-2 mb-3">
         <Calculator className="w-5 h-5 text-primary-600" />
-        <h4 className="font-bold text-indigo-900">{title}</h4>
+        <h4 className="font-bold text-primary-900">{title}</h4>
       </div>
       <div className="bg-white rounded p-4 font-mono text-center text-lg font-semibold text-gray-900 mb-3">
         {formula}
       </div>
       {explanation && (
-        <p className="text-sm text-indigo-800">{explanation}</p>
+        <p className="text-sm text-primary-800">{explanation}</p>
       )}
     </div>
   )

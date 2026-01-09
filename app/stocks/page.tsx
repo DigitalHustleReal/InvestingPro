@@ -61,7 +61,7 @@ export default function StocksPage() {
     });
 
     return (
-        <div className="min-h-screen bg-slate-50 pb-24">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-24">
             <SEOHead
                 title="Stock Market Central - Live IPOs & Analysis | InvestingPro"
                 description="Track live Indian stock market, upcoming IPOs, and top gainers/losers. Compare best stock brokers like Zerodha, Groww, and Upstox."
@@ -77,18 +77,18 @@ export default function StocksPage() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
                         <div className="max-w-2xl text-center lg:text-left">
-                            <Badge className="bg-primary-500/10 text-emerald-400 border-emerald-500/20 px-4 py-2 mb-8 rounded-full">
+                            <Badge className="bg-primary-500/10 text-primary-400 border-primary-500/20 px-4 py-2 mb-8 rounded-full">
                                 <Activity className="w-3.5 h-3.5 mr-2" />
                                 <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Real-time Market Delta</span>
                             </Badge>
                             <h1 className="text-5xl sm:text-7xl font-bold text-white mb-6 tracking-tight leading-tight">
-                                Precision <br /> <span className="text-emerald-400">Equity Hub</span>
+                                Precision <br /> <span className="text-primary-400">Equity Hub</span>
                             </h1>
                             <p className="text-xl text-slate-400 mb-10 font-medium leading-relaxed">
                                 Professional-grade market tracking for retail power-traders. Monitor live IPO sentiments, breakouts, and benchmarking tools.
                             </p>
                             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                                <Button className="rounded-2xl bg-primary-500 hover:bg-primary-600 text-slate-900 font-bold h-16 px-10 shadow-2xl shadow-emerald-500/20 text-lg">
+                                <Button className="rounded-2xl bg-primary-500 hover:bg-primary-600 text-slate-900 font-bold h-16 px-10 shadow-2xl shadow-primary-500/20 text-lg">
                                     Start Trading Now
                                     <ArrowUpRight className="ml-2 w-6 h-6" />
                                 </Button>
@@ -106,13 +106,13 @@ export default function StocksPage() {
                                         <div className="flex items-center justify-between mb-2">
                                             <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-st">{index.name}</span>
                                             {index.isUp ? (
-                                                <TrendingUp className="w-4 h-4 text-emerald-400" />
+                                                <TrendingUp className="w-4 h-4 text-primary-400" />
                                             ) : (
                                                 <TrendingDown className="w-4 h-4 text-rose-400" />
                                             )}
                                         </div>
                                         <p className="text-xl font-bold text-white mb-1 tracking-tight">{index.value}</p>
-                                        <p className={`text-xs font-bold ${index.isUp ? 'text-emerald-400' : 'text-rose-400'}`}>
+                                        <p className={`text-xs font-bold ${index.isUp ? 'text-primary-400' : 'text-rose-400'}`}>
                                             {index.change}
                                         </p>
                                     </CardContent>
@@ -129,7 +129,7 @@ export default function StocksPage() {
                     <Card className="rounded-[3rem] border-0 shadow-2xl bg-white p-6 md:p-8 group overflow-hidden">
                         <div className="flex items-center justify-between mb-8">
                             <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+                                <div className="w-12 h-12 rounded-2xl bg-primary-50 flex items-center justify-center text-primary-600">
                                     <TrendingUp className="w-6 h-6" />
                                 </div>
                                 <div>
@@ -137,11 +137,11 @@ export default function StocksPage() {
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Intraday Powerhouses</p>
                                 </div>
                             </div>
-                            <Button variant="ghost" className="rounded-xl font-semibold text- uppercase text-emerald-600 tracking-widest">View All</Button>
+                            <Button variant="ghost" className="rounded-xl font-semibold text- uppercase text-primary-600 tracking-widest">View All</Button>
                         </div>
                         <div className="space-y-4">
                             {topGainers.map((stock, i) => (
-                                <div key={i} className="flex items-center justify-between p-5 bg-slate-50/50 rounded-2xl border border-transparent hover:border-emerald-100 hover:bg-white transition-all group/item">
+                                <div key={i} className="flex items-center justify-between p-5 bg-slate-50/50 rounded-2xl border border-transparent hover:border-primary-100 hover:bg-white transition-all group/item">
                                     <div className="flex items-center gap-4">
                                         <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center font-semibold text- text-slate-400 group-hover/item:bg-primary-600 group-hover/item:text-white transition-colors">
                                             {stock.name.substring(0, 1)}
@@ -153,7 +153,7 @@ export default function StocksPage() {
                                     </div>
                                     <div className="text-right">
                                         <p className="font-bold text-slate-900">{stock.price}</p>
-                                        <p className="text-xs font-bold text-emerald-600">{stock.change}</p>
+                                        <p className="text-xs font-bold text-primary-600">{stock.change}</p>
                                     </div>
                                 </div>
                             ))}
@@ -218,7 +218,7 @@ export default function StocksPage() {
                                     <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${ipo.color || 'from-slate-800 to-slate-900'} flex items-center justify-center text-white font-bold text-2xl shadow-lg`}>
                                         {ipo.name.substring(0, 1)}
                                     </div>
-                                    <Badge className={`border-0 rounded-xl px-3 py-1 text-[9px] font-bold uppercase tracking-widest ${ipo.status === 'Open' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-400'}`}>
+                                    <Badge className={`border-0 rounded-xl px-3 py-1 text-[9px] font-bold uppercase tracking-widest ${ipo.status === 'Open' ? 'bg-primary-100 text-primary-700' : 'bg-slate-100 text-slate-400'}`}>
                                         {ipo.status}
                                     </Badge>
                                 </div>
@@ -233,7 +233,7 @@ export default function StocksPage() {
                                     </div>
                                     <div>
                                         <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Subscription</p>
-                                        <p className="font-semibold text- text-emerald-600">{ipo.subscription}</p>
+                                        <p className="font-semibold text- text-primary-600">{ipo.subscription}</p>
                                     </div>
                                     <div>
                                         <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Lot Size</p>
@@ -262,7 +262,7 @@ export default function StocksPage() {
                             <p className="text-slate-500 font-bold mt-1 text-sm uppercase tracking-widest opacity-60">Conflict-Free Benchmarking</p>
                         </div>
                         <Link href="/demat-accounts">
-                            <Button variant="ghost" className="font-semibold text-emerald-600 uppercase tracking-widest text-">Compare 15+ Platforms <ChevronRight className="w-4 h-4" /></Button>
+                            <Button variant="ghost" className="font-semibold text-primary-600 uppercase tracking-widest text-">Compare 15+ Platforms <ChevronRight className="w-4 h-4" /></Button>
                         </Link>
                     </div>
 
@@ -302,7 +302,7 @@ export default function StocksPage() {
                                     </div>
                                     <div>
                                         <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Equity Delivery</p>
-                                        <p className="font-bold text-emerald-600">{broker.pricing?.equity || '₹0'}</p>
+                                        <p className="font-bold text-primary-600">{broker.pricing?.equity || '₹0'}</p>
                                     </div>
                                 </div>
 
@@ -329,7 +329,7 @@ export default function StocksPage() {
                     <Globe className="absolute -right-24 -bottom-24 w-96 h-96 text-white/5 group-hover:rotate-12 transition-transform duration-700" />
                     <div className="max-w-3xl relative z-10">
                         <Badge className="bg-primary-600 text-white border-0 px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] mb-10">Institutional View</Badge>
-                        <h2 className="text-4xl lg:text-6xl font-bold mb-10 tracking-tight leading-tight">Master the <br /> <span className="text-emerald-400">Macro Variables</span></h2>
+                        <h2 className="text-4xl lg:text-6xl font-bold mb-10 tracking-tight leading-tight">Master the <br /> <span className="text-primary-400">Macro Variables</span></h2>
                         <p className="text-xl text-slate-400 font-medium leading-relaxed mb-16">
                             Retail traders look at prices. Professionals look at "Liquidity Clusters" and "Macro Correlations." Track NIFTY 500 sentiment deltas across all global gateways.
                         </p>
@@ -341,7 +341,7 @@ export default function StocksPage() {
                                 { icon: PieChart, label: "NIFTY PE", value: "22.45 (Optimal)" }
                             ].map((stat, i) => (
                                 <div key={i} className="space-y-4">
-                                    <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-emerald-400 border border-white/10">
+                                    <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-primary-400 border border-white/10">
                                         <stat.icon className="w-6 h-6" />
                                     </div>
                                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{stat.label}</p>

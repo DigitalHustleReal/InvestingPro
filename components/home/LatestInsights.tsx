@@ -19,6 +19,8 @@ interface Article {
     author_name?: string;
 }
 
+import { GridPattern } from "@/components/common/Patterns";
+
 export default function LatestInsights() {
     const { data, isLoading } = useQuery({
         queryKey: ['home-latest-insights'],
@@ -74,7 +76,7 @@ export default function LatestInsights() {
     };
 
     return (
-        <section className="py-20 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
+        <section className="py-20 bg-slate-50 dark:bg-slate-900 relative overflow-hidden transition-colors">
             {/* Background decoration */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
@@ -91,7 +93,7 @@ export default function LatestInsights() {
                             </div>
                             <span className="text-xs font-bold text-teal-600 uppercase tracking-widest">Latest Insights</span>
                         </div>
-                        <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight">
+                        <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">
                             Knowledge That<br className="hidden sm:block" />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-500">Empowers Growth</span>
                         </h2>
@@ -110,7 +112,7 @@ export default function LatestInsights() {
                     {/* Featured Article - Left Side */}
                     {featuredArticle && (
                         <Link href={`/article/${featuredArticle.slug}`} className="group">
-                            <Card className="h-full overflow-hidden bg-white border-0 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-500 rounded-3xl">
+                            <Card className="h-full overflow-hidden bg-white dark:bg-slate-800 border-0 shadow-xl shadow-slate-200/50 dark:shadow-none hover:shadow-2xl transition-all duration-500 rounded-3xl">
                                 {/* Image container */}
                                 <div className="relative h-56 overflow-hidden">
                                     <div className="absolute inset-0 bg-gradient-to-br from-teal-500 to-secondary-600" />
@@ -129,10 +131,10 @@ export default function LatestInsights() {
                                     </div>
                                 </div>
                                 <CardContent className="p-8">
-                                    <h3 className="text-2xl font-bold text-slate-900 mb-4 line-clamp-2 group-hover:text-teal-600 transition-colors leading-tight">
+                                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 line-clamp-2 group-hover:text-teal-600 transition-colors leading-tight">
                                         {featuredArticle.title}
                                     </h3>
-                                    <p className="text-slate-700 mb-6 line-clamp-3 leading-relaxed">
+                                    <p className="text-slate-700 dark:text-slate-400 mb-6 line-clamp-3 leading-relaxed">
                                         {featuredArticle.excerpt}
                                     </p>
                                     <div className="flex items-center justify-between text-sm text-slate-600">
@@ -159,7 +161,7 @@ export default function LatestInsights() {
                     <div className="flex flex-col gap-4">
                         {sideArticles.slice(0, 3).map((article, index) => (
                             <Link key={article.id} href={`/article/${article.slug}`} className="group">
-                                <Card className="overflow-hidden bg-white border-slate-100 hover:border-teal-200 hover:shadow-lg transition-all duration-300 rounded-2xl">
+                                <Card className="overflow-hidden bg-white dark:bg-slate-800 border-slate-100 dark:border-slate-700 hover:border-teal-200 hover:shadow-lg transition-all duration-300 rounded-2xl">
                                     <CardContent className="p-5 flex gap-5">
                                         {/* Thumbnail */}
                                         <div className="relative w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden bg-slate-100">
@@ -187,7 +189,7 @@ export default function LatestInsights() {
                                                     {article.read_time || 5} min
                                                 </span>
                                             </div>
-                                            <h4 className="font-bold text-slate-900 line-clamp-2 group-hover:text-teal-600 transition-colors leading-snug">
+                                            <h4 className="font-bold text-slate-900 dark:text-white line-clamp-2 group-hover:text-teal-600 transition-colors leading-snug">
                                                 {article.title}
                                             </h4>
                                         </div>
@@ -198,13 +200,13 @@ export default function LatestInsights() {
 
                         {/* View More CTA */}
                         <Link href="/blog" className="group">
-                            <Card className="bg-gradient-to-br from-slate-900 to-slate-800 border-0 rounded-2xl overflow-hidden hover:from-slate-800 hover:to-slate-700 transition-all duration-300">
+                            <Card className="bg-gradient-to-br from-secondary-900 to-secondary-800 border-0 rounded-2xl overflow-hidden hover:from-secondary-800 hover:to-secondary-700 transition-all duration-300 shadow-lg hover:shadow-secondary-900/20">
                                 <CardContent className="p-6 flex items-center justify-between">
                                     <div>
                                         <p className="text-white font-bold mb-1">Explore More Insights</p>
-                                        <p className="text-slate-400 text-sm">{(data?.total || 200)}+ articles on investing, savings & more</p>
+                                        <p className="text-secondary-200 text-sm">{(data?.total || 200)}+ articles on investing, savings & more</p>
                                     </div>
-                                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-teal-500 transition-colors">
+                                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
                                         <ArrowRight className="w-5 h-5 text-white" />
                                     </div>
                                 </CardContent>

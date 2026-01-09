@@ -8,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/Button";
-import { Search, Clock, Calendar, TrendingUp, User, ArrowRight, Loader2 } from "lucide-react";
+import { Search, Clock, Calendar, Eye, User, ArrowRight, Loader2, X } from "lucide-react";
 import Link from 'next/link';
 import PageErrorBoundary from "@/components/common/PageErrorBoundary";
 
@@ -106,13 +106,23 @@ export default function BlogPage() {
                             Deep dives, market analysis, and simplified financial guides to empower your investment journey.
                         </p>
                         <div className="relative group max-w-2xl">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-teal-400 transition-colors" />
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-teal-400 transition-colors" strokeWidth={2} />
                             <Input
-                                placeholder="Search guide, strategy, or asset class..."
+                                placeholder="Search articles, guides, strategies..."
                                 value={searchTerm}
                                 onChange={handleSearchChange}
                                 className="pl-12 h-16 bg-white/5 border-slate-700 text-white placeholder:text-slate-500 rounded-2xl focus:bg-white/10 transition-all outline-none text-lg"
+                                aria-label="Search blog articles"
                             />
+                            {debouncedSearch && (
+                                <button
+                                    onClick={() => setSearchTerm('')}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors"
+                                    aria-label="Clear search"
+                                >
+                                    <X className="w-5 h-5" strokeWidth={2} />
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -172,7 +182,7 @@ export default function BlogPage() {
                                                 {featuredArticle.read_time} min read
                                             </span>
                                             <span className="flex items-center gap-2">
-                                                <TrendingUp className="w-3.5 h-3.5 text-teal-500" />
+                                                <Eye className="w-3.5 h-3.5 text-teal-500" strokeWidth={2} />
                                                 {featuredArticle.views || 0} views
                                             </span>
                                         </div>

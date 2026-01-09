@@ -7,7 +7,7 @@ function generatePlaceholderSVG(text: string): string {
     const svg = `
         <svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
             <rect width="400" height="300" fill="#f1f5f9"/>
-            <rect width="400" height="4" fill="#10b981"/>
+            <rect width="400" height="4" fill="#0d9488"/>
             <text x="200" y="150" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#64748b" text-anchor="middle">${escapeXml(text || 'Image')}</text>
         </svg>
     `.trim();

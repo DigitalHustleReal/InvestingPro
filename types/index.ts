@@ -19,7 +19,7 @@ export interface Product {
 // ------------------------------------------
 export interface CreditCard extends Product {
   category: 'credit_card';
-  type: 'travel' | 'shopping' | 'cashback' | 'lifetime_free' | 'premium';
+  type: 'travel' | 'shopping' | 'cashback' | 'lifetime_free' | 'premium' | 'rewards';
 
   // Fees
   joiningFee: number;

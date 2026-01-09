@@ -42,9 +42,6 @@ function SearchButtonComponent({ isHomePage }: { isHomePage: boolean }) {
         >
             <Search className="w-4 h-4" />
             <span className="text-sm font-medium">Search</span>
-            <kbd className="hidden xl:inline-flex ml-2 pointer-events-none h-5 select-none items-center gap-1 rounded border bg-slate-50 dark:bg-slate-900 px-1.5 font-mono text-[10px] font-medium text-slate-500 opacity-100">
-                <span className="text-xs">⌘</span>K
-            </kbd>
         </Button>
     );
 }
@@ -102,7 +99,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
     }, []);
     
     // Filter and reorder categories based on high-intent search volume
-    const PRIORITY_SLUGS = ['credit-cards', 'loans', 'investing', 'insurance', 'banking', 'taxes', 'small-business', 'tools'];
+    const PRIORITY_SLUGS = ['credit-cards', 'insurance', 'loans', 'investing', 'tools'];
     
     const navigationCategories = PRIORITY_SLUGS
         .map(slug => config.find(c => c.slug === slug))
@@ -163,7 +160,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
     return (
         <header className="sticky top-0 z-50 bg-white/95 dark:bg-slate-950/95 border-b border-slate-200 dark:border-slate-800 backdrop-blur-xl transition-all duration-200 shadow-sm dark:shadow-slate-900/20">
             <nav className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-14 lg:h-20">
+                <div className="flex items-center justify-between h-14 lg:h-[72px]">
                     {/* Logo */}
                     <div className="flex-shrink-0">
                         <Logo 
@@ -355,7 +352,9 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
 
                     {/* Search Button - Opens Command Palette */}
                     <div className="flex items-center gap-2">
-                        <ThemeToggle />
+                        <div className="hidden lg:block">
+                            <ThemeToggle />
+                        </div>
                         <SearchButtonComponent isHomePage={isHomePage} />
 
                         {/* CTA Button - Hidden on mobile/tablet */}
@@ -365,7 +364,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                             </Link>
                             
                             <Link href="/compare">
-                                <Button className="bg-secondary-600 hover:bg-secondary-700 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-blue-600/20 transition-all h-10 px-6 rounded-lg">
+                                <Button className="bg-secondary-600 hover:bg-secondary-700 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-secondary-600/20 transition-all h-10 px-6 rounded-lg">
                                     Get Started
                                 </Button>
                             </Link>
@@ -391,7 +390,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                 <Button 
                                     variant="ghost" 
                                     size="icon" 
-                                    className="text-slate-700 hover:bg-slate-100"
+                                    className="text-primary-600 hover:bg-primary-50 hover:text-primary-700 dark:text-primary-500"
                                     aria-label="Open menu"
                                 >
                                     <Menu className="w-6 h-6" />
@@ -492,7 +491,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                 {/* Mobile Menu Footer */}
                                 <div className="p-4 border-t border-slate-200 bg-slate-50 space-y-3">
                                     <Link href="/compare" onClick={() => setIsOpen(false)}>
-                                        <Button className="w-full bg-secondary-600 hover:bg-secondary-700 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-blue-600/20 transition-all h-10 rounded-lg">
+                                        <Button className="w-full bg-secondary-600 hover:bg-secondary-700 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-primary-600/20 transition-all h-10 rounded-lg">
                                             Get Started
                                         </Button>
                                     </Link>
@@ -500,6 +499,9 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                         <Button variant="outline" className="w-full h-10 font-semibold text-slate-600 hover:text-teal-600 border-slate-200">
                                             Log In
                                         </Button>
+                                    </Link>
+                                    <Link href="/methodology" onClick={() => setIsOpen(false)} className="block text-center py-2 text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors">
+                                        ⭐ How We Rate Products
                                     </Link>
                                     <div className="pt-2 border-t border-slate-200">
                                         <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Language</p>

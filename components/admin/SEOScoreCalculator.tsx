@@ -141,13 +141,13 @@ export default function SEOScoreCalculator({
     }, [title, content, metaDescription, keywords]);
 
     const getScoreColor = (score: number) => {
-        if (score >= 80) return 'text-emerald-600';
+        if (score >= 80) return 'text-primary-600';
         if (score >= 60) return 'text-yellow-600';
         return 'text-red-600';
     };
 
     const getScoreBadge = (score: number) => {
-        if (score >= 80) return 'bg-emerald-100 text-emerald-800';
+        if (score >= 80) return 'bg-primary-100 text-primary-800';
         if (score >= 60) return 'bg-yellow-100 text-yellow-800';
         return 'bg-red-100 text-red-800';
     };
@@ -197,7 +197,7 @@ export default function SEOScoreCalculator({
                     {analysis.checks.map((check, idx) => (
                         <div key={idx} className="flex items-start gap-2 text-sm">
                             {check.passed ? (
-                                <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                                <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
                             ) : (
                                 <XCircle className="w-4 h-4 text-red-600 mt-0.5 flex-shrink-0" />
                             )}

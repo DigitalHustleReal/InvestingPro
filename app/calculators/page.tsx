@@ -97,6 +97,38 @@ export default function CalculatorsPage() {
                 </div>
             </div>
 
+            {/* Calculators Guide Visual Placeholder */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20 mb-12">
+                <div className="bg-slate-900 text-white p-8 rounded-[2.5rem] overflow-hidden relative min-h-[300px] flex flex-col md:flex-row items-center gap-12 shadow-2xl shadow-indigo-500/20">
+                    <div className="flex-1 text-center md:text-left z-10">
+                        <Badge className="bg-primary-500/20 text-primary-300 border-0 mb-4 px-3 py-1">Pro Tip</Badge>
+                        <h3 className="text-2xl md:text-3xl font-bold mb-4">Compound Interest Magic</h3>
+                        <p className="text-slate-300 text-lg leading-relaxed mb-6">
+                            Start early. Validating the 8th wonder of the world visually helps you plan better. 
+                            Use our tools to see how small investments grow over time.
+                        </p>
+                        <div className="inline-flex items-center gap-2 text-primary-300 font-bold text-sm">
+                            <Info className="w-4 h-4" />
+                            <span>Visual Guide Loading...</span>
+                        </div>
+                    </div>
+                    
+                    {/* Placeholder Area */}
+                    <div className="flex-1 w-full max-w-md">
+                        <div className="aspect-video bg-white/5 rounded-2xl border border-dashed border-slate-600 flex items-center justify-center relative overflow-hidden group">
+                           <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                           <div className="text-center"> 
+                                <BarChart3 className="w-12 h-12 text-slate-500 mx-auto mb-3" />
+                                <p className="text-sm font-mono text-slate-400 uppercase tracking-wider">Infographic Slot</p>
+                           </div>
+                        </div>
+                    </div>
+
+                    {/* Background Decor */}
+                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-600/20 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+                </div>
+            </div>
+
             {/* Calculators */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <Tabs defaultValue="sip" className="space-y-8">
@@ -297,7 +329,7 @@ export default function CalculatorsPage() {
                                         "GST Calculator - Calculate Goods and Services Tax"
                                     ].map((feature, idx) => (
                                         <div key={idx} className="flex items-start gap-3">
-                                            <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                                            <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
                                             <p className="text-slate-700 font-medium">{feature}</p>
                                         </div>
                                     ))}
@@ -425,7 +457,7 @@ export default function CalculatorsPage() {
                                     description: "All calculators are completely free with no hidden charges"
                                 },
                                 {
-                                    icon: <Percent className="w-8 h-8 text-emerald-600" />,
+                                    icon: <Percent className="w-8 h-8 text-primary-600" />,
                                     title: "Inflation Adjusted",
                                     description: "All calculators include inflation adjustment for real returns"
                                 },

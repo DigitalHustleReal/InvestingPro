@@ -145,7 +145,7 @@ export default function AddHoldingDialog({ onAdd, user }: AddHoldingDialogProps)
                     <DialogFooter className="pt-4">
                         <Button
                             type="submit"
-                            className="w-full rounded-2xl h-14 bg-slate-900 hover:bg-primary-600 font-semibold uppercase tracking-widest text- text-white transition-all shadow-xl shadow-emerald-500/10"
+                            className="w-full rounded-2xl h-14 bg-slate-900 hover:bg-primary-600 font-semibold uppercase tracking-widest text- text-white transition-all shadow-xl shadow-primary-500/10"
                         >
                             Commit to Ledger
                         </Button>

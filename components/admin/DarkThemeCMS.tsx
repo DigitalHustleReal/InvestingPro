@@ -311,7 +311,7 @@ export default function DarkThemeCMS({
                                             <td className="px-4 py-4">
                                                 <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                                     {article.status === 'draft' && onPublish && (
-                                                        <button onClick={() => onPublish(article.id)} className="p-2 hover:bg-emerald-500/20 rounded-lg text-emerald-400 transition-colors" title="Publish">
+                                                        <button onClick={() => onPublish(article.id)} className="p-2 hover:bg-primary-500/20 rounded-lg text-primary-400 transition-colors" title="Publish">
                                                             <Send className="w-4 h-4" />
                                                         </button>
                                                     )}
@@ -359,7 +359,7 @@ export default function DarkThemeCMS({
                             </div>
                             <div className="w-px h-6 bg-white/10" />
                             <div className="flex items-center gap-2">
-                                <button onClick={() => handleBulkAction('publish')} disabled={!!bulkLoading} className="px-4 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors disabled:opacity-50">
+                                <button onClick={() => handleBulkAction('publish')} disabled={!!bulkLoading} className="px-4 py-2 bg-primary-500/20 hover:bg-primary-500/30 text-primary-400 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors disabled:opacity-50">
                                     <Send className="w-4 h-4" /> Publish
                                 </button>
                                 <button onClick={() => handleBulkAction('archive')} disabled={!!bulkLoading} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm font-medium flex items-center gap-2 transition-colors disabled:opacity-50">

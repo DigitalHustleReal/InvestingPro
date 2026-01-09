@@ -109,7 +109,7 @@ export default function PersonalDashboard() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 pt-24 pb-20 px-4 md:px-8">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-24 pb-20 px-4 md:px-8">
             <div className="max-w-6xl mx-auto space-y-8">
                 <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
@@ -158,7 +158,7 @@ export default function PersonalDashboard() {
                     <Card className="border-none shadow-sm bg-white dark:bg-slate-900">
                         <CardContent className="p-6">
                             <div className="flex justify-between items-start mb-4">
-                                <TrendingUp className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                                <TrendingUp className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                             </div>
                             <div className="text-2xl font-bold text-slate-900 dark:text-white">₹2.4L</div>
                             <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">Total Net Worth</div>

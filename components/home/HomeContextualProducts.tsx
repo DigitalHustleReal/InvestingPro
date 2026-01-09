@@ -15,13 +15,13 @@ export default function HomeContextualProducts({ selectedCategory }: HomeContext
     // If no category selected, show all categories overview
     if (!selectedCategory) {
         return (
-            <section className="bg-slate-50 py-16">
+            <section className="bg-slate-50 dark:bg-slate-950 py-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
+                        <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                             Explore Financial Products
                         </h2>
-                        <p className="text-xl text-slate-600">
+                        <p className="text-xl text-slate-600 dark:text-slate-400">
                             Compare top picks side-by-side across all categories
                         </p>
                     </div>
@@ -33,12 +33,12 @@ export default function HomeContextualProducts({ selectedCategory }: HomeContext
 
                             return (
                                 <Card key={category.slug} className="border-0 shadow-lg hover:shadow-xl transition-shadow">
-                                    <CardContent className="p-6">
+                                    <CardContent className="p-6 bg-white dark:bg-slate-900 rounded-lg">
                                         <div className="flex items-center gap-3 mb-4">
                                             <TrendingUp className="w-5 h-5 text-teal-600" />
-                                            <h3 className="text-lg font-bold text-slate-900">{category.name}</h3>
+                                            <h3 className="text-lg font-bold text-slate-900 dark:text-white">{category.name}</h3>
                                         </div>
-                                        <p className="text-sm text-slate-600 mb-4">{category.description}</p>
+                                        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">{category.description}</p>
                                         <div className="space-y-2 mb-4">
                                             {topCollections.map((collection) => (
                                                 <Link
@@ -79,11 +79,11 @@ export default function HomeContextualProducts({ selectedCategory }: HomeContext
     return (
         <section className="bg-slate-50 py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <Card className="border-0 shadow-xl bg-white">
+                <Card className="border-0 shadow-xl bg-white dark:bg-slate-900">
                     <CardContent className="p-8 lg:p-6 md:p-8">
                         {/* Header */}
                         <div className="text-center mb-10">
-                            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
+                            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                                 Want to view more options?
                             </h2>
                             <p className="text-xl text-slate-600 mb-2">
@@ -102,12 +102,12 @@ export default function HomeContextualProducts({ selectedCategory }: HomeContext
                                     href={collection.href}
                                     className="group"
                                 >
-                                    <div className="h-full p-6 bg-slate-50 hover:bg-teal-50 border-2 border-slate-200 hover:border-teal-500 rounded-xl transition-all duration-200 group-hover:shadow-lg">
+                                    <div className="h-full p-6 bg-slate-50 dark:bg-slate-800 hover:bg-teal-50 dark:hover:bg-teal-900/20 border-2 border-slate-200 dark:border-slate-800 hover:border-teal-500 rounded-xl transition-all duration-200 group-hover:shadow-lg">
                                         <div className="flex items-center justify-between mb-2">
                                             <TrendingUp className="w-5 h-5 text-slate-400 group-hover:text-teal-600 transition-colors" />
                                             <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-teal-600 group-hover:translate-x-1 transition-all" />
                                         </div>
-                                        <h3 className="text-base font-bold text-slate-900 group-hover:text-teal-700 transition-colors leading-tight">
+                                        <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-teal-700 dark:group-hover:text-teal-400 transition-colors leading-tight">
                                             {collection.name.toUpperCase()}
                                         </h3>
                                         {collection.description && (
@@ -126,7 +126,7 @@ export default function HomeContextualProducts({ selectedCategory }: HomeContext
                                 <Link href={`/${category.slug}/${bestIntent.slug}`}>
                                     <Button 
                                         variant="outline"
-                                        className="bg-white hover:bg-teal-50 border-slate-300 hover:border-teal-500 text-slate-700 hover:text-teal-700 font-semibold px-8 py-6 text-base rounded-xl"
+                                        className="bg-white dark:bg-slate-900 hover:bg-teal-50 dark:hover:bg-teal-900/20 border-slate-300 dark:border-slate-700 hover:border-teal-500 text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-400 font-semibold px-8 py-6 text-base rounded-xl"
                                     >
                                         View All {category.name} Options
                                         <ArrowRight className="ml-2 w-5 h-5" />

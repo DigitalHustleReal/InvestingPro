@@ -25,8 +25,8 @@ export default function ComponentShowcasePage() {
           </p>
 
           {/* KEY TAKEAWAYS BOX */}
-          <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 border-2 border-emerald-500 rounded-lg p-6 my-8">
-            <h3 className="text-xl font-bold text-emerald-900 mb-4 flex items-center gap-2">
+          <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 border-2 border-primary-500 rounded-lg p-6 my-8">
+            <h3 className="text-xl font-bold text-primary-900 mb-4 flex items-center gap-2">
               ✓ Key Takeaways
             </h3>
             <ul className="space-y-3">
@@ -96,19 +96,19 @@ export default function ComponentShowcasePage() {
 
           {/* STATS GRID */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
-            <div className="bg-white border-2 border-emerald-200 rounded-lg p-4 text-center">
+            <div className="bg-white border-2 border-primary-200 rounded-lg p-4 text-center">
               <p className="text-sm text-gray-600 mb-1">Average SIP Returns</p>
-              <p className="text-3xl font-bold text-emerald-600">12.5%</p>
+              <p className="text-3xl font-bold text-primary-600">12.5%</p>
               <p className="text-xs mt-1 font-medium text-green-600">+2.3% vs last year</p>
             </div>
-            <div className="bg-white border-2 border-emerald-200 rounded-lg p-4 text-center">
+            <div className="bg-white border-2 border-primary-200 rounded-lg p-4 text-center">
               <p className="text-sm text-gray-600 mb-1">Min Investment</p>
-              <p className="text-3xl font-bold text-emerald-600">₹500</p>
+              <p className="text-3xl font-bold text-primary-600">₹500</p>
               <p className="text-xs mt-1 font-medium text-gray-600">Per month</p>
             </div>
-            <div className="bg-white border-2 border-emerald-200 rounded-lg p-4 text-center">
+            <div className="bg-white border-2 border-primary-200 rounded-lg p-4 text-center">
               <p className="text-sm text-gray-600 mb-1">Tax Benefit</p>
-              <p className="text-3xl font-bold text-emerald-600">₹1.5L</p>
+              <p className="text-3xl font-bold text-primary-600">₹1.5L</p>
               <p className="text-xs mt-1 font-medium text-gray-600">Section 80C</p>
             </div>
           </div>
@@ -150,13 +150,13 @@ export default function ComponentShowcasePage() {
 
           {/* FORMULA BOX */}
           <div className="my-6 bg-primary-50 border-2 border-indigo-400 rounded-lg p-6">
-            <h4 className="font-bold text-indigo-900 mb-3 flex items-center gap-2">
+            <h4 className="font-bold text-primary-900 mb-3 flex items-center gap-2">
               🧮 SIP Return Calculation
             </h4>
             <div className="bg-white rounded p-4 font-mono text-center text-lg font-semibold text-gray-900 mb-3">
               FV = P × [(1 + r)ⁿ - 1] / r × (1 + r)
             </div>
-            <p className="text-sm text-indigo-800">
+            <p className="text-sm text-primary-800">
               <strong>Where:</strong> FV = Future Value, P = Monthly Investment, r = Monthly Rate of Return, n = Number of Months
             </p>
           </div>
@@ -211,7 +211,7 @@ export default function ComponentShowcasePage() {
           <h2>Inline Text Highlighting</h2>
           <p>
             Highlight important numbers or terms inline: 
-            <span className="px-2 py-0.5 mx-1 rounded border font-semibold bg-emerald-100 text-emerald-900 border-emerald-300">₹10 lakh coverage</span>,
+            <span className="px-2 py-0.5 mx-1 rounded border font-semibold bg-primary-100 text-primary-900 border-primary-300">₹10 lakh coverage</span>,
             <span className="px-2 py-0.5 mx-1 rounded border font-semibold bg-secondary-100 text-secondary-900 border-secondary-300">12.5% returns</span>, or
             <span className="px-2 py-0.5 mx-1 rounded border font-semibold bg-amber-100 text-amber-900 border-amber-300">Section 80C benefit</span>.
           </p>
@@ -350,7 +350,7 @@ export default function ComponentShowcasePage() {
             <div className="flex gap-4 mb-6">
               <div className="flex flex-col items-center">
                 <div className="w-10 h-10 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold text-lg">1</div>
-                <div className="w-0.5 h-full bg-emerald-200 mt-2" />
+                <div className="w-0.5 h-full bg-primary-200 mt-2" />
               </div>
               <div className="flex-1 pb-6">
                 <h4 className="font-bold text-gray-900 mb-1">Check Eligibility</h4>
@@ -360,7 +360,7 @@ export default function ComponentShowcasePage() {
             <div className="flex gap-4 mb-6">
               <div className="flex flex-col items-center">
                 <div className="w-10 h-10 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold text-lg">2</div>
-                <div className="w-0.5 h-full bg-emerald-200 mt-2" />
+                <div className="w-0.5 h-full bg-primary-200 mt-2" />
               </div>
               <div className="flex-1 pb-6">
                 <h4 className="font-bold text-gray-900 mb-1">Submit Application</h4>
@@ -419,13 +419,13 @@ export default function ComponentShowcasePage() {
 
           <h3>Feature Comparison Grid</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 my-6">
-            <div className="flex items-center gap-3 p-4 rounded-lg border-2 bg-emerald-50 border-emerald-200">
+            <div className="flex items-center gap-3 p-4 rounded-lg border-2 bg-primary-50 border-primary-200">
               <div className="w-6 h-6 rounded-full flex items-center justify-center bg-primary-600">
                 <span className="text-white text-sm font-bold">✓</span>
               </div>
               <span className="text-sm font-medium text-gray-900">Zero Annual Fee</span>
             </div>
-            <div className="flex items-center gap-3 p-4 rounded-lg border-2 bg-emerald-50 border-emerald-200">
+            <div className="flex items-center gap-3 p-4 rounded-lg border-2 bg-primary-50 border-primary-200">
               <div className="w-6 h-6 rounded-full flex items-center justify-center bg-primary-600">
                 <span className="text-white text-sm font-bold">✓</span>
               </div>
@@ -447,22 +447,22 @@ export default function ComponentShowcasePage() {
 
           <h3>Metric Cards</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
-            <div className="bg-white border-2 border-emerald-200 rounded-lg p-6 text-center shadow-sm">
+            <div className="bg-white border-2 border-primary-200 rounded-lg p-6 text-center shadow-sm">
               <div className="text-4xl mb-2">📈</div>
               <p className="text-sm text-gray-600 mb-2">Average Returns</p>
-              <p className="text-3xl font-bold text-emerald-600 mb-2">14.2%</p>
+              <p className="text-3xl font-bold text-primary-600 mb-2">14.2%</p>
               <p className="text-xs font-medium text-green-600">+2.3% vs last year</p>
             </div>
-            <div className="bg-white border-2 border-emerald-200 rounded-lg p-6 text-center shadow-sm">
+            <div className="bg-white border-2 border-primary-200 rounded-lg p-6 text-center shadow-sm">
               <div className="text-4xl mb-2">💰</div>
               <p className="text-sm text-gray-600 mb-2">Min Investment</p>
-              <p className="text-3xl font-bold text-emerald-600 mb-2">₹500</p>
+              <p className="text-3xl font-bold text-primary-600 mb-2">₹500</p>
               <p className="text-xs font-medium text-gray-600">Per month via SIP</p>
             </div>
-            <div className="bg-white border-2 border-emerald-200 rounded-lg p-6 text-center shadow-sm">
+            <div className="bg-white border-2 border-primary-200 rounded-lg p-6 text-center shadow-sm">
               <div className="text-4xl mb-2">🔒</div>
               <p className="text-sm text-gray-600 mb-2">Lock-in Period</p>
-              <p className="text-3xl font-bold text-emerald-600 mb-2">3 Years</p>
+              <p className="text-3xl font-bold text-primary-600 mb-2">3 Years</p>
               <p className="text-xs font-medium text-gray-600">Tax-saving ELSS</p>
             </div>
           </div>

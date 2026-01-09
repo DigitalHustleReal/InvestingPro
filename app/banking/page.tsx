@@ -105,13 +105,13 @@ export default function BankingPage() {
                 {/* Background Decor */}
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-secondary-300/20 dark:bg-secondary-500/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2" />
-                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-emerald-300/20 dark:bg-emerald-500/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3" />
+                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary-300/20 dark:bg-primary-500/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3" />
                 </div>
 
                 <div className="container mx-auto px-4 relative z-10">
                     {/* Top Badge */}
                     <div className="flex justify-center mb-6">
-                        <Badge className="px-4 py-2 bg-white dark:bg-slate-900 text-emerald-600 dark:text-emerald-400 border-2 border-emerald-100 dark:border-emerald-500/20 font-bold uppercase tracking-wide text-xs inline-flex items-center gap-2 rounded-full shadow-lg">
+                        <Badge className="px-4 py-2 bg-white dark:bg-slate-900 text-primary-600 dark:text-primary-400 border-2 border-primary-100 dark:border-primary-500/20 font-bold uppercase tracking-wide text-xs inline-flex items-center gap-2 rounded-full shadow-lg">
                             <RefreshCw className="w-4 h-4" />
                             Updated Daily with Live Rates
                         </Badge>
@@ -126,7 +126,7 @@ export default function BankingPage() {
                             </span>
                         </h1>
                         <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                            Compare FD rates up to <strong className="font-bold text-emerald-600 dark:text-emerald-400">8.25%</strong>, high-yield savings accounts, and zero-balance options from <strong className="font-bold text-slate-900 dark:text-white">50+ banks</strong>.
+                            Compare FD rates up to <strong className="font-bold text-primary-600 dark:text-primary-400">8.25%</strong>, high-yield savings accounts, and zero-balance options from <strong className="font-bold text-slate-900 dark:text-white">50+ banks</strong>.
                         </p>
                     </div>
 
@@ -141,7 +141,7 @@ export default function BankingPage() {
                                             <Target className="w-6 h-6" />
                                             Fixed Deposit Rate Comparison
                                         </h2>
-                                        <p className="text-emerald-100 text-sm">
+                                        <p className="text-primary-100 text-sm">
                                             {sortedRates.length} banks offering competitive FD rates
                                         </p>
                                     </div>
@@ -153,8 +153,8 @@ export default function BankingPage() {
                                             onClick={() => setIsSeniorCitizen(!isSeniorCitizen)}
                                             className={`px-4 py-2 rounded-xl font-semibold text-sm transition-all ${
                                                 isSeniorCitizen
-                                                    ? 'bg-white text-emerald-600 shadow-lg'
-                                                    : 'bg-emerald-600/30 text-white hover:bg-emerald-600/40'
+                                                    ? 'bg-white text-primary-600 shadow-lg'
+                                                    : 'bg-primary-600/30 text-white hover:bg-primary-600/40'
                                             }`}
                                         >
                                             {isSeniorCitizen ? '✓ ' : ''}Senior Citizen
@@ -192,8 +192,8 @@ export default function BankingPage() {
                                                 return (
                                                     <tr 
                                                         key={bank.bank}
-                                                        className={`border-b border-slate-200 dark:border-slate-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/10 transition-colors ${
-                                                            isHighest ? 'bg-emerald-50/50 dark:bg-emerald-900/20' : ''
+                                                        className={`border-b border-slate-200 dark:border-slate-800 hover:bg-primary-50 dark:hover:bg-primary-900/10 transition-colors ${
+                                                            isHighest ? 'bg-primary-50/50 dark:bg-primary-900/20' : ''
                                                         }`}
                                                     >
                                                         <td className="px-6 py-5">
@@ -218,7 +218,7 @@ export default function BankingPage() {
                                                         <td className="px-6 py-5 text-center">
                                                             <div className={`text-2xl font-bold ${
                                                                 isHighest 
-                                                                    ? 'text-emerald-600 dark:text-emerald-400' 
+                                                                    ? 'text-primary-600 dark:text-primary-400' 
                                                                     : 'text-slate-900 dark:text-white'
                                                             }`}>
                                                                 {displayRate}%
@@ -244,7 +244,7 @@ export default function BankingPage() {
                                                         <td className="px-6 py-5 text-right">
                                                             <Button 
                                                                 variant="outline"
-                                                                className="text-emerald-600 border-emerald-200 hover:bg-emerald-50 dark:text-emerald-400 dark:border-emerald-800 dark:hover:bg-emerald-900/20"
+                                                                className="text-primary-600 border-primary-200 hover:bg-primary-50 dark:text-primary-400 dark:border-primary-800 dark:hover:bg-primary-900/20"
                                                             >
                                                                 View Details
                                                                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -264,7 +264,7 @@ export default function BankingPage() {
                                             <Clock className="w-4 h-4" />
                                             Last updated: 3 hours ago
                                         </div>
-                                        <Button variant="ghost" className="text-emerald-600 dark:text-emerald-400">
+                                        <Button variant="ghost" className="text-primary-600 dark:text-primary-400">
                                             <RefreshCw className="w-4 h-4 mr-2" />
                                             Refresh Rates
                                         </Button>
@@ -327,7 +327,7 @@ export default function BankingPage() {
                                     </p>
 
                                     <div className="mb-6">
-                                        <div className="text-3xl font-bold text-emerald-600 dark:text-emerald-400 mb-1">
+                                        <div className="text-3xl font-bold text-primary-600 dark:text-primary-400 mb-1">
                                             {account.rate}%
                                         </div>
                                         <div className="text-sm text-slate-500 dark:text-slate-400">
@@ -338,7 +338,7 @@ export default function BankingPage() {
                                     <div className="space-y-2 mb-6">
                                         {account.features.slice(0, 3).map((feature, i) => (
                                             <div key={i} className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
-                                                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                                                <CheckCircle2 className="w-4 h-4 text-primary-500" />
                                                 {feature}
                                             </div>
                                         ))}

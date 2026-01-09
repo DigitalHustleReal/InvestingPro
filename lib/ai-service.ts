@@ -226,10 +226,21 @@ class AIService {
     }
 
     /**
-     * Generate product data
+     * Generate product data using database prompts
      */
     async generateProduct(name: string, category: string) {
-        const prompt = `
+        // Try to get prompt from database, fallback to hardcoded
+        let prompt: string;
+        
+        try {
+            const { getPromptWithFallback } = await import('@/lib/ai/prompts-service');
+            prompt = await getPromptWithFallback('product-generator', {
+                product_name: name,
+                category: category,
+            });
+        } catch {
+            // Fallback to hardcoded prompt
+            prompt = `
 Generate realistic 2026 financial product data for "${name}" in India.
 Category: ${category}
 
@@ -250,15 +261,45 @@ Return ONLY valid JSON:
 
 Use real market data. Be specific and accurate.
 `;
+        }
 
         return this.generateJSON(prompt);
     }
 
     /**
-     * Generate article content
+     * Generate article content using database prompts
+     * Enhanced with intent detection and author personas
      */
-    async generateArticle(topic: string, keywords: string[]) {
-        const prompt = `
+    async generateArticle(topic: string, keywords: string[], category?: string) {
+        // Try to get prompt from database, fallback to hardcoded
+        let prompt: string;
+        let systemPrompt: string = '';
+        
+        try {
+            // Import content schema for intent detection
+            const { detectIntent, CATEGORY_CONFIGS } = await import('@/lib/content/content-schema');
+            const { getAuthorForCategory, getAuthorSystemPrompt } = await import('@/lib/content/author-personas');
+            
+            // Detect intent from topic
+            const intentSignals = detectIntent(topic);
+            
+            // Get author for category (if provided)
+            if (category && category in CATEGORY_CONFIGS) {
+                const author = getAuthorForCategory(category as any);
+                systemPrompt = getAuthorSystemPrompt(author.id);
+            }
+            
+            const { getPromptWithFallback } = await import('@/lib/ai/prompts-service');
+            prompt = await getPromptWithFallback('article-generator', {
+                topic: topic,
+                keywords: keywords.join(', '),
+                intent: intentSignals.intent,
+                content_type: intentSignals.suggestedContentType,
+                tone: intentSignals.suggestedTone,
+            });
+        } catch {
+            // Fallback to hardcoded prompt
+            prompt = `
 Write a comprehensive SEO-optimized article about: ${topic}
 
 Target keywords: ${keywords.join(', ')}
@@ -277,8 +318,14 @@ Return ONLY valid JSON:
   ]
 }
 `;
+        }
 
-        return this.generateJSON(prompt);
+        // If we have a system prompt from author, prepend it
+        const fullPrompt = systemPrompt 
+            ? `${systemPrompt}\n\n---\n\n${prompt}`
+            : prompt;
+
+        return this.generateJSON(fullPrompt);
     }
 
     /**

@@ -49,7 +49,7 @@ const RESOURCES = [
 
 export default function ResourcesPage() {
     return (
-        <div className="min-h-screen bg-slate-50 pt-24 pb-20">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-24 pb-20">
             <SEOHead 
                 title="Free Investing & Personal Finance Resources | InvestingPro"
                 description="Download expert-crafted Excel templates, Google Sheets calculators, and PDF checklists to manage your personal finance better."

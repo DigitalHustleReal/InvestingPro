@@ -68,7 +68,7 @@ export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetP
         );
     }
 
-    const scoreColor = seoData.overall >= 80 ? 'text-emerald-400' : 
+    const scoreColor = seoData.overall >= 80 ? 'text-primary-400' : 
                        seoData.overall >= 50 ? 'text-amber-400' : 'text-rose-400';
     
     const scoreBg = seoData.overall >= 80 ? 'bg-primary-500' : 
@@ -85,7 +85,7 @@ export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetP
 
     const getStatusIcon = (status: string) => {
         switch (status) {
-            case 'good': return <CheckCircle2 className="w-4 h-4 text-emerald-400" />;
+            case 'good': return <CheckCircle2 className="w-4 h-4 text-primary-400" />;
             case 'warning': return <AlertTriangle className="w-4 h-4 text-amber-400" />;
             case 'error': return <XCircle className="w-4 h-4 text-rose-400" />;
             default: return null;

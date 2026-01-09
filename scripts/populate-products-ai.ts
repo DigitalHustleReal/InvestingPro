@@ -98,6 +98,22 @@ function detectCategory(name: string): string {
     return "credit_card"; // default
 }
 
+/**
+ * Trigger image generation via API (non-blocking)
+ */
+async function generateImageAsync(productId: string) {
+    try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+        await fetch(`${apiUrl}/api/products/generate-image`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ productId })
+        });
+    } catch (error) {
+        // Fail silently - cron will catch missed images
+    }
+}
+
 async function populateWithAI() {
     console.log('🚀 Starting AI-powered population (NO MOCK DATA)\\n');
     console.log(`AI Status: ${JSON.stringify(aiService.getStatus())}\\n`);
@@ -117,7 +133,7 @@ async function populateWithAI() {
             
             const slug = productName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
             
-            const { error } = await supabase.from('products').upsert({
+            const { data: productData, error } = await supabase.from('products').upsert({
                 slug,
                 name: data.name,
                 category,
@@ -127,12 +143,12 @@ async function populateWithAI() {
                 features: data.features,
                 pros: data.pros,
                 cons: data.cons,
-                image_url: `https://via.placeholder.com/400x250/0f172a/10b981?text=${encodeURIComponent(data.provider_name)}`,
+                image_url: null, // Will be auto-generated
                 is_active: true,
                 last_verified_at: new Date().toISOString(),
                 verification_status: 'verified',
                 trust_score: Math.floor(data.rating * 20)
-            }, { onConflict: 'slug' });
+            }, { onConflict: 'slug' }).select().single();
             
             if (error) {
                 console.log(`❌ DB ERROR: ${error.message}`);
@@ -140,6 +156,13 @@ async function populateWithAI() {
             } else {
                 console.log('✅');
                 success++;
+                
+                // 🎨 AUTO-GENERATE IMAGE (non-blocking)
+                if (productData?.id) {
+                    generateImageAsync(productData.id).catch(() => {
+                        // Fails silently - cron will catch it
+                    });
+                }
             }
             
             // Rate limit

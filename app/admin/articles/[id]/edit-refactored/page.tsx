@@ -20,7 +20,6 @@ import { articleService, type ArticleData } from '@/lib/cms/article-service';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Save, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { revalidatePath } from 'next/cache';
 
 export default function EditArticlePage() {
     const router = useRouter();

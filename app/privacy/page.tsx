@@ -81,7 +81,7 @@ export default function PrivacyPage() {
 
             <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">4.2 Affiliate Partners</h3>
             <p className="text-gray-700 mb-4">
-              When you click on "Apply Now" buttons or external links, we may share limited information with our financial product partners. We earn commission on successful referrals. For details, see our <a href="/how-we-make-money" className="text-emerald-600 hover:text-emerald-700 underline">How We Make Money</a> page.
+              When you click on "Apply Now" buttons or external links, we may share limited information with our financial product partners. We earn commission on successful referrals. For details, see our <a href="/how-we-make-money" className="text-primary-600 hover:text-primary-700 underline">How We Make Money</a> page.
             </p>
 
             <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">4.3 Legal Requirements</h3>
@@ -121,7 +121,7 @@ export default function PrivacyPage() {
               <li><strong>Grievance Redressal:</strong> File a complaint with our Data Protection Officer</li>
             </ul>
             <p className="text-gray-700 mb-4">
-              To exercise your rights, contact us at: <a href="mailto:privacy@investingpro.in" className="text-emerald-600 hover:text-emerald-700 underline">privacy@investingpro.in</a>
+              To exercise your rights, contact us at: <a href="mailto:privacy@investingpro.in" className="text-primary-600 hover:text-primary-700 underline">privacy@investingpro.in</a>
             </p>
           </section>
 
@@ -189,7 +189,7 @@ export default function PrivacyPage() {
             </p>
             <div className="bg-gray-50 p-6 rounded-lg">
               <p className="text-gray-700 mb-2"><strong>Data Protection Officer</strong></p>
-              <p className="text-gray-700 mb-2">Email: <a href="mailto:privacy@investingpro.in" className="text-emerald-600 hover:text-emerald-700 underline">privacy@investingpro.in</a></p>
+              <p className="text-gray-700 mb-2">Email: <a href="mailto:privacy@investingpro.in" className="text-primary-600 hover:text-primary-700 underline">privacy@investingpro.in</a></p>
               <p className="text-gray-700 mb-2">Address: InvestingPro, Bangalore, Karnataka, India</p>
               <p className="text-gray-700 mb-2">Response Time: Within 30 days of receiving your request</p>
             </div>
@@ -204,7 +204,7 @@ export default function PrivacyPage() {
               <strong>Grievance Officer:</strong> [To be appointed]
             </p>
             <p className="text-amber-800">
-              <strong>Email:</strong> <a href="mailto:grievance@investingpro.in" className="text-emerald-600 hover:text-emerald-700 underline">grievance@investingpro.in</a>
+              <strong>Email:</strong> <a href="mailto:grievance@investingpro.in" className="text-primary-600 hover:text-primary-700 underline">grievance@investingpro.in</a>
             </p>
           </section>
 

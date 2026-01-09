@@ -94,15 +94,15 @@ export default function EditorialPolicyPage() {
                                     <h3 className="font-semibold text-slate-900 mb-2">AI May ONLY Be Used For:</h3>
                                     <ul className="space-y-2 text-sm text-slate-600">
                                         <li className="flex items-start gap-2">
-                                            <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                                            <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
                                             <span>Drafting summaries from verified data (human review required)</span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                                            <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
                                             <span>FAQ extraction from source documents (human review required)</span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                                            <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
                                             <span>Metadata generation (titles, descriptions) (human review required)</span>
                                         </li>
                                     </ul>
@@ -112,23 +112,23 @@ export default function EditorialPolicyPage() {
                                     <h3 className="font-semibold text-slate-900 mb-2">AI Guardrails:</h3>
                                     <ul className="space-y-2 text-sm text-slate-600">
                                         <li className="flex items-start gap-2">
-                                            <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                                            <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
                                             <span>Must use RAG (retrieval from scraped data)</span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                                            <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
                                             <span>Must include citations for all factual claims</span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                                            <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
                                             <span>Must be human-reviewable before publication</span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                                            <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
                                             <span>No financial advice phrasing</span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                                            <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
                                             <span>Informational language only</span>
                                         </li>
                                     </ul>
@@ -251,15 +251,15 @@ export default function EditorialPolicyPage() {
                             </p>
                             <ul className="space-y-2 text-sm text-slate-600">
                                 <li className="flex items-start gap-2">
-                                    <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                                    <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
                                     <span>Contact us at support@investingpro.in</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                                    <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
                                     <span>We will investigate and correct verified errors promptly</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                                    <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
                                     <span>All corrections are documented with timestamps</span>
                                 </li>
                             </ul>

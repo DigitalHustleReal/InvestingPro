@@ -254,19 +254,19 @@ export default function PersonalLoansPage() {
                     <h2 className="text-2xl font-bold text-slate-900 mb-4">Who Personal Loans Are For</h2>
                     <ul className="space-y-2 text-slate-700 mb-6">
                         <li className="flex items-start gap-2">
-                            <span className="text-emerald-600 mt-1">✓</span>
+                            <span className="text-primary-600 mt-1">✓</span>
                             <span>Individuals with stable income and good credit history (typically 750+ credit score)</span>
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-emerald-600 mt-1">✓</span>
+                            <span className="text-primary-600 mt-1">✓</span>
                             <span>Borrowers who need quick access to funds for emergencies or planned expenses</span>
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-emerald-600 mt-1">✓</span>
+                            <span className="text-primary-600 mt-1">✓</span>
                             <span>Those with existing debt who want to consolidate multiple loans at a potentially lower rate</span>
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-emerald-600 mt-1">✓</span>
+                            <span className="text-primary-600 mt-1">✓</span>
                             <span>Borrowers who don't have collateral to offer for secured loans</span>
                         </li>
                     </ul>

@@ -51,13 +51,13 @@ export default function SIPCalculator() {
     };
 
     return (
-        <Card className="max-w-md mx-auto my-8 border-teal-100 shadow-md">
-            <CardHeader className="bg-teal-50/50 border-b border-teal-100 pb-4">
-                <CardTitle className="text-xl text-teal-900 flex items-center gap-6 md:p-8">
+        <Card className="max-w-md mx-auto my-8 border-teal-100 dark:border-teal-900/50 shadow-md dark:bg-slate-900">
+            <CardHeader className="bg-teal-50/50 dark:bg-teal-900/10 border-b border-teal-100 dark:border-teal-900/20 pb-4">
+                <CardTitle className="text-xl text-teal-900 dark:text-teal-100 flex items-center gap-6 md:p-8">
                     📊 SIP Calculator
                 </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6 pt-6">
+            <CardContent className="space-y-6 pt-6 dark:text-slate-200">
                 {/* Inputs */}
                 <div className="space-y-4">
                     <div className="space-y-2">
@@ -112,9 +112,9 @@ export default function SIPCalculator() {
                             <span className="text-slate-500">Returns</span>
                             <span className="font-medium text-teal-600">+₹{results.estimatedReturns.toLocaleString()}</span>
                         </div>
-                        <div className="flex justify-between border-t pt-1 mt-1">
-                            <span className="font-bold text-slate-900">Total Value</span>
-                            <span className="font-bold text-teal-700">₹{results.totalValue.toLocaleString()}</span>
+                        <div className="flex justify-between border-t border-slate-100 dark:border-slate-800 pt-1 mt-1">
+                            <span className="font-bold text-slate-900 dark:text-white">Total Value</span>
+                            <span className="font-bold text-teal-700 dark:text-teal-400">₹{results.totalValue.toLocaleString()}</span>
                         </div>
                      </div>
                 </div>

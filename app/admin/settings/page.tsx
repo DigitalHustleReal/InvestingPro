@@ -137,7 +137,7 @@ export default function SettingsPage() {
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div className="p-4 bg-white/5 rounded-xl border border-white/10">
                                 <div className="text-xs text-slate-500 uppercase tracking-wider mb-1">Mode</div>
-                                <div className="text-sm font-medium text-emerald-400">Development</div>
+                                <div className="text-sm font-medium text-primary-400">Development</div>
                             </div>
                             <div className="p-4 bg-white/5 rounded-xl border border-white/10">
                                 <div className="text-xs text-slate-500 uppercase tracking-wider mb-1">Region</div>

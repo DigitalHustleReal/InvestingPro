@@ -157,7 +157,7 @@ export default function SemanticTitleGenerator({
                                         key={index}
                                         className={`p-4 border rounded-lg transition-all ${
                                             isSelected
-                                                ? 'border-secondary-500 bg-secondary-50 dark:bg-blue-950'
+                                                ? 'border-secondary-500 bg-secondary-50 dark:bg-primary-950'
                                                 : 'border-gray-200 dark:border-gray-700 hover:border-secondary-300 hover:bg-gray-50 dark:hover:bg-gray-800'
                                         }`}
                                     >
@@ -222,7 +222,7 @@ export default function SemanticTitleGenerator({
                         {selectedTitle && (
                             <div className="pt-4 border-t">
                                 <Label>Selected Title</Label>
-                                <div className="p-3 bg-secondary-50 dark:bg-blue-950 rounded-lg mt-2">
+                                <div className="p-3 bg-secondary-50 dark:bg-primary-950 rounded-lg mt-2">
                                     <p className="font-medium">{selectedTitle}</p>
                                 </div>
                             </div>

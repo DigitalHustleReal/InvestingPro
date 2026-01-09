@@ -98,13 +98,13 @@ export default function ProfilePage() {
         { label: 'Verified submissions', value: publishedArticles.length, icon: FileText, color: 'text-primary-500', bg: 'bg-primary-50' },
         { label: 'Knowledge Reach', value: totalViews.toLocaleString(), icon: Eye, color: 'text-sky-500', bg: 'bg-primary-50' },
         { label: 'Conflict Reviews', value: approvedReviews.length, icon: Star, color: 'text-amber-500', bg: 'bg-amber-50' },
-        { label: 'Community Trust', value: totalHelpful, icon: Activity, color: 'text-emerald-500', bg: 'bg-emerald-50' },
+        { label: 'Community Trust', value: totalHelpful, icon: Activity, color: 'text-primary-500', bg: 'bg-primary-50' },
     ];
 
     const getStatusBadge = (status: string) => {
         const styles: Record<string, string> = {
             pending: 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400',
-            approved: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400',
+            approved: 'bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-400',
             rejected: 'bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400',
             'revision-requested': 'bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-400',
             published: 'bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-400'
@@ -137,7 +137,7 @@ export default function ProfilePage() {
                                     </div>
                                 )}
                             </div>
-                            <div className="absolute -bottom-2 -right-2 bg-slate-900 text-emerald-400 p-3 rounded-2xl shadow-xl z-20 border border-white/10 group-hover:rotate-12 transition-transform">
+                            <div className="absolute -bottom-2 -right-2 bg-slate-900 text-primary-400 p-3 rounded-2xl shadow-xl z-20 border border-white/10 group-hover:rotate-12 transition-transform">
                                 <ShieldCheck className="w-6 h-6" />
                             </div>
                         </div>
@@ -318,7 +318,7 @@ export default function ProfilePage() {
                                                     </Badge>
                                                 </div>
                                                 {review.status === 'approved' && review.helpful_count > 0 && (
-                                                    <div className="flex items-center gap-2 mt-4 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-st">
+                                                    <div className="flex items-center gap-2 mt-4 text-[10px] font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-st">
                                                         <TrendingUp className="w-3.5 h-3.5" />
                                                         {review.helpful_count} Verified Trust Ratings
                                                     </div>

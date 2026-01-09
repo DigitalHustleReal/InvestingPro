@@ -232,19 +232,19 @@ export default function HomeLoansPage() {
                     <h2 className="text-2xl font-bold text-slate-900 mb-4">Who Home Loans Are For</h2>
                     <ul className="space-y-2 text-slate-700 mb-6">
                         <li className="flex items-start gap-2">
-                            <span className="text-emerald-600 mt-1">✓</span>
+                            <span className="text-primary-600 mt-1">✓</span>
                             <span>Individuals with stable income and employment</span>
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-emerald-600 mt-1">✓</span>
+                            <span className="text-primary-600 mt-1">✓</span>
                             <span>First-time homebuyers and property investors</span>
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-emerald-600 mt-1">✓</span>
+                            <span className="text-primary-600 mt-1">✓</span>
                             <span>Those with good credit scores (typically 750+)</span>
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-emerald-600 mt-1">✓</span>
+                            <span className="text-primary-600 mt-1">✓</span>
                             <span>Individuals seeking long-term wealth building through property ownership</span>
                         </li>
                     </ul>

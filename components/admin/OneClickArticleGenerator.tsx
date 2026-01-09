@@ -555,7 +555,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                         </Button>
 
                         <div className="flex items-center gap-2 text-xs text-slate-500 pt-2 border-t">
-                            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                            <CheckCircle2 className="w-4 h-4 text-primary-600" />
                             <span>Includes: Title, Meta Description, Content, Keywords, Tags, SEO Analysis</span>
                         </div>
                     </CardContent>
@@ -573,11 +573,11 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                         </p>
                         <div className="space-y-2 max-w-md mx-auto">
                             <div className="flex items-center gap-2 text-sm text-slate-500">
-                                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                                <CheckCircle2 className="w-4 h-4 text-primary-600" />
                                 <span>Analyzing topic and keywords...</span>
                             </div>
                             <div className="flex items-center gap-2 text-sm text-slate-500">
-                                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                                <CheckCircle2 className="w-4 h-4 text-primary-600" />
                                 <span>Writing SEO-optimized content...</span>
                             </div>
                             <div className="flex items-center gap-2 text-sm text-slate-400">
@@ -593,13 +593,13 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
             {step === 'review' && generatedArticle && (
                 <div className="space-y-6">
                     {/* Success Message */}
-                    <Card className="bg-emerald-50 border-emerald-200">
+                    <Card className="bg-primary-50 border-primary-200">
                         <CardContent className="p-6">
                             <div className="flex items-center gap-3">
-                                <CheckCircle2 className="w-6 h-6 text-emerald-600" />
+                                <CheckCircle2 className="w-6 h-6 text-primary-600" />
                                 <div>
-                                    <h3 className="font-semibold text-emerald-900">Article Generated Successfully!</h3>
-                                    <p className="text-sm text-emerald-700">
+                                    <h3 className="font-semibold text-primary-900">Article Generated Successfully!</h3>
+                                    <p className="text-sm text-primary-700">
                                         Review the article below. You can edit, save as draft, or publish directly.
                                     </p>
                                 </div>
@@ -617,7 +617,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                                         <Badge variant="outline">{generatedArticle.category}</Badge>
                                         <Badge variant="outline">{generatedArticle.read_time} min read</Badge>
                                         <Badge variant="outline">{generatedArticle.word_count} words</Badge>
-                                        <Badge className="bg-emerald-100 text-emerald-700 border-0">
+                                        <Badge className="bg-primary-100 text-primary-700 border-0">
                                             SEO Score: {generatedArticle.seo_score}/100
                                         </Badge>
                                     </div>

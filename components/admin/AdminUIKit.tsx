@@ -16,7 +16,7 @@ interface AdminPageHeaderProps {
 const iconColorClasses = {
     teal: 'from-teal-500 to-emerald-500 shadow-teal-500/25',
     purple: 'from-secondary-500 to-pink-500 shadow-purple-500/25',
-    blue: 'from-secondary-500 to-cyan-500 shadow-blue-500/25',
+    blue: 'from-secondary-500 to-cyan-500 shadow-primary-500/25',
     amber: 'from-amber-500 to-orange-500 shadow-amber-500/25',
     rose: 'from-rose-500 to-red-500 shadow-rose-500/25',
 };
@@ -85,7 +85,7 @@ export function StatCard({ label, value, change, changeType = 'neutral', icon: I
     };
 
     const changeColors = {
-        positive: 'text-emerald-400',
+        positive: 'text-primary-400',
         negative: 'text-rose-400',
         neutral: 'text-slate-400',
     };
@@ -256,7 +256,7 @@ interface BadgeProps {
 export function StatusBadge({ children, variant = 'default' }: BadgeProps) {
     const variants = {
         default: 'bg-slate-700 text-slate-300',
-        success: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
+        success: 'bg-primary-500/20 text-primary-400 border border-primary-500/30',
         warning: 'bg-amber-500/20 text-amber-400 border border-amber-500/30',
         danger: 'bg-rose-500/20 text-rose-400 border border-rose-500/30',
         info: 'bg-secondary-500/20 text-secondary-400 border border-secondary-500/30',

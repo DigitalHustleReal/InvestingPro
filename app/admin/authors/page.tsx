@@ -150,7 +150,7 @@ export default function AuthorsPage() {
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
                     <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 shadow-lg shadow-emerald-500/25 flex items-center justify-center">
+                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 shadow-lg shadow-primary-500/25 flex items-center justify-center">
                             <Users className="w-7 h-7 text-white" />
                         </div>
                         <div>
@@ -163,7 +163,7 @@ export default function AuthorsPage() {
                     <div className="flex gap-3">
                         <Button 
                             onClick={handleCreate} 
-                            className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl shadow-lg shadow-emerald-500/25"
+                            className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl shadow-lg shadow-primary-500/25"
                         >
                             <Plus className="w-4 h-4 mr-2" />
                             Recruit Expert
@@ -176,7 +176,7 @@ export default function AuthorsPage() {
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                     <Input 
                         placeholder="Search team members..." 
-                        className="pl-10 bg-white/5 border-white/10 rounded-xl focus:ring-emerald-500/50 text-white placeholder:text-slate-600"
+                        className="pl-10 bg-white/5 border-white/10 rounded-xl focus:ring-primary-500/50 text-white placeholder:text-slate-600"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
@@ -185,8 +185,8 @@ export default function AuthorsPage() {
                 {/* Team Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {filteredAuthors.map((author: any) => (
-                        <Card key={author.id} className="bg-white/[0.02] border-white/5 hover:border-emerald-500/30 transition-all duration-300 group overflow-hidden relative">
-                             <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 blur-3xl -mr-12 -mt-12 group-hover:bg-emerald-500/20 transition-colors" />
+                        <Card key={author.id} className="bg-white/[0.02] border-white/5 hover:border-primary-500/30 transition-all duration-300 group overflow-hidden relative">
+                             <div className="absolute top-0 right-0 w-24 h-24 bg-primary-500/10 blur-3xl -mr-12 -mt-12 group-hover:bg-primary-500/20 transition-colors" />
                             
                             <CardContent className="p-6 flex flex-col items-center text-center relative z-10">
                                 <div className="w-24 h-24 rounded-full border-4 border-white/5 mb-4 shadow-2xl relative overflow-hidden bg-slate-800">
@@ -198,7 +198,7 @@ export default function AuthorsPage() {
                                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </div>
                                 
-                                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors">{author.name}</h3>
+                                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-primary-400 transition-colors">{author.name}</h3>
                                 <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-1.5 justify-center">
                                     <Briefcase className="w-3 h-3" />
                                     {author.role || 'Contributor'}
@@ -222,7 +222,7 @@ export default function AuthorsPage() {
                                     <Button 
                                         size="sm" 
                                         variant="outline" 
-                                        className="ml-auto border-white/10 hover:bg-white/5 hover:text-emerald-400"
+                                        className="ml-auto border-white/10 hover:bg-white/5 hover:text-primary-400"
                                         onClick={() => handleEdit(author)}
                                     >
                                         <Edit className="w-3.5 h-3.5 mr-1" /> Edit
@@ -235,12 +235,12 @@ export default function AuthorsPage() {
                     {/* Add New Card */}
                     <button 
                         onClick={handleCreate}
-                        className="flex flex-col items-center justify-center p-6 border border-dashed border-white/10 rounded-xl bg-white/[0.01] hover:bg-emerald-500/5 hover:border-emerald-500/30 transition-all group min-h-[360px]"
+                        className="flex flex-col items-center justify-center p-6 border border-dashed border-white/10 rounded-xl bg-white/[0.01] hover:bg-primary-500/5 hover:border-primary-500/30 transition-all group min-h-[360px]"
                     >
                         <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            <Plus className="w-6 h-6 text-slate-500 group-hover:text-emerald-400" />
+                            <Plus className="w-6 h-6 text-slate-500 group-hover:text-primary-400" />
                         </div>
-                        <h3 className="font-bold text-slate-400 group-hover:text-emerald-400">Recruit New Talent</h3>
+                        <h3 className="font-bold text-slate-400 group-hover:text-primary-400">Recruit New Talent</h3>
                     </button>
                 </div>
 
@@ -249,7 +249,7 @@ export default function AuthorsPage() {
                     <DialogContent className="bg-slate-900 border-white/10 text-slate-100 sm:max-w-lg">
                         <DialogHeader>
                             <DialogTitle className="text-xl font-bold flex items-center gap-2">
-                                {editingAuthor ? <Edit className="w-5 h-5 text-emerald-400" /> : <Plus className="w-5 h-5 text-emerald-400" />}
+                                {editingAuthor ? <Edit className="w-5 h-5 text-primary-400" /> : <Plus className="w-5 h-5 text-primary-400" />}
                                 {editingAuthor ? 'Edit Profile' : 'Recruit New Expert'}
                             </DialogTitle>
                             <DialogDescription className="text-slate-400">
@@ -274,7 +274,7 @@ export default function AuthorsPage() {
                                 <textarea 
                                     value={formData.bio} 
                                     onChange={e => setFormData({...formData, bio: e.target.value})} 
-                                    className="w-full h-24 bg-white/5 border border-white/10 rounded-md p-3 text-sm focus:ring-emerald-500/50 focus:outline-none placeholder:text-slate-600" 
+                                    className="w-full h-24 bg-white/5 border border-white/10 rounded-md p-3 text-sm focus:ring-primary-500/50 focus:outline-none placeholder:text-slate-600" 
                                     placeholder="Write a compelling bio..." 
                                 />
                             </div>
@@ -300,7 +300,7 @@ export default function AuthorsPage() {
 
                         <DialogFooter>
                             <Button variant="outline" onClick={() => setIsDialogOpen(false)} className="border-white/10 hover:bg-white/5 text-slate-400">Cancel</Button>
-                            <Button onClick={handleSubmit} disabled={mutation.isPending} className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold">
+                            <Button onClick={handleSubmit} disabled={mutation.isPending} className="bg-primary-600 hover:bg-primary-700 text-white font-bold">
                                 {mutation.isPending ? 'Saving...' : 'Save Profile'}
                             </Button>
                         </DialogFooter>

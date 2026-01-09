@@ -15,7 +15,9 @@ import {
     ArrowRight,
     Gem,
     CheckCircle2,
-    BarChart3
+    BarChart3,
+    Info,
+    BookOpen
 } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/Button";
@@ -204,6 +206,122 @@ const CreditCardsPage = () => {
                             </div>
                         )}
                     </div>
+
+            {/* --- EDUCATIONAL CONTENT HUB --- */}
+            <div className="container mx-auto px-4 pb-24">
+                 <div className="flex items-center gap-3 mb-8">
+                    <div className="p-3 rounded-2xl bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400">
+                        <BookOpen className="w-6 h-6" />
+                    </div>
+                    <div>
+                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white">Credit Card Knowledge Hub</h2>
+                        <p className="text-slate-600 dark:text-slate-400 mt-1">Maximize rewards and build credit history.</p>
+                    </div>
+                </div>
+
+                <div className="grid lg:grid-cols-3 gap-8">
+                    {/* Visual Guide Placeholder */}
+                    <div className="lg:col-span-1">
+                         <div className="sticky top-24 bg-slate-900 text-white p-8 rounded-[2rem] overflow-hidden relative min-h-[400px] flex flex-col justify-center items-center text-center">
+                            {/* Placeholder Content */}
+                            <div className="z-10 relative">
+                                <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm">
+                                    <Sparkles className="w-10 h-10 text-teal-300" />
+                                </div>
+                                <h3 className="text-2xl font-bold mb-3">Rewards Matrix</h3>
+                                <p className="text-slate-300 mb-8 max-w-[200px] mx-auto">Visual guide to choosing the right card based on your spending.</p>
+                                <div className="border border-dashed border-slate-600 rounded-xl p-4 bg-slate-800/50">
+                                    <p className="text-xs text-slate-400 uppercase tracking-widest font-semibold">Image Placeholder</p>
+                                </div>
+                            </div>
+                            
+                            {/* Decor */}
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+                        </div>
+                    </div>
+
+                    {/* Text Content */}
+                    <div className="lg:col-span-2 space-y-8">
+                        {/* Types of Cards */}
+                        <Card className="border-slate-200 dark:border-slate-800 shadow-sm">
+                            <CardContent className="p-8">
+                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                                    <CardIcon className="w-5 h-5 text-teal-600" />
+                                    Types of Credit Cards
+                                </h3>
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    {[
+                                        {
+                                            title: "Travel Cards",
+                                            desc: "Earn miles/points on booking flights & hotels. Comes with lounge access.",
+                                            icon: Plane
+                                        },
+                                        {
+                                            title: "Shopping Cards",
+                                            desc: "Cashback or reward points on online/offline shopping (Amazon/Flipkart).",
+                                            icon: ShoppingBag
+                                        },
+                                        {
+                                            title: "Fuel Cards",
+                                            desc: "Surcharge waiver and extra points on fuel spends at specific petrol pumps.",
+                                            icon: Zap
+                                        },
+                                        {
+                                            title: "Lifetime Free",
+                                            desc: "No joining or annual fee. Best for beginners or low spenders.",
+                                            icon: ShieldCheck
+                                        }
+                                    ].map((type, i) => (
+                                        <div key={i} className="flex gap-4">
+                                            <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-900/20 flex items-center justify-center text-teal-600 dark:text-teal-400 mt-1">
+                                                <type.icon className="w-5 h-5" />
+                                            </div>
+                                            <div>
+                                                <h4 className="font-bold text-slate-900 dark:text-white mb-1">{type.title}</h4>
+                                                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{type.desc}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </CardContent>
+                        </Card>
+
+                        {/* FAQ Accordion */}
+                        <div className="space-y-4">
+                            <h3 className="text-xl font-bold text-slate-900 dark:text-white px-2">Frequently Asked Questions</h3>
+                            {[
+                                {
+                                    q: "What is CIBIL Score required?",
+                                    a: "Most premium cards require 750+. However, entry-level cards are available for 700+ or against Fixed Deposit (Secured Cards)."
+                                },
+                                {
+                                    q: "How to avoid Paying Interest?",
+                                    a: "Always pay the 'Total Amount Due' before the due date. Paying only 'Minimum Due' attracts heavy interest (36-42% p.a.)."
+                                },
+                                {
+                                    q: "What is 'No Cost EMI'?",
+                                    a: "It means the interest amount is given as a discount, so you pay only the product price in installments. Careful of processing fees."
+                                },
+                                {
+                                    q: "Annual Fee Waiver?",
+                                    a: "Most cards waive the annual fee if you cross a spending milestone (e.g., Spend ₹1 Lakh in a year) to reverse the fee."
+                                }
+                            ].map((faq, i) => (
+                                <div key={i} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 hover:shadow-md transition-shadow">
+                                    <h4 className="font-bold text-slate-900 dark:text-white mb-2 flex justify-between items-center group cursor-pointer">
+                                        {faq.q}
+                                        <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-teal-600 transition-colors" />
+                                    </h4>
+                                    <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                        {faq.a}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
                 </div>
             </div>
 

@@ -64,7 +64,7 @@ export default function ContextualProducts({ category }: { category: string }) {
                             
                             <div className="mt-auto">
                                 <Link href={`/go/${p.slug}`} target="_blank">
-                                    <Button className="w-full bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-xl shadow-[0_4px_12px_rgba(20,184,166,0.2)] hover:shadow-[0_4px_20px_rgba(20,184,166,0.4)] transition-all">
+                                    <Button className="w-full bg-primary-600 hover:bg-teal-500 text-white font-bold rounded-xl shadow-[0_4px_12px_rgba(20,184,166,0.2)] hover:shadow-[0_4px_20px_rgba(20,184,166,0.4)] transition-all">
                                         Check Eligibility
                                     </Button>
                                 </Link>

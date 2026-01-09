@@ -331,7 +331,7 @@ export default function AIContentGenerator() {
                         </div>
 
                         <div className="flex gap-3">
-                            <Button onClick={saveArticle} className="bg-primary-600 hover:bg-emerald-700">
+                            <Button onClick={saveArticle} className="bg-primary-600 hover:bg-primary-700">
                                 Save as Draft
                             </Button>
                             <Button variant="outline" onClick={() => {

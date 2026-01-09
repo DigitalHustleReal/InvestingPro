@@ -1,4 +1,4 @@
-export type CreditCardType = 'Cashback' | 'Rewards' | 'Travel' | 'Premium' | 'Shopping' | 'Fuel';
+export type CreditCardType = 'Cashback' | 'Rewards' | 'Travel' | 'Premium' | 'Shopping' | 'Fuel' | 'rewards' | 'cashback' | 'travel' | 'shopping' | 'premium' | 'lifetime_free';
 
 export interface CreditCard {
     id: string;

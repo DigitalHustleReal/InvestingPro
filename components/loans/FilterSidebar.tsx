@@ -48,10 +48,10 @@ export function LoanFilterSidebar({ filters, setFilters }: FilterSidebarProps) {
          <div className="w-full bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden flex flex-col h-full lg:sticky lg:top-28">
             <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
                 <h3 className="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                    <Filter className="w-4 h-4 text-emerald-500" />
+                    <Filter className="w-4 h-4 text-primary-500" />
                     Loan Filters
                 </h3>
-                <Button variant="ghost" size="sm" onClick={handleReset} className="h-8 text-xs text-slate-500 hover:text-emerald-600">
+                <Button variant="ghost" size="sm" onClick={handleReset} className="h-8 text-xs text-slate-500 hover:text-primary-600">
                     <RotateCcw className="w-3 h-3 mr-1" /> Reset
                 </Button>
             </div>
@@ -82,7 +82,7 @@ export function LoanFilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                                 onClick={() => toggleArrayItem('loanTypes', type)}
                                 className={`text-xs px-3 py-1.5 rounded-lg border transition-all font-semibold ${
                                     filters.loanTypes.includes(type)
-                                        ? 'bg-emerald-600 text-white border-emerald-600 shadow-lg shadow-emerald-500/20'
+                                        ? 'bg-primary-600 text-white border-primary-600 shadow-lg shadow-primary-500/20'
                                         : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300'
                                 }`}
                             >

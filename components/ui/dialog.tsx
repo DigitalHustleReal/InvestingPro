@@ -73,7 +73,7 @@ export function DialogContent({
             />
             <div
                 className={cn(
-                    "relative z-[101] w-full max-w-lg rounded-lg bg-white p-6 shadow-xl",
+                    "relative z-[101] w-full max-w-lg rounded-lg bg-white dark:bg-slate-900 p-6 shadow-xl dark:border dark:border-slate-800",
                     className
                 )}
                 onClick={(e) => e.stopPropagation()}

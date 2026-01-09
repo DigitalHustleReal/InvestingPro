@@ -82,14 +82,14 @@ export default function TableOfContents({ className = '' }: TableOfContentsProps
           {/* Glassmorphism Card */}
           <div className="relative group">
             {/* Animated gradient border */}
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 via-secondary-500 to-emerald-500 rounded-2xl opacity-30 group-hover:opacity-50 blur transition duration-500 animate-gradient-x"></div>
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-500 via-primary-400 to-primary-500 rounded-2xl opacity-30 group-hover:opacity-50 blur transition duration-500 animate-gradient-x"></div>
             
             {/* Main Card */}
-            <div className="relative bg-white/80 backdrop-blur-xl rounded-2xl border border-emerald-100/50 shadow-2xl overflow-hidden">
+            <div className="relative bg-white/80 backdrop-blur-xl rounded-2xl border border-primary-100/50 shadow-2xl overflow-hidden">
               {/* Header with gradient */}
-              <div className="bg-gradient-to-r from-emerald-50 to-blue-50 px-6 py-4 border-b border-emerald-100/50">
+              <div className="bg-gradient-to-r from-primary-50 to-white px-6 py-4 border-b border-primary-100/50">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-primary-500 rounded-lg shadow-lg animate-pulse-slow">
+                  <div className="p-2 bg-primary-500 rounded-lg shadow-lg shadow-primary-500/20 animate-pulse-slow">
                     <List className="w-5 h-5 text-white" />
                   </div>
                   <h3 className="font-bold text-gray-900 text-lg">Table of Contents</h3>
@@ -114,8 +114,8 @@ export default function TableOfContents({ className = '' }: TableOfContentsProps
                         onClick={() => scrollToSection(item.id)}
                         className={`group/item w-full text-left px-4 py-2.5 rounded-lg transition-all duration-300 flex items-center gap-2 ${
                           activeId === item.id
-                            ? 'bg-gradient-to-r from-emerald-500 to-secondary-500 text-white shadow-lg scale-105'
-                            : 'text-gray-600 hover:bg-emerald-50 hover:text-emerald-700 hover:translate-x-1'
+                            ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg shadow-primary-500/20 scale-105'
+                            : 'text-gray-600 hover:bg-primary-50 hover:text-primary-700 hover:translate-x-1'
                         }`}
                       >
                         <ChevronRight
@@ -135,7 +135,7 @@ export default function TableOfContents({ className = '' }: TableOfContentsProps
               {/* Progress indicator */}
               <div className="h-1 bg-gray-100">
                 <div
-                  className="h-full bg-gradient-to-r from-emerald-500 to-secondary-500 transition-all duration-300"
+                  className="h-full bg-gradient-to-r from-primary-600 to-primary-400 transition-all duration-300"
                   style={{
                     width: `${((toc.findIndex(item => item.id === activeId) + 1) / toc.length) * 100}%`
                   }}
@@ -151,9 +151,9 @@ export default function TableOfContents({ className = '' }: TableOfContentsProps
         {!isVisible && (
           <button
             onClick={() => setIsVisible(true)}
-            className="group relative p-4 bg-gradient-to-r from-emerald-500 to-secondary-500 text-white rounded-full shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-110 animate-bounce-slow"
+            className="group relative p-4 bg-gradient-to-r from-primary-600 to-primary-500 text-white rounded-full shadow-2xl hover:shadow-primary-500/50 transition-all duration-300 hover:scale-110 animate-bounce-slow"
           >
-            <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-secondary-500 rounded-full blur opacity-50 group-hover:opacity-75 transition duration-300 animate-pulse"></div>
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary-600 to-primary-500 rounded-full blur opacity-50 group-hover:opacity-75 transition duration-300 animate-pulse"></div>
             <List className="w-6 h-6 relative z-10" />
             <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-ping"></span>
             <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
@@ -165,7 +165,7 @@ export default function TableOfContents({ className = '' }: TableOfContentsProps
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 animate-fadeIn">
             <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl shadow-2xl animate-slideUp max-h-[80vh] overflow-hidden">
               {/* Header */}
-              <div className="bg-gradient-to-r from-emerald-500 to-secondary-500 px-6 py-4 flex items-center justify-between">
+              <div className="bg-gradient-to-r from-primary-600 to-primary-500 px-6 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <List className="w-6 h-6 text-white" />
                   <h3 className="font-bold text-white text-lg">Table of Contents</h3>
@@ -193,8 +193,8 @@ export default function TableOfContents({ className = '' }: TableOfContentsProps
                         }}
                         className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 flex items-center gap-3 ${
                           activeId === item.id
-                            ? 'bg-gradient-to-r from-emerald-500 to-secondary-500 text-white shadow-lg'
-                            : 'text-gray-700 hover:bg-emerald-50 active:scale-95'
+                            ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg'
+                            : 'text-gray-700 hover:bg-primary-50 active:scale-95'
                         }`}
                       >
                         <ChevronRight
@@ -272,12 +272,12 @@ export default function TableOfContents({ className = '' }: TableOfContentsProps
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: linear-gradient(to bottom, #10b981, #3b82f6);
+          background: linear-gradient(to bottom, #0d9488, #0f766e);
           border-radius: 10px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(to bottom, #059669, #2563eb);
+          background: linear-gradient(to bottom, #0f766e, #115e59);
         }
       `}</style>
     </>

@@ -181,7 +181,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
                             <Button
                                 onClick={handleApprove}
                                 disabled={approveMutation.isPending}
-                                className="w-full bg-primary-600 hover:bg-emerald-700 text-white"
+                                className="w-full bg-primary-600 hover:bg-primary-700 text-white"
                             >
                                 <CheckCircle2 className="w-4 h-4 mr-2" />
                                 Approve & Publish

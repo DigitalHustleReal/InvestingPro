@@ -129,14 +129,14 @@ export default function PillarPageTemplate({ content }: PillarPageTemplateProps)
                         <div className="grid md:grid-cols-2 gap-8">
                             <Card className="border-0 shadow-lg">
                                 <CardContent className="p-6">
-                                    <h3 className="text-xl font-bold text-emerald-600 mb-6 flex items-center gap-2">
+                                    <h3 className="text-xl font-bold text-primary-600 mb-6 flex items-center gap-2">
                                         <CheckCircle2 className="w-5 h-5" />
                                         Advantages
                                     </h3>
                                     <ul className="space-y-3">
                                         {sections.pros_cons.pros.map((pro, idx) => (
                                             <li key={idx} className="flex items-start gap-3">
-                                                <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                                                <CheckCircle2 className="w-5 h-5 text-primary-600 shrink-0 mt-0.5" />
                                                 <span className="text-slate-700">{pro}</span>
                                             </li>
                                         ))}

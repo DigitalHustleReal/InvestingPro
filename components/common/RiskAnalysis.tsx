@@ -35,8 +35,8 @@ export default function RiskAnalysis({ holdings, user }: RiskAnalysisProps) {
         conservative: {
             equity: { min: 20, max: 40 },
             debt: { min: 60, max: 80 },
-            colorClass: 'bg-emerald-100 text-emerald-700',
-            borderClass: 'border-emerald-200'
+            colorClass: 'bg-primary-100 text-primary-700',
+            borderClass: 'border-primary-200'
         },
         moderate: {
             equity: { min: 40, max: 60 },
@@ -103,7 +103,7 @@ export default function RiskAnalysis({ holdings, user }: RiskAnalysisProps) {
                     </div>
                     <div className="flex items-center justify-between">
                         <span className="text-sm text-slate-600">Your Current Equity Allocation</span>
-                        <span className={`font-bold ${isEquityInRange ? 'text-emerald-600' : 'text-amber-600'}`}>
+                        <span className={`font-bold ${isEquityInRange ? 'text-primary-600' : 'text-amber-600'}`}>
                             {equityPercent}%
                         </span>
                     </div>
@@ -112,7 +112,7 @@ export default function RiskAnalysis({ holdings, user }: RiskAnalysisProps) {
                 <div className="space-y-3">
                     {insights.map((insight, idx) => {
                         const Icon = insight.type === 'success' ? CheckCircle2 : insight.type === 'warning' ? AlertCircle : TrendingUp;
-                        const styleClass = insight.type === 'success' ? 'text-emerald-700 bg-emerald-50 border-emerald-100' :
+                        const styleClass = insight.type === 'success' ? 'text-primary-700 bg-primary-50 border-primary-100' :
                             insight.type === 'warning' ? 'text-amber-700 bg-amber-50 border-amber-100' :
                                 'text-secondary-700 bg-secondary-50 border-secondary-100';
 

@@ -20,73 +20,105 @@ const categories = [
         title: "Credit Cards",
         icon: CreditCard,
         description: "Compare reward rates, cashback & fees",
-        href: "/credit-cards",
-        color: "text-secondary-500",
-        bg: "bg-secondary-50 dark:bg-secondary-900/20"
+        href: "/credit-cards"
     },
     {
         title: "Loans",
         icon: Landmark,
-        description: "Lowest rates for Home, Personal & Car loans",
-        href: "/loans",
-        color: "text-primary-600",
-        bg: "bg-primary-50 dark:bg-primary-900/20"
+        description: "Lowest rates for home, personal & car loans",
+        href: "/loans"
     },
     {
         title: "Insurance",
         icon: Shield,
         description: "Protect your family with curated plans",
-        href: "/insurance",
-        color: "text-primary-600",
-        bg: "bg-primary-50 dark:bg-primary-900/20"
+        href: "/insurance"
     },
     {
         title: "Mutual Funds",
         icon: TrendingUp,
         description: "Direct plans with zero commission",
-        href: "/mutual-funds",
-        color: "text-secondary-500",
-        bg: "bg-secondary-50 dark:bg-purple-900/20"
+        href: "/mutual-funds"
     },
     {
         title: "Calculators",
         icon: Calculator,
-        description: "SIP, EMI, Tax & Retirement planners",
-        href: "/calculators",
-        color: "text-primary-600",
-        bg: "bg-primary-50 dark:bg-primary-900/20"
+        description: "SIP, EMI, tax & retirement planners",
+        href: "/calculators"
     },
     {
-        title: "Market News",
-        icon: Newspaper,
-        description: "Real-time updates & expert analysis",
-        href: "/news",
-        color: "text-primary-600",
-        bg: "bg-primary-50 dark:bg-primary-900/20"
+        title: "Financial Guides",
+        icon: BookOpen,
+        description: "Expert tips & money management",
+        href: "/blog"
+    },
+    {
+        title: "Fixed Deposits",
+        icon: Landmark,
+        description: "Guaranteed returns & safety",
+        href: "/fixed-deposits"
+    },
+    {
+        title: "Income Tax",
+        icon: Calculator,
+        description: "Save tax with smart planning",
+        href: "/taxes"
+    },
+    {
+        title: "Small Business",
+        icon: Gem,
+        description: "Loans & tools for growth",
+        href: "/small-business"
     }
 ];
 
 export default function CategoryDiscovery() {
     return (
-        <section className="py-16 bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-900">
-            <div className="container mx-auto px-4">
+        <section className="relative py-16 bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-900 overflow-hidden">
+            <div className="container mx-auto px-4 relative z-10">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">Explore by Category</h2>
                     <p className="text-slate-600 dark:text-slate-400">Everything you need to manage your wealth.</p>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                     {categories.map((cat, i) => (
                         <Link href={cat.href} key={i}>
-                            <Card className="h-full hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-1 transition-all cursor-pointer bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800">
-                                <CardContent className="p-6 flex flex-col items-center text-center h-full justify-center">
-                                    <div className={`w-12 h-12 rounded-full ${cat.bg} flex items-center justify-center mb-4`}>
-                                        <cat.icon className={`w-6 h-6 ${cat.color}`} />
+                            <Card className="group h-full hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 relative overflow-hidden">
+                                <CardContent className="p-6 flex flex-col items-center text-center h-full relative z-10">
+                                    {/* Premium Icon Container with Alternating Colors */}
+                                    <div className={`
+                                        w-14 h-14 rounded-2xl flex items-center justify-center mb-5 
+                                        transition-all duration-300 group-hover:scale-110 shadow-inner
+                                        
+                                        /* Light Mode: Blue (Default) -> Teal (Hover) */
+                                        bg-secondary-50 group-hover:bg-primary-50
+                                        
+                                        /* Dark Mode: Teal (Default) -> Blue (Hover) */
+                                        dark:bg-primary-900/20 dark:group-hover:bg-secondary-900/20
+                                    `}>
+                                        <cat.icon className={`
+                                            w-7 h-7 drop-shadow-sm transition-colors duration-300
+                                            
+                                            /* Light Mode: Blue (Default) -> Teal (Hover) */
+                                            text-secondary-600 group-hover:text-primary-600
+                                            
+                                            /* Dark Mode: Teal (Default) -> Blue (Hover) */
+                                            dark:text-primary-400 dark:group-hover:text-secondary-400
+                                        `} />
                                     </div>
-                                    <h3 className="font-bold text-slate-900 dark:text-white mb-2">{cat.title}</h3>
-                                    <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
+                                    
+                                    {/* Title with matching transitions */}
+                                    <h3 className="font-bold text-slate-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-secondary-400 transition-colors">
+                                        {cat.title}
+                                    </h3>
+                                    
+                                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed px-1">
                                         {cat.description}
                                     </p>
+
+                                    {/* Hover Indicator Strip (Teal in Light, Blue in Dark) */}
+                                    <div className="absolute overflow-hidden inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-primary-500 dark:via-secondary-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                 </CardContent>
                             </Card>
                         </Link>

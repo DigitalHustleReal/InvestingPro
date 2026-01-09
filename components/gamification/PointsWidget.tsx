@@ -21,11 +21,11 @@ export default function PointsWidget({ points = 0, level = 'Beginner' }: PointsW
             <CardContent className="p-8 relative z-10">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
                     <div className="flex items-center gap-6">
-                        <div className="w-16 h-16 rounded-3xl bg-primary-500 flex items-center justify-center shadow-xl shadow-emerald-500/20 group-hover:rotate-6 transition-transform">
+                        <div className="w-16 h-16 rounded-3xl bg-primary-500 flex items-center justify-center shadow-xl shadow-primary-500/20 group-hover:rotate-6 transition-transform">
                             <Trophy className="w-8 h-8 text-slate-900" />
                         </div>
                         <div>
-                            <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-[0.2em] mb-1">XP Achievement System</p>
+                            <p className="text-[10px] font-bold text-primary-400 uppercase tracking-[0.2em] mb-1">XP Achievement System</p>
                             <h3 className="text-3xl font-bold tracking-tight">{points.toLocaleString()} <span className="text-slate-500 text-xl font-medium">Points</span></h3>
                         </div>
                     </div>
@@ -42,7 +42,7 @@ export default function PointsWidget({ points = 0, level = 'Beginner' }: PointsW
                     </div>
 
                     <div className="hidden lg:flex flex-col items-end">
-                        <div className="flex items-center gap-2 text-emerald-400 font-bold mb-1">
+                        <div className="flex items-center gap-2 text-primary-400 font-bold mb-1">
                             <TrendingUp className="w-4 h-4" />
                             <span>+150 XP</span>
                         </div>

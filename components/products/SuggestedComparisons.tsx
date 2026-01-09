@@ -19,8 +19,8 @@ export default function SuggestedComparisons() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {COMMON_COMPARISONS.map((comp, i) => (
                     <Link key={i} href={`/compare/${comp.s1}-vs-${comp.s2}`}>
-                        <Button variant="outline" className="w-full justify-between hover:border-teal-400 group">
-                            <span className="truncate text-slate-600 group-hover:text-teal-700">{comp.label}</span>
+                        <Button variant="outline" className="w-full justify-between hover:border-primary-400 group">
+                            <span className="truncate text-slate-600 group-hover:text-primary-700">{comp.label}</span>
                             <ArrowLeftRight className="w-4 h-4 text-slate-300" />
                         </Button>
                     </Link>

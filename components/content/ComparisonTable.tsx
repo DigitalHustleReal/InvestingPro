@@ -76,7 +76,7 @@ export default function ComparisonTable({ title = "Side-by-Side Comparison", pro
                                         <td key={product.id} className="p-4 border-b border-slate-100 text-center text-sm font-medium text-slate-900">
                                             {typeof point.value === 'boolean' ? (
                                                 point.value ? (
-                                                    <Check className="w-5 h-5 text-emerald-500 mx-auto" />
+                                                    <Check className="w-5 h-5 text-primary-500 mx-auto" />
                                                 ) : (
                                                     <Minus className="w-5 h-5 text-slate-300 mx-auto" />
                                                 )

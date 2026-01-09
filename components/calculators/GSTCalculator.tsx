@@ -76,7 +76,7 @@ export function GSTCalculator() {
         <div className="space-y-6">
             {/* Input Section */}
             <div className="grid lg:grid-cols-2 gap-6">
-                <Card className="border-slate-200 shadow-sm rounded-2xl">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                     <CardHeader>
                         <div className="flex items-start justify-between gap-4 mb-2">
                             <div className="flex-1">
@@ -86,7 +86,7 @@ export function GSTCalculator() {
                                 </CardTitle>
                                 <CardDescription>Calculate GST for goods and services in India</CardDescription>
                             </div>
-                            <Badge variant="secondary" className="bg-emerald-50 text-emerald-700 border-emerald-200">
+                            <Badge variant="secondary" className="bg-primary-50 text-primary-700 border-primary-200">
                                 <CheckCircle2 className="w-3 h-3 mr-1" /> Free
                             </Badge>
                         </div>
@@ -165,7 +165,7 @@ export function GSTCalculator() {
                 </Card>
 
                 {/* Results Card */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50">
                     <CardHeader>
                         <CardTitle className="text-xl flex items-center gap-6 md:p-8">
                             <Receipt className="w-5 h-5 text-teal-600" />
@@ -175,7 +175,7 @@ export function GSTCalculator() {
                     <CardContent className="space-y-6">
                         {/* Main Results */}
                         <div className="space-y-4">
-                            <div className="bg-white rounded-xl p-6 md:p-8 border-2 border-teal-200">
+                            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 md:p-8 border-2 border-teal-200">
                                 <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
                                     {calculationType === 'exclusive' ? 'Base Amount' : 'Base Amount (Excluding GST)'}
                                 </div>
@@ -184,11 +184,11 @@ export function GSTCalculator() {
                                 </div>
                             </div>
 
-                            <div className="bg-white rounded-xl p-4 border-2 border-emerald-200">
+                            <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border-2 border-primary-200">
                                 <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
                                     GST Amount ({gstRate}%)
                                 </div>
-                                <div className="text-3xl font-bold text-emerald-600">
+                                <div className="text-3xl font-bold text-primary-600">
                                     {formatCurrency(result.gstAmount)}
                                 </div>
                             </div>
@@ -204,7 +204,7 @@ export function GSTCalculator() {
                         </div>
 
                         {/* GST Breakdown */}
-                        <div className="bg-white rounded-xl p-4 border border-slate-200">
+                        <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200">
                             <div className="text-sm font-bold text-slate-700 mb-3">GST Breakdown</div>
                             <div className="space-y-2 text-sm">
                                 <div className="flex justify-between items-center">
@@ -226,7 +226,7 @@ export function GSTCalculator() {
             </div>
 
             {/* Chart */}
-            <Card className="border-slate-200 shadow-sm rounded-2xl">
+            <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                 <CardHeader>
                     <CardTitle className="text-lg">Amount Breakdown</CardTitle>
                 </CardHeader>

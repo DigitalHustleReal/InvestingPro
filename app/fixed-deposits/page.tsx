@@ -152,7 +152,7 @@ export default function FixedDepositsPage() {
 
                     <div className="flex-1 flex flex-col items-center">
                         <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">
-                            <TrendingUp className="w-3 h-3 text-emerald-500" />
+                            <TrendingUp className="w-3 h-3 text-primary-500" />
                             Best Market Opportunity
                         </div>
                         <p className="text-slate-900 font-bold text-xl">8.15% <span className="text-slate-400 text-sm font-bold">at Shriram Finance</span></p>
@@ -196,7 +196,7 @@ export default function FixedDepositsPage() {
                                                         {fd.type}
                                                     </Badge>
                                                     {fd.featured && (
-                                                        <Badge className="bg-primary-500/10 text-emerald-600 border-0 text-[9px] font-bold uppercase tracking-widest px-2 py-1">
+                                                        <Badge className="bg-primary-500/10 text-primary-600 border-0 text-[9px] font-bold uppercase tracking-widest px-2 py-1">
                                                             <Star className="w-2.5 h-2.5 mr-1 fill-emerald-600" />
                                                             Top Pick
                                                         </Badge>
@@ -227,7 +227,7 @@ export default function FixedDepositsPage() {
                                             <div className="flex justify-between items-center mb-1">
                                                 <div className="flex flex-col">
                                                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.1em]">Senior Citizen</span>
-                                                    <span className="text-sm font-extrabold text-emerald-600">{fd.seniorCitizenBonus > 0 ? `+${fd.seniorCitizenBonus}% Extra` : 'Standard Rates'}</span>
+                                                    <span className="text-sm font-extrabold text-primary-600">{fd.seniorCitizenBonus > 0 ? `+${fd.seniorCitizenBonus}% Extra` : 'Standard Rates'}</span>
                                                 </div>
                                                 <div className="text-right">
                                                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.1em]">Min Deposit</span>
@@ -245,7 +245,7 @@ export default function FixedDepositsPage() {
                                 <div className="mt-8 pt-6 border-t border-slate-50 flex items-center justify-between text-[11px] font-bold text-slate-400 uppercase tracking-widest">
                                     <div className="flex items-center gap-6">
                                         <div className="flex items-center gap-2">
-                                            <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                                            <ShieldCheck className="w-4 h-4 text-primary-500" />
                                             DICGC Insured (5L)
                                         </div>
                                         <div className="flex items-center gap-2">

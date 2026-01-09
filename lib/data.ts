@@ -27,6 +27,31 @@ export const CREDIT_CARDS: CreditCard[] = [
         loungeAccess: "12 Domestic + 6 International per year"
     },
     {
+        id: "cc_hdfc_millennia",
+        slug: "hdfc-millennia",
+        name: "HDFC Millennia Credit Card",
+        provider: "HDFC Bank",
+        category: "credit_card",
+        type: "rewards",
+        rating: 4.7,
+        reviewsCount: 2800,
+        description: "Best lifestyle credit card for online shopping and subscriptions with 5% cashback on Flipkart, Amazon, and more.",
+        applyLink: "#",
+        isPopular: true,
+
+        joiningFee: 1000,
+        annualFee: 1000,
+        annualFeeWaiverCondition: "Spend Rs. 1 Lakh in a year",
+        rewardRate: "5% Cashback on Amazon, Flipkart",
+        welcomeOffer: "Up to Rs. 1000 cashback on first transaction",
+
+        features: ["5% Cashback on Top Online Partners", "1% Unlimited Cashback on all spends", "2 Complimentary Lounge Access"],
+        pros: ["High rewards on e-commerce", "Automatic cashback (no redemption hassle)", "Low fee waiver threshold"],
+        cons: ["Limited lounge access", "5% cashback capped at Rs. 1000/month"],
+        minIncome: "Rs. 35,000/month",
+        loungeAccess: "2 Domestic / year"
+    },
+    {
         id: "cc_sbi_cashback",
         slug: "sbi-cashback",
         name: "SBI Cashback Card",
@@ -72,6 +97,31 @@ export const CREDIT_CARDS: CreditCard[] = [
         cons: ["Devaluation in GPay cashback cap", "Invite only in some periods"],
         minIncome: "Rs. 25,000/month",
         loungeAccess: "4 Domestic / year"
+    },
+    {
+        id: "cc_amex_platinum",
+        slug: "amex-platinum-travel",
+        name: "American Express Platinum Travel Credit Card",
+        provider: "American Express",
+        category: "credit_card",
+        type: "premium",
+        rating: 4.9,
+        reviewsCount: 650,
+        description: "Ultra-premium travel card with best-in-class lounge access, hotel benefits, and Taj InnerCircle Gold membership.",
+        applyLink: "#",
+        isPopular: true,
+
+        joiningFee: 3500,
+        annualFee: 3500,
+        annualFeeWaiverCondition: "Spend Rs. 4 Lakhs in a year",
+        rewardRate: "5X Membership Rewards on Travel & Dining",
+        welcomeOffer: "Taj Epicure Voucher worth Rs. 10,000 + Rs. 2,000 Taj Gift Card",
+
+        features: ["Complimentary Taj InnerCircle Gold", "Unlimited Airport Lounge Access (Priority Pass)", "24/7 Concierge Service"],
+        pros: ["Unlimited lounge access globally", "Excellent hotel partnerships", "Premium brand prestige"],
+        cons: ["Limited acceptance in India vs Visa/MC", "High annual fee"],
+        minIncome: "Rs. 2,00,000/month",
+        loungeAccess: "Unlimited Domestic + International (Priority Pass)"
     }
 ];
 
@@ -172,8 +222,33 @@ export const MUTUAL_FUNDS: MutualFund[] = [
         expenseRatio: 0.65,
         aum: "55,000 Cr",
         manager: "Rajeev Thakkar"
+    },
+    {
+        id: "mf_hdfc_balanced",
+        slug: "hdfc-balanced-advantage",
+        name: "HDFC Balanced Advantage Fund",
+        provider: "HDFC Mutual Fund",
+        category: "mutual_fund",
+        rating: 4.5,
+        reviewsCount: 1200,
+        description: "Dynamic asset allocation fund that automatically balances equity and debt based on market valuations for stable returns.",
+        applyLink: "#",
+        isPopular: true,
+
+        fundCategory: "hybrid",
+        subCategory: "Balanced Advantage",
+        riskLevel: "moderate",
+
+        returns1Y: 18.5,
+        returns3Y: 16.2,
+        returns5Y: 14.8,
+
+        expenseRatio: 0.52,
+        aum: "68,000 Cr",
+        manager: "Anil Bamboli & Krishan Daga"
     }
 ];
+
 
 export const BROKERS = [
     {

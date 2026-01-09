@@ -363,7 +363,7 @@ export default function AdminPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
                         {[...stats, ...alertStats].slice(0, 4).map((stat, index) => (
                             <Card key={index} className="bg-white/[0.03] border-white/5 hover:border-primary-500/30 transition-all duration-500 group relative overflow-hidden overflow-hidden rounded-2xl">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 blur-3xl -mr-16 -mt-16 group-hover:bg-emerald-500/10 transition-colors" />
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 blur-3xl -mr-16 -mt-16 group-hover:bg-primary-500/10 transition-colors" />
                                 <CardContent className="p-7 relative z-10">
                                     <div className="flex items-center justify-between mb-6">
                                         <div className={`w-14 h-14 rounded-2xl ${stat.color} flex items-center justify-center shadow-2xl shadow-black/20 group-hover:scale-110 transition-transform duration-500`}>
@@ -371,7 +371,7 @@ export default function AdminPage() {
                                         </div>
                                         {stat.trend && (
                                             <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold ${
-                                                stat.trend === 'up' ? 'bg-primary-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'
+                                                stat.trend === 'up' ? 'bg-primary-500/10 text-primary-400' : 'bg-rose-500/10 text-rose-400'
                                             }`}>
                                                 {stat.trend === 'up' ? (
                                                     <ArrowUpRight className="w-4 h-4" />
@@ -385,7 +385,7 @@ export default function AdminPage() {
                                     <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">{stat.label}</p>
                                     <p className="text-4xl font-extrabold text-white mb-2 tabular-nums tracking-tight">{stat.value}</p>
                                     <p className="text-[11px] text-slate-400 font-bold uppercase tracking-wider flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                                        <span className="w-1.5 h-1.5 rounded-full bg-primary-500" />
                                         {stat.change}
                                     </p>
                                 </CardContent>
@@ -410,7 +410,7 @@ export default function AdminPage() {
                                         <span className="text-sm font-medium text-slate-400">Cluster Status</span>
                                         <div className={cn(
                                             "flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider",
-                                            scraperStatus.status === 'running' ? 'bg-primary-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'
+                                            scraperStatus.status === 'running' ? 'bg-primary-500/10 text-primary-400' : 'bg-amber-500/10 text-amber-400'
                                         )}>
                                             <div className={cn(
                                                 "w-1.5 h-1.5 rounded-full animate-pulse",
@@ -465,7 +465,7 @@ export default function AdminPage() {
                                 <div className="space-y-5">
                                     <div className="flex items-center justify-between">
                                         <span className="text-sm font-medium text-slate-400">Parallel Jobs</span>
-                                        <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-bold rounded-full border border-emerald-500/20">
+                                        <span className="px-3 py-1 bg-primary-500/10 text-primary-400 text-[10px] font-bold rounded-full border border-primary-500/20">
                                             {pipelineStatus.active || 0} ACTIVE
                                         </span>
                                     </div>
@@ -484,7 +484,7 @@ export default function AdminPage() {
                                     <div className="pt-2">
                                         <Button 
                                             size="sm" 
-                                            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl h-10 font-bold shadow-lg shadow-emerald-600/20 transition-all border-0"
+                                            className="w-full bg-primary-600 hover:bg-primary-700 text-white rounded-xl h-10 font-bold shadow-lg shadow-primary-600/20 transition-all border-0"
                                         >
                                             <Play className="w-4 h-4 mr-2 fill-white" />
                                             Ignite Factory
@@ -508,7 +508,7 @@ export default function AdminPage() {
                                 <div className="space-y-4">
                                     <div className="flex items-center justify-between mb-4">
                                         <span className="text-sm font-medium text-slate-400">Sync Channels</span>
-                                        <span className="text-sm font-bold text-emerald-400">
+                                        <span className="text-sm font-bold text-primary-400">
                                             {Array.isArray(rssFeeds) ? rssFeeds.filter((f: any) => f?.status === 'active').length : 0} LIVE
                                         </span>
                                     </div>
@@ -548,7 +548,7 @@ export default function AdminPage() {
                                         <Facebook className="w-6 h-6 text-secondary-500 mx-auto mb-4 group-hover:scale-110 transition-transform" />
                                         <div className="text-2xl font-bold text-white tabular-nums mb-1">{socialMetrics.facebook.followers?.toLocaleString()}</div>
                                         <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
-                                        <div className="text-[10px] font-bold text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full inline-block">
+                                        <div className="text-[10px] font-bold text-primary-400 bg-primary-400/10 px-2 py-0.5 rounded-full inline-block">
                                             +{socialMetrics.facebook.engagement}% Engagement
                                         </div>
                                     </div>
@@ -558,7 +558,7 @@ export default function AdminPage() {
                                         <Twitter className="w-6 h-6 text-sky-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
                                         <div className="text-2xl font-bold text-white tabular-nums mb-1">{socialMetrics.twitter.followers?.toLocaleString()}</div>
                                         <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
-                                        <div className="text-[10px] font-bold text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full inline-block">
+                                        <div className="text-[10px] font-bold text-primary-400 bg-primary-400/10 px-2 py-0.5 rounded-full inline-block">
                                             +{socialMetrics.twitter.engagement}% Engagement
                                         </div>
                                     </div>
@@ -568,7 +568,7 @@ export default function AdminPage() {
                                         <Linkedin className="w-6 h-6 text-secondary-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
                                         <div className="text-2xl font-bold text-white tabular-nums mb-1">{socialMetrics.linkedin.followers?.toLocaleString()}</div>
                                         <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
-                                        <div className="text-[10px] font-bold text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full inline-block">
+                                        <div className="text-[10px] font-bold text-primary-400 bg-primary-400/10 px-2 py-0.5 rounded-full inline-block">
                                             +{socialMetrics.linkedin.engagement}% Engagement
                                         </div>
                                     </div>
@@ -578,7 +578,7 @@ export default function AdminPage() {
                                         <Instagram className="w-6 h-6 text-pink-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
                                         <div className="text-2xl font-bold text-white tabular-nums mb-1">{socialMetrics.instagram.followers?.toLocaleString()}</div>
                                         <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
-                                        <div className="text-[10px] font-bold text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full inline-block">
+                                        <div className="text-[10px] font-bold text-primary-400 bg-primary-400/10 px-2 py-0.5 rounded-full inline-block">
                                             +{socialMetrics.instagram.engagement}% Engagement
                                         </div>
                                     </div>
@@ -602,7 +602,7 @@ export default function AdminPage() {
                         <CardHeader className="border-b border-white/5 px-8 py-6">
                             <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                                 <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
-                                    <TrendingUp className="w-4 h-4 text-emerald-400" />
+                                    <TrendingUp className="w-4 h-4 text-primary-400" />
                                 </div>
                                 Intelligence Vectors
                             </CardTitle>
@@ -617,7 +617,7 @@ export default function AdminPage() {
                                         </div>
                                         <div className="flex items-center gap-3">
                                             <div className={`text-sm font-bold tabular-nums ${
-                                                trend.trend === 'up' ? 'text-emerald-400' : 'text-rose-400'
+                                                trend.trend === 'up' ? 'text-primary-400' : 'text-rose-400'
                                             }`}>
                                                 {trend.trend === 'up' ? '+' : ''}{trend.change}%
                                             </div>
@@ -626,7 +626,7 @@ export default function AdminPage() {
                                                 trend.trend === 'up' ? 'bg-primary-500/10' : 'bg-rose-500/10'
                                             )}>
                                                 {trend.trend === 'up' ? (
-                                                    <ArrowUpRight className="w-4 h-4 text-emerald-400" />
+                                                    <ArrowUpRight className="w-4 h-4 text-primary-400" />
                                                 ) : (
                                                     <ArrowDownRight className="w-4 h-4 text-rose-400" />
                                                 )}
@@ -667,7 +667,7 @@ export default function AdminPage() {
                                             <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 text-center">
                                                 <div className="text-3xl font-extrabold text-white mb-1">{statsData?.ai_generated_articles ?? 0}</div>
                                                 <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">AI Synthesis</div>
-                                                <div className="mt-3 text-[10px] font-bold text-emerald-400">
+                                                <div className="mt-3 text-[10px] font-bold text-primary-400">
                                                     Automated Drafts
                                                 </div>
                                             </div>
@@ -701,15 +701,15 @@ export default function AdminPage() {
                                                 </div>
                                                 <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Articles this cycle</div>
                                             </div>
-                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 group hover:border-emerald-500/30 transition-all">
+                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 group hover:border-primary-500/30 transition-all">
                                                 <div className="flex items-center justify-between mb-4">
                                                     <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Sentiment Stream</span>
                                                     <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
-                                                        <Star className="w-4 h-4 text-emerald-400" />
+                                                        <Star className="w-4 h-4 text-primary-400" />
                                                     </div>
                                                 </div>
                                                 <div className="text-2xl font-extrabold text-white mb-1">{reviews?.length ?? 0}</div>
-                                                <div className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">
+                                                <div className="text-[10px] font-bold text-primary-400 uppercase tracking-widest">
                                                     {pendingReviewsCount ?? 0} Pending Node Analysis
                                                 </div>
                                             </div>
@@ -761,7 +761,7 @@ export default function AdminPage() {
                                                 <div className="text-[10px] text-slate-500 italic">Synthetic Content Yield</div>
                                             </div>
                                             <div className="text-center p-6 bg-white/[0.03] rounded-2xl border border-white/5">
-                                                <div className="text-3xl font-extrabold text-emerald-400 mb-2 tabular-nums">
+                                                <div className="text-3xl font-extrabold text-primary-400 mb-2 tabular-nums">
                                                     {Number(statsData.total_views).toLocaleString()}
                                                 </div>
                                                 <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Global Views</div>
@@ -821,12 +821,12 @@ export default function AdminPage() {
                                                             </span>
                                                             <div className={cn(
                                                                 "flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px]",
-                                                                article.status === 'published' ? 'bg-primary-500/10 text-emerald-400' :
+                                                                article.status === 'published' ? 'bg-primary-500/10 text-primary-400' :
                                                                 article.status === 'draft' ? 'bg-amber-500/10 text-amber-400' :
                                                                 'bg-slate-500/10 text-slate-400'
                                                             )}>
                                                                 <div className={cn("w-1 h-1 rounded-full",
-                                                                    article.status === 'published' ? 'bg-emerald-400' :
+                                                                    article.status === 'published' ? 'bg-primary-400' :
                                                                     article.status === 'draft' ? 'bg-amber-400' :
                                                                     'bg-slate-400'
                                                                 )} />
@@ -877,7 +877,7 @@ export default function AdminPage() {
                                                         <h4 className="font-bold text-white tracking-tight">Facebook Interface</h4>
                                                         <p className={cn(
                                                             "text-[10px] font-bold uppercase tracking-widest mt-1",
-                                                            socialMetrics.facebook ? 'text-emerald-400' : 'text-rose-400'
+                                                            socialMetrics.facebook ? 'text-primary-400' : 'text-rose-400'
                                                         )}>
                                                             {socialMetrics.facebook ? 'Node Active / Syncing' : 'Link Offline'}
                                                         </p>
@@ -901,7 +901,7 @@ export default function AdminPage() {
                                                         <h4 className="font-bold text-white tracking-tight">Twitter Stream</h4>
                                                         <p className={cn(
                                                             "text-[10px] font-bold uppercase tracking-widest mt-1",
-                                                            socialMetrics.twitter ? 'text-emerald-400' : 'text-rose-400'
+                                                            socialMetrics.twitter ? 'text-primary-400' : 'text-rose-400'
                                                         )}>
                                                             {socialMetrics.twitter ? 'Node Active / Syncing' : 'Link Offline'}
                                                         </p>
@@ -925,7 +925,7 @@ export default function AdminPage() {
                                                         <h4 className="font-bold text-white tracking-tight">LinkedIn Authority</h4>
                                                         <p className={cn(
                                                             "text-[10px] font-bold uppercase tracking-widest mt-1",
-                                                            socialMetrics.linkedin ? 'text-emerald-400' : 'text-rose-400'
+                                                            socialMetrics.linkedin ? 'text-primary-400' : 'text-rose-400'
                                                         )}>
                                                             {socialMetrics.linkedin ? 'Node Active / Syncing' : 'Link Offline'}
                                                         </p>
@@ -933,7 +933,7 @@ export default function AdminPage() {
                                                 </div>
                                                 <Button size="sm" variant="ghost" className={cn(
                                                     "h-10 px-6 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all",
-                                                    socialMetrics.linkedin ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-primary-600 text-white hover:bg-indigo-700 shadow-[0_0_15px_rgba(79,70,229,0.3)]"
+                                                    socialMetrics.linkedin ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-primary-600 text-white hover:bg-primary-700 shadow-[0_0_15px_rgba(79,70,229,0.3)]"
                                                 )}>
                                                     {socialMetrics.linkedin ? 'Terminate' : 'Initialize'}
                                                 </Button>
@@ -949,7 +949,7 @@ export default function AdminPage() {
                                                         <h4 className="font-bold text-white tracking-tight">Instagram Visuals</h4>
                                                         <p className={cn(
                                                             "text-[10px] font-bold uppercase tracking-widest mt-1",
-                                                            socialMetrics.instagram ? 'text-emerald-400' : 'text-rose-400'
+                                                            socialMetrics.instagram ? 'text-primary-400' : 'text-rose-400'
                                                         )}>
                                                             {socialMetrics.instagram ? 'Node Active / Syncing' : 'Link Offline'}
                                                         </p>
@@ -991,7 +991,7 @@ export default function AdminPage() {
                                                     </div>
                                                     <div className="grid grid-cols-2 gap-4">
                                                         <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-emerald-400 mb-1 tabular-nums">{socialMetrics.facebook.engagement}%</div>
+                                                            <div className="text-lg font-bold text-primary-400 mb-1 tabular-nums">{socialMetrics.facebook.engagement}%</div>
                                                             <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Velocity</div>
                                                         </div>
                                                         <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
@@ -1019,7 +1019,7 @@ export default function AdminPage() {
                                                     </div>
                                                     <div className="grid grid-cols-2 gap-4">
                                                         <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-emerald-400 mb-1 tabular-nums">{socialMetrics.twitter.engagement}%</div>
+                                                            <div className="text-lg font-bold text-primary-400 mb-1 tabular-nums">{socialMetrics.twitter.engagement}%</div>
                                                             <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Impact</div>
                                                         </div>
                                                         <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
@@ -1047,7 +1047,7 @@ export default function AdminPage() {
                                                     </div>
                                                     <div className="grid grid-cols-2 gap-4">
                                                         <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-emerald-400 mb-1 tabular-nums">{socialMetrics.linkedin.engagement}%</div>
+                                                            <div className="text-lg font-bold text-primary-400 mb-1 tabular-nums">{socialMetrics.linkedin.engagement}%</div>
                                                             <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Efficiency</div>
                                                         </div>
                                                         <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
@@ -1075,7 +1075,7 @@ export default function AdminPage() {
                                                     </div>
                                                     <div className="grid grid-cols-2 gap-4">
                                                         <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-emerald-400 mb-1 tabular-nums">{socialMetrics.instagram.engagement}%</div>
+                                                            <div className="text-lg font-bold text-primary-400 mb-1 tabular-nums">{socialMetrics.instagram.engagement}%</div>
                                                             <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Resonance</div>
                                                         </div>
                                                         <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
@@ -1103,7 +1103,7 @@ export default function AdminPage() {
                                                     </div>
                                                     <div className="grid grid-cols-2 gap-4">
                                                         <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-emerald-400 mb-1 tabular-nums">{socialMetrics.youtube.views?.toLocaleString()}</div>
+                                                            <div className="text-lg font-bold text-primary-400 mb-1 tabular-nums">{socialMetrics.youtube.views?.toLocaleString()}</div>
                                                             <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Playback Yield</div>
                                                         </div>
                                                         <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
@@ -1135,7 +1135,7 @@ export default function AdminPage() {
                                                     <div className="flex items-center gap-8">
                                                         <div className="text-right">
                                                             <div className={`text-xl font-extrabold tabular-nums ${
-                                                                trend.trend === 'up' ? 'text-emerald-400' : 'text-rose-400'
+                                                                trend.trend === 'up' ? 'text-primary-400' : 'text-rose-400'
                                                             }`}>
                                                                 {trend.trend === 'up' ? '+' : ''}{trend.change}%
                                                             </div>
@@ -1146,7 +1146,7 @@ export default function AdminPage() {
                                                             trend.trend === 'up' ? 'bg-primary-500/10' : 'bg-rose-500/10'
                                                         )}>
                                                             {trend.trend === 'up' ? (
-                                                                <ArrowUpRight className="w-6 h-6 text-emerald-400" />
+                                                                <ArrowUpRight className="w-6 h-6 text-primary-400" />
                                                             ) : (
                                                                 <ArrowDownRight className="w-6 h-6 text-rose-400" />
                                                             )}

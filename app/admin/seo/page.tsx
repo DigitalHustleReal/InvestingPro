@@ -47,14 +47,14 @@ export default function SEOHealthPage() {
 
     const getScoreColor = (score?: number) => {
         if (!score) return 'text-slate-500';
-        if (score >= 80) return 'text-emerald-400';
+        if (score >= 80) return 'text-primary-400';
         if (score >= 50) return 'text-amber-400';
         return 'text-rose-400';
     };
 
     const getStatusIcon = (score?: number) => {
         if (!score) return null;
-        if (score >= 80) return <CheckCircle2 className="w-4 h-4 text-emerald-400" />;
+        if (score >= 80) return <CheckCircle2 className="w-4 h-4 text-primary-400" />;
         if (score >= 50) return <AlertTriangle className="w-4 h-4 text-amber-400" />;
         return <XCircle className="w-4 h-4 text-rose-400" />;
     };
@@ -109,7 +109,7 @@ export default function SEOHealthPage() {
                                                 onClick={() => setSelectedArticleId(article.id)}
                                                 className={cn(
                                                     "w-full text-left px-6 py-4 hover:bg-white/[0.02] transition-colors flex items-center justify-between gap-4",
-                                                    selectedArticleId === article.id && "bg-primary-500/10 border-l-2 border-l-indigo-500"
+                                                    selectedArticleId === article.id && "bg-primary-500/10 border-l-2 border-l-primary-500"
                                                 )}
                                             >
                                                 <div className="flex-1 min-w-0">

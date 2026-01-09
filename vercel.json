@@ -3,6 +3,26 @@
     {
       "path": "/api/cron/publish-scheduled",
       "schedule": "0 * * * *"
+    },
+    {
+      "path": "/api/cron/generate-missing-images",
+      "schedule": "0 */2 * * *"
+    },
+    {
+      "path": "/api/cron/content-strategy",
+      "schedule": "0 2 * * *"
+    },
+    {
+      "path": "/api/cron/sitemap-ping",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/cron/analytics-sync",
+      "schedule": "0 */6 * * *"
+    },
+    {
+      "path": "/api/cron/cleanup",
+      "schedule": "0 3 * * 0"
     }
   ]
 }

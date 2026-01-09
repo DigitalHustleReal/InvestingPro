@@ -38,7 +38,7 @@ export default function DematAccountsPage() {
         );
     }
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
             <SEOHead
                 title="Best Demat Accounts in India 2024 - Compare Brokers | InvestingPro"
                 description="Compare top stock brokers in India. side-by-side analysis of Zerodha, Groww, Upstox and more. Find the best demat account for your trading needs."
@@ -70,7 +70,7 @@ export default function DematAccountsPage() {
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                     {[
                         { icon: Users, label: "Active Investors", value: "3.5Cr+", color: "bg-primary-600", shadow: "shadow-blue-500/20" },
-                        { icon: Zap, label: "Lowest Fees", value: "₹0 Delivery", color: "bg-primary-600", shadow: "shadow-emerald-500/20" },
+                        { icon: Zap, label: "Lowest Fees", value: "₹0 Delivery", color: "bg-primary-600", shadow: "shadow-primary-500/20" },
                         { icon: Shield, label: "SEBI Certified", value: "Fully Secure", color: "bg-secondary-600", shadow: "shadow-purple-500/20" },
                         { icon: Smartphone, label: "Digital KYC", value: "Paperless", color: "bg-amber-600", shadow: "shadow-amber-500/20" },
                     ].map((stat, index) => (
@@ -149,7 +149,7 @@ export default function DematAccountsPage() {
                                         <div className="space-y-4">
                                             <div className="flex justify-between items-center group/fee">
                                                 <span className="text-xs font-bold text-slate-500 group-hover/fee:text-slate-900 transition-colors uppercase tracking-tight">Delivery</span>
-                                                <span className="font-extrabold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg">{broker.pricing.equity}</span>
+                                                <span className="font-extrabold text-primary-600 bg-primary-50 px-2.5 py-1 rounded-lg">{broker.pricing.equity}</span>
                                             </div>
                                             <div className="flex justify-between items-center group/fee">
                                                 <span className="text-xs font-bold text-slate-500 group-hover/fee:text-slate-900 transition-colors uppercase tracking-tight">Account Opening</span>
@@ -175,8 +175,8 @@ export default function DematAccountsPage() {
                                         <div className="space-y-3">
                                             {broker.pros.slice(0, 4).map((pro: string, pIndex: number) => (
                                                 <div key={pIndex} className="flex items-start gap-3 p-2 rounded-xl transition-colors hover:bg-slate-50">
-                                                    <div className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
-                                                        <Check className="w-3 h-3 text-emerald-600" />
+                                                    <div className="w-5 h-5 rounded-full bg-primary-100 flex items-center justify-center shrink-0 mt-0.5">
+                                                        <Check className="w-3 h-3 text-primary-600" />
                                                     </div>
                                                     <span className="text-xs font-bold text-slate-600 leading-tight">{pro}</span>
                                                 </div>
@@ -223,7 +223,7 @@ export default function DematAccountsPage() {
                                     "Pan India Access"
                                 ].map((l, i) => (
                                     <div key={i} className="flex items-center gap-2 bg-white/10 rounded-xl px-4 py-3 backdrop-blur-md">
-                                        <Check className="w-4 h-4 text-emerald-400" />
+                                        <Check className="w-4 h-4 text-primary-400" />
                                         <span className="text-xs font-bold uppercase tracking-tight">{l}</span>
                                     </div>
                                 ))}

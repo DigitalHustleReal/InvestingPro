@@ -138,7 +138,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                         <div className="p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:border-primary-500/30 transition-all group">
                             <div className="flex items-center justify-between mb-4">
                                 <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Asset Crawler</span>
-                                <Badge className="bg-primary-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
+                                <Badge className="bg-primary-500/10 text-primary-400 border border-primary-500/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
                             </div>
                             <Button
                                 size="sm"
@@ -164,7 +164,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                         <div className="p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:border-secondary-500/30 transition-all group">
                             <div className="flex items-center justify-between mb-4">
                                 <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Sentiment Crawler</span>
-                                <Badge className="bg-primary-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
+                                <Badge className="bg-primary-500/10 text-primary-400 border border-primary-500/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
                             </div>
                             <Button
                                 size="sm"
@@ -187,10 +187,10 @@ export default function AutomationControls({ className = "" }: AutomationControl
                             </Button>
                         </div>
 
-                        <div className="p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:border-emerald-500/30 transition-all group">
+                        <div className="p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:border-primary-500/30 transition-all group">
                             <div className="flex items-center justify-between mb-4">
                                 <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Market Feed Crawler</span>
-                                <Badge className="bg-primary-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
+                                <Badge className="bg-primary-500/10 text-primary-400 border border-primary-500/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
                             </div>
                             <Button
                                 size="sm"
@@ -201,12 +201,12 @@ export default function AutomationControls({ className = "" }: AutomationControl
                             >
                                 {triggering === 'scraper-rates' ? (
                                     <>
-                                        <Loader2 className="w-4 h-4 mr-2 animate-spin text-emerald-400" />
+                                        <Loader2 className="w-4 h-4 mr-2 animate-spin text-primary-400" />
                                         Syncing
                                     </>
                                 ) : (
                                     <>
-                                        <Play className="w-3.5 h-3.5 mr-2 text-emerald-400" />
+                                        <Play className="w-3.5 h-3.5 mr-2 text-primary-400" />
                                         Execute
                                     </>
                                 )}
@@ -319,7 +319,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                                                     </span>
                                                     <div className={cn(
                                                         "flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-widest border border-white/5 shadow-sm",
-                                                        run.status === 'completed' ? 'bg-primary-500/10 text-emerald-400' :
+                                                        run.status === 'completed' ? 'bg-primary-500/10 text-primary-400' :
                                                         run.status === 'failed' ? 'bg-rose-500/10 text-rose-400' :
                                                         'bg-amber-500/10 text-amber-400'
                                                     )}>
@@ -336,7 +336,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                                                         {run.triggered_at ? new Date(run.triggered_at).toLocaleTimeString() : 'N/A'}
                                                     </span>
                                                     {run.completed_at && (
-                                                        <span className="text-emerald-500/80">
+                                                        <span className="text-primary-500/80">
                                                             Operation Success
                                                         </span>
                                                     )}

@@ -33,19 +33,19 @@ const steps = [
                 </p>
                 <ul className="space-y-3">
                     <li className="flex items-center gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                        <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0" />
                         <span className="text-slate-700">Compare 5000+ mutual funds, stocks, and credit cards</span>
                     </li>
                     <li className="flex items-center gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                        <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0" />
                         <span className="text-slate-700">Free financial calculators and tools</span>
                     </li>
                     <li className="flex items-center gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                        <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0" />
                         <span className="text-slate-700">Expert articles and community reviews</span>
                     </li>
                     <li className="flex items-center gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                        <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0" />
                         <span className="text-slate-700">Personalized investment recommendations</span>
                     </li>
                 </ul>
@@ -63,7 +63,7 @@ const steps = [
                     Become a contributor and share your investment insights!
                 </p>
                 <div className="grid gap-4">
-                    <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-secondary-200">
+                    <Card className="bg-gradient-to-br from-primary-50 to-indigo-50 border-secondary-200">
                         <CardContent className="p-6 md:p-8">
                             <div className="flex items-start gap-3">
                                 <FileText className="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" />

@@ -60,7 +60,7 @@ export function AuthorByline({
             {/* Metadata Row */}
             <div className="flex flex-wrap items-center gap-4 text-xs">
                 {factChecker && (
-                    <div className="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400">
+                    <div className="flex items-center gap-1.5 text-primary-700 dark:text-primary-400">
                         <ShieldCheck className="w-4 h-4" />
                         <span className="font-medium">
                             Fact-checked by {factChecker.name}

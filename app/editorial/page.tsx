@@ -262,10 +262,10 @@ export default function EditorialDashboard() {
                                 <div className="text-xs text-amber-600 font-medium">Medium Risk</div>
                             </CardContent>
                         </Card>
-                        <Card className="border-emerald-200 bg-emerald-50">
+                        <Card className="border-primary-200 bg-primary-50">
                             <CardContent className="p-6 md:p-8">
-                                <div className="text-2xl font-bold text-emerald-700">{stats.low}</div>
-                                <div className="text-xs text-emerald-600 font-medium">Low Risk</div>
+                                <div className="text-2xl font-bold text-primary-700">{stats.low}</div>
+                                <div className="text-xs text-primary-600 font-medium">Low Risk</div>
                             </CardContent>
                         </Card>
                     </div>
@@ -320,7 +320,7 @@ export default function EditorialDashboard() {
                                     </span>
                                     <Button
                                         size="sm"
-                                        className="bg-primary-600 hover:bg-emerald-700 text-white"
+                                        className="bg-primary-600 hover:bg-primary-700 text-white"
                                         onClick={handleBatchApprove}
                                         disabled={batchApproveMutation.isPending}
                                     >
@@ -353,7 +353,7 @@ export default function EditorialDashboard() {
                 ) : filteredDrafts.length === 0 ? (
                     <Card>
                         <CardContent className="p-6 md:p-8 text-center">
-                            <CheckCircle2 className="w-16 h-16 text-emerald-500 mx-auto mb-4" />
+                            <CheckCircle2 className="w-16 h-16 text-primary-500 mx-auto mb-4" />
                             <h3 className="text-xl font-bold text-slate-900 mb-2">All Caught Up!</h3>
                             <p className="text-slate-500">No drafts pending review.</p>
                         </CardContent>

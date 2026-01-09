@@ -1,7 +1,7 @@
 
 /**
- * Affiliate Link Router
- * Handles /go/[slug] redirects and tracks clicks
+ * Affiliate Link Router - Enhanced
+ * Handles /go/[slug] redirects with full click tracking
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -17,60 +17,79 @@ export async function GET(
     { params }: { params: { slug: string } }
 ) {
     const slug = params.slug;
+    const startTime = Date.now();
 
     try {
         let destinationUrl = '';
-        let trackId = '';
-        let sourceTable = '';
+        let entityId = '';
+        let entityType = '';
 
-        // 1. Try fetching from dedicated 'affiliate_links' table
-        const { data: link, error: linkError } = await supabase
+        // 1. Try fetching from 'affiliate_links' table first
+        const { data: link } = await supabase
             .from('affiliate_links')
-            .select('id, destination_url, is_active')
-            .eq('slug', slug)
+            .select('id, destination_url, is_active, partner_id')
+            .eq('short_code', slug)
             .single();
 
         if (link && link.is_active) {
             destinationUrl = link.destination_url;
-            trackId = link.id;
-            sourceTable = 'affiliate_links';
+            entityId = link.id;
+            entityType = 'affiliate_link';
         } else {
             // 2. Fallback: Fetch from 'products' table
-            const { data: product, error: prodError } = await supabase
+            const { data: product } = await supabase
                 .from('products')
-                .select('id, affiliate_link, is_active')
+                .select('id, affiliate_link, official_link, is_active, category')
                 .eq('slug', slug)
                 .single();
 
-            if (product && product.is_active && product.affiliate_link) {
-                destinationUrl = product.affiliate_link;
-                trackId = product.id;
-                sourceTable = 'products';
+            if (product && product.is_active) {
+                destinationUrl = product.affiliate_link || product.official_link || '';
+                entityId = product.id;
+                entityType = 'product';
             }
         }
 
         if (!destinationUrl) {
-            // Link not found or inactive
             return NextResponse.redirect(new URL('/404', request.url));
         }
 
-        // 3. Async Track Click (Fire and Forget)
+        // 3. Capture tracking metadata
         const userAgent = request.headers.get('user-agent') || 'unknown';
         const referer = request.headers.get('referer') || 'direct';
+        const forwardedFor = request.headers.get('x-forwarded-for');
+        const ip = forwardedFor?.split(',')[0]?.trim() || 'unknown';
         
-        // Log detailed click
-        // Note: affiliate_clicks table needs to support storing either link_id or product_id, or just a generic 'entity_id' + 'entity_type'
-        // For now, we will log to console if table schema doesn't match, or try best effort.
-        // Ideally we assume 'affiliate_clicks' has a loose schema or we have separate tracking tables.
-        // Update: We'll just log to a generic 'clicks' table if it existed, for now let's just log to console to not break flow if DB is strict.
-        
-        console.log(`[Affiliate Click] Slug: ${slug}, Table: ${sourceTable}, Dest: ${destinationUrl}`);
+        // Hash IP for privacy
+        const ipHash = Buffer.from(ip).toString('base64').substring(0, 16);
 
-        // 4. Redirect
+        // 4. Record click to database (async, don't block redirect)
+        void supabase.from('affiliate_clicks').insert({
+            link_id: entityType === 'affiliate_link' ? entityId : null,
+            product_id: entityType === 'product' ? entityId : null,
+            entity_type: entityType,
+            destination_url: destinationUrl,
+            user_agent: userAgent.substring(0, 500),
+            referrer: referer.substring(0, 500),
+            ip_hash: ipHash,
+            clicked_at: new Date().toISOString(),
+            converted: false
+        });
+
+        // 5. Increment click counter on affiliate links (fire and forget)
+        if (entityType === 'affiliate_link') {
+            void supabase.rpc('increment_affiliate_clicks', { link_id: entityId });
+        }
+
+        // Log for monitoring
+        const processingTime = Date.now() - startTime;
+        console.log(`[Affiliate Redirect] ${slug} -> ${entityType} | ${processingTime}ms`);
+
+        // 6. Redirect immediately (don't wait for DB)
         return NextResponse.redirect(destinationUrl);
 
     } catch (err) {
-        console.error('Redirect error:', err);
+        console.error('[Affiliate Redirect] Error:', err);
         return NextResponse.redirect(new URL('/', request.url));
     }
 }

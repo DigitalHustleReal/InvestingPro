@@ -58,10 +58,10 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
             {/* Header */}
             <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900 z-10">
                 <h3 className="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                    <Search className="w-4 h-4 text-emerald-500" />
+                    <Search className="w-4 h-4 text-primary-500" />
                     Filters
                 </h3>
-                <Button variant="ghost" size="sm" onClick={handleReset} className="h-8 text-xs text-slate-500 hover:text-emerald-600">
+                <Button variant="ghost" size="sm" onClick={handleReset} className="h-8 text-xs text-slate-500 hover:text-primary-600">
                     <RotateCcw className="w-3 h-3 mr-1" /> Reset
                 </Button>
             </div>
@@ -79,7 +79,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                                 onClick={() => toggleArrayItem('categories', cat)}
                                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border ${
                                     filters.categories.includes(cat)
-                                        ? 'bg-slate-900 dark:bg-emerald-500 text-white border-slate-900 dark:border-emerald-500 shadow-lg shadow-slate-900/20'
+                                        ? 'bg-slate-900 dark:bg-primary-500 text-white border-slate-900 dark:border-primary-500 shadow-lg shadow-slate-900/20'
                                         : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-300'
                                 }`}
                             >
@@ -95,7 +95,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
                          <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Min 3Y Returns</label>
-                         <span className="text-sm font-bold text-emerald-600">{filters.minReturns}%</span>
+                         <span className="text-sm font-bold text-primary-600">{filters.minReturns}%</span>
                     </div>
                     <Slider
                         defaultValue={[filters.minReturns]}
@@ -178,7 +178,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
 
              {/* Footer Actions */}
              <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800">
-                 <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold h-11 rounded-xl shadow-lg shadow-emerald-500/20">
+                 <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold h-11 rounded-xl shadow-lg shadow-primary-500/20">
                      Show Funds
                  </Button>
              </div>

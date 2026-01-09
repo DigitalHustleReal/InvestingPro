@@ -66,8 +66,8 @@ export default function ActiveTradingPage() {
               <p className="text-sm text-slate-600">Choose brokers</p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-3">
-                <Zap className="w-6 h-6 text-emerald-600" />
+              <div className="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center mx-auto mb-3">
+                <Zap className="w-6 h-6 text-primary-600" />
               </div>
               <h3 className="font-semibold text-slate-900 mb-1">Execution</h3>
               <p className="text-sm text-slate-600">Trade in real-time</p>
@@ -82,7 +82,7 @@ export default function ActiveTradingPage() {
           </h2>
           <div className="space-y-4">
             <div className="flex gap-4 p-6 bg-white rounded-xl border border-slate-200">
-              <Clock className="w-6 h-6 text-emerald-600 flex-shrink-0 mt-1" />
+              <Clock className="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" />
               <div>
                 <h3 className="font-semibold text-slate-900 mb-2">Real-Time Market Data</h3>
                 <p className="text-slate-600 text-sm">
@@ -92,7 +92,7 @@ export default function ActiveTradingPage() {
               </div>
             </div>
             <div className="flex gap-4 p-6 bg-white rounded-xl border border-slate-200">
-              <Zap className="w-6 h-6 text-emerald-600 flex-shrink-0 mt-1" />
+              <Zap className="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" />
               <div>
                 <h3 className="font-semibold text-slate-900 mb-2">Instant Execution</h3>
                 <p className="text-slate-600 text-sm">
@@ -102,7 +102,7 @@ export default function ActiveTradingPage() {
               </div>
             </div>
             <div className="flex gap-4 p-6 bg-white rounded-xl border border-slate-200">
-              <BarChart3 className="w-6 h-6 text-emerald-600 flex-shrink-0 mt-1" />
+              <BarChart3 className="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" />
               <div>
                 <h3 className="font-semibold text-slate-900 mb-2">Advanced Charting</h3>
                 <p className="text-slate-600 text-sm">

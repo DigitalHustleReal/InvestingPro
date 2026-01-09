@@ -59,16 +59,16 @@ export default function NewsletterWidget({
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         disabled={status === 'loading' || status === 'success'}
-                        className="w-full bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-teal-400 focus:ring-teal-400/20 transition-all h-12"
+                        className="w-full bg-white dark:bg-slate-900/50 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-primary-500/20 dark:focus:ring-primary-400/20 transition-all h-12"
                     />
                     {!email && (
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-teal-400 animate-pulse" />
+                        <span className="absolute right-3 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-primary-400 animate-pulse" />
                     )}
                 </div>
                 <Button 
                     type="submit" 
                     disabled={status === 'loading' || status === 'success'}
-                    className="h-12 px-6 bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-400 hover:to-emerald-500 text-white font-semibold transition-all shadow-lg shadow-teal-500/20"
+                    className="h-12 px-6 bg-gradient-to-r from-primary-500 to-success-600 hover:from-primary-400 hover:to-success-500 text-white font-semibold transition-all shadow-lg shadow-primary-500/20"
                 >
                     {status === 'loading' ? (
                         <Loader2 className="w-4 h-4 animate-spin text-white" />

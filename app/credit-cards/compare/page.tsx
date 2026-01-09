@@ -3,15 +3,43 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 // Removed mock data import - using Supabase API
-import { ComparisonTable } from "@/components/compare/ComparisonTable";
+import ComparisonTable from "@/components/compare/ComparisonTable";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import { ArrowLeft, Plus } from "lucide-react";
 import { CreditCard } from "@/types";
+import { RichProduct } from "@/types/rich-product";
+
+// Helper to map CreditCard to RichProduct
+const mapToRichProduct = (card: any): RichProduct => ({
+    id: card.id,
+    slug: card.slug,
+    name: card.name,
+    provider_name: card.provider,
+    category: 'credit_card',
+    image_url: card.image_url,
+    rating: {
+        overall: card.rating,
+        trust_score: 90 // Default trusted score
+    },
+    features: {},
+    key_features: [
+        { label: 'Annual Fee', value: `₹${card.annualFee}` },
+        { label: 'Reward Rate', value: card.rewardRate },
+        { label: 'Joining Fee', value: `₹${card.joiningFee}` }
+    ],
+    description: card.description || '',
+    pros: card.pros || [],
+    cons: card.cons || [],
+    bestFor: card.bestFor,
+    affiliate_link: card.applyLink,
+    is_verified: true,
+    updated_at: new Date().toISOString()
+});
 
 function CreditCardCompareContent() {
     const searchParams = useSearchParams();
-    const [selectedCards, setSelectedCards] = useState<CreditCard[]>([]);
+    const [selectedCards, setSelectedCards] = useState<RichProduct[]>([]);
 
     useEffect(() => {
         // Get card IDs from URL query params
@@ -21,7 +49,9 @@ function CreditCardCompareContent() {
         const fetchCards = async () => {
             const { api } = await import('@/lib/api');
             const allCards = await api.entities.CreditCard.list();
-            const cards = allCards.filter((card: any) => cardIds.includes(card.id) || cardIds.includes(card.slug));
+            const cards = allCards
+                .filter((card: any) => cardIds.includes(card.id) || cardIds.includes(card.slug))
+                .map(mapToRichProduct);
             setSelectedCards(cards);
         };
         
@@ -35,15 +65,15 @@ function CreditCardCompareContent() {
     };
 
     // Fetch available cards from API
-    const [availableCards, setAvailableCards] = useState<any[]>([]);
+    const [availableCards, setAvailableCards] = useState<RichProduct[]>([]);
     
     useEffect(() => {
         const fetchAvailableCards = async () => {
             const { api } = await import('@/lib/api');
             const allCards = await api.entities.CreditCard.list();
-            const filtered = allCards.filter(
-                (card: any) => !selectedCards.find(c => c.id === card.id)
-            );
+            const filtered = allCards
+                .filter((card: any) => !selectedCards.find(c => c.id === card.id))
+                .map(mapToRichProduct);
             setAvailableCards(filtered);
         };
         fetchAvailableCards();
@@ -52,14 +82,14 @@ function CreditCardCompareContent() {
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-20 transition-colors duration-300">
             {/* Header */}
-            <div className="bg-slate-900 dark:bg-slate-950 text-white py-12 border-b border-slate-800">
+            <div className="bg-white dark:bg-slate-950 text-slate-900 dark:text-white py-12 border-b border-slate-200 dark:border-slate-800 pt-32">
                 <div className="container mx-auto px-6">
-                    <Link href="/credit-cards" className="inline-flex items-center text-slate-400 hover:text-white mb-4 transition-colors">
+                    <Link href="/credit-cards" className="inline-flex items-center text-slate-500 hover:text-primary-600 dark:text-slate-400 dark:hover:text-white mb-4 transition-colors">
                         <ArrowLeft className="w-4 h-4 mr-2" />
                         Back to Credit Cards
                     </Link>
-                    <h1 className="text-3xl md:text-4xl font-bold mb-2">Compare Credit Cards</h1>
-                    <p className="text-slate-400">Side-by-side comparison of features, features, and rewards</p>
+                    <h1 className="text-3xl md:text-4xl font-bold mb-2 text-slate-900 dark:text-white">Compare Credit Cards</h1>
+                    <p className="text-slate-600 dark:text-slate-400">Side-by-side comparison of features, fees, and rewards</p>
                 </div>
             </div>
 
@@ -86,7 +116,7 @@ function CreditCardCompareContent() {
                                             <span className="text-xs text-slate-500 dark:text-slate-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 font-medium">Add</span>
                                         </div>
                                         <p className="font-bold text-sm text-slate-900 dark:text-white mb-1">{card.name}</p>
-                                        <p className="text-xs text-slate-500 dark:text-slate-400">{card.provider}</p>
+                                        <p className="text-xs text-slate-500 dark:text-slate-400">{card.provider_name}</p>
                                     </button>
                                 ))}
                             </div>
@@ -95,7 +125,7 @@ function CreditCardCompareContent() {
                 )}
 
                 {/* Comparison Table */}
-                <ComparisonTable products={selectedCards} onRemove={handleRemove} />
+                <ComparisonTable products={selectedCards} onRemoveProduct={handleRemove} />
 
                 {/* Help Section */}
                 <div className="mt-12 bg-primary-50 dark:bg-primary-900/10 rounded-xl p-8 border border-primary-100 dark:border-primary-900/20">

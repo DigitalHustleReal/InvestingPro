@@ -36,7 +36,7 @@ export default function ProductCategoryTabs() {
                     >
                         <Button
                             variant={isActive ? 'default' : 'outline'}
-                            className={`rounded-full gap-2 ${isActive ? 'bg-teal-600 hover:bg-teal-700' : 'bg-white'}`}
+                            className={`rounded-full gap-2 ${isActive ? 'bg-primary-600 hover:bg-primary-700' : 'bg-white'}`}
                         >
                             {Icon && <Icon className="w-4 h-4" />}
                             {cat.label}

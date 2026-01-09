@@ -399,7 +399,7 @@ export default function AIContentWriterPage() {
                                                                         </Badge>
                                                                     )}
                                                                     {isCompleted && (
-                                                                        <Badge className="bg-emerald-100 text-emerald-700 border-0">
+                                                                        <Badge className="bg-primary-100 text-primary-700 border-0">
                                                                             Complete
                                                                         </Badge>
                                                                     )}
@@ -447,13 +447,13 @@ export default function AIContentWriterPage() {
 
                                             {/* Generated Articles Preview */}
                                             {generatedArticles.length > 0 && (
-                                                <div className="mt-6 p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
-                                                    <p className="font-semibold text-emerald-900 mb-2">
+                                                <div className="mt-6 p-4 bg-primary-50 border border-primary-200 rounded-lg">
+                                                    <p className="font-semibold text-primary-900 mb-2">
                                                         Generated {generatedArticles.length} articles
                                                     </p>
                                                     <div className="space-y-2">
                                                         {generatedArticles.map((article, idx) => (
-                                                            <div key={idx} className="text-sm text-emerald-700">
+                                                            <div key={idx} className="text-sm text-primary-700">
                                                                 • {article.title || article.topic}
                                                             </div>
                                                         ))}
@@ -710,7 +710,7 @@ export default function AIContentWriterPage() {
                                                                 </Button>
                                                                 <Button
                                                                     size="sm"
-                                                                    className="bg-primary-600 hover:bg-emerald-700"
+                                                                    className="bg-primary-600 hover:bg-primary-700"
                                                                     onClick={() => approveArticle(article.id)}
                                                                 >
                                                                     <CheckCircle2 className="w-4 h-4 mr-2" />

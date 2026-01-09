@@ -63,7 +63,7 @@ export default function DataProvenance({
     const getFrequencyColor = (frequency: string) => {
         switch (frequency) {
             case 'daily':
-                return 'bg-emerald-100 text-emerald-700';
+                return 'bg-primary-100 text-primary-700';
             case 'weekly':
                 return 'bg-teal-100 text-teal-700';
             case 'monthly':
@@ -121,7 +121,7 @@ export default function DataProvenance({
                                                 {group.source.name}
                                             </h4>
                                             {group.source.is_verified && (
-                                                <Badge className="bg-emerald-100 text-emerald-700 text-xs">
+                                                <Badge className="bg-primary-100 text-primary-700 text-xs">
                                                     <CheckCircle2 className="w-3 h-3 mr-1" />
                                                     Verified
                                                 </Badge>
@@ -183,7 +183,7 @@ export default function DataProvenance({
                                                     {formatFrequency(point.update_frequency)}
                                                 </Badge>
                                                 {point.is_verified && (
-                                                    <Badge className="bg-emerald-100 text-emerald-700 text-xs">
+                                                    <Badge className="bg-primary-100 text-primary-700 text-xs">
                                                         <CheckCircle2 className="w-3 h-3 mr-1" />
                                                         Verified
                                                     </Badge>

@@ -83,7 +83,7 @@ export default function DesignSystemPage() {
                     <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                         {[
                             { name: 'Teal', color: 'bg-teal-500', hex: '#14b8a6' },
-                            { name: 'Emerald', color: 'bg-emerald-500', hex: '#10b981' },
+                            { name: 'Emerald', color: 'bg-primary-500', hex: '#10b981' },
                             { name: 'Blue', color: 'bg-secondary-500', hex: '#3b82f6' },
                             { name: 'Purple', color: 'bg-secondary-500', hex: '#a855f7' },
                             { name: 'Amber', color: 'bg-amber-500', hex: '#f59e0b' },

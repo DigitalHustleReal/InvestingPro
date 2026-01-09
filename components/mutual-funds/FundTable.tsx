@@ -59,7 +59,7 @@ export function FundTable({ funds }: FundTableProps) {
                                     </TableCell>
                                     <TableCell className="sticky left-[60px] bg-white dark:bg-slate-900 z-20 group-hover:bg-slate-50 dark:group-hover:bg-slate-800/50 border-r border-slate-100 dark:border-slate-800 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)]">
                                         <div className="flex flex-col gap-1">
-                                            <Link href={`/mutual-funds/${fund.id}`} className="font-bold text-slate-900 dark:text-white hover:text-emerald-600 transition-colors line-clamp-1">
+                                            <Link href={`/mutual-funds/${fund.id}`} className="font-bold text-slate-900 dark:text-white hover:text-primary-600 transition-colors line-clamp-1">
                                                 {fund.name}
                                             </Link>
                                             <div className="flex items-center gap-2">
@@ -84,14 +84,14 @@ export function FundTable({ funds }: FundTableProps) {
                                         <span className={cn("text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter", 
                                             fund.risk === "Very High" ? "text-red-600 bg-red-50 dark:bg-red-900/20" :
                                             fund.risk === "High" ? "text-orange-600 bg-orange-50 dark:bg-orange-900/20" :
-                                            "text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20"
+                                            "text-primary-600 bg-primary-50 dark:bg-primary-900/20"
                                         )}>
                                             {fund.risk || "Moderate"}
                                         </span>
                                     </TableCell>
                                     <TableCell className="text-right">
                                         <div className="flex flex-col items-end">
-                                            <span className={cn("text-sm font-bold", fund.returns_1y >= 0 ? 'text-emerald-600' : 'text-rose-600')}>
+                                            <span className={cn("text-sm font-bold", fund.returns_1y >= 0 ? 'text-primary-600' : 'text-rose-600')}>
                                                 {fund.returns_1y}%
                                             </span>
                                             <span className="text-[9px] text-slate-400 font-bold uppercase">1Y</span>
@@ -99,7 +99,7 @@ export function FundTable({ funds }: FundTableProps) {
                                     </TableCell>
                                     <TableCell className="text-right">
                                         <div className="flex flex-col items-end">
-                                            <span className={cn("text-sm font-bold", fund.returns_3y >= 15 ? 'text-emerald-600' : 'text-slate-900 dark:text-white')}>
+                                            <span className={cn("text-sm font-bold", fund.returns_3y >= 15 ? 'text-primary-600' : 'text-slate-900 dark:text-white')}>
                                                 {fund.returns_3y}%
                                             </span>
                                             <span className="text-[9px] text-slate-400 font-bold uppercase">3Y</span>
@@ -112,12 +112,12 @@ export function FundTable({ funds }: FundTableProps) {
                                     </TableCell>
                                     <TableCell className="text-right pr-6">
                                         <div className="flex items-center justify-end gap-2">
-                                            <Button size="icon" variant="ghost" className="h-8 w-8 text-slate-400 hover:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-500/10" asChild>
+                                            <Button size="icon" variant="ghost" className="h-8 w-8 text-slate-400 hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-500/10" asChild>
                                                 <Link href={`/mutual-funds/${fund.id}`}>
                                                     <TrendingUp className="w-4 h-4" />
                                                 </Link>
                                             </Button>
-                                            <Button size="sm" className="h-9 px-4 text-[10px] font-black bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl uppercase tracking-widest transition-all shadow-lg hover:shadow-emerald-500/25">
+                                            <Button size="sm" className="h-9 px-4 text-[10px] font-black bg-primary-600 hover:bg-primary-700 text-white rounded-xl uppercase tracking-widest transition-all shadow-lg hover:shadow-primary-500/25">
                                                 Invest
                                             </Button>
                                         </div>

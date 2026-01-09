@@ -37,7 +37,7 @@ const categoryConfigs: Record<string, {
 }> = {
     'credit-cards': {
         icon: CreditCard,
-        gradient: 'from-indigo-600 to-secondary-600',
+        gradient: 'from-secondary-600 to-secondary-500',
         headline: 'Find the perfect credit card for your lifestyle',
         subheadline: 'Compare rewards, cashback, and travel benefits from top Indian banks. Get matched in minutes.',
         searchPlaceholder: 'Search credit cards by bank, rewards, or benefits...',
@@ -47,7 +47,7 @@ const categoryConfigs: Record<string, {
     },
     'loans': {
         icon: Wallet,
-        gradient: 'from-emerald-600 to-teal-600',
+        gradient: 'from-success-600 to-primary-600',
         headline: 'Get the best loan rates in India',
         subheadline: 'Compare personal, home, car, and business loans with lowest interest rates. Quick approval process.',
         searchPlaceholder: 'Search loans by type, amount, or interest rate...',
@@ -57,7 +57,7 @@ const categoryConfigs: Record<string, {
     },
     'banking': {
         icon: PiggyBank,
-        gradient: 'from-secondary-600 to-cyan-600',
+        gradient: 'from-secondary-600 to-secondary-500',
         headline: 'Maximize your savings with best interest rates',
         subheadline: 'Compare savings accounts, fixed deposits, and recurring deposits. Find the highest returns.',
         searchPlaceholder: 'Search banking products by interest rate or bank...',
@@ -67,7 +67,7 @@ const categoryConfigs: Record<string, {
     },
     'investing': {
         icon: TrendingUp,
-        gradient: 'from-teal-600 to-emerald-600',
+        gradient: 'from-primary-600 to-success-600',
         headline: 'Build wealth with smart investments',
         subheadline: 'Compare mutual funds, stocks, PPF, NPS, and ELSS. Make informed investment decisions.',
         searchPlaceholder: 'Search investments by type, returns, or risk...',
@@ -87,7 +87,7 @@ const categoryConfigs: Record<string, {
     },
     'small-business': {
         icon: Building2,
-        gradient: 'from-violet-600 to-secondary-600',
+        gradient: 'from-secondary-600 to-secondary-500',
         headline: 'Grow your business with the right financial products',
         subheadline: 'Compare business loans, credit cards, and banking solutions. Tools to manage your business finances.',
         searchPlaceholder: 'Search business products or tools...',
@@ -128,7 +128,7 @@ export default function CategoryHero({
     
     const config = categoryConfigs[category.slug] || {
         icon: TrendingUp,
-        gradient: 'from-teal-600 to-emerald-600',
+        gradient: 'from-primary-600 to-success-600',
         headline: `Find the best ${category.name.toLowerCase()} for you`,
         subheadline: category.description,
         searchPlaceholder: searchPlaceholder || `Search ${category.name.toLowerCase()}...`,

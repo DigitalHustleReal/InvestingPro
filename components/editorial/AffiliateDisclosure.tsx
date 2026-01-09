@@ -25,19 +25,19 @@ export function AffiliateDisclosure({ variant = 'inline', compact = false }: Aff
                         </p>
                         <div className="space-y-1.5 mb-4">
                             <div className="flex items-start gap-2 text-sm text-stone-700 dark:text-slate-300">
-                                <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span>
+                                <span className="text-primary-600 dark:text-primary-400 font-bold">✓</span>
                                 <span>Our recommendations are NEVER influenced by commissions</span>
                             </div>
                             <div className="flex items-start gap-2 text-sm text-stone-700 dark:text-slate-300">
-                                <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span>
+                                <span className="text-primary-600 dark:text-primary-400 font-bold">✓</span>
                                 <span>We analyze 500+ products, only recommend the best</span>
                             </div>
                             <div className="flex items-start gap-2 text-sm text-stone-700 dark:text-slate-300">
-                                <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span>
+                                <span className="text-primary-600 dark:text-primary-400 font-bold">✓</span>
                                 <span>Our editorial team has ZERO access to commercial deals</span>
                             </div>
                             <div className="flex items-start gap-2 text-sm text-stone-700 dark:text-slate-300">
-                                <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span>
+                                <span className="text-primary-600 dark:text-primary-400 font-bold">✓</span>
                                 <span>We clearly mark 'Partner' vs 'Non-Partner' products</span>
                             </div>
                         </div>
@@ -85,11 +85,11 @@ export function AffiliateDisclosure({ variant = 'inline', compact = false }: Aff
                 {isExpanded && (
                     <div className="mt-3 pl-6 space-y-1">
                         <div className="flex items-start gap-2 text-xs text-stone-700 dark:text-slate-300">
-                            <span className="text-emerald-600">✓</span>
+                            <span className="text-primary-600">✓</span>
                             <span>Editorial independence guaranteed</span>
                         </div>
                         <div className="flex items-start gap-2 text-xs text-stone-700 dark:text-slate-300">
-                            <span className="text-emerald-600">✓</span>
+                            <span className="text-primary-600">✓</span>
                             <span>We analyze all products equally</span>
                         </div>
                         <Link 
@@ -107,17 +107,17 @@ export function AffiliateDisclosure({ variant = 'inline', compact = false }: Aff
 
     // Inline variant (default)
     return (
-        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 text-sm">
+        <div className="bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-lg p-4 text-sm">
             <div className="flex items-start gap-2">
-                <Shield className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+                <Shield className="w-4 h-4 text-primary-600 dark:text-primary-400 flex-shrink-0 mt-0.5" />
                 <div>
-                    <span className="font-semibold text-blue-900 dark:text-blue-200">Disclosure: </span>
-                    <span className="text-blue-800 dark:text-blue-300">
+                    <span className="font-semibold text-primary-900 dark:text-primary-200">Disclosure: </span>
+                    <span className="text-primary-800 dark:text-primary-300">
                         We may earn affiliate commissions from products on this page, but our recommendations are independent. 
                     </span>
                     <Link 
                         href="/how-we-make-money" 
-                        className="text-blue-700 dark:text-blue-400 font-semibold hover:underline ml-1"
+                        className="text-primary-700 dark:text-primary-400 font-semibold hover:underline ml-1"
                     >
                         Learn more →
                     </Link>

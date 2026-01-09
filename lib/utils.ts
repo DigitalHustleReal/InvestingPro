@@ -20,3 +20,10 @@ export function formatPercentage(value: number) {
         maximumFractionDigits: 2,
     }).format(value / 100);
 }
+
+export function slugifyTerm(term: string): string {
+    return term
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric chars with hyphens
+        .replace(/^-+|-+$/g, '');     // Remove leading/trailing hyphens
+}

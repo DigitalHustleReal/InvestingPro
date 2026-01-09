@@ -28,13 +28,13 @@ export default async function ProductsPage({
     }
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
             <SEOHead 
                 title="Best Financial Products | InvestingPro" 
                 description="Compare the best credit cards, brokers, and loans in India." 
             />
             
-            <div className="bg-white border-b border-slate-200">
+            <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                     <h1 className="text-4xl font-bold text-slate-900 mb-4">Financial Products</h1>
                     <p className="text-xl text-slate-600 max-w-2xl">

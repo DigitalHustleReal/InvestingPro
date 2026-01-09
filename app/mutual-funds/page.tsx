@@ -37,7 +37,8 @@ import {
     BarChart3,
     Target,
     LayoutGrid,
-    List
+    List,
+    ArrowRight
 } from "lucide-react";
 import Link from 'next/link';
 import { FilterSidebar } from "@/components/mutual-funds/FilterSidebar";
@@ -197,7 +198,7 @@ export default function MutualFundsPage() {
                 />
 
             {/* Light Theme Hero Section - Consistent with Platform */}
-            <div className="bg-white border-b border-slate-200 pt-28 pb-20 relative overflow-hidden">
+            <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 pt-28 pb-20 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10 pointer-events-none">
                      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-teal-500 rounded-full blur-[140px] -translate-y-1/2" />
                 </div>
@@ -247,13 +248,13 @@ export default function MutualFundsPage() {
                                 <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg p-1">
                                     <button 
                                         onClick={() => setViewMode('grid')}
-                                        className={`p-2 rounded-md transition-all ${viewMode === 'grid' ? 'bg-white dark:bg-slate-700 shadow text-emerald-600' : 'text-slate-400 hover:text-slate-600'}`}
+                                        className={`p-2 rounded-md transition-all ${viewMode === 'grid' ? 'bg-white dark:bg-slate-700 shadow text-primary-600' : 'text-slate-400 hover:text-slate-600'}`}
                                     >
                                         <LayoutGrid className="w-4 h-4" />
                                     </button>
                                     <button 
                                         onClick={() => setViewMode('table')}
-                                        className={`p-2 rounded-md transition-all ${viewMode === 'table' ? 'bg-white dark:bg-slate-700 shadow text-emerald-600' : 'text-slate-400 hover:text-slate-600'}`}
+                                        className={`p-2 rounded-md transition-all ${viewMode === 'table' ? 'bg-white dark:bg-slate-700 shadow text-primary-600' : 'text-slate-400 hover:text-slate-600'}`}
                                     >
                                         <List className="w-4 h-4" />
                                     </button>
@@ -361,8 +362,8 @@ export default function MutualFundsPage() {
                                                             <div key={i} className="space-y-1">
                                                                 <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-st">{ret.label}</p>
                                                                 <div className="flex items-center justify-center gap-1">
-                                                                    <p className={`text-xl font-bold ${ret.trend ? 'text-emerald-600' : 'text-slate-900'}`}>{ret.value}%</p>
-                                                                    {ret.trend ? <TrendingUp className="w-4 h-4 text-emerald-500" /> : <TrendingDown className="w-4 h-4 text-slate-400" />}
+                                                                    <p className={`text-xl font-bold ${ret.trend ? 'text-primary-600' : 'text-slate-900'}`}>{ret.value}%</p>
+                                                                    {ret.trend ? <TrendingUp className="w-4 h-4 text-primary-500" /> : <TrendingDown className="w-4 h-4 text-slate-400" />}
                                                                 </div>
                                                             </div>
                                                         ))}
@@ -407,6 +408,86 @@ export default function MutualFundsPage() {
                             </div>
                         )}
                     </div>
+                </div>
+            </div>
+
+            {/* --- EDUCATIONAL CONTENT HUB --- */}
+            <div className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-24">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    
+                    {/* Section Header */}
+                    <div className="text-center mb-16">
+                        <Badge className="mb-4 bg-teal-50 text-teal-700 border-teal-100">Investor's Guide</Badge>
+                        <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Wealth Creation Made Simple</h2>
+                        <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                            You don't need to be an expert to beat inflation. Understand the basics of asset allocation.
+                        </p>
+                    </div>
+
+                    {/* 1. Types of Funds Grid */}
+                    <div className="grid md:grid-cols-3 gap-8 mb-24">
+                        {[
+                            { title: "Equity Funds", desc: "Invests in stocks. High risk, high reward (12-15% avg returns). Ideal for long-term goals (>5 years).", icon: TrendingUp },
+                            { title: "Debt Funds", desc: "Invests in bonds and government securities. Low risk, stable returns (6-8%). Better alternative to FDs.", icon: ShieldCheck },
+                            { title: "ELSS Funds", desc: "Equity Linked Savings Scheme. Saves tax under Sec 80C. Lock-in period of 3 years. Best tax-saving option.", icon: PieChart }
+                        ].map((item, i) => (
+                            <div key={i} className="bg-slate-50 dark:bg-slate-800/50 rounded-3xl p-8 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
+                                <div className="w-12 h-12 bg-white dark:bg-slate-900 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
+                                    <item.icon className="w-6 h-6 text-teal-600" />
+                                </div>
+                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{item.title}</h3>
+                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* 2. Visual Guide Placeholder (Canva) */}
+                    <div className="bg-slate-900 rounded-[3rem] overflow-hidden relative mb-24 text-white">
+                        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
+                        <div className="flex flex-col md:flex-row items-center">
+                            <div className="p-12 md:p-20 md:w-1/2 relative z-10">
+                                <Badge className="mb-6 bg-teal-500/20 text-teal-300 border-teal-500/30">Power of Compounding</Badge>
+                                <h3 className="text-4xl font-bold mb-6">Start Early to Retire Rich</h3>
+                                <p className="text-slate-300 text-lg mb-8 leading-relaxed">
+                                    Investing ₹5,000/month for 20 years can turn into ₹50 Lakhs. 
+                                    Delaying by just 5 years can cost you over ₹25 Lakhs in returns.
+                                </p>
+                                <Button className="bg-teal-500 hover:bg-teal-600 text-white font-bold h-12 px-8 rounded-xl">
+                                    Start SIP Calculator
+                                </Button>
+                            </div>
+                            <div className="md:w-1/2 bg-slate-800/50 h-[400px] md:h-full flex items-center justify-center border-l border-slate-700 border-dashed">
+                                {/* PLACEHOLDER FOR CANVA IMAGE */}
+                                <div className="text-center p-8">
+                                    <div className="w-20 h-20 bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-dashed border-slate-500">
+                                        <span className="text-xs text-slate-400 font-mono">IMAGE</span>
+                                    </div>
+                                    <p className="text-slate-400 font-mono text-sm">Use Content Injection<br/>"SIP Growth Chart"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* 3. FAQ Accordion */}
+                    <div className="max-w-3xl mx-auto">
+                        <h3 className="text-2xl font-bold text-center mb-10 text-slate-900 dark:text-white">Common Questions</h3>
+                        <div className="space-y-4">
+                            {[
+                                { q: "Is it safe to invest in Mutual Funds?", a: "Mutual funds are subject to market risks, but they are regulated by SEBI. Choosing distinct fund houses and staying invested for the long term significantly reduces risk." },
+                                { q: "What is Expense Ratio?", a: "The yearly fee charged by the fund house to manage money. Direct plans (like on InvestingPro) have lower expense ratios (0.5-1%) compared to Regular plans (1.5-2%)." },
+                                { q: "Can I stop my SIP anytime?", a: "Yes, you can stop, pause, or increase your SIP amount at any time without penalty. However, exit loads may apply if you withdraw funds within 1 year." }
+                            ].map((faq, i) => (
+                                <details key={i} className="group bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 cursor-pointer">
+                                    <summary className="font-bold text-slate-900 dark:text-white flex justify-between items-center list-none">
+                                        {faq.q}
+                                        <ArrowRight className="w-4 h-4 text-slate-400 group-open:rotate-90 transition-transform" />
+                                    </summary>
+                                    <p className="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed pl-0">{faq.a}</p>
+                                </details>
+                            ))}
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

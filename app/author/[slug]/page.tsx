@@ -110,7 +110,7 @@ export default function AuthorProfilePage({ params }: { params: { slug: string }
                                     <Button variant="outline" size="icon" className="rounded-full w-10 h-10 border-slate-200 hover:text-blue-700">
                                         <Linkedin className="w-4 h-4" />
                                     </Button>
-                                    <Button variant="outline" size="icon" className="rounded-full w-10 h-10 border-slate-200 hover:text-emerald-600">
+                                    <Button variant="outline" size="icon" className="rounded-full w-10 h-10 border-slate-200 hover:text-primary-600">
                                         <Mail className="w-4 h-4" />
                                     </Button>
                                 </div>
@@ -162,13 +162,13 @@ export default function AuthorProfilePage({ params }: { params: { slug: string }
                         </div>
 
                         {/* Verification / Trust Badge */}
-                        <div className="bg-emerald-50 rounded-xl p-6 border border-emerald-100 flex items-start gap-4">
-                            <div className="bg-emerald-100 p-3 rounded-full">
-                                <Shield className="w-6 h-6 text-emerald-600" />
+                        <div className="bg-primary-50 rounded-xl p-6 border border-primary-100 flex items-start gap-4">
+                            <div className="bg-primary-100 p-3 rounded-full">
+                                <Shield className="w-6 h-6 text-primary-600" />
                             </div>
                             <div>
-                                <h3 className="text-lg font-bold text-emerald-900 mb-1">Editorial Integrity Verified</h3>
-                                <p className="text-sm text-emerald-800 leading-relaxed">
+                                <h3 className="text-lg font-bold text-primary-900 mb-1">Editorial Integrity Verified</h3>
+                                <p className="text-sm text-primary-800 leading-relaxed">
                                     All content written by {author.name} adheres to InvestingPro's strict editorial guidelines. 
                                     Financial advice is backed by data-driven research and peer-reviewed by our compliance team.
                                 </p>

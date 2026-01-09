@@ -59,7 +59,7 @@ export default function AffiliateDisclosure({
     // Inline variant - banner style disclosure
     if (variant === 'inline') {
         return (
-            <div className={`px-4 py-2 bg-blue-50/50 border-t border-blue-100 ${className}`}>
+            <div className={`px-4 py-2 bg-primary-50/50 border-t border-primary-100 ${className}`}>
                 <p className="text-[10px] text-slate-600 text-center">
                     <strong className="font-semibold">Advertiser Disclosure:</strong>{' '}
                     We earn commission from some partners. This doesn't affect our editorial independence.{' '}

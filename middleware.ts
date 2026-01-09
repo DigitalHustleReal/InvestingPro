@@ -8,11 +8,13 @@ export async function middleware(request: NextRequest) {
         },
     })
 
-    // Protect admin routes - only enforce auth in production with full Supabase config
+    // Protect admin routes
     if (request.nextUrl.pathname.startsWith('/admin')) {
-        // Check environment - skip auth in development/local environments
-        const isProduction = process.env.NODE_ENV === 'production';
-        
+        // Allow login page without auth
+        if (request.nextUrl.pathname === '/admin/login') {
+            return response;
+        }
+
         // Check if Supabase environment variables are properly configured
         const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
         const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -20,14 +22,25 @@ export async function middleware(request: NextRequest) {
                                   supabaseUrl.trim() !== '' && 
                                   supabaseAnonKey.trim() !== '';
 
-        // Skip authentication enforcement if:
-        // 1. Not in production (development/local), OR
-        // 2. Supabase is not configured
-        // This allows direct access to /admin in development without requiring auth setup
-        if (!isProduction || !hasSupabaseConfig) {
-            // Allow access without authentication - client-side can handle auth checks if needed
-            // This enables local development without requiring Supabase configuration
+        // SECURE DEV BYPASS: Only allow bypass with explicit secret key
+        // Set ADMIN_BYPASS_KEY in .env.local for local development ONLY
+        // NEVER set this in production
+        const bypassKey = process.env.ADMIN_BYPASS_KEY;
+        const requestBypassKey = request.headers.get('x-admin-bypass') || 
+                                 request.cookies.get('admin_bypass')?.value;
+        
+        if (bypassKey && requestBypassKey === bypassKey) {
+            // Explicit bypass for local development with secret key
+            console.warn('[MIDDLEWARE] Admin bypass active - NEVER use in production');
             return response;
+        }
+
+        // If Supabase not configured and no bypass key, show helpful error
+        if (!hasSupabaseConfig) {
+            const url = request.nextUrl.clone();
+            url.pathname = '/admin/login';
+            url.searchParams.set('error', 'supabase_not_configured');
+            return NextResponse.redirect(url);
         }
 
         // PRODUCTION ONLY: Enforce authentication when Supabase is fully configured

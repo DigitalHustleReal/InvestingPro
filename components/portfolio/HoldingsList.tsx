@@ -17,7 +17,7 @@ export default function HoldingsList({ holdings = [], onDelete }: HoldingsListPr
             <CardHeader className="p-0 mb-10">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+                        <div className="w-12 h-12 rounded-2xl bg-primary-50 flex items-center justify-center text-primary-600">
                             <BarChart3 className="w-6 h-6" />
                         </div>
                         <div>
@@ -79,11 +79,11 @@ export default function HoldingsList({ holdings = [], onDelete }: HoldingsListPr
                                             <td className="py-6 text-right font-semibold text-slate-900 text-">₹{currentValue.toLocaleString('en-IN')}</td>
                                             <td className="py-6 text-right">
                                                 <div className="flex flex-col items-end">
-                                                    <div className={`flex items-center gap-1 font-bold text-sm ${isProfit ? 'text-emerald-600' : 'text-rose-600'}`}>
+                                                    <div className={`flex items-center gap-1 font-bold text-sm ${isProfit ? 'text-primary-600' : 'text-rose-600'}`}>
                                                         {isProfit ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
                                                         {profitPercent.toFixed(2)}%
                                                     </div>
-                                                    <p className={`text-[10px] font-bold ${isProfit ? 'text-emerald-400' : 'text-rose-400'}`}>+₹{Math.abs(profit).toLocaleString('en-IN')}</p>
+                                                    <p className={`text-[10px] font-bold ${isProfit ? 'text-primary-400' : 'text-rose-400'}`}>+₹{Math.abs(profit).toLocaleString('en-IN')}</p>
                                                 </div>
                                             </td>
                                             <td className="py-6 text-right">

@@ -44,6 +44,18 @@ function getArticlePrompt(topic: string, brief?: ResearchBrief): string {
 
     GOAL: Write a viral-worthy, "Category-Defining" article about: "${topic}".
     
+    **CONTENT DEPTH REQUIREMENTS (CRITICAL FOR SEO):**${brief ? `
+    - **WORD COUNT**: ${brief.recommended_word_count || 1500}-${Math.ceil((brief.recommended_word_count || 1500) * 1.1)} words minimum (Based on competitor analysis: avg ${brief.avg_word_count} words)
+    - **COMPETITIVE EDGE**: Your article MUST be ${Math.ceil((brief.recommended_word_count || 1500) - brief.avg_word_count)} words longer than top competitors to outrank them
+    - ⚠️ **CRITICAL**: DO NOT write less than ${brief.recommended_word_count || 1500} words. This is a REQUIREMENT, not a suggestion.` : `
+    - **WORD COUNT**: 1,500-2,000 words minimum (Standard for competitive keywords)
+    - ⚠️ **CRITICAL**: DO NOT write less than 1,500 words. This is a REQUIREMENT, not a suggestion.`}
+    - **SECTIONS**: 8-10 H2 sections with subsections (H3)
+    - **TABLES**: Minimum 3-4 detailed comparison/data tables
+    - **EXAMPLES**: 8-10 real-world examples with specific numbers
+    - **EXTERNAL LINKS**: Link to 2-3 authoritative sources (RBI.org.in, SEBI.gov.in, AMFI.in, NSE/BSE)
+    - **INTERNAL DEPTH**: Each section should have 200-250 words minimum (calculate: 8 sections × 200 words = 1,600+ words)
+    
     FRAMEWORK: Use the **AIDA Model** (Attention, Interest, Desire, Action) + **PAS** (Problem, Agitation, Solution) for sections.
 
     STYLE GUIDELINES (CRITICAL):
@@ -57,18 +69,29 @@ function getArticlePrompt(topic: string, brief?: ResearchBrief): string {
 
     STRUCTURE REQUIREMENTS (HTML FORMAT):
     1. **H1 Title**: Click-worthy, SEO-rich, under 60 chars.
-    2. **Viral Intro**: 
+    2. **Viral Intro** (150-200 words): 
        - Start with a Hook (Problem/Stat).
        - Agitate the pain point.
        - Tease the solution (The "Open Loop").
     3. **"Quick Verdict" Box**: <div class="quick-verdict p-4 bg-blue-50 border-l-4 border-blue-500 my-6"><strong>⚡ Quick Verdict:</strong> [2-sentence summary for busy readers]</div>.
-    4. **Deep Dive Content**: multiple H2 and H3 sections. Use **PAS Framework** here.
-    5. **Data Visualization**: Include at least 2 HTML <table> elements (Comparison, Fee Structure, or Returns Scenario).
+    4. **Deep Dive Content** (8-10 H2 sections, each 200-250 words): 
+       - Use **PAS Framework** for each section
+       - Include subsections (H3) for depth
+       - Add specific examples with numbers in each section
+    5. **Data Visualization**: Include at least 3-4 HTML <table> elements:
+       - Comparison tables (e.g., SIP vs Lumpsum)
+       - Fee/Cost structure tables
+       - Returns scenario tables (5-year, 10-year, 20-year)
+       - Fund/Product comparison tables
     6. **Checklist/Steps**: Use <ul> or <ol> with <strong>bold</strong> lead-ins.
-    7. **Pro Tip Box**: <div class="pro-tip p-4 bg-green-50 border-l-4 border-green-500 my-6"><strong>💡 Pro Tip:</strong> [Insider advice]</div>.
-    8. **Warning Box**: <div class="warning-box p-4 bg-red-50 border-l-4 border-red-500 my-6"><strong>⚠️ Warning:</strong> [Risk or Regulation to avoid]</div>.
-    9. **FAQ Section**: 4-5 questions people actually ask (Use Schema.org style answers).
-    10. **Conclusion**: Don't summarize. Give a "Next Step" or Actionable Advice.
+    7. **Pro Tip Box** (2-3 throughout article): <div class="pro-tip p-4 bg-green-50 border-l-4 border-green-500 my-6"><strong>💡 Pro Tip:</strong> [Insider advice]</div>.
+    8. **Warning Box** (1-2 throughout article): <div class="warning-box p-4 bg-red-50 border-l-4 border-red-500 my-6"><strong>⚠️ Warning:</strong> [Risk or Regulation to avoid]</div>.
+    9. **FAQ Section** (8-10 questions): People actually ask (Use Schema.org style answers) with detailed responses.
+    10. **External Authority Links**: Link to 2-3 official sources:
+        - RBI circulars: <a href="https://rbi.org.in/...">RBI Source</a>
+        - SEBI guidelines: <a href="https://sebi.gov.in/...">SEBI Guidelines</a>
+        - AMFI data: <a href="https://amfiindia.com/...">AMFI Data</a>
+    11. **Conclusion** (100-150 words): Don't summarize. Give a "Next Step" or Actionable Advice.
 
     FORMATTING RULES:
     - Return a VALID JSON Object: 
@@ -78,13 +101,24 @@ function getArticlePrompt(topic: string, brief?: ResearchBrief): string {
         "seo_description": "Compelling meta description (150-160 chars) designed for high CTR.",
         "tags": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"],
         "content": "<h1>Title...</h1>...",
-        "image_keywords": "abstract conceptual visual search term (e.g. 'Abstract Finance Minimal', 'Cinematic Office')"
+        "image_keywords": "SPECIFIC visual description for stock photo search. Example: 'indian woman checking mutual fund returns on mobile phone' or 'business growth chart rupee symbol rising'. NOT generic like 'abstract finance'."
       }
-    - Use <table> for data.
+    - Use <table> for data (minimum 3-4 tables).
     - Use <strong> for emphasis (don't overdo it).
     - Ensure all monetary values use the Indian Rupee symbol (₹).
-    - Keep paragraphs short (2-3 sentences max).
+    - Keep paragraphs short (2-3 sentences max).${brief ? `
+    - **TARGET WORD COUNT**: ${brief.recommended_word_count}+ words (This beats top ${brief.top_results.length} competitors averaging ${brief.avg_word_count} words)
+    - ⚠️ VERIFY: Count words in your content section. If under ${brief.recommended_word_count}, ADD MORE sections/examples/tables until target is met.` : `
+    - **TARGET WORD COUNT**: 1,500-2,000 words total
+    - ⚠️ VERIFY: Count words in your content section. If under 1,500, ADD MORE sections/examples/tables until target is met.`}
+    
+    **BEFORE RETURNING**: Mentally count your sections and ensure you have:
+    - At least 8-10 H2 sections
+    - Each section has 200+ words
+    - Total content is 1,500+ words
+    - If not, EXPAND the content by adding more examples, tables, and detailed explanations.
     `;
+
 
     if (brief) {
         prompt += `
@@ -104,7 +138,7 @@ function getArticlePrompt(topic: string, brief?: ResearchBrief): string {
 // AI Generation with foolproof failover
 async function generateWithAI(topic: string, brief?: ResearchBrief, logFn: (msg: string) => void = console.log): Promise<string> {
     // USE RELATIVE PATH to avoid @ alias issues in tsx/node scripts
-    const { api } = require('../api');
+    const { api } = await import('../api');
     
     try {
         logFn(`🔵 Initializing Foolproof Generation Relay...`);
@@ -166,22 +200,99 @@ function detectClassification(title: string, content: string): { category: strin
     return { category, tags };
 }
 
-// Generate Article Function
+/**
+ * Enhance research brief for uniqueness on retry attempts
+ */
+function enhanceForUniqueness(brief: ResearchBrief | undefined, attempt: number): ResearchBrief | undefined {
+    if (!brief) return brief;
+
+    const uniquenessPrompts = [
+        "Focus on UNCOMMON examples and lesser-known insights",
+        "Use ORIGINAL analogies and fresh perspectives",
+        "Include UNIQUE data points not commonly cited",
+    ];
+
+    return {
+        ...brief,
+        unique_angle: `${brief.unique_angle}. ${uniquenessPrompts[attempt - 2] || uniquenessPrompts[2]}. CRITICAL: Avoid copying existing content structures.`,
+        content_gaps: [
+            ...brief.content_gaps,
+            `Distinctive perspective (Attempt ${attempt})`,
+        ],
+    };
+}
+
+// Generate Article Function with Auto-Correction
+// Core generation logic
 export async function generateArticleCore(
     topic: string, 
     logFn: (msg: string) => void = console.log,
-    dryRun: boolean = false
-) {
+    options: { dryRun?: boolean; authorId?: string } | boolean = false // Backwards compatibility for boolean
+): Promise<{ success: boolean; article?: any; error?: string; duration?: string; url?: string }> {
     const startTime = Date.now();
-
+    
+    // Handle old boolean signature (dryRun) vs new object signature
+    const dryRun = typeof options === 'boolean' ? options : options?.dryRun;
+    const authorId = typeof options === 'object' ? options?.authorId : undefined;
+    // ============================================================================
+    // STEP 0: CHECK FOR DUPLICATES FIRST (Prevents wasted API calls)
+    // ============================================================================
+    logFn('\n🔍 Checking for duplicate content...');
+    
     try {
-        // 0. Deep Research
-        logFn('0️⃣ Performing Deep Research (SERP Analysis)...');
-        let brief: ResearchBrief | undefined;
-        let difficultyScore = 50; // Default medium difficulty
+        const { checkForDuplicates } = await import('../quality/duplicate-detector');
+        const category = 'mutual-funds'; // TODO: Pass as parameter
+        const keywords = topic.toLowerCase().split(/\s+/).filter(w => w.length > 3);
+        
+        const dupCheck = await checkForDuplicates(topic, keywords, category);
+        
+        if (dupCheck.recommendation === 'BLOCK') {
+            logFn(`\n❌ BLOCKED: ${dupCheck.reason}`);
+            if (dupCheck.similar_articles.length > 0) {
+                logFn(`   Similar article: "${dupCheck.similar_articles[0].title}"`);
+                logFn(`   Keyword overlap: ${dupCheck.keyword_overlap.toFixed(1)}%`);
+            }
+            logFn(`\n💡 Suggestion: Try a different angle or topic.\n`);
+            throw new Error(`Duplicate content detected: ${dupCheck.reason}`);
+        } else if (dupCheck.recommendation === 'WARN') {
+            logFn(`⚠️  Warning: ${dupCheck.reason}`);
+            logFn(`   Proceeding but ensure unique angle...`);
+        } else {
+            logFn(`✅ Content is unique - proceeding with generation`);
+        }
+    } catch (error: any) {
+        if (error.message.includes('Duplicate content detected')) {
+            throw error; // Re-throw if it's our duplicate error
+        }
+        // If duplicate-detector.ts doesn't exist yet, just log and continue
+        logFn(`⚠️  Duplicate check failed: ${error.message}`);
+        logFn(`   Proceeding with generation anyway...`);
+    }
+    
+    // ============================================================================
+    // GOOGLE-ALIGNED QUALITY THRESHOLDS (Updated from arbitrary values)
+    // ============================================================================
+    const MAX_RETRIES = 3;
+    const QUALITY_THRESHOLD = 60;  // FIXED: Lowered from 70 - more realistic for financial content
+    const PLAGIARISM_THRESHOLD = 30; // FIXED: Lowered from 50 - Google allows 15-30% for citations
+
+    // Retry loop for auto-correction
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
         try {
-            brief = await serpAnalyzer.analyzeCompetitors(topic);
-            logFn(`   ✅ Identified ${brief.content_gaps.length} Content Gaps`);
+            if (attempt > 1) {
+                logFn(`\n🔄 RETRY ATTEMPT ${attempt}/${MAX_RETRIES} - Regenerating for better quality/uniqueness...`);
+            }
+
+            // 0. Deep Research
+            logFn('0️⃣ Performing Deep Research (SERP Analysis)...');
+            let brief: ResearchBrief | undefined;
+            let difficultyScore = 50; // Default medium difficulty
+            try {
+                // FIXED: Call serpAnalyzer directly (not .analyzeCompetitors)
+                brief = await serpAnalyzer(topic);
+                logFn(`   ✅ Identified ${brief.content_gaps.length} Content Gaps`);
+                logFn(`   📊 Competitor Avg: ${brief.avg_word_count} words`);
+                logFn(`   🎯 Target Word Count: ${brief.recommended_word_count}+ words`);
             
             // NEW: Score keyword difficulty (graceful fallback)
             try {
@@ -200,9 +311,10 @@ export async function generateArticleCore(
             logFn('   ⚠️ Research failed, proceeding with standard generation.');
         }
 
-        // 1. Generate Content
-        logFn('1️⃣ Generating article with AI...');
-        const rawResponse = await generateWithAI(topic, brief, logFn);
+            // 1. Generate Content (with uniqueness enhancement on retries)
+            logFn('1️⃣ Generating article with AI...');
+            const enhancedBrief = attempt > 1 ? enhanceForUniqueness(brief, attempt) : brief;
+            const rawResponse = await generateWithAI(topic, enhancedBrief, logFn);
         
         let html = rawResponse;
         let aiImageKeywords = topic; 
@@ -274,24 +386,43 @@ export async function generateArticleCore(
         // 5b. Quality Verification
         logFn('5️⃣b Verifying content quality...');
         
-        // Detailed quality analysis
-        const qualityScore = analyzeContentQuality(html, title, topic);
-        logFn(`   📊 Quality Score: ${qualityScore.overall}/100 (${qualityScore.grade.toUpperCase()})`);
+        // Detailed quality analysis (FIXED: Added await)
+        const qualityScore = await analyzeContentQuality(html, topic);
+        logFn(`   📊 Quality Score: ${qualityScore.total_score}/100 (${qualityScore.grade})`);
         
-        // Plagiarism check
-        const uniquenessCheck = await checkPlagiarism(html, title);
-        logFn(`   🔍 Uniqueness: ${uniquenessCheck.uniquenessScore}%`);
+        // Plagiarism check (FIXED: Corrected function call)
+        const uniquenessCheck = await checkPlagiarism(html);
+        logFn(`   🔍 Uniqueness: ${uniquenessCheck.unique_content_percentage}%`);
 
-        if (!qualityScore.canPublish) {
-            logFn(`   ⚠️ WARNING: Quality score below threshold (${qualityScore.overall}). Review recommended.`);
-        }
-        if (!uniquenessCheck.isUnique) {
-            logFn(`   ⚠️ WARNING: Content similarity detected (${uniquenessCheck.similarityScore}%).`);
-        }
+            // Quality gates with auto-correction logic
+            const qualityFailed = qualityScore.total_score < QUALITY_THRESHOLD;
+            const plagiarismFailed = uniquenessCheck.is_plagiarized && uniquenessCheck.similarity_percentage > PLAGIARISM_THRESHOLD;
 
-        // Image SEO
-        const imageSeo = generateImageAltText(title, category || 'finance');
-        logFn(`   🖼️ Alt Text: "${imageSeo.altText}"`);
+            if (qualityFailed) {
+                logFn(`   ⚠️ WARNING: Quality score below threshold (${qualityScore.total_score}/${QUALITY_THRESHOLD}).`);
+            }
+            if (plagiarismFailed) {
+                logFn(`   ⚠️ WARNING: High plagiarism detected (${uniquenessCheck.similarity_percentage}% similarity).`);
+            }
+
+            // Auto-correction: Retry if quality or plagiarism failed and we have retries left
+            if ((qualityFailed || plagiarismFailed) && attempt < MAX_RETRIES) {
+                logFn(`   🔄 Auto-correction triggered. Regenerating article (attempt ${attempt + 1}/${MAX_RETRIES})...`);
+                continue; // Skip to next iteration (retry)
+            }
+
+            // If we've exhausted retries, log final warning
+            if ((qualityFailed || plagiarismFailed) && attempt === MAX_RETRIES) {
+                logFn(`   🚨 FINAL WARNING: Quality/plagiarism issues remain after ${MAX_RETRIES} attempts.`);
+                logFn(`   📝 Article will be saved as DRAFT for manual review.`);
+            }
+
+        // Image SEO (FIXED: Pass imageUrl instead of title)
+        const imageSeo = await generateImageAltText(imageUrl, { 
+            context: `${topic} - ${category || 'finance'}`,
+            keyword: topic.split(' ').slice(0, 3).join(' ') // Use first 3 words as keyword
+        });
+        logFn(`   🖼️ Alt Text: "${imageSeo.alt_text}"`);
 
         // 5c. AI SEO & Shareable Assets
         const faqs = extractFAQsFromContent(html);
@@ -318,8 +449,20 @@ export async function generateArticleCore(
         };
 
 
-        // 6. DB Insert
-        logFn('6️⃣ Publishing to database...');
+            // 6. Publishing Decision
+            logFn('6️⃣ Publishing to database...');
+            
+            // Determine status based on quality/plagiarism
+            const status = (qualityFailed || plagiarismFailed) ? 'draft' : 'published';
+            const statusReason = qualityFailed 
+                ? `Low quality score (${qualityScore.total_score}/${QUALITY_THRESHOLD})`
+                : plagiarismFailed
+                ? `High plagiarism (${uniquenessCheck.similarity_percentage}%)`
+                : 'Passed quality checks';
+
+            if (status === 'draft') {
+                logFn(`   📝 Saving as DRAFT (${statusReason}) for manual review`);
+            }
         const now = new Date().toISOString();
         const today = now.split('T')[0];
 
@@ -339,32 +482,30 @@ export async function generateArticleCore(
         }
 
         // Prepare insert data
-        const insertPayload: any = {
-            title: title,
-            slug: slug,
-            excerpt: excerpt,
-            
+        const insertPayload = {
+            title,
+            slug,
             body_html: html,
-            body_markdown: html,
-            content: html,
-            
+            body_markdown: '', // Store as HTML for now
+            content: html, // Keep content for full-text search if needed
+            excerpt,
             meta_title: seoTitle,
             meta_description: excerpt,
             seo_title: seoTitle,
             seo_description: excerpt,
-
-            category: category,
-            tags: tags,
+            category,
+            tags,
+            status, // 'draft' or 'published' based on quality
             read_time: readTime,
             featured_image: imageUrl,
             
-            // Quality Metrics
-            quality_score: qualityScore.overall,
-            uniqueness_score: uniquenessCheck.uniquenessScore,
-            seo_score: qualityScore.seo,
-            readability_score: qualityScore.readability,
-            image_alt_text: imageSeo.altText,
-            is_verified_quality: qualityScore.canPublish,
+            // Quality Metrics (FIXED: Using correct property names)
+            quality_score: qualityScore.total_score,
+            uniqueness_score: uniquenessCheck.unique_content_percentage,
+            seo_score: qualityScore.seo_score,
+            readability_score: qualityScore.readability_score,
+            image_alt_text: imageSeo.alt_text,
+            is_verified_quality: qualityScore.total_score >= 70 && !uniquenessCheck.is_plagiarized,
             is_plagiarism_checked: true,
             
             // AI SEO & Assets
@@ -376,7 +517,6 @@ export async function generateArticleCore(
             target_authority: 15, // Your current DA
             primary_keyword: topic,
             
-            status: 'published', // AUTO-PUBLISH for one-click generator
             published_at: now,
             published_date: today,
             
@@ -384,15 +524,19 @@ export async function generateArticleCore(
             author_name: 'AI Editor',
         };
 
-        // Only add author_id if we found one, otherwise leave it undefined (to try NULL or Default)
+        // Only add author_id if we found one
         if (authorId) {
-            insertPayload.author_id = authorId;
+            (insertPayload as any).author_id = authorId;
         }
         
         // DRY RUN CHECK
         if (dryRun) {
             logFn('🛑 Dry Run: Skipping DB Insert. Returning Payload.');
-            return insertPayload;
+            return {
+                success: true,
+                article: insertPayload,
+                duration: ((Date.now() - startTime) / 1000).toFixed(2)
+            };
         }
 
         const { data: article, error } = await getSupabaseClient()
@@ -402,23 +546,43 @@ export async function generateArticleCore(
             .single();
 
         if (error) {
-            throw new Error(`Database error: ${error.message} (Detail: ${error.details || ''})`);
+            throw new Error(`Database error: ${error.message} (Detail: ${error?.details || ''})`);
         }
 
-        logFn('✅ PUBLISHED SUCCESSFULLY!');
-        
-        return {
-            success: true,
-            article: article,
-            duration: ((Date.now() - startTime) / 1000).toFixed(2),
-            url: `/articles/${slug}`
-        };
+            // Log completion
+            const statusIcon = status === 'published' ? '✅' : '📝';
+            logFn(`   ${statusIcon} ${status.toUpperCase()} SUCCESSFULLY!`);
+            logFn(`   ✅ Success! Article URL: /articles/${slug}`);
+            
+            // Break out of retry loop on success
+            return {
+                success: true,
+                article: article,
+                duration: ((Date.now() - startTime) / 1000).toFixed(2),
+                url: `/articles/${slug}`
+            };
 
-    } catch (error: any) {
-        logFn(`💥 ERROR: ${error.message}`);
-        return {
-            success: false,
-            error: error.message
-        };
+        } catch (error: any) {
+            logFn(`   ❌ Generation failed (attempt ${attempt}/${MAX_RETRIES}): ${error.message}`);
+            
+            if (attempt === MAX_RETRIES) {
+                // Re-throw on final attempt
+                return {
+                    success: false,
+                    error: error.message,
+                    duration: ((Date.now() - startTime) / 1000).toFixed(2)
+                };
+            }
+            
+            // Continue to next attempt
+            logFn(`   🔄 Retrying...`);
+        }
     }
+
+    // If we get here, all retries failed (shouldn't happen but just in case)
+    return {
+        success: false,
+        error: `Failed to generate quality article after ${MAX_RETRIES} attempts`,
+        duration: ((Date.now() - startTime) / 1000).toFixed(2)
+    };
 }

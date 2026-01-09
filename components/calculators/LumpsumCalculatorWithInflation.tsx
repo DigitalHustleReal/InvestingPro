@@ -40,7 +40,7 @@ export function LumpsumCalculatorWithInflation() {
     };
 
     const lumpsumChartData = [
-        { name: 'Invested', value: lumpsumResult.invested, color: '#94a3b8' },
+        { name: 'Invested', value: lumpsumResult.invested, color: '#0d9488' },
         { name: 'Returns', value: adjustForInflation ? lumpsumResult.realReturns : lumpsumResult.returns, color: '#10b981' },
     ];
 
@@ -86,7 +86,7 @@ export function LumpsumCalculatorWithInflation() {
             {/* Top Row: Inputs on Left, Results on Right */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Input Card */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                     <CardHeader>
                         <div className="flex items-start justify-between gap-4 mb-2">
                             <div className="flex-1">
@@ -94,7 +94,7 @@ export function LumpsumCalculatorWithInflation() {
                                 <CardDescription>Calculate returns on one-time investment with inflation adjustment</CardDescription>
                             </div>
                             <div className="flex flex-col gap-1.5 items-end">
-                                <Badge variant="secondary" className="bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100">
+                                <Badge variant="secondary" className="bg-primary-50 text-primary-700 border-primary-200 hover:bg-primary-100">
                                     <CheckCircle2 className="w-3 h-3 mr-1" /> Free
                                 </Badge>
                                 <Badge variant="secondary" className="bg-secondary-50 text-secondary-700 border-secondary-200 hover:bg-secondary-100 text-[10px]">
@@ -118,7 +118,7 @@ export function LumpsumCalculatorWithInflation() {
                                         setLumpsumYears(preset.years);
                                         setLumpsumReturn(preset.return);
                                     }}
-                                    className="text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md font-medium transition-colors border border-slate-200"
+                                    className="text-xs px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-md font-medium transition-colors border border-slate-200"
                                 >
                                     {preset.label}
                                 </button>
@@ -230,36 +230,36 @@ export function LumpsumCalculatorWithInflation() {
                 </Card>
 
                 {/* Right: Results Card */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50 relative overflow-hidden">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-primary-50 to-success-50 dark:from-slate-900 dark:to-slate-800 relative overflow-hidden">
                     {/* Decorative gradient overlay */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-teal-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-white rounded-xl shadow-sm border border-emerald-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Invested</p>
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-primary-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Invested</p>
                                 <p className="text-base sm:text-lg font-extrabold text-slate-900">{formatCurrency(lumpsumResult.invested)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-white rounded-xl shadow-sm border border-emerald-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-primary-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Returns' : 'Returns'}
                                 </p>
-                                <p className="text-base sm:text-lg font-extrabold text-emerald-600">
+                                <p className="text-base sm:text-lg font-extrabold text-primary-600">
                                     {formatCurrency(adjustForInflation ? lumpsumResult.realReturns : lumpsumResult.returns)}
                                 </p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-white rounded-xl shadow-sm border border-emerald-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-primary-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Value' : 'Total'}
                                 </p>
-                                <p className="text-base sm:text-lg font-extrabold text-teal-600">
+                                <p className="text-base sm:text-lg font-extrabold text-primary-600">
                                     {formatCurrency(adjustForInflation ? lumpsumResult.realValue : lumpsumResult.futureValue)}
                                 </p>
                             </div>
                         </div>
 
                         {adjustForInflation && (
-                            <div className="p-3 bg-white rounded-xl border border-secondary-100 mb-4">
-                                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Nominal Value</p>
+                            <div className="p-3 bg-white dark:bg-slate-800 rounded-xl border border-secondary-100 mb-4">
+                                <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Nominal Value</p>
                                 <p className="text-sm font-bold text-slate-600">{formatCurrency(lumpsumResult.futureValue)}</p>
                                 <p className="text-xs text-slate-500 mt-1">Before inflation adjustment</p>
                             </div>
@@ -295,7 +295,7 @@ export function LumpsumCalculatorWithInflation() {
             {/* Bottom Row: Growth Projection & Year-by-Year Breakdown */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Growth Projection Chart */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Growth Projection</CardTitle>
                     </CardHeader>
@@ -309,8 +309,8 @@ export function LumpsumCalculatorWithInflation() {
                                             <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                                         </linearGradient>
                                         <linearGradient id="colorLumpsumReal" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.3} />
-                                            <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
+                                            <stop offset="5%" stopColor="#2563eb" stopOpacity={0.3} />
+                                            <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
                                         </linearGradient>
                                     </defs>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
@@ -326,7 +326,7 @@ export function LumpsumCalculatorWithInflation() {
                                     />
                                     <Area type="monotone" dataKey="value" stroke="#14b8a6" fill="url(#colorLumpsum)" strokeWidth={2} name="Nominal" />
                                     {adjustForInflation && (
-                                        <Area type="monotone" dataKey="realValue" stroke="#8b5cf6" fill="url(#colorLumpsumReal)" strokeWidth={2} name="Real (Inflation Adjusted)" />
+                                        <Area type="monotone" dataKey="realValue" stroke="#2563eb" fill="url(#colorLumpsumReal)" strokeWidth={2} name="Real (Inflation Adjusted)" />
                                     )}
                                 </AreaChart>
                             </ResponsiveContainer>
@@ -335,7 +335,7 @@ export function LumpsumCalculatorWithInflation() {
                 </Card>
 
                 {/* Right: Year-by-Year Breakdown */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Year-by-Year Breakdown</CardTitle>
                     </CardHeader>
@@ -347,9 +347,9 @@ export function LumpsumCalculatorWithInflation() {
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Investment</p>
                                     <p className="text-lg font-bold text-slate-900">{formatCurrency(lumpsum)}</p>
                                 </div>
-                                <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
+                                <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Expected ROI</p>
-                                    <p className="text-lg font-bold text-emerald-600">{lumpsumReturn}%</p>
+                                    <p className="text-lg font-bold text-primary-600">{lumpsumReturn}%</p>
                                 </div>
                             </div>
 
@@ -369,7 +369,7 @@ export function LumpsumCalculatorWithInflation() {
                                                 {yearlyData.slice(0, 10).map((row, idx) => (
                                                     <tr key={idx} className="hover:bg-slate-50 transition-colors">
                                                         <td className="px-3 py-2.5 text-sm font-semibold text-slate-900">Year {row.year}</td>
-                                                        <td className="px-3 py-2.5 text-sm text-right font-semibold text-emerald-600">{formatCurrency(row.returns)}</td>
+                                                        <td className="px-3 py-2.5 text-sm text-right font-semibold text-primary-600">{formatCurrency(row.returns)}</td>
                                                         <td className="px-3 py-2.5 text-sm text-right font-medium text-slate-600">{formatCurrency(row.total)}</td>
                                                     </tr>
                                                 ))}
@@ -383,7 +383,7 @@ export function LumpsumCalculatorWithInflation() {
                                                 {yearlyData.length > 0 && (
                                                     <tr className="bg-teal-50 border-t-2 border-teal-200">
                                                         <td className="px-3 py-3 text-sm font-bold text-slate-900">Final</td>
-                                                        <td className="px-3 py-3 text-sm text-right font-bold text-emerald-600">{formatCurrency(adjustForInflation ? lumpsumResult.realReturns : lumpsumResult.returns)}</td>
+                                                        <td className="px-3 py-3 text-sm text-right font-bold text-primary-600">{formatCurrency(adjustForInflation ? lumpsumResult.realReturns : lumpsumResult.returns)}</td>
                                                         <td className="px-3 py-3 text-sm text-right font-bold text-teal-600">{formatCurrency(adjustForInflation ? lumpsumResult.realValue : lumpsumResult.futureValue)}</td>
                                                     </tr>
                                                 )}
@@ -394,7 +394,7 @@ export function LumpsumCalculatorWithInflation() {
                             </div>
 
                             {/* Key Insight */}
-                            <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-secondary-100">
+                            <div className="p-4 bg-gradient-to-br from-primary-50 to-indigo-50 rounded-xl border border-secondary-100">
                                 <div className="flex items-start gap-3">
                                     <Info className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" />
                                     <div>

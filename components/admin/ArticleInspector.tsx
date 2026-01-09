@@ -630,7 +630,7 @@ export default function ArticleInspector({
                             variant="default"
                             onClick={handleTranslate}
                             disabled={isTranslating}
-                            className="bg-primary-600 hover:bg-indigo-700 text-white"
+                            className="bg-primary-600 hover:bg-primary-700 text-white"
                         >
                              {isTranslating ? <Loader2 className="w-4 h-4 animate-spin"/> : "Go"}
                         </Button>

@@ -4,6 +4,9 @@ import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useCompare } from '@/contexts/CompareContext';
 import ComparisonTable from '@/components/compare/ComparisonTable';
+import { SmartRecommendation } from '@/components/compare/SmartRecommendation';
+import { ExportButton } from '@/components/compare/ExportButton';
+import { MethodologyModal } from '@/components/compare/MethodologyModal';
 import { Button } from '@/components/ui/Button';
 import { ArrowLeft, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
@@ -69,7 +72,7 @@ function ComparePageContent() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto mb-4"></div>
           <p className="text-slate-600 dark:text-slate-400">Loading comparison...</p>
         </div>
       </div>
@@ -88,7 +91,7 @@ function ComparePageContent() {
             Add products from the listing page to start comparing.
           </p>
           <Link href="/credit-cards">
-            <Button className="bg-emerald-600 hover:bg-emerald-700">
+            <Button className="bg-primary-600 hover:bg-primary-700">
               Browse Products
             </Button>
           </Link>
@@ -106,10 +109,10 @@ function ComparePageContent() {
 
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
             <Link href="/credit-cards">
-              <Button variant="outline" size="sm" className="mb-4">
+              <Button variant="ghost" size="sm" className="mb-2 -ml-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Browse
               </Button>
@@ -122,33 +125,50 @@ function ComparePageContent() {
             </p>
           </div>
 
-          <Button
-            variant="outline"
-            onClick={() => {
-              clearAll();
-              router.push('/credit-cards');
-            }}
-            className="hidden sm:block"
-          >
-            Clear All
-          </Button>
+          <div className="flex items-center gap-3">
+            <ExportButton targetId="comparison-table-container" fileName={`comparison-${products.length}-products`} />
+            
+            <Button
+              variant="outline"
+              onClick={() => {
+                clearAll();
+                router.push('/credit-cards');
+              }}
+              className="hidden sm:flex"
+            >
+              Clear All
+            </Button>
+          </div>
         </div>
 
+        {/* Smart Recommendation Widget */}
+        <SmartRecommendation products={products} />
+
         {/* Legend */}
-        <div className="flex items-center gap-4 mb-6 p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
-          <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Legend:</span>
-          <div className="flex items-center gap-2">
-            <div className="px-2 py-1 bg-green-50 dark:bg-green-900/10 text-green-700 dark:text-green-400 rounded text-xs font-semibold">
-              🟢 Best
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6 p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
+          <div className="flex items-center gap-4">
+            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Legend:</span>
+            <div className="flex items-center gap-2">
+              <div className="px-2 py-1 bg-green-50 dark:bg-green-900/10 text-green-700 dark:text-green-400 rounded text-xs font-semibold">
+                🟢 Best
+              </div>
+              <div className="px-2 py-1 bg-red-50 dark:bg-red-900/10 text-red-700 dark:text-red-400 rounded text-xs font-semibold">
+                🔴 Worst
+              </div>
             </div>
-            <div className="px-2 py-1 bg-red-50 dark:bg-red-900/10 text-red-700 dark:text-red-400 rounded text-xs font-semibold">
-              🔴 Worst
+          </div>
+          
+          <div className="flex items-center gap-4 sm:ml-auto">
+            <div className="text-xs text-slate-400 hidden lg:block">
+              *Green highlight indicates the superior value.
             </div>
+            <div className="h-4 w-px bg-slate-200 dark:bg-slate-700 hidden sm:block"></div>
+            <MethodologyModal />
           </div>
         </div>
 
         {/* Comparison Table */}
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-xl">
+        <div id="comparison-table-container" className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-xl">
           <ComparisonTable products={products} onRemoveProduct={handleRemoveProduct} />
         </div>
 
@@ -171,7 +191,7 @@ export default function ComparePage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500"></div>
       </div>
     }>
       <ComparePageContent />

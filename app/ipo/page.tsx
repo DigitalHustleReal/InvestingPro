@@ -92,7 +92,7 @@ export default function IPOPage() {
 
     const getStatusColor = (status: string) => {
         switch(status) {
-            case 'open': return 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400 border-emerald-100 dark:border-emerald-500/20';
+            case 'open': return 'bg-primary-50 text-primary-600 dark:bg-primary-500/10 dark:text-primary-400 border-primary-100 dark:border-primary-500/20';
             case 'upcoming': return 'bg-primary-50 text-primary-600 dark:bg-primary-500/10 dark:text-primary-400 border-primary-100 dark:border-primary-500/20';
             case 'closed': return 'bg-slate-100 text-slate-600 dark:bg-slate-500/10 dark:text-slate-400 border-slate-200 dark:border-slate-500/20';
             default: return 'bg-slate-100 text-slate-600 dark:bg-slate-500/10 dark:text-slate-400';
@@ -101,13 +101,13 @@ export default function IPOPage() {
 
     const getGMPColor = (gmp?: number) => {
         if (!gmp) return 'text-slate-600 dark:text-slate-400';
-        if (gmp > 0) return 'text-emerald-600 dark:text-emerald-400';
+        if (gmp > 0) return 'text-primary-600 dark:text-primary-400';
         return 'text-red-600 dark:text-red-400';
     };
 
     const getSubscriptionColor = (value?: number) => {
         if (!value) return 'bg-slate-400';
-        if (value >= 100) return 'bg-emerald-500';
+        if (value >= 100) return 'bg-primary-500';
         if (value >= 50) return 'bg-yellow-500';
         return 'bg-slate-400';
     };
@@ -163,7 +163,7 @@ export default function IPOPage() {
                 {/* Background Decor */}
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary-500/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2 dark:bg-primary-500/20" />
-                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3 dark:bg-emerald-500/20" />
+                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary-500/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3 dark:bg-primary-500/20" />
                 </div>
 
                 <div className="container mx-auto px-4 relative z-10">
@@ -233,7 +233,7 @@ export default function IPOPage() {
                             <TabsTrigger value="all" className="data-[state=active]:bg-slate-900 dark:data-[state=active]:bg-white data-[state=active]:text-white dark:data-[state=active]:text-slate-900">
                                 All IPOs
                             </TabsTrigger>
-                            <TabsTrigger value="open" className="data-[state=active]:bg-emerald-500 data-[state=active]:text-white">
+                            <TabsTrigger value="open" className="data-[state=active]:bg-primary-500 data-[state=active]:text-white">
                                 Open Now
                             </TabsTrigger>
                             <TabsTrigger value="upcoming" className="data-[state=active]:bg-primary-500 data-[state=active]:text-white">
@@ -379,12 +379,19 @@ export default function IPOPage() {
 
                                     {/* Right: Actions */}
                                     <div className="lg:w-48 p-8 border-t lg:border-t-0 lg:border-l border-slate-100 dark:border-slate-800 flex flex-col justify-center gap-3">
-                                        <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-xl">
-                                            View Details
-                                        </Button>
-                                        <Button variant="outline" className="w-full border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl">
-                                            Set Alert
-                                        </Button>
+                                        <Link href="/go/zerodha" target="_blank">
+                                            <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-xl">
+                                                Apply via Zerodha
+                                            </Button>
+                                        </Link>
+                                        <Link href="/go/groww" target="_blank">
+                                            <Button variant="outline" className="w-full border-primary-200 dark:border-primary-700 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-xl">
+                                                Apply via Groww
+                                            </Button>
+                                        </Link>
+                                        <Link href="/demat-accounts" className="text-xs text-center text-slate-500 hover:text-primary-600 mt-1">
+                                            More brokers →
+                                        </Link>
                                     </div>
                                 </div>
                             </CardContent>
@@ -409,7 +416,7 @@ export default function IPOPage() {
 
                     <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-3xl">
                         <CardContent className="p-8">
-                            <BarChart3 className="w-8 h-8 text-emerald-500 mb-4" />
+                            <BarChart3 className="w-8 h-8 text-primary-500 mb-4" />
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Understanding Subscription Data</h3>
                             <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
                                 QIB (banks/funds), NII (wealthy investors), and Retail subscription numbers help gauge 

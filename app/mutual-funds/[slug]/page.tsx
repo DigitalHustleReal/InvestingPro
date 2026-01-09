@@ -173,7 +173,7 @@ const getRiskColor = (risk: string) => {
 
 const getReturnColor = (value: number) => {
   if (value >= 15) return 'text-green-600'
-  if (value >= 10) return 'text-emerald-600'
+  if (value >= 10) return 'text-primary-600'
   if (value >= 5) return 'text-yellow-600'
   return 'text-red-600'
 }
@@ -193,17 +193,17 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left: Fund Info */}
             <div className="lg:col-span-2">
-              <div className="flex items-center gap-2 text-indigo-300 mb-3">
+              <div className="flex items-center gap-2 text-primary-300 mb-3">
                 <PieChart className="w-5 h-5" />
                 <span className="text-sm font-semibold uppercase">{fund.amc}</span>
               </div>
               <h1 className="text-4xl font-bold mb-4">{fund.name}</h1>
-              <p className="text-lg text-indigo-200 mb-4">{fund.description}</p>
+              <p className="text-lg text-primary-200 mb-4">{fund.description}</p>
               
               {/* Category & Rating */}
               <div className="flex flex-wrap items-center gap-4 mb-6">
-                <div className="bg-indigo-700/50 px-4 py-2 rounded-lg">
-                  <span className="text-sm text-indigo-200">Category: </span>
+                <div className="bg-primary-700/50 px-4 py-2 rounded-lg">
+                  <span className="text-sm text-primary-200">Category: </span>
                   <span className="font-semibold">{fund.subCategory}</span>
                 </div>
                 <div className="flex items-center gap-2 bg-amber-500 px-4 py-2 rounded-lg">
@@ -219,8 +219,8 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 {Object.entries(fund.returns).map(([period, value]) => (
                   <div key={period} className="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
-                    <p className="text-sm text-indigo-200 mb-1">{period === 'sinceInception' ? 'Since Inception' : period}</p>
-                    <p className={`text-2xl font-bold ${value >= 15 ? 'text-emerald-400' : 'text-white'}`}>
+                    <p className="text-sm text-primary-200 mb-1">{period === 'sinceInception' ? 'Since Inception' : period}</p>
+                    <p className={`text-2xl font-bold ${value >= 15 ? 'text-primary-400' : 'text-white'}`}>
                       {value}%
                     </p>
                   </div>
@@ -233,27 +233,27 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
               <Card className="bg-white/10 backdrop-blur-sm border-white/20">
                 <CardContent className="p-6">
                   <div className="mb-4">
-                    <p className="text-sm text-indigo-200">Current NAV</p>
+                    <p className="text-sm text-primary-200">Current NAV</p>
                     <p className="text-3xl font-bold">₹{fund.nav.toFixed(2)}</p>
                   </div>
                   
                   <div className="grid grid-cols-2 gap-3 mb-4 text-sm">
                     <div>
-                      <p className="text-indigo-200">Lumpsum</p>
+                      <p className="text-primary-200">Lumpsum</p>
                       <p className="font-semibold">₹{fund.minInvestment.toLocaleString()}</p>
                     </div>
                     <div>
-                      <p className="text-indigo-200">SIP</p>
+                      <p className="text-primary-200">SIP</p>
                       <p className="font-semibold">₹{fund.sipMinInvestment}/month</p>
                     </div>
                   </div>
                   
                   <a href={fund.applyLink} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full bg-primary-600 hover:bg-emerald-700 text-white font-semibold py-6 text-lg mb-2">
+                    <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-6 text-lg mb-2">
                       Invest Now <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
-                  <p className="text-xs text-indigo-200 text-center">Start SIP or make lumpsum investment</p>
+                  <p className="text-xs text-primary-200 text-center">Start SIP or make lumpsum investment</p>
                 </CardContent>
               </Card>
             </div>
@@ -270,7 +270,7 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-6 md:p-8">
-                  <Target className="w-6 h-6 text-indigo-600" />
+                  <Target className="w-6 h-6 text-primary-600" />
                   Investment Objective
                 </CardTitle>
               </CardHeader>
@@ -283,7 +283,7 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-6 md:p-8">
-                  <CheckCircle2 className="w-6 h-6 text-emerald-600" />
+                  <CheckCircle2 className="w-6 h-6 text-primary-600" />
                   Key Features
                 </CardTitle>
               </CardHeader>
@@ -291,7 +291,7 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
                 <ul className="space-y-3">
                   {fund.keyFeatures.map((feature, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
                       <span className="text-gray-700">{feature}</span>
                     </li>
                   ))}
@@ -320,7 +320,7 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2">
                           <div 
-                            className="bg-indigo-600 h-2 rounded-full transition-all" 
+                            className="bg-primary-600 h-2 rounded-full transition-all" 
                             style={{ width: `${asset.weight}%` }}
                           />
                         </div>
@@ -337,7 +337,7 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
                       {fund.portfolioHoldings.topStocks.map((stock, index) => (
                         <div key={index} className="flex items-center justify-between p-2 bg-slate-50 rounded">
                           <span className="text-sm font-medium text-gray-700">{stock.name}</span>
-                          <span className="text-sm font-semibold text-indigo-600">{stock.weight}%</span>
+                          <span className="text-sm font-semibold text-primary-600">{stock.weight}%</span>
                         </div>
                       ))}
                     </div>
@@ -363,9 +363,9 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
             
             {/* Pros & Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-emerald-200 bg-emerald-50/30">
+              <Card className="border-primary-200 bg-primary-50/30">
                 <CardHeader>
-                  <CardTitle className="text-emerald-700 flex items-center gap-6 md:p-8">
+                  <CardTitle className="text-primary-700 flex items-center gap-6 md:p-8">
                     <CheckCircle2 className="w-5 h-5" />
                     Strengths
                   </CardTitle>
@@ -374,7 +374,7 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
                   <ul className="space-y-2">
                     {fund.pros.map((pro, index) => (
                       <li key={index} className="flex items-start gap-2 text-gray-700">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-1" />
+                        <CheckCircle2 className="w-4 h-4 text-primary-600 flex-shrink-0 mt-1" />
                         <span className="text-sm">{pro}</span>
                       </li>
                     ))}
@@ -438,13 +438,13 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
               <Card className="bg-gradient-to-br from-indigo-600 to-indigo-700 text-white">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Start Investing</h3>
-                  <p className="text-sm text-indigo-100 mb-4">SIP from ₹{fund.sipMinInvestment}/month</p>
+                  <p className="text-sm text-primary-100 mb-4">SIP from ₹{fund.sipMinInvestment}/month</p>
                   <a href={fund.applyLink} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full bg-white text-indigo-600 hover:bg-gray-100 font-semibold py-6 mb-3">
+                    <Button className="w-full bg-white text-primary-600 hover:bg-gray-100 font-semibold py-6 mb-3">
                       Invest Now <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
-                  <p className="text-xs text-indigo-100 text-center">
+                  <p className="text-xs text-primary-100 text-center">
                     Zero commission • Instant investment
                   </p>
                 </CardContent>
@@ -500,12 +500,12 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
       </div>
       
       {/* Bottom CTA */}
-      <div className="bg-indigo-900 text-white py-12">
+      <div className="bg-primary-900 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Start Your Investment Journey with {fund.name}</h2>
-          <p className="text-indigo-200 mb-8">Build wealth systematically through SIP or invest lumpsum</p>
+          <p className="text-primary-200 mb-8">Build wealth systematically through SIP or invest lumpsum</p>
           <a href={fund.applyLink} target="_blank" rel="noopener noreferrer">
-            <Button className="bg-primary-600 hover:bg-emerald-700 text-white font-semibold px-12 py-6 text-lg">
+            <Button className="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-12 py-6 text-lg">
               Invest Now <ExternalLink className="w-5 h-5 ml-2" />
             </Button>
           </a>

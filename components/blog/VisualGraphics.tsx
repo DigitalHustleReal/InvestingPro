@@ -133,7 +133,7 @@ export function ComparisonSlider({
   percentage: number 
 }) {
   return (
-    <div className="my-6 p-6 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-lg border border-gray-200">
+    <div className="my-6 p-6 bg-gradient-to-r from-emerald-50 to-primary-50 rounded-lg border border-gray-200">
       <div className="flex justify-between mb-3">
         <span className="font-semibold text-gray-900">{option1}</span>
         <span className="font-semibold text-gray-900">{option2}</span>
@@ -170,7 +170,7 @@ export function Timeline({ steps }: { steps: Array<{ title: string; description:
               {index + 1}
             </div>
             {index < steps.length - 1 && (
-              <div className="w-0.5 h-full bg-emerald-200 mt-2" />
+              <div className="w-0.5 h-full bg-primary-200 mt-2" />
             )}
           </div>
           
@@ -255,7 +255,7 @@ export function FeatureGrid({
           key={index}
           className={`flex items-center gap-3 p-4 rounded-lg border-2 ${
             feature.available 
-              ? 'bg-emerald-50 border-emerald-200' 
+              ? 'bg-primary-50 border-primary-200' 
               : 'bg-gray-50 border-gray-200'
           }`}
         >
@@ -294,10 +294,10 @@ export function MetricCard({
   changeType?: 'positive' | 'negative' | 'neutral'
 }) {
   return (
-    <div className="bg-white border-2 border-emerald-200 rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow">
+    <div className="bg-white border-2 border-primary-200 rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow">
       <div className="text-4xl mb-2">{icon}</div>
       <p className="text-sm text-gray-600 mb-2">{label}</p>
-      <p className="text-3xl font-bold text-emerald-600 mb-2">{value}</p>
+      <p className="text-3xl font-bold text-primary-600 mb-2">{value}</p>
       {change && (
         <p className={`text-xs font-medium ${
           changeType === 'positive' ? 'text-green-600' : 

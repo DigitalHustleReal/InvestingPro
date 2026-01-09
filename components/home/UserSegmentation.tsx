@@ -29,9 +29,9 @@ const UserSegmentation = () => {
             title: "Tax-Saving Focused",
             desc: "Maximize Section 80C benefits with ELSS, PPF, and NPS shortlists.",
             icon: ShieldCheck,
-            color: "text-emerald-400",
+            color: "text-primary-400",
             bg: "bg-primary-500/10",
-            border: "border-emerald-500/20",
+            border: "border-primary-500/20",
             link: "/ppf-nps",
             tag: "80C Shield"
         },
@@ -71,7 +71,7 @@ const UserSegmentation = () => {
                             Personalized Experience
                         </div>
                         <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">
-                            What describes you <span className="text-emerald-500">best?</span>
+                            What describes you <span className="text-primary-500">best?</span>
                         </h2>
                         <p className="text-lg text-slate-400 font-medium">
                             Route yourself to the right tools and research hubs designed for your specific financial stage.
@@ -102,7 +102,7 @@ const UserSegmentation = () => {
                                 </p>
                             </div>
 
-                            <div className="flex items-center gap-2 text-white text-sm font-bold group-hover:text-emerald-400 transition-colors">
+                            <div className="flex items-center gap-2 text-white text-sm font-bold group-hover:text-primary-400 transition-colors">
                                 Get Started <ArrowRight size={16} />
                             </div>
                         </Link>

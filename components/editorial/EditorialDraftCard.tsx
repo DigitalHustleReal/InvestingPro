@@ -124,7 +124,7 @@ export default function EditorialDraftCard({
     const riskColors = {
         high: 'bg-rose-100 text-rose-700 border-rose-300',
         medium: 'bg-amber-100 text-amber-700 border-amber-300',
-        low: 'bg-emerald-100 text-emerald-700 border-emerald-300'
+        low: 'bg-primary-100 text-primary-700 border-primary-300'
     };
 
     const confidence = draft.ai_metadata?.confidence?.overall || 0;
@@ -184,7 +184,7 @@ export default function EditorialDraftCard({
                                 {Math.ceil((draft.content?.length || 0) / 1000)}k chars
                             </span>
                             {confidence > 0 && (
-                                <span className={`font-bold ${confidence < 0.6 ? 'text-rose-600' : confidence < 0.8 ? 'text-amber-600' : 'text-emerald-600'}`}>
+                                <span className={`font-bold ${confidence < 0.6 ? 'text-rose-600' : confidence < 0.8 ? 'text-amber-600' : 'text-primary-600'}`}>
                                     {Math.round(confidence * 100)}% confidence
                                 </span>
                             )}
@@ -268,7 +268,7 @@ export default function EditorialDraftCard({
                             </Button>
                             <Button
                                 size="sm"
-                                className="bg-primary-600 hover:bg-emerald-700 text-white"
+                                className="bg-primary-600 hover:bg-primary-700 text-white"
                                 onClick={handleApprove}
                                 disabled={approveMutation.isPending}
                             >

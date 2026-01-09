@@ -81,7 +81,7 @@ export function getDisplayStats() {
         marketScans: {
             value: 1, // Daily = 1
             display: "Daily",
-            label: "Market Scans",
+            label: "Daily Updates", // Renamed from Market Scans to fit Personal Finance
             description: "Latest rates & product changes"
         }
     };

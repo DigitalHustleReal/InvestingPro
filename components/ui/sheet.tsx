@@ -73,7 +73,7 @@ const SheetContent = ({
             {/* Content */}
             <div
                 className={cn(
-                    "fixed z-[101] bg-white shadow-xl transition-transform duration-300 ease-in-out",
+                    "fixed z-[101] bg-white dark:bg-slate-900 shadow-xl transition-transform duration-300 ease-in-out dark:border-l dark:border-slate-800",
                     side === "right" && "inset-y-0 right-0 h-full w-3/4 sm:w-96 border-l border-slate-200",
                     className
                 )}

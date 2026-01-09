@@ -712,7 +712,7 @@ Include features, benefits, and value proposition`;
                             <div className="flex gap-2">
                                 {seoScore !== null && (
                                     <Badge className={
-                                        seoScore >= 80 ? 'bg-emerald-100 text-emerald-700' :
+                                        seoScore >= 80 ? 'bg-primary-100 text-primary-700' :
                                         seoScore >= 60 ? 'bg-amber-100 text-amber-700' :
                                         'bg-red-100 text-red-700'
                                     }>
@@ -722,7 +722,7 @@ Include features, benefits, and value proposition`;
                                 <Button variant="outline" size="sm" onClick={handleCopy}>
                                     {copied ? <CheckCircle2 className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                                 </Button>
-                                <Button size="sm" onClick={handleSave} className="bg-primary-600 hover:bg-emerald-700">
+                                <Button size="sm" onClick={handleSave} className="bg-primary-600 hover:bg-primary-700">
                                     <Save className="w-4 h-4 mr-2" />
                                     Save as Draft
                                 </Button>

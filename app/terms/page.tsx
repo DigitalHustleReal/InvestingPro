@@ -125,7 +125,7 @@ export default function TermsPage() {
 
             <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">7.2 How We Make Money</h3>
             <p className="text-gray-700 mb-4">
-              For full transparency, see our <Link href="/how-we-make-money" className="text-emerald-600 hover:text-emerald-700 underline">How We Make Money</Link> page.
+              For full transparency, see our <Link href="/how-we-make-money" className="text-primary-600 hover:text-primary-700 underline">How We Make Money</Link> page.
             </p>
           </section>
 
@@ -170,7 +170,7 @@ export default function TermsPage() {
               <li>Calculator results are estimates and may vary from actual outcomes</li>
             </ul>
             <p className="text-gray-700 mb-4">
-              If you find inaccurate information, please report it to: <a href="mailto:feedback@investingpro.in" className="text-emerald-600 hover:text-emerald-700 underline">feedback@investingpro.in</a>
+              If you find inaccurate information, please report it to: <a href="mailto:feedback@investingpro.in" className="text-primary-600 hover:text-primary-700 underline">feedback@investingpro.in</a>
             </p>
           </section>
 
@@ -265,7 +265,7 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">16. Privacy</h2>
             <p className="text-gray-700 mb-4">
-              Your use of the Service is also governed by our <Link href="/privacy" className="text-emerald-600 hover:text-emerald-700 underline">Privacy Policy</Link>. By using InvestingPro, you consent to our data practices as described in the Privacy Policy.
+              Your use of the Service is also governed by our <Link href="/privacy" className="text-primary-600 hover:text-primary-700 underline">Privacy Policy</Link>. By using InvestingPro, you consent to our data practices as described in the Privacy Policy.
             </p>
           </section>
 
@@ -283,8 +283,8 @@ export default function TermsPage() {
             </p>
             <div className="bg-gray-50 p-6 rounded-lg">
               <p className="text-gray-700 mb-2"><strong>InvestingPro</strong></p>
-              <p className="text-gray-700 mb-2">Email: <a href="mailto:legal@investingpro.in" className="text-emerald-600 hover:text-emerald-700 underline">legal@investingpro.in</a></p>
-              <p className="text-gray-700 mb-2">Support: <a href="mailto:support@investingpro.in" className="text-emerald-600 hover:text-emerald-700 underline">support@investingpro.in</a></p>
+              <p className="text-gray-700 mb-2">Email: <a href="mailto:legal@investingpro.in" className="text-primary-600 hover:text-primary-700 underline">legal@investingpro.in</a></p>
+              <p className="text-gray-700 mb-2">Support: <a href="mailto:support@investingpro.in" className="text-primary-600 hover:text-primary-700 underline">support@investingpro.in</a></p>
               <p className="text-gray-700 mb-2">Address: Bangalore, Karnataka, India</p>
             </div>
           </section>

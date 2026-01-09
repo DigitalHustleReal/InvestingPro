@@ -141,7 +141,7 @@ export function FDCalculator() {
             {/* Top Row: Inputs on Left, Results on Right */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Input Card */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                     <CardHeader>
                         <div className="flex items-start justify-between gap-4 mb-2">
                             <div className="flex-1">
@@ -149,7 +149,7 @@ export function FDCalculator() {
                                 <CardDescription>Calculate FD maturity amount with compounding interest</CardDescription>
                             </div>
                             <div className="flex flex-col gap-1.5 items-end">
-                                <Badge variant="secondary" className="bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100">
+                                <Badge variant="secondary" className="bg-primary-50 text-primary-700 border-primary-200 hover:bg-primary-100">
                                     <CheckCircle2 className="w-3 h-3 mr-1" /> Free
                                 </Badge>
                                 <Badge variant="secondary" className="bg-secondary-50 text-secondary-700 border-secondary-200 hover:bg-secondary-100 text-[10px]">
@@ -173,7 +173,7 @@ export function FDCalculator() {
                                         setTenure(preset.years);
                                         setInterestRate(preset.rate);
                                     }}
-                                    className="text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md font-medium transition-colors border border-slate-200"
+                                    className="text-xs px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-md font-medium transition-colors border border-slate-200"
                                 >
                                     {preset.label}
                                 </button>
@@ -278,7 +278,7 @@ export function FDCalculator() {
                                         <select
                                             value={tenureType}
                                             onChange={(e) => setTenureType(e.target.value as 'years' | 'months')}
-                                            className="px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-900"
+                                            className="px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-semibold text-slate-900"
                                         >
                                             <option value="years">Years</option>
                                             <option value="months">Months</option>
@@ -355,21 +355,21 @@ export function FDCalculator() {
                 </Card>
 
                 {/* Right: Results Card */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50 relative overflow-hidden">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50 relative overflow-hidden">
                     {/* Decorative gradient overlay */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-amber-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Principal</p>
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Principal</p>
                                 <p className="text-base sm:text-lg font-extrabold text-slate-900">{formatCurrency(principal)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Interest</p>
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Interest</p>
                                 <p className="text-base sm:text-lg font-extrabold text-orange-600">{formatCurrency(result.interestEarned)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Value' : 'Maturity'}
                                 </p>
                                 <p className="text-base sm:text-lg font-extrabold text-amber-600">
@@ -379,15 +379,15 @@ export function FDCalculator() {
                         </div>
 
                         {adjustForInflation && (
-                            <div className="p-3 bg-white rounded-xl border border-amber-100 mb-4">
-                                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Nominal Value</p>
+                            <div className="p-3 bg-white dark:bg-slate-800 rounded-xl border border-amber-100 mb-4">
+                                <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Nominal Value</p>
                                 <p className="text-sm font-bold text-slate-600">{formatCurrency(result.maturityAmount)}</p>
                                 <p className="text-xs text-slate-500 mt-1">Before inflation adjustment</p>
                             </div>
                         )}
 
-                        <div className="p-4 bg-white rounded-xl border border-amber-100">
-                            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Effective Annual Rate</p>
+                        <div className="p-4 bg-white dark:bg-slate-800 rounded-xl border border-amber-100">
+                            <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Effective Annual Rate</p>
                             <p className="text-lg font-bold text-slate-900">{result.effectiveRate.toFixed(2)}% p.a.</p>
                         </div>
                     </CardContent>
@@ -397,7 +397,7 @@ export function FDCalculator() {
             {/* Bottom Row: Growth Chart & Year-by-Year Breakdown */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Growth Projection Chart */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Growth Projection</CardTitle>
                     </CardHeader>
@@ -407,12 +407,12 @@ export function FDCalculator() {
                                 <AreaChart data={growthData}>
                                     <defs>
                                         <linearGradient id="colorFD" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3} />
-                                            <stop offset="95%" stopColor="#f59e0b" stopOpacity={0} />
+                                            <stop offset="5%" stopColor="#2563eb" stopOpacity={0.3} />
+                                            <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
                                         </linearGradient>
                                         <linearGradient id="colorFDReal" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.3} />
-                                            <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
+                                            <stop offset="5%" stopColor="#2563eb" stopOpacity={0.3} />
+                                            <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
                                         </linearGradient>
                                     </defs>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
@@ -426,9 +426,9 @@ export function FDCalculator() {
                                         formatter={(value: number | undefined) => value !== undefined ? formatCurrency(value) : ''}
                                         contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
                                     />
-                                    <Area type="monotone" dataKey="value" stroke="#f59e0b" fill="url(#colorFD)" strokeWidth={2} name="Nominal" />
+                                    <Area type="monotone" dataKey="value" stroke="#2563eb" fill="url(#colorFD)" strokeWidth={2} name="Nominal" />
                                     {adjustForInflation && (
-                                        <Area type="monotone" dataKey="realValue" stroke="#8b5cf6" fill="url(#colorFDReal)" strokeWidth={2} name="Real (Inflation Adjusted)" />
+                                        <Area type="monotone" dataKey="realValue" stroke="#2563eb" fill="url(#colorFDReal)" strokeWidth={2} name="Real (Inflation Adjusted)" />
                                     )}
                                 </AreaChart>
                             </ResponsiveContainer>
@@ -437,7 +437,7 @@ export function FDCalculator() {
                 </Card>
 
                 {/* Right: Year-by-Year Breakdown */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Year-by-Year Breakdown</CardTitle>
                     </CardHeader>

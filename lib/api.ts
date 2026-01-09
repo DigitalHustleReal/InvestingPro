@@ -53,6 +53,11 @@ const providerHealth: Record<string, ProviderHealth> = {
 const CIRCUIT_BREAKER_THRESHOLD = 3;
 const COOLDOWN_PERIOD = 10 * 60 * 1000; // 10 minutes
 
+// Auto-correction thresholds
+const MAX_RETRIES = 3;
+const QUALITY_THRESHOLD = 70; // Minimum quality score
+const PLAGIARISM_THRESHOLD = 50; // FIXED: Increased from 30% - more realistic for financial contents
+
 // Local cache to avoid DB hits on every check
 let lastHealthSync = 0;
 const HEALTH_SYNC_INTERVAL = 30 * 1000; // 30 seconds
@@ -231,7 +236,33 @@ export const api = {
                 // Sync health from DB once at start of operation
                 await syncHealthFromDB();
 
-                // 1. Try Google Gemini (Primary)
+                // 1. Try OpenAI (PRIMARY - User has $10 credit)
+                if (openai && checkHealth('openai')) {
+                    try {
+                        const response = await openai.chat.completions.create({
+                            model: process.env.OPENAI_MODEL || "gpt-4o-mini",
+                            messages: [
+                                { role: "system", content: systemPrompt },
+                                { role: "user", content: enhancedPrompt }
+                            ],
+                            response_format: { type: "json_object" },
+                            temperature: 0.3,
+                            max_tokens: 4000  // FIXED: Increased from 2000 to allow 2,500-3,000 word articles
+                        });
+
+                        const content = response.choices[0]?.message?.content;
+                        if (content) {
+                            const parsed = extractJSON(content);
+                            reportSuccess('openai');
+                            const validation = validateAIContent(parsed.content || '', operation);
+                            return { ...parsed, validation_warnings: validation.errors, is_draft: true, provider: 'openai' };
+                        }
+                    } catch (error: any) {
+                        reportFailure('openai', error.message);
+                    }
+                }
+
+                // 2. Try Google Gemini (Fallback)
                 const geminiKey = process.env.GOOGLE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
                 if (geminiKey && checkHealth('gemini')) {
                     try {
@@ -245,8 +276,8 @@ export const api = {
                                     parts: [{ text: `${systemPrompt}\n\n${enhancedPrompt}` }] 
                                 }],
                                 generationConfig: { 
-                                    temperature: 0.3,
-                                    response_mime_type: "application/json"
+                                    temperature: 0.3
+                                    // FIXED: Removed response_mime_type - causing compatibility issues
                                 }
                             })
                         });
@@ -270,32 +301,6 @@ export const api = {
                         }
                     } catch (e: any) {
                         reportFailure('gemini', e.message);
-                    }
-                }
-
-                // 2. Try OpenAI
-                if (openai && checkHealth('openai')) {
-                    try {
-                        const response = await openai.chat.completions.create({
-                            model: process.env.OPENAI_MODEL || "gpt-4o-mini",
-                            messages: [
-                                { role: "system", content: systemPrompt },
-                                { role: "user", content: enhancedPrompt }
-                            ],
-                            response_format: { type: "json_object" },
-                            temperature: 0.3,
-                            max_tokens: 2000
-                        });
-
-                        const content = response.choices[0]?.message?.content;
-                        if (content) {
-                            const parsed = extractJSON(content);
-                            reportSuccess('openai');
-                            const validation = validateAIContent(parsed.content || '', operation);
-                            return { ...parsed, validation_warnings: validation.errors, is_draft: true, provider: 'openai' };
-                        }
-                    } catch (error: any) {
-                        reportFailure('openai', error.message);
                     }
                 }
 
@@ -626,6 +631,18 @@ The AI was unable to reach a provider, so we've generated this professional outl
         Insurance: {
              list: async () => {
                 const { data } = await supabase.from('products').select('*').eq('category', 'insurance');
+                return data || [];
+            }
+        },
+        Glossary: {
+            list: async () => {
+                const { data } = await supabase.from('glossary_terms').select('*').order('term', { ascending: true });
+                return data || [];
+            },
+            search: async (term: string) => {
+                const { data } = await supabase.from('glossary_terms').select('*')
+                    .or(`term.ilike.%${term}%,definition.ilike.%${term}%`)
+                    .order('term', { ascending: true });
                 return data || [];
             }
         },

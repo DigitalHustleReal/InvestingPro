@@ -118,7 +118,7 @@ export default function AdsPage() {
                                                 </td>
                                                 <td className="px-4 py-4">
                                                     <span className={`text-sm font-medium ${
-                                                        parseFloat(ctr) > 2 ? 'text-emerald-400' : 
+                                                        parseFloat(ctr) > 2 ? 'text-primary-400' : 
                                                         parseFloat(ctr) > 1 ? 'text-amber-400' : 'text-slate-400'
                                                     }`}>
                                                         {ctr}%

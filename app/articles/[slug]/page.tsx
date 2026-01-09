@@ -180,7 +180,7 @@ export default function ArticleDetailPage() {
             {/* Reading Progress Bar */}
             <div className="fixed top-0 left-0 w-full h-1.5 bg-slate-100 z-[100]">
                 <div 
-                    className="h-full bg-gradient-to-r from-teal-500 to-blue-600 transition-all duration-150 ease-out"
+                    className="h-full bg-gradient-to-r from-primary-500 to-primary-600 transition-all duration-150 ease-out"
                     style={{ width: `${readingProgress}%` }}
                 />
             </div>
@@ -194,12 +194,19 @@ export default function ArticleDetailPage() {
 
             {/* Preview Banner */}
             {previewToken && article.status !== 'published' && (
-                <div className="bg-yellow-100 border-b border-yellow-300 px-4 py-2 text-center">
-                    <p className="text-sm text-yellow-800">
+                <div className="bg-yellow-100 border-b border-yellow-300 px-4 py-2 text-center relative z-50">
+                    <p className="text-sm text-yellow-800 flex items-center justify-center gap-2">
                         <strong>PREVIEW MODE</strong> - This article is {article.status}. 
-                        <Link href={`/admin/articles/${article.id}/edit`} className="ml-2 underline">
-                            Edit Article
-                        </Link>
+                        {article.id ? (
+                            <a 
+                                href={`/admin/articles/${article.id}/edit`} 
+                                className="ml-2 underline font-bold hover:text-yellow-900"
+                            >
+                                Edit Article ✏️
+                            </a>
+                        ) : (
+                            <span className="text-red-500 text-xs ml-2">(ID Missing)</span>
+                        )}
                     </p>
                 </div>
             )}
@@ -213,7 +220,7 @@ export default function ArticleDetailPage() {
                     <article className="lg:col-span-8">
                         {/* Header */}
                         <div className="mb-8">
-                            <Badge className="mb-4 bg-teal-50 text-teal-700 border-teal-100">
+                            <Badge className="mb-4 bg-primary-50 text-primary-700 border-primary-100">
                                 {article.category?.replace(/-/g, ' ')}
                             </Badge>
                             <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-6 leading-tight">

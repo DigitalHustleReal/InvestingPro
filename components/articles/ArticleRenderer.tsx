@@ -22,7 +22,7 @@ export default function ArticleRenderer({
     body_html,
     body_markdown,
     content,
-    className = 'prose prose-lg prose-slate max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-a:text-teal-600 hover:prose-a:text-teal-700 prose-th:bg-teal-50 prose-th:text-teal-900 prose-th:p-4 prose-th:rounded-t-lg prose-td:p-4 prose-img:rounded-2xl prose-img:shadow-lg',
+    className = 'prose prose-lg prose-slate max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-p:text-slate-700 prose-li:text-slate-700 prose-strong:text-slate-900 prose-a:text-primary-600 hover:prose-a:text-primary-700 prose-th:bg-primary-50 prose-th:text-primary-900 prose-th:p-4 prose-th:rounded-t-lg prose-td:p-4 prose-img:rounded-2xl prose-img:shadow-lg',
     }: ArticleRendererProps) {
     // Get raw content from any source (priority: body_html > body_markdown > content)
     const rawContent = body_html || body_markdown || content || '';

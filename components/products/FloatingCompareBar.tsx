@@ -18,7 +18,7 @@ export default function FloatingCompareBar() {
                 {/* Info Section */}
                 <div className="flex flex-col">
                     <div className="flex items-center gap-2">
-                        <BarChart3 className="w-4 h-4 text-teal-400" />
+                        <BarChart3 className="w-4 h-4 text-primary-400" />
                         <span className="font-bold text-sm whitespace-nowrap">Compare Products</span>
                     </div>
                     <span className="text-[10px] text-slate-400 font-medium">{selectedProducts.length} of 4 items selected</span>
@@ -68,7 +68,7 @@ export default function FloatingCompareBar() {
                         Clear All
                     </button>
                     <Link href="/compare">
-                        <Button className="bg-teal-600 hover:bg-teal-500 text-white font-bold h-10 px-6 rounded-xl shadow-lg shadow-teal-900/20">
+                        <Button className="bg-primary-600 hover:bg-primary-500 text-white font-bold h-10 px-6 rounded-xl shadow-lg shadow-teal-900/20">
                             Compare Now
                             <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>

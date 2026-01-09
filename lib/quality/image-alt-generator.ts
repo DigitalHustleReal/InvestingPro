@@ -143,12 +143,18 @@ function generateFromFilename(filename: string, keyword?: string): AltTextResult
     const parts = nameWithoutExt
         .replace(/[-_]/g, ' ')
         .replace(/([a-z])([A-Z])/g, '$1 $2') // camelCase to words
+        .replace(/\d+/g, '') // Remove numbers (photo IDs)
         .toLowerCase()
         .split(' ')
-        .filter(p => p.length > 2);
+        .filter(p => p.length > 2 && !['photo', 'img', 'image', 'pic'].includes(p));
     
     // Build description
     let altText = parts.join(' ');
+    
+    // If no meaningful text, use keyword
+    if (!altText || altText.length < 10) {
+        altText = keyword ? `${keyword} illustration` : 'financial chart illustration';
+    }
     
     // Add keyword if provided and not already present
     if (keyword && !altText.includes(keyword.toLowerCase())) {
@@ -284,10 +290,20 @@ function extractFilenameFromUrl(url: string): string {
     try {
         const urlObj = new URL(url);
         const pathname = urlObj.pathname;
-        const filename = pathname.split('/').pop() || 'image';
+        const filename = pathname.split('/').pop() || 'financial-illustration';
+        
+        // If filename is very short or generic, try to extract from URL params or path
+        if (filename.length < 10 || filename.match(/^(photo|image|img|pic)[-\d]+$/i)) {
+            // Try to extract meaningful keywords from URL path
+            const pathParts = pathname.split('/').filter(p => p && p.length > 3);
+            if (pathParts.length > 0) {
+                return pathParts[pathParts.length - 1];
+            }
+        }
+        
         return filename;
     } catch {
-        return 'image';
+        return 'financial-chart-illustration';
     }
 }
 

@@ -175,7 +175,7 @@ export default function GlobalSearch() {
     const getStatusBadge = (status?: string) => {
         if (!status) return null;
         const colors: Record<string, string> = {
-            published: 'bg-emerald-100 text-emerald-800',
+            published: 'bg-primary-100 text-primary-800',
             draft: 'bg-slate-100 text-slate-800',
             review: 'bg-amber-100 text-amber-800',
         };

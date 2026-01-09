@@ -53,7 +53,7 @@ export default function AIHealthMonitor() {
                         <div key={name} className="flex items-center gap-1.5 px-2 py-1 rounded bg-black/20 border border-white/5">
                             <span className="text-[10px] font-mono uppercase text-slate-400">{name}</span>
                             {isHealthy ? (
-                                <CheckCircle2 className="w-2.5 h-2.5 text-emerald-500" />
+                                <CheckCircle2 className="w-2.5 h-2.5 text-primary-500" />
                             ) : isDegraded ? (
                                 <AlertTriangle className="w-2.5 h-2.5 text-amber-500" />
                             ) : (

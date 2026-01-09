@@ -212,7 +212,7 @@ export default function SIPCalculatorPage() {
                     {/* Usage Counter & Last Updated */}
                     <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-slate-500 mb-4">
                         <span className="flex items-center gap-2">
-                            <span className="font-semibold text-emerald-600">10,000+</span> users calculated this month
+                            <span className="font-semibold text-primary-600">10,000+</span> users calculated this month
                         </span>
                         <span className="hidden sm:inline">•</span>
                         <span className="flex items-center gap-2">

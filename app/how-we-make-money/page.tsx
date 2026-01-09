@@ -49,7 +49,7 @@ export default function HowWeMakeMoneyPage() {
 
                     <div className="space-y-4 mb-8">
                         <div className="flex items-start gap-3">
-                            <Check className="w-6 h-6 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-1" />
+                            <Check className="w-6 h-6 text-primary-600 dark:text-primary-400 flex-shrink-0 mt-1" />
                             <div>
                                 <h3 className="text-lg font-bold text-stone-900 dark:text-white mt-0 mb-2">
                                     Editorial Independence Guaranteed
@@ -62,7 +62,7 @@ export default function HowWeMakeMoneyPage() {
                         </div>
 
                         <div className="flex items-start gap-3">
-                            <Check className="w-6 h-6 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-1" />
+                            <Check className="w-6 h-6 text-primary-600 dark:text-primary-400 flex-shrink-0 mt-1" />
                             <div>
                                 <h3 className="text-lg font-bold text-stone-900 dark:text-white mt-0 mb-2">
                                     Firewall Between Editorial & Commercial
@@ -75,7 +75,7 @@ export default function HowWeMakeMoneyPage() {
                         </div>
 
                         <div className="flex items-start gap-3">
-                            <Check className="w-6 h-6 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-1" />
+                            <Check className="w-6 h-6 text-primary-600 dark:text-primary-400 flex-shrink-0 mt-1" />
                             <div>
                                 <h3 className="text-lg font-bold text-stone-900 dark:text-white mt-0 mb-2">
                                     We Recommend Against Partners Too
@@ -88,7 +88,7 @@ export default function HowWeMakeMoneyPage() {
                         </div>
 
                         <div className="flex items-start gap-3">
-                            <Check className="w-6 h-6 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-1" />
+                            <Check className="w-6 h-6 text-primary-600 dark:text-primary-400 flex-shrink-0 mt-1" />
                             <div>
                                 <h3 className="text-lg font-bold text-stone-900 dark:text-white mt-0 mb-2">
                                     Transparent Labeling

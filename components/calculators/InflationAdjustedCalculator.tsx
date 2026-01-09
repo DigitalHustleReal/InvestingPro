@@ -61,7 +61,7 @@ export function InflationAdjustedCalculator() {
             {/* Top Row: Inputs on Left, Results on Right */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Input Card */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                     <CardHeader>
                         <CardTitle className="text-xl">Inflation-Adjusted Returns Calculator</CardTitle>
                         <CardDescription>Calculate real returns after accounting for inflation</CardDescription>
@@ -151,30 +151,30 @@ export function InflationAdjustedCalculator() {
                 </Card>
 
                 {/* Right: Results Card with Stats */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-primary-50 to-success-50 dark:from-slate-900 dark:to-slate-800">
                     <CardContent className="pt-4 sm:pt-6">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Initial Investment</p>
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Initial Investment</p>
                                 <p className="text-base sm:text-lg font-extrabold text-slate-900">{formatCurrency(initialAmount)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Nominal Value</p>
-                                <p className="text-base sm:text-lg font-extrabold text-emerald-600">{formatCurrency(result.futureValue)}</p>
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Nominal Value</p>
+                                <p className="text-base sm:text-lg font-extrabold text-primary-600">{formatCurrency(result.futureValue)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Real Value</p>
-                                <p className="text-base sm:text-lg font-extrabold text-teal-600">{formatCurrency(result.inflationAdjustedValue)}</p>
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Real Value</p>
+                                <p className="text-base sm:text-lg font-extrabold text-primary-600">{formatCurrency(result.inflationAdjustedValue)}</p>
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-                            <div className="text-center p-3 sm:p-4 bg-white rounded-xl shadow-sm border border-emerald-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Real Return</p>
-                                <p className="text-sm sm:text-base font-extrabold text-emerald-600">{result.realReturn.toFixed(2)}%</p>
+                            <div className="text-center p-3 sm:p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-primary-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Real Return</p>
+                                <p className="text-sm sm:text-base font-extrabold text-primary-600">{result.realReturn.toFixed(2)}%</p>
                             </div>
-                            <div className="text-center p-3 sm:p-4 bg-white rounded-xl shadow-sm border border-amber-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Inflation Erosion</p>
+                            <div className="text-center p-3 sm:p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-amber-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Inflation Erosion</p>
                                 <p className="text-sm sm:text-base font-extrabold text-amber-600">{formatCurrency(result.inflationErosion)}</p>
                             </div>
                         </div>
@@ -183,7 +183,7 @@ export function InflationAdjustedCalculator() {
             </div>
 
             {/* Bottom Row: Nominal vs Real Value Chart */}
-            <Card className="border-slate-200 shadow-sm rounded-2xl">
+            <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                 <CardHeader className="pb-2">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Nominal vs Real Value</CardTitle>
                 </CardHeader>
@@ -203,9 +203,9 @@ export function InflationAdjustedCalculator() {
                                         contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
                                     />
                                     <Legend />
-                                    <Line type="monotone" dataKey="nominal" stroke="#10b981" strokeWidth={2} name="Nominal Value" />
+                                    <Line type="monotone" dataKey="nominal" stroke="#0d9488" strokeWidth={2} name="Nominal Value" />
                                     <Line type="monotone" dataKey="real" stroke="#14b8a6" strokeWidth={2} name="Real Value (Inflation Adjusted)" />
-                                    <Line type="monotone" dataKey="inflation" stroke="#f59e0b" strokeWidth={2} strokeDasharray="5 5" name="Inflation Impact" />
+                                    <Line type="monotone" dataKey="inflation" stroke="#2563eb" strokeWidth={2} strokeDasharray="5 5" name="Inflation Impact" />
                                 </LineChart>
                             </ResponsiveContainer>
                         </div>

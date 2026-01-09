@@ -109,25 +109,25 @@ export default function BrokerComparisonPage() {
         </div>
 
         {/* When to Use */}
-        <div className="bg-emerald-50 rounded-2xl p-8 mb-12 border border-emerald-200">
+        <div className="bg-primary-50 rounded-2xl p-8 mb-12 border border-primary-200">
           <h2 className="text-2xl font-semibold text-slate-900 mb-4">
             When Is Broker Comparison Needed?
           </h2>
           <ul className="space-y-3 text-slate-700">
             <li className="flex items-start gap-3">
-              <span className="text-emerald-600 font-bold">✓</span>
+              <span className="text-primary-600 font-bold">✓</span>
               <span>You've decided <strong>what</strong> to invest in (stocks, mutual funds, etc.)</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="text-emerald-600 font-bold">✓</span>
+              <span className="text-primary-600 font-bold">✓</span>
               <span>You're choosing <strong>infrastructure</strong>, not strategy</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="text-emerald-600 font-bold">✓</span>
+              <span className="text-primary-600 font-bold">✓</span>
               <span>You need to compare fees, tools, and reliability side-by-side</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="text-emerald-600 font-bold">✓</span>
+              <span className="text-primary-600 font-bold">✓</span>
               <span>You're ready to open a demat or trading account</span>
             </li>
           </ul>

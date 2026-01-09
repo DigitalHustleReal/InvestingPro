@@ -85,13 +85,13 @@ function CreditCardDiagram({ metrics }: { metrics?: any }) {
     return (
         <svg viewBox="0 0 400 400" className="w-full h-full">
             {/* Card Shapes */}
-            <rect x="50" y="100" width="120" height="80" rx="8" fill="none" stroke="#10b981" strokeWidth="2" opacity="0.6" />
-            <rect x="230" y="100" width="120" height="80" rx="8" fill="none" stroke="#10b981" strokeWidth="2" opacity="0.4" />
+            <rect x="50" y="100" width="120" height="80" rx="8" fill="none" stroke="#0d9488" strokeWidth="2" opacity="0.6" />
+            <rect x="230" y="100" width="120" height="80" rx="8" fill="none" stroke="#0d9488" strokeWidth="2" opacity="0.4" />
             
             {/* Comparison Bars */}
-            <rect x="50" y="220" width="80" height="8" fill="#10b981" opacity="0.8" />
-            <rect x="50" y="240" width="120" height="8" fill="#10b981" opacity="0.6" />
-            <rect x="50" y="260" width="100" height="8" fill="#10b981" opacity="0.4" />
+            <rect x="50" y="220" width="80" height="8" fill="#0d9488" opacity="0.8" />
+            <rect x="50" y="240" width="120" height="8" fill="#0d9488" opacity="0.6" />
+            <rect x="50" y="260" width="100" height="8" fill="#0d9488" opacity="0.4" />
             
             {/* Metrics Text */}
             <text x="200" y="200" fill="#e2e8f0" fontSize="14" fontWeight="bold" textAnchor="middle">
@@ -111,10 +111,10 @@ function LoanDiagram({ metrics }: { metrics?: any }) {
     return (
         <svg viewBox="0 0 400 400" className="w-full h-full">
             {/* Interest Rate Bars */}
-            <rect x="80" y="150" width="40" height="120" fill="#10b981" opacity="0.8" />
-            <rect x="140" y="120" width="40" height="150" fill="#10b981" opacity="0.6" />
-            <rect x="200" y="100" width="40" height="170" fill="#10b981" opacity="0.4" />
-            <rect x="260" y="130" width="40" height="140" fill="#10b981" opacity="0.5" />
+            <rect x="80" y="150" width="40" height="120" fill="#0d9488" opacity="0.8" />
+            <rect x="140" y="120" width="40" height="150" fill="#0d9488" opacity="0.6" />
+            <rect x="200" y="100" width="40" height="170" fill="#0d9488" opacity="0.4" />
+            <rect x="260" y="130" width="40" height="140" fill="#0d9488" opacity="0.5" />
             
             {/* Axis */}
             <line x1="60" y1="280" x2="320" y2="280" stroke="#475569" strokeWidth="2" />
@@ -144,7 +144,7 @@ function BankingDiagram({ metrics }: { metrics?: any }) {
                 cy="200" 
                 r="80" 
                 fill="none" 
-                stroke="#10b981" 
+                stroke="#0d9488" 
                 strokeWidth="8" 
                 strokeDasharray={`${2 * Math.PI * 80 * 0.75} ${2 * Math.PI * 80}`}
                 strokeDashoffset={-2 * Math.PI * 80 * 0.25}
@@ -183,7 +183,7 @@ function InvestingDiagram({ metrics }: { metrics?: any }) {
             <polyline
                 points={points}
                 fill="none"
-                stroke="#10b981"
+                stroke="#0d9488"
                 strokeWidth="4"
                 opacity="0.8"
             />
@@ -191,7 +191,7 @@ function InvestingDiagram({ metrics }: { metrics?: any }) {
             {/* Area Fill */}
             <polygon
                 points={`${points} 350,250 50,250`}
-                fill="#10b981"
+                fill="#0d9488"
                 opacity="0.1"
             />
             
@@ -212,7 +212,7 @@ function InsuranceDiagram({ metrics }: { metrics?: any }) {
             <path
                 d="M 200 80 L 280 120 L 280 200 Q 280 280 200 320 Q 120 280 120 200 L 120 120 Z"
                 fill="none"
-                stroke="#10b981"
+                stroke="#0d9488"
                 strokeWidth="3"
                 opacity="0.6"
             />
@@ -220,7 +220,7 @@ function InsuranceDiagram({ metrics }: { metrics?: any }) {
             {/* Inner Shield */}
             <path
                 d="M 200 120 L 250 150 L 250 210 Q 250 260 200 280 Q 150 260 150 210 L 150 150 Z"
-                fill="#10b981"
+                fill="#0d9488"
                 opacity="0.2"
             />
             
@@ -242,9 +242,9 @@ function GenericDiagram({ category }: { category: string }) {
     return (
         <svg viewBox="0 0 400 400" className="w-full h-full">
             {/* Geometric Pattern */}
-            <circle cx="200" cy="200" r="60" fill="none" stroke="#10b981" strokeWidth="2" opacity="0.4" />
-            <circle cx="200" cy="200" r="100" fill="none" stroke="#10b981" strokeWidth="2" opacity="0.2" />
-            <rect x="150" y="150" width="100" height="100" fill="none" stroke="#10b981" strokeWidth="2" opacity="0.3" transform="rotate(45 200 200)" />
+            <circle cx="200" cy="200" r="60" fill="none" stroke="#0d9488" strokeWidth="2" opacity="0.4" />
+            <circle cx="200" cy="200" r="100" fill="none" stroke="#0d9488" strokeWidth="2" opacity="0.2" />
+            <rect x="150" y="150" width="100" height="100" fill="none" stroke="#0d9488" strokeWidth="2" opacity="0.3" transform="rotate(45 200 200)" />
         </svg>
     );
 }

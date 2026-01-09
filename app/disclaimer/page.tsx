@@ -151,7 +151,7 @@ export default function DisclaimerPage() {
               <strong>Editorial Independence:</strong> Affiliate relationships do NOT influence our ratings, rankings, or editorial content. Our reviews are based on objective criteria such as features, fees, customer reviews, and product quality.
             </p>
             <p className="text-gray-700 mb-4">
-              For full transparency, see: <a href="/how-we-make-money" className="text-emerald-600 hover:text-emerald-700 underline">How We Make Money</a>
+              For full transparency, see: <a href="/how-we-make-money" className="text-primary-600 hover:text-primary-700 underline">How We Make Money</a>
             </p>
           </section>
 
@@ -237,12 +237,12 @@ export default function DisclaimerPage() {
             </ul>
           </section>
 
-          <section className="mb-8 bg-emerald-50 border border-emerald-300 p-6 rounded-lg">
-            <h2 className="text-2xl font-bold text-emerald-900 mb-4">13. How to Use InvestingPro Safely</h2>
-            <p className="text-emerald-800 mb-4">
+          <section className="mb-8 bg-primary-50 border border-primary-300 p-6 rounded-lg">
+            <h2 className="text-2xl font-bold text-primary-900 mb-4">13. How to Use InvestingPro Safely</h2>
+            <p className="text-primary-800 mb-4">
               <strong>Best Practices:</strong>
             </p>
-            <ul className="list-disc list-inside text-emerald-800 space-y-2 mb-4">
+            <ul className="list-disc list-inside text-primary-800 space-y-2 mb-4">
               <li>✅ Use InvestingPro for comparison and research</li>
               <li>✅ Verify product details with the provider before applying</li>
               <li>✅ Consult a SEBI-registered advisor for investment decisions</li>
@@ -259,8 +259,8 @@ export default function DisclaimerPage() {
               If you have questions or concerns about this disclaimer or our services:
             </p>
             <div className="bg-gray-50 p-6 rounded-lg">
-              <p className="text-gray-700 mb-2">Email: <a href="mailto:support@investingpro.in" className="text-emerald-600 hover:text-emerald-700 underline">support@investingpro.in</a></p>
-              <p className="text-gray-700 mb-2">Legal: <a href="mailto:legal@investingpro.in" className="text-emerald-600 hover:text-emerald-700 underline">legal@investingpro.in</a></p>
+              <p className="text-gray-700 mb-2">Email: <a href="mailto:support@investingpro.in" className="text-primary-600 hover:text-primary-700 underline">support@investingpro.in</a></p>
+              <p className="text-gray-700 mb-2">Legal: <a href="mailto:legal@investingpro.in" className="text-primary-600 hover:text-primary-700 underline">legal@investingpro.in</a></p>
               <p className="text-gray-700">Address: Bangalore, Karnataka, India</p>
             </div>
           </section>

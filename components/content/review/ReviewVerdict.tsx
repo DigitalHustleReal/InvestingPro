@@ -22,7 +22,7 @@ export default function ReviewVerdict({
     
     // Determine color theme based on score
     const theme = score >= 8 
-        ? { color: 'text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200', fill: 'bg-emerald-500' }
+        ? { color: 'text-primary-700', bg: 'bg-primary-50', border: 'border-primary-200', fill: 'bg-primary-500' }
         : score >= 5 
             ? { color: 'text-amber-700', bg: 'bg-amber-50', border: 'border-amber-200', fill: 'bg-amber-500' }
             : { color: 'text-red-700', bg: 'bg-red-50', border: 'border-red-200', fill: 'bg-red-500' };
@@ -56,14 +56,14 @@ export default function ReviewVerdict({
                 <div className="grid md:grid-cols-2 gap-8">
                     {/* Pros */}
                     <div>
-                        <h4 className="flex items-center gap-2 font-bold text-emerald-700 mb-4 uppercase text-sm tracking-wide">
-                            <span className="p-1 rounded-full bg-emerald-100"><Check className="w-3 h-3" /></span>
+                        <h4 className="flex items-center gap-2 font-bold text-primary-700 mb-4 uppercase text-sm tracking-wide">
+                            <span className="p-1 rounded-full bg-primary-100"><Check className="w-3 h-3" /></span>
                             Pros
                         </h4>
                         <ul className="space-y-3">
                             {pros.map((item, i) => (
                                 <li key={i} className="flex items-start gap-3 text-sm text-slate-600">
-                                    <Check className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                                    <Check className="w-4 h-4 text-primary-500 shrink-0 mt-0.5" />
                                     <span>{item}</span>
                                 </li>
                             ))}

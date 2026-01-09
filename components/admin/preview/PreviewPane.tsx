@@ -36,27 +36,27 @@ export function PreviewPane({ content, title, isOpen, onClose }: PreviewPaneProp
                     <div className="flex items-center justify-between p-4 border-b border-slate-800 bg-slate-900 z-10">
                         <div className="flex items-center gap-4">
                             <h2 className="font-semibold text-slate-200">
-                                Preview: <span className="text-teal-400">{title || 'Untitled'}</span>
+                                Preview: <span className="text-primary-400">{title || 'Untitled'}</span>
                             </h2>
                             <div className="h-6 w-px bg-slate-800" />
                             <div className="flex items-center p-1 bg-slate-800 rounded-lg border border-slate-700">
                                 <button
                                     onClick={() => setDevice('mobile')}
-                                    className={`p-2 rounded-md transition-colors ${device === 'mobile' ? 'bg-teal-500/20 text-teal-400' : 'text-slate-400 hover:text-slate-200'}`}
+                                    className={`p-2 rounded-md transition-colors ${device === 'mobile' ? 'bg-primary-500/20 text-primary-400' : 'text-slate-400 hover:text-slate-200'}`}
                                     title="Mobile (375px)"
                                 >
                                     <Smartphone className="w-4 h-4" />
                                 </button>
                                 <button
                                     onClick={() => setDevice('tablet')}
-                                    className={`p-2 rounded-md transition-colors ${device === 'tablet' ? 'bg-teal-500/20 text-teal-400' : 'text-slate-400 hover:text-slate-200'}`}
+                                    className={`p-2 rounded-md transition-colors ${device === 'tablet' ? 'bg-primary-500/20 text-primary-400' : 'text-slate-400 hover:text-slate-200'}`}
                                     title="Tablet (768px)"
                                 >
                                     <Tablet className="w-4 h-4" />
                                 </button>
                                 <button
                                     onClick={() => setDevice('desktop')}
-                                    className={`p-2 rounded-md transition-colors ${device === 'desktop' ? 'bg-teal-500/20 text-teal-400' : 'text-slate-400 hover:text-slate-200'}`}
+                                    className={`p-2 rounded-md transition-colors ${device === 'desktop' ? 'bg-primary-500/20 text-primary-400' : 'text-slate-400 hover:text-slate-200'}`}
                                     title="Desktop (Full)"
                                 >
                                     <Monitor className="w-4 h-4" />
@@ -82,7 +82,7 @@ export function PreviewPane({ content, title, isOpen, onClose }: PreviewPaneProp
                             `}
                         >
                             <div className="p-8 md:p-12">
-                                <article className="prose prose-lg max-w-none prose-headings:font-bold prose-h1:text-4xl prose-h1:tracking-tight prose-a:text-teal-600 hover:prose-a:text-teal-500 prose-img:rounded-xl prose-pre:bg-slate-900 prose-pre:text-slate-200">
+                                <article className="prose prose-lg prose-slate max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-p:text-slate-700 prose-li:text-slate-700 prose-strong:text-slate-900 prose-h1:text-4xl prose-h1:tracking-tight prose-a:text-primary-600 hover:prose-a:text-primary-500 prose-img:rounded-xl prose-pre:bg-slate-900 prose-pre:text-slate-200">
                                     {title && <h1 className="!mt-0">{title}</h1>}
                                     <ReactMarkdown>{content}</ReactMarkdown>
                                 </article>

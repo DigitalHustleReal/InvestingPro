@@ -156,12 +156,12 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             {/* Left: Loan Info */}
             <div className="lg:col-span-2">
-              <div className="flex items-center gap-2 text-emerald-300 mb-3">
+              <div className="flex items-center gap-2 text-primary-300 mb-3">
                 <IndianRupee className="w-5 h-5" />
                 <span className="text-sm font-semibold uppercase">{loan.provider} • {loan.loanType}</span>
               </div>
               <h1 className="text-4xl font-bold mb-4">{loan.name}</h1>
-              <p className="text-lg text-emerald-100 mb-6">{loan.description}</p>
+              <p className="text-lg text-primary-100 mb-6">{loan.description}</p>
               
               {/* Rating */}
               <div className="flex items-center gap-4 mb-6">
@@ -169,25 +169,25 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
                   <Star className="w-5 h-5 fill-white text-white" />
                   <span className="font-bold text-lg">{loan.rating}/5</span>
                 </div>
-                <span className="text-emerald-200">Trusted by 10 Lakh+ Customers</span>
+                <span className="text-primary-200">Trusted by 10 Lakh+ Customers</span>
               </div>
               
               {/* Quick Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
-                  <p className="text-sm text-emerald-200">Interest Rate</p>
+                  <p className="text-sm text-primary-200">Interest Rate</p>
                   <p className="text-2xl font-bold">{loan.interestRateMin}% - {loan.interestRateMax}%</p>
                 </div>
                 <div>
-                  <p className="text-sm text-emerald-200">Max Loan Amount</p>
+                  <p className="text-sm text-primary-200">Max Loan Amount</p>
                   <p className="text-2xl font-bold">₹{(loan.maxLoanAmount / 100000).toFixed(0)}L</p>
                 </div>
                 <div>
-                  <p className="text-sm text-emerald-200">Processing Fee</p>
+                  <p className="text-sm text-primary-200">Processing Fee</p>
                   <p className="text-2xl font-bold">{loan.processingFee.split(' ')[1]}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-emerald-200">Tenure</p>
+                  <p className="text-sm text-primary-200">Tenure</p>
                   <p className="text-2xl font-bold">{loan.minTenureMonths / 12}-{loan.maxTenureMonths / 12} Years</p>
                 </div>
               </div>
@@ -197,15 +197,15 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
             <div className="lg:col-span-1">
               <Card className="bg-white/10 backdrop-blur-sm border-white/20">
                 <CardContent className="p-6">
-                  <p className="text-sm text-emerald-100 mb-4">Get instant approval</p>
-                  <a href={loan.applyLink} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full bg-white text-emerald-700 hover:bg-gray-100 font-semibold py-6 text-lg mb-3">
+                  <p className="text-sm text-primary-100 mb-4">Get instant approval</p>
+                  <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+                    <Button className="w-full bg-white text-primary-700 hover:bg-gray-100 font-semibold py-6 text-lg mb-3">
                       Apply Now <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
-                  <div className="bg-emerald-700/30 border border-emerald-500/50 rounded-lg p-3 text-center">
-                    <Clock className="w-5 h-5 mx-auto mb-1 text-emerald-200" />
-                    <p className="text-sm text-emerald-100 font-semibold">Disbursal in 48 hours</p>
+                  <div className="bg-primary-700/30 border border-primary-500/50 rounded-lg p-3 text-center">
+                    <Clock className="w-5 h-5 mx-auto mb-1 text-primary-200" />
+                    <p className="text-sm text-primary-100 font-semibold">Disbursal in 48 hours</p>
                   </div>
                 </CardContent>
               </Card>
@@ -230,25 +230,25 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                   <div>
-                    <p className="text-sm text-indigo-200">Loan Amount</p>
+                    <p className="text-sm text-primary-200">Loan Amount</p>
                     <p className="text-xl font-bold">₹{(loan.emiExample.loanAmount / 100000).toFixed(1)}L</p>
                   </div>
                   <div>
-                    <p className="text-sm text-indigo-200">Tenure</p>
+                    <p className="text-sm text-primary-200">Tenure</p>
                     <p className="text-xl font-bold">{loan.emiExample.tenure} Months</p>
                   </div>
                   <div>
-                    <p className="text-sm text-indigo-200">Interest Rate</p>
+                    <p className="text-sm text-primary-200">Interest Rate</p>
                     <p className="text-xl font-bold">{loan.emiExample.interestRate}%</p>
                   </div>
                   <div>
-                    <p className="text-sm text-indigo-200">Monthly EMI</p>
+                    <p className="text-sm text-primary-200">Monthly EMI</p>
                     <p className="text-2xl font-bold text-yellow-300">₹{loan.emiExample.emi.toLocaleString()}</p>
                   </div>
                 </div>
                 <div className="bg-white/10 rounded-lg p-3">
-                  <p className="text-sm text-indigo-100">Total Interest: ₹{loan.emiExample.totalInterest.toLocaleString()}</p>
-                  <p className="text-sm text-indigo-100">Total Amount Payable: ₹{(loan.emiExample.loanAmount + loan.emiExample.totalInterest).toLocaleString()}</p>
+                  <p className="text-sm text-primary-100">Total Interest: ₹{loan.emiExample.totalInterest.toLocaleString()}</p>
+                  <p className="text-sm text-primary-100">Total Amount Payable: ₹{(loan.emiExample.loanAmount + loan.emiExample.totalInterest).toLocaleString()}</p>
                 </div>
               </CardContent>
             </Card>
@@ -257,7 +257,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-6 md:p-8">
-                  <CheckCircle2 className="w-6 h-6 text-emerald-600" />
+                  <CheckCircle2 className="w-6 h-6 text-primary-600" />
                   Key Features
                 </CardTitle>
               </CardHeader>
@@ -265,7 +265,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
                 <ul className="space-y-3">
                   {loan.keyFeatures.map((feature, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
                       <span className="text-gray-700">{feature}</span>
                     </li>
                   ))}
@@ -302,9 +302,9 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
             
             {/* Pros & Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-emerald-200 bg-emerald-50/30">
+              <Card className="border-primary-200 bg-primary-50/30">
                 <CardHeader>
-                  <CardTitle className="text-emerald-700 flex items-center gap-6 md:p-8">
+                  <CardTitle className="text-primary-700 flex items-center gap-6 md:p-8">
                     <CheckCircle2 className="w-5 h-5" />
                     Advantages
                   </CardTitle>
@@ -313,7 +313,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
                   <ul className="space-y-2">
                     {loan.pros.map((pro, index) => (
                       <li key={index} className="flex items-start gap-2 text-gray-700">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-1" />
+                        <CheckCircle2 className="w-4 h-4 text-primary-600 flex-shrink-0 mt-1" />
                         <span className="text-sm">{pro}</span>
                       </li>
                     ))}
@@ -372,13 +372,13 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
               <Card className="bg-gradient-to-br from-emerald-600 to-emerald-700 text-white">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Get Instant Loan</h3>
-                  <p className="text-sm text-emerald-100 mb-4">Approval in 10 seconds</p>
-                  <a href={loan.applyLink} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full bg-white text-emerald-700 hover:bg-gray-100 font-semibold py-6 mb-3">
+                  <p className="text-sm text-primary-100 mb-4">Approval in 10 seconds</p>
+                  <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+                    <Button className="w-full bg-white text-primary-700 hover:bg-gray-100 font-semibold py-6 mb-3">
                       Check Eligibility <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
-                  <p className="text-xs text-emerald-100 text-center">
+                  <p className="text-xs text-primary-100 text-center">
                     No impact on credit score • 100% paperless
                   </p>
                 </CardContent>
@@ -419,7 +419,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
                     <ul className="space-y-1.5">
                       {loan.eligibility.requiredDocuments.map((doc, index) => (
                         <li key={index} className="text-gray-600 text-xs flex items-start gap-2">
-                          <CheckCircle2 className="w-3 h-3 text-emerald-500 flex-shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-3 h-3 text-primary-500 flex-shrink-0 mt-0.5" />
                           {doc}
                         </li>
                       ))}
@@ -446,12 +446,12 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
       </div>
       
       {/* Bottom CTA */}
-      <div className="bg-emerald-900 text-white py-12">
+      <div className="bg-primary-900 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Apply for {loan.name} in Minutes</h2>
-          <p className="text-emerald-200 mb-8">100% digital process • Quick approval • Instant disbursal</p>
-          <a href={loan.applyLink} target="_blank" rel="noopener noreferrer">
-            <Button className="bg-white text-emerald-700 hover:bg-gray-100 font-semibold px-12 py-6 text-lg">
+          <p className="text-primary-200 mb-8">100% digital process • Quick approval • Instant disbursal</p>
+          <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+            <Button className="bg-white text-primary-700 hover:bg-gray-100 font-semibold px-12 py-6 text-lg">
               Check Eligibility Now <ExternalLink className="w-5 h-5 ml-2" />
             </Button>
           </a>

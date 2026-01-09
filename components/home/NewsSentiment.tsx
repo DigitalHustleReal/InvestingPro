@@ -68,7 +68,7 @@ export default function NewsSentiment() {
                                     </span>
                                 </div>
                                 <div className={`px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-widest flex items-center gap-1 ${news.sentiment === 'bullish' || news.sentiment === 'positive'
-                                        ? 'bg-primary-500/10 text-emerald-400'
+                                        ? 'bg-primary-500/10 text-primary-400'
                                         : 'bg-rose-500/10 text-rose-400'
                                     }`}>
                                     {news.sentiment === 'bullish' ? <TrendingUp size={10} /> : <TrendingDown size={10} />}

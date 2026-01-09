@@ -5,7 +5,7 @@
 
 @layer base {
   body {
-    @apply font-sans selection:bg-indigo-500/30 selection:text-white;
+    @apply font-sans selection:bg-primary-500/30 selection:text-white;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -106,3 +106,4 @@
     animation-play-state: paused;
   }
 }
+

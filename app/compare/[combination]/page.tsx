@@ -135,7 +135,7 @@ export default async function VersusPage({
                             Category: {p1.category.replace('_', ' ')}
                          </Badge>
                          {isProgrammatic && (
-                            <Badge className="bg-emerald-50 text-emerald-700 border-emerald-100 flex items-center gap-1">
+                            <Badge className="bg-primary-50 text-primary-700 border-primary-100 flex items-center gap-1">
                                 <Sparkles className="w-3 h-3" />
                                 Programmatic SEO
                             </Badge>

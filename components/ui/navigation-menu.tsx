@@ -33,7 +33,7 @@ const NavigationMenuTrigger = ({
             onClick={onClick}
             onMouseEnter={onMouseEnter}
             className={cn(
-                "relative inline-flex h-10 w-max items-center justify-center px-4 py-2 text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded disabled:pointer-events-none disabled:opacity-50",
+                "relative inline-flex h-10 w-max items-center justify-center px-4 py-2 text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded disabled:pointer-events-none disabled:opacity-50",
                 "border-b-2 border-transparent hover:border-secondary-600 hover:bg-secondary-50/50",
                 className
             )}
@@ -73,7 +73,7 @@ const NavigationMenuContent = ({
             onMouseLeave={onMouseLeave}
             {...props}
         >
-            <div className="rounded-md border bg-popover text-popover-foreground shadow-md bg-white">
+            <div className="rounded-md border bg-popover text-popover-foreground shadow-md bg-white dark:bg-slate-900 dark:border-slate-800">
                 {children}
             </div>
         </div>

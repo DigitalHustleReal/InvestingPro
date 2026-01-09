@@ -61,7 +61,7 @@ export default function SmartAdvisorWidget() {
                 title: 'High-Growth Mutual Funds',
                 description: 'Start with SIP in equity funds for long-term wealth creation',
                 link: '/investing',
-                icon: <TrendingUp className="w-5 h-5 text-emerald-600" />,
+                icon: <TrendingUp className="w-5 h-5 text-primary-600" />,
                 priority: 'high'
             });
             if (lifeStage === 'young_professional' || lifeStage === 'student') {
@@ -111,7 +111,7 @@ export default function SmartAdvisorWidget() {
                 title: 'Health Insurance Plans',
                 description: 'Medical coverage for your entire family',
                 link: '/insurance?type=health',
-                icon: <Shield className="w-5 h-5 text-emerald-600" />,
+                icon: <Shield className="w-5 h-5 text-primary-600" />,
                 priority: 'high'
             });
         }
@@ -145,7 +145,7 @@ export default function SmartAdvisorWidget() {
                 title: 'Upcoming IPO Opportunities',
                 description: 'Early access to high-growth public listings',
                 link: '/ipo',
-                icon: <Sparkles className="w-5 h-5 text-violet-600" />,
+                icon: <Sparkles className="w-5 h-5 text-primary-600" />,
                 priority: 'medium'
             });
         }
@@ -167,7 +167,7 @@ export default function SmartAdvisorWidget() {
     };
 
     return (
-        <section className="py-16 bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900 border-y border-slate-200 dark:border-slate-800">
+        <section className="py-16 bg-slate-50 dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800 transition-colors">
             <div className="container mx-auto px-4">
                 <div className="max-w-5xl mx-auto">
                     <Card className="rounded-[2.5rem] bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden">
@@ -189,18 +189,18 @@ export default function SmartAdvisorWidget() {
                                     </p>
                                     <Button 
                                         onClick={() => setStep('questions')}
-                                        className="h-14 px-10 bg-gradient-to-r from-teal-500 to-secondary-600 hover:from-teal-600 hover:to-blue-700 text-white rounded-2xl font-bold text-lg shadow-xl shadow-teal-500/30"
+                                        className="h-14 px-10 bg-gradient-to-r from-teal-500 to-secondary-600 hover:from-teal-600 hover:to-primary-700 text-white rounded-2xl font-bold text-lg shadow-xl shadow-teal-500/30"
                                     >
                                         Start Smart Advisor
                                         <ArrowRight className="w-5 h-5 ml-2" />
                                     </Button>
                                     <div className="mt-8 flex items-center justify-center gap-8 text-sm text-slate-500 dark:text-slate-400">
                                         <div className="flex items-center gap-2">
-                                            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                                            <CheckCircle2 className="w-4 h-4 text-primary-500" />
                                             No Sign-Up Required
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                                            <CheckCircle2 className="w-4 h-4 text-primary-500" />
                                             100% Free
                                         </div>
                                     </div>
@@ -277,7 +277,7 @@ export default function SmartAdvisorWidget() {
                                             disabled={!primaryGoal || !lifeStage}
                                             className={`w-full h-14 rounded-2xl font-bold text-lg ${
                                                 primaryGoal && lifeStage
-                                                    ? 'bg-gradient-to-r from-teal-500 to-secondary-600 hover:from-teal-600 hover:to-blue-700 text-white shadow-xl shadow-teal-500/30'
+                                                    ? 'bg-gradient-to-r from-teal-500 to-secondary-600 hover:from-teal-600 hover:to-primary-700 text-white shadow-xl shadow-teal-500/30'
                                                     : 'bg-slate-200 dark:bg-slate-800 text-slate-400 cursor-not-allowed'
                                             }`}
                                         >
@@ -292,8 +292,8 @@ export default function SmartAdvisorWidget() {
                             {step === 'results' && (
                                 <div>
                                     <div className="text-center mb-10">
-                                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-900/30 mb-4">
-                                            <CheckCircle2 className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
+                                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary-100 dark:bg-primary-900/30 mb-4">
+                                            <CheckCircle2 className="w-8 h-8 text-primary-600 dark:text-primary-400" />
                                         </div>
                                         <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
                                             Perfect! Here's Your Personalized Plan
@@ -308,7 +308,7 @@ export default function SmartAdvisorWidget() {
                                             <Link key={idx} href={rec.link}>
                                                 <div className={`p-6 rounded-2xl border-2 transition-all hover:shadow-lg hover:-translate-y-1 ${
                                                     rec.priority === 'high'
-                                                        ? 'border-teal-200 dark:border-teal-800 bg-gradient-to-br from-teal-50 to-blue-50 dark:from-teal-900/20 dark:to-blue-900/20'
+                                                        ? 'border-teal-200 dark:border-teal-800 bg-gradient-to-br from-teal-50 to-primary-50 dark:from-teal-900/20 dark:to-primary-900/20'
                                                         : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800'
                                                 }`}>
                                                     <div className="flex items-start justify-between">

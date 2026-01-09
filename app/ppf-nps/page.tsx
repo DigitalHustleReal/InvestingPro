@@ -104,7 +104,7 @@ export default function PPFandNPSPage() {
                                         {[
                                             { label: "Interest Rate", value: "7.1%", sub: "P.A. (Tax Free)", icon: IndianRupee, color: "text-secondary-600", bg: "bg-secondary-50" },
                                             { label: "Lock-in Period", value: "15 Yrs", sub: "Extendable by 5", icon: Clock, color: "text-primary-600", bg: "bg-secondary-50" },
-                                            { label: "Tax Benefit", value: "EEE", sub: "80C Status", icon: Shield, color: "text-emerald-600", bg: "bg-emerald-50" },
+                                            { label: "Tax Benefit", value: "EEE", sub: "80C Status", icon: Shield, color: "text-primary-600", bg: "bg-primary-50" },
                                         ].map((stat, i) => (
                                             <div key={i} className={`p-6 rounded-3xl ${stat.bg} border border-transparent hover:border-white/50 transition-all`}>
                                                 <stat.icon className={`w-5 h-5 ${stat.color} mb-3`} />
@@ -182,7 +182,7 @@ export default function PPFandNPSPage() {
                                                 </div>
                                                 <div className="p-4 bg-white/5 rounded-2xl border border-white/5">
                                                     <p className="text-[9px] font-semibold text-slate-500 uppercase tracking-st mb-1">Wealth Created</p>
-                                                    <p className="text-lg font-bold text-emerald-400">₹18.18 L</p>
+                                                    <p className="text-lg font-bold text-primary-400">₹18.18 L</p>
                                                 </div>
                                             </div>
 
@@ -216,7 +216,7 @@ export default function PPFandNPSPage() {
                                         {[
                                             { label: "Avg Returns", value: "9-12%", sub: "10Y Benchmark", icon: TrendingUp, color: "text-primary-600", bg: "bg-primary-50" },
                                             { label: "Exit Maturity", value: "60 Yrs", sub: "Retirement Goal", icon: Target, color: "text-primary-600", bg: "bg-secondary-50" },
-                                            { label: "Tier-1 Deduction", value: "₹2.0L", sub: "80C + 80CCD(1B)", icon: Zap, color: "text-emerald-600", bg: "bg-emerald-50" },
+                                            { label: "Tier-1 Deduction", value: "₹2.0L", sub: "80C + 80CCD(1B)", icon: Zap, color: "text-primary-600", bg: "bg-primary-50" },
                                         ].map((stat, i) => (
                                             <div key={i} className={`p-6 rounded-3xl ${stat.bg} border border-transparent hover:border-white/50 transition-all`}>
                                                 <stat.icon className={`w-5 h-5 ${stat.color} mb-3`} />
@@ -250,7 +250,7 @@ export default function PPFandNPSPage() {
                                         {[
                                             { name: "Equity (E)", desc: "Market Linked", color: "bg-rose-50 text-rose-600", border: 'border-rose-100' },
                                             { name: "Corp Bond (C)", desc: "Fixed Yield", color: "bg-secondary-50 text-primary-600", border: 'border-secondary-100' },
-                                            { name: "Gov Bond (G)", desc: "Zero Risk", color: "bg-emerald-50 text-emerald-600", border: 'border-emerald-100' },
+                                            { name: "Gov Bond (G)", desc: "Zero Risk", color: "bg-primary-50 text-primary-600", border: 'border-primary-100' },
                                             { name: "Alt Assets (A)", desc: "Global Real Estate", color: "bg-secondary-50 text-secondary-600", border: 'border-secondary-100' },
                                         ].map((asset, index) => (
                                             <div key={index} className={`p-4 rounded-3xl ${asset.color} border ${asset.border} text-center`}>
@@ -273,7 +273,7 @@ export default function PPFandNPSPage() {
                                             <div key={index} className="p-6 border border-slate-100 rounded-[2rem] hover:bg-slate-50 transition-colors group">
                                                 <div className="flex justify-between items-start mb-4">
                                                     <h4 className="font-bold text-slate-900 tracking-tight leading-tight max-w-[120px]">{fund.name}</h4>
-                                                    <Badge className="bg-emerald-50 text-emerald-600 border-0 rounded-lg text-[9px] font-bold uppercase">{fund.returns}</Badge>
+                                                    <Badge className="bg-primary-50 text-primary-600 border-0 rounded-lg text-[9px] font-bold uppercase">{fund.returns}</Badge>
                                                 </div>
                                                 <div className="flex justify-between items-center pt-4 border-t border-slate-100">
                                                     <span className="text-[10px] font-bold text-slate-400 tracking-widest uppercase">Verified AUM</span>
@@ -309,7 +309,7 @@ export default function PPFandNPSPage() {
                                                 </div>
                                                 <div className="p-4 bg-white/5 rounded-2xl border border-white/5">
                                                     <p className="text-[9px] font-semibold text-slate-500 uppercase tracking-st mb-1">Tax-Free Lump</p>
-                                                    <p className="text-lg font-bold text-emerald-400">₹70.4 L</p>
+                                                    <p className="text-lg font-bold text-primary-400">₹70.4 L</p>
                                                 </div>
                                             </div>
 

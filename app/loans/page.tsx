@@ -166,7 +166,7 @@ export default function LoansPage() {
             <div className="relative overflow-hidden pt-32 pb-24 lg:pt-40 lg:pb-32 bg-slate-50 dark:bg-slate-950">
                 {/* Background Decor */}
                 <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-500/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2 dark:bg-emerald-500/20" />
+                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary-500/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2 dark:bg-primary-500/20" />
                     <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-secondary-500/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3 dark:bg-secondary-500/20" />
                     <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 dark:opacity-5"></div>
                 </div>
@@ -176,14 +176,14 @@ export default function LoansPage() {
                         
                         {/* Hero Text */}
                         <div className="flex-1 text-center lg:text-left">
-                            <Badge className="mb-6 px-4 py-1.5 bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-500/20 font-semibold uppercase tracking-wide text-[11px] inline-flex items-center gap-2 rounded-full">
+                            <Badge className="mb-6 px-4 py-1.5 bg-primary-50 text-primary-600 dark:bg-primary-500/10 dark:text-primary-400 border border-primary-100 dark:border-primary-500/20 font-semibold uppercase tracking-wide text-[11px] inline-flex items-center gap-2 rounded-full">
                                 <TrendingDown className="w-3.5 h-3.5" />
                                 Lowest Interest Rates Guaranteed
                             </Badge>
                             
                             <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-8 text-slate-900 dark:text-white leading-[1.1]">
                                 Fund Your Dreams <br className="hidden lg:block" />
-                                <span className="text-emerald-600 dark:text-emerald-400">Instantly</span>
+                                <span className="text-primary-600 dark:text-primary-400">Instantly</span>
                             </h1>
                             
                             <p className="text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
@@ -193,11 +193,11 @@ export default function LoansPage() {
 
                             <div className="relative group max-w-md mx-auto lg:mx-0 mb-8">
                                 <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-                                    <Search className="h-5 w-5 text-slate-500 group-focus-within:text-emerald-500 transition-colors" />
+                                    <Search className="h-5 w-5 text-slate-500 group-focus-within:text-primary-500 transition-colors" />
                                 </div>
                                 <Input
                                     placeholder="Search lenders (e.g. 'HDFC', 'SBI Home Loan')..."
-                                    className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-md border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-500 focus:border-emerald-500 transition-all font-medium shadow-sm"
+                                    className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-md border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-500 focus:border-primary-500 transition-all font-medium shadow-sm"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                 />
@@ -221,13 +221,13 @@ export default function LoansPage() {
 
                         {/* Interactive Calculator Widget */}
                         <div className="flex-1 w-full max-w-md lg:max-w-lg">
-                            <Card className="rounded-[2.5rem] bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xl shadow-emerald-500/10 overflow-hidden relative">
+                            <Card className="rounded-[2.5rem] bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xl shadow-primary-500/10 overflow-hidden relative">
                                 <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-emerald-400 via-teal-500 to-secondary-500" />
                                 
                                 <CardContent className="p-8">
                                     <div className="flex items-center justify-between mb-8">
                                         <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                                            <Calculator className="w-5 h-5 text-emerald-500" />
+                                            <Calculator className="w-5 h-5 text-primary-500" />
                                             Quick EMI Estimator
                                         </h3>
                                         <Badge variant="outline" className="text-xs border-slate-200 dark:border-slate-700">Live Rates</Badge>
@@ -274,7 +274,7 @@ export default function LoansPage() {
                                             <div className="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
                                                 {formatRupee(emi)}
                                             </div>
-                                            <div className="text-xs text-emerald-600 dark:text-emerald-400 font-medium mt-2">
+                                            <div className="text-xs text-primary-600 dark:text-primary-400 font-medium mt-2">
                                                 @ {rate}% Interest Rate
                                             </div>
                                         </div>
@@ -348,6 +348,87 @@ export default function LoansPage() {
                             </div>
                         )}
                     </div>
+                </div>
+            </div>
+
+            {/* --- EDUCATIONAL CONTENT HUB --- */}
+            <div className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-24">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    
+                    {/* Section Header */}
+                    <div className="text-center mb-16">
+                        <Badge className="mb-4 bg-primary-50 text-primary-700 border-primary-100">Loan Knowledge Base</Badge>
+                        <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Everything You Need to Know About Loans</h2>
+                        <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                            Don't just sign the papers. Understand the fine print, interest calculations, and hidden charges.
+                        </p>
+                    </div>
+
+                    {/* 1. Types of Loans Grid */}
+                    <div className="grid md:grid-cols-3 gap-8 mb-24">
+                        {[
+                            { title: "Personal Loans", desc: "Unsecured loans for any purpose. Higher interest rates (10-18%). Best for emergencies or consolidation.", icon: Wallet },
+                            { title: "Home Loans", desc: "Secured against property. Lowest rates (8.5-9.5%). Tax benefits under Sec 24(b) and 80C.", icon: Home },
+                            { title: "Car Loans", desc: "Hypothecated to the bank until repaid. Fixed or floating rates. Tenure up to 7 years.", icon: Car }
+                        ].map((item, i) => (
+                            <div key={i} className="bg-slate-50 dark:bg-slate-800/50 rounded-3xl p-8 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
+                                <div className="w-12 h-12 bg-white dark:bg-slate-900 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
+                                    <item.icon className="w-6 h-6 text-primary-600" />
+                                </div>
+                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{item.title}</h3>
+                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* 2. Visual Guide Placeholder (Canva) */}
+                    <div className="bg-slate-900 rounded-[3rem] overflow-hidden relative mb-24 text-white">
+                        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
+                        <div className="flex flex-col md:flex-row items-center">
+                            <div className="p-12 md:p-20 md:w-1/2 relative z-10">
+                                <Badge className="mb-6 bg-teal-500/20 text-teal-300 border-teal-500/30">Step-by-Step Guide</Badge>
+                                <h3 className="text-4xl font-bold mb-6">How to Get Approved Instantly</h3>
+                                <ul className="space-y-4 mb-8">
+                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-teal-400" /> Check your CIBIL Score (750+ is ideal)</li>
+                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-teal-400" /> Keep Salary Slips & Bank Statements ready</li>
+                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-teal-400" /> Compare ROI across top 3 lenders</li>
+                                </ul>
+                                <Button className="bg-teal-500 hover:bg-teal-600 text-white font-bold h-12 px-8 rounded-xl">
+                                    Check My CIBIL Score
+                                </Button>
+                            </div>
+                            <div className="md:w-1/2 bg-slate-800/50 h-[400px] md:h-full flex items-center justify-center border-l border-slate-700 border-dashed">
+                                {/* PLACEHOLDER FOR CANVA IMAGE */}
+                                <div className="text-center p-8">
+                                    <div className="w-20 h-20 bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-dashed border-slate-500">
+                                        <span className="text-xs text-slate-400 font-mono">IMAGE</span>
+                                    </div>
+                                    <p className="text-slate-400 font-mono text-sm">Use Content Injection<br/>"Loan Approval Process Infographic"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* 3. FAQ Accordion (Simplified) */}
+                    <div className="max-w-3xl mx-auto">
+                        <h3 className="text-2xl font-bold text-center mb-10 text-slate-900 dark:text-white">Frequently Asked Questions</h3>
+                        <div className="space-y-4">
+                            {[
+                                { q: "What is the minimum credit score for a personal loan?", a: "Most banks require a CIBIL score of 750+. However, some fintech lenders offer loans to scores as low as 650 with higher interest rates." },
+                                { q: "Is interest rate negotiable?", a: "Yes. If you have a high credit score and a stable income, you can negotiate with the relationship manager for a 0.25-0.5% reduction." },
+                                { q: "What are foreclosure charges?", a: "Fees charged if you repay the loan before the tenure ends. Typically 2-4% of the outstanding principal. Choose lenders with zero foreclosure charges." }
+                            ].map((faq, i) => (
+                                <details key={i} className="group bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 cursor-pointer">
+                                    <summary className="font-bold text-slate-900 dark:text-white flex justify-between items-center list-none">
+                                        {faq.q}
+                                        <ArrowRight className="w-4 h-4 text-slate-400 group-open:rotate-90 transition-transform" />
+                                    </summary>
+                                    <p className="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed pl-0">{faq.a}</p>
+                                </details>
+                            ))}
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

@@ -225,7 +225,7 @@ export default function ReviewSection({ productId }: { productId: string }) {
                                     <div className="flex items-center gap-2 mb-1">
                                         <span className="font-semibold">{review.user_name}</span>
                                         {review.verified_purchase && (
-                                            <Badge className="bg-emerald-100 text-emerald-700">
+                                            <Badge className="bg-primary-100 text-primary-700">
                                                 <Check className="w-3 h-3 mr-1" />
                                                 Verified
                                             </Badge>
@@ -258,7 +258,7 @@ export default function ReviewSection({ productId }: { productId: string }) {
                                 <div className="grid md:grid-cols-2 gap-4 mb-4">
                                     {review.pros && review.pros.length > 0 && (
                                         <div>
-                                            <p className="font-medium text-emerald-600 mb-2 flex items-center gap-1">
+                                            <p className="font-medium text-primary-600 mb-2 flex items-center gap-1">
                                                 <Check className="w-4 h-4" /> Pros
                                             </p>
                                             <ul className="space-y-1 text-sm">

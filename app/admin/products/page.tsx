@@ -180,7 +180,7 @@ export default function AdminProductsPage() {
                                             <td className="px-4 py-4">
                                                 <div className="flex items-center gap-2">
                                                     {product.verification_status === 'verified' ? (
-                                                        <><CheckCircle2 className="w-4 h-4 text-emerald-400" /><span className="text-emerald-400 text-sm">Verified</span></>
+                                                        <><CheckCircle2 className="w-4 h-4 text-primary-400" /><span className="text-primary-400 text-sm">Verified</span></>
                                                     ) : product.verification_status === 'discrepancy' ? (
                                                         <><AlertTriangle className="w-4 h-4 text-amber-400" /><span className="text-amber-400 text-sm">Review</span></>
                                                     ) : (
@@ -193,7 +193,7 @@ export default function AdminProductsPage() {
                                                     onClick={() => toggleMutation.mutate({ id: product.id, isActive: !product.is_active })}
                                                     className={`p-2 rounded-lg transition-colors ${
                                                         product.is_active 
-                                                            ? 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30' 
+                                                            ? 'bg-primary-500/20 text-primary-400 hover:bg-primary-500/30' 
                                                             : 'bg-white/5 text-slate-500 hover:bg-white/10'
                                                     }`}
                                                 >

@@ -70,9 +70,14 @@ const quickTools = [
     }
 ];
 
+import { DotPattern } from "@/components/common/Patterns";
+
 export default function QuickToolsSection() {
     return (
-        <section className="py-20 bg-gradient-to-br from-slate-50 to-white dark:from-slate-950 dark:to-slate-900 transition-colors">
+        <section className="relative py-20 bg-white dark:bg-slate-950 transition-colors overflow-hidden">
+             <div className="absolute inset-0 pointer-events-none opacity-40 dark:opacity-20">
+                <DotPattern className="text-slate-200 dark:text-slate-800 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]" />
+            </div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-12">
@@ -94,7 +99,7 @@ export default function QuickToolsSection() {
                         const Icon = tool.icon;
                         return (
                             <Link key={index} href={tool.href}>
-                                <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer h-full bg-white dark:bg-slate-900 dark:border dark:border-slate-800">
+                                <Card className="border-0 shadow-lg hover:shadow-xl hover:ring-2 hover:ring-primary-500/20 dark:hover:ring-primary-400/20 transition-all duration-300 group cursor-pointer h-full bg-white dark:bg-slate-900 dark:border dark:border-slate-800">
                                     <CardContent className="p-6">
                                         <div className="flex items-start gap-4">
                                             <div className={`w-14 h-14 ${tool.bg} dark:bg-primary-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform`}>

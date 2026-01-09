@@ -40,7 +40,7 @@ export default function Logo({
             logoBg: 'bg-white',
             logoFill: '#0d9488', // teal-600
             brandText: 'text-white',
-            accent: 'text-emerald-200'
+            accent: 'text-primary-200'
         },
         dark: {
             logoBg: 'bg-gradient-to-br from-teal-600 to-emerald-600',

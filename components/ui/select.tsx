@@ -95,7 +95,7 @@ export const SelectContent = React.forwardRef<HTMLDivElement, any>(
                 <div
                     ref={ref}
                     className={cn(
-                        "relative z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md animate-in fade-in-80 bg-white",
+                        "relative z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md animate-in fade-in-80 bg-white dark:bg-slate-900 dark:border-slate-800",
                         position === "popper" && "translate-y-1",
                         className
                     )}

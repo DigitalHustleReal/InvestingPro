@@ -16,7 +16,7 @@ export default function RiskAnalysis({ holdings = [], user }: RiskAnalysisProps)
     const userRiskProfile = user?.risk_profile || 'Moderate';
 
     const getRiskColor = (score: number) => {
-        if (score < 33) return "text-emerald-500";
+        if (score < 33) return "text-primary-500";
         if (score < 66) return "text-amber-500";
         return "text-rose-500";
     };
@@ -27,7 +27,7 @@ export default function RiskAnalysis({ holdings = [], user }: RiskAnalysisProps)
 
             <CardHeader className="p-0 mb-8 relative z-10">
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-emerald-400">
+                    <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-primary-400">
                         <ShieldCheck className="w-6 h-6" />
                     </div>
                     <div>

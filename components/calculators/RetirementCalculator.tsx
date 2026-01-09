@@ -93,7 +93,7 @@ export function RetirementCalculator() {
             {/* Top Row: Inputs on Left, Results on Right */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Input Card */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                     <CardHeader>
                         <div className="flex items-start justify-between gap-4 mb-2">
                             <div className="flex-1">
@@ -101,7 +101,7 @@ export function RetirementCalculator() {
                                 <CardDescription>Plan your retirement corpus with inflation-adjusted expenses</CardDescription>
                             </div>
                             <div className="flex flex-col gap-1.5 items-end">
-                                <Badge variant="secondary" className="bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100">
+                                <Badge variant="secondary" className="bg-primary-50 text-primary-700 border-primary-200 hover:bg-primary-100">
                                     <CheckCircle2 className="w-3 h-3 mr-1" /> Free
                                 </Badge>
                                 <Badge variant="secondary" className="bg-secondary-50 text-secondary-700 border-secondary-200 hover:bg-secondary-100 text-[10px]">
@@ -126,7 +126,7 @@ export function RetirementCalculator() {
                                         setMonthlySIP(preset.sip);
                                         setRetirementExpenses(preset.expenses);
                                     }}
-                                    className="text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md font-medium transition-colors border border-slate-200"
+                                    className="text-xs px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-md font-medium transition-colors border border-slate-200"
                                 >
                                     {preset.label}
                                 </button>
@@ -139,7 +139,7 @@ export function RetirementCalculator() {
                             <div className="flex justify-between items-center">
                                 <Label className="text-sm text-slate-700 font-semibold">Current Age</Label>
                                 <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <span className="text-sm font-bold text-slate-900">{currentAge} Y</span>
+                                    <span className="text-sm font-bold text-slate-900 dark:text-slate-100">{currentAge} Y</span>
                                 </div>
                             </div>
                             <Slider
@@ -157,7 +157,7 @@ export function RetirementCalculator() {
                             <div className="flex justify-between items-center">
                                 <Label className="text-sm text-slate-700 font-semibold">Retirement Age</Label>
                                 <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <span className="text-sm font-bold text-slate-900">{retirementAge} Y</span>
+                                    <span className="text-sm font-bold text-slate-900 dark:text-slate-100">{retirementAge} Y</span>
                                 </div>
                             </div>
                             <Slider
@@ -180,7 +180,7 @@ export function RetirementCalculator() {
                                         type="number"
                                         value={currentSavings}
                                         onChange={(e) => setCurrentSavings(Number(e.target.value))}
-                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900"
+                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-slate-100"
                                     />
                                 </div>
                             </div>
@@ -204,7 +204,7 @@ export function RetirementCalculator() {
                                         type="number"
                                         value={monthlySIP}
                                         onChange={(e) => setMonthlySIP(Number(e.target.value))}
-                                        className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900"
+                                        className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-slate-100"
                                     />
                                 </div>
                             </div>
@@ -241,7 +241,7 @@ export function RetirementCalculator() {
                                 </div>
                                 <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
                                     <Percent className="w-3.5 h-3.5 text-slate-500" />
-                                    <span className="text-sm font-bold text-slate-900">{expectedReturn}%</span>
+                                    <span className="text-sm font-bold text-slate-900 dark:text-slate-100">{expectedReturn}%</span>
                                 </div>
                             </div>
                             <Slider
@@ -264,7 +264,7 @@ export function RetirementCalculator() {
                                         type="number"
                                         value={retirementExpenses}
                                         onChange={(e) => setRetirementExpenses(Number(e.target.value))}
-                                        className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900"
+                                        className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-slate-100"
                                     />
                                 </div>
                             </div>
@@ -300,7 +300,7 @@ export function RetirementCalculator() {
                                     <Label className="text-sm text-slate-700 font-semibold">Expected Inflation Rate (p.a.)</Label>
                                     <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
                                         <Percent className="w-3.5 h-3.5 text-slate-500" />
-                                        <span className="text-sm font-bold text-slate-900">{inflationRate}%</span>
+                                        <span className="text-sm font-bold text-slate-900 dark:text-slate-100">{inflationRate}%</span>
                                     </div>
                                 </div>
                                 <Slider
@@ -317,24 +317,24 @@ export function RetirementCalculator() {
                 </Card>
 
                 {/* Right: Results Card with Stats */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50 relative overflow-hidden">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-primary-50 to-success-50 dark:from-slate-900 dark:to-slate-800 relative overflow-hidden">
                     {/* Decorative gradient overlay */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-teal-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Corpus at Retirement</p>
-                                <p className="text-base sm:text-lg font-extrabold text-teal-600">{formatCurrency(result.totalCorpus)}</p>
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Corpus at Retirement</p>
+                                <p className="text-base sm:text-lg font-extrabold text-primary-600">{formatCurrency(result.totalCorpus)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Required Corpus</p>
-                                <p className="text-base sm:text-lg font-extrabold text-emerald-600">{formatCurrency(result.corpusRequired)}</p>
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Required Corpus</p>
+                                <p className="text-base sm:text-lg font-extrabold text-primary-600">{formatCurrency(result.corpusRequired)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {result.shortfall > 0 ? 'Shortfall' : 'Surplus'}
                                 </p>
-                                <p className={`text-base sm:text-lg font-extrabold ${result.shortfall > 0 ? 'text-amber-600' : 'text-emerald-600'}`}>
+                                <p className={`text-base sm:text-lg font-extrabold ${result.shortfall > 0 ? 'text-amber-600' : 'text-primary-600'}`}>
                                     {formatCurrency(result.shortfall > 0 ? result.shortfall : result.surplus)}
                                 </p>
                             </div>
@@ -347,9 +347,9 @@ export function RetirementCalculator() {
                                 <p className="text-sm text-amber-700">Increase SIP to meet retirement goals</p>
                             </div>
                         ) : (
-                            <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl mb-4">
-                                <p className="text-xs font-bold text-emerald-700 uppercase tracking-widest mb-1">On Track</p>
-                                <p className="text-sm text-emerald-700">You're on track for retirement!</p>
+                            <div className="p-4 bg-primary-50 border border-primary-200 rounded-xl mb-4">
+                                <p className="text-xs font-bold text-primary-700 uppercase tracking-widest mb-1">On Track</p>
+                                <p className="text-sm text-primary-700">You're on track for retirement!</p>
                             </div>
                         )}
                     </CardContent>
@@ -357,7 +357,7 @@ export function RetirementCalculator() {
             </div>
 
             {/* Bottom Row: Projection Chart */}
-            <Card className="border-slate-200 shadow-sm rounded-2xl">
+            <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                 <CardHeader className="pb-2">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Retirement Projection</CardTitle>
                 </CardHeader>
@@ -367,8 +367,8 @@ export function RetirementCalculator() {
                                 <AreaChart data={projectionData}>
                                     <defs>
                                         <linearGradient id="colorRetirement" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
-                                            <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                                            <stop offset="5%" stopColor="#0d9488" stopOpacity={0.3} />
+                                            <stop offset="95%" stopColor="#0d9488" stopOpacity={0} />
                                         </linearGradient>
                                     </defs>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
@@ -382,7 +382,7 @@ export function RetirementCalculator() {
                                         formatter={(value: number | undefined) => value !== undefined ? formatCurrency(value) : ''}
                                         contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
                                     />
-                                    <Area type="monotone" dataKey="corpus" stroke="#10b981" fill="url(#colorRetirement)" strokeWidth={2} />
+                                    <Area type="monotone" dataKey="corpus" stroke="#0d9488" fill="url(#colorRetirement)" strokeWidth={2} />
                                 </AreaChart>
                             </ResponsiveContainer>
                         </div>

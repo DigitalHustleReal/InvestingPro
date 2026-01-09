@@ -226,7 +226,7 @@ export default function CategorySelect({
                         >
                             Cancel
                         </Button>
-                        <Button onClick={handleCreateCategory} className="bg-primary-600 hover:bg-indigo-700 text-white">
+                        <Button onClick={handleCreateCategory} className="bg-primary-600 hover:bg-primary-700 text-white">
                             Create Category
                         </Button>
                     </DialogFooter>

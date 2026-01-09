@@ -20,9 +20,9 @@ const goals = [
         icon: TrendingUp,
         title: "Build Wealth",
         description: "Invest in mutual funds, stocks, and SIPs to grow your money",
-        color: "text-emerald-600",
-        bg: "bg-emerald-50",
-        border: "border-emerald-200",
+        color: "text-primary-600",
+        bg: "bg-primary-50",
+        border: "border-primary-200",
         href: "/investing",
         cta: "Start Investing",
         features: ["SIP Calculator", "Portfolio Builder", "Risk Profiler"]

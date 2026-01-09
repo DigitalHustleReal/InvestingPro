@@ -47,7 +47,7 @@ export function ResponsiveFilterContainer({
                             <SlidersHorizontal className="w-5 h-5" />
                             <span className="font-bold">Filters</span>
                             {activeFiltersCount > 0 && (
-                                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-500 text-slate-950 text-[10px] font-black">
+                                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary-500 text-slate-950 text-[10px] font-black">
                                     {activeFiltersCount}
                                 </span>
                             )}
@@ -56,7 +56,7 @@ export function ResponsiveFilterContainer({
                     <SheetContent side="bottom" className="h-[85vh] p-0 rounded-t-[2.5rem] bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
                         <div className="p-6 border-b border-slate-100 dark:border-slate-800">
                             <h2 className="text-xl font-bold flex items-center gap-2">
-                                <Filter className="w-5 h-5 text-emerald-500" />
+                                <Filter className="w-5 h-5 text-primary-500" />
                                 Refine Results
                             </h2>
                         </div>
@@ -69,7 +69,7 @@ export function ResponsiveFilterContainer({
                         {/* Mobile Footer for Applying Filters */}
                         <div className="absolute bottom-0 inset-x-0 p-6 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-t border-slate-100 dark:border-slate-800 flex gap-4">
                             <Button 
-                                className="flex-1 h-14 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold"
+                                className="flex-1 h-14 rounded-2xl bg-primary-600 hover:bg-primary-700 text-white font-bold"
                                 onClick={() => setIsOpen(false)}
                             >
                                 Apply Filters

@@ -193,7 +193,7 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
   const StaticMobileTOC = () => (
     <div className="lg:hidden mb-10 p-6 bg-slate-50/80 backdrop-blur-sm rounded-2xl border border-slate-200/60 shadow-sm">
         <h3 className="font-bold text-lg text-slate-800 mb-4 flex items-center gap-2">
-            <Menu className="w-5 h-5 text-emerald-600" /> 
+            <Menu className="w-5 h-5 text-primary-600" /> 
             Table of Contents
         </h3>
         <div className="space-y-3 relative pl-2">
@@ -208,14 +208,14 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
                    heading.level === 3 ? 'ml-2' : ''
                  } ${
                    activeId === heading.id 
-                    ? 'text-emerald-700 font-semibold' 
+                    ? 'text-primary-700 font-semibold' 
                     : 'text-slate-600'
                  }`}
                >
                  {/* Dot */}
                  <span className={`absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full border-2 transition-colors ${
                      activeId === heading.id 
-                     ? 'bg-primary-500 border-white ring-2 ring-emerald-100' 
+                     ? 'bg-primary-500 border-white ring-2 ring-primary-100' 
                      : 'bg-white border-slate-300'
                  }`} />
                  {heading.text}
@@ -236,7 +236,7 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
       }}
       onMouseDown={handleMouseDown}
     >
-      <div className={`bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl border border-slate-200/80 overflow-hidden transition-all duration-300 ${isCollapsed ? 'w-12 h-12 rounded-full cursor-pointer hover:bg-emerald-50' : 'w-80'}`}>
+      <div className={`bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl border border-slate-200/80 overflow-hidden transition-all duration-300 ${isCollapsed ? 'w-12 h-12 rounded-full cursor-pointer hover:bg-primary-50' : 'w-80'}`}>
         
         {/* Header (Draggable) */}
         {!isCollapsed && (
@@ -247,7 +247,7 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
             </div>
             <button
                 onClick={() => setIsCollapsed(true)}
-                className="text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 p-1.5 rounded-lg transition-colors"
+                className="text-slate-400 hover:text-primary-600 hover:bg-primary-50 p-1.5 rounded-lg transition-colors"
             >
                 <Minimize2 className="w-4 h-4" />
             </button>
@@ -256,7 +256,7 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
 
         {/* Collapsed State Toggle */}
         {isCollapsed && (
-             <div onClick={() => setIsCollapsed(false)} className="w-full h-full flex items-center justify-center text-emerald-600">
+             <div onClick={() => setIsCollapsed(false)} className="w-full h-full flex items-center justify-center text-primary-600">
                  <Menu className="w-6 h-6" />
              </div>
         )}
@@ -276,7 +276,7 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
                             <div className={`relative z-10 flex-shrink-0 mt-1.5 w-2.5 h-2.5 rounded-full border-2 transition-all duration-300 ${
                                 isActive 
                                     ? 'bg-primary-500 border-white shadow-md scale-125' 
-                                    : 'bg-slate-200 border-white group-hover:border-emerald-200'
+                                    : 'bg-slate-200 border-white group-hover:border-primary-200'
                             }`} />
                             
                             {/* Link */}
@@ -286,7 +286,7 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
                                     heading.level === 3 ? 'pl-2 text-xs opacity-90' : ''
                                 } ${
                                     isActive 
-                                        ? 'text-emerald-700 font-bold translate-x-1' 
+                                        ? 'text-primary-700 font-bold translate-x-1' 
                                         : 'text-slate-500 hover:text-slate-800'
                                 }`}
                             >
@@ -312,7 +312,7 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
       {/* Mobile Floating Button */}
       <button
         onClick={() => setIsMobileOpen(true)}
-        className="lg:hidden fixed bottom-6 right-6 z-50 w-12 h-12 bg-white text-emerald-600 border border-emerald-100 rounded-full shadow-lg flex items-center justify-center hover:scale-105 transition-all duration-300"
+        className="lg:hidden fixed bottom-6 right-6 z-50 w-12 h-12 bg-white text-primary-600 border border-primary-100 rounded-full shadow-lg flex items-center justify-center hover:scale-105 transition-all duration-300"
       >
         <Menu className="w-6 h-6" />
       </button>
@@ -330,7 +330,7 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
                  <div className="space-y-3 relative pl-2">
                     <div className="absolute left-[5px] top-2 bottom-2 w-0.5 bg-slate-100" />
                     {headings.map(h => (
-                        <button key={h.id} onClick={() => scrollToHeading(h.id)} className={`relative block w-full text-left pl-6 py-1 ${activeId === h.id ? 'text-emerald-600 font-medium' : 'text-slate-600'}`}>
+                        <button key={h.id} onClick={() => scrollToHeading(h.id)} className={`relative block w-full text-left pl-6 py-1 ${activeId === h.id ? 'text-primary-600 font-medium' : 'text-slate-600'}`}>
                             <span className={`absolute left-0 top-2.5 w-1.5 h-1.5 rounded-full ${activeId === h.id ? 'bg-primary-500' : 'bg-slate-300'}`} />
                             {h.text}
                         </button>

@@ -23,7 +23,7 @@ export default function CompareBar() {
       className={`
         fixed bottom-0 left-0 right-0 z-50 
         bg-white dark:bg-slate-900 
-        border-t-2 border-emerald-500 
+        border-t-2 border-primary-500 
         shadow-[0_-4px_20px_rgba(0,0,0,0.1)]
         transition-all duration-300
         ${isCollapsed ? 'h-16' : 'h-24 sm:h-28'}
@@ -35,7 +35,7 @@ export default function CompareBar() {
       {/* Collapse/Expand Button (Mobile) */}
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
-        className="absolute -top-8 right-4 sm:hidden p-2 bg-emerald-500 text-white rounded-t-lg shadow-lg"
+        className="absolute -top-8 right-4 sm:hidden p-2 bg-primary-500 text-white rounded-t-lg shadow-lg"
         aria-label={isCollapsed ? 'Expand' : 'Collapse'}
       >
         {isCollapsed ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -121,7 +121,7 @@ export default function CompareBar() {
           {/* Compare Button */}
           <Button
             className={`
-              bg-emerald-600 hover:bg-emerald-700 
+              bg-primary-600 hover:bg-primary-700 
               text-white font-bold
               shadow-lg hover:shadow-xl
               transition-all

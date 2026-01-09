@@ -96,7 +96,7 @@ export default function InsurancePage() {
     };
 
     const getScoreColor = (score: number) => {
-        if (score >= 80) return 'text-emerald-500';
+        if (score >= 80) return 'text-primary-500';
         if (score >= 50) return 'text-yellow-500';
         return 'text-red-500';
     };
@@ -328,7 +328,7 @@ export default function InsurancePage() {
                                                         </li>
                                                     )}
                                                     {protectionScore >= 80 && (
-                                                        <li className="flex items-start gap-2 text-sm text-emerald-600 dark:text-emerald-400">
+                                                        <li className="flex items-start gap-2 text-sm text-primary-600 dark:text-primary-400">
                                                             <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" />
                                                             <span>You're well protected! Review policies annually.</span>
                                                         </li>
@@ -374,7 +374,7 @@ export default function InsurancePage() {
                             {/* Claim Settlement Widget */}
                             <Card className="bg-gradient-to-br from-slate-900 to-slate-800 dark:from-slate-950 dark:to-slate-900 text-white border-0 rounded-[2rem] overflow-hidden">
                                 <CardContent className="p-6">
-                                    <ShieldCheck className="w-8 h-8 text-emerald-400 mb-4" />
+                                    <ShieldCheck className="w-8 h-8 text-primary-400 mb-4" />
                                     <h3 className="text-xl font-bold mb-2">95% Claim Ratio</h3>
                                     <p className="text-slate-400 text-sm mb-4">We only list insurers with proven track records.</p>
                                 </CardContent>
@@ -414,6 +414,87 @@ export default function InsurancePage() {
                         )}
                     </div>
                  </div>
+            </div>
+
+            {/* --- EDUCATIONAL CONTENT HUB --- */}
+            <div className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-24">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    
+                    {/* Section Header */}
+                    <div className="text-center mb-16">
+                        <Badge className="mb-4 bg-secondary-50 text-secondary-700 border-secondary-100">Protection Academy</Badge>
+                        <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Demystifying Insurance Claims</h2>
+                        <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                            Insurance is not an investment—it's risk management. Learn how to choose coverage that actually pays out.
+                        </p>
+                    </div>
+
+                    {/* 1. Types of Insurance Grid */}
+                    <div className="grid md:grid-cols-3 gap-8 mb-24">
+                        {[
+                            { title: "Term Life", desc: "Pure protection for your family. High cover at low cost (₹1Cr cover for ₹500/mo). No returns, just security.", icon: Shield },
+                            { title: "Health Insurance", desc: "Covers hospitalization and medical bills. Cashless treatment at network hospitals. Save tax under Sec 80D.", icon: Heart },
+                            { title: "Motor Insurance", desc: "Mandatory by law (Third Party). Comprehensive plans cover own damage and theft. No Claim Bonus saves up to 50%.", icon: Car }
+                        ].map((item, i) => (
+                            <div key={i} className="bg-slate-50 dark:bg-slate-800/50 rounded-3xl p-8 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
+                                <div className="w-12 h-12 bg-white dark:bg-slate-900 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
+                                    <item.icon className="w-6 h-6 text-secondary-600" />
+                                </div>
+                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{item.title}</h3>
+                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* 2. Visual Guide Placeholder (Canva) */}
+                    <div className="bg-slate-900 rounded-[3rem] overflow-hidden relative mb-24 text-white">
+                        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
+                        <div className="flex flex-col md:flex-row items-center">
+                            <div className="p-12 md:p-20 md:w-1/2 relative z-10">
+                                <Badge className="mb-6 bg-secondary-500/20 text-secondary-300 border-secondary-500/30">Claim Process</Badge>
+                                <h3 className="text-4xl font-bold mb-6">How to File a Cashless Claim</h3>
+                                <ul className="space-y-4 mb-8">
+                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-secondary-400" /> Notify TPA at hospital desk (24-48 hrs before planned)</li>
+                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-secondary-400" /> Submit pre-auth form with doctor's ID</li>
+                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-secondary-400" /> Insurer approves amount directly to hospital</li>
+                                </ul>
+                                <Button className="bg-secondary-500 hover:bg-secondary-600 text-white font-bold h-12 px-8 rounded-xl">
+                                    Find Network Hospitals
+                                </Button>
+                            </div>
+                            <div className="md:w-1/2 bg-slate-800/50 h-[400px] md:h-full flex items-center justify-center border-l border-slate-700 border-dashed">
+                                {/* PLACEHOLDER FOR CANVA IMAGE */}
+                                <div className="text-center p-8">
+                                    <div className="w-20 h-20 bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-dashed border-slate-500">
+                                        <span className="text-xs text-slate-400 font-mono">IMAGE</span>
+                                    </div>
+                                    <p className="text-slate-400 font-mono text-sm">Use Content Injection<br/>"Cashless Claim Flowchart"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* 3. FAQ Accordion */}
+                    <div className="max-w-3xl mx-auto">
+                        <h3 className="text-2xl font-bold text-center mb-10 text-slate-900 dark:text-white">Questions We Get Asked</h3>
+                        <div className="space-y-4">
+                            {[
+                                { q: "What is the difference between Term and Life Insurance?", a: "Term insurance is a pure risk cover that pays your family only upon death. Life insurance (Endowment/ULIP) mixes investment with insurance, usually offering lower cover and lower returns. We recommend Term + Mutual Funds separately." },
+                                { q: "Does health insurance cover dental?", a: "Most basic health plans in India do NOT cover dental unless it requires hospitalization (e.g., accident). Some premium OPD plans cover it up to a limit." },
+                                { q: "Will my claim be rejected if I smoke?", a: "Only if you lied about it in your application. Always declare your smoking habits. Your premium might increase by 20%, but your claim will be honored." }
+                            ].map((faq, i) => (
+                                <details key={i} className="group bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 cursor-pointer">
+                                    <summary className="font-bold text-slate-900 dark:text-white flex justify-between items-center list-none">
+                                        {faq.q}
+                                        <ArrowRight className="w-4 h-4 text-slate-400 group-open:rotate-90 transition-transform" />
+                                    </summary>
+                                    <p className="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed pl-0">{faq.a}</p>
+                                </details>
+                            ))}
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
         </div>

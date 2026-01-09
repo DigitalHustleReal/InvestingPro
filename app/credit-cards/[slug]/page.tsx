@@ -150,7 +150,7 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             {/* Left: Card Info */}
             <div className="lg:col-span-2">
-              <div className="flex items-center gap-2 text-emerald-400 mb-3">
+              <div className="flex items-center gap-2 text-primary-400 mb-3">
                 <CreditCard className="w-5 h-5" />
                 <span className="text-sm font-semibold uppercase">{card.provider}</span>
               </div>
@@ -174,7 +174,7 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
                 </div>
                 <div>
                   <p className="text-sm text-slate-400">Reward Rate</p>
-                  <p className="text-xl font-bold text-emerald-400">{card.rewardRate}</p>
+                  <p className="text-xl font-bold text-primary-400">{card.rewardRate}</p>
                 </div>
                 <div>
                   <p className="text-sm text-slate-400">Min Credit Score</p>
@@ -192,8 +192,8 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
               <Card className="bg-white/10 backdrop-blur-sm border-white/20">
                 <CardContent className="p-6">
                   <p className="text-sm text-slate-300 mb-4">Start your application now</p>
-                  <a href={card.applyLink} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full bg-primary-600 hover:bg-emerald-700 text-white font-semibold py-6 text-lg mb-3">
+                  <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+                    <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-6 text-lg mb-3">
                       Apply Now <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
@@ -219,7 +219,7 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-6 md:p-8">
-                  <CheckCircle2 className="w-6 h-6 text-emerald-600" />
+                  <CheckCircle2 className="w-6 h-6 text-primary-600" />
                   Key Features
                 </CardTitle>
               </CardHeader>
@@ -227,7 +227,7 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
                 <ul className="space-y-3">
                   {card.keyFeatures.map((feature, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
                       <span className="text-gray-700">{feature}</span>
                     </li>
                   ))}
@@ -254,7 +254,7 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
                   {card.rewardProgram.categories.map((cat, index) => (
                     <div key={index} className="flex items-center justify-between p-6 md:p-8 bg-slate-50 rounded-lg">
                       <span className="font-medium text-gray-700">{cat.name}</span>
-                      <span className="text-emerald-600 font-semibold">{cat.rate}</span>
+                      <span className="text-primary-600 font-semibold">{cat.rate}</span>
                     </div>
                   ))}
                 </div>
@@ -279,7 +279,7 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
                       <ul className="space-y-2 ml-7">
                         {benefit.items.map((item, idx) => (
                           <li key={idx} className="text-gray-600 flex items-start gap-2">
-                            <span className="text-emerald-500 mt-1">•</span>
+                            <span className="text-primary-500 mt-1">•</span>
                             {item}
                           </li>
                         ))}
@@ -292,9 +292,9 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
             
             {/* Pros & Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-emerald-200 bg-emerald-50/30">
+              <Card className="border-primary-200 bg-primary-50/30">
                 <CardHeader>
-                  <CardTitle className="text-emerald-700 flex items-center gap-6 md:p-8">
+                  <CardTitle className="text-primary-700 flex items-center gap-6 md:p-8">
                     <CheckCircle2 className="w-5 h-5" />
                     Pros
                   </CardTitle>
@@ -303,7 +303,7 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
                   <ul className="space-y-2">
                     {card.pros.map((pro, index) => (
                       <li key={index} className="flex items-start gap-2 text-gray-700">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-1" />
+                        <CheckCircle2 className="w-4 h-4 text-primary-600 flex-shrink-0 mt-1" />
                         <span className="text-sm">{pro}</span>
                       </li>
                     ))}
@@ -362,13 +362,13 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
               <Card className="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Ready to Apply?</h3>
-                  <p className="text-sm text-emerald-100 mb-4">Get instant approval decision online</p>
-                  <a href={card.applyLink} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full bg-white text-emerald-600 hover:bg-gray-100 font-semibold py-6 mb-3">
+                  <p className="text-sm text-primary-100 mb-4">Get instant approval decision online</p>
+                  <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+                    <Button className="w-full bg-white text-primary-600 hover:bg-gray-100 font-semibold py-6 mb-3">
                       Apply Now <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
-                  <p className="text-xs text-emerald-100 text-center">
+                  <p className="text-xs text-primary-100 text-center">
                     Secure application • 2-3 min process
                   </p>
                 </CardContent>
@@ -401,7 +401,7 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
                     <ul className="space-y-1.5">
                       {card.eligibility.requiredDocuments.map((doc, index) => (
                         <li key={index} className="text-gray-600 text-xs flex items-start gap-2">
-                          <CheckCircle2 className="w-3 h-3 text-emerald-500 flex-shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-3 h-3 text-primary-500 flex-shrink-0 mt-0.5" />
                           {doc}
                         </li>
                       ))}
@@ -432,8 +432,8 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Apply for {card.name} Today</h2>
           <p className="text-slate-300 mb-8">Join thousands of satisfied cardholders. Apply online in minutes!</p>
-          <a href={card.applyLink} target="_blank" rel="noopener noreferrer">
-            <Button className="bg-primary-600 hover:bg-emerald-700 text-white font-semibold px-12 py-6 text-lg">
+          <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+            <Button className="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-12 py-6 text-lg">
               Apply Now <ExternalLink className="w-5 h-5 ml-2" />
             </Button>
           </a>

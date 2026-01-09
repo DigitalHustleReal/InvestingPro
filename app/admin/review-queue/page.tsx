@@ -127,8 +127,8 @@ export default function ReviewQueuePage() {
                 ) : reviews.length === 0 ? (
                     <ContentSection>
                         <div className="text-center py-16">
-                            <div className="w-20 h-20 rounded-2xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
-                                <CheckCircle2 className="w-10 h-10 text-emerald-400" />
+                            <div className="w-20 h-20 rounded-2xl bg-primary-500/10 flex items-center justify-center mx-auto mb-4">
+                                <CheckCircle2 className="w-10 h-10 text-primary-400" />
                             </div>
                             <h3 className="text-xl font-semibold text-white mb-2">All Caught Up!</h3>
                             <p className="text-slate-400">No articles pending review.</p>
@@ -174,7 +174,7 @@ export default function ReviewQueuePage() {
                                             </button>
                                         </Link>
                                         <button 
-                                            className="flex-1 md:flex-none px-4 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors"
+                                            className="flex-1 md:flex-none px-4 py-2 bg-primary-500/20 hover:bg-primary-500/30 text-primary-400 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors"
                                             onClick={() => openReviewDialog(article, 'approve')}
                                         >
                                             <CheckCircle2 className="w-4 h-4" /> Approve
@@ -202,11 +202,11 @@ export default function ReviewQueuePage() {
                         </DialogHeader>
                         <div className="space-y-4 py-4">
                             {actionType === 'approve' ? (
-                                <div className="bg-emerald-500/10 border border-emerald-500/30 p-4 rounded-lg flex items-start gap-3 text-emerald-400 text-sm">
+                                <div className="bg-primary-500/10 border border-primary-500/30 p-4 rounded-lg flex items-start gap-3 text-primary-400 text-sm">
                                     <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
                                     <div>
                                         <p className="font-semibold">Ready to publish?</p>
-                                        <p className="text-emerald-400/80">This will change status to 'Published' and make it live immediately.</p>
+                                        <p className="text-primary-400/80">This will change status to 'Published' and make it live immediately.</p>
                                     </div>
                                 </div>
                             ) : (
@@ -244,7 +244,7 @@ export default function ReviewQueuePage() {
                                 disabled={isSubmitting || (actionType === 'reject' && !reviewNotes.trim())}
                                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 ${
                                     actionType === 'approve' 
-                                        ? 'bg-emerald-500 hover:bg-emerald-600 text-white' 
+                                        ? 'bg-primary-500 hover:bg-primary-600 text-white' 
                                         : 'bg-rose-500 hover:bg-rose-600 text-white'
                                 }`}
                             >

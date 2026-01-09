@@ -18,6 +18,25 @@ interface ImageResult {
     source: 'unsplash' | 'pexels' | 'pixabay' | 'freepik' | 'pollinations';
 }
 
+// Smart mapping for ambiguous or complex financial terms
+const KEYWORD_MAP: Record<string, string> = {
+    'sip': 'growing money plant jar',
+    'mutual fund': 'stock market graph analysis',
+    'tax': 'income tax india calculation',
+    '80c': 'saving money pig',
+    'nps': 'retirement planning couple',
+    'ppf': 'indian government bond document',
+    'fd': 'fixed deposit certificate bank',
+    'budget': 'calculator financial planning',
+    'insurance': 'umbrella protection family',
+    'market': 'stock exchange bull bear',
+    'gold': 'gold coins jewellery investment',
+    'crypto': 'bitcoin digital currency',
+    'loan': 'home keys loan agreement',
+    'credit card': 'credit card payment machine',
+    'emergency': 'emergency glass hammer money'
+};
+
 export class StockImageService {
     private pexelsKey: string | undefined;
     private pixabayKey: string | undefined;
@@ -35,71 +54,93 @@ export class StockImageService {
      * Get the best featured image for a financial topic
      */
     async getFeaturedImage(topic: string, context: string = 'finance'): Promise<ImageResult> {
-        // 1. Try Pixabay (User Preference due to better collections)
+        // 1. Smart Keyword Extraction
+        const searchTerm = this.extractSearchTerm(topic);
+        console.log(`🖼️ Searching images for: "${searchTerm}" (derived from "${topic}")`);
+
+        // 2. Try Pixabay (Best for general illustrations)
         if (this.pixabayKey) {
             try {
-                const img = await this.searchPixabay(topic);
+                const img = await this.searchPixabay(searchTerm);
                 if (img) return img;
             } catch (e) {
                 console.error('Pixabay search failed:', e);
             }
         }
 
-        // 2. Try Unsplash (Next best for quality)
+        // 3. Try Unsplash (Best for high-quality photos)
         if (this.unsplashKey) {
             try {
-                const img = await this.searchUnsplash(topic);
+                const img = await this.searchUnsplash(searchTerm);
                 if (img) return img;
             } catch (e) {
                 console.error('Unsplash search failed:', e);
             }
         }
         
-        // 3. Try Pexels
+        // 4. Try Pexels (Good backup)
         if (this.pexelsKey) {
             try {
-                const img = await this.searchPexels(topic, context);
+                const img = await this.searchPexels(searchTerm, context);
                 if (img) return img;
             } catch (e) {
                 console.error('Pexels search failed:', e);
             }
         }
 
-        // 4. Try Freepik (Optional)
+        // 5. Try Freepik (Last resort for stock)
         if (this.freepikKey) {
             try {
-                const img = await this.searchFreepik(topic);
+                const img = await this.searchFreepik(searchTerm);
                 if (img) return img;
             } catch (e) {
                 // Silent fail
             }
         }
         
-        // 5. Fallback to AI (Pollinations - Flux Model)
-        // If no stock image found, we generate one.
+        // 6. Fallback to AI (Pollinations - Flux Model)
         console.log('⚠️ Stock images not found. Falling back to AI Generation (Flux).');
-        return this.generateAIImage(topic);
+        return this.generateAIImage(searchTerm); // Use searchTerm, not full topic
     }
 
-    private async searchUnsplash(topic: string): Promise<ImageResult | null> {
-        // Force "Abstract/Editorial" context for premium feel
-        const styleKeywords = "abstract geometric minimal business concept high-quality";
-        const cleanTopic = topic.replace(/Guide|Complete|Beginners|How to|Start|In India|2026|Best|Review|Top/gi, '').trim();
-        const searchQuery = `${cleanTopic} ${styleKeywords}`;
+    private extractSearchTerm(topic: string): string {
+        const lowerTopic = topic.toLowerCase();
 
+        // 1. Check explicit mappings first
+        for (const [key, value] of Object.entries(KEYWORD_MAP)) {
+            if (lowerTopic.includes(key)) {
+                return value;
+            }
+        }
+
+        // 2. Clean common garbage words
+        let clean = topic
+            .replace(/Guide|Complete|Beginners|How to|Start|In India|2026|Best|Review|Top|Vs|Difference|What is/gi, '')
+            .replace(/[0-9]/g, '') // Remove numbers like 2026, 80C (unless mapped)
+            .trim();
+
+        // 3. If too short, fallback to generic
+        if (clean.length < 3) return 'finance investment india';
+
+        // 4. Append context
+        return `${clean} finance`;
+    }
+
+    private async searchUnsplash(query: string): Promise<ImageResult | null> {
         const response = await axios.get(`https://api.unsplash.com/search/photos`, {
             headers: { 'Authorization': `Client-ID ${this.unsplashKey}` },
             params: {
-                query: searchQuery, 
-                per_page: 20,
+                query: query, 
+                per_page: 5,
                 orientation: 'landscape',
                 content_filter: 'high',
-                order_by: 'relevant'
+                order_by: 'relevant' // KEY: Relevance, not recent
             }
         });
 
         if (response.data.results && response.data.results.length > 0) {
-            const photo = response.data.results[Math.floor(Math.random() * response.data.results.length)];
+            // STRICTLY take the first result (most relevant)
+            const photo = response.data.results[0];
             return {
                 url: photo.urls.regular,
                 alt: `Photo by ${photo.user.name} on Unsplash`,
@@ -109,93 +150,90 @@ export class StockImageService {
         return null;
     }
 
-    private async searchFreepik(topic: string): Promise<ImageResult | null> {
-        // Freepik API Endpoint
-        const response = await axios.get(`https://api.freepik.com/v1/resources`, {
-            headers: { 
-                'x-freepik-api-key': this.freepikKey,
-                'Accept-Language': 'en-US'
-            },
+    private async searchPixabay(query: string): Promise<ImageResult | null> {
+        const response = await axios.get(`https://pixabay.com/api/`, {
             params: {
-                term: topic,
-                filters: {
-                    content_type: { photo: 1, vector: 1 } // Photos or vectors
-                },
-                page: 1,
-                limit: 5,
-                order: 'relevant'
-            }
-        });
-
-        if (response.data.data && response.data.data.length > 0) {
-            const item = response.data.data[Math.floor(Math.random() * response.data.data.length)];
-            return {
-                url: item.image?.source?.url || item.preview?.url, // Freepik structure varies, preview is safe
-                alt: item.title || topic,
-                source: 'freepik' as any
-            };
-        }
-        return null;
-    }
-
-    private async searchPexels(topic: string, context: string): Promise<ImageResult | null> {
-        // Enhance query for better results
-        const cleanTopic = topic.replace(/2026|Guide|Beginners/gi, '').trim();
-        const query = `${cleanTopic} ${context} India finance`.trim().substring(0, 50); // Pexels likes short queries
-        
-        const response = await axios.get(`https://api.pexels.com/v1/search`, {
-            headers: { Authorization: this.pexelsKey },
-            params: {
-                query: query,
+                key: this.pixabayKey,
+                q: query,
+                image_type: 'photo',
+                orientation: 'horizontal',
                 per_page: 5,
-                orientation: 'landscape',
-                size: 'large'
+                safesearch: true,
+                order: 'popular' // KEY: Popularity ensures quality
             }
         });
-
-        if (response.data.photos && response.data.photos.length > 0) {
-            // Pick a random one from top 5 to vary content
-            const photo = response.data.photos[Math.floor(Math.random() * response.data.photos.length)];
-            return {
-                url: photo.src.large2x || photo.src.large,
-                alt: photo.alt || topic,
-                source: 'pexels'
-            };
-        }
-        return null;
-    }
-
-    private async searchPixabay(topic: string): Promise<ImageResult | null> {
-        const cleanTopic = topic.replace(/2026|Guide|Beginners/gi, '').trim();
-        const query = encodeURIComponent(`${cleanTopic} finance business India`);
-        const url = `https://pixabay.com/api/?key=${this.pixabayKey}&q=${query}&image_type=photo&orientation=horizontal&safesearch=true&per_page=5`;
-
-        const response = await axios.get(url);
 
         if (response.data.hits && response.data.hits.length > 0) {
-            const photo = response.data.hits[Math.floor(Math.random() * response.data.hits.length)];
+            const photo = response.data.hits[0];
             return {
-                url: photo.largeImageURL || photo.webformatURL,
-                alt: photo.tags || topic,
+                url: photo.webformatURL, // Good enough quality, faster load
+                alt: `Image by ${photo.user} on Pixabay`,
                 source: 'pixabay'
             };
         }
         return null;
     }
 
-    private generateAIImage(topic: string): ImageResult {
-        // Flux model via Pollinations
-        const prompt = encodeURIComponent(`professional cinematic photo of ${topic}, indian context, 8k, realistic, highly detailed`);
-        const seed = Math.floor(Math.random() * 10000);
-        const url = `https://pollinations.ai/p/${prompt}?width=1280&height=720&seed=${seed}&model=flux`;
+    private async searchFreepik(query: string): Promise<ImageResult | null> {
+        const response = await axios.get(`https://api.freepik.com/v1/resources`, {
+            headers: { 
+                'x-freepik-api-key': this.freepikKey,
+                'Accept-Language': 'en-US'
+            },
+            params: {
+                term: query,
+                filters: {
+                    content_type: { photo: 1 } // Only photos, no vectors/PSD
+                },
+                page: 1,
+                limit: 3,
+                order: 'relevant'
+            }
+        });
+
+        if (response.data.data && response.data.data.length > 0) {
+            const item = response.data.data[0]; // NO RANDOMNESS
+            return {
+                url: item.image?.source?.url || item.preview?.url,
+                alt: item.title || query,
+                source: 'freepik' as any
+            };
+        }
+        return null;
+    }
+
+    private async searchPexels(query: string, context: string): Promise<ImageResult | null> {
+        const response = await axios.get(`https://api.pexels.com/v1/search`, {
+            headers: { Authorization: this.pexelsKey },
+            params: {
+                query: `${query}`, // Don't redundantly add context if query is already enriched
+                per_page: 5,
+                orientation: 'landscape'
+            }
+        });
+
+        if (response.data.photos && response.data.photos.length > 0) {
+            const photo = response.data.photos[0];
+            return {
+                url: photo.src.large,
+                alt: `Photo by ${photo.photographer} on Pexels`,
+                source: 'pexels'
+            };
+        }
+        return null;
+    }
+
+    private async generateAIImage(prompt: string): Promise<ImageResult> {
+        // Use synchronous Pollinations URL (faster, no waiting)
+        const encodedPrompt = encodeURIComponent(prompt + ", photorealistic, 4k, financial context, high quality, highly detailed");
+        const url = `https://image.pollinations.ai/prompt/${encodedPrompt}?nolog=true`;
         
         return {
             url: url,
-            alt: `AI generated image for ${topic}`,
+            alt: `AI generated illustration for ${prompt}`,
             source: 'pollinations'
         };
     }
 }
 
-// Singleton instance
 export const imageService = new StockImageService();

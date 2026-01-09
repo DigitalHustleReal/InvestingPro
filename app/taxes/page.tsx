@@ -74,8 +74,10 @@ const TaxHeroCalculator = () => {
     const savings = Math.abs(oldTax - newTax);
     const recommended = newTax < oldTax ? 'New Regime' : 'Old Regime';
 
+// ... (No changes to logic, just styling)
+
     return (
-        <div className="w-full bg-slate-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
+        <div className="w-full bg-slate-900 dark:bg-slate-950 border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
             <div className="grid lg:grid-cols-2 gap-0">
                 {/* Inputs */}
                 <div className="p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-white/10">
@@ -134,7 +136,7 @@ const TaxHeroCalculator = () => {
                 </div>
 
                 {/* Results */}
-                <div className="p-8 lg:p-12 bg-slate-800/50">
+                <div className="p-8 lg:p-12 bg-slate-800/50 dark:bg-slate-900/50">
                     <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-8">Comparison View</h3>
                     
                     <div className="space-y-6">
@@ -146,7 +148,7 @@ const TaxHeroCalculator = () => {
                             <div className="flex justify-between items-center mb-4">
                                 <span className="text-sm font-semibold text-slate-300">Old Tax Regime</span>
                                 {recommended === 'Old Regime' && (
-                                    <Badge className="bg-teal-500 text-white border-0">Best Choice</Badge>
+                                    <Badge className="bg-teal-600 text-white border-0">Best Choice</Badge>
                                 )}
                             </div>
                             <div className="text-3xl font-bold text-white">₹ {oldTax.toLocaleString('en-IN')}</div>
@@ -161,7 +163,7 @@ const TaxHeroCalculator = () => {
                             <div className="flex justify-between items-center mb-4">
                                 <span className="text-sm font-semibold text-slate-300">New Simplified Regime</span>
                                 {recommended === 'New Regime' && (
-                                    <Badge className="bg-primary-500 text-white border-0">Best Choice</Badge>
+                                    <Badge className="bg-primary-600 text-white border-0">Best Choice</Badge>
                                 )}
                             </div>
                             <div className="text-3xl font-bold text-white">₹ {newTax.toLocaleString('en-IN')}</div>
@@ -177,7 +179,7 @@ const TaxHeroCalculator = () => {
                         </div>
                         <p className="text-xs text-primary-400 font-bold uppercase tracking-wider">in the {recommended}</p>
                         
-                        <Button className="w-full mt-8 bg-white hover:bg-slate-100 text-slate-900 font-bold h-12 rounded-xl group">
+                        <Button className="w-full mt-8 bg-white hover:bg-slate-100 text-slate-900 font-bold h-12 rounded-xl group transition-colors">
                             Full Tax Breakdown
                             <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                         </Button>
@@ -196,8 +198,8 @@ export default function TaxesPage() {
             {/* 1. Hero Section */}
             <section className="relative pt-12 pb-24 overflow-hidden border-b border-slate-200 dark:border-slate-800">
                 {/* Background Accents */}
-                <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-primary-500/5 rounded-full blur-3xl pointer-events-none" />
-                <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-primary-600/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[600px] h-[600px] bg-primary-500/10 rounded-full blur-3xl pointer-events-none" />
 
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto text-center mb-16">
@@ -218,6 +220,7 @@ export default function TaxesPage() {
                     </div>
                 </div>
             </section>
+// ...
 
             {/* 2. Tax Saving Instruments (The Grid) */}
             <section className="py-24 bg-slate-50 dark:bg-slate-900/50">
@@ -254,17 +257,17 @@ export default function TaxesPage() {
                         </div>
 
                         {/* 80D Card */}
-                        <div className="group p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-emerald-500/50 hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-500 relative overflow-hidden">
-                            <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-6">
-                                <BadgePercent className="w-7 h-7 text-emerald-500" />
+                        <div className="group p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary-500/50 hover:shadow-2xl hover:shadow-primary-500/10 transition-all duration-500 relative overflow-hidden">
+                            <div className="w-14 h-14 rounded-2xl bg-primary-500/10 flex items-center justify-center mb-6">
+                                <BadgePercent className="w-7 h-7 text-primary-500" />
                             </div>
                             <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">Health (80D)</h3>
                             <p className="text-slate-500 dark:text-slate-400 mb-6 line-clamp-2">
                                 Claim up to ₹1 Lakh for medical insurance premiums for you, your spouse, and senior citizen parents.
                             </p>
                             <div className="flex items-center gap-2 group/btn cursor-pointer">
-                                <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Calculators</span>
-                                <ChevronRight className="w-4 h-4 text-emerald-500 group-hover/btn:translate-x-1 transition-transform" />
+                                <span className="text-sm font-bold text-primary-600 dark:text-primary-400 uppercase tracking-widest">Calculators</span>
+                                <ChevronRight className="w-4 h-4 text-primary-500 group-hover/btn:translate-x-1 transition-transform" />
                             </div>
                         </div>
 
@@ -287,7 +290,7 @@ export default function TaxesPage() {
             </section>
 
             {/* 3. Deadlines & Timeline */}
-            <section className="py-24">
+            <section className="py-24 bg-white dark:bg-slate-950">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-5xl mx-auto">
                         <div className="text-center mb-16">
@@ -299,16 +302,16 @@ export default function TaxesPage() {
                             {[
                                 { date: 'March 31', title: 'Investment Proof Submission', desc: 'Last day to complete your 80C investments for FY 2024-25.', color: 'bg-primary-500' },
                                 { date: 'July 31', title: 'ITR Filing Deadline', desc: 'Standard deadline for individual tax payers and salaried employees.', color: 'bg-orange-500' },
-                                { date: 'Sept 30', title: 'Tax Audit Deadline', desc: 'Deadline for businesses and professionals requiring a tax audit.', color: 'bg-emerald-500' },
+                                { date: 'Sept 30', title: 'Tax Audit Deadline', desc: 'Deadline for businesses and professionals requiring a tax audit.', color: 'bg-primary-500' },
                                 { date: 'Dec 31', title: 'Belated ITR Return', desc: 'Last chance to file your taxes with a penalty for late submission.', color: 'bg-rose-500' },
                             ].map((item, idx) => (
                                 <div key={idx} className="flex group">
                                     <div className="flex flex-col items-center mr-6">
-                                        <div className={cn("w-4 h-4 rounded-full ring-4 ring-slate-100 dark:ring-slate-800", item.color)} />
-                                        <div className="w-px h-full bg-slate-200 dark:bg-slate-800" />
+                                        <div className={cn("w-4 h-4 rounded-full ring-4 ring-slate-100 dark:ring-slate-800 transition-all group-hover:scale-125", item.color)} />
+                                        <div className="w-px h-full bg-slate-200 dark:bg-slate-800 group-hover:bg-slate-300 dark:group-hover:bg-slate-700 transition-colors" />
                                     </div>
                                     <div className="pb-12">
-                                        <span className="text-lg font-black text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">{item.date}</span>
+                                        <span className="text-lg font-black text-slate-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{item.date}</span>
                                         <h4 className="text-xl font-bold text-slate-900 dark:text-white mt-1">{item.title}</h4>
                                         <p className="text-slate-500 dark:text-slate-400 mt-2">{item.desc}</p>
                                     </div>
@@ -320,7 +323,7 @@ export default function TaxesPage() {
             </section>
 
             {/* 4. FAQ / Guides Grid */}
-            <section className="py-24 bg-slate-900 overflow-hidden relative">
+            <section className="py-24 bg-slate-900 dark:bg-surface-dark overflow-hidden relative border-t border-slate-800">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div>
@@ -344,9 +347,9 @@ export default function TaxesPage() {
                         </div>
                         <div className="relative">
                             <div className="absolute inset-0 bg-primary-500/20 blur-[100px]" />
-                            <div className="relative p-8 rounded-[40px] bg-slate-800 border border-white/10 shadow-2xl skew-y-3">
+                            <div className="relative p-8 rounded-[40px] bg-slate-800 border border-white/10 shadow-2xl skew-y-3 hover:skew-y-0 transition-transform duration-500">
                                 <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-12 h-12 rounded-full bg-slate-700 overflow-hidden">
+                                    <div className="w-12 h-12 rounded-full bg-slate-700 overflow-hidden ring-2 ring-white/20">
                                         <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=100&auto=format&fit=crop" alt="CA" />
                                     </div>
                                     <div>
@@ -361,7 +364,7 @@ export default function TaxesPage() {
                                     <div className="p-4 rounded-2xl bg-primary-500/20 border border-primary-500/20 text-sm text-primary-200 italic">
                                         "For your profile, the Old Regime saves you ₹42,000 specifically due to Section 24(b)..."
                                     </div>
-                                    <Button className="w-full bg-primary-500 hover:bg-primary-600 text-white font-bold h-12 rounded-xl mt-4">
+                                    <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold h-12 rounded-xl mt-4">
                                         Start Live Consultation
                                     </Button>
                                 </div>

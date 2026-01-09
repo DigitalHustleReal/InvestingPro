@@ -79,7 +79,7 @@ export function EMICalculatorEnhanced() {
 
     const emiChartData = [
         { name: 'Principal', value: emiLoan, color: '#3b82f6' },
-        { name: 'Interest', value: emiResult.totalInterest, color: '#f59e0b' },
+        { name: 'Interest', value: emiResult.totalInterest, color: '#2563eb' },
     ];
 
     return (
@@ -87,7 +87,7 @@ export function EMICalculatorEnhanced() {
             {/* Top Row: Inputs on Left, Results on Right */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Input Card */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                     <CardHeader>
                         <div className="flex items-start justify-between gap-4 mb-2">
                             <div className="flex-1">
@@ -95,7 +95,7 @@ export function EMICalculatorEnhanced() {
                                 <CardDescription>Calculate your monthly loan EMI with detailed breakdown</CardDescription>
                             </div>
                             <div className="flex flex-col gap-1.5 items-end">
-                                <Badge variant="secondary" className="bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100">
+                                <Badge variant="secondary" className="bg-primary-50 text-primary-700 border-primary-200 hover:bg-primary-100">
                                     <CheckCircle2 className="w-3 h-3 mr-1" /> Free
                                 </Badge>
                                 <Badge variant="secondary" className="bg-secondary-50 text-secondary-700 border-secondary-200 hover:bg-secondary-100 text-[10px]">
@@ -119,7 +119,7 @@ export function EMICalculatorEnhanced() {
                                         setEmiTenure(preset.years);
                                         setEmiRate(preset.rate);
                                     }}
-                                    className="text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md font-medium transition-colors border border-slate-200"
+                                    className="text-xs px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-md font-medium transition-colors border border-slate-200"
                                 >
                                     {preset.label}
                                 </button>
@@ -231,26 +231,26 @@ export function EMICalculatorEnhanced() {
                 </Card>
 
                 {/* Right: Results Card */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50 relative overflow-hidden">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50 relative overflow-hidden">
                     {/* Decorative gradient overlay */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-amber-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
-                        <div className="text-center p-6 md:p-8 sm:p-6 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-amber-100 mb-4">
-                            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Monthly EMI</p>
+                        <div className="text-center p-6 md:p-8 sm:p-6 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-amber-100 mb-4">
+                            <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Monthly EMI</p>
                             <p className="text-3xl sm:text-4xl font-extrabold text-amber-600">{formatCurrency(emiResult.emi)}</p>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-3 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Principal</p>
+                            <div className="text-center p-3 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Principal</p>
                                 <p className="text-base sm:text-lg font-extrabold text-slate-900">{formatCurrency(emiLoan)}</p>
                             </div>
-                            <div className="text-center p-3 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Interest</p>
+                            <div className="text-center p-3 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Interest</p>
                                 <p className="text-base sm:text-lg font-extrabold text-orange-600">{formatCurrency(emiResult.totalInterest)}</p>
                             </div>
-                            <div className="text-center p-3 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Total Pay</p>
+                            <div className="text-center p-3 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Total Pay</p>
                                 <p className="text-base sm:text-lg font-extrabold text-slate-700">{formatCurrency(emiResult.totalPayment)}</p>
                             </div>
                         </div>
@@ -285,7 +285,7 @@ export function EMICalculatorEnhanced() {
             {/* Bottom Row: Amortization Chart & Year-by-Year Breakdown */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Amortization Schedule Chart */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Amortization Schedule (First Year)</CardTitle>
                     </CardHeader>
@@ -306,7 +306,7 @@ export function EMICalculatorEnhanced() {
                                     />
                                     <Legend />
                                     <Bar dataKey="principal" stackId="a" fill="#3b82f6" name="Principal" />
-                                    <Bar dataKey="interest" stackId="a" fill="#f59e0b" name="Interest" />
+                                    <Bar dataKey="interest" stackId="a" fill="#2563eb" name="Interest" />
                                 </BarChart>
                             </ResponsiveContainer>
                         </div>
@@ -314,7 +314,7 @@ export function EMICalculatorEnhanced() {
                 </Card>
 
                 {/* Right: Year-by-Year Breakdown */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Year-by-Year Breakdown</CardTitle>
                     </CardHeader>
@@ -376,7 +376,7 @@ export function EMICalculatorEnhanced() {
                             </div>
 
                             {/* Key Insight */}
-                            <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-secondary-100">
+                            <div className="p-4 bg-gradient-to-br from-primary-50 to-indigo-50 rounded-xl border border-secondary-100">
                                 <div className="flex items-start gap-3">
                                     <Info className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
                                     <div>

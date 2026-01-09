@@ -90,7 +90,7 @@ export function HomeLoanVsSIPCalculator() {
             {
                 label: 'Cost of Loan (Interest Only)',
                 data: results.interestData,
-                borderColor: '#ef4444',
+                borderColor: '#2563eb',
                 backgroundColor: 'rgba(239, 68, 68, 0.1)',
                 fill: true,
                 tension: 0.4
@@ -178,7 +178,7 @@ export function HomeLoanVsSIPCalculator() {
             {/* Results */}
             <div className="lg:col-span-8 space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <Card className="bg-white border-none shadow-sm">
+                    <Card className="bg-white dark:bg-slate-800 border-none shadow-sm">
                         <CardContent className="pt-6">
                             <div className="text-2xl font-bold text-slate-900 mb-1">₹{results.emi.toLocaleString()}</div>
                             <div className="text-xs text-slate-400">Monthly EMI</div>
@@ -235,7 +235,7 @@ export function HomeLoanVsSIPCalculator() {
                             <div className="flex items-center gap-2 text-[10px] font-bold text-teal-400 uppercase tracking-widest">
                                 <CheckCircle2 className="w-3 h-3" /> Wealth Creator
                             </div>
-                            <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                            <div className="flex items-center gap-2 text-[10px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-widest">
                                 <Info className="w-3 h-3" /> Opportunity Cost Analysis
                             </div>
                         </div>

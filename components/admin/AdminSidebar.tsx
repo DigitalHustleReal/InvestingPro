@@ -99,12 +99,12 @@ export default function AdminSidebar() {
             {/* Logo/Brand Area */}
             <div className="p-6 mb-2">
                 <Link href="/admin" className="flex items-center gap-3 group">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-transform duration-300">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-primary-500/20 group-hover:scale-110 transition-transform duration-300">
                         <Zap className="w-6 h-6 text-white fill-white/20" />
                     </div>
                     <div>
                         <h2 className="font-bold text-lg leading-tight tracking-tight">InvestingP₹o</h2>
-                        <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest opacity-80">Authority CMS</p>
+                        <p className="text-[10px] font-bold text-primary-400 uppercase tracking-widest opacity-80">Authority CMS</p>
                     </div>
                 </Link>
             </div>
@@ -116,7 +116,7 @@ export default function AdminSidebar() {
                     <input
                         type="text"
                         placeholder="Quick search..."
-                        className="w-full pl-10 pr-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:bg-white/10 transition-all duration-300"
+                        className="w-full pl-10 pr-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:bg-white/10 transition-all duration-300"
                     />
                     <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
                         <kbd className="px-1.5 py-0.5 text-[10px] font-bold text-slate-500 bg-white/5 border border-white/10 rounded-md">
@@ -145,23 +145,23 @@ export default function AdminSidebar() {
                                             className={cn(
                                                 "group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 relative overflow-hidden",
                                                 isActive
-                                                    ? "bg-emerald-600/10 text-white shadow-[inset_0_0_20px_rgba(16,185,129,0.1)] border border-emerald-500/20"
+                                                    ? "bg-primary-600/10 text-white shadow-[inset_0_0_20px_rgba(16,185,129,0.1)] border border-primary-500/20"
                                                     : "text-slate-400 hover:text-white hover:bg-white/5"
                                             )}
                                         >
                                             {/* Active Glow Indicator */}
                                             {isActive && (
-                                                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-emerald-500 rounded-r-full shadow-[0_0_10px_#10b981]" />
+                                                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-primary-500 rounded-r-full shadow-[0_0_10px_#10b981]" />
                                             )}
                                             
                                             <Icon className={cn(
                                                 "w-5 h-5 transition-transform duration-300 group-hover:scale-110",
-                                                isActive ? "text-emerald-400" : "text-slate-500 group-hover:text-slate-300"
+                                                isActive ? "text-primary-400" : "text-slate-500 group-hover:text-slate-300"
                                             )} />
                                             <span className="flex-1">{item.label}</span>
                                             
                                             {item.badge !== undefined && item.badge > 0 && (
-                                                <span className="px-2 py-0.5 text-[10px] font-bold bg-primary-500 text-white rounded-full shadow-lg shadow-indigo-500/30 animate-pulse">
+                                                <span className="px-2 py-0.5 text-[10px] font-bold bg-primary-500 text-white rounded-full shadow-lg shadow-primary-500/30 animate-pulse">
                                                     {item.badge}
                                                 </span>
                                             )}

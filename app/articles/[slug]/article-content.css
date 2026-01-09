@@ -1,12 +1,36 @@
 /* ========================================
    PROFESSIONAL ARTICLE FORMATTING
+   Theme-aware with CSS variables
    ======================================== */
+
+/* Theme Variables */
+:root {
+  --prose-body: #334155;
+  --prose-headings: #0f172a;
+  --prose-links: #0d9488; /* primary-600 */
+  --prose-bold: #1e293b;
+  --prose-muted: #64748b;
+  --prose-borders: #e2e8f0;
+  --prose-bg: #ffffff;
+  --prose-bg-subtle: #f8fafc;
+}
+
+.dark {
+  --prose-body: #cbd5e1;
+  --prose-headings: #f1f5f9;
+  --prose-links: #2dd4bf; /* primary-400 */
+  --prose-bold: #e2e8f0;
+  --prose-muted: #94a3b8;
+  --prose-borders: #334155;
+  --prose-bg: #0f172a;
+  --prose-bg-subtle: #1e293b;
+}
 
 /* Article Container */
 .prose {
   max-width: 75ch; /* Optimal reading width */
   line-height: 1.8;
-  color: #334155;
+  color: var(--prose-body);
 }
 
 /* ========================================
@@ -205,7 +229,7 @@
 
 /* Headings */
 .prose h2 {
-  color: #0f172a;
+  color: var(--prose-headings);
   font-size: 2.25rem;
   font-weight: 800;
   margin-top: 64px;
@@ -249,7 +273,7 @@
 
 /* Paragraphs */
 .prose p {
-  color: #475569;
+  color: var(--prose-body);
   font-size: 1.125rem;
   line-height: 1.9;
   margin-bottom: 28px;
@@ -296,7 +320,7 @@
 
 /* Links */
 .prose a {
-  color: #0d9488;
+  color: var(--prose-links);
   text-decoration: underline;
   text-decoration-color: rgba(13, 148, 136, 0.3);
   text-underline-offset: 4px;

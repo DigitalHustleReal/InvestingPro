@@ -94,7 +94,7 @@ export function GoalPlanningCalculator() {
             {/* Top Row: Inputs on Left, Results on Right */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Input Card */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                     <CardHeader>
                         <CardTitle className="text-xl">Goal Planning Calculator</CardTitle>
                         <CardDescription>Calculate required SIP to achieve your financial goals</CardDescription>
@@ -225,26 +225,26 @@ export function GoalPlanningCalculator() {
                 </Card>
 
                 {/* Right: Results Card with Stats */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50">
                     <CardContent className="pt-4 sm:pt-6">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Required SIP</p>
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Required SIP</p>
                                 <p className="text-base sm:text-lg font-extrabold text-teal-600">{formatCurrency(result.requiredSIP)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Future Goal</p>
-                                <p className="text-base sm:text-lg font-extrabold text-emerald-600">{formatCurrency(result.futureGoal)}</p>
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Future Goal</p>
+                                <p className="text-base sm:text-lg font-extrabold text-primary-600">{formatCurrency(result.futureGoal)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Required Corpus</p>
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Required Corpus</p>
                                 <p className="text-base sm:text-lg font-extrabold text-slate-900">{formatCurrency(result.requiredCorpus)}</p>
                             </div>
                         </div>
 
 
-                        <div className="p-4 bg-white rounded-xl border border-emerald-100 mb-4">
-                            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Current Savings (Future Value)</p>
+                        <div className="p-4 bg-white dark:bg-slate-800 rounded-xl border border-primary-100 mb-4">
+                            <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Current Savings (Future Value)</p>
                             <p className="text-sm font-bold text-slate-600">{formatCurrency(result.currentSavingsFuture)}</p>
                         </div>
                     </CardContent>
@@ -252,7 +252,7 @@ export function GoalPlanningCalculator() {
             </div>
 
             {/* Bottom Row: Goal Progress Chart */}
-            <Card className="border-slate-200 shadow-sm rounded-2xl">
+            <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                 <CardHeader className="pb-2">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Goal Progress Projection</CardTitle>
                 </CardHeader>
@@ -273,7 +273,7 @@ export function GoalPlanningCalculator() {
                                     />
                                     <Legend />
                                     <Line type="monotone" dataKey="corpus" stroke="#14b8a6" strokeWidth={2} name="Your Corpus" />
-                                    <Line type="monotone" dataKey="goal" stroke="#f59e0b" strokeWidth={2} strokeDasharray="5 5" name="Goal Amount" />
+                                    <Line type="monotone" dataKey="goal" stroke="#2563eb" strokeWidth={2} strokeDasharray="5 5" name="Goal Amount" />
                                 </LineChart>
                             </ResponsiveContainer>
                         </div>

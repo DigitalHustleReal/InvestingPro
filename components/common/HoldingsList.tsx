@@ -93,15 +93,15 @@ export default function HoldingsList({ holdings, onDelete }: HoldingsListProps) 
                                     <p className="text-[10px] uppercase text-slate-500 md:mb-1 text-right">Returns</p>
                                     <div className="flex items-center gap-1 justify-end">
                                         {holding.returns >= 0 ? (
-                                            <TrendingUp className="w-3 h-3 text-emerald-600" />
+                                            <TrendingUp className="w-3 h-3 text-primary-600" />
                                         ) : (
                                             <TrendingDown className="w-3 h-3 text-red-600" />
                                         )}
-                                        <span className={`font-bold text-sm ${holding.returns >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
+                                        <span className={`font-bold text-sm ${holding.returns >= 0 ? 'text-primary-600' : 'text-red-600'}`}>
                                             {holding.returns >= 0 ? '+' : ''}₹{Math.abs(holding.returns).toLocaleString('en-IN')}
                                         </span>
                                     </div>
-                                    <p className={`text-xs font-medium text-right ${holding.returns >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
+                                    <p className={`text-xs font-medium text-right ${holding.returns >= 0 ? 'text-primary-600' : 'text-red-600'}`}>
                                         {holding.returns >= 0 ? '+' : ''}{holding.returns_percentage}%
                                     </p>
                                 </div>

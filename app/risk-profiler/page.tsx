@@ -106,8 +106,8 @@ const riskProfiles: Record<string, any> = {
         name: "Moderate",
         icon: TrendingUp,
         color: "from-emerald-500 to-teal-600",
-        bgLight: "bg-emerald-50",
-        text: "text-emerald-700",
+        bgLight: "bg-primary-50",
+        text: "text-primary-700",
         description: "You're comfortable with moderate risk for balanced growth. You understand that some volatility is necessary for wealth creation.",
         recommendations: [
             { category: "Large Cap Equity Funds", allocation: "35%", icon: TrendingUp },
@@ -232,7 +232,7 @@ export default function RiskProfiler() {
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 pb-20">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-20">
             <SEOHead
                 title="Investment DNA - Institutional Risk Profiler | InvestingPro"
                 description="Discover your investment personality with our proprietary assessment tool. Get professional asset allocation based on your risk appetite."

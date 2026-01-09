@@ -48,9 +48,9 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                 <section className="bg-slate-50 border-b border-slate-200 py-4">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex items-center gap-2 text-sm">
-                            <Link href="/" className="text-slate-600 hover:text-teal-600">Home</Link>
+                            <Link href="/" className="text-slate-600 hover:text-primary-600">Home</Link>
                             <ChevronRight className="w-4 h-4 text-slate-400" />
-                            <Link href={`/${category.slug}`} className="text-slate-600 hover:text-teal-600">
+                            <Link href={`/${category.slug}`} className="text-slate-600 hover:text-primary-600">
                                 {category.name}
                             </Link>
                             <ChevronRight className="w-4 h-4 text-slate-400" />
@@ -66,12 +66,12 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                             <div className="flex items-center gap-3 mb-4">
                                 <Link 
                                     href={`/${category.slug}`}
-                                    className="text-teal-400 hover:text-teal-300 text-sm font-medium"
+                                    className="text-primary-400 hover:text-primary-300 text-sm font-medium"
                                 >
                                     {category.name}
                                 </Link>
                                 <ChevronRight className="w-4 h-4 text-slate-400" />
-                                <Badge className="bg-teal-500/20 text-teal-400 border-teal-500/30">
+                                <Badge className="bg-primary-500/20 text-primary-400 border-primary-500/30">
                                     {subcategory.name}
                                 </Badge>
                             </div>
@@ -90,7 +90,7 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="max-w-4xl">
                             <h2 className="text-3xl font-bold text-slate-900 mb-6 flex items-center gap-3">
-                                <CheckCircle2 className="w-8 h-8 text-teal-600" />
+                                <CheckCircle2 className="w-8 h-8 text-primary-600" />
                                 What Are {subcategory.name}?
                             </h2>
                             <div className="prose prose-lg max-w-none">
@@ -107,10 +107,10 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="max-w-4xl">
                             <h2 className="text-3xl font-bold text-slate-900 mb-6 flex items-center gap-3">
-                                <Users className="w-8 h-8 text-teal-600" />
+                                <Users className="w-8 h-8 text-primary-600" />
                                 Who Are {subcategory.name} For?
                             </h2>
-                            <Card className="border-0 shadow-lg bg-teal-50">
+                            <Card className="border-0 shadow-lg bg-primary-50">
                                 <CardContent className="p-8">
                                     <p className="text-slate-700 leading-relaxed text-lg">
                                         {whoItIsFor}
@@ -126,10 +126,10 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex items-center justify-between mb-8">
                             <h2 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
-                                <BarChart3 className="w-8 h-8 text-teal-600" />
+                                <BarChart3 className="w-8 h-8 text-primary-600" />
                                 Compare {subcategory.name}
                             </h2>
-                            <Badge className="bg-teal-100 text-teal-700 text-sm font-bold">
+                            <Badge className="bg-primary-100 text-primary-700 text-sm font-bold">
                                 {productComparison.totalProducts} Options
                             </Badge>
                         </div>
@@ -151,7 +151,7 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                                                     <p className="text-sm text-slate-600 mb-4">
                                                         {product.provider || 'Provider'}
                                                     </p>
-                                                    <div className="flex items-center gap-2 text-teal-600 font-medium text-sm">
+                                                    <div className="flex items-center gap-2 text-primary-600 font-medium text-sm">
                                                         View Details
                                                         <ArrowRight className="w-4 h-4" />
                                                     </div>
@@ -167,7 +167,7 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                                         <div className="grid md:grid-cols-2 gap-3">
                                             {productComparison.comparisonPoints.map((point, idx) => (
                                                 <div key={idx} className="flex items-center gap-2">
-                                                    <CheckCircle2 className="w-5 h-5 text-teal-600 shrink-0" />
+                                                    <CheckCircle2 className="w-5 h-5 text-primary-600 shrink-0" />
                                                     <span className="text-slate-700">{point}</span>
                                                 </div>
                                             ))}
@@ -189,7 +189,7 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                     <section className="py-16">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <h2 className="text-3xl font-bold text-slate-900 mb-8 flex items-center gap-3">
-                                <Calculator className="w-8 h-8 text-teal-600" />
+                                <Calculator className="w-8 h-8 text-primary-600" />
                                 Related Calculators
                             </h2>
                             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -202,8 +202,8 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                                         <Card className="border-0 shadow-lg hover:shadow-xl transition-all h-full">
                                             <CardContent className="p-6">
                                                 <div className="flex items-center gap-3 mb-3">
-                                                    <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
-                                                        <Calculator className="w-6 h-6 text-teal-600" />
+                                                    <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                                                        <Calculator className="w-6 h-6 text-primary-600" />
                                                     </div>
                                                     <h3 className="text-lg font-bold text-slate-900">
                                                         {calc.name}
@@ -223,7 +223,7 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                     <section className="py-16 bg-slate-50">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <h2 className="text-3xl font-bold text-slate-900 mb-8 flex items-center gap-3">
-                                <BookOpen className="w-8 h-8 text-teal-600" />
+                                <BookOpen className="w-8 h-8 text-primary-600" />
                                 Related Terms
                             </h2>
                             <div className="flex flex-wrap gap-3">
@@ -231,7 +231,7 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                                     <Link
                                         key={idx}
                                         href={`/glossary/${term.slug}`}
-                                        className="px-4 py-2 bg-white border border-slate-200 rounded-lg hover:border-teal-300 hover:bg-teal-50 transition-colors font-medium text-slate-900"
+                                        className="px-4 py-2 bg-white border border-slate-200 rounded-lg hover:border-primary-300 hover:bg-primary-50 transition-colors font-medium text-slate-900"
                                     >
                                         {term.term}
                                     </Link>
@@ -246,7 +246,7 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <Link
                             href={`/${category.slug}`}
-                            className="text-teal-600 hover:text-teal-700 font-medium inline-flex items-center gap-2"
+                            className="text-primary-600 hover:text-primary-700 font-medium inline-flex items-center gap-2"
                         >
                             ← Back to {category.name}
                         </Link>

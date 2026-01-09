@@ -88,7 +88,7 @@ export function TaxCalculator() {
             {/* Top Row: Inputs on Left, Results on Right */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Input Card */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                     <CardHeader>
                         <div className="flex items-start justify-between gap-4 mb-2">
                             <div className="flex-1">
@@ -96,7 +96,7 @@ export function TaxCalculator() {
                                 <CardDescription>Compare Old vs New Tax Regime (2024-25)</CardDescription>
                             </div>
                             <div className="flex flex-col gap-1.5 items-end">
-                                <Badge variant="secondary" className="bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100">
+                                <Badge variant="secondary" className="bg-primary-50 text-primary-700 border-primary-200 hover:bg-primary-100">
                                     <CheckCircle2 className="w-3 h-3 mr-1" /> Free
                                 </Badge>
                                 <Badge variant="secondary" className="bg-secondary-50 text-secondary-700 border-secondary-200 hover:bg-secondary-100 text-[10px]">
@@ -119,7 +119,7 @@ export function TaxCalculator() {
                                         setIncome(preset.income);
                                         setDeductions(preset.deductions);
                                     }}
-                                    className="text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md font-medium transition-colors border border-slate-200"
+                                    className="text-xs px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-md font-medium transition-colors border border-slate-200"
                                 >
                                     {preset.label}
                                 </button>
@@ -139,7 +139,7 @@ export function TaxCalculator() {
                                             type="number"
                                             value={income}
                                             onChange={(e) => setIncome(Number(e.target.value))}
-                                            className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900"
+                                            className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-slate-100"
                                         />
                                     </div>
                                 </div>
@@ -158,7 +158,7 @@ export function TaxCalculator() {
                                 <div className="flex justify-between items-center">
                                     <Label className="text-sm text-slate-700 font-semibold">Age</Label>
                                     <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                        <span className="text-sm font-bold text-slate-900">{age} Y</span>
+                                        <span className="text-sm font-bold text-slate-900 dark:text-slate-100">{age} Y</span>
                                     </div>
                                 </div>
                                 <Slider
@@ -181,7 +181,7 @@ export function TaxCalculator() {
                                             type="number"
                                             value={deductions}
                                             onChange={(e) => setDeductions(Number(e.target.value))}
-                                            className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900"
+                                            className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-slate-100"
                                         />
                                     </div>
                                 </div>
@@ -200,12 +200,12 @@ export function TaxCalculator() {
                 </Card>
 
                 {/* Right: Comparison Results Card */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 relative overflow-hidden">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 relative overflow-hidden">
                     {/* Decorative gradient overlay */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-secondary-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
-                        <div className="text-center p-6 md:p-8 bg-white rounded-xl shadow-sm border border-secondary-100 mb-4">
-                            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">
+                        <div className="text-center p-6 md:p-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-secondary-100 mb-4">
+                            <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">
                                 {result.betterRegime} Regime is Better
                             </p>
                             <p className="text-3xl font-extrabold text-secondary-600 mb-1">
@@ -215,14 +215,14 @@ export function TaxCalculator() {
                         </div>
 
                         <div className="grid grid-cols-2 gap-3 mb-4">
-                            <div className="text-center p-5 bg-white rounded-2xl shadow-sm border border-secondary-100">
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Old Tax</p>
+                            <div className="text-center p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-secondary-100">
+                                <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Old Tax</p>
                                 <p className="text-lg font-extrabold text-primary-600">{formatCurrency(result.oldTax)}</p>
                                 <p className="text-[10px] text-slate-500 mt-1">Net: {formatCurrency(result.oldNetIncome)}</p>
                             </div>
-                            <div className="text-center p-5 bg-white rounded-2xl shadow-sm border border-emerald-100">
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">New Tax</p>
-                                <p className="text-lg font-extrabold text-emerald-600">{formatCurrency(result.newTax)}</p>
+                            <div className="text-center p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-primary-100">
+                                <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">New Tax</p>
+                                <p className="text-lg font-extrabold text-primary-600">{formatCurrency(result.newTax)}</p>
                                 <p className="text-[10px] text-slate-500 mt-1">Net: {formatCurrency(result.newNetIncome)}</p>
                             </div>
                         </div>
@@ -257,7 +257,7 @@ export function TaxCalculator() {
             {/* Bottom Row: Comparison Chart & Tax Slabs */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Comparison Chart */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Tax Comparison</CardTitle>
                     </CardHeader>
@@ -276,8 +276,8 @@ export function TaxCalculator() {
                                         formatter={(value: number | undefined) => value !== undefined ? formatCurrency(value) : ''}
                                         contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
                                     />
-                                    <Bar dataKey="tax" fill="#8b5cf6" name="Tax Payable" radius={[8, 8, 0, 0]} />
-                                    <Bar dataKey="net" fill="#10b981" name="Net Income" radius={[8, 8, 0, 0]} />
+                                    <Bar dataKey="tax" fill="#2563eb" name="Tax Payable" radius={[8, 8, 0, 0]} />
+                                    <Bar dataKey="net" fill="#0d9488" name="Net Income" radius={[8, 8, 0, 0]} />
                                 </BarChart>
                             </ResponsiveContainer>
                         </div>
@@ -285,7 +285,7 @@ export function TaxCalculator() {
                 </Card>
 
                 {/* Right: Tax Slabs Info */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Tax Slabs (2024-25)</CardTitle>
                     </CardHeader>
@@ -301,8 +301,8 @@ export function TaxCalculator() {
                                 </div>
                             </div>
 
-                            <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
-                                <p className="text-xs font-bold text-emerald-900 mb-2">New Tax Regime</p>
+                            <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
+                                <p className="text-xs font-bold text-primary-900 mb-2">New Tax Regime</p>
                                 <div className="space-y-1 text-xs text-slate-700">
                                     <p>Up to ₹3L: 0%</p>
                                     <p>₹3L - ₹7L: 5%</p>
@@ -313,11 +313,11 @@ export function TaxCalculator() {
                                 </div>
                             </div>
 
-                            <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-secondary-100">
+                            <div className="p-4 bg-gradient-to-br from-primary-50 to-indigo-50 rounded-xl border border-secondary-100">
                                 <div className="flex items-start gap-3">
                                     <Info className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
                                     <div>
-                                        <p className="text-sm font-semibold text-slate-900 mb-1">Tax Regime Selection</p>
+                                        <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-1">Tax Regime Selection</p>
                                         <p className="text-xs text-slate-600 leading-relaxed">
                                             Old regime benefits those with high deductions (80C, HRA, etc.). New regime is better for those with minimal deductions. Health & education cess (4%) is applicable on both.
                                         </p>
@@ -342,7 +342,7 @@ function TaxSEOContentSection() {
             {/* Introduction */}
             <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-slate-50 to-white">
                 <CardContent className="p-8">
-                    <h2 className="text-3xl font-bold text-slate-900 mb-4">
+                    <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">
                         Income Tax Calculator India 2024-25 - Compare Old vs New Tax Regime
                     </h2>
                     <p className="text-lg text-slate-600 leading-relaxed mb-6">
@@ -361,7 +361,7 @@ function TaxSEOContentSection() {
                             "Includes health & education cess (4%) in calculations"
                         ].map((benefit, idx) => (
                             <div key={idx} className="flex items-start gap-3">
-                                <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                                <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
                                 <p className="text-slate-700 font-medium">{benefit}</p>
                             </div>
                         ))}
@@ -372,7 +372,7 @@ function TaxSEOContentSection() {
             {/* How It Works */}
             <Card className="border-0 shadow-lg rounded-2xl">
                 <CardHeader>
-                    <CardTitle className="text-2xl font-bold text-slate-900">How to Use Income Tax Calculator</CardTitle>
+                    <CardTitle className="text-2xl font-bold text-slate-900 dark:text-slate-100">How to Use Income Tax Calculator</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -403,7 +403,7 @@ function TaxSEOContentSection() {
                                     {step.step}
                                 </div>
                                 <div className="pl-6">
-                                    <h3 className="font-bold text-slate-900 mb-2">{step.title}</h3>
+                                    <h3 className="font-bold text-slate-900 dark:text-slate-100 mb-2">{step.title}</h3>
                                     <p className="text-sm text-slate-600 leading-relaxed">{step.description}</p>
                                 </div>
                             </div>
@@ -415,7 +415,7 @@ function TaxSEOContentSection() {
             {/* FAQ Section */}
             <Card className="border-0 shadow-lg rounded-2xl">
                 <CardHeader>
-                    <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
+                    <CardTitle className="text-2xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-6 md:p-8">
                         <Info className="w-6 h-6 text-secondary-600" />
                         Income Tax Calculator FAQs
                     </CardTitle>
@@ -448,8 +448,8 @@ function TaxSEOContentSection() {
                                 a: "For ₹10L income: Old regime (with ₹1.5L deductions) - Taxable income ₹8.5L, tax approximately ₹87,500. New regime - Taxable income ₹10L, tax approximately ₹75,000. New regime saves ₹12,500 in this scenario. Actual tax depends on your specific deductions and age."
                             }
                         ].map((faq, idx) => (
-                            <div key={idx} className="border-b border-slate-200 pb-6 last:border-0">
-                                <h3 className="font-bold text-slate-900 mb-2 text-lg">{faq.q}</h3>
+                            <div key={idx} className="border-b border-slate-200 dark:border-slate-700 pb-6 last:border-0">
+                                <h3 className="font-bold text-slate-900 dark:text-slate-100 mb-2 text-lg">{faq.q}</h3>
                                 <p className="text-slate-600 leading-relaxed">{faq.a}</p>
                             </div>
                         ))}

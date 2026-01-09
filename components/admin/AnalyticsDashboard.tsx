@@ -58,7 +58,7 @@ export default function AnalyticsDashboard() {
             label: 'Total Views',
             value: analytics?.totalViews || 0,
             icon: Eye,
-            color: 'text-emerald-400',
+            color: 'text-primary-400',
             bg: 'bg-primary-500/10'
         },
         {
@@ -81,7 +81,7 @@ export default function AnalyticsDashboard() {
                                 <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center", stat.bg)}>
                                     <stat.icon className={cn("w-5 h-5", stat.color)} />
                                 </div>
-                                <Badge className="bg-primary-500/10 text-emerald-400 border-emerald-500/20 text-[9px]">
+                                <Badge className="bg-primary-500/10 text-primary-400 border-primary-500/20 text-[9px]">
                                     <ArrowUpRight className="w-3 h-3 mr-1" />
                                     Live
                                 </Badge>
@@ -101,7 +101,7 @@ export default function AnalyticsDashboard() {
             <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                 <CardHeader className="border-b border-white/5 px-6 py-4">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                        <TrendingUp className="w-4 h-4 text-emerald-400" />
+                        <TrendingUp className="w-4 h-4 text-primary-400" />
                         Top Performing Content
                     </CardTitle>
                 </CardHeader>

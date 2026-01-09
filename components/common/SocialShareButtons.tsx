@@ -53,7 +53,7 @@ export default function SocialShareButtons({ title, url, description }: SocialSh
                 href={shareLinks.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 rounded-lg text-sm font-medium transition-colors border border-emerald-200"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-primary-50 hover:bg-primary-100 text-primary-700 rounded-lg text-sm font-medium transition-colors border border-primary-200"
                 aria-label="Share on WhatsApp"
             >
                 <MessageCircle className="w-4 h-4" />

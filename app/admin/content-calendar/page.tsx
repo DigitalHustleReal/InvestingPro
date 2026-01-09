@@ -133,7 +133,7 @@ export default function ContentCalendarPage() {
                          {/* Stats */}
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                              {[
-                                { label: 'Scheduled', val: scheduledArticles.length, icon: Calendar, color: 'text-emerald-400' },
+                                { label: 'Scheduled', val: scheduledArticles.length, icon: Calendar, color: 'text-primary-400' },
                                 { label: 'Drafts', val: draftArticles.length, icon: FileText, color: 'text-slate-400' },
                                 { label: 'Pending Review', val: reviewArticles.length, icon: Clock, color: 'text-amber-400' },
                                 { label: 'Total Assets', val: articles.length, icon: LayoutList, color: 'text-primary-400' },
@@ -218,7 +218,7 @@ export default function ContentCalendarPage() {
                                                 </td>
                                                 <td className="p-4">
                                                     <Badge className={
-                                                        article.status === 'published' ? 'bg-emerald-500/10 text-emerald-400' :
+                                                        article.status === 'published' ? 'bg-primary-500/10 text-primary-400' :
                                                         article.status === 'draft' ? 'bg-slate-500/10 text-slate-400' :
                                                         'bg-amber-500/10 text-amber-400'
                                                     }>

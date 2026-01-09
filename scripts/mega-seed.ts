@@ -16,69 +16,81 @@ if (!supabaseUrl || !supabaseKey) {
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// --- Generators ---
+// --- Data Arrays ---
+const banks = ['HDFC Bank', 'SBI Card', 'ICICI Bank', 'Axis Bank', 'Kotak Mahindra', 'IDFC First', 'IndusInd Bank', 'Yes Bank', 'RBL Bank', 'Federal Bank', 'AU Small Finance', 'Bank of Baroda'];
+const cardNames = ['Regalia', 'Millennia', 'SimplyCLICK', 'Ace', 'Sapphiro', 'Rubyx', 'Coral', 'Privilege', 'Select', 'Platinum', 'Gold', 'Titanium', 'Black', 'Signature', 'Infinia', 'Magnus', 'Tata Neu Plus'];
+const loanProviders = ['HDFC Bank', 'SBI', 'ICICI Bank', 'Bajaj Finserv', 'Tata Capital', 'Aditya Birla Capital', 'Kotak Mahindra', 'Axis Bank', 'IDFC First', 'Poonawalla Fincorp', 'LIC Housing Finance', 'L&T Finance'];
+const fundHouses = ['SBI Mutual Fund', 'HDFC Mutual Fund', 'ICICI Prudential', 'Axis Mutual Fund', 'Nippon India', 'Kotak Mutual Fund', 'UTI Mutual Fund', 'Mirae Asset', 'DSP Mutual Fund', 'Tata Mutual Fund', 'Aditya Birla Sun Life', 'PPFAS Mutual Fund'];
+const fundTypes = ['Bluechip Fund', 'Midcap Fund', 'Small Cap Fund', 'Flexi Cap Fund', 'Tax Saver ELSS', 'Liquid Fund', 'Balanced Advantage Fund', 'Large Cap Fund', 'Multi Cap Fund', 'Index Fund', 'Nifty 50 Index', 'Nifty Next 50'];
+const insurers = ['LIC', 'HDFC Life', 'ICICI Prudential Life', 'SBI Life', 'Max Life', 'Bajaj Allianz Life', 'Tata AIA', 'Aditya Birla Sun Life', 'PNB MetLife', 'Kotak Life'];
+const healthInsurers = ['Star Health', 'Care Health', 'HDFC ERGO', 'ICICI Lombard', 'Niva Bupa', 'ManipalCigna', 'Bajaj Allianz GI', 'New India Assurance', 'National Insurance', 'Aditya Birla Health'];
+const fdProviders = ['SBI', 'HDFC Bank', 'ICICI Bank', 'Axis Bank', 'Kotak', 'IDFC First', 'RBL Bank', 'IndusInd Bank', 'Bajaj Finance', 'Shriram Finance', 'Mahindra Finance', 'PNB Housing'];
+const brokers = ['Zerodha', 'Groww', 'Upstox', 'Angel One', '5paisa', 'ICICI Direct', 'HDFC Securities', 'Kotak Securities', 'Motilal Oswal', 'Sharekhan', 'Dhan', 'Fyers'];
 
-const banks = ['HDFC Bank', 'SBI Card', 'ICICI Bank', 'Axis Bank', 'Kotak Mahindra', 'IDFC First', 'IndusInd Bank', 'Yes Bank', 'Standard Chartered', 'American Express'];
-const cardNames = ['Regalia Gold', 'Millennia', 'SimplyCLICK', 'Platinum Travel', 'Ace', 'Sapphiro', 'Rubyx', 'Coral', 'Privilege', 'Select', 'Ultimate', 'Black', 'Platinum', 'Titanium'];
-const loanProviders = ['HDFC Bank', 'SBI', 'ICICI Bank', 'Bajaj Finserv', 'Tata Capital', 'Aditya Birla', 'Kotak Mahindra', 'Axis Bank'];
-const fundHouses = ['SBI Mutual Fund', 'HDFC Mutual Fund', 'ICICI Prudential', 'Axis Mutual Fund', 'Nippon India', 'Kotak Mutual Fund', 'UTI Mutual Fund', 'Mirae Asset'];
-const fundTypes = ['Bluechip Fund', 'Midcap Fund', 'Small Cap Fund', 'Flexi Cap Fund', 'Tax Saver (ELSS)', 'Liquid Fund', 'Balanced Advantage'];
-
-const getRandom = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
+// --- Utility Functions ---
+const getRandom = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
 const getRandomInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
 const getRandomFloat = (min: number, max: number, decimals: number = 1) => parseFloat((Math.random() * (max - min) + min).toFixed(decimals));
+const slugify = (str: string) => str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+// --- Generators (No affiliate_link/official_link - uses /go/[slug] pattern) ---
 
 function generateCreditCard(index: number) {
   const bank = getRandom(banks);
-  const name = `${bank} ${getRandom(cardNames)} ${index}`; // Append index to ensure uniqueness if needed, or just relying on random combo
-  // Cleaner name
-  const cleanName = `${bank} ${getRandom(cardNames)}`; 
-  // Dedupe logic handled later or by slug uniqueness
-
-  const annualFee = getRandomInt(0, 10000);
+  const cardName = getRandom(cardNames);
+  const name = `${bank} ${cardName}`;
+  const annualFee = getRandomInt(0, 5000);
   
   return {
-    name: cleanName,
-    slug: `${cleanName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${index}`,
+    name,
+    slug: `${slugify(name)}-${index}`,
     category: 'credit_card',
     provider_name: bank,
-    description: `A premium credit card by ${bank} offering exclusive rewards and benefits for lifestyle and travel.`,
-    image_url: `https://placehold.co/600x400/0A5F56/FFF?text=${encodeURIComponent(cleanName)}`,
-    rating: getRandomFloat(3.5, 5.0),
+    description: `Premium credit card by ${bank} with excellent rewards on shopping, dining, and travel. Enjoy exclusive benefits and lounge access.`,
+    image_url: `/assets/products/credit-card-placeholder.png`,
+    rating: getRandomFloat(3.8, 4.9),
     features: {
       annual_fee: annualFee === 0 ? 'Lifetime Free' : `₹${annualFee}`,
+      joining_fee: annualFee === 0 ? '₹0' : `₹${annualFee}`,
       reward_rate: `${getRandomFloat(1, 5)}%`,
-      lounge_access: `${getRandomInt(0, 8)} Domestic/Quarter`,
-      forex_markup: `${getRandomFloat(1.5, 3.5)}%`
+      lounge_access: `${getRandomInt(2, 8)} per quarter`,
+      forex_markup: `${getRandomFloat(1.5, 3.5)}%`,
+      welcome_bonus: annualFee > 2000 ? `${getRandomInt(5000, 25000)} bonus points` : undefined
     },
-    pros: ['High Reward Rate', 'Complimentary Lounge Access', 'Fuel Surcharge Waiver'],
-    cons: ['High Annual Fee', 'Invite Only'], // Standard cons
-    trust_score: getRandomInt(80, 100),
+    pros: ['High reward rate on spends', 'Complimentary lounge access', 'Fuel surcharge waiver', 'Movie ticket discounts'],
+    cons: annualFee > 0 ? ['Annual fee applicable', 'Income requirement'] : ['Limited lounge access'],
+    trust_score: getRandomInt(80, 98),
     is_active: true
   };
 }
 
 function generateLoan(index: number) {
   const provider = getRandom(loanProviders);
-  const type = 'Personal Loan';
-  const name = `${provider} ${type}`;
+  const loanTypes = ['Personal Loan', 'Home Loan', 'Car Loan', 'Business Loan', 'Education Loan'];
+  const loanType = getRandom(loanTypes);
+  const name = `${provider} ${loanType}`;
+  
+  const interestRate = loanType === 'Home Loan' ? getRandomFloat(8.5, 9.5) : 
+                       loanType === 'Car Loan' ? getRandomFloat(8.0, 10.5) :
+                       getRandomFloat(10.5, 18.0);
   
   return {
-    name: name,
-    slug: `${provider.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-personal-loan-${index}`,
+    name,
+    slug: `${slugify(name)}-${index}`,
     category: 'loan',
     provider_name: provider,
-    description: `Instant ${type} from ${provider} with competitive interest rates and quick disbursal.`,
-    image_url: `https://placehold.co/600x400/D97706/FFF?text=${encodeURIComponent(name)}`,
-    rating: getRandomFloat(3.8, 4.9),
+    description: `Get instant ${loanType.toLowerCase()} from ${provider} with competitive interest rates, quick approval, and flexible repayment options.`,
+    image_url: `/assets/products/loan-placeholder.png`,
+    rating: getRandomFloat(3.8, 4.8),
     features: {
-      interest_rate: `${getRandomFloat(10.5, 16.0)}% p.a.`,
+      interest_rate: `${interestRate}% p.a.`,
       processing_fee: `${getRandomFloat(0.5, 2.5)}%`,
-      tenure: '12-60 Months',
-      max_amount: `₹${getRandomInt(5, 50)} Lakhs`
+      tenure: loanType === 'Home Loan' ? '5-30 years' : loanType === 'Car Loan' ? '1-7 years' : '12-60 months',
+      max_amount: loanType === 'Home Loan' ? `₹${getRandomInt(50, 500)} Lakhs` : `₹${getRandomInt(5, 50)} Lakhs`,
+      min_salary: `₹${getRandomInt(15, 30)},000/month`
     },
-    pros: ['Quick Disbursal', 'Minimal Documentation', 'Flexible Tenure'],
-    cons: ['Processing Fee Applicable', 'Pre-closure charges'],
+    pros: ['Quick disbursal', 'Minimal documentation', 'Flexible EMI options', 'Online application'],
+    cons: ['Processing fee applicable', 'Pre-closure charges may apply'],
     trust_score: getRandomInt(75, 95),
     is_active: true
   };
@@ -86,123 +98,209 @@ function generateLoan(index: number) {
 
 function generateMutualFund(index: number) {
   const house = getRandom(fundHouses);
-  const type = getRandom(fundTypes);
-  const name = `${house} ${type}`;
+  const fundType = getRandom(fundTypes);
+  const name = `${house} ${fundType}`;
 
   return {
-    name: name,
-    slug: `${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${index}`,
+    name,
+    slug: `${slugify(name)}-${index}`,
     category: 'mutual_fund',
     provider_name: house,
-    description: `A top-rated ${type} from ${house} aiming for long-term capital appreciation.`,
-    image_url: `https://placehold.co/600x400/059669/FFF?text=${encodeURIComponent(name)}`,
-    rating: getRandomFloat(3.5, 5.0),
+    description: `${fundType} by ${house} focused on long-term capital appreciation through diversified equity investments.`,
+    image_url: `/assets/products/mutual-fund-placeholder.png`,
+    rating: getRandomFloat(3.8, 4.9),
     features: {
-      returns_3yr: `${getRandomFloat(12, 25)}%`,
-      expense_ratio: `${getRandomFloat(0.5, 1.5)}%`,
-      min_sip: `₹${getRandomInt(1, 10) * 100}`,
-      risk_level: 'Very High'
+      returns_1yr: `${getRandomFloat(8, 35)}%`,
+      returns_3yr: `${getRandomFloat(12, 25)}% CAGR`,
+      returns_5yr: `${getRandomFloat(14, 22)}% CAGR`,
+      expense_ratio: `${getRandomFloat(0.3, 1.8)}%`,
+      min_sip: `₹${getRandomInt(1, 5) * 100}`,
+      min_lumpsum: `₹${getRandomInt(1, 5) * 1000}`,
+      risk_level: fundType.includes('Small') || fundType.includes('Midcap') ? 'Very High' : 'Moderately High',
+      aum: `₹${getRandomInt(5000, 80000)} Cr`
     },
-    pros: ['Consistent Returns', 'Experienced Fund Manager', 'Low Expense Ratio'],
-    cons: ['Market Risk', 'Exit Load'],
+    pros: ['Consistent track record', 'Experienced fund management', 'Good diversification', 'SIP available from ₹100'],
+    cons: ['Subject to market risk', 'Exit load for early redemption'],
+    trust_score: getRandomInt(82, 98),
+    is_active: true
+  };
+}
+
+function generateInsurance(index: number) {
+  const isHealth = index % 2 === 0;
+  const insurer = isHealth ? getRandom(healthInsurers) : getRandom(insurers);
+  const planType = isHealth ? 'Health Insurance' : 'Term Life Insurance';
+  const name = `${insurer} ${isHealth ? 'Health Shield' : 'Term Plan'}`;
+
+  return {
+    name,
+    slug: `${slugify(name)}-${index}`,
+    category: 'insurance',
+    provider_name: insurer,
+    description: `Comprehensive ${planType.toLowerCase()} from ${insurer} offering extensive coverage and cashless claim settlement.`,
+    image_url: `/assets/products/insurance-placeholder.png`,
+    rating: getRandomFloat(4.0, 4.8),
+    features: {
+      cover_amount: isHealth ? `₹${getRandomInt(3, 25)} Lakhs` : `₹${getRandomInt(50, 200)} Lakhs`,
+      premium: isHealth ? `₹${getRandomInt(8, 25)}K/year` : `₹${getRandomInt(5, 15)}K/year`,
+      claim_ratio: `${getRandomFloat(95, 99)}%`,
+      insurance_type: planType,
+      no_claim_bonus: isHealth ? 'Up to 100%' : 'N/A',
+      coverage: isHealth ? 'Individual/Family' : 'Life Cover'
+    },
+    pros: ['High claim settlement ratio', 'Cashless hospitals network', 'No medical test up to 45 years', 'Tax benefits under 80C/80D'],
+    cons: ['Waiting period for pre-existing diseases', 'Co-payment in some plans'],
     trust_score: getRandomInt(85, 98),
     is_active: true
   };
 }
 
-async function seed() {
-  console.log('🚀 Starting Mega Seed (100+ Products)...');
-
-  const products = [];
-
-  // 40 Credit Cards
-  for (let i = 0; i < 40; i++) {
-    products.push(generateCreditCard(i));
-  }
-
-  // 30 Loans
-  for (let i = 0; i < 30; i++) {
-    products.push(generateLoan(i));
-  }
-
-  // 30 Mutual Funds
-  for (let i = 0; i < 30; i++) {
-    products.push(generateMutualFund(i));
-  }
+function generateFixedDeposit(index: number) {
+  const provider = getRandom(fdProviders);
+  const isBankFD = !provider.includes('Finance');
   
-  // Brokers (Static)
-  const brokers = [
-    {
-       name: 'Zerodha Kite',
-       slug: 'zerodha-kite-mega',
-       category: 'broker',
-       provider_name: 'Zerodha',
-       description: 'India\'s #1 Discount Broker',
-       image_url: 'https://placehold.co/600x400/3B82F6/FFF?text=Zerodha',
-       rating: 4.8,
-       features: { brokerage: '₹0 Eq Delivery', amc: '₹300/yr' },
-       trust_score: 95
+  return {
+    name: `${provider} Fixed Deposit`,
+    slug: `${slugify(provider)}-fd-${index}`,
+    category: 'insurance', // Using insurance as category for FD/savings products since DB constraint limits categories
+    provider_name: provider,
+    description: `Safe and secure fixed deposit by ${provider} with guaranteed returns and flexible tenure options.`,
+    image_url: `/assets/products/fd-placeholder.png`,
+    rating: getRandomFloat(4.0, 4.8),
+    features: {
+      interest_rate: isBankFD ? `${getRandomFloat(6.5, 7.5)}% p.a.` : `${getRandomFloat(7.5, 9.0)}% p.a.`,
+      senior_rate: `+0.5% extra`,
+      tenure: '7 days to 10 years',
+      min_deposit: '₹1,000',
+      tax_saver: 'Available (5 year lock-in)',
+      dicgc_insured: isBankFD ? 'Yes (up to ₹5 Lakh)' : 'No',
+      product_type: 'fixed_deposit'
     },
-    {
-       name: 'Upstox Pro',
-       slug: 'upstox-pro-mega',
-       category: 'broker',
-       provider_name: 'Upstox',
-       description: 'Fast and reliable trading platform',
-       image_url: 'https://placehold.co/600x400/3B82F6/FFF?text=Upstox',
-       rating: 4.5,
-       features: { brokerage: '₹20/order', amc: 'Free' },
-       trust_score: 90
-    }
-  ];
-  products.push(...brokers);
+    pros: ['Guaranteed returns', 'Flexible tenure', isBankFD ? 'DICGC insured' : 'Higher interest rates', 'Senior citizen benefits'],
+    cons: ['Premature withdrawal penalty', 'Interest taxable'],
+    trust_score: getRandomInt(85, 98),
+    is_active: true
+  };
+}
 
-  console.log(`📦 Prepared ${products.length} products to insert.`);
+function generateDematAccount(index: number) {
+  const broker = brokers[index % brokers.length];
+  
+  return {
+    name: `${broker} Demat Account`,
+    slug: slugify(broker),
+    category: 'broker', // broker is valid category
+    provider_name: broker,
+    description: `Open a free demat & trading account with ${broker}. Trade in stocks, mutual funds, IPOs, and more with India's leading broker.`,
+    image_url: `/assets/products/demat-placeholder.png`,
+    rating: getRandomFloat(4.2, 4.9),
+    features: {
+      account_opening_fee: '₹0',
+      amc: broker === 'Zerodha' ? '₹300/year' : '₹0',
+      equity_delivery: '₹0',
+      intraday_brokerage: `₹20 per order or ${getRandomFloat(0.01, 0.03)}%`,
+      platforms: 'Web, Mobile App, Desktop',
+      ipo_access: 'Yes - Free',
+      mutual_funds: 'Direct - Zero commission'
+    },
+    pros: ['Free account opening', 'Zero delivery brokerage', 'Easy IPO application', 'User-friendly platform', 'Free mutual fund investing'],
+    cons: ['Intraday charges apply', broker === 'Zerodha' ? 'AMC of ₹300/year' : 'Limited research tools'],
+    trust_score: getRandomInt(88, 98),
+    is_active: true
+  };
+}
 
-  // Insert in chunks to avoid request size limits
-  const chunkSize = 20;
+function generatePPFNPS(index: number) {
+  const isPPF = index % 2 === 0;
+  const provider = isPPF ? 'Government of India' : 'PFRDA';
+  
+  return {
+    name: isPPF ? 'PPF Account' : 'NPS Tier 1 Account',
+    slug: isPPF ? `ppf-account-${index}` : `nps-tier1-${index}`,
+    category: 'insurance', // Using insurance for savings/pension products - DB has limited categories
+    provider_name: provider,
+    description: isPPF 
+      ? 'Public Provident Fund - A safe, long-term investment backed by Government of India with tax-free returns.'
+      : 'National Pension System - A voluntary retirement savings scheme with market-linked returns and tax benefits.',
+    image_url: `/assets/products/savings-placeholder.png`,
+    rating: isPPF ? 4.7 : 4.5,
+    features: {
+      interest_rate: isPPF ? '7.1% p.a. (Q4 2025-26)' : 'Market-linked (8-12% historical)',
+      lock_in: isPPF ? '15 years' : 'Till retirement (60)',
+      min_investment: isPPF ? '₹500/year' : '₹1,000/year',
+      max_investment: isPPF ? '₹1.5 Lakh/year' : 'No limit',
+      tax_benefit: isPPF ? 'EEE (Exempt-Exempt-Exempt)' : 'Additional ₹50,000 under 80CCD(1B)',
+      scheme_type: isPPF ? 'Small Savings Scheme' : 'Pension Scheme'
+    },
+    pros: isPPF 
+      ? ['100% safe - Govt backed', 'Tax-free interest', 'EEE status - fully tax exempt', 'Loan facility available']
+      : ['Additional tax deduction of ₹50,000', 'Market-linked higher returns', 'Portable across jobs', 'Low-cost pension fund'],
+    cons: isPPF 
+      ? ['15 year lock-in', 'Lower returns vs equity', 'No premature closure']
+      : ['Market risk on returns', 'Money locked till 60', 'Complex withdrawal rules'],
+    trust_score: isPPF ? 99 : 95,
+    is_active: true
+  };
+}
+
+// --- MAIN SEED FUNCTION ---
+async function seed() {
+  console.log('🚀 Starting Mega Seed (200+ Products)...\n');
+
+  const products: any[] = [];
+
+  // 50 Credit Cards
+  console.log('💳 Generating 50 Credit Cards...');
+  for (let i = 0; i < 50; i++) products.push(generateCreditCard(i));
+
+  // 40 Loans  
+  console.log('🏦 Generating 40 Loans...');
+  for (let i = 0; i < 40; i++) products.push(generateLoan(i));
+
+  // 40 Mutual Funds
+  console.log('📈 Generating 40 Mutual Funds...');
+  for (let i = 0; i < 40; i++) products.push(generateMutualFund(i));
+
+  // 30 Insurance
+  console.log('🛡️ Generating 30 Insurance...');
+  for (let i = 0; i < 30; i++) products.push(generateInsurance(i));
+
+  // 20 Fixed Deposits
+  console.log('🏧 Generating 20 Fixed Deposits...');
+  for (let i = 0; i < 20; i++) products.push(generateFixedDeposit(i));
+
+  // 12 Demat Accounts (one per broker)
+  console.log('📊 Generating 12 Demat Accounts...');
+  for (let i = 0; i < brokers.length; i++) products.push(generateDematAccount(i));
+
+  // 10 PPF/NPS
+  console.log('🎯 Generating 10 PPF/NPS Schemes...');
+  for (let i = 0; i < 10; i++) products.push(generatePPFNPS(i));
+
+  console.log(`\n📦 Total: ${products.length} products ready to insert.\n`);
+
+  // Insert in chunks
+  const chunkSize = 25;
+  let success = 0;
+  let failed = 0;
+
   for (let i = 0; i < products.length; i += chunkSize) {
     const chunk = products.slice(i, i + chunkSize);
-    
-    // Attempt upsert
-    // Note: If 'cons' column is missing in DB (as noted in prev summary), we might want to omit it if error occurs. 
-    // But let's try with it first. If it fails, we handle error.
     
     const { error } = await supabase.from('products').upsert(chunk, { onConflict: 'slug' });
     
     if (error) {
-        console.error(`❌ Error inserting chunk ${i/chunkSize + 1}:`, error.message);
-        
-        // Fallback: Try inserting without 'cons' and 'pros' if columns missing
-        if (error.message.includes('column "cons"') || error.message.includes("Could not find the 'cons' column")) {
-            console.log('⚠️ Retrying without pros/cons columns...');
-            const strippedChunk = chunk.map(({ pros, cons, ...rest }) => rest);
-            const { error: retryError } = await supabase.from('products').upsert(strippedChunk, { onConflict: 'slug' });
-            
-            if (retryError) {
-                console.error(`❌ Retry 1 failed:`, retryError.message);
-                
-                // Fallback 2: Try without description as well
-                if (retryError.message.includes('description')) {
-                     console.log('⚠️ Retrying without description/pros/cons...');
-                     const strippedChunk2 = strippedChunk.map(({ description, ...rest }) => rest);
-                     const { error: retryError2 } = await supabase.from('products').upsert(strippedChunk2, { onConflict: 'slug' });
-                     if (retryError2) {
-                         console.error(`❌ Retry 2 failed:`, retryError2.message);
-                     } else {
-                         console.log(`✅ Chunk ${i/chunkSize + 1} inserted (minimal fields)`);
-                     }
-                }
-            } else {
-                console.log(`✅ Chunk ${i/chunkSize + 1} inserted (without pros/cons)`);
-            }
-        }
+      console.error(`❌ Chunk ${Math.floor(i/chunkSize) + 1} failed: ${error.message}`);
+      failed += chunk.length;
     } else {
-        console.log(`✅ Chunk ${i/chunkSize + 1} inserted successfully`);
+      console.log(`✅ Chunk ${Math.floor(i/chunkSize) + 1} - ${chunk.length} products inserted`);
+      success += chunk.length;
     }
   }
 
-  console.log('✨ Mega Seed Complete!');
+  console.log(`\n✨ Mega Seed Complete!`);
+  console.log(`✅ Success: ${success}`);
+  console.log(`❌ Failed: ${failed}`);
 }
 
 seed().catch(e => console.error(e));

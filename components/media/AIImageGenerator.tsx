@@ -85,7 +85,7 @@ export function AIImageGenerator() {
                         onChange={(e) => setPrompt(e.target.value)}
                         placeholder="Describe the image you want... (e.g., 'Professional credit card on wooden desk with laptop in background, modern lighting')"
                         rows={3}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
                     />
 
                     {/* Generate Button */}

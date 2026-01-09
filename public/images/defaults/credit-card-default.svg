@@ -1,0 +1,23 @@
+<svg width="400" height="250" viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="250" fill="url(#gradient)"/>
+  <defs>
+    <linearGradient id="gradient" x1="0" y1="0" x2="400" y2="250">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Credit Card Icon -->
+  <rect x="150" y="80" width="100" height="70" rx="8" fill="#10b981" opacity="0.2"/>
+  <rect x="150" y="80" width="100" height="70" rx="8" stroke="#10b981" stroke-width="2" fill="none"/>
+  
+  <!-- Card chip -->
+  <rect x="165" y="95" width="25" height="20" rx="3" fill="#10b981" opacity="0.4"/>
+  
+  <!-- Card stripes -->
+  <line x1="165" y1="125" x2="220" y2="125" stroke="#10b981" stroke-width="2" opacity="0.6"/>
+  <line x1="165" y1="135" x2="200" y2="135" stroke="#10b981" stroke-width="2" opacity="0.4"/>
+  
+  <!-- Text -->
+  <text x="200" y="180" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#64748b" text-anchor="middle" font-weight="500">Credit Card</text>
+</svg>

@@ -11,8 +11,8 @@ export function CTAButton({ text, href, variant = 'primary', className = '' }: C
   const baseStyles = 'inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold transition-all duration-200'
   
   const variantStyles = {
-    primary: 'bg-primary-600 text-white hover:bg-emerald-700 shadow-lg hover:shadow-xl',
-    secondary: 'bg-white text-emerald-600 border-2 border-emerald-600 hover:bg-emerald-50'
+    primary: 'bg-primary-600 text-white hover:bg-primary-700 shadow-lg hover:shadow-xl',
+    secondary: 'bg-white text-primary-600 border-2 border-primary-600 hover:bg-primary-50'
   }
   
   return (
@@ -33,7 +33,7 @@ interface CategoryCTAProps {
 
 export function CategoryCTA({ categoryName, description, href }: CategoryCTAProps) {
   return (
-    <div className="bg-gradient-to-r from-emerald-50 to-blue-50 rounded-2xl p-8 text-center">
+    <div className="bg-gradient-to-r from-emerald-50 to-primary-50 rounded-2xl p-8 text-center">
       <h3 className="text-2xl font-bold text-gray-900 mb-3">
         Explore {categoryName}
       </h3>

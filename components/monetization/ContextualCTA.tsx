@@ -134,13 +134,13 @@ export default function ContextualCTA({
     // Inline placement (default)
     return (
         <div className={cn(
-            "my-8 p-6 rounded-2xl bg-gradient-to-r from-teal-500/5 to-primary-500/5 border border-teal-500/10",
+            "my-8 p-6 rounded-2xl bg-gradient-to-r from-primary-500/5 to-primary-600/5 border border-primary-500/10",
             className
         )}>
             <div className="flex flex-col md:flex-row md:items-center gap-4">
                 <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                        <TrendingUp className="w-4 h-4 text-teal-500" />
+                        <TrendingUp className="w-4 h-4 text-primary-500" />
                         <span className="text-xs font-bold uppercase tracking-widest text-slate-400">Partner Recommendation</span>
                     </div>
                     <h4 className="font-bold text-slate-900 dark:text-white">

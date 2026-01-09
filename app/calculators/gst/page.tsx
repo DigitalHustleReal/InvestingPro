@@ -166,7 +166,7 @@ export default function GSTCalculatorPage() {
                                     "Free to use, no registration required"
                                 ].map((feature, idx) => (
                                     <div key={idx} className="flex items-start gap-3">
-                                        <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                                        <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
                                         <p className="text-slate-700 font-medium">{feature}</p>
                                     </div>
                                 ))}

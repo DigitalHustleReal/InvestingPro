@@ -54,7 +54,7 @@ export default function MediaPage() {
                                 </div>
                                 <div className="flex justify-between text-slate-400">
                                     <span>CDN</span>
-                                    <span className="text-emerald-400 font-medium">Enabled</span>
+                                    <span className="text-primary-400 font-medium">Enabled</span>
                                 </div>
                             </div>
                         </ContentSection>

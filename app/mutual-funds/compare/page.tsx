@@ -87,9 +87,9 @@ export default async function CompareMutualFunds({ searchParams }: { searchParam
                         Returns Performance
                     </div>
                     <div className="divide-y divide-gray-100">
-                        <ComparisonRow label="1 Year Return" funds={funds} render={(f) => <span className="text-emerald-600 font-bold">{formatPercentage(f.returns_1y)}</span>} />
-                        <ComparisonRow label="3 Year Return" funds={funds} render={(f) => <span className="text-emerald-600 font-bold">{formatPercentage(f.returns_3y)}</span>} />
-                        <ComparisonRow label="5 Year Return" funds={funds} render={(f) => <span className="text-emerald-600 font-bold">{formatPercentage(f.returns_5y)}</span>} />
+                        <ComparisonRow label="1 Year Return" funds={funds} render={(f) => <span className="text-primary-600 font-bold">{formatPercentage(f.returns_1y)}</span>} />
+                        <ComparisonRow label="3 Year Return" funds={funds} render={(f) => <span className="text-primary-600 font-bold">{formatPercentage(f.returns_3y)}</span>} />
+                        <ComparisonRow label="5 Year Return" funds={funds} render={(f) => <span className="text-primary-600 font-bold">{formatPercentage(f.returns_5y)}</span>} />
                     </div>
 
                     {/* Fees Section */}
@@ -106,7 +106,7 @@ export default async function CompareMutualFunds({ searchParams }: { searchParam
                         <div className="hidden md:block"></div>
                         {funds.map(fund => (
                             <div key={fund!.id}>
-                                <Button className="w-full bg-primary-600 hover:bg-emerald-700">Invest Now</Button>
+                                <Button className="w-full bg-primary-600 hover:bg-primary-700">Invest Now</Button>
                             </div>
                         ))}
                         {[...Array(3 - funds.length)].map((_, i) => <div key={i} className="hidden md:block"></div>)}

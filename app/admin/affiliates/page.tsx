@@ -55,7 +55,7 @@ export default function AffiliatesPage() {
             label: 'Conversions',
             value: stats?.totalConversions || 0,
             icon: TrendingUp,
-            color: 'text-emerald-400',
+            color: 'text-primary-400',
             bg: 'bg-primary-500/10',
             change: '+8%',
             changeType: 'up'
@@ -105,7 +105,7 @@ export default function AffiliatesPage() {
                                     <DollarSign className="w-6 h-6 text-amber-400" />
                                 </div>
                                 Affiliate Dashboard
-                                <Badge className="bg-primary-500/10 text-emerald-400 border-emerald-500/20 ml-2 font-bold tracking-wider">
+                                <Badge className="bg-primary-500/10 text-primary-400 border-primary-500/20 ml-2 font-bold tracking-wider">
                                     LIVE
                                 </Badge>
                             </h1>
@@ -113,7 +113,7 @@ export default function AffiliatesPage() {
                                 Track affiliate performance, clicks, conversions, and revenue.
                             </p>
                         </div>
-                        <Button className="bg-primary-600 hover:bg-indigo-700 text-white">
+                        <Button className="bg-primary-600 hover:bg-primary-700 text-white">
                             <Plus className="w-4 h-4 mr-2" />
                             New Link
                         </Button>
@@ -131,7 +131,7 @@ export default function AffiliatesPage() {
                                     </div>
                                     <div className={cn(
                                         "flex items-center gap-1 text-xs font-bold",
-                                        metric.changeType === 'up' ? 'text-emerald-400' : 'text-rose-400'
+                                        metric.changeType === 'up' ? 'text-primary-400' : 'text-rose-400'
                                     )}>
                                         {metric.changeType === 'up' 
                                             ? <ArrowUpRight className="w-3 h-3" />
@@ -156,7 +156,7 @@ export default function AffiliatesPage() {
                     <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                         <CardHeader className="border-b border-white/5 px-6 py-4">
                             <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                                <TrendingUp className="w-4 h-4 text-emerald-400" />
+                                <TrendingUp className="w-4 h-4 text-primary-400" />
                                 Top Partners
                             </CardTitle>
                         </CardHeader>
@@ -181,7 +181,7 @@ export default function AffiliatesPage() {
                                                     <div className="text-slate-400">{partner.clicks} clicks</div>
                                                 </div>
                                                 <div className="text-right min-w-[80px]">
-                                                    <div className="font-bold text-emerald-400">₹{partner.revenue}</div>
+                                                    <div className="font-bold text-primary-400">₹{partner.revenue}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -218,7 +218,7 @@ export default function AffiliatesPage() {
                                                 <Badge className="bg-secondary-500/10 text-secondary-400 border-0">
                                                     {link.clicks} clicks
                                                 </Badge>
-                                                <Badge className="bg-primary-500/10 text-emerald-400 border-0">
+                                                <Badge className="bg-primary-500/10 text-primary-400 border-0">
                                                     {link.conversions} conv
                                                 </Badge>
                                             </div>
@@ -243,10 +243,10 @@ export default function AffiliatesPage() {
                             Create Link →
                         </Button>
                     </Card>
-                    <Card className="bg-gradient-to-br from-emerald-500/10 to-teal-500/10 border-emerald-500/20 rounded-2xl p-6">
+                    <Card className="bg-gradient-to-br from-emerald-500/10 to-teal-500/10 border-primary-500/20 rounded-2xl p-6">
                         <h4 className="font-bold text-white mb-2">Add Partner</h4>
                         <p className="text-sm text-slate-400 mb-4">Register new affiliate partners</p>
-                        <Button variant="ghost" className="text-emerald-400 hover:text-emerald-300 p-0 h-auto">
+                        <Button variant="ghost" className="text-primary-400 hover:text-primary-300 p-0 h-auto">
                             Add Partner →
                         </Button>
                     </Card>

@@ -62,7 +62,7 @@ export default function ComparisonPDFButton({ targetId, productNames }: Comparis
             onClick={generatePDF} 
             disabled={isGenerating}
             variant="outline"
-            className="flex items-center gap-2 border-teal-500 text-teal-600 hover:bg-teal-50"
+            className="flex items-center gap-2 border-primary-500 text-primary-600 hover:bg-primary-50"
         >
             {isGenerating ? (
                 <Loader2 className="w-4 h-4 animate-spin" />

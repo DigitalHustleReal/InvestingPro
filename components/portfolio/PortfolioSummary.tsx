@@ -34,8 +34,8 @@ export default function PortfolioSummary({ holdings = [] }: PortfolioSummaryProp
             value: `₹${Math.abs(totalProfit).toLocaleString('en-IN')}`,
             subValue: `${profitPercentage.toFixed(2)}%`,
             icon: totalProfit >= 0 ? TrendingUp : TrendingDown,
-            color: totalProfit >= 0 ? "text-emerald-600" : "text-rose-600",
-            bg: totalProfit >= 0 ? "bg-emerald-50" : "bg-rose-50"
+            color: totalProfit >= 0 ? "text-primary-600" : "text-rose-600",
+            bg: totalProfit >= 0 ? "bg-primary-50" : "bg-rose-50"
         }
     ];
 

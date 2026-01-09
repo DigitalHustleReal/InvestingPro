@@ -135,7 +135,7 @@ export default function LimitedAdSlot({
             case 'footer':
                 return 'w-full bg-slate-100 border-t border-slate-200';
             case 'between-cards':
-                return 'bg-gradient-to-r from-blue-50 to-indigo-50 border border-secondary-200 rounded-xl';
+                return 'bg-gradient-to-r from-primary-50 to-indigo-50 border border-secondary-200 rounded-xl';
             default:
                 return 'bg-slate-100 border border-slate-200 rounded-lg';
         }

@@ -15,9 +15,9 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'travel-rewards',
     label: 'Best for Travel Rewards',
     icon: Plane,
-    color: 'text-blue-700',
-    bgColor: 'bg-blue-50',
-    borderColor: 'border-blue-200',
+    color: 'text-primary-700',
+    bgColor: 'bg-primary-50',
+    borderColor: 'border-primary-200',
     description: '10+ lounge visits/year, air miles, travel insurance'
   },
   'cashback-dining': {
@@ -42,9 +42,9 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'zero-fees',
     label: 'Zero Annual Fee',
     icon: CreditCard,
-    color: 'text-emerald-700',
-    bgColor: 'bg-emerald-50',
-    borderColor: 'border-emerald-200',
+    color: 'text-primary-700',
+    bgColor: 'bg-primary-50',
+    borderColor: 'border-primary-200',
     description: 'No joining fee, no annual fee, lifetime free'
   },
   'balance-transfer': {
@@ -96,8 +96,8 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'student-starter',
     label: 'Best for Students',
     icon: GraduationCap,
-    color: 'text-indigo-700',
-    bgColor: 'bg-indigo-50',
+    color: 'text-primary-700',
+    bgColor: 'bg-primary-50',
     borderColor: 'border-indigo-200',
     description: 'Low income limit, entry-level benefits'
   },
@@ -116,16 +116,16 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'education-loan',
     label: 'Best for Education',
     icon: School,
-    color: 'text-blue-700',
-    bgColor: 'bg-blue-50',
-    borderColor: 'border-blue-200',
+    color: 'text-primary-700',
+    bgColor: 'bg-primary-50',
+    borderColor: 'border-primary-200',
     description: 'Study abroad, no collateral, moratorium period'
   },
   'personal-loan': {
     id: 'personal-loan',
     label: 'Best for Personal Use',
     icon: Wallet,
-    color: 'text-violet-700',
+    color: 'text-primary-700',
     bgColor: 'bg-violet-50',
     borderColor: 'border-violet-200',
     description: 'Instant approval, flexible use, quick disbursal'
@@ -134,9 +134,9 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'business-loan',
     label: 'Best for Business Growth',
     icon: TrendingUp,
-    color: 'text-emerald-700',
-    bgColor: 'bg-emerald-50',
-    borderColor: 'border-emerald-200',
+    color: 'text-primary-700',
+    bgColor: 'bg-primary-50',
+    borderColor: 'border-primary-200',
     description: 'Working capital, expansion, machinery purchase'
   },
   'car-loan': {

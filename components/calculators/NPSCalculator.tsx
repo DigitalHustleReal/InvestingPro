@@ -86,7 +86,7 @@ export function NPSCalculator() {
             {/* Top Row: Inputs on Left, Results on Right */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Input Card */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                     <CardHeader>
                         <CardTitle className="text-xl">NPS Calculator</CardTitle>
                         <CardDescription>Calculate National Pension System corpus with tax benefits</CardDescription>
@@ -209,9 +209,9 @@ export function NPSCalculator() {
                         )}
 
                         {/* Tax Benefits Info */}
-                        <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl">
-                            <p className="text-xs font-bold text-emerald-700 uppercase tracking-widest mb-1">Tax Benefits</p>
-                            <p className="text-xs text-emerald-800">
+                        <div className="p-3 bg-primary-50 border border-primary-200 rounded-xl">
+                            <p className="text-xs font-bold text-primary-700 uppercase tracking-widest mb-1">Tax Benefits</p>
+                            <p className="text-xs text-primary-800">
                                 ✓ 80CCD(1B): ₹50K • Employer: ₹7.5L • 60% tax-free withdrawal
                             </p>
                         </div>
@@ -219,46 +219,46 @@ export function NPSCalculator() {
                 </Card>
 
                 {/* Right: Results Card with Stats */}
-                <Card className="border-slate-200 shadow-sm rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-primary-50 to-success-50 dark:from-slate-900 dark:to-slate-800">
                     <CardContent className="pt-4 sm:pt-6">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">Contributed</p>
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Contributed</p>
                                 <p className="text-base sm:text-lg font-extrabold text-slate-900">{formatCurrency(result.totalContributed)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Returns' : 'Returns'}
                                 </p>
-                                <p className="text-base sm:text-lg font-extrabold text-emerald-600">
+                                <p className="text-base sm:text-lg font-extrabold text-primary-600">
                                     {formatCurrency(adjustForInflation ? result.realReturns : result.returns)}
                                 </p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-emerald-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 sm:mb-2">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Corpus' : 'Total Corpus'}
                                 </p>
-                                <p className="text-base sm:text-lg font-extrabold text-teal-600">
+                                <p className="text-base sm:text-lg font-extrabold text-primary-600">
                                     {formatCurrency(adjustForInflation ? result.realValue : result.maturityAmount)}
                                 </p>
                             </div>
                         </div>
 
                         {adjustForInflation && (
-                            <div className="p-3 bg-white rounded-xl border border-secondary-100 mb-4">
-                                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Nominal Corpus</p>
+                            <div className="p-3 bg-white dark:bg-slate-800 rounded-xl border border-secondary-100 mb-4">
+                                <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Nominal Corpus</p>
                                 <p className="text-sm font-bold text-slate-600">{formatCurrency(result.maturityAmount)}</p>
                                 <p className="text-xs text-slate-500 mt-1">Before inflation adjustment</p>
                             </div>
                         )}
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-                            <div className="text-center p-3 sm:p-4 bg-white rounded-xl shadow-sm border border-emerald-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Withdrawable (60%)</p>
-                                <p className="text-sm sm:text-base font-extrabold text-teal-600">{formatCurrency(result.withdrawableAmount)}</p>
+                            <div className="text-center p-3 sm:p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-primary-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Withdrawable (60%)</p>
+                                <p className="text-sm sm:text-base font-extrabold text-primary-600">{formatCurrency(result.withdrawableAmount)}</p>
                             </div>
-                            <div className="text-center p-3 sm:p-4 bg-white rounded-xl shadow-sm border border-emerald-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Annuitized (40%)</p>
+                            <div className="text-center p-3 sm:p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-primary-100">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Annuitized (40%)</p>
                                 <p className="text-sm sm:text-base font-extrabold text-slate-600">{formatCurrency(result.annuitizedAmount)}</p>
                             </div>
                         </div>
@@ -267,7 +267,7 @@ export function NPSCalculator() {
             </div>
 
             {/* Bottom Row: Growth Chart */}
-            <Card className="border-slate-200 shadow-sm rounded-2xl">
+            <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                 <CardHeader className="pb-2">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">NPS Growth Projection</CardTitle>
                 </CardHeader>
@@ -294,7 +294,7 @@ export function NPSCalculator() {
                                     />
                                     <Area type="monotone" dataKey="corpus" stroke="#14b8a6" fill="url(#colorNPS)" strokeWidth={2} name="Corpus" />
                                     {adjustForInflation && (
-                                        <Area type="monotone" dataKey="realValue" stroke="#8b5cf6" fill="transparent" strokeWidth={2} strokeDasharray="5 5" name="Real Value" />
+                                        <Area type="monotone" dataKey="realValue" stroke="#2563eb" fill="transparent" strokeWidth={2} strokeDasharray="5 5" name="Real Value" />
                                     )}
                                 </AreaChart>
                             </ResponsiveContainer>

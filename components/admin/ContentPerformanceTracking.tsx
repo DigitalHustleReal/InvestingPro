@@ -130,19 +130,19 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
         <div className="space-y-10">
             {/* High-Impact Performance Metrics */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden hover:border-emerald-500/30 transition-all group">
+                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden hover:border-primary-500/30 transition-all group">
                     <CardContent className="p-8">
                         <div className="flex items-center justify-between mb-4">
                             <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Total Propagation</span>
                             <div className="w-10 h-10 rounded-xl bg-primary-500/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                <Eye className="w-5 h-5 text-emerald-400" />
+                                <Eye className="w-5 h-5 text-primary-400" />
                             </div>
                         </div>
                         <div className="space-y-1">
                             <h3 className="text-3xl font-extrabold text-white tabular-nums tracking-tight tracking-tighter">
                                 {totalViews.toLocaleString()}
                             </h3>
-                            <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest flex items-center gap-1">
+                            <p className="text-[10px] font-bold text-primary-400 uppercase tracking-widest flex items-center gap-1">
                                 <TrendingUp className="w-3 h-3" />
                                 +12.4% <span className="text-slate-500">vs Prev Period</span>
                             </p>
@@ -213,7 +213,7 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                 <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                     <CardHeader className="border-b border-white/5 px-8 py-6">
                         <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                            <BarChart3 className="w-4 h-4 text-emerald-400" />
+                            <BarChart3 className="w-4 h-4 text-primary-400" />
                             Content Pulse Logic (7D Temporal)
                         </CardTitle>
                     </CardHeader>
@@ -222,8 +222,8 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                             <LineChart data={chartData}>
                                 <defs>
                                     <linearGradient id="viewsGradient" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
-                                        <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                                        <stop offset="5%" stopColor="#0d9488" stopOpacity={0.3} />
+                                        <stop offset="95%" stopColor="#0d9488" stopOpacity={0} />
                                     </linearGradient>
                                 </defs>
                                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
@@ -245,7 +245,7 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                                 <Line 
                                     type="monotone" 
                                     dataKey="views" 
-                                    stroke="#10b981" 
+                                    stroke="#0d9488" 
                                     strokeWidth={4} 
                                     dot={{ r: 4, fill: '#10b981', strokeWidth: 2, stroke: '#0f172a' }}
                                     activeDot={{ r: 6, strokeWidth: 0 }}
@@ -296,7 +296,7 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                 {/* Top Performing Articles */}
                 <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                     <CardHeader className="border-b border-white/5 px-8 py-5">
-                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-emerald-400 flex items-center gap-6 md:p-8">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-primary-400 flex items-center gap-6 md:p-8">
                             <TrendingUp className="w-4 h-4" />
                             Alpha Assets (High Velocity)
                         </CardTitle>
@@ -307,11 +307,11 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                                 topArticles.map((article: any, idx: number) => (
                                     <div key={article.id || idx} className="flex items-center justify-between p-6 hover:bg-white/[0.02] transition-colors group">
                                         <div className="flex items-center gap-5 flex-1 min-w-0">
-                                            <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center text-[10px] font-bold text-emerald-400 border border-emerald-500/20">
+                                            <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center text-[10px] font-bold text-primary-400 border border-primary-500/20">
                                                 0{idx + 1}
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <p className="font-bold text-white tracking-tight line-clamp-1 group-hover:text-emerald-400 transition-colors">
+                                                <p className="font-bold text-white tracking-tight line-clamp-1 group-hover:text-primary-400 transition-colors">
                                                     {article.title || 'Inert System Node'}
                                                 </p>
                                                 <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">
@@ -363,7 +363,7 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                                                 </div>
                                             </div>
                                             <div className="text-right ml-4">
-                                                <p className="text-sm font-bold text-emerald-400 px-3 py-1 bg-primary-500/10 rounded-lg tabular-nums border border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]">
+                                                <p className="text-sm font-bold text-primary-400 px-3 py-1 bg-primary-500/10 rounded-lg tabular-nums border border-primary-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]">
                                                     ₹{estimatedArticleRevenue.toFixed(0)}
                                                 </p>
                                                 <p className="text-[9px] font-semibold text-slate-600 uppercase tracking-st mt-1">Net Extraction</p>
