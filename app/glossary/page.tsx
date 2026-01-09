@@ -174,53 +174,51 @@ export default function GlossaryPage() {
                     </div>
                 ) : filteredTerms.length > 0 ? (
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {filteredTerms.map((item, i) => (
-                            <motion.div 
-                                layout
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.2 }}
-                                key={item.term} 
-                                className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 hover:border-primary-200 dark:hover:border-primary-900 hover:shadow-xl hover:shadow-primary-900/5 dark:hover:shadow-primary-900/20 transition-all group flex flex-col h-full"
-                            >
-                                <div className="flex justify-between items-start mb-4">
-                                    <div className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${CATEGORY_CONFIG[item.category]?.color}`}>
-                                        {item.category}
-                                    </div>
-                                    {CATEGORY_CONFIG[item.category]?.icon && (
-                                        <div className="text-slate-300 group-hover:text-primary-500 transition-colors">
-                                            {React.createElement(CATEGORY_CONFIG[item.category].icon, { size: 20 })}
+                        {filteredTerms.map((item, i) => {
+                            // Use slug from database if available, otherwise generate it
+                            const termSlug = item.slug || item.term.toLowerCase()
+                                .replace(/[()]/g, '')
+                                .replace(/\s+/g, '-')
+                                .replace(/&/g, 'and');
+                            
+                            return (
+                                <Link key={item.term} href={`/glossary/${termSlug}`}>
+                                    <motion.div 
+                                        layout
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ duration: 0.2 }}
+                                        className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 hover:border-primary-200 dark:hover:border-primary-900 hover:shadow-xl hover:shadow-primary-900/5 dark:hover:shadow-primary-900/20 transition-all group flex flex-col h-full cursor-pointer"
+                                    >
+                                        <div className="flex justify-between items-start mb-4">
+                                            <div className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${CATEGORY_CONFIG[item.category]?.color}`}>
+                                                {item.category}
+                                            </div>
+                                            {CATEGORY_CONFIG[item.category]?.icon && (
+                                                <div className="text-slate-300 group-hover:text-primary-500 transition-colors">
+                                                    {React.createElement(CATEGORY_CONFIG[item.category].icon, { size: 20 })}
+                                                </div>
+                                            )}
                                         </div>
-                                    )}
-                                </div>
-                                
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                                    {item.term}
-                                </h3>
-                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6 flex-grow">
-                                    {item.definition}
-                                </p>
+                                        
+                                        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                                            {item.term}
+                                        </h3>
+                                        <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6 flex-grow line-clamp-3">
+                                            {item.definition}
+                                        </p>
 
-                                {/* Smart Contextual Link */}
-                                {CATEGORY_CONFIG[item.category]?.toolLink ? (
-                                    <div className="pt-6 mt-auto border-t border-slate-50 dark:border-slate-800">
-                                        <Link 
-                                            href={CATEGORY_CONFIG[item.category].toolLink!} 
-                                            className="flex items-center justify-between text-sm font-bold text-slate-500 group-hover:text-primary-600 transition-colors"
-                                        >
-                                            {CATEGORY_CONFIG[item.category].toolLabel}
-                                            <ArrowRight className="w-4 h-4" />
-                                        </Link>
-                                    </div>
-                                ) : (
-                                    <div className="pt-6 mt-auto border-t border-slate-50 dark:border-slate-800">
-                                         <span className="flex items-center text-sm font-bold text-slate-300 cursor-not-allowed">
-                                            Quick Guide Coming Soon
-                                        </span>
-                                    </div>
-                                )}
-                            </motion.div>
-                        ))}
+                                        {/* Read More Link */}
+                                        <div className="pt-6 mt-auto border-t border-slate-50 dark:border-slate-800">
+                                            <span className="flex items-center justify-between text-sm font-bold text-primary-600 group-hover:text-primary-700 transition-colors">
+                                                Read Full Guide
+                                                <ArrowRight className="w-4 h-4" />
+                                            </span>
+                                        </div>
+                                    </motion.div>
+                                </Link>
+                            );
+                        })}
                     </div>
                 ) : (
                     <div className="text-center py-20 bg-slate-50 dark:bg-slate-900 rounded-[3rem] border border-dashed border-slate-200 dark:border-slate-800">

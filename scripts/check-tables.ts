@@ -31,6 +31,8 @@ async function run() {
     await checkTable('products');
     await checkTable('glossary_terms');
     await checkTable('ai_provider_health');
+    await checkTable('affiliate_partners');
+    await checkTable('affiliate_links');
 }
 
 run();
