@@ -39,6 +39,7 @@ const mono = JetBrains_Mono({
 // ... existing code ...
 
 import { ThemeProvider } from "@/components/theme-provider";
+import { NavigationProvider } from "@/contexts/NavigationContext";
 
 // ... existing imports ...
 
@@ -69,27 +70,29 @@ export default async function RootLayout({
           <QueryProvider>
             <SearchProvider>
               <CompareProvider>
-                <Suspense fallback={null}>
-                  <Analytics />
-                </Suspense>
-                <Navbar initialConfig={navConfig} />
-                <main className="flex-grow">
-                  <PageErrorBoundary pageName="Root Layout">
-                    <LeadCaptureProvider>
-                      {children}
-                    </LeadCaptureProvider>
-                  </PageErrorBoundary>
-                </main>
-                {/* <CompareBar /> */}
-                
-                {/* 
-                   AUTOMATED AFFILIATE SCRIPT (Cuelinks / Skimlinks)
-                   Uncomment and add your ID here to auto-monetize 1000s of links
-                */}
-                {/* <script async src="https://cuelinks.com/js/..." /> */}
-                <Footer />
-                <CookieConsent />
-                <Toaster />
+                <NavigationProvider>
+                  <Suspense fallback={null}>
+                    <Analytics />
+                  </Suspense>
+                  <Navbar initialConfig={navConfig} />
+                  <main className="flex-grow">
+                    <PageErrorBoundary pageName="Root Layout">
+                      <LeadCaptureProvider>
+                        {children}
+                      </LeadCaptureProvider>
+                    </PageErrorBoundary>
+                  </main>
+                  {/* <CompareBar /> */}
+                  
+                  {/* 
+                     AUTOMATED AFFILIATE SCRIPT (Cuelinks / Skimlinks)
+                     Uncomment and add your ID here to auto-monetize 1000s of links
+                  */}
+                  {/* <script async src="https://cuelinks.com/js/..." /> */}
+                  <Footer />
+                  <CookieConsent />
+                  <Toaster />
+                </NavigationProvider>
               </CompareProvider>
             </SearchProvider>
           </QueryProvider>

@@ -1,14 +1,14 @@
 "use client";
 
 import React from 'react';
-import { useCompare } from './CompareContext';
+import { useCompare } from '@/contexts/CompareContext';
 import { Button } from '@/components/ui/Button';
 import { X, ArrowRight, BarChart3 } from 'lucide-react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 
 export default function FloatingCompareBar() {
-    const { selectedProducts, removeFromCompare, clearCompare } = useCompare();
+    const { selectedProducts, removeProduct, clearAll } = useCompare();
 
     if (selectedProducts.length === 0) return null;
 
@@ -40,7 +40,7 @@ export default function FloatingCompareBar() {
                                 {product.name}
                             </span>
                             <button 
-                                onClick={() => removeFromCompare(product.id)}
+                            onClick={() => removeProduct(product.id)}
                                 className="p-1 hover:bg-slate-700 rounded-md transition-colors"
                             >
                                 <X className="w-3 h-3 text-slate-400 hover:text-white" />
@@ -62,7 +62,7 @@ export default function FloatingCompareBar() {
                 {/* Actions */}
                 <div className="flex items-center gap-2 pr-2 border-l border-slate-700 pl-4 ml-2">
                     <button 
-                        onClick={clearCompare}
+                        onClick={clearAll}
                         className="text-[10px] font-bold text-slate-400 hover:text-slate-200 uppercase tracking-tighter"
                     >
                         Clear All

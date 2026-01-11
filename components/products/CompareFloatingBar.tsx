@@ -1,14 +1,14 @@
 "use client";
 
 import React from 'react';
-import { useCompare } from './CompareContext';
+import { useCompare } from '@/contexts/CompareContext';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import { X, ArrowRight, Layers } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export default function CompareFloatingBar() {
-    const { selectedProducts, removeFromCompare, clearCompare } = useCompare();
+    const { selectedProducts, removeProduct, clearAll } = useCompare();
 
     return (
         <AnimatePresence>
@@ -36,7 +36,7 @@ export default function CompareFloatingBar() {
                                             <img src={p.image_url} alt={p.name} className="w-full h-full object-contain" />
                                         </div>
                                         <button 
-                                            onClick={() => removeFromCompare(p.id)} 
+                                            onClick={() => removeProduct(p.id)} 
                                             className="absolute -top-2 -right-2 bg-rose-500 hover:bg-rose-600 rounded-full p-1.5 shadow-lg shadow-rose-500/20 transition-transform hover:scale-110 flex items-center justify-center"
                                             aria-label={`Remove ${p.name}`}
                                         >
@@ -52,7 +52,7 @@ export default function CompareFloatingBar() {
                             <Button 
                                 variant="ghost" 
                                 size="sm" 
-                                onClick={clearCompare} 
+                                onClick={clearAll} 
                                 className="flex-1 sm:flex-none text-slate-400 hover:text-white hover:bg-white/5 text-xs h-12 sm:h-8 font-semibold"
                             >
                                 Clear All

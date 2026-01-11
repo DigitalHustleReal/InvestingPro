@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/Button";
@@ -17,47 +17,44 @@ import {
     NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Menu, X, ChevronDown, ChevronRight, Search } from "lucide-react";
-import {
-    Dialog,
-    DialogContent,
-    DialogTrigger,
-} from "@/components/ui/dialog";
 import Logo from "@/components/common/Logo";
 import { NAVIGATION_CONFIG, EDITORIAL_INTENTS } from "@/lib/navigation/config";
 import LanguageSwitcher from "@/components/common/LanguageSwitcher";
 import { useSearch } from "@/components/search/SearchProvider";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
+import { useNavigation } from "@/contexts/NavigationContext";
 
 
-// Search Button Component (Desktop)
-function SearchButtonComponent({ isHomePage }: { isHomePage: boolean }) {
+// Constants
+const DROPDOWN_CLOSE_DELAY = 250; // ms - Standard UX timing for dropdown hover
+
+// Unified Search Button Component
+function SearchButton({ variant = 'desktop' }: { variant?: 'desktop' | 'mobile' }) {
     const { openSearch } = useSearch();
+    
+    if (variant === 'mobile') {
+        return (
+            <button 
+                onClick={openSearch}
+                className="w-full flex items-center gap-3 h-12 pl-4 pr-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 hover:bg-slate-100 transition-all duration-200 text-sm text-left shadow-inner"
+            >
+                <Search className="w-4 h-4 text-slate-400" />
+                <span>Search products, taxes, or guides...</span>
+            </button>
+        );
+    }
     
     return (
         <Button
             variant="ghost"
             onClick={openSearch}
-            className="hidden lg:flex items-center gap-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 px-3 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 rounded-full transition-all"
+            className="hidden lg:flex items-center gap-2 h-10 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 px-3 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2"
             aria-label="Search"
         >
             <Search className="w-4 h-4" />
             <span className="text-sm font-medium">Search</span>
+            <kbd className="hidden xl:inline-flex ml-2 px-1.5 py-0.5 text-xs bg-slate-100 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700">⌘K</kbd>
         </Button>
-    );
-}
-
-// Mobile Search Button
-function MobileSearchButton() {
-    const { openSearch } = useSearch();
-    
-    return (
-        <button 
-            onClick={openSearch}
-            className="w-full flex items-center gap-3 h-12 pl-4 pr-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 hover:bg-slate-100 transition-all text-sm text-left shadow-inner"
-        >
-            <Search className="w-4 h-4 text-slate-400" />
-            <span>Search products, taxes, or guides...</span>
-        </button>
     );
 }
 
@@ -84,6 +81,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
     const pathname = usePathname();
     const { openSearch } = useSearch();
     const isHomePage = pathname === "/";
+    const { setActiveCategory } = useNavigation();
     
     // Close dropdowns when clicking outside
     React.useEffect(() => {
@@ -98,6 +96,18 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
     
+    // Lock body scroll when mobile menu is open
+    React.useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isOpen]);
+    
     // Filter and reorder categories based on high-intent search volume
     const PRIORITY_SLUGS = ['credit-cards', 'insurance', 'loans', 'investing', 'tools'];
     
@@ -107,6 +117,11 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
 
     // Toggle dropdown on click - only one open at a time
     const toggleDropdown = (categorySlug: string) => {
+        // Update navigation context for hero sync (only on homepage)
+        if (isHomePage) {
+            setActiveCategory(categorySlug);
+        }
+        
         setOpenDropdowns(prev => {
             const isCurrentlyOpen = prev[categorySlug];
             // If clicking the same category, close it. Otherwise, open only this one.
@@ -118,6 +133,11 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
         });
     };
     
+    // Auto-close mobile menu when pathname changes (navigation occurs)
+    useEffect(() => {
+        setIsOpen(false);
+    }, [pathname]);
+    
     // Open dropdown on hover - close others first, only one open at a time
     const handleMouseEnter = (categorySlug: string) => {
         setOpenDropdowns({ [categorySlug]: true });
@@ -125,7 +145,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
     
     // Close dropdown when mouse leaves
     const handleMouseLeave = (categorySlug: string) => {
-        // Small delay to allow moving to dropdown content
+        // Small delay to prevent accidental closes
         setTimeout(() => {
             setOpenDropdowns(prev => {
                 // Only close if this is the currently open dropdown
@@ -136,7 +156,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                 }
                 return prev;
             });
-        }, 100);
+        }, DROPDOWN_CLOSE_DELAY);
     };
     
     const toggleCategory = (categorySlug: string) => {
@@ -171,17 +191,21 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                     </div>
 
                     {/* Desktop Navigation - Hidden on mobile/tablet */}
-                    <div className="hidden lg:flex items-center gap-1 xl:gap-8 ml-auto">
+                    <div className="hidden lg:flex items-center gap-4 xl:gap-6 ml-auto">
                         <NavigationMenu>
                             <NavigationMenuList>
                                 {navigationCategories.map((category) => {
                                     const isDropdownOpen = openDropdowns[category.slug] || false;
-                                    const displayName = category.slug === 'tools' ? 'Calculators' : category.name;
+                                    const displayName = category.name;
                                     
                                     return (
                                         <NavigationMenuItem key={category.slug} className="navigation-menu-item">
                                             <NavigationMenuTrigger 
-                                                className={`gap-1 text-slate-700 dark:text-slate-300 hover:text-secondary-600 dark:hover:text-secondary-400 data-[state=open]:text-secondary-600 dark:data-[state=open]:text-secondary-400 font-semibold text-[15px] tracking-tight font-sans bg-transparent hover:bg-transparent focus:bg-transparent ${isDropdownOpen ? 'text-secondary-600 dark:text-secondary-400' : ''}`}
+                                                className={`gap-1 text-slate-700 dark:text-slate-300 hover:text-secondary-600 dark:hover:text-secondary-400 data-[state=open]:text-secondary-600 dark:data-[state=open]:text-secondary-400 font-semibold text-base tracking-tight font-sans bg-transparent hover:bg-transparent focus:bg-transparent transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2 ${
+                                                    (pathname.startsWith(`/${category.slug}`) || isDropdownOpen)
+                                                    ? 'text-secondary-600 dark:text-secondary-400 font-bold' 
+                                                    : ''
+                                                }`}
                                                 onClick={() => toggleDropdown(category.slug)}
                                                 onMouseEnter={() => handleMouseEnter(category.slug)}
                                             >
@@ -351,27 +375,28 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                     </div>
 
                     {/* Search Button - Opens Command Palette */}
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-3">
                         <div className="hidden lg:block">
                             <ThemeToggle />
                         </div>
-                        <SearchButtonComponent isHomePage={isHomePage} />
+                        <SearchButton variant="desktop" />
 
                         {/* CTA Button - Hidden on mobile/tablet */}
-                        <div className="hidden lg:flex items-center gap-4 ml-2">
-                            <Link href="/login" className="text-sm font-semibold text-slate-600 dark:text-slate-200 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
+                        <div className="hidden lg:flex items-center gap-3 ml-2">
+                            <Link href="/login" className="text-sm font-semibold text-slate-600 dark:text-slate-200 hover:text-teal-600 dark:hover:text-teal-400 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2 rounded-lg px-3 py-2">
                                 Log In
                             </Link>
                             
-                            <Link href="/compare">
-                                <Button className="bg-secondary-600 hover:bg-secondary-700 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-secondary-600/20 transition-all h-10 px-6 rounded-lg">
+                            
+                            <Button asChild className="bg-secondary-600 hover:bg-secondary-700 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-secondary-600/20 transition-all duration-200 h-10 px-6 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2">
+                                <Link href="/compare">
                                     Get Started
-                                </Button>
-                            </Link>
+                                </Link>
+                            </Button>
                         </div>
                     </div>
 
-                    <div className="lg:hidden flex items-center gap-1 ml-1">
+                    <div className="lg:hidden flex items-center gap-3 ml-1">
                         <ThemeToggle />
                         
                         {/* Direct Mobile Search Icon */}
@@ -379,7 +404,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                             variant="ghost" 
                             size="icon" 
                             onClick={openSearch}
-                            className="text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+                            className="text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2 rounded-xl"
                             aria-label="Search"
                         >
                             <Search className="w-5 h-5" />
@@ -396,20 +421,29 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                     <Menu className="w-6 h-6" />
                                 </Button>
                             </SheetTrigger>
-                            <SheetContent side="right" className="w-full sm:w-96 p-0 bg-white/95 backdrop-blur-xl flex flex-col h-full border-l border-slate-200/60 shadow-2xl">
+                            <SheetContent side="right" className="w-full sm:w-96 p-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl flex flex-col h-full border-l border-slate-200/60 dark:border-slate-800/60 shadow-2xl">
                                 <div className="flex flex-col h-full overflow-hidden">
                                     {/* Mobile Menu Header */}
-                                <div className="flex items-center p-4 border-b border-slate-200 sticky top-0 bg-white z-10">
+                                <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-800 sticky top-0 bg-white dark:bg-slate-900 z-10">
                                     <Logo 
                                         variant="default"
                                         size="md"
                                         showText={true}
                                     />
+                                    <Button 
+                                        variant="ghost" 
+                                        size="icon"
+                                        onClick={() => setIsOpen(false)}
+                                        className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
+                                        aria-label="Close menu"
+                                    >
+                                        <X className="w-5 h-5" />
+                                    </Button>
                                 </div>
 
                                 {/* Mobile Search - Opens Command Palette */}
-                                <div className="p-4 border-b border-slate-200">
-                                    <MobileSearchButton />
+                                <div className="p-4 border-b border-slate-200 dark:border-slate-800">
+                                    <SearchButton variant="mobile" />
                                 </div>
 
                                 {/* Mobile Navigation */}
@@ -460,7 +494,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                                                                 <Link
                                                                                     href={collection.href}
                                                                                     onClick={() => setIsOpen(false)}
-                                                                                    className="text-sm text-slate-600 hover:text-teal-600 hover:font-medium transition-all block py-1.5"
+                                                                                    className="text-sm text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 hover:font-medium transition-all block py-3 min-h-[44px] flex items-center"
                                                                                 >
                                                                                     {collection.name}
                                                                                 </Link>

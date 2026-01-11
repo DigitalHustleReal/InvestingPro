@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import SEOHead from "@/components/common/SEOHead";
-import { CategoryHero } from "@/components/common/CategoryHero";
+import { Breadcrumb } from "@/components/common/Breadcrumb";
+import { FAQSchema, CalculatorSchema, OrganizationSchema } from "@/components/seo/SchemaMarkup";
 import { CategoryCTA } from "@/components/common/CTAButton";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,11 +13,9 @@ import {
     TrendingUp,
     PiggyBank,
     Home,
-    Wallet,
     Receipt,
     TrendingDown,
     Coins,
-    Shield,
     Target,
     BarChart3,
     CheckCircle2,
@@ -44,9 +43,17 @@ export default function CalculatorsPage() {
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
             <SEOHead
-                title="Free Financial Calculators India 2024 - SIP, SWP, EMI, Tax, Retirement Calculator | InvestingPro"
-                description="Free financial calculators with inflation adjustment. Calculate SIP returns, SWP withdrawals, EMI for loans, income tax, retirement corpus, FD maturity, PPF, NPS and more. Best calculator tools for financial planning in India."
+                title="Free Financial Calculators India 2026 - SIP, EMI, Tax, Retirement | InvestingPro"
+                description="Free SIP, EMI, Tax & Retirement calculators with inflation adjustment. Accurate results for financial planning in India. No registration required."
             />
+
+            {/* Schema Markup */}
+            <CalculatorSchema
+                name="Financial Calculators"
+                description="Free financial calculators for SIP, EMI, Tax, Retirement planning with inflation adjustment"
+                url="/calculators"
+            />
+            <OrganizationSchema />
             
             {/* Light Theme Hero Section - Consistent with Platform */}
             <div className="bg-white border-b border-slate-200 pt-28 pb-20 relative overflow-hidden">
@@ -58,7 +65,7 @@ export default function CalculatorsPage() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="max-w-3xl mx-auto text-center">
                         {/* Badge */}
-                        <Badge className="mb-6 bg-teal-50 text-teal-700 border-teal-200 px-4 py-2 uppercase tracking-widest text-xs font-bold inline-flex items-center gap-2">
+                        <Badge className="mb-6 bg-primary-50 text-primary-700 border-primary-200 px-4 py-2 uppercase tracking-widest text-xs font-bold inline-flex items-center gap-2">
                             <Calculator className="w-3 h-3" />
                             12 Free Tools
                         </Badge>
@@ -66,7 +73,7 @@ export default function CalculatorsPage() {
                         {/* Title */}
                         <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 tracking-tight leading-tight">
                             Financial Calculators
-                            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-blue-600 mt-2">
+                            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-secondary-600 mt-2">
                                 Plan Your Future
                             </span>
                         </h1>
@@ -85,7 +92,7 @@ export default function CalculatorsPage() {
                                 { label: "Updated Daily", value: "24/7", icon: <Clock className="w-5 h-5" /> }
                             ].map((stat, idx) => (
                                 <div key={idx} className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-                                    <div className="text-teal-600 mb-2 flex justify-center">{stat.icon}</div>
+                                    <div className="text-primary-600 mb-2 flex justify-center">{stat.icon}</div>
                                     <div className="text-2xl font-bold text-slate-900 mb-1">{stat.value}</div>
                                     <div className="text-xs text-slate-600 fond-medium uppercase tracking-wider">
                                         {stat.label}
@@ -131,61 +138,68 @@ export default function CalculatorsPage() {
 
             {/* Calculators */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                {/* Breadcrumb */}
+                <Breadcrumb 
+                    items={[
+                        { label: "Calculators" }
+                    ]} 
+                />
+                
                 <Tabs defaultValue="sip" className="space-y-8">
                     <div className="mb-8">
                         <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">All Calculators</h2>
                         <p className="text-slate-600 dark:text-slate-400">Choose a calculator to get started</p>
                     </div>
                     <TabsList className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-1.5 h-auto inline-flex flex-wrap rounded-xl shadow-sm gap-2">
-                        <TabsTrigger value="sip" className="px-4 py-2.5 data-[state=active]:bg-teal-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                        <TabsTrigger value="sip" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <TrendingUp className="w-4 h-4 mr-2" />
                             SIP
                         </TabsTrigger>
-                        <TabsTrigger value="swp" className="px-4 py-2.5 data-[state=active]:bg-teal-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                        <TabsTrigger value="swp" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <TrendingDown className="w-4 h-4 mr-2" />
                             SWP
                         </TabsTrigger>
-                        <TabsTrigger value="lumpsum" className="px-4 py-2.5 data-[state=active]:bg-teal-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                        <TabsTrigger value="lumpsum" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <PiggyBank className="w-4 h-4 mr-2" />
                             Lumpsum
                         </TabsTrigger>
-                        <TabsTrigger value="fd" className="px-4 py-2.5 data-[state=active]:bg-teal-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                        <TabsTrigger value="fd" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <Coins className="w-4 h-4 mr-2" />
                             FD
                         </TabsTrigger>
-                        <TabsTrigger value="emi" className="px-4 py-2.5 data-[state=active]:bg-teal-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                        <TabsTrigger value="emi" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <Home className="w-4 h-4 mr-2" />
                             EMI
                         </TabsTrigger>
-                        <TabsTrigger value="tax" className="px-4 py-2.5 data-[state=active]:bg-teal-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                        <TabsTrigger value="tax" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <Receipt className="w-4 h-4 mr-2" />
                             Tax
                         </TabsTrigger>
-                        <TabsTrigger value="retirement" className="px-4 py-2.5 data-[state=active]:bg-teal-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                        <TabsTrigger value="retirement" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <Target className="w-4 h-4 mr-2" />
                             Retirement
                         </TabsTrigger>
-                        <TabsTrigger value="inflation" className="px-4 py-2.5 data-[state=active]:bg-teal-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                        <TabsTrigger value="inflation" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <BarChart3 className="w-4 h-4 mr-2" />
                             Inflation
                         </TabsTrigger>
-                        <TabsTrigger value="ppf" className="px-4 py-2.5 data-[state=active]:bg-teal-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                        <TabsTrigger value="ppf" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <Coins className="w-4 h-4 mr-2" />
                             PPF
                         </TabsTrigger>
-                        <TabsTrigger value="nps" className="px-4 py-2.5 data-[state=active]:bg-teal-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                        <TabsTrigger value="nps" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <Target className="w-4 h-4 mr-2" />
                             NPS
                         </TabsTrigger>
-                        <TabsTrigger value="goal" className="px-4 py-2.5 data-[state=active]:bg-teal-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                        <TabsTrigger value="goal" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <Target className="w-4 h-4 mr-2" />
                             Goal Planning
                         </TabsTrigger>
-                        <TabsTrigger value="gst" className="px-4 py-2.5 data-[state=active]:bg-teal-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                        <TabsTrigger value="gst" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <Receipt className="w-4 h-4 mr-2" />
                             GST
                         </TabsTrigger>
-                        <TabsTrigger value="loan-vs-sip" className="px-4 py-2.5 data-[state=active]:bg-teal-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                        <TabsTrigger value="loan-vs-sip" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <ArrowRight className="w-4 h-4 mr-2" />
                             Loan vs SIP
                         </TabsTrigger>
@@ -195,7 +209,7 @@ export default function CalculatorsPage() {
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
                                 <p className="text-slate-600">Visit our dedicated SIP calculator page for comprehensive guides and FAQs.</p>
-                                <Link href="/calculators/sip" className="text-teal-600 hover:text-teal-700 font-semibold">
+                                <Link href="/calculators/sip" className="text-primary-600 hover:text-primary-700 font-semibold">
                                     View Full Page →
                                 </Link>
                             </div>
@@ -207,7 +221,7 @@ export default function CalculatorsPage() {
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
                                 <p className="text-slate-600">Visit our dedicated SWP calculator page for comprehensive guides and FAQs.</p>
-                                <Link href="/calculators/swp" className="text-teal-600 hover:text-teal-700 font-semibold">
+                                <Link href="/calculators/swp" className="text-primary-600 hover:text-primary-700 font-semibold">
                                     View Full Page →
                                 </Link>
                             </div>
@@ -223,7 +237,7 @@ export default function CalculatorsPage() {
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
                                 <p className="text-slate-600">Visit our dedicated FD calculator page for comprehensive guides and FAQs.</p>
-                                <Link href="/calculators/fd" className="text-teal-600 hover:text-teal-700 font-semibold">
+                                <Link href="/calculators/fd" className="text-primary-600 hover:text-primary-700 font-semibold">
                                     View Full Page →
                                 </Link>
                             </div>
@@ -235,7 +249,7 @@ export default function CalculatorsPage() {
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
                                 <p className="text-slate-600">Visit our dedicated EMI calculator page for comprehensive guides and FAQs.</p>
-                                <Link href="/calculators/emi" className="text-teal-600 hover:text-teal-700 font-semibold">
+                                <Link href="/calculators/emi" className="text-primary-600 hover:text-primary-700 font-semibold">
                                     View Full Page →
                                 </Link>
                             </div>
@@ -271,7 +285,7 @@ export default function CalculatorsPage() {
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
                                 <p className="text-slate-600">Visit our dedicated GST calculator page for comprehensive guides and FAQs.</p>
-                                <Link href="/calculators/gst" className="text-teal-600 hover:text-teal-700 font-semibold">
+                                <Link href="/calculators/gst" className="text-primary-600 hover:text-primary-700 font-semibold">
                                     View Full Page →
                                 </Link>
                             </div>
@@ -283,7 +297,7 @@ export default function CalculatorsPage() {
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
                                 <p className="text-slate-600">Compare the opportunity cost of loan prepayments against equity SIPs.</p>
-                                <Link href="/calculators/home-loan-vs-sip" className="text-teal-600 hover:text-teal-700 font-semibold">
+                                <Link href="/calculators/home-loan-vs-sip" className="text-primary-600 hover:text-primary-700 font-semibold">
                                     View Full Page →
                                 </Link>
                             </div>
@@ -340,9 +354,46 @@ export default function CalculatorsPage() {
 
                     {/* FAQ Section */}
                     <Card className="border-0 shadow-lg rounded-2xl dark:bg-slate-900 dark:border dark:border-slate-800">
+                        {/* FAQ Schema */}
+                        <FAQSchema
+                            faqs={[
+                                {
+                                    question: "Are these financial calculators free to use?",
+                                    answer: "Yes, all our financial calculators are completely free to use. There's no registration required, no hidden charges, and no limitations on usage. You can use any calculator as many times as you need to plan your finances."
+                                },
+                                {
+                                    question: "How accurate are these calculators?",
+                                    answer: "Our calculators use standard financial formulas used by banks, mutual fund companies, and financial institutions. They provide accurate estimates based on your inputs. However, actual returns may vary based on market conditions. The calculators are designed to help you plan and make informed decisions."
+                                },
+                                {
+                                    question: "What is inflation-adjusted calculator?",
+                                    answer: "Inflation-adjusted calculators show real returns after accounting for inflation. For example, if your investment grows to ₹50 lakhs in 20 years but inflation is 6%, your real purchasing power would be lower. Inflation-adjusted calculators help you understand the true value of your investments in today's terms."
+                                },
+                                {
+                                    question: "Can I use these calculators on mobile?",
+                                    answer: "Yes, all our calculators are fully responsive and optimized for mobile devices. You can use them on smartphones, tablets, and desktops. The calculators are designed to work seamlessly across all devices and screen sizes."
+                                },
+                                {
+                                    question: "Do I need to create an account to use calculators?",
+                                    answer: "No, you don't need to create an account or register to use any of our calculators. They're available for immediate use without any sign-up requirements. Simply select a calculator and start calculating."
+                                },
+                                {
+                                    question: "How do these calculators compare to Groww or ET Money calculators?",
+                                    answer: "Our calculators offer similar accuracy with additional features like inflation adjustment, detailed visualizations, and comprehensive explanations. We also provide extensive FAQ sections and how-to guides to help you understand the calculations better."
+                                },
+                                {
+                                    question: "Can I save my calculations?",
+                                    answer: "Currently, calculations are performed in real-time and results are displayed instantly. We're working on adding save functionality for future updates. For now, you can bookmark the page or take screenshots of your results."
+                                },
+                                {
+                                    question: "Are the calculations updated for FY 2024-25?",
+                                    answer: "Yes, all our calculators are updated for the current financial year (FY 2024-25). Tax calculators include the latest tax slabs and rates. Interest rate calculators use current market rates. We regularly update our calculators to reflect the latest regulations and rates."
+                                }
+                            ]}
+                        />
                         <CardHeader>
                             <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-6 md:p-8">
-                                <Info className="w-6 h-6 text-teal-600" />
+                                <Info className="w-6 h-6 text-primary-600" />
                                 Financial Calculator FAQs
                             </CardTitle>
                         </CardHeader>
@@ -392,7 +443,7 @@ export default function CalculatorsPage() {
                     </Card>
 
                     {/* Related Content */}
-                    <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50">
+                    <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-primary-50 to-secondary-50">
                         <CardHeader>
                             <CardTitle className="text-2xl font-bold text-slate-900">Related Financial Tools & Resources</CardTitle>
                         </CardHeader>
@@ -410,8 +461,8 @@ export default function CalculatorsPage() {
                                         className="p-4 bg-white rounded-xl hover:shadow-md transition-all group"
                                     >
                                         <div className="flex items-center gap-2 mb-2">
-                                            <Calculator className="w-4 h-4 text-teal-600 group-hover:text-teal-700" />
-                                            <span className="font-semibold text-slate-900 group-hover:text-teal-600">{item.name}</span>
+                                            <Calculator className="w-4 h-4 text-primary-600 group-hover:text-primary-700" />
+                                            <span className="font-semibold text-slate-900 group-hover:text-primary-600">{item.name}</span>
                                         </div>
                                         <p className="text-sm text-slate-600">{item.desc}</p>
                                     </Link>

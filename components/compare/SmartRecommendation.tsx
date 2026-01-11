@@ -1,7 +1,11 @@
 import { RichProduct } from "@/types/rich-product";
 import { Badge } from "@/components/ui/badge";
-import { Crown, ShieldCheck, Star } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { Crown, ShieldCheck, Star, Sparkles, CheckCircle, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 interface SmartRecommendationProps {
     products: RichProduct[];
@@ -32,56 +36,126 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
     const winner = products.find(p => p.id === winnerId);
     if (!winner) return null;
 
+    // Determine why it's the best
+    const reasons = [];
+    if (winner.rating.trust_score >= 90) reasons.push({ icon: ShieldCheck, text: `Highest trust score (${winner.rating.trust_score}/100)` });
+    if (winner.rating.overall >= 4.5) reasons.push({ icon: Star, text: `Excellent rating (${winner.rating.overall}/5)` });
+    if (winner.key_features && winner.key_features.length >= 5) reasons.push({ icon: CheckCircle, text: `Comprehensive features (${winner.key_features.length})` });
+
     return (
-        <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 border border-primary-100 dark:border-primary-800 rounded-xl p-6 mb-8 flex flex-col md:flex-row items-center gap-6 shadow-sm">
-            <div className="flex-shrink-0 relative">
-                <div className="w-16 h-16 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center shadow-md ring-4 ring-primary-100 dark:ring-primary-900/50">
-                    <Crown className="w-8 h-8 text-primary-500 fill-emerald-500" />
-                </div>
-                <div className="absolute -bottom-2 w-full text-center">
-                    <Badge variant="default" className="bg-primary-600 text-[10px] px-2 py-0.5 pointer-events-none">
-                        WINNER
-                    </Badge>
-                </div>
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-yellow-50 via-white to-orange-50 dark:from-yellow-900/10 dark:via-slate-900 dark:to-orange-900/10 p-8 mb-8 border-2 border-yellow-200 dark:border-yellow-800/50 shadow-xl"
+        >
+            {/* Animated Background Blobs */}
+            <div className="absolute inset-0 opacity-20 pointer-events-none">
+                <div className="absolute top-0 left-0 w-64 h-64 bg-yellow-400 rounded-full blur-3xl animate-pulse" />
+                <div className="absolute bottom-0 right-0 w-64 h-64 bg-orange-400 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
             </div>
 
-            <div className="flex-grow text-center md:text-left">
-                <p className="text-xs font-bold text-primary-600 dark:text-primary-400 uppercase tracking-widest mb-1">
-                    Smart Recommendation
-                </p>
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center justify-center md:justify-start gap-2">
-                    {winner.name}
-                    {winner.rating.trust_score >= 90 && (
-                        <ShieldCheck className="w-5 h-5 text-primary-500" />
-                    )}
-                </h3>
-                <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                    Based on our analysis, this product offers the best balance of 
-                    <span className="font-semibold text-slate-800 dark:text-slate-200"> Trust ({winner.rating.trust_score})</span>, 
-                    <span className="font-semibold text-slate-800 dark:text-slate-200"> User Ratings ({winner.rating.overall}/5)</span>, 
-                    and Feature coverage.
-                </p>
-            </div>
+            {/* Content */}
+            <div className="relative z-10">
+                {/* Header */}
+                <div className="flex items-center gap-3 mb-6">
+                    <motion.div
+                        initial={{ scale: 0, rotate: -180 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+                        className="w-14 h-14 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shadow-lg shadow-yellow-500/50"
+                    >
+                        <Sparkles className="w-7 h-7 text-white" />
+                    </motion.div>
+                    <div>
+                        <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            AI Recommendation
+                            <Badge className="bg-gradient-to-r from-yellow-600 to-orange-600 text-white border-0 text-xs">
+                                SMART PICK
+                            </Badge>
+                        </h3>
+                        <p className="text-sm text-slate-600 dark:text-slate-400">Based on your comparison</p>
+                    </div>
+                </div>
 
-            <div className="flex-shrink-0 flex items-center gap-4 border-t md:border-t-0 md:border-l border-primary-200 dark:border-primary-800 pt-4 md:pt-0 md:pl-6 w-full md:w-auto justify-center md:justify-start">
-                <div className="text-center">
-                    <div className="text-2xl font-black text-primary-600 dark:text-primary-400">
-                        {winner.rating.trust_score}
-                    </div>
-                    <div className="text-[10px] uppercase font-bold text-primary-700/60 dark:text-primary-500/60">
-                        Trust Score
-                    </div>
-                </div>
-                <div className="w-px h-10 bg-primary-200 dark:bg-primary-800"></div>
-                <div className="text-center">
-                    <div className="text-2xl font-black text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                        {winner.rating.overall} <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-                    </div>
-                    <div className="text-[10px] uppercase font-bold text-slate-500">
-                        User Rating
+                {/* Winner Card */}
+                <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-2xl border-2 border-yellow-200 dark:border-yellow-800/50">
+                    <div className="flex flex-col sm:flex-row items-center gap-6">
+                        {/* Product Image */}
+                        {winner.image_url && (
+                            <div className="relative">
+                                <div className="absolute inset-0 bg-yellow-500/30 rounded-2xl blur-xl" />
+                                <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-white shadow-xl ring-4 ring-yellow-200">
+                                    <Image
+                                        src={winner.image_url}
+                                        alt={winner.name}
+                                        width={80}
+                                        height={80}
+                                        className="w-full h-full object-contain p-2"
+                                    />
+                                </div>
+                                {/* Trophy Badge */}
+                                <motion.div
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    transition={{ type: "spring", delay: 0.4 }}
+                                    className="absolute -top-2 -right-2"
+                                >
+                                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shadow-lg">
+                                        <Crown className="w-4 h-4 text-white fill-white" />
+                                    </div>
+                                </motion.div>
+                            </div>
+                        )}
+
+                        {/* Product Info */}
+                        <div className="flex-1 text-center sm:text-left">
+                            <h4 className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent mb-2">
+                                {winner.name}
+                            </h4>
+                            <div className="flex items-center justify-center sm:justify-start gap-4 mb-3">
+                                <div className="flex items-center gap-1">
+                                    <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                                    <span className="font-bold text-lg">{winner.rating.overall.toFixed(1)}</span>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    <ShieldCheck className="w-5 h-5 text-primary-600" />
+                                    <span className="font-bold text-lg text-primary-600">{winner.rating.trust_score}</span>
+                                </div>
+                            </div>
+
+                            {/* Why it's best */}
+                            {reasons.length > 0 && (
+                                <div className="space-y-2 mb-4">
+                                    <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Why it's the best:</p>
+                                    {reasons.map((reason, idx) => (
+                                        <motion.div
+                                            key={idx}
+                                            initial={{ opacity: 0, x: -20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: 0.5 + idx * 0.1 }}
+                                            className="flex items-center gap-2"
+                                        >
+                                            <reason.icon className="w-4 h-4 text-green-600 dark:text-green-400" />
+                                            <span className="text-sm text-slate-700 dark:text-slate-300">{reason.text}</span>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            )}
+
+                            {/* CTA */}
+                            <Button
+                                className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold shadow-lg hover:shadow-xl transition-all"
+                                asChild
+                            >
+                                <Link href={`/go/${winner.slug}`} target="_blank">
+                                    Apply for {winner.name}
+                                </Link>
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }

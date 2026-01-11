@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { RichProduct } from '@/types/rich-product';
+import { toast } from 'sonner';
 
 interface CompareContextType {
   selectedProducts: RichProduct[];
@@ -42,16 +43,30 @@ export function CompareProvider({ children }: { children: React.ReactNode }) {
   }, [selectedProducts, isInitialized]);
 
   const addProduct = useCallback((product: RichProduct): boolean => {
+    // Check max limit
     if (selectedProducts.length >= MAX_PRODUCTS) {
-      return false; // Max limit reached
+      toast.error(`You can compare up to ${MAX_PRODUCTS} products only.`);
+      return false;
     }
     
     // Check if already added
     if (selectedProducts.some(p => p.id === product.id)) {
+      toast.info(`${product.name} is already in comparison.`);
       return false;
     }
 
+    // Category validation - ensure all products are from same category
+    if (selectedProducts.length > 0) {
+      const firstCategory = selectedProducts[0].category;
+      if (product.category !== firstCategory) {
+        const categoryName = firstCategory.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        toast.error(`You can only compare ${categoryName}s together. Please clear the comparison or select a ${categoryName}.`);
+        return false;
+      }
+    }
+
     setSelectedProducts(prev => [...prev, product]);
+    toast.success(`Added ${product.name} to comparison`);
     return true;
   }, [selectedProducts]);
 

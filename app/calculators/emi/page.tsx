@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from 'react';
 import SEOHead from "@/components/common/SEOHead";
@@ -50,16 +50,16 @@ export default function EMICalculatorPage() {
     return (
         <div className="min-h-screen bg-slate-50">
             <SEOHead
-                title="EMI Calculator India 2024 - Home Loan, Car Loan EMI Calculator | InvestingPro"
+                title="EMI Calculator India 2026 - Home Loan, Car Loan EMI Calculator | InvestingPro"
                 description="Free EMI calculator for home loans, car loans, personal loans, and education loans. Calculate loan EMI, total interest, principal vs interest breakdown, and amortization schedule. Compare different loan offers."
                 structuredData={[structuredData, faqSchema]}
             />
             
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-6">
                 <nav className="flex items-center gap-2 text-sm text-slate-600">
-                    <Link href="/" className="hover:text-teal-600 transition-colors">Home</Link>
+                    <Link href="/" className="hover:text-primary-600 transition-colors">Home</Link>
                     <span>/</span>
-                    <Link href="/calculators" className="hover:text-teal-600 transition-colors">Calculators</Link>
+                    <Link href="/calculators" className="hover:text-primary-600 transition-colors">Calculators</Link>
                     <span>/</span>
                     <span className="text-slate-900 font-medium">EMI Calculator</span>
                 </nav>
@@ -88,7 +88,7 @@ export default function EMICalculatorPage() {
                 <Card className="border-0 shadow-lg rounded-2xl">
                     <CardHeader>
                         <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
-                            <Info className="w-6 h-6 text-teal-600" />
+                            <Info className="w-6 h-6 text-primary-600" />
                             EMI Calculator - Frequently Asked Questions (FAQs)
                         </CardTitle>
                         <p className="text-slate-600 mt-2">Find answers to the most common questions about EMI calculator and loan repayments</p>
@@ -203,7 +203,7 @@ export default function EMICalculatorPage() {
                             ].map((faq, idx) => (
                                 <div key={idx} className="border-b border-slate-200 pb-8 last:border-0">
                                     <h3 className="font-bold text-slate-900 mb-3 text-xl flex items-start gap-3">
-                                        <span className="text-teal-600 font-bold text-lg">Q{idx + 1}.</span>
+                                        <span className="text-primary-600 font-bold text-lg">Q{idx + 1}.</span>
                                         <span>{faq.q}</span>
                                     </h3>
                                     <p className="text-slate-700 leading-relaxed text-lg ml-8">{faq.a}</p>

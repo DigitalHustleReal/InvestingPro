@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from 'react';
 import SEOHead from "@/components/common/SEOHead";
@@ -109,7 +109,7 @@ export default function GSTCalculatorPage() {
     return (
         <div className="min-h-screen bg-slate-50">
             <SEOHead
-                title="GST Calculator India 2024 - Calculate GST Online (CGST, SGST, IGST) | InvestingPro"
+                title="GST Calculator India 2026 - Calculate GST Online (CGST, SGST, IGST) | InvestingPro"
                 description="Free GST calculator to calculate GST for goods and services in India. Calculate CGST, SGST, IGST with GST exclusive and inclusive options. Supports all GST rates (0%, 5%, 12%, 18%, 28%)."
                 structuredData={structuredData}
                 url={canonicalUrl}
@@ -179,7 +179,7 @@ export default function GSTCalculatorPage() {
                 <Card className="border-0 shadow-lg rounded-2xl">
                     <CardHeader>
                         <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
-                            <Percent className="w-6 h-6 text-teal-600" />
+                            <Percent className="w-6 h-6 text-primary-600" />
                             GST Rates in India
                         </CardTitle>
                     </CardHeader>
@@ -194,7 +194,7 @@ export default function GSTCalculatorPage() {
                             ].map((item, idx) => (
                                 <div key={idx} className="border border-slate-200 rounded-lg p-4">
                                     <div className="flex items-center gap-3 mb-2">
-                                        <Badge className="bg-teal-100 text-teal-700 border-0 font-bold">
+                                        <Badge className="bg-primary-100 text-primary-700 border-0 font-bold">
                                             {item.rate}
                                         </Badge>
                                         <span className="text-sm font-semibold text-slate-900">GST Rate</span>
@@ -210,7 +210,7 @@ export default function GSTCalculatorPage() {
                 <Card className="border-0 shadow-lg rounded-2xl">
                     <CardHeader>
                         <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
-                            <Info className="w-6 h-6 text-teal-600" />
+                            <Info className="w-6 h-6 text-primary-600" />
                             GST Calculator - Frequently Asked Questions
                         </CardTitle>
                     </CardHeader>
@@ -252,7 +252,7 @@ export default function GSTCalculatorPage() {
                 </Card>
 
                 {/* Related Calculators */}
-                <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50">
+                <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-primary-50 to-emerald-50">
                     <CardHeader>
                         <CardTitle className="text-2xl font-bold text-slate-900">Related Business Calculators</CardTitle>
                     </CardHeader>
@@ -269,8 +269,8 @@ export default function GSTCalculatorPage() {
                                     className="p-4 bg-white rounded-xl hover:shadow-md transition-all group"
                                 >
                                     <div className="flex items-center gap-2 mb-2">
-                                        <Calculator className="w-4 h-4 text-teal-600 group-hover:text-teal-700" />
-                                        <span className="font-semibold text-slate-900 group-hover:text-teal-600">{item.name}</span>
+                                        <Calculator className="w-4 h-4 text-primary-600 group-hover:text-primary-700" />
+                                        <span className="font-semibold text-slate-900 group-hover:text-primary-600">{item.name}</span>
                                     </div>
                                     <p className="text-sm text-slate-600">{item.desc}</p>
                                 </Link>

@@ -626,7 +626,61 @@ The AI was unable to reach a provider, so we've generated this professional outl
             }
         },
         FixedDeposit: {
-             list: async () => { return []; } // FDs usually not in products yet
+             list: async () => {
+                // Return mock FD data until database is seeded
+                return [
+                    {
+                        bank: "HDFC Bank",
+                        type: "Bank",
+                        logo: "H",
+                        color: "from-blue-600 to-blue-700",
+                        rates: { "1 Year": 7.00, "2 Years": 7.10, "3 Years": 7.25, "5 Years": 7.40 },
+                        seniorCitizenBonus: 0.50,
+                        minDeposit: "₹5,000",
+                        featured: true
+                    },
+                    {
+                        bank: "SBI",
+                        type: "Bank",
+                        logo: "S",
+                        color: "from-primary-600 to-primary-700",
+                        rates: { "1 Year": 6.80, "2 Years": 7.00, "3 Years": 7.10, "5 Years": 7.50 },
+                        seniorCitizenBonus: 0.50,
+                        minDeposit: "₹1,000",
+                        featured: false
+                    },
+                    {
+                        bank: "ICICI Bank",
+                        type: "Bank",
+                        logo: "I",
+                        color: "from-orange-600 to-orange-700",
+                        rates: { "1 Year": 7.00, "2 Years": 7.10, "3 Years": 7.25, "5 Years": 7.50 },
+                        seniorCitizenBonus: 0.50,
+                        minDeposit: "₹10,000",
+                        featured: false
+                    },
+                    {
+                        bank: "Bajaj Finance",
+                        type: "NBFC",
+                        logo: "B",
+                        color: "from-amber-600 to-amber-700",
+                        rates: { "1 Year": 8.10, "2 Years": 8.25, "3 Years": 8.35, "5 Years": 8.50 },
+                        seniorCitizenBonus: 0.25,
+                        minDeposit: "₹15,000",
+                        featured: true
+                    },
+                    {
+                        bank: "Mahindra Finance",
+                        type: "NBFC",
+                        logo: "M",
+                        color: "from-red-600 to-red-700",
+                        rates: { "1 Year": 7.75, "2 Years": 8.00, "3 Years": 8.15, "5 Years": 8.30 },
+                        seniorCitizenBonus: 0.25,
+                        minDeposit: "₹10,000",
+                        featured: false
+                    }
+                ];
+            }
         },
         Insurance: {
              list: async () => {

@@ -1,6 +1,5 @@
 "use client";
 
-import React from 'react';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { productService } from '@/lib/products/product-service';
@@ -22,14 +21,30 @@ import Link from 'next/link';
 
 export default function ProductDetailPage() {
     const params = useParams();
-    const category = params.category as string;
-    const slug = params.slug as string;
+    const category = params?.category as string | undefined;
+    const slug = params?.slug as string | undefined;
 
     const { data: product, isLoading, error } = useQuery({
         queryKey: ['product', slug],
-        queryFn: () => productService.getProductBySlug(slug),
+        queryFn: () => productService.getProductBySlug(slug!),
         enabled: !!slug
     });
+
+    if (!category || !slug) {
+        return (
+            <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+                <div className="text-center">
+                    <h1 className="text-2xl font-bold text-slate-900 mb-2">Invalid Product URL</h1>
+                    <p className="text-slate-500 mb-6">The product URL is malformed.</p>
+                    <Link href="/products">
+                        <Button variant="outline">
+                            <ArrowLeft className="w-4 h-4 mr-2" /> Back to Products
+                        </Button>
+                    </Link>
+                </div>
+            </div>
+        );
+    }
 
     if (isLoading) {
         return (
@@ -55,13 +70,17 @@ export default function ProductDetailPage() {
         );
     }
 
+    // Calculate category label only in the final return, after all safety checks
+    // This ensures category is definitely defined
     const categoryLabel = category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+
+    console.log('[ProductDetailPage] Rendering with:', { category, slug, product: product?.name });
 
     return (
         <div className="min-h-screen bg-slate-50">
             <SEOHead
-                title={product.meta_title || `${product.name} Review | InvestingPro`}
-                description={product.meta_description || `Complete review and analysis of ${product.name} from ${product.provider_name}.`}
+                title={`${product.name} Review | InvestingPro`}
+                description={product.description || `Complete review and analysis of ${product.name} from ${product.provider_name}.`}
             />
 
             {/* Hero */}
@@ -121,8 +140,8 @@ export default function ProductDetailPage() {
 
                         {/* CTA */}
                         <div className="flex flex-col gap-3 md:items-end">
-                            {product.canonical_url && (
-                                <a href={product.canonical_url} target="_blank" rel="noopener noreferrer">
+                            {(product.official_link || product.affiliate_link) && (
+                                <a href={product.official_link || product.affiliate_link} target="_blank" rel="noopener noreferrer">
                                     <Button size="lg" className="bg-teal-600 hover:bg-teal-700 w-full md:w-auto">
                                         <Globe className="w-4 h-4 mr-2" /> Visit Website
                                     </Button>
@@ -143,7 +162,7 @@ export default function ProductDetailPage() {
                             <CardContent className="p-6">
                                 <h2 className="text-xl font-bold text-slate-900 mb-4">Overview</h2>
                                 <p className="text-slate-600 leading-relaxed">
-                                    {product.meta_description || `${product.name} is a ${categoryLabel.toLowerCase()} from ${product.provider_name}. This product offers competitive features and benefits for users looking for reliable financial solutions.`}
+                                    {product.description || `${product.name} is a ${categoryLabel.toLowerCase()} from ${product.provider_name}. This product offers competitive features and benefits for users looking for reliable financial solutions.`}
                                 </p>
                             </CardContent>
                         </Card>
@@ -161,13 +180,11 @@ export default function ProductDetailPage() {
                                         <div className="text-sm text-slate-500 mb-1">Category</div>
                                         <div className="text-lg font-bold text-slate-900 capitalize">{product.category.replace('_', ' ')}</div>
                                     </div>
-                                    {product.launch_date && (
-                                        <div className="p-4 bg-slate-50 rounded-xl">
-                                            <div className="text-sm text-slate-500 mb-1">Launch Date</div>
-                                            <div className="text-lg font-bold text-slate-900">{new Date(product.launch_date).toLocaleDateString('en-IN')}</div>
-                                        </div>
-                                    )}
-                                    {product.trust_score !== undefined && (
+                                    <div className="p-4 bg-slate-50 rounded-xl">
+                                        <div className="text-sm text-slate-500 mb-1">Rating</div>
+                                        <div className="text-lg font-bold text-slate-900">{product.rating}/5</div>
+                                    </div>
+                                    {product.trust_score > 0 && (
                                         <div className="p-4 bg-slate-50 rounded-xl">
                                             <div className="text-sm text-slate-500 mb-1">Trust Score</div>
                                             <div className="text-lg font-bold text-slate-900">{product.trust_score}/100</div>
@@ -187,8 +204,8 @@ export default function ProductDetailPage() {
                                 <p className="text-teal-100 text-sm mb-6">
                                     Learn more about {product.name}
                                 </p>
-                                {product.canonical_url ? (
-                                    <a href={product.canonical_url} target="_blank" rel="noopener noreferrer">
+                                {(product.official_link || product.affiliate_link) ? (
+                                    <a href={product.official_link || product.affiliate_link} target="_blank" rel="noopener noreferrer">
                                         <Button className="w-full bg-white text-teal-700 hover:bg-teal-50">
                                             <Globe className="w-4 h-4 mr-2" /> Visit Website
                                         </Button>
@@ -225,29 +242,16 @@ export default function ProductDetailPage() {
                                             <div className="text-xs text-slate-500">Verification Status</div>
                                         </div>
                                     </div>
-                                    {product.last_verified_at && (
+                                    {product.updated_at && (
                                         <div className="flex items-center gap-3">
                                             <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
                                                 <Clock className="w-4 h-4 text-slate-400" />
                                             </div>
                                             <div>
                                                 <div className="font-medium text-slate-900">
-                                                    {new Date(product.last_verified_at).toLocaleDateString('en-IN')}
+                                                    {new Date(product.updated_at).toLocaleDateString('en-IN')}
                                                 </div>
-                                                <div className="text-xs text-slate-500">Last Verified</div>
-                                            </div>
-                                        </div>
-                                    )}
-                                    {product.launch_date && (
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
-                                                <Calendar className="w-4 h-4 text-slate-400" />
-                                            </div>
-                                            <div>
-                                                <div className="font-medium text-slate-900">
-                                                    {new Date(product.launch_date).toLocaleDateString('en-IN')}
-                                                </div>
-                                                <div className="text-xs text-slate-500">Launch Date</div>
+                                                <div className="text-xs text-slate-500">Last Updated</div>
                                             </div>
                                         </div>
                                     )}

@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { use } from 'react';
 import { generateInternalLinks, LinkingContext } from '@/lib/linking/engine';
@@ -19,16 +19,29 @@ interface AutoInternalLinksProps {
  * No manual linking required
  */
 export default function AutoInternalLinks({ context }: AutoInternalLinksProps) {
-    // Wrap in try-catch to prevent crashes from async errors
-    let links: any[] = [];
-    try {
-        const linksPromise = React.useMemo(() => generateInternalLinks(context), [context]);
-        links = use(linksPromise);
-    } catch (error) {
-        // Silently fail - internal links are optional
-        console.warn('AutoInternalLinks: Failed to generate links', error);
-        return null;
-    }
+    // Create promise outside of try/catch to avoid React hook violations
+    const linksPromise = React.useMemo(
+        () => generateInternalLinks(context).catch((error) => {
+            console.warn('AutoInternalLinks: Failed to generate links', error);
+            return []; // Return empty array on error
+        }),
+        [context]
+    );
+
+    return (
+        <Suspense fallback={null}>
+            <LinksDisplay promise={linksPromise} />
+        </Suspense>
+    );
+}
+
+/**
+ * Separate component to use() the promise
+ * This keeps use() outside of try/catch blocks
+ */
+function LinksDisplay({ promise }: { promise: Promise<any[]> }) {
+    // Safe to use() here - errors are handled in promise.catch() above
+    const links = use(promise);
 
     if (!links || links.length === 0) {
         return null;
@@ -72,20 +85,20 @@ export default function AutoInternalLinks({ context }: AutoInternalLinksProps) {
                         <Card key={type} className="border-0 shadow-lg">
                             <CardContent className="p-6">
                                 <div className="flex items-center gap-2 mb-4">
-                                    <Icon className="w-5 h-5 text-teal-600" />
+                                    <Icon className="w-5 h-5 text-primary-600" />
                                     <h3 className="font-bold text-slate-900">{label}</h3>
                                 </div>
                                 <ul className="space-y-2">
-                                    {typeLinks.map((link, idx) => (
+                                    {(typeLinks as any[]).map((link: any, idx: number) => (
                                         <li key={idx}>
                                             <Link
                                                 href={link.url}
-                                                className="text-teal-600 hover:text-teal-700 font-medium text-sm flex items-center gap-2 group"
+                                                className="text-primary-600 hover:text-primary-700 font-medium text-sm flex items-center gap-2 group"
                                             >
                                                 <span className="group-hover:underline">{link.text}</span>
                                                 <Badge 
                                                     variant="outline" 
-                                                    className="text-xs border-teal-200 text-teal-600"
+                                                    className="text-xs border-primary-200 text-primary-600"
                                                 >
                                                     {type}
                                                 </Badge>
@@ -101,4 +114,3 @@ export default function AutoInternalLinks({ context }: AutoInternalLinksProps) {
         </div>
     );
 }
-

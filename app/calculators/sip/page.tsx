@@ -187,7 +187,7 @@ export default function SIPCalculatorPage() {
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
             <SEOHead
-                title="SIP Calculator India 2024 - Calculate SIP Returns with Inflation Adjustment | InvestingPro"
+                title="SIP Calculator India 2026 - Calculate SIP Returns with Inflation Adjustment | InvestingPro"
                 description="Free SIP calculator to calculate returns on Systematic Investment Plans (SIP). Calculate SIP maturity value, returns, and inflation-adjusted real returns. Plan your financial goals with accurate SIP projections. No registration required."
                 structuredData={[structuredData, faqSchema, howToSchema]}
                 url="https://investingpro.in/calculators/sip"
@@ -249,7 +249,7 @@ export default function SIPCalculatorPage() {
                 <Card className="border-0 shadow-lg rounded-2xl dark:bg-slate-900 dark:border dark:border-slate-800">
                     <CardHeader>
                         <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-6 md:p-8">
-                            <Info className="w-6 h-6 text-teal-600" />
+                            <Info className="w-6 h-6 text-primary-600" />
                             SIP Calculator - Frequently Asked Questions (FAQs)
                         </CardTitle>
                         <p className="text-slate-600 dark:text-slate-400 mt-2">Find answers to the most common questions about SIP calculator and SIP investments</p>
@@ -356,7 +356,7 @@ export default function SIPCalculatorPage() {
                             ].map((faq, idx) => (
                                 <div key={idx} className="border-b border-slate-200 pb-8 last:border-0">
                                     <h3 className="font-bold text-slate-900 mb-3 text-xl flex items-start gap-3">
-                                        <span className="text-teal-600 font-bold text-lg">Q{idx + 1}.</span>
+                                        <span className="text-primary-600 font-bold text-lg">Q{idx + 1}.</span>
                                         <span>{faq.q}</span>
                                     </h3>
                                     <p className="text-slate-700 leading-relaxed text-lg ml-8">{faq.a}</p>

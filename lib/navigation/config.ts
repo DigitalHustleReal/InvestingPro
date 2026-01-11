@@ -61,12 +61,12 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                 slug: EDITORIAL_INTENTS.BEST,
                 description: 'Top-rated credit cards',
                 collections: [
-                    { name: 'Best Credit Cards', slug: 'all', href: '/credit-cards/best' },
-                    { name: 'Best Rewards Cards', slug: 'rewards', href: '/credit-cards/best/rewards' },
-                    { name: 'Best Cashback Cards', slug: 'cashback', href: '/credit-cards/best/cashback' },
-                    { name: 'Best Travel Cards', slug: 'travel', href: '/credit-cards/best/travel' },
-                    { name: 'Best Fuel Cards', slug: 'fuel', href: '/credit-cards/best/fuel' },
-                    { name: 'Best Shopping Cards', slug: 'shopping', href: '/credit-cards/best/shopping' },
+                    { name: 'Best Credit Cards', slug: 'all', href: '/credit-cards' },
+                    { name: 'Best Rewards Cards', slug: 'rewards', href: '/credit-cards?filter=rewards' },
+                    { name: 'Best Cashback Cards', slug: 'cashback', href: '/credit-cards?filter=cashback' },
+                    { name: 'Best Travel Cards', slug: 'travel', href: '/credit-cards?filter=travel' },
+                    { name: 'Best Fuel Cards', slug: 'fuel', href: '/credit-cards?filter=fuel' },
+                    { name: 'Best Shopping Cards', slug: 'shopping', href: '/credit-cards?filter=shopping' },
                 ],
             },
             {
@@ -120,11 +120,11 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                 slug: EDITORIAL_INTENTS.BEST,
                 description: 'Top-rated loan products',
                 collections: [
-                    { name: 'Best Personal Loans', slug: 'personal', href: '/loans/best/personal' },
-                    { name: 'Best Home Loans', slug: 'home', href: '/loans/best/home' },
-                    { name: 'Best Car Loans', slug: 'car', href: '/loans/best/car' },
-                    { name: 'Best Education Loans', slug: 'education', href: '/loans/best/education' },
-                    { name: 'Best Business Loans', slug: 'business', href: '/loans/best/business' },
+                    { name: 'Best Personal Loans', slug: 'personal', href: '/loans?type=personal' },
+                    { name: 'Best Home Loans', slug: 'home', href: '/loans?type=home' },
+                    { name: 'Best Car Loans', slug: 'car', href: '/loans?type=car' },
+                    { name: 'Best Education Loans', slug: 'education', href: '/loans?type=education' },
+                    { name: 'Best Business Loans', slug: 'business', href: '/loans?type=business' },
                 ],
             },
             {
@@ -294,9 +294,9 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                 slug: EDITORIAL_INTENTS.BEST,
                 description: 'Top insurance plans',
                 collections: [
-                    { name: 'Best Health Insurance', slug: 'health', href: '/insurance/best/health' },
-                    { name: 'Best Term Insurance', slug: 'term', href: '/insurance/best/term' },
-                    { name: 'Best Life Insurance', slug: 'life', href: '/insurance/best/life' },
+                    { name: 'Best Health Insurance', slug: 'health', href: '/insurance?type=health' },
+                    { name: 'Best Term Insurance', slug: 'term', href: '/insurance?type=term' },
+                    { name: 'Best Life Insurance', slug: 'life', href: '/insurance?type=life' },
                 ],
             },
             {
@@ -512,8 +512,8 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
         ],
     },
     {
-        name: 'Tools',
-        slug: 'tools',
+        name: 'Calculators',
+        slug: 'calculators',
         description: 'Financial calculators and analysis tools.',
         intents: [
             {

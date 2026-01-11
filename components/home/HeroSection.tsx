@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import { GridPattern } from "@/components/common/Patterns";
 import HeroVisuals from "./HeroVisuals";
+import { useNavigation } from "@/contexts/NavigationContext";
 
 // Carousel Data
 const HERO_SLIDES = [
@@ -33,16 +34,6 @@ const HERO_SLIDES = [
         secondaryCta: { text: "Check Eligibility", href: "/credit-cards/check-eligibility", icon: Shield }
     },
     {
-        id: "loans",
-        badge: "Lowest Interest Rates • Instant Approval",
-        headline: "Dream Home, Dream Car",
-        highlight: "Made Affordable",
-        desc: "Compare interest rates from 50+ banks instantly. Get the lowest EMI for your home and personal loans with our advanced eligibility checker.",
-        gradient: "from-primary-600 via-primary-500 to-secondary-500",
-        primaryCta: { text: "Compare Loans", href: "/loans", icon: Landmark },
-        secondaryCta: { text: "Check Eligibility", href: "/loans/eligibility", icon: Shield }
-    },
-    {
         id: "insurance",
         badge: "Term Life • Health • Motor",
         headline: "Protect Your Family",
@@ -53,7 +44,17 @@ const HERO_SLIDES = [
         secondaryCta: { text: "Insurance Guides", href: "/guides/insurance", icon: BookOpen }
     },
     {
-        id: "invest",
+        id: "loans",
+        badge: "Lowest Interest Rates • Instant Approval",
+        headline: "Dream Home, Dream Car",
+        highlight: "Made Affordable",
+        desc: "Compare interest rates from 50+ banks instantly. Get the lowest EMI for your home and personal loans with our advanced eligibility checker.",
+        gradient: "from-primary-600 via-primary-500 to-secondary-500",
+        primaryCta: { text: "Compare Loans", href: "/loans", icon: Landmark },
+        secondaryCta: { text: "Check Eligibility", href: "/loans/eligibility", icon: Shield }
+    },
+    {
+        id: "investing",
         badge: "Mutual Funds • FDs • SIPs",
         headline: "Grow Your Wealth",
         highlight: "Smartly",
@@ -63,7 +64,7 @@ const HERO_SLIDES = [
         secondaryCta: { text: "SIP Calculator", href: "/calculators/sip", icon: Calculator }
     },
     {
-        id: "calculators",
+        id: "tools",
         badge: "SIP • EMI • Income Tax • PPF",
         headline: "Plan Your Finances",
         highlight: "With Precision",
@@ -77,6 +78,18 @@ const HERO_SLIDES = [
 export default function HeroSection() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
+    const { activeCategory } = useNavigation();
+
+    // Sync with navbar category selection
+    useEffect(() => {
+        if (activeCategory) {
+            const slideIndex = HERO_SLIDES.findIndex(slide => slide.id === activeCategory);
+            if (slideIndex !== -1) {
+                setCurrentSlide(slideIndex);
+                setIsPaused(true); // Pause auto-rotation when user selects category
+            }
+        }
+    }, [activeCategory]);
 
     useEffect(() => {
         if (isPaused) return;
