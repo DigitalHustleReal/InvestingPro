@@ -32,6 +32,9 @@ import { RichProductCard } from "@/components/products/RichProductCard";
 import { RichProduct } from "@/types/rich-product";
 import { InsuranceFilterSidebar, InsuranceFilterState } from "@/components/insurance/FilterSidebar";
 import { ResponsiveFilterContainer } from "@/components/products/ResponsiveFilterContainer";
+import { InsuranceTable } from "@/components/insurance/InsuranceTable";
+import { LayoutGrid, Table as TableIcon } from 'lucide-react';
+import InsuranceCoverageCalculator from '@/components/calculators/InsuranceCoverageCalculator';
 
 export default function InsurancePage() {
     const [protectionScore, setProtectionScore] = useState(0);
@@ -60,6 +63,9 @@ export default function InsurancePage() {
     });
 
     const [selectedForCompare, setSelectedForCompare] = useState<string[]>([]);
+    
+    // View Mode State
+    const [viewMode, setViewMode] = useState<'grid' | 'table'>('table');
 
     useEffect(() => {
         const loadAssets = async () => {
@@ -384,10 +390,36 @@ export default function InsurancePage() {
 
                     {/* Results Grid */}
                     <div className="flex-1">
-                        <div className="flex items-center justify-between mb-2">
-                             <h2 className="text-xl font-bold text-slate-900 dark:text-white">
-                                Recommended Plans <span className="text-slate-400 font-medium text-sm ml-2">({filteredAssets.length})</span>
+                        <div className="flex justify-between items-center mb-6">
+                            <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+                                Top Insurance Plans <span className="text-slate-400 font-medium text-sm ml-2">({filteredAssets.length})</span>
                             </h2>
+                            
+                            {/* View Toggle */}
+                            <div className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-1">
+                                <button
+                                    onClick={() => setViewMode('table')}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                                        viewMode === 'table'
+                                            ? 'bg-primary-600 text-white'
+                                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                    }`}
+                                >
+                                    <TableIcon className="w-4 h-4" />
+                                    <span className="hidden sm:inline">Table</span>
+                                </button>
+                                <button
+                                    onClick={() => setViewMode('grid')}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                                        viewMode === 'grid'
+                                            ? 'bg-primary-600 text-white'
+                                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                    }`}
+                                >
+                                    <LayoutGrid className="w-4 h-4" />
+                                    <span className="hidden sm:inline">Cards</span>
+                                </button>
+                            </div>
                         </div>
                         
                         {loading ? (
@@ -406,14 +438,34 @@ export default function InsurancePage() {
                                 </Button>
                             </div>
                         ) : (
-                            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                                {richProducts.map((product) => (
-                                    <RichProductCard key={product.id} product={product} onCompare={handleCompareToggle} />
-                                ))}
-                            </div>
+                            <>
+                                {viewMode === 'table' ? (
+                                    <InsuranceTable plans={filteredAssets} />
+                                ) : (
+                                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                                        {richProducts.map((product) => (
+                                            <RichProductCard key={product.id} product={product} onCompare={handleCompareToggle} />
+                                        ))}
+                                    </div>
+                                )}
+                            </>
                         )}
                     </div>
                  </div>
+            </div>
+
+            {/* --- COVERAGE CALCULATOR SECTION --- */}
+            <div className="container mx-auto px-4 pb-16 pt-8">
+                <div className="text-center mb-8">
+                    <Badge className="mb-4 bg-primary-50 text-primary-700 border-primary-200">Smart Coverage Estimator</Badge>
+                    <h2 className="text-3xl md:text-4xl font-bold text=slate-900 dark:text-white mb-4">
+                        How Much Coverage Do You Need?
+                    </h2>
+                    <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                        Calculate your ideal insurance coverage using the Human Life Value (HLV) method
+                    </p>
+                </div>
+                <InsuranceCoverageCalculator />
             </div>
 
             {/* --- EDUCATIONAL CONTENT HUB --- */}
@@ -447,26 +499,26 @@ export default function InsurancePage() {
                     </div>
 
                     {/* 2. Visual Guide Placeholder (Canva) */}
-                    <div className="bg-slate-900 rounded-[3rem] overflow-hidden relative mb-24 text-white">
+                    <div className="bg-gradient-to-br from-primary-600 to-blue-600 dark:from-primary-500 dark:to-blue-500 rounded-[3rem] overflow-hidden relative mb-24 text-white shadow-2xl shadow-primary-500/20">
                         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
                         <div className="flex flex-col md:flex-row items-center">
                             <div className="p-12 md:p-20 md:w-1/2 relative z-10">
-                                <Badge className="mb-6 bg-secondary-500/20 text-secondary-300 border-secondary-500/30">Claim Process</Badge>
+                                <Badge className="mb-6 bg-white/20 text-white border-white/30 backdrop-blur-sm">Claim Process</Badge>
                                 <h3 className="text-4xl font-bold mb-6">How to File a Cashless Claim</h3>
                                 <ul className="space-y-4 mb-8">
-                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-secondary-400" /> Notify TPA at hospital desk (24-48 hrs before planned)</li>
-                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-secondary-400" /> Submit pre-auth form with doctor's ID</li>
-                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-secondary-400" /> Insurer approves amount directly to hospital</li>
+                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-white/90" /> Notify TPA at hospital desk (24-48 hrs before planned)</li>
+                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-white/90" /> Submit pre-auth form with doctor's ID</li>
+                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-white/90" /> Insurer approves amount directly to hospital</li>
                                 </ul>
-                                <Button className="bg-secondary-500 hover:bg-secondary-600 text-white font-bold h-12 px-8 rounded-xl">
+                                <Button className="bg-white hover:bg-blue-50 text-primary-600 font-bold h-12 px-8 rounded-xl shadow-lg transition-all">
                                     Find Network Hospitals
                                 </Button>
                             </div>
-                            <div className="md:w-1/2 bg-slate-800/50 h-[400px] md:h-full flex items-center justify-center border-l border-slate-700 border-dashed">
+                            <div className="md:w-1/2 bg-white/10 backdrop-blur-sm h-[400px] md:h-full flex items-center justify-center border-l border-white/20 border-dashed">
                                 {/* PLACEHOLDER FOR CANVA IMAGE */}
                                 <div className="text-center p-8">
-                                    <div className="w-20 h-20 bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-dashed border-slate-500">
-                                        <span className="text-xs text-slate-400 font-mono">IMAGE</span>
+                                    <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-dashed border-white/40">
+                                        <span className="text-xs text-white/60 font-mono">IMAGE</span>
                                     </div>
                                     <p className="text-slate-400 font-mono text-sm">Use Content Injection<br/>"Cashless Claim Flowchart"</p>
                                 </div>

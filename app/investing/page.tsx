@@ -25,6 +25,8 @@ import SEOHead from "@/components/common/SEOHead";
 import Link from 'next/link';
 import { api } from '@/lib/api';
 import { SmartText } from "@/components/content/SmartText";
+import { InvestingFilterSidebar, InvestingFilterState } from '@/components/investing/FilterSidebar';
+import { ResponsiveFilterContainer } from '@/components/products/ResponsiveFilterContainer';
 
 const investingTypes = [
     { id: 'mutual-funds', label: 'Mutual Funds', icon: TrendingUp },
@@ -56,7 +58,19 @@ const FAQ_DATA = [
 
 export default function InvestingPage() {
     const [products, setProducts] = useState<any[]>([]);
+    const [allProducts, setAllProducts] = useState<any[]>([]); // Store unfiltered products
     const [loading, setLoading] = useState(true);
+    const [searchTerm, setSearchTerm] = useState("");
+    
+    // Filter State
+    const [filters, setFilters] = useState<InvestingFilterState>({
+        fundTypes: [],
+        riskLevels: [],
+        minCAGR: 0,
+        maxExpenseRatio: 2.5,
+        fundHouses: [],
+        minInvestment: 0
+    });
 
     useEffect(() => {
         async function loadFeatured() {
@@ -67,17 +81,28 @@ export default function InvestingPage() {
                 const data = response.data || [];
                 
                 if (data && data.length > 0) {
-                    const normalized = data.slice(0, 3).map((p: any) => ({
-                        id: p.id,
-                        title: p.name,
-                        provider: p.provider_name,
-                        rating: p.rating || 4.5,
-                        badge: "Featured",
-                        description: p.description || "Top rated investment option.",
-                        features: p.pros?.slice(0, 3) || ["Verified", "Growth", "Direct"],
-                        href: `/investing/${p.category === 'mutual_fund' ? 'mutual-funds' : 'demat'}/${p.slug || p.id}`
-                    }));
-                    setProducts(normalized);
+                    const normalized = data.map((p: any) => {
+                        const features = p.features || {};
+                        return {
+                            id: p.id,
+                            title: p.name,
+                            provider: p.provider_name,
+                            rating: p.rating || 4.5,
+                            badge: "Featured",
+                            description: p.description || "Top rated investment option.",
+                            features: p.pros?.slice(0, 3) || ["Verified", "Growth", "Direct"],
+                            href: `/investing/${p.category === 'mutual_fund' ? 'mutual-funds' : 'demat'}/${p.slug || p.id}`,
+                            // Filter fields
+                            fundType: "Mutual Fund",
+                            risk: features.risk_level || "Moderate",
+                            cagr: parseFloat(features.returns_3y || '0'),
+                            expenseRatio: parseFloat(features.expense_ratio || '0'),
+                            fundHouse: p.provider_name,
+                            minInvestment: parseInt(features.min_sip || '500')
+                        };
+                    });
+                    setAllProducts(normalized);
+                    setProducts(normalized.slice(0, 9)); // Show first 9
                 }
             } catch (err) {
                 console.error("Error loading investing products:", err);
@@ -87,6 +112,51 @@ export default function InvestingPage() {
         }
         loadFeatured();
     }, []);
+    
+    // Apply Filters
+    useEffect(() => {
+        let filtered = [...allProducts];
+        
+        // Fund Type filter
+        if (filters.fundTypes.length > 0) {
+            filtered = filtered.filter(p => filters.fundTypes.includes(p.fundType));
+        }
+        
+        // Risk filter
+        if (filters.riskLevels.length > 0) {
+            filtered = filtered.filter(p => filters.riskLevels.includes(p.risk));
+        }
+        
+        // CAGR filter
+        filtered = filtered.filter(p => p.cagr >= filters.minCAGR);
+        
+        // Expense Ratio filter
+        filtered = filtered.filter(p => p.expenseRatio <= filters.maxExpenseRatio);
+        
+        // Fund House filter
+        if (filters.fundHouses.length > 0) {
+            filtered = filtered.filter(p => filters.fundHouses.includes(p.fundHouse));
+        }
+        
+        // Min Investment filter
+        filtered = filtered.filter(p => p.minInvestment >= filters.minInvestment);
+        
+        // Search filter
+        if (searchTerm) {
+            filtered = filtered.filter(p => 
+                p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                p.provider.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        }
+        
+        setProducts(filtered.slice(0, 9)); // Show top 9 matching
+    }, [filters, searchTerm, allProducts]);
+    
+    // Count active filters
+    const activeFiltersCount = 
+        (filters.fundTypes.length > 0 ? 1 : 0) +
+        (filters.riskLevels.length > 0 ? 1 : 0) +
+        (filters.fundHouses.length > 0 ? 1 : 0);
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300 font-sans">
@@ -238,8 +308,17 @@ export default function InvestingPage() {
                     ))}
                 </div>
 
-                {/* --- PRODUCTS LIST --- */}
-                 <div className="flex items-center justify-between mb-8">
+                {/* --- FILTER + PRODUCTS SECTION --- */}
+                <div className="flex flex-col lg:flex-row gap-8 items-start mb-24">
+                    
+                    {/* Filter Sidebar */}
+                    <ResponsiveFilterContainer activeFiltersCount={activeFiltersCount}>
+                        <InvestingFilterSidebar filters={filters} setFilters={setFilters} />
+                    </ResponsiveFilterContainer>
+                    
+                    {/* Products List */}
+                    <div className="flex-1 w-full">
+                        <div className="flex items-center justify-between mb-8">
                     <div>
                         <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Top Rated Funds</h2>
                         <p className="text-slate-600 dark:text-slate-400">Handpicked by SEBI-registered analysts.</p>
@@ -249,7 +328,27 @@ export default function InvestingPage() {
                     </Link>
                 </div>
 
-               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                        {loading ? (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {[1,2,3].map(i => (
+                                    <div key={i} className="h-96 bg-slate-200 dark:bg-slate-800 rounded-[2.5rem] animate-pulse" />
+                                ))}
+                            </div>
+                        ) : products.length === 0 ? (
+                            <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800">
+                                <p className="text-lg font-medium text-slate-900 dark:text-white">No funds match your filters</p>
+                                <p className="text-slate-500 mt-2">Try adjusting your criteria</p>
+                                <Button onClick={() => setFilters({
+                                    fundTypes: [],
+                                    riskLevels: [],
+                                    minCAGR: 0,
+                                    maxExpenseRatio: 2.5,
+                                    fundHouses: [],
+                                    minInvestment: 0
+                                })} className="mt-4" variant="outline">Reset Filters</Button>
+                            </div>
+                        ) : (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {products.map((product) => (
                         <Link href={product.href} key={product.id}>
                             <Card className="h-full hover:border-primary-500 dark:hover:border-primary-500 transition-all cursor-pointer hover:-translate-y-1 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 group">
@@ -309,6 +408,9 @@ export default function InvestingPage() {
                             </Card>
                         </Link>
                     ))}
+                            </div>
+                        )}
+                    </div>
                 </div>
 
                 {/* --- EDUCATIONAL CONTENT HUB --- */}

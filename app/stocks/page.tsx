@@ -245,7 +245,7 @@ export default function StocksPage() {
                                     </div>
                                 </div>
 
-                                <Button className="w-full h-14 rounded-2xl bg-slate-900 hover:bg-primary-600 text-white font-bold shadow-xl group/btn transition-all">
+                                <Button className="w-full h-14 rounded-2xl bg-primary-600 hover:bg-blue-600 dark:bg-primary-500 dark:hover:bg-blue-500 text-white font-bold shadow-xl group/btn transition-all">
                                     Analyze GMP Analysis
                                     <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                                 </Button>
@@ -315,7 +315,7 @@ export default function StocksPage() {
                                     ))}
                                 </div>
 
-                                <Button className="w-full h-16 rounded-[1.5rem] bg-slate-900 hover:bg-primary-600 text-white font-bold text-lg transition-all shadow-2xl active:scale-95">
+                                <Button className="w-full h-16 rounded-[1.5rem] bg-primary-600 hover:bg-blue-600 dark:bg-primary-500 dark:hover:bg-blue-500 text-white font-bold text-lg transition-all shadow-2xl active:scale-95">
                                     Open Paperless Account
                                     <ArrowUpRight className="ml-2 w-5 h-5" />
                                 </Button>
@@ -325,12 +325,12 @@ export default function StocksPage() {
                 </div>
 
                 {/* Macro Wisdom Section */}
-                <div className="bg-slate-900 rounded-[4rem] p-16 lg:p-24 text-white overflow-hidden relative group">
+                <div className="bg-gradient-to-br from-primary-600 to-blue-600 dark:from-primary-500 dark:to-blue-500 rounded-[4rem] p-16 lg:p-24 text-white overflow-hidden relative group shadow-2xl shadow-primary-500/20">
                     <Globe className="absolute -right-24 -bottom-24 w-96 h-96 text-white/5 group-hover:rotate-12 transition-transform duration-700" />
                     <div className="max-w-3xl relative z-10">
-                        <Badge className="bg-primary-600 text-white border-0 px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] mb-10">Institutional View</Badge>
-                        <h2 className="text-4xl lg:text-6xl font-bold mb-10 tracking-tight leading-tight">Master the <br /> <span className="text-primary-400">Macro Variables</span></h2>
-                        <p className="text-xl text-slate-400 font-medium leading-relaxed mb-16">
+                        <Badge className="bg-white/20 text-white border-white/30 backdrop-blur-sm px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] mb-10">Institutional View</Badge>
+                        <h2 className="text-4xl lg:text-6xl font-bold mb-10 tracking-tight leading-tight">Master the <br /> <span className="text-white/90">Macro Variables</span></h2>
+                        <p className="text-xl text-white/80 font-medium leading-relaxed mb-16">
                             Retail traders look at prices. Professionals look at "Liquidity Clusters" and "Macro Correlations." Track NIFTY 500 sentiment deltas across all global gateways.
                         </p>
 
@@ -341,10 +341,10 @@ export default function StocksPage() {
                                 { icon: PieChart, label: "NIFTY PE", value: "22.45 (Optimal)" }
                             ].map((stat, i) => (
                                 <div key={i} className="space-y-4">
-                                    <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-primary-400 border border-white/10">
+                                    <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-white border border-white/30">
                                         <stat.icon className="w-6 h-6" />
                                     </div>
-                                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{stat.label}</p>
+                                    <p className="text-[10px] font-bold text-white/60 uppercase tracking-widest">{stat.label}</p>
                                     <p className="text-xl font-bold text-white">{stat.value}</p>
                                 </div>
                             ))}

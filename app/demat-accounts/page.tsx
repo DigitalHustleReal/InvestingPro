@@ -186,13 +186,13 @@ export default function DematAccountsPage() {
 
                                     {/* Transaction Panel */}
                                     <div className="lg:col-span-1 flex flex-col justify-center">
-                                        <div className="bg-slate-900 rounded-[2rem] p-6 mb-4 text-white relative h-full flex flex-col justify-between overflow-hidden group/cta">
-                                            <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
+                                        <div className="bg-gradient-to-br from-primary-600 to-blue-600 dark:from-primary-500 dark:to-blue-500 rounded-[2rem] p-6 mb-4 text-white relative h-full flex flex-col justify-between overflow-hidden group/cta shadow-xl shadow-primary-500/20">
+                                            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
                                             <div className="relative z-10">
-                                                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Tailored for</p>
+                                                <p className="text-[10px] font-bold text-white/60 uppercase tracking-widest mb-1">Tailored for</p>
                                                 <p className="text-sm font-extrabold leading-tight mb-6">{broker.bestFor}</p>
                                             </div>
-                                            <Button className="w-full rounded-2xl bg-secondary-500 hover:bg-primary-600 text-white font-bold py-6 shadow-xl shadow-blue-500/20 transition-all active:scale-95">
+                                            <Button className="w-full rounded-2xl bg-white hover:bg-blue-50 text-primary-600 font-bold py-6 shadow-lg transition-all active:scale-95">
                                                 Get Started
                                                 <ArrowUpRight className="w-4 h-4 ml-2" />
                                             </Button>

@@ -29,6 +29,10 @@ import Link from 'next/link';
 import { RichProductCard } from "@/components/products/RichProductCard";
 import { RichProduct } from "@/types/rich-product";
 import { FilterSidebar, CCFilterState } from '@/components/credit-cards/FilterSidebar';
+import { ResponsiveFilterContainer } from '@/components/products/ResponsiveFilterContainer';
+import { CreditCardTable } from '@/components/credit-cards/CreditCardTable';
+import { LayoutGrid, Table as TableIcon } from 'lucide-react';
+import CreditCardRewardsCalculator from '@/components/calculators/CreditCardRewardsCalculator';
 
 const CreditCardsPage = () => {
     const [assets, setAssets] = useState<any[]>([]);
@@ -43,6 +47,9 @@ const CreditCardsPage = () => {
         issuers: [],
         features: []
     });
+    
+    // View Mode State
+    const [viewMode, setViewMode] = useState<'grid' | 'table'>('table');
 
     useEffect(() => {
         const loadAssets = async () => {
@@ -80,6 +87,12 @@ const CreditCardsPage = () => {
 
         return searchMatch && issuerMatch && networkMatch && featureMatch;
     });
+
+    // Count active filters for mobile badge
+    const activeFiltersCount = 
+        (filters.issuers.length > 0 ? 1 : 0) + 
+        (filters.networks.length > 0 ? 1 : 0) +
+        (filters.features.length > 0 ? 1 : 0);
 
     // Transform generic DB asset to RichProduct
     const richProducts: RichProduct[] = filteredAssets.map(a => ({
@@ -154,35 +167,61 @@ const CreditCardsPage = () => {
                 <div className="flex flex-col lg:flex-row gap-8 items-start">
                     
                     {/* Filter Sidebar */}
-                    <div className="w-full lg:w-[300px] shrink-0">
-                         <FilterSidebar filters={filters} setFilters={setFilters} />
+                    <ResponsiveFilterContainer activeFiltersCount={activeFiltersCount}>
+                        <FilterSidebar filters={filters} setFilters={setFilters} />
                          
                          {/* Marketing Widgets in Sidebar */}
                          <div className="mt-8 space-y-6">
                             {/* Card Matcher Teaser */}
-                            <div className="bg-gradient-to-br from-teal-600 to-emerald-700 rounded-[2rem] p-6 text-white relative overflow-hidden shadow-xl shadow-teal-900/20">
+                            <div className="bg-gradient-to-br from-primary- to-emerald-700 rounded-[2rem] p-6 text-white relative overflow-hidden shadow-xl shadow-primary-/20">
                                 <div className="relative z-10">
                                     <div className="h-10 w-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center mb-4">
                                         <Zap className="w-6 h-6 text-yellow-300" />
                                     </div>
                                     <h3 className="font-bold text-lg mb-2">Not sure which card?</h3>
-                                    <p className="text-teal-50 text-sm mb-4">Take our 30-second quiz to find your perfect financial match.</p>
-                                    <Button size="sm" className="w-full bg-white text-teal-700 font-bold hover:bg-teal-50">
+                                    <p className="text-primary- text-sm mb-4">Take our 30-second quiz to find your perfect financial match.</p>
+                                    <Button size="sm" className="w-full bg-white text-primary- font-bold hover:bg-primary-">
                                         Start Quiz
                                     </Button>
                                 </div>
                             </div>
                          </div>
-                    </div>
+                    </ResponsiveFilterContainer>
 
                     {/* Results Grid */}
                     <div className="flex-1">
                         
-                        {/* Status Bar */}
+                        {/* Status Bar with View Toggle */}
                         <div className="flex justify-between items-center mb-6">
                             <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                                 Recommended Cards <span className="text-slate-400 font-medium text-sm ml-2">({filteredAssets.length})</span>
                             </h2>
+                            
+                            {/* View Toggle */}
+                            <div className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-1">
+                                <button
+                                    onClick={() => setViewMode('table')}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                                        viewMode === 'table'
+                                            ? 'bg-primary-600 text-white'
+                                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                    }`}
+                                >
+                                    <TableIcon className="w-4 h-4" />
+                                    <span className="hidden sm:inline">Table</span>
+                                </button>
+                                <button
+                                    onClick={() => setViewMode('grid')}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                                        viewMode === 'grid'
+                                            ? 'bg-primary-600 text-white'
+                                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                    }`}
+                                >
+                                    <LayoutGrid className="w-4 h-4" />
+                                    <span className="hidden sm:inline">Cards</span>
+                                </button>
+                            </div>
                         </div>
 
                         {loading ? (
@@ -196,21 +235,41 @@ const CreditCardsPage = () => {
                                 <p className="text-slate-500 font-medium">No cards match your specific filters.</p>
                             </div>
                         ) : (
-                            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                                {richProducts.map((product) => (
-                                    <RichProductCard 
-                                        key={product.id} 
-                                        product={product} 
-                                    />
-                                ))}
-                            </div>
+                            <>
+                                {viewMode === 'table' ? (
+                                    <CreditCardTable cards={filteredAssets} />
+                                ) : (
+                                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                                        {richProducts.map((product) => (
+                                            <RichProductCard 
+                                                key={product.id} 
+                                                product={product} 
+                                            />
+                                        ))}
+                                    </div>
+                                )}
+                            </>
                         )}
                     </div>
+             
+            {/* --- REWARDS CALCULATOR SECTION --- */}
+            <div className="container mx-auto px-4 pb-16">
+                <div className="text-center mb-8">
+                    <Badge className="mb-4 bg-primary-50 text-primary-700 border-primary-200">Smart Recommendations</Badge>
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                        Which Card Earns You the Most?
+                    </h2>
+                    <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                        Answer a few questions about your spending habits to get personalized card recommendations
+                    </p>
+                </div>
+                <CreditCardRewardsCalculator />
+            </div>
 
             {/* --- EDUCATIONAL CONTENT HUB --- */}
             <div className="container mx-auto px-4 pb-24">
                  <div className="flex items-center gap-3 mb-8">
-                    <div className="p-3 rounded-2xl bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400">
+                    <div className="p-3 rounded-2xl bg-primary- dark:bg-primary-/30 text-primary- dark:text-primary-">
                         <BookOpen className="w-6 h-6" />
                     </div>
                     <div>
@@ -226,7 +285,7 @@ const CreditCardsPage = () => {
                             {/* Placeholder Content */}
                             <div className="z-10 relative">
                                 <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm">
-                                    <Sparkles className="w-10 h-10 text-teal-300" />
+                                    <Sparkles className="w-10 h-10 text-primary-" />
                                 </div>
                                 <h3 className="text-2xl font-bold mb-3">Rewards Matrix</h3>
                                 <p className="text-slate-300 mb-8 max-w-[200px] mx-auto">Visual guide to choosing the right card based on your spending.</p>
@@ -236,7 +295,7 @@ const CreditCardsPage = () => {
                             </div>
                             
                             {/* Decor */}
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-primary-/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
                             <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
                         </div>
                     </div>
@@ -247,7 +306,7 @@ const CreditCardsPage = () => {
                         <Card className="border-slate-200 dark:border-slate-800 shadow-sm">
                             <CardContent className="p-8">
                                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
-                                    <CardIcon className="w-5 h-5 text-teal-600" />
+                                    <CardIcon className="w-5 h-5 text-primary-" />
                                     Types of Credit Cards
                                 </h3>
                                 <div className="grid md:grid-cols-2 gap-6">
@@ -274,7 +333,7 @@ const CreditCardsPage = () => {
                                         }
                                     ].map((type, i) => (
                                         <div key={i} className="flex gap-4">
-                                            <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-900/20 flex items-center justify-center text-teal-600 dark:text-teal-400 mt-1">
+                                            <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary- dark:bg-primary-/20 flex items-center justify-center text-primary- dark:text-primary- mt-1">
                                                 <type.icon className="w-5 h-5" />
                                             </div>
                                             <div>
@@ -311,7 +370,7 @@ const CreditCardsPage = () => {
                                 <div key={i} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 hover:shadow-md transition-shadow">
                                     <h4 className="font-bold text-slate-900 dark:text-white mb-2 flex justify-between items-center group cursor-pointer">
                                         {faq.q}
-                                        <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-teal-600 transition-colors" />
+                                        <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-primary- transition-colors" />
                                     </h4>
                                     <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
                                         {faq.a}

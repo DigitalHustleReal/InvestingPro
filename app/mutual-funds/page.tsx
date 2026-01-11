@@ -44,12 +44,13 @@ import Link from 'next/link';
 import { FilterSidebar } from "@/components/mutual-funds/FilterSidebar";
 import { FundTable } from "@/components/mutual-funds/FundTable";
 import { ResponsiveFilterContainer } from "@/components/products/ResponsiveFilterContainer";
+import { SIPCalculator } from "@/components/calculators/SIPCalculator";
 
 const FUND_CATEGORIES = ["All", "Equity", "Debt", "Hybrid", "ELSS", "Index"];
 
 const riskColors: Record<string, string> = {
     "Low": "bg-green-50 text-green-700 border-green-100",
-    "Low to Moderate": "bg-teal-50 text-teal-700 border-teal-100",
+    "Low to Moderate": "bg-primary- text-primary- border-primary-",
     "Moderate": "bg-secondary-50 text-secondary-700 border-secondary-100",
     "Moderately High": "bg-amber-50 text-amber-700 border-amber-100",
     "High": "bg-orange-50 text-orange-700 border-orange-100",
@@ -200,23 +201,23 @@ export default function MutualFundsPage() {
             {/* Light Theme Hero Section - Consistent with Platform */}
             <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 pt-28 pb-20 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10 pointer-events-none">
-                     <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-teal-500 rounded-full blur-[140px] -translate-y-1/2" />
+                     <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-primary- rounded-full blur-[140px] -translate-y-1/2" />
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                    <Badge className="mb-6 bg-teal-50 text-teal-700 border-teal-200 px-4 py-1.5 uppercase tracking-widest text-xs font-bold">
+                    <Badge className="mb-6 bg-primary- text-primary- border-primary- px-4 py-1.5 uppercase tracking-widest text-xs font-bold">
                         Data-Driven Fund Analysis
                     </Badge>
                      <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight leading-tight mb-6">
-                        Find Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-blue-600">Perfect Mutual Fund</span>
+                        Find Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary- to-blue-600">Perfect Mutual Fund</span>
                     </h1>
                      <div className="relative group max-w-xl mx-auto">
                         <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-                            <Search className="h-5 w-5 text-slate-400 group-focus-within:text-teal-600 transition-colors" />
+                            <Search className="h-5 w-5 text-slate-400 group-focus-within:text-primary- transition-colors" />
                         </div>
                         <Input
                             placeholder="Search by fund name, AMC, or category..."
-                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white border border-slate-200 text-slate-900 placeholder:text-slate-500 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all"
+                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white border border-slate-200 text-slate-900 placeholder:text-slate-500 focus:border-primary- focus:ring-2 focus:ring-primary-/20 transition-all"
                             value={searchTerm}
                             onChange={(e) => {
                                 setSearchTerm(e.target.value);
@@ -312,7 +313,7 @@ export default function MutualFundsPage() {
                                                 {/* Primary Identity */}
                                                 <div className="p-8 flex-1">
                                                     <div className="flex items-start gap-4 mb-6">
-                                                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-secondary-500/10 to-teal-500/10 border border-teal-500/10 flex items-center justify-center text-teal-600 font-bold text-xl group-hover/card:scale-110 transition-transform">
+                                                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-secondary-500/10 to-primary-/10 border border-primary-/10 flex items-center justify-center text-primary- font-bold text-xl group-hover/card:scale-110 transition-transform">
                                                             {(fund.name || "A").substring(0, 1)}
                                                         </div>
                                                         <div className="space-y-1">
@@ -352,7 +353,7 @@ export default function MutualFundsPage() {
                                                 </div>
 
                                                 {/* Yield Analytics */}
-                                                <div className="p-8 lg:w-72 bg-slate-50/50 group-hover/card:bg-teal-50/30 transition-colors flex items-center justify-between lg:justify-center">
+                                                <div className="p-8 lg:w-72 bg-slate-50/50 group-hover/card:bg-primary-/30 transition-colors flex items-center justify-between lg:justify-center">
                                                     <div className="grid grid-cols-3 lg:grid-cols-1 gap-6 text-center w-full lg:w-auto">
                                                         {[
                                                             { label: "1Y Yield", value: fund.returns_1y, trend: fund.returns_1y > 0 },
@@ -378,7 +379,7 @@ export default function MutualFundsPage() {
                                                         </Button>
                                                     </Link>
                                                     <Link href={`/mutual-funds/${fund.id}`} className="w-full">
-                                                        <Button className="w-full h-12 rounded-2xl bg-slate-900 hover:bg-primary-600 text-white font-extrabold text-[11px] uppercase tracking-[0.2em] shadow-xl shadow-slate-900/10">
+                                                        <Button className="w-full h-12 rounded-2xl bg-primary-600 hover:bg-blue-600 dark:bg-primary-500 dark:hover:bg-blue-500 text-white font-extrabold text-[11px] uppercase tracking-[0.2em] shadow-xl shadow-primary-500/20 transition-all">
                                                             Allocate
                                                             <ArrowUpRight className="w-4 h-4 ml-2" />
                                                         </Button>
@@ -411,13 +412,29 @@ export default function MutualFundsPage() {
                 </div>
             </div>
 
+            {/* --- SIP CALCULATOR SECTION --- */}
+            <div className="bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 border-y border-slate-200 dark:border-slate-800 py-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-8">
+                        <Badge className="mb-4 bg-primary-50 text-primary-700 border-primary-200">Interactive Tool</Badge>
+                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                            Plan Your SIP Journey
+                        </h2>
+                        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                            Calculate how much your systematic investment can grow over time
+                        </p>
+                    </div>
+                    <SIPCalculator />
+                </div>
+            </div>
+
             {/* --- EDUCATIONAL CONTENT HUB --- */}
             <div className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     
                     {/* Section Header */}
                     <div className="text-center mb-16">
-                        <Badge className="mb-4 bg-teal-50 text-teal-700 border-teal-100">Investor's Guide</Badge>
+                        <Badge className="mb-4 bg-primary- text-primary- border-primary-">Investor's Guide</Badge>
                         <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Wealth Creation Made Simple</h2>
                         <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                             You don't need to be an expert to beat inflation. Understand the basics of asset allocation.
@@ -433,7 +450,7 @@ export default function MutualFundsPage() {
                         ].map((item, i) => (
                             <div key={i} className="bg-slate-50 dark:bg-slate-800/50 rounded-3xl p-8 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
                                 <div className="w-12 h-12 bg-white dark:bg-slate-900 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
-                                    <item.icon className="w-6 h-6 text-teal-600" />
+                                    <item.icon className="w-6 h-6 text-primary-" />
                                 </div>
                                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{item.title}</h3>
                                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</p>
@@ -442,27 +459,27 @@ export default function MutualFundsPage() {
                     </div>
 
                     {/* 2. Visual Guide Placeholder (Canva) */}
-                    <div className="bg-slate-900 rounded-[3rem] overflow-hidden relative mb-24 text-white">
+                    <div className="bg-gradient-to-br from-primary-600 to-blue-600 dark:from-primary-500 dark:to-blue-500 rounded-[3rem] overflow-hidden relative mb-24 text-white shadow-2xl shadow-primary-500/20">
                         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
                         <div className="flex flex-col md:flex-row items-center">
                             <div className="p-12 md:p-20 md:w-1/2 relative z-10">
-                                <Badge className="mb-6 bg-teal-500/20 text-teal-300 border-teal-500/30">Power of Compounding</Badge>
+                                <Badge className="mb-6 bg-white/20 text-white border-white/30 backdrop-blur-sm">Power of Compounding</Badge>
                                 <h3 className="text-4xl font-bold mb-6">Start Early to Retire Rich</h3>
-                                <p className="text-slate-300 text-lg mb-8 leading-relaxed">
+                                <p className="text-white/90 text-lg mb-8 leading-relaxed">
                                     Investing ₹5,000/month for 20 years can turn into ₹50 Lakhs. 
                                     Delaying by just 5 years can cost you over ₹25 Lakhs in returns.
                                 </p>
-                                <Button className="bg-teal-500 hover:bg-teal-600 text-white font-bold h-12 px-8 rounded-xl">
+                                <Button className="bg-white hover:bg-blue-50 text-primary-600 font-bold h-12 px-8 rounded-xl shadow-lg transition-all">
                                     Start SIP Calculator
                                 </Button>
                             </div>
-                            <div className="md:w-1/2 bg-slate-800/50 h-[400px] md:h-full flex items-center justify-center border-l border-slate-700 border-dashed">
+                            <div className="md:w-1/2 bg-white/10 backdrop-blur-sm h-[400px] md:h-full flex items-center justify-center border-l border-white/20 border-dashed">
                                 {/* PLACEHOLDER FOR CANVA IMAGE */}
                                 <div className="text-center p-8">
-                                    <div className="w-20 h-20 bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-dashed border-slate-500">
-                                        <span className="text-xs text-slate-400 font-mono">IMAGE</span>
+                                    <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-dashed border-white/40">
+                                        <span className="text-xs text-white/60 font-mono">IMAGE</span>
                                     </div>
-                                    <p className="text-slate-400 font-mono text-sm">Use Content Injection<br/>"SIP Growth Chart"</p>
+                                    <p className="text-white/60 font-mono text-sm">Use Content Injection<br/>"SIP Growth Chart"</p>
                                 </div>
                             </div>
                         </div>

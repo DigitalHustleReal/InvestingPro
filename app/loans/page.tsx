@@ -39,6 +39,8 @@ import { RichProduct } from "@/types/rich-product";
 
 import { LoanFilterSidebar, LoanFilterState } from "@/components/loans/FilterSidebar";
 import { ResponsiveFilterContainer } from "@/components/products/ResponsiveFilterContainer";
+import { LoansTable } from "@/components/loans/LoansTable";
+import { LayoutGrid, Table as TableIcon } from 'lucide-react';
 
 export default function LoansPage() {
     // Calculator State
@@ -61,6 +63,9 @@ export default function LoansPage() {
     });
 
     const [selectedForCompare, setSelectedForCompare] = useState<string[]>([]);
+    
+    // View Mode State
+    const [viewMode, setViewMode] = useState<'grid' | 'table'>('table');
 
     useEffect(() => {
         // EMI Calculation: P * r * (1+r)^n / ((1+r)^n - 1)
@@ -222,7 +227,7 @@ export default function LoansPage() {
                         {/* Interactive Calculator Widget */}
                         <div className="flex-1 w-full max-w-md lg:max-w-lg">
                             <Card className="rounded-[2.5rem] bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xl shadow-primary-500/10 overflow-hidden relative">
-                                <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-emerald-400 via-teal-500 to-secondary-500" />
+                                <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-emerald-400 via-primary- to-secondary-500" />
                                 
                                 <CardContent className="p-8">
                                     <div className="flex items-center justify-between mb-8">
@@ -322,14 +327,40 @@ export default function LoansPage() {
                     {/* Results Grid */}
                     <div className="flex-1">
                         
-                        {/* Status Bar */}
+                        {/* Status Bar with View Toggle */}
                         <div className="flex justify-between items-center mb-6">
                             <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                                 Top Loan Offers <span className="text-slate-400 font-medium text-sm ml-2">({filteredAssets.length})</span>
                             </h2>
+                            
+                            {/* View Toggle */}
+                            <div className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-1">
+                                <button
+                                    onClick={() => setViewMode('table')}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                                        viewMode === 'table'
+                                            ? 'bg-primary-600 text-white'
+                                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                    }`}
+                                >
+                                    <TableIcon className="w-4 h-4" />
+                                    <span className="hidden sm:inline">Table</span>
+                                </button>
+                                <button
+                                    onClick={() => setViewMode('grid')}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                                        viewMode === 'grid'
+                                            ? 'bg-primary-600 text-white'
+                                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                    }`}
+                                >
+                                    <LayoutGrid className="w-4 h-4" />
+                                    <span className="hidden sm:inline">Cards</span>
+                                </button>
+                            </div>
                         </div>
 
-                        {loading ? (
+                         {loading ? (
                              <div className="grid md:grid-cols-2 gap-6 animate-pulse">
                                 {[1,2,3,4].map(i => (
                                     <div key={i} className="h-96 bg-slate-200 dark:bg-slate-800 rounded-[2.5rem]" />
@@ -341,11 +372,17 @@ export default function LoansPage() {
                                 <p className="text-slate-500 font-medium">No loans match your filters.</p>
                             </div>
                         ) : (
-                            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                                {richProducts.map((product) => (
-                                    <RichProductCard key={product.id} product={product} onCompare={handleCompareToggle} />
-                                ))}
-                            </div>
+                            <>
+                                {viewMode === 'table' ? (
+                                    <LoansTable loans={filteredAssets} />
+                                ) : (
+                                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                                        {richProducts.map((product) => (
+                                            <RichProductCard key={product.id} product={product} onCompare={handleCompareToggle} />
+                                        ))}
+                                    </div>
+                                )}
+                            </>
                         )}
                     </div>
                 </div>
@@ -382,28 +419,28 @@ export default function LoansPage() {
                     </div>
 
                     {/* 2. Visual Guide Placeholder (Canva) */}
-                    <div className="bg-slate-900 rounded-[3rem] overflow-hidden relative mb-24 text-white">
+                    <div className="bg-gradient-to-br from-primary-600 to-blue-600 dark:from-primary-500 dark:to-blue-500 rounded-[3rem] overflow-hidden relative mb-24 text-white shadow-2xl shadow-primary-500/20">
                         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
                         <div className="flex flex-col md:flex-row items-center">
                             <div className="p-12 md:p-20 md:w-1/2 relative z-10">
-                                <Badge className="mb-6 bg-teal-500/20 text-teal-300 border-teal-500/30">Step-by-Step Guide</Badge>
+                                <Badge className="mb-6 bg-white/20 text-white border-white/30 backdrop-blur-sm">Step-by-Step Guide</Badge>
                                 <h3 className="text-4xl font-bold mb-6">How to Get Approved Instantly</h3>
                                 <ul className="space-y-4 mb-8">
-                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-teal-400" /> Check your CIBIL Score (750+ is ideal)</li>
-                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-teal-400" /> Keep Salary Slips & Bank Statements ready</li>
-                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-teal-400" /> Compare ROI across top 3 lenders</li>
+                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-white/90" /> Check your CIBIL Score (750+ is ideal)</li>
+                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-white/90" /> Keep Salary Slips & Bank Statements ready</li>
+                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-white/90" /> Compare ROI across top 3 lenders</li>
                                 </ul>
-                                <Button className="bg-teal-500 hover:bg-teal-600 text-white font-bold h-12 px-8 rounded-xl">
+                                <Button className="bg-white hover:bg-blue-50 text-primary-600 font-bold h-12 px-8 rounded-xl shadow-lg transition-all">
                                     Check My CIBIL Score
                                 </Button>
                             </div>
-                            <div className="md:w-1/2 bg-slate-800/50 h-[400px] md:h-full flex items-center justify-center border-l border-slate-700 border-dashed">
+                            <div className="md:w-1/2 bg-white/10 backdrop-blur-sm h-[400px] md:h-full flex items-center justify-center border-l border-white/20 border-dashed">
                                 {/* PLACEHOLDER FOR CANVA IMAGE */}
                                 <div className="text-center p-8">
-                                    <div className="w-20 h-20 bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-dashed border-slate-500">
-                                        <span className="text-xs text-slate-400 font-mono">IMAGE</span>
+                                    <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-dashed border-white/40">
+                                        <span className="text-xs text-white/60 font-mono">IMAGE</span>
                                     </div>
-                                    <p className="text-slate-400 font-mono text-sm">Use Content Injection<br/>"Loan Approval Process Infographic"</p>
+                                    <p className="text-white/60 font-mono text-sm">Use Content Injection<br/>"Loan Approval Process Infographic"</p>
                                 </div>
                             </div>
                         </div>

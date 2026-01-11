@@ -82,7 +82,7 @@ export default async function RootLayout({
                       </LeadCaptureProvider>
                     </PageErrorBoundary>
                   </main>
-                  {/* <CompareBar /> */}
+                  <CompareBar />
                   
                   {/* 
                      AUTOMATED AFFILIATE SCRIPT (Cuelinks / Skimlinks)

@@ -239,7 +239,7 @@ export default function ProfilePage() {
                                     </div>
                                     <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Authority Pending</h3>
                                     <p className="text-slate-500 dark:text-slate-400 font-medium mb-10">You haven't published any analysis articles yet. Share your market wisdom with the community.</p>
-                                    <Button className="rounded-2xl bg-slate-900 hover:bg-primary-600 dark:bg-primary-600 dark:hover:bg-primary-700 text-white font-bold h-14 px-8 shadow-xl transition-all">Submit Your First Article</Button>
+                                    <Button className="rounded-2xl bg-primary-600 hover:bg-blue-600 dark:bg-primary-500 dark:hover:bg-blue-500 text-white font-bold h-14 px-8 shadow-xl transition-all">Submit Your First Article</Button>
                                 </Card>
                             ) : (
                                 <div className="grid md:grid-cols-2 gap-6">
