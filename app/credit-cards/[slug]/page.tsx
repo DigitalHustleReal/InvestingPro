@@ -59,63 +59,72 @@ interface CreditCardDetail {
   cons: string[]
 }
 
-import { getProductBySlug } from '@/lib/products/server-service'
+import { createClient } from '@/lib/supabase/server'
 
 async function getCreditCardData(slug: string): Promise<CreditCardDetail | null> {
-  const product = await getProductBySlug(slug);
-  if (!product || product.category !== 'credit_card') return null;
+  const supabase = await createClient();
+  const { data: card, error } = await supabase
+    .from('credit_cards')
+    .select('*')
+    .eq('slug', slug)
+    .single();
 
-  // Map Supabase Product to CreditCardDetail
-  const features = product.features || {};
+  if (error || !card) return null;
+
+  // Derive benefits from type
+  const isTravel = card.type === 'Travel' || card.type === 'Premium';
+  const isShopping = card.type === 'Shopping' || card.type === 'Cashback';
   
   return {
-    id: product.id,
-    name: product.name,
-    provider: product.provider_name,
-    image: product.image_url || undefined,
-    rating: product.rating,
-    annualFee: parseInt(String(features.annual_fee || '0').replace(/[^0-9]/g, '')) || 0,
-    joiningFee: parseInt(String(features.joining_fee || '0').replace(/[^0-9]/g, '')) || 0,
-    rewardRate: features.rewards || 'Standard rewards',
-    welcomeBonus: features.welcome_bonus,
-    minCreditScore: features.min_score || 700,
-    interestRate: features.interest_rate || '3.5% pm',
-    description: product.description || '',
-    applyLink: product.affiliate_link || product.official_link || '#',
+    id: card.id,
+    name: card.name,
+    provider: card.bank,
+    image: card.image_url,
+    rating: Number(card.rating) || 4.5,
+    annualFee: Number(card.annual_fee) || 0,
+    joiningFee: Number(card.joining_fee) || 0,
+    rewardRate: card.rewards?.length ? card.rewards[0] : 'Check detailed rewards',
+    welcomeBonus: 'Welcome benefits applicable', // Placeholder
+    minCreditScore: 700,
+    interestRate: card.interest_rate || '3.5% pm',
+    description: card.description || `The ${card.name} from ${card.bank} is a ${card.type} credit card offering competitive benefits and rewards.`,
+    applyLink: card.apply_link || card.source_url || '#',
     
-    keyFeatures: product.features.key_highlights || product.pros.slice(0, 5) || [],
+    keyFeatures: card.pros || [],
     rewardProgram: {
-      name: features.reward_program_name || `${product.name} Rewards`,
-      pointsPerRupee: features.points_per_100 || 2,
-      redemptionValue: features.point_value || '1 point = ₹0.25',
-      categories: features.reward_categories || [
-        { name: 'Dining', rate: features.dining_rate || '3x points' },
-        { name: 'Shopping', rate: features.shopping_rate || '2x points' },
-        { name: 'Travel', rate: features.travel_rate || '2x points' },
+      name: `${card.name} Rewards`,
+      pointsPerRupee: 2, // Default
+      redemptionValue: 'Variable',
+      categories: [
+        { name: 'General Spends', rate: '2 points/₹150' },
+        { name: 'Accelerated', rate: '5x - 10x points' }
       ]
     },
-    benefits: features.benefit_structure || [
+    benefits: [
       {
-        category: 'Travel',
-        items: features.travel_benefits || ['Airport lounge access', 'Travel insurance']
+        category: 'Core Benefits',
+        items: card.pros || ['Reward Points', 'Fuel Surcharge Waiver']
       },
       {
-        category: 'Dining',
-        items: features.dining_benefits || ['Dining discounts', 'Complimentary meals']
+        category: isTravel ? 'Travel' : (isShopping ? 'Shopping' : 'Lifestyle'),
+        items: isTravel 
+          ? ['Airport Lounge Access', 'Travel Insurance'] 
+          : (isShopping 
+              ? ['Cashback on Spends', 'Discount Vouchers'] 
+              : ['Dining Discounts', 'Movie Offers'])
       }
     ],
     eligibility: {
-      minAge: features.min_age || 21,
-      minIncome: features.min_income || 300000,
-      requiredDocuments: features.docs || ['PAN Card', 'Aadhaar Card', 'Salary Slips']
+      minAge: 21,
+      minIncome: 25000,
+      requiredDocuments: ['PAN Card', 'Aadhaar Card', 'Income Proof']
     },
-    fees: features.fee_schedule || [
-      { name: 'Joining Fee', amount: `₹${features.joining_fee || '0'}`, details: features.joining_waiver },
-      { name: 'Annual Fee', amount: `₹${features.annual_fee || '0'}`, details: features.annual_waiver },
-      { name: 'Markup Fee', amount: features.forex_fee || '3.5%', details: 'On international spends' }
+    fees: [
+      { name: 'Joining Fee', amount: card.joining_fee ? `₹${card.joining_fee}` : 'Nil', details: 'First year fee' },
+      { name: 'Annual Fee', amount: card.annual_fee ? `₹${card.annual_fee}` : 'Nil', details: 'From second year onwards' },
     ],
-    pros: product.pros,
-    cons: product.cons
+    pros: card.pros || [],
+    cons: card.cons || ['Annual fee might apply']
   };
 }
 

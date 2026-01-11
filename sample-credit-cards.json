@@ -1,0 +1,47 @@
+[
+  {
+    "name": "HDFC Regalia Credit Card",
+    "issuer": "HDFC Bank",
+    "card_type": "Premium",
+    "annual_fee": 2500,
+    "joining_bonus": "10,000 reward points",
+    "rewards_rate": "4 points per ₹150",
+    "features": ["Airport lounge access", "Fuel surcharge waiver", "Reward redemption for flights"]
+  },
+  {
+    "name": "SBI SimplyCLICK Credit Card",
+    "issuer": "SBI Card",
+    "card_type": "Cashback",
+    "annual_fee": 499,
+    "joining_bonus": "₹500 Amazon voucher",
+    "rewards_rate": "10X rewards on online shopping",
+    "features": ["Instant discounts", "Online shopping benefits", "Movie ticket discounts"]
+  },
+  {
+    "name": "ICICI Amazon Pay Credit Card",
+    "issuer": "ICICI Bank",
+    "card_type": "Cashback",
+    "annual_fee": 0,
+    "joining_bonus": "₹500 Amazon gift card",
+    "rewards_rate": "5% cashback on Amazon",
+    "features": ["Zero annual fees", "Amazon Prime benefits", "Fuel surcharge waiver"]
+  },
+  {
+    "name": "Axis Magnus Credit Card",
+    "issuer": "Axis Bank",
+    "card_type": "Super Premium",
+    "annual_fee": 12500,
+    "joining_bonus": "25,000 Edge Miles",
+    "rewards_rate": "12 Edge Miles per ₹200",
+    "features": ["Golf privileges", "Travel benefits", "Airport transfers"]
+  },
+  {
+    "name": "HDFC Millennia Credit Card",
+    "issuer": "HDFC Bank",
+    "card_type": "Lifestyle",
+    "annual_fee": 1000,
+    "joining_bonus": "1,000 CashPoints",
+    "rewards_rate": "5% cashback on shopping",
+    "features": ["Cashback on online shopping", "Dining discounts", "Entertainment offers"]
+  }
+]

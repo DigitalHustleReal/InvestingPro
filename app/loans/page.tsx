@@ -41,6 +41,7 @@ import { LoanFilterSidebar, LoanFilterState } from "@/components/loans/FilterSid
 import { ResponsiveFilterContainer } from "@/components/products/ResponsiveFilterContainer";
 import { LoansTable } from "@/components/loans/LoansTable";
 import { LayoutGrid, Table as TableIcon } from 'lucide-react';
+import { EMICalculatorEnhanced } from '@/components/calculators/EMICalculatorEnhanced';
 
 export default function LoansPage() {
     // Calculator State
@@ -386,6 +387,20 @@ export default function LoansPage() {
                         )}
                     </div>
                 </div>
+            </div>
+
+            {/* --- EMI CALCULATOR SECTION --- */}
+            <div className="container mx-auto px-4 pb-16 pt-8">
+                <div className="text-center mb-8">
+                    <Badge className="mb-4 bg-primary-50 text-primary-700 border-primary-200">Advanced EMI Tool</Badge>
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                        Complete EMI Calculator with Amortization
+                    </h2>
+                    <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                        Calculate your loan EMI with detailed month-by-month and year-by-year payment breakdown
+                    </p>
+                </div>
+                <EMICalculatorEnhanced />
             </div>
 
             {/* --- EDUCATIONAL CONTENT HUB --- */}

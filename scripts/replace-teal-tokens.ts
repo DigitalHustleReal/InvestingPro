@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync } from 'fs';
-import { glob Sync } from 'glob';
+import { globSync } from 'glob';
 import path from 'path';
 
 // Target files: Category pages only (focused scope)
