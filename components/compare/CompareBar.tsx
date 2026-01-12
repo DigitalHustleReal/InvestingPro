@@ -91,7 +91,11 @@ export default function CompareBar() {
                         <div className="flex items-center gap-1">
                             <span className="text-[10px] text-yellow-600 dark:text-yellow-400">★</span>
                             <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
-                            {product.rating.overall.toFixed(1)}
+                            {/* Handle both object and primitive rating structures */}
+                            {typeof product.rating === 'object' 
+                                ? Number(product.rating?.overall || 0).toFixed(1) 
+                                : Number(product.rating || 0).toFixed(1)
+                            }
                             </span>
                         </div>
                         </div>

@@ -51,8 +51,8 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
                         <div>
                             <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider mb-1">{product.provider}</p>
                             <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">
-                                <Link href={product.applyLink}>{product.name}</Link>
-                            </h3>
+                            <Link href={product.applyLink || '#'}>{product.name}</Link>
+                        </h3>
                             {/* Best For Badge */}
                             {product.bestFor && (
                                 <div className="mt-2">
@@ -107,7 +107,7 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
                         />
                     </div>
                     
-                    <Link href={`/${product.category.replace('_', '-')}s/${product.id}`} className="w-full">
+                    <Link href={`/${(product.category || 'credit_card').replace('_', '-')}s/${product.id}`} className="w-full">
                         <Button variant="outline" className="w-full text-xs h-9">
                             View Details
                         </Button>

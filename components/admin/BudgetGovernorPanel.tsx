@@ -1,0 +1,279 @@
+"use client";
+
+import React, { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/badge';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { 
+    DollarSign, 
+    RefreshCw, 
+    Pause,
+    Play,
+    AlertCircle,
+    CheckCircle,
+    TrendingUp,
+    TrendingDown
+} from 'lucide-react';
+
+/**
+ * Budget Governor Panel
+ * 
+ * Monitor and control daily spending limits
+ */
+export default function BudgetGovernorPanel() {
+    const queryClient = useQueryClient();
+    
+    // Get budget status
+    const { data: budgetData, isLoading } = useQuery({
+        queryKey: ['daily-budget'],
+        queryFn: async () => {
+            const response = await fetch('/api/cms/budget');
+            if (!response.ok) throw new Error('Failed to fetch budget');
+            const data = await response.json();
+            return data.budget;
+        },
+        refetchInterval: 10000 // Refresh every 10 seconds
+    });
+    
+    // Set budget mutation
+    const setBudget = useMutation({
+        mutationFn: async (config: any) => {
+            const response = await fetch('/api/cms/budget', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'set',
+                    ...config
+                })
+            });
+            if (!response.ok) throw new Error('Failed to set budget');
+            return response.json();
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['daily-budget'] });
+        }
+    });
+    
+    // Pause/resume mutation
+    const togglePause = useMutation({
+        mutationFn: async (pause: boolean) => {
+            const response = await fetch('/api/cms/budget', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'pause',
+                    pause
+                })
+            });
+            if (!response.ok) throw new Error('Failed to toggle pause');
+            return response.json();
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['daily-budget'] });
+        }
+    });
+    
+    const [maxTokens, setMaxTokens] = useState(budgetData?.max_tokens || 1000000);
+    const [maxImages, setMaxImages] = useState(budgetData?.max_images || 100);
+    const [maxCost, setMaxCost] = useState(budgetData?.max_cost_usd || 50.00);
+    
+    const budget = budgetData || {
+        max_tokens: 1000000,
+        max_images: 100,
+        max_cost_usd: 50.00,
+        tokens_used: 0,
+        images_used: 0,
+        cost_spent_usd: 0,
+        is_paused: false
+    };
+    
+    const tokensRemaining = budget.max_tokens - budget.tokens_used;
+    const imagesRemaining = budget.max_images - budget.images_used;
+    const costRemaining = budget.max_cost_usd - budget.cost_spent_usd;
+    
+    const tokensPercent = (budget.tokens_used / budget.max_tokens) * 100;
+    const imagesPercent = (budget.images_used / budget.max_images) * 100;
+    const costPercent = (budget.cost_spent_usd / budget.max_cost_usd) * 100;
+    
+    const handleSetBudget = () => {
+        setBudget.mutate({
+            maxTokensPerDay: maxTokens,
+            maxImagesPerDay: maxImages,
+            maxCostPerDay: maxCost
+        });
+    };
+    
+    return (
+        <Card className="bg-white/[0.03] border-white/5 rounded-2xl">
+            <CardHeader className="border-b border-white/5 px-8 py-6">
+                <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg font-bold text-white flex items-center gap-3">
+                        <DollarSign className="w-5 h-5 text-primary-400" />
+                        Budget Governor
+                    </CardTitle>
+                    <Badge variant={budget.is_paused ? "destructive" : "default"}>
+                        {budget.is_paused ? (
+                            <>
+                                <Pause className="w-3 h-3 mr-2" />
+                                Paused
+                            </>
+                        ) : (
+                            <>
+                                <Play className="w-3 h-3 mr-2" />
+                                Active
+                            </>
+                        )}
+                    </Badge>
+                </div>
+            </CardHeader>
+            <CardContent className="p-8">
+                <div className="space-y-6">
+                    {/* Current Usage */}
+                    <div className="grid grid-cols-3 gap-4">
+                        <div>
+                            <div className="flex items-center justify-between mb-2">
+                                <span className="text-sm text-slate-400">Tokens</span>
+                                <span className="text-sm font-medium text-white">
+                                    {budget.tokens_used.toLocaleString()} / {budget.max_tokens.toLocaleString()}
+                                </span>
+                            </div>
+                            <div className="w-full bg-slate-800 rounded-full h-2">
+                                <div 
+                                    className={`h-2 rounded-full ${
+                                        tokensPercent >= 90 ? 'bg-red-500' :
+                                        tokensPercent >= 75 ? 'bg-yellow-500' :
+                                        'bg-green-500'
+                                    }`}
+                                    style={{ width: `${Math.min(100, tokensPercent)}%` }}
+                                />
+                            </div>
+                            <p className="text-xs text-slate-500 mt-1">
+                                {tokensRemaining.toLocaleString()} remaining
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <div className="flex items-center justify-between mb-2">
+                                <span className="text-sm text-slate-400">Images</span>
+                                <span className="text-sm font-medium text-white">
+                                    {budget.images_used} / {budget.max_images}
+                                </span>
+                            </div>
+                            <div className="w-full bg-slate-800 rounded-full h-2">
+                                <div 
+                                    className={`h-2 rounded-full ${
+                                        imagesPercent >= 90 ? 'bg-red-500' :
+                                        imagesPercent >= 75 ? 'bg-yellow-500' :
+                                        'bg-green-500'
+                                    }`}
+                                    style={{ width: `${Math.min(100, imagesPercent)}%` }}
+                                />
+                            </div>
+                            <p className="text-xs text-slate-500 mt-1">
+                                {imagesRemaining} remaining
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <div className="flex items-center justify-between mb-2">
+                                <span className="text-sm text-slate-400">Cost (USD)</span>
+                                <span className="text-sm font-medium text-white">
+                                    ${budget.cost_spent_usd.toFixed(2)} / ${budget.max_cost_usd.toFixed(2)}
+                                </span>
+                            </div>
+                            <div className="w-full bg-slate-800 rounded-full h-2">
+                                <div 
+                                    className={`h-2 rounded-full ${
+                                        costPercent >= 90 ? 'bg-red-500' :
+                                        costPercent >= 75 ? 'bg-yellow-500' :
+                                        'bg-green-500'
+                                    }`}
+                                    style={{ width: `${Math.min(100, costPercent)}%` }}
+                                />
+                            </div>
+                            <p className="text-xs text-slate-500 mt-1">
+                                ${costRemaining.toFixed(2)} remaining
+                            </p>
+                        </div>
+                    </div>
+                    
+                    {/* Set Budget */}
+                    <div className="border-t border-white/5 pt-6">
+                        <h4 className="text-sm font-semibold text-white mb-4">Set Daily Limits</h4>
+                        <div className="grid grid-cols-3 gap-4 mb-4">
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Max Tokens</label>
+                                <input
+                                    type="number"
+                                    value={maxTokens}
+                                    onChange={(e) => setMaxTokens(parseInt(e.target.value) || 0)}
+                                    className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Max Images</label>
+                                <input
+                                    type="number"
+                                    value={maxImages}
+                                    onChange={(e) => setMaxImages(parseInt(e.target.value) || 0)}
+                                    className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Max Cost (USD)</label>
+                                <input
+                                    type="number"
+                                    step="0.01"
+                                    value={maxCost}
+                                    onChange={(e) => setMaxCost(parseFloat(e.target.value) || 0)}
+                                    className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white"
+                                />
+                            </div>
+                        </div>
+                        <Button
+                            onClick={handleSetBudget}
+                            disabled={setBudget.isPending}
+                            className="w-full bg-primary-600 hover:bg-primary-700"
+                        >
+                            {setBudget.isPending ? (
+                                <>
+                                    <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                                    Setting...
+                                </>
+                            ) : (
+                                'Set Budget'
+                            )}
+                        </Button>
+                    </div>
+                    
+                    {/* Pause/Resume */}
+                    <div className="flex items-center gap-4">
+                        <Button
+                            onClick={() => togglePause.mutate(!budget.is_paused)}
+                            disabled={togglePause.isPending}
+                            variant={budget.is_paused ? "default" : "destructive"}
+                        >
+                            {togglePause.isPending ? (
+                                <>
+                                    <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                                    {budget.is_paused ? 'Resuming...' : 'Pausing...'}
+                                </>
+                            ) : budget.is_paused ? (
+                                <>
+                                    <Play className="w-4 h-4 mr-2" />
+                                    Resume Budget
+                                </>
+                            ) : (
+                                <>
+                                    <Pause className="w-4 h-4 mr-2" />
+                                    Pause Budget
+                                </>
+                            )}
+                        </Button>
+                    </div>
+                </div>
+            </CardContent>
+        </Card>
+    );
+}

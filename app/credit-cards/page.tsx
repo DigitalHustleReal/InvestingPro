@@ -3,20 +3,13 @@
 
 import React, { useState, useEffect } from 'react';
 import {
-    ShieldCheck,
-    TrendingUp,
     Search,
     CreditCard as CardIcon,
     Zap,
-    Clock,
     Sparkles,
     Plane,
     ShoppingBag,
     ArrowRight,
-    Gem,
-    CheckCircle2,
-    BarChart3,
-    Info,
     BookOpen
 } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
@@ -33,6 +26,40 @@ import { ResponsiveFilterContainer } from '@/components/products/ResponsiveFilte
 import { CreditCardTable } from '@/components/credit-cards/CreditCardTable';
 import { LayoutGrid, Table as TableIcon } from 'lucide-react';
 import CreditCardRewardsCalculator from '@/components/calculators/CreditCardRewardsCalculator';
+
+import CategoryHeroCarousel from '@/components/common/CategoryHeroCarousel';
+import ContextualNewsWidget from '@/components/news/ContextualNewsWidget';
+import RatesWidget from '@/components/rates/RatesWidget';
+
+const HERO_SLIDES = [
+    {
+        id: '1',
+        title: "Best Credit Cards for 2026",
+        subtitle: "Editor's Choice",
+        description: "Maximize your rewards with our top-rated picks for travel, shopping, and cashback. Verified by experts.",
+        ctaText: "Compare Best Cards",
+        ctaLink: "#compare",
+        color: "from-slate-900 to-slate-800"
+    },
+    {
+        id: '2',
+        title: "Lifetime Free Cards",
+        subtitle: "Zero Fees",
+        description: "Enjoy premium benefits without paying a single rupee in annual fees. Perfect for first-time users.",
+        ctaText: "View Free Cards",
+        ctaLink: "?type=lifetime_free",
+        color: "from-emerald-900 to-slate-900"
+    },
+    {
+        id: '3',
+        title: "Travel in Style",
+        subtitle: "Luxury Perks",
+        description: "Free airport lounge access, air miles, and travel insurance with India's best travel credit cards.",
+        ctaText: "Explore Travel Cards",
+        ctaLink: "?type=travel",
+        color: "from-blue-900 to-slate-900"
+    }
+];
 
 const CreditCardsPage = () => {
     const [assets, setAssets] = useState<any[]>([]);
@@ -132,38 +159,29 @@ const CreditCardsPage = () => {
                 description="Compare premium credit cards, discover hidden rewards, and find the lowest interest rates. Expert analysis of cards from HDFC, SBI, Axis, and more."
             />
 
-            {/* Premium Light Hero - Unified Theme */}
-            <div className="bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 pt-32 pb-24 relative overflow-hidden">
-                <div className="absolute inset-0 opacity-10 pointer-events-none">
-                     <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary-500 rounded-full blur-[140px] -translate-y-1/2" />
-                </div>
-                
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                    <div className="inline-flex items-center gap-2 bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-full px-4 py-2 mb-6">
-                        <Sparkles className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                        <span className="text-primary-700 dark:text-primary-300 font-semibold text-xs uppercase tracking-widest">50+ Cards Analyzed Weekly</span>
-                    </div>
-                    <h1 className="text-4xl sm:text-6xl font-bold text-stone-900 dark:text-white tracking-tight leading-tight mb-6">
-                        Find Your Perfect <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-secondary-600">Credit Card</span>
-                    </h1>
-                    <p className="text-xl text-stone-600 dark:text-slate-400 max-w-2xl mx-auto mb-8">
-                        We analyzed 10 million transactions to find which cards give <strong className="text-stone-900 dark:text-white">YOU</strong> the most value. Takes 30 seconds.
-                    </p>
-                     <div className="relative group max-w-xl mx-auto">
-                        <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-                            <Search className="h-5 w-5 text-stone-400 group-focus-within:text-primary-600 transition-colors" />
-                        </div>
-                        <Input
-                            placeholder="Find your perfect card (e.g. 'HDFC Regalia', 'Travel')..."
-                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-stone-200 dark:border-slate-700 text-stone-900 dark:text-white placeholder:text-stone-400 dark:placeholder:text-slate-500 focus:border-primary-500 dark:focus:border-primary-500 transition-all font-medium"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                    </div>
-                </div>
+
+
+            <div className="bg-slate-50 dark:bg-slate-950 pt-24 pb-12">
+                 <div className="container mx-auto px-4">
+                      {/* New Dynamic Carousel Hero */}
+                      <CategoryHeroCarousel slides={HERO_SLIDES} className="mb-12 shadow-2xl" />
+                      
+                      {/* Search Bar (Moved out of Hero) */}
+                      <div className="max-w-xl mx-auto mb-12 relative group z-20 -mt-20">
+                           <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                                <Search className="h-5 w-5 text-stone-400 group-focus-within:text-primary-600 transition-colors" />
+                           </div>
+                           <Input
+                                placeholder="Find your perfect card (e.g. 'HDFC Regalia', 'Travel')..."
+                                className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary-500 shadow-xl"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                           />
+                      </div>
+                 </div>
             </div>
 
-            <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20 pb-20">
+            <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pb-20">
                 <div className="flex flex-col lg:flex-row gap-8 items-start">
                     
                     {/* Filter Sidebar */}
@@ -173,18 +191,22 @@ const CreditCardsPage = () => {
                          {/* Marketing Widgets in Sidebar */}
                          <div className="mt-8 space-y-6">
                             {/* Card Matcher Teaser */}
-                            <div className="bg-gradient-to-br from-primary- to-emerald-700 rounded-[2rem] p-6 text-white relative overflow-hidden shadow-xl shadow-primary-/20">
+                            <div className="bg-gradient-to-br from-primary-600 to-emerald-700 rounded-[2rem] p-6 text-white relative overflow-hidden shadow-xl shadow-primary-500/20">
                                 <div className="relative z-10">
                                     <div className="h-10 w-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center mb-4">
                                         <Zap className="w-6 h-6 text-yellow-300" />
                                     </div>
                                     <h3 className="font-bold text-lg mb-2">Not sure which card?</h3>
-                                    <p className="text-primary- text-sm mb-4">Take our 30-second quiz to find your perfect financial match.</p>
-                                    <Button size="sm" className="w-full bg-white text-primary- font-bold hover:bg-primary-">
+                                    <p className="text-primary-100 text-sm mb-4">Take our 30-second quiz to find your perfect financial match.</p>
+                                    <Button size="sm" className="w-full bg-white text-primary-700 font-bold hover:bg-primary-50">
                                         Start Quiz
                                     </Button>
                                 </div>
                             </div>
+                            
+                            {/* NEW: Contextual Widgets */}
+                            <ContextualNewsWidget category="credit_card" title="Card News" />
+                            {/* <RatesWidget category="banking" title="Current Rates" /> */} 
                          </div>
                     </ResponsiveFilterContainer>
 

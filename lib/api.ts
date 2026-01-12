@@ -7,11 +7,8 @@ import { logger } from "@/lib/logger";
 import {
     validateAIContent,
     calculateConfidence,
-    createChangeLog,
     generateSystemPrompt,
     type AIDataSource,
-    type AIContentMetadata,
-    ALLOWED_AI_OPERATIONS,
     FORBIDDEN_AI_OPERATIONS
 } from "@/lib/ai/constraints";
 
@@ -52,11 +49,6 @@ const providerHealth: Record<string, ProviderHealth> = {
 
 const CIRCUIT_BREAKER_THRESHOLD = 3;
 const COOLDOWN_PERIOD = 10 * 60 * 1000; // 10 minutes
-
-// Auto-correction thresholds
-const MAX_RETRIES = 3;
-const QUALITY_THRESHOLD = 70; // Minimum quality score
-const PLAGIARISM_THRESHOLD = 50; // FIXED: Increased from 30% - more realistic for financial contents
 
 // Local cache to avoid DB hits on every check
 let lastHealthSync = 0;
@@ -525,43 +517,51 @@ The AI was unable to reach a provider, so we've generated this professional outl
                 page?: number; 
                 limit?: number; 
                 categoryType?: string;
-                subCategory?: string;
+                subCategory?: string; // Mapped to 'category' in new schema if needed, or ignored if categoryType is used.
                 sortBy?: string;
                 searchTerm?: string;
             } = {}) => {
-                const { page = 1, limit = 10, categoryType, subCategory, sortBy, searchTerm } = options;
+                const { page = 1, limit = 10, categoryType, sortBy, searchTerm } = options;
                 const from = (page - 1) * limit;
                 const to = from + limit - 1;
 
                 let query = supabase
-                    .from('products')
-                    .select('*', { count: 'exact' })
-                    .eq('category', 'mutual_fund');
+                    .from('mutual_funds')
+                    .select('*', { count: 'exact' });
                 
+                // Flexible Category Filter
                 if (categoryType && categoryType !== 'All') {
-                    query = query.filter('features->>category', 'eq', categoryType);
-                }
-
-                if (subCategory && subCategory !== 'All') {
-                    query = query.filter('features->>sub_category', 'eq', subCategory);
+                    // Map "Equity" generic filter to specific categories if needed, or just match exactly if UI sends specific ones.
+                    if (categoryType === 'Equity') {
+                        query = query.in('category', ['Large Cap', 'Mid Cap', 'Small Cap', 'Flexi Cap', 'Multi Cap', 'ELSS']);
+                    } else if (categoryType === 'Debt') {
+                        query = query.eq('category', 'Debt');
+                    } else if (categoryType === 'Hybrid') {
+                         query = query.eq('category', 'Hybrid');
+                    } else if (categoryType === 'Index') {
+                        query = query.eq('category', 'Index Fund');
+                    } else {
+                        // Specific match
+                         query = query.eq('category', categoryType);
+                    }
                 }
 
                 if (searchTerm) {
-                    query = query.ilike('name', `%${searchTerm}%`);
+                    query = query.or(`name.ilike.%${searchTerm}%,fund_house.ilike.%${searchTerm}%`);
                 }
 
                 if (sortBy) {
                     const [column, order] = sortBy.split(':');
                     const isAscending = order === 'asc';
                     
-                    if (column.startsWith('returns_')) {
-                        // Cast JSONB property to float for correct numeric sorting
-                        query = query.order(`features->>${column}`, { ascending: isAscending });
+                    // Direct column sorting
+                    if (['returns_1y', 'returns_3y', 'returns_5y', 'rating', 'expense_ratio'].includes(column)) {
+                        query = query.order(column, { ascending: isAscending, nullsFirst: false });
                     } else {
                         query = query.order(column, { ascending: isAscending });
                     }
                 } else {
-                    query = query.order('rating', { ascending: false });
+                    query = query.order('returns_3y', { ascending: false }); // Default
                 }
 
                 const { data, count, error } = await query.range(from, to);
@@ -571,38 +571,86 @@ The AI was unable to reach a provider, so we've generated this professional outl
                     return { data: [], count: 0 };
                 }
 
-                return { data: data || [], count: count || 0 };
+                // Map to UI Structure (compatible with RichProduct / Frontend expectations)
+                const mappedData = (data || []).map((p: any) => ({
+                    id: p.id || p.slug || 'unknown',
+                    slug: p.slug,
+                    name: p.name,
+                    category: 'mutual_fund', 
+                    type: p.category, 
+                    aum: p.aum || 'N/A',
+                    
+                    // camelCase for types/index.ts and scoring engine
+                    returns1Y: Number(p.returns_1y || 0),
+                    returns3Y: Number(p.returns_3y || 0),
+                    returns5Y: Number(p.returns_5y || 0),
+                    rating: Number(p.rating || 0),
+                    riskLevel: (p.risk || 'Moderate').toLowerCase(), 
+                    expenseRatio: Number(p.expense_ratio || 0),
+                    minInvestment: p.min_investment ? `₹${p.min_investment}` : '₹500',
+
+                    fundHouse: p.fund_house,
+                    providerName: p.fund_house,
+                    provider: p.fund_house,
+                    description: p.description,
+                    applyLink: '#', // Added fallback
+                    
+                    // Highlights for ProductCard (Must be Array)
+                    features: [
+                        `3Y Returns: ${p.returns_3y}%`,
+                        `Expense Ratio: ${p.expense_ratio}%`,
+                        `Risk Level: ${p.risk}`
+                    ]
+                }));
+
+                return { data: mappedData, count: count || 0 };
             },
             getById: async (id: string) => {
                 const supabase = getSupabaseClient();
-                const { data, error } = await supabase
-                    .from('products')
-                    .select('*')
-                    .eq('id', id)
-                    .single();
+                // Support fetching by UUID or Slug
+                const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+                
+                let query = supabase.from('mutual_funds').select('*');
+                if (isUuid) query = query.eq('id', id);
+                else query = query.eq('slug', id); // Try slug
+
+                const { data, error } = await query.single();
 
                 if (error || !data) return undefined;
 
                 const p = data;
-                const f = p.features || {};
                 
                 // Normalize to UI structure
                 return {
-                    id: p.slug || p.id,
+                    id: p.id,
+                    slug: p.slug,
                     name: p.name,
-                    category: f.sub_category || 'Large Cap',
-                    type: f.category || 'Equity',
-                    aum: f.aum_crores ? `₹${f.aum_crores} Cr` : 'N/A',
-                    returns_1y: parseFloat(f.returns_1y || '0'),
-                    returns_3y: parseFloat(f.returns_3y || '0'),
-                    returns_5y: parseFloat(f.returns_5y || '0'),
-                    rating: p.rating || 4,
-                    risk: f.risk_level || 'Moderate',
-                    expense_ratio: parseFloat(f.expense_ratio || '0'),
-                    min_investment: f.min_sip ? `₹${f.min_sip}` : '₹500',
-                    fund_house: p.provider_name,
-                    provider: p.provider_name,
-                    risk_level: f.risk_level || 'moderate'
+                    category: 'mutual_fund',
+                    type: p.category,
+                    aum: p.aum || 'N/A',
+                    
+                    // camelCase normalization
+                    returns1Y: Number(p.returns_1y || 0),
+                    returns3Y: Number(p.returns_3y || 0),
+                    returns5Y: Number(p.returns_5y || 0),
+                    rating: Number(p.rating || 0),
+                    riskLevel: (p.risk || 'Moderate').toLowerCase(),
+                    expenseRatio: Number(p.expense_ratio || 0),
+                    minInvestment: p.min_investment ? `₹${p.min_investment}` : '₹500',
+
+                    fundHouse: p.fund_house,
+                    providerName: p.fund_house,
+                    provider: p.fund_house,
+                    description: p.description,
+                    
+                    // Comparison/Rich Features
+                    features: {
+                        'Expense Ratio': `${p.expense_ratio}%`,
+                        'Risk': p.risk,
+                        '1Y Returns': `${p.returns_1y}%`,
+                        '3Y Returns': `${p.returns_3y}%`,
+                        'Min SIP': p.min_investment ? `₹${p.min_investment}` : '₹500'
+                    }
                 };
             },
             filter: async (filters: any) => {
@@ -614,15 +662,79 @@ The AI was unable to reach a provider, so we've generated this professional outl
 
         CreditCard: {
              list: async () => {
-                const { data } = await supabase.from('products').select('*').eq('category', 'credit_card');
-                return data || [];
+                const { data, error } = await supabase.from('credit_cards').select('*');
+                
+                if (error) {
+                    console.error('Error fetching credit cards:', error);
+                    return [];
+                }
+
+                // Map to Generic Asset format expected by UI
+                return (data || []).map((card: any) => ({
+                    id: card.id || card.slug || 'unknown',
+                    slug: card.slug,
+                    name: card.name,
+                    category: 'credit_card', // ADDED: Critical for filtering & ProductCard links
+                    provider: card.bank,
+                    provider_name: card.bank,
+                    image_url: card.image_url,
+                    description: card.description || '',
+                    rating: Number(card.rating) || 4.5,
+                    reviewsCount: 0,
+                    applyLink: card.apply_link || card.source_url || '#', // Added fallback
+                    
+                    // Structured data for scorers
+                    joiningFee: card.joining_fee,
+                    annualFee: card.annual_fee,
+                    rewardRate: card.rewards?.[0] || '1%',
+                    loungeAccess: card.lounge_access || 'Nil',
+                    type: card.type || 'rewards',
+                    
+                    // Highlights for ProductCard (Must be Array)
+                    features: card.pros || [], 
+                    pros: card.pros || [],
+                    cons: card.cons || [],
+                    updated_at: card.updated_at
+                }));
             },
-            filter: async (filters: any) => { return []; }
+            filter: async (filters: any) => { 
+                // Basic filtering support can be added here if needed
+                return []; 
+            }
         },
         Loan: {
              list: async () => {
-                const { data } = await supabase.from('products').select('*').eq('category', 'loan');
-                return data || [];
+                const { data } = await supabase.from('loans').select('*');
+                
+                // Map to Generic Asset/UI format
+                return (data || []).map((l: any) => ({
+                    id: l.id,
+                    slug: l.slug,
+                    name: l.name,
+                    category: 'loan',
+                    provider: l.bank_name,
+                    provider_name: l.bank_name,
+                    description: l.description || '',
+                    rating: 4.0,
+                    reviewsCount: 0,
+                    applyLink: l.apply_link || '#',
+
+                    // Structured data for scorers
+                    loanType: l.type,
+                    interestRateMin: l.interest_rate_min,
+                    interestRateMax: l.interest_rate_max,
+                    maxTenureMonths: l.max_tenure_months,
+                    maxAmount: l.max_amount,
+                    processingFee: l.processing_fee,
+
+                    // Highlights for ProductCard (Must be Array)
+                    features: [
+                        `Interest starts at ${l.interest_rate_min}%`,
+                        `Tenure up to ${l.max_tenure_months/12} years`,
+                        `Processing Fee: ${l.processing_fee}`
+                    ],
+                    url: l.apply_link || '#'
+                }));
             }
         },
         FixedDeposit: {
@@ -684,8 +796,20 @@ The AI was unable to reach a provider, so we've generated this professional outl
         },
         Insurance: {
              list: async () => {
-                const { data } = await supabase.from('products').select('*').eq('category', 'insurance');
-                return data || [];
+                const { data } = await supabase.from('insurance').select('*');
+                
+                return (data || []).map(i => ({
+                    id: i.id,
+                    slug: i.slug,
+                    name: i.name,
+                    provider: i.provider_name,
+                    provider_name: i.provider_name,
+                    type: i.type,
+                    cover: i.cover_amount,
+                    premium: i.min_premium,
+                    claim_ratio: i.claim_settlement_ratio,
+                    features: i.features || {}
+                }));
             }
         },
         Glossary: {
@@ -705,39 +829,51 @@ The AI was unable to reach a provider, so we've generated this professional outl
              filter: async (p:any) => { return []; },
              update: async (id:string, d:any) => { return true; }
         },
-        Review: {
-             list: async (order?: string, limit?: number) => { 
-                const supabase = getSupabaseClient();
-                let query = supabase.from('reviews').select('*');
-                if (order) {
-                    const ascending = !order.startsWith('-');
-                    const col = order.replace('-', '');
-                    query = query.order(col, { ascending });
+        reviews: {
+            list: async (productSlug: string) => {
+                const { data, error } = await supabase
+                    .from('reviews')
+                    .select('*, user:user_id(email)')
+                    .eq('product_slug', productSlug)
+                    .order('created_at', { ascending: false });
+                
+                if (error) {
+                    console.error("Error fetching reviews", error);
+                    return [];
                 }
-                if (limit) query = query.limit(limit);
-                const { data } = await query;
                 return data || [];
-             },
-             filter: async (filters: any) => { 
-                const supabase = getSupabaseClient();
-                 let query = supabase.from('reviews').select('*');
-                 Object.entries(filters).forEach(([key, value]) => {
-                     if (value !== undefined) query = query.eq(key, value);
-                 });
-                 const { data } = await query;
-                 return data || [];
-             },
-             create: async (data: any) => { 
-                 const supabase = getSupabaseClient();
-                 const { data: res, error } = await supabase.from('reviews').insert(data).select().single();
-                 if (error) throw error;
-                 return res;
-             },
-             update: async (id: string, data: any) => {
-                 const supabase = getSupabaseClient();
-                 const { error } = await supabase.from('reviews').update(data).eq('id', id);
-                 return !error;
-             }
+            },
+            create: async (review: {
+                product_slug: string;
+                product_type: string;
+                rating: number;
+                title: string;
+                content: string;
+                user_id: string;
+            }) => {
+                const { data, error } = await supabase
+                    .from('reviews')
+                    .insert([review])
+                    .select()
+                    .single();
+                
+                if (error) throw error;
+                return data;
+            },
+            getStats: async (productSlug: string) => {
+                 const { data, error } = await supabase
+                    .from('reviews')
+                    .select('rating')
+                    .eq('product_slug', productSlug);
+                
+                if (error || !data || data.length === 0) return { average: 0, count: 0 };
+                
+                const sum = data.reduce((acc, curr) => acc + curr.rating, 0);
+                return {
+                    average: parseFloat((sum / data.length).toFixed(1)),
+                    count: data.length
+                };
+            }
         },
         AffiliateProduct: {
               list: async (order?: string, limit?: number) => { 

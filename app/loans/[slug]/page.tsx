@@ -18,6 +18,9 @@ import {
   Home,
   TrendingDown
 } from 'lucide-react'
+import DifferentiationCard from '@/components/products/DifferentiationCard'
+import { scoreLoan } from '@/lib/products/scoring-rules'
+import { Loan } from '@/types'
 
 interface LoanDetail {
   id: string
@@ -367,6 +370,33 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
           
           {/* Right Column: Sidebar */}
           <div className="lg:col-span-1 space-y-6">
+            
+            {/* Differentiation Score Card */}
+            <DifferentiationCard 
+                score={scoreLoan({
+                    id: loan.id,
+                    slug: params.slug,
+                    name: loan.name,
+                    category: 'loan',
+                    provider: loan.provider,
+                    description: loan.description,
+                    rating: loan.rating,
+                    reviewsCount: 0,
+                    applyLink: loan.applyLink,
+                    loanType: (loan.loanType.toLowerCase().includes('home') ? 'home' : 'personal') as any,
+                    interestRateMin: loan.interestRateMin,
+                    interestRateMax: loan.interestRateMax,
+                    interestRateType: 'floating',
+                    processingFee: loan.processingFee,
+                    prepaymentCharges: loan.prepaymentCharges,
+                    maxTenureMonths: loan.maxTenureMonths,
+                    maxAmount: loan.maxLoanAmount.toString(),
+                    minSalary: loan.eligibility.minIncome,
+                    minAge: loan.eligibility.minAge
+                })}
+                productName={loan.name}
+            />
+
             {/* Apply CTA (Sticky) */}
             <div className="sticky top-6">
               <Card className="bg-gradient-to-br from-emerald-600 to-emerald-700 text-white">

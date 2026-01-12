@@ -25,17 +25,10 @@ import {
     Star,
     TrendingUp,
     TrendingDown,
-    Filter,
     ArrowUpRight,
-    Info,
-    ChevronRight,
-    Zap,
     ShieldCheck,
     Building2,
     PieChart,
-    Activity,
-    BarChart3,
-    Target,
     LayoutGrid,
     List,
     ArrowRight
@@ -56,6 +49,40 @@ const riskColors: Record<string, string> = {
     "High": "bg-orange-50 text-orange-700 border-orange-100",
     "Very High": "bg-red-50 text-red-700 border-red-100",
 };
+
+import CategoryHeroCarousel from '@/components/common/CategoryHeroCarousel';
+import ContextualNewsWidget from '@/components/news/ContextualNewsWidget';
+import RatesWidget from '@/components/rates/RatesWidget';
+
+const MF_SLIDES = [
+    {
+        id: '1',
+        title: "Top Rated Mutual Funds",
+        subtitle: "High Growth",
+        description: "Discover funds that have consistently beaten the benchmark over the last 5 years.",
+        ctaText: "View Top Funds",
+        ctaLink: "?sort=returns_3y",
+        color: "from-blue-900 to-slate-900"
+    },
+    {
+        id: '2',
+        title: "Tax Saving ELSS",
+        subtitle: "Save ₹46,800",
+        description: "Invest in Equity Linked Savings Schemes and save tax under Section 80C. Best wealth creation + tax saving combo.",
+        ctaText: "Explore ELSS",
+        ctaLink: "?category=ELSS",
+        color: "from-emerald-900 to-slate-900"
+    },
+    {
+        id: '3',
+        title: "Start SIP at ₹500",
+        subtitle: "Beginner Friendly",
+        description: "You don't need a lot of money to start. Build wealth with small, disciplined monthly investments.",
+        ctaText: "Start SIP",
+        ctaLink: "#sip-calculator",
+        color: "from-purple-900 to-slate-900"
+    }
+];
 
 export default function MutualFundsPage() {
     const [viewMode, setViewMode] = useState<'grid' | 'table'>('table'); // Default to table for Pro users
@@ -104,22 +131,28 @@ export default function MutualFundsPage() {
 
             if (data && data.length > 0) {
                 // Normalize Supabase Product to UI Fund structure
+                // Normalize Supabase Product to UI Fund structure
                 const normalizedFunds = data.map((p: any) => {
-                    const f = p.features || {};
                     return {
                         id: p.slug || p.id,
                         name: p.name,
-                        category: f.sub_category || 'Large Cap',
-                        type: f.category || 'Equity',
-                        aum: f.aum_crores ? `₹${f.aum_crores} Cr` : 'N/A',
-                        returns_1y: parseFloat(f.returns_1y || '0'),
-                        returns_3y: parseFloat(f.returns_3y || '0'),
-                        returns_5y: parseFloat(f.returns_5y || '0'),
-                        rating: p.rating || 4,
-                        risk: f.risk_level || 'Moderate',
-                        expense_ratio: parseFloat(f.expense_ratio || '0'),
-                        min_investment: f.min_sip ? `₹${f.min_sip}` : '₹500',
-                        fund_house: p.provider_name
+                        category: p.category || 'Large Cap', // mapped 'mutual_fund' but UI wants sub-cat? 
+                        // Wait, api.ts returns category: 'mutual_fund', type: p.category (e.g. 'Large Cap')
+                        // So p.type is the sub-category like 'Large Cap'
+                        // Let's check api.ts again: category: 'mutual_fund', type: p.category
+                        
+                        category: p.type || 'Equity', 
+                        type: 'Equity', // Hardcoded or derived? UI uses this for badge. 
+                        
+                        aum: p.aum, 
+                        returns_1y: p.returns1Y,
+                        returns_3y: p.returns3Y,
+                        returns_5y: p.returns5Y,
+                        rating: p.rating,
+                        risk: p.riskLevel, 
+                        expense_ratio: p.expenseRatio,
+                        min_investment: p.minInvestment,
+                        fund_house: p.providerName
                     };
                 });
                 setFunds(normalizedFunds);
@@ -198,26 +231,20 @@ export default function MutualFundsPage() {
                     structuredData={structuredData}
                 />
 
-            {/* Light Theme Hero Section - Consistent with Platform */}
-            <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 pt-28 pb-20 relative overflow-hidden">
-                <div className="absolute inset-0 opacity-10 pointer-events-none">
-                     <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-primary- rounded-full blur-[140px] -translate-y-1/2" />
-                </div>
 
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                    <Badge className="mb-6 bg-primary- text-primary- border-primary- px-4 py-1.5 uppercase tracking-widest text-xs font-bold">
-                        Data-Driven Fund Analysis
-                    </Badge>
-                     <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight leading-tight mb-6">
-                        Find Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary- to-blue-600">Perfect Mutual Fund</span>
-                    </h1>
-                     <div className="relative group max-w-xl mx-auto">
+
+            {/* Carousel Hero Section */}
+            <div className="bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 pt-28 pb-12 relative overflow-hidden">
+                <div className="container mx-auto px-4">
+                     <CategoryHeroCarousel slides={MF_SLIDES} className="mb-12 shadow-2xl" />
+                     
+                     <div className="relative group max-w-xl mx-auto -mt-20 z-20">
                         <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
                             <Search className="h-5 w-5 text-slate-400 group-focus-within:text-primary- transition-colors" />
                         </div>
                         <Input
                             placeholder="Search by fund name, AMC, or category..."
-                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white border border-slate-200 text-slate-900 placeholder:text-slate-500 focus:border-primary- focus:ring-2 focus:ring-primary-/20 transition-all"
+                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white border border-slate-200 text-slate-900 placeholder:text-slate-500 focus:border-primary- focus:ring-2 focus:ring-primary-/20 transition-all shadow-xl"
                             value={searchTerm}
                             onChange={(e) => {
                                 setSearchTerm(e.target.value);
@@ -235,6 +262,12 @@ export default function MutualFundsPage() {
                     {/* Left: Professional Filter Panel */}
                     <ResponsiveFilterContainer activeFiltersCount={activeFiltersCount}>
                          <FilterSidebar filters={filters} setFilters={setFilters} />
+                         
+                         {/* Marketing Widgets in Sidebar */}
+                         <div className="mt-8 space-y-6">
+                            <RatesWidget category="investing" title="Market Rates" />
+                            <ContextualNewsWidget category="investing" title="Market News" />
+                         </div>
                     </ResponsiveFilterContainer>
 
                     {/* Right: Results Ledger */}

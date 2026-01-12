@@ -16,16 +16,41 @@ export function SIPCalculatorWithInflation() {
     const [expectedReturn, setExpectedReturn] = useState(12);
     const [inflationRate, setInflationRate] = useState(6);
     const [adjustForInflation, setAdjustForInflation] = useState(false);
+    const [stepUpRate, setStepUpRate] = useState(10);
+    const [enableStepUp, setEnableStepUp] = useState(false);
 
     const calculateSIP = () => {
         const monthlyRate = expectedReturn / 12 / 100;
-        const months = years * 12;
+        const totalMonths = years * 12;
         
-        // SIP Future Value formula
-        const futureValue = monthlyInvestment * 
-            ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+        let futureValue = 0;
+        let invested = 0;
+        let currentMonthlyInvestment = monthlyInvestment;
+
+        for (let m = 1; m <= totalMonths; m++) {
+            // Apply step-up every 12 months (starting from 13th month)
+            if (enableStepUp && m > 1 && (m - 1) % 12 === 0) {
+                currentMonthlyInvestment = currentMonthlyInvestment * (1 + stepUpRate / 100);
+            }
+
+            invested += currentMonthlyInvestment;
+            // PMT * (1+r)^(N-n) * (1+r) ?? No, simple FV of single cashflow: PV * (1+r)^t
+            // For SIP: Investment made at START of month earns for remaining months (including this one)? 
+            // Usually SIP is done at start date.
+            // If made at t=0 (start of month 1), it grows for 'totalMonths' months.
+            // If made at t=totalMonths-1 (start of last month), it grows for 1 month.
+            
+            // Standard Formula assumes investment at BEGINNING of period: P * (1+r) * ((1+r)^n - 1)/r
+            // Let's stick to iterative compounding for accuracy with step-up.
+            
+            // Actually, simpler: 
+            // FV = Sum( P_i * (1+r)^(totalMonths - i + 1) ) if invested at start.
+            // Let's assume invested at start of month.
+            const monthsRemaining = totalMonths - m + 1; // Investment at start of month m
+            // Actually standard formula usually implies start of month payment.
+            futureValue += currentMonthlyInvestment * Math.pow(1 + monthlyRate, monthsRemaining);
+        }
         
-        const invested = monthlyInvestment * months;
         const returns = futureValue - invested;
 
         let realValue = futureValue;
@@ -56,14 +81,29 @@ export function SIPCalculatorWithInflation() {
         const monthlyRate = expectedReturn / 12 / 100;
         
         for (let year = 0; year <= years; year++) {
-            const months = year * 12;
-            const futureValue = monthlyInvestment * 
-                ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
-            const realValue = adjustForInflation ? futureValue / Math.pow(1 + inflationRate / 100, year) : futureValue;
+            if (year === 0) {
+                 data.push({ year: 'Y0', value: 0, realValue: 0 });
+                 continue;
+            }
+
+            const totalMonths = year * 12;
+            let currentFutureValue = 0;
+            let currentMonthlyInvestment = monthlyInvestment;
+
+            // Recalculate up to this year
+            for (let m = 1; m <= totalMonths; m++) {
+                if (enableStepUp && m > 1 && (m - 1) % 12 === 0) {
+                    currentMonthlyInvestment = currentMonthlyInvestment * (1 + stepUpRate / 100);
+                }
+                const monthsRemaining = totalMonths - m + 1; // from investment time to END of this specific year
+                currentFutureValue += currentMonthlyInvestment * Math.pow(1 + monthlyRate, monthsRemaining);
+            }
+
+            const realValue = adjustForInflation ? currentFutureValue / Math.pow(1 + inflationRate / 100, year) : currentFutureValue;
             
             data.push({
                 year: `Y${year}`,
-                value: futureValue,
+                value: currentFutureValue,
                 realValue: realValue
             });
         }
@@ -76,10 +116,21 @@ export function SIPCalculatorWithInflation() {
         const monthlyRate = expectedReturn / 12 / 100;
         
         for (let year = 1; year <= Math.min(years, 15); year++) {
-            const months = year * 12;
-            const invested = monthlyInvestment * months;
-            const futureValue = monthlyInvestment * 
-                ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+            const totalMonths = year * 12;
+            let invested = 0;
+            let futureValue = 0;
+            let currentMonthlyInvestment = monthlyInvestment;
+
+            // Calculate FV for this specific year marker
+            for (let m = 1; m <= totalMonths; m++) {
+                if (enableStepUp && m > 1 && (m - 1) % 12 === 0) {
+                    currentMonthlyInvestment = currentMonthlyInvestment * (1 + stepUpRate / 100);
+                }
+                invested += currentMonthlyInvestment;
+                const monthsRemaining = totalMonths - m + 1;
+                futureValue += currentMonthlyInvestment * Math.pow(1 + monthlyRate, monthsRemaining);
+            }
+
             const returns = futureValue - invested;
             const realValue = adjustForInflation ? futureValue / Math.pow(1 + inflationRate / 100, year) : futureValue;
             const realReturns = realValue - invested;
@@ -207,6 +258,42 @@ export function SIPCalculatorWithInflation() {
                                 />
                             </div>
                         </div>
+
+                        {/* Step-Up Toggle */}
+                        <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200">
+                            <div className="flex items-center gap-2">
+                                <TrendingDown className="w-4 h-4 text-primary-600 rotate-180" />
+                                <div>
+                                    <Label className="text-sm text-slate-700 font-semibold">Annual Step-Up</Label>
+                                    <p className="text-xs text-slate-500">Increase investment yearly</p>
+                                </div>
+                            </div>
+                            <Switch
+                                checked={enableStepUp}
+                                onCheckedChange={setEnableStepUp}
+                            />
+                        </div>
+
+                        {/* Step-Up Rate */}
+                        {enableStepUp && (
+                            <div className="space-y-2">
+                                <div className="flex justify-between items-center">
+                                    <Label className="text-sm text-slate-700 font-semibold">Step-Up Percentage</Label>
+                                    <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
+                                        <Percent className="w-3.5 h-3.5 text-slate-500" />
+                                        <span className="text-sm font-bold text-slate-900">{stepUpRate}%</span>
+                                    </div>
+                                </div>
+                                <Slider
+                                    value={[stepUpRate]}
+                                    onValueChange={(value) => setStepUpRate(value[0])}
+                                    min={1}
+                                    max={50}
+                                    step={1}
+                                    className="py-2"
+                                />
+                            </div>
+                        )}
 
                         {/* Inflation Toggle */}
                         <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200">

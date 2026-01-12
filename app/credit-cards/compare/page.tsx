@@ -11,31 +11,41 @@ import { CreditCard } from "@/types";
 import { RichProduct } from "@/types/rich-product";
 
 // Helper to map CreditCard to RichProduct
-const mapToRichProduct = (card: any): RichProduct => ({
-    id: card.id,
-    slug: card.slug,
-    name: card.name,
-    provider_name: card.provider,
-    category: 'credit_card',
-    image_url: card.image_url,
-    rating: {
-        overall: card.rating,
-        trust_score: 90 // Default trusted score
-    },
-    features: {},
-    key_features: [
-        { label: 'Annual Fee', value: `₹${card.annualFee}` },
-        { label: 'Reward Rate', value: card.rewardRate },
-        { label: 'Joining Fee', value: `₹${card.joiningFee}` }
-    ],
-    description: card.description || '',
-    pros: card.pros || [],
-    cons: card.cons || [],
-    bestFor: card.bestFor,
-    affiliate_link: card.applyLink,
-    is_verified: true,
-    updated_at: new Date().toISOString()
-});
+// Helper to map CreditCard to RichProduct & Comparison Props
+const mapToRichProduct = (card: any): RichProduct & Record<string, any> => {
+    const features = card.features || {};
+    
+    // Extract values for Comparison Table
+    return {
+        id: card.id,
+        slug: card.slug,
+        name: card.name,
+        provider_name: card.provider || card.provider_name,
+        category: 'credit_card',
+        image_url: card.image_url,
+        rating: {
+            overall: Number(card.rating) || 4.5,
+            trust_score: 90
+        },
+        features: features,
+        key_features: Object.entries(features).map(([k,v]) => ({ label: k, value: String(v) })),
+        description: card.description || '',
+        pros: card.pros || [],
+        cons: card.cons || [],
+        bestFor: card.best_for,
+        affiliate_link: card.affiliate_link || card.link,
+        is_verified: true,
+        updated_at: new Date().toISOString(),
+        
+        // Properties required by ComparisonTable (mapped from features)
+        annualFee: features['Annual Fee'] || 'Nil',
+        joiningFee: features['Joining Fee'] || 'Nil',
+        rewardRate: features['Reward Rate'] || 'Check details',
+        loungeAccess: features['Lounge Access'] || 'Check details',
+        welcomeOffer: card.welcomeBonus || 'Check details',
+        minCreditScore: '700+'
+    };
+};
 
 function CreditCardCompareContent() {
     const searchParams = useSearchParams();

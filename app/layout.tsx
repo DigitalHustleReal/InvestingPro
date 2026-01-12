@@ -17,6 +17,7 @@ import { CompareProvider } from "@/contexts/CompareContext";
 import CompareBar from "@/components/compare/CompareBar";
 import { LeadCaptureProvider } from "@/components/engagement/LeadCaptureProvider";
 
+
 // Font configurations with CSS variables
 const inter = Inter({ 
   subsets: ["latin"],
@@ -74,6 +75,7 @@ export default async function RootLayout({
                   <Suspense fallback={null}>
                     <Analytics />
                   </Suspense>
+
                   <Navbar initialConfig={navConfig} />
                   <main className="flex-grow">
                     <PageErrorBoundary pageName="Root Layout">

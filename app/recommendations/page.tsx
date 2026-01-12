@@ -1,177 +1,257 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
-import { rankProducts, scoreCreditCard, ProductScore } from "@/lib/ranking/algorithm";
+import { getRecommendations, UserPreferences, RecommendationResult } from "@/lib/ranking/recommendation-engine";
 import { ProductCard } from "@/components/ui/ProductCard";
-import { Trophy, TrendingUp, DollarSign, Users, Sparkles, ChevronRight } from "lucide-react";
+import { Trophy, TrendingUp, DollarSign, Users, Sparkles, ChevronRight, CheckCircle2, ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { Card, CardContent } from "@/components/ui/card";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function SmartRecommendationsPage() {
-    const [selectedCategory, setSelectedCategory] = useState<'all' | 'travel' | 'cashback'>('all');
+    const [step, setStep] = useState(0);
+    const [prefs, setPrefs] = useState<UserPreferences>({
+        productType: 'credit_card',
+        goal: 'general',
+        spendRange: 'medium'
+    });
 
-    const { data: cards = [], isLoading } = useQuery({
-        queryKey: ['ranked-cards'],
+    const { data: allProducts = [] } = useQuery({
+        queryKey: ['all-products-for-wizard'],
         queryFn: async () => {
-            const CREDIT_CARDS = await api.entities.CreditCard.list();
-            // Calculate rankings
-            const scores = rankProducts(CREDIT_CARDS, scoreCreditCard);
-
-            // Combine cards with their scores
-            return scores.map(score => ({
-                card: CREDIT_CARDS.find(c => c.id === score.productId)!,
-                score
-            }));
+             const [cards, loans, mfs] = await Promise.all([
+                 api.entities.CreditCard.list(),
+                 api.entities.Loan.list(),
+                 api.entities.MutualFund.list()
+             ]);
+             
+             // mfs is { data: MutualFund[], count: number }
+             const mfList = Array.isArray(mfs) ? mfs : (mfs as any).data || [];
+             
+             return [...cards, ...loans, ...mfList] as any[];
         }
     });
 
-    const filteredCards = selectedCategory === 'all'
-        ? cards
-        : cards.filter(({ card }) => card.type === selectedCategory);
+    const [results, setResults] = useState<RecommendationResult[]>([]);
 
-    const getBadgeIcon = (badge?: string) => {
-        switch (badge) {
-            case 'best_overall': return <Trophy className="w-4 h-4" />;
-            case 'best_value': return <DollarSign className="w-4 h-4" />;
-            case 'most_popular': return <Users className="w-4 h-4" />;
-            case 'editors_choice': return <Sparkles className="w-4 h-4" />;
-            default: return null;
+    useEffect(() => {
+        if (step === 3 && allProducts.length > 0) {
+            const recs = getRecommendations(allProducts, prefs);
+            setResults(recs);
         }
+    }, [step, allProducts, prefs]);
+
+    const handleNext = () => setStep(s => s + 1);
+    const handleBack = () => setStep(s => s - 1);
+    const updatePref = (key: keyof UserPreferences, value: any) => {
+        setPrefs(p => ({ ...p, [key]: value }));
+        // Auto advance for some clicks
+        // setStep(s => s + 1); // Optional: makes it feel snappy
     };
 
-    const getBadgeColor = (badge?: string) => {
-        switch (badge) {
-            case 'best_overall': return 'bg-amber-500 text-white';
-            case 'best_value': return 'bg-primary-500 text-white';
-            case 'most_popular': return 'bg-secondary-500 text-white';
-            case 'editors_choice': return 'bg-secondary-500 text-white';
-            default: return 'bg-gray-200 text-gray-700';
+    const renderStep = () => {
+        switch (step) {
+            case 0:
+                return (
+                    <div className="space-y-6">
+                        <h2 className="text-3xl font-bold text-center mb-8">What are you looking for?</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                           {[
+                               { id: 'credit_card', label: 'Credit Card', icon: TrendingUp },
+                               { id: 'loan', label: 'Loan', icon: DollarSign },
+                               { id: 'mutual_fund', label: 'Mutual Fund', icon: Users }
+                           ].map((item) => (
+                               <Card 
+                                key={item.id} 
+                                onClick={() => { updatePref('productType', item.id); handleNext(); }}
+                                className={`cursor-pointer hover:border-primary-500 hover:shadow-lg transition-all ${prefs.productType === item.id ? 'border-primary-500 bg-primary-50' : ''}`}
+                               >
+                                   <CardContent className="p-8 flex flex-col items-center text-center">
+                                       <item.icon className={`w-12 h-12 mb-4 ${prefs.productType === item.id ? 'text-primary-600' : 'text-gray-400'}`} />
+                                       <h3 className="font-bold text-lg">{item.label}</h3>
+                                   </CardContent>
+                               </Card>
+                           ))}
+                        </div>
+                    </div>
+                );
+            case 1: 
+                return (
+                    <div className="space-y-6">
+                        <h2 className="text-3xl font-bold text-center mb-8">What's your primary goal?</h2>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                           {/* Dynamic Options based on Product Type */}
+                           {prefs.productType === 'credit_card' && [
+                               { id: 'travel', label: 'Travel & Lounge', icon: Trophy },
+                               { id: 'shopping', label: 'Shopping Rewards', icon: DollarSign },
+                               { id: 'cashback', label: 'Cashback', icon: TrendingUp },
+                           ].map(opt => (
+                                <OptionCard 
+                                    key={opt.id} 
+                                    selected={prefs.goal === opt.id} 
+                                    onClick={() => { updatePref('goal', opt.id); handleNext(); }} 
+                                    {...opt} 
+                                />
+                           ))}
+                           
+                           {prefs.productType === 'loan' && [
+                               { id: 'low_interest', label: 'Lowest Interest', icon:  DollarSign },
+                               { id: 'flexibility', label: 'Flexible Tenure', icon: TrendingUp },
+                           ].map(opt => (
+                                <OptionCard 
+                                    key={opt.id} 
+                                    selected={prefs.goal === opt.id} 
+                                    onClick={() => { updatePref('goal', opt.id); handleNext(); }} 
+                                    {...opt} 
+                                />
+                           ))}
+
+                           {/* Keep it simple for MVP */}
+                           {prefs.productType === 'mutual_fund' && [
+                               { id: 'wealth', label: 'Wealth Creation', icon: TrendingUp },
+                               { id: 'tax_saving', label: 'Tax Saving (ELSS)', icon: Trophy },
+                               { id: 'safe', label: 'Safe & Steady', icon: CheckCircle2 }
+                           ].map(opt => (
+                                <OptionCard 
+                                    key={opt.id} 
+                                    selected={prefs.goal === opt.id} 
+                                    onClick={() => { updatePref('goal', opt.id); handleNext(); }} 
+                                    {...opt} 
+                                />
+                           ))}
+                        </div>
+                    </div>
+                );
+            case 2:
+                return (
+                    <div className="space-y-6">
+                        <h2 className="text-3xl font-bold text-center mb-8">How much do you spend/invest?</h2>
+                        <div className="w-full max-w-xl mx-auto space-y-4">
+                           {['low', 'medium', 'high'].map(range => (
+                               <div 
+                                key={range}
+                                onClick={() => { updatePref('spendRange', range); handleNext(); }}
+                                className={`p-6 rounded-xl border border-gray-200 cursor-pointer hover:bg-primary-50 hover:border-primary-200 flex items-center justify-between ${prefs.spendRange === range ? 'bg-primary-50 border-primary-500' : 'bg-white'}`}
+                               >
+                                    <div>
+                                        <p className="font-bold text-lg capitalize">{range} Tier</p>
+                                        <p className="text-sm text-gray-500">
+                                            {range === 'low' ? '< ₹20k / month' : range === 'medium' ? '₹20k - ₹50k / month' : '> ₹50k / month'}
+                                        </p>
+                                    </div>
+                                    <ChevronRight className="w-5 h-5 text-gray-400" />
+                               </div>
+                           ))}
+                        </div>
+                    </div>
+                );
+            default: return null;
         }
     };
 
     return (
         <div className="min-h-screen bg-gray-50 pb-20">
             {/* Hero */}
-            <section className="bg-gradient-to-br from-[#0B1221] via-blue-900 to-[#0B1221] text-white pt-16 pb-24 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl"></div>
-                <div className="container mx-auto px-6 relative z-10">
-                    <div className="flex items-center gap-2 mb-4">
-                        <Sparkles className="w-6 h-6 text-primary-400" />
-                        <span className="text-primary-400 font-bold uppercase text-sm tracking-wider">AI-Powered Rankings</span>
+            <section className="bg-gradient-to-br from-[#0B1221] via-blue-900 to-[#0B1221] text-white pt-12 pb-32 relative overflow-hidden">
+                <div className="container mx-auto px-6 relative z-10 text-center">
+                    <div className="flex items-center justify-center gap-2 mb-4">
+                        <Sparkles className="w-5 h-5 text-primary-400" />
+                        <span className="text-primary-400 font-bold uppercase text-xs tracking-wider">AI Recommendation Engine</span>
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-bold mb-6">Best Credit Cards in India (2025)</h1>
-                    <p className="text-gray-300 text-lg max-w-2xl">
-                        Our algorithm analyzes fees, rewards, user reviews, and 20+ other factors to rank the best credit cards for you.
+                    <h1 className="text-4xl md:text-5xl font-bold mb-4">Find Your Perfect Match</h1>
+                    <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+                        Tell us what you need in 3 simple steps. We'll find the best product for you.
                     </p>
                 </div>
             </section>
 
-            {/* Main Content */}
-            <div className="container mx-auto px-6 -mt-12 relative z-20">
-
-                {/* Category Filter */}
-                <div className="flex gap-4 mb-8">
-                    {[
-                        { key: 'all', label: 'All Cards', icon: Trophy },
-                        { key: 'travel', label: 'Travel Cards', icon: TrendingUp },
-                        { key: 'cashback', label: 'Cashback Cards', icon: DollarSign }
-                    ].map(({ key, label, icon: Icon }) => (
-                        <button
-                            key={key}
-                            onClick={() => setSelectedCategory(key as any)}
-                            className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all shadow-sm ${selectedCategory === key
-                                ? 'bg-primary-600 text-white shadow-primary-200'
-                                : 'bg-white text-gray-600 hover:bg-gray-50'
-                                }`}
-                        >
-                            <Icon className="w-4 h-4" />
-                            {label}
-                        </button>
-                    ))}
-                </div>
-
-                {/* Ranked Cards */}
-                <div className="space-y-6">
-                    {filteredCards.map(({ card, score }, index) => (
-                        <div key={card.id} className="relative">
-                            {/* Rank Badge */}
-                            <div className="absolute -left-4 top-8 z-10">
-                                <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg shadow-lg ${index === 0 ? 'bg-gradient-to-br from-amber-400 to-amber-600 text-white' :
-                                    index === 1 ? 'bg-gradient-to-br from-gray-300 to-gray-400 text-gray-800' :
-                                        index === 2 ? 'bg-gradient-to-br from-orange-400 to-orange-600 text-white' :
-                                            'bg-white text-gray-700 border-2 border-gray-300'
-                                    }`}>
-                                    #{index + 1}
-                                </div>
-                            </div>
-
-                            {/* Award Badge */}
-                            {score.badge && (
-                                <div className="absolute -top-3 left-16 z-10">
-                                    <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold shadow-md ${getBadgeColor(score.badge)}`}>
-                                        {getBadgeIcon(score.badge)}
-                                        {score.badge.replace('_', ' ').toUpperCase()}
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Product Card */}
-                            <div className="ml-8">
-                                <ProductCard product={card} showCompare={false} />
-
-                                {/* Score Breakdown */}
-                                <div className="mt-4 bg-gray-50 rounded-xl p-6 md:p-8 border border-gray-200">
-                                    <div className="flex items-center justify-between mb-3">
-                                        <span className="text-sm font-semibold text-gray-700">Our Score</span>
-                                        <span className="text-2xl font-bold text-primary-600">{score.totalScore}/100</span>
-                                    </div>
-                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-                                        <div>
-                                            <div className="text-gray-500 mb-1">Value</div>
-                                            <div className="font-bold text-gray-900">{score.breakdown.valueScore}/40</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-gray-500 mb-1">Popularity</div>
-                                            <div className="font-bold text-gray-900">{score.breakdown.popularityScore}/30</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-gray-500 mb-1">Features</div>
-                                            <div className="font-bold text-gray-900">{score.breakdown.featureScore}/20</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-gray-500 mb-1">Trust</div>
-                                            <div className="font-bold text-gray-900">{score.breakdown.trustScore}/10</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            {/* Widget Container */}
+            <div className="container mx-auto px-4 sm:px-6 -mt-20 relative z-20">
+                
+                {step < 3 ? (
+                    // WIZARD MODE
+                    <div className="bg-white rounded-2xl shadow-xl max-w-3xl mx-auto p-8 md:p-12 min-h-[500px] flex flex-col justify-center relative">
+                        {step > 0 && (
+                            <button onClick={handleBack} className="absolute top-8 left-8 text-gray-400 hover:text-gray-600 flex items-center gap-1 text-sm font-semibold">
+                                <ArrowLeft className="w-4 h-4" /> Back
+                            </button>
+                        )}
+                        
+                        <div className="mb-8 flex justify-center gap-2">
+                             {[0, 1, 2].map(i => (
+                                 <div key={i} className={`h-1 w-12 rounded-full transition-colors ${i <= step ? 'bg-primary-600' : 'bg-gray-200'}`} />
+                             ))}
                         </div>
-                    ))}
-                </div>
 
-                {/* Methodology */}
-                <div className="mt-16 bg-white rounded-2xl p-8 border border-gray-200">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">How We Rank Credit Cards</h2>
-                    <div className="grid md:grid-cols-2 gap-6 text-sm text-gray-600">
-                        <div>
-                            <h3 className="font-semibold text-gray-900 mb-2">1. Value Score (40%)</h3>
-                            <p>We compare annual fees against rewards, lounge access, and other benefits to calculate true value.</p>
-                        </div>
-                        <div>
-                            <h3 className="font-semibold text-gray-900 mb-2">2. Popularity Score (30%)</h3>
-                            <p>Based on user ratings and review volume from verified sources like Trustpilot and Reddit.</p>
-                        </div>
-                        <div>
-                            <h3 className="font-semibold text-gray-900 mb-2">3. Feature Score (20%)</h3>
-                            <p>Number and quality of features like welcome offers, insurance coverage, and exclusive perks.</p>
-                        </div>
-                        <div>
-                            <h3 className="font-semibold text-gray-900 mb-2">4. Trust Score (10%)</h3>
-                            <p>Bank reputation, customer service quality, and claim settlement track record.</p>
-                        </div>
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={step}
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                {renderStep()}
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
-                </div>
+                ) : (
+                    // RESULTS MODE
+                    <div className="max-w-5xl mx-auto">
+                         <div className="flex items-center justify-between mb-8">
+                            <div>
+                                <h2 className="text-2xl font-bold text-gray-900">Your Matches</h2>
+                                <p className="text-gray-600">Based on your goal for <span className="font-semibold text-primary-600 capitalize">{prefs.goal.replace('_', ' ')}</span></p>
+                            </div>
+                            <Button variant="outline" onClick={() => setStep(0)}>Start Over</Button>
+                         </div>
+
+                         <div className="space-y-6">
+                             {results.length === 0 ? (
+                                 <div className="text-center py-20 bg-white rounded-xl">
+                                     <p className="text-xl text-gray-500">No specific matches found. Try adjusting your preferences.</p>
+                                     <Button className="mt-4" onClick={() => setStep(0)}>Try Again</Button>
+                                 </div>
+                             ) : (
+                                 results.slice(0, 3).map((res, index) => (
+                                     <div key={res.product.id} className="relative group">
+                                         {/* Match Badge */}
+                                         <div className="absolute -left-3 -top-3 z-20 bg-emerald-600 text-white px-4 py-1.5 rounded-full font-bold shadow-lg flex items-center gap-2">
+                                             <Sparkles className="w-4 h-4" /> {res.matchScore}% Match
+                                         </div>
+                                         
+                                         {/* Context Card */}
+                                         <div className="mb-[-20px] pt-8 pl-8 pr-8 pb-12 bg-emerald-50 rounded-t-2xl border border-emerald-100 relative top-6 z-0 -mx-4">
+                                              <p className="text-emerald-800 font-medium">
+                                                  <span className="font-bold">Why it matches:</span> {res.matchReason}
+                                              </p>
+                                         </div>
+
+                                         <div className="relative z-10 bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                                             <ProductCard product={res.product} showCompare={true} />
+                                         </div>
+                                     </div>
+                                 ))
+                             )}
+                         </div>
+                    </div>
+                )}
             </div>
+        </div>
+    );
+}
+
+function OptionCard({ selected, onClick, label, icon: Icon }: any) {
+    return (
+        <div 
+            onClick={onClick}
+            className={`cursor-pointer p-6 rounded-xl border flex flex-col items-center justify-center gap-3 text-center transition-all h-40
+                ${selected ? 'bg-primary-50 border-primary-500 shadow-md transform scale-105' : 'bg-white border-gray-200 hover:border-primary-300 hover:bg-gray-50'}`}
+        >
+            <Icon className={`w-8 h-8 ${selected ? 'text-primary-600' : 'text-gray-500'}`} />
+            <span className={`font-bold ${selected ? 'text-primary-900' : 'text-gray-700'}`}>{label}</span>
         </div>
     );
 }

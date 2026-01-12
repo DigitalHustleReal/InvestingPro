@@ -82,6 +82,55 @@ export default function NewsletterWidget({
         );
     }
     
-    // ... rest of variants (truncated for simplicity as 'minimal' is the one used in Footer)
-    return null; 
+    // Card variant (Default)
+    return (
+        <Card className={cn("bg-gradient-to-br from-slate-900 to-slate-800 border-none text-white overflow-hidden relative", className)}>
+            {/* Background Effects */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+            
+            <CardContent className="p-8 relative z-10 flex flex-col items-center text-center">
+                <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center mb-6 backdrop-blur-sm">
+                    <Mail className="w-6 h-6 text-primary-400" />
+                </div>
+                
+                <h3 className="text-2xl font-bold mb-3 tracking-tight">{title}</h3>
+                <p className="text-slate-400 mb-8 max-w-xs mx-auto leading-relaxed">
+                    {description}
+                </p>
+
+                <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4">
+                    <div className="relative">
+                        <Input
+                            type="email"
+                            placeholder={placeholderText}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            disabled={status === 'loading' || status === 'success'}
+                            className="w-full h-12 bg-white/5 border-white/10 text-white placeholder:text-slate-500 focus:border-primary-500 focus:bg-white/10 transition-all text-center"
+                        />
+                    </div>
+                    <Button 
+                        type="submit" 
+                        disabled={status === 'loading' || status === 'success'}
+                        className="w-full h-12 bg-primary-600 hover:bg-primary-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-primary-500/25"
+                    >
+                        {status === 'loading' ? (
+                            <Loader2 className="w-5 h-5 animate-spin" />
+                        ) : status === 'success' ? (
+                            <div className="flex items-center gap-2">
+                                <Check className="w-5 h-5" /> Subscribed
+                            </div>
+                        ) : (
+                            "Subscribe for Free"
+                        )}
+                    </Button>
+                </form>
+
+                <p className="mt-6 text-xs text-slate-500 flex items-center gap-1.5 opacity-80">
+                    <Sparkles className="w-3 h-3 text-amber-400" />
+                    Join 12,000+ smart investors
+                </p>
+            </CardContent>
+        </Card>
+    );
 }

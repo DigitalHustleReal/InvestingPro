@@ -146,8 +146,13 @@ Return ONLY valid JSON.
             structuredContent = generatedContent;
         }
 
-        // Fetch visual assets
-        const featuredImage = await imageService.getFeaturedImage(topic);
+        // Generate featured image with automated, precise, theme-related prompts
+        const { generateFeaturedImageQuick } = await import('@/lib/automation/image-pipeline');
+        const featuredImage = await generateFeaturedImageQuick({
+            articleTitle: structuredContent.title || topic,
+            category: category,
+            keywords: targetKeywords
+        });
 
         // Normalize HTML
         let htmlContent = '';

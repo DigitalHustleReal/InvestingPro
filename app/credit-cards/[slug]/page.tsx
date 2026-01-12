@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { 
   Star, 
   CreditCard, 
-  Percent, 
   IndianRupee, 
   CheckCircle2, 
   XCircle, 
@@ -13,14 +12,18 @@ import {
   Gift,
   Plane,
   ShoppingBag,
-  Fuel,
   AlertCircle,
   ExternalLink
 } from 'lucide-react'
+import ProductReviews from '@/components/reviews/ProductReviews'
+import DifferentiationCard from '@/components/products/DifferentiationCard'
+import { scoreCreditCard } from '@/lib/products/scoring-rules'
+import { CreditCard as CreditCardType } from '@/types'
 
 interface CreditCardDetail {
   id: string
   name: string
+  type: string
   provider: string
   image?: string
   rating: number
@@ -63,13 +66,24 @@ import { createClient } from '@/lib/supabase/server'
 
 async function getCreditCardData(slug: string): Promise<CreditCardDetail | null> {
   const supabase = await createClient();
+  console.log(`[CardPage] Fetching slug: ${slug}`);
   const { data: card, error } = await supabase
     .from('credit_cards')
     .select('*')
     .eq('slug', slug)
     .single();
 
-  if (error || !card) return null;
+  if (error) {
+    console.error(`[CardPage] Error fetching ${slug}:`, error);
+    return null;
+  }
+  
+  if (!card) {
+    console.error(`[CardPage] No card found for ${slug}`);
+    return null;
+  }
+  
+  console.log(`[CardPage] Found card: ${card.name} (${card.id})`);
 
   // Derive benefits from type
   const isTravel = card.type === 'Travel' || card.type === 'Premium';
@@ -78,6 +92,7 @@ async function getCreditCardData(slug: string): Promise<CreditCardDetail | null>
   return {
     id: card.id,
     name: card.name,
+    type: card.type || 'Standard',
     provider: card.bank,
     image: card.image_url,
     rating: Number(card.rating) || 4.5,
@@ -128,8 +143,9 @@ async function getCreditCardData(slug: string): Promise<CreditCardDetail | null>
   };
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const card = await getCreditCardData(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const card = await getCreditCardData(slug)
   
   if (!card) {
     return {
@@ -144,7 +160,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function CreditCardDetailPage({ params }: { params: { slug: string } }) {
+export default async function CreditCardDetailPage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const card = await getCreditCardData(params.slug)
   
   if (!card) {
@@ -362,10 +379,38 @@ export default async function CreditCardDetailPage({ params }: { params: { slug:
                 </div>
               </CardContent>
             </Card>
+
+            {/* User Reviews */}
+            <ProductReviews productSlug={params.slug} productType="credit_card" />
           </div>
           
           {/* Right Column: Sidebar */}
           <div className="lg:col-span-1 space-y-6">
+            
+            {/* Differentiation Score Card */}
+            <DifferentiationCard 
+                score={scoreCreditCard({
+                    id: card.id,
+                    slug: params.slug,
+                    name: card.name,
+                    category: 'credit_card',
+                    type: (card.type?.toLowerCase() as any) || 'rewards',
+                    provider: card.provider,
+                    description: card.description,
+                    rating: card.rating,
+                    reviewsCount: 0,
+                    applyLink: card.applyLink,
+                    joiningFee: card.joiningFee,
+                    annualFee: card.annualFee,
+                    rewardRate: card.rewardRate,
+                    features: card.keyFeatures,
+                    pros: card.pros,
+                    cons: card.cons,
+                    loungeAccess: card.pros.find((p: string) => p.toLowerCase().includes('lounge')) || ''
+                })}
+                productName={card.name}
+            />
+
             {/* Apply CTA (Sticky) */}
             <div className="sticky top-6">
               <Card className="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white">

@@ -38,6 +38,7 @@ import { NPSCalculator } from "@/components/calculators/NPSCalculator";
 import { GoalPlanningCalculator } from "@/components/calculators/GoalPlanningCalculator";
 import { GSTCalculator } from "@/components/calculators/GSTCalculator";
 import { HomeLoanVsSIPCalculator } from "@/components/calculators/HomeLoanVsSIPCalculator";
+import { RDCalculator } from "@/components/calculators/RDCalculator";
 
 export default function CalculatorsPage() {
     return (
@@ -195,6 +196,10 @@ export default function CalculatorsPage() {
                             <Target className="w-4 h-4 mr-2" />
                             Goal Planning
                         </TabsTrigger>
+                        <TabsTrigger value="rd" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                            <PiggyBank className="w-4 h-4 mr-2" />
+                            RD
+                        </TabsTrigger>
                         <TabsTrigger value="gst" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <Receipt className="w-4 h-4 mr-2" />
                             GST
@@ -279,6 +284,18 @@ export default function CalculatorsPage() {
 
                     <TabsContent value="goal">
                         <GoalPlanningCalculator />
+                    </TabsContent>
+
+                    <TabsContent value="rd">
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <p className="text-slate-600">Visit our dedicated RD calculator page for comprehensive guides and FAQs.</p>
+                                <Link href="/calculators/rd" className="text-primary-600 hover:text-primary-700 font-semibold">
+                                    View Full Page →
+                                </Link>
+                            </div>
+                            <RDCalculator />
+                        </div>
                     </TabsContent>
 
                     <TabsContent value="gst">

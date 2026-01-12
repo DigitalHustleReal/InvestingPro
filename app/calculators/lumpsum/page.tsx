@@ -3,12 +3,81 @@
 import React from 'react';
 import SEOHead from "@/components/common/SEOHead";
 import { Breadcrumb } from "@/components/common/Breadcrumb";
+import { generateSchema } from '@/lib/linking/schema';
+import { generateCanonicalUrl } from '@/lib/linking/canonical';
+import { generateBreadcrumbSchema } from '@/lib/linking/breadcrumbs';
 import { CalculatorSchema, FAQSchema, OrganizationSchema } from "@/components/seo/SchemaMarkup";
 import { LumpsumCalculatorWithInflation } from "@/components/calculators/LumpsumCalculatorWithInflation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Info } from "lucide-react";
 
 export default function LumpsumCalculatorPage() {
+    const breadcrumbs = [
+        { label: 'Home', url: '/' },
+        { label: 'Calculators', url: '/calculators' },
+        { label: 'Lumpsum Calculator', url: '/calculators/lumpsum' },
+    ];
+
+    const calculatorSchema = generateSchema({
+        pageType: 'calculator',
+        title: 'Lumpsum Calculator',
+        description: 'Free lumpsum investment calculator to calculate returns on one-time investments with inflation adjustment.',
+        url: '/calculators/lumpsum',
+        breadcrumbs,
+        category: 'investing',
+    });
+
+    const howToSchema = {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Use Lumpsum Calculator",
+        "description": "Step-by-step guide to calculate returns on your one-time investment using our free Lumpsum Calculator",
+        "step": [
+            {
+                "@type": "HowToStep",
+                "name": "Enter Investment Amount",
+                "text": "Input your total one-time investment amount (minimum ₹500)."
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Set Investment Period",
+                "text": "Choose your investment duration in years. Longer durations benefit more from compounding."
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Expected Return Rate",
+                "text": "Enter the expected annual return rate (typically 12-15% for equity mutual funds)."
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Analyze Results",
+                "text": "View your total projected value and returns. Use the inflation toggle to see real purchasing power."
+            }
+        ]
+    };
+
+    const financialServiceSchema = {
+        "@context": "https://schema.org",
+        "@type": "FinancialService",
+        "name": "Lumpsum Calculator",
+        "description": "Free lumpsum investment calculator to calculate returns on one-time investments with inflation adjustment. Calculate maturity value and real returns.",
+        "provider": {
+            "@type": "Organization",
+            "name": "InvestingPro",
+            "url": "https://investingpro.in"
+        },
+        "serviceType": "FinancialCalculator",
+        "areaServed": {
+            "@type": "Country",
+            "name": "India"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "INR"
+        }
+    };
+
     const faqs = [
         {
             question: "What is lumpsum investment?",
@@ -32,21 +101,24 @@ export default function LumpsumCalculatorPage() {
         }
     ];
 
+    const structuredData = [
+        calculatorSchema,
+        generateBreadcrumbSchema(breadcrumbs),
+        financialServiceSchema,
+        howToSchema
+    ];
+
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
             <SEOHead
                 title="Lumpsum Calculator India 2026 - Calculate One-Time Investment Returns | InvestingPro"
                 description="Free lumpsum investment calculator with inflation adjustment. Calculate returns on one-time investments in mutual funds. Compare lumpsum vs SIP returns."
+                structuredData={structuredData}
+                url="https://investingpro.in/calculators/lumpsum"
             />
 
             {/* Schema Markup */}
-            <CalculatorSchema
-                name="Lumpsum Calculator"
-                description="Calculate returns on one-time lumpsum investments with inflation adjustment"
-                url="/calculators/lumpsum"
-            />
             <FAQSchema faqs={faqs} />
-            <OrganizationSchema />
 
             {/* Hero Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-8">

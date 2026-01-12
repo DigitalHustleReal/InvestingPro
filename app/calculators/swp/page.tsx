@@ -3,13 +3,60 @@
 import React from 'react';
 import Link from 'next/link';
 import SEOHead from "@/components/common/SEOHead";
+import { generateSchema } from '@/lib/linking/schema';
+import { generateCanonicalUrl } from '@/lib/linking/canonical';
+import { generateBreadcrumbSchema } from '@/lib/linking/breadcrumbs';
 import { SWPCalculator } from "@/components/calculators/SWPCalculator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Info } from "lucide-react";
 import { SEOArticle } from "@/components/calculators/SEOArticle";
 
 export default function SWPCalculatorPage() {
-    const structuredData = {
+    const breadcrumbs = [
+        { label: 'Home', url: '/' },
+        { label: 'Calculators', url: '/calculators' },
+        { label: 'SWP Calculator', url: '/calculators/swp' },
+    ];
+
+    const calculatorSchema = generateSchema({
+        pageType: 'calculator',
+        title: 'SWP Calculator',
+        description: 'Free SWP (Systematic Withdrawal Plan) calculator to plan monthly withdrawals from your investment corpus.',
+        url: '/calculators/swp',
+        breadcrumbs,
+        category: 'investing',
+    });
+
+    const howToSchema = {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Use SWP Calculator",
+        "description": "Step-by-step guide to calculate monthly withdrawals using our free SWP Calculator",
+        "step": [
+            {
+                "@type": "HowToStep",
+                "name": "Enter Total Investment",
+                "text": "Input your total corpus amount relative to which you want to start withdrawals."
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Set Monthly Withdrawal",
+                "text": "Enter the amount you wish to withdraw every month."
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Expected Return Rate",
+                "text": "Enter the expected annual return rate on your remaining corpus."
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Analyze Sustainability",
+                "text": "Check if your withdrawal rate is sustainable and how long your corpus will last."
+            }
+        ]
+    };
+
+    const financialServiceSchema = {
         "@context": "https://schema.org",
         "@type": "FinancialService",
         "name": "SWP Calculator",
@@ -20,8 +67,15 @@ export default function SWPCalculatorPage() {
             "url": "https://investingpro.in"
         },
         "serviceType": "FinancialCalculator",
-        "areaServed": { "@type": "Country", "name": "India" },
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+        "areaServed": {
+            "@type": "Country",
+            "name": "India"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "INR"
+        }
     };
 
     const faqSchema = {
@@ -63,12 +117,21 @@ export default function SWPCalculatorPage() {
         ]
     };
 
+    const structuredData = [
+        calculatorSchema,
+        generateBreadcrumbSchema(breadcrumbs),
+        financialServiceSchema,
+        howToSchema,
+        faqSchema
+    ];
+
     return (
         <div className="min-h-screen bg-slate-50">
             <SEOHead
                 title="SWP Calculator India 2026 - Systematic Withdrawal Plan Calculator | InvestingPro"
                 description="Free SWP calculator to calculate monthly withdrawals from your investment corpus. Plan retirement income, check corpus sustainability, and see inflation-adjusted withdrawal amounts. Calculate how long your corpus will last."
-                structuredData={[structuredData, faqSchema]}
+                structuredData={structuredData}
+                url="https://investingpro.in/calculators/swp"
             />
             
             {/* Breadcrumbs */}

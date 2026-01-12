@@ -26,6 +26,7 @@ import {
 } from 'chart.js';
 import { Bar, Pie } from 'react-chartjs-2';
 import { toast } from 'sonner';
+import MarketOverview from '@/components/market/MarketOverview';
 
 ChartJS.register(
     CategoryScale,
@@ -164,6 +165,11 @@ export default function PersonalDashboard() {
                             <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">Total Net Worth</div>
                         </CardContent>
                     </Card>
+                </div>
+
+                {/* Market Intelligence Tier - NEW */}
+                <div className="mb-6">
+                     <MarketOverview />
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">

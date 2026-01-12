@@ -18,7 +18,10 @@
     "prepare": "husky install",
     "generate:content": "tsx scripts/ai-content-generator.ts",
     "generate:sample": "tsx scripts/sample-article-data.ts",
-    "generate:author-images": "tsx scripts/generate-author-images.ts"
+    "generate:author-images": "tsx scripts/generate-author-images.ts",
+    "cms:verify": "tsx scripts/verify-cms-setup.ts",
+    "cms:migrate": "tsx scripts/run-cms-migration.ts",
+    "cms:init": "tsx scripts/initialize-cms.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",

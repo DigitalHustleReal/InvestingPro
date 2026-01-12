@@ -9,9 +9,6 @@ import {
     Wallet,
     Home,
     Car,
-    GraduationCap,
-    Gem,
-    Briefcase,
     CheckCircle2,
     ArrowRight,
     Search
@@ -23,14 +20,7 @@ import { Input } from "@/components/ui/input";
 import SEOHead from "@/components/common/SEOHead";
 import Link from 'next/link';
 
-const loanTypes = [
-    { id: 'personal', label: 'Personal', icon: Wallet, rate: '10.5%+' },
-    { id: 'home', label: 'Home', icon: Home, rate: '8.50%+' },
-    { id: 'car', label: 'Car', icon: Car, rate: '8.75%+' },
-    { id: 'education', label: 'Education', icon: GraduationCap, rate: '9.50%+' },
-    { id: 'gold', label: 'Gold', icon: Gem, rate: '9.00%+' },
-    { id: 'business', label: 'Business', icon: Briefcase, rate: '12.0%+' },
-];
+
 
 import { api } from '@/lib/api';
 import { RichProductCard } from "@/components/products/RichProductCard";
@@ -42,6 +32,8 @@ import { ResponsiveFilterContainer } from "@/components/products/ResponsiveFilte
 import { LoansTable } from "@/components/loans/LoansTable";
 import { LayoutGrid, Table as TableIcon } from 'lucide-react';
 import { EMICalculatorEnhanced } from '@/components/calculators/EMICalculatorEnhanced';
+import ContextualNewsWidget from '@/components/news/ContextualNewsWidget';
+import RatesWidget from '@/components/rates/RatesWidget';
 
 export default function LoansPage() {
     // Calculator State
@@ -306,6 +298,9 @@ export default function LoansPage() {
                          
                          {/* Marketing Widgets in Sidebar - Hidden on Mobile Drawer for better UX */}
                          <div className="hidden lg:block mt-8 space-y-6">
+                            {/* Rates Widget */}
+                            <RatesWidget category="loans" title="Live Interest Rates" />
+
                             {/* Documents Checklist Widget */}
                             <Card className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem]">
                                 <CardContent className="p-6">
@@ -322,6 +317,9 @@ export default function LoansPage() {
                                     </ul>
                                 </CardContent>
                             </Card>
+
+                            {/* News Widget */}
+                            <ContextualNewsWidget category="loans" title="Banking News" />
                          </div>
                     </ResponsiveFilterContainer>
 
