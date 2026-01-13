@@ -24,7 +24,8 @@ import {
     Info,
     ArrowRight,
     Baby,
-    Sprout
+    Sprout,
+    Landmark
 } from "lucide-react";
 import Link from "next/link";
 import { SWPCalculator } from "@/components/calculators/SWPCalculator";
@@ -43,6 +44,7 @@ import { HomeLoanVsSIPCalculator } from "@/components/calculators/HomeLoanVsSIPC
 import { RDCalculator } from "@/components/calculators/RDCalculator";
 import { SSYCalculator } from "@/components/calculators/SSYCalculator";
 import { KVPCalculator } from "@/components/calculators/KVPCalculator";
+import { NSCCalculator } from "@/components/calculators/NSCCalculator";
 
 export default function CalculatorsPage() {
     return (
@@ -212,6 +214,10 @@ export default function CalculatorsPage() {
                             <Sprout className="w-4 h-4 mr-2" />
                             KVP
                         </TabsTrigger>
+                        <TabsTrigger value="nsc" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                            <Landmark className="w-4 h-4 mr-2" />
+                            NSC
+                        </TabsTrigger>
                         <TabsTrigger value="gst" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <Receipt className="w-4 h-4 mr-2" />
                             GST
@@ -334,6 +340,18 @@ export default function CalculatorsPage() {
                         </div>
                     </TabsContent>
 
+                    <TabsContent value="nsc">
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <p className="text-slate-600">Visit our dedicated NSC calculator page for comprehensive guides and FAQs.</p>
+                                <Link href="/calculators/nsc" className="text-primary-600 hover:text-primary-700 font-semibold">
+                                    View Full Page →
+                                </Link>
+                            </div>
+                            <NSCCalculator />
+                        </div>
+                    </TabsContent>
+
                     <TabsContent value="gst">
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
@@ -398,7 +416,8 @@ export default function CalculatorsPage() {
                                         "Goal Planning Calculator - Plan financial goals with SIP",
                                         "GST Calculator - Calculate Goods and Services Tax",
                                         "SSY Calculator - Sukanya Samriddhi Yojana calculator",
-                                        "KVP Calculator - Kisan Vikas Patra doubling calculator"
+                                        "KVP Calculator - Kisan Vikas Patra doubling calculator",
+                                        "NSC Calculator - National Savings Certificate calculator"
                                     ].map((feature, idx) => (
                                         <div key={idx} className="flex items-start gap-3">
                                             <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />

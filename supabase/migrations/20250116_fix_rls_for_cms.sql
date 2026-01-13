@@ -3,7 +3,11 @@
 -- Run this in Supabase SQL Editor
 -- ============================================================================
 
--- 1. Make the check_daily_budget function bypass RLS with SECURITY DEFINER
+-- 1. Drop existing functions first (required due to signature change)
+DROP FUNCTION IF EXISTS check_daily_budget();
+DROP FUNCTION IF EXISTS record_content_cost(UUID, INTEGER, NUMERIC, TEXT, TEXT, INTEGER, NUMERIC);
+
+-- 2. Recreate check_daily_budget function with SECURITY DEFINER
 CREATE OR REPLACE FUNCTION check_daily_budget()
 RETURNS TABLE (
     has_budget BOOLEAN,
@@ -58,7 +62,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- 2. Make record_content_cost bypass RLS
+-- 3. Recreate record_content_cost with SECURITY DEFINER
 CREATE OR REPLACE FUNCTION record_content_cost(
     p_article_id UUID,
     p_tokens INTEGER,
@@ -106,7 +110,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- 3. Add permissive policies for daily_budgets (allow API to read/write)
+-- 4. Add permissive policies for daily_budgets (allow API to read/write)
 -- Drop existing restrictive policies
 DROP POLICY IF EXISTS "Service role can manage daily budgets" ON daily_budgets;
 DROP POLICY IF EXISTS "Admins can view daily budgets" ON daily_budgets;
@@ -124,11 +128,11 @@ CREATE POLICY "Allow update daily budgets"
 ON daily_budgets FOR UPDATE 
 USING (true);
 
--- 4. Initialize today's budget if not exists
+-- 5. Initialize today's budget if not exists
 INSERT INTO daily_budgets (budget_date, max_tokens, max_images, max_cost_usd)
 VALUES (CURRENT_DATE, 1000000, 100, 50.00)
 ON CONFLICT (budget_date) DO NOTHING;
 
--- 5. Verify the fix
+-- 6. Verify the fix
 SELECT 'RLS Fix Applied Successfully' as status;
 SELECT * FROM daily_budgets WHERE budget_date = CURRENT_DATE;

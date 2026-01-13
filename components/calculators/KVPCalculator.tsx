@@ -177,7 +177,7 @@ export function KVPCalculator() {
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                                 <XAxis dataKey="year" tick={{fontSize: 12}} stroke="#94a3b8" />
                                 <YAxis tick={{fontSize: 12}} stroke="#94a3b8" tickFormatter={(value) => `₹${value/1000}k`} />
-                                <Tooltip formatter={(value: number) => [formatCurrency(value), "Amount"]} />
+                                <Tooltip formatter={(value: number | undefined) => formatCurrency(value || 0)} />
                                 <Area type="step" dataKey="amount" stroke="#16a34a" fill="url(#colorKVP)" strokeWidth={2} name="Value" />
                             </AreaChart>
                         </ResponsiveContainer>
