@@ -143,8 +143,26 @@ export class StrategyAgent extends BaseAgent {
             return topics;
         }
         
-        // Combine trends and keywords
-        const maxItems = Math.min(safeTrends.length || Infinity, safeKeywords.length || Infinity, targetCount);
+        // CASE 1: We have trends but no keywords (API key issue)
+        // Generate topics from trends directly
+        if (safeTrends.length > 0 && safeKeywords.length === 0) {
+            for (let i = 0; i < Math.min(safeTrends.length, targetCount); i++) {
+                const trend = safeTrends[i];
+                const extractedKeywords = trend.keywords?.length > 0 ? trend.keywords : [trend.topic];
+                
+                topics.push({
+                    title: this.optimizeTitle(trend.topic),
+                    category: trend.category,
+                    keywords: extractedKeywords,
+                    priority: Math.round((trend.trendScore || 50) / 10),
+                    estimatedPerformance: trend.relevanceScore || 60
+                });
+            }
+            return topics.sort((a, b) => b.priority - a.priority);
+        }
+        
+        // CASE 2: Combine trends and keywords normally
+        const maxItems = Math.min(safeTrends.length, safeKeywords.length, targetCount);
         for (let i = 0; i < maxItems; i++) {
             const trend = safeTrends[i];
             const keyword = safeKeywords[i];
@@ -177,7 +195,26 @@ export class StrategyAgent extends BaseAgent {
      */
     private generateTitle(topic: string, keyword: string): string {
         // Use keyword as base, enhance with topic context
-        return `${keyword.charAt(0).toUpperCase() + keyword.slice(1)} - Complete Guide 2026`;
+        return `${keyword.charAt(0).toUpperCase() + keyword.slice(1)} - Complete Guide ${new Date().getFullYear()}`;
+    }
+    
+    /**
+     * Optimize a trend topic into a SEO-friendly title
+     */
+    private optimizeTitle(trendTopic: string): string {
+        const year = new Date().getFullYear();
+        
+        // If already has a good title format, use it
+        if (trendTopic.length > 20 && trendTopic.length < 80) {
+            // Add year if not present
+            if (!trendTopic.includes(String(year)) && !trendTopic.includes(String(year - 1))) {
+                return `${trendTopic} - ${year} Guide`;
+            }
+            return trendTopic;
+        }
+        
+        // Enhance short topics
+        return `${trendTopic.charAt(0).toUpperCase() + trendTopic.slice(1)}: Complete Guide ${year}`;
     }
     
     /**

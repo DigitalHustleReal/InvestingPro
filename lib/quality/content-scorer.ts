@@ -130,6 +130,17 @@ function calculateSEO(
   content: string,
   metaDescription?: string
 ): QualityDetails['seo'] {
+  // Handle null/undefined content
+  if (!content || typeof content !== 'string') {
+    return {
+      score: 50,
+      keywordPlacement: false,
+      metaDescriptionQuality: metaDescription ? 'good' : 'missing',
+      headingStructure: 'unknown',
+      issues: ['Content not available for SEO analysis']
+    };
+  }
+  
   let score = 0;
   const textOnly = content.replace(/<[^>]*>/g, ' ');
   
@@ -189,6 +200,18 @@ function calculateSEO(
  * Calculate Content Structure Score
  */
 function calculateStructure(content: string): QualityDetails['structure'] {
+  // Handle null/undefined content
+  if (!content || typeof content !== 'string') {
+    return {
+      score: 50,
+      wordCount: 0,
+      paragraphCount: 0,
+      headingCount: 0,
+      hasTableOfContents: false,
+      issues: ['Content not available for structure analysis']
+    };
+  }
+  
   let score = 0;
   const textOnly = content.replace(/<[^>]*>/g, '\n');
   

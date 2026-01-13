@@ -1,15 +1,12 @@
 ﻿"use client";
 
-import React from 'react';
 import Link from 'next/link';
 import SEOHead from "@/components/common/SEOHead";
 import { generateSchema } from '@/lib/linking/schema';
-import { generateCanonicalUrl } from '@/lib/linking/canonical';
 import { generateBreadcrumbSchema } from '@/lib/linking/breadcrumbs';
 import { SWPCalculator } from "@/components/calculators/SWPCalculator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Info } from "lucide-react";
-import { SEOArticle } from "@/components/calculators/SEOArticle";
+import { Info, TrendingUp, Zap, CheckCircle2, TrendingDown } from "lucide-react";
 
 export default function SWPCalculatorPage() {
     const breadcrumbs = [
@@ -165,7 +162,158 @@ export default function SWPCalculatorPage() {
             {/* SEO Content Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-8">
                 {/* Comprehensive SEO Article */}
-                <SEOArticle calculatorType="swp" />
+                <div className="space-y-12">
+                    {/* What is SWP Section */}
+                    <Card className="border-0 shadow-lg rounded-2xl bg-white dark:bg-slate-900">
+                        <CardHeader>
+                            <CardTitle className="text-3xl font-bold text-slate-900 dark:text-white">What is Systematic Withdrawal Plan (SWP)?</CardTitle>
+                        </CardHeader>
+                        <CardContent className="prose prose-slate dark:prose-invert max-w-none">
+                            <p className="text-lg leading-relaxed">
+                                A <strong>Systematic Withdrawal Plan (SWP)</strong> is a mutual fund facility that allows you to withdraw a fixed amount of money from your investment corpus at regular intervals—monthly, quarterly, or annually. It is the exact opposite of SIP (Systematic Investment Plan). While SIP allows you to invest systematically, SWP allows you to withdraw systematically.
+                            </p>
+                            <p className="text-lg leading-relaxed">
+                                SWP is widely used by retirees to generate a <strong>steady monthly pension</strong> from their retirement corpus. It provides a regular income stream while the remaining money stays invested in the mutual fund scheme, continuing to earn returns. This dual benefit of regular income + potential capital appreciation makes SWP superior to traditional options like Fixed Deposits (FD) or Dividend plans.
+                            </p>
+                        </CardContent>
+                    </Card>
+
+                    {/* Key Benefits Grid */}
+                    <div className="grid md:grid-cols-2 gap-6">
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-slate-800 dark:to-slate-900">
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
+                                    <TrendingUp className="w-5 h-5" />
+                                    Rupee Cost Averaging
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-slate-600 dark:text-slate-300">
+                                    Just as SIP helps in averaging purchase cost, SWP helps in averaging withdrawal units. When markets are high, fewer units are redeemed. When markets are low, more units are redeemed.
+                                </p>
+                            </CardContent>
+                        </Card>
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-teal-50 to-white dark:from-slate-800 dark:to-slate-900">
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-teal-700 dark:text-teal-400">
+                                    <Zap className="w-5 h-5" />
+                                    Tax Efficiency
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-slate-600 dark:text-slate-300">
+                                    SWP is more tax-efficient than FDs. In SWP, you only pay tax on the capital gains portion of the withdrawal, not the entire amount. Long-term capital gains up to ₹1.25 Lakh are tax-free.
+                                </p>
+                            </CardContent>
+                        </Card>
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-purple-50 to-white dark:from-slate-800 dark:to-slate-900">
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-purple-700 dark:text-purple-400">
+                                    <CheckCircle2 className="w-5 h-5" />
+                                    Flexibility
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-slate-600 dark:text-slate-300">
+                                    You have full control. You can choose the amount, date, and frequency of withdrawals. You can also stop, pause, or increase the SWP amount anytime without penalties.
+                                </p>
+                            </CardContent>
+                        </Card>
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-amber-50 to-white dark:from-slate-800 dark:to-slate-900">
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-amber-700 dark:text-amber-400">
+                                    <TrendingDown className="w-5 h-5" />
+                                    Regular Income
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-slate-600 dark:text-slate-300">
+                                    It guarantees a fixed cash flow to meet monthly expenses, acting like a self-funded pension plan for retirees or anyone seeking passive income.
+                                </p>
+                            </CardContent>
+                        </Card>
+                    </div>
+
+                    {/* How SWP Works - Step by Step */}
+                    <Card className="border-0 shadow-lg rounded-2xl overflow-hidden">
+                        <div className="bg-slate-900 p-6 text-white">
+                            <h3 className="text-2xl font-bold mb-2">How SWP Works: A Practical Example</h3>
+                            <p className="text-slate-300">Let's say you have a corpus of ₹50 Lakhs earning 10% annual returns.</p>
+                        </div>
+                        <CardContent className="p-8">
+                            <div className="space-y-6">
+                                <div className="flex gap-4">
+                                    <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-bold flex-shrink-0">1</div>
+                                    <div>
+                                        <h4 className="font-bold text-lg mb-1">Investment Phase</h4>
+                                        <p className="text-slate-600">You invest ₹50 Lakhs in a Mutual Fund (e.g., Balanced Advantage Fund).</p>
+                                    </div>
+                                </div>
+                                <div className="flex gap-4">
+                                    <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-bold flex-shrink-0">2</div>
+                                    <div>
+                                        <h4 className="font-bold text-lg mb-1">Instruction Phase</h4>
+                                        <p className="text-slate-600">You instruct the fund house to withdraw <span className="font-bold text-slate-900">₹40,000 per month</span> on the 5th of every month.</p>
+                                    </div>
+                                </div>
+                                <div className="flex gap-4">
+                                    <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-bold flex-shrink-0">3</div>
+                                    <div>
+                                        <h4 className="font-bold text-lg mb-1">Execution</h4>
+                                        <p className="text-slate-600">Every month, units worth ₹40,000 are sold and credited to your bank account.</p>
+                                    </div>
+                                </div>
+                                <div className="flex gap-4">
+                                    <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-bold flex-shrink-0">4</div>
+                                    <div>
+                                        <h4 className="font-bold text-lg mb-1">Growth</h4>
+                                        <p className="text-slate-600">Since your withdrawal (₹4.8L/year) is less than returns (10% of 50L = ₹5L/year), your original corpus actually <span className="font-bold text-teal-600">GROWS</span> over time despite withdrawals.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    {/* Taxation Section */}
+                    <Card className="border border-slate-200 shadow-sm rounded-2xl bg-white">
+                        <CardHeader>
+                            <CardTitle className="text-2xl font-bold text-slate-900">SWP Taxation Rules (FY 2024-25)</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="overflow-x-auto">
+                                <table className="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr className="border-b border-slate-200">
+                                            <th className="p-4 font-bold text-slate-900">Fund Type</th>
+                                            <th className="p-4 font-bold text-slate-900">Holding Period</th>
+                                            <th className="p-4 font-bold text-slate-900">Tax Rates</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="text-slate-600">
+                                        <tr className="border-b border-slate-100">
+                                            <td className="p-4 font-medium">Equity Funds</td>
+                                            <td className="p-4">&lt; 1 Year</td>
+                                            <td className="p-4">15% (STCG)</td>
+                                        </tr>
+                                        <tr className="border-b border-slate-100">
+                                            <td className="p-4 font-medium">Equity Funds</td>
+                                            <td className="p-4">&gt; 1 Year</td>
+                                            <td className="p-4">12.5%* (LTCG above ₹1.25L)</td>
+                                        </tr>
+                                        <tr className="border-b border-slate-100">
+                                            <td className="p-4 font-medium">Debt Funds</td>
+                                            <td className="p-4">Any period</td>
+                                            <td className="p-4">As per Income Tax Slab</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p className="text-sm text-slate-500 mt-4 italic">
+                                *Note: Changes as per Budget 2024. Long Term Capital Gains (LTCG) on equity funds are tax-free up to ₹1.25 Lakhs per financial year. Withdrawals are taxed on a First-In-First-Out (FIFO) basis.
+                            </p>
+                        </CardContent>
+                    </Card>
+                </div>
 
                 {/* Expanded FAQ Section */}
                 <Card className="border-0 shadow-lg rounded-2xl">

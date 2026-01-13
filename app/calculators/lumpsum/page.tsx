@@ -1,15 +1,15 @@
 "use client";
 
-import React from 'react';
+import Link from 'next/link';
 import SEOHead from "@/components/common/SEOHead";
 import { Breadcrumb } from "@/components/common/Breadcrumb";
 import { generateSchema } from '@/lib/linking/schema';
-import { generateCanonicalUrl } from '@/lib/linking/canonical';
 import { generateBreadcrumbSchema } from '@/lib/linking/breadcrumbs';
-import { CalculatorSchema, FAQSchema, OrganizationSchema } from "@/components/seo/SchemaMarkup";
+import { FAQSchema } from "@/components/seo/SchemaMarkup";
 import { LumpsumCalculatorWithInflation } from "@/components/calculators/LumpsumCalculatorWithInflation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Info } from "lucide-react";
+
+import { Info, TrendingUp, Zap, CheckCircle2 } from "lucide-react";
 
 export default function LumpsumCalculatorPage() {
     const breadcrumbs = [
@@ -143,6 +143,109 @@ export default function LumpsumCalculatorPage() {
             {/* Calculator */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
                 <LumpsumCalculatorWithInflation />
+            </div>
+
+            {/* Comprehensive Content Section */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 space-y-12">
+                {/* What is Lumpsum Section */}
+                <Card className="border-0 shadow-lg rounded-2xl bg-white dark:bg-slate-900">
+                    <CardHeader>
+                        <CardTitle className="text-3xl font-bold text-slate-900 dark:text-white">What is Lumpsum Investment?</CardTitle>
+                    </CardHeader>
+                    <CardContent className="prose prose-slate dark:prose-invert max-w-none">
+                        <p className="text-lg leading-relaxed">
+                            A <strong>Lumpsum Investment</strong> is when you invest a significant amount of money in a mutual fund scheme in one go. It is the opposite of SIP (Systematic Investment Plan). Lumpsum investments are typically made when you receive a large sum of money, such as a bonus, inheritance, or proceeds from property sale.
+                        </p>
+                        <p className="text-lg leading-relaxed">
+                            The power of lumpsum investing lies in <strong>immediate capital deployment</strong>. Since the entire amount is invested from Day 1, the power of compounding starts working on the full corpus immediately, which can lead to higher absolute returns over long periods compared to staggering investments.
+                        </p>
+                    </CardContent>
+                </Card>
+
+                {/* Key Benefits Grid */}
+                <div className="grid md:grid-cols-3 gap-6">
+                    <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-slate-800 dark:to-slate-900">
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
+                                <TrendingUp className="w-5 h-5" />
+                                Power of Compounding
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="text-slate-600 dark:text-slate-300">
+                                Your entire capital starts earning returns from the very first day. Over 10-15 years, this head start can create a massive difference in final corpus value.
+                            </p>
+                        </CardContent>
+                    </Card>
+                    <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-teal-50 to-white dark:from-slate-800 dark:to-slate-900">
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2 text-xl font-bold text-teal-700 dark:text-teal-400">
+                                <Zap className="w-5 h-5" />
+                                Convenience
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="text-slate-600 dark:text-slate-300">
+                                It's a one-time transaction. You don't need to worry about maintaining monthly bank balances or tracking mandated deduction dates like in SIPs.
+                            </p>
+                        </CardContent>
+                    </Card>
+                    <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-purple-50 to-white dark:from-slate-800 dark:to-slate-900">
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2 text-xl font-bold text-purple-700 dark:text-purple-400">
+                                <CheckCircle2 className="w-5 h-5" />
+                                Ideal for Windfalls
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="text-slate-600 dark:text-slate-300">
+                                Best way to deploy annual bonuses, gifts, or maturity proceeds from other investments to ensure they don't get spent on unnecessary expenses.
+                            </p>
+                        </CardContent>
+                    </Card>
+                </div>
+
+                {/* Lumpsum vs SIP Comparison Table */}
+                <Card className="border border-slate-200 shadow-sm rounded-2xl bg-white dark:bg-slate-900">
+                    <CardHeader>
+                        <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white">Lumpsum vs SIP: Which is Better?</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left border-collapse">
+                                <thead>
+                                    <tr className="border-b border-slate-200 dark:border-slate-800">
+                                        <th className="p-4 font-bold text-slate-900 dark:text-white w-1/3">Feature</th>
+                                        <th className="p-4 font-bold text-primary-700 dark:text-primary-400 w-1/3">Lumpsum Investment</th>
+                                        <th className="p-4 font-bold text-teal-700 dark:text-teal-400 w-1/3">SIP Investment</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="text-slate-600 dark:text-slate-300">
+                                    <tr className="border-b border-slate-100 dark:border-slate-800">
+                                        <td className="p-4 font-medium text-slate-900 dark:text-white">Market Timing</td>
+                                        <td className="p-4">Crucial. Best done when markets are low.</td>
+                                        <td className="p-4">Not relevant. Works in all market conditions.</td>
+                                    </tr>
+                                    <tr className="border-b border-slate-100 dark:border-slate-800">
+                                        <td className="p-4 font-medium text-slate-900 dark:text-white">Risk Profile</td>
+                                        <td className="p-4">Higher short-term risk due to market volatility.</td>
+                                        <td className="p-4">Lower risk due to Rupee Cost Averaging.</td>
+                                    </tr>
+                                    <tr className="border-b border-slate-100 dark:border-slate-800">
+                                        <td className="p-4 font-medium text-slate-900 dark:text-white">Ideal For</td>
+                                        <td className="p-4">Investors with large surplus cash.</td>
+                                        <td className="p-4">Salaried individuals with monthly savings.</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="p-4 font-medium text-slate-900 dark:text-white">Performance</td>
+                                        <td className="p-4">Can outperform SIP in rising markets.</td>
+                                        <td className="p-4">Performs well in volatile/falling markets.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </CardContent>
+                </Card>
             </div>
 
             {/* FAQ Section */}

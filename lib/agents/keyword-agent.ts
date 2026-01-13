@@ -52,13 +52,8 @@ export class KeywordAgent extends BaseAgent {
                     // Research primary keyword
                     const primaryKeyword = trend.keywords[0] || trend.topic;
                     
-                    // Get keyword research
-                    const research = await this.keywordService.researchKeyword(primaryKeyword, {
-                        includeLongTail: true,
-                        includeSemantic: true,
-                        includeLSI: true,
-                        includeTitleVariations: true
-                    });
+                    // Get keyword research using correct method name
+                    const research = await this.keywordService.performKeywordResearch(primaryKeyword, trend.category || 'investing-basics');
                     
                     // Get difficulty score
                     const difficultyResult = await scoreKeywordDifficulty(primaryKeyword);
@@ -66,18 +61,18 @@ export class KeywordAgent extends BaseAgent {
                     // Calculate opportunity score
                     const opportunityScore = this.calculateOpportunityScore(
                         difficultyResult.difficulty,
-                        research.searchVolume || 0
+                        research?.searchVolume || 0
                     );
                     
                     keywordResults.push({
                         keyword: primaryKeyword,
-                        searchVolume: research.searchVolume,
+                        searchVolume: research?.searchVolume,
                         difficulty: difficultyResult.difficulty,
                         difficultyLevel: difficultyResult.level,
-                        longTailVariations: research.longTailKeywords || [],
-                        semanticKeywords: research.semanticKeywords || [],
-                        lsiKeywords: research.lsiKeywords || [],
-                        titleVariations: research.titleVariations || [],
+                        longTailVariations: research?.longTailKeywords || [],
+                        semanticKeywords: research?.semanticKeywords || [],
+                        lsiKeywords: research?.lsiKeywords || [],
+                        titleVariations: research?.titleVariations || [],
                         relevanceScore: trend.relevanceScore,
                         opportunityScore
                     });
