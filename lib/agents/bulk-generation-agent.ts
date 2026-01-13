@@ -10,8 +10,19 @@
  */
 
 import { BaseAgent, AgentContext, AgentResult } from './base-agent';
-import { CMSOrchestrator, OrchestrationContext } from './orchestrator';
+import type { OrchestrationContext, OrchestrationResult } from './orchestrator';
 import { logger } from '@/lib/logger';
+
+// Lazy import to avoid circular dependency
+let _getCmsOrchestrator: (() => { executeCycle: (ctx: OrchestrationContext) => Promise<OrchestrationResult> }) | null = null;
+
+async function getOrchestrator() {
+    if (!_getCmsOrchestrator) {
+        const module = await import('./orchestrator');
+        _getCmsOrchestrator = module.getCmsOrchestrator;
+    }
+    return _getCmsOrchestrator();
+}
 
 export interface BulkGenerationConfig {
     totalArticles: number;
@@ -40,11 +51,8 @@ export interface BulkGenerationResult {
 }
 
 export class BulkGenerationAgent extends BaseAgent {
-    private orchestrator: CMSOrchestrator;
-    
     constructor() {
         super('BulkGenerationAgent');
-        this.orchestrator = new CMSOrchestrator();
     }
     
     /**
@@ -97,7 +105,8 @@ export class BulkGenerationAgent extends BaseAgent {
                         }
                     };
                     
-                    const result = await this.orchestrator.executeCycle(context);
+                    const orchestrator = await getOrchestrator();
+                    const result = await orchestrator.executeCycle(context);
                     
                     const batchExecutionTime = Date.now() - batchStartTime;
                     
@@ -218,7 +227,10 @@ export class BulkGenerationAgent extends BaseAgent {
                     };
                     
                     batchGroup.push(
-                        this.orchestrator.executeCycle(context)
+                        (async () => {
+                            const orchestrator = await getOrchestrator();
+                            return orchestrator.executeCycle(context);
+                        })()
                             .then(result => ({
                                 batchNumber,
                                 result,

@@ -67,6 +67,11 @@ export class CMSOrchestrator {
     private affiliateAgent: AffiliateAgent;
     private feedbackLoopAgent: FeedbackLoopAgent;
     private scraperAgent: ScraperAgent;
+    private bulkGenerationAgent: BulkGenerationAgent;
+    private budgetGovernorAgent: BudgetGovernorAgent;
+    private riskComplianceAgent: RiskComplianceAgent;
+    private economicIntelligenceAgent: EconomicIntelligenceAgent;
+    private healthMonitorAgent: HealthMonitorAgent;
     
     constructor() {
         // Initialize all agents
@@ -87,6 +92,7 @@ export class CMSOrchestrator {
         this.budgetGovernorAgent = new BudgetGovernorAgent();
         this.riskComplianceAgent = new RiskComplianceAgent();
         this.economicIntelligenceAgent = new EconomicIntelligenceAgent();
+        this.healthMonitorAgent = new HealthMonitorAgent();
     }
     
     /**
@@ -128,7 +134,7 @@ export class CMSOrchestrator {
             
             // Pre-flight budget check
             const budgetStatus = await this.budgetGovernorAgent.checkBudget();
-            if (!budgetStatus.hasBudget) {
+            if (!budgetStatus.canGenerate) {
                 logger.warn('Orchestrator: Budget exhausted, stopping cycle');
                 return {
                     success: false,
@@ -329,5 +335,25 @@ export class CMSOrchestrator {
     }
 }
 
-// Export singleton instance
-export const cmsOrchestrator = new CMSOrchestrator();
+// Lazy singleton pattern - only instantiate when first accessed
+let _orchestratorInstance: CMSOrchestrator | null = null;
+
+export function getCmsOrchestrator(): CMSOrchestrator {
+    if (!_orchestratorInstance) {
+        _orchestratorInstance = new CMSOrchestrator();
+    }
+    return _orchestratorInstance;
+}
+
+// Keep for backward compatibility, but use function when possible
+export const cmsOrchestrator = {
+    get instance() {
+        return getCmsOrchestrator();
+    },
+    async executeCycle(context: OrchestrationContext) {
+        return getCmsOrchestrator().executeCycle(context);
+    },
+    async generateBulk(config: any) {
+        return getCmsOrchestrator().generateBulk(config);
+    }
+};

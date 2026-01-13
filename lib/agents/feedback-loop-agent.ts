@@ -5,7 +5,7 @@
  * This is the "learning" component of the autonomous CMS
  */
 
-import { createClient } from '@/lib/supabase/client';
+import { createServiceClient } from '@/lib/supabase/service';
 import { logger } from '@/lib/logger';
 import { multiProviderAI } from '@/lib/ai/providers/multi-provider';
 
@@ -40,7 +40,7 @@ export interface StrategyWeights {
  * Feedback Loop Agent - The Learning Component
  */
 export class FeedbackLoopAgent {
-    private supabase = createClient();
+    private supabase = createServiceClient();
     
     /**
      * Get performance data for all articles
@@ -200,6 +200,51 @@ export class FeedbackLoopAgent {
                 }, {
                     onConflict: 'category,keyword'
                 });
+        }
+    }
+    
+    /**
+     * Get strategy weights for content prioritization
+     */
+    async getStrategyWeights(): Promise<Record<string, number>> {
+        try {
+            const { data, error } = await this.supabase
+                .from('content_strategy_weights')
+                .select('category, weight_multiplier');
+            
+            if (error || !data) {
+                // Return default weights
+                return {
+                    'mutual-funds': 1.0,
+                    'credit-cards': 1.0,
+                    'loans': 1.0,
+                    'insurance': 1.0,
+                    'tax-planning': 1.0,
+                    'retirement': 1.0,
+                    'investing-basics': 1.0,
+                    'stocks': 1.0
+                };
+            }
+            
+            const weights: Record<string, number> = {};
+            for (const row of data) {
+                weights[row.category] = row.weight_multiplier || 1.0;
+            }
+            
+            return weights;
+        } catch (error) {
+            logger.warn('FeedbackLoopAgent: Failed to get strategy weights', error as Error);
+            // Return default weights on error
+            return {
+                'mutual-funds': 1.0,
+                'credit-cards': 1.0,
+                'loans': 1.0,
+                'insurance': 1.0,
+                'tax-planning': 1.0,
+                'retirement': 1.0,
+                'investing-basics': 1.0,
+                'stocks': 1.0
+            };
         }
     }
     

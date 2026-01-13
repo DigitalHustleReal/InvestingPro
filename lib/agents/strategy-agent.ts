@@ -124,23 +124,45 @@ export class StrategyAgent extends BaseAgent {
     ): Promise<ContentStrategy['selectedTopics']> {
         const topics: ContentStrategy['selectedTopics'] = [];
         
+        // Handle empty inputs - generate default topics if no trends/keywords
+        const safeTrends = trends || [];
+        const safeKeywords = keywords || [];
+        
+        if (safeTrends.length === 0 && safeKeywords.length === 0) {
+            // Generate default topics based on high-value categories
+            const defaultCategories = ['mutual-funds', 'credit-cards', 'tax-planning'];
+            for (let i = 0; i < Math.min(targetCount, defaultCategories.length); i++) {
+                topics.push({
+                    title: `Best ${defaultCategories[i].replace('-', ' ')} Guide ${new Date().getFullYear()}`,
+                    category: defaultCategories[i],
+                    keywords: [defaultCategories[i].replace('-', ' ')],
+                    priority: 5,
+                    estimatedPerformance: 60
+                });
+            }
+            return topics;
+        }
+        
         // Combine trends and keywords
-        for (let i = 0; i < Math.min(trends.length, keywords.length, targetCount); i++) {
-            const trend = trends[i];
-            const keyword = keywords[i];
+        const maxItems = Math.min(safeTrends.length || Infinity, safeKeywords.length || Infinity, targetCount);
+        for (let i = 0; i < maxItems; i++) {
+            const trend = safeTrends[i];
+            const keyword = safeKeywords[i];
+            
+            if (!trend || !keyword) continue;
             
             // Calculate priority based on trend score, keyword opportunity, and performance weights
-            const trendWeight = trend.trendScore / 100;
-            const keywordWeight = keyword.opportunityScore / 100;
-            const performanceWeight = weights.categories[trend.category] || 1.0;
+            const trendWeight = (trend.trendScore || 50) / 100;
+            const keywordWeight = (keyword.opportunityScore || 50) / 100;
+            const performanceWeight = weights?.categories?.[trend.category] || 1.0;
             
             const priority = Math.round((trendWeight * 0.4 + keywordWeight * 0.4 + performanceWeight * 0.2) * 10);
-            const estimatedPerformance = (trend.relevanceScore * 0.5) + (keyword.opportunityScore * 0.5);
+            const estimatedPerformance = ((trend.relevanceScore || 50) * 0.5) + ((keyword.opportunityScore || 50) * 0.5);
             
             topics.push({
                 title: this.generateTitle(trend.topic, keyword.keyword),
                 category: trend.category,
-                keywords: [keyword.keyword, ...keyword.longTailVariations.slice(0, 3)],
+                keywords: [keyword.keyword, ...(keyword.longTailVariations || []).slice(0, 3)],
                 priority: Math.min(10, Math.max(1, priority)),
                 estimatedPerformance: Math.min(100, estimatedPerformance)
             });
@@ -339,8 +361,8 @@ export class StrategyAgent extends BaseAgent {
     /**
      * Select topics from strategy
      */
-    async selectTopics(strategy: ContentStrategy, count: number): Promise<ContentStrategy['selectedTopics']> {
-        return strategy.selectedTopics.slice(0, count);
+    async selectTopicsFromStrategy(strategy: ContentStrategy, count: number): Promise<ContentStrategy['selectedTopics']> {
+        return (strategy?.selectedTopics || []).slice(0, count);
     }
     
     /**

@@ -5,7 +5,7 @@
  * Provides common functionality: logging, error handling, database access
  */
 
-import { createClient } from '@/lib/supabase/client';
+import { createServiceClient } from '@/lib/supabase/service';
 import { logger } from '@/lib/logger';
 import { multiProviderAI } from '@/lib/ai/providers/multi-provider';
 
@@ -29,11 +29,21 @@ export interface AgentResult {
  */
 export abstract class BaseAgent {
     protected name: string;
-    protected supabase = createClient();
+    private _supabase: ReturnType<typeof createServiceClient> | null = null;
     protected aiProvider = multiProviderAI;
     
     constructor(name: string) {
         this.name = name;
+    }
+    
+    /**
+     * Lazy-initialize Supabase client to avoid module-load-time issues
+     */
+    protected get supabase() {
+        if (!this._supabase) {
+            this._supabase = createServiceClient();
+        }
+        return this._supabase;
     }
     
     /**

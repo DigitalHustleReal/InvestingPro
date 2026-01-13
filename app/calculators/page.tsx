@@ -25,7 +25,11 @@ import {
     ArrowRight,
     Baby,
     Sprout,
-    Landmark
+    Landmark,
+    Armchair,
+    Wallet,
+    Calculator,
+    TrendingUp
 } from "lucide-react";
 import Link from "next/link";
 import { SWPCalculator } from "@/components/calculators/SWPCalculator";
@@ -45,6 +49,10 @@ import { RDCalculator } from "@/components/calculators/RDCalculator";
 import { SSYCalculator } from "@/components/calculators/SSYCalculator";
 import { KVPCalculator } from "@/components/calculators/KVPCalculator";
 import { NSCCalculator } from "@/components/calculators/NSCCalculator";
+import { SCSSCalculator } from "@/components/calculators/SCSSCalculator";
+import { MISCalculator } from "@/components/calculators/MISCalculator";
+import { SimpleInterestCalculator } from "@/components/calculators/SimpleInterestCalculator";
+import { CompoundInterestCalculator } from "@/components/calculators/CompoundInterestCalculator";
 
 export default function CalculatorsPage() {
     return (
@@ -218,6 +226,30 @@ export default function CalculatorsPage() {
                             <Landmark className="w-4 h-4 mr-2" />
                             NSC
                         </TabsTrigger>
+                        <TabsTrigger value="scss" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                            <Armchair className="w-4 h-4 mr-2" />
+                            SCSS
+                        </TabsTrigger>
+                        <TabsTrigger value="mis" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                            <Wallet className="w-4 h-4 mr-2" />
+                            MIS
+                        </TabsTrigger>
+                        <TabsTrigger value="si" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                            <Calculator className="w-4 h-4 mr-2" />
+                            Simple Int.
+                        </TabsTrigger>
+                         <TabsTrigger value="ci" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                            <TrendingUp className="w-4 h-4 mr-2" />
+                            Compound Int.
+                        </TabsTrigger>
+                        <TabsTrigger value="si" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                            <Calculator className="w-4 h-4 mr-2" />
+                            Simple Int.
+                        </TabsTrigger>
+                         <TabsTrigger value="ci" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                            <TrendingUp className="w-4 h-4 mr-2" />
+                            Compound Int.
+                        </TabsTrigger>
                         <TabsTrigger value="gst" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <Receipt className="w-4 h-4 mr-2" />
                             GST
@@ -352,6 +384,54 @@ export default function CalculatorsPage() {
                         </div>
                     </TabsContent>
 
+                    <TabsContent value="scss">
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <p className="text-slate-600">Visit our dedicated SCSS calculator page for comprehensive guides and FAQs.</p>
+                                <Link href="/calculators/scss" className="text-primary-600 hover:text-primary-700 font-semibold">
+                                    View Full Page →
+                                </Link>
+                            </div>
+                            <SCSSCalculator />
+                        </div>
+                    </TabsContent>
+
+                    <TabsContent value="mis">
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <p className="text-slate-600">Visit our dedicated MIS calculator page for comprehensive guides and FAQs.</p>
+                                <Link href="/calculators/mis" className="text-primary-600 hover:text-primary-700 font-semibold">
+                                    View Full Page →
+                                </Link>
+                            </div>
+                            <MISCalculator />
+                        </div>
+                    </TabsContent>
+
+                    <TabsContent value="si">
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <p className="text-slate-600">Visit our dedicated Simple Interest calculator page.</p>
+                                <Link href="/calculators/simple-interest" className="text-primary-600 hover:text-primary-700 font-semibold">
+                                    View Full Page →
+                                </Link>
+                            </div>
+                            <SimpleInterestCalculator />
+                        </div>
+                    </TabsContent>
+
+                    <TabsContent value="ci">
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <p className="text-slate-600">Visit our dedicated Compound Interest calculator page.</p>
+                                <Link href="/calculators/compound-interest" className="text-primary-600 hover:text-primary-700 font-semibold">
+                                    View Full Page →
+                                </Link>
+                            </div>
+                            <CompoundInterestCalculator />
+                        </div>
+                    </TabsContent>
+
                     <TabsContent value="gst">
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
@@ -417,7 +497,11 @@ export default function CalculatorsPage() {
                                         "GST Calculator - Calculate Goods and Services Tax",
                                         "SSY Calculator - Sukanya Samriddhi Yojana calculator",
                                         "KVP Calculator - Kisan Vikas Patra doubling calculator",
-                                        "NSC Calculator - National Savings Certificate calculator"
+                                        "NSC Calculator - National Savings Certificate calculator",
+                                        "SCSS Calculator - Senior Citizen Savings Scheme calculator",
+                                        "MIS Calculator - Post Office Monthly Income Scheme calculator",
+                                        "Simple Interest Calculator - Basic interest calculator",
+                                        "Compound Interest Calculator - Calculate exponential growth"
                                     ].map((feature, idx) => (
                                         <div key={idx} className="flex items-start gap-3">
                                             <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />

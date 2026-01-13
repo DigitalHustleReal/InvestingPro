@@ -53,15 +53,15 @@ export class BudgetGovernorAgent extends BaseAgent {
             }
             
             const budget = budgetData?.[0] || {
-                can_generate: true,
+                has_budget: true,
                 tokens_remaining: 1000000,
                 images_remaining: 100,
                 cost_remaining: 50,
                 is_paused: false
             };
             
-            // Check if we can generate
-            let canGenerate = budget.can_generate as boolean;
+            // Check if we can generate (SQL returns has_budget, not can_generate)
+            let canGenerate = budget.has_budget as boolean;
             let reason: string | undefined;
             
             if (budget.is_paused as boolean) {

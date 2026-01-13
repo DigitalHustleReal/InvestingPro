@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 /**
  * Supabase Service Client
@@ -6,7 +6,16 @@ import { createClient } from '@supabase/supabase-js';
  * Bypasses RLS. Use ONLY in server-side workers and cron jobs.
  * DO NOT use in client-side code or regular API routes unless strictly necessary.
  */
-export function createServiceClient() {
+
+// Singleton instance to prevent multiple client creations
+let _serviceClient: SupabaseClient | null = null;
+
+export function createServiceClient(): SupabaseClient {
+    // Return cached instance if available
+    if (_serviceClient) {
+        return _serviceClient;
+    }
+
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -14,13 +23,23 @@ export function createServiceClient() {
         throw new Error('Supabase service role configuration missing. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.');
     }
 
-    return createClient(supabaseUrl, supabaseServiceKey, {
+    _serviceClient = createClient(supabaseUrl, supabaseServiceKey, {
         auth: {
             autoRefreshToken: false,
-            persistSession: false
+            persistSession: false,
+            detectSessionInUrl: false,
+            flowType: 'implicit',
+            // Custom storage that does nothing (prevents any storage access)
+            storage: {
+                getItem: () => null,
+                setItem: () => {},
+                removeItem: () => {}
+            }
         },
         db: {
             schema: 'public'
         }
     });
+
+    return _serviceClient;
 }
