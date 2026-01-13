@@ -2,15 +2,15 @@
  * Trend Agent
  * 
  * Detects trending topics from multiple sources:
- * - Google Trends
- * - Social Media (Twitter, LinkedIn)
+ * - Google Trends (PRIMARY - uses google-trends-api)
+ * - RSS Feeds (FALLBACK)
  * - Economic Calendar
- * - RSS Feeds
- * - News Aggregators
+ * 
+ * Priority: Google Trends > RSS > Manual fallback
  */
 
 import { BaseAgent, AgentContext, AgentResult } from './base-agent';
-import { TrendsService } from '@/lib/trends/TrendsService';
+import { GhostScraper, TrendSignal } from '@/lib/scraper/ghost_scraper';
 import { logger } from '@/lib/logger';
 
 export interface TrendItem {
@@ -26,34 +26,36 @@ export interface TrendItem {
 }
 
 export class TrendAgent extends BaseAgent {
-    private trendsService: TrendsService;
-    
     constructor() {
         super('TrendAgent');
-        this.trendsService = new TrendsService();
     }
     
     /**
-     * Detect trending topics
+     * Detect trending topics using GhostScraper
+     * Priority: Google Trends first, RSS as fallback
      */
     async detectTrends(context?: AgentContext): Promise<TrendItem[]> {
         const startTime = Date.now();
         
         try {
-            logger.info('TrendAgent: Detecting trends...');
+            logger.info('TrendAgent: Detecting trends (Google Trends priority)...');
             
-            // Detect from multiple sources
-            const [rssTrends, googleTrends, socialTrends] = await Promise.all([
-                this.detectFromRSS(),
-                this.detectFromGoogleTrends(),
-                this.detectFromSocialMedia()
-            ]);
+            // Use GhostScraper which already prioritizes Google Trends
+            const trendSignals = await GhostScraper.scanTrends();
             
-            // Combine and score trends
-            const allTrends = [...rssTrends, ...googleTrends, ...socialTrends];
-            const scoredTrends = this.scoreTrends(allTrends);
+            // Convert TrendSignal to TrendItem
+            const trends: TrendItem[] = trendSignals
+                .filter(signal => signal.topic) // Filter out null topics
+                .map(signal => this.convertSignalToTrendItem(signal));
             
-            // Sort by relevance and trend score
+            // If no trends from external sources, use default finance topics
+            if (trends.length === 0) {
+                logger.info('TrendAgent: No external trends found, using default topics');
+                return this.getDefaultTrends();
+            }
+            
+            // Score and sort trends
+            const scoredTrends = this.scoreTrends(trends);
             const sortedTrends = scoredTrends.sort((a, b) => {
                 const scoreA = (a.trendScore * 0.6) + (a.relevanceScore * 0.4);
                 const scoreB = (b.trendScore * 0.6) + (b.relevanceScore * 0.4);
@@ -64,7 +66,7 @@ export class TrendAgent extends BaseAgent {
             
             await this.logExecution(
                 'trend_detection',
-                { sources: ['rss', 'google-trends', 'social-media'] },
+                { sources: ['google-trends', 'rss'] },
                 { trends: sortedTrends.length },
                 executionTime,
                 true,
@@ -78,6 +80,8 @@ export class TrendAgent extends BaseAgent {
             
         } catch (error) {
             const executionTime = Date.now() - startTime;
+            logger.warn('TrendAgent: External trends failed, using defaults', error as Error);
+            
             await this.logExecution(
                 'trend_detection',
                 {},
@@ -88,48 +92,53 @@ export class TrendAgent extends BaseAgent {
                 context
             );
             
-            return this.handleError(error, context).data || [];
+            // Return default trends instead of empty
+            return this.getDefaultTrends();
         }
     }
     
     /**
-     * Detect trends from RSS feeds
+     * Convert TrendSignal from GhostScraper to TrendItem
      */
-    private async detectFromRSS(): Promise<TrendItem[]> {
-        try {
-            const trends = await this.trendsService.getTrendingTopics();
-            
-            return trends.map(trend => ({
-                topic: trend.title,
-                category: this.categorizeTopic(trend.title),
-                source: 'rss' as const,
-                trendScore: 70, // Default score
-                relevanceScore: this.calculateRelevance(trend.title),
-                keywords: this.extractKeywords(trend.title),
-                timestamp: new Date()
-            }));
-        } catch (error) {
-            logger.warn('Failed to detect RSS trends', error as Error);
-            return [];
-        }
+    private convertSignalToTrendItem(signal: TrendSignal): TrendItem {
+        const topic = signal.topic || 'Finance Update';
+        return {
+            topic,
+            category: this.categorizeTopic(topic),
+            source: signal.source === 'Google Trends' ? 'google-trends' : 'rss',
+            trendScore: signal.score,
+            searchVolume: signal.volume ? parseInt(signal.volume.replace(/[^0-9]/g, '')) || undefined : undefined,
+            relevanceScore: this.calculateRelevance(topic),
+            keywords: this.extractKeywords(topic),
+            timestamp: new Date()
+        };
     }
     
     /**
-     * Detect trends from Google Trends
+     * Get default high-value finance trends when external sources fail
      */
-    private async detectFromGoogleTrends(): Promise<TrendItem[]> {
-        // In production, integrate with Google Trends API
-        // For now, return empty array
-        return [];
-    }
-    
-    /**
-     * Detect trends from social media
-     */
-    private async detectFromSocialMedia(): Promise<TrendItem[]> {
-        // In production, integrate with Twitter/LinkedIn APIs
-        // For now, return empty array
-        return [];
+    private getDefaultTrends(): TrendItem[] {
+        const currentYear = new Date().getFullYear();
+        const defaultTopics = [
+            { topic: `Best SIP Plans for ${currentYear}`, category: 'mutual-funds' },
+            { topic: `Top Tax Saving Investments ${currentYear}`, category: 'tax-planning' },
+            { topic: `Best Credit Cards in India ${currentYear}`, category: 'credit-cards' },
+            { topic: `Index Fund vs Mutual Fund Comparison`, category: 'mutual-funds' },
+            { topic: `How to Start Investing for Beginners`, category: 'investing-basics' },
+            { topic: `Best Fixed Deposit Rates ${currentYear}`, category: 'investing-basics' },
+            { topic: `Home Loan Interest Rates Comparison`, category: 'loans' },
+            { topic: `Term Insurance vs Whole Life Insurance`, category: 'insurance' }
+        ];
+        
+        return defaultTopics.map((item, index) => ({
+            topic: item.topic,
+            category: item.category,
+            source: 'news' as const,
+            trendScore: 80 - (index * 3), // Decreasing scores
+            relevanceScore: 85,
+            keywords: this.extractKeywords(item.topic),
+            timestamp: new Date()
+        }));
     }
     
     /**

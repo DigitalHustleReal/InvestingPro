@@ -53,6 +53,16 @@ export interface QualityDetails {
  * Target: 60-70 (8th-9th grade level)
  */
 function calculateReadability(content: string): QualityDetails['readability'] {
+  // Handle null/undefined content
+  if (!content || typeof content !== 'string') {
+    return {
+      fleschScore: 50,
+      gradeLevel: 'N/A',
+      score: 50,
+      issues: ['Content not available for analysis']
+    };
+  }
+  
   // Remove HTML tags
   const textOnly = content.replace(/<[^>]*>/g, ' ').trim();
   

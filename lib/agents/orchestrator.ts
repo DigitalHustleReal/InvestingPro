@@ -168,7 +168,19 @@ export class CMSOrchestrator {
             
             // Step 4: Generate Content
             logger.info('Step 4: Generating content...');
-            const topics = strategy.selectedTopics.slice(0, context.goals?.volume || 10);
+            const topics = (strategy?.selectedTopics || []).slice(0, context.goals?.volume || 10);
+            
+            if (topics.length === 0) {
+                logger.warn('No topics available for content generation');
+                return {
+                    success: false,
+                    articlesGenerated: 0,
+                    articlesPublished: 0,
+                    performanceScore: 0,
+                    strategy,
+                    errors: ['No topics generated. Check trend detection and strategy generation.']
+                };
+            }
             
             for (const topic of topics) {
                 try {
