@@ -10,7 +10,7 @@
 
 import { BaseAgent, AgentContext, AgentResult } from './base-agent';
 import { generateArticleContent } from '@/lib/workers/articleGenerator';
-import { serpAnalyzer, ResearchBrief } from '@/lib/research/serp-analyzer';
+import { serpAnalyzer as analyzeSERP, ResearchBrief } from '@/lib/research/serp-analyzer';
 import { logger } from '@/lib/logger';
 
 export interface ArticleGenerationParams {
@@ -46,7 +46,7 @@ export class ContentAgent extends BaseAgent {
             if (useSerpAnalysis) {
                 try {
                     logger.info('ContentAgent: Performing SERP analysis for competitive intel...');
-                    serpBrief = await serpAnalyzer.analyze(params.keywords[0] || params.topic);
+                    serpBrief = await analyzeSERP(params.keywords[0] || params.topic);
                     
                     if (serpBrief) {
                         // Use SERP insights to enhance content
