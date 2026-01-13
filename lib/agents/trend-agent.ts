@@ -188,16 +188,24 @@ export class TrendAgent extends BaseAgent {
         
         // EXCLUDE stock market / trading topics
         const excludePatterns = [
-            'stock', 'share', 'nifty', 'sensex', 'bse', 'nse', 
-            'target price', 'buy rating', 'sell rating', 'hold rating',
+            'stock', 'share', 'shares', 'nifty', 'sensex', 'bse', 'nse', 
+            'target price', 'target ₹', 'target rs', 'rs target', '₹ target',
+            'buy rating', 'sell rating', 'hold rating', 'outperform', 'underperform',
             'quarterly results', 'q1 results', 'q2 results', 'q3 results', 'q4 results',
             'ipo', 'fpo', 'listing', 'delisting', 'bonus share', 'stock split',
-            'dividend', 'earnings', 'profit', 'loss', 'revenue',
-            'trading', 'trader', 'intraday', 'swing trade',
-            'technical analysis', 'chart pattern', 'support resistance',
-            'market cap', 'pe ratio', 'eps',
-            'broker', 'demat', 'zerodha', 'upstox', 'groww',
-            'etf', 'gold etf', 'silver etf' // ETFs are more trading-focused
+            'dividend', 'earnings', 'profit', 'loss', 'revenue', 'margin',
+            'trading', 'trader', 'intraday', 'swing trade', 'f&o', 'futures', 'options',
+            'technical analysis', 'chart pattern', 'support resistance', 'breakout',
+            'market cap', 'pe ratio', 'eps', 'roe', 'roce',
+            'broker', 'demat', 'zerodha', 'upstox', 'groww', 'angel one',
+            'etf', 'gold etf', 'silver etf',
+            // Company-specific stock news (exclude)
+            'bajaj finance', 'bajaj finserv', 'hdfc bank stock', 'icici bank stock',
+            'reliance', 'tata', 'infosys', 'tcs stock', 'wipro', 'hcl',
+            'adani', 'vedanta', 'zomato', 'paytm stock',
+            'market jitters', 'market bounce', 'fii', 'dii', 'foreign investor',
+            'bulls', 'bears', 'bullish', 'bearish', 'rally', 'correction',
+            'all-time high', 'new high', 'new low', 'crore', 'lakh crore'
         ];
         
         // Check if topic contains any exclude pattern
@@ -207,25 +215,34 @@ export class TrendAgent extends BaseAgent {
             }
         }
         
-        // INCLUDE personal finance topics
+        // INCLUDE personal finance topics - MUST contain at least one
         const includePatterns = [
             'sip', 'mutual fund', 'credit card', 'loan', 'insurance',
             'tax', 'fd', 'fixed deposit', 'ppf', 'nps', 'epf',
             'savings', 'retirement', 'pension', 'health insurance',
             'term insurance', 'home loan', 'personal loan', 'car loan',
+            'education loan', 'gold loan', 'vehicle loan',
             'elss', 'recurring deposit', 'rd', 'interest rate',
-            'emi', 'cibil', 'credit score', 'budget', 'expense'
+            'emi', 'cibil', 'credit score', 'budget', 'expense',
+            'investment', 'investing', 'financial planning', 'money',
+            'wealth', 'debt fund', 'liquid fund', 'gilt', 'government bond',
+            'lic', 'ulip', 'endowment', 'premium', 'maturity',
+            'best card', 'best fund', 'best plan', 'best scheme',
+            'how to', 'guide', 'tips', 'benefits', 'eligibility',
+            'comparison', 'vs', 'versus', 'which is better',
+            'beginner', 'complete guide', 'step by step'
         ];
         
-        // Boost if contains personal finance keywords
+        // MUST contain at least one personal finance keyword
         for (const pattern of includePatterns) {
             if (topicLower.includes(pattern)) {
                 return true;
             }
         }
         
-        // Default: include if not explicitly excluded
-        return true;
+        // If no personal finance keywords found, reject
+        // This prevents generic news from slipping through
+        return false;
     }
     
     /**
