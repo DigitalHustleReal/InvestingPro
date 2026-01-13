@@ -44,9 +44,13 @@ export class TrendAgent extends BaseAgent {
             const trendSignals = await GhostScraper.scanTrends();
             
             // Convert TrendSignal to TrendItem
+            // IMPORTANT: Filter out stock market topics - we're personal finance only
             const trends: TrendItem[] = trendSignals
                 .filter(signal => signal.topic) // Filter out null topics
+                .filter(signal => this.isPersonalFinanceTopic(signal.topic)) // Filter stock market topics
                 .map(signal => this.convertSignalToTrendItem(signal));
+            
+            logger.info(`TrendAgent: Filtered to ${trends.length} personal finance topics`);
             
             // If no trends from external sources, use default finance topics
             if (trends.length === 0) {
@@ -115,30 +119,113 @@ export class TrendAgent extends BaseAgent {
     }
     
     /**
-     * Get default high-value finance trends when external sources fail
+     * Get default high-value PERSONAL FINANCE trends
+     * Focus: SIPs, Credit Cards, Loans, Insurance, Tax, FDs - NOT stock market
      */
     private getDefaultTrends(): TrendItem[] {
         const currentYear = new Date().getFullYear();
-        const defaultTopics = [
-            { topic: `Best SIP Plans for ${currentYear}`, category: 'mutual-funds' },
-            { topic: `Top Tax Saving Investments ${currentYear}`, category: 'tax-planning' },
-            { topic: `Best Credit Cards in India ${currentYear}`, category: 'credit-cards' },
-            { topic: `Index Fund vs Mutual Fund Comparison`, category: 'mutual-funds' },
-            { topic: `How to Start Investing for Beginners`, category: 'investing-basics' },
-            { topic: `Best Fixed Deposit Rates ${currentYear}`, category: 'investing-basics' },
-            { topic: `Home Loan Interest Rates Comparison`, category: 'loans' },
-            { topic: `Term Insurance vs Whole Life Insurance`, category: 'insurance' }
+        const currentMonth = new Date().toLocaleString('en-IN', { month: 'long' });
+        
+        const personalFinanceTopics = [
+            // Mutual Funds / SIP
+            { topic: `Best SIP Plans for ${currentYear}: Complete Guide`, category: 'mutual-funds' },
+            { topic: `How to Start SIP with ₹500: Beginner's Guide`, category: 'mutual-funds' },
+            { topic: `ELSS vs PPF: Which Tax Saving Investment is Better?`, category: 'mutual-funds' },
+            { topic: `Best Index Funds in India ${currentYear}`, category: 'mutual-funds' },
+            
+            // Credit Cards
+            { topic: `Best Credit Cards for ${currentMonth} ${currentYear}`, category: 'credit-cards' },
+            { topic: `Best Cashback Credit Cards in India`, category: 'credit-cards' },
+            { topic: `How to Increase Credit Card Limit: Complete Guide`, category: 'credit-cards' },
+            { topic: `Best Travel Credit Cards with Lounge Access`, category: 'credit-cards' },
+            
+            // Loans
+            { topic: `Home Loan Interest Rates ${currentMonth} ${currentYear}`, category: 'loans' },
+            { topic: `Personal Loan vs Credit Card: Which is Better?`, category: 'loans' },
+            { topic: `How to Improve CIBIL Score: Step by Step Guide`, category: 'loans' },
+            { topic: `Best Education Loan Options in India`, category: 'loans' },
+            
+            // Insurance
+            { topic: `Best Term Insurance Plans ${currentYear}`, category: 'insurance' },
+            { topic: `Health Insurance for Family: Complete Guide`, category: 'insurance' },
+            { topic: `Term Insurance vs Whole Life Insurance`, category: 'insurance' },
+            
+            // Tax Planning
+            { topic: `Section 80C Deductions: Complete List ${currentYear}`, category: 'tax-planning' },
+            { topic: `How to Save Tax on Salary Income`, category: 'tax-planning' },
+            { topic: `Old Tax Regime vs New Tax Regime: Which to Choose?`, category: 'tax-planning' },
+            
+            // Fixed Deposits & Banking
+            { topic: `Best FD Rates ${currentMonth} ${currentYear}`, category: 'investing-basics' },
+            { topic: `Senior Citizen FD Rates: Best Options`, category: 'investing-basics' },
+            { topic: `Best Savings Account Interest Rates`, category: 'investing-basics' },
+            
+            // Retirement
+            { topic: `NPS vs PPF: Which is Better for Retirement?`, category: 'retirement' },
+            { topic: `How Much Money Needed to Retire in India`, category: 'retirement' }
         ];
         
-        return defaultTopics.map((item, index) => ({
+        // Shuffle and pick top 10 for variety
+        const shuffled = personalFinanceTopics.sort(() => Math.random() - 0.5);
+        
+        return shuffled.slice(0, 10).map((item, index) => ({
             topic: item.topic,
             category: item.category,
             source: 'news' as const,
-            trendScore: 80 - (index * 3), // Decreasing scores
-            relevanceScore: 85,
+            trendScore: 85 - (index * 2), // High scores for personal finance
+            relevanceScore: 90, // High relevance
             keywords: this.extractKeywords(item.topic),
             timestamp: new Date()
         }));
+    }
+    
+    /**
+     * Filter out stock market / share trading topics
+     * Keep only personal finance relevant content
+     */
+    private isPersonalFinanceTopic(topic: string): boolean {
+        const topicLower = topic.toLowerCase();
+        
+        // EXCLUDE stock market / trading topics
+        const excludePatterns = [
+            'stock', 'share', 'nifty', 'sensex', 'bse', 'nse', 
+            'target price', 'buy rating', 'sell rating', 'hold rating',
+            'quarterly results', 'q1 results', 'q2 results', 'q3 results', 'q4 results',
+            'ipo', 'fpo', 'listing', 'delisting', 'bonus share', 'stock split',
+            'dividend', 'earnings', 'profit', 'loss', 'revenue',
+            'trading', 'trader', 'intraday', 'swing trade',
+            'technical analysis', 'chart pattern', 'support resistance',
+            'market cap', 'pe ratio', 'eps',
+            'broker', 'demat', 'zerodha', 'upstox', 'groww',
+            'etf', 'gold etf', 'silver etf' // ETFs are more trading-focused
+        ];
+        
+        // Check if topic contains any exclude pattern
+        for (const pattern of excludePatterns) {
+            if (topicLower.includes(pattern)) {
+                return false;
+            }
+        }
+        
+        // INCLUDE personal finance topics
+        const includePatterns = [
+            'sip', 'mutual fund', 'credit card', 'loan', 'insurance',
+            'tax', 'fd', 'fixed deposit', 'ppf', 'nps', 'epf',
+            'savings', 'retirement', 'pension', 'health insurance',
+            'term insurance', 'home loan', 'personal loan', 'car loan',
+            'elss', 'recurring deposit', 'rd', 'interest rate',
+            'emi', 'cibil', 'credit score', 'budget', 'expense'
+        ];
+        
+        // Boost if contains personal finance keywords
+        for (const pattern of includePatterns) {
+            if (topicLower.includes(pattern)) {
+                return true;
+            }
+        }
+        
+        // Default: include if not explicitly excluded
+        return true;
     }
     
     /**
@@ -171,33 +258,67 @@ export class TrendAgent extends BaseAgent {
     }
     
     /**
-     * Categorize topic into content category
+     * Categorize topic into PERSONAL FINANCE category
+     * NO stock market categories
      */
     private categorizeTopic(topic: string): string {
         const topicLower = topic.toLowerCase();
         
-        if (topicLower.includes('mutual fund') || topicLower.includes('sip') || topicLower.includes('mf')) {
+        // Mutual Funds / SIP
+        if (topicLower.includes('mutual fund') || topicLower.includes('sip') || 
+            topicLower.includes('elss') || topicLower.includes('index fund') ||
+            topicLower.includes('mf ') || topicLower.includes('amc')) {
             return 'mutual-funds';
         }
-        if (topicLower.includes('credit card') || topicLower.includes('card')) {
+        
+        // Credit Cards
+        if (topicLower.includes('credit card') || topicLower.includes('cashback card') ||
+            topicLower.includes('rewards card') || topicLower.includes('travel card')) {
             return 'credit-cards';
         }
-        if (topicLower.includes('loan') || topicLower.includes('emi')) {
+        
+        // Loans
+        if (topicLower.includes('loan') || topicLower.includes('emi') ||
+            topicLower.includes('cibil') || topicLower.includes('credit score') ||
+            topicLower.includes('mortgage') || topicLower.includes('borrowing')) {
             return 'loans';
         }
-        if (topicLower.includes('insurance')) {
+        
+        // Insurance
+        if (topicLower.includes('insurance') || topicLower.includes('term plan') ||
+            topicLower.includes('health cover') || topicLower.includes('life cover')) {
             return 'insurance';
         }
-        if (topicLower.includes('tax') || topicLower.includes('80c')) {
+        
+        // Tax Planning
+        if (topicLower.includes('tax') || topicLower.includes('80c') ||
+            topicLower.includes('80d') || topicLower.includes('deduction') ||
+            topicLower.includes('itr') || topicLower.includes('income tax')) {
             return 'tax-planning';
         }
-        if (topicLower.includes('retirement') || topicLower.includes('pension')) {
+        
+        // Retirement / NPS / PPF
+        if (topicLower.includes('retirement') || topicLower.includes('pension') ||
+            topicLower.includes('nps') || topicLower.includes('ppf') ||
+            topicLower.includes('epf') || topicLower.includes('provident fund')) {
             return 'retirement';
         }
-        if (topicLower.includes('stock') || topicLower.includes('equity')) {
-            return 'stocks';
+        
+        // Fixed Deposits / Savings
+        if (topicLower.includes('fd') || topicLower.includes('fixed deposit') ||
+            topicLower.includes('rd') || topicLower.includes('recurring deposit') ||
+            topicLower.includes('savings account') || topicLower.includes('interest rate')) {
+            return 'investing-basics';
         }
         
+        // Banking
+        if (topicLower.includes('bank') || topicLower.includes('upi') ||
+            topicLower.includes('neft') || topicLower.includes('rtgs') ||
+            topicLower.includes('account')) {
+            return 'investing-basics';
+        }
+        
+        // Default to investing basics (NOT stocks)
         return 'investing-basics';
     }
     
