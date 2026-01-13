@@ -9,7 +9,7 @@
  */
 
 import { BaseAgent, AgentContext, AgentResult } from './base-agent';
-import { articleGenerator } from '@/lib/workers/articleGenerator';
+import { generateArticleContent } from '@/lib/workers/articleGenerator';
 import { logger } from '@/lib/logger';
 
 export interface ArticleGenerationParams {
@@ -35,19 +35,17 @@ export class ContentAgent extends BaseAgent {
             logger.info('ContentAgent: Generating article...', { topic: params.topic });
             
             // Use existing article generator
-            const result = await articleGenerator.generateComprehensiveArticle({
+            const article = await generateArticleContent({
                 topic: params.topic,
                 category: params.category,
                 targetKeywords: params.keywords,
                 targetAudience: 'general',
                 contentLength: 'comprehensive',
-                wordCount: 2000,
-                language: 'en',
-                tone: 'professional'
+                wordCount: 2000
             });
             
-            if (!result.success || !result.article) {
-                throw new Error(result.error || 'Article generation failed');
+            if (!article || !article.title) {
+                throw new Error('Article generation failed - no content returned');
             }
             
             const executionTime = Date.now() - startTime;
@@ -55,16 +53,16 @@ export class ContentAgent extends BaseAgent {
             await this.logExecution(
                 'content_generation',
                 { topic: params.topic, category: params.category },
-                { articleId: result.article.id, title: result.article.title },
+                { title: article.title },
                 executionTime,
                 true,
                 undefined,
-                { articleId: result.article.id }
+                { title: article.title }
             );
             
-            logger.info('ContentAgent: Article generated successfully', { articleId: result.article.id });
+            logger.info('ContentAgent: Article generated successfully', { title: article.title });
             
-            return result.article;
+            return article;
             
         } catch (error) {
             const executionTime = Date.now() - startTime;

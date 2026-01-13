@@ -116,7 +116,7 @@ export const YOUTUBE_EDUCATIONAL: VideoScriptTemplate = {
     
     systemPrompt: `You are a video scriptwriter creating educational YouTube videos for financial content. Your scripts are clear, engaging, and help viewers learn effectively.`,
     
-    generationPromptTemplate: `Create a YouTube educational video script (${optimalDuration} seconds) based on: "{articleTitle}"
+    generationPromptTemplate: `Create a YouTube educational video script (180 seconds) based on: "{articleTitle}"
 
 Key points: {keyPoints}
 Statistics: {statistics}

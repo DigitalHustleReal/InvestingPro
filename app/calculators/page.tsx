@@ -23,7 +23,8 @@ import {
     Clock,
     Info,
     ArrowRight,
-    Baby
+    Baby,
+    Sprout
 } from "lucide-react";
 import Link from "next/link";
 import { SWPCalculator } from "@/components/calculators/SWPCalculator";
@@ -41,6 +42,7 @@ import { GSTCalculator } from "@/components/calculators/GSTCalculator";
 import { HomeLoanVsSIPCalculator } from "@/components/calculators/HomeLoanVsSIPCalculator";
 import { RDCalculator } from "@/components/calculators/RDCalculator";
 import { SSYCalculator } from "@/components/calculators/SSYCalculator";
+import { KVPCalculator } from "@/components/calculators/KVPCalculator";
 
 export default function CalculatorsPage() {
     return (
@@ -206,6 +208,10 @@ export default function CalculatorsPage() {
                             <Baby className="w-4 h-4 mr-2" />
                             SSY
                         </TabsTrigger>
+                        <TabsTrigger value="kvp" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                            <Sprout className="w-4 h-4 mr-2" />
+                            KVP
+                        </TabsTrigger>
                         <TabsTrigger value="gst" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <Receipt className="w-4 h-4 mr-2" />
                             GST
@@ -316,6 +322,18 @@ export default function CalculatorsPage() {
                         </div>
                     </TabsContent>
 
+                    <TabsContent value="kvp">
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <p className="text-slate-600">Visit our dedicated KVP calculator page for comprehensive guides and FAQs.</p>
+                                <Link href="/calculators/kvp" className="text-primary-600 hover:text-primary-700 font-semibold">
+                                    View Full Page →
+                                </Link>
+                            </div>
+                            <KVPCalculator />
+                        </div>
+                    </TabsContent>
+
                     <TabsContent value="gst">
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
@@ -377,7 +395,10 @@ export default function CalculatorsPage() {
                                         "Goal Planning Calculator - Plan financial goals with SIP",
                                         "Goal Planning Calculator - Plan financial goals with SIP",
                                         "GST Calculator - Calculate Goods and Services Tax",
-                                        "SSY Calculator - Sukanya Samriddhi Yojana calculator"
+                                        "Goal Planning Calculator - Plan financial goals with SIP",
+                                        "GST Calculator - Calculate Goods and Services Tax",
+                                        "SSY Calculator - Sukanya Samriddhi Yojana calculator",
+                                        "KVP Calculator - Kisan Vikas Patra doubling calculator"
                                     ].map((feature, idx) => (
                                         <div key={idx} className="flex items-start gap-3">
                                             <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />

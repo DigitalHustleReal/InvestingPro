@@ -11,7 +11,7 @@
 
 import { BaseAgent, AgentContext, AgentResult } from './base-agent';
 import { scoreContent } from '@/lib/quality/content-scorer';
-import { evaluateQualityGates } from '@/lib/quality/quality-gates';
+import { runQualityGates } from '@/lib/quality/quality-gates';
 import { logger } from '@/lib/logger';
 
 export interface QualityEvaluationResult {
@@ -51,7 +51,12 @@ export class QualityAgent extends BaseAgent {
             });
             
             // Evaluate quality gates
-            const qualityGates = await evaluateQualityGates(article);
+            const qualityGates = await runQualityGates({
+                title: article.title,
+                content: article.content || article.body_markdown,
+                metaDescription: article.meta_description || article.excerpt,
+                articleId: article.id
+            });
             
             // Calculate overall score
             const overallScore = Math.round(
