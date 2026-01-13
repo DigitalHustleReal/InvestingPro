@@ -10,13 +10,11 @@ import {
     Image as ImageIcon,
     LayoutDashboard,
     Calendar,
-    Lightbulb,
     Zap,
     CheckSquare,
     DollarSign,
     Megaphone,
     Search,
-    Target,
     Rss,
     File,
     BarChart3,
@@ -25,7 +23,11 @@ import {
     Factory, // Added Factory icon
     FlaskConical,
     Shield,
-    Users
+    Users,
+    Sparkles,
+    Wallet,
+    PlayCircle,
+    HeartPulse
 } from 'lucide-react';
 
 interface NavItem {
@@ -68,6 +70,16 @@ const navSections: NavSection[] = [
         ],
     },
     {
+        title: 'CMS',
+        items: [
+            { label: 'CMS Dashboard', href: '/admin/cms', icon: Sparkles },
+            { label: 'Budget', href: '/admin/cms/budget', icon: Wallet },
+            { label: 'Generation', href: '/admin/cms/generation', icon: PlayCircle },
+            { label: 'Health', href: '/admin/cms/health', icon: HeartPulse },
+            { label: 'Scrapers', href: '/admin/cms/scrapers', icon: Rss },
+        ],
+    },
+    {
         title: 'INSIGHTS',
         items: [
             { label: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
@@ -87,6 +99,7 @@ const navSections: NavSection[] = [
         title: 'SETTINGS',
         items: [
             { label: 'Secure Vault', href: '/admin/settings/vault', icon: Shield },
+            { label: 'User Guide', href: '/admin/guide', icon: FileText },
         ],
     },
 ];
