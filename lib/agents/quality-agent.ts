@@ -136,24 +136,28 @@ export class QualityAgent extends BaseAgent {
     private generateRecommendations(contentScore: any, qualityGates: any): string[] {
         const recommendations: string[] = [];
         
-        if (contentScore.readability < 70) {
+        // Handle null contentScore
+        const safeScore = contentScore || { readability: 0, seo: 0, structure: 0, eeat: 0 };
+        
+        if (safeScore.readability < 70) {
             recommendations.push('Improve readability: Use shorter sentences and simpler language');
         }
         
-        if (contentScore.seo < 70) {
+        if (safeScore.seo < 70) {
             recommendations.push('Enhance SEO: Add more keywords and optimize meta tags');
         }
         
-        if (contentScore.structure < 70) {
+        if (safeScore.structure < 70) {
             recommendations.push('Improve structure: Add more headings and organize content better');
         }
         
-        if (contentScore.eeat < 70) {
+        if (safeScore.eeat < 70) {
             recommendations.push('Enhance E-E-A-T: Add more expertise indicators and citations');
         }
         
-        if (!qualityGates.passes) {
-            recommendations.push(...qualityGates.failedChecks.map((check: any) => check.message));
+        // Handle null qualityGates or failedChecks
+        if (qualityGates && !qualityGates.passes && Array.isArray(qualityGates.failedChecks)) {
+            recommendations.push(...qualityGates.failedChecks.map((check: any) => check.message || 'Quality check failed'));
         }
         
         return recommendations;

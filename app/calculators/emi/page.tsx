@@ -1,12 +1,10 @@
 ﻿"use client";
 
-import React from 'react';
+import Link from "next/link";
 import SEOHead from "@/components/common/SEOHead";
 import { EMICalculatorEnhanced } from "@/components/calculators/EMICalculatorEnhanced";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Info } from "lucide-react";
-import { SEOArticle } from "@/components/calculators/SEOArticle";
-import Link from "next/link";
+import { Info, TrendingUp, Zap, CheckCircle2 } from "lucide-react";
 
 export default function EMICalculatorPage() {
     const structuredData = {
@@ -81,8 +79,102 @@ export default function EMICalculatorPage() {
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-8">
-                {/* Comprehensive SEO Article */}
-                <SEOArticle calculatorType="emi" />
+                {/* Comprehensive Content Section */}
+                <div className="space-y-12">
+                     {/* What is EMI Section */}
+                    <Card className="border-0 shadow-lg rounded-2xl bg-white dark:bg-slate-900">
+                        <CardHeader>
+                            <CardTitle className="text-3xl font-bold text-slate-900 dark:text-white">What is Equated Monthly Installment (EMI)?</CardTitle>
+                        </CardHeader>
+                        <CardContent className="prose prose-slate dark:prose-invert max-w-none">
+                            <p className="text-lg leading-relaxed">
+                                An <strong>Equated Monthly Installment (EMI)</strong> is a fixed payment amount made by a borrower to a lender at a specified date each calendar month. Equated monthly installments are used to pay off both interest and principal each month so that over a specified number of years, the loan is paid off in full.
+                            </p>
+                            <p className="text-lg leading-relaxed">
+                                EMIs allow borrowers to finance large expenses like a house, car, or education without the financial burden of a one-time lump sum payment. The most common loans where EMI is applicable are Home Loans, Car Loans, and Personal Loans.
+                            </p>
+                        </CardContent>
+                    </Card>
+
+                    {/* Key Benefits Grid */}
+                    <div className="grid md:grid-cols-2 gap-6">
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-slate-800 dark:to-slate-900">
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
+                                    <TrendingUp className="w-5 h-5" />
+                                    Financial Planning
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-slate-600 dark:text-slate-300">
+                                    Knowing your exact EMI amount helps you plan your monthly budget effectively. You know exactly how much to set aside for loan repayment.
+                                </p>
+                            </CardContent>
+                        </Card>
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-teal-50 to-white dark:from-slate-800 dark:to-slate-900">
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-teal-700 dark:text-teal-400">
+                                    <Zap className="w-5 h-5" />
+                                    Flexibility
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-slate-600 dark:text-slate-300">
+                                    You can choose a tenure that suits your repayment capacity. Longer tenure means lower EMI but higher total interest; shorter tenure means higher EMI but lower interest.
+                                </p>
+                            </CardContent>
+                        </Card>
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-purple-50 to-white dark:from-slate-800 dark:to-slate-900">
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-purple-700 dark:text-purple-400">
+                                    <CheckCircle2 className="w-5 h-5" />
+                                    Accessibility
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-slate-600 dark:text-slate-300">
+                                    EMIs make expensive assets like homes and cars accessible to the middle class by breaking down the cost into manageable monthly payments.
+                                </p>
+                            </CardContent>
+                        </Card>
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-amber-50 to-white dark:from-slate-800 dark:to-slate-900">
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-amber-700 dark:text-amber-400">
+                                    <Info className="w-5 h-5" />
+                                    Reducing Balance
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-slate-600 dark:text-slate-300">
+                                    Most loans work on a reducing balance method. As you pay EMIs, the principal reduces, and the interest component decreases over time.
+                                </p>
+                            </CardContent>
+                        </Card>
+                    </div>
+
+                     {/* Formula Section */}
+                    <Card className="border border-slate-200 shadow-sm rounded-2xl bg-white dark:bg-slate-900">
+                         <CardHeader>
+                            <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white">How is EMI Calculated?</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <p className="text-slate-600 dark:text-slate-300">
+                                The mathematical formula for calculating EMI is:
+                            </p>
+                            <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl font-mono text-center text-lg font-bold text-primary-700 dark:text-primary-400 border border-slate-200 dark:border-slate-700">
+                                EMI = [P x R x (1+R)^N] / [(1+R)^N-1]
+                            </div>
+                            <div className="grid grid-cols-2 gap-4 text-sm text-slate-600 dark:text-slate-400">
+                                <div><span className="font-bold text-slate-900 dark:text-white">P</span> = Principal Loan Amount</div>
+                                <div><span className="font-bold text-slate-900 dark:text-white">R</span> = Monthly Interest Rate (Annual Rate/12/100)</div>
+                                <div><span className="font-bold text-slate-900 dark:text-white">N</span> = Loan Tenure in Months</div>
+                            </div>
+                            <p className="text-sm text-slate-500 italic mt-4">
+                                *Note: This formula assumes interest is compounded monthly, which is the standard for most retail loans in India.
+                            </p>
+                        </CardContent>
+                    </Card>
+                </div>
 
                 {/* Expanded FAQ Section */}
                 <Card className="border-0 shadow-lg rounded-2xl">

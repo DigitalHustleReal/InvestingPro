@@ -1,6 +1,6 @@
 "use client";
 
-import Link from 'next/link';
+
 import SEOHead from "@/components/common/SEOHead";
 import { Breadcrumb } from "@/components/common/Breadcrumb";
 import { generateSchema } from '@/lib/linking/schema';

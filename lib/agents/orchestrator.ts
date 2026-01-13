@@ -184,7 +184,7 @@ export class CMSOrchestrator {
             
             for (const topic of topics) {
                 try {
-                    // Generate article
+                    // Step 1: Generate article content
                     const article = await this.contentAgent.generateArticle({
                         topic: topic.title,
                         category: topic.category,
@@ -192,64 +192,100 @@ export class CMSOrchestrator {
                         strategy
                     });
                     
-                    // Generate images
-                    const images = await this.imageAgent.generateImages({
-                        articleTitle: article.title,
-                        category: article.category,
-                        keywords: article.keywords
-                    });
+                    // Step 2: Generate images (using stock photos first, AI fallback)
+                    let images = { featuredImage: null };
+                    try {
+                        images = await this.imageAgent.generateImages({
+                            articleTitle: article.title,
+                            category: article.category || topic.category,
+                            keywords: article.keywords || topic.keywords
+                        });
+                    } catch (imageError: any) {
+                        logger.warn('Image generation failed, proceeding without featured image', imageError);
+                    }
                     
                     article.featured_image = images.featuredImage;
                     
-                    // Evaluate quality
+                    // Step 3: Evaluate quality
                     const qualityScore = await this.qualityAgent.evaluateQuality(article);
                     article.quality_score = qualityScore.score;
                     
-                    // Assess risk (must pass before publishing)
-                    const riskAssessment = await this.riskComplianceAgent.assessRisk({
-                        title: article.title,
-                        content: article.content,
-                        category: article.category
-                    });
+                    // Step 4: Assess risk
+                    let riskAssessment = { canAutoPublish: true, riskLevel: 'low' };
+                    try {
+                        riskAssessment = await this.riskComplianceAgent.assessRisk({
+                            title: article.title,
+                            content: article.content || article.body_markdown,
+                            category: article.category || topic.category
+                        });
+                    } catch (riskError: any) {
+                        logger.warn('Risk assessment failed, defaulting to manual review', riskError);
+                        riskAssessment = { canAutoPublish: false, riskLevel: 'unknown' };
+                    }
                     
                     totalPerformanceScore += qualityScore.score;
                     articlesGenerated++;
                     
-                    // Publish if quality meets threshold AND risk is low
+                    // Step 5: Save to database first (creates article with ID)
+                    // Import articleService lazily to avoid circular deps
+                    const { articleService } = await import('@/lib/cms/article-service');
+                    
+                    const savedArticle = await articleService.createArticle(
+                        {
+                            body_html: article.body_html || article.content || '',
+                            body_markdown: article.body_markdown || article.content || ''
+                        },
+                        {
+                            title: article.title,
+                            slug: article.slug || article.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, ''),
+                            category: article.category || topic.category,
+                            excerpt: article.excerpt || article.meta_description || `A comprehensive guide about ${topic.title}`,
+                            featured_image: article.featured_image,
+                            tags: article.tags || topic.keywords,
+                            author_id: null, // System generated
+                            meta_title: article.meta_title || article.title,
+                            meta_description: article.meta_description || article.excerpt
+                        }
+                    );
+                    
+                    const articleId = savedArticle.id;
+                    logger.info('Article saved to database', { articleId, title: article.title });
+                    
+                    // Step 6: Publish or keep as draft based on quality
                     if (qualityScore.score >= (context.goals?.quality || 80) && riskAssessment.canAutoPublish) {
-                        await this.publishAgent.publishArticle(article);
+                        await articleService.updateArticle(articleId, {
+                            status: 'published',
+                            published_date: new Date().toISOString().split('T')[0],
+                            quality_score: qualityScore.score
+                        });
                         articlesPublished++;
+                        logger.info('Article published', { articleId, title: article.title });
                         
-                        // Track performance
-                        await this.trackingAgent.trackArticle(article.id);
-                        
-                        // Repurpose for social media
-                        await this.repurposeAgent.repurposeArticle(article.id);
-                        
-                        // Track affiliate performance
-                        await this.affiliateAgent.trackArticle(article.id);
-                        
-                        // Record costs (estimate - actual costs should be recorded by agents)
-                        // This is a placeholder - actual implementation should track from AI calls
-                        await this.budgetGovernorAgent.recordCost(
-                            article.id,
-                            2000, // Estimated tokens
-                            0.05, // Estimated cost (will be updated with actual)
-                            'deepseek', // Provider used
-                            'deepseek-chat', // Model used
-                            1, // Images generated
-                            0.02 // Image cost
-                        );
-                        
-                        // Update economic intelligence
-                        await this.economicIntelligenceAgent.updateContentEconomics(article.id);
+                        // Record costs
+                        try {
+                            await this.budgetGovernorAgent.recordCost(
+                                articleId,
+                                2000, // Estimated tokens
+                                0.05, // Estimated cost
+                                'deepseek',
+                                'deepseek-chat',
+                                1,
+                                images.featuredImage ? 0.00 : 0.08 // Free if stock, paid if AI
+                            );
+                        } catch (costError) {
+                            logger.warn('Failed to record cost', costError as Error);
+                        }
                     } else {
-                        // Save as draft
-                        await this.publishAgent.saveDraft(article);
+                        // Keep as draft (default status)
+                        await articleService.updateArticle(articleId, {
+                            quality_score: qualityScore.score,
+                            editorial_notes: `Auto-generated. Quality: ${qualityScore.score}/100. Risk: ${riskAssessment.riskLevel}`
+                        });
                         
-                        // Log reason
                         if (!riskAssessment.canAutoPublish) {
-                            errors.push(`Article "${article.title}" requires manual review (risk: ${riskAssessment.riskLevel})`);
+                            errors.push(`Article "${article.title}" saved as draft (risk: ${riskAssessment.riskLevel})`);
+                        } else {
+                            errors.push(`Article "${article.title}" saved as draft (quality: ${qualityScore.score}/100)`);
                         }
                     }
                 } catch (error: any) {

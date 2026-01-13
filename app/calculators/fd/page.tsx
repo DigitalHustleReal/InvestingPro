@@ -5,7 +5,7 @@ import Link from 'next/link';
 import SEOHead from "@/components/common/SEOHead";
 import { FDCalculator } from "@/components/calculators/FDCalculator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Info } from "lucide-react";
+import { Info, TrendingUp, Zap, CheckCircle2 } from "lucide-react";
 import { SEOArticle } from "@/components/calculators/SEOArticle";
 
 export default function FDCalculatorPage() {
@@ -89,8 +89,101 @@ export default function FDCalculatorPage() {
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-8">
-                {/* Comprehensive SEO Article */}
-                <SEOArticle calculatorType="fd" />
+                {/* Comprehensive Content Section */}
+                <div className="space-y-12">
+                     {/* What is FD Section */}
+                    <Card className="border-0 shadow-lg rounded-2xl bg-white dark:bg-slate-900">
+                        <CardHeader>
+                            <CardTitle className="text-3xl font-bold text-slate-900 dark:text-white">What is Fixed Deposit (FD)?</CardTitle>
+                        </CardHeader>
+                        <CardContent className="prose prose-slate dark:prose-invert max-w-none">
+                            <p className="text-lg leading-relaxed">
+                                A <strong>Fixed Deposit (FD)</strong> is a financial instrument provided by banks and NBFCs which provides investors a higher rate of interest than a regular savings account, until the given maturity date. It is one of the safest investment options available in India.
+                            </p>
+                            <p className="text-lg leading-relaxed">
+                                You deposit a lump sum amount for a fixed tenure (ranging from 7 days to 10 years) at a pre-agreed interest rate. Even if market rates fall later, your FD continues to earn the booked interest rate, providing <strong>guaranteed returns</strong> and capital safety.
+                            </p>
+                        </CardContent>
+                    </Card>
+
+                    {/* Key Benefits Grid */}
+                    <div className="grid md:grid-cols-2 gap-6">
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-slate-800 dark:to-slate-900">
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
+                                    <CheckCircle2 className="w-5 h-5" />
+                                    Guaranteed Returns
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-slate-600 dark:text-slate-300">
+                                    Unlike mutual funds or stocks, FD returns are fixed and guaranteed. You know exactly how much you will get at maturity.
+                                </p>
+                            </CardContent>
+                        </Card>
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-teal-50 to-white dark:from-slate-800 dark:to-slate-900">
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-teal-700 dark:text-teal-400">
+                                    <Zap className="w-5 h-5" />
+                                    Capital Safety
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-slate-600 dark:text-slate-300">
+                                    Bank FDs are insured up to ₹5 Lakhs by DICGC (RBI subsidiary). This makes them virtually risk-free for conservative investors.
+                                </p>
+                            </CardContent>
+                        </Card>
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-purple-50 to-white dark:from-slate-800 dark:to-slate-900">
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-purple-700 dark:text-purple-400">
+                                    <TrendingUp className="w-5 h-5" />
+                                    Liquidity
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-slate-600 dark:text-slate-300">
+                                    You can close your FD prematurely (with a small penalty) or take a loan against FD (up to 90% value) to meet emergency needs without breaking it.
+                                </p>
+                            </CardContent>
+                        </Card>
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-amber-50 to-white dark:from-slate-800 dark:to-slate-900">
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-amber-700 dark:text-amber-400">
+                                    <Info className="w-5 h-5" />
+                                    Flexible Interest Payouts
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-slate-600 dark:text-slate-300">
+                                    Choose between Cumulative (payment at maturity) or Non-Cumulative (monthly/quarterly/annual interest payout) options based on your income needs.
+                                </p>
+                            </CardContent>
+                        </Card>
+                    </div>
+
+                     {/* Formula Section */}
+                    <Card className="border border-slate-200 shadow-sm rounded-2xl bg-white dark:bg-slate-900">
+                         <CardHeader>
+                            <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white">How FD Interest is Calculated</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <p className="text-slate-600 dark:text-slate-300">
+                                Most banks in India use <strong>Quarterly Compounding</strong> for Fixed Deposits. The formula used is:
+                            </p>
+                            <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl font-mono text-center text-lg font-bold text-primary-700 dark:text-primary-400 border border-slate-200 dark:border-slate-700">
+                                A = P × (1 + r/n)<sup>(n × t)</sup>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4 text-sm text-slate-600 dark:text-slate-400">
+                                <div><span className="font-bold text-slate-900 dark:text-white">A</span> = Maturity Amount</div>
+                                <div><span className="font-bold text-slate-900 dark:text-white">P</span> = Principal Amount</div>
+                                <div><span className="font-bold text-slate-900 dark:text-white">r</span> = Annual Interest Rate (decimal)</div>
+                                <div><span className="font-bold text-slate-900 dark:text-white">n</span> = Compounding Frequency (4 for quarterly)</div>
+                                <div><span className="font-bold text-slate-900 dark:text-white">t</span> = Tenure in Years</div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
 
                 {/* Expanded FAQ Section */}
                 <Card className="border-0 shadow-lg rounded-2xl">

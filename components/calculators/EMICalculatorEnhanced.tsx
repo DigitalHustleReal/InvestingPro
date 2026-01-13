@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { IndianRupee, Calendar, Percent, Info, CheckCircle2, HelpCircle } from "lucide-react";
+import { IndianRupee, Calendar, Percent, Info, CheckCircle2, HelpCircle, Zap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts';
 
@@ -98,8 +98,8 @@ export function EMICalculatorEnhanced() {
                                 <Badge variant="secondary" className="bg-primary-50 text-primary-700 border-primary-200 hover:bg-primary-100">
                                     <CheckCircle2 className="w-3 h-3 mr-1" /> Free
                                 </Badge>
-                                <Badge variant="secondary" className="bg-secondary-50 text-secondary-700 border-secondary-200 hover:bg-secondary-100 text-[10px]">
-                                    No Registration
+                                <Badge variant="secondary" className="bg-teal-50 text-teal-700 border-teal-200 hover:bg-teal-100 text-[10px]">
+                                    <Zap className="w-3 h-3 mr-1" /> Instant
                                 </Badge>
                             </div>
                         </div>

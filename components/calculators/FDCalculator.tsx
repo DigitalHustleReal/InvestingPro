@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
-import { IndianRupee, Calendar, Percent, TrendingUp, Info, CheckCircle2, Zap, Sparkles, HelpCircle } from "lucide-react";
+import { IndianRupee, Calendar, Percent, TrendingUp, Info, CheckCircle2, Zap, HelpCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 
@@ -149,11 +149,13 @@ export function FDCalculator() {
                                 <CardDescription>Calculate FD maturity amount with compounding interest</CardDescription>
                             </div>
                             <div className="flex flex-col gap-1.5 items-end">
-                                <Badge variant="secondary" className="bg-primary-50 text-primary-700 border-primary-200 hover:bg-primary-100">
-                                    <CheckCircle2 className="w-3 h-3 mr-1" /> Free
+                                <Badge className="bg-primary-50 text-primary-700 border-primary-200 shadow-sm hover:bg-primary-100 transition-colors cursor-default">
+                                    <CheckCircle2 className="w-3 h-3 mr-1" />
+                                    Free
                                 </Badge>
-                                <Badge variant="secondary" className="bg-secondary-50 text-secondary-700 border-secondary-200 hover:bg-secondary-100 text-[10px]">
-                                    No Registration
+                                <Badge className="bg-teal-50 text-teal-700 border-teal-200 shadow-sm hover:bg-teal-100 transition-colors cursor-default">
+                                    <Zap className="w-3 h-3 mr-1" />
+                                    Instant
                                 </Badge>
                             </div>
                         </div>

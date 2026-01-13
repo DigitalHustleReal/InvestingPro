@@ -584,6 +584,37 @@ export class ArticleService {
             verified_by_expert: data.verified_by_expert,
         };
     }
+    
+    /**
+     * Update article with partial data
+     * Used by CMS agents for status updates, quality score, etc.
+     */
+    async updateArticle(id: string, updates: Partial<{
+        status: string;
+        published_date: string;
+        published_at: string;
+        quality_score: number;
+        featured_image: string;
+        editorial_notes: string;
+        scheduled_publish_at: string;
+    }>): Promise<void> {
+        const supabase = this.getClient();
+        
+        const { error } = await supabase
+            .from('articles')
+            .update({
+                ...updates,
+                updated_at: new Date().toISOString()
+            })
+            .eq('id', id);
+        
+        if (error) {
+            logger.error('Failed to update article', error);
+            throw new Error(error.message || 'Failed to update article');
+        }
+        
+        logger.info('Article updated', { id, updates: Object.keys(updates) });
+    }
 }
 
 // Export singleton instance
