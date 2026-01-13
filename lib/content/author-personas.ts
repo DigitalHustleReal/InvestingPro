@@ -332,10 +332,70 @@ export const EDITORS: Record<string, AuthorPersona> = {
 };
 
 // ============================================
+// COLLECTIVE/ANONYMOUS BYLINES
+// ============================================
+
+export const COLLECTIVE_BYLINES: Record<string, AuthorPersona> = {
+  'investingpro-research': {
+    id: 'investingpro-research',
+    name: 'InvestingPro Research',
+    slug: 'investingpro-research',
+    title: 'Research Team',
+    credentials: ['CFA Chartered', 'CFP Certified', 'SEBI Registered'],
+    yearsExperience: 15,
+    location: 'Mumbai',
+    categories: ['credit_cards', 'loans', 'mutual_funds', 'insurance', 'tax', 'stocks', 'banking'],
+    primaryCategory: 'mutual_funds',
+    defaultTone: 'authoritative',
+    preferredContentTypes: ['pillar_content', 'how_to_guide', 'news_analysis'],
+    shortBio: 'In-depth financial research and analysis from our expert team.',
+    photoUrl: '/images/authors/research-desk.jpg',
+    role: 'author',
+    systemPrompt: `You are writing for InvestingPro Research, a team of certified financial experts. Write with authority, cite data, provide balanced perspectives. Professional yet accessible.`,
+  },
+  
+  'research-desk': {
+    id: 'research-desk',
+    name: 'Research Desk',
+    slug: 'research-desk',
+    title: 'Editorial Team',
+    credentials: ['SEBI Registered', 'Industry Veterans'],
+    yearsExperience: 20,
+    location: 'India',
+    categories: ['credit_cards', 'loans', 'mutual_funds', 'insurance', 'tax', 'stocks', 'banking'],
+    primaryCategory: 'mutual_funds',
+    defaultTone: 'educational',
+    preferredContentTypes: ['glossary_term', 'faq_article', 'how_to_guide'],
+    shortBio: 'Comprehensive financial guidance from industry experts.',
+    photoUrl: '/images/authors/research-desk.jpg',
+    role: 'author',
+    systemPrompt: `You are the Research Desk, providing factual, well-researched financial content. Be educational, neutral, and helpful.`,
+  },
+  
+  'investingpro-team': {
+    id: 'investingpro-team',
+    name: 'InvestingPro Team',
+    slug: 'investingpro-team',
+    title: 'Content Team',
+    credentials: ['Finance Experts', 'Industry Professionals'],
+    yearsExperience: 10,
+    location: 'India',
+    categories: ['credit_cards', 'loans', 'mutual_funds', 'insurance', 'tax', 'stocks', 'banking'],
+    primaryCategory: 'mutual_funds',
+    defaultTone: 'conversational',
+    preferredContentTypes: ['listicle', 'comparison_article', 'news_analysis'],
+    shortBio: 'Your trusted partner in financial decision-making.',
+    photoUrl: '/images/authors/team.jpg',
+    role: 'author',
+    systemPrompt: `You are the InvestingPro Team. Write helpfully, use examples, make finance accessible to everyone.`,
+  },
+};
+
+// ============================================
 // COMBINED & UTILITIES
 // ============================================
 
-export const ALL_PERSONAS = { ...AUTHORS, ...EDITORS };
+export const ALL_PERSONAS = { ...AUTHORS, ...EDITORS, ...COLLECTIVE_BYLINES };
 
 export function getAuthorForCategory(category: FinanceCategory): AuthorPersona {
   for (const author of Object.values(AUTHORS)) {
@@ -360,4 +420,33 @@ export function getContentTeam(category: FinanceCategory) {
 
 export function getAuthorSystemPrompt(authorId: string): string {
   return ALL_PERSONAS[authorId]?.systemPrompt || AUTHORS['arjun-sharma'].systemPrompt;
+}
+
+/**
+ * Get collective byline for anonymous/team content
+ */
+export function getCollectiveByline(type: 'research' | 'desk' | 'team' = 'research'): AuthorPersona {
+  switch (type) {
+    case 'research':
+      return COLLECTIVE_BYLINES['investingpro-research'];
+    case 'desk':
+      return COLLECTIVE_BYLINES['research-desk'];
+    case 'team':
+      return COLLECTIVE_BYLINES['investingpro-team'];
+    default:
+      return COLLECTIVE_BYLINES['investingpro-research'];
+  }
+}
+
+/**
+ * Get author for category, with option to use collective byline
+ */
+export function getAuthorForCategoryOrCollective(
+  category: FinanceCategory, 
+  useCollective: boolean = false
+): AuthorPersona {
+  if (useCollective) {
+    return COLLECTIVE_BYLINES['investingpro-research'];
+  }
+  return getAuthorForCategory(category);
 }

@@ -227,8 +227,20 @@ export class CMSOrchestrator {
                     articlesGenerated++;
                     
                     // Step 5: Save to database first (creates article with ID)
-                    // Import articleService lazily to avoid circular deps
+                    // Import services lazily to avoid circular deps
                     const { articleService } = await import('@/lib/cms/article-service');
+                    const { getAuthorForCategory, getEditorForCategory } = await import('@/lib/content/author-personas');
+                    
+                    // Get appropriate author/editor for this category
+                    const categoryKey = this.mapCategoryToPersona(topic.category);
+                    const assignedAuthor = getAuthorForCategory(categoryKey);
+                    const assignedEditor = getEditorForCategory(categoryKey);
+                    
+                    logger.info('Content assigned to:', { 
+                        author: assignedAuthor.name, 
+                        editor: assignedEditor.name,
+                        category: topic.category 
+                    });
                     
                     const savedArticle = await articleService.createArticle(
                         {
@@ -242,7 +254,8 @@ export class CMSOrchestrator {
                             excerpt: article.excerpt || article.meta_description || `A comprehensive guide about ${topic.title}`,
                             featured_image: article.featured_image,
                             tags: article.tags || topic.keywords,
-                            author_id: null, // System generated
+                            author_name: assignedAuthor.name, // Use author name from persona system
+                            author_role: assignedAuthor.title,
                             meta_title: article.meta_title || article.title,
                             meta_description: article.meta_description || article.excerpt
                         }
@@ -380,6 +393,28 @@ export class CMSOrchestrator {
         await this.strategyAgent.adjustStrategyBasedOnPerformance();
         
         logger.info('Adaptive learning completed', { patterns: patterns.length });
+    }
+    
+    /**
+     * Map CMS category to author persona category key
+     */
+    private mapCategoryToPersona(category: string): any {
+        const categoryMap: Record<string, string> = {
+            'mutual-funds': 'mutual_funds',
+            'credit-cards': 'credit_cards',
+            'loans': 'loans',
+            'insurance': 'insurance',
+            'tax-planning': 'tax',
+            'tax': 'tax',
+            'investing-basics': 'mutual_funds',
+            'stocks': 'stocks',
+            'fixed-deposits': 'fixed_deposits',
+            'banking': 'banking',
+            'retirement': 'nps_ppf',
+            'gold': 'gold'
+        };
+        
+        return categoryMap[category?.toLowerCase()] || 'mutual_funds';
     }
 }
 
