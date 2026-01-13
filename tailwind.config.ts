@@ -10,35 +10,35 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
-                // Primary - Trust Teal (Growth + Stability - NerdWallet of India)
+                // Primary - Trust Teal (Growth + Stability)
                 primary: {
                     50: '#f0fdfa',
                     100: '#ccfbf1',
                     200: '#99f6e4',
-                    300: '#5eead4',
+                    300: '#5eead4', // Soft
                     400: '#2dd4bf',
-                    500: '#14b8a6',
-                    600: '#0d9488',   // MAIN BRAND COLOR - Trust Teal
-                    700: '#0f766e',
+                    500: '#14b8a6', // Brand Base (Matches brand-theme.ts)
+                    600: '#0d9488',
+                    700: '#0f766e', // Strong
                     800: '#115e59',
                     900: '#134e4a',
                     950: '#042f2e',
-                    DEFAULT: '#0d9488', // ✅ Enables bg-primary
+                    DEFAULT: '#14b8a6', // ✅ Aligned to brand-theme primary
                 },
-                // Secondary - Information Blue (Trust & Authority)
+                // Secondary - Info Sky (Trust & Authority - Matches brand-theme info)
                 secondary: {
-                    50: '#eff6ff',
-                    100: '#dbeafe',
-                    200: '#bfdbfe',
-                    300: '#93c5fd',
-                    400: '#60a5fa',
-                    500: '#3b82f6',
-                    600: '#2563eb',   // Information, links, trust badges
-                    700: '#1d4ed8',
-                    800: '#1e40af',
-                    900: '#1e3a8a',
-                    950: '#172554',
-                    DEFAULT: '#2563eb',
+                    50: '#f0f9ff',
+                    100: '#e0f2fe',
+                    200: '#bae6fd',
+                    300: '#7dd3fc',
+                    400: '#38bdf8',
+                    500: '#0ea5e9', // Brand Info Base
+                    600: '#0284c7',
+                    700: '#0369a1', // Info Strong
+                    800: '#075985',
+                    900: '#0c4a6e',
+                    950: '#082f49',
+                    DEFAULT: '#0ea5e9',
                 },
                 // Stone - Warm Neutrals (Professional)
                 stone: {
@@ -60,45 +60,65 @@ const config: Config = {
                     200: '#fde68a',
                     300: '#fcd34d',
                     400: '#fbbf24',
-                    500: '#f59e0b',
-                    600: '#d97706',
+                    500: '#f59e0b', // Brand Accent Base
+                    600: '#d97706', // Accent Strong
                     700: '#b45309',
                     800: '#92400e',
                     900: '#78350f',
-                    DEFAULT: '#d97706',
+                    DEFAULT: '#f59e0b',
                 },
-                // Semantic Colors
+                // Semantic Colors - Full scales for migrated tokens
                 success: {
                     50: '#ecfdf5',
                     100: '#d1fae5',
+                    200: '#a7f3d0',
+                    300: '#6ee7b7',
+                    400: '#34d399',
                     500: '#10b981', // Emerald - Gains, positive trends
                     600: '#059669',
                     700: '#047857',
+                    800: '#065f46',
+                    900: '#064e3b',
                     DEFAULT: '#10b981',
                 },
                 warning: {
                     50: '#fffbeb',
                     100: '#fef3c7',
+                    200: '#fde68a',
+                    300: '#fcd34d',
+                    400: '#fbbf24',
                     500: '#f59e0b', // Amber
                     600: '#d97706',
                     700: '#b45309',
+                    800: '#92400e',
+                    900: '#78350f',
                     DEFAULT: '#f59e0b',
                 },
                 danger: {
                     50: '#fef2f2',
                     100: '#fee2e2',
+                    200: '#fecaca',
+                    300: '#fca5a5',
+                    400: '#f87171',
                     500: '#ef4444', // Red - Losses, warnings
                     600: '#dc2626',
                     700: '#b91c1c',
+                    800: '#991b1b',
+                    900: '#7f1d1d',
                     DEFAULT: '#ef4444',
                 },
                 info: {
-                    50: '#eff6ff',
-                    100: '#dbeafe',
-                    500: '#3b82f6', // Blue
-                    600: '#2563eb',
-                    700: '#1d4ed8',
-                    DEFAULT: '#3b82f6',
+                    50: '#f0f9ff',
+                    100: '#e0f2fe',
+                    200: '#bae6fd',
+                    300: '#7dd3fc',
+                    400: '#38bdf8',
+                    500: '#0ea5e9', // Sky - Matches Secondary
+                    600: '#0284c7',
+                    700: '#0369a1',
+                    800: '#075985',
+                    900: '#0c4a6e',
+                    DEFAULT: '#0ea5e9',
                 },
                 // Surface Tokens (Replaces Hardcoded Hex Values)
                 surface: {

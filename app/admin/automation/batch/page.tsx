@@ -252,7 +252,7 @@ export default function BatchGeneratorPage() {
                         <div className="flex items-center justify-between">
                             <h2 className="font-semibold text-lg">2. Live Progress</h2>
                             {isProcessing && (
-                                <span className="flex items-center text-xs font-mono text-green-600 bg-green-100 px-2 py-1 rounded-full animate-pulse">
+                                <span className="flex items-center text-xs font-mono text-success-600 bg-success-100 px-2 py-1 rounded-full animate-pulse">
                                     <RotateCcw className="w-3 h-3 mr-1 animate-spin" />
                                     ENGINE RUNNING
                                 </span>
@@ -273,11 +273,11 @@ export default function BatchGeneratorPage() {
                                         <div className="text-xs text-slate-500 uppercase tracking-wider">Total</div>
                                     </div>
                                     <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm text-center">
-                                        <div className="text-2xl font-bold text-green-600">{batchProgress?.completed || 0}</div>
+                                        <div className="text-2xl font-bold text-success-600">{batchProgress?.completed || 0}</div>
                                         <div className="text-xs text-slate-500 uppercase tracking-wider">Done</div>
                                     </div>
                                     <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm text-center">
-                                        <div className="text-2xl font-bold text-red-500">{batchProgress?.failed || 0}</div>
+                                        <div className="text-2xl font-bold text-danger-500">{batchProgress?.failed || 0}</div>
                                         <div className="text-xs text-slate-500 uppercase tracking-wider">Failed</div>
                                     </div>
                                 </div>

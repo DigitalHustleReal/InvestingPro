@@ -96,16 +96,16 @@ export default function ProfilePage() {
 
     const stats = [
         { label: 'Verified submissions', value: publishedArticles.length, icon: FileText, color: 'text-primary-500', bg: 'bg-primary-50' },
-        { label: 'Knowledge Reach', value: totalViews.toLocaleString(), icon: Eye, color: 'text-sky-500', bg: 'bg-primary-50' },
-        { label: 'Conflict Reviews', value: approvedReviews.length, icon: Star, color: 'text-amber-500', bg: 'bg-amber-50' },
+        { label: 'Knowledge Reach', value: totalViews.toLocaleString(), icon: Eye, color: 'text-secondary-500', bg: 'bg-primary-50' },
+        { label: 'Conflict Reviews', value: approvedReviews.length, icon: Star, color: 'text-accent-500', bg: 'bg-accent-50' },
         { label: 'Community Trust', value: totalHelpful, icon: Activity, color: 'text-primary-500', bg: 'bg-primary-50' },
     ];
 
     const getStatusBadge = (status: string) => {
         const styles: Record<string, string> = {
-            pending: 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400',
+            pending: 'bg-accent-100 text-accent-700 dark:bg-accent-500/20 dark:text-accent-400',
             approved: 'bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-400',
-            rejected: 'bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400',
+            rejected: 'bg-danger-100 text-danger-700 dark:bg-danger-500/20 dark:text-red-400',
             'revision-requested': 'bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-400',
             published: 'bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-400'
         };
@@ -156,7 +156,7 @@ export default function ProfilePage() {
                                         </div>
                                         <span className="text-slate-700">•</span>
                                         <div className="flex items-center gap-1.5">
-                                            <Zap className="w-3.5 h-3.5 text-amber-500" />
+                                            <Zap className="w-3.5 h-3.5 text-accent-500" />
                                             <span className="text-sm">{user.points} XP Portfolio</span>
                                         </div>
                                     </div>
@@ -297,7 +297,7 @@ export default function ProfilePage() {
                                                                     <Star
                                                                         key={star}
                                                                         className={`w-3.5 h-3.5 ${star <= review.rating
-                                                                                ? 'text-amber-400 fill-amber-400'
+                                                                                ? 'text-accent-400 fill-accent-400'
                                                                                 : 'text-slate-200 dark:text-slate-700'
                                                                             }`}
                                                                     />

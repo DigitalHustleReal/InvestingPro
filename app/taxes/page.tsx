@@ -143,12 +143,12 @@ const TaxHeroCalculator = () => {
                         {/* Old Regime Card */}
                         <div className={cn(
                             "p-6 rounded-2xl border transition-all duration-300",
-                            recommended === 'Old Regime' ? "bg-teal-500/10 border-teal-500/30" : "bg-white/5 border-white/5"
+                            recommended === 'Old Regime' ? "bg-primary-500/10 border-primary-500/30" : "bg-white/5 border-white/5"
                         )}>
                             <div className="flex justify-between items-center mb-4">
                                 <span className="text-sm font-semibold text-slate-300">Old Tax Regime</span>
                                 {recommended === 'Old Regime' && (
-                                    <Badge className="bg-teal-600 text-white border-0">Best Choice</Badge>
+                                    <Badge className="bg-primary-600 text-white border-0">Best Choice</Badge>
                                 )}
                             </div>
                             <div className="text-3xl font-bold text-white">₹ {oldTax.toLocaleString('en-IN')}</div>

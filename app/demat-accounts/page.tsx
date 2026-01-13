@@ -48,12 +48,12 @@ export default function DematAccountsPage() {
             <div className="bg-slate-900 relative overflow-hidden pt-20 pb-32">
                 <div className="absolute inset-0 opacity-20 pointer-events-none">
                     <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary-600 rounded-full blur-[120px]" />
-                    <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-teal-600 rounded-full blur-[100px]" />
+                    <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-primary-600 rounded-full blur-[100px]" />
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                     <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 mb-8 border border-white/10">
-                        <Trophy className="w-4 h-4 text-amber-400" />
+                        <Trophy className="w-4 h-4 text-accent-400" />
                         <span className="text-white font-bold text-xs uppercase tracking-[0.2em]">2024 Broker Awards</span>
                     </div>
                     <h1 className="text-4xl sm:text-6xl font-extrabold text-white mb-6 tracking-tight leading-tight">
@@ -72,7 +72,7 @@ export default function DematAccountsPage() {
                         { icon: Users, label: "Active Investors", value: "3.5Cr+", color: "bg-primary-600", shadow: "shadow-blue-500/20" },
                         { icon: Zap, label: "Lowest Fees", value: "₹0 Delivery", color: "bg-primary-600", shadow: "shadow-primary-500/20" },
                         { icon: Shield, label: "SEBI Certified", value: "Fully Secure", color: "bg-secondary-600", shadow: "shadow-purple-500/20" },
-                        { icon: Smartphone, label: "Digital KYC", value: "Paperless", color: "bg-amber-600", shadow: "shadow-amber-500/20" },
+                        { icon: Smartphone, label: "Digital KYC", value: "Paperless", color: "bg-accent-600", shadow: "shadow-accent-500/20" },
                     ].map((stat, index) => (
                         <Card key={index} className={`rounded-[2rem] border-0 shadow-2xl ${stat.shadow} bg-white overflow-hidden`}>
                             <CardContent className="p-6 flex items-center gap-6 md:p-8">
@@ -127,7 +127,7 @@ export default function DematAccountsPage() {
                                             <div>
                                                 <h3 className="text-2xl font-bold text-slate-900 tracking-tight">{broker.name}</h3>
                                                 <div className="flex items-center gap-2 mt-1">
-                                                    <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+                                                    <Star className="w-3.5 h-3.5 text-accent-500 fill-accent-500" />
                                                     <span className="text-sm font-extrabold text-slate-900">{broker.rating}</span>
                                                     <span className="text-xs font-bold text-slate-400 uppercase tracking-tighter">({broker.reviews})</span>
                                                 </div>
@@ -234,7 +234,7 @@ export default function DematAccountsPage() {
                     <Card className="rounded-[3rem] border-0 shadow-lg bg-white overflow-hidden p-6 md:p-8">
                         <CardHeader className="p-0 mb-8">
                             <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
-                                <Zap className="w-7 h-7 text-amber-500" />
+                                <Zap className="w-7 h-7 text-accent-500" />
                                 Fast Track Activation
                             </CardTitle>
                         </CardHeader>

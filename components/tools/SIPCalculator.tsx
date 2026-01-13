@@ -35,7 +35,7 @@ export default function SIPCalculator() {
         datasets: [
             {
                 data: [results.investedAmount, results.estimatedReturns],
-                backgroundColor: ['#e2e8f0', '#0d9488'], // Slate-200, Teal-600
+                backgroundColor: ['#e2e8f0', '#0d9488'], // Slate-200, primary-600
                 borderWidth: 0,
             },
         ],
@@ -51,9 +51,9 @@ export default function SIPCalculator() {
     };
 
     return (
-        <Card className="max-w-md mx-auto my-8 border-teal-100 dark:border-teal-900/50 shadow-md dark:bg-slate-900">
-            <CardHeader className="bg-teal-50/50 dark:bg-teal-900/10 border-b border-teal-100 dark:border-teal-900/20 pb-4">
-                <CardTitle className="text-xl text-teal-900 dark:text-teal-100 flex items-center gap-6 md:p-8">
+        <Card className="max-w-md mx-auto my-8 border-primary-100 dark:border-primary-900/50 shadow-md dark:bg-slate-900">
+            <CardHeader className="bg-primary-50/50 dark:bg-primary-900/10 border-b border-primary-100 dark:border-primary-900/20 pb-4">
+                <CardTitle className="text-xl text-primary-900 dark:text-primary-100 flex items-center gap-6 md:p-8">
                     📊 SIP Calculator
                 </CardTitle>
             </CardHeader>
@@ -63,7 +63,7 @@ export default function SIPCalculator() {
                     <div className="space-y-2">
                         <div className="flex justify-between">
                             <Label>Monthly Investment</Label>
-                            <span className="font-semibold text-teal-700">₹{monthlyInvestment.toLocaleString()}</span>
+                            <span className="font-semibold text-primary-700">₹{monthlyInvestment.toLocaleString()}</span>
                         </div>
                         <Slider 
                             value={[monthlyInvestment]} 
@@ -76,7 +76,7 @@ export default function SIPCalculator() {
                     <div className="space-y-2">
                         <div className="flex justify-between">
                             <Label>Expected Return (p.a)</Label>
-                            <span className="font-semibold text-teal-700">{expectedReturn}%</span>
+                            <span className="font-semibold text-primary-700">{expectedReturn}%</span>
                         </div>
                         <Slider 
                             value={[expectedReturn]} 
@@ -88,7 +88,7 @@ export default function SIPCalculator() {
                     <div className="space-y-2">
                         <div className="flex justify-between">
                             <Label>Time Period</Label>
-                            <span className="font-semibold text-teal-700">{timePeriod} Years</span>
+                            <span className="font-semibold text-primary-700">{timePeriod} Years</span>
                         </div>
                         <Slider 
                             value={[timePeriod]} 
@@ -110,11 +110,11 @@ export default function SIPCalculator() {
                         </div>
                         <div className="flex justify-between">
                             <span className="text-slate-500">Returns</span>
-                            <span className="font-medium text-teal-600">+₹{results.estimatedReturns.toLocaleString()}</span>
+                            <span className="font-medium text-primary-600">+₹{results.estimatedReturns.toLocaleString()}</span>
                         </div>
                         <div className="flex justify-between border-t border-slate-100 dark:border-slate-800 pt-1 mt-1">
                             <span className="font-bold text-slate-900 dark:text-white">Total Value</span>
-                            <span className="font-bold text-teal-700 dark:text-teal-400">₹{results.totalValue.toLocaleString()}</span>
+                            <span className="font-bold text-primary-700 dark:text-primary-400">₹{results.totalValue.toLocaleString()}</span>
                         </div>
                      </div>
                 </div>

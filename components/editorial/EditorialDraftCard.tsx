@@ -123,7 +123,7 @@ export default function EditorialDraftCard({
 
     const riskColors = {
         high: 'bg-rose-100 text-rose-700 border-rose-300',
-        medium: 'bg-amber-100 text-amber-700 border-amber-300',
+        medium: 'bg-accent-100 text-accent-700 border-accent-300',
         low: 'bg-primary-100 text-primary-700 border-primary-300'
     };
 
@@ -133,7 +133,7 @@ export default function EditorialDraftCard({
     const timeAgo = getTimeAgo(new Date(draft.created_at));
 
     return (
-        <Card className={`border-2 transition-all ${selected ? 'border-teal-500 bg-teal-50/30' : 'border-slate-200'}`}>
+        <Card className={`border-2 transition-all ${selected ? 'border-primary-500 bg-primary-50/30' : 'border-slate-200'}`}>
             <CardContent className="p-6">
                 <div className="flex items-start gap-4">
                     {/* Checkbox */}
@@ -184,7 +184,7 @@ export default function EditorialDraftCard({
                                 {Math.ceil((draft.content?.length || 0) / 1000)}k chars
                             </span>
                             {confidence > 0 && (
-                                <span className={`font-bold ${confidence < 0.6 ? 'text-rose-600' : confidence < 0.8 ? 'text-amber-600' : 'text-primary-600'}`}>
+                                <span className={`font-bold ${confidence < 0.6 ? 'text-rose-600' : confidence < 0.8 ? 'text-accent-600' : 'text-primary-600'}`}>
                                     {Math.round(confidence * 100)}% confidence
                                 </span>
                             )}
@@ -204,7 +204,7 @@ export default function EditorialDraftCard({
                                 </Badge>
                             )}
                             {dataSources.length === 0 && (
-                                <Badge className="bg-amber-100 text-amber-700 border-amber-300 text-xs">
+                                <Badge className="bg-accent-100 text-accent-700 border-accent-300 text-xs">
                                     No sources listed
                                 </Badge>
                             )}

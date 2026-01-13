@@ -166,8 +166,8 @@ export function RDCalculator() {
                 </Card>
 
                 {/* Results */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-primary-50 to-emerald-50 relative overflow-hidden">
-                     <div className="absolute top-0 right-0 w-64 h-64 bg-teal-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-primary-50 to-success-50 relative overflow-hidden">
+                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                      <CardContent className="pt-6 relative z-10">
                         {/* Main Numbers */}
                         <div className="grid grid-cols-2 gap-4 mb-6">
@@ -177,7 +177,7 @@ export function RDCalculator() {
                             </div>
                              <div className="p-4 bg-white/60 backdrop-blur-sm rounded-xl border border-white/50 text-center">
                                 <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Total Interest</p>
-                                <p className="text-xl font-bold text-emerald-600">+{formatCurrency(result.totalInterest)}</p>
+                                <p className="text-xl font-bold text-success-600">+{formatCurrency(result.totalInterest)}</p>
                             </div>
                         </div>
 
@@ -198,11 +198,11 @@ export function RDCalculator() {
                         {/* Legend */}
                         <div className="flex justify-center gap-6">
                             <div className="flex items-center gap-2">
-                                <div className="w-3 h-3 rounded-full bg-teal-600" />
+                                <div className="w-3 h-3 rounded-full bg-primary-600" />
                                 <span className="text-sm font-medium text-slate-600">Invested: {formatCurrency(result.totalInvested)}</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <div className="w-3 h-3 rounded-full bg-emerald-500" />
+                                <div className="w-3 h-3 rounded-full bg-success-500" />
                                 <span className="text-sm font-medium text-slate-600">Returns: {formatCurrency(result.totalInterest)}</span>
                             </div>
                         </div>

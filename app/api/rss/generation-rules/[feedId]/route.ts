@@ -8,10 +8,11 @@ import { logger } from '@/lib/logger';
  */
 export async function GET(
     request: NextRequest,
-    { params }: { params: { feedId: string } }
+    { params }: { params: Promise<{ feedId: string }> }
 ) {
     try {
-        const rules = await rssArticleGenerator.getGenerationRules(params.feedId);
+        const { feedId } = await params;
+        const rules = await rssArticleGenerator.getGenerationRules(feedId);
         
         return NextResponse.json({
             success: true,
@@ -39,11 +40,12 @@ export async function GET(
  */
 export async function POST(
     request: NextRequest,
-    { params }: { params: { feedId: string } }
+    { params }: { params: Promise<{ feedId: string }> }
 ) {
     try {
+        const { feedId } = await params;
         const body = await request.json();
-        const ruleId = await rssArticleGenerator.saveGenerationRules(params.feedId, body);
+        const ruleId = await rssArticleGenerator.saveGenerationRules(feedId, body);
         
         return NextResponse.json({
             success: true,
@@ -58,4 +60,3 @@ export async function POST(
         );
     }
 }
-

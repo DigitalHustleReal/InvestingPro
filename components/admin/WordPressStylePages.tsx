@@ -73,13 +73,13 @@ export default function WordPressStylePages({
     const getStatusColor = (status: string) => {
         switch (status) {
             case 'published':
-                return 'bg-green-100 text-green-800 border-green-200';
+                return 'bg-success-100 text-green-800 border-green-200';
             case 'draft':
                 return 'bg-slate-100 text-slate-800 border-slate-200';
             case 'review':
                 return 'bg-yellow-100 text-yellow-800 border-yellow-200';
             case 'archived':
-                return 'bg-gray-100 text-gray-800 border-gray-200';
+                return 'bg-slate-100 text-slate-800 border-slate-200';
             default:
                 return 'bg-slate-100 text-slate-800 border-slate-200';
         }
@@ -136,7 +136,7 @@ export default function WordPressStylePages({
                 </div>
                 <Button
                     onClick={onNewPage}
-                    className="bg-teal-600 hover:bg-teal-700 text-white"
+                    className="bg-primary-600 hover:bg-primary-700 text-white"
                 >
                     <Plus className="w-4 h-4 mr-2" />
                     Add New Page
@@ -161,7 +161,7 @@ export default function WordPressStylePages({
                         <div className="flex items-center justify-between">
                             <div className="min-w-0 flex-1">
                                 <p className="text-xs md:text-sm text-slate-500 truncate">Published</p>
-                                <p className="text-xl md:text-2xl font-bold text-green-600">{statusCounts.published}</p>
+                                <p className="text-xl md:text-2xl font-bold text-success-600">{statusCounts.published}</p>
                             </div>
                             <TrendingUp className="w-6 h-6 md:w-8 md:h-8 text-green-400 flex-shrink-0 ml-2" />
                         </div>
@@ -194,9 +194,9 @@ export default function WordPressStylePages({
                         <div className="flex items-center justify-between">
                             <div className="min-w-0 flex-1">
                                 <p className="text-xs md:text-sm text-slate-500 truncate">Archived</p>
-                                <p className="text-xl md:text-2xl font-bold text-gray-600">{statusCounts.archived}</p>
+                                <p className="text-xl md:text-2xl font-bold text-slate-600">{statusCounts.archived}</p>
                             </div>
-                            <FileText className="w-6 h-6 md:w-8 md:h-8 text-gray-400 flex-shrink-0 ml-2" />
+                            <FileText className="w-6 h-6 md:w-8 md:h-8 text-slate-400 flex-shrink-0 ml-2" />
                         </div>
                     </CardContent>
                 </Card>
@@ -212,7 +212,7 @@ export default function WordPressStylePages({
                             placeholder="Search pages..."
                             value={searchTerm}
                             onChange={(e) => onSearchChange?.(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                            className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                         />
                     </div>
                 </div>
@@ -223,7 +223,7 @@ export default function WordPressStylePages({
                             onClick={() => onFilterChange?.(status)}
                             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                                 filterStatus === status
-                                    ? 'bg-teal-600 text-white'
+                                    ? 'bg-primary-600 text-white'
                                     : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                             }`}
                         >
@@ -241,7 +241,7 @@ export default function WordPressStylePages({
             {/* Pages List - WordPress Table Style */}
             {isLoading ? (
                 <div className="flex items-center justify-center py-12">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600"></div>
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
                 </div>
             ) : filteredPages.length === 0 ? (
                 <Card className="border-slate-200">
@@ -254,7 +254,7 @@ export default function WordPressStylePages({
                                 : 'Get started by creating your first page'}
                         </p>
                         {!searchTerm && filterStatus === 'all' && (
-                            <Button onClick={onNewPage} className="bg-teal-600 hover:bg-teal-700">
+                            <Button onClick={onNewPage} className="bg-primary-600 hover:bg-primary-700">
                                 <Plus className="w-4 h-4 mr-2" />
                                 Create Page
                             </Button>
@@ -309,7 +309,7 @@ export default function WordPressStylePages({
                                                 <div className="min-w-0 flex-1">
                                                     <Link
                                                         href={`/admin/pillar-pages/${page.id}/edit`}
-                                                        className="text-sm font-medium text-slate-900 hover:text-teal-600 block truncate"
+                                                        className="text-sm font-medium text-slate-900 hover:text-primary-600 block truncate"
                                                     >
                                                         {page.title || 'Untitled'}
                                                     </Link>
@@ -377,7 +377,7 @@ export default function WordPressStylePages({
                                                         size="sm"
                                                         variant="ghost"
                                                         onClick={() => onPublish(page.id)}
-                                                        className="text-green-600 hover:text-green-700 hover:bg-green-50 text-xs md:text-sm"
+                                                        className="text-success-600 hover:text-success-700 hover:bg-success-50 text-xs md:text-sm"
                                                     >
                                                         <span className="hidden md:inline">Publish</span>
                                                         <span className="md:hidden">Pub</span>
@@ -414,7 +414,7 @@ export default function WordPressStylePages({
                                                                 onDelete(page.id);
                                                             }
                                                         }}
-                                                        className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                                                        className="text-danger-600 hover:text-danger-700 hover:bg-danger-50"
                                                         title="Delete"
                                                     >
                                                         <Trash2 className="w-4 h-4" />

@@ -713,8 +713,8 @@ Include features, benefits, and value proposition`;
                                 {seoScore !== null && (
                                     <Badge className={
                                         seoScore >= 80 ? 'bg-primary-100 text-primary-700' :
-                                        seoScore >= 60 ? 'bg-amber-100 text-amber-700' :
-                                        'bg-red-100 text-red-700'
+                                        seoScore >= 60 ? 'bg-accent-100 text-accent-700' :
+                                        'bg-danger-100 text-danger-700'
                                     }>
                                         SEO: {seoScore}/100
                                     </Badge>
@@ -738,12 +738,12 @@ Include features, benefits, and value proposition`;
                             </pre>
                         </div>
                         {seoScore !== null && seoScore < 80 && (
-                            <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+                            <div className="mt-4 p-4 bg-accent-50 border border-accent-200 rounded-lg">
                                 <div className="flex items-start gap-2">
-                                    <AlertCircle className="w-5 h-5 text-amber-600 mt-0.5" />
+                                    <AlertCircle className="w-5 h-5 text-accent-600 mt-0.5" />
                                     <div>
-                                        <div className="font-semibold text-amber-900 mb-1">SEO Recommendations</div>
-                                        <ul className="text-sm text-amber-800 space-y-1 list-disc list-inside">
+                                        <div className="font-semibold text-accent-900 mb-1">SEO Recommendations</div>
+                                        <ul className="text-sm text-accent-800 space-y-1 list-disc list-inside">
                                             {seoScore < 60 && <li>Add more keywords naturally throughout the content</li>}
                                             {seoScore < 70 && <li>Include more headings (H2, H3) for better structure</li>}
                                             {seoScore < 80 && <li>Expand content length for better SEO performance</li>}

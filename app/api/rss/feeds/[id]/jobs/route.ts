@@ -8,10 +8,11 @@ import { logger } from '@/lib/logger';
  */
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const jobs = await rssImportService.getImportJobs(params.id);
+        const { id } = await params;
+        const jobs = await rssImportService.getImportJobs(id);
         
         return NextResponse.json({
             success: true,
@@ -26,4 +27,3 @@ export async function GET(
         );
     }
 }
-

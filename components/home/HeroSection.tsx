@@ -2,12 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/Button";
-import { ArrowRight, TrendingUp, Shield, Award, ChevronRight, Calculator, CreditCard, Landmark, BookOpen } from "lucide-react";
+import { ArrowRight, TrendingUp, Shield, Calculator, CreditCard, Landmark, BookOpen } from "lucide-react";
 import Link from "next/link";
-import { PLATFORM_STATS, STAT_STRINGS } from "@/lib/constants/platform-stats";
+import { STAT_STRINGS } from "@/lib/constants/platform-stats";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { GridPattern } from "@/components/common/Patterns";
 import HeroVisuals from "./HeroVisuals";
 import { useNavigation } from "@/contexts/NavigationContext";
 

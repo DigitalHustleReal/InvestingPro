@@ -272,7 +272,7 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {content.howItWorks.map((step, idx) => (
                                 <div key={idx} className="relative">
-                                    <div className="absolute -left-2 top-0 w-8 h-8 rounded-full bg-teal-600 text-white flex items-center justify-center font-semibold text-">
+                                    <div className="absolute -left-2 top-0 w-8 h-8 rounded-full bg-primary-600 text-white flex items-center justify-center font-semibold text-">
                                         {step.step}
                                     </div>
                                     <div className="pl-6">
@@ -313,7 +313,7 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
             )}
 
             {/* Related Calculators */}
-            <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-primary-50 to-emerald-50">
+            <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-primary-50 to-success-50">
                 <CardHeader>
                     <CardTitle className="text-2xl font-bold text-slate-900 dark:text-slate-100">Related Calculators</CardTitle>
                 </CardHeader>

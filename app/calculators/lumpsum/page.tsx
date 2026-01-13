@@ -177,9 +177,9 @@ export default function LumpsumCalculatorPage() {
                             </p>
                         </CardContent>
                     </Card>
-                    <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-teal-50 to-white dark:from-slate-800 dark:to-slate-900">
+                    <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-slate-800 dark:to-slate-900">
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-2 text-xl font-bold text-teal-700 dark:text-teal-400">
+                            <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
                                 <Zap className="w-5 h-5" />
                                 Convenience
                             </CardTitle>
@@ -217,7 +217,7 @@ export default function LumpsumCalculatorPage() {
                                     <tr className="border-b border-slate-200 dark:border-slate-800">
                                         <th className="p-4 font-bold text-slate-900 dark:text-white w-1/3">Feature</th>
                                         <th className="p-4 font-bold text-primary-700 dark:text-primary-400 w-1/3">Lumpsum Investment</th>
-                                        <th className="p-4 font-bold text-teal-700 dark:text-teal-400 w-1/3">SIP Investment</th>
+                                        <th className="p-4 font-bold text-primary-700 dark:text-primary-400 w-1/3">SIP Investment</th>
                                     </tr>
                                 </thead>
                                 <tbody className="text-slate-600 dark:text-slate-300">

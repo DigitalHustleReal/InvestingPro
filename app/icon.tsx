@@ -21,7 +21,7 @@ export default function Icon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, #0d9488 0%, #059669 100%)', // teal-600 to emerald-600
+          background: 'linear-gradient(135deg, #0d9488 0%, #059669 100%)', // primary-600 to success-600
           borderRadius: '6px',
         }}
       >

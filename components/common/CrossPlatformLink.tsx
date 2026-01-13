@@ -55,7 +55,7 @@ export default function CrossPlatformLink({
 
   // Determine styling based on variant
   const baseStyles = {
-    default: 'text-teal-600 hover:text-teal-700 font-medium',
+    default: 'text-primary-600 hover:text-primary-700 font-medium',
     subtle: 'text-slate-500 hover:text-slate-700 text-sm',
     text: 'text-slate-600 hover:text-slate-900 underline underline-offset-2',
   };

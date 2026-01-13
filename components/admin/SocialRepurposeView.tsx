@@ -73,7 +73,7 @@ export default function SocialRepurposeView({ articleId }: SocialRepurposeViewPr
                 <Tabs defaultValue="linkedin" onValueChange={(v) => setPlatform(v as any)}>
                     <TabsList className="grid grid-cols-4 mb-6 bg-slate-100 p-1 rounded-xl">
                         <TabsTrigger value="twitter" className="rounded-lg data-[state=active]:bg-white">
-                            <Twitter className="w-4 h-4 mr-2 text-sky-500" />
+                            <Twitter className="w-4 h-4 mr-2 text-secondary-500" />
                             X
                         </TabsTrigger>
                         <TabsTrigger value="linkedin" className="rounded-lg data-[state=active]:bg-white">

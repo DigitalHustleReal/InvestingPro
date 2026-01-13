@@ -319,7 +319,7 @@ export function RetirementCalculator() {
                 {/* Right: Results Card with Stats */}
                 <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-primary-50 to-success-50 dark:from-slate-900 dark:to-slate-800 relative overflow-hidden">
                     {/* Decorative gradient overlay */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-teal-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-primary-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
                             <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
@@ -334,7 +334,7 @@ export function RetirementCalculator() {
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {result.shortfall > 0 ? 'Shortfall' : 'Surplus'}
                                 </p>
-                                <p className={`text-base sm:text-lg font-extrabold ${result.shortfall > 0 ? 'text-amber-600' : 'text-primary-600'}`}>
+                                <p className={`text-base sm:text-lg font-extrabold ${result.shortfall > 0 ? 'text-accent-600' : 'text-primary-600'}`}>
                                     {formatCurrency(result.shortfall > 0 ? result.shortfall : result.surplus)}
                                 </p>
                             </div>
@@ -342,9 +342,9 @@ export function RetirementCalculator() {
 
 
                         {result.shortfall > 0 ? (
-                            <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl mb-4">
-                                <p className="text-xs font-bold text-amber-700 uppercase tracking-widest mb-1">Action Required</p>
-                                <p className="text-sm text-amber-700">Increase SIP to meet retirement goals</p>
+                            <div className="p-4 bg-accent-50 border border-accent-200 rounded-xl mb-4">
+                                <p className="text-xs font-bold text-accent-700 uppercase tracking-widest mb-1">Action Required</p>
+                                <p className="text-sm text-accent-700">Increase SIP to meet retirement goals</p>
                             </div>
                         ) : (
                             <div className="p-4 bg-primary-50 border border-primary-200 rounded-xl mb-4">

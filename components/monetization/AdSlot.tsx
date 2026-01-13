@@ -52,7 +52,7 @@ export default function AdSlot({
                     {/* Product badge */}
                     {product.badge && (
                         <div className="absolute top-3 right-3 z-10">
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-white bg-gradient-to-r from-amber-500 to-orange-500 px-3 py-1 rounded-full flex items-center gap-1">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-white bg-gradient-to-r from-accent-500 to-orange-500 px-3 py-1 rounded-full flex items-center gap-1">
                                 <Star className="w-3 h-3 fill-current" />
                                 {product.badge}
                             </span>
@@ -82,7 +82,7 @@ export default function AdSlot({
                                         className={cn(
                                             "w-4 h-4",
                                             i < Math.floor(product.rating!) 
-                                                ? "text-amber-400 fill-amber-400" 
+                                                ? "text-accent-400 fill-accent-400" 
                                                 : "text-slate-300"
                                         )} 
                                     />
@@ -146,15 +146,15 @@ export function PromotionCard({
     theme?: 'teal' | 'indigo' | 'amber';
 }) {
     const themeStyles = {
-        teal: "from-teal-500/10 to-teal-600/10 border-teal-500/20",
+        teal: "from-primary-500/10 to-primary-600/10 border-primary-500/20",
         indigo: "from-primary-500/10 to-indigo-600/10 border-primary-500/20",
-        amber: "from-amber-500/10 to-amber-600/10 border-amber-500/20"
+        amber: "from-accent-500/10 to-accent-600/10 border-accent-500/20"
     };
 
     const iconStyles = {
-        teal: "text-teal-500",
+        teal: "text-primary-500",
         indigo: "text-primary-500",
-        amber: "text-amber-500"
+        amber: "text-accent-500"
     };
 
     return (

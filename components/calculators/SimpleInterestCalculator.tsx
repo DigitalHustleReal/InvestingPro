@@ -126,7 +126,7 @@ export function SimpleInterestCalculator() {
                              </div>
                              <div className="flex justify-between items-center text-sm border-t border-dashed border-slate-300 pt-3">
                                 <span className="text-slate-600 font-bold">Total Amount</span>
-                                <span className="font-bold text-green-700 text-lg">{formatCurrency(result.totalAmount)}</span>
+                                <span className="font-bold text-success-700 text-lg">{formatCurrency(result.totalAmount)}</span>
                              </div>
                         </div>
                         

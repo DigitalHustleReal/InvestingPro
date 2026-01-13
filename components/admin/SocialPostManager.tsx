@@ -119,7 +119,7 @@ export function SocialPostManager({ articleId }: SocialPostManagerProps) {
                     >
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                                {post.platform === 'twitter' && <Twitter className="w-4 h-4 text-sky-500" />}
+                                {post.platform === 'twitter' && <Twitter className="w-4 h-4 text-secondary-500" />}
                                 {post.platform === 'linkedin' && <Linkedin className="w-4 h-4 text-secondary-700" />}
                                 {post.platform === 'facebook' && <Facebook className="w-4 h-4 text-secondary-600" />}
                                 <span className="text-sm font-medium capitalize">{post.platform}</span>

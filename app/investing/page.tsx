@@ -186,7 +186,7 @@ export default function InvestingPage() {
                             
                             <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-8 text-slate-900 dark:text-white leading-[1.1]">
                                 Grow Your Wealth <br className="hidden lg:block" />
-                                <span className="bg-gradient-to-r from-primary-500 to-emerald-500 bg-clip-text text-transparent">With Confidence</span>
+                                <span className="bg-gradient-to-r from-primary-500 to-success-500 bg-clip-text text-transparent">With Confidence</span>
                             </h1>
                             
                             <p className="text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
@@ -225,7 +225,7 @@ export default function InvestingPage() {
 
                         {/* Interactive Wealth Chart Visualization */}
                         <div className="flex-1 w-full max-w-lg lg:max-w-xl">
-                            <div className="relative aspect-square md:aspect-[4/3] bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-2xl shadow-teal-500/20 p-8 overflow-hidden group">
+                            <div className="relative aspect-square md:aspect-[4/3] bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-2xl shadow-primary-500/20 p-8 overflow-hidden group">
                                 {/* Header */}
                                 <div className="flex justify-between items-start mb-8 z-10 relative">
                                     <div>
@@ -375,7 +375,7 @@ export default function InvestingPage() {
                                         <div className="flex items-center gap-2">
                                             <div className="flex items-center gap-1">
                                                 {[...Array(5)].map((_, i) => (
-                                                    <svg key={i} className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'text-amber-400' : 'text-slate-300 dark:text-slate-600'}`} fill="currentColor" viewBox="0 0 20 20">
+                                                    <svg key={i} className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'text-accent-400' : 'text-slate-300 dark:text-slate-600'}`} fill="currentColor" viewBox="0 0 20 20">
                                                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                                     </svg>
                                                 ))}

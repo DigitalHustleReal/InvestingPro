@@ -52,17 +52,17 @@ export default function ReviewForm({ productSlug, productType, userId, onSuccess
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 bg-gray-50 dark:bg-gray-800/50 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Write a Review</h3>
+    <form onSubmit={handleSubmit} className="space-y-4 bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+      <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Write a Review</h3>
       
       {error && (
-        <div className="p-3 text-sm text-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg">
+        <div className="p-3 text-sm text-danger-500 bg-danger-50 dark:bg-red-900/20 rounded-lg">
           {error}
         </div>
       )}
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
           Your Rating
         </label>
         <RatingStars 
@@ -74,7 +74,7 @@ export default function ReviewForm({ productSlug, productType, userId, onSuccess
       </div>
 
       <div>
-        <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label htmlFor="title" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
           Review Title
         </label>
         <input
@@ -84,12 +84,12 @@ export default function ReviewForm({ productSlug, productType, userId, onSuccess
           onChange={(e) => setTitle(e.target.value)}
           required
           placeholder="Summarize your experience"
-          className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 outline-none"
+          className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 outline-none"
         />
       </div>
 
       <div>
-        <label htmlFor="content" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label htmlFor="content" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
           Review Details
         </label>
         <textarea
@@ -99,7 +99,7 @@ export default function ReviewForm({ productSlug, productType, userId, onSuccess
           required
           rows={4}
           placeholder="What did you like or dislike?"
-          className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 outline-none resize-none"
+          className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 outline-none resize-none"
         />
       </div>
 

@@ -35,10 +35,10 @@ export default function EditorialPolicyPage() {
                     </div>
 
                     {/* Core Principles */}
-                    <Card className="mb-8 border-2 border-teal-100">
+                    <Card className="mb-8 border-2 border-primary-100">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-6 md:p-8">
-                                <Shield className="w-6 h-6 text-teal-600" />
+                                <Shield className="w-6 h-6 text-primary-600" />
                                 Core Principles
                             </CardTitle>
                         </CardHeader>
@@ -76,7 +76,7 @@ export default function EditorialPolicyPage() {
                     <Card className="mb-8">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-6 md:p-8">
-                                <Eye className="w-6 h-6 text-teal-600" />
+                                <Eye className="w-6 h-6 text-primary-600" />
                                 AI Usage Policy
                             </CardTitle>
                         </CardHeader>
@@ -167,7 +167,7 @@ export default function EditorialPolicyPage() {
                     <Card className="mb-8">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-6 md:p-8">
-                                <FileText className="w-6 h-6 text-teal-600" />
+                                <FileText className="w-6 h-6 text-primary-600" />
                                 Content Review Process
                             </CardTitle>
                         </CardHeader>
@@ -267,8 +267,8 @@ export default function EditorialPolicyPage() {
                     </Card>
 
                     {/* Disclaimer */}
-                    <div className="mt-8 p-6 md:p-8 bg-amber-50 border border-amber-200 rounded-lg">
-                        <p className="text-sm text-amber-900">
+                    <div className="mt-8 p-6 md:p-8 bg-accent-50 border border-accent-200 rounded-lg">
+                        <p className="text-sm text-accent-900">
                             <strong>Important:</strong> InvestingPro.in is not registered with SEBI as an investment advisor.
                             All information on this platform is for educational and informational purposes only.
                             Users should consult with qualified financial advisors before making financial decisions.

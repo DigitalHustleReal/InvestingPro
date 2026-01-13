@@ -51,7 +51,7 @@ export function BulkActionsBar({
 
     const variantStyles = {
         default: 'bg-slate-700 hover:bg-slate-600 text-white',
-        danger: 'bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/30',
+        danger: 'bg-danger-500/20 hover:bg-danger-500/30 text-red-400 border border-danger-500/30',
         success: 'bg-primary-500/20 hover:bg-primary-500/30 text-primary-400 border border-primary-500/30'
     };
 

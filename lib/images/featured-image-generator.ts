@@ -26,6 +26,7 @@ import sharp from 'sharp';
 import axios from 'axios';
 import path from 'path';
 import fs from 'fs/promises';
+import { getThemePalette } from '../theme/brand-theme';
 
 // ============================================================================
 // TYPES & INTERFACES
@@ -63,10 +64,13 @@ const FORMATS = {
     square: { width: 1080, height: 1080, name: 'Instagram Square' }
 };
 
+const BRAND_THEME = getThemePalette('light');
+
 const BRAND_CONFIG = {
-    primary_color: '#14B8A6', // Teal
-    secondary_color: '#0F766E',
-    dark_overlay: 'rgba(10, 1, 24, 0.7)', // Dark overlay for text readability
+    primary_color: BRAND_THEME.primary,
+    secondary_color: BRAND_THEME.primaryStrong,
+    accent_color: BRAND_THEME.accent,
+    dark_overlay: BRAND_THEME.overlay.dark, // Dark overlay for text readability
     font_family: 'Inter', // Would need to load font file
     logo_path: 'public/images/logo.png' // Adjust path as needed
 };

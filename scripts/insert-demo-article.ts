@@ -45,19 +45,19 @@ const demoArticle = {
 <h3>Key Benefits of SIP</h3>
 <ul class="space-y-2 my-4">
   <li class="flex items-start gap-2">
-    <span class="text-emerald-600 font-bold">✓</span>
+    <span class="text-success-600 font-bold">✓</span>
     <span><strong>Rupee Cost Averaging:</strong> Reduces impact of market volatility by averaging purchase price</span>
   </li>
   <li class="flex items-start gap-2">
-    <span class="text-emerald-600 font-bold">✓</span>
+    <span class="text-success-600 font-bold">✓</span>
     <span><strong>Disciplined Investing:</strong> Automates savings and removes emotional decision-making</span>
   </li>
   <li class="flex items-start gap-2">
-    <span class="text-emerald-600 font-bold">✓</span>
+    <span class="text-success-600 font-bold">✓</span>
     <span><strong>Low Entry Barrier:</strong> Start with as little as ₹500 per month</span>
   </li>
   <li class="flex items-start gap-2">
-    <span class="text-emerald-600 font-bold">✓</span>
+    <span class="text-success-600 font-bold">✓</span>
     <span><strong>Power of Compounding:</strong> Long-term wealth creation through reinvested returns</span>
   </li>
 </ul>
@@ -71,20 +71,20 @@ const demoArticle = {
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
   <div class="bg-white border-2 border-emerald-200 rounded-lg p-6 text-center shadow-sm">
     <div class="text-4xl mb-2">📈</div>
-    <p class="text-sm text-gray-600 mb-2">Average SIP Returns</p>
-    <p class="text-3xl font-bold text-emerald-600 mb-2">12.5%</p>
-    <p class="text-xs font-medium text-green-600">10-year CAGR</p>
+    <p class="text-sm text-slate-600 mb-2">Average SIP Returns</p>
+    <p class="text-3xl font-bold text-success-600 mb-2">12.5%</p>
+    <p class="text-xs font-medium text-success-600">10-year CAGR</p>
   </div>
   <div class="bg-white border-2 border-blue-200 rounded-lg p-6 text-center shadow-sm">
     <div class="text-4xl mb-2">💰</div>
-    <p class="text-sm text-gray-600 mb-2">Average Lumpsum Returns</p>
+    <p class="text-sm text-slate-600 mb-2">Average Lumpsum Returns</p>
     <p class="text-3xl font-bold text-blue-600 mb-2">14.2%</p>
-    <p class="text-xs font-medium text-green-600">Bull market periods</p>
+    <p class="text-xs font-medium text-success-600">Bull market periods</p>
   </div>
-  <div class="bg-white border-2 border-amber-200 rounded-lg p-6 text-center shadow-sm">
+  <div class="bg-white border-2 border-accent-200 rounded-lg p-6 text-center shadow-sm">
     <div class="text-4xl mb-2">⚖️</div>
-    <p class="text-sm text-gray-600 mb-2">Risk-Adjusted Returns</p>
-    <p class="text-3xl font-bold text-amber-600 mb-2">11.8%</p>
+    <p class="text-sm text-slate-600 mb-2">Risk-Adjusted Returns</p>
+    <p class="text-3xl font-bold text-accent-600 mb-2">11.8%</p>
     <p class="text-xs font-medium text-blue-600">SIP advantage</p>
   </div>
 </div>
@@ -167,21 +167,21 @@ const demoArticle = {
 <h2>Risk Analysis: SIP vs Lumpsum</h2>
 <p>Understanding the risk profile of each investment strategy is crucial for making the right choice based on your risk tolerance.</p>
 
-<div class="my-6 p-6 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-lg border border-gray-200">
-  <h4 class="font-bold text-gray-900 mb-4 text-center">Risk Comparison</h4>
+<div class="my-6 p-6 bg-gradient-to-r from-success-50 to-blue-50 rounded-lg border border-slate-200">
+  <h4 class="font-bold text-slate-900 mb-4 text-center">Risk Comparison</h4>
   <div class="flex justify-between mb-3">
-    <span class="font-semibold text-emerald-700">Lower Risk (SIP)</span>
+    <span class="font-semibold text-success-700">Lower Risk (SIP)</span>
     <span class="font-semibold text-blue-700">Higher Risk (Lumpsum)</span>
   </div>
-  <div class="relative h-12 bg-white rounded-full overflow-hidden border-2 border-gray-300 shadow-inner">
-    <div class="absolute left-0 top-0 h-full bg-gradient-to-r from-emerald-500 to-emerald-600 flex items-center justify-end pr-4" style="width: 35%">
+  <div class="relative h-12 bg-white rounded-full overflow-hidden border-2 border-slate-300 shadow-inner">
+    <div class="absolute left-0 top-0 h-full bg-gradient-to-r from-success-500 to-success-600 flex items-center justify-end pr-4" style="width: 35%">
       <span class="text-white font-bold text-sm">35%</span>
     </div>
     <div class="absolute right-0 top-0 h-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-start pl-4" style="width: 65%">
       <span class="text-white font-bold text-sm">65%</span>
     </div>
   </div>
-  <p class="text-xs text-gray-600 mt-3 text-center">Based on volatility and timing risk assessment</p>
+  <p class="text-xs text-slate-600 mt-3 text-center">Based on volatility and timing risk assessment</p>
 </div>
 
 <div class="warning-box">
@@ -253,32 +253,32 @@ const demoArticle = {
 <p>Learn from these frequent errors that investors make when choosing between SIP and lumpsum:</p>
 
 <ul class="space-y-3 my-4">
-  <li class="flex items-start gap-3 p-4 bg-red-50 rounded-lg border-l-4 border-red-500">
+  <li class="flex items-start gap-3 p-4 bg-danger-50 rounded-lg border-l-4 border-danger-500">
     <span class="text-2xl">❌</span>
     <div>
-      <strong class="text-gray-900">Trying to Time the Market:</strong>
-      <p class="text-gray-700 text-sm mt-1">Waiting for the "perfect" time to invest often leads to missed opportunities. Start your SIP regardless of market levels.</p>
+      <strong class="text-slate-900">Trying to Time the Market:</strong>
+      <p class="text-slate-700 text-sm mt-1">Waiting for the "perfect" time to invest often leads to missed opportunities. Start your SIP regardless of market levels.</p>
     </div>
   </li>
-  <li class="flex items-start gap-3 p-4 bg-red-50 rounded-lg border-l-4 border-red-500">
+  <li class="flex items-start gap-3 p-4 bg-danger-50 rounded-lg border-l-4 border-danger-500">
     <span class="text-2xl">❌</span>
     <div>
-      <strong class="text-gray-900">Stopping SIP During Market Falls:</strong>
-      <p class="text-gray-700 text-sm mt-1">Market corrections are the best time to accumulate units at lower NAV. Continue your SIP to benefit from rupee cost averaging.</p>
+      <strong class="text-slate-900">Stopping SIP During Market Falls:</strong>
+      <p class="text-slate-700 text-sm mt-1">Market corrections are the best time to accumulate units at lower NAV. Continue your SIP to benefit from rupee cost averaging.</p>
     </div>
   </li>
-  <li class="flex items-start gap-3 p-4 bg-red-50 rounded-lg border-l-4 border-red-500">
+  <li class="flex items-start gap-3 p-4 bg-danger-50 rounded-lg border-l-4 border-danger-500">
     <span class="text-2xl">❌</span>
     <div>
-      <strong class="text-gray-900">Investing Lumpsum Without Research:</strong>
-      <p class="text-gray-700 text-sm mt-1">Never invest a large amount based on tips or recent performance. Analyze fund fundamentals and market conditions thoroughly.</p>
+      <strong class="text-slate-900">Investing Lumpsum Without Research:</strong>
+      <p class="text-slate-700 text-sm mt-1">Never invest a large amount based on tips or recent performance. Analyze fund fundamentals and market conditions thoroughly.</p>
     </div>
   </li>
-  <li class="flex items-start gap-3 p-4 bg-red-50 rounded-lg border-l-4 border-red-500">
+  <li class="flex items-start gap-3 p-4 bg-danger-50 rounded-lg border-l-4 border-danger-500">
     <span class="text-2xl">❌</span>
     <div>
-      <strong class="text-gray-900">Ignoring Asset Allocation:</strong>
-      <p class="text-gray-700 text-sm mt-1">Don't put all your money in equity funds. Maintain proper allocation between equity, debt, and gold based on your goals.</p>
+      <strong class="text-slate-900">Ignoring Asset Allocation:</strong>
+      <p class="text-slate-700 text-sm mt-1">Don't put all your money in equity funds. Maintain proper allocation between equity, debt, and gold based on your goals.</p>
     </div>
   </li>
 </ul>
@@ -292,27 +292,27 @@ const demoArticle = {
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
-  <div class="bg-gradient-to-br from-emerald-50 to-emerald-100 p-6 rounded-lg border-2 border-emerald-300">
+  <div class="bg-gradient-to-br from-success-50 to-success-100 p-6 rounded-lg border-2 border-emerald-300">
     <h4 class="font-bold text-emerald-900 mb-3 text-lg">✅ Choose SIP If:</h4>
-    <ul class="space-y-2 text-sm text-gray-700">
+    <ul class="space-y-2 text-sm text-slate-700">
       <li class="flex items-start gap-2">
-        <span class="text-emerald-600">•</span>
+        <span class="text-success-600">•</span>
         <span>You have regular monthly income</span>
       </li>
       <li class="flex items-start gap-2">
-        <span class="text-emerald-600">•</span>
+        <span class="text-success-600">•</span>
         <span>You're new to investing</span>
       </li>
       <li class="flex items-start gap-2">
-        <span class="text-emerald-600">•</span>
+        <span class="text-success-600">•</span>
         <span>You want to avoid timing risk</span>
       </li>
       <li class="flex items-start gap-2">
-        <span class="text-emerald-600">•</span>
+        <span class="text-success-600">•</span>
         <span>Your investment horizon is 5+ years</span>
       </li>
       <li class="flex items-start gap-2">
-        <span class="text-emerald-600">•</span>
+        <span class="text-success-600">•</span>
         <span>You prefer disciplined investing</span>
       </li>
     </ul>
@@ -320,7 +320,7 @@ const demoArticle = {
   
   <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border-2 border-blue-300">
     <h4 class="font-bold text-blue-900 mb-3 text-lg">✅ Choose Lumpsum If:</h4>
-    <ul class="space-y-2 text-sm text-gray-700">
+    <ul class="space-y-2 text-sm text-slate-700">
       <li class="flex items-start gap-2">
         <span class="text-blue-600">•</span>
         <span>You have a windfall (bonus, inheritance)</span>
@@ -352,10 +352,10 @@ const demoArticle = {
 
 <p><strong>Remember:</strong> Time in the market beats timing the market. Whether you choose SIP, lumpsum, or a hybrid approach, consistency and patience are your greatest allies in building long-term wealth.</p>
 
-<div class="my-8 p-6 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-lg text-white text-center">
+<div class="my-8 p-6 bg-gradient-to-r from-success-500 to-blue-500 rounded-lg text-white text-center">
   <h3 class="text-2xl font-bold mb-3">Ready to Start Your Investment Journey?</h3>
   <p class="mb-4">Compare top-performing mutual funds and start your SIP today with India's leading investment platforms.</p>
-  <button class="bg-white text-emerald-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">
+  <button class="bg-white text-success-600 px-8 py-3 rounded-lg font-bold hover:bg-slate-100 transition-colors">
     Explore Mutual Funds →
   </button>
 </div>

@@ -90,7 +90,7 @@ export function ComparisonTable({
                 key={i}
                 className={cn(
                   "text-base",
-                  i < (value as number) ? "text-amber-500" : "text-stone-300"
+                  i < (value as number) ? "text-accent-500" : "text-stone-300"
                 )}
               >
                 ★
@@ -149,7 +149,7 @@ export function ComparisonTable({
                   className={cn(
                     "px-4 py-4 text-center text-sm font-semibold transition-colors",
                     hoveredCol === index && "bg-primary-700",
-                    col.isBestValue && "bg-amber-600"
+                    col.isBestValue && "bg-accent-600"
                   )}
                   style={{ minWidth: '180px' }}
                   onMouseEnter={() => setHoveredCol(index)}
@@ -196,7 +196,7 @@ export function ComparisonTable({
                   className={cn(
                     "border-b border-stone-200",
                     rowIndex % 2 === 0 ? "bg-white" : "bg-stone-50",
-                    row.highlight && "bg-amber-50"
+                    row.highlight && "bg-accent-50"
                   )}
                 >
                   {/* Feature name */}
@@ -227,7 +227,7 @@ export function ComparisonTable({
                         className={cn(
                           "px-4 py-3 text-sm text-center transition-colors",
                           hoveredCol === colIndex && "bg-primary-50",
-                          isColumnBestValue && "bg-amber-50",
+                          isColumnBestValue && "bg-accent-50",
                           isRowBestValue && "bg-success-50 border-l-2 border-success-600"
                         )}
                       >

@@ -177,7 +177,7 @@ export default function DarkThemeCMS({
                             placeholder="Search articles..."
                             value={searchTerm}
                             onChange={(e) => onSearchChange?.(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2.5 bg-slate-800/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500"
+                            className="w-full pl-10 pr-4 py-2.5 bg-slate-800/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500"
                         />
                     </div>
                     <div className="flex gap-2 flex-wrap">
@@ -187,7 +187,7 @@ export default function DarkThemeCMS({
                                 onClick={() => onFilterChange?.(status)}
                                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                                     filterStatus === status
-                                        ? 'bg-teal-500 text-white shadow-lg shadow-teal-500/25'
+                                        ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/25'
                                         : 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
                                 }`}
                             >
@@ -202,7 +202,7 @@ export default function DarkThemeCMS({
             {/* Table */}
             {isLoading ? (
                 <div className="flex items-center justify-center py-20">
-                    <div className="w-10 h-10 border-4 border-teal-500/30 border-t-teal-500 rounded-full animate-spin" />
+                    <div className="w-10 h-10 border-4 border-primary-500/30 border-t-primary-500 rounded-full animate-spin" />
                 </div>
             ) : filteredArticles.length === 0 ? (
                 <ContentSection>
@@ -228,9 +228,9 @@ export default function DarkThemeCMS({
                                     <th className="px-6 py-4 w-12">
                                         <div 
                                             className={`w-5 h-5 rounded border-2 flex items-center justify-center cursor-pointer transition-all ${
-                                                isAllSelected ? 'bg-teal-500 border-teal-500' : 
-                                                isPartialSelected ? 'bg-teal-500/50 border-teal-500' : 
-                                                'border-slate-600 hover:border-teal-500'
+                                                isAllSelected ? 'bg-primary-500 border-primary-500' : 
+                                                isPartialSelected ? 'bg-primary-500/50 border-primary-500' : 
+                                                'border-slate-600 hover:border-primary-500'
                                             }`}
                                             onClick={isAllSelected || isPartialSelected ? deselectAll : selectAll}
                                         >
@@ -251,12 +251,12 @@ export default function DarkThemeCMS({
                                     return (
                                         <tr 
                                             key={article.id} 
-                                            className={`group transition-colors ${isSelected ? 'bg-teal-500/10' : 'hover:bg-white/5'}`}
+                                            className={`group transition-colors ${isSelected ? 'bg-primary-500/10' : 'hover:bg-white/5'}`}
                                         >
                                             <td className="px-6 py-4">
                                                 <div 
                                                     className={`w-5 h-5 rounded border-2 flex items-center justify-center cursor-pointer transition-all ${
-                                                        isSelected ? 'bg-teal-500 border-teal-500' : 'border-slate-600 group-hover:border-teal-500'
+                                                        isSelected ? 'bg-primary-500 border-primary-500' : 'border-slate-600 group-hover:border-primary-500'
                                                     }`}
                                                     onClick={() => toggleSelection(article.id)}
                                                 >
@@ -273,7 +273,7 @@ export default function DarkThemeCMS({
                                                         </div>
                                                     )}
                                                     <div className="min-w-0">
-                                                        <Link href={`/admin/articles/${article.id}/edit`} className="text-sm font-medium text-white hover:text-teal-400 transition-colors block truncate max-w-[300px]">
+                                                        <Link href={`/admin/articles/${article.id}/edit`} className="text-sm font-medium text-white hover:text-primary-400 transition-colors block truncate max-w-[300px]">
                                                             {article.title || 'Untitled'}
                                                         </Link>
                                                         {article.excerpt && (
@@ -290,7 +290,7 @@ export default function DarkThemeCMS({
                                             </td>
                                             <td className="px-4 py-4 hidden md:table-cell">
                                                 <div className="flex items-center gap-2">
-                                                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-teal-500 to-emerald-500 flex items-center justify-center text-white text-xs font-medium">
+                                                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-primary-500 to-success-500 flex items-center justify-center text-white text-xs font-medium">
                                                         {(article.author_name || 'A')[0].toUpperCase()}
                                                     </div>
                                                     <span className="text-sm text-slate-300">{article.author_name || 'Admin'}</span>
@@ -352,8 +352,8 @@ export default function DarkThemeCMS({
                     >
                         <div className="flex items-center gap-4 px-6 py-4 bg-slate-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10">
                             <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 rounded-lg bg-teal-500/20 flex items-center justify-center">
-                                    <Check className="w-4 h-4 text-teal-400" />
+                                <div className="w-8 h-8 rounded-lg bg-primary-500/20 flex items-center justify-center">
+                                    <Check className="w-4 h-4 text-primary-400" />
                                 </div>
                                 <span className="text-sm font-medium text-white">{selectedIds.length} selected</span>
                             </div>

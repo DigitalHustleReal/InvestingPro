@@ -400,7 +400,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-6 md:p-8">
-                            <Zap className="w-6 h-6 text-teal-600" />
+                            <Zap className="w-6 h-6 text-primary-600" />
                             One-Click SEO Article Generator
                         </CardTitle>
                         <p className="text-sm text-slate-600 mt-2">
@@ -538,7 +538,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                         <Button
                             onClick={generateArticle}
                             disabled={!topic.trim() || generating}
-                            className="w-full bg-teal-600 hover:bg-teal-700 text-white h-12 text-lg font-semibold"
+                            className="w-full bg-primary-600 hover:bg-primary-700 text-white h-12 text-lg font-semibold"
                             size="lg"
                         >
                             {generating ? (
@@ -566,7 +566,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
             {step === 'generating' && (
                 <Card>
                     <CardContent className="p-6 md:p-8 text-center">
-                        <Loader2 className="w-12 h-12 animate-spin text-teal-600 mx-auto mb-4" />
+                        <Loader2 className="w-12 h-12 animate-spin text-primary-600 mx-auto mb-4" />
                         <h3 className="text-xl font-semibold text-slate-900 mb-2">Generating Your Article</h3>
                         <p className="text-slate-600 mb-4">
                             Creating a complete, SEO-optimized article about "{topic}"
@@ -697,7 +697,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                                 <Button
                                     onClick={publishDirectly}
                                     disabled={step === 'publishing'}
-                                    className="flex-1 bg-teal-600 hover:bg-teal-700"
+                                    className="flex-1 bg-primary-600 hover:bg-primary-700"
                                 >
                                     {step === 'publishing' ? (
                                         <>
@@ -729,7 +729,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
             {step === 'publishing' && (
                 <Card>
                     <CardContent className="p-6 md:p-8 text-center">
-                        <Loader2 className="w-12 h-12 animate-spin text-teal-600 mx-auto mb-4" />
+                        <Loader2 className="w-12 h-12 animate-spin text-primary-600 mx-auto mb-4" />
                         <h3 className="text-xl font-semibold text-slate-900 mb-2">Processing...</h3>
                         <p className="text-slate-600">Saving your article...</p>
                     </CardContent>

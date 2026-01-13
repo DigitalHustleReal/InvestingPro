@@ -36,11 +36,11 @@ export default function ContextualProducts({ category }: { category: string }) {
     return (
         <div className="my-16 p-8 bg-slate-900 rounded-[2.5rem] text-white border border-slate-700 shadow-2xl relative overflow-hidden">
             {/* Ambient Background */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl -mr-32 -mt-32" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl -mr-32 -mt-32" />
             
             <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-2">
-                    <div className="p-1.5 bg-teal-500 rounded-lg">
+                    <div className="p-1.5 bg-primary-500 rounded-lg">
                          <TrendingUp className="w-4 h-4 text-slate-900" />
                     </div>
                     <h3 className="text-2xl font-bold tracking-tight">Expert Recommendations</h3>
@@ -49,22 +49,22 @@ export default function ContextualProducts({ category }: { category: string }) {
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {Array.isArray(products) && products.map(p => (
-                        <Card key={p.id} className="bg-slate-800/40 border-slate-700/50 p-6 flex flex-col hover:border-teal-500/50 transition-all group backdrop-blur-md">
+                        <Card key={p.id} className="bg-slate-800/40 border-slate-700/50 p-6 flex flex-col hover:border-primary-500/50 transition-all group backdrop-blur-md">
                             <div className="flex justify-between items-start mb-5">
                                 <div className="p-2 bg-white rounded-xl w-14 h-14 flex items-center justify-center shadow-inner overflow-hidden">
                                      <img src={p.image_url} alt={p.name} className="w-full h-full object-contain" />
                                 </div>
-                                <div className="text-amber-400 flex items-center gap-1.5 text-xs font-bold bg-slate-900/80 px-2.5 py-1 rounded-full border border-slate-700">
+                                <div className="text-accent-400 flex items-center gap-1.5 text-xs font-bold bg-slate-900/80 px-2.5 py-1 rounded-full border border-slate-700">
                                     <Star className="w-3.5 h-3.5 fill-current" /> {p.rating}
                                 </div>
                             </div>
                             
-                            <h4 className="font-bold text-base mb-2 leading-tight group-hover:text-teal-400 transition-colors uppercase tracking-tight">{p.name}</h4>
+                            <h4 className="font-bold text-base mb-2 leading-tight group-hover:text-primary-400 transition-colors uppercase tracking-tight">{p.name}</h4>
                             <p className="text-[12px] text-slate-400 mb-6 line-clamp-2 leading-relaxed opacity-80">{p.description}</p>
                             
                             <div className="mt-auto">
                                 <Link href={`/go/${p.slug}`} target="_blank">
-                                    <Button className="w-full bg-primary-600 hover:bg-teal-500 text-white font-bold rounded-xl shadow-[0_4px_12px_rgba(20,184,166,0.2)] hover:shadow-[0_4px_20px_rgba(20,184,166,0.4)] transition-all">
+                                    <Button className="w-full bg-primary-600 hover:bg-primary-500 text-white font-bold rounded-xl shadow-[0_4px_12px_rgba(20,184,166,0.2)] hover:shadow-[0_4px_20px_rgba(20,184,166,0.4)] transition-all">
                                         Check Eligibility
                                     </Button>
                                 </Link>

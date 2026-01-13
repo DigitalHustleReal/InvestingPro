@@ -46,12 +46,12 @@ function ProcessDiagram({ title, steps }: { title: string; steps: Array<{ number
                     <div key={idx} className="flex-1 relative">
                         {/* Step Number */}
                         <div className="flex items-center gap-4 mb-4">
-                            <div className="w-12 h-12 rounded-full bg-teal-100 border-2 border-teal-500 flex items-center justify-center shrink-0">
-                                <span className="text-teal-700 font-bold text-lg">{step.number}</span>
+                            <div className="w-12 h-12 rounded-full bg-primary-100 border-2 border-primary-500 flex items-center justify-center shrink-0">
+                                <span className="text-primary-700 font-bold text-lg">{step.number}</span>
                             </div>
                             {idx < steps.length - 1 && (
                                 <div className="hidden md:block flex-1 h-0.5 bg-slate-200 relative top-6 -z-10">
-                                    <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-3 h-3 bg-teal-500 rounded-full" />
+                                    <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-3 h-3 bg-primary-500 rounded-full" />
                                 </div>
                             )}
                         </div>
@@ -84,8 +84,8 @@ function ComparisonDiagram({ title, data }: { title: string; data: any }) {
                         <div className="space-y-3">
                             {item.features?.map((feature: string, fIdx: number) => (
                                 <div key={fIdx} className="flex items-start gap-2">
-                                    <div className="w-5 h-5 rounded-full bg-teal-100 flex items-center justify-center shrink-0 mt-0.5">
-                                        <div className="w-2 h-2 bg-teal-600 rounded-full" />
+                                    <div className="w-5 h-5 rounded-full bg-primary-100 flex items-center justify-center shrink-0 mt-0.5">
+                                        <div className="w-2 h-2 bg-primary-600 rounded-full" />
                                     </div>
                                     <span className="text-sm text-slate-700">{feature}</span>
                                 </div>
@@ -177,8 +177,8 @@ function HierarchyDiagram({ title, data }: { title: string; data: any }) {
             <div className="flex flex-col items-center">
                 {/* Top Level */}
                 <div className="mb-8">
-                    <div className="px-6 py-3 bg-teal-100 border-2 border-teal-500 rounded-lg">
-                        <span className="font-bold text-teal-900">{data?.top || 'Main Category'}</span>
+                    <div className="px-6 py-3 bg-primary-100 border-2 border-primary-500 rounded-lg">
+                        <span className="font-bold text-primary-900">{data?.top || 'Main Category'}</span>
                     </div>
                 </div>
                 
@@ -216,11 +216,11 @@ function TimelineDiagram({ title, data }: { title: string; data: any }) {
                     {events.map((event: any, idx: number) => (
                         <div key={idx} className="relative pl-16">
                             {/* Dot */}
-                            <div className="absolute left-6 top-2 w-4 h-4 bg-teal-500 rounded-full border-4 border-white shadow-lg" />
+                            <div className="absolute left-6 top-2 w-4 h-4 bg-primary-500 rounded-full border-4 border-white shadow-lg" />
                             
                             {/* Content */}
                             <div>
-                                <div className="text-sm font-bold text-teal-600 mb-1">{event.date || `Step ${idx + 1}`}</div>
+                                <div className="text-sm font-bold text-primary-600 mb-1">{event.date || `Step ${idx + 1}`}</div>
                                 <h4 className="font-bold text-slate-900 dark:text-slate-100 mb-2">{event.title}</h4>
                                 {event.description && (
                                     <p className="text-sm text-slate-600 dark:text-slate-400">{event.description}</p>

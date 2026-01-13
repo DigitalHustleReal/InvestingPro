@@ -1,6 +1,4 @@
-"use client";
 
-import React from 'react';
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Calculator, BarChart3, Scale, ArrowRight, Target, Sparkles } from "lucide-react";
@@ -41,7 +39,7 @@ const tools = [
         color: "text-primary-500",
         bg: "bg-primary-500/10",
         border: "border-primary-500/20",
-        href: "/risk-profiler"
+        href: "/tools/risk-analyzer"
     }
 ];
 

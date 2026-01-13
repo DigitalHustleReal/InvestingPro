@@ -64,7 +64,7 @@ export function SCSSCalculator() {
                                 <CardDescription>Senior Citizen Savings Scheme</CardDescription>
                             </div>
                             <div className="flex flex-col gap-1.5 items-end">
-                                <Badge variant="secondary" className="bg-amber-50 text-amber-700 border-amber-200">
+                                <Badge variant="secondary" className="bg-accent-50 text-accent-700 border-accent-200">
                                     <ShieldCheck className="w-3 h-3 mr-1" /> Govt Backed
                                 </Badge>
                                 <Badge variant="outline" className="text-xs">
@@ -108,11 +108,11 @@ export function SCSSCalculator() {
                             <p className="text-[10px] text-slate-500">Current Rate: 8.2%</p>
                         </div>
 
-                         <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-3">
-                            <Info className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                         <div className="p-4 bg-accent-50 border border-accent-200 rounded-xl flex items-start gap-3">
+                            <Info className="w-5 h-5 text-accent-600 flex-shrink-0 mt-0.5" />
                             <div>
-                                <p className="text-sm font-bold text-amber-800 mb-1">Regular Income Scheme</p>
-                                <p className="text-xs text-amber-700 leading-relaxed">
+                                <p className="text-sm font-bold text-accent-800 mb-1">Regular Income Scheme</p>
+                                <p className="text-xs text-accent-700 leading-relaxed">
                                     Interest is paid every quarter (April, July, Oct, Jan). It is a great source of regular income for senior citizens.
                                 </p>
                             </div>
@@ -121,24 +121,24 @@ export function SCSSCalculator() {
                 </Card>
 
                 {/* Results */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50 relative overflow-hidden">
-                     <div className="absolute top-0 right-0 w-64 h-64 bg-amber-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-accent-50 to-orange-50 relative overflow-hidden">
+                     <div className="absolute top-0 right-0 w-64 h-64 bg-accent-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                      <CardContent className="pt-8 relative z-10 flex flex-col justify-between h-full">
                          <div className="text-center mb-6">
                              <p className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-2">Quarterly Income</p>
-                             <div className="text-5xl font-extrabold text-amber-700 mb-2">
+                             <div className="text-5xl font-extrabold text-accent-700 mb-2">
                                 {formatCurrency(result.quarterlyInterest)}
                              </div>
-                             <div className="inline-flex items-center gap-2 bg-white/50 px-3 py-1 rounded-full border border-amber-100">
-                                <CalendarClock className="w-3 h-3 text-amber-600" />
-                                <span className="text-xs font-bold text-amber-700">Paid every 3 months</span>
+                             <div className="inline-flex items-center gap-2 bg-white/50 px-3 py-1 rounded-full border border-accent-100">
+                                <CalendarClock className="w-3 h-3 text-accent-600" />
+                                <span className="text-xs font-bold text-accent-700">Paid every 3 months</span>
                              </div>
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
                             <div className="bg-white/60 backdrop-blur-sm rounded-xl border border-white/50 p-4">
                                 <p className="text-xs text-slate-500 mb-1">Total Interest (5Y)</p>
-                                <p className="text-lg font-bold text-green-700">
+                                <p className="text-lg font-bold text-success-700">
                                     +{formatCurrency(result.totalInterest)}
                                 </p>
                             </div>
@@ -176,7 +176,7 @@ export function SCSSCalculator() {
                                                     <div className="space-y-1">
                                                         <p className="flex justify-between gap-4 text-slate-500">
                                                             <span>Annual Payout:</span>
-                                                            <span className="font-bold text-amber-600">{formatCurrency(data.interest)}</span>
+                                                            <span className="font-bold text-accent-600">{formatCurrency(data.interest)}</span>
                                                         </p>
                                                          <p className="flex justify-between gap-4 text-slate-500">
                                                             <span>Cumulative:</span>

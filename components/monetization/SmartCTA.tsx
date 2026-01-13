@@ -51,11 +51,11 @@ export default function SmartCTA({
     const baseStyles = "inline-flex items-center justify-center gap-2 font-bold rounded-xl transition-all duration-300 active:scale-95";
     
     const variantStyles = {
-        primary: "bg-teal-600 hover:bg-teal-700 text-white shadow-lg shadow-teal-500/20 hover:shadow-teal-500/30",
+        primary: "bg-primary-600 hover:bg-primary-700 text-white shadow-lg shadow-primary-500/20 hover:shadow-primary-500/30",
         secondary: "bg-slate-800 hover:bg-slate-700 text-white",
         gradient: "bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 hover:scale-105",
-        outline: "border-2 border-teal-500 text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-500/10",
-        premium: "bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40"
+        outline: "border-2 border-primary-500 text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-500/10",
+        premium: "bg-gradient-to-r from-accent-500 to-orange-500 text-white shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40"
     };
 
     const sizeStyles = {

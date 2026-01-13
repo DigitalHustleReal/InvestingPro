@@ -28,15 +28,15 @@ import {
   BarChart3
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Badge } from '@/components/ui/Badge';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
 import { 
   Select, 
   SelectContent, 
   SelectItem, 
   SelectTrigger, 
   SelectValue 
-} from '@/components/ui/Select';
+} from '@/components/ui/select';
 import { toast } from 'sonner';
 
 interface ContentAssignment {
@@ -67,8 +67,8 @@ interface QAStats {
 const statusColors: Record<string, string> = {
   pending_review: 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20',
   in_review: 'bg-primary-500/10 text-primary-500 border-primary-500/20',
-  approved: 'bg-green-500/10 text-green-500 border-green-500/20',
-  rejected: 'bg-red-500/10 text-red-500 border-red-500/20',
+  approved: 'bg-success-500/10 text-success-500 border-success-500/20',
+  rejected: 'bg-danger-500/10 text-danger-500 border-danger-500/20',
   published: 'bg-primary-500/10 text-primary-500 border-primary-500/20',
 };
 
@@ -76,7 +76,7 @@ const priorityColors: Record<string, string> = {
   low: 'bg-slate-500/10 text-slate-400',
   medium: 'bg-primary-500/10 text-primary-400',
   high: 'bg-orange-500/10 text-orange-400',
-  urgent: 'bg-red-500/10 text-red-400',
+  urgent: 'bg-danger-500/10 text-red-400',
 };
 
 export default function EditorialQADashboard() {
@@ -177,13 +177,13 @@ export default function EditorialQADashboard() {
         <StatCard
           label="Approved Today"
           value={stats?.approved_today || 0}
-          icon={<CheckCircle className="w-5 h-5 text-green-500" />}
+          icon={<CheckCircle className="w-5 h-5 text-success-500" />}
           color="green"
         />
         <StatCard
           label="Rejected Today"
           value={stats?.rejected_today || 0}
-          icon={<XCircle className="w-5 h-5 text-red-500" />}
+          icon={<XCircle className="w-5 h-5 text-danger-500" />}
           color="red"
         />
         <StatCard
@@ -345,7 +345,7 @@ function ContentRow({
             <>
               <Button
                 size="sm"
-                className="bg-green-600 hover:bg-green-700 text-white"
+                className="bg-success-600 hover:bg-success-700 text-white"
                 onClick={onApprove}
               >
                 <CheckCircle className="w-4 h-4 mr-1" />

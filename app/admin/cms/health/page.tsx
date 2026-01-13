@@ -29,7 +29,7 @@ export default function CMSHealthPage() {
     const getHealthColor = (status: string) => {
         switch (status) {
             case 'healthy': return 'bg-primary-500/10 text-primary-400 border-primary-500/20';
-            case 'degraded': return 'bg-amber-500/10 text-amber-400 border-amber-500/20';
+            case 'degraded': return 'bg-accent-500/10 text-accent-400 border-accent-500/20';
             case 'unhealthy': return 'bg-rose-500/10 text-rose-400 border-rose-500/20';
             default: return 'bg-slate-500/10 text-slate-400 border-slate-500/20';
         }
@@ -75,7 +75,7 @@ export default function CMSHealthPage() {
                             <HealthIcon className={cn(
                                 "w-5 h-5",
                                 health.overall === 'healthy' ? 'text-primary-400' :
-                                health.overall === 'degraded' ? 'text-amber-400' :
+                                health.overall === 'degraded' ? 'text-accent-400' :
                                 health.overall === 'unhealthy' ? 'text-rose-400' :
                                 'text-slate-400'
                             )} />

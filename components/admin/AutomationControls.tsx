@@ -113,10 +113,10 @@ export default function AutomationControls({ className = "" }: AutomationControl
     // Get status badge
     const getStatusBadge = (status: string) => {
         const variants: Record<string, { bg: string; text: string; icon: any }> = {
-            completed: { bg: 'bg-green-100', text: 'text-green-700', icon: CheckCircle2 },
+            completed: { bg: 'bg-success-100', text: 'text-success-700', icon: CheckCircle2 },
             running: { bg: 'bg-secondary-100', text: 'text-secondary-700', icon: Loader2 },
-            failed: { bg: 'bg-red-100', text: 'text-red-700', icon: XCircle },
-            triggered: { bg: 'bg-amber-100', text: 'text-amber-700', icon: Clock },
+            failed: { bg: 'bg-danger-100', text: 'text-danger-700', icon: XCircle },
+            triggered: { bg: 'bg-accent-100', text: 'text-accent-700', icon: Clock },
         };
         return variants[status] || variants.triggered;
     };
@@ -321,7 +321,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                                                         "flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-widest border border-white/5 shadow-sm",
                                                         run.status === 'completed' ? 'bg-primary-500/10 text-primary-400' :
                                                         run.status === 'failed' ? 'bg-rose-500/10 text-rose-400' :
-                                                        'bg-amber-500/10 text-amber-400'
+                                                        'bg-accent-500/10 text-accent-400'
                                                     )}>
                                                         <StatusIcon className={cn("w-3 h-3", run.status === 'running' ? 'animate-spin' : '')} />
                                                         {run.status}
@@ -376,15 +376,15 @@ export default function AutomationControls({ className = "" }: AutomationControl
             <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                 <CardHeader className="border-b border-white/5 px-8 py-6">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                        <div className="w-8 h-8 rounded-lg bg-teal-500/10 flex items-center justify-center">
-                            <RefreshCw className="w-4 h-4 text-teal-400" />
+                        <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
+                            <RefreshCw className="w-4 h-4 text-primary-400" />
                         </div>
                         Cache Maintenance
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="p-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="flex items-center justify-between p-6 bg-white/[0.03] border border-white/5 rounded-2xl group hover:border-teal-500/30 transition-all">
+                        <div className="flex items-center justify-between p-6 bg-white/[0.03] border border-white/5 rounded-2xl group hover:border-primary-500/30 transition-all">
                             <div>
                                 <h4 className="font-bold text-white mb-1">Articles Buffer</h4>
                                 <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
@@ -394,7 +394,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                             <Button
                                 size="sm"
                                 variant="ghost"
-                                className="h-10 px-6 bg-white/5 text-teal-400 hover:bg-teal-500 hover:text-white rounded-xl font-bold uppercase tracking-widest text-[10px]"
+                                className="h-10 px-6 bg-white/5 text-primary-400 hover:bg-primary-500 hover:text-white rounded-xl font-bold uppercase tracking-widest text-[10px]"
                                 onClick={() => handleContentRefresh('article')}
                                 disabled={triggering === 'refresh-article'}
                             >
@@ -405,7 +405,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                                 )}
                             </Button>
                         </div>
-                        <div className="flex items-center justify-between p-6 bg-white/[0.03] border border-white/5 rounded-2xl group hover:border-teal-500/30 transition-all">
+                        <div className="flex items-center justify-between p-6 bg-white/[0.03] border border-white/5 rounded-2xl group hover:border-primary-500/30 transition-all">
                             <div>
                                 <h4 className="font-bold text-white mb-1">Pillar Page Index</h4>
                                 <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
@@ -415,7 +415,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                             <Button
                                 size="sm"
                                 variant="ghost"
-                                className="h-10 px-6 bg-white/5 text-teal-400 hover:bg-teal-500 hover:text-white rounded-xl font-bold uppercase tracking-widest text-[10px]"
+                                className="h-10 px-6 bg-white/5 text-primary-400 hover:bg-primary-500 hover:text-white rounded-xl font-bold uppercase tracking-widest text-[10px]"
                                 onClick={() => handleContentRefresh('pillar')}
                                 disabled={triggering === 'refresh-pillar'}
                             >

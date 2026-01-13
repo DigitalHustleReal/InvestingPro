@@ -233,7 +233,7 @@ export default function EditorialDashboard() {
                             <p className="text-slate-600">Review and approve AI-generated content</p>
                         </div>
                         <div className="flex items-center gap-4">
-                            <Badge className="bg-teal-100 text-teal-700 text-sm font-bold px-4 py-2">
+                            <Badge className="bg-primary-100 text-primary-700 text-sm font-bold px-4 py-2">
                                 {stats.total} Drafts
                             </Badge>
                             <Badge className="bg-rose-100 text-rose-700 text-sm font-bold px-4 py-2">
@@ -256,10 +256,10 @@ export default function EditorialDashboard() {
                                 <div className="text-xs text-rose-600 font-medium">High Risk</div>
                             </CardContent>
                         </Card>
-                        <Card className="border-amber-200 bg-amber-50">
+                        <Card className="border-accent-200 bg-accent-50">
                             <CardContent className="p-6 md:p-8">
-                                <div className="text-2xl font-bold text-amber-700">{stats.medium}</div>
-                                <div className="text-xs text-amber-600 font-medium">Medium Risk</div>
+                                <div className="text-2xl font-bold text-accent-700">{stats.medium}</div>
+                                <div className="text-xs text-accent-600 font-medium">Medium Risk</div>
                             </CardContent>
                         </Card>
                         <Card className="border-primary-200 bg-primary-50">

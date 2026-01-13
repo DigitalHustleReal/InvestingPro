@@ -16,7 +16,7 @@ interface LogoIconProps {
 export default function LogoIcon({ 
     className = "w-10 h-10", 
     fill = "white",
-    background = "#0d9488" // teal-600 default
+    background = "#0d9488" // primary-600 default
 }: LogoIconProps) {
     return (
         <svg 

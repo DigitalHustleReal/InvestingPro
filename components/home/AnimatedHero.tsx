@@ -55,7 +55,7 @@ export default function AnimatedHero() {
         <section className="relative overflow-hidden pt-24 pb-20 lg:pt-32 lg:pb-28 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
             {/* Background Decor - Premium Ambient Lighting */}
             <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-teal-300/20 dark:bg-teal-500/20 rounded-full blur-[140px] translate-x-1/2 -translate-y-1/2 animate-pulse-slow" />
+                <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-primary-300/20 dark:bg-primary-500/20 rounded-full blur-[140px] translate-x-1/2 -translate-y-1/2 animate-pulse-slow" />
                 <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-secondary-300/20 dark:bg-secondary-600/20 rounded-full blur-[120px] -translate-x-1/3 translate-y-1/3 animate-pulse-slow" style={{ animationDelay: '1s' }} />
                 <div className="absolute top-1/3 left-1/2 w-[600px] h-[600px] bg-secondary-300/10 dark:bg-secondary-500/10 rounded-full blur-[100px] -translate-x-1/2 animate-float" />
                 
@@ -66,7 +66,7 @@ export default function AnimatedHero() {
             <div className="container mx-auto px-4 relative z-10">
                 {/* Top Badge */}
                 <div className="flex justify-center mb-8 animate-fade-in-up">
-                    <Badge className="px-4 py-2 bg-white dark:bg-slate-900 text-teal-600 dark:text-teal-400 border-2 border-teal-100 dark:border-teal-500/20 font-bold uppercase tracking-wide text-xs inline-flex items-center gap-2 rounded-full shadow-lg shadow-teal-500/10">
+                    <Badge className="px-4 py-2 bg-white dark:bg-slate-900 text-primary-600 dark:text-primary-400 border-2 border-primary-100 dark:border-primary-500/20 font-bold uppercase tracking-wide text-xs inline-flex items-center gap-2 rounded-full shadow-lg shadow-primary-500/10">
                         <Zap className="w-4 h-4" />
                         India's #1 Financial Comparison Platform
                     </Badge>
@@ -78,7 +78,7 @@ export default function AnimatedHero() {
                         Make Better Financial
                         <br />
                         Decisions with{' '}
-                        <span className="bg-gradient-to-r from-teal-500 via-emerald-500 to-cyan-500 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-primary-500 via-success-500 to-cyan-500 bg-clip-text text-transparent">
                             Data-Driven Insights
                         </span>
                     </h1>
@@ -92,7 +92,7 @@ export default function AnimatedHero() {
                 <div className="max-w-3xl mx-auto mb-16">
                     <form onSubmit={handleSearch} className="relative group">
                         {/* Glow effect */}
-                        <div className="absolute -inset-1 bg-gradient-to-r from-teal-500 via-secondary-500 to-secondary-500 rounded-2xl opacity-20 dark:opacity-30 group-hover:opacity-40 dark:group-hover:opacity-50 blur-xl transition duration-500" />
+                        <div className="absolute -inset-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-secondary-500 rounded-2xl opacity-20 dark:opacity-30 group-hover:opacity-40 dark:group-hover:opacity-50 blur-xl transition duration-500" />
                         
                         <div className="relative bg-white dark:bg-slate-900 rounded-2xl border-2 border-slate-200 dark:border-slate-800 shadow-2xl">
                             <div className="flex items-center p-2">
@@ -108,7 +108,7 @@ export default function AnimatedHero() {
                                 />
                                 <Button
                                     type="submit"
-                                    className="h-14 px-10 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-teal-500/30 transition-all mr-1"
+                                    className="h-14 px-10 bg-gradient-to-r from-primary-600 to-success-600 hover:from-primary-700 hover:to-success-700 text-white font-bold rounded-xl shadow-lg shadow-primary-500/30 transition-all mr-1"
                                 >
                                     Search
                                     <ArrowRight className="w-5 h-5 ml-2" />
@@ -155,8 +155,8 @@ export default function AnimatedHero() {
                                         group h-full cursor-pointer transition-all duration-300
                                         bg-white dark:bg-slate-900 
                                         border-2 border-slate-200 dark:border-slate-800
-                                        hover:border-teal-500 dark:hover:border-teal-500
-                                        hover:-translate-y-2 hover:shadow-2xl hover:shadow-teal-500/20
+                                        hover:border-primary-500 dark:hover:border-primary-500
+                                        hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-500/20
                                         ${isHovered ? 'scale-105' : ''}
                                     `}>
                                         <CardContent className="p-6 text-center">
@@ -185,7 +185,7 @@ export default function AnimatedHero() {
                                             </div>
 
                                             {/* Label */}
-                                            <div className="font-bold text-slate-900 dark:text-white mb-1 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                                            <div className="font-bold text-slate-900 dark:text-white mb-1 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                                                 {category.label}
                                             </div>
 
@@ -226,7 +226,7 @@ export default function AnimatedHero() {
                                         key={i} 
                                         className="p-6 rounded-2xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800"
                                     >
-                                        <Icon className="w-6 h-6 text-teal-500 mx-auto mb-2" />
+                                        <Icon className="w-6 h-6 text-primary-500 mx-auto mb-2" />
                                         <div className="text-3xl font-bold text-slate-900 dark:text-white mb-1">
                                             {stat.animated && stat.value ? (
                                                 <AnimatedCounter 

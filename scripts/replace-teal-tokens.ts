@@ -14,16 +14,16 @@ const targetFiles = [
 
 // Replacement map: teal-* -> primary-*
 const replacements: Record<string, string> = {
-    'teal-50': 'primary-50',
-    'teal-100': 'primary-100',
-    'teal-200': 'primary-200',
-    'teal-300': 'primary-300',
-    'teal-400': 'primary-400',
-    'teal-500': 'primary-500',
-    'teal-600': 'primary-600',
-    'teal-700': 'primary-700',
-    'teal-800': 'primary-800',
-    'teal-900': 'primary-900'
+    'primary-50': 'primary-50',
+    'primary-100': 'primary-100',
+    'primary-200': 'primary-200',
+    'primary-300': 'primary-300',
+    'primary-400': 'primary-400',
+    'primary-500': 'primary-500',
+    'primary-600': 'primary-600',
+    'primary-700': 'primary-700',
+    'primary-800': 'primary-800',
+    'primary-900': 'primary-900'
 };
 
 let totalReplacements = 0;

@@ -173,9 +173,9 @@ export function InflationAdjustedCalculator() {
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Real Return</p>
                                 <p className="text-sm sm:text-base font-extrabold text-primary-600">{result.realReturn.toFixed(2)}%</p>
                             </div>
-                            <div className="text-center p-3 sm:p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-amber-100">
+                            <div className="text-center p-3 sm:p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-accent-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Inflation Erosion</p>
-                                <p className="text-sm sm:text-base font-extrabold text-amber-600">{formatCurrency(result.inflationErosion)}</p>
+                                <p className="text-sm sm:text-base font-extrabold text-accent-600">{formatCurrency(result.inflationErosion)}</p>
                             </div>
                         </div>
                     </CardContent>

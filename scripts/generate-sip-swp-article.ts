@@ -60,59 +60,59 @@ FORMATTING RULES (CRITICAL):
 PROFESSIONAL COMPONENTS (MUST INCLUDE):
 
 1. **KEY TAKEAWAYS BOX** (Place immediately after Introduction):
-<div class="bg-gradient-to-br from-emerald-50 to-emerald-100 border-2 border-emerald-500 rounded-lg p-6 my-8">
+<div class="bg-gradient-to-br from-success-50 to-success-100 border-2 border-success-500 rounded-lg p-6 my-8">
   <h3 class="text-xl font-bold text-emerald-900 mb-4">Key Takeaways</h3>
   <ul class="space-y-3">
     <li class="flex items-start gap-3">
-      <span class="flex-shrink-0 w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
-      <span class="text-gray-800">SIP focuses on wealth accumulation while SWP enables systematic income withdrawal</span>
+      <span class="flex-shrink-0 w-6 h-6 bg-success-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
+      <span class="text-slate-800">SIP focuses on wealth accumulation while SWP enables systematic income withdrawal</span>
     </li>
     <li class="flex items-start gap-3">
-      <span class="flex-shrink-0 w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
-      <span class="text-gray-800">Key point here</span>
+      <span class="flex-shrink-0 w-6 h-6 bg-success-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
+      <span class="text-slate-800">Key point here</span>
     </li>
     <li class="flex items-start gap-3">
-      <span class="flex-shrink-0 w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
-      <span class="text-gray-800">Key point here</span>
+      <span class="flex-shrink-0 w-6 h-6 bg-success-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
+      <span class="text-slate-800">Key point here</span>
     </li>
   </ul>
 </div>
 
 2. **COMPARISON SLIDER** (MUST include for SIP vs SWP):
-<div class="my-6 p-6 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-lg border border-gray-200">
+<div class="my-6 p-6 bg-gradient-to-r from-success-50 to-blue-50 rounded-lg border border-slate-200">
   <div class="flex justify-between mb-3">
-    <span class="font-semibold text-gray-900">SIP (Accumulation)</span>
-    <span class="font-semibold text-gray-900">SWP (Withdrawal)</span>
+    <span class="font-semibold text-slate-900">SIP (Accumulation)</span>
+    <span class="font-semibold text-slate-900">SWP (Withdrawal)</span>
   </div>
-  <div class="relative h-12 bg-white rounded-full overflow-hidden border-2 border-gray-300">
-    <div class="absolute left-0 top-0 h-full bg-gradient-to-r from-emerald-500 to-emerald-600 flex items-center justify-end pr-4" style="width: 60%">
+  <div class="relative h-12 bg-white rounded-full overflow-hidden border-2 border-slate-300">
+    <div class="absolute left-0 top-0 h-full bg-gradient-to-r from-success-500 to-success-600 flex items-center justify-end pr-4" style="width: 60%">
       <span class="text-white font-bold text-sm">60%</span>
     </div>
     <div class="absolute right-0 top-0 h-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-start pl-4" style="width: 40%">
       <span class="text-white font-bold text-sm">40%</span>
     </div>
   </div>
-  <p class="text-xs text-gray-600 mt-2 text-center">Based on investor preference for wealth building vs income generation</p>
+  <p class="text-xs text-slate-600 mt-2 text-center">Based on investor preference for wealth building vs income generation</p>
 </div>
 
 3. **TIMELINE** (Show SIP process):
 <div class="my-6">
   <div class="flex gap-4 mb-6">
     <div class="flex flex-col items-center">
-      <div class="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg">1</div>
+      <div class="w-10 h-10 rounded-full bg-success-600 text-white flex items-center justify-center font-bold text-lg">1</div>
       <div class="w-0.5 h-full bg-emerald-200 mt-2"></div>
     </div>
     <div class="flex-1 pb-6">
-      <h4 class="font-bold text-gray-900 mb-1">Step title</h4>
-      <p class="text-gray-600 text-sm">Description</p>
+      <h4 class="font-bold text-slate-900 mb-1">Step title</h4>
+      <p class="text-slate-600 text-sm">Description</p>
     </div>
   </div>
 </div>
 
 4. **PRO TIP CALLOUT**:
-<div class="my-6 p-6 rounded-lg border-l-4 bg-amber-50 border-amber-500">
-  <h4 class="font-bold text-lg mb-2 text-amber-900">💡 Pro Tip</h4>
-  <p class="text-gray-700">Expert advice here</p>
+<div class="my-6 p-6 rounded-lg border-l-4 bg-accent-50 border-accent-500">
+  <h4 class="font-bold text-lg mb-2 text-accent-900">💡 Pro Tip</h4>
+  <p class="text-slate-700">Expert advice here</p>
 </div>
 
 STRUCTURE:

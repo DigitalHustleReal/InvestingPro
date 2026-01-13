@@ -14,11 +14,11 @@ interface AdminPageHeaderProps {
 }
 
 const iconColorClasses = {
-    teal: 'from-teal-500 to-emerald-500 shadow-teal-500/25',
+    teal: 'from-primary-500 to-success-500 shadow-primary-500/25',
     purple: 'from-secondary-500 to-pink-500 shadow-purple-500/25',
     blue: 'from-secondary-500 to-cyan-500 shadow-primary-500/25',
-    amber: 'from-amber-500 to-orange-500 shadow-amber-500/25',
-    rose: 'from-rose-500 to-red-500 shadow-rose-500/25',
+    amber: 'from-accent-500 to-orange-500 shadow-accent-500/25',
+    rose: 'from-rose-500 to-danger-500 shadow-rose-500/25',
 };
 
 export function AdminPageHeader({
@@ -77,10 +77,10 @@ interface StatCardProps {
 
 export function StatCard({ label, value, change, changeType = 'neutral', icon: Icon, color = 'teal' }: StatCardProps) {
     const borderColors = {
-        teal: 'border-teal-500/20 hover:border-teal-500/40',
+        teal: 'border-primary-500/20 hover:border-primary-500/40',
         purple: 'border-secondary-500/20 hover:border-secondary-500/40',
         blue: 'border-secondary-500/20 hover:border-secondary-500/40',
-        amber: 'border-amber-500/20 hover:border-amber-500/40',
+        amber: 'border-accent-500/20 hover:border-accent-500/40',
         rose: 'border-rose-500/20 hover:border-rose-500/40',
     };
 
@@ -159,7 +159,7 @@ export function ActionButton({
     icon: Icon 
 }: ActionButtonProps) {
     const variants = {
-        primary: 'bg-gradient-to-r from-teal-500 to-emerald-500 text-white shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40',
+        primary: 'bg-gradient-to-r from-primary-500 to-success-500 text-white shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40',
         secondary: 'bg-white/10 text-white border border-white/10 hover:bg-white/20',
         ghost: 'text-slate-400 hover:text-white hover:bg-white/10',
         danger: 'bg-rose-500/20 text-rose-400 border border-rose-500/30 hover:bg-rose-500/30',
@@ -257,7 +257,7 @@ export function StatusBadge({ children, variant = 'default' }: BadgeProps) {
     const variants = {
         default: 'bg-slate-700 text-slate-300',
         success: 'bg-primary-500/20 text-primary-400 border border-primary-500/30',
-        warning: 'bg-amber-500/20 text-amber-400 border border-amber-500/30',
+        warning: 'bg-accent-500/20 text-accent-400 border border-accent-500/30',
         danger: 'bg-rose-500/20 text-rose-400 border border-rose-500/30',
         info: 'bg-secondary-500/20 text-secondary-400 border border-secondary-500/30',
     };

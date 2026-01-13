@@ -172,13 +172,13 @@ export default function SmartAdvisorWidget() {
                 <div className="max-w-5xl mx-auto">
                     <Card className="rounded-[2.5rem] bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden">
                         {/* Top Accent Bar */}
-                        <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-teal-400 via-secondary-500 to-secondary-500" />
+                        <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-primary-400 via-secondary-500 to-secondary-500" />
 
                         <CardContent className="p-8 md:p-12">
                             {/* INTRO STATE */}
                             {step === 'intro' && (
                                 <div className="text-center">
-                                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-teal-500 to-secondary-600 mb-6">
+                                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary-500 to-secondary-600 mb-6">
                                         <Sparkles className="w-8 h-8 text-white" />
                                     </div>
                                     <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
@@ -189,7 +189,7 @@ export default function SmartAdvisorWidget() {
                                     </p>
                                     <Button 
                                         onClick={() => setStep('questions')}
-                                        className="h-14 px-10 bg-gradient-to-r from-teal-500 to-secondary-600 hover:from-teal-600 hover:to-primary-700 text-white rounded-2xl font-bold text-lg shadow-xl shadow-teal-500/30"
+                                        className="h-14 px-10 bg-gradient-to-r from-primary-500 to-secondary-600 hover:from-primary-600 hover:to-primary-700 text-white rounded-2xl font-bold text-lg shadow-xl shadow-primary-500/30"
                                     >
                                         Start Smart Advisor
                                         <ArrowRight className="w-5 h-5 ml-2" />
@@ -213,7 +213,7 @@ export default function SmartAdvisorWidget() {
                                     {/* Question 1: Primary Goal */}
                                     <div>
                                         <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
-                                            <div className="w-8 h-8 rounded-full bg-teal-500 text-white flex items-center justify-center text-sm font-bold">1</div>
+                                            <div className="w-8 h-8 rounded-full bg-primary-500 text-white flex items-center justify-center text-sm font-bold">1</div>
                                             What's your primary financial goal?
                                         </h3>
                                         <div className="grid grid-cols-2 gap-4">
@@ -223,7 +223,7 @@ export default function SmartAdvisorWidget() {
                                                     onClick={() => setPrimaryGoal(goal.id)}
                                                     className={`p-5 rounded-2xl border-2 transition-all ${
                                                         primaryGoal === goal.id
-                                                            ? 'border-teal-500 bg-teal-50 dark:bg-teal-500/10'
+                                                            ? 'border-primary-500 bg-primary-50 dark:bg-primary-500/10'
                                                             : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
                                                     }`}
                                                 >
@@ -231,7 +231,7 @@ export default function SmartAdvisorWidget() {
                                                         <div className={`p-2 rounded-lg ${primaryGoal === goal.id ? `bg-${goal.color}-100 dark:bg-${goal.color}-900/30` : 'bg-slate-100 dark:bg-slate-800'}`}>
                                                             <goal.icon className={`w-5 h-5 ${primaryGoal === goal.id ? `text-${goal.color}-600 dark:text-${goal.color}-400` : 'text-slate-500'}`} />
                                                         </div>
-                                                        <span className={`font-semibold ${primaryGoal === goal.id ? 'text-teal-900 dark:text-teal-100' : 'text-slate-700 dark:text-slate-300'}`}>
+                                                        <span className={`font-semibold ${primaryGoal === goal.id ? 'text-primary-900 dark:text-primary-100' : 'text-slate-700 dark:text-slate-300'}`}>
                                                             {goal.label}
                                                         </span>
                                                     </div>
@@ -277,7 +277,7 @@ export default function SmartAdvisorWidget() {
                                             disabled={!primaryGoal || !lifeStage}
                                             className={`w-full h-14 rounded-2xl font-bold text-lg ${
                                                 primaryGoal && lifeStage
-                                                    ? 'bg-gradient-to-r from-teal-500 to-secondary-600 hover:from-teal-600 hover:to-primary-700 text-white shadow-xl shadow-teal-500/30'
+                                                    ? 'bg-gradient-to-r from-primary-500 to-secondary-600 hover:from-primary-600 hover:to-primary-700 text-white shadow-xl shadow-primary-500/30'
                                                     : 'bg-slate-200 dark:bg-slate-800 text-slate-400 cursor-not-allowed'
                                             }`}
                                         >
@@ -308,7 +308,7 @@ export default function SmartAdvisorWidget() {
                                             <Link key={idx} href={rec.link}>
                                                 <div className={`p-6 rounded-2xl border-2 transition-all hover:shadow-lg hover:-translate-y-1 ${
                                                     rec.priority === 'high'
-                                                        ? 'border-teal-200 dark:border-teal-800 bg-gradient-to-br from-teal-50 to-primary-50 dark:from-teal-900/20 dark:to-primary-900/20'
+                                                        ? 'border-primary-200 dark:border-primary-800 bg-gradient-to-br from-primary-50 to-primary-50 dark:from-primary-900/20 dark:to-primary-900/20'
                                                         : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800'
                                                 }`}>
                                                     <div className="flex items-start justify-between">
@@ -322,7 +322,7 @@ export default function SmartAdvisorWidget() {
                                                                         {rec.category}
                                                                     </Badge>
                                                                     {rec.priority === 'high' && (
-                                                                        <Badge className="text-xs bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 border-0">
+                                                                        <Badge className="text-xs bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-400 border-0">
                                                                             Priority
                                                                         </Badge>
                                                                     )}
@@ -335,7 +335,7 @@ export default function SmartAdvisorWidget() {
                                                                 </p>
                                                             </div>
                                                         </div>
-                                                        <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-teal-600 transition-colors ml-4 shrink-0" />
+                                                        <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-primary-600 transition-colors ml-4 shrink-0" />
                                                     </div>
                                                 </div>
                                             </Link>

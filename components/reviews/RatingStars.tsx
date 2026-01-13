@@ -32,7 +32,7 @@ export default function RatingStars({
             key={i}
             size={size}
             className={`
-              ${isFilled ? 'fill-amber-400 text-amber-400' : 'text-gray-300 dark:text-gray-600'}
+              ${isFilled ? 'fill-accent-400 text-accent-400' : 'text-slate-300 dark:text-slate-600'}
               ${interactive ? 'cursor-pointer hover:scale-110 transition-transform' : ''}
             `}
             onClick={() => interactive && onRate && onRate(value)}
@@ -41,7 +41,7 @@ export default function RatingStars({
       })}
       
       {showCount && (
-        <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">
+        <span className="ml-2 text-sm text-slate-500 dark:text-slate-400">
           ({count} reviews)
         </span>
       )}

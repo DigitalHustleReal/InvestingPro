@@ -52,7 +52,7 @@ export default function TrustSection() {
             <div className="absolute inset-0 pointer-events-none">
                  <DotPattern className="text-slate-200 dark:text-slate-800/80 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]" />
                  <div className="absolute -top-24 -left-24 w-96 h-96 bg-secondary-100/50 dark:bg-secondary-500/10 rounded-full blur-[100px]"></div>
-                 <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-teal-100/50 dark:bg-teal-500/10 rounded-full blur-[100px]"></div>
+                 <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-primary-100/50 dark:bg-primary-500/10 rounded-full blur-[100px]"></div>
             </div>
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

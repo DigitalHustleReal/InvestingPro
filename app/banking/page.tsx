@@ -101,7 +101,7 @@ export default function BankingPage() {
             />
 
             {/* HERO SECTION - Live Rate Radar */}
-            <section className="relative overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-emerald-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+            <section className="relative overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-success-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
                 {/* Background Decor */}
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-secondary-300/20 dark:bg-secondary-500/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2" />
@@ -121,7 +121,7 @@ export default function BankingPage() {
                     <div className="text-center mb-8 max-w-4xl mx-auto">
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white leading-tight mb-4">
                             Maximize Your Savings with{' '}
-                            <span className="bg-gradient-to-r from-emerald-500 via-teal-500 to-secondary-500 bg-clip-text text-transparent">
+                            <span className="bg-gradient-to-r from-success-500 via-primary-500 to-secondary-500 bg-clip-text text-transparent">
                                 Live Rate Radar
                             </span>
                         </h1>
@@ -134,7 +134,7 @@ export default function BankingPage() {
                     <div className="max-w-6xl mx-auto">
                         <Card className="bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 shadow-2xl rounded-3xl overflow-hidden">
                             {/* Table Header with Controls */}
-                            <div className="bg-gradient-to-r from-emerald-500 to-teal-600 p-6">
+                            <div className="bg-gradient-to-r from-success-500 to-primary-600 p-6">
                                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                                     <div>
                                         <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
@@ -231,7 +231,7 @@ export default function BankingPage() {
                                                         </td>
                                                         <td className="px-6 py-5 text-center">
                                                             <div className="flex items-center justify-center gap-1">
-                                                                <Award className="w-4 h-4 text-amber-500" />
+                                                                <Award className="w-4 h-4 text-accent-500" />
                                                                 <span className="font-bold text-slate-900 dark:text-white">{bank.rating}</span>
                                                                 <span className="text-slate-500 dark:text-slate-400">/5</span>
                                                             </div>

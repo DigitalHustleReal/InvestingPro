@@ -58,7 +58,7 @@ export default function RatesWidget({ category, title, className }: RatesWidgetP
                             <span className="text-xs text-slate-500 font-medium mb-1">{rate.label}</span>
                             <div className="flex items-center gap-1">
                                 <span className={cn("text-lg font-bold", 
-                                    rate.trend === 'up' ? "text-emerald-600" : 
+                                    rate.trend === 'up' ? "text-success-600" : 
                                     rate.trend === 'down' ? "text-indigo-600" : "text-slate-900 dark:text-white"
                                 )}>
                                     {rate.value}

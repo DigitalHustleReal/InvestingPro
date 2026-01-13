@@ -18,10 +18,10 @@ interface DisclaimerBannerProps {
 const disclaimerContent = {
   investment: {
     icon: AlertTriangle,
-    iconColor: 'text-amber-700',
-    bgColor: 'bg-amber-50',
-    borderColor: 'border-amber-600',
-    textColor: 'text-amber-900',
+    iconColor: 'text-accent-700',
+    bgColor: 'bg-accent-50',
+    borderColor: 'border-accent-600',
+    textColor: 'text-accent-900',
     title: 'Investment Risk Disclaimer',
     text: 'Investment in financial products is subject to market risk. Past performance does not guarantee future results. Please read all scheme-related documents carefully before investing. Returns are not guaranteed and depend on market conditions.',
   },
@@ -45,9 +45,9 @@ const disclaimerContent = {
   },
   sebi: {
     icon: ShieldCheck,
-    iconColor: 'text-red-700',
-    bgColor: 'bg-red-50',
-    borderColor: 'border-red-600',
+    iconColor: 'text-danger-700',
+    bgColor: 'bg-danger-50',
+    borderColor: 'border-danger-600',
     textColor: 'text-red-900',
     title: 'SEBI Regulatory Notice',
     text: 'InvestingPro.in is NOT a SEBI registered investment advisor (RIA). We provide comparison and educational content only. Investment decisions should be made after consulting with SEBI registered advisors. Refer to www.sebi.gov.in for registered advisors.',

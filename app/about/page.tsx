@@ -47,7 +47,7 @@ export default function AboutPage() {
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">Contact Us</h2>
                     <p className="text-slate-600 dark:text-slate-300">
                         Have questions or feedback? Reach out to us at{' '}
-                        <a href="mailto:hello@investingpro.in" className="text-teal-600 hover:text-teal-700">
+                        <a href="mailto:hello@investingpro.in" className="text-primary-600 hover:text-primary-700">
                             hello@investingpro.in
                         </a>
                     </p>

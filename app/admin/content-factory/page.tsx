@@ -96,7 +96,7 @@ export default function ContentFactoryPage() {
                         <h1 className="text-4xl font-bold bg-gradient-to-r from-secondary-400 to-pink-400 bg-clip-text text-transparent">
                             🤖 AI Content Factory
                         </h1>
-                        <p className="text-gray-400">
+                        <p className="text-slate-400">
                             Automated bulk article generation with real-time progress tracking
                         </p>
                     </div>
@@ -107,7 +107,7 @@ export default function ContentFactoryPage() {
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 {/* Article Count */}
                                 <div className="space-y-2">
-                                    <label className="text-sm text-gray-400">Articles to Generate</label>
+                                    <label className="text-sm text-slate-400">Articles to Generate</label>
                                     <select 
                                         value={count}
                                         onChange={(e) => setCount(parseInt(e.target.value))}
@@ -124,7 +124,7 @@ export default function ContentFactoryPage() {
 
                                 {/* Phase Selection */}
                                 <div className="space-y-2">
-                                    <label className="text-sm text-gray-400">Content Phase</label>
+                                    <label className="text-sm text-slate-400">Content Phase</label>
                                     <select 
                                         value={phase}
                                         onChange={(e) => setPhase(e.target.value)}
@@ -139,7 +139,7 @@ export default function ContentFactoryPage() {
 
                                 {/* Action Button */}
                                 <div className="space-y-2">
-                                    <label className="text-sm text-gray-400">Action</label>
+                                    <label className="text-sm text-slate-400">Action</label>
                                     <Button
                                         onClick={startGeneration}
                                         disabled={isGenerating}
@@ -158,7 +158,7 @@ export default function ContentFactoryPage() {
                             <div className="space-y-4">
                                 <div className="flex items-center justify-between">
                                     <h2 className="text-xl font-semibold">Generation Progress</h2>
-                                    <span className="text-gray-400">
+                                    <span className="text-slate-400">
                                         {currentArticle} / {totalArticles} articles
                                     </span>
                                 </div>
@@ -171,7 +171,7 @@ export default function ContentFactoryPage() {
                                     />
                                 </div>
 
-                                <div className="text-sm text-gray-400">
+                                <div className="text-sm text-slate-400">
                                     {percentage.toFixed(0)}% Complete
                                 </div>
 
@@ -182,19 +182,19 @@ export default function ContentFactoryPage() {
                                             <div className="text-2xl font-bold text-green-400">
                                                 {latestStatus.success || 0}
                                             </div>
-                                            <div className="text-sm text-gray-400">Successful</div>
+                                            <div className="text-sm text-slate-400">Successful</div>
                                         </div>
                                         <div className="text-center">
                                             <div className="text-2xl font-bold text-red-400">
                                                 {latestStatus.failed || 0}
                                             </div>
-                                            <div className="text-sm text-gray-400">Failed</div>
+                                            <div className="text-sm text-slate-400">Failed</div>
                                         </div>
                                         <div className="text-center">
                                             <div className="text-2xl font-bold text-secondary-400">
                                                 {latestStatus.total || 0}
                                             </div>
-                                            <div className="text-sm text-gray-400">Total</div>
+                                            <div className="text-sm text-slate-400">Total</div>
                                         </div>
                                     </div>
                                 )}
@@ -220,7 +220,7 @@ export default function ContentFactoryPage() {
                                             </div>
                                         )}
                                         {item.status === 'log' && (
-                                            <div className="text-gray-400 pl-4">{item.message}</div>
+                                            <div className="text-slate-400 pl-4">{item.message}</div>
                                         )}
                                         {item.status === 'success' && (
                                             <div className="text-green-400">
@@ -251,21 +251,21 @@ export default function ContentFactoryPage() {
                     {/* Quick Stats */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <Card className="bg-gradient-to-br from-secondary-500/10 to-pink-500/10 border-secondary-500/20 p-6">
-                            <div className="text-sm text-gray-400 mb-2">Current Authority</div>
+                            <div className="text-sm text-slate-400 mb-2">Current Authority</div>
                             <div className="text-3xl font-bold text-secondary-400">
                                 {latestStatus?.authority || '...'}/100
                             </div>
                         </Card>
 
                         <Card className="bg-gradient-to-br from-secondary-500/10 to-cyan-500/10 border-secondary-500/20 p-6">
-                            <div className="text-sm text-gray-400 mb-2">Articles Generated</div>
+                            <div className="text-sm text-slate-400 mb-2">Articles Generated</div>
                             <div className="text-3xl font-bold text-secondary-400">
                                 {currentArticle}
                             </div>
                         </Card>
 
-                        <Card className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border-green-500/20 p-6">
-                            <div className="text-sm text-gray-400 mb-2">Success Rate</div>
+                        <Card className="bg-gradient-to-br from-success-500/10 to-success-500/10 border-success-500/20 p-6">
+                            <div className="text-sm text-slate-400 mb-2">Success Rate</div>
                             <div className="text-3xl font-bold text-green-400">
                                 {latestStatus?.success && latestStatus?.total
                                     ? `${((latestStatus.success / latestStatus.total) * 100).toFixed(0)}%`

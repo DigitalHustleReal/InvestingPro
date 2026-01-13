@@ -67,7 +67,7 @@ export default function SEOExperimentsPage() {
                         <Card key={exp.id} className="border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
                             <CardHeader className="bg-slate-50 border-b border-slate-100 flex flex-row items-center justify-between py-4">
                                 <div>
-                                    <Badge variant={exp.status === 'running' ? 'default' : 'secondary'} className={exp.status === 'running' ? 'bg-green-600' : ''}>
+                                    <Badge variant={exp.status === 'running' ? 'default' : 'secondary'} className={exp.status === 'running' ? 'bg-success-600' : ''}>
                                         {exp.status === 'running' ? 'Active' : 'Paused'}
                                     </Badge>
                                     <span className="text-xs text-slate-500 ml-3">Running for {exp.daysRunning} days</span>
@@ -78,7 +78,7 @@ export default function SEOExperimentsPage() {
                                             <Pause className="w-4 h-4" />
                                         </Button>
                                     ) : (
-                                        <Button size="icon" variant="ghost" className="h-8 w-8 text-slate-400 hover:text-green-600">
+                                        <Button size="icon" variant="ghost" className="h-8 w-8 text-slate-400 hover:text-success-600">
                                             <Play className="w-4 h-4" />
                                         </Button>
                                     )}
@@ -93,9 +93,9 @@ export default function SEOExperimentsPage() {
                                     {exp.variants.map((variant, idx) => {
                                         const isWinner = variant.ctr >= Math.max(...exp.variants.map(v => v.ctr));
                                         return (
-                                            <div key={variant.id} className={`relative p-3 rounded-lg border ${isWinner ? 'border-green-200 bg-green-50' : 'border-slate-100 bg-white'}`}>
+                                            <div key={variant.id} className={`relative p-3 rounded-lg border ${isWinner ? 'border-green-200 bg-success-50' : 'border-slate-100 bg-white'}`}>
                                                 {isWinner && (
-                                                    <div className="absolute -right-2 -top-2 bg-green-500 text-white p-1 rounded-full shadow-sm">
+                                                    <div className="absolute -right-2 -top-2 bg-success-500 text-white p-1 rounded-full shadow-sm">
                                                         <TrendingUp className="w-3 h-3" />
                                                     </div>
                                                 )}
@@ -103,14 +103,14 @@ export default function SEOExperimentsPage() {
                                                     <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
                                                         {variant.isControl ? 'Control (A)' : `Variant (${String.fromCharCode(66 + idx - 1)})`}
                                                     </span>
-                                                    <span className={`text-sm font-bold ${isWinner ? 'text-green-700' : 'text-slate-600'}`}>
+                                                    <span className={`text-sm font-bold ${isWinner ? 'text-success-700' : 'text-slate-600'}`}>
                                                         {variant.ctr}% CTR
                                                     </span>
                                                 </div>
                                                 <p className="text-sm font-medium text-slate-900 mb-2">{variant.text}</p>
                                                 <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
                                                     <div 
-                                                        className={`h-full ${isWinner ? 'bg-green-500' : 'bg-slate-400'}`} 
+                                                        className={`h-full ${isWinner ? 'bg-success-500' : 'bg-slate-400'}`} 
                                                         style={{ width: `${(variant.ctr / 5) * 100}%` }} // normalized to 5% max
                                                     />
                                                 </div>

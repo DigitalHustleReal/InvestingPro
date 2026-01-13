@@ -4,19 +4,17 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useCompare } from '@/contexts/CompareContext';
 import { RichProduct } from '@/types/rich-product';
-import { api } from '@/lib/api';
 import SEOHead from '@/components/common/SEOHead';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/badge';
+import { ProductSelector } from '@/components/compare/ProductSelector';
 import { 
     X, 
     Check, 
     Minus, 
     ArrowLeft, 
     Share2, 
-    Download, 
     Sparkles, 
-    ExternalLink,
     AlertCircle
 } from 'lucide-react';
 import Image from 'next/image';
@@ -25,10 +23,13 @@ import Link from 'next/link';
 export default function ComparisonPage() {
     const searchParams = useSearchParams();
     const router = useRouter();
-    const { selectedProducts, addProduct, clearAll } = useCompare();
+    const { selectedProducts, addProduct, removeProduct, clearAll } = useCompare();
     const [products, setProducts] = useState<RichProduct[]>([]);
     const [loading, setLoading] = useState(true);
     
+    const MAX_PRODUCTS = 4;
+    const showAddButton = products.length < MAX_PRODUCTS;
+
     // Feature differences highlighting toggle
     const [highlightDiff, setHighlightDiff] = useState(true);
     const [hideIdentical, setHideIdentical] = useState(false);
@@ -42,21 +43,12 @@ export default function ComparisonPage() {
             // If URL has slugs, fetch them (shareable link scenario)
             if (slugs.length > 0) {
                 try {
-                    // Fetch all products in parallel (mocked for now, assumes API exists)
-                    // in real app: await api.products.getBySlugs(slugs)
-                    // For now, we rely on context if available, or fetch individually
-                    
                     // Fallback: If context has products, use them to avoid refetching
                     if (selectedProducts.length > 0 && selectedProducts.every(p => slugs.includes(p.slug))) {
                          setProducts(selectedProducts);
                     } else {
-                        // In a real scenario, we'd fetch from API here.
-                        // For this implementation, we will assume context is the primary source
-                        // If context is empty but URL has slugs, we should ideally fetch.
-                        // For MVP, we'll warn if context is empty.
                          if (selectedProducts.length === 0) {
-                             // Placeholder: Simulating fetch or redirect
-                             // router.push('/investing'); // Redirect if no data
+                             // Placeholder for empty context but URL params present
                          } else {
                              setProducts(selectedProducts);
                          }
@@ -162,7 +154,6 @@ export default function ComparisonPage() {
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-                {/* Comparison Grid */}
                 <div className="overflow-x-auto pb-12">
                     <table className="w-full min-w-[800px] border-collapse">
                         {/* 1. Product Headers (Sticky) */}
@@ -174,14 +165,17 @@ export default function ComparisonPage() {
                                 {products.map(product => (
                                     <th key={product.id} className="w-[280px] p-4 align-top bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
                                         <div className="relative group">
-                                            {/* Delete Action */}
                                             <button 
                                                 onClick={() => {
-                                                    // Remove logic
+                                                    removeProduct(product.id);
                                                     const newProds = products.filter(p => p.id !== product.id);
                                                     setProducts(newProds);
-                                                    if (newProds.length === 0) clearAll();
-                                                    else router.replace(`/compare?products=${newProds.map(p => p.slug).join(',')}`);
+                                                    if (newProds.length === 0) {
+                                                        router.replace('/compare');
+                                                    } else {
+                                                        const slugs = newProds.map(p => p.slug).join(',');
+                                                        router.replace(`/compare?products=${slugs}`);
+                                                    }
                                                 }}
                                                 className="absolute -top-2 -right-2 p-1 bg-slate-200 dark:bg-slate-800 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                                             >
@@ -190,7 +184,7 @@ export default function ComparisonPage() {
 
                                             <div className="h-32 flex items-center justify-center mb-4 p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
                                                 <Image 
-                                                    src={product.image_url} 
+                                                    src={product.image_url || '/images/placeholder.png'} 
                                                     alt={product.name} 
                                                     width={100} 
                                                     height={100} 
@@ -214,22 +208,38 @@ export default function ComparisonPage() {
                                         </div>
                                     </th>
                                 ))}
+                                {/* Add Button Column */}
+                                {showAddButton && (
+                                    <th className="w-[280px] p-4 align-top bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+                                        <ProductSelector 
+                                            category={products[0]?.category}
+                                            excludeIds={products.map(p => p.id)}
+                                            onSelect={(product) => {
+                                                addProduct(product);
+                                                const newProds = [...products, product];
+                                                setProducts(newProds);
+                                                const slugs = newProds.map(p => p.slug).join(',');
+                                                router.replace(`/compare?products=${slugs}`);
+                                            }}
+                                        />
+                                    </th>
+                                )}
                             </tr>
                         </thead>
 
                         {/* 2. Feature Rows */}
                         <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
-                            {config.sections.map((section, sIdx) => (
+                            {config.sections.map((section) => (
                                 <React.Fragment key={section.title}>
                                     <tr className="bg-slate-100/50 dark:bg-slate-900/50">
-                                        <td colSpan={products.length + 1} className="p-3 text-xs font-bold uppercase tracking-wider text-slate-500 sticky left-0">
+                                        <td colSpan={products.length + (showAddButton ? 2 : 1)} className="p-3 text-xs font-bold uppercase tracking-wider text-slate-500 sticky left-0">
                                             {section.title}
                                         </td>
                                     </tr>
                                     {section.fields.map(field => {
                                         // Check for differences
                                         const values = products.map(p => getFieldValue(p, field.key));
-                                        const isIdentical = values.every(v => v === values[0]);
+                                        const isIdentical = values.length > 1 && values.every(v => v === values[0]);
                                         
                                         if (hideIdentical && isIdentical) return null;
 
@@ -239,7 +249,7 @@ export default function ComparisonPage() {
                                                     {field.label}
                                                     {field.help && <AlertCircle className="w-3 h-3 inline ml-1 text-slate-300" />}
                                                 </td>
-                                                {products.map((product, pIdx) => {
+                                                {products.map((product) => {
                                                     const value = getFieldValue(product, field.key);
                                                     const isBest = highlightDiff && !isIdentical && field.highlight === 'high' 
                                                         ? isHighestValue(value, values) 
@@ -248,11 +258,13 @@ export default function ComparisonPage() {
                                                             : false;
 
                                                     return (
-                                                        <td key={`${product.id}-${field.key}`} className={`p-4 align-top text-sm border-r border-slate-50 dark:border-slate-900 text-center ${isBest ? 'bg-emerald-50/50 dark:bg-emerald-900/10' : ''}`}>
+                                                        <td key={`${product.id}-${field.key}`} className={`p-4 align-top text-sm border-r border-slate-50 dark:border-slate-900 text-center ${isBest ? 'bg-success-50/50 dark:bg-emerald-900/10' : ''}`}>
                                                             {renderCell(value, field.type, isBest)}
                                                         </td>
                                                     );
                                                 })}
+                                                {/* Empty cell for Add column */}
+                                                {showAddButton && <td className="p-4 border-r border-slate-50 dark:border-slate-900"></td>}
                                             </tr>
                                         );
                                     })}
@@ -289,11 +301,12 @@ interface Config {
 }
 
 // Accessor Logic
-function getFieldValue(product: any, key: string): any {
+// Accessor Logic
+function getFieldValue(product: RichProduct | any, key: string): any {
     // Check direct property first
-    if (product[key] !== undefined) return product[key];
+    if ((product as any)[key] !== undefined) return (product as any)[key];
     // Check features object
-    if (product.features && product.features[key] !== undefined) return product.features[key];
+    if (product.features && (product.features as any)[key] !== undefined) return (product.features as any)[key];
     // Check key_features array
     const kf = product.key_features?.find((f: any) => f.label === key);
     if (kf) return kf.value;
@@ -308,7 +321,7 @@ function renderCell(value: any, type: FieldType, isBest: boolean) {
     const content = () => {
         switch (type) {
             case 'boolean':
-                return value === true || value === 'Yes' ? <Check className="w-5 h-5 text-emerald-500 mx-auto" /> : <Minus className="w-4 h-4 text-slate-300 mx-auto" />;
+                return value === true || value === 'Yes' ? <Check className="w-5 h-5 text-success-500 mx-auto" /> : <Minus className="w-4 h-4 text-slate-300 mx-auto" />;
             case 'list':
                 if (Array.isArray(value)) return <ul className="text-left list-disc list-inside text-xs space-y-1">{value.map((v: any, i: number) => <li key={i}>{v}</li>)}</ul>;
                 return <span className="text-sm">{String(value)}</span>;
@@ -320,9 +333,9 @@ function renderCell(value: any, type: FieldType, isBest: boolean) {
     };
 
     return (
-        <div className={`relative ${isBest ? 'text-emerald-700 dark:text-emerald-400 font-medium' : ''}`}>
+        <div className={`relative ${isBest ? 'text-success-700 dark:text-emerald-400 font-medium' : ''}`}>
             {content()}
-            {isBest && <Badge className="absolute -top-3 -right-2 scale-[0.7] bg-emerald-100 text-emerald-700 border-0">Winner</Badge>}
+            {isBest && <Badge className="absolute -top-3 -right-2 scale-[0.7] bg-success-100 text-success-700 border-0">Winner</Badge>}
         </div>
     );
 }

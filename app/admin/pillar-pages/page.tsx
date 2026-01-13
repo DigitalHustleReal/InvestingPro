@@ -55,7 +55,7 @@ export default function PillarPagesPage() {
                 {/* Pages List */}
                 {isLoading ? (
                     <div className="flex items-center justify-center py-20">
-                        <div className="w-10 h-10 border-4 border-teal-500/30 border-t-teal-500 rounded-full animate-spin" />
+                        <div className="w-10 h-10 border-4 border-primary-500/30 border-t-primary-500 rounded-full animate-spin" />
                     </div>
                 ) : articles.length === 0 ? (
                     <ContentSection>
@@ -78,11 +78,11 @@ export default function PillarPagesPage() {
                                     <div className="flex flex-col md:flex-row items-start gap-4 hover:opacity-90 transition-opacity cursor-pointer -m-6 p-6">
                                         <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${
                                             article.content_type === 'pillar' 
-                                                ? 'bg-gradient-to-br from-teal-500/20 to-emerald-500/20 border border-teal-500/30'
+                                                ? 'bg-gradient-to-br from-primary-500/20 to-success-500/20 border border-primary-500/30'
                                                 : 'bg-gradient-to-br from-secondary-500/20 to-cyan-500/20 border border-secondary-500/30'
                                         }`}>
                                             {article.content_type === 'pillar' 
-                                                ? <Target className="w-6 h-6 text-teal-400" />
+                                                ? <Target className="w-6 h-6 text-primary-400" />
                                                 : <FileText className="w-6 h-6 text-secondary-400" />
                                             }
                                         </div>
@@ -96,7 +96,7 @@ export default function PillarPagesPage() {
                                                 </StatusBadge>
                                                 <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
                                                     article.content_type === 'pillar'
-                                                        ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30'
+                                                        ? 'bg-primary-500/20 text-primary-400 border border-primary-500/30'
                                                         : 'bg-secondary-500/20 text-secondary-400 border border-secondary-500/30'
                                                 }`}>
                                                     {article.content_type === 'pillar' ? 'Pillar' : 'Category'}
@@ -129,7 +129,7 @@ export default function PillarPagesPage() {
                                                     </div>
                                                 )}
                                                 {article.pillar_related_articles && article.pillar_related_articles.length > 0 && (
-                                                    <div className="text-teal-400">
+                                                    <div className="text-primary-400">
                                                         {article.pillar_related_articles.length} related articles
                                                     </div>
                                                 )}

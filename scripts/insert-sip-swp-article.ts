@@ -26,24 +26,24 @@ const article = {
 
 <p>In this comprehensive guide, we'll explore everything you need to know about SIP and SWP, their differences, benefits, and how to choose the right strategy for your financial goals.</p>
 
-<div class="bg-gradient-to-br from-emerald-50 to-emerald-100 border-2 border-emerald-500 rounded-lg p-6 my-8">
+<div class="bg-gradient-to-br from-success-50 to-success-100 border-2 border-success-500 rounded-lg p-6 my-8">
   <h3 class="text-xl font-bold text-emerald-900 mb-4">✓ Key Takeaways</h3>
   <ul class="space-y-3">
     <li class="flex items-start gap-3">
-      <span class="flex-shrink-0 w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
-      <span class="text-gray-800"><strong>SIP</strong> is for wealth accumulation - invest small amounts regularly to build a large corpus over time</span>
+      <span class="flex-shrink-0 w-6 h-6 bg-success-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
+      <span class="text-slate-800"><strong>SIP</strong> is for wealth accumulation - invest small amounts regularly to build a large corpus over time</span>
     </li>
     <li class="flex items-start gap-3">
-      <span class="flex-shrink-0 w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
-      <span class="text-gray-800"><strong>SWP</strong> is for income generation - withdraw fixed amounts regularly from your accumulated corpus</span>
+      <span class="flex-shrink-0 w-6 h-6 bg-success-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
+      <span class="text-slate-800"><strong>SWP</strong> is for income generation - withdraw fixed amounts regularly from your accumulated corpus</span>
     </li>
     <li class="flex items-start gap-3">
-      <span class="flex-shrink-0 w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
-      <span class="text-gray-800">Use SIP during your earning years (20s-50s) and switch to SWP during retirement (60+)</span>
+      <span class="flex-shrink-0 w-6 h-6 bg-success-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
+      <span class="text-slate-800">Use SIP during your earning years (20s-50s) and switch to SWP during retirement (60+)</span>
     </li>
     <li class="flex items-start gap-3">
-      <span class="flex-shrink-0 w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-sm font-bold">4</span>
-      <span class="text-gray-800">Both strategies benefit from rupee cost averaging and tax efficiency under Indian regulations</span>
+      <span class="flex-shrink-0 w-6 h-6 bg-success-600 text-white rounded-full flex items-center justify-center text-sm font-bold">4</span>
+      <span class="text-slate-800">Both strategies benefit from rupee cost averaging and tax efficiency under Indian regulations</span>
     </li>
   </ul>
 </div>
@@ -76,55 +76,55 @@ const article = {
 
 <h2>SIP vs SWP: Head-to-Head Comparison</h2>
 
-<div class="my-6 p-6 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-lg border border-gray-200">
+<div class="my-6 p-6 bg-gradient-to-r from-success-50 to-blue-50 rounded-lg border border-slate-200">
   <div class="flex justify-between mb-3">
-    <span class="font-semibold text-gray-900">SIP (Wealth Building)</span>
-    <span class="font-semibold text-gray-900">SWP (Income Generation)</span>
+    <span class="font-semibold text-slate-900">SIP (Wealth Building)</span>
+    <span class="font-semibold text-slate-900">SWP (Income Generation)</span>
   </div>
-  <div class="relative h-12 bg-white rounded-full overflow-hidden border-2 border-gray-300">
-    <div class="absolute left-0 top-0 h-full bg-gradient-to-r from-emerald-500 to-emerald-600 flex items-center justify-end pr-4" style="width: 60%">
+  <div class="relative h-12 bg-white rounded-full overflow-hidden border-2 border-slate-300">
+    <div class="absolute left-0 top-0 h-full bg-gradient-to-r from-success-500 to-success-600 flex items-center justify-end pr-4" style="width: 60%">
       <span class="text-white font-bold text-sm">60%</span>
     </div>
     <div class="absolute right-0 top-0 h-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-start pl-4" style="width: 40%">
       <span class="text-white font-bold text-sm">40%</span>
     </div>
   </div>
-  <p class="text-xs text-gray-600 mt-2 text-center">Based on investor preference: 60% use SIP for accumulation, 40% use SWP for retirement income</p>
+  <p class="text-xs text-slate-600 mt-2 text-center">Based on investor preference: 60% use SIP for accumulation, 40% use SWP for retirement income</p>
 </div>
 
-<div class="my-8 border-2 border-gray-200 rounded-lg overflow-hidden">
-  <div class="bg-emerald-600 text-white px-6 py-3">
+<div class="my-8 border-2 border-slate-200 rounded-lg overflow-hidden">
+  <div class="bg-success-600 text-white px-6 py-3">
     <h3 class="font-bold text-lg">Detailed Comparison Table</h3>
   </div>
-  <div class="divide-y divide-gray-200">
+  <div class="divide-y divide-slate-200">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-      <div class="font-semibold text-gray-900">Purpose</div>
-      <div class="text-emerald-700">Wealth accumulation</div>
+      <div class="font-semibold text-slate-900">Purpose</div>
+      <div class="text-success-700">Wealth accumulation</div>
       <div class="text-blue-700">Regular income generation</div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-gray-50">
-      <div class="font-semibold text-gray-900">Cash Flow</div>
-      <div class="text-emerald-700">Money goes IN</div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-slate-50">
+      <div class="font-semibold text-slate-900">Cash Flow</div>
+      <div class="text-success-700">Money goes IN</div>
       <div class="text-blue-700">Money comes OUT</div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-      <div class="font-semibold text-gray-900">Best For</div>
-      <div class="text-emerald-700">Working professionals (20s-50s)</div>
+      <div class="font-semibold text-slate-900">Best For</div>
+      <div class="text-success-700">Working professionals (20s-50s)</div>
       <div class="text-blue-700">Retirees (60+ years)</div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-gray-50">
-      <div class="font-semibold text-gray-900">Minimum Amount</div>
-      <div class="text-emerald-700">₹500 per month</div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-slate-50">
+      <div class="font-semibold text-slate-900">Minimum Amount</div>
+      <div class="text-success-700">₹500 per month</div>
       <div class="text-blue-700">Based on corpus size</div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-      <div class="font-semibold text-gray-900">Tax Treatment</div>
-      <div class="text-emerald-700">LTCG/STCG on redemption</div>
+      <div class="font-semibold text-slate-900">Tax Treatment</div>
+      <div class="text-success-700">LTCG/STCG on redemption</div>
       <div class="text-blue-700">LTCG/STCG on each withdrawal</div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-gray-50">
-      <div class="font-semibold text-gray-900">Risk Level</div>
-      <div class="text-emerald-700">Market-linked (equity/debt)</div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-slate-50">
+      <div class="font-semibold text-slate-900">Risk Level</div>
+      <div class="text-success-700">Market-linked (equity/debt)</div>
       <div class="text-blue-700">Lower (uses accumulated corpus)</div>
     </div>
   </div>
@@ -135,51 +135,51 @@ const article = {
 <div class="my-6">
   <div class="flex gap-4 mb-6">
     <div class="flex flex-col items-center">
-      <div class="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg">1</div>
+      <div class="w-10 h-10 rounded-full bg-success-600 text-white flex items-center justify-center font-bold text-lg">1</div>
       <div class="w-0.5 h-full bg-emerald-200 mt-2"></div>
     </div>
     <div class="flex-1 pb-6">
-      <h4 class="font-bold text-gray-900 mb-1">Choose Your Fund</h4>
-      <p class="text-gray-600 text-sm">Select a mutual fund based on your risk appetite and goals - equity for growth, debt for stability, or hybrid for balance</p>
+      <h4 class="font-bold text-slate-900 mb-1">Choose Your Fund</h4>
+      <p class="text-slate-600 text-sm">Select a mutual fund based on your risk appetite and goals - equity for growth, debt for stability, or hybrid for balance</p>
     </div>
   </div>
   
   <div class="flex gap-4 mb-6">
     <div class="flex flex-col items-center">
-      <div class="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg">2</div>
+      <div class="w-10 h-10 rounded-full bg-success-600 text-white flex items-center justify-center font-bold text-lg">2</div>
       <div class="w-0.5 h-full bg-emerald-200 mt-2"></div>
     </div>
     <div class="flex-1 pb-6">
-      <h4 class="font-bold text-gray-900 mb-1">Set Investment Amount</h4>
-      <p class="text-gray-600 text-sm">Decide how much to invest monthly - start small with ₹500 or go higher based on your budget and savings capacity</p>
+      <h4 class="font-bold text-slate-900 mb-1">Set Investment Amount</h4>
+      <p class="text-slate-600 text-sm">Decide how much to invest monthly - start small with ₹500 or go higher based on your budget and savings capacity</p>
     </div>
   </div>
   
   <div class="flex gap-4 mb-6">
     <div class="flex flex-col items-center">
-      <div class="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg">3</div>
+      <div class="w-10 h-10 rounded-full bg-success-600 text-white flex items-center justify-center font-bold text-lg">3</div>
       <div class="w-0.5 h-full bg-emerald-200 mt-2"></div>
     </div>
     <div class="flex-1 pb-6">
-      <h4 class="font-bold text-gray-900 mb-1">Automate the Process</h4>
-      <p class="text-gray-600 text-sm">Set up auto-debit from your salary account - invest on the same date each month for consistency and discipline</p>
+      <h4 class="font-bold text-slate-900 mb-1">Automate the Process</h4>
+      <p class="text-slate-600 text-sm">Set up auto-debit from your salary account - invest on the same date each month for consistency and discipline</p>
     </div>
   </div>
   
   <div class="flex gap-4">
     <div class="flex flex-col items-center">
-      <div class="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg">4</div>
+      <div class="w-10 h-10 rounded-full bg-success-600 text-white flex items-center justify-center font-bold text-lg">4</div>
     </div>
     <div class="flex-1">
-      <h4 class="font-bold text-gray-900 mb-1">Stay Invested Long-Term</h4>
-      <p class="text-gray-600 text-sm">Continue for at least 10-15 years to benefit from compounding - market volatility averages out over time</p>
+      <h4 class="font-bold text-slate-900 mb-1">Stay Invested Long-Term</h4>
+      <p class="text-slate-600 text-sm">Continue for at least 10-15 years to benefit from compounding - market volatility averages out over time</p>
     </div>
   </div>
 </div>
 
-<div class="my-6 p-6 rounded-lg border-l-4 bg-amber-50 border-amber-500">
-  <h4 class="font-bold text-lg mb-2 text-amber-900">💡 Pro Tip: Power of Compounding</h4>
-  <p class="text-gray-700">A ₹10,000 monthly SIP at 12% annual returns becomes <strong>₹1 crore in just 20 years!</strong> The earlier you start, the more time compounding has to work its magic. Even delaying by 5 years requires significantly higher monthly investments to reach the same goal.</p>
+<div class="my-6 p-6 rounded-lg border-l-4 bg-accent-50 border-accent-500">
+  <h4 class="font-bold text-lg mb-2 text-accent-900">💡 Pro Tip: Power of Compounding</h4>
+  <p class="text-slate-700">A ₹10,000 monthly SIP at 12% annual returns becomes <strong>₹1 crore in just 20 years!</strong> The earlier you start, the more time compounding has to work its magic. Even delaying by 5 years requires significantly higher monthly investments to reach the same goal.</p>
 </div>
 
 <h2>When to Use SIP</h2>
@@ -195,11 +195,11 @@ const article = {
 <h3>Real Example: Rajesh's SIP Journey</h3>
 <div class="my-6 p-6 rounded-lg border-l-4 bg-purple-50 border-purple-500">
   <h4 class="font-bold text-lg mb-2 text-purple-900">📊 Case Study</h4>
-  <p class="text-gray-700 mb-2"><strong>Profile:</strong> Rajesh, 30-year-old IT professional, earns ₹80,000/month</p>
-  <p class="text-gray-700 mb-2"><strong>SIP Amount:</strong> ₹15,000 per month in diversified equity fund</p>
-  <p class="text-gray-700 mb-2"><strong>Duration:</strong> 25 years (until retirement at 55)</p>
-  <p class="text-gray-700 mb-2"><strong>Expected Returns:</strong> 12% annualized</p>
-  <p class="text-gray-700"><strong>Result:</strong> Total investment of ₹45 lakhs grows to approximately <span class="px-2 py-0.5 rounded border font-semibold bg-emerald-100 text-emerald-900 border-emerald-300">₹2.7 crores!</span></p>
+  <p class="text-slate-700 mb-2"><strong>Profile:</strong> Rajesh, 30-year-old IT professional, earns ₹80,000/month</p>
+  <p class="text-slate-700 mb-2"><strong>SIP Amount:</strong> ₹15,000 per month in diversified equity fund</p>
+  <p class="text-slate-700 mb-2"><strong>Duration:</strong> 25 years (until retirement at 55)</p>
+  <p class="text-slate-700 mb-2"><strong>Expected Returns:</strong> 12% annualized</p>
+  <p class="text-slate-700"><strong>Result:</strong> Total investment of ₹45 lakhs grows to approximately <span class="px-2 py-0.5 rounded border font-semibold bg-success-100 text-emerald-900 border-emerald-300">₹2.7 crores!</span></p>
 </div>
 
 <h2>When to Use SWP</h2>
@@ -215,16 +215,16 @@ const article = {
 <h3>Real Example: Sharma Uncle's SWP Strategy</h3>
 <div class="my-6 p-6 rounded-lg border-l-4 bg-purple-50 border-purple-500">
   <h4 class="font-bold text-lg mb-2 text-purple-900">📊 Case Study</h4>
-  <p class="text-gray-700 mb-2"><strong>Profile:</strong> Mr. Sharma, 62-year-old retiree with ₹50 lakh corpus</p>
-  <p class="text-gray-700 mb-2"><strong>SWP Amount:</strong> ₹30,000 per month from balanced hybrid fund</p>
-  <p class="text-gray-700 mb-2"><strong>Fund Returns:</strong> 8% annualized</p>
-  <p class="text-gray-700 mb-2"><strong>Withdrawal Rate:</strong> 7.2% per year (₹3.6 lakh annually)</p>
-  <p class="text-gray-700"><strong>Result:</strong> Gets regular income while corpus continues to grow modestly. After 10 years of withdrawals, he still has <span class="px-2 py-0.5 rounded border font-semibold bg-blue-100 text-blue-900 border-blue-300">₹53+ lakhs</span> remaining!</p>
+  <p class="text-slate-700 mb-2"><strong>Profile:</strong> Mr. Sharma, 62-year-old retiree with ₹50 lakh corpus</p>
+  <p class="text-slate-700 mb-2"><strong>SWP Amount:</strong> ₹30,000 per month from balanced hybrid fund</p>
+  <p class="text-slate-700 mb-2"><strong>Fund Returns:</strong> 8% annualized</p>
+  <p class="text-slate-700 mb-2"><strong>Withdrawal Rate:</strong> 7.2% per year (₹3.6 lakh annually)</p>
+  <p class="text-slate-700"><strong>Result:</strong> Gets regular income while corpus continues to grow modestly. After 10 years of withdrawals, he still has <span class="px-2 py-0.5 rounded border font-semibold bg-blue-100 text-blue-900 border-blue-300">₹53+ lakhs</span> remaining!</p>
 </div>
 
-<div class="my-6 p-6 rounded-lg border-l-4 bg-amber-50 border-amber-500">
-  <h4 class="font-bold text-lg mb-2 text-amber-900">💡 Pro Tip: The 4% Rule</h4>
-  <p class="text-gray-700">Financial experts suggest withdrawing no more than 4-5% of your corpus annually through SWP to ensure your money lasts 25-30 years. For a ₹1 crore corpus, this means ₹25,000-₹30,000 per month is sustainable. Higher withdrawal rates risk depleting your corpus too quickly.</p>
+<div class="my-6 p-6 rounded-lg border-l-4 bg-accent-50 border-accent-500">
+  <h4 class="font-bold text-lg mb-2 text-accent-900">💡 Pro Tip: The 4% Rule</h4>
+  <p class="text-slate-700">Financial experts suggest withdrawing no more than 4-5% of your corpus annually through SWP to ensure your money lasts 25-30 years. For a ₹1 crore corpus, this means ₹25,000-₹30,000 per month is sustainable. Higher withdrawal rates risk depleting your corpus too quickly.</p>
 </div>
 
 <h2>Tax Implications: SIP vs SWP</h2>
@@ -252,9 +252,9 @@ const article = {
   <li>More tax-efficient than fixed deposit interest (fully taxable)</li>
 </ul>
 
-<div class="my-6 p-6 rounded-lg border-l-4 bg-red-50 border-red-500">
+<div class="my-6 p-6 rounded-lg border-l-4 bg-danger-50 border-danger-500">
   <h4 class="font-bold text-lg mb-2 text-red-900">⚠️ Important Warning</h4>
-  <p class="text-gray-700">Tax laws change frequently! The debt fund taxation rules changed significantly in April 2023. Always consult a tax advisor before making investment decisions. This article provides general guidance only and should not be considered professional tax advice.</p>
+  <p class="text-slate-700">Tax laws change frequently! The debt fund taxation rules changed significantly in April 2023. Always consult a tax advisor before making investment decisions. This article provides general guidance only and should not be considered professional tax advice.</p>
 </div>
 
 <h2>Common Mistakes to Avoid</h2>
@@ -283,21 +283,21 @@ const article = {
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
   <div class="bg-white border-2 border-emerald-200 rounded-lg p-6 text-center shadow-sm">
     <div class="text-4xl mb-2">🌱</div>
-    <p class="text-sm text-gray-600 mb-2">Age 25-50</p>
-    <p class="text-3xl font-bold text-emerald-600 mb-2">SIP Phase</p>
-    <p class="text-xs font-medium text-gray-600">Accumulation & Growth</p>
+    <p class="text-sm text-slate-600 mb-2">Age 25-50</p>
+    <p class="text-3xl font-bold text-success-600 mb-2">SIP Phase</p>
+    <p class="text-xs font-medium text-slate-600">Accumulation & Growth</p>
   </div>
   <div class="bg-white border-2 border-emerald-200 rounded-lg p-6 text-center shadow-sm">
     <div class="text-4xl mb-2">⚖️</div>
-    <p class="text-sm text-gray-600 mb-2">Age 50-55</p>
-    <p class="text-3xl font-bold text-emerald-600 mb-2">Transition</p>
-    <p class="text-xs font-medium text-gray-600">Debt Rebalancing</p>
+    <p class="text-sm text-slate-600 mb-2">Age 50-55</p>
+    <p class="text-3xl font-bold text-success-600 mb-2">Transition</p>
+    <p class="text-xs font-medium text-slate-600">Debt Rebalancing</p>
   </div>
   <div class="bg-white border-2 border-emerald-200 rounded-lg p-6 text-center shadow-sm">
     <div class="text-4xl mb-2">💰</div>
-    <p class="text-sm text-gray-600 mb-2">Age 55+</p>
-    <p class="text-3xl font-bold text-emerald-600 mb-2">SWP Phase</p>
-    <p class="text-xs font-medium text-gray-600">Income Generation</p>
+    <p class="text-sm text-slate-600 mb-2">Age 55+</p>
+    <p class="text-3xl font-bold text-success-600 mb-2">SWP Phase</p>
+    <p class="text-xs font-medium text-slate-600">Income Generation</p>
   </div>
 </div>
 

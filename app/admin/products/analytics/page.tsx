@@ -143,7 +143,7 @@ export default function ProductAnalyticsPage() {
                     <p className="text-sm text-slate-400 mb-1">Conversions</p>
                     <p className="text-3xl font-bold">{formatNumber(data.totals.totalConversions)}</p>
                   </div>
-                  <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-success-500/20 rounded-xl flex items-center justify-center">
                     <Target className="w-6 h-6 text-green-400" />
                   </div>
                 </div>
@@ -157,8 +157,8 @@ export default function ProductAnalyticsPage() {
                     <p className="text-sm text-slate-400 mb-1">Revenue</p>
                     <p className="text-3xl font-bold">{formatCurrency(data.totals.totalRevenue)}</p>
                   </div>
-                  <div className="w-12 h-12 bg-amber-500/20 rounded-xl flex items-center justify-center">
-                    <DollarSign className="w-6 h-6 text-amber-400" />
+                  <div className="w-12 h-12 bg-accent-500/20 rounded-xl flex items-center justify-center">
+                    <DollarSign className="w-6 h-6 text-accent-400" />
                   </div>
                 </div>
               </CardContent>
@@ -213,7 +213,7 @@ export default function ProductAnalyticsPage() {
                             {product.conversionRate}%
                           </span>
                         </td>
-                        <td className="py-4 px-4 text-right font-mono text-amber-400">
+                        <td className="py-4 px-4 text-right font-mono text-accent-400">
                           {formatCurrency(product.revenue)}
                         </td>
                       </tr>

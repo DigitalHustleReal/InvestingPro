@@ -65,7 +65,7 @@ export default function CMSGenerationPage() {
                 <div className="flex items-center justify-between">
                     <div>
                         <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
-                            <Zap className="w-8 h-8 text-teal-400" />
+                            <Zap className="w-8 h-8 text-primary-400" />
                             Content Generation
                         </h1>
                         <p className="text-slate-400">Generate articles using the CMS orchestrator</p>
@@ -85,7 +85,7 @@ export default function CMSGenerationPage() {
                                 goals: { volume: 10, quality: 80 }
                             })}
                             disabled={fullExecute.isPending}
-                            className="bg-teal-600 hover:bg-teal-700"
+                            className="bg-primary-600 hover:bg-primary-700"
                         >
                             <Play className="w-4 h-4 mr-2" />
                             {fullExecute.isPending ? 'Generating...' : 'Generate Content'}
@@ -97,7 +97,7 @@ export default function CMSGenerationPage() {
                 <Card className="bg-white/[0.03] border-white/5">
                     <CardHeader className="border-b border-white/5">
                         <CardTitle className="text-lg font-bold text-white flex items-center gap-3">
-                            <Zap className="w-5 h-5 text-teal-400" />
+                            <Zap className="w-5 h-5 text-primary-400" />
                             Bulk Content Generation
                         </CardTitle>
                     </CardHeader>

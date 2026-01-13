@@ -117,7 +117,7 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
                                     />
                                     <button
                                         onClick={() => setFormData({ ...formData, profile_picture: '' })}
-                                        className="absolute top-1 right-1 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-white"
+                                        className="absolute top-1 right-1 w-6 h-6 bg-danger-500 rounded-full flex items-center justify-center text-white"
                                     >
                                         <X className="w-4 h-4" />
                                     </button>
@@ -160,7 +160,7 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
                                     onClick={() => toggleExpertise(exp)}
                                     variant={formData.expertise.includes(exp) ? "default" : "outline"}
                                     className={`cursor-pointer transition-colors ${formData.expertise.includes(exp)
-                                        ? 'bg-teal-600 hover:bg-teal-700 text-white'
+                                        ? 'bg-primary-600 hover:bg-primary-700 text-white'
                                         : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
                                         }`}
                                 >

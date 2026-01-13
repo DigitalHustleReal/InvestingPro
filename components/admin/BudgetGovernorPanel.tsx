@@ -141,9 +141,9 @@ export default function BudgetGovernorPanel() {
                             <div className="w-full bg-slate-800 rounded-full h-2">
                                 <div 
                                     className={`h-2 rounded-full ${
-                                        tokensPercent >= 90 ? 'bg-red-500' :
+                                        tokensPercent >= 90 ? 'bg-danger-500' :
                                         tokensPercent >= 75 ? 'bg-yellow-500' :
-                                        'bg-green-500'
+                                        'bg-success-500'
                                     }`}
                                     style={{ width: `${Math.min(100, tokensPercent)}%` }}
                                 />
@@ -163,9 +163,9 @@ export default function BudgetGovernorPanel() {
                             <div className="w-full bg-slate-800 rounded-full h-2">
                                 <div 
                                     className={`h-2 rounded-full ${
-                                        imagesPercent >= 90 ? 'bg-red-500' :
+                                        imagesPercent >= 90 ? 'bg-danger-500' :
                                         imagesPercent >= 75 ? 'bg-yellow-500' :
-                                        'bg-green-500'
+                                        'bg-success-500'
                                     }`}
                                     style={{ width: `${Math.min(100, imagesPercent)}%` }}
                                 />
@@ -185,9 +185,9 @@ export default function BudgetGovernorPanel() {
                             <div className="w-full bg-slate-800 rounded-full h-2">
                                 <div 
                                     className={`h-2 rounded-full ${
-                                        costPercent >= 90 ? 'bg-red-500' :
+                                        costPercent >= 90 ? 'bg-danger-500' :
                                         costPercent >= 75 ? 'bg-yellow-500' :
-                                        'bg-green-500'
+                                        'bg-success-500'
                                     }`}
                                     style={{ width: `${Math.min(100, costPercent)}%` }}
                                 />

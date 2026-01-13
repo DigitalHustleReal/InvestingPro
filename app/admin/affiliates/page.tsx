@@ -64,8 +64,8 @@ export default function AffiliatesPage() {
             label: 'Revenue',
             value: `₹${(stats?.totalRevenue || 0).toLocaleString()}`,
             icon: DollarSign,
-            color: 'text-amber-400',
-            bg: 'bg-amber-500/10',
+            color: 'text-accent-400',
+            bg: 'bg-accent-500/10',
             change: '+15%',
             changeType: 'up'
         },
@@ -101,8 +101,8 @@ export default function AffiliatesPage() {
                     <div className="flex items-center justify-between">
                         <div>
                             <h1 className="text-3xl font-extrabold text-white tracking-tight flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.15)]">
-                                    <DollarSign className="w-6 h-6 text-amber-400" />
+                                <div className="w-12 h-12 rounded-xl bg-accent-500/10 flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.15)]">
+                                    <DollarSign className="w-6 h-6 text-accent-400" />
                                 </div>
                                 Affiliate Dashboard
                                 <Badge className="bg-primary-500/10 text-primary-400 border-primary-500/20 ml-2 font-bold tracking-wider">
@@ -168,7 +168,7 @@ export default function AffiliatesPage() {
                                             <div className="flex items-center gap-4">
                                                 <div className={cn(
                                                     "w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm",
-                                                    idx === 0 ? "bg-amber-500/20 text-amber-400" :
+                                                    idx === 0 ? "bg-accent-500/20 text-accent-400" :
                                                     idx === 1 ? "bg-slate-500/20 text-slate-400" :
                                                     "bg-orange-500/20 text-orange-400"
                                                 )}>
@@ -243,17 +243,17 @@ export default function AffiliatesPage() {
                             Create Link →
                         </Button>
                     </Card>
-                    <Card className="bg-gradient-to-br from-emerald-500/10 to-teal-500/10 border-primary-500/20 rounded-2xl p-6">
+                    <Card className="bg-gradient-to-br from-success-500/10 to-primary-500/10 border-primary-500/20 rounded-2xl p-6">
                         <h4 className="font-bold text-white mb-2">Add Partner</h4>
                         <p className="text-sm text-slate-400 mb-4">Register new affiliate partners</p>
                         <Button variant="ghost" className="text-primary-400 hover:text-primary-300 p-0 h-auto">
                             Add Partner →
                         </Button>
                     </Card>
-                    <Card className="bg-gradient-to-br from-amber-500/10 to-orange-500/10 border-amber-500/20 rounded-2xl p-6">
+                    <Card className="bg-gradient-to-br from-accent-500/10 to-orange-500/10 border-accent-500/20 rounded-2xl p-6">
                         <h4 className="font-bold text-white mb-2">Export Report</h4>
                         <p className="text-sm text-slate-400 mb-4">Download performance data</p>
-                        <Button variant="ghost" className="text-amber-400 hover:text-amber-300 p-0 h-auto">
+                        <Button variant="ghost" className="text-accent-400 hover:text-accent-300 p-0 h-auto">
                             Export CSV →
                         </Button>
                     </Card>

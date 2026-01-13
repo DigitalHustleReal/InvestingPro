@@ -131,67 +131,67 @@ FORMATTING RULES (CRITICAL):
 PROFESSIONAL COMPONENTS (MUST INCLUDE):
 
 1. **KEY TAKEAWAYS BOX** (Place RIGHT AFTER Introduction):
-<div class="bg-gradient-to-br from-emerald-50 to-emerald-100 border-2 border-emerald-500 rounded-lg p-6 my-8">
+<div class="bg-gradient-to-br from-success-50 to-success-100 border-2 border-success-500 rounded-lg p-6 my-8">
   <h3 class="text-xl font-bold text-emerald-900 mb-4">Key Takeaways</h3>
   <ul class="space-y-3">
     <li class="flex items-start gap-3">
-      <span class="flex-shrink-0 w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
-      <span class="text-gray-800">First key point here</span>
+      <span class="flex-shrink-0 w-6 h-6 bg-success-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
+      <span class="text-slate-800">First key point here</span>
     </li>
     <li class="flex items-start gap-3">
-      <span class="flex-shrink-0 w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
-      <span class="text-gray-800">Second key point here</span>
+      <span class="flex-shrink-0 w-6 h-6 bg-success-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
+      <span class="text-slate-800">Second key point here</span>
     </li>
     <li class="flex items-start gap-3">
-      <span class="flex-shrink-0 w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
-      <span class="text-gray-800">Third key point here</span>
+      <span class="flex-shrink-0 w-6 h-6 bg-success-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
+      <span class="text-slate-800">Third key point here</span>
     </li>
   </ul>
 </div>
 
 2. **PRO TIP CALLOUT** (Use 1-2 times in article):
-<div class="my-6 p-6 rounded-lg border-l-4 bg-amber-50 border-amber-500">
-  <h4 class="font-bold text-lg mb-2 text-amber-900">💡 Pro Tip</h4>
-  <p class="text-gray-700">Your expert tip here...</p>
+<div class="my-6 p-6 rounded-lg border-l-4 bg-accent-50 border-accent-500">
+  <h4 class="font-bold text-lg mb-2 text-accent-900">💡 Pro Tip</h4>
+  <p class="text-slate-700">Your expert tip here...</p>
 </div>
 
 3. **WARNING BOX** (If applicable):
-<div class="my-6 p-6 rounded-lg border-l-4 bg-red-50 border-red-500">
+<div class="my-6 p-6 rounded-lg border-l-4 bg-danger-50 border-danger-500">
   <h4 class="font-bold text-lg mb-2 text-red-900">⚠️ Important Warning</h4>
-  <p class="text-gray-700">Critical information users should know...</p>
+  <p class="text-slate-700">Critical information users should know...</p>
 </div>
 
 4. **VISUAL GRAPHICS** (Use 2-3 per article based on context):
 
 A. **PROGRESS BARS** - Use when showing allocation percentages:
-<div class="my-6 p-6 bg-gray-50 rounded-lg">
+<div class="my-6 p-6 bg-slate-50 rounded-lg">
   <div class="mb-4">
     <div class="flex justify-between items-center mb-2">
-      <span class="text-sm font-medium text-gray-700">Category Name</span>
-      <span class="text-sm font-bold text-gray-900">XX%</span>
+      <span class="text-sm font-medium text-slate-700">Category Name</span>
+      <span class="text-sm font-bold text-slate-900">XX%</span>
     </div>
-    <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-      <div class="h-3 rounded-full bg-emerald-600" style="width: XX%"></div>
+    <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+      <div class="h-3 rounded-full bg-success-600" style="width: XX%"></div>
     </div>
   </div>
 </div>
 
 B. **BAR CHART** - Use when comparing returns, fees, or metrics:
-<div class="my-6 p-6 bg-white border border-gray-200 rounded-lg">
+<div class="my-6 p-6 bg-white border border-slate-200 rounded-lg">
   <div class="flex items-end justify-around gap-4 h-64">
     <div class="flex flex-col items-center flex-1">
-      <div class="mb-2 text-sm font-semibold text-gray-900">12.5%</div>
-      <div class="w-full bg-gray-100 rounded-t-lg relative" style="height: 62.5%">
-        <div class="absolute bottom-0 w-full rounded-t-lg bg-emerald-600" style="height: 100%"></div>
+      <div class="mb-2 text-sm font-semibold text-slate-900">12.5%</div>
+      <div class="w-full bg-slate-100 rounded-t-lg relative" style="height: 62.5%">
+        <div class="absolute bottom-0 w-full rounded-t-lg bg-success-600" style="height: 100%"></div>
       </div>
-      <div class="mt-2 text-xs text-center text-gray-600">Option 1</div>
+      <div class="mt-2 text-xs text-center text-slate-600">Option 1</div>
     </div>
     <div class="flex flex-col items-center flex-1">
-      <div class="mb-2 text-sm font-semibold text-gray-900">8.5%</div>
-      <div class="w-full bg-gray-100 rounded-t-lg relative" style="height: 42.5%">
+      <div class="mb-2 text-sm font-semibold text-slate-900">8.5%</div>
+      <div class="w-full bg-slate-100 rounded-t-lg relative" style="height: 42.5%">
         <div class="absolute bottom-0 w-full rounded-t-lg bg-blue-600" style="height: 100%"></div>
       </div>
-      <div class="mt-2 text-xs text-center text-gray-600">Option 2</div>
+      <div class="mt-2 text-xs text-center text-slate-600">Option 2</div>
     </div>
   </div>
 </div>
@@ -201,15 +201,15 @@ C. **PIE CHART** - Use for portfolio/asset allocation:
   <div class="relative w-48 h-48 rounded-full overflow-hidden" style="background: conic-gradient(#10b981 0deg 252deg, #3b82f6 252deg 342deg, #f59e0b 342deg 360deg)">
     <div class="absolute inset-0 flex items-center justify-center">
       <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center">
-        <span class="text-2xl font-bold text-gray-900">100%</span>
+        <span class="text-2xl font-bold text-slate-900">100%</span>
       </div>
     </div>
   </div>
   <div class="space-y-2">
     <div class="flex items-center gap-3">
-      <div class="w-4 h-4 rounded bg-emerald-600"></div>
-      <span class="text-sm text-gray-700">Category 1</span>
-      <span class="text-sm font-semibold text-gray-900">70%</span>
+      <div class="w-4 h-4 rounded bg-success-600"></div>
+      <span class="text-sm text-slate-700">Category 1</span>
+      <span class="text-sm font-semibold text-slate-900">70%</span>
     </div>
   </div>
 </div>
@@ -218,24 +218,24 @@ D. **TIMELINE** - Use for step-by-step processes:
 <div class="my-6">
   <div class="flex gap-4 mb-6">
     <div class="flex flex-col items-center">
-      <div class="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg">1</div>
+      <div class="w-10 h-10 rounded-full bg-success-600 text-white flex items-center justify-center font-bold text-lg">1</div>
       <div class="w-0.5 h-full bg-emerald-200 mt-2"></div>
     </div>
     <div class="flex-1 pb-6">
-      <h4 class="font-bold text-gray-900 mb-1">Step Title</h4>
-      <p class="text-gray-600 text-sm">Step description</p>
+      <h4 class="font-bold text-slate-900 mb-1">Step Title</h4>
+      <p class="text-slate-600 text-sm">Step description</p>
     </div>
   </div>
 </div>
 
 E. **COMPARISON SLIDER** - Use for vs. comparisons (SIP vs Lumpsum, etc.):
-<div class="my-6 p-6 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-lg border border-gray-200">
+<div class="my-6 p-6 bg-gradient-to-r from-success-50 to-blue-50 rounded-lg border border-slate-200">
   <div class="flex justify-between mb-3">
-    <span class="font-semibold text-gray-900">Option A</span>
-    <span class="font-semibold text-gray-900">Option B</span>
+    <span class="font-semibold text-slate-900">Option A</span>
+    <span class="font-semibold text-slate-900">Option B</span>
   </div>
-  <div class="relative h-12 bg-white rounded-full overflow-hidden border-2 border-gray-300">
-    <div class="absolute left-0 top-0 h-full bg-gradient-to-r from-emerald-500 to-emerald-600 flex items-center justify-end pr-4" style="width: 65%">
+  <div class="relative h-12 bg-white rounded-full overflow-hidden border-2 border-slate-300">
+    <div class="absolute left-0 top-0 h-full bg-gradient-to-r from-success-500 to-success-600 flex items-center justify-end pr-4" style="width: 65%">
       <span class="text-white font-bold text-sm">65%</span>
     </div>
     <div class="absolute right-0 top-0 h-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-start pl-4" style="width: 35%">
@@ -248,9 +248,9 @@ F. **METRIC CARDS** - Use for displaying key numbers:
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
   <div class="bg-white border-2 border-emerald-200 rounded-lg p-6 text-center shadow-sm">
     <div class="text-4xl mb-2">📈</div>
-    <p class="text-sm text-gray-600 mb-2">Metric Name</p>
-    <p class="text-3xl font-bold text-emerald-600 mb-2">14.2%</p>
-    <p class="text-xs font-medium text-green-600">+2.3% trend</p>
+    <p class="text-sm text-slate-600 mb-2">Metric Name</p>
+    <p class="text-3xl font-bold text-success-600 mb-2">14.2%</p>
+    <p class="text-xs font-medium text-success-600">+2.3% trend</p>
   </div>
 </div>
 

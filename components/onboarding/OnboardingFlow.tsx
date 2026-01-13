@@ -110,10 +110,10 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                 <div className="grid lg:grid-cols-5 min-h-[500px]">
                     {/* Sidebar */}
                     <div className="lg:col-span-2 bg-slate-900 p-8 text-white hidden lg:flex flex-col justify-between relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-teal-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
                         <div className="relative z-10">
-                            <div className="w-12 h-12 rounded-2xl bg-teal-500 flex items-center justify-center mb-8 shadow-lg shadow-teal-500/20">
+                            <div className="w-12 h-12 rounded-2xl bg-primary-500 flex items-center justify-center mb-8 shadow-lg shadow-primary-500/20">
                                 <TrendingUp className="w-6 h-6 text-white" />
                             </div>
                             <h2 className="text-2xl font-bold tracking-tight mb-2">Build Your <br /> Alpha Profile</h2>
@@ -166,7 +166,7 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                                                 key={opt.id}
                                                 onClick={() => setFormData({ ...formData, goal: opt.id })}
                                                 className={`p-4 rounded-2xl border-2 text-left transition-all ${formData.goal === opt.id
-                                                    ? 'bg-teal-50 border-teal-500 shadow-lg shadow-teal-500/5'
+                                                    ? 'bg-primary-50 border-primary-500 shadow-lg shadow-primary-500/5'
                                                     : 'bg-white border-slate-100 hover:border-slate-200'
                                                     }`}
                                             >
@@ -211,17 +211,17 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                                                 key={opt.id}
                                                 onClick={() => toggleInterest(opt.id)}
                                                 className={`p-4 rounded-2xl border-2 text-center transition-all flex flex-col items-center gap-3 relative ${formData.interests.includes(opt.id)
-                                                    ? 'bg-amber-50 border-amber-500 shadow-lg shadow-amber-500/5'
+                                                    ? 'bg-accent-50 border-accent-500 shadow-lg shadow-accent-500/5'
                                                     : 'bg-white border-slate-100 hover:border-slate-200'
                                                     }`}
                                             >
-                                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${formData.interests.includes(opt.id) ? 'bg-amber-500 text-white' : 'bg-slate-50 text-slate-400'}`}>
+                                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${formData.interests.includes(opt.id) ? 'bg-accent-500 text-white' : 'bg-slate-50 text-slate-400'}`}>
                                                     <opt.icon className="w-5 h-5" />
                                                 </div>
                                                 <span className="font-bold text-[10px] uppercase tracking-widest text-slate-900">{opt.label}</span>
                                                 {formData.interests.includes(opt.id) && (
                                                     <div className="absolute top-2 right-2">
-                                                        <CheckCircle2 className="w-4 h-4 text-amber-500" />
+                                                        <CheckCircle2 className="w-4 h-4 text-accent-500" />
                                                     </div>
                                                 )}
                                             </button>
@@ -243,7 +243,7 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                             <Button
                                 onClick={handleNext}
                                 disabled={loading || (currentStep === 1 && !formData.goal) || (currentStep === 2 && !formData.risk)}
-                                className="rounded-[1.25rem] bg-slate-900 hover:bg-teal-600 text-white font-bold px-10 h-14 flex-1 shadow-xl shadow-slate-900/10 transition-all active:scale-95"
+                                className="rounded-[1.25rem] bg-slate-900 hover:bg-primary-600 text-white font-bold px-10 h-14 flex-1 shadow-xl shadow-slate-900/10 transition-all active:scale-95"
                             >
                                 {loading ? "Initializing..." : currentStep === steps.length - 1 ? "Complete Profile" : currentStep === 0 ? "Get Started" : "Continue"}
                                 {!loading && <ChevronRight className="w-5 h-5 ml-2" />}

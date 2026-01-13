@@ -53,7 +53,7 @@ export function FundTable({ funds }: FundTableProps) {
                             key={i} 
                             className={cn(
                                 "w-3.5 h-3.5", 
-                                i < (row.rating || 4) ? 'text-amber-400 fill-amber-400' : 'text-slate-200 dark:text-slate-700'
+                                i < (row.rating || 4) ? 'text-accent-400 fill-accent-400' : 'text-slate-200 dark:text-slate-700'
                             )} 
                         />
                     ))}
@@ -71,7 +71,7 @@ export function FundTable({ funds }: FundTableProps) {
                 <span 
                     className={cn(
                         "text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter", 
-                        row.risk === "Very High" ? "text-red-600 bg-red-50 dark:bg-red-900/20" :
+                        row.risk === "Very High" ? "text-danger-600 bg-danger-50 dark:bg-red-900/20" :
                         row.risk === "High" ? "text-orange-600 bg-orange-50 dark:bg-orange-900/20" :
                         "text-primary-600 bg-primary-50 dark:bg-primary-900/20"
                     )}

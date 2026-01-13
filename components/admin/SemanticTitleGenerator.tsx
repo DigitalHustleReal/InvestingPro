@@ -85,21 +85,21 @@ export default function SemanticTitleGenerator({
             case 'question':
                 return 'bg-secondary-100 text-secondary-800 dark:bg-secondary-900 dark:text-secondary-200';
             case 'number':
-                return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
+                return 'bg-success-100 text-green-800 dark:bg-green-900 dark:text-green-200';
             case 'emotional':
                 return 'bg-secondary-100 text-secondary-800 dark:bg-purple-900 dark:text-secondary-200';
             case 'power-word':
                 return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
             default:
-                return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200';
+                return 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200';
         }
     };
 
     const getScoreColor = (score?: number) => {
-        if (!score) return 'text-gray-500';
-        if (score >= 80) return 'text-green-600 dark:text-green-400';
+        if (!score) return 'text-slate-500';
+        if (score >= 80) return 'text-success-600 dark:text-green-400';
         if (score >= 60) return 'text-yellow-600 dark:text-yellow-400';
-        return 'text-red-600 dark:text-red-400';
+        return 'text-danger-600 dark:text-red-400';
     };
 
     // Sort variations by combined score (SEO + CTR)
@@ -119,8 +119,8 @@ export default function SemanticTitleGenerator({
             </CardHeader>
             <CardContent className="space-y-4">
                 {/* Original Title Display */}
-                <div className="p-6 md:p-8 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                    <Label className="text-xs text-gray-500 mb-1">Original Title</Label>
+                <div className="p-6 md:p-8 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                    <Label className="text-xs text-slate-500 mb-1">Original Title</Label>
                     <p className="font-medium">{originalTitle}</p>
                 </div>
 
@@ -158,7 +158,7 @@ export default function SemanticTitleGenerator({
                                         className={`p-4 border rounded-lg transition-all ${
                                             isSelected
                                                 ? 'border-secondary-500 bg-secondary-50 dark:bg-primary-950'
-                                                : 'border-gray-200 dark:border-gray-700 hover:border-secondary-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                                                : 'border-slate-200 dark:border-slate-700 hover:border-secondary-300 hover:bg-slate-50 dark:hover:bg-slate-800'
                                         }`}
                                     >
                                         <div className="flex items-start justify-between gap-3">
@@ -174,7 +174,7 @@ export default function SemanticTitleGenerator({
                                                         {variation.variation_type}
                                                     </Badge>
                                                 </div>
-                                                <div className="flex gap-4 text-xs text-gray-600 dark:text-gray-400">
+                                                <div className="flex gap-4 text-xs text-slate-600 dark:text-slate-400">
                                                     {variation.seo_score !== undefined && (
                                                         <div className="flex items-center gap-1">
                                                             <TrendingUp className="w-3 h-3" />
@@ -207,7 +207,7 @@ export default function SemanticTitleGenerator({
                                                 className="shrink-0"
                                             >
                                                 {isCopied ? (
-                                                    <Check className="w-4 h-4 text-green-600" />
+                                                    <Check className="w-4 h-4 text-success-600" />
                                                 ) : (
                                                     <Copy className="w-4 h-4" />
                                                 )}

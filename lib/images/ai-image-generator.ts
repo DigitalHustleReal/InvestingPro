@@ -26,6 +26,7 @@
 import OpenAI from 'openai';
 import { createClient } from '@supabase/supabase-js';
 import axios from 'axios';
+import { getThemePalette } from '../theme/brand-theme';
 
 // ============================================================================
 // TYPES & INTERFACES
@@ -71,13 +72,8 @@ const COSTS = {
     stability: 0.01
 };
 
-// Brand guidelines
-const BRAND_COLORS = {
-    primary: '#14B8A6', // Teal
-    secondary: '#0F766E',
-    accent: '#0D9488',
-    neutral: '#0A0118'
-};
+// Brand palette (unified)
+const BRAND_COLORS = getThemePalette('light');
 
 const CACHE_TTL_DAYS = 90; // Cache AI generations for 90 days
 
@@ -167,7 +163,7 @@ function optimizePrompt(
     
     // Add brand guidelines if requested
     if (brandGuidelines) {
-        optimized = `${optimized}, color palette: teal ${BRAND_COLORS.primary} and dark ${BRAND_COLORS.neutral}, modern fintech aesthetic, professional branding`;
+        optimized = `${optimized}, color palette: brand teal ${BRAND_COLORS.primary}, deep teal ${BRAND_COLORS.primaryStrong}, info blue ${BRAND_COLORS.info}, amber accent ${BRAND_COLORS.accent}, modern fintech aesthetic, professional branding`;
     }
     
     // Financial content optimization

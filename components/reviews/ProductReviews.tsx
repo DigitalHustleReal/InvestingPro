@@ -38,19 +38,19 @@ export default function ProductReviews({ productSlug, productType }: ProductRevi
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 md:p-8">
+    <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 md:p-8">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
             User Reviews
           </h2>
           <div className="flex items-center gap-3">
-            <span className="text-3xl font-bold text-gray-900 dark:text-white">
+            <span className="text-3xl font-bold text-slate-900 dark:text-white">
               {stats.average || '0.0'}
             </span>
             <div>
                <RatingStars rating={stats.average} size={18} />
-               <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+               <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
                  Based on {stats.count} reviews
                </p>
             </div>
@@ -66,7 +66,7 @@ export default function ProductReviews({ productSlug, productType }: ProductRevi
             {showForm ? 'Cancel Review' : 'Write a Review'}
           </button>
         ) : (
-          <div className="text-sm text-gray-500 bg-gray-50 dark:bg-gray-800 px-4 py-2 rounded-lg">
+          <div className="text-sm text-slate-500 bg-slate-50 dark:bg-slate-800 px-4 py-2 rounded-lg">
             Log in to write a review
           </div>
         )}

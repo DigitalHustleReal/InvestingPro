@@ -100,7 +100,7 @@ export function MediaUploader({
                     transition-all duration-200
                     ${dragActive 
                         ? 'border-primary bg-primary/5 scale-[1.02]' 
-                        : 'border-gray-300 hover:border-gray-400'
+                        : 'border-slate-300 hover:border-slate-400'
                     }
                     ${uploading ? 'pointer-events-none opacity-60' : 'cursor-pointer'}
                 `}
@@ -131,7 +131,7 @@ export function MediaUploader({
                 ) : (
                     <div className="mb-4">
                         <svg
-                            className="mx-auto h-12 w-12 text-gray-400"
+                            className="mx-auto h-12 w-12 text-slate-400"
                             stroke="currentColor"
                             fill="none"
                             viewBox="0 0 48 48"
@@ -150,25 +150,25 @@ export function MediaUploader({
                 {/* Upload Status */}
                 {uploading && progress ? (
                     <div className="space-y-2">
-                        <p className="text-sm font-medium text-gray-700">
+                        <p className="text-sm font-medium text-slate-700">
                             {progress.message || 'Uploading...'}
                         </p>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div className="w-full bg-slate-200 rounded-full h-2">
                             <div
                                 className="bg-primary h-2 rounded-full transition-all duration-300"
                                 style={{ width: `${progress.progress}%` }}
                             />
                         </div>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-slate-500">
                             {progress.progress}%
                         </p>
                     </div>
                 ) : (
                     <div className="space-y-2">
-                        <p className="text-lg font-medium text-gray-700">
+                        <p className="text-lg font-medium text-slate-700">
                             {dragActive ? 'Drop image here' : 'Drop image here or click to upload'}
                         </p>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-slate-500">
                             PNG, JPG, GIF, WebP up to {maxSizeMB}MB
                         </p>
                         {!dragActive && (
@@ -186,8 +186,8 @@ export function MediaUploader({
 
                 {/* Error Message */}
                 {error && (
-                    <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-                        <p className="text-sm text-red-600">{error}</p>
+                    <div className="mt-4 p-3 bg-danger-50 border border-red-200 rounded-lg">
+                        <p className="text-sm text-danger-600">{error}</p>
                     </div>
                 )}
             </div>

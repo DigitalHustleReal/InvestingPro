@@ -69,7 +69,7 @@ export default function SmartRecommendationsPage() {
                                 className={`cursor-pointer hover:border-primary-500 hover:shadow-lg transition-all ${prefs.productType === item.id ? 'border-primary-500 bg-primary-50' : ''}`}
                                >
                                    <CardContent className="p-8 flex flex-col items-center text-center">
-                                       <item.icon className={`w-12 h-12 mb-4 ${prefs.productType === item.id ? 'text-primary-600' : 'text-gray-400'}`} />
+                                       <item.icon className={`w-12 h-12 mb-4 ${prefs.productType === item.id ? 'text-primary-600' : 'text-slate-400'}`} />
                                        <h3 className="font-bold text-lg">{item.label}</h3>
                                    </CardContent>
                                </Card>
@@ -133,15 +133,15 @@ export default function SmartRecommendationsPage() {
                                <div 
                                 key={range}
                                 onClick={() => { updatePref('spendRange', range); handleNext(); }}
-                                className={`p-6 rounded-xl border border-gray-200 cursor-pointer hover:bg-primary-50 hover:border-primary-200 flex items-center justify-between ${prefs.spendRange === range ? 'bg-primary-50 border-primary-500' : 'bg-white'}`}
+                                className={`p-6 rounded-xl border border-slate-200 cursor-pointer hover:bg-primary-50 hover:border-primary-200 flex items-center justify-between ${prefs.spendRange === range ? 'bg-primary-50 border-primary-500' : 'bg-white'}`}
                                >
                                     <div>
                                         <p className="font-bold text-lg capitalize">{range} Tier</p>
-                                        <p className="text-sm text-gray-500">
+                                        <p className="text-sm text-slate-500">
                                             {range === 'low' ? '< ₹20k / month' : range === 'medium' ? '₹20k - ₹50k / month' : '> ₹50k / month'}
                                         </p>
                                     </div>
-                                    <ChevronRight className="w-5 h-5 text-gray-400" />
+                                    <ChevronRight className="w-5 h-5 text-slate-400" />
                                </div>
                            ))}
                         </div>
@@ -152,7 +152,7 @@ export default function SmartRecommendationsPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-20">
+        <div className="min-h-screen bg-slate-50 pb-20">
             {/* Hero */}
             <section className="bg-gradient-to-br from-[#0B1221] via-blue-900 to-[#0B1221] text-white pt-12 pb-32 relative overflow-hidden">
                 <div className="container mx-auto px-6 relative z-10 text-center">
@@ -161,7 +161,7 @@ export default function SmartRecommendationsPage() {
                         <span className="text-primary-400 font-bold uppercase text-xs tracking-wider">AI Recommendation Engine</span>
                     </div>
                     <h1 className="text-4xl md:text-5xl font-bold mb-4">Find Your Perfect Match</h1>
-                    <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+                    <p className="text-slate-300 text-lg max-w-2xl mx-auto">
                         Tell us what you need in 3 simple steps. We'll find the best product for you.
                     </p>
                 </div>
@@ -174,14 +174,14 @@ export default function SmartRecommendationsPage() {
                     // WIZARD MODE
                     <div className="bg-white rounded-2xl shadow-xl max-w-3xl mx-auto p-8 md:p-12 min-h-[500px] flex flex-col justify-center relative">
                         {step > 0 && (
-                            <button onClick={handleBack} className="absolute top-8 left-8 text-gray-400 hover:text-gray-600 flex items-center gap-1 text-sm font-semibold">
+                            <button onClick={handleBack} className="absolute top-8 left-8 text-slate-400 hover:text-slate-600 flex items-center gap-1 text-sm font-semibold">
                                 <ArrowLeft className="w-4 h-4" /> Back
                             </button>
                         )}
                         
                         <div className="mb-8 flex justify-center gap-2">
                              {[0, 1, 2].map(i => (
-                                 <div key={i} className={`h-1 w-12 rounded-full transition-colors ${i <= step ? 'bg-primary-600' : 'bg-gray-200'}`} />
+                                 <div key={i} className={`h-1 w-12 rounded-full transition-colors ${i <= step ? 'bg-primary-600' : 'bg-slate-200'}`} />
                              ))}
                         </div>
 
@@ -202,8 +202,8 @@ export default function SmartRecommendationsPage() {
                     <div className="max-w-5xl mx-auto">
                          <div className="flex items-center justify-between mb-8">
                             <div>
-                                <h2 className="text-2xl font-bold text-gray-900">Your Matches</h2>
-                                <p className="text-gray-600">Based on your goal for <span className="font-semibold text-primary-600 capitalize">{prefs.goal.replace('_', ' ')}</span></p>
+                                <h2 className="text-2xl font-bold text-slate-900">Your Matches</h2>
+                                <p className="text-slate-600">Based on your goal for <span className="font-semibold text-primary-600 capitalize">{prefs.goal.replace('_', ' ')}</span></p>
                             </div>
                             <Button variant="outline" onClick={() => setStep(0)}>Start Over</Button>
                          </div>
@@ -211,25 +211,25 @@ export default function SmartRecommendationsPage() {
                          <div className="space-y-6">
                              {results.length === 0 ? (
                                  <div className="text-center py-20 bg-white rounded-xl">
-                                     <p className="text-xl text-gray-500">No specific matches found. Try adjusting your preferences.</p>
+                                     <p className="text-xl text-slate-500">No specific matches found. Try adjusting your preferences.</p>
                                      <Button className="mt-4" onClick={() => setStep(0)}>Try Again</Button>
                                  </div>
                              ) : (
                                  results.slice(0, 3).map((res, index) => (
                                      <div key={res.product.id} className="relative group">
                                          {/* Match Badge */}
-                                         <div className="absolute -left-3 -top-3 z-20 bg-emerald-600 text-white px-4 py-1.5 rounded-full font-bold shadow-lg flex items-center gap-2">
+                                         <div className="absolute -left-3 -top-3 z-20 bg-success-600 text-white px-4 py-1.5 rounded-full font-bold shadow-lg flex items-center gap-2">
                                              <Sparkles className="w-4 h-4" /> {res.matchScore}% Match
                                          </div>
                                          
                                          {/* Context Card */}
-                                         <div className="mb-[-20px] pt-8 pl-8 pr-8 pb-12 bg-emerald-50 rounded-t-2xl border border-emerald-100 relative top-6 z-0 -mx-4">
+                                         <div className="mb-[-20px] pt-8 pl-8 pr-8 pb-12 bg-success-50 rounded-t-2xl border border-success-100 relative top-6 z-0 -mx-4">
                                               <p className="text-emerald-800 font-medium">
                                                   <span className="font-bold">Why it matches:</span> {res.matchReason}
                                               </p>
                                          </div>
 
-                                         <div className="relative z-10 bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                                         <div className="relative z-10 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                                              <ProductCard product={res.product} showCompare={true} />
                                          </div>
                                      </div>
@@ -248,10 +248,10 @@ function OptionCard({ selected, onClick, label, icon: Icon }: any) {
         <div 
             onClick={onClick}
             className={`cursor-pointer p-6 rounded-xl border flex flex-col items-center justify-center gap-3 text-center transition-all h-40
-                ${selected ? 'bg-primary-50 border-primary-500 shadow-md transform scale-105' : 'bg-white border-gray-200 hover:border-primary-300 hover:bg-gray-50'}`}
+                ${selected ? 'bg-primary-50 border-primary-500 shadow-md transform scale-105' : 'bg-white border-slate-200 hover:border-primary-300 hover:bg-slate-50'}`}
         >
-            <Icon className={`w-8 h-8 ${selected ? 'text-primary-600' : 'text-gray-500'}`} />
-            <span className={`font-bold ${selected ? 'text-primary-900' : 'text-gray-700'}`}>{label}</span>
+            <Icon className={`w-8 h-8 ${selected ? 'text-primary-600' : 'text-slate-500'}`} />
+            <span className={`font-bold ${selected ? 'text-primary-900' : 'text-slate-700'}`}>{label}</span>
         </div>
     );
 }

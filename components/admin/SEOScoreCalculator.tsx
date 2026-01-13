@@ -143,13 +143,13 @@ export default function SEOScoreCalculator({
     const getScoreColor = (score: number) => {
         if (score >= 80) return 'text-primary-600';
         if (score >= 60) return 'text-yellow-600';
-        return 'text-red-600';
+        return 'text-danger-600';
     };
 
     const getScoreBadge = (score: number) => {
         if (score >= 80) return 'bg-primary-100 text-primary-800';
         if (score >= 60) return 'bg-yellow-100 text-yellow-800';
-        return 'bg-red-100 text-red-800';
+        return 'bg-danger-100 text-red-800';
     };
 
     return (
@@ -199,7 +199,7 @@ export default function SEOScoreCalculator({
                             {check.passed ? (
                                 <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
                             ) : (
-                                <XCircle className="w-4 h-4 text-red-600 mt-0.5 flex-shrink-0" />
+                                <XCircle className="w-4 h-4 text-danger-600 mt-0.5 flex-shrink-0" />
                             )}
                             <div className="flex-1">
                                 <span className="font-medium">{check.label}:</span>
@@ -211,7 +211,7 @@ export default function SEOScoreCalculator({
 
                 {analysis.score < 80 && (
                     <div className="pt-2 border-t">
-                        <div className="flex items-start gap-2 text-sm text-amber-700 bg-amber-50 p-3 rounded">
+                        <div className="flex items-start gap-2 text-sm text-accent-700 bg-accent-50 p-3 rounded">
                             <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
                             <div>
                                 <strong>Improve SEO:</strong> Focus on the failed checks above to increase your score.

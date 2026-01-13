@@ -111,7 +111,7 @@ export function PremiumGate({
       {/* Upgrade overlay */}
       <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent">
         <div className="text-center p-8 max-w-md">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 mb-6">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-accent-500 to-orange-600 mb-6">
             <Crown className="w-8 h-8 text-white" />
           </div>
           
@@ -134,7 +134,7 @@ export function PremiumGate({
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button 
               asChild
-              className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-semibold px-8"
+              className="bg-gradient-to-r from-accent-500 to-orange-600 hover:from-accent-600 hover:to-orange-700 text-white font-semibold px-8"
             >
               <Link href="/pricing">
                 <Sparkles className="w-4 h-4 mr-2" />
@@ -159,7 +159,7 @@ export function PremiumGate({
 function ProBenefit({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 text-sm text-slate-300">
-      <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
+      <Check className="w-4 h-4 text-success-500 flex-shrink-0" />
       <span>{children}</span>
     </div>
   );
@@ -174,7 +174,7 @@ export function PremiumBadge({ size = 'sm' }: { size?: 'sm' | 'md' }) {
     : 'text-sm px-3 py-1';
 
   return (
-    <span className={`inline-flex items-center gap-1 ${sizeClasses} bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-400 rounded-full font-medium border border-amber-500/30`}>
+    <span className={`inline-flex items-center gap-1 ${sizeClasses} bg-gradient-to-r from-accent-500/20 to-orange-500/20 text-accent-400 rounded-full font-medium border border-accent-500/30`}>
       <Crown className={size === 'sm' ? 'w-3 h-3' : 'w-4 h-4'} />
       PRO
     </span>
@@ -188,7 +188,7 @@ export function PremiumLock({ className = '' }: { className?: string }) {
   return (
     <div className={`absolute inset-0 flex items-center justify-center bg-slate-950/80 ${className}`}>
       <div className="flex flex-col items-center gap-2">
-        <Lock className="w-8 h-8 text-amber-500" />
+        <Lock className="w-8 h-8 text-accent-500" />
         <span className="text-sm text-slate-400">Pro Feature</span>
       </div>
     </div>

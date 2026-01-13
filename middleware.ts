@@ -8,10 +8,13 @@ export async function middleware(request: NextRequest) {
         },
     })
 
-    // Protect admin routes
-    if (request.nextUrl.pathname.startsWith('/admin')) {
-        // Allow login page without auth
-        if (request.nextUrl.pathname === '/admin/login') {
+    // Protect admin routes (UI and API)
+    const isAdminUI = request.nextUrl.pathname.startsWith('/admin');
+    const isAdminAPI = request.nextUrl.pathname.startsWith('/api/admin');
+
+    if (isAdminUI || isAdminAPI) {
+        // Allow login page without auth (only for UI)
+        if (isAdminUI && request.nextUrl.pathname === '/admin/login') {
             return response;
         }
 
@@ -99,8 +102,10 @@ export async function middleware(request: NextRequest) {
         } = await supabase.auth.getUser()
 
         if (!user) {
-            // PRODUCTION ONLY: Redirect to admin login if not authenticated
-            // This redirect only happens in production with full auth setup
+            // PRODUCTION ONLY: Return 401 for API, Redirect for UI
+            if (isAdminAPI) {
+                return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+            }
             const url = request.nextUrl.clone()
             url.pathname = '/admin/login'
             url.searchParams.set('redirect', request.nextUrl.pathname)

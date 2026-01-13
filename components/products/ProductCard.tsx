@@ -49,7 +49,7 @@ export default function ProductCard({ product }: { product: Product }) {
                     <Badge variant="outline" className="text-[10px] uppercase tracking-wider text-slate-500">
                         {product.provider_name}
                     </Badge>
-                    <div className="flex items-center text-amber-500 text-xs font-bold gap-0.5 ml-auto">
+                    <div className="flex items-center text-accent-500 text-xs font-bold gap-0.5 ml-auto">
                         <Star className="w-3 h-3 fill-current" />
                         {product.rating}
                     </div>

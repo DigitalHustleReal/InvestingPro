@@ -51,7 +51,7 @@ export default function EditorialPageTemplate({
                     <nav className="flex items-center gap-2 text-sm text-slate-600">
                         {breadcrumbs.map((crumb, idx) => (
                             <React.Fragment key={idx}>
-                                <Link href={crumb.href} className="hover:text-teal-600 transition-colors">
+                                <Link href={crumb.href} className="hover:text-primary-600 transition-colors">
                                     {crumb.label}
                                 </Link>
                                 {idx < breadcrumbs.length - 1 && <span>/</span>}

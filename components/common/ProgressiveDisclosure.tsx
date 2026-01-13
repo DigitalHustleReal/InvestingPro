@@ -125,7 +125,7 @@ export function ViewMoreButton({
             variant="ghost"
             size="sm"
             onClick={onClick}
-            className="w-full sm:w-auto text-teal-600 hover:text-teal-700 hover:bg-teal-50 font-semibold"
+            className="w-full sm:w-auto text-primary-600 hover:text-primary-700 hover:bg-primary-50 font-semibold"
         >
             {isExpanded ? (
                 <>

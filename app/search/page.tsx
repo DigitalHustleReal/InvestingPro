@@ -164,7 +164,7 @@ export default function SearchPage() {
                                                             className="w-32 h-24 rounded-lg object-cover flex-shrink-0"
                                                         />
                                                     ) : (
-                                                        <div className="w-32 h-24 rounded-lg bg-gradient-to-br from-primary-500/20 to-emerald-500/20 flex items-center justify-center flex-shrink-0">
+                                                        <div className="w-32 h-24 rounded-lg bg-gradient-to-br from-primary-500/20 to-success-500/20 flex items-center justify-center flex-shrink-0">
                                                             <FileText className="w-8 h-8 text-primary-500/50" />
                                                         </div>
                                                     )}

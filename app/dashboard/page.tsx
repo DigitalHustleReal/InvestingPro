@@ -265,7 +265,7 @@ export default function PersonalDashboard() {
                             </CardContent>
                         </Card>
 
-                        <Card className="bg-gradient-to-br from-primary-600 to-emerald-600 text-white border-none shadow-xl shadow-primary-500/10">
+                        <Card className="bg-gradient-to-br from-primary-600 to-success-600 text-white border-none shadow-xl shadow-primary-500/10">
                             <CardContent className="p-6">
                                 <h3 className="font-bold text-lg mb-2">Smart Saving Tip</h3>
                                 <p className="text-sm opacity-90 leading-relaxed mb-4">

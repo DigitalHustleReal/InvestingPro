@@ -70,11 +70,11 @@ export function AIImageGenerator() {
     return (
         <div className="h-full flex flex-col">
             {/* Header */}
-            <div className="p-4 border-b bg-gray-50">
-                <h3 className="text-lg font-bold text-gray-900 mb-2">
+            <div className="p-4 border-b bg-slate-50">
+                <h3 className="text-lg font-bold text-slate-900 mb-2">
                     🎨 AI Image Generator
                 </h3>
-                <p className="text-sm text-gray-600 mb-4">
+                <p className="text-sm text-slate-600 mb-4">
                     Generate custom images using AI. Perfect for unique featured images.
                 </p>
 
@@ -85,7 +85,7 @@ export function AIImageGenerator() {
                         onChange={(e) => setPrompt(e.target.value)}
                         placeholder="Describe the image you want... (e.g., 'Professional credit card on wooden desk with laptop in background, modern lighting')"
                         rows={3}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
+                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
                     />
 
                     {/* Generate Button */}
@@ -107,13 +107,13 @@ export function AIImageGenerator() {
 
                 {/* Quick Prompts */}
                 <div className="mt-4">
-                    <p className="text-sm font-medium text-gray-700 mb-2">Quick Ideas:</p>
+                    <p className="text-sm font-medium text-slate-700 mb-2">Quick Ideas:</p>
                     <div className="grid grid-cols-2 gap-2">
                         {quickPrompts.map((quickPrompt) => (
                             <button
                                 key={quickPrompt}
                                 onClick={() => setPrompt(quickPrompt)}
-                                className="text-left px-3 py-2 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors"
+                                className="text-left px-3 py-2 text-sm bg-slate-100 text-slate-700 rounded hover:bg-slate-200 transition-colors"
                             >
                                 {quickPrompt}
                             </button>
@@ -128,14 +128,14 @@ export function AIImageGenerator() {
                     <div className="flex items-center justify-center h-64">
                         <div className="text-center max-w-md">
                             <div className="text-6xl mb-4">❌</div>
-                            <p className="text-red-600 font-medium mb-2">Generation Failed</p>
-                            <p className="text-sm text-gray-600">{error}</p>
+                            <p className="text-danger-600 font-medium mb-2">Generation Failed</p>
+                            <p className="text-sm text-slate-600">{error}</p>
                             <button
                                 onClick={() => {
                                     setError(null);
                                     setGeneratedUrl(null);
                                 }}
-                                className="mt-4 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
+                                className="mt-4 px-4 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300"
                             >
                                 Try Again
                             </button>
@@ -153,16 +153,16 @@ export function AIImageGenerator() {
                         </div>
 
                         {/* Prompt used */}
-                        <div className="bg-gray-50 border rounded-lg p-4 mb-4">
-                            <p className="text-sm font-medium text-gray-700 mb-1">Prompt used:</p>
-                            <p className="text-sm text-gray-600 italic">"{prompt}"</p>
+                        <div className="bg-slate-50 border rounded-lg p-4 mb-4">
+                            <p className="text-sm font-medium text-slate-700 mb-1">Prompt used:</p>
+                            <p className="text-sm text-slate-600 italic">"{prompt}"</p>
                         </div>
 
                         {/* Actions */}
                         <div className="flex gap-3">
                             <button
                                 onClick={handleSaveToLibrary}
-                                className="flex-1 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium"
+                                className="flex-1 px-6 py-3 bg-success-600 text-white rounded-lg hover:bg-success-700 font-medium"
                             >
                                 ✓ Save to Media Library
                             </button>
@@ -171,7 +171,7 @@ export function AIImageGenerator() {
                                     setGeneratedUrl(null);
                                     setPrompt('');
                                 }}
-                                className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 font-medium"
+                                className="px-6 py-3 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 font-medium"
                             >
                                 🔄 Generate New
                             </button>
@@ -188,13 +188,13 @@ export function AIImageGenerator() {
                     <div className="flex items-center justify-center h-64">
                         <div className="text-center">
                             <div className="inline-block animate-spin text-6xl mb-4">🎨</div>
-                            <p className="text-lg font-medium text-gray-700 mb-2">
+                            <p className="text-lg font-medium text-slate-700 mb-2">
                                 Generating your image...
                             </p>
-                            <p className="text-sm text-gray-500">
+                            <p className="text-sm text-slate-500">
                                 This may take 10-30 seconds
                             </p>
-                            <div className="mt-4 w-64 mx-auto bg-gray-200 rounded-full h-2">
+                            <div className="mt-4 w-64 mx-auto bg-slate-200 rounded-full h-2">
                                 <div className="bg-secondary-600 h-2 rounded-full animate-pulse" style={{ width: '60%' }}></div>
                             </div>
                         </div>
@@ -203,10 +203,10 @@ export function AIImageGenerator() {
                     <div className="flex items-center justify-center h-64">
                         <div className="text-center max-w-md">
                             <div className="text-6xl mb-4">🎨</div>
-                            <p className="text-gray-500 text-lg font-medium mb-2">
+                            <p className="text-slate-500 text-lg font-medium mb-2">
                                 Ready to generate!
                             </p>
-                            <p className="text-gray-400 text-sm">
+                            <p className="text-slate-400 text-sm">
                                 Enter a description above and click "Generate Image"
                             </p>
                         </div>
@@ -215,11 +215,11 @@ export function AIImageGenerator() {
             </div>
 
             {/* Footer Info */}
-            <div className="border-t p-4 bg-amber-50">
-                <h4 className="text-sm font-medium text-amber-900 mb-2">
+            <div className="border-t p-4 bg-accent-50">
+                <h4 className="text-sm font-medium text-accent-900 mb-2">
                     💡 Tips for Better Results:
                 </h4>
-                <ul className="text-sm text-amber-700 space-y-1">
+                <ul className="text-sm text-accent-700 space-y-1">
                     <li>• Be specific: describe style, lighting, colors, setting</li>
                     <li>• Add keywords like "professional", "modern", "clean"</li>
                     <li>• Mention the mood: "bright", "serious", "friendly"</li>

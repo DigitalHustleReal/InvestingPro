@@ -38,17 +38,17 @@ export function Callout({ type, title, children, className }: CalloutProps) {
     },
     'tip': {
       icon: Lightbulb,
-      bgColor: 'bg-amber-50',
-      borderColor: 'border-amber-500',
-      iconColor: 'text-amber-600',
-      titleColor: 'text-amber-900',
+      bgColor: 'bg-accent-50',
+      borderColor: 'border-accent-500',
+      iconColor: 'text-accent-600',
+      titleColor: 'text-accent-900',
       defaultTitle: 'Pro Tip'
     },
     'warning': {
       icon: AlertTriangle,
-      bgColor: 'bg-red-50',
-      borderColor: 'border-red-500',
-      iconColor: 'text-red-600',
+      bgColor: 'bg-danger-50',
+      borderColor: 'border-danger-500',
+      iconColor: 'text-danger-600',
       titleColor: 'text-red-900',
       defaultTitle: 'Warning'
     },
@@ -93,7 +93,7 @@ export function Callout({ type, title, children, className }: CalloutProps) {
           <h4 className={cn('font-bold text-lg mb-2', titleColor)}>
             {title || defaultTitle}
           </h4>
-          <div className="text-gray-700 prose prose-sm max-w-none">
+          <div className="text-slate-700 prose prose-sm max-w-none">
             {children}
           </div>
         </div>
@@ -109,7 +109,7 @@ export function Highlight({ children, color = 'emerald' }: { children: React.Rea
   const colors = {
     emerald: 'bg-primary-100 text-primary-900 border-primary-300',
     blue: 'bg-secondary-100 text-secondary-900 border-secondary-300',
-    amber: 'bg-amber-100 text-amber-900 border-amber-300',
+    amber: 'bg-accent-100 text-accent-900 border-accent-300',
     purple: 'bg-secondary-100 text-secondary-900 border-secondary-300'
   }
 
@@ -134,14 +134,14 @@ export function StatBox({ label, value, trend, trendDirection }: {
 }) {
   return (
     <div className="bg-white border-2 border-primary-200 rounded-lg p-4 text-center">
-      <p className="text-sm text-gray-600 mb-1">{label}</p>
+      <p className="text-sm text-slate-600 mb-1">{label}</p>
       <p className="text-3xl font-bold text-primary-600">{value}</p>
       {trend && (
         <p className={cn(
           'text-xs mt-1 font-medium',
-          trendDirection === 'up' && 'text-green-600',
-          trendDirection === 'down' && 'text-red-600',
-          trendDirection === 'neutral' && 'text-gray-600'
+          trendDirection === 'up' && 'text-success-600',
+          trendDirection === 'down' && 'text-danger-600',
+          trendDirection === 'neutral' && 'text-slate-600'
         )}>
           {trend}
         </p>
@@ -158,22 +158,22 @@ export function ComparisonBox({ title, items }: {
   items: Array<{ label: string; good?: string; bad?: string }>
 }) {
   return (
-    <div className="my-8 border-2 border-gray-200 rounded-lg overflow-hidden">
+    <div className="my-8 border-2 border-slate-200 rounded-lg overflow-hidden">
       <div className="bg-primary-600 text-white px-6 py-3">
         <h3 className="font-bold text-lg">{title}</h3>
       </div>
-      <div className="divide-y divide-gray-200">
+      <div className="divide-y divide-slate-200">
         {items.map((item, index) => (
           <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-            <div className="font-semibold text-gray-900">{item.label}</div>
+            <div className="font-semibold text-slate-900">{item.label}</div>
             {item.good && (
-              <div className="flex items-center gap-2 text-green-700">
+              <div className="flex items-center gap-2 text-success-700">
                 <CheckCircle2 className="w-4 h-4" />
                 <span>{item.good}</span>
               </div>
             )}
             {item.bad && (
-              <div className="flex items-center gap-2 text-red-700">
+              <div className="flex items-center gap-2 text-danger-700">
                 <AlertCircle className="w-4 h-4" />
                 <span>{item.bad}</span>
               </div>
@@ -190,7 +190,7 @@ export function ComparisonBox({ title, items }: {
  */
 export function KeyTakeaways({ items }: { items: string[] }) {
   return (
-    <div className="my-8 bg-gradient-to-br from-emerald-50 to-emerald-100 border-2 border-primary-500 rounded-lg p-6">
+    <div className="my-8 bg-gradient-to-br from-success-50 to-success-100 border-2 border-primary-500 rounded-lg p-6">
       <div className="flex items-center gap-2 mb-4">
         <CheckCircle2 className="w-6 h-6 text-primary-600" />
         <h3 className="text-xl font-bold text-primary-900">Key Takeaways</h3>
@@ -201,7 +201,7 @@ export function KeyTakeaways({ items }: { items: string[] }) {
             <span className="flex-shrink-0 w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
               {index + 1}
             </span>
-            <span className="text-gray-800 flex-1">{item}</span>
+            <span className="text-slate-800 flex-1">{item}</span>
           </li>
         ))}
       </ul>
@@ -223,7 +223,7 @@ export function FormulaBox({ title, formula, explanation }: {
         <Calculator className="w-5 h-5 text-primary-600" />
         <h4 className="font-bold text-primary-900">{title}</h4>
       </div>
-      <div className="bg-white rounded p-4 font-mono text-center text-lg font-semibold text-gray-900 mb-3">
+      <div className="bg-white rounded p-4 font-mono text-center text-lg font-semibold text-slate-900 mb-3">
         {formula}
       </div>
       {explanation && (
@@ -246,8 +246,8 @@ export function QuickFacts({ facts }: { facts: Array<{ label: string; value: str
       <dl className="space-y-2">
         {facts.map((fact, index) => (
           <div key={index} className="flex justify-between items-center py-2 border-b border-slate-200 last:border-0">
-            <dt className="text-sm text-gray-600">{fact.label}</dt>
-            <dd className="font-semibold text-gray-900">{fact.value}</dd>
+            <dt className="text-sm text-slate-600">{fact.label}</dt>
+            <dd className="font-semibold text-slate-900">{fact.value}</dd>
           </div>
         ))}
       </dl>

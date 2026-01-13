@@ -107,7 +107,7 @@ export default function ReviewSection({ productId }: { productId: string }) {
                                     <Star
                                         key={star}
                                         className={`w-5 h-5 ${star <= Math.round(Number(avgRating))
-                                            ? 'text-amber-400 fill-amber-400'
+                                            ? 'text-accent-400 fill-accent-400'
                                             : 'text-slate-300'
                                             }`}
                                     />
@@ -154,7 +154,7 @@ export default function ReviewSection({ productId }: { productId: string }) {
                                     <Star
                                         key={star}
                                         className={`w-8 h-8 cursor-pointer transition-colors ${star <= (hoverRating || rating)
-                                            ? 'text-amber-400 fill-amber-400'
+                                            ? 'text-accent-400 fill-accent-400'
                                             : 'text-slate-300'
                                             }`}
                                         onClick={() => setRating(star)}
@@ -236,7 +236,7 @@ export default function ReviewSection({ productId }: { productId: string }) {
                                             <Star
                                                 key={star}
                                                 className={`w-4 h-4 ${star <= review.rating
-                                                    ? 'text-amber-400 fill-amber-400'
+                                                    ? 'text-accent-400 fill-accent-400'
                                                     : 'text-slate-300'
                                                     }`}
                                             />
@@ -270,7 +270,7 @@ export default function ReviewSection({ productId }: { productId: string }) {
                                     )}
                                     {review.cons && review.cons.length > 0 && (
                                         <div>
-                                            <p className="font-medium text-red-600 mb-2 flex items-center gap-1">
+                                            <p className="font-medium text-danger-600 mb-2 flex items-center gap-1">
                                                 <X className="w-4 h-4" /> Cons
                                             </p>
                                             <ul className="space-y-1 text-sm">

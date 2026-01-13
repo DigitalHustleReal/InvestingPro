@@ -95,13 +95,13 @@ export default function HoldingsList({ holdings, onDelete }: HoldingsListProps) 
                                         {holding.returns >= 0 ? (
                                             <TrendingUp className="w-3 h-3 text-primary-600" />
                                         ) : (
-                                            <TrendingDown className="w-3 h-3 text-red-600" />
+                                            <TrendingDown className="w-3 h-3 text-danger-600" />
                                         )}
-                                        <span className={`font-bold text-sm ${holding.returns >= 0 ? 'text-primary-600' : 'text-red-600'}`}>
+                                        <span className={`font-bold text-sm ${holding.returns >= 0 ? 'text-primary-600' : 'text-danger-600'}`}>
                                             {holding.returns >= 0 ? '+' : ''}₹{Math.abs(holding.returns).toLocaleString('en-IN')}
                                         </span>
                                     </div>
-                                    <p className={`text-xs font-medium text-right ${holding.returns >= 0 ? 'text-primary-600' : 'text-red-600'}`}>
+                                    <p className={`text-xs font-medium text-right ${holding.returns >= 0 ? 'text-primary-600' : 'text-danger-600'}`}>
                                         {holding.returns >= 0 ? '+' : ''}{holding.returns_percentage}%
                                     </p>
                                 </div>
@@ -111,7 +111,7 @@ export default function HoldingsList({ holdings, onDelete }: HoldingsListProps) 
                                         variant="ghost"
                                         size="icon"
                                         onClick={() => onDelete(holding.id)}
-                                        className="text-red-500 hover:text-red-700 hover:bg-red-50 h-8 w-8"
+                                        className="text-danger-500 hover:text-danger-700 hover:bg-danger-50 h-8 w-8"
                                     >
                                         <Trash2 className="w-4 h-4" />
                                     </Button>

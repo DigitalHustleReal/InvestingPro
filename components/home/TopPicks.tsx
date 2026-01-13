@@ -62,9 +62,9 @@ export default function TopPicks() {
         <section className="py-20 bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-14">
-                    <div className="inline-flex items-center gap-2 bg-amber-100 rounded-full px-4 py-2 mb-4">
-                        <Award className="w-4 h-4 text-amber-600" />
-                        <span className="text-amber-700 font-medium text-sm">Editor&apos;s Choice 2024</span>
+                    <div className="inline-flex items-center gap-2 bg-accent-100 rounded-full px-4 py-2 mb-4">
+                        <Award className="w-4 h-4 text-accent-600" />
+                        <span className="text-accent-700 font-medium text-sm">Editor&apos;s Choice 2024</span>
                     </div>
                     <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                         Our Top Picks
@@ -98,7 +98,7 @@ export default function TopPicks() {
                                     <div className="flex items-center gap-4 mt-2">
                                         <div className="flex gap-0.5">
                                             {[...Array(5)].map((_, i) => (
-                                                <Star key={i} className={`w-3 h-3 ${i < fund.rating ? 'text-amber-400 fill-amber-400' : 'text-slate-200'}`} />
+                                                <Star key={i} className={`w-3 h-3 ${i < fund.rating ? 'text-accent-400 fill-accent-400' : 'text-slate-200'}`} />
                                             ))}
                                         </div>
                                         <span className="text-[10px] font-medium text-slate-400 italic">

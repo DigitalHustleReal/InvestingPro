@@ -22,7 +22,7 @@ const UserSegmentation = () => {
             color: "text-secondary-400",
             bg: "bg-secondary-500/10",
             border: "border-secondary-500/20",
-            link: "/risk-profiler",
+            link: "/tools/risk-analyzer",
             tag: "Safe Start"
         },
         {
@@ -49,9 +49,9 @@ const UserSegmentation = () => {
             title: "Active Trader",
             desc: "Compare high-speed brokers and access technical screeners.",
             icon: TrendingUp,
-            color: "text-amber-400",
-            bg: "bg-amber-500/10",
-            border: "border-amber-500/20",
+            color: "text-accent-400",
+            bg: "bg-accent-500/10",
+            border: "border-accent-500/20",
             link: "/demat-accounts",
             tag: "Alpha Seeker"
         }
@@ -67,7 +67,7 @@ const UserSegmentation = () => {
                 <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
                     <div className="max-w-2xl">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-400 text-xs font-bold uppercase tracking-wider mb-4">
-                            <Zap size={14} className="text-amber-400" />
+                            <Zap size={14} className="text-accent-400" />
                             Personalized Experience
                         </div>
                         <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">

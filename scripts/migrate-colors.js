@@ -70,7 +70,7 @@ const REPLACEMENTS = [
   {
     from: /bg-emerald-([56]00)/g,
     to: 'bg-primary-$1',
-    description: 'bg-emerald-500/600 → bg-primary (fintech teal)',
+    description: 'bg-success-500/600 → bg-primary (fintech teal)',
   },
   
   // Shadow updates

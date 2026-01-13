@@ -65,8 +65,8 @@ export default function AnalyticsDashboard() {
             label: 'Avg. Views/Article',
             value: analytics?.avgViewsPerArticle || 0,
             icon: BarChart3,
-            color: 'text-amber-400',
-            bg: 'bg-amber-500/10'
+            color: 'text-accent-400',
+            bg: 'bg-accent-500/10'
         }
     ];
 
@@ -113,7 +113,7 @@ export default function AnalyticsDashboard() {
                                     <div className="flex items-center gap-4">
                                         <div className={cn(
                                             "w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm",
-                                            idx === 0 ? "bg-amber-500/20 text-amber-400" :
+                                            idx === 0 ? "bg-accent-500/20 text-accent-400" :
                                             idx === 1 ? "bg-slate-500/20 text-slate-400" :
                                             idx === 2 ? "bg-orange-500/20 text-orange-400" :
                                             "bg-white/5 text-slate-500"

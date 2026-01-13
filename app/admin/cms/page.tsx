@@ -41,7 +41,7 @@ export default function CMSDashboardPage() {
     const getHealthColor = (status: string) => {
         switch (status) {
             case 'healthy': return 'bg-primary-500/10 text-primary-400 border-primary-500/20';
-            case 'degraded': return 'bg-amber-500/10 text-amber-400 border-amber-500/20';
+            case 'degraded': return 'bg-accent-500/10 text-accent-400 border-accent-500/20';
             case 'unhealthy': return 'bg-rose-500/10 text-rose-400 border-rose-500/20';
             default: return 'bg-slate-500/10 text-slate-400 border-slate-500/20';
         }
@@ -84,7 +84,7 @@ export default function CMSDashboardPage() {
                                 <div className="w-12 h-12 rounded-xl bg-secondary-500/10 flex items-center justify-center">
                                     <DollarSign className="w-6 h-6 text-secondary-400" />
                                 </div>
-                                <Badge className={budget?.paused ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' : 'bg-primary-500/10 text-primary-400 border-primary-500/20'}>
+                                <Badge className={budget?.paused ? 'bg-accent-500/10 text-accent-400 border-accent-500/20' : 'bg-primary-500/10 text-primary-400 border-primary-500/20'}>
                                     {budget?.paused ? 'Paused' : 'Active'}
                                 </Badge>
                             </div>
@@ -98,8 +98,8 @@ export default function CMSDashboardPage() {
                     <Card className="bg-white/[0.03] border-white/5">
                         <CardContent className="p-6">
                             <div className="flex items-center justify-between mb-4">
-                                <div className="w-12 h-12 rounded-xl bg-teal-500/10 flex items-center justify-center">
-                                    <Zap className="w-6 h-6 text-teal-400" />
+                                <div className="w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center">
+                                    <Zap className="w-6 h-6 text-primary-400" />
                                 </div>
                             </div>
                             <p className="text-sm font-medium text-slate-400 mb-1">Generation Ready</p>
@@ -155,8 +155,8 @@ export default function CMSDashboardPage() {
                         <Card className="bg-white/[0.03] border-white/5 hover:border-primary-500/30 transition-all cursor-pointer">
                             <CardContent className="p-6">
                                 <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-xl bg-teal-500/10 flex items-center justify-center">
-                                        <Zap className="w-6 h-6 text-teal-400" />
+                                    <div className="w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center">
+                                        <Zap className="w-6 h-6 text-primary-400" />
                                     </div>
                                     <div>
                                         <h3 className="font-bold text-white mb-1">Content Generation</h3>

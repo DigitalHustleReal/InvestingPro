@@ -53,7 +53,7 @@ export function ArticlePreview({ article, mode = 'desktop' }: ArticlePreviewProp
             <article className="bg-white shadow-sm rounded-lg overflow-hidden">
                 {/* Featured Image */}
                 {article.featured_image && (
-                    <div className="aspect-[16/9] relative overflow-hidden bg-gray-100">
+                    <div className="aspect-[16/9] relative overflow-hidden bg-slate-100">
                         <img
                             src={article.featured_image}
                             alt={article.title}
@@ -65,7 +65,7 @@ export function ArticlePreview({ article, mode = 'desktop' }: ArticlePreviewProp
                 {/* Article Header */}
                 <div className="p-6 md:p-8">
                     {/* Category & Read Time */}
-                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <div className="flex items-center gap-4 text-sm text-slate-600 mb-4">
                         {article.category && (
                             <span className="px-3 py-1 bg-secondary-100 text-secondary-700 rounded-full font-medium">
                                 {article.category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
@@ -78,20 +78,20 @@ export function ArticlePreview({ article, mode = 'desktop' }: ArticlePreviewProp
                     </div>
 
                     {/* Title */}
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+                    <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 leading-tight">
                         {article.title || 'Untitled Article'}
                     </h1>
 
                     {/* Excerpt */}
                     {article.excerpt && (
-                        <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                        <p className="text-lg text-slate-600 mb-6 leading-relaxed">
                             {article.excerpt}
                         </p>
                     )}
 
                     {/* Author */}
                     {article.author && (
-                        <div className="flex items-center gap-3 pb-6 mb-6 border-b border-gray-200">
+                        <div className="flex items-center gap-3 pb-6 mb-6 border-b border-slate-200">
                             {article.author.avatar_url ? (
                                 <img
                                     src={article.author.avatar_url}
@@ -104,8 +104,8 @@ export function ArticlePreview({ article, mode = 'desktop' }: ArticlePreviewProp
                                 </div>
                             )}
                             <div>
-                                <div className="font-medium text-gray-900">{article.author.name}</div>
-                                <div className="text-sm text-gray-600">Author</div>
+                                <div className="font-medium text-slate-900">{article.author.name}</div>
+                                <div className="text-sm text-slate-600">Author</div>
                             </div>
                         </div>
                     )}
@@ -127,7 +127,7 @@ export function ArticlePreview({ article, mode = 'desktop' }: ArticlePreviewProp
                                 ),
                                 // Customize paragraph spacing
                                 p: ({ children }) => (
-                                    <p className="mb-4 leading-relaxed text-gray-700">{children}</p>
+                                    <p className="mb-4 leading-relaxed text-slate-700">{children}</p>
                                 ),
                                 // Format lists
                                 ul: ({ children }) => (
@@ -149,7 +149,7 @@ export function ArticlePreview({ article, mode = 'desktop' }: ArticlePreviewProp
                                 ),
                                 // Style blockquotes
                                 blockquote: ({ children }) => (
-                                    <blockquote className="border-l-4 border-secondary-500 pl-4 italic text-gray-700 my-4">
+                                    <blockquote className="border-l-4 border-secondary-500 pl-4 italic text-slate-700 my-4">
                                         {children}
                                     </blockquote>
                                 ),
@@ -157,11 +157,11 @@ export function ArticlePreview({ article, mode = 'desktop' }: ArticlePreviewProp
                                 code: ({ className, children }) => {
                                     const isInline = !className;
                                     return isInline ? (
-                                        <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono text-red-600">
+                                        <code className="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono text-danger-600">
                                             {children}
                                         </code>
                                     ) : (
-                                        <code className="block bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm font-mono">
+                                        <code className="block bg-slate-900 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm font-mono">
                                             {children}
                                         </code>
                                     );
@@ -182,12 +182,12 @@ export function ArticlePreview({ article, mode = 'desktop' }: ArticlePreviewProp
 
                     {/* Tags */}
                     {article.tags && article.tags.length > 0 && (
-                        <div className="mt-8 pt-6 border-t border-gray-200">
+                        <div className="mt-8 pt-6 border-t border-slate-200">
                             <div className="flex flex-wrap gap-2">
                                 {article.tags.map((tag, index) => (
                                     <span
                                         key={index}
-                                        className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
+                                        className="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm"
                                     >
                                         #{tag}
                                     </span>

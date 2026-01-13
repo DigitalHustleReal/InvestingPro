@@ -31,7 +31,7 @@ export default function AutoBreadcrumbs() {
                             {index === 0 ? (
                                 <Link 
                                     href={crumb.url}
-                                    className="text-slate-600 hover:text-teal-600 transition-colors"
+                                    className="text-slate-600 hover:text-primary-600 transition-colors"
                                     aria-label="Home"
                                 >
                                     <Home className="w-4 h-4" />
@@ -46,7 +46,7 @@ export default function AutoBreadcrumbs() {
                                     ) : (
                                         <Link 
                                             href={crumb.url}
-                                            className="text-slate-600 hover:text-teal-600 transition-colors"
+                                            className="text-slate-600 hover:text-primary-600 transition-colors"
                                         >
                                             {crumb.label}
                                         </Link>

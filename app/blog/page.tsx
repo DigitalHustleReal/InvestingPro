@@ -92,21 +92,21 @@ export default function BlogPage() {
             {/* Hero */}
             <div className="bg-slate-900 border-b border-slate-800 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10 pointer-events-none">
-                    <div className="absolute top-0 left-1/4 w-96 h-96 bg-teal-500 rounded-full blur-[128px]" />
+                    <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-500 rounded-full blur-[128px]" />
                     <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary-500 rounded-full blur-[128px]" />
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
                     <div className="max-w-3xl">
-                        <Badge className="mb-4 bg-teal-500/10 text-teal-400 border-teal-500/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Knowledge Hub</Badge>
+                        <Badge className="mb-4 bg-primary-500/10 text-primary-400 border-primary-500/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Knowledge Hub</Badge>
                         <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-6 leading-tight">
-                            Unlock Your <span className="text-teal-400">Financial Potential</span>
+                            Unlock Your <span className="text-primary-400">Financial Potential</span>
                         </h1>
                         <p className="text-xl text-slate-400 mb-10 leading-relaxed font-medium">
                             Deep dives, market analysis, and simplified financial guides to empower your investment journey.
                         </p>
                         <div className="relative group max-w-2xl">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-teal-400 transition-colors" strokeWidth={2} />
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-primary-400 transition-colors" strokeWidth={2} />
                             <Input
                                 placeholder="Search articles, guides, strategies..."
                                 value={searchTerm}
@@ -137,7 +137,7 @@ export default function BlogPage() {
                             variant={selectedCategory === cat ? "default" : "outline"}
                             onClick={() => handleCategoryChange(cat)}
                             className={`rounded-full px-6 transition-all ${selectedCategory === cat
-                                ? "bg-teal-600 hover:bg-teal-700 border-0 shadow-lg shadow-teal-500/30"
+                                ? "bg-primary-600 hover:bg-primary-700 border-0 shadow-lg shadow-primary-500/30"
                                 : "bg-white hover:bg-slate-100 border-slate-200 text-slate-600"
                                 }`}
                         >
@@ -154,7 +154,7 @@ export default function BlogPage() {
                             <Card className="overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 border-slate-200 group">
                                 <div className="grid md:grid-cols-2">
                                     <div className="h-64 md:h-auto overflow-hidden relative">
-                                        <div className="absolute inset-0 bg-gradient-to-br from-teal-500 to-secondary-600 transition-transform duration-700 group-hover:scale-110" />
+                                        <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-secondary-600 transition-transform duration-700 group-hover:scale-110" />
                                         {featuredArticle.featured_image && (
                                             <img
                                                 src={featuredArticle.featured_image}
@@ -165,8 +165,8 @@ export default function BlogPage() {
                                         <div className="absolute inset-0 bg-black/20" />
                                     </div>
                                     <CardContent className="p-8 md:p-6 md:p-8 flex flex-col justify-center bg-white">
-                                        <Badge className="w-fit mb-4 bg-teal-100 text-teal-700 border-0 text-[10px] uppercase font-bold tracking-wider">{featuredArticle.category?.replace(/-/g, ' ')}</Badge>
-                                        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 group-hover:text-teal-600 transition-colors leading-tight">
+                                        <Badge className="w-fit mb-4 bg-primary-100 text-primary-700 border-0 text-[10px] uppercase font-bold tracking-wider">{featuredArticle.category?.replace(/-/g, ' ')}</Badge>
+                                        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 group-hover:text-primary-600 transition-colors leading-tight">
                                             {featuredArticle.title}
                                         </h2>
                                         <p className="text-slate-500 text-lg mb-8 line-clamp-2 leading-relaxed font-medium">
@@ -182,11 +182,11 @@ export default function BlogPage() {
                                                 {featuredArticle.read_time} min read
                                             </span>
                                             <span className="flex items-center gap-2">
-                                                <Eye className="w-3.5 h-3.5 text-teal-500" strokeWidth={2} />
+                                                <Eye className="w-3.5 h-3.5 text-primary-500" strokeWidth={2} />
                                                 {featuredArticle.views || 0} views
                                             </span>
                                         </div>
-                                        <div className="flex items-center text-teal-600 font-bold text-sm uppercase tracking-widest gap-2">
+                                        <div className="flex items-center text-primary-600 font-bold text-sm uppercase tracking-widest gap-2">
                                             Read Strategy <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                                         </div>
                                     </CardContent>
@@ -229,7 +229,7 @@ export default function BlogPage() {
                                         </div>
                                     </div>
                                     <CardContent className="p-6 flex-1 flex flex-col">
-                                        <h3 className="text-xl font-bold text-slate-900 mb-3 line-clamp-2 group-hover:text-teal-600 transition-colors">
+                                        <h3 className="text-xl font-bold text-slate-900 mb-3 line-clamp-2 group-hover:text-primary-600 transition-colors">
                                             {article.title}
                                         </h3>
                                         <p className="text-slate-500 text-sm mb-6 line-clamp-3 leading-relaxed flex-1">

@@ -173,7 +173,7 @@ export default function AdminProductsPage() {
                                             </td>
                                             <td className="px-4 py-4">
                                                 <div className="flex items-center gap-2">
-                                                    <TrendingUp className="w-4 h-4 text-teal-400" />
+                                                    <TrendingUp className="w-4 h-4 text-primary-400" />
                                                     <span className="font-medium text-white">{product.trust_score || 0}</span>
                                                 </div>
                                             </td>
@@ -182,7 +182,7 @@ export default function AdminProductsPage() {
                                                     {product.verification_status === 'verified' ? (
                                                         <><CheckCircle2 className="w-4 h-4 text-primary-400" /><span className="text-primary-400 text-sm">Verified</span></>
                                                     ) : product.verification_status === 'discrepancy' ? (
-                                                        <><AlertTriangle className="w-4 h-4 text-amber-400" /><span className="text-amber-400 text-sm">Review</span></>
+                                                        <><AlertTriangle className="w-4 h-4 text-accent-400" /><span className="text-accent-400 text-sm">Review</span></>
                                                     ) : (
                                                         <><RefreshCcw className="w-4 h-4 text-slate-500" /><span className="text-slate-500 text-sm">Pending</span></>
                                                     )}

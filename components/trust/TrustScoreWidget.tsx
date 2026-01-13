@@ -23,21 +23,21 @@ export default function TrustScoreWidget({
     
     // Keep vibrant gradient colors - only avoid red
     const colorClasses = {
-        emerald: 'from-emerald-500 to-teal-500',
-        teal: 'from-teal-500 to-cyan-500',
-        amber: 'from-amber-500 to-orange-500' // Amber instead of red/rose
+        emerald: 'from-success-500 to-primary-500',
+        teal: 'from-primary-500 to-cyan-500',
+        amber: 'from-accent-500 to-orange-500' // Amber instead of red/rose
     };
 
     const bgColorClasses = {
         emerald: 'bg-primary-50 dark:bg-primary-900/20',
-        teal: 'bg-teal-50 dark:bg-teal-900/20',
-        amber: 'bg-amber-50 dark:bg-amber-900/20'
+        teal: 'bg-primary-50 dark:bg-primary-900/20',
+        amber: 'bg-accent-50 dark:bg-accent-900/20'
     };
 
     const textColorClasses = {
         emerald: 'text-primary-600',
-        teal: 'text-teal-600',
-        amber: 'text-amber-600'
+        teal: 'text-primary-600',
+        amber: 'text-accent-600'
     };
 
     if (compact) {
@@ -94,7 +94,7 @@ export default function TrustScoreWidget({
                     <div>
                         <div className="flex items-center justify-between mb-1">
                             <div className="flex items-center gap-2 text-sm">
-                                <Clock className="w-3.5 h-3.5 text-teal-600" />
+                                <Clock className="w-3.5 h-3.5 text-primary-600" />
                                 <span className="font-medium text-slate-700">Data Freshness</span>
                             </div>
                             <span className="text-sm font-bold text-slate-900 dark:text-white">
@@ -103,7 +103,7 @@ export default function TrustScoreWidget({
                         </div>
                         <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
                             <div 
-                                className="h-full bg-teal-500 rounded-full transition-all duration-1000 ease-out"
+                                className="h-full bg-primary-500 rounded-full transition-all duration-1000 ease-out"
                                 style={{ 
                                     width: `${(breakdown.components.dataFreshness / 30) * 100}%`,
                                     transitionDelay: '200ms'

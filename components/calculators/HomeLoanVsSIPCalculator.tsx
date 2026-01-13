@@ -153,7 +153,7 @@ export function HomeLoanVsSIPCalculator() {
                 <Card>
                     <CardContent className="p-6 space-y-6">
                         <div className="flex items-center gap-2 font-bold text-slate-900 border-b pb-4">
-                            <TrendingUp className="w-5 h-5 text-teal-600" /> SIP Alternative
+                            <TrendingUp className="w-5 h-5 text-primary-600" /> SIP Alternative
                         </div>
                         <div>
                             <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">Monthly SIP Amount (₹)</label>
@@ -190,7 +190,7 @@ export function HomeLoanVsSIPCalculator() {
                             <div className="text-xs text-rose-500">Total Interest Outflow</div>
                         </CardContent>
                     </Card>
-                    <Card className="bg-teal-600 text-white border-none shadow-sm">
+                    <Card className="bg-primary-600 text-white border-none shadow-sm">
                         <CardContent className="pt-6">
                             <div className="text-2xl font-bold mb-1">₹{results.sipWealth.toLocaleString()}</div>
                             <div className="text-xs opacity-80">SIP Wealth Maturity</div>
@@ -222,17 +222,17 @@ export function HomeLoanVsSIPCalculator() {
                 <div className="bg-slate-900 rounded-2xl p-6 text-white relative overflow-hidden">
                     <div className="relative z-10 space-y-4">
                         <div className="flex items-center gap-3">
-                            <div className="p-2 bg-teal-500 rounded-lg">
+                            <div className="p-2 bg-primary-500 rounded-lg">
                                 <CalcIcon className="w-5 h-5 text-white" />
                             </div>
                             <h3 className="text-lg font-bold">Our Insightful Verdict</h3>
                         </div>
                         <p className="text-slate-400 text-sm leading-relaxed">
                             If you invest ₹{sipAmount.toLocaleString()} per month at {sipReturn}% instead of prepaying your {interestRate}% loan, 
-                            you create a surplus of <span className="text-teal-400 font-bold">₹{(results.sipWealth - results.totalInterest).toLocaleString()}</span>. 
+                            you create a surplus of <span className="text-primary-400 font-bold">₹{(results.sipWealth - results.totalInterest).toLocaleString()}</span>. 
                         </p>
                         <div className="flex flex-wrap gap-4 pt-2">
-                            <div className="flex items-center gap-2 text-[10px] font-bold text-teal-400 uppercase tracking-widest">
+                            <div className="flex items-center gap-2 text-[10px] font-bold text-primary-400 uppercase tracking-widest">
                                 <CheckCircle2 className="w-3 h-3" /> Wealth Creator
                             </div>
                             <div className="flex items-center gap-2 text-[10px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-widest">

@@ -55,7 +55,7 @@ const badgeConfig = {
   },
   'best-value': {
     label: 'Best Value',
-    color: 'bg-amber-500 text-white',
+    color: 'bg-accent-500 text-white',
   },
   new: {
     label: 'New',
@@ -90,7 +90,7 @@ export function ComparisonCard({
       {/* Selection Badge (if added to compare) */}
       {isSelected && (
         <div className="absolute top-4 right-4 z-10">
-          <Badge className="bg-amber-500 text-white font-semibold shadow-md">
+          <Badge className="bg-accent-500 text-white font-semibold shadow-md">
             Added to Compare
           </Badge>
         </div>
@@ -157,7 +157,7 @@ export function ComparisonCard({
         {product.rating !== undefined && (
           <div className="flex flex-col items-end ml-2">
             <div className="flex items-center gap-1">
-              <Star className="w-5 h-5 fill-amber-500 text-amber-500" />
+              <Star className="w-5 h-5 fill-accent-500 text-accent-500" />
               <span className="text-lg font-bold text-stone-900">
                 {product.rating.toFixed(1)}
               </span>
@@ -173,7 +173,7 @@ export function ComparisonCard({
 
       {/* Key Metric Highlight */}
       <div className={cn(
-        "bg-gradient-to-br from-primary-50 to-emerald-50 border-l-4 border-primary-600 rounded-lg mb-4",
+        "bg-gradient-to-br from-primary-50 to-success-50 border-l-4 border-primary-600 rounded-lg mb-4",
         isCompact ? "p-3" : "p-4"
       )}>
         <p className="text-xs text-primary-700 font-medium uppercase tracking-wider">
@@ -196,11 +196,11 @@ export function ComparisonCard({
 
       {/* Best For */}
       {product.bestFor && (
-        <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
-          <p className="text-xs font-semibold text-amber-900 uppercase tracking-wide mb-1">
+        <div className="mb-4 p-3 bg-accent-50 border border-accent-200 rounded-lg">
+          <p className="text-xs font-semibold text-accent-900 uppercase tracking-wide mb-1">
             Best For:
           </p>
-          <p className="text-sm text-amber-900">
+          <p className="text-sm text-accent-900">
             {product.bestFor}
           </p>
         </div>

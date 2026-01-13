@@ -145,7 +145,7 @@ export default function DataTableDemo() {
       header: 'Rating',
       accessor: (row) => (
         <div className="flex items-center gap-1">
-          <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+          <Star className="w-4 h-4 text-accent-400 fill-accent-400" />
           <span className="font-bold text-slate-900 dark:text-white">{row.rating}</span>
         </div>
       ),
@@ -157,7 +157,7 @@ export default function DataTableDemo() {
       key: 'returns_1y',
       header: '1Y Returns',
       accessor: (row) => (
-        <span className={`font-semibold ${row.returns_1y > 15 ? 'text-green-600' : 'text-slate-700 dark:text-slate-300'}`}>
+        <span className={`font-semibold ${row.returns_1y > 15 ? 'text-success-600' : 'text-slate-700 dark:text-slate-300'}`}>
           {row.returns_1y.toFixed(1)}%
         </span>
       ),
@@ -170,7 +170,7 @@ export default function DataTableDemo() {
       key: 'returns_3y',
       header: '3Y Returns',
       accessor: (row) => (
-        <span className={`font-semibold ${row.returns_3y > 18 ? 'text-green-600' : 'text-slate-700 dark:text-slate-300'}`}>
+        <span className={`font-semibold ${row.returns_3y > 18 ? 'text-success-600' : 'text-slate-700 dark:text-slate-300'}`}>
           {row.returns_3y.toFixed(1)}%
         </span>
       ),
@@ -182,7 +182,7 @@ export default function DataTableDemo() {
       key: 'returns_5y',
       header: '5Y Returns',
       accessor: (row) => (
-        <span className={`font-semibold ${row.returns_5y > 17 ? 'text-green-600' : 'text-slate-700 dark:text-slate-300'}`}>
+        <span className={`font-semibold ${row.returns_5y > 17 ? 'text-success-600' : 'text-slate-700 dark:text-slate-300'}`}>
           {row.returns_5y.toFixed(1)}%
         </span>
       ),
@@ -209,10 +209,10 @@ export default function DataTableDemo() {
       header: 'Risk',
       accessor: (row) => {
         const riskColors: Record<string, string> = {
-          'Low to Moderate': 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400',
+          'Low to Moderate': 'bg-success-100 text-success-700 dark:bg-green-900/20 dark:text-green-400',
           'Moderate': 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400',
           'Moderately High': 'bg-orange-100 text-orange-700 dark:bg-orange-900/20 dark:text-orange-400',
-          'High': 'bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400',
+          'High': 'bg-danger-100 text-danger-700 dark:bg-red-900/20 dark:text-red-400',
           'Very High': 'bg-rose-100 text-rose-700 dark:bg-rose-900/20 dark:text-rose-400'
         };
         return (

@@ -5,6 +5,8 @@
  * across different types and use cases.
  */
 
+import { getThemePalette } from '../theme/brand-theme';
+
 export interface InfographicSection {
     id: string;
     name: string;
@@ -38,6 +40,14 @@ export interface InfographicTemplate {
     systemPrompt: string;
     generationPromptTemplate: string;
 }
+
+const BRAND_THEME = getThemePalette('light');
+const BRAND_COLOR_PALETTE = [
+    BRAND_THEME.primary,
+    BRAND_THEME.primaryStrong,
+    BRAND_THEME.accent,
+    BRAND_THEME.background
+];
 
 // ============================================================================
 // TEMPLATE 1: COMPARISON INFOGRAPHIC
@@ -90,7 +100,7 @@ export const COMPARISON_INFOGRAFIC: InfographicTemplate = {
         'Data labels for all values'
     ],
     
-    colorPalette: ['#10b981', '#059669', '#f59e0b', '#f8fafc'],
+    colorPalette: BRAND_COLOR_PALETTE,
     layout: 'horizontal split or vertical columns',
     dimensions: { width: 1920, height: 1080 },
     
@@ -165,7 +175,7 @@ export const TIMELINE_INFOGRAFIC: InfographicTemplate = {
         'Visual flow'
     ],
     
-    colorPalette: ['#10b981', '#059669', '#f59e0b', '#f8fafc'],
+    colorPalette: BRAND_COLOR_PALETTE,
     layout: 'horizontal or vertical timeline',
     dimensions: { width: 1920, height: 1080 },
     
@@ -241,7 +251,7 @@ export const STATISTICS_INFOGRAFIC: InfographicTemplate = {
         'Iconography'
     ],
     
-    colorPalette: ['#10b981', '#059669', '#f59e0b', '#f8fafc'],
+    colorPalette: BRAND_COLOR_PALETTE,
     layout: 'grid or dashboard style',
     dimensions: { width: 1200, height: 1200 },
     
@@ -315,7 +325,7 @@ export const PROCESS_FLOW_INFOGRAFIC: InfographicTemplate = {
         'Visual connectors'
     ],
     
-    colorPalette: ['#10b981', '#059669', '#f59e0b', '#f8fafc'],
+    colorPalette: BRAND_COLOR_PALETTE,
     layout: 'top-to-bottom or left-to-right flow',
     dimensions: { width: 1920, height: 1080 },
     

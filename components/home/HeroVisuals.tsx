@@ -72,8 +72,8 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                             transition={{ delay: 0.5 }}
                             className="absolute -bottom-6 -right-6 bg-white dark:bg-slate-800 p-3 rounded-xl shadow-xl flex items-center gap-3 border border-slate-100 dark:border-slate-700"
                         >
-                            <div className="bg-green-100 dark:bg-green-900/30 p-2 rounded-full">
-                                <Check className="w-5 h-5 text-green-600 dark:text-green-400" />
+                            <div className="bg-success-100 dark:bg-green-900/30 p-2 rounded-full">
+                                <Check className="w-5 h-5 text-success-600 dark:text-green-400" />
                             </div>
                             <div>
                                 <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Approval Chance</div>
@@ -108,7 +108,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                             </div>
                             <div className="flex justify-between text-xs font-medium">
                                 <span className="text-slate-500">Interest Rate</span>
-                                <span className="text-green-600">8.35% Lowest</span>
+                                <span className="text-success-600">8.35% Lowest</span>
                             </div>
                         </motion.div>
 
@@ -117,7 +117,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                             initial={{ scale: 2, opacity: 0, rotate: -20 }}
                             animate={{ scale: 1, opacity: 1, rotate: -12 }}
                             transition={{ delay: 0.3, type: "spring", stiffness: 200, damping: 10 }}
-                            className="absolute -bottom-4 -right-8 bg-green-500 text-white px-6 py-2 rounded-lg shadow-lg border-4 border-white dark:border-slate-900 transform rotate-[-12deg] z-20"
+                            className="absolute -bottom-4 -right-8 bg-success-500 text-white px-6 py-2 rounded-lg shadow-lg border-4 border-white dark:border-slate-900 transform rotate-[-12deg] z-20"
                         >
                             <div className="text-xl font-black uppercase tracking-widest flex items-center gap-2">
                                 <Check className="w-6 h-6 border-2 border-white rounded-full p-0.5" /> Approved
@@ -139,11 +139,11 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                             transition={{ duration: 0.5 }}
                             className="relative z-10"
                         >
-                            <Shield className="w-64 h-64 text-teal-500 fill-teal-50 dark:fill-teal-900/20 stroke-[1.5]" />
+                            <Shield className="w-64 h-64 text-primary-500 fill-primary-50 dark:fill-primary-900/20 stroke-[1.5]" />
                             <motion.div 
                                 animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.1, 1] }}
                                 transition={{ repeat: Infinity, duration: 3 }}
-                                className="absolute inset-0 bg-teal-500/10 rounded-full blur-3xl -z-10" 
+                                className="absolute inset-0 bg-primary-500/10 rounded-full blur-3xl -z-10" 
                             />
                             
                             {/* Inner Protected Content */}
@@ -152,8 +152,8 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                                     <div className="w-12 h-12 bg-primary-100 rounded-full border-2 border-white flex items-center justify-center">👨‍👩‍👧</div>
                                     <div className="w-12 h-12 bg-pink-100 rounded-full border-2 border-white flex items-center justify-center">❤️</div>
                                 </div>
-                                <div className="bg-white dark:bg-slate-800 px-3 py-1 rounded-full shadow-sm border border-teal-100 dark:border-teal-900/50">
-                                    <span className="text-xs font-bold text-teal-700 dark:text-teal-300">100% Protected</span>
+                                <div className="bg-white dark:bg-slate-800 px-3 py-1 rounded-full shadow-sm border border-primary-100 dark:border-primary-900/50">
+                                    <span className="text-xs font-bold text-primary-700 dark:text-primary-300">100% Protected</span>
                                 </div>
                             </div>
                         </motion.div>
@@ -193,7 +193,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                                 <div className="text-xs text-slate-500 uppercase tracking-wide">Total Wealth</div>
                                 <div className="text-2xl font-bold text-slate-900 dark:text-white">₹ 12,45,000</div>
                             </div>
-                            <div className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-lg text-sm font-bold flex items-center gap-1">
+                            <div className="bg-success-100 dark:bg-green-900/30 text-success-700 dark:text-green-400 px-2 py-1 rounded-lg text-sm font-bold flex items-center gap-1">
                                 <TrendingUp className="w-4 h-4" /> +14.2%
                             </div>
                         </div>
@@ -238,11 +238,11 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                         >
                             <div className="text-right mb-4">
                                 <div className="text-slate-400 text-xs mb-1">Monthly Investment</div>
-                                <div className="text-2xl font-mono text-teal-400">₹ 10,000</div>
+                                <div className="text-2xl font-mono text-primary-400">₹ 10,000</div>
                             </div>
                             <div className="grid grid-cols-4 gap-2 mb-4">
                                 {['7', '8', '9', '÷', '4', '5', '6', '×', '1', '2', '3', '-', '0', '.', '=', '+'].map((btn, i) => (
-                                    <div key={i} className={`h-10 rounded-lg flex items-center justify-center text-sm font-medium ${['÷', '×', '-', '+', '='].includes(btn) ? 'bg-teal-600' : 'bg-slate-700'}`}>
+                                    <div key={i} className={`h-10 rounded-lg flex items-center justify-center text-sm font-medium ${['÷', '×', '-', '+', '='].includes(btn) ? 'bg-primary-600' : 'bg-slate-700'}`}>
                                         {btn}
                                     </div>
                                 ))}
@@ -291,7 +291,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                             <div className="space-y-6 pt-4">
                                 {[
                                     { icon: Shield, title: "Independent Research", desc: "Unbiased. Fact-checked. 100% Honest.", color: "text-primary-600" },
-                                    { icon: TrendingUp, title: "Detailed Comparisons", desc: "Compare 500+ products side-by-side.", color: "text-green-600" },
+                                    { icon: TrendingUp, title: "Detailed Comparisons", desc: "Compare 500+ products side-by-side.", color: "text-success-600" },
                                     { icon: Award, title: "Free Financial Tools", desc: "Calculators & guides at zero cost.", color: "text-primary-600" }
                                 ].map((item, i) => (
                                     <motion.div 

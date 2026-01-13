@@ -16,7 +16,7 @@ export default function LoadingSpinner({ size = "default", text = "" }: LoadingS
 
     return (
         <div className="flex flex-col items-center justify-center gap-3">
-            <div className={`animate-spin rounded-full border-b-2 border-teal-600 ${sizeClasses[size]}`}></div>
+            <div className={`animate-spin rounded-full border-b-2 border-primary-600 ${sizeClasses[size]}`}></div>
             {text && <p className="text-slate-600 text-sm">{text}</p>}
         </div>
     );

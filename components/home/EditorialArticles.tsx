@@ -174,8 +174,8 @@ export default function EditorialArticles() {
                                     <CardContent className="p-6 flex flex-col h-full">
                                         {/* Category Label & Icon */}
                                         <div className="flex items-center gap-2 mb-4">
-                                            <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center group-hover:bg-teal-50 transition-colors">
-                                                <IconComponent className="w-4 h-4 text-slate-600 group-hover:text-teal-600" />
+                                            <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center group-hover:bg-primary-50 transition-colors">
+                                                <IconComponent className="w-4 h-4 text-slate-600 group-hover:text-primary-600" />
                                             </div>
                                             <span className="text-xs font-medium text-slate-500 uppercase tracking-wide">
                                                 {categoryLabel}
@@ -183,7 +183,7 @@ export default function EditorialArticles() {
                                         </div>
 
                                         {/* Headline */}
-                                        <h3 className="text-xl font-bold text-slate-900 mb-3 line-clamp-2 group-hover:text-teal-600 transition-colors">
+                                        <h3 className="text-xl font-bold text-slate-900 mb-3 line-clamp-2 group-hover:text-primary-600 transition-colors">
                                             {article.title}
                                         </h3>
 

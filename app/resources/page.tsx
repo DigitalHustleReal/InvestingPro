@@ -59,7 +59,7 @@ export default function ResourcesPage() {
                 {/* Hero section */}
                 <div className="text-center mb-16">
                     <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
-                        Free <span className="text-teal-600">Financial Toolkits</span>
+                        Free <span className="text-primary-600">Financial Toolkits</span>
                     </h1>
                     <p className="text-xl text-slate-500 max-w-2xl mx-auto">
                         Stop guessing your numbers. Download our professional-grade templates used by thousands of savvy investors.
@@ -83,14 +83,14 @@ export default function ResourcesPage() {
                             <div className="p-6">
                                 <div className="flex justify-between items-start mb-4">
                                     <div className={`p-3 rounded-xl ${
-                                        resource.type === 'excel' ? 'bg-green-50 text-green-600' : 
-                                        resource.type === 'google-sheet' ? 'bg-secondary-50 text-primary-600' : 'bg-red-50 text-red-600'
+                                        resource.type === 'excel' ? 'bg-success-50 text-success-600' : 
+                                        resource.type === 'google-sheet' ? 'bg-secondary-50 text-primary-600' : 'bg-danger-50 text-danger-600'
                                     }`}>
                                         <FileSpreadsheet className="w-6 h-6" />
                                     </div>
                                     <Badge variant="outline" className="text-[10px] uppercase">{resource.category}</Badge>
                                 </div>
-                                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-teal-600 transition-colors">
+                                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-primary-600 transition-colors">
                                     {resource.title}
                                 </h3>
                                 <p className="text-sm text-slate-500 leading-relaxed">
@@ -101,7 +101,7 @@ export default function ResourcesPage() {
                                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                                     {resource.type.replace('-', ' ')}
                                 </span>
-                                <Button variant="ghost" size="sm" className="font-bold text-teal-600 hover:text-teal-700 p-0 flex items-center gap-1">
+                                <Button variant="ghost" size="sm" className="font-bold text-primary-600 hover:text-primary-700 p-0 flex items-center gap-1">
                                     Download <ChevronRight className="w-4 h-4" />
                                 </Button>
                             </div>

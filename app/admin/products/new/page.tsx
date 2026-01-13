@@ -18,7 +18,7 @@ export default function NewProductPage() {
                         <ArrowLeft className="w-4 h-4" /> Back to Products
                     </Link>
                     <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-lg shadow-teal-500/25">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center shadow-lg shadow-primary-500/25">
                             <Plus className="w-6 h-6 text-white" />
                         </div>
                         <div>

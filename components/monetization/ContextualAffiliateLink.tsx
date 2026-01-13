@@ -70,7 +70,7 @@ export default function ContextualAffiliateLink({
             <div className="relative">
                 <Button
                     onClick={handleClick}
-                    className="w-full bg-teal-600 hover:bg-teal-700 text-white font-medium"
+                    className="w-full bg-primary-600 hover:bg-primary-700 text-white font-medium"
                     disabled={clicked}
                 >
                     {clicked ? 'Opening...' : `Apply for ${link.productName}`}

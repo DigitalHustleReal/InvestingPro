@@ -44,7 +44,7 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
         if (score >= 90) return 'text-primary-500 ring-primary-500/20';
         if (score >= 75) return 'text-primary-500 ring-primary-500/20';
         if (score >= 50) return 'text-yellow-500 ring-yellow-500/20';
-        return 'text-red-500 ring-red-500/20';
+        return 'text-danger-500 ring-danger-500/20';
     };
 
     return (
@@ -106,7 +106,7 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
                 {/* Verified Badge */}
                 {product.is_verified && (
                     <Badge variant="outline" className="gap-1 bg-white border-primary-200 text-primary-700 text-[10px] font-medium shadow-sm">
-                        <ShieldCheck className="w-3 h-3 fill-emerald-100" />
+                        <ShieldCheck className="w-3 h-3 fill-success-100" />
                         Verified
                     </Badge>
                 )}
@@ -128,8 +128,8 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
                         </div>
                         {/* Rating Star */}
                         <div className="flex flex-col items-end">
-                            <div className="flex items-center bg-amber-50 px-2 py-1 rounded-lg border border-amber-100">
-                                <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500 mr-1" />
+                            <div className="flex items-center bg-accent-50 px-2 py-1 rounded-lg border border-accent-100">
+                                <Star className="w-3.5 h-3.5 text-accent-500 fill-accent-500 mr-1" />
                                 <span className="font-bold text-slate-900 text-sm">{product.rating.overall}</span>
                             </div>
                         </div>

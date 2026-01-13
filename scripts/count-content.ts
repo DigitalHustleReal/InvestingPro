@@ -1,10 +1,19 @@
+import dotenv from 'dotenv';
+import path from 'path';
 import { createClient } from '@supabase/supabase-js';
-import 'dotenv/config';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+// Load env vars explicitly
+dotenv.config({ path: path.join(process.cwd(), '.env.local') });
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  console.error('❌ Missing Supabase credentials in .env.local');
+  process.exit(1);
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 interface ContentCounts {
   articles: number;
@@ -166,6 +175,8 @@ function printReport(counts: ContentCounts) {
 async function main() {
   try {
     const counts = await countContent();
+    const fs = await import('fs');
+    fs.writeFileSync('counts.json', JSON.stringify(counts, null, 2));
     printReport(counts);
     
     // Exit with appropriate code

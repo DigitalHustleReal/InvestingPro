@@ -42,11 +42,11 @@ export function CategoryHero({
     className
 }: CategoryHeroProps) {
     const gradients = {
-        teal: "from-primary-600 via-emerald-600 to-emerald-700",
-        indigo: "from-primary-600 via-cyan-600 to-teal-700", // Remapped to Primary Spectrum
-        emerald: "from-emerald-600 via-primary-600 to-teal-700",
-        purple: "from-teal-500 via-primary-600 to-emerald-700", // Remapped to Primary Spectrum
-        blue: "from-sky-600 via-primary-600 to-teal-700" // Remapped to Primary Spectrum
+        teal: "from-primary-600 via-success-600 to-success-700",
+        indigo: "from-primary-600 via-cyan-600 to-primary-700", // Remapped to Primary Spectrum
+        emerald: "from-success-600 via-primary-600 to-primary-700",
+        purple: "from-primary-500 via-primary-600 to-success-700", // Remapped to Primary Spectrum
+        blue: "from-secondary-600 via-primary-600 to-primary-700" // Remapped to Primary Spectrum
     };
 
     return (

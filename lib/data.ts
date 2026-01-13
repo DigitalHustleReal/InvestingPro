@@ -285,7 +285,7 @@ export const BROKERS = [
         id: "broker_groww",
         name: "Groww",
         logo: "G",
-        color: "from-emerald-500 to-teal-600",
+        color: "from-success-500 to-primary-600",
         tagline: "Simple Investing for Everyone",
         rating: 4.6,
         reviews: "8,234",
@@ -367,7 +367,7 @@ export const INSURANCE_PLANS = [
         company: "ICICI Prudential",
         type: "Term Life",
         logo: "I",
-        color: "from-orange-600 to-red-700",
+        color: "from-orange-600 to-danger-700",
         premium: "₹625/mo",
         coverage: "₹1 Cr",
         rating: 4.7,
@@ -380,7 +380,7 @@ export const INSURANCE_PLANS = [
         company: "Max Life",
         type: "Term Life",
         logo: "M",
-        color: "from-blue-500 to-sky-600",
+        color: "from-blue-500 to-secondary-600",
         premium: "₹580/mo",
         coverage: "₹1 Cr",
         rating: 4.6,
@@ -406,7 +406,7 @@ export const INSURANCE_PLANS = [
         company: "Care Health",
         type: "Health",
         logo: "C",
-        color: "bg-emerald-600",
+        color: "bg-success-600",
         premium: "₹9,800/yr",
         coverage: "₹5 L",
         rating: 4.5,
@@ -431,7 +431,7 @@ export const INSURANCE_PLANS = [
 
 export const IPO_DATA = [
     { name: "FirstCry (Brainbees)", status: "Closing Today", price: "₹440 - ₹465", lot: "32 Shares", listing: "Aug 13, 2024", subscription: "12.4x", color: "bg-blue-600" },
-    { name: "Ola Electric", status: "Upcoming", price: "₹72 - ₹76", lot: "195 Shares", listing: "Aug 09, 2024", subscription: "N/A", color: "bg-emerald-500" },
+    { name: "Ola Electric", status: "Upcoming", price: "₹72 - ₹76", lot: "195 Shares", listing: "Aug 09, 2024", subscription: "N/A", color: "bg-success-500" },
     { name: "Unicommerce eSolutions", status: "Open", price: "₹102 - ₹108", lot: "138 Shares", listing: "Aug 14, 2024", subscription: "2.1x", color: "bg-indigo-600" },
 ];
 

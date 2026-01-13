@@ -55,30 +55,30 @@ export default function SmartContextualOffers({
     return (
         <div className="my-12 p-8 bg-slate-900 rounded-3xl border border-slate-700 shadow-2xl relative overflow-hidden">
             {/* Background elements */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl -mr-32 -mt-32" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl -mr-32 -mt-32" />
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary-500/10 rounded-full blur-3xl -ml-32 -mb-32" />
 
             <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-6">
-                    <Zap className="w-5 h-5 text-teal-400 fill-teal-400" />
+                    <Zap className="w-5 h-5 text-primary-400 fill-primary-400" />
                     <h2 className="text-2xl font-bold text-white tracking-tight">{title}</h2>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {displayedProducts.map((product: any) => (
-                        <Card key={product.id} className="bg-slate-800/50 border-slate-700 hover:border-teal-500/50 transition-all group backdrop-blur-sm">
+                        <Card key={product.id} className="bg-slate-800/50 border-slate-700 hover:border-primary-500/50 transition-all group backdrop-blur-sm">
                             <CardContent className="p-6 md:p-8">
                                 <div className="flex justify-between items-start mb-4">
                                     <div className="p-6 md:p-8 bg-white rounded-lg w-12 h-12 flex items-center justify-center overflow-hidden">
                                         <img src={product.image_url} alt={product.name} className="w-full h-full object-contain" />
                                     </div>
-                                    <div className="flex items-center text-amber-400 font-bold text-sm bg-slate-900/50 px-2 py-1 rounded-full border border-slate-700">
+                                    <div className="flex items-center text-accent-400 font-bold text-sm bg-slate-900/50 px-2 py-1 rounded-full border border-slate-700">
                                         <Star className="w-3.5 h-3.5 fill-current mr-1" />
                                         {product.rating || '4.5'}
                                     </div>
                                 </div>
 
-                                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-teal-400 transition-colors">
+                                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-primary-400 transition-colors">
                                     {product.name}
                                 </h3>
                                 <p className="text-xs text-slate-400 mb-4 line-clamp-2 h-8">
@@ -88,14 +88,14 @@ export default function SmartContextualOffers({
                                 <div className="space-y-2 mb-6">
                                     {product.pros?.slice(0, 2).map((pro: string, i: number) => (
                                         <div key={i} className="flex items-center gap-2 text-[11px] text-slate-300">
-                                            <div className="w-1 h-1 rounded-full bg-teal-500" />
+                                            <div className="w-1 h-1 rounded-full bg-primary-500" />
                                             <span className="truncate">{pro}</span>
                                         </div>
                                     ))}
                                 </div>
 
                                 <Link href={`/go/${product.slug}`} target="_blank" className="block">
-                                    <Button className="w-full bg-teal-600 hover:bg-teal-500 text-white font-bold h-10 group-hover:shadow-[0_0_20px_rgba(20,184,166,0.3)] transition-all">
+                                    <Button className="w-full bg-primary-600 hover:bg-primary-500 text-white font-bold h-10 group-hover:shadow-[0_0_20px_rgba(20,184,166,0.3)] transition-all">
                                         View Details
                                         <ArrowRight className="w-4 h-4 ml-2" />
                                     </Button>

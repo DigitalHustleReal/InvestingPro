@@ -244,7 +244,7 @@ export default function LoansPage() {
                                             step="10000"
                                             value={amount}
                                             onChange={(e) => setAmount(Number(e.target.value))}
-                                            className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500"
+                                            className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-success-500"
                                         />
                                     </div>
 

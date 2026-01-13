@@ -68,7 +68,7 @@ export function AdminBreadcrumb() {
         <nav className="flex items-center gap-1.5 text-sm mb-6" aria-label="Breadcrumb">
             <Link 
                 href="/admin" 
-                className="flex items-center gap-1 text-slate-500 hover:text-teal-600 transition-colors"
+                className="flex items-center gap-1 text-slate-500 hover:text-primary-600 transition-colors"
             >
                 <Home className="w-4 h-4" />
             </Link>
@@ -79,7 +79,7 @@ export function AdminBreadcrumb() {
                     {item.href ? (
                         <Link 
                             href={item.href} 
-                            className="text-slate-500 hover:text-teal-600 transition-colors"
+                            className="text-slate-500 hover:text-primary-600 transition-colors"
                         >
                             {item.label}
                         </Link>

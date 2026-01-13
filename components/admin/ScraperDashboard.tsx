@@ -122,8 +122,8 @@ function ScraperCard({ scraper, onExecute, isExecuting }: any) {
     
     const getStatusColor = (status: string) => {
         switch (status) {
-            case 'completed': return 'bg-green-500';
-            case 'failed': return 'bg-red-500';
+            case 'completed': return 'bg-success-500';
+            case 'failed': return 'bg-danger-500';
             case 'running': return 'bg-yellow-500 animate-pulse';
             default: return 'bg-slate-500';
         }

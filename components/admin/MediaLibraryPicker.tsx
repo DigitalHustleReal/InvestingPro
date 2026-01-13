@@ -253,7 +253,7 @@ export default function MediaLibraryPicker({
                 {...getRootProps()}
                 className={cn(
                     "max-w-4xl max-h-[80vh] flex flex-col",
-                    isDragActive && "bg-teal-50 border-teal-500"
+                    isDragActive && "bg-primary-50 border-primary-500"
                 )}
             >
                 <input {...getInputProps()} />
@@ -343,7 +343,7 @@ export default function MediaLibraryPicker({
                                             key={item.id}
                                             className={cn(
                                                 "relative cursor-pointer group hover:shadow-lg transition-all",
-                                                isSelected && "ring-2 ring-teal-600"
+                                                isSelected && "ring-2 ring-primary-600"
                                             )}
                                             onClick={() => handleSelect(item.url)}
                                         >
@@ -354,8 +354,8 @@ export default function MediaLibraryPicker({
                                                     className="w-full h-full object-cover"
                                                 />
                                                 {isSelected && (
-                                                    <div className="absolute inset-0 bg-teal-600/20 flex items-center justify-center">
-                                                        <div className="w-8 h-8 bg-teal-600 rounded-full flex items-center justify-center">
+                                                    <div className="absolute inset-0 bg-primary-600/20 flex items-center justify-center">
+                                                        <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center">
                                                             <Check className="w-5 h-5 text-white" />
                                                         </div>
                                                     </div>

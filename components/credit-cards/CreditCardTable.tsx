@@ -124,7 +124,7 @@ export function CreditCardTable({ cards }: CreditCardTableProps) {
                                     key={i}
                                     className={`w-3.5 h-3.5 ${
                                         i < stars
-                                            ? 'text-amber-400 fill-amber-400'
+                                            ? 'text-accent-400 fill-accent-400'
                                             : 'text-slate-300 dark:text-slate-600'
                                     }`}
                                 />
@@ -147,8 +147,8 @@ export function CreditCardTable({ cards }: CreditCardTableProps) {
                 const bestFor = row.best_for || row.bestFor || 'General';
                 const badgeColors: Record<string, string> = {
                     'Travel': 'bg-blue-100 text-blue-700 border-blue-200',
-                    'Cashback': 'bg-emerald-100 text-emerald-700 border-emerald-200',
-                    'Premium': 'bg-amber-100 text-amber-700 border-amber-200',
+                    'Cashback': 'bg-success-100 text-success-700 border-emerald-200',
+                    'Premium': 'bg-accent-100 text-accent-700 border-accent-200',
                     'Rewards': 'bg-purple-100 text-purple-700 border-purple-200',
                     'General': 'bg-slate-100 text-slate-700 border-slate-200'
                 };
@@ -173,7 +173,7 @@ export function CreditCardTable({ cards }: CreditCardTableProps) {
                             variant="outline" 
                             className="w-full h-9 rounded-xl border-slate-200 hover:bg-white dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold text-[10px] uppercase tracking-wider"
                         >
-                            Compare
+                            Details
                         </Button>
                     </Link>
                     <Link href={row.affiliate_link || row.link || `/credit-cards/${row.slug}`} className="w-full">

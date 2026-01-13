@@ -59,7 +59,7 @@ export default function StockImageSearch({ onSelect, onClose }: StockImageSearch
         try {
             // Show loading state
             const loadingToast = document.createElement('div');
-            loadingToast.className = 'fixed top-4 right-4 bg-teal-600 text-white px-4 py-2 rounded-lg shadow-lg z-50';
+            loadingToast.className = 'fixed top-4 right-4 bg-primary-600 text-white px-4 py-2 rounded-lg shadow-lg z-50';
             loadingToast.textContent = 'Downloading image...';
             document.body.appendChild(loadingToast);
 
@@ -92,7 +92,7 @@ export default function StockImageSearch({ onSelect, onClose }: StockImageSearch
 
             // Update loading message
             loadingToast.textContent = 'Image added successfully!';
-            loadingToast.className = 'fixed top-4 right-4 bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg z-50';
+            loadingToast.className = 'fixed top-4 right-4 bg-success-600 text-white px-4 py-2 rounded-lg shadow-lg z-50';
             
             setTimeout(() => {
                 if (document.body.contains(loadingToast)) {

@@ -24,8 +24,8 @@ export default function ReviewVerdict({
     const theme = score >= 8 
         ? { color: 'text-primary-700', bg: 'bg-primary-50', border: 'border-primary-200', fill: 'bg-primary-500' }
         : score >= 5 
-            ? { color: 'text-amber-700', bg: 'bg-amber-50', border: 'border-amber-200', fill: 'bg-amber-500' }
-            : { color: 'text-red-700', bg: 'bg-red-50', border: 'border-red-200', fill: 'bg-red-500' };
+            ? { color: 'text-accent-700', bg: 'bg-accent-50', border: 'border-accent-200', fill: 'bg-accent-500' }
+            : { color: 'text-danger-700', bg: 'bg-danger-50', border: 'border-red-200', fill: 'bg-danger-500' };
 
     return (
         <div className="my-8 rounded-2xl border bg-white shadow-sm overflow-hidden border-slate-200">
@@ -72,14 +72,14 @@ export default function ReviewVerdict({
 
                     {/* Cons */}
                     <div>
-                        <h4 className="flex items-center gap-2 font-bold text-red-700 mb-4 uppercase text-sm tracking-wide">
-                            <span className="p-1 rounded-full bg-red-100"><X className="w-3 h-3" /></span>
+                        <h4 className="flex items-center gap-2 font-bold text-danger-700 mb-4 uppercase text-sm tracking-wide">
+                            <span className="p-1 rounded-full bg-danger-100"><X className="w-3 h-3" /></span>
                             Cons
                         </h4>
                         <ul className="space-y-3">
                             {cons.map((item, i) => (
                                 <li key={i} className="flex items-start gap-3 text-sm text-slate-600">
-                                    <X className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+                                    <X className="w-4 h-4 text-danger-500 shrink-0 mt-0.5" />
                                     <span>{item}</span>
                                 </li>
                             ))}

@@ -112,7 +112,7 @@ export default function AdminSidebar() {
             {/* Logo/Brand Area */}
             <div className="p-6 mb-2">
                 <Link href="/admin" className="flex items-center gap-3 group">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-primary-500/20 group-hover:scale-110 transition-transform duration-300">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-success-500 to-primary-600 flex items-center justify-center shadow-lg shadow-primary-500/20 group-hover:scale-110 transition-transform duration-300">
                         <Zap className="w-6 h-6 text-white fill-white/20" />
                     </div>
                     <div>

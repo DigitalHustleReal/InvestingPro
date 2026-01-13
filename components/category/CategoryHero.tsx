@@ -97,7 +97,7 @@ const categoryConfigs: Record<string, {
     },
     'taxes': {
         icon: Calculator,
-        gradient: 'from-amber-600 to-orange-600',
+        gradient: 'from-accent-600 to-orange-600',
         headline: 'Save more with smart tax planning',
         subheadline: 'Compare tax-saving investments, calculate your tax liability, and file ITR. Maximize your savings.',
         searchPlaceholder: 'Search tax-saving options or calculators...',

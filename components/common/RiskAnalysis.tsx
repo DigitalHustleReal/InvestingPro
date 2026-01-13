@@ -103,7 +103,7 @@ export default function RiskAnalysis({ holdings, user }: RiskAnalysisProps) {
                     </div>
                     <div className="flex items-center justify-between">
                         <span className="text-sm text-slate-600">Your Current Equity Allocation</span>
-                        <span className={`font-bold ${isEquityInRange ? 'text-primary-600' : 'text-amber-600'}`}>
+                        <span className={`font-bold ${isEquityInRange ? 'text-primary-600' : 'text-accent-600'}`}>
                             {equityPercent}%
                         </span>
                     </div>
@@ -113,7 +113,7 @@ export default function RiskAnalysis({ holdings, user }: RiskAnalysisProps) {
                     {insights.map((insight, idx) => {
                         const Icon = insight.type === 'success' ? CheckCircle2 : insight.type === 'warning' ? AlertCircle : TrendingUp;
                         const styleClass = insight.type === 'success' ? 'text-primary-700 bg-primary-50 border-primary-100' :
-                            insight.type === 'warning' ? 'text-amber-700 bg-amber-50 border-amber-100' :
+                            insight.type === 'warning' ? 'text-accent-700 bg-accent-50 border-accent-100' :
                                 'text-secondary-700 bg-secondary-50 border-secondary-100';
 
                         return (

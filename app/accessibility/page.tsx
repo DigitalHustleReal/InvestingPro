@@ -42,7 +42,7 @@ export default function AccessibilityPage() {
                         We welcome your feedback on the accessibility of InvestingPro. Please let us know if you encounter accessibility barriers:
                     </p>
                     <ul className="text-slate-600 dark:text-slate-300 space-y-2">
-                        <li>Email: <a href="mailto:accessibility@investingpro.in" className="text-teal-600 hover:text-teal-700">accessibility@investingpro.in</a></li>
+                        <li>Email: <a href="mailto:accessibility@investingpro.in" className="text-primary-600 hover:text-primary-700">accessibility@investingpro.in</a></li>
                         <li>We try to respond to feedback within 2 business days</li>
                     </ul>
 

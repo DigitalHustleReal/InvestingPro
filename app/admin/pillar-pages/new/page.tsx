@@ -116,7 +116,7 @@ export default function NewPillarPage() {
                 {/* Header Bar */}
                 <div className="border-b border-slate-200 px-8 py-4 flex items-center justify-between bg-white">
                     <div className="flex-1 flex items-center gap-3">
-                        <Target className="w-6 h-6 text-teal-600" />
+                        <Target className="w-6 h-6 text-primary-600" />
                         <div className="flex-1">
                             <Input
                                 value={title}

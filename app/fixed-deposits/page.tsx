@@ -70,24 +70,24 @@ export default function FixedDepositsPage() {
             {/* Premium Dark Hero */}
             <div className="bg-slate-900 relative overflow-hidden pt-20 pb-32">
                 <div className="absolute inset-0 opacity-20 pointer-events-none">
-                    <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-amber-600 rounded-full blur-[120px]" />
+                    <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-accent-600 rounded-full blur-[120px]" />
                     <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-orange-600 rounded-full blur-[100px]" />
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="max-w-3xl">
-                        <div className="inline-flex items-center gap-2 bg-amber-500/10 backdrop-blur-md rounded-full px-4 py-2 mb-8 border border-amber-500/20">
-                            <ShieldCheck className="w-4 h-4 text-amber-500" />
-                            <span className="text-amber-500 font-bold text-xs uppercase tracking-[0.2em]">Sovereign Safety Guarantee</span>
+                        <div className="inline-flex items-center gap-2 bg-accent-500/10 backdrop-blur-md rounded-full px-4 py-2 mb-8 border border-accent-500/20">
+                            <ShieldCheck className="w-4 h-4 text-accent-500" />
+                            <span className="text-accent-500 font-bold text-xs uppercase tracking-[0.2em]">Sovereign Safety Guarantee</span>
                         </div>
                         <h1 className="text-4xl sm:text-6xl font-extrabold text-white mb-6 tracking-tight leading-tight">
-                            Grow Wealth with <span className="text-amber-500">Absolute Peace</span>
+                            Grow Wealth with <span className="text-accent-500">Absolute Peace</span>
                         </h1>
                         <p className="text-xl text-slate-400 leading-relaxed mb-10">
                             Compare the highest Fixed Deposit rates across 50+ Banks and NBFCs. Secure your future with guaranteed returns and zero market risk.
                         </p>
                         <div className="flex gap-4">
-                            <Button className="rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-bold h-14 px-8 shadow-lg shadow-amber-500/20 text-lg">
+                            <Button className="rounded-2xl bg-accent-500 hover:bg-accent-600 text-white font-bold h-14 px-8 shadow-lg shadow-accent-500/20 text-lg">
                                 Find Highest Rates
                                 <ChevronRight className="w-5 h-5 ml-2" />
                             </Button>
@@ -106,7 +106,7 @@ export default function FixedDepositsPage() {
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                     {[
                         { label: "Bank Max Yield", value: "7.85%", sub: "For Senior Citizens", icon: Percent, color: "bg-primary-600" },
-                        { label: "NBFC Max Yield", value: "8.65%", sub: "Aggressive Returns", icon: Zap, color: "bg-amber-600" },
+                        { label: "NBFC Max Yield", value: "8.65%", sub: "Aggressive Returns", icon: Zap, color: "bg-accent-600" },
                         { label: "Insured Amount", value: "₹5 Lakh", sub: "DICGC per Bank", icon: Shield, color: "bg-primary-600" },
                         { label: "Minimum Lock-in", value: "7 Days", sub: "Maximum Liquidity", icon: Clock, color: "bg-secondary-600" },
                     ].map((stat, index) => (
@@ -136,7 +136,7 @@ export default function FixedDepositsPage() {
                                 Desired Tenure
                             </span>
                             <Select value={selectedTenure} onValueChange={setSelectedTenure}>
-                                <SelectTrigger className="w-48 bg-slate-50 border-0 rounded-xl h-12 font-bold focus:ring-amber-500">
+                                <SelectTrigger className="w-48 bg-slate-50 border-0 rounded-xl h-12 font-bold focus:ring-accent-500">
                                     <SelectValue placeholder="Select Tenure" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -179,7 +179,7 @@ export default function FixedDepositsPage() {
                     {sortedRates.map((fd: any, index: number) => (
                         <div
                             key={index}
-                            className={`group bg-white rounded-[2.5rem] border-0 shadow-xl overflow-hidden transition-all hover:shadow-2xl hover:-translate-y-1 ${fd.rates[selectedTenure] === highestRate ? 'ring-2 ring-amber-500' : ''}`}
+                            className={`group bg-white rounded-[2.5rem] border-0 shadow-xl overflow-hidden transition-all hover:shadow-2xl hover:-translate-y-1 ${fd.rates[selectedTenure] === highestRate ? 'ring-2 ring-accent-500' : ''}`}
                         >
                             <div className="p-8">
                                 <div className="grid lg:grid-cols-4 gap-12 items-center">
@@ -197,7 +197,7 @@ export default function FixedDepositsPage() {
                                                     </Badge>
                                                     {fd.featured && (
                                                         <Badge className="bg-primary-500/10 text-primary-600 border-0 text-[9px] font-bold uppercase tracking-widest px-2 py-1">
-                                                            <Star className="w-2.5 h-2.5 mr-1 fill-emerald-600" />
+                                                            <Star className="w-2.5 h-2.5 mr-1 fill-success-600" />
                                                             Top Pick
                                                         </Badge>
                                                     )}
@@ -212,7 +212,7 @@ export default function FixedDepositsPage() {
                                             {tenures.map(tenure => (
                                                 <div
                                                     key={tenure}
-                                                    className={`text-center p-4 rounded-3xl transition-all ${tenure === selectedTenure ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20 scale-110' : 'bg-slate-50/50 hover:bg-slate-50'}`}
+                                                    className={`text-center p-4 rounded-3xl transition-all ${tenure === selectedTenure ? 'bg-accent-500 text-white shadow-lg shadow-accent-500/20 scale-110' : 'bg-slate-50/50 hover:bg-slate-50'}`}
                                                 >
                                                     <p className={`text-[9px] font-bold uppercase tracking-tighter mb-1 ${tenure === selectedTenure ? 'text-white/70' : 'text-slate-400'}`}>{tenure}</p>
                                                     <p className="text-xl font-bold tracking-tight">{fd.rates[tenure]}%</p>
@@ -234,7 +234,7 @@ export default function FixedDepositsPage() {
                                                     <span className="text-sm font-extrabold text-slate-900">{fd.minDeposit}</span>
                                                 </div>
                                             </div>
-                                            <Button className="w-full rounded-2xl bg-slate-900 hover:bg-amber-500 text-white font-bold py-7 h-auto transition-all text-base shadow-xl active:scale-95 group/btn">
+                                            <Button className="w-full rounded-2xl bg-slate-900 hover:bg-accent-500 text-white font-bold py-7 h-auto transition-all text-base shadow-xl active:scale-95 group/btn">
                                                 Secure This Rate
                                                 <ArrowUpRight className="w-5 h-5 ml-2 group-hover/btn:rotate-45 transition-transform" />
                                             </Button>
@@ -266,14 +266,14 @@ export default function FixedDepositsPage() {
                 {/* Investor Education */}
                 <div className="mt-24 grid md:grid-cols-2 gap-8">
                     <Card className="rounded-[3rem] border-0 shadow-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white p-6 md:p-8 relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-accent-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
                         <CardHeader className="p-0 mb-8">
-                            <Badge className="bg-amber-500 text-white mb-6 border-0 text-[10px] font-bold tracking-widest">Expert Advice</Badge>
+                            <Badge className="bg-accent-500 text-white mb-6 border-0 text-[10px] font-bold tracking-widest">Expert Advice</Badge>
                             <CardTitle className="text-3xl font-bold tracking-tight leading-tight">Mastering Fixed Income</CardTitle>
                         </CardHeader>
                         <CardContent className="p-0 space-y-8">
                             <div className="space-y-4">
-                                <h4 className="text-amber-500 font-bold flex items-center gap-2">
+                                <h4 className="text-accent-500 font-bold flex items-center gap-2">
                                     <Zap className="w-4 h-4" />
                                     Guaranteed Capital
                                 </h4>

@@ -63,7 +63,7 @@ export default function TerminalPage() {
                 <section className="py-24 relative overflow-hidden">
                     {/* Background elements */}
                     <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-500/20 to-transparent" />
-                    <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-500/10 to-transparent" />
+                    <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-success-500/10 to-transparent" />
 
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
@@ -133,7 +133,7 @@ export default function TerminalPage() {
                                     ))}
 
                                     {/* Premium CTA Card */}
-                                    <div className="bg-gradient-to-br from-primary-600 to-emerald-700 border-0 rounded-[2rem] overflow-hidden group cursor-pointer relative shadow-xl">
+                                    <div className="bg-gradient-to-br from-primary-600 to-success-700 border-0 rounded-[2rem] overflow-hidden group cursor-pointer relative shadow-xl">
                                         <BarChart3 className="absolute -right-8 -bottom-8 w-48 h-48 text-white/10 group-hover:scale-110 transition-transform duration-700" />
                                         <div className="p-8 h-full flex flex-col justify-between relative z-10">
                                             <div>
@@ -280,7 +280,7 @@ export default function TerminalPage() {
                                         <div className="bg-slate-900/40 border border-slate-800/60 rounded-xl shadow-lg">
                                             <div className="p-6">
                                                 <div className="flex items-start gap-4">
-                                                    <AlertCircle className="w-5 h-5 text-amber-400 mt-1" />
+                                                    <AlertCircle className="w-5 h-5 text-accent-400 mt-1" />
                                                     <div className="flex-1">
                                                         <div className="font-semibold text-white mb-1">RELIANCE Breakout Alert</div>
                                                         <div className="text-sm text-slate-400">Price crossed ₹2,500 resistance level</div>

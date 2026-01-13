@@ -55,7 +55,7 @@ export default function AIHealthMonitor() {
                             {isHealthy ? (
                                 <CheckCircle2 className="w-2.5 h-2.5 text-primary-500" />
                             ) : isDegraded ? (
-                                <AlertTriangle className="w-2.5 h-2.5 text-amber-500" />
+                                <AlertTriangle className="w-2.5 h-2.5 text-accent-500" />
                             ) : (
                                 <RefreshCw className="w-2.5 h-2.5 text-rose-500 animate-spin" />
                             )}
@@ -64,7 +64,7 @@ export default function AIHealthMonitor() {
                 })}
             </div>
             {health && Object.values(health.providers).some(p => p.status === 'degraded') && (
-                <div className="animate-pulse flex items-center gap-2 px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-[10px] font-bold text-amber-500 uppercase">
+                <div className="animate-pulse flex items-center gap-2 px-2 py-0.5 rounded-full bg-accent-500/10 border border-accent-500/20 text-[10px] font-bold text-accent-500 uppercase">
                     Failover Active
                 </div>
             )}

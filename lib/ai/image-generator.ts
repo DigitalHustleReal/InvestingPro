@@ -30,9 +30,9 @@ function getOpenAI(): OpenAI {
  * Brand colors for image generation
  */
 const BRAND_COLORS = {
-  primary: '#10b981', // emerald-500
-  secondary: '#059669', // emerald-600
-  accent: '#f59e0b', // amber-500
+  primary: '#10b981', // success-500
+  secondary: '#059669', // success-600
+  accent: '#f59e0b', // accent-500
   background: '#f8fafc' // slate-50
 }
 

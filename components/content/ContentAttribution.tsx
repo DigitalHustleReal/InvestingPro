@@ -45,7 +45,7 @@ export function ContentAttribution({
                 {showReviewer && reviewer && (
                     <div className="expert-review-badge">
                         <div className="verification-icon">
-                            <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <svg className="w-5 h-5 text-success-600" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                             </svg>
                         </div>
@@ -92,7 +92,7 @@ export function ContentAttribution({
                                     {author.name}
                                 </Link>
                                 {author.title && (
-                                    <div className="author-title text-sm text-gray-600">
+                                    <div className="author-title text-sm text-slate-600">
                                         {author.title}
                                     </div>
                                 )}
@@ -103,14 +103,14 @@ export function ContentAttribution({
                     {/* Reviewer */}
                     {showReviewer && reviewer && (
                         <div className="reviewer-byline">
-                            <div className="reviewer-label text-sm text-gray-600">
+                            <div className="reviewer-label text-sm text-slate-600">
                                 {reviewerLabel}
                             </div>
                             <div className="reviewer-name font-medium">
                                 {reviewer.name}
                             </div>
                             {reviewer.credentials && reviewer.credentials.length > 0 && (
-                                <div className="reviewer-credentials text-sm text-gray-600">
+                                <div className="reviewer-credentials text-sm text-slate-600">
                                     {reviewer.title} | {reviewer.credentials[0]}
                                 </div>
                             )}
@@ -118,7 +118,7 @@ export function ContentAttribution({
                     )}
                     
                     {/* Dates */}
-                    <div className="content-dates text-sm text-gray-600">
+                    <div className="content-dates text-sm text-slate-600">
                         {publishedAt && (
                             <div>Published: {formatDate(publishedAt)}</div>
                         )}
@@ -136,7 +136,7 @@ export function ContentAttribution({
         return (
             <div className="content-attribution minimal-attribution">
                 {showAuthor && author && (
-                    <div className="simple-byline text-sm text-gray-600">
+                    <div className="simple-byline text-sm text-slate-600">
                         <span>By </span>
                         <Link href={`/author/${author.slug}`} className="font-medium hover:text-primary">
                             {author.name}
@@ -158,12 +158,12 @@ export function ContentAttribution({
             <div className="content-attribution news-attribution">
                 {showAuthor && author && (
                     <div className="news-byline text-sm">
-                        <span className="text-gray-600">By </span>
+                        <span className="text-slate-600">By </span>
                         <Link href={`/author/${author.slug}`} className="font-medium hover:text-primary">
                             {author.name}
                         </Link>
                         {publishedAt && (
-                            <span className="ml-3 text-gray-600">
+                            <span className="ml-3 text-slate-600">
                                 {formatDateTime(publishedAt)}
                             </span>
                         )}
@@ -182,7 +182,7 @@ export function ContentAttribution({
  */
 export function AuthorBioCard({ author }: { author: Author }) {
     return (
-        <div className="author-bio-card border rounded-lg p-6 bg-gray-50">
+        <div className="author-bio-card border rounded-lg p-6 bg-slate-50">
             <div className="flex gap-4">
                 {author.photoUrl && (
                     <Image
@@ -200,7 +200,7 @@ export function AuthorBioCard({ author }: { author: Author }) {
                         </h3>
                     </Link>
                     {author.title && (
-                        <p className="text-sm text-gray-600 mb-2">{author.title}</p>
+                        <p className="text-sm text-slate-600 mb-2">{author.title}</p>
                     )}
                     {author.credentials && author.credentials.length > 0 && (
                         <div className="flex flex-wrap gap-2 mb-3">
@@ -230,7 +230,7 @@ export function EditorialDisclosure() {
     return (
         <div className="editorial-disclosure border-t pt-6 mt-8">
             <h4 className="font-semibold mb-2">Our Editorial Process</h4>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-slate-600">
                 All content on InvestingPro is reviewed by certified financial experts to ensure 
                 accuracy and compliance with RBI, SEBI, and IRDAI guidelines. Our editorial team 
                 includes CFAs, Chartered Accountants, and former regulatory officials with 160+ 

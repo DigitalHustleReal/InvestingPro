@@ -40,7 +40,7 @@ export default function CompareBar() {
             {/* Collapse/Expand Button (Mobile) */}
             <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="absolute -top-8 right-4 sm:hidden p-2 bg-gradient-to-r from-primary-600 to-blue-600 text-white rounded-t-lg shadow-lg"
+            className="absolute -top-8 right-4 sm:hidden p-2 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-t-lg shadow-lg"
             aria-label={isCollapsed ? 'Expand' : 'Collapse'}
             >
             {isCollapsed ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -51,7 +51,7 @@ export default function CompareBar() {
                 {/* Status Text with Icon */}
                 <div className="hidden sm:flex flex-col">
                 <div className="flex items-center gap-2 mb-1">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-blue-600 flex items-center justify-center shadow-lg shadow-primary-500/30">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-600 flex items-center justify-center shadow-lg shadow-primary-500/30">
                     <Sparkles className="w-4 h-4 text-white" />
                     </div>
                     <span className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
@@ -103,10 +103,10 @@ export default function CompareBar() {
                         {/* Remove Button */}
                         <button
                         onClick={() => removeProduct(product.id)}
-                        className="p-1 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-full group/remove transition-colors"
+                        className="p-1 hover:bg-danger-100 dark:hover:bg-red-900/30 rounded-full group/remove transition-colors"
                         aria-label="Remove"
                         >
-                        <X className="w-3.5 h-3.5 text-slate-400 group-hover/remove:text-red-500" />
+                        <X className="w-3.5 h-3.5 text-slate-400 group-hover/remove:text-danger-500" />
                         </button>
                     </div>
                     ))}
@@ -118,7 +118,7 @@ export default function CompareBar() {
                     variant="ghost"
                     size="sm"
                     onClick={clearAll}
-                    className="hidden sm:flex text-xs font-semibold text-slate-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/10"
+                    className="hidden sm:flex text-xs font-semibold text-slate-500 hover:text-danger-600 hover:bg-danger-50 dark:hover:bg-red-900/10"
                 >
                     Clear All
                 </Button>
@@ -126,7 +126,7 @@ export default function CompareBar() {
                 <Link href={compareUrl}>
                     <Button 
                         size={isCollapsed ? 'sm' : 'default'}
-                        className="bg-gradient-to-r from-primary-600 to-blue-600 hover:from-primary-700 hover:to-blue-700 text-white font-bold shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/40 transition-all hover:scale-105 active:scale-95"
+                        className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white font-bold shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/40 transition-all hover:scale-105 active:scale-95"
                     >
                     <span className="mr-2">Compare</span>
                     <ArrowRight className="w-4 h-4" />

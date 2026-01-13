@@ -150,7 +150,7 @@ export default function AuthorsPage() {
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
                     <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 shadow-lg shadow-primary-500/25 flex items-center justify-center">
+                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-success-500 to-primary-500 shadow-lg shadow-primary-500/25 flex items-center justify-center">
                             <Users className="w-7 h-7 text-white" />
                         </div>
                         <div>
@@ -163,7 +163,7 @@ export default function AuthorsPage() {
                     <div className="flex gap-3">
                         <Button 
                             onClick={handleCreate} 
-                            className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl shadow-lg shadow-primary-500/25"
+                            className="bg-gradient-to-r from-success-500 to-primary-500 hover:from-success-600 hover:to-primary-600 text-white rounded-xl shadow-lg shadow-primary-500/25"
                         >
                             <Plus className="w-4 h-4 mr-2" />
                             Recruit Expert
@@ -210,7 +210,7 @@ export default function AuthorsPage() {
 
                                 <div className="flex items-center gap-3 mt-auto w-full justify-center">
                                     {author.social_links?.twitter && (
-                                        <a href={author.social_links.twitter} target="_blank" className="p-2 rounded-lg bg-white/5 hover:bg-sky-500/20 hover:text-sky-400 text-slate-500 transition-colors">
+                                        <a href={author.social_links.twitter} target="_blank" className="p-2 rounded-lg bg-white/5 hover:bg-secondary-500/20 hover:text-secondary-400 text-slate-500 transition-colors">
                                             <Twitter className="w-4 h-4" />
                                         </a>
                                     )}

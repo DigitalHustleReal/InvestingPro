@@ -134,10 +134,10 @@ export default function EnhancedWordPressStyleCMS({
 
     const getStatusColor = (status: string) => {
         switch (status) {
-            case 'published': return 'bg-green-100 text-green-800 border-green-200';
+            case 'published': return 'bg-success-100 text-green-800 border-green-200';
             case 'draft': return 'bg-slate-100 text-slate-800 border-slate-200';
             case 'review': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-            case 'archived': return 'bg-gray-100 text-gray-800 border-gray-200';
+            case 'archived': return 'bg-slate-100 text-slate-800 border-slate-200';
             default: return 'bg-slate-100 text-slate-800 border-slate-200';
         }
     };
@@ -157,7 +157,7 @@ export default function EnhancedWordPressStyleCMS({
                             Generate with AI
                         </Button>
                     )}
-                    <Button onClick={onNewArticle} className="bg-teal-600 hover:bg-teal-700 text-white">
+                    <Button onClick={onNewArticle} className="bg-primary-600 hover:bg-primary-700 text-white">
                         <Plus className="w-4 h-4 mr-2" />
                         Add New Article
                     </Button>
@@ -171,7 +171,7 @@ export default function EnhancedWordPressStyleCMS({
                     { label: 'Published', count: statusCounts.published, icon: TrendingUp, color: 'text-green-400' },
                     { label: 'Draft', count: statusCounts.draft, icon: FileText, color: 'text-slate-400' },
                     { label: 'Review', count: statusCounts.review, icon: Eye, color: 'text-yellow-400' },
-                    { label: 'Archived', count: statusCounts.archived, icon: FileText, color: 'text-gray-400' },
+                    { label: 'Archived', count: statusCounts.archived, icon: FileText, color: 'text-slate-400' },
                 ].map(stat => (
                     <Card key={stat.label} className="border-slate-200">
                         <CardContent className="p-6">
@@ -197,7 +197,7 @@ export default function EnhancedWordPressStyleCMS({
                             placeholder="Search articles..."
                             value={searchTerm}
                             onChange={(e) => onSearchChange?.(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                            className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                         />
                     </div>
                 </div>
@@ -208,7 +208,7 @@ export default function EnhancedWordPressStyleCMS({
                             onClick={() => onFilterChange?.(status)}
                             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                                 filterStatus === status
-                                    ? 'bg-teal-600 text-white'
+                                    ? 'bg-primary-600 text-white'
                                     : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                             }`}
                         >
@@ -221,7 +221,7 @@ export default function EnhancedWordPressStyleCMS({
             {/* Articles Table with Selection */}
             {isLoading ? (
                 <div className="flex items-center justify-center py-12">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600"></div>
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
                 </div>
             ) : filteredArticles.length === 0 ? (
                 <Card className="border-slate-200">
@@ -244,9 +244,9 @@ export default function EnhancedWordPressStyleCMS({
                                     <th className="px-4 py-3 w-12">
                                         <div 
                                             className={`w-5 h-5 rounded-md border-2 flex items-center justify-center cursor-pointer transition-all ${
-                                                isAllSelected ? 'bg-teal-600 border-teal-600' : 
-                                                isPartialSelected ? 'bg-teal-600/50 border-teal-600' : 
-                                                'border-slate-300 hover:border-teal-500'
+                                                isAllSelected ? 'bg-primary-600 border-primary-600' : 
+                                                isPartialSelected ? 'bg-primary-600/50 border-primary-600' : 
+                                                'border-slate-300 hover:border-primary-500'
                                             }`}
                                             onClick={isAllSelected || isPartialSelected ? deselectAll : selectAll}
                                         >
@@ -267,12 +267,12 @@ export default function EnhancedWordPressStyleCMS({
                                     return (
                                         <tr 
                                             key={article.id} 
-                                            className={`transition-colors ${isSelected ? 'bg-teal-50' : 'hover:bg-slate-50'}`}
+                                            className={`transition-colors ${isSelected ? 'bg-primary-50' : 'hover:bg-slate-50'}`}
                                         >
                                             <td className="px-4 py-3">
                                                 <div 
                                                     className={`w-5 h-5 rounded-md border-2 flex items-center justify-center cursor-pointer transition-all ${
-                                                        isSelected ? 'bg-teal-600 border-teal-600' : 'border-slate-300 hover:border-teal-500'
+                                                        isSelected ? 'bg-primary-600 border-primary-600' : 'border-slate-300 hover:border-primary-500'
                                                     }`}
                                                     onClick={() => toggleSelection(article.id)}
                                                 >
@@ -289,7 +289,7 @@ export default function EnhancedWordPressStyleCMS({
                                                         </div>
                                                     )}
                                                     <div>
-                                                        <Link href={`/admin/articles/${article.id}/edit`} className="text-sm font-medium text-slate-900 hover:text-teal-600">
+                                                        <Link href={`/admin/articles/${article.id}/edit`} className="text-sm font-medium text-slate-900 hover:text-primary-600">
                                                             {article.title || 'Untitled'}
                                                         </Link>
                                                         {article.excerpt && (
@@ -319,7 +319,7 @@ export default function EnhancedWordPressStyleCMS({
                                             <td className="px-4 py-4 text-right">
                                                 <div className="flex items-center justify-end gap-1">
                                                     {article.status === 'draft' && onPublish && (
-                                                        <Button size="sm" variant="ghost" onClick={() => onPublish(article.id)} className="text-green-600 hover:text-green-700">
+                                                        <Button size="sm" variant="ghost" onClick={() => onPublish(article.id)} className="text-success-600 hover:text-success-700">
                                                             Publish
                                                         </Button>
                                                     )}
@@ -334,7 +334,7 @@ export default function EnhancedWordPressStyleCMS({
                                                         </Button>
                                                     </Link>
                                                     {onDelete && (
-                                                        <Button size="sm" variant="ghost" onClick={() => { if (confirm('Delete?')) onDelete(article.id); }} className="text-red-600">
+                                                        <Button size="sm" variant="ghost" onClick={() => { if (confirm('Delete?')) onDelete(article.id); }} className="text-danger-600">
                                                             <Trash2 className="w-4 h-4" />
                                                         </Button>
                                                     )}
@@ -361,7 +361,7 @@ export default function EnhancedWordPressStyleCMS({
                         <div className="flex items-center gap-3 px-6 py-4 bg-slate-900 text-white rounded-2xl shadow-2xl border border-slate-700">
                             <span className="text-sm font-medium">{selectedIds.length} selected</span>
                             <div className="w-px h-6 bg-slate-700" />
-                            <Button size="sm" onClick={() => handleBulkAction('publish')} disabled={!!bulkLoading} className="bg-green-600 hover:bg-green-700 text-white">
+                            <Button size="sm" onClick={() => handleBulkAction('publish')} disabled={!!bulkLoading} className="bg-success-600 hover:bg-success-700 text-white">
                                 {bulkLoading === 'publish' ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <Send className="w-4 h-4 mr-1" />}
                                 Publish
                             </Button>
@@ -373,7 +373,7 @@ export default function EnhancedWordPressStyleCMS({
                                 <Download className="w-4 h-4 mr-1" />
                                 Export
                             </Button>
-                            <Button size="sm" onClick={() => handleBulkAction('delete')} disabled={!!bulkLoading} className="bg-red-600 hover:bg-red-700 text-white">
+                            <Button size="sm" onClick={() => handleBulkAction('delete')} disabled={!!bulkLoading} className="bg-danger-600 hover:bg-danger-700 text-white">
                                 {bulkLoading === 'delete' ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <Trash2 className="w-4 h-4 mr-1" />}
                                 Delete
                             </Button>

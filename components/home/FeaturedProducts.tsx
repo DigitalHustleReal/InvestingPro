@@ -92,8 +92,8 @@ export default function FeaturedProducts() {
                                                 {CATEGORY_ICONS[product.category] || <Star className="w-5 h-5" />}
                                             </div>
                                             {product.trust_score && product.trust_score >= 80 && (
-                                                <Badge className="bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 border-0 flex items-center gap-1">
-                                                    <Star className="w-3 h-3 fill-amber-700 dark:fill-amber-400" />
+                                                <Badge className="bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-400 border-0 flex items-center gap-1">
+                                                    <Star className="w-3 h-3 fill-accent-700 dark:fill-accent-400" />
                                                     Top Rated
                                                 </Badge>
                                             )}

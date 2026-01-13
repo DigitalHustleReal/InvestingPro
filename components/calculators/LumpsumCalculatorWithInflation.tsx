@@ -98,7 +98,7 @@ export function LumpsumCalculatorWithInflation() {
                                     <CheckCircle2 className="w-3 h-3 mr-1" />
                                     Free
                                 </Badge>
-                                <Badge className="bg-teal-50 text-teal-700 border-teal-200 shadow-sm hover:bg-teal-100 transition-colors cursor-default">
+                                <Badge className="bg-primary-50 text-primary-700 border-primary-200 shadow-sm hover:bg-primary-100 transition-colors cursor-default">
                                     <Zap className="w-3 h-3 mr-1" />
                                     Instant
                                 </Badge>
@@ -234,7 +234,7 @@ export function LumpsumCalculatorWithInflation() {
                 {/* Right: Results Card */}
                 <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-primary-50 to-success-50 dark:from-slate-900 dark:to-slate-800 relative overflow-hidden">
                     {/* Decorative gradient overlay */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-teal-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-primary-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
                             <div className="text-center p-6 md:p-8 sm:p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-primary-100">
@@ -345,7 +345,7 @@ export function LumpsumCalculatorWithInflation() {
                         <div className="space-y-4">
                             {/* Summary Stats */}
                             <div className="grid grid-cols-2 gap-3">
-                                <div className="p-4 bg-teal-50 rounded-xl border border-teal-100">
+                                <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Investment</p>
                                     <p className="text-lg font-bold text-slate-900">{formatCurrency(lumpsum)}</p>
                                 </div>
@@ -383,10 +383,10 @@ export function LumpsumCalculatorWithInflation() {
                                                     </tr>
                                                 )}
                                                 {yearlyData.length > 0 && (
-                                                    <tr className="bg-teal-50 border-t-2 border-teal-200">
+                                                    <tr className="bg-primary-50 border-t-2 border-primary-200">
                                                         <td className="px-3 py-3 text-sm font-bold text-slate-900">Final</td>
                                                         <td className="px-3 py-3 text-sm text-right font-bold text-primary-600">{formatCurrency(adjustForInflation ? lumpsumResult.realReturns : lumpsumResult.returns)}</td>
-                                                        <td className="px-3 py-3 text-sm text-right font-bold text-teal-600">{formatCurrency(adjustForInflation ? lumpsumResult.realValue : lumpsumResult.futureValue)}</td>
+                                                        <td className="px-3 py-3 text-sm text-right font-bold text-primary-600">{formatCurrency(adjustForInflation ? lumpsumResult.realValue : lumpsumResult.futureValue)}</td>
                                                     </tr>
                                                 )}
                                             </tbody>
@@ -398,7 +398,7 @@ export function LumpsumCalculatorWithInflation() {
                             {/* Key Insight */}
                             <div className="p-4 bg-gradient-to-br from-primary-50 to-indigo-50 rounded-xl border border-secondary-100">
                                 <div className="flex items-start gap-3">
-                                    <Info className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" />
+                                    <Info className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
                                     <div>
                                         <p className="text-sm font-semibold text-slate-900 mb-1">Compound Growth</p>
                                         <p className="text-xs text-slate-600 leading-relaxed">

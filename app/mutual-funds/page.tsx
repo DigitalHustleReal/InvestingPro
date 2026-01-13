@@ -42,12 +42,12 @@ import { SIPCalculator } from "@/components/calculators/SIPCalculator";
 const FUND_CATEGORIES = ["All", "Equity", "Debt", "Hybrid", "ELSS", "Index"];
 
 const riskColors: Record<string, string> = {
-    "Low": "bg-green-50 text-green-700 border-green-100",
+    "Low": "bg-success-50 text-success-700 border-success-100",
     "Low to Moderate": "bg-primary- text-primary- border-primary-",
     "Moderate": "bg-secondary-50 text-secondary-700 border-secondary-100",
-    "Moderately High": "bg-amber-50 text-amber-700 border-amber-100",
+    "Moderately High": "bg-accent-50 text-accent-700 border-accent-100",
     "High": "bg-orange-50 text-orange-700 border-orange-100",
-    "Very High": "bg-red-50 text-red-700 border-red-100",
+    "Very High": "bg-danger-50 text-danger-700 border-danger-100",
 };
 
 import CategoryHeroCarousel from '@/components/common/CategoryHeroCarousel';
@@ -358,7 +358,7 @@ export default function MutualFundsPage() {
                                                                     {[...Array(5)].map((_, i) => (
                                                                         <Star
                                                                             key={i}
-                                                                            className={`w-3 h-3 ${i < (fund.rating || 4) ? 'text-amber-400 fill-amber-400' : 'text-slate-200'}`}
+                                                                            className={`w-3 h-3 ${i < (fund.rating || 4) ? 'text-accent-400 fill-accent-400' : 'text-slate-200'}`}
                                                                         />
                                                                     ))}
                                                                 </div>

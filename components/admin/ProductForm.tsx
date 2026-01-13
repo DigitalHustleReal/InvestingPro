@@ -186,12 +186,12 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label className="block text-sm font-medium text-slate-700 mb-2">Product Name *</label>
-                                    <Input value={formData.name} onChange={(e) => handleNameChange(e.target.value)} className={errors.name ? 'border-red-500' : ''} />
-                                    {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+                                    <Input value={formData.name} onChange={(e) => handleNameChange(e.target.value)} className={errors.name ? 'border-danger-500' : ''} />
+                                    {errors.name && <p className="text-danger-500 text-xs mt-1">{errors.name}</p>}
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-slate-700 mb-2">URL Slug *</label>
-                                    <Input value={formData.slug} onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))} className={errors.slug ? 'border-red-500' : ''} />
+                                    <Input value={formData.slug} onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))} className={errors.slug ? 'border-danger-500' : ''} />
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-slate-700 mb-2">Category *</label>
@@ -203,7 +203,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-slate-700 mb-2">Provider Name *</label>
-                                    <Input value={formData.provider_name} onChange={(e) => handleProviderChange(e.target.value)} className={errors.provider_name ? 'border-red-500' : ''} />
+                                    <Input value={formData.provider_name} onChange={(e) => handleProviderChange(e.target.value)} className={errors.provider_name ? 'border-danger-500' : ''} />
                                 </div>
                             </div>
                             
@@ -222,7 +222,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                                     </select>
                                 </div>
                                 <div className="flex items-center gap-3 pt-8">
-                                    <input type="checkbox" id="is_active" checked={formData.is_active} onChange={(e) => setFormData(prev => ({ ...prev, is_active: e.target.checked }))} className="w-5 h-5 rounded border-slate-300 text-teal-600 focus:ring-teal-500" />
+                                    <input type="checkbox" id="is_active" checked={formData.is_active} onChange={(e) => setFormData(prev => ({ ...prev, is_active: e.target.checked }))} className="w-5 h-5 rounded border-slate-300 text-primary-600 focus:ring-primary-500" />
                                     <label htmlFor="is_active" className="text-sm font-medium text-slate-700">Active (Visible)</label>
                                 </div>
                             </div>
@@ -235,7 +235,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                      <div className="space-y-6">
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-lg flex items-center gap-2"><Star className="w-5 h-5 text-amber-500"/> Ratings & Pros/Cons</CardTitle>
+                                <CardTitle className="text-lg flex items-center gap-2"><Star className="w-5 h-5 text-accent-500"/> Ratings & Pros/Cons</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-6">
                                 <div>
@@ -253,7 +253,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                                             {formData.pros.map((item, idx) => (
                                                 <div key={idx} className="flex gap-2">
                                                     <Input value={item} onChange={(e) => updateListItem('pros', idx, e.target.value)} placeholder="e.g. Low fees" />
-                                                    <Button type="button" size="icon" variant="ghost" className="text-red-500" onClick={() => removeListItem('pros', idx)}><Trash2 className="w-4 h-4"/></Button>
+                                                    <Button type="button" size="icon" variant="ghost" className="text-danger-500" onClick={() => removeListItem('pros', idx)}><Trash2 className="w-4 h-4"/></Button>
                                                 </div>
                                             ))}
                                         </div>
@@ -267,7 +267,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                                             {formData.cons.map((item, idx) => (
                                                 <div key={idx} className="flex gap-2">
                                                     <Input value={item} onChange={(e) => updateListItem('cons', idx, e.target.value)} placeholder="e.g. High penalty" />
-                                                    <Button type="button" size="icon" variant="ghost" className="text-red-500" onClick={() => removeListItem('cons', idx)}><Trash2 className="w-4 h-4"/></Button>
+                                                    <Button type="button" size="icon" variant="ghost" className="text-danger-500" onClick={() => removeListItem('cons', idx)}><Trash2 className="w-4 h-4"/></Button>
                                                 </div>
                                             ))}
                                         </div>
@@ -278,7 +278,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
 
                         <Card>
                              <CardHeader>
-                                <CardTitle className="text-lg flex items-center gap-2"><List className="w-5 h-5 text-teal-600"/> Key Features</CardTitle>
+                                <CardTitle className="text-lg flex items-center gap-2"><List className="w-5 h-5 text-primary-600"/> Key Features</CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <div className="space-y-3">
@@ -290,7 +290,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                                         <div key={idx} className="flex gap-3">
                                             <Input placeholder="Label (e.g. Returns)" value={feature.key} onChange={(e) => updateFeature(idx, 'key', e.target.value)} className="flex-1" />
                                             <Input placeholder="Value (e.g. 12% p.a.)" value={feature.value} onChange={(e) => updateFeature(idx, 'value', e.target.value)} className="flex-1" />
-                                            <Button type="button" size="icon" variant="ghost" className="text-red-500" onClick={() => removeFeature(idx)}><Trash2 className="w-4 h-4"/></Button>
+                                            <Button type="button" size="icon" variant="ghost" className="text-danger-500" onClick={() => removeFeature(idx)}><Trash2 className="w-4 h-4"/></Button>
                                         </div>
                                     ))}
                                 </div>
@@ -346,7 +346,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                 <Link href="/admin/products">
                     <Button type="button" variant="outline"><ArrowLeft className="w-4 h-4 mr-2" /> Cancel</Button>
                 </Link>
-                <Button type="submit" className="bg-teal-600 hover:bg-teal-700" disabled={saving}>
+                <Button type="submit" className="bg-primary-600 hover:bg-primary-700" disabled={saving}>
                     <Save className="w-4 h-4 mr-2" />
                     {saving ? 'Saving...' : isEditing ? 'Update Product' : 'Create Product'}
                 </Button>

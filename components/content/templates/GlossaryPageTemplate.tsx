@@ -28,8 +28,8 @@ export default function GlossaryPageTemplate({ content }: GlossaryPageTemplatePr
                 <section className="bg-gradient-to-br from-slate-900 to-slate-800 text-white py-16">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex items-center gap-3 mb-4">
-                            <BookOpen className="w-8 h-8 text-teal-400" />
-                            <Badge className="bg-teal-500/20 text-teal-400 border-teal-500/30">Glossary</Badge>
+                            <BookOpen className="w-8 h-8 text-primary-400" />
+                            <Badge className="bg-primary-500/20 text-primary-400 border-primary-500/30">Glossary</Badge>
                         </div>
                         <h1 className="text-4xl md:text-5xl font-bold mb-4">
                             {sections.definition.term}
@@ -63,7 +63,7 @@ export default function GlossaryPageTemplate({ content }: GlossaryPageTemplatePr
                                 <Card key={idx} className="border border-slate-200">
                                     <CardContent className="p-6">
                                         <div className="flex items-start gap-4">
-                                            <div className="w-8 h-8 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center font-bold shrink-0">
+                                            <div className="w-8 h-8 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center font-bold shrink-0">
                                                 {idx + 1}
                                             </div>
                                             <p className="text-slate-700 leading-relaxed">{example.example}</p>
@@ -80,7 +80,7 @@ export default function GlossaryPageTemplate({ content }: GlossaryPageTemplatePr
                     <section className="py-16 bg-slate-50">
                         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                             <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
-                                <Calculator className="w-6 h-6 text-teal-600" />
+                                <Calculator className="w-6 h-6 text-primary-600" />
                                 Formula
                             </h2>
                             <Card className="border-0 shadow-lg bg-white">
@@ -104,7 +104,7 @@ export default function GlossaryPageTemplate({ content }: GlossaryPageTemplatePr
                                 <Link
                                     key={idx}
                                     href={term.url}
-                                    className="px-4 py-2 bg-teal-50 text-teal-700 hover:bg-teal-100 rounded-lg font-medium transition-colors"
+                                    className="px-4 py-2 bg-primary-50 text-primary-700 hover:bg-primary-100 rounded-lg font-medium transition-colors"
                                 >
                                     {term.term}
                                 </Link>
@@ -123,7 +123,7 @@ export default function GlossaryPageTemplate({ content }: GlossaryPageTemplatePr
                                     <Link
                                         key={idx}
                                         href={link.url}
-                                        className="text-teal-600 hover:text-teal-700 underline font-medium"
+                                        className="text-primary-600 hover:text-primary-700 underline font-medium"
                                     >
                                         {link.text}
                                     </Link>

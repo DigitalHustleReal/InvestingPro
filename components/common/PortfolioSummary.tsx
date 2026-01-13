@@ -38,8 +38,8 @@ export default function PortfolioSummary({ holdings }: PortfolioSummaryProps) {
             label: 'Total Returns',
             value: `₹${Math.abs(totalReturns).toLocaleString('en-IN')}`,
             icon: totalReturns >= 0 ? TrendingUp : TrendingDown,
-            color: totalReturns >= 0 ? 'text-primary-600' : 'text-red-600',
-            bgColor: totalReturns >= 0 ? 'bg-primary-100' : 'bg-red-100',
+            color: totalReturns >= 0 ? 'text-primary-600' : 'text-danger-600',
+            bgColor: totalReturns >= 0 ? 'bg-primary-100' : 'bg-danger-100',
             subValue: `${totalReturns >= 0 ? '+' : '-'}${Math.abs(Number(totalReturnsPercent))}%`
         },
         {

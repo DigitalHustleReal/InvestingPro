@@ -57,9 +57,9 @@ export default function GlossaryTemplate({
             {/* Breadcrumbs */}
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-6">
                 <nav className="flex items-center gap-2 text-sm text-slate-600">
-                    <Link href="/" className="hover:text-teal-600 transition-colors">Home</Link>
+                    <Link href="/" className="hover:text-primary-600 transition-colors">Home</Link>
                     <span>/</span>
-                    <Link href="/glossary" className="hover:text-teal-600 transition-colors">Glossary</Link>
+                    <Link href="/glossary" className="hover:text-primary-600 transition-colors">Glossary</Link>
                     <span>/</span>
                     <span className="text-slate-900 font-medium">{term}</span>
                 </nav>
@@ -74,7 +74,7 @@ export default function GlossaryTemplate({
                     </h1>
 
                     {/* Short Definition */}
-                    <div className="bg-teal-50 border-l-4 border-teal-600 p-6 rounded-r-lg mb-8">
+                    <div className="bg-primary-50 border-l-4 border-primary-600 p-6 rounded-r-lg mb-8">
                         <p className="text-lg text-slate-800 leading-relaxed font-medium">
                             {definition}
                         </p>
@@ -111,12 +111,12 @@ export default function GlossaryTemplate({
                         <h2 className="text-2xl font-bold text-slate-900 mb-4">Common Misunderstandings</h2>
                         <div className="space-y-4">
                             {misunderstandings.map((item, idx) => (
-                                <Card key={idx} className="border-amber-200 bg-amber-50">
+                                <Card key={idx} className="border-accent-200 bg-accent-50">
                                     <CardContent className="p-6 md:p-8">
                                         <div className="flex gap-3">
                                             <div className="flex-shrink-0">
-                                                <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
-                                                    <span className="text-red-600 font-bold text-sm">✗</span>
+                                                <div className="w-8 h-8 rounded-full bg-danger-100 flex items-center justify-center">
+                                                    <span className="text-danger-600 font-bold text-sm">✗</span>
                                                 </div>
                                             </div>
                                             <div className="flex-1">
@@ -138,9 +138,9 @@ export default function GlossaryTemplate({
                                 <Link
                                     key={idx}
                                     href={`/glossary/${related.slug}`}
-                                    className="flex items-center gap-3 p-4 border border-slate-200 rounded-xl hover:border-teal-300 hover:bg-slate-50 transition-colors group"
+                                    className="flex items-center gap-3 p-4 border border-slate-200 rounded-xl hover:border-primary-300 hover:bg-slate-50 transition-colors group"
                                 >
-                                    <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-teal-600 transition-colors flex-shrink-0" />
+                                    <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-primary-600 transition-colors flex-shrink-0" />
                                     <span className="font-medium text-slate-900">{related.term}</span>
                                 </Link>
                             ))}
@@ -155,9 +155,9 @@ export default function GlossaryTemplate({
                                 <Link
                                     key={idx}
                                     href={link.href}
-                                    className="flex items-start gap-3 p-4 border border-slate-200 rounded-xl hover:border-teal-300 hover:bg-slate-50 transition-colors group"
+                                    className="flex items-start gap-3 p-4 border border-slate-200 rounded-xl hover:border-primary-300 hover:bg-slate-50 transition-colors group"
                                 >
-                                    <ExternalLink className="w-5 h-5 text-slate-400 group-hover:text-teal-600 transition-colors flex-shrink-0 mt-0.5" />
+                                    <ExternalLink className="w-5 h-5 text-slate-400 group-hover:text-primary-600 transition-colors flex-shrink-0 mt-0.5" />
                                     <div>
                                         <p className="font-semibold text-slate-900 mb-1">{link.label}</p>
                                         <p className="text-sm text-slate-600">{link.description}</p>
@@ -194,7 +194,7 @@ export default function GlossaryTemplate({
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <Link
                     href="/glossary"
-                    className="inline-flex items-center gap-2 text-teal-600 hover:text-teal-700 font-medium"
+                    className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium"
                 >
                     <ChevronRight className="w-4 h-4 rotate-180" />
                     Back to Glossary

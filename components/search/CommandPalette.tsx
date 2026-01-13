@@ -132,7 +132,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
 
     const getIcon = (item: SearchResult) => {
         if (item.type === 'product') return <TrendingUp className="w-5 h-5 text-primary-400" />;
-        if (item.type === 'tool') return <Loader2 className="w-5 h-5 text-amber-400" />;
+        if (item.type === 'tool') return <Loader2 className="w-5 h-5 text-accent-400" />;
         return <FileText className="w-5 h-5 text-primary-400" />;
     };
 
@@ -215,7 +215,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                                             "w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300",
                                             selectedIndex === index ? "bg-primary-500/20 scale-110" : "bg-white/5",
                                             item.type === 'product' && selectedIndex === index && "bg-primary-500/20",
-                                            item.type === 'tool' && selectedIndex === index && "bg-amber-500/20"
+                                            item.type === 'tool' && selectedIndex === index && "bg-accent-500/20"
                                         )}>
                                             {item.image_url || item.featured_image ? (
                                                 <img 
@@ -234,7 +234,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                                                 <span className={cn(
                                                     "text-[9px] px-1.5 py-0.5 rounded-full uppercase tracking-wider font-bold",
                                                     item.type === 'product' ? "bg-primary-500/10 text-primary-400" :
-                                                    item.type === 'tool' ? "bg-amber-500/10 text-amber-400" :
+                                                    item.type === 'tool' ? "bg-accent-500/10 text-accent-400" :
                                                     "bg-primary-500/10 text-primary-400 border border-primary-500/20"
                                                 )}>
                                                     {item.type}

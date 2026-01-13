@@ -162,19 +162,19 @@ export default function TagInput({
     return (
         <div className={`relative ${className}`}>
             {/* Input with tags */}
-            <div className="flex flex-wrap gap-2 p-2 border border-slate-300 rounded-lg bg-white focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-200">
+            <div className="flex flex-wrap gap-2 p-2 border border-slate-300 rounded-lg bg-white focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-200">
                 {/* Existing tags */}
                 {value.map((tag, idx) => (
                     <Badge
                         key={idx}
                         variant="outline"
-                        className="bg-teal-50 text-teal-700 border-teal-200 px-2 py-1 text-sm flex items-center gap-1"
+                        className="bg-primary-50 text-primary-700 border-primary-200 px-2 py-1 text-sm flex items-center gap-1"
                     >
                         {tag}
                         <button
                             type="button"
                             onClick={() => removeTag(tag)}
-                            className="ml-1 hover:text-teal-900 focus:outline-none"
+                            className="ml-1 hover:text-primary-900 focus:outline-none"
                             aria-label={`Remove ${tag}`}
                         >
                             <X className="w-3 h-3" />
@@ -220,12 +220,12 @@ export default function TagInput({
                         <button
                             type="button"
                             onClick={handleCreateNew}
-                            className={`w-full text-left px-4 py-2 text-sm hover:bg-teal-50 focus:bg-teal-50 focus:outline-none border-t border-slate-200 flex items-center gap-2 ${
-                                focusedIndex === filteredSuggestions.length ? 'bg-teal-50' : ''
+                            className={`w-full text-left px-4 py-2 text-sm hover:bg-primary-50 focus:bg-primary-50 focus:outline-none border-t border-slate-200 flex items-center gap-2 ${
+                                focusedIndex === filteredSuggestions.length ? 'bg-primary-50' : ''
                             }`}
                         >
-                            <Plus className="w-4 h-4 text-teal-600" />
-                            <span className="text-teal-700 font-medium">
+                            <Plus className="w-4 h-4 text-primary-600" />
+                            <span className="text-primary-700 font-medium">
                                 Create "{inputValue.trim()}"
                             </span>
                         </button>

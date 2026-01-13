@@ -81,7 +81,7 @@ export function GSTCalculator() {
                         <div className="flex items-start justify-between gap-4 mb-2">
                             <div className="flex-1">
                                 <CardTitle className="text-xl mb-1 flex items-center gap-6 md:p-8">
-                                    <Calculator className="w-5 h-5 text-teal-600" />
+                                    <Calculator className="w-5 h-5 text-primary-600" />
                                     GST Calculator
                                 </CardTitle>
                                 <CardDescription>Calculate GST for goods and services in India</CardDescription>
@@ -165,17 +165,17 @@ export function GSTCalculator() {
                 </Card>
 
                 {/* Results Card */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-primary-50 to-success-50">
                     <CardHeader>
                         <CardTitle className="text-xl flex items-center gap-6 md:p-8">
-                            <Receipt className="w-5 h-5 text-teal-600" />
+                            <Receipt className="w-5 h-5 text-primary-600" />
                             GST Calculation Results
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-6">
                         {/* Main Results */}
                         <div className="space-y-4">
-                            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 md:p-8 border-2 border-teal-200">
+                            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 md:p-8 border-2 border-primary-200">
                                 <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
                                     {calculationType === 'exclusive' ? 'Base Amount' : 'Base Amount (Excluding GST)'}
                                 </div>
@@ -193,7 +193,7 @@ export function GSTCalculator() {
                                 </div>
                             </div>
 
-                            <div className="bg-gradient-to-r from-teal-600 to-emerald-600 rounded-xl p-4 text-white">
+                            <div className="bg-gradient-to-r from-primary-600 to-success-600 rounded-xl p-4 text-white">
                                 <div className="text-xs font-bold text-white/80 uppercase tracking-wider mb-1">
                                     Total Amount
                                 </div>

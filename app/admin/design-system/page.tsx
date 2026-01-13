@@ -82,11 +82,11 @@ export default function DesignSystemPage() {
                 <ContentSection title="Color Palette" subtitle="Primary accent colors used across the platform">
                     <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                         {[
-                            { name: 'Teal', color: 'bg-teal-500', hex: '#14b8a6' },
+                            { name: 'Teal', color: 'bg-primary-500', hex: '#14b8a6' },
                             { name: 'Emerald', color: 'bg-primary-500', hex: '#10b981' },
                             { name: 'Blue', color: 'bg-secondary-500', hex: '#3b82f6' },
                             { name: 'Purple', color: 'bg-secondary-500', hex: '#a855f7' },
-                            { name: 'Amber', color: 'bg-amber-500', hex: '#f59e0b' },
+                            { name: 'Amber', color: 'bg-accent-500', hex: '#f59e0b' },
                             { name: 'Rose', color: 'bg-rose-500', hex: '#f43f5e' },
                             { name: 'Slate', color: 'bg-slate-600', hex: '#475569' },
                             { name: 'Dark BG', color: 'bg-slate-900', hex: '#0f172a' },
@@ -179,7 +179,7 @@ export default function DesignSystemPage() {
                             <h4 className="font-bold text-white mb-2">Medium Glass</h4>
                             <p className="text-sm text-slate-400">6% white opacity</p>
                         </div>
-                        <div className="p-6 rounded-2xl bg-gradient-to-br from-teal-500/10 to-emerald-500/10 border border-teal-500/20 backdrop-blur-xl">
+                        <div className="p-6 rounded-2xl bg-gradient-to-br from-primary-500/10 to-success-500/10 border border-primary-500/20 backdrop-blur-xl">
                             <h4 className="font-bold text-white mb-2">Colored Glass</h4>
                             <p className="text-sm text-slate-400">Gradient overlay</p>
                         </div>

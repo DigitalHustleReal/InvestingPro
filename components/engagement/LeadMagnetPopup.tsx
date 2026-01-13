@@ -184,8 +184,8 @@ export function LeadMagnetPopup({
         {/* Success State */}
         {success ? (
           <div className="p-8 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-500/20 mb-4">
-              <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-success-100 dark:bg-success-500/20 mb-4">
+              <CheckCircle className="w-8 h-8 text-success-600 dark:text-green-400" />
             </div>
             <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
               You're in! 🎉
@@ -205,7 +205,7 @@ export function LeadMagnetPopup({
         ) : (
           <div className="flex flex-col md:flex-row">
             {/* Image Side */}
-            <div className="hidden md:block md:w-2/5 bg-gradient-to-br from-primary-500 to-teal-600 p-6 flex items-center justify-center">
+            <div className="hidden md:block md:w-2/5 bg-gradient-to-br from-primary-500 to-primary-600 p-6 flex items-center justify-center">
               <div className="text-center text-white">
                 {getVariantIcon(variant)}
                 <p className="text-lg font-semibold mt-4">{content.tagline}</p>
@@ -216,7 +216,7 @@ export function LeadMagnetPopup({
             <div className="flex-1 p-6 md:p-8">
               {/* Mobile Icon */}
               <div className="md:hidden flex justify-center mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-500 to-teal-600 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center">
                   {getVariantIconSmall(variant)}
                 </div>
               </div>
@@ -229,7 +229,7 @@ export function LeadMagnetPopup({
               </p>
 
               {error && (
-                <div className="mb-4 p-2 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 rounded-lg text-red-600 dark:text-red-400 text-sm text-center">
+                <div className="mb-4 p-2 bg-danger-50 dark:bg-danger-500/10 border border-red-200 dark:border-danger-500/20 rounded-lg text-danger-600 dark:text-red-400 text-sm text-center">
                   {error}
                 </div>
               )}
@@ -255,7 +255,7 @@ export function LeadMagnetPopup({
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-primary-500 to-teal-600 hover:from-primary-600 hover:to-teal-700 text-white font-semibold rounded-lg transition-all shadow-lg disabled:opacity-50"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-semibold rounded-lg transition-all shadow-lg disabled:opacity-50"
                 >
                   {loading ? (
                     <Loader2 className="w-5 h-5 animate-spin" />

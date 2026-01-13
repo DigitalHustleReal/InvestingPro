@@ -33,8 +33,8 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'fuel-savings',
     label: 'Best for Fuel Savings',
     icon: Fuel,
-    color: 'text-green-700',
-    bgColor: 'bg-green-50',
+    color: 'text-success-700',
+    bgColor: 'bg-success-50',
     borderColor: 'border-green-200',
     description: 'Fuel surcharge waiver, toll cashback'
   },
@@ -60,9 +60,9 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'cashback-general',
     label: 'Best for Max Cashback',
     icon: DollarSign,
-    color: 'text-amber-700',
-    bgColor: 'bg-amber-50',
-    borderColor: 'border-amber-200',
+    color: 'text-accent-700',
+    bgColor: 'bg-accent-50',
+    borderColor: 'border-accent-200',
     description: 'High % cashback on all spends'
   },
   'shopping-rewards': {
@@ -107,9 +107,9 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'home-loan',
     label: 'Best for Home Buyers',
     icon: Home,
-    color: 'text-teal-700',
-    bgColor: 'bg-teal-50',
-    borderColor: 'border-teal-200',
+    color: 'text-primary-700',
+    bgColor: 'bg-primary-50',
+    borderColor: 'border-primary-200',
     description: 'Low interest rates, long tenure, tax benefits'
   },
   'education-loan': {
@@ -152,9 +152,9 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'gold-loan',
     label: 'Best for Quick Cash',
     icon: Gem,
-    color: 'text-amber-700',
-    bgColor: 'bg-amber-50',
-    borderColor: 'border-amber-200',
+    color: 'text-accent-700',
+    bgColor: 'bg-accent-50',
+    borderColor: 'border-accent-200',
     description: 'Against gold jewelry, instant approval, low rates'
   },
   
@@ -172,8 +172,8 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'tax-saving-fund',
     label: 'Best for Tax Saving',
     icon: FileText,
-    color: 'text-green-700',
-    bgColor: 'bg-green-50',
+    color: 'text-success-700',
+    bgColor: 'bg-success-50',
     borderColor: 'border-green-200',
     description: 'ELSS, Section 80C benefits, 3-year lock-in'
   },
@@ -181,8 +181,8 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'aggressive-growth',
     label: 'Best for High Returns',
     icon: Rocket,
-    color: 'text-red-700',
-    bgColor: 'bg-red-50',
+    color: 'text-danger-700',
+    bgColor: 'bg-danger-50',
     borderColor: 'border-red-200',
     description: 'Small-cap, mid-cap, high risk, high reward'
   },
@@ -208,9 +208,9 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'liquid-fund',
     label: 'Best for Emergency Fund',
     icon: Droplet,
-    color: 'text-sky-700',
-    bgColor: 'bg-sky-50',
-    borderColor: 'border-sky-200',
+    color: 'text-secondary-700',
+    bgColor: 'bg-secondary-50',
+    borderColor: 'border-secondary-200',
     description: 'High liquidity, low risk, instant redemption'
   }
 };

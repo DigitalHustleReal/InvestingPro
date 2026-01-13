@@ -122,7 +122,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
 
     return (
         <>
-            <Card className="bg-amber-50/50 border-amber-200">
+            <Card className="bg-accent-50/50 border-accent-200">
                 <CardContent className="p-6">
                     <div className="flex flex-col lg:flex-row gap-6">
                         {/* Article Info */}
@@ -200,7 +200,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
                                 <Button
                                     onClick={() => setShowRejectDialog(true)}
                                     variant="outline"
-                                    className="w-full border-red-300 text-red-700 hover:bg-red-50 bg-white"
+                                    className="w-full border-red-300 text-danger-700 hover:bg-danger-50 bg-white"
                                 >
                                     <XCircle className="w-4 h-4 mr-1 sm:mr-2" />
                                     Reject
@@ -275,7 +275,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
                         <Button
                             onClick={handleReject}
                             disabled={rejectMutation.isPending}
-                            className="bg-red-600 hover:bg-red-700 text-white"
+                            className="bg-danger-600 hover:bg-danger-700 text-white"
                         >
                             Reject Article
                         </Button>

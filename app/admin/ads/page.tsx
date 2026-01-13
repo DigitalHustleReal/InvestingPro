@@ -119,7 +119,7 @@ export default function AdsPage() {
                                                 <td className="px-4 py-4">
                                                     <span className={`text-sm font-medium ${
                                                         parseFloat(ctr) > 2 ? 'text-primary-400' : 
-                                                        parseFloat(ctr) > 1 ? 'text-amber-400' : 'text-slate-400'
+                                                        parseFloat(ctr) > 1 ? 'text-accent-400' : 'text-slate-400'
                                                     }`}>
                                                         {ctr}%
                                                     </span>
@@ -166,25 +166,25 @@ export default function AdsPage() {
                     </ContentSection>
                     <ContentSection>
                         <div className="flex items-start gap-4">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500/20 to-emerald-500/20 border border-teal-500/30 flex items-center justify-center shrink-0">
-                                <Eye className="w-6 h-6 text-teal-400" />
+                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500/20 to-success-500/20 border border-primary-500/30 flex items-center justify-center shrink-0">
+                                <Eye className="w-6 h-6 text-primary-400" />
                             </div>
                             <div>
                                 <h4 className="font-bold text-white mb-1">Native Ad Units</h4>
                                 <p className="text-sm text-slate-400 mb-3">Seamless in-content ads</p>
-                                <button className="text-sm text-teal-400 hover:text-teal-300 font-medium">Configure →</button>
+                                <button className="text-sm text-primary-400 hover:text-primary-300 font-medium">Configure →</button>
                             </div>
                         </div>
                     </ContentSection>
                     <ContentSection>
                         <div className="flex items-start gap-4">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 border border-amber-500/30 flex items-center justify-center shrink-0">
-                                <MousePointerClick className="w-6 h-6 text-amber-400" />
+                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-500/20 to-orange-500/20 border border-accent-500/30 flex items-center justify-center shrink-0">
+                                <MousePointerClick className="w-6 h-6 text-accent-400" />
                             </div>
                             <div>
                                 <h4 className="font-bold text-white mb-1">View Analytics</h4>
                                 <p className="text-sm text-slate-400 mb-3">Performance insights</p>
-                                <button className="text-sm text-amber-400 hover:text-amber-300 font-medium">View →</button>
+                                <button className="text-sm text-accent-400 hover:text-accent-300 font-medium">View →</button>
                             </div>
                         </div>
                     </ContentSection>

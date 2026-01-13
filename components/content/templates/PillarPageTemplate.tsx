@@ -31,7 +31,7 @@ export default function PillarPageTemplate({ content }: PillarPageTemplateProps)
                         <p className="text-xl text-slate-300 mb-8">{sections.hero.subheadline}</p>
                         {sections.hero.cta_text && (
                             <Link href={sections.cta.cta_url}>
-                                <button className="bg-teal-600 hover:bg-teal-700 text-white font-bold px-8 py-4 rounded-xl">
+                                <button className="bg-primary-600 hover:bg-primary-700 text-white font-bold px-8 py-4 rounded-xl">
                                     {sections.hero.cta_text}
                                 </button>
                             </Link>
@@ -49,7 +49,7 @@ export default function PillarPageTemplate({ content }: PillarPageTemplateProps)
                                     {sections.overview.key_statistics.map((stat, idx) => (
                                         <Card key={idx} className="border-0 shadow-sm">
                                             <CardContent className="p-6 text-center">
-                                                <div className="text-3xl font-bold text-teal-600 mb-2">{stat.value}</div>
+                                                <div className="text-3xl font-bold text-primary-600 mb-2">{stat.value}</div>
                                                 <div className="text-sm text-slate-600">{stat.label}</div>
                                                 {stat.source && (
                                                     <div className="text-xs text-slate-400 mt-2">Source: {stat.source}</div>
@@ -88,7 +88,7 @@ export default function PillarPageTemplate({ content }: PillarPageTemplateProps)
                             {sections.how_it_works.steps.map((step, idx) => (
                                 <div key={idx} className="flex gap-6">
                                     <div className="flex-shrink-0">
-                                        <div className="w-12 h-12 bg-teal-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                                        <div className="w-12 h-12 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
                                             {step.step_number}
                                         </div>
                                     </div>
@@ -172,7 +172,7 @@ export default function PillarPageTemplate({ content }: PillarPageTemplateProps)
                                 <Card key={idx} className="border border-slate-200">
                                     <CardContent className="p-6">
                                         <h3 className="text-lg font-bold text-slate-900 mb-3 flex items-start gap-3">
-                                            <HelpCircle className="w-5 h-5 text-teal-600 shrink-0 mt-0.5" />
+                                            <HelpCircle className="w-5 h-5 text-primary-600 shrink-0 mt-0.5" />
                                             {faq.question}
                                         </h3>
                                         <p className="text-slate-600 ml-8">{faq.answer}</p>
@@ -184,12 +184,12 @@ export default function PillarPageTemplate({ content }: PillarPageTemplateProps)
                 </section>
 
                 {/* CTA Section */}
-                <section className="py-16 bg-gradient-to-br from-teal-600 to-secondary-600 text-white">
+                <section className="py-16 bg-gradient-to-br from-primary-600 to-secondary-600 text-white">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                         <h2 className="text-3xl font-bold mb-4">{sections.cta.headline}</h2>
-                        <p className="text-xl text-teal-100 mb-8">{sections.cta.description}</p>
+                        <p className="text-xl text-primary-100 mb-8">{sections.cta.description}</p>
                         <Link href={sections.cta.cta_url}>
-                            <button className="bg-white text-teal-600 hover:bg-slate-100 font-bold px-8 py-4 rounded-xl inline-flex items-center gap-2">
+                            <button className="bg-white text-primary-600 hover:bg-slate-100 font-bold px-8 py-4 rounded-xl inline-flex items-center gap-2">
                                 {sections.cta.cta_text}
                                 <ChevronRight className="w-5 h-5" />
                             </button>
@@ -207,7 +207,7 @@ export default function PillarPageTemplate({ content }: PillarPageTemplateProps)
                                     <Link
                                         key={idx}
                                         href={link.url}
-                                        className="text-teal-600 hover:text-teal-700 underline font-medium"
+                                        className="text-primary-600 hover:text-primary-700 underline font-medium"
                                     >
                                         {link.text}
                                     </Link>

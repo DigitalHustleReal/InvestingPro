@@ -20,7 +20,7 @@ interface BadgeDisplayProps {
 const BADGE_CONFIG: Record<string, { icon: any, color: string, bg: string }> = {
     'Beta Tester': { icon: Zap, color: 'text-secondary-600', bg: 'bg-secondary-50' },
     'Pioneer': { icon: Target, color: 'text-primary-600', bg: 'bg-secondary-50' },
-    'Top Contributor': { icon: Star, color: 'text-amber-600', bg: 'bg-amber-50' },
+    'Top Contributor': { icon: Star, color: 'text-accent-600', bg: 'bg-accent-50' },
     'Expert Reviewer': { icon: ShieldCheck, color: 'text-primary-600', bg: 'bg-primary-50' },
     'Power Trader': { icon: Flame, color: 'text-rose-600', bg: 'bg-rose-50' },
     'Certified Pro': { icon: Award, color: 'text-primary-600', bg: 'bg-primary-50' }

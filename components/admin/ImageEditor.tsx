@@ -365,7 +365,7 @@ export default function ImageEditor({
                     <Button
                         onClick={handleSave}
                         disabled={!imageSrc || !croppedAreaPixels || isProcessing}
-                        className="bg-teal-600 hover:bg-teal-700"
+                        className="bg-primary-600 hover:bg-primary-700"
                     >
                         {isProcessing ? (
                             <>

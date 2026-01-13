@@ -280,9 +280,9 @@ export default function StocksPage() {
                                     <div className="text-center sm:text-left flex-1">
                                         <div className="flex items-center justify-center sm:justify-between mb-2">
                                             <h3 className="text-2xl font-bold text-slate-900">{broker.name}</h3>
-                                            <div className="hidden sm:flex items-center gap-1 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-100">
-                                                <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                                                <span className="text-sm font-bold text-amber-700">{broker.rating}</span>
+                                            <div className="hidden sm:flex items-center gap-1 bg-accent-50 px-3 py-1.5 rounded-xl border border-accent-100">
+                                                <Star className="w-3.5 h-3.5 text-accent-500 fill-accent-500" />
+                                                <span className="text-sm font-bold text-accent-700">{broker.rating}</span>
                                             </div>
                                         </div>
                                         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4">
@@ -309,7 +309,7 @@ export default function StocksPage() {
                                 <div className="space-y-4 mb-10 pl-2">
                                     {broker.pros?.slice(0, 3).map((pro: string, pIdx: number) => (
                                         <div key={pIdx} className="flex items-start gap-3">
-                                            <Zap className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" />
+                                            <Zap className="w-4 h-4 text-accent-500 mt-0.5 shrink-0" />
                                             <span className="text-sm font-bold text-slate-600 leading-tight">{pro}</span>
                                         </div>
                                     ))}

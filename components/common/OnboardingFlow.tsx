@@ -74,13 +74,13 @@ const steps = [
                             </div>
                         </CardContent>
                     </Card>
-                    <Card className="bg-gradient-to-br from-amber-50 to-orange-50 border-amber-200">
+                    <Card className="bg-gradient-to-br from-accent-50 to-orange-50 border-accent-200">
                         <CardContent className="p-6 md:p-8">
                             <div className="flex items-start gap-3">
-                                <Star className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" />
+                                <Star className="w-6 h-6 text-accent-600 flex-shrink-0 mt-1" />
                                 <div>
-                                    <h4 className="font-semibold text-amber-900 mb-1">Write Reviews</h4>
-                                    <p className="text-sm text-amber-700">Review products you've used and help others make better decisions</p>
+                                    <h4 className="font-semibold text-accent-900 mb-1">Write Reviews</h4>
+                                    <p className="text-sm text-accent-700">Review products you've used and help others make better decisions</p>
                                 </div>
                             </div>
                         </CardContent>
@@ -101,8 +101,8 @@ const steps = [
                 </p>
                 <div className="grid gap-3">
                     <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
-                        <div className="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center">
-                            <Calculator className="w-5 h-5 text-teal-600" />
+                        <div className="w-10 h-10 rounded-lg bg-primary-100 flex items-center justify-center">
+                            <Calculator className="w-5 h-5 text-primary-600" />
                         </div>
                         <div>
                             <p className="font-medium text-slate-900">SIP Calculator</p>
@@ -143,11 +143,11 @@ const steps = [
                 </p>
                 <div className="space-y-3">
                     <Link href="/profile">
-                        <Card className="hover:shadow-md transition-shadow cursor-pointer border-teal-200 bg-gradient-to-br from-teal-50 to-emerald-50">
+                        <Card className="hover:shadow-md transition-shadow cursor-pointer border-primary-200 bg-gradient-to-br from-primary-50 to-success-50">
                             <CardContent className="p-6 md:p-8">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
-                                        <User className="w-5 h-5 text-teal-600" />
+                                        <User className="w-5 h-5 text-primary-600" />
                                         <span className="font-medium text-slate-900">Add Bio & Profile Picture</span>
                                     </div>
                                     <ArrowRight className="w-5 h-5 text-slate-400" />
@@ -219,14 +219,14 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                         {steps.map((_, idx) => (
                             <div
                                 key={idx}
-                                className={`flex-1 h-1.5 rounded-full transition-colors ${idx <= currentStep ? 'bg-teal-600' : 'bg-slate-200'
+                                className={`flex-1 h-1.5 rounded-full transition-colors ${idx <= currentStep ? 'bg-primary-600' : 'bg-slate-200'
                                     }`}
                             />
                         ))}
                     </div>
 
                     {/* Icon */}
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center mb-6 mx-auto">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-success-600 flex items-center justify-center mb-6 mx-auto">
                         <StepIcon className="w-8 h-8 text-white" />
                     </div>
 
@@ -251,7 +251,7 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                         </Button>
                         <Button
                             onClick={handleNext}
-                            className="flex-1 bg-teal-600 hover:bg-teal-700 text-white"
+                            className="flex-1 bg-primary-600 hover:bg-primary-700 text-white"
                         >
                             {currentStep === steps.length - 1 ? 'Get Started' : 'Next'}
                         </Button>

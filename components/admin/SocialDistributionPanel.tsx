@@ -97,7 +97,7 @@ export default function SocialDistributionPanel({
                             <div className="space-y-3">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
-                                        <Twitter className="w-4 h-4 text-sky-400" />
+                                        <Twitter className="w-4 h-4 text-secondary-400" />
                                         <span className="text-xs font-bold uppercase tracking-widest text-slate-400">
                                             Twitter Thread ({posts.twitter.length} tweets)
                                         </span>
@@ -118,7 +118,7 @@ export default function SocialDistributionPanel({
                                             className="p-4 bg-black/30 rounded-xl border border-white/5 group relative"
                                         >
                                             <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
-                                                <Badge className="bg-sky-500/20 text-sky-400 text-[10px]">{idx + 1}/{posts.twitter!.length}</Badge>
+                                                <Badge className="bg-secondary-500/20 text-secondary-400 text-[10px]">{idx + 1}/{posts.twitter!.length}</Badge>
                                                 <Button
                                                     size="sm"
                                                     variant="ghost"

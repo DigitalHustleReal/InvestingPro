@@ -94,7 +94,7 @@ export default function ContentCalendarPage() {
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 border-b border-white/5 pb-8 mt-4">
                     <div>
                         <h1 className="text-3xl font-extrabold text-white tracking-tight mb-2 flex items-center gap-3">
-                            <Calendar className="w-8 h-8 text-teal-500" />
+                            <Calendar className="w-8 h-8 text-primary-500" />
                             Content Strategy
                         </h1>
                         <p className="text-sm text-slate-400 font-medium tracking-wide">
@@ -125,8 +125,8 @@ export default function ContentCalendarPage() {
 
                 <Tabs defaultValue="calendar" className="w-full flex-1 flex flex-col">
                     <TabsList className="bg-white/5 border border-white/5 w-fit mb-6">
-                        <TabsTrigger value="calendar" className="data-[state=active]:bg-teal-600"><Calendar className="w-4 h-4 mr-2"/> Calendar View</TabsTrigger>
-                        <TabsTrigger value="sheet" className="data-[state=active]:bg-teal-600"><TableIcon className="w-4 h-4 mr-2"/> Planning Sheet</TabsTrigger>
+                        <TabsTrigger value="calendar" className="data-[state=active]:bg-primary-600"><Calendar className="w-4 h-4 mr-2"/> Calendar View</TabsTrigger>
+                        <TabsTrigger value="sheet" className="data-[state=active]:bg-primary-600"><TableIcon className="w-4 h-4 mr-2"/> Planning Sheet</TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="calendar" className="flex-1 overflow-hidden flex flex-col">
@@ -135,7 +135,7 @@ export default function ContentCalendarPage() {
                              {[
                                 { label: 'Scheduled', val: scheduledArticles.length, icon: Calendar, color: 'text-primary-400' },
                                 { label: 'Drafts', val: draftArticles.length, icon: FileText, color: 'text-slate-400' },
-                                { label: 'Pending Review', val: reviewArticles.length, icon: Clock, color: 'text-amber-400' },
+                                { label: 'Pending Review', val: reviewArticles.length, icon: Clock, color: 'text-accent-400' },
                                 { label: 'Total Assets', val: articles.length, icon: LayoutList, color: 'text-primary-400' },
                              ].map((stat, i) => (
                                 <Card key={i} className="bg-white/[0.03] border-white/5">
@@ -177,8 +177,8 @@ export default function ContentCalendarPage() {
                                         return (
                                             <div key={idx} className={`rounded-xl border p-2 flex flex-col gap-1 transition-all ${
                                                 isCurrent ? 'bg-white/[0.03] border-white/5' : 'bg-transparent border-transparent opacity-30'
-                                            } ${isToday ? 'ring-1 ring-teal-500 bg-teal-500/10' : ''}`}>
-                                                <div className={`text-xs font-bold mb-1 ${isToday ? 'text-teal-400' : 'text-slate-500'}`}>{date.getDate()}</div>
+                                            } ${isToday ? 'ring-1 ring-primary-500 bg-primary-500/10' : ''}`}>
+                                                <div className={`text-xs font-bold mb-1 ${isToday ? 'text-primary-400' : 'text-slate-500'}`}>{date.getDate()}</div>
                                                 {dateArticles.slice(0, 3).map((a: any) => (
                                                     <div key={a.id} className="text-[10px] bg-white/10 text-slate-300 px-1.5 py-1 rounded truncate border border-white/5 hover:bg-white/20 cursor-pointer">
                                                         {a.title}
@@ -220,7 +220,7 @@ export default function ContentCalendarPage() {
                                                     <Badge className={
                                                         article.status === 'published' ? 'bg-primary-500/10 text-primary-400' :
                                                         article.status === 'draft' ? 'bg-slate-500/10 text-slate-400' :
-                                                        'bg-amber-500/10 text-amber-400'
+                                                        'bg-accent-500/10 text-accent-400'
                                                     }>
                                                         {article.status}
                                                     </Badge>

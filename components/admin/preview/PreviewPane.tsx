@@ -65,7 +65,7 @@ export function PreviewPane({ content, title, isOpen, onClose }: PreviewPaneProp
                         </div>
                         <button
                             onClick={onClose}
-                            className="p-2 hover:bg-red-500/20 hover:text-red-400 text-slate-400 rounded-lg transition-colors"
+                            className="p-2 hover:bg-danger-500/20 hover:text-red-400 text-slate-400 rounded-lg transition-colors"
                         >
                             <X className="w-5 h-5" />
                         </button>
@@ -112,7 +112,7 @@ export function InlinePreview({ content, title, className = '' }: InlinePreviewP
                 </div>
             </div>
             <div className="p-8 overflow-y-auto">
-                <article className="prose prose-lg max-w-none prose-headings:font-bold prose-a:text-teal-600 prose-img:rounded-xl">
+                <article className="prose prose-lg max-w-none prose-headings:font-bold prose-a:text-primary-600 prose-img:rounded-xl">
                     {title && <h1 className="!mt-0">{title}</h1>}
                     <ReactMarkdown>{content}</ReactMarkdown>
                 </article>
@@ -136,7 +136,7 @@ export function MiniPreview({ content, title, onClick }: MiniPreviewProps) {
 
     return (
         <div 
-            className="bg-white text-slate-900 rounded-lg border border-slate-200 p-4 hover:border-teal-500/50 hover:shadow-lg transition-all cursor-pointer"
+            className="bg-white text-slate-900 rounded-lg border border-slate-200 p-4 hover:border-primary-500/50 hover:shadow-lg transition-all cursor-pointer"
             onClick={onClick}
         >
             {title && <h3 className="font-semibold text-sm mb-2 line-clamp-1">{title}</h3>}

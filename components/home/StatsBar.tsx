@@ -54,7 +54,7 @@ export function StatsBar() {
             icon={Building2}
             value="500+"
             label="Products Listed"
-            iconColor="bg-amber-600"
+            iconColor="bg-accent-600"
           />
           <StatItem
             icon={Shield}

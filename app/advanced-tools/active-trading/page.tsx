@@ -28,7 +28,7 @@ export default function ActiveTradingPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Header */}
         <div className="mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-100 text-teal-700 text-sm font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-100 text-primary-700 text-sm font-medium mb-4">
             <Zap className="w-4 h-4" />
             Advanced Tools
           </div>
@@ -52,8 +52,8 @@ export default function ActiveTradingPage() {
           </p>
           <div className="grid md:grid-cols-3 gap-4 mt-6">
             <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center mx-auto mb-3">
-                <TrendingUp className="w-6 h-6 text-teal-600" />
+              <div className="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center mx-auto mb-3">
+                <TrendingUp className="w-6 h-6 text-primary-600" />
               </div>
               <h3 className="font-semibold text-slate-900 mb-1">Education</h3>
               <p className="text-sm text-slate-600">Learn strategies</p>
@@ -115,7 +115,7 @@ export default function ActiveTradingPage() {
         </div>
 
         {/* When to Use */}
-        <div className="bg-amber-50 rounded-2xl p-8 mb-12 border border-amber-200">
+        <div className="bg-accent-50 rounded-2xl p-8 mb-12 border border-accent-200">
           <h2 className="text-2xl font-semibold text-slate-900 mb-4">
             Are You Ready for Active Trading?
           </h2>
@@ -124,30 +124,30 @@ export default function ActiveTradingPage() {
           </p>
           <ul className="space-y-3 text-slate-700">
             <li className="flex items-start gap-3">
-              <span className="text-amber-600 font-bold">→</span>
+              <span className="text-accent-600 font-bold">→</span>
               <span>Already understand investment fundamentals</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="text-amber-600 font-bold">→</span>
+              <span className="text-accent-600 font-bold">→</span>
               <span>Need to monitor positions in real-time</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="text-amber-600 font-bold">→</span>
+              <span className="text-accent-600 font-bold">→</span>
               <span>Execute trades multiple times per day or week</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="text-amber-600 font-bold">→</span>
+              <span className="text-accent-600 font-bold">→</span>
               <span>Require advanced charting and technical analysis tools</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="text-amber-600 font-bold">→</span>
+              <span className="text-accent-600 font-bold">→</span>
               <span>Have chosen a broker and are ready to trade</span>
             </li>
           </ul>
-          <div className="mt-6 p-4 bg-white rounded-lg border border-amber-200">
+          <div className="mt-6 p-4 bg-white rounded-lg border border-accent-200">
             <p className="text-sm text-slate-700">
               <strong>Not sure?</strong> If you're still learning about mutual funds, 
-              stocks, or investment strategies, stay on <Link href="/" className="text-teal-600 hover:underline">InvestingPro.in</Link> 
+              stocks, or investment strategies, stay on <Link href="/" className="text-primary-600 hover:underline">InvestingPro.in</Link> 
               {' '}to build your foundation first.
             </p>
           </div>

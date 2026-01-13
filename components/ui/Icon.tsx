@@ -34,7 +34,7 @@ interface IconProps {
  * import { Icon } from '@/components/ui/Icon';
  * import { TrendingUp } from 'lucide-react';
  * 
- * <Icon icon={TrendingUp} size="md" className="text-teal-500" />
+ * <Icon icon={TrendingUp} size="md" className="text-primary-500" />
  * ```
  */
 export function Icon({ 

@@ -22,7 +22,7 @@ async function testAutomation() {
     .insert({
       name: 'Test Auto Image ' + new Date().getTime(),
       provider_name: 'HDFC',
-      category: 'credit-cards',
+      category: 'credit_card',
       slug: 'test-auto-' + Date.now(),
       description: 'Test product for automation',
       image_url: null, // Will be auto-generated
@@ -51,7 +51,8 @@ async function testAutomation() {
     });
     
     if (!response.ok) {
-      throw new Error(`API returned ${response.status}`);
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(`API returned ${response.status}: ${JSON.stringify(errorData)}`);
     }
     
     const result = await response.json();

@@ -50,7 +50,7 @@ export default function SmallBusinessPage() {
                     </Badge>
                     <h1 className="text-5xl sm:text-7xl font-black text-slate-900 dark:text-white mb-8 tracking-tighter leading-[1.1]">
                         Finance Your <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-emerald-600">Business Growth.</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-success-600">Business Growth.</span>
                     </h1>
                     <p className="text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
                         From Seed to Scale—get access to machinery loans, GST tools, business credit cards, and expert compliance guides for your startup or enterprise.

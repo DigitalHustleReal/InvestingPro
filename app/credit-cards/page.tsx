@@ -191,7 +191,7 @@ const CreditCardsPage = () => {
                          {/* Marketing Widgets in Sidebar */}
                          <div className="mt-8 space-y-6">
                             {/* Card Matcher Teaser */}
-                            <div className="bg-gradient-to-br from-primary-600 to-emerald-700 rounded-[2rem] p-6 text-white relative overflow-hidden shadow-xl shadow-primary-500/20">
+                            <div className="bg-gradient-to-br from-primary-600 to-success-700 rounded-[2rem] p-6 text-white relative overflow-hidden shadow-xl shadow-primary-500/20">
                                 <div className="relative z-10">
                                     <div className="h-10 w-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center mb-4">
                                         <Zap className="w-6 h-6 text-yellow-300" />

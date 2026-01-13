@@ -84,7 +84,7 @@ const SheetContent = ({
                 {...props}
             >
                 <button
-                    className="absolute right-4 top-4 z-10 rounded-sm opacity-70 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 p-2"
+                    className="absolute right-4 top-4 z-10 rounded-sm opacity-70 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 p-2"
                     onClick={() => onOpenChange?.(false)}
                     aria-label="Close menu"
                 >

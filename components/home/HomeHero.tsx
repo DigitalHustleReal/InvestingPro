@@ -44,7 +44,7 @@ export default function HomeHero({ selectedCategory: propSelectedCategory, onCat
     };
 
     return (
-        <section className="relative bg-gradient-to-br from-teal-600 via-emerald-600 to-teal-700 text-white overflow-hidden">
+        <section className="relative bg-gradient-to-br from-primary-600 via-success-600 to-primary-700 text-white overflow-hidden">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
                 <div className="absolute inset-0" style={{
@@ -73,12 +73,12 @@ export default function HomeHero({ selectedCategory: propSelectedCategory, onCat
                             placeholder="Search products, calculators, guides..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full h-16 pl-14 pr-4 bg-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-teal-500 rounded-xl text-lg shadow-xl"
+                            className="w-full h-16 pl-14 pr-4 bg-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-primary-500 rounded-xl text-lg shadow-xl"
                         />
                         <Button
                             type="submit"
                             size="lg"
-                            className="absolute right-2 top-1/2 -translate-y-1/2 h-12 px-8 bg-teal-700 hover:bg-teal-800 text-white font-semibold rounded-lg"
+                            className="absolute right-2 top-1/2 -translate-y-1/2 h-12 px-8 bg-primary-700 hover:bg-primary-800 text-white font-semibold rounded-lg"
                         >
                             Search
                         </Button>
@@ -95,7 +95,7 @@ export default function HomeHero({ selectedCategory: propSelectedCategory, onCat
                                 onClick={() => handleCategorySelect(category.slug)}
                                 className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-200 ${
                                     selectedCategory === category.slug
-                                        ? 'bg-white text-teal-700 shadow-lg'
+                                        ? 'bg-white text-primary-700 shadow-lg'
                                         : 'bg-white/10 hover:bg-white/20 text-white border border-white/20'
                                 }`}
                             >

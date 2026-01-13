@@ -65,9 +65,9 @@ export default function DataProvenance({
             case 'daily':
                 return 'bg-primary-100 text-primary-700';
             case 'weekly':
-                return 'bg-teal-100 text-teal-700';
+                return 'bg-primary-100 text-primary-700';
             case 'monthly':
-                return 'bg-amber-100 text-amber-700';
+                return 'bg-accent-100 text-accent-700';
             default:
                 return 'bg-slate-100 text-slate-700';
         }
@@ -93,7 +93,7 @@ export default function DataProvenance({
         <Card className={className}>
             <CardHeader>
                 <CardTitle className="flex items-center gap-6 md:p-8">
-                    <Calendar className="w-5 h-5 text-teal-600" />
+                    <Calendar className="w-5 h-5 text-primary-600" />
                     Data Sources & Provenance
                 </CardTitle>
                 {lastUpdated && (
@@ -132,7 +132,7 @@ export default function DataProvenance({
                                                 href={group.source.url}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="text-sm text-teal-600 hover:text-teal-700 inline-flex items-center gap-1"
+                                                className="text-sm text-primary-600 hover:text-primary-700 inline-flex items-center gap-1"
                                             >
                                                 View source
                                                 <ExternalLink className="w-3 h-3" />
@@ -169,7 +169,7 @@ export default function DataProvenance({
                                                             href={point.source_url || point.data_sources?.url}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            className="text-teal-600 hover:text-teal-700 inline-flex items-center gap-1"
+                                                            className="text-primary-600 hover:text-primary-700 inline-flex items-center gap-1"
                                                         >
                                                             View source
                                                             <ExternalLink className="w-3 h-3" />

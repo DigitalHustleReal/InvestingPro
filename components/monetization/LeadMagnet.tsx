@@ -63,14 +63,14 @@ export default function LeadMagnet({ title, description, downloadUrl, type }: Le
     };
 
     const typeIcons = {
-        'excel': <FileSpreadsheet className="w-12 h-12 text-green-600" />,
-        'pdf': <Download className="w-12 h-12 text-red-600" />,
+        'excel': <FileSpreadsheet className="w-12 h-12 text-success-600" />,
+        'pdf': <Download className="w-12 h-12 text-danger-600" />,
         'google-sheet': <FileSpreadsheet className="w-12 h-12 text-primary-600" />
     };
 
     return (
-        <Card className="my-10 overflow-hidden border-2 border-teal-500/20 bg-gradient-to-br from-white to-slate-50 relative">
-            <div className="absolute top-4 right-4 text-[10px] font-bold text-teal-600 bg-teal-50 px-2 py-1 rounded uppercase tracking-widest">
+        <Card className="my-10 overflow-hidden border-2 border-primary-500/20 bg-gradient-to-br from-white to-slate-50 relative">
+            <div className="absolute top-4 right-4 text-[10px] font-bold text-primary-600 bg-primary-50 px-2 py-1 rounded uppercase tracking-widest">
                 Free Download
             </div>
             
@@ -96,12 +96,12 @@ export default function LeadMagnet({ title, description, downloadUrl, type }: Le
                                     required
                                 />
                             </div>
-                            <Button type="submit" className="bg-teal-600 hover:bg-teal-700 h-11 px-8 font-bold">
+                            <Button type="submit" className="bg-primary-600 hover:bg-primary-700 h-11 px-8 font-bold">
                                 Get It Now
                             </Button>
                         </form>
                     ) : (
-                        <div className="flex items-center gap-2 text-green-600 font-bold bg-green-50 p-3 rounded-lg border border-green-100">
+                        <div className="flex items-center gap-2 text-success-600 font-bold bg-success-50 p-3 rounded-lg border border-success-100">
                             <CheckCircle2 className="w-5 h-5" />
                             Success! Your download should start automatically.
                         </div>

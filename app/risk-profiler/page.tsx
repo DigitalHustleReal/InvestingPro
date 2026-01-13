@@ -105,7 +105,7 @@ const riskProfiles: Record<string, any> = {
     Moderate: {
         name: "Moderate",
         icon: TrendingUp,
-        color: "from-emerald-500 to-teal-600",
+        color: "from-success-500 to-primary-600",
         bgLight: "bg-primary-50",
         text: "text-primary-700",
         description: "You're comfortable with moderate risk for balanced growth. You understand that some volatility is necessary for wealth creation.",

@@ -157,7 +157,7 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
         {/* Results Section */}
         <div className="space-y-4">
           {/* Future Value - Hero Metric */}
-          <div className="bg-gradient-to-br from-primary-600 to-emerald-600 text-white rounded-xl p-6">
+          <div className="bg-gradient-to-br from-primary-600 to-success-600 text-white rounded-xl p-6">
             <p className="text-sm font-medium opacity-90 mb-1">Maturity Value</p>
             <p className="text-4xl font-bold font-mono mb-2">
               {formatINR(results.futureValue, { compact: true })}
@@ -227,8 +227,8 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
           </div>
 
           {/* Disclaimer */}
-          <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg">
-            <p className="text-xs text-amber-900">
+          <div className="p-3 bg-accent-50 border border-accent-200 rounded-lg">
+            <p className="text-xs text-accent-900">
               <strong className="font-semibold">Note:</strong> Returns are indicative and not guaranteed. 
               Actual returns may vary based on market conditions.
             </p>

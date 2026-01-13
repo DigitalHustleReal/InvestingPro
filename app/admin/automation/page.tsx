@@ -35,7 +35,7 @@ export default function AutomationPage() {
                     iconColor="amber"
                     actions={
                         <Link href="/admin/content-factory">
-                            <button className="px-4 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl text-sm font-medium flex items-center gap-2 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 transition-shadow">
+                            <button className="px-4 py-2.5 bg-gradient-to-r from-accent-500 to-orange-500 text-white rounded-xl text-sm font-medium flex items-center gap-2 shadow-lg shadow-accent-500/25 hover:shadow-accent-500/40 transition-shadow">
                                 <Play className="w-4 h-4" /> Open Content Factory
                             </button>
                         </Link>

@@ -153,7 +153,7 @@ export function FDCalculator() {
                                     <CheckCircle2 className="w-3 h-3 mr-1" />
                                     Free
                                 </Badge>
-                                <Badge className="bg-teal-50 text-teal-700 border-teal-200 shadow-sm hover:bg-teal-100 transition-colors cursor-default">
+                                <Badge className="bg-primary-50 text-primary-700 border-primary-200 shadow-sm hover:bg-primary-100 transition-colors cursor-default">
                                     <Zap className="w-3 h-3 mr-1" />
                                     Instant
                                 </Badge>
@@ -253,7 +253,7 @@ export function FDCalculator() {
                                             onClick={() => setInterestRate(rate)}
                                             className={`text-xs px-2 py-0.5 rounded-md font-medium transition-all ${
                                                 Math.abs(interestRate - rate) < 0.1
-                                                    ? 'bg-amber-600 text-white'
+                                                    ? 'bg-accent-600 text-white'
                                                     : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
                                             }`}
                                         >
@@ -307,7 +307,7 @@ export function FDCalculator() {
                                             onClick={() => setCompounding(freq)}
                                             className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
                                                 compounding === freq
-                                                    ? 'bg-amber-600 text-white shadow-lg'
+                                                    ? 'bg-accent-600 text-white shadow-lg'
                                                     : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                                             }`}
                                         >
@@ -357,38 +357,38 @@ export function FDCalculator() {
                 </Card>
 
                 {/* Right: Results Card */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50 relative overflow-hidden">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-accent-50 to-orange-50 relative overflow-hidden">
                     {/* Decorative gradient overlay */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-amber-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-accent-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-accent-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Principal</p>
                                 <p className="text-base sm:text-lg font-extrabold text-slate-900">{formatCurrency(principal)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-accent-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Interest</p>
                                 <p className="text-base sm:text-lg font-extrabold text-orange-600">{formatCurrency(result.interestEarned)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-amber-100">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-accent-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Value' : 'Maturity'}
                                 </p>
-                                <p className="text-base sm:text-lg font-extrabold text-amber-600">
+                                <p className="text-base sm:text-lg font-extrabold text-accent-600">
                                     {formatCurrency(adjustForInflation ? result.realValue : result.maturityAmount)}
                                 </p>
                             </div>
                         </div>
 
                         {adjustForInflation && (
-                            <div className="p-3 bg-white dark:bg-slate-800 rounded-xl border border-amber-100 mb-4">
+                            <div className="p-3 bg-white dark:bg-slate-800 rounded-xl border border-accent-100 mb-4">
                                 <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Nominal Value</p>
                                 <p className="text-sm font-bold text-slate-600">{formatCurrency(result.maturityAmount)}</p>
                                 <p className="text-xs text-slate-500 mt-1">Before inflation adjustment</p>
                             </div>
                         )}
 
-                        <div className="p-4 bg-white dark:bg-slate-800 rounded-xl border border-amber-100">
+                        <div className="p-4 bg-white dark:bg-slate-800 rounded-xl border border-accent-100">
                             <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Effective Annual Rate</p>
                             <p className="text-lg font-bold text-slate-900">{result.effectiveRate.toFixed(2)}% p.a.</p>
                         </div>
@@ -447,7 +447,7 @@ export function FDCalculator() {
                         <div className="space-y-4">
                             {/* Summary Stats */}
                             <div className="grid grid-cols-2 gap-3">
-                                <div className="p-4 bg-amber-50 rounded-xl border border-amber-100">
+                                <div className="p-4 bg-accent-50 rounded-xl border border-accent-100">
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Principal</p>
                                     <p className="text-lg font-bold text-slate-900">{formatCurrency(principal)}</p>
                                 </div>
@@ -485,10 +485,10 @@ export function FDCalculator() {
                                                     </tr>
                                                 )}
                                                 {yearlyData.length > 0 && (
-                                                    <tr className="bg-amber-50 border-t-2 border-amber-200">
+                                                    <tr className="bg-accent-50 border-t-2 border-accent-200">
                                                         <td className="px-3 py-3 text-sm font-bold text-slate-900">Final</td>
                                                         <td className="px-3 py-3 text-sm text-right font-bold text-orange-600">{formatCurrency(result.interestEarned)}</td>
-                                                        <td className="px-3 py-3 text-sm text-right font-bold text-amber-600">{formatCurrency(adjustForInflation ? result.realValue : result.maturityAmount)}</td>
+                                                        <td className="px-3 py-3 text-sm text-right font-bold text-accent-600">{formatCurrency(adjustForInflation ? result.realValue : result.maturityAmount)}</td>
                                                     </tr>
                                                 )}
                                             </tbody>
@@ -498,9 +498,9 @@ export function FDCalculator() {
                             </div>
 
                             {/* Key Insight */}
-                            <div className="p-4 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl border border-amber-100">
+                            <div className="p-4 bg-gradient-to-br from-accent-50 to-orange-50 rounded-xl border border-accent-100">
                                 <div className="flex items-start gap-3">
-                                    <Info className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                                    <Info className="w-5 h-5 text-accent-600 flex-shrink-0 mt-0.5" />
                                     <div>
                                         <p className="text-sm font-semibold text-slate-900 mb-1">Compound Interest</p>
                                         <p className="text-xs text-slate-600 leading-relaxed">

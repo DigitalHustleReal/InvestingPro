@@ -40,7 +40,7 @@ async function generateGlossaryTerm(term: string) {
     <h1>What is ${term}?</h1>
     <p class="definition"><strong>Definition:</strong> [1-2 sentences, Investopedia style].</p>
     
-    <div class="key-takeaways bg-gray-50 p-4 rounded-lg my-4">
+    <div class="key-takeaways bg-slate-50 p-4 rounded-lg my-4">
         <h3>Key Takeaways</h3>
         <ul>
             <li>[Point 1]</li>

@@ -13,9 +13,9 @@ export default function DifferentiationCard({ score, productName }: Differentiat
     if (score.overall === 0) return null;
 
     const getColor = (val: number) => {
-        if (val >= 8) return 'bg-emerald-500';
-        if (val >= 5) return 'bg-amber-500';
-        return 'bg-red-500';
+        if (val >= 8) return 'bg-success-500';
+        if (val >= 5) return 'bg-accent-500';
+        return 'bg-danger-500';
     };
 
     return (
@@ -72,9 +72,9 @@ export default function DifferentiationCard({ score, productName }: Differentiat
                 
                 {/* Bottom Insight */}
                 <div className="mt-6 pt-4 border-t border-white/10 flex items-start gap-3">
-                    <Trophy className="w-8 h-8 text-amber-400 flex-shrink-0" />
+                    <Trophy className="w-8 h-8 text-accent-400 flex-shrink-0" />
                     <p className="text-sm text-slate-300">
-                        This card ranks in the <span className="text-amber-400 font-bold">Top 10%</span> for {score.breakdown.reduce((a, b) => a.score > b.score ? a : b).label.toLowerCase()}.
+                        This card ranks in the <span className="text-accent-400 font-bold">Top 10%</span> for {score.breakdown.reduce((a, b) => a.score > b.score ? a : b).label.toLowerCase()}.
                     </p>
                 </div>
             </CardContent>

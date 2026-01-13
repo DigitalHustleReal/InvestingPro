@@ -73,7 +73,7 @@ export default function SocialShareButtons({ title, url, description }: SocialSh
                 href={shareLinks.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-sky-50 hover:bg-sky-100 text-sky-700 rounded-lg text-sm font-medium transition-colors border border-sky-200"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-secondary-50 hover:bg-secondary-100 text-secondary-700 rounded-lg text-sm font-medium transition-colors border border-secondary-200"
                 aria-label="Share on Twitter"
             >
                 <Twitter className="w-4 h-4" />

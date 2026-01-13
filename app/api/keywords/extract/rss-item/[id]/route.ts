@@ -9,16 +9,17 @@ import { logger } from '@/lib/logger';
  */
 export async function POST(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await params;
         const supabase = await createClient();
 
         // Get RSS item
         const { data: rssItem, error: itemError } = await supabase
             .from('rss_feed_items')
             .select('*')
-            .eq('id', params.id)
+            .eq('id', id)
             .single();
 
         if (itemError || !rssItem) {

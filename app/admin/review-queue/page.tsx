@@ -210,11 +210,11 @@ export default function ReviewQueuePage() {
                                     </div>
                                 </div>
                             ) : (
-                                <div className="bg-amber-500/10 border border-amber-500/30 p-4 rounded-lg flex items-start gap-3 text-amber-400 text-sm">
+                                <div className="bg-accent-500/10 border border-accent-500/30 p-4 rounded-lg flex items-start gap-3 text-accent-400 text-sm">
                                     <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
                                     <div>
                                         <p className="font-semibold">Requesting Changes</p>
-                                        <p className="text-amber-400/80">This will send the article back to 'Draft' status for revision.</p>
+                                        <p className="text-accent-400/80">This will send the article back to 'Draft' status for revision.</p>
                                     </div>
                                 </div>
                             )}

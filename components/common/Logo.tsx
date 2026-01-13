@@ -31,22 +31,22 @@ export default function Logo({
     // Color variants based on context
     const variantClasses = {
         default: {
-            logoBg: 'bg-gradient-to-br from-teal-600 to-emerald-600',
+            logoBg: 'bg-gradient-to-br from-primary-600 to-success-600',
             logoFill: 'white',
             brandText: 'text-slate-900 dark:text-white',
-            accent: 'text-teal-600 dark:text-teal-400'
+            accent: 'text-primary-600 dark:text-primary-400'
         },
         light: {
             logoBg: 'bg-white',
-            logoFill: '#0d9488', // teal-600
+            logoFill: '#0d9488', // primary-600
             brandText: 'text-white',
             accent: 'text-primary-200'
         },
         dark: {
-            logoBg: 'bg-gradient-to-br from-teal-600 to-emerald-600',
+            logoBg: 'bg-gradient-to-br from-primary-600 to-success-600',
             logoFill: 'white',
             brandText: 'text-white',
-            accent: 'text-teal-400'
+            accent: 'text-primary-400'
         }
     };
 

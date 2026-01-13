@@ -292,7 +292,7 @@ export default function AdminPage() {
             label: 'Pending Reviews',
             value: pendingReviewsCount ?? 0,
             icon: Star,
-            color: 'bg-amber-500',
+            color: 'bg-accent-500',
             change: 'Needs moderation',
             trend: (pendingReviewsCount ?? 0) > 0 ? 'down' : 'up'
         },
@@ -410,11 +410,11 @@ export default function AdminPage() {
                                         <span className="text-sm font-medium text-slate-400">Cluster Status</span>
                                         <div className={cn(
                                             "flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider",
-                                            scraperStatus.status === 'running' ? 'bg-primary-500/10 text-primary-400' : 'bg-amber-500/10 text-amber-400'
+                                            scraperStatus.status === 'running' ? 'bg-primary-500/10 text-primary-400' : 'bg-accent-500/10 text-accent-400'
                                         )}>
                                             <div className={cn(
                                                 "w-1.5 h-1.5 rounded-full animate-pulse",
-                                                scraperStatus.status === 'running' ? 'bg-primary-500' : 'bg-amber-500'
+                                                scraperStatus.status === 'running' ? 'bg-primary-500' : 'bg-accent-500'
                                             )} />
                                             {scraperStatus.status === 'running' ? 'Operational' : 'Idle'}
                                         </div>
@@ -555,7 +555,7 @@ export default function AdminPage() {
                                 )}
                                 {socialMetrics.twitter && (
                                     <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
-                                        <Twitter className="w-6 h-6 text-sky-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
+                                        <Twitter className="w-6 h-6 text-secondary-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
                                         <div className="text-2xl font-bold text-white tabular-nums mb-1">{socialMetrics.twitter.followers?.toLocaleString()}</div>
                                         <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
                                         <div className="text-[10px] font-bold text-primary-400 bg-primary-400/10 px-2 py-0.5 rounded-full inline-block">
@@ -585,7 +585,7 @@ export default function AdminPage() {
                                 )}
                                 {socialMetrics.youtube && (
                                     <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
-                                        <Youtube className="w-6 h-6 text-red-500 mx-auto mb-4 group-hover:scale-110 transition-transform" />
+                                        <Youtube className="w-6 h-6 text-danger-500 mx-auto mb-4 group-hover:scale-110 transition-transform" />
                                         <div className="text-2xl font-bold text-white tabular-nums mb-1">{socialMetrics.youtube.subscribers?.toLocaleString()}</div>
                                         <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Subscribers</div>
                                         <div className="text-[10px] font-bold text-slate-300 bg-white/5 px-2 py-0.5 rounded-full inline-block">
@@ -653,7 +653,7 @@ export default function AdminPage() {
                                             <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 text-center">
                                                 <div className="text-3xl font-extrabold text-white mb-1">{statsData?.total_articles ?? 0}</div>
                                                 <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Grand Total</div>
-                                                <div className="mt-3 text-[10px] font-bold text-sky-400">
+                                                <div className="mt-3 text-[10px] font-bold text-secondary-400">
                                                     {statsData?.published_articles ?? 0} Published
                                                 </div>
                                             </div>
@@ -672,9 +672,9 @@ export default function AdminPage() {
                                                 </div>
                                             </div>
                                             <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 text-center">
-                                                <div className="text-3xl font-extrabold text-amber-500 mb-1">{pendingArticlesCount ?? 0}</div>
+                                                <div className="text-3xl font-extrabold text-accent-500 mb-1">{pendingArticlesCount ?? 0}</div>
                                                 <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Moderation</div>
-                                                <div className="mt-3 text-[10px] font-bold text-amber-500/80">
+                                                <div className="mt-3 text-[10px] font-bold text-accent-500/80">
                                                     Pending Review
                                                 </div>
                                             </div>
@@ -822,12 +822,12 @@ export default function AdminPage() {
                                                             <div className={cn(
                                                                 "flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px]",
                                                                 article.status === 'published' ? 'bg-primary-500/10 text-primary-400' :
-                                                                article.status === 'draft' ? 'bg-amber-500/10 text-amber-400' :
+                                                                article.status === 'draft' ? 'bg-accent-500/10 text-accent-400' :
                                                                 'bg-slate-500/10 text-slate-400'
                                                             )}>
                                                                 <div className={cn("w-1 h-1 rounded-full",
                                                                     article.status === 'published' ? 'bg-primary-400' :
-                                                                    article.status === 'draft' ? 'bg-amber-400' :
+                                                                    article.status === 'draft' ? 'bg-accent-400' :
                                                                     'bg-slate-400'
                                                                 )} />
                                                                 {article.status}
@@ -892,10 +892,10 @@ export default function AdminPage() {
                                             </div>
 
                                             {/* Twitter */}
-                                            <div className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-sky-500/30 transition-all group">
+                                            <div className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-secondary-500/30 transition-all group">
                                                 <div className="flex items-center gap-5">
-                                                    <div className="w-14 h-14 bg-sky-500/10 rounded-xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                                        <Twitter className="w-6 h-6 text-sky-400" />
+                                                    <div className="w-14 h-14 bg-secondary-500/10 rounded-xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                                        <Twitter className="w-6 h-6 text-secondary-400" />
                                                     </div>
                                                     <div>
                                                         <h4 className="font-bold text-white tracking-tight">Twitter Stream</h4>
@@ -909,7 +909,7 @@ export default function AdminPage() {
                                                 </div>
                                                 <Button size="sm" variant="ghost" className={cn(
                                                     "h-10 px-6 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all",
-                                                    socialMetrics.twitter ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-sky-500 text-white hover:bg-sky-600 shadow-[0_0_15px_rgba(14,165,233,0.3)]"
+                                                    socialMetrics.twitter ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-secondary-500 text-white hover:bg-secondary-600 shadow-[0_0_15px_rgba(14,165,233,0.3)]"
                                                 )}>
                                                     {socialMetrics.twitter ? 'Terminate' : 'Initialize'}
                                                 </Button>
@@ -1007,7 +1007,7 @@ export default function AdminPage() {
                                         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                                             <CardHeader className="border-b border-white/5 px-8 py-5">
                                                 <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                                                    <Twitter className="w-4 h-4 text-sky-400" />
+                                                    <Twitter className="w-4 h-4 text-secondary-400" />
                                                     Twitter Stream Pulse
                                                 </CardTitle>
                                             </CardHeader>
@@ -1023,7 +1023,7 @@ export default function AdminPage() {
                                                             <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Impact</div>
                                                         </div>
                                                         <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-sky-400 mb-1 tabular-nums">{socialMetrics.twitter.posts}</div>
+                                                            <div className="text-lg font-bold text-secondary-400 mb-1 tabular-nums">{socialMetrics.twitter.posts}</div>
                                                             <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Broadcasts</div>
                                                         </div>
                                                     </div>

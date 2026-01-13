@@ -77,7 +77,7 @@ export function KVPCalculator() {
                                 <CardDescription>Kisan Vikas Patra Doubling Calculator</CardDescription>
                             </div>
                             <div className="flex flex-col gap-1.5 items-end">
-                                <Badge variant="secondary" className="bg-green-50 text-green-700 border-green-200">
+                                <Badge variant="secondary" className="bg-success-50 text-success-700 border-green-200">
                                     <CheckCircle2 className="w-3 h-3 mr-1" /> Govt Guarantee
                                 </Badge>
                             </div>
@@ -129,18 +129,18 @@ export function KVPCalculator() {
                 </Card>
 
                 {/* Results */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 relative overflow-hidden">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-success-50 to-success-50 relative overflow-hidden">
                      <div className="absolute top-0 right-0 w-64 h-64 bg-green-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                      <CardContent className="pt-8 relative z-10 flex flex-col justify-between h-full">
                         <div className="text-center mb-8">
                              <p className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-2">Maturity Amount</p>
-                             <div className="text-5xl font-extrabold text-green-700 mb-2">
+                             <div className="text-5xl font-extrabold text-success-700 mb-2">
                                 {formatCurrency(result.maturityAmount)}
                              </div>
-                             <div className="inline-flex items-center gap-2 bg-white/50 px-3 py-1 rounded-full border border-green-100">
+                             <div className="inline-flex items-center gap-2 bg-white/50 px-3 py-1 rounded-full border border-success-100">
                                 <span className="text-xs font-medium text-slate-600">Invested: {formatCurrency(investment)}</span>
                                 <span className="text-slate-300">|</span>
-                                <span className="text-xs font-bold text-green-700">2x Returns</span>
+                                <span className="text-xs font-bold text-success-700">2x Returns</span>
                              </div>
                         </div>
 

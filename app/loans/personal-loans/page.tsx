@@ -173,37 +173,37 @@ export default function PersonalLoansPage() {
                         </CardContent>
                     </Card>
 
-                    <Card className="border-amber-200 bg-amber-50 mb-6">
+                    <Card className="border-accent-200 bg-accent-50 mb-6">
                         <CardHeader>
                             <CardTitle className="text-lg font-semibold text-slate-900 flex items-center gap-6 md:p-8">
-                                <AlertTriangle className="w-5 h-5 text-amber-600" />
+                                <AlertTriangle className="w-5 h-5 text-accent-600" />
                                 Risks and Limitations
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
                             <ul className="space-y-2 text-slate-700">
                                 <li className="flex items-start gap-2">
-                                    <span className="text-amber-600 mt-1">•</span>
+                                    <span className="text-accent-600 mt-1">•</span>
                                     <span><strong>High Interest Rates:</strong> Unsecured nature results in higher interest rates compared to secured loans</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-amber-600 mt-1">•</span>
+                                    <span className="text-accent-600 mt-1">•</span>
                                     <span><strong>Debt Burden:</strong> Taking personal loans adds to monthly financial obligations and can strain budgets if not planned carefully</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-amber-600 mt-1">•</span>
+                                    <span className="text-accent-600 mt-1">•</span>
                                     <span><strong>Credit Score Impact:</strong> Defaults or delayed payments severely damage credit scores, affecting future borrowing ability</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-amber-600 mt-1">•</span>
+                                    <span className="text-accent-600 mt-1">•</span>
                                     <span><strong>Eligibility Restrictions:</strong> Minimum income requirements, age limits, and credit score thresholds restrict access for some borrowers</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-amber-600 mt-1">•</span>
+                                    <span className="text-accent-600 mt-1">•</span>
                                     <span><strong>No End-Use Monitoring:</strong> While lenders don't monitor usage, misusing loan funds for non-essential purposes can lead to financial distress</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-amber-600 mt-1">•</span>
+                                    <span className="text-accent-600 mt-1">•</span>
                                     <span><strong>Debt Trap Risk:</strong> Borrowing to repay other debts without addressing underlying financial issues can create a debt cycle</span>
                                 </li>
                             </ul>
@@ -274,23 +274,23 @@ export default function PersonalLoansPage() {
                     <h2 className="text-2xl font-bold text-slate-900 mb-4">Who Personal Loans Are NOT For</h2>
                     <ul className="space-y-2 text-slate-700">
                         <li className="flex items-start gap-2">
-                            <span className="text-red-600 mt-1">✗</span>
+                            <span className="text-danger-600 mt-1">✗</span>
                             <span>Individuals with poor credit scores (below 650) who may not qualify or get unfavorable terms</span>
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-red-600 mt-1">✗</span>
+                            <span className="text-danger-600 mt-1">✗</span>
                             <span>Those with irregular income or unstable employment who may struggle with repayments</span>
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-red-600 mt-1">✗</span>
+                            <span className="text-danger-600 mt-1">✗</span>
                             <span>Borrowers already burdened with high existing debt obligations</span>
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-red-600 mt-1">✗</span>
+                            <span className="text-danger-600 mt-1">✗</span>
                             <span>Those who can access lower-cost alternatives like secured loans or savings</span>
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-red-600 mt-1">✗</span>
+                            <span className="text-danger-600 mt-1">✗</span>
                             <span>Borrowers seeking loans for speculative investments or non-essential luxury expenses</span>
                         </li>
                     </ul>

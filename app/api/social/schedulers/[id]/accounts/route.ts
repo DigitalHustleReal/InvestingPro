@@ -8,10 +8,11 @@ import { logger } from '@/lib/logger';
  */
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const accounts = await socialSchedulerService.getAccounts(params.id);
+        const { id } = await params;
+        const accounts = await socialSchedulerService.getAccounts(id);
         
         return NextResponse.json({
             success: true,
@@ -33,13 +34,14 @@ export async function GET(
  */
 export async function POST(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await params;
         const body = await request.json();
         const accountId = await socialSchedulerService.saveAccount({
             ...body,
-            scheduler_id: params.id
+            scheduler_id: id
         });
         
         return NextResponse.json({
@@ -55,4 +57,3 @@ export async function POST(
         );
     }
 }
-

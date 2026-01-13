@@ -183,7 +183,7 @@ export function SWPCalculator() {
                                     <CheckCircle2 className="w-3 h-3 mr-1" />
                                     Free
                                 </Badge>
-                                <Badge className="bg-teal-50 text-teal-700 border-teal-200 shadow-sm hover:bg-teal-100 transition-colors cursor-default">
+                                <Badge className="bg-primary-50 text-primary-700 border-primary-200 shadow-sm hover:bg-primary-100 transition-colors cursor-default">
                                     <Zap className="w-3 h-3 mr-1" />
                                     Instant
                                 </Badge>
@@ -392,15 +392,15 @@ export function SWPCalculator() {
                 {/* Right: Results Card */}
                 <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-primary-50 to-success-50 dark:from-slate-900 dark:to-slate-800 relative overflow-hidden">
                     {/* Decorative gradient overlay */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-teal-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-primary-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         {result.exhausted && (
-                            <div className="p-6 md:p-8 sm:p-4 bg-amber-50 border border-amber-200 rounded-xl mb-4">
+                            <div className="p-6 md:p-8 sm:p-4 bg-accent-50 border border-accent-200 rounded-xl mb-4">
                                 <div className="flex items-start gap-2">
-                                    <AlertCircle className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
+                                    <AlertCircle className="w-4 h-4 text-accent-600 mt-0.5 flex-shrink-0" />
                                     <div>
-                                        <p className="text-sm font-bold text-amber-900 mb-1">Corpus Exhausted</p>
-                                        <p className="text-xs text-amber-700">
+                                        <p className="text-sm font-bold text-accent-900 mb-1">Corpus Exhausted</p>
+                                        <p className="text-xs text-accent-700">
                                             Corpus exhausted after {result.monthsExhausted} months. Consider reducing withdrawal or increasing returns.
                                         </p>
                                     </div>
@@ -415,7 +415,7 @@ export function SWPCalculator() {
                             </div>
                             <div className="text-center p-3 sm:p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-primary-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Remaining</p>
-                                <p className="text-base sm:text-lg font-extrabold text-teal-600">{formatCurrency(result.remainingCorpus)}</p>
+                                <p className="text-base sm:text-lg font-extrabold text-primary-600">{formatCurrency(result.remainingCorpus)}</p>
                             </div>
                             <div className="text-center p-3 sm:p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-primary-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Duration</p>
@@ -427,7 +427,7 @@ export function SWPCalculator() {
 
                         <div className="p-4 bg-white dark:bg-slate-800 rounded-xl border border-primary-100 mb-4">
                             <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Monthly Withdrawal</p>
-                            <p className="text-lg font-bold text-teal-600">{formatCurrency(result.monthlyWithdrawal)}</p>
+                            <p className="text-lg font-bold text-primary-600">{formatCurrency(result.monthlyWithdrawal)}</p>
                             <p className="text-xs text-slate-500 mt-1">
                                 {adjustForInflation ? 'Inflation-adjusted amount' : 'Fixed amount per month'}
                             </p>
@@ -480,9 +480,9 @@ export function SWPCalculator() {
                         <div className="space-y-4">
                             {/* Summary Stats */}
                             <div className="grid grid-cols-2 gap-3">
-                                <div className="p-4 bg-teal-50 rounded-xl border border-teal-100">
+                                <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Monthly Withdrawal</p>
-                                    <p className="text-lg font-bold text-teal-600">{formatCurrency(result.monthlyWithdrawal)}</p>
+                                    <p className="text-lg font-bold text-primary-600">{formatCurrency(result.monthlyWithdrawal)}</p>
                                 </div>
                                 <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Expected Return</p>
@@ -518,10 +518,10 @@ export function SWPCalculator() {
                                                     </tr>
                                                 )}
                                                 {yearlyData.length > 0 && (
-                                                    <tr className="bg-teal-50 border-t-2 border-teal-200">
+                                                    <tr className="bg-primary-50 border-t-2 border-primary-200">
                                                         <td className="px-3 py-3 text-sm font-bold text-slate-900 dark:text-slate-100">Final</td>
                                                         <td className="px-3 py-3 text-sm text-right font-bold text-primary-600">{formatCurrency(result.totalWithdrawn)}</td>
-                                                        <td className="px-3 py-3 text-sm text-right font-bold text-teal-600">{formatCurrency(result.remainingCorpus)}</td>
+                                                        <td className="px-3 py-3 text-sm text-right font-bold text-primary-600">{formatCurrency(result.remainingCorpus)}</td>
                                                     </tr>
                                                 )}
                                             </tbody>
@@ -533,7 +533,7 @@ export function SWPCalculator() {
                             {/* Key Insight */}
                             <div className="p-4 bg-gradient-to-br from-primary-50 to-indigo-50 rounded-xl border border-secondary-100">
                                 <div className="flex items-start gap-3">
-                                    <Info className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" />
+                                    <Info className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
                                     <div>
                                         <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-1">Withdrawal Strategy</p>
                                         <p className="text-xs text-slate-600 leading-relaxed">

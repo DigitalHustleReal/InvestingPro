@@ -149,7 +149,7 @@ export function LoansTable({ loans }: LoansTableProps) {
                                     key={i}
                                     className={`w-3.5 h-3.5 ${
                                         i < stars
-                                            ? 'text-amber-400 fill-amber-400'
+                                            ? 'text-accent-400 fill-accent-400'
                                             : 'text-slate-300 dark:text-slate-600'
                                     }`}
                                 />

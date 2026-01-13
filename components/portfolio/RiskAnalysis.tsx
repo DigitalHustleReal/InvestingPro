@@ -17,7 +17,7 @@ export default function RiskAnalysis({ holdings = [], user }: RiskAnalysisProps)
 
     const getRiskColor = (score: number) => {
         if (score < 33) return "text-primary-500";
-        if (score < 66) return "text-amber-500";
+        if (score < 66) return "text-accent-500";
         return "text-rose-500";
     };
 
@@ -48,7 +48,7 @@ export default function RiskAnalysis({ holdings = [], user }: RiskAnalysisProps)
 
                 <div className="p-6 bg-white/5 rounded-3xl border border-white/5 space-y-4">
                     <div className="flex items-start gap-3">
-                        <Zap className="w-5 h-5 text-amber-500 shrink-0 mt-1" />
+                        <Zap className="w-5 h-5 text-accent-500 shrink-0 mt-1" />
                         <p className="text-sm text-slate-300 font-medium leading-relaxed">
                             Your portfolio is currently <span className="text-white font-bold">12% more aggressive</span> than your intended {userRiskProfile} profile.
                         </p>

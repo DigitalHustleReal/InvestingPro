@@ -65,8 +65,8 @@ export default function DisclosureBlock({
         <Card className={`border-slate-200 bg-slate-50 ${position === 'top' ? 'mb-6' : 'mt-6'}`}>
             <CardContent className="p-6 md:p-8">
                 <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-teal-100 flex items-center justify-center shrink-0">
-                        <Icon className="w-4 h-4 text-teal-600" />
+                    <div className="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center shrink-0">
+                        <Icon className="w-4 h-4 text-primary-600" />
                     </div>
                     <div className="flex-1">
                         <h3 className="font-bold text-slate-900 mb-2 text-sm">

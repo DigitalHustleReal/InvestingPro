@@ -33,9 +33,9 @@ const badgeConfig = {
   },
   compliance: {
     icon: Award,
-    iconColor: 'text-amber-600',
-    bgColor: 'bg-amber-50',
-    borderColor: 'border-amber-200',
+    iconColor: 'text-accent-600',
+    bgColor: 'bg-accent-50',
+    borderColor: 'border-accent-200',
     text: 'RBI Guidelines',
     subtext: 'Compliant Platform',
   },

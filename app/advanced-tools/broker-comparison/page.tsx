@@ -25,7 +25,7 @@ export default function BrokerComparisonPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Header */}
         <div className="mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-100 text-teal-700 text-sm font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-100 text-primary-700 text-sm font-medium mb-4">
             <TrendingUp className="w-4 h-4" />
             Advanced Tools
           </div>
@@ -49,28 +49,28 @@ export default function BrokerComparisonPage() {
           </p>
           <ul className="space-y-3">
             <li className="flex items-start gap-3">
-              <CheckCircle2 className="w-5 h-5 text-teal-600 mt-0.5 flex-shrink-0" />
+              <CheckCircle2 className="w-5 h-5 text-primary-600 mt-0.5 flex-shrink-0" />
               <div>
                 <strong className="text-slate-900">Fee structures</strong>
                 <span className="text-slate-600"> - Zero brokerage vs. percentage-based vs. flat fees</span>
               </div>
             </li>
             <li className="flex items-start gap-3">
-              <CheckCircle2 className="w-5 h-5 text-teal-600 mt-0.5 flex-shrink-0" />
+              <CheckCircle2 className="w-5 h-5 text-primary-600 mt-0.5 flex-shrink-0" />
               <div>
                 <strong className="text-slate-900">Platform reliability</strong>
                 <span className="text-slate-600"> - Uptime, execution speed, customer support</span>
               </div>
             </li>
             <li className="flex items-start gap-3">
-              <CheckCircle2 className="w-5 h-5 text-teal-600 mt-0.5 flex-shrink-0" />
+              <CheckCircle2 className="w-5 h-5 text-primary-600 mt-0.5 flex-shrink-0" />
               <div>
                 <strong className="text-slate-900">Tool sophistication</strong>
                 <span className="text-slate-600"> - Research tools, charting, portfolio analytics</span>
               </div>
             </li>
             <li className="flex items-start gap-3">
-              <CheckCircle2 className="w-5 h-5 text-teal-600 mt-0.5 flex-shrink-0" />
+              <CheckCircle2 className="w-5 h-5 text-primary-600 mt-0.5 flex-shrink-0" />
               <div>
                 <strong className="text-slate-900">Account types</strong>
                 <span className="text-slate-600"> - Demat, trading, margin, commodity accounts</span>
@@ -90,7 +90,7 @@ export default function BrokerComparisonPage() {
           </p>
           <div className="grid md:grid-cols-2 gap-4">
             <div className="bg-white rounded-xl p-6 border border-slate-200">
-              <Shield className="w-8 h-8 text-teal-600 mb-3" />
+              <Shield className="w-8 h-8 text-primary-600 mb-3" />
               <h3 className="font-semibold text-slate-900 mb-2">Infrastructure Trust</h3>
               <p className="text-sm text-slate-600">
                 Who can you trust with your money? Regulatory compliance, security audits, 
@@ -98,7 +98,7 @@ export default function BrokerComparisonPage() {
               </p>
             </div>
             <div className="bg-white rounded-xl p-6 border border-slate-200">
-              <TrendingUp className="w-8 h-8 text-teal-600 mb-3" />
+              <TrendingUp className="w-8 h-8 text-primary-600 mb-3" />
               <h3 className="font-semibold text-slate-900 mb-2">Fee Transparency</h3>
               <p className="text-sm text-slate-600">
                 Hidden charges, AMC fees, transaction costs—these compound over time. 

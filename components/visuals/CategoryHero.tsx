@@ -255,11 +255,11 @@ function GenericDiagram({ category }: { category: string }) {
 function getCategoryColors(category: string) {
     const schemes: Record<string, { gradient: string }> = {
         'credit-cards': { gradient: 'from-primary-500 to-secondary-500' },
-        'loans': { gradient: 'from-emerald-500 to-teal-500' },
+        'loans': { gradient: 'from-success-500 to-primary-500' },
         'banking': { gradient: 'from-secondary-500 to-cyan-500' },
-        'investing': { gradient: 'from-teal-500 to-emerald-500' },
+        'investing': { gradient: 'from-primary-500 to-success-500' },
         'insurance': { gradient: 'from-rose-500 to-pink-500' },
-        'small-business': { gradient: 'from-amber-500 to-orange-500' },
+        'small-business': { gradient: 'from-accent-500 to-orange-500' },
     };
     
     return schemes[category] || { gradient: 'from-slate-500 to-slate-600' };

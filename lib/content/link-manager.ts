@@ -33,7 +33,7 @@ export function enrichContent(html: string): string {
         // This is a lightweight implementation.
         const regex = new RegExp(`\\b(${link.key})\\b(?!([^<]+)?>)`, 'gi'); 
         enriched = enriched.replace(regex, (match) => {
-            return `<a href="${link.url}" class="text-teal-600 hover:underline" ${link.rel ? `rel="${link.rel}" target="_blank"` : ''}>${match}</a>`;
+            return `<a href="${link.url}" class="text-primary-600 hover:underline" ${link.rel ? `rel="${link.rel}" target="_blank"` : ''}>${match}</a>`;
         });
     });
     

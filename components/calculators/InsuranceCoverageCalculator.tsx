@@ -201,7 +201,7 @@ export default function InsuranceCoverageCalculator() {
           {/* Right: Results */}
           <div className="space-y-6">
             <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+              <CheckCircle2 className="w-5 h-5 text-success-600" />
               Your Protection Plan
             </h3>
 
@@ -235,21 +235,21 @@ export default function InsuranceCoverageCalculator() {
               </div>
 
               {/* Estimated Premium */}
-              <div className="p-5 bg-emerald-50 dark:bg-emerald-900/20 border-2 border-emerald-200 dark:border-emerald-800 rounded-xl">
+              <div className="p-5 bg-success-50 dark:bg-emerald-900/20 border-2 border-emerald-200 dark:border-emerald-800 rounded-xl">
                 <div className="flex items-center gap-2 mb-1">
-                  <DollarSign className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                  <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">Estimated Annual Premium</p>
+                  <DollarSign className="w-4 h-4 text-success-600 dark:text-emerald-400" />
+                  <p className="text-xs font-semibold text-success-700 dark:text-emerald-400 uppercase tracking-wider">Estimated Annual Premium</p>
                 </div>
-                <p className="text-2xl font-bold text-emerald-700 dark:text-emerald-300">{formatCurrency(result.estimatedAnnualPremium)}</p>
-                <p className="text-xs text-emerald-600 dark:text-emerald-500 mt-1">Based on your age group</p>
+                <p className="text-2xl font-bold text-success-700 dark:text-emerald-300">{formatCurrency(result.estimatedAnnualPremium)}</p>
+                <p className="text-xs text-success-600 dark:text-success-500 mt-1">Based on your age group</p>
               </div>
             </div>
 
             {/* Disclaimer */}
-            <div className="p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl flex gap-3">
-              <AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+            <div className="p-4 bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 rounded-xl flex gap-3">
+              <AlertCircle className="w-5 h-5 text-accent-600 dark:text-accent-400 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="text-xs text-amber-900 dark:text-amber-200">
+                <p className="text-xs text-accent-900 dark:text-accent-200">
                   <strong className="font-semibold">Note:</strong> This is an estimate using the Human Life Value (HLV) method. Actual coverage needs and premiums vary based on health, lifestyle, and policy type.
                 </p>
               </div>

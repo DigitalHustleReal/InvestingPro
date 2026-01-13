@@ -142,7 +142,7 @@ export function NSCCalculator() {
                              </div>
                              <div className="flex justify-between items-center text-sm border-t border-dashed border-slate-300 pt-3">
                                 <span className="text-slate-600">Total Interest Earned</span>
-                                <span className="font-bold text-green-600">+{formatCurrency(result.totalInterest)}</span>
+                                <span className="font-bold text-success-600">+{formatCurrency(result.totalInterest)}</span>
                              </div>
                         </div>
                         
@@ -178,7 +178,7 @@ export function NSCCalculator() {
                                                             <span>Opening:</span>
                                                             <span className="font-medium text-slate-900">{formatCurrency(data.openingBalance)}</span>
                                                         </p>
-                                                        <p className="flex justify-between gap-4 text-green-600">
+                                                        <p className="flex justify-between gap-4 text-success-600">
                                                             <span>Interest:</span>
                                                             <span className="font-bold">+{formatCurrency(data.interest)}</span>
                                                         </p>

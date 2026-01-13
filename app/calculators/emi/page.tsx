@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import SEOHead from "@/components/common/SEOHead";
@@ -111,9 +111,9 @@ export default function EMICalculatorPage() {
                                 </p>
                             </CardContent>
                         </Card>
-                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-teal-50 to-white dark:from-slate-800 dark:to-slate-900">
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-slate-800 dark:to-slate-900">
                             <CardHeader>
-                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-teal-700 dark:text-teal-400">
+                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
                                     <Zap className="w-5 h-5" />
                                     Flexibility
                                 </CardTitle>
@@ -137,9 +137,9 @@ export default function EMICalculatorPage() {
                                 </p>
                             </CardContent>
                         </Card>
-                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-amber-50 to-white dark:from-slate-800 dark:to-slate-900">
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-accent-50 to-white dark:from-slate-800 dark:to-slate-900">
                             <CardHeader>
-                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-amber-700 dark:text-amber-400">
+                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-accent-700 dark:text-accent-400">
                                     <Info className="w-5 h-5" />
                                     Reducing Balance
                                 </CardTitle>

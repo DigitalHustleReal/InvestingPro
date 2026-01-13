@@ -168,7 +168,7 @@ export function MediaLibrary({ onSelect, selectionMode = false }: MediaLibraryPr
                                                 </a>
                                                 <button
                                                     onClick={(e) => handleDelete(e, item)}
-                                                    className="p-2 bg-red-500/20 hover:bg-red-500/40 text-red-400 rounded-full backdrop-blur-sm transition-colors"
+                                                    className="p-2 bg-danger-500/20 hover:bg-danger-500/40 text-red-400 rounded-full backdrop-blur-sm transition-colors"
                                                     title="Delete"
                                                 >
                                                     <Trash2 className="w-4 h-4" />
@@ -210,7 +210,7 @@ export function MediaLibrary({ onSelect, selectionMode = false }: MediaLibraryPr
                                             <button onClick={(e) => copyUrl(e, item.url)} className="p-2 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-white">
                                                 <Copy className="w-4 h-4" />
                                             </button>
-                                            <button onClick={(e) => handleDelete(e, item)} className="p-2 hover:bg-red-500/20 rounded-lg text-slate-400 hover:text-red-400">
+                                            <button onClick={(e) => handleDelete(e, item)} className="p-2 hover:bg-danger-500/20 rounded-lg text-slate-400 hover:text-red-400">
                                                 <Trash2 className="w-4 h-4" />
                                             </button>
                                         </div>

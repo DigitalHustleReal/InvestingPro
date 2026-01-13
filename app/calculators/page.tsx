@@ -28,8 +28,7 @@ import {
     Landmark,
     Armchair,
     Wallet,
-    Calculator,
-    TrendingUp
+    Activity
 } from "lucide-react";
 import Link from "next/link";
 import { SWPCalculator } from "@/components/calculators/SWPCalculator";
@@ -53,6 +52,7 @@ import { SCSSCalculator } from "@/components/calculators/SCSSCalculator";
 import { MISCalculator } from "@/components/calculators/MISCalculator";
 import { SimpleInterestCalculator } from "@/components/calculators/SimpleInterestCalculator";
 import { CompoundInterestCalculator } from "@/components/calculators/CompoundInterestCalculator";
+import { FinancialHealthCalculator } from "@/components/calculators/FinancialHealthCalculator";
 
 export default function CalculatorsPage() {
     return (
@@ -71,10 +71,10 @@ export default function CalculatorsPage() {
             <OrganizationSchema />
             
             {/* Light Theme Hero Section - Consistent with Platform */}
-            <div className="bg-white border-b border-slate-200 pt-28 pb-20 relative overflow-hidden">
+            <div className="bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 pt-28 pb-20 relative overflow-hidden">
                 {/* Subtle background decoration */}
                 <div className="absolute inset-0 opacity-10 pointer-events-none">
-                    <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-teal-500 rounded-full blur-[140px] -translate-y-1/2" />
+                    <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary-500 rounded-full blur-[140px] -translate-y-1/2" />
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -86,9 +86,9 @@ export default function CalculatorsPage() {
                         </Badge>
 
                         {/* Title */}
-                        <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 tracking-tight leading-tight">
+                        <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight leading-tight">
                             Financial Calculators
-                            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-secondary-600 mt-2">
+                            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-secondary-500 mt-2">
                                 Plan Your Future
                             </span>
                         </h1>
@@ -101,7 +101,7 @@ export default function CalculatorsPage() {
                         {/* Stats */}
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
                             {[
-                                { label: "Calculators", value: "12+", icon: <Calculator className="w-5 h-5" /> },
+                                { label: "Calculators", value: "13+", icon: <Calculator className="w-5 h-5" /> },
                                 { label: "Inflation Adjusted", value: "All", icon: <Percent className="w-5 h-5" /> },
                                 { label: "Free Forever", value: "100%", icon: <CheckCircle2 className="w-5 h-5" /> },
                                 { label: "Updated Daily", value: "24/7", icon: <Clock className="w-5 h-5" /> }
@@ -174,6 +174,10 @@ export default function CalculatorsPage() {
                             <TrendingDown className="w-4 h-4 mr-2" />
                             SWP
                         </TabsTrigger>
+                        <TabsTrigger value="health" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
+                            <Activity className="w-4 h-4 mr-2" />
+                            Financial Health
+                        </TabsTrigger>
                         <TabsTrigger value="lumpsum" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <PiggyBank className="w-4 h-4 mr-2" />
                             Lumpsum
@@ -242,14 +246,7 @@ export default function CalculatorsPage() {
                             <TrendingUp className="w-4 h-4 mr-2" />
                             Compound Int.
                         </TabsTrigger>
-                        <TabsTrigger value="si" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <Calculator className="w-4 h-4 mr-2" />
-                            Simple Int.
-                        </TabsTrigger>
-                         <TabsTrigger value="ci" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <TrendingUp className="w-4 h-4 mr-2" />
-                            Compound Int.
-                        </TabsTrigger>
+
                         <TabsTrigger value="gst" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
                             <Receipt className="w-4 h-4 mr-2" />
                             GST
@@ -281,6 +278,18 @@ export default function CalculatorsPage() {
                                 </Link>
                             </div>
                             <SWPCalculator />
+                        </div>
+                    </TabsContent>
+
+                    <TabsContent value="health">
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <p className="text-slate-600">Get a comprehensive assessment of your financial health.</p>
+                                <Link href="/calculators/financial-health-score" className="text-primary-600 hover:text-primary-700 font-semibold">
+                                    View Full Page →
+                                </Link>
+                            </div>
+                            <FinancialHealthCalculator />
                         </div>
                     </TabsContent>
 
@@ -491,10 +500,7 @@ export default function CalculatorsPage() {
                                         "PPF Calculator - Public Provident Fund calculator",
                                         "NPS Calculator - National Pension System calculator",
                                         "Goal Planning Calculator - Plan financial goals with SIP",
-                                        "Goal Planning Calculator - Plan financial goals with SIP",
-                                        "GST Calculator - Calculate Goods and Services Tax",
-                                        "Goal Planning Calculator - Plan financial goals with SIP",
-                                        "GST Calculator - Calculate Goods and Services Tax",
+
                                         "SSY Calculator - Sukanya Samriddhi Yojana calculator",
                                         "KVP Calculator - Kisan Vikas Patra doubling calculator",
                                         "NSC Calculator - National Savings Certificate calculator",

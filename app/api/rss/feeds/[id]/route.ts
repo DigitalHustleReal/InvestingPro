@@ -8,10 +8,11 @@ import { logger } from '@/lib/logger';
  */
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const feed = await rssImportService.getFeed(params.id);
+        const { id } = await params;
+        const feed = await rssImportService.getFeed(id);
         if (!feed) {
             return NextResponse.json(
                 { success: false, error: 'Feed not found' },
@@ -39,11 +40,12 @@ export async function GET(
  */
 export async function PUT(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await params;
         const body = await request.json();
-        await rssImportService.updateFeed(params.id, body);
+        await rssImportService.updateFeed(id, body);
         
         return NextResponse.json({
             success: true
@@ -64,10 +66,11 @@ export async function PUT(
  */
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        await rssImportService.deleteFeed(params.id);
+        const { id } = await params;
+        await rssImportService.deleteFeed(id);
         
         return NextResponse.json({
             success: true
@@ -81,4 +84,3 @@ export async function DELETE(
         );
     }
 }
-

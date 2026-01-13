@@ -55,12 +55,12 @@ export default function ContextualProducts({ categorySlug }: ContextualProductsP
                                     href={collection.href}
                                     className="group"
                                 >
-                                    <div className="h-full p-6 bg-slate-50 hover:bg-teal-50 border-2 border-slate-200 hover:border-teal-500 rounded-xl transition-all duration-200 group-hover:shadow-lg">
+                                    <div className="h-full p-6 bg-slate-50 hover:bg-primary-50 border-2 border-slate-200 hover:border-primary-500 rounded-xl transition-all duration-200 group-hover:shadow-lg">
                                         <div className="flex items-center justify-between mb-2">
-                                            <TrendingUp className="w-5 h-5 text-slate-400 group-hover:text-teal-600 transition-colors" />
-                                            <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-teal-600 group-hover:translate-x-1 transition-all" />
+                                            <TrendingUp className="w-5 h-5 text-slate-400 group-hover:text-primary-600 transition-colors" />
+                                            <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-primary-600 group-hover:translate-x-1 transition-all" />
                                         </div>
-                                        <h3 className="text-base font-bold text-slate-900 group-hover:text-teal-700 transition-colors leading-tight">
+                                        <h3 className="text-base font-bold text-slate-900 group-hover:text-primary-700 transition-colors leading-tight">
                                             {collection.name.toUpperCase()}
                                         </h3>
                                         {collection.description && (
@@ -79,7 +79,7 @@ export default function ContextualProducts({ categorySlug }: ContextualProductsP
                                 <Link href={`/${categorySlug}/${bestIntent.slug}`}>
                                     <Button 
                                         variant="outline"
-                                        className="bg-white hover:bg-teal-50 border-slate-300 hover:border-teal-500 text-slate-700 hover:text-teal-700 font-semibold px-8 py-6 text-base rounded-xl"
+                                        className="bg-white hover:bg-primary-50 border-slate-300 hover:border-primary-500 text-slate-700 hover:text-primary-700 font-semibold px-8 py-6 text-base rounded-xl"
                                     >
                                         View All {category.name} Options
                                         <ArrowRight className="ml-2 w-5 h-5" />

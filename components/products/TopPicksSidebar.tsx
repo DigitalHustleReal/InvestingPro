@@ -51,7 +51,7 @@ export default function TopPicksSidebar({ category }: { category: string }) {
                                 <h4 className="font-bold text-sm text-slate-900 truncate group-hover:text-primary-700 transition-colors">
                                     {p.name}
                                 </h4>
-                                <div className="flex items-center gap-1 text-amber-500 text-[10px] font-bold mt-1">
+                                <div className="flex items-center gap-1 text-accent-500 text-[10px] font-bold mt-1">
                                     <Star className="w-3 h-3 fill-current" />
                                     {p.rating} • {p.provider_name}
                                 </div>

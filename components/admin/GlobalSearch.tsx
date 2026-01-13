@@ -177,7 +177,7 @@ export default function GlobalSearch() {
         const colors: Record<string, string> = {
             published: 'bg-primary-100 text-primary-800',
             draft: 'bg-slate-100 text-slate-800',
-            review: 'bg-amber-100 text-amber-800',
+            review: 'bg-accent-100 text-accent-800',
         };
         return (
             <Badge className={`text-xs ${colors[status] || 'bg-slate-100 text-slate-800'}`}>

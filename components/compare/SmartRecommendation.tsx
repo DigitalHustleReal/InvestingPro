@@ -136,7 +136,7 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
                                             transition={{ delay: 0.5 + idx * 0.1 }}
                                             className="flex items-center gap-2"
                                         >
-                                            <reason.icon className="w-4 h-4 text-green-600 dark:text-green-400" />
+                                            <reason.icon className="w-4 h-4 text-success-600 dark:text-green-400" />
                                             <span className="text-sm text-slate-700 dark:text-slate-300">{reason.text}</span>
                                         </motion.div>
                                     ))}
@@ -145,7 +145,7 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
 
                             {/* CTA */}
                             <Button
-                                className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold shadow-lg hover:shadow-xl transition-all"
+                                className="w-full sm:w-auto bg-gradient-to-r from-success-600 to-success-600 hover:from-success-700 hover:to-success-700 text-white font-bold shadow-lg hover:shadow-xl transition-all"
                                 asChild
                             >
                                 <Link href={`/go/${winner.slug}`} target="_blank">

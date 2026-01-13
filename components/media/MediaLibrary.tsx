@@ -108,16 +108,16 @@ export function MediaLibrary({
     return (
         <div className="h-full flex flex-col bg-white">
             {/* Header */}
-            <div className="border-b p-4 bg-gray-50">
+            <div className="border-b p-4 bg-slate-50">
                 <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-xl font-bold text-gray-900">Media Library</h2>
+                    <h2 className="text-xl font-bold text-slate-900">Media Library</h2>
                     <div className="flex gap-2 flex-wrap">
                         <button
                             onClick={() => setView('grid')}
                             className={`px-3 py-2 rounded-lg font-medium transition-colors text-sm ${
                                 view === 'grid'
                                     ? 'bg-secondary-600 text-white hover:bg-secondary-700'
-                                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                    : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
                             }`}
                         >
                             📁 Browse ({total})
@@ -127,7 +127,7 @@ export function MediaLibrary({
                             className={`px-3 py-2 rounded-lg font-medium transition-colors text-sm ${
                                 view === 'upload'
                                     ? 'bg-secondary-600 text-white hover:bg-secondary-700'
-                                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                    : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
                             }`}
                         >
                             ⬆️ Upload
@@ -137,7 +137,7 @@ export function MediaLibrary({
                             className={`px-3 py-2 rounded-lg font-medium transition-colors text-sm ${
                                 view === 'stock'
                                     ? 'bg-secondary-600 text-white hover:bg-secondary-700'
-                                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                    : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
                             }`}
                         >
                             📸 Stock Photos
@@ -147,7 +147,7 @@ export function MediaLibrary({
                             className={`px-3 py-2 rounded-lg font-medium transition-colors text-sm ${
                                 view === 'bulk'
                                     ? 'bg-secondary-600 text-white hover:bg-secondary-700'
-                                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                    : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
                             }`}
                         >
                             📤 Bulk Upload
@@ -157,7 +157,7 @@ export function MediaLibrary({
                             className={`px-3 py-2 rounded-lg font-medium transition-colors text-sm ${
                                 view === 'ai'
                                     ? 'bg-secondary-600 text-white hover:bg-secondary-700'
-                                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                    : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
                             }`}
                         >
                             🎨 AI Generate
@@ -175,7 +175,7 @@ export function MediaLibrary({
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                                className="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                             />
                             <button
                                 onClick={handleSearch}
@@ -189,7 +189,7 @@ export function MediaLibrary({
                                         setSearchQuery('');
                                         loadMedia();
                                     }}
-                                    className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 font-medium"
+                                    className="px-4 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 font-medium"
                                 >
                                     Clear
                                 </button>
@@ -203,7 +203,7 @@ export function MediaLibrary({
                                 className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
                                     selectedFolder === 'all'
                                         ? 'bg-primary text-white'
-                                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                        : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
                                 }`}
                             >
                                 All ({total})
@@ -215,7 +215,7 @@ export function MediaLibrary({
                                     className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
                                         selectedFolder === folder.slug
                                             ? 'bg-primary text-white'
-                                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                            : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
                                     }`}
                                 >
                                     {folder.name} ({folder.count})
@@ -252,14 +252,14 @@ export function MediaLibrary({
                     <div className="flex items-center justify-center h-64">
                         <div className="text-center">
                             <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mx-auto mb-4"></div>
-                            <p className="text-gray-500">Loading media...</p>
+                            <p className="text-slate-500">Loading media...</p>
                         </div>
                     </div>
                 ) : media.length === 0 ? (
                     <div className="flex items-center justify-center h-64">
                         <div className="text-center">
                             <svg
-                                className="mx-auto h-16 w-16 text-gray-400 mb-4"
+                                className="mx-auto h-16 w-16 text-slate-400 mb-4"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -271,10 +271,10 @@ export function MediaLibrary({
                                     d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                                 />
                             </svg>
-                            <p className="text-gray-500 text-lg font-medium mb-2">
+                            <p className="text-slate-500 text-lg font-medium mb-2">
                                 {searchQuery ? 'No images found' : 'No images yet'}
                             </p>
-                            <p className="text-gray-400 text-sm mb-4">
+                            <p className="text-slate-400 text-sm mb-4">
                                 {searchQuery ? 'Try a different search term' : 'Upload your first image to get started'}
                             </p>
                             {!searchQuery && (
@@ -303,7 +303,7 @@ export function MediaLibrary({
                                     onClick={() => mode === 'select' && onSelect?.(file)}
                                 >
                                     {/* Image */}
-                                    <div className="aspect-square bg-gray-100 relative">
+                                    <div className="aspect-square bg-slate-100 relative">
                                         <img
                                             src={file.publicUrl}
                                             alt={file.altText || file.filename}
@@ -319,7 +319,7 @@ export function MediaLibrary({
                                                         e.stopPropagation();
                                                         window.open(file.publicUrl, '_blank');
                                                     }}
-                                                    className="px-3 py-1 bg-white text-gray-900 rounded text-sm font-medium hover:bg-gray-100"
+                                                    className="px-3 py-1 bg-white text-slate-900 rounded text-sm font-medium hover:bg-slate-100"
                                                     title="View full size"
                                                 >
                                                     👁️ View
@@ -329,7 +329,7 @@ export function MediaLibrary({
                                                         e.stopPropagation();
                                                         handleDelete(file.id);
                                                     }}
-                                                    className="px-3 py-1 bg-red-600 text-white rounded text-sm font-medium hover:bg-red-700"
+                                                    className="px-3 py-1 bg-danger-600 text-white rounded text-sm font-medium hover:bg-danger-700"
                                                     title="Delete"
                                                 >
                                                     🗑️ Delete
@@ -349,21 +349,21 @@ export function MediaLibrary({
 
                                     {/* Info */}
                                     <div className="p-2 bg-white">
-                                        <p className="text-xs truncate font-medium text-gray-900" title={file.originalFilename}>
+                                        <p className="text-xs truncate font-medium text-slate-900" title={file.originalFilename}>
                                             {file.originalFilename}
                                         </p>
                                         <div className="flex items-center justify-between mt-1">
-                                            <p className="text-xs text-gray-500">
+                                            <p className="text-xs text-slate-500">
                                                 {(file.fileSize / 1024).toFixed(0)} KB
                                             </p>
                                             {file.width && file.height && (
-                                                <p className="text-xs text-gray-500">
+                                                <p className="text-xs text-slate-500">
                                                     {file.width}×{file.height}
                                                 </p>
                                             )}
                                         </div>
                                         {file.usageCount > 0 && (
-                                            <p className="text-xs text-green-600 mt-1">
+                                            <p className="text-xs text-success-600 mt-1">
                                                 ✓ Used in {file.usageCount} article{file.usageCount > 1 ? 's' : ''}
                                             </p>
                                         )}
@@ -380,13 +380,13 @@ export function MediaLibrary({
                                     disabled={page === 1}
                                     className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                                         page === 1
-                                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                            ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
+                                            : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
                                     }`}
                                 >
                                     ← Previous
                                 </button>
-                                <span className="text-sm text-gray-600 font-medium px-4">
+                                <span className="text-sm text-slate-600 font-medium px-4">
                                     Page {page} of {totalPages}
                                 </span>
                                 <button
@@ -394,8 +394,8 @@ export function MediaLibrary({
                                     disabled={page === totalPages}
                                     className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                                         page === totalPages
-                                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                            ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
+                                            : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
                                     }`}
                                 >
                                     Next →

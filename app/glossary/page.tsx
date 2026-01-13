@@ -16,9 +16,9 @@ interface GlossaryTerm {
 }
 
 const CATEGORY_CONFIG: Record<string, { icon: any, color: string }> = {
-    'Investing': { icon: TrendingUp, color: 'text-green-600 bg-green-50 dark:bg-green-900/20' },
+    'Investing': { icon: TrendingUp, color: 'text-success-600 bg-success-50 dark:bg-green-900/20' },
     'Mutual Funds': { icon: PieChart, color: 'text-primary-600 bg-primary-50 dark:bg-primary-900/20' },
-    'Insurance': { icon: Shield, color: 'text-teal-600 bg-teal-50 dark:bg-teal-900/20' },
+    'Insurance': { icon: Shield, color: 'text-primary-600 bg-primary-50 dark:bg-primary-900/20' },
     'Loans': { icon: Landmark, color: 'text-blue-600 bg-blue-50 dark:bg-blue-900/20' },
     'Credit Cards': { icon: CreditCard, color: 'text-purple-600 bg-purple-50 dark:bg-purple-900/20' },
     'Economy': { icon: Zap, color: 'text-orange-600 bg-orange-50 dark:bg-orange-900/20' },

@@ -153,33 +153,33 @@ export default function HomeLoansPage() {
                         </CardContent>
                     </Card>
 
-                    <Card className="border-amber-200 bg-amber-50 mb-6">
+                    <Card className="border-accent-200 bg-accent-50 mb-6">
                         <CardHeader>
                             <CardTitle className="text-lg font-semibold text-slate-900 flex items-center gap-6 md:p-8">
-                                <AlertTriangle className="w-5 h-5 text-amber-600" />
+                                <AlertTriangle className="w-5 h-5 text-accent-600" />
                                 Risks and Limitations
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
                             <ul className="space-y-2 text-slate-700">
                                 <li className="flex items-start gap-2">
-                                    <span className="text-amber-600 mt-1">•</span>
+                                    <span className="text-accent-600 mt-1">•</span>
                                     <span><strong>Interest Rate Risk:</strong> Floating rates can increase over time, raising your EMI or extending the loan tenure</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-amber-600 mt-1">•</span>
+                                    <span className="text-accent-600 mt-1">•</span>
                                     <span><strong>Property Value Risk:</strong> Property prices may decline, affecting your loan-to-value ratio</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-amber-600 mt-1">•</span>
+                                    <span className="text-accent-600 mt-1">•</span>
                                     <span><strong>Repayment Risk:</strong> Inability to pay EMIs can lead to property foreclosure</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-amber-600 mt-1">•</span>
+                                    <span className="text-accent-600 mt-1">•</span>
                                     <span><strong>Eligibility Constraints:</strong> Age, income, credit score, and existing liabilities affect loan approval</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-amber-600 mt-1">•</span>
+                                    <span className="text-accent-600 mt-1">•</span>
                                     <span><strong>Long Commitment:</strong> Home loans typically span 15-30 years, requiring consistent income</span>
                                 </li>
                             </ul>
@@ -221,7 +221,7 @@ export default function HomeLoansPage() {
                 <section className="mb-10">
                     <h2 className="text-2xl font-bold text-slate-900 mb-4">Related Calculators and Tools</h2>
                     <p className="text-slate-700 leading-relaxed mb-4">
-                        Use our <Link href="/calculators/emi" className="text-teal-600 hover:text-teal-700 underline">EMI Calculator</Link> to 
+                        Use our <Link href="/calculators/emi" className="text-primary-600 hover:text-primary-700 underline">EMI Calculator</Link> to 
                         estimate your monthly home loan installment based on loan amount, interest rate, and tenure. This helps 
                         determine your repayment capacity before applying for a loan.
                     </p>
@@ -252,19 +252,19 @@ export default function HomeLoansPage() {
                     <h2 className="text-2xl font-bold text-slate-900 mb-4">Who Home Loans Are NOT For</h2>
                     <ul className="space-y-2 text-slate-700">
                         <li className="flex items-start gap-2">
-                            <span className="text-red-600 mt-1">✗</span>
+                            <span className="text-danger-600 mt-1">✗</span>
                             <span>Individuals with irregular income or unstable employment</span>
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-red-600 mt-1">✗</span>
+                            <span className="text-danger-600 mt-1">✗</span>
                             <span>Those with poor credit history or existing high debt</span>
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-red-600 mt-1">✗</span>
+                            <span className="text-danger-600 mt-1">✗</span>
                             <span>Borrowers who cannot afford the down payment and associated costs</span>
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-red-600 mt-1">✗</span>
+                            <span className="text-danger-600 mt-1">✗</span>
                             <span>Individuals near retirement age (typically above 60-65 years) may face restrictions</span>
                         </li>
                     </ul>

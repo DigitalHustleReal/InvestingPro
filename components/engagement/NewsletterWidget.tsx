@@ -127,7 +127,7 @@ export default function NewsletterWidget({
                 </form>
 
                 <p className="mt-6 text-xs text-slate-500 flex items-center gap-1.5 opacity-80">
-                    <Sparkles className="w-3 h-3 text-amber-400" />
+                    <Sparkles className="w-3 h-3 text-accent-400" />
                     Join 12,000+ smart investors
                 </p>
             </CardContent>

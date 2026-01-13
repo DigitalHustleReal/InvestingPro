@@ -535,7 +535,7 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                 description: 'Analysis and comparison tools',
                 collections: [
                     { name: 'Compare Products', slug: 'compare', href: '/compare' },
-                    { name: 'Risk Profiler', slug: 'risk', href: '/risk-profiler' },
+                    { name: 'Risk Profiler', slug: 'risk', href: '/tools/risk-analyzer' },
                     { name: 'Portfolio Tracker', slug: 'portfolio', href: '/portfolio' },
                     { name: 'Alpha Terminal', slug: 'terminal', href: '/terminal' },
                 ],

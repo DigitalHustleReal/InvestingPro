@@ -12,6 +12,8 @@
  * - Theme-aware generation
  */
 
+import { getBrandColorSet, getCategoryAccent, getThemePalette } from '../theme/brand-theme';
+
 export interface ImagePromptOptions {
     articleTitle: string;
     category: string;
@@ -20,6 +22,7 @@ export interface ImagePromptOptions {
     imageType: 'featured' | 'in-article' | 'social' | 'og';
     style?: 'photorealistic' | 'illustration' | 'minimalist' | 'infographic' | 'professional';
     theme?: string; // Specific theme if provided
+    useCategoryAccent?: boolean; // Use category accent instead of brand-only palette
 }
 
 export interface GeneratedImagePrompt {
@@ -52,7 +55,7 @@ const CATEGORY_THEMES: Record<string, {
             'asset allocation pie charts',
             'compound interest visualization'
         ],
-        colorPalette: ['#10b981', '#059669', '#047857', '#065f46'], // Emerald greens
+        colorPalette: getCategoryAccent('mutual-funds').palette, // Growth green accent
         style: 'professional infographic',
         metaphors: ['growth', 'diversification', 'wealth building', 'long-term planning']
     },
@@ -66,7 +69,7 @@ const CATEGORY_THEMES: Record<string, {
             'reward points accumulation',
             'cashback benefits illustration'
         ],
-        colorPalette: ['#1e40af', '#1e3a8a', '#1d4ed8', '#2563eb'], // Blue tones
+        colorPalette: getCategoryAccent('credit-cards').palette, // Trust blue accent
         style: 'modern minimalist',
         metaphors: ['convenience', 'rewards', 'financial freedom', 'smart spending']
     },
@@ -80,7 +83,7 @@ const CATEGORY_THEMES: Record<string, {
             'debt management charts',
             'EMI calculation graphics'
         ],
-        colorPalette: ['#7c3aed', '#6d28d9', '#5b21b6', '#4c1d95'], // Purple tones
+        colorPalette: getCategoryAccent('loans').palette, // Assurance purple
         style: 'trustworthy professional',
         metaphors: ['security', 'achievement', 'financial goals', 'responsible borrowing']
     },
@@ -94,7 +97,7 @@ const CATEGORY_THEMES: Record<string, {
             'life insurance concepts',
             'risk mitigation graphics'
         ],
-        colorPalette: ['#0ea5e9', '#0284c7', '#0369a1', '#075985'], // Sky blue
+        colorPalette: getCategoryAccent('insurance').palette, // Shield blue
         style: 'protective trustworthy',
         metaphors: ['protection', 'security', 'peace of mind', 'safety net']
     },
@@ -108,7 +111,7 @@ const CATEGORY_THEMES: Record<string, {
             'deduction concepts',
             'compliance symbols'
         ],
-        colorPalette: ['#f59e0b', '#d97706', '#b45309', '#92400e'], // Amber/gold
+        colorPalette: getCategoryAccent('tax-planning').palette, // Precision amber
         style: 'precise professional',
         metaphors: ['optimization', 'savings', 'compliance', 'financial planning']
     },
@@ -122,7 +125,7 @@ const CATEGORY_THEMES: Record<string, {
             'financial independence symbols',
             'nest egg concepts'
         ],
-        colorPalette: ['#f97316', '#ea580c', '#c2410c', '#9a3412'], // Orange tones
+        colorPalette: getCategoryAccent('retirement').palette, // Sunset orange
         style: 'warm professional',
         metaphors: ['security', 'freedom', 'preparation', 'peaceful future']
     },
@@ -136,7 +139,7 @@ const CATEGORY_THEMES: Record<string, {
             'financial literacy symbols',
             'investment journey maps'
         ],
-        colorPalette: ['#14b8a6', '#0d9488', '#0f766e', '#115e59'], // Teal
+        colorPalette: getCategoryAccent('investing-basics').palette, // Fresh teal
         style: 'educational approachable',
         metaphors: ['learning', 'growth', 'empowerment', 'knowledge']
     },
@@ -150,7 +153,7 @@ const CATEGORY_THEMES: Record<string, {
             'market analysis graphics',
             'equity investment concepts'
         ],
-        colorPalette: ['#dc2626', '#b91c1c', '#991b1b', '#7f1d1d'], // Red for stocks
+        colorPalette: getCategoryAccent('stocks').palette, // Market red accent
         style: 'dynamic professional',
         metaphors: ['growth', 'volatility', 'opportunity', 'market dynamics']
     }
@@ -160,12 +163,16 @@ const CATEGORY_THEMES: Record<string, {
 // BRAND GUIDELINES
 // ============================================================================
 
+const DEFAULT_THEME = getThemePalette('light');
+
 const BRAND_GUIDELINES = {
-    primaryColor: '#10b981', // Emerald green
-    secondaryColor: '#059669',
-    accentColor: '#f59e0b', // Amber
-    neutralColor: '#0f172a', // Slate
-    backgroundColor: '#f8fafc', // Slate 50
+    primaryColor: DEFAULT_THEME.primary, // Brand teal
+    secondaryColor: DEFAULT_THEME.primaryStrong,
+    accentColor: DEFAULT_THEME.accent, // Amber/brand accent
+    neutralColor: DEFAULT_THEME.neutral, // Slate
+    backgroundColor: DEFAULT_THEME.background, // Slate 50
+    gradient: DEFAULT_THEME.gradients.brand,
+    overlay: DEFAULT_THEME.overlay.dark,
     
     styleKeywords: [
         'modern fintech aesthetic',
@@ -250,6 +257,10 @@ export function generateImagePrompt(options: ImagePromptOptions): GeneratedImage
     
     // Get category theme
     const categoryTheme = CATEGORY_THEMES[category] || CATEGORY_THEMES['investing-basics'];
+    const useCategoryAccent = options.useCategoryAccent ?? true;
+    const palette = getThemePalette('light', useCategoryAccent ? category : undefined);
+    const brandColorSet = getBrandColorSet('light', useCategoryAccent ? category : undefined);
+    const categoryAccent = getCategoryAccent(useCategoryAccent ? category : undefined);
     
     // Get image type specs
     const typeSpecs = IMAGE_TYPE_SPECS[imageType] || IMAGE_TYPE_SPECS['featured'];
@@ -268,11 +279,12 @@ export function generateImagePrompt(options: ImagePromptOptions): GeneratedImage
         theme
     );
     
-    // Build color palette
+    // Build color palette combining brand and subtle category accent
     const brandColors = [
-        ...categoryTheme.colorPalette,
-        BRAND_GUIDELINES.primaryColor,
-        BRAND_GUIDELINES.accentColor
+        ...brandColorSet.brand.slice(0, 3),
+        categoryAccent.accent,
+        palette.accent,
+        palette.background
     ];
     
     // Build negative prompts
@@ -420,11 +432,12 @@ function buildPrompt(params: {
     
     // Color palette
     prompt += `COLOR PALETTE:\n`;
-    prompt += `- Primary: ${brandColors[0]} (emerald green)\n`;
-    prompt += `- Secondary: ${brandColors[1]}\n`;
-    prompt += `- Accent: ${BRAND_GUIDELINES.accentColor} (amber/gold)\n`;
-    prompt += `- Background: ${BRAND_GUIDELINES.backgroundColor} (light gray/white)\n`;
-    prompt += `- Supporting: Deep blue, slate gray\n`;
+    prompt += `- Primary: ${BRAND_GUIDELINES.primaryColor} (brand teal)\n`;
+    prompt += `- Secondary: ${BRAND_GUIDELINES.secondaryColor} (deep teal)\n`;
+    prompt += `- Accent: ${BRAND_GUIDELINES.accentColor} (amber)\n`;
+    prompt += `- Category accent: ${brandColors[3]} (use subtly for highlights)\n`;
+    prompt += `- Background: ${BRAND_GUIDELINES.backgroundColor} (slate 50)\n`;
+    prompt += `- Gradients: ${BRAND_GUIDELINES.gradient.join(' → ')}\n`;
     prompt += `\n`;
     
     // Composition

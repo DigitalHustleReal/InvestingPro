@@ -35,8 +35,47 @@ function getSupabaseClient() {
 }
 
 // High-Authority Article Prompt
-// High-Authority Article Prompt
-function getArticlePrompt(topic: string, brief?: ResearchBrief): string {
+import { promptService } from '@/lib/ai/prompt-service';
+
+async function getArticlePrompt(topic: string, brief?: ResearchBrief): Promise<string> {
+    // Try to fetch from DB
+    const dbPrompt = await promptService.getPrompt('article-generator');
+    
+    if (dbPrompt) {
+        // Construct the word count requirements logic
+        let wordCountReqs = '';
+        if (brief) {
+            wordCountReqs = `
+            - **WORD COUNT**: ${brief.recommended_word_count || 1500}-${Math.ceil((brief.recommended_word_count || 1500) * 1.1)} words minimum (Based on competitor analysis: avg ${brief.avg_word_count} words)
+            - **COMPETITIVE EDGE**: Your article MUST be ${Math.ceil((brief.recommended_word_count || 1500) - brief.avg_word_count)} words longer than top competitors to outrank them
+            - ⚠️ **CRITICAL**: DO NOT write less than ${brief.recommended_word_count || 1500} words. This is a REQUIREMENT, not a suggestion.`;
+        } else {
+            wordCountReqs = `
+            - **WORD COUNT**: 1,500-2,000 words minimum (Standard for competitive keywords)
+            - ⚠️ **CRITICAL**: DO NOT write less than 1,500 words. This is a REQUIREMENT, not a suggestion.`;
+        }
+
+        let promptText = promptService.populateTemplate(dbPrompt.user_prompt_template, {
+            topic: topic,
+            keywords: brief?.keywords?.join(', ') || topic,
+            word_count_requirements: wordCountReqs
+        });
+
+        // Append brief details if they exist (just like the original function)
+        if (brief) {
+            promptText += `\n\nCOMPETITIVE INTELLIGENCE (BEAT THESE GAPS):
+            - **MISSING IN COMPETITORS**: ${brief.content_gaps.join("; ")}.
+            - **MANDATORY STATS**: ${brief.key_statistics.join("; ")}.
+            - **UNIQUE ANGLE**: ${brief.unique_angle}.
+            
+            Ensure you cover these gaps to make this the #1 article on Google.`;
+        }
+        
+        promptText += `\nGenerate the extensive, high-quality article now.`;
+        return promptText;
+    }
+
+    // Fallback to Hardcoded Prompt (Original High-Quality Prompt)
     let prompt = `
     ROLE: You are "Vikram Mehta", a Senior Wealth Advisor with 15+ years of experience in the Indian financial markets (SEBI Registered). 
     Your voice is authoritative yet conversational, trusted, and deeply analytical. You simplify complex concepts without dumbing them down.
@@ -84,8 +123,8 @@ function getArticlePrompt(topic: string, brief?: ResearchBrief): string {
        - Returns scenario tables (5-year, 10-year, 20-year)
        - Fund/Product comparison tables
     6. **Checklist/Steps**: Use <ul> or <ol> with <strong>bold</strong> lead-ins.
-    7. **Pro Tip Box** (2-3 throughout article): <div class="pro-tip p-4 bg-green-50 border-l-4 border-green-500 my-6"><strong>💡 Pro Tip:</strong> [Insider advice]</div>.
-    8. **Warning Box** (1-2 throughout article): <div class="warning-box p-4 bg-red-50 border-l-4 border-red-500 my-6"><strong>⚠️ Warning:</strong> [Risk or Regulation to avoid]</div>.
+    7. **Pro Tip Box** (2-3 throughout article): <div class="pro-tip p-4 bg-success-50 border-l-4 border-success-500 my-6"><strong>💡 Pro Tip:</strong> [Insider advice]</div>.
+    8. **Warning Box** (1-2 throughout article): <div class="warning-box p-4 bg-danger-50 border-l-4 border-danger-500 my-6"><strong>⚠️ Warning:</strong> [Risk or Regulation to avoid]</div>.
     9. **FAQ Section** (8-10 questions): People actually ask (Use Schema.org style answers) with detailed responses.
     10. **External Authority Links**: Link to 2-3 official sources:
         - RBI circulars: <a href="https://rbi.org.in/...">RBI Source</a>
@@ -143,7 +182,7 @@ async function generateWithAI(topic: string, brief?: ResearchBrief, logFn: (msg:
     try {
         logFn(`🔵 Initializing Foolproof Generation Relay...`);
         const result = await api.integrations.Core.InvokeLLM({
-            prompt: getArticlePrompt(topic, brief),
+            prompt: await getArticlePrompt(topic, brief),
             operation: 'generate_article',
             contextData: { topic, brief }
         });

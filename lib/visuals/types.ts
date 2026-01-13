@@ -60,8 +60,8 @@ export interface VisualStyle {
 
 export const INSTITUTIONAL_VISUAL_STYLE: VisualStyle = {
     colors: {
-        primary: '#10b981', // emerald-500
-        secondary: '#0f766e', // teal-700
+        primary: '#10b981', // success-500
+        secondary: '#0f766e', // primary-700
         accent: '#06b6d4', // cyan-500
         background: '#0f172a', // slate-900
         text: '#f1f5f9', // slate-100

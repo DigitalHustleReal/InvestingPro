@@ -71,7 +71,7 @@ const CATEGORY_OFFERS: Record<string, CategoryOffer> = {
   },
   'fixed-deposits': {
     icon: PiggyBank,
-    color: 'from-amber-500 to-orange-600',
+    color: 'from-accent-500 to-orange-600',
     title: 'FD Rate Comparison',
     subtitle: 'Highest rates today',
     description: 'Live comparison of FD rates from 30+ banks. Updated daily.',
@@ -207,7 +207,7 @@ export function ContextualLeadMagnet({
     return (
       <div className={getVariantClasses(variant)}>
         <div className="text-center py-6">
-          <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-3" />
+          <CheckCircle className="w-12 h-12 text-success-500 mx-auto mb-3" />
           <h3 className="text-lg font-semibold text-slate-900 dark:text-white">You're all set!</h3>
           <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Check your inbox for the download link.</p>
         </div>
@@ -325,7 +325,7 @@ export function ContextualLeadMagnet({
       <ul className="space-y-2 mb-4">
         {offer.benefits.map((benefit, i) => (
           <li key={i} className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
-            <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+            <CheckCircle className="w-4 h-4 text-success-500 flex-shrink-0" />
             {benefit}
           </li>
         ))}

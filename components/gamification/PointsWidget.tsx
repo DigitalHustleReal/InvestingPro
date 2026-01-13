@@ -33,7 +33,7 @@ export default function PointsWidget({ points = 0, level = 'Beginner' }: PointsW
                     <div className="flex-1 max-w-md">
                         <div className="flex justify-between items-end mb-3">
                             <div className="flex items-center gap-2">
-                                <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+                                <Star className="w-4 h-4 text-accent-500 fill-accent-500" />
                                 <span className="text-sm font-semibold uppercase tracking-st">{level} Status</span>
                             </div>
                             <span className="text-xs font-bold text-slate-400">{pointsToNext} XP to Next Tier</span>

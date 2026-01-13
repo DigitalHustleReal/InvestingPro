@@ -92,7 +92,7 @@ export default function SettingsPage() {
                         <div className="grid md:grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <Label className="text-slate-300 flex items-center gap-2">
-                                    <Zap className="w-4 h-4 text-amber-500" /> OpenAI API Key
+                                    <Zap className="w-4 h-4 text-accent-500" /> OpenAI API Key
                                 </Label>
                                 <Input
                                     type="password"
@@ -112,7 +112,7 @@ export default function SettingsPage() {
                             </div>
                             <div className="space-y-2">
                                 <Label className="text-slate-300 flex items-center gap-2">
-                                    <Database className="w-4 h-4 text-teal-500" /> Supabase URL
+                                    <Database className="w-4 h-4 text-primary-500" /> Supabase URL
                                 </Label>
                                 <Input
                                     placeholder="https://your-project.supabase.co"
@@ -149,7 +149,7 @@ export default function SettingsPage() {
                             </div>
                             <div className="p-4 bg-white/5 rounded-xl border border-white/10">
                                 <div className="text-xs text-slate-500 uppercase tracking-wider mb-1">Database</div>
-                                <div className="text-sm font-medium text-teal-400">Connected</div>
+                                <div className="text-sm font-medium text-primary-400">Connected</div>
                             </div>
                         </div>
                     </ContentSection>

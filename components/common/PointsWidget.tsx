@@ -26,8 +26,8 @@ export default function PointsWidget({ points = 0, level = 'Beginner' }: PointsW
             'Beginner': 'from-slate-400 to-slate-500',
             'Contributor': 'from-secondary-400 to-secondary-600',
             'Expert': 'from-secondary-400 to-secondary-600',
-            'Guru': 'from-amber-400 to-amber-600',
-            'Legend': 'from-orange-500 to-red-600'
+            'Guru': 'from-accent-400 to-accent-600',
+            'Legend': 'from-orange-500 to-danger-600'
         };
         return colors[lvl] || colors['Beginner'];
     };

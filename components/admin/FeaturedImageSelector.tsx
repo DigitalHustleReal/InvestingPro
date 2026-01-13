@@ -73,7 +73,7 @@ export default function FeaturedImageSelector({
     return (
         <div className="space-y-3">
             {/* Preview */}
-            <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden border-2 border-dashed border-gray-300 group">
+            <div className="relative aspect-video bg-slate-100 rounded-lg overflow-hidden border-2 border-dashed border-slate-300 group">
                 {imageUrl ? (
                     <>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -82,7 +82,7 @@ export default function FeaturedImageSelector({
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center">
                             <button
                                 onClick={handleRemove}
-                                className="opacity-0 group-hover:opacity-100 transition-opacity bg-red-600 text-white p-2 rounded-full hover:bg-red-700"
+                                className="opacity-0 group-hover:opacity-100 transition-opacity bg-danger-600 text-white p-2 rounded-full hover:bg-danger-700"
                                 title="Remove image"
                             >
                                 <X className="w-5 h-5" />
@@ -90,7 +90,7 @@ export default function FeaturedImageSelector({
                         </div>
                     </>
                 ) : (
-                    <div className="flex flex-col items-center justify-center h-full text-gray-400">
+                    <div className="flex flex-col items-center justify-center h-full text-slate-400">
                         <ImageIcon className="w-12 h-12 mb-2 opacity-50" />
                         <span className="text-sm">No image selected</span>
                     </div>
@@ -123,7 +123,7 @@ export default function FeaturedImageSelector({
                     onClick={() => setShowMediaLibrary(true)}
                     variant="outline"
                     size="sm"
-                    className="flex-1 bg-white hover:bg-gray-50 border-gray-300"
+                    className="flex-1 bg-white hover:bg-slate-50 border-slate-300"
                 >
                     <Upload className="w-4 h-4 mr-2" />
                     {imageUrl ? 'Change' : 'Choose'}
@@ -142,13 +142,13 @@ export default function FeaturedImageSelector({
                     {/* Modal */}
                     <div className="absolute inset-4 md:inset-8 bg-white rounded-lg shadow-2xl flex flex-col">
                         {/* Header */}
-                        <div className="border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-                            <h2 className="text-lg font-semibold text-gray-900">Select Featured Image</h2>
+                        <div className="border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+                            <h2 className="text-lg font-semibold text-slate-900">Select Featured Image</h2>
                             <button
                                 onClick={() => setShowMediaLibrary(false)}
-                                className="p-2 hover:bg-gray-100 rounded-md transition-colors"
+                                className="p-2 hover:bg-slate-100 rounded-md transition-colors"
                             >
-                                <X className="w-5 h-5 text-gray-600" />
+                                <X className="w-5 h-5 text-slate-600" />
                             </button>
                         </div>
 

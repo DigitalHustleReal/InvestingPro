@@ -15,7 +15,7 @@ export function DeviceSwitcher({ currentDevice, onDeviceChange }: DeviceSwitcher
     ];
 
     return (
-        <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-lg">
+        <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-lg">
             {devices.map((device) => {
                 const Icon = device.icon;
                 const isActive = currentDevice === device.id;
@@ -27,7 +27,7 @@ export function DeviceSwitcher({ currentDevice, onDeviceChange }: DeviceSwitcher
                         className={`flex items-center gap-2 px-4 py-2 rounded-md transition-all ${
                             isActive
                                 ? 'bg-white text-secondary-600 shadow-sm font-medium'
-                                : 'text-gray-600 hover:text-gray-900'
+                                : 'text-slate-600 hover:text-slate-900'
                         }`}
                         title={`${device.label} view (${device.width})`}
                     >

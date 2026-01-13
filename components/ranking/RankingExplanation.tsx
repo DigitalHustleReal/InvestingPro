@@ -66,8 +66,8 @@ export default function RankingExplanation({
     );
 
     return (
-        <Card className="border-2 border-teal-100 dark:border-teal-900/50 dark:bg-slate-900">
-            <CardHeader className="bg-teal-50 dark:bg-teal-900/20">
+        <Card className="border-2 border-primary-100 dark:border-primary-900/50 dark:bg-slate-900">
+            <CardHeader className="bg-primary-50 dark:bg-primary-900/20">
                 <div className="flex items-start justify-between">
                     <div>
                         <CardTitle className="text-2xl mb-2 dark:text-white">Ranking Score</CardTitle>
@@ -76,11 +76,11 @@ export default function RankingExplanation({
                         </p>
                     </div>
                     <div className="text-right">
-                        <div className="text-4xl font-bold text-teal-600">
+                        <div className="text-4xl font-bold text-primary-600">
                             {totalScore.toFixed(1)}
                             <span className="text-lg text-slate-500">/100</span>
                         </div>
-                        <Badge className="mt-2 bg-teal-100 text-teal-700">
+                        <Badge className="mt-2 bg-primary-100 text-primary-700">
                             Rank #{rank}
                         </Badge>
                     </div>
@@ -91,7 +91,7 @@ export default function RankingExplanation({
                 {explanation && (
                     <div className="mb-6 p-6 md:p-8 bg-slate-50 dark:bg-slate-800 rounded-lg">
                         <div className="flex items-start gap-2">
-                            <Info className="w-5 h-5 text-teal-600 mt-0.5 flex-shrink-0" />
+                            <Info className="w-5 h-5 text-primary-600 mt-0.5 flex-shrink-0" />
                             <p className="text-sm text-slate-700 dark:text-slate-300">{explanation}</p>
                         </div>
                     </div>
@@ -100,7 +100,7 @@ export default function RankingExplanation({
                 {/* Score Breakdown */}
                 <div className="mb-6">
                     <h3 className="font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                        <TrendingUp className="w-5 h-5 text-teal-600" />
+                        <TrendingUp className="w-5 h-5 text-primary-600" />
                         Score Breakdown
                     </h3>
                     <div className="space-y-4">
@@ -142,7 +142,7 @@ export default function RankingExplanation({
                                     </div>
                                     <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-3 overflow-hidden">
                                         <div
-                                            className="bg-teal-600 h-3 rounded-full transition-all duration-300"
+                                            className="bg-primary-600 h-3 rounded-full transition-all duration-300"
                                             style={{ width: `${(item.weightedScore / totalScore) * 100}%` }}
                                         />
                                     </div>
@@ -201,7 +201,7 @@ export default function RankingExplanation({
                         </p>
                         <a
                             href="/methodology"
-                            className="text-sm text-teal-600 hover:text-teal-700 font-medium inline-flex items-center gap-1"
+                            className="text-sm text-primary-600 hover:text-primary-700 font-medium inline-flex items-center gap-1"
                         >
                             View Full Methodology →
                         </a>

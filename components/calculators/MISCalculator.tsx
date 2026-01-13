@@ -151,7 +151,7 @@ export function MISCalculator() {
                         <div className="bg-white/60 backdrop-blur-sm rounded-xl border border-white/50 p-4 space-y-3">
                              <div className="flex justify-between items-center text-sm">
                                 <span className="text-slate-600">Total Interest (5Y)</span>
-                                <span className="font-bold text-green-600">+{formatCurrency(result.totalInterest)}</span>
+                                <span className="font-bold text-success-600">+{formatCurrency(result.totalInterest)}</span>
                              </div>
                              <div className="flex justify-between items-center text-sm border-t border-dashed border-slate-300 pt-3">
                                 <span className="text-slate-600">Invested Amount</span>

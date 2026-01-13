@@ -347,12 +347,12 @@ export default function ArticleInspector({
 
                 {/* AI Status */}
                 {article.ai_generated && (
-                    <div className="space-y-2 p-3 bg-amber-50 border-amber-200 dark:bg-amber-950/30 dark:border-amber-900/50 border rounded-lg">
+                    <div className="space-y-2 p-3 bg-accent-50 border-accent-200 dark:bg-amber-950/30 dark:border-accent-900/50 border rounded-lg">
                         <div className="flex items-center gap-2">
-                            <Sparkles className="w-4 h-4 text-amber-600 dark:text-amber-500" />
-                            <span className="text-sm font-medium text-amber-800 dark:text-amber-400">AI Generated</span>
+                            <Sparkles className="w-4 h-4 text-accent-600 dark:text-accent-500" />
+                            <span className="text-sm font-medium text-accent-800 dark:text-accent-400">AI Generated</span>
                         </div>
-                        <p className="text-xs text-amber-700 dark:text-amber-200/70">
+                        <p className="text-xs text-accent-700 dark:text-accent-200/70">
                             This content was generated with AI assistance. Please review before publishing.
                         </p>
                     </div>
@@ -532,7 +532,7 @@ export default function ArticleInspector({
                                         {tag}
                                         <button
                                             onClick={() => removeTag(tag)}
-                                            className="ml-1 hover:text-red-600 dark:hover:text-red-400"
+                                            className="ml-1 hover:text-danger-600 dark:hover:text-red-400"
                                         >
                                             ×
                                         </button>

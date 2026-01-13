@@ -1,6 +1,5 @@
 "use client";
 
-import React from 'react';
 import Link from 'next/link';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/Button";
@@ -9,7 +8,6 @@ import {
     TrendingUp, 
     Shield, 
     Wallet, 
-    Calculator,
     ArrowRight,
     PiggyBank,
     Building2
@@ -31,9 +29,9 @@ const goals = [
         icon: Shield,
         title: "Save on Taxes",
         description: "Maximize tax savings with ELSS, PPF, NPS, and Section 80C",
-        color: "text-amber-600",
-        bg: "bg-amber-50",
-        border: "border-amber-200",
+        color: "text-accent-600",
+        bg: "bg-accent-50",
+        border: "border-accent-200",
         href: "/taxes",
         cta: "Explore Tax Savings",
         features: ["Tax Calculator", "ELSS Funds", "80C Guide"]
@@ -90,9 +88,9 @@ export default function GoalBasedDiscovery() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-16">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-teal-50 border border-teal-200 rounded-full mb-6">
-                        <Target className="w-4 h-4 text-teal-600" />
-                        <span className="text-sm font-semibold text-teal-700">Goal-Based Discovery</span>
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 border border-primary-200 rounded-full mb-6">
+                        <Target className="w-4 h-4 text-primary-600" />
+                        <span className="text-sm font-semibold text-primary-700">Goal-Based Discovery</span>
                     </div>
                     <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
                         What do you want to achieve?
@@ -119,7 +117,7 @@ export default function GoalBasedDiscovery() {
                                                 <Icon className={`w-6 h-6 ${goal.color}`} />
                                             </div>
                                             <div className="flex-1">
-                                                <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-teal-700 transition-colors">
+                                                <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-primary-700 transition-colors">
                                                     {goal.title}
                                                 </h3>
                                                 <p className="text-sm text-slate-600 leading-relaxed">
@@ -142,7 +140,7 @@ export default function GoalBasedDiscovery() {
 
                                         {/* CTA */}
                                         <div className="flex items-center justify-between pt-4 border-t border-slate-200">
-                                            <span className="text-sm font-semibold text-slate-700 group-hover:text-teal-700 transition-colors">
+                                            <span className="text-sm font-semibold text-slate-700 group-hover:text-primary-700 transition-colors">
                                                 {goal.cta}
                                             </span>
                                             <ArrowRight className={`w-5 h-5 ${goal.color} group-hover:translate-x-1 transition-transform`} />
@@ -157,8 +155,8 @@ export default function GoalBasedDiscovery() {
                 {/* Bottom CTA */}
                 <div className="text-center mt-12">
                     <p className="text-slate-600 mb-4">Not sure where to start?</p>
-                    <Link href="/risk-profiler">
-                        <Button size="lg" className="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-8 py-6 rounded-xl">
+                    <Link href="/tools/risk-analyzer">
+                        <Button size="lg" className="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-8 py-6 rounded-xl">
                             Take Our Risk Profiler
                             <ArrowRight className="ml-2 w-5 h-5" />
                         </Button>

@@ -99,11 +99,11 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
                 
                 return (
                     <div className="text-center">
-                        <p className={`font-bold ${csrNum > 98 ? 'text-emerald-600' : 'text-slate-900 dark:text-white'}`}>
+                        <p className={`font-bold ${csrNum > 98 ? 'text-success-600' : 'text-slate-900 dark:text-white'}`}>
                             {csr}
                         </p>
                         {csrNum > 98 && (
-                            <Badge className="text-[7px] bg-emerald-100 text-emerald-700 border-0 mt-1 h-4">
+                            <Badge className="text-[7px] bg-success-100 text-success-700 border-0 mt-1 h-4">
                                 Excellent
                             </Badge>
                         )}
@@ -145,7 +145,7 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
                                     key={i}
                                     className={`w-3.5 h-3.5 ${
                                         i < stars
-                                            ? 'text-amber-400 fill-amber-400'
+                                            ? 'text-accent-400 fill-accent-400'
                                             : 'text-slate-300 dark:text-slate-600'
                                     }`}
                                 />

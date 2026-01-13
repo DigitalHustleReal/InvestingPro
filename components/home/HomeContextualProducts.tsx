@@ -35,7 +35,7 @@ export default function HomeContextualProducts({ selectedCategory }: HomeContext
                                 <Card key={category.slug} className="border-0 shadow-lg hover:shadow-xl transition-shadow">
                                     <CardContent className="p-6 bg-white dark:bg-slate-900 rounded-lg">
                                         <div className="flex items-center gap-3 mb-4">
-                                            <TrendingUp className="w-5 h-5 text-teal-600" />
+                                            <TrendingUp className="w-5 h-5 text-primary-600" />
                                             <h3 className="text-lg font-bold text-slate-900 dark:text-white">{category.name}</h3>
                                         </div>
                                         <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">{category.description}</p>
@@ -44,7 +44,7 @@ export default function HomeContextualProducts({ selectedCategory }: HomeContext
                                                 <Link
                                                     key={collection.href}
                                                     href={collection.href}
-                                                    className="block text-sm text-teal-600 hover:text-teal-700 font-medium"
+                                                    className="block text-sm text-primary-600 hover:text-primary-700 font-medium"
                                                 >
                                                     {collection.name} →
                                                 </Link>
@@ -102,12 +102,12 @@ export default function HomeContextualProducts({ selectedCategory }: HomeContext
                                     href={collection.href}
                                     className="group"
                                 >
-                                    <div className="h-full p-6 bg-slate-50 dark:bg-slate-800 hover:bg-teal-50 dark:hover:bg-teal-900/20 border-2 border-slate-200 dark:border-slate-800 hover:border-teal-500 rounded-xl transition-all duration-200 group-hover:shadow-lg">
+                                    <div className="h-full p-6 bg-slate-50 dark:bg-slate-800 hover:bg-primary-50 dark:hover:bg-primary-900/20 border-2 border-slate-200 dark:border-slate-800 hover:border-primary-500 rounded-xl transition-all duration-200 group-hover:shadow-lg">
                                         <div className="flex items-center justify-between mb-2">
-                                            <TrendingUp className="w-5 h-5 text-slate-400 group-hover:text-teal-600 transition-colors" />
-                                            <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-teal-600 group-hover:translate-x-1 transition-all" />
+                                            <TrendingUp className="w-5 h-5 text-slate-400 group-hover:text-primary-600 transition-colors" />
+                                            <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-primary-600 group-hover:translate-x-1 transition-all" />
                                         </div>
-                                        <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-teal-700 dark:group-hover:text-teal-400 transition-colors leading-tight">
+                                        <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors leading-tight">
                                             {collection.name.toUpperCase()}
                                         </h3>
                                         {collection.description && (
@@ -126,7 +126,7 @@ export default function HomeContextualProducts({ selectedCategory }: HomeContext
                                 <Link href={`/${category.slug}/${bestIntent.slug}`}>
                                     <Button 
                                         variant="outline"
-                                        className="bg-white dark:bg-slate-900 hover:bg-teal-50 dark:hover:bg-teal-900/20 border-slate-300 dark:border-slate-700 hover:border-teal-500 text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-400 font-semibold px-8 py-6 text-base rounded-xl"
+                                        className="bg-white dark:bg-slate-900 hover:bg-primary-50 dark:hover:bg-primary-900/20 border-slate-300 dark:border-slate-700 hover:border-primary-500 text-slate-700 dark:text-slate-300 hover:text-primary-700 dark:hover:text-primary-400 font-semibold px-8 py-6 text-base rounded-xl"
                                     >
                                         View All {category.name} Options
                                         <ArrowRight className="ml-2 w-5 h-5" />

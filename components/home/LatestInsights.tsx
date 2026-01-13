@@ -79,7 +79,7 @@ export default function LatestInsights() {
         <section className="py-20 bg-slate-50 dark:bg-slate-900 relative overflow-hidden transition-colors">
             {/* Background decoration */}
             <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                <div className="absolute top-0 right-0 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
                 <div className="absolute bottom-0 left-0 w-72 h-72 bg-secondary-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
             </div>
 
@@ -88,19 +88,19 @@ export default function LatestInsights() {
                 <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
                     <div>
                         <div className="flex items-center gap-2 mb-3">
-                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-lg shadow-teal-500/25">
+                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center shadow-lg shadow-primary-500/25">
                                 <Sparkles className="w-4 h-4 text-white" />
                             </div>
-                            <span className="text-xs font-bold text-teal-600 uppercase tracking-widest">Latest Insights</span>
+                            <span className="text-xs font-bold text-primary-600 uppercase tracking-widest">Latest Insights</span>
                         </div>
                         <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">
                             Knowledge That<br className="hidden sm:block" />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-500">Empowers Growth</span>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-500">Empowers Growth</span>
                         </h2>
                     </div>
                     <Link 
                         href="/blog" 
-                        className="group inline-flex items-center gap-2 text-sm font-semibold text-teal-600 hover:text-teal-700 transition-colors"
+                        className="group inline-flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors"
                     >
                         Browse All Articles
                         <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -115,7 +115,7 @@ export default function LatestInsights() {
                             <Card className="h-full overflow-hidden bg-white dark:bg-slate-800 border-0 shadow-xl shadow-slate-200/50 dark:shadow-none hover:shadow-2xl transition-all duration-500 rounded-3xl">
                                 {/* Image container */}
                                 <div className="relative h-56 overflow-hidden">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-teal-500 to-secondary-600" />
+                                    <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-secondary-600" />
                                     {featuredArticle.featured_image && (
                                         <img 
                                             src={featuredArticle.featured_image} 
@@ -131,7 +131,7 @@ export default function LatestInsights() {
                                     </div>
                                 </div>
                                 <CardContent className="p-8">
-                                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 line-clamp-2 group-hover:text-teal-600 transition-colors leading-tight">
+                                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 line-clamp-2 group-hover:text-primary-600 transition-colors leading-tight">
                                         {featuredArticle.title}
                                     </h3>
                                     <p className="text-slate-700 dark:text-slate-400 mb-6 line-clamp-3 leading-relaxed">
@@ -148,7 +148,7 @@ export default function LatestInsights() {
                                                 {featuredArticle.read_time || 5} min read
                                             </span>
                                         </div>
-                                        <span className="text-teal-600 font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
+                                        <span className="text-primary-600 font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
                                             Read <ArrowRight className="w-4 h-4" />
                                         </span>
                                     </div>
@@ -161,7 +161,7 @@ export default function LatestInsights() {
                     <div className="flex flex-col gap-4">
                         {sideArticles.slice(0, 3).map((article, index) => (
                             <Link key={article.id} href={`/article/${article.slug}`} className="group">
-                                <Card className="overflow-hidden bg-white dark:bg-slate-800 border-slate-100 dark:border-slate-700 hover:border-teal-200 hover:shadow-lg transition-all duration-300 rounded-2xl">
+                                <Card className="overflow-hidden bg-white dark:bg-slate-800 border-slate-100 dark:border-slate-700 hover:border-primary-200 hover:shadow-lg transition-all duration-300 rounded-2xl">
                                     <CardContent className="p-5 flex gap-5">
                                         {/* Thumbnail */}
                                         <div className="relative w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden bg-slate-100">
@@ -189,7 +189,7 @@ export default function LatestInsights() {
                                                     {article.read_time || 5} min
                                                 </span>
                                             </div>
-                                            <h4 className="font-bold text-slate-900 dark:text-white line-clamp-2 group-hover:text-teal-600 transition-colors leading-snug">
+                                            <h4 className="font-bold text-slate-900 dark:text-white line-clamp-2 group-hover:text-primary-600 transition-colors leading-snug">
                                                 {article.title}
                                             </h4>
                                         </div>

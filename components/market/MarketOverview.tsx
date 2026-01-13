@@ -38,7 +38,7 @@ export default function MarketOverview() {
             <CardHeader className="border-b border-slate-800 bg-slate-900/50 py-4">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <Activity className="text-teal-400 w-5 h-5" />
+                        <Activity className="text-primary-400 w-5 h-5" />
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-300">Macro Indicators</CardTitle>
                     </div>
                     <Badge variant="outline" className="border-slate-700 text-slate-400 text-[10px] font-mono">
@@ -56,7 +56,7 @@ export default function MarketOverview() {
                                     <div className="text-lg font-bold text-slate-50">{index.value}</div>
                                 </div>
                                 <Badge className={`px-1.5 py-0.5 text-[10px] font-bold border-0 ${
-                                    index.trend === 'up' ? 'bg-teal-500/10 text-teal-400' : 
+                                    index.trend === 'up' ? 'bg-primary-500/10 text-primary-400' : 
                                     index.trend === 'down' ? 'bg-indigo-500/10 text-indigo-400' :
                                     'bg-slate-500/10 text-slate-400'
                                 }`}>
@@ -99,7 +99,7 @@ export default function MarketOverview() {
                         {TRENDS.map((sec, i) => (
                             <div key={i} className="flex items-center gap-1">
                                 <span className="text-slate-300 font-semibold">{sec.name}</span>
-                                <span className={sec.positive ? "text-teal-400" : "text-rose-400"}>
+                                <span className={sec.positive ? "text-primary-400" : "text-rose-400"}>
                                     {sec.change}
                                 </span>
                             </div>

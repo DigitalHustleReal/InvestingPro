@@ -102,7 +102,7 @@ export default function IPOPage() {
     const getGMPColor = (gmp?: number) => {
         if (!gmp) return 'text-slate-600 dark:text-slate-400';
         if (gmp > 0) return 'text-primary-600 dark:text-primary-400';
-        return 'text-red-600 dark:text-red-400';
+        return 'text-danger-600 dark:text-red-400';
     };
 
     const getSubscriptionColor = (value?: number) => {
@@ -136,7 +136,7 @@ export default function IPOPage() {
             <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
                 <Card className="max-w-md">
                     <CardContent className="p-8 text-center">
-                        <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+                        <AlertCircle className="w-12 h-12 text-danger-500 mx-auto mb-4" />
                         <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Failed to Load Data</h3>
                         <p className="text-slate-600 dark:text-slate-400 mb-4">
                             {error instanceof Error ? error.message : 'Unknown error occurred'}
@@ -175,7 +175,7 @@ export default function IPOPage() {
                         
                         <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-8 text-slate-900 dark:text-white leading-[1.1]">
                             IPO Calendar & <br className="hidden lg:block" />
-                            <span className="bg-gradient-to-r from-primary-500 to-emerald-500 bg-clip-text text-transparent">GMP Tracker</span>
+                            <span className="bg-gradient-to-r from-primary-500 to-success-500 bg-clip-text text-transparent">GMP Tracker</span>
                         </h1>
                         
                         <p className="text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed">
@@ -275,7 +275,7 @@ export default function IPOPage() {
                                     {/* Left: Company Info */}
                                     <div className="lg:w-72 p-8 border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50">
                                         <div className="flex items-start gap-4">
-                                            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-emerald-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
+                                            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-success-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
                                                                 {ipo.companyName.substring(0, 3).toUpperCase()}
                                             </div>
                                             <div className="flex-1 min-w-0">

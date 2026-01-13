@@ -8,13 +8,14 @@ import { logger } from '@/lib/logger';
  */
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await params;
         const searchParams = request.nextUrl.searchParams;
         const status = searchParams.get('status') || undefined;
         
-        const items = await rssImportService.getFeedItems(params.id, status || undefined);
+        const items = await rssImportService.getFeedItems(id, status || undefined);
         
         return NextResponse.json({
             success: true,
@@ -29,4 +30,3 @@ export async function GET(
         );
     }
 }
-

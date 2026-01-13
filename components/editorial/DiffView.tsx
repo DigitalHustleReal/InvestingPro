@@ -133,7 +133,7 @@ export default function DiffView({ draft, onClose }: DiffViewProps) {
                     <h3 className="text-sm font-bold text-slate-700 mb-3">Data Sources ({dataSources.length})</h3>
                     <div className="space-y-3">
                         {dataSources.length === 0 ? (
-                            <div className="text-sm text-slate-500 p-4 bg-amber-50 rounded-lg border border-amber-200">
+                            <div className="text-sm text-slate-500 p-4 bg-accent-50 rounded-lg border border-accent-200">
                                 No data sources listed
                             </div>
                         ) : (
@@ -152,7 +152,7 @@ export default function DiffView({ draft, onClose }: DiffViewProps) {
                                                     href={source.source_url}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="text-xs text-teal-600 hover:text-teal-700 flex items-center gap-1"
+                                                    className="text-xs text-primary-600 hover:text-primary-700 flex items-center gap-1"
                                                 >
                                                     <ExternalLink className="w-3 h-3" />
                                                     {source.source_url}

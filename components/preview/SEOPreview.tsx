@@ -27,14 +27,14 @@ export function SEOPreview({ title, metaDescription, slug, featuredImage }: SEOP
         <div className="space-y-6">
             {/* Google Search Preview */}
             <div>
-                <h3 className="text-sm font-semibold text-gray-700 mb-3">Google Search Preview</h3>
-                <div className="bg-white border border-gray-200 rounded-lg p-4">
+                <h3 className="text-sm font-semibold text-slate-700 mb-3">Google Search Preview</h3>
+                <div className="bg-white border border-slate-200 rounded-lg p-4">
                     {/* URL */}
                     <div className="flex items-center gap-2 mb-1">
                         <div className="w-6 h-6 rounded-full bg-secondary-600 flex items-center justify-center text-white text-xs font-bold">
                             I
                         </div>
-                        <span className="text-sm text-gray-600">{fullUrl}</span>
+                        <span className="text-sm text-slate-600">{fullUrl}</span>
                     </div>
 
                     {/* Title */}
@@ -43,7 +43,7 @@ export function SEOPreview({ title, metaDescription, slug, featuredImage }: SEOP
                     </div>
 
                     {/* Description */}
-                    <div className="text-gray-700 text-sm leading-relaxed">
+                    <div className="text-slate-700 text-sm leading-relaxed">
                         {metaDescription || 'Your meta description will appear here. Make it compelling to increase click-through rates!'}
                     </div>
                 </div>
@@ -51,9 +51,9 @@ export function SEOPreview({ title, metaDescription, slug, featuredImage }: SEOP
                 {/* Character Counts */}
                 <div className="mt-3 space-y-2">
                     <div className="flex items-center justify-between text-sm">
-                        <span className="text-gray-600">Title ({titleLength}/{titleLimit} chars)</span>
+                        <span className="text-slate-600">Title ({titleLength}/{titleLimit} chars)</span>
                         {titleStatus === 'good' ? (
-                            <div className="flex items-center gap-1 text-green-600">
+                            <div className="flex items-center gap-1 text-success-600">
                                 <CheckCircle className="w-4 h-4" />
                                 <span className="text-xs">Optimal</span>
                             </div>
@@ -64,19 +64,19 @@ export function SEOPreview({ title, metaDescription, slug, featuredImage }: SEOP
                             </div>
                         )}
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="w-full bg-slate-200 rounded-full h-2">
                         <div
                             className={`h-2 rounded-full transition-all ${
-                                titleStatus === 'good' ? 'bg-green-500' : 'bg-orange-500'
+                                titleStatus === 'good' ? 'bg-success-500' : 'bg-orange-500'
                             }`}
                             style={{ width: `${Math.min((titleLength / titleLimit) * 100, 100)}%` }}
                         />
                     </div>
 
                     <div className="flex items-center justify-between text-sm mt-3">
-                        <span className="text-gray-600">Description ({descLength}/{descLimit} chars)</span>
+                        <span className="text-slate-600">Description ({descLength}/{descLimit} chars)</span>
                         {descStatus === 'good' ? (
-                            <div className="flex items-center gap-1 text-green-600">
+                            <div className="flex items-center gap-1 text-success-600">
                                 <CheckCircle className="w-4 h-4" />
                                 <span className="text-xs">Optimal</span>
                             </div>
@@ -87,10 +87,10 @@ export function SEOPreview({ title, metaDescription, slug, featuredImage }: SEOP
                             </div>
                         )}
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="w-full bg-slate-200 rounded-full h-2">
                         <div
                             className={`h-2 rounded-full transition-all ${
-                                descStatus === 'good' ? 'bg-green-500' : 'bg-orange-500'
+                                descStatus === 'good' ? 'bg-success-500' : 'bg-orange-500'
                             }`}
                             style={{ width: `${Math.min((descLength / descLimit) * 100, 100)}%` }}
                         />
@@ -100,10 +100,10 @@ export function SEOPreview({ title, metaDescription, slug, featuredImage }: SEOP
 
             {/* Social Share Preview */}
             <div>
-                <h3 className="text-sm font-semibold text-gray-700 mb-3">Social Share Preview (Facebook/LinkedIn)</h3>
-                <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+                <h3 className="text-sm font-semibold text-slate-700 mb-3">Social Share Preview (Facebook/LinkedIn)</h3>
+                <div className="bg-white border border-slate-200 rounded-lg overflow-hidden">
                     {featuredImage && (
-                        <div className="aspect-[1.91/1] relative bg-gray-100">
+                        <div className="aspect-[1.91/1] relative bg-slate-100">
                             <img
                                 src={featuredImage}
                                 alt={title}
@@ -111,12 +111,12 @@ export function SEOPreview({ title, metaDescription, slug, featuredImage }: SEOP
                             />
                         </div>
                     )}
-                    <div className="p-4 bg-gray-50">
-                        <div className="text-xs text-gray-500 uppercase mb-1">investingpro.in</div>
-                        <div className="font-semibold text-gray-900 mb-1">
+                    <div className="p-4 bg-slate-50">
+                        <div className="text-xs text-slate-500 uppercase mb-1">investingpro.in</div>
+                        <div className="font-semibold text-slate-900 mb-1">
                             {title || 'Your Article Title'}
                         </div>
-                        <div className="text-sm text-gray-600 line-clamp-2">
+                        <div className="text-sm text-slate-600 line-clamp-2">
                             {metaDescription || 'Your description here'}
                         </div>
                     </div>
@@ -125,10 +125,10 @@ export function SEOPreview({ title, metaDescription, slug, featuredImage }: SEOP
 
             {/* Twitter Card Preview */}
             <div>
-                <h3 className="text-sm font-semibold text-gray-700 mb-3">Twitter Card Preview</h3>
-                <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden">
+                <h3 className="text-sm font-semibold text-slate-700 mb-3">Twitter Card Preview</h3>
+                <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
                     {featuredImage && (
-                        <div className="aspect-[2/1] relative bg-gray-100">
+                        <div className="aspect-[2/1] relative bg-slate-100">
                             <img
                                 src={featuredImage}
                                 alt={title}
@@ -137,13 +137,13 @@ export function SEOPreview({ title, metaDescription, slug, featuredImage }: SEOP
                         </div>
                     )}
                     <div className="p-3">
-                        <div className="font-semibold text-gray-900 mb-1 text-sm">
+                        <div className="font-semibold text-slate-900 mb-1 text-sm">
                             {title || 'Your Article Title'}
                         </div>
-                        <div className="text-xs text-gray-600 line-clamp-2">
+                        <div className="text-xs text-slate-600 line-clamp-2">
                             {metaDescription || 'Your description here'}
                         </div>
-                        <div className="text-xs text-gray-500 mt-2">🔗 investingpro.in</div>
+                        <div className="text-xs text-slate-500 mt-2">🔗 investingpro.in</div>
                     </div>
                 </div>
             </div>

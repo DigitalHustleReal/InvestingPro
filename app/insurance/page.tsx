@@ -104,7 +104,7 @@ export default function InsurancePage() {
     const getScoreColor = (score: number) => {
         if (score >= 80) return 'text-primary-500';
         if (score >= 50) return 'text-yellow-500';
-        return 'text-red-500';
+        return 'text-danger-500';
     };
 
     const getScoreStatus = (score: number) => {
@@ -323,7 +323,7 @@ export default function InsurancePage() {
                                                 <ul className="space-y-2">
                                                     {!answers.hasHealthInsurance && (
                                                         <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
-                                                            <AlertTriangle className="w-4 h-4 text-red-500 mt-0.5 shrink-0" />
+                                                            <AlertTriangle className="w-4 h-4 text-danger-500 mt-0.5 shrink-0" />
                                                             <span><strong>Critical:</strong> Get Health Insurance immediately</span>
                                                         </li>
                                                     )}
