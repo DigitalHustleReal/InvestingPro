@@ -259,9 +259,19 @@ export class StrategyAgent extends BaseAgent {
     ): Record<string, number> {
         const priorities: Record<string, number> = {};
         
+        // Handle empty or undefined keywords
+        if (!keywords || !Array.isArray(keywords)) {
+            return priorities;
+        }
+        
+        // Safely access weights.keywords
+        const keywordWeights = weights?.keywords || {};
+        
         keywords.forEach(keyword => {
-            const basePriority = keyword.opportunityScore;
-            const weightMultiplier = weights.keywords[keyword.keyword] || 1.0;
+            if (!keyword?.keyword) return;
+            
+            const basePriority = keyword.opportunityScore || 50;
+            const weightMultiplier = keywordWeights[keyword.keyword] || 1.0;
             priorities[keyword.keyword] = basePriority * weightMultiplier;
         });
         
