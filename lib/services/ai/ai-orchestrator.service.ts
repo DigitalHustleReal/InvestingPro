@@ -7,6 +7,8 @@
 
 import { openAIService } from './openai.service';
 import { groqService } from './groq.service';
+import { deepSeekService } from './deepseek.service';
+import { togetherAIService } from './together.service';
 import { logger } from '@/lib/logger';
 
 export interface AIInvocationParams {
@@ -43,10 +45,12 @@ export class AIOrchestrator {
 
     const finalSystemPrompt = systemPrompt || this.generateSystemPrompt(operation);
 
-    // Try providers in order of preference
+    // Try providers in order of cost-effectiveness (cheapest first)
     const providers = [
-      { name: 'OpenAI', service: openAIService },
-      { name: 'Groq', service: groqService }
+      { name: 'Groq', service: groqService, cost: 'FREE' },              // FREE (limited)
+      { name: 'Together AI', service: togetherAIService, cost: '$0.20/1M' }, // Cheapest
+      { name: 'DeepSeek', service: deepSeekService, cost: '$0.27/1M' },     // 10x cheaper than GPT-4
+      { name: 'OpenAI', service: openAIService, cost: '$2.50/1M' }          // Most expensive (fallback)
     ];
 
     for (const provider of providers) {
@@ -104,8 +108,10 @@ OUTPUT FORMAT: JSON only`;
    */
   getProvidersHealth(): Record<string, any> {
     return {
-      openai: openAIService.getHealth(),
-      groq: groqService.getHealth()
+      groq: groqService.getHealth(),
+      together: togetherAIService.getHealth(),
+      deepseek: deepSeekService.getHealth(),
+      openai: openAIService.getHealth()
     };
   }
 
@@ -113,8 +119,10 @@ OUTPUT FORMAT: JSON only`;
    * Reset all circuit breakers
    */
   resetAll(): void {
-    openAIService.reset();
     groqService.reset();
+    togetherAIService.reset();
+    deepSeekService.reset();
+    openAIService.reset();
     logger.info('All AI provider circuit breakers reset');
   }
 }
