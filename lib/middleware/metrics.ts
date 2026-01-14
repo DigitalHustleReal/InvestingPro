@@ -49,6 +49,21 @@ export function recordAPIMetrics(metrics: APIMetrics) {
     // Update aggregation
     updateAggregation(metrics);
 
+    // Record in Prometheus metrics (if available)
+    if (typeof window === 'undefined') {
+        try {
+            const { recordAPIRequest } = require('../metrics/prometheus');
+            recordAPIRequest(
+                metrics.method,
+                metrics.path,
+                metrics.statusCode,
+                metrics.duration / 1000 // Convert ms to seconds
+            );
+        } catch (error) {
+            // Prometheus not initialized - skip silently
+        }
+    }
+
     // Log performance if slow
     if (metrics.duration > 1000) {
         logger.warn('Slow API request', {

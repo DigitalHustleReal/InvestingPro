@@ -2,97 +2,39 @@
  * API Middleware - Error Handling
  * 
  * Purpose: Centralized error handling for API routes
+ * 
+ * @deprecated Use lib/errors/handler.ts instead
+ * This file is kept for backward compatibility
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { logger } from '@/lib/logger';
+import { handleError } from '@/lib/errors/handler';
+import {
+    ValidationError,
+    NotFoundError,
+    UnauthorizedError,
+    ForbiddenError,
+} from '@/lib/errors/types';
 
 export type APIHandler = (
   request: NextRequest,
   context?: any
 ) => Promise<NextResponse>;
 
-/**
- * Custom error classes
- */
-export class ValidationError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = 'ValidationError';
-  }
-}
-
-export class NotFoundError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = 'NotFoundError';
-  }
-}
-
-export class UnauthorizedError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = 'UnauthorizedError';
-  }
-}
-
-export class ForbiddenError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = 'ForbiddenError';
-  }
-}
+// Re-export error classes for backward compatibility
+export { ValidationError, NotFoundError, UnauthorizedError, ForbiddenError };
 
 /**
  * Middleware to handle errors consistently
+ * 
+ * @deprecated Use withErrorHandler from lib/errors/handler.ts
  */
 export function withErrorHandling(handler: APIHandler) {
   return async (request: NextRequest, context?: any) => {
     try {
       return await handler(request, context);
     } catch (error) {
-      // Log error
-      logger.error('API Error', error as Error);
-
-      // Handle specific error types
-      if (error instanceof ValidationError) {
-        return NextResponse.json(
-          { error: error.message },
-          { status: 400 }
-        );
-      }
-
-      if (error instanceof UnauthorizedError) {
-        return NextResponse.json(
-          { error: error.message },
-          { status: 401 }
-        );
-      }
-
-      if (error instanceof ForbiddenError) {
-        return NextResponse.json(
-          { error: error.message },
-          { status: 403 }
-        );
-      }
-
-      if (error instanceof NotFoundError) {
-        return NextResponse.json(
-          { error: error.message },
-          { status: 404 }
-        );
-      }
-
-      // Generic error
-      return NextResponse.json(
-        {
-          error: 'Internal server error',
-          message: process.env.NODE_ENV === 'development'
-            ? (error as Error).message
-            : undefined
-        },
-        { status: 500 }
-      );
+      return handleError(error, request);
     }
   };
 }

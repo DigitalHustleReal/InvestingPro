@@ -41,6 +41,8 @@ const mono = JetBrains_Mono({
 import { ThemeProvider } from "@/components/theme-provider";
 import { NavigationProvider } from "@/contexts/NavigationContext";
 import { initializeEventSystem } from "@/lib/events/setup";
+import { initializeLogging } from "@/lib/logging/initialize";
+import { initializeTracing } from "@/lib/tracing/opentelemetry";
 
 // ... existing imports ...
 
@@ -49,6 +51,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Initialize logging (runs once per server instance)
+  initializeLogging();
+  
+  // Initialize tracing (runs once per server instance)
+  initializeTracing();
+  
   // Initialize event system (runs once per server instance)
   initializeEventSystem();
   
@@ -77,6 +85,7 @@ export default async function RootLayout({
                 <NavigationProvider>
                   <Suspense fallback={null}>
                     <Analytics />
+                    <PerformanceMonitor />
                   </Suspense>
 
                   {/* Skip to Content Link - Accessibility (UI/UX Phase 1) */}

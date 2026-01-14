@@ -96,7 +96,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.8,
         });
 
-        // Fetch dynamic content from Supabase
+        // Fetch dynamic content from Supabase (using static client for sitemap generation)
         const supabase = createClient();
 
         // Glossary terms

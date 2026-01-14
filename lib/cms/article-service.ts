@@ -14,6 +14,8 @@ import { logger } from '@/lib/logger';
 import { TaxonomyService } from './taxonomy-service';
 import { triggerArticlePublishingWorkflow, transitionArticleState } from '@/lib/workflows/hooks/article-workflow-hooks';
 import { invalidateArticleCache } from '@/lib/cache/cache-invalidation';
+import { cacheService } from '@/lib/cache/cache-service';
+import { cacheKeyGenerators, cacheStrategies } from '@/lib/cache/cache-strategies';
 
 /**
  * Article Status Lifecycle (WordPress-style)
@@ -148,8 +150,19 @@ export class ArticleService {
     /**
      * Get article by ID (for editing/preview)
      * Works for ANY status
+     * Cached for 5 minutes
      */
     async getById(id: string): Promise<ArticleData | null> {
+        const cacheKey = cacheKeyGenerators.article.byId(id);
+        const strategy = cacheStrategies.article;
+
+        // Try cache first
+        const cached = await cacheService.get<ArticleData>(cacheKey, 'article');
+        if (cached) {
+            return cached;
+        }
+
+        // Fetch from database
         const supabase = this.getClient();
         const { data, error } = await supabase
             .from('articles')
@@ -162,44 +175,83 @@ export class ArticleService {
             return null;
         }
 
-        return this.normalizeArticle(data);
+        const article = this.normalizeArticle(data);
+        
+        // Cache the result
+        if (article) {
+            await cacheService.set(cacheKey, article, {
+                ttl: strategy.ttl,
+                tags: [...strategy.tags, cacheKeyGenerators.article.byId(id)],
+            });
+        }
+
+        return article;
     }
 
     /**
      * Get article by slug (for public routes)
      * ONLY returns published articles
+     * Cached for 5 minutes
      */
     async getBySlug(slug: string, previewToken?: string): Promise<ArticleData | null> {
-        const supabase = this.getClient();
-        
-        let query = supabase
-            .from('articles')
-            .select('*')
-            .eq('slug', slug);
-
-        // Preview mode: bypass status check
+        // Don't cache preview mode
         if (previewToken) {
-            // TODO: Implement preview token validation
-            // For now, allow preview if authenticated
+            const supabase = this.getClient();
             const { data: { user } } = await supabase.auth.getUser();
             if (!user) {
                 return null; // Preview requires auth
             }
-        } else {
-            // Public route: ONLY published articles
-            query = query
-                .eq('status', 'published')
-                .not('published_at', 'is', null);
+            
+            const { data, error } = await supabase
+                .from('articles')
+                .select('*')
+                .eq('slug', slug)
+                .single();
+
+            if (error) {
+                logger.error('Failed to fetch article by slug', error);
+                return null;
+            }
+
+            return this.normalizeArticle(data);
         }
 
-        const { data, error } = await query.single();
+        // Cache public articles
+        const cacheKey = cacheKeyGenerators.article.bySlug(slug);
+        const strategy = cacheStrategies.article;
+
+        // Try cache first
+        const cached = await cacheService.get<ArticleData>(cacheKey, 'article');
+        if (cached) {
+            return cached;
+        }
+
+        // Fetch from database
+        const supabase = this.getClient();
+        const { data, error } = await supabase
+            .from('articles')
+            .select('*')
+            .eq('slug', slug)
+            .eq('status', 'published')
+            .not('published_at', 'is', null)
+            .single();
 
         if (error) {
             logger.error('Failed to fetch article by slug', error);
             return null;
         }
 
-        return this.normalizeArticle(data);
+        const article = this.normalizeArticle(data);
+        
+        // Cache the result
+        if (article) {
+            await cacheService.set(cacheKey, article, {
+                ttl: strategy.ttl,
+                tags: [...strategy.tags, cacheKeyGenerators.article.bySlug(slug)],
+            });
+        }
+
+        return article;
     }
 
     /**
@@ -452,6 +504,15 @@ export class ArticleService {
      * Returns ALL statuses
      */
     async listArticles(limit?: number): Promise<ArticleData[]> {
+        const cacheKey = cacheKeyGenerators.article.list(`limit:${limit || 'all'}`);
+        const strategy = cacheStrategies.articlesList;
+
+        // Try cache first
+        const cached = await cacheService.get<ArticleData[]>(cacheKey, 'articles');
+        if (cached) {
+            return cached;
+        }
+
         const supabase = this.getClient();
         
         // First, try direct query (works for authenticated/admin users)
@@ -466,49 +527,52 @@ export class ArticleService {
 
         const { data, error } = await query;
 
+        let articles: ArticleData[] = [];
+
         if (error) {
             console.error('[ArticleService] Direct query error:', error.message);
             logger.error('Failed to list articles', error);
-        }
-
-        // If we got data, return it
-        if (data && data.length > 0) {
+        } else if (data && data.length > 0) {
             console.log(`[ArticleService] Direct query returned ${data.length} articles`);
-            return data.map((article: any) => this.normalizeArticle(article));
-        }
-
-        // FALLBACK: Use SECURITY DEFINER RPC to bypass RLS for public users
-        const { data: rpcData, error: rpcError } = await supabase.rpc('get_public_articles', { 
-            result_limit: limit || 100 
-        });
-        
-        if (!rpcError && rpcData) {
-            // Handle SETOF json response - data is already an array of objects
-            const articles = Array.isArray(rpcData) ? rpcData : [rpcData];
-            if (articles.length > 0) {
-                return articles.map((item: any) => this.normalizeArticle(item));
-            }
-        }
-        
-        if (rpcError) {
-            logger.error('get_public_articles RPC failed', rpcError);
-            
-            // Secondary fallback: try list_published_articles
-            const { data: altRpcData, error: altRpcError } = await supabase.rpc('list_published_articles', { 
+            articles = data.map((article: any) => this.normalizeArticle(article));
+        } else {
+            // FALLBACK: Use SECURITY DEFINER RPC to bypass RLS for public users
+            const { data: rpcData, error: rpcError } = await supabase.rpc('get_public_articles', { 
                 result_limit: limit || 100 
             });
             
-            if (!altRpcError && altRpcData && altRpcData.length > 0) {
-                return (altRpcData as any[]).map(item => this.normalizeArticle(item));
-            }
+            if (!rpcError && rpcData) {
+                // Handle SETOF json response - data is already an array of objects
+                const rpcArticles = Array.isArray(rpcData) ? rpcData : [rpcData];
+                if (rpcArticles.length > 0) {
+                    articles = rpcArticles.map((item: any) => this.normalizeArticle(item));
+                }
+            } else if (rpcError) {
+                logger.error('get_public_articles RPC failed', rpcError);
+                
+                // Secondary fallback: try list_published_articles
+                const { data: altRpcData, error: altRpcError } = await supabase.rpc('list_published_articles', { 
+                    result_limit: limit || 100 
+                });
+                
+                if (!altRpcError && altRpcData && altRpcData.length > 0) {
+                    articles = (altRpcData as any[]).map(item => this.normalizeArticle(item));
+                }
             
             if (altRpcError) {
                 logger.error('All RPC fallbacks failed', altRpcError);
             }
         }
 
-        // Return empty array if all methods failed
-        return [];
+        // Cache the result
+        if (articles.length > 0) {
+            await cacheService.set(cacheKey, articles, {
+                ttl: strategy.ttl,
+                tags: [...strategy.tags],
+            });
+        }
+
+        return articles;
     }
 
     /**

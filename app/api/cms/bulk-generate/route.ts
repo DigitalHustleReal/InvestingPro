@@ -14,6 +14,8 @@ import { bulkGenerateSchema } from '@/lib/validation/schemas';
 export const POST = createAPIWrapper('/api/cms/bulk-generate', {
     rateLimitType: 'ai', // AI generation - strict rate limit
     trackMetrics: true,
+    idempotent: true, // Enable idempotency to prevent duplicate bulk operations
+    idempotencyTTL: 86400, // 24 hours
 })(
     withValidation(bulkGenerateSchema, undefined)(
         async (request: NextRequest, body: any, _query: unknown) => {

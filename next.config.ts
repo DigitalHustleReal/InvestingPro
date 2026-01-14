@@ -40,6 +40,10 @@ const nextConfig: NextConfig = {
     optimizeCss: true,
     optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
   },
+  
+  // Turbopack configuration (Next.js 16 default)
+  // Empty config silences the webpack/turbopack warning
+  turbopack: {},
   // Security headers and CDN caching
   async headers() {
     return [

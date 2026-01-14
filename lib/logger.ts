@@ -149,7 +149,13 @@ class Logger {
         }
 
         try {
-            // Sentry integration (for errors)
+            // External logging service integration (Axiom, Better Stack, Datadog)
+            if (typeof window === 'undefined' && process.env.EXTERNAL_LOGGING_ENABLED === 'true') {
+                const { logToExternal } = await import('./logging/external-logger');
+                await logToExternal(entry);
+            }
+
+            // Sentry integration (for errors) - keep for error tracking
             if (entry.level === 'error' && typeof window === 'undefined' && process.env.NEXT_PUBLIC_SENTRY_DSN) {
                 const Sentry = await import('@sentry/nextjs').catch(() => null);
                 if (Sentry?.default) {
@@ -163,16 +169,7 @@ class Logger {
                 }
             }
 
-            // Datadog integration (if configured)
-            if (this.logAggregationService === 'datadog' && process.env.DATADOG_API_KEY) {
-                // TODO: Implement Datadog log forwarding
-                // await fetch('https://http-intake.logs.datadoghq.com/v1/input/' + process.env.DATADOG_API_KEY, {
-                //     method: 'POST',
-                //     body: JSON.stringify(entry),
-                // });
-            }
-
-            // LogRocket integration (if configured)
+            // LogRocket integration (if configured) - client-side only
             if (this.logAggregationService === 'logrocket' && typeof window !== 'undefined' && (window as any).LogRocket) {
                 (window as any).LogRocket.captureMessage(entry.message, {
                     level: entry.level,
@@ -181,7 +178,9 @@ class Logger {
             }
         } catch (error) {
             // Fail silently - don't break application if logging fails
-            console.error('Failed to send log to external service', error);
+            if (process.env.NODE_ENV === 'development') {
+                console.error('Failed to send log to external service', error);
+            }
         }
     }
 

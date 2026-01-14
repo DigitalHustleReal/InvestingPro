@@ -4,35 +4,45 @@
  * 
  * Kubernetes-style readiness probe
  * Returns 200 if service is ready to accept traffic
+ * 
+ * Checks critical dependencies:
+ * - Database connectivity
+ * - AI providers availability
+ * 
+ * Use this for load balancer health checks.
  */
 
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { healthChecker } from '@/lib/health/health-checker';
+
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 export const GET = async () => {
-  try {
-    // Check critical dependencies
-    const supabase = await createClient();
-    const { error } = await supabase.from('articles').select('id').limit(1);
-    
-    if (error) {
-      return NextResponse.json(
-        { status: 'not_ready', error: error.message },
-        { status: 503 }
-      );
-    }
-
-    return NextResponse.json({
-      status: 'ready',
-      timestamp: new Date().toISOString(),
-    });
-  } catch (error) {
+  const readiness = await healthChecker.checkReadiness();
+  
+  if (!readiness.ready) {
     return NextResponse.json(
       {
         status: 'not_ready',
-        error: error instanceof Error ? error.message : String(error),
+        reason: readiness.reason,
+        timestamp: new Date().toISOString(),
       },
-      { status: 503 }
+      { 
+        status: 503,
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+        },
+      }
     );
   }
+
+  return NextResponse.json({
+    status: 'ready',
+    timestamp: new Date().toISOString(),
+  }, {
+    headers: {
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+    },
+  });
 };

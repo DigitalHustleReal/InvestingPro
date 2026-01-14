@@ -14,6 +14,8 @@ import { articleGenerateSchema } from '@/lib/validation/schemas';
 export const POST = createAPIWrapper('/api/articles/generate-comprehensive', {
     rateLimitType: 'ai', // AI generation - strict rate limit
     trackMetrics: true,
+    idempotent: true, // Enable idempotency to prevent duplicate article generation
+    idempotencyTTL: 86400, // 24 hours - cache responses for a day
 })(
     withValidation(articleGenerateSchema, undefined)(
         async (request: NextRequest, body: any, _query: unknown) => {

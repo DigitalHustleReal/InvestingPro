@@ -21,6 +21,8 @@ const startWorkflowSchema = z.object({
 export const POST = createAPIWrapper('/api/workflows/start', {
   rateLimitType: 'authenticated',
   trackMetrics: true,
+  idempotent: true, // Prevent duplicate workflow starts
+  idempotencyTTL: 3600, // 1 hour
 })(
   withValidation(startWorkflowSchema)(
     async (request: NextRequest, body: any) => {

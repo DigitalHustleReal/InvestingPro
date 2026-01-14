@@ -12,6 +12,7 @@
 import { Redis } from '@upstash/redis';
 import { logger } from '@/lib/logger';
 import { cacheMonitor } from './cache-monitor';
+import { recordCacheHit, recordCacheMiss } from '@/lib/metrics/prometheus';
 
 // Initialize Redis client
 const redis = process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
@@ -61,8 +62,24 @@ export class CacheService {
       const value = await this.redis.get<T>(key);
       if (value !== null) {
         cacheMonitor.recordHit(key, category);
+        // Record Prometheus metric
+        if (typeof window === 'undefined') {
+          try {
+            recordCacheHit(category);
+          } catch (e) {
+            // Ignore metrics errors
+          }
+        }
       } else {
         cacheMonitor.recordMiss(key, category);
+        // Record Prometheus metric
+        if (typeof window === 'undefined') {
+          try {
+            recordCacheMiss(category);
+          } catch (e) {
+            // Ignore metrics errors
+          }
+        }
       }
       return value;
     } catch (error) {
@@ -89,6 +106,7 @@ export class CacheService {
       }
 
       await this.redis.setex(key, ttl, value);
+      cacheMonitor.recordSet(key, options?.tags?.[0] || 'default');
       return true;
     } catch (error) {
       logger.error('Cache set error', error instanceof Error ? error : new Error(String(error)), { key });

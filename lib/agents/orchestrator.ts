@@ -345,18 +345,24 @@ export class CMSOrchestrator {
     
     /**
      * Continuous operation mode - runs cycles automatically
+     * PRODUCTION SAFETY: Circuit breaker prevents infinite loops on repeated failures
      */
     async startContinuousMode(context: OrchestrationContext) {
         logger.info('Starting continuous mode...');
         
-        while (true) {
+        let consecutiveFailures = 0;
+        const MAX_FAILURES = 3;
+        
+        while (consecutiveFailures < MAX_FAILURES) {
             try {
                 const result = await this.executeCycle(context);
+                consecutiveFailures = 0; // Reset on success
                 
                 logger.info('Cycle completed', {
                     articlesGenerated: result.articlesGenerated,
                     articlesPublished: result.articlesPublished,
-                    performanceScore: result.performanceScore
+                    performanceScore: result.performanceScore,
+                    consecutiveFailures: 0
                 });
                 
                 // Wait before next cycle (configurable)
@@ -367,11 +373,42 @@ export class CMSOrchestrator {
                 await new Promise(resolve => setTimeout(resolve, waitTime));
                 
             } catch (error: any) {
-                logger.error('Continuous mode error', error);
-                // Wait before retry
-                await new Promise(resolve => setTimeout(resolve, 60 * 1000)); // 1 minute
+                consecutiveFailures++;
+                logger.error('Continuous mode error', error, {
+                    consecutiveFailures,
+                    maxFailures: MAX_FAILURES
+                });
+                
+                if (consecutiveFailures >= MAX_FAILURES) {
+                    logger.error('CRITICAL: Continuous mode stopped after max failures', error, {
+                        critical: true, // Triggers alert
+                        consecutiveFailures,
+                        action: 'Circuit breaker triggered - automation paused'
+                    });
+                    
+                    // Pause automation via system settings
+                    try {
+                        const { updateSystemSetting } = await import('@/lib/admin/system-settings');
+                        await updateSystemSetting('automation_paused', true);
+                        await updateSystemSetting('automation_paused_reason', 'Circuit breaker triggered after 3 consecutive failures');
+                    } catch (settingsError) {
+                        logger.error('Failed to update system settings', settingsError instanceof Error ? settingsError : new Error(String(settingsError)));
+                    }
+                    
+                    break; // EXIT LOOP - Circuit breaker triggered
+                }
+                
+                // Wait before retry (exponential backoff)
+                const backoffTime = Math.min(60 * 1000 * Math.pow(2, consecutiveFailures - 1), 300 * 1000); // Max 5 minutes
+                logger.warn(`Retrying in ${backoffTime / 1000}s...`, { consecutiveFailures });
+                await new Promise(resolve => setTimeout(resolve, backoffTime));
             }
         }
+        
+        logger.warn('Continuous mode exited', { 
+            reason: 'Circuit breaker triggered',
+            consecutiveFailures 
+        });
     }
     
     /**

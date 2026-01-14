@@ -14,6 +14,7 @@ import { logger } from '@/lib/logger';
 import { inngest } from '@/lib/queue/inngest-client';
 import { workflowRepository } from './workflow-repository';
 import { randomUUID } from 'crypto';
+import { getDistributedLock } from '@/lib/locks/distributed-lock';
 
 /**
  * Workflow Executor
@@ -21,53 +22,70 @@ import { randomUUID } from 'crypto';
 export class WorkflowExecutor {
   /**
    * Execute a workflow
+   * Protected by distributed lock to prevent duplicate execution
    */
   async execute(
     definition: WorkflowDefinition,
     context: Record<string, any> = {}
-  ): Promise<WorkflowInstance> {
-    const instance: WorkflowInstance = {
-      id: randomUUID(),
-      workflowId: definition.id,
-      workflowVersion: definition.version,
-      state: 'pending',
-      completedSteps: [],
-      failedSteps: [],
-      context,
-      startedAt: new Date().toISOString()
-    };
+  ): Promise<WorkflowInstance | null> {
+    const lockManager = getDistributedLock();
+    const lockKey = `workflow:${definition.id}`;
 
-    // Save initial state
-    await workflowRepository.saveInstance(instance);
+    // Use distributed lock to prevent duplicate workflow execution
+    return await lockManager.withLock(
+      lockKey,
+      async () => {
+        const instance: WorkflowInstance = {
+          id: randomUUID(),
+          workflowId: definition.id,
+          workflowVersion: definition.version,
+          state: 'pending',
+          completedSteps: [],
+          failedSteps: [],
+          context,
+          startedAt: new Date().toISOString()
+        };
 
-    try {
-      instance.state = 'running';
-      await workflowRepository.saveInstance(instance);
-      
-      // Execute steps in order (respecting dependencies)
-      await this.executeSteps(definition, instance);
+        // Save initial state
+        await workflowRepository.saveInstance(instance);
 
-      instance.state = 'completed';
-      instance.completedAt = new Date().toISOString();
-      await workflowRepository.saveInstance(instance);
-      
-      logger.info('Workflow completed', { 
-        workflowId: definition.id,
-        instanceId: instance.id 
-      });
-    } catch (error) {
-      instance.state = 'failed';
-      instance.error = error instanceof Error ? error.message : String(error);
-      instance.completedAt = new Date().toISOString();
-      await workflowRepository.saveInstance(instance);
-      
-      logger.error('Workflow failed', error instanceof Error ? error : new Error(String(error)), {
-        workflowId: definition.id,
-        instanceId: instance.id
-      });
-    }
+        try {
+          instance.state = 'running';
+          await workflowRepository.saveInstance(instance);
+          
+          // Execute steps in order (respecting dependencies)
+          await this.executeSteps(definition, instance);
 
-    return instance;
+          instance.state = 'completed';
+          instance.completedAt = new Date().toISOString();
+          await workflowRepository.saveInstance(instance);
+          
+          logger.info('Workflow completed', { 
+            workflowId: definition.id,
+            instanceId: instance.id 
+          });
+        } catch (error) {
+          instance.state = 'failed';
+          instance.error = error instanceof Error ? error.message : String(error);
+          instance.completedAt = new Date().toISOString();
+          await workflowRepository.saveInstance(instance);
+          
+          logger.error('Workflow failed', error instanceof Error ? error : new Error(String(error)), {
+            workflowId: definition.id,
+            instanceId: instance.id
+          });
+        }
+
+        return instance;
+      },
+      {
+        ttl: 600, // 10 minutes (enough for most workflows)
+        extendable: true, // Allow extension for long-running workflows
+        retry: {
+          maxAttempts: 0, // Don't retry, skip if locked
+        },
+      }
+    );
   }
 
   /**

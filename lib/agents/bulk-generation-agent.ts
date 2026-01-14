@@ -12,6 +12,7 @@
 import { BaseAgent, AgentContext, AgentResult } from './base-agent';
 import type { OrchestrationContext, OrchestrationResult } from './orchestrator';
 import { logger } from '@/lib/logger';
+import { getDistributedLock } from '@/lib/locks/distributed-lock';
 
 // Lazy import to avoid circular dependency
 let _getCmsOrchestrator: (() => { executeCycle: (ctx: OrchestrationContext) => Promise<OrchestrationResult> }) | null = null;
@@ -57,12 +58,19 @@ export class BulkGenerationAgent extends BaseAgent {
     
     /**
      * Generate articles in bulk
+     * Protected by distributed lock to prevent concurrent execution
      */
     async generateBulk(config: BulkGenerationConfig): Promise<BulkGenerationResult> {
-        const startTime = Date.now();
+        const lockManager = getDistributedLock();
         
-        try {
-            logger.info('BulkGenerationAgent: Starting bulk generation', config);
+        // Use distributed lock to prevent concurrent bulk generation
+        const result = await lockManager.withLock(
+            'bulk-article-generation',
+            async () => {
+                const startTime = Date.now();
+                
+                try {
+                    logger.info('BulkGenerationAgent: Starting bulk generation', config);
             
             const {
                 totalArticles,
@@ -155,30 +163,50 @@ export class BulkGenerationAgent extends BaseAgent {
                 ? totalQualityScore / totalGenerated 
                 : 0;
             
-            const result: BulkGenerationResult = {
-                success: totalFailed < totalArticles * 0.5, // Success if < 50% failed
-                totalRequested: totalArticles,
-                totalGenerated,
-                totalPublished,
-                totalFailed,
-                batches,
-                averageQualityScore,
-                totalExecutionTime
-            };
-            
-            logger.info('BulkGenerationAgent: Bulk generation complete', {
-                totalGenerated,
-                totalPublished,
-                totalFailed,
-                averageQualityScore: averageQualityScore.toFixed(1)
-            });
-            
-            return result;
-            
-        } catch (error) {
-            logger.error('BulkGenerationAgent: Bulk generation failed', error as Error);
-            throw error;
-        }
+                const result: BulkGenerationResult = {
+                    success: totalFailed < totalArticles * 0.5, // Success if < 50% failed
+                    totalRequested: totalArticles,
+                    totalGenerated,
+                    totalPublished,
+                    totalFailed,
+                    batches,
+                    averageQualityScore,
+                    totalExecutionTime
+                };
+                
+                logger.info('BulkGenerationAgent: Bulk generation complete', {
+                    totalGenerated,
+                    totalPublished,
+                    totalFailed,
+                    averageQualityScore: averageQualityScore.toFixed(1)
+                });
+                
+                return result;
+                
+            } catch (error) {
+                logger.error('BulkGenerationAgent: Bulk generation failed', error as Error);
+                throw error;
+            }
+            },
+            {
+                ttl: 1800, // 30 minutes (enough for bulk generation)
+                retry: {
+                    maxAttempts: 0, // Don't retry, skip if locked
+                },
+            }
+        );
+
+        // Return result or empty result if lock not acquired
+        return result || {
+            success: false,
+            totalRequested: config.totalArticles,
+            totalGenerated: 0,
+            totalPublished: 0,
+            totalFailed: config.totalArticles,
+            batches: [],
+            averageQualityScore: 0,
+            totalExecutionTime: 0,
+        };
     }
     
     /**

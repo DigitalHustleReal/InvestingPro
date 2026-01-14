@@ -23,6 +23,22 @@
     {
       "path": "/api/cron/cleanup",
       "schedule": "0 3 * * 0"
+    },
+    {
+      "path": "/api/cron/archive-data",
+      "schedule": "0 2 * * 0"
+    },
+    {
+      "path": "/api/cron/record-table-sizes",
+      "schedule": "0 1 * * *"
+    },
+    {
+      "path": "/api/cron/daily-cost-report",
+      "schedule": "0 8 * * *"
+    },
+    {
+      "path": "/api/cron/check-cost-alerts",
+      "schedule": "*/15 * * * *"
     }
   ]
 }

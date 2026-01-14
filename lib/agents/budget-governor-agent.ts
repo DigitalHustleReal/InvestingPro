@@ -101,7 +101,7 @@ export class BudgetGovernorAgent extends BaseAgent {
     }
     
     /**
-     * Record cost usage
+     * Record cost usage with automatic alert checking
      */
     async recordCost(
         articleId: string,
@@ -111,9 +111,9 @@ export class BudgetGovernorAgent extends BaseAgent {
         model: string,
         images: number = 0,
         imageCost: number = 0
-    ): Promise<void> {
+    ): Promise<{ alertsTriggered: number; autoPaused: boolean }> {
         try {
-            await this.supabase.rpc('record_content_cost', {
+            const { data, error } = await this.supabase.rpc('record_content_cost_with_alerts', {
                 p_article_id: articleId,
                 p_tokens: tokens,
                 p_cost: cost,
@@ -123,14 +123,29 @@ export class BudgetGovernorAgent extends BaseAgent {
                 p_image_cost: imageCost
             });
             
+            if (error) {
+                logger.warn('BudgetGovernor: Failed to record cost', error as Error);
+                return { alertsTriggered: 0, autoPaused: false };
+            }
+            
+            const result = data?.[0] || { cost_recorded: true, alerts_triggered: 0, auto_paused: false };
+            
             logger.info('BudgetGovernor: Cost recorded', {
                 articleId,
                 tokens,
                 cost,
-                provider
+                provider,
+                alertsTriggered: result.alerts_triggered,
+                autoPaused: result.auto_paused,
             });
+            
+            return {
+                alertsTriggered: result.alerts_triggered || 0,
+                autoPaused: result.auto_paused || false,
+            };
         } catch (error) {
             logger.warn('BudgetGovernor: Failed to record cost', error as Error);
+            return { alertsTriggered: 0, autoPaused: false };
         }
     }
     

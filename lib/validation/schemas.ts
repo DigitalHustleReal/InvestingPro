@@ -173,6 +173,8 @@ export const trendsQuerySchema = z.object({
 
 /**
  * Validation helper
+ * 
+ * @deprecated Use withZodValidation middleware or getValidatedBody/getValidatedQuery helpers
  */
 export function validateRequest<T>(schema: z.ZodSchema<T>, data: unknown): T {
     return schema.parse(data);
@@ -188,3 +190,47 @@ export function safeValidate<T>(schema: z.ZodSchema<T>, data: unknown): { succes
     }
     return { success: false, error: result.error };
 }
+
+// Re-export from api-schemas for convenience
+export {
+    createArticleSchema,
+    updateArticleSchema,
+    articleQuerySchema,
+    articleParamsSchema,
+    createProductSchema,
+    updateProductSchema,
+    productQuerySchema,
+    productParamsSchema,
+    createReviewSchema,
+    updateReviewSchema,
+    reviewQuerySchema,
+    reviewParamsSchema,
+    createPortfolioSchema,
+    updatePortfolioSchema,
+    portfolioQuerySchema,
+    portfolioParamsSchema,
+    generateArticleSchema,
+    bulkGenerateSchema,
+    generateTitleSchema,
+    trackEventSchema,
+    affiliateClickSchema,
+    searchQuerySchema,
+    newsletterSubscribeSchema,
+    type CreateArticleInput,
+    type UpdateArticleInput,
+    type ArticleQuery,
+    type CreateProductInput,
+    type UpdateProductInput,
+    type ProductQuery,
+    type CreateReviewInput,
+    type UpdateReviewInput,
+    type ReviewQuery,
+    type CreatePortfolioInput,
+    type UpdatePortfolioInput,
+    type PortfolioQuery,
+    type GenerateArticleInput,
+    type BulkGenerateInput,
+    type TrackEventInput,
+    type SearchQuery,
+    type NewsletterSubscribeInput,
+} from './api-schemas';
