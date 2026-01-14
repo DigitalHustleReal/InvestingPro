@@ -89,10 +89,10 @@ export default function SWPCalculatorPage() {
             },
             {
                 "@type": "Question",
-                "name": "How much can I withdraw monthly from ₹1 crore?",
+                "name": "How much can I withdraw monthly from â‚¹1 crore?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "From ₹1 crore corpus, you can withdraw approximately ₹50,000-60,000 per month for 20 years at 12% annual return. Higher returns allow higher withdrawals. Use our SWP calculator to find the exact amount."
+                    "text": "From â‚¹1 crore corpus, you can withdraw approximately â‚¹50,000-60,000 per month for 20 years at 12% annual return. Higher returns allow higher withdrawals. Use our SWP calculator to find the exact amount."
                 }
             },
             {
@@ -170,7 +170,7 @@ export default function SWPCalculatorPage() {
                         </CardHeader>
                         <CardContent className="prose prose-slate dark:prose-invert max-w-none">
                             <p className="text-lg leading-relaxed">
-                                A <strong>Systematic Withdrawal Plan (SWP)</strong> is a mutual fund facility that allows you to withdraw a fixed amount of money from your investment corpus at regular intervals—monthly, quarterly, or annually. It is the exact opposite of SIP (Systematic Investment Plan). While SIP allows you to invest systematically, SWP allows you to withdraw systematically.
+                                A <strong>Systematic Withdrawal Plan (SWP)</strong> is a mutual fund facility that allows you to withdraw a fixed amount of money from your investment corpus at regular intervalsâ€”monthly, quarterly, or annually. It is the exact opposite of SIP (Systematic Investment Plan). While SIP allows you to invest systematically, SWP allows you to withdraw systematically.
                             </p>
                             <p className="text-lg leading-relaxed">
                                 SWP is widely used by retirees to generate a <strong>steady monthly pension</strong> from their retirement corpus. It provides a regular income stream while the remaining money stays invested in the mutual fund scheme, continuing to earn returns. This dual benefit of regular income + potential capital appreciation makes SWP superior to traditional options like Fixed Deposits (FD) or Dividend plans.
@@ -202,13 +202,13 @@ export default function SWPCalculatorPage() {
                             </CardHeader>
                             <CardContent>
                                 <p className="text-slate-600 dark:text-slate-300">
-                                    SWP is more tax-efficient than FDs. In SWP, you only pay tax on the capital gains portion of the withdrawal, not the entire amount. Long-term capital gains up to ₹1.25 Lakh are tax-free.
+                                    SWP is more tax-efficient than FDs. In SWP, you only pay tax on the capital gains portion of the withdrawal, not the entire amount. Long-term capital gains up to â‚¹1.25 Lakh are tax-free.
                                 </p>
                             </CardContent>
                         </Card>
                         <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-purple-50 to-white dark:from-slate-800 dark:to-slate-900">
                             <CardHeader>
-                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-purple-700 dark:text-purple-400">
+                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
                                     <CheckCircle2 className="w-5 h-5" />
                                     Flexibility
                                 </CardTitle>
@@ -238,7 +238,7 @@ export default function SWPCalculatorPage() {
                     <Card className="border-0 shadow-lg rounded-2xl overflow-hidden">
                         <div className="bg-slate-900 p-6 text-white">
                             <h3 className="text-2xl font-bold mb-2">How SWP Works: A Practical Example</h3>
-                            <p className="text-slate-300">Let's say you have a corpus of ₹50 Lakhs earning 10% annual returns.</p>
+                            <p className="text-slate-300">Let's say you have a corpus of â‚¹50 Lakhs earning 10% annual returns.</p>
                         </div>
                         <CardContent className="p-8">
                             <div className="space-y-6">
@@ -246,28 +246,28 @@ export default function SWPCalculatorPage() {
                                     <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-bold flex-shrink-0">1</div>
                                     <div>
                                         <h4 className="font-bold text-lg mb-1">Investment Phase</h4>
-                                        <p className="text-slate-600">You invest ₹50 Lakhs in a Mutual Fund (e.g., Balanced Advantage Fund).</p>
+                                        <p className="text-slate-600">You invest â‚¹50 Lakhs in a Mutual Fund (e.g., Balanced Advantage Fund).</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-4">
                                     <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-bold flex-shrink-0">2</div>
                                     <div>
                                         <h4 className="font-bold text-lg mb-1">Instruction Phase</h4>
-                                        <p className="text-slate-600">You instruct the fund house to withdraw <span className="font-bold text-slate-900">₹40,000 per month</span> on the 5th of every month.</p>
+                                        <p className="text-slate-600">You instruct the fund house to withdraw <span className="font-bold text-slate-900">â‚¹40,000 per month</span> on the 5th of every month.</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-4">
                                     <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-bold flex-shrink-0">3</div>
                                     <div>
                                         <h4 className="font-bold text-lg mb-1">Execution</h4>
-                                        <p className="text-slate-600">Every month, units worth ₹40,000 are sold and credited to your bank account.</p>
+                                        <p className="text-slate-600">Every month, units worth â‚¹40,000 are sold and credited to your bank account.</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-4">
                                     <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-bold flex-shrink-0">4</div>
                                     <div>
                                         <h4 className="font-bold text-lg mb-1">Growth</h4>
-                                        <p className="text-slate-600">Since your withdrawal (₹4.8L/year) is less than returns (10% of 50L = ₹5L/year), your original corpus actually <span className="font-bold text-teal-600">GROWS</span> over time despite withdrawals.</p>
+                                        <p className="text-slate-600">Since your withdrawal (â‚¹4.8L/year) is less than returns (10% of 50L = â‚¹5L/year), your original corpus actually <span className="font-bold text-teal-600">GROWS</span> over time despite withdrawals.</p>
                                     </div>
                                 </div>
                             </div>
@@ -298,7 +298,7 @@ export default function SWPCalculatorPage() {
                                         <tr className="border-b border-slate-100">
                                             <td className="p-4 font-medium">Equity Funds</td>
                                             <td className="p-4">&gt; 1 Year</td>
-                                            <td className="p-4">12.5%* (LTCG above ₹1.25L)</td>
+                                            <td className="p-4">12.5%* (LTCG above â‚¹1.25L)</td>
                                         </tr>
                                         <tr className="border-b border-slate-100">
                                             <td className="p-4 font-medium">Debt Funds</td>
@@ -309,7 +309,7 @@ export default function SWPCalculatorPage() {
                                 </table>
                             </div>
                             <p className="text-sm text-slate-500 mt-4 italic">
-                                *Note: Changes as per Budget 2024. Long Term Capital Gains (LTCG) on equity funds are tax-free up to ₹1.25 Lakhs per financial year. Withdrawals are taxed on a First-In-First-Out (FIFO) basis.
+                                *Note: Changes as per Budget 2024. Long Term Capital Gains (LTCG) on equity funds are tax-free up to â‚¹1.25 Lakhs per financial year. Withdrawals are taxed on a First-In-First-Out (FIFO) basis.
                             </p>
                         </CardContent>
                     </Card>
@@ -332,8 +332,8 @@ export default function SWPCalculatorPage() {
                                     a: "SWP (Systematic Withdrawal Plan) calculator is an online financial tool that helps you calculate monthly withdrawals from your investment corpus while maintaining the remaining balance. It shows how long your corpus will last based on withdrawal amount, expected returns, and withdrawal period. SWP is ideal for retirees who need regular monthly income from their investments. The calculator provides month-by-month projections showing corpus sustainability and exhaustion timeline."
                                 },
                                 {
-                                    q: "How much can I withdraw monthly from ₹1 crore?",
-                                    a: "From ₹1 crore corpus, you can withdraw approximately ₹50,000-60,000 per month for 20 years at 12% annual return. For 15 years, you can withdraw ₹70,000-80,000 per month. For 25 years, withdraw ₹40,000-50,000 per month. Higher returns allow higher withdrawals. The exact amount depends on your expected returns and withdrawal period. Use our SWP calculator to find the precise amount based on your specific corpus, expected returns, and withdrawal period."
+                                    q: "How much can I withdraw monthly from â‚¹1 crore?",
+                                    a: "From â‚¹1 crore corpus, you can withdraw approximately â‚¹50,000-60,000 per month for 20 years at 12% annual return. For 15 years, you can withdraw â‚¹70,000-80,000 per month. For 25 years, withdraw â‚¹40,000-50,000 per month. Higher returns allow higher withdrawals. The exact amount depends on your expected returns and withdrawal period. Use our SWP calculator to find the precise amount based on your specific corpus, expected returns, and withdrawal period."
                                 },
                                 {
                                     q: "What is the safe withdrawal rate?",
@@ -353,7 +353,7 @@ export default function SWPCalculatorPage() {
                                 },
                                 {
                                     q: "How does inflation affect SWP withdrawals?",
-                                    a: "Inflation erodes purchasing power of fixed withdrawals. If you withdraw ₹50,000 monthly today, in 20 years at 6% inflation, you'll need ₹1.6 lakhs monthly to maintain the same lifestyle. Our SWP calculator includes inflation adjustment that shows how much to increase withdrawals annually. Enable inflation adjustment to see realistic withdrawal needs and plan accordingly."
+                                    a: "Inflation erodes purchasing power of fixed withdrawals. If you withdraw â‚¹50,000 monthly today, in 20 years at 6% inflation, you'll need â‚¹1.6 lakhs monthly to maintain the same lifestyle. Our SWP calculator includes inflation adjustment that shows how much to increase withdrawals annually. Enable inflation adjustment to see realistic withdrawal needs and plan accordingly."
                                 },
                                 {
                                     q: "Can I change my SWP withdrawal amount?",
@@ -365,15 +365,15 @@ export default function SWPCalculatorPage() {
                                 },
                                 {
                                     q: "How to calculate SWP manually?",
-                                    a: "To calculate SWP manually, use the formula: Remaining Corpus = (Corpus × (1 + r)) - Withdrawal, where r is monthly return rate (annual rate ÷ 12). Repeat this calculation for each month until corpus is exhausted or period ends. However, using our SWP calculator is much easier and provides instant results with detailed year-by-year breakdowns, charts, and inflation-adjusted projections."
+                                    a: "To calculate SWP manually, use the formula: Remaining Corpus = (Corpus Ã— (1 + r)) - Withdrawal, where r is monthly return rate (annual rate Ã· 12). Repeat this calculation for each month until corpus is exhausted or period ends. However, using our SWP calculator is much easier and provides instant results with detailed year-by-year breakdowns, charts, and inflation-adjusted projections."
                                 },
                                 {
                                     q: "Is SWP taxable?",
-                                    a: "SWP withdrawals from equity funds held for more than 1 year are tax-free up to ₹1 lakh annually. Gains above ₹1 lakh are taxed at 10% without indexation. Short-term gains (held less than 1 year) are taxed at 15%. For debt funds, gains are taxed as per your income tax slab. Plan withdrawals to maximize tax benefits. Use our tax calculator to understand tax implications."
+                                    a: "SWP withdrawals from equity funds held for more than 1 year are tax-free up to â‚¹1 lakh annually. Gains above â‚¹1 lakh are taxed at 10% without indexation. Short-term gains (held less than 1 year) are taxed at 15%. For debt funds, gains are taxed as per your income tax slab. Plan withdrawals to maximize tax benefits. Use our tax calculator to understand tax implications."
                                 },
                                 {
                                     q: "What is the minimum corpus for SWP?",
-                                    a: "There's no fixed minimum, but practical minimum is ₹10-20 lakhs for meaningful monthly income. With ₹10 lakhs at 12% return, you can withdraw ₹3,000-4,000 monthly for 20 years. For ₹50,000 monthly income, you need ₹1 crore corpus. Use our SWP calculator to determine minimum corpus needed for your desired monthly income."
+                                    a: "There's no fixed minimum, but practical minimum is â‚¹10-20 lakhs for meaningful monthly income. With â‚¹10 lakhs at 12% return, you can withdraw â‚¹3,000-4,000 monthly for 20 years. For â‚¹50,000 monthly income, you need â‚¹1 crore corpus. Use our SWP calculator to determine minimum corpus needed for your desired monthly income."
                                 },
                                 {
                                     q: "Can I pause SWP withdrawals?",
@@ -385,7 +385,7 @@ export default function SWPCalculatorPage() {
                                 },
                                 {
                                     q: "How to start SWP?",
-                                    a: "To start SWP, you need a lumpsum investment in mutual funds. Choose balanced or large-cap funds with good track record. Set up SWP instruction with your fund house specifying withdrawal amount, frequency (monthly/quarterly), and date. Minimum withdrawal is usually ₹1,000-5,000 depending on fund. You can start SWP online through fund house website or app."
+                                    a: "To start SWP, you need a lumpsum investment in mutual funds. Choose balanced or large-cap funds with good track record. Set up SWP instruction with your fund house specifying withdrawal amount, frequency (monthly/quarterly), and date. Minimum withdrawal is usually â‚¹1,000-5,000 depending on fund. You can start SWP online through fund house website or app."
                                 },
                                 {
                                     q: "What if market crashes during SWP?",
@@ -405,7 +405,7 @@ export default function SWPCalculatorPage() {
                                 },
                                 {
                                     q: "Is SWP better than monthly dividends?",
-                                    a: "SWP is generally better than monthly dividends because: 1) You control withdrawal amount, 2) Dividends are not guaranteed and can vary, 3) SWP allows you to withdraw from growth, not just dividends, 4) More tax-efficient (long-term gains tax-free up to ₹1L). However, dividends provide passive income without reducing corpus. Many investors use both strategies."
+                                    a: "SWP is generally better than monthly dividends because: 1) You control withdrawal amount, 2) Dividends are not guaranteed and can vary, 3) SWP allows you to withdraw from growth, not just dividends, 4) More tax-efficient (long-term gains tax-free up to â‚¹1L). However, dividends provide passive income without reducing corpus. Many investors use both strategies."
                                 },
                                 {
                                     q: "What is the maximum withdrawal period for SWP?",
@@ -425,7 +425,7 @@ export default function SWPCalculatorPage() {
                                 },
                                 {
                                     q: "How to calculate SWP returns?",
-                                    a: "SWP returns depend on fund performance. If your corpus grows from ₹1Cr to ₹1.2Cr over 5 years while withdrawing ₹6L annually, your effective return is approximately 8-10% after accounting for withdrawals. Use our SWP calculator to see projected returns based on expected fund performance. Actual returns vary with market conditions."
+                                    a: "SWP returns depend on fund performance. If your corpus grows from â‚¹1Cr to â‚¹1.2Cr over 5 years while withdrawing â‚¹6L annually, your effective return is approximately 8-10% after accounting for withdrawals. Use our SWP calculator to see projected returns based on expected fund performance. Actual returns vary with market conditions."
                                 }
                             ].map((faq, idx) => (
                                 <div key={idx} className="border-b border-slate-200 pb-8 last:border-0">

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -34,7 +34,7 @@ export function SimpleInterestCalculator() {
     const result = calculateSI();
 
     const formatCurrency = (num: number) => {
-        return `₹${num.toLocaleString('en-IN')}`;
+        return `â‚¹${num.toLocaleString('en-IN')}`;
     };
 
     return (
@@ -69,7 +69,7 @@ export function SimpleInterestCalculator() {
                                 </div>
                             </div>
                             <Slider value={[principal]} onValueChange={(v) => setPrincipal(v[0])} min={100} max={1000000} step={100} className="py-2" />
-                            <p className="text-[10px] text-slate-500">Min: ₹100</p>
+                            <p className="text-[10px] text-slate-500">Min: â‚¹100</p>
                         </div>
 
                         {/* Rate */}
@@ -110,11 +110,11 @@ export function SimpleInterestCalculator() {
 
                 {/* Results */}
                 <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 relative overflow-hidden">
-                     <div className="absolute top-0 right-0 w-64 h-64 bg-blue-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                     <div className="absolute top-0 right-0 w-64 h-64 bg-secondary-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                      <CardContent className="pt-8 relative z-10 flex flex-col justify-between h-full">
                          <div className="text-center mb-6">
                              <p className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-2">Total Interest</p>
-                             <div className="text-5xl font-extrabold text-blue-700 mb-2">
+                             <div className="text-5xl font-extrabold text-secondary-700 mb-2">
                                 {formatCurrency(result.simpleInterest)}
                              </div>
                         </div>
@@ -160,7 +160,7 @@ export function SimpleInterestCalculator() {
                 <div>
                     <p className="text-sm font-bold text-slate-700 mb-1">Formula Used</p>
                     <p className="text-xs text-slate-600 font-mono">
-                        Simple Interest (SI) = (P × R × T) / 100
+                        Simple Interest (SI) = (P Ã— R Ã— T) / 100
                     </p>
                 </div>
             </div>

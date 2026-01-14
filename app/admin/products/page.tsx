@@ -47,7 +47,7 @@ export default function AdminProductsPage() {
 
     const toggleMutation = useMutation({
         mutationFn: ({ id, isActive }: { id: string; isActive: boolean }) => 
-            productService.toggleProductActive(id, isActive),
+            productService.updateProduct(id, { is_active: isActive }),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['admin-products'] });
             toast.success('Product status updated');
@@ -207,8 +207,8 @@ export default function AdminProductsPage() {
                                                             <Edit className="w-4 h-4" />
                                                         </button>
                                                     </Link>
-                                                    {product.canonical_url && (
-                                                        <a href={product.canonical_url} target="_blank" rel="noopener noreferrer">
+                                                    {(product as any).canonical_url && (
+                                                        <a href={(product as any).canonical_url} target="_blank" rel="noopener noreferrer">
                                                             <button className="p-2 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition-colors">
                                                                 <ExternalLink className="w-4 h-4" />
                                                             </button>

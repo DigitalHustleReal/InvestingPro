@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -51,9 +51,9 @@ export function NSCCalculator() {
     const result = calculateNSC();
 
     const formatCurrency = (num: number) => {
-        if (num >= 10000000) return `₹${(num / 10000000).toFixed(2)} Cr`;
-        if (num >= 100000) return `₹${(num / 100000).toFixed(2)} L`;
-        return `₹${Math.round(num).toLocaleString('en-IN')}`;
+        if (num >= 10000000) return `â‚¹${(num / 10000000).toFixed(2)} Cr`;
+        if (num >= 100000) return `â‚¹${(num / 100000).toFixed(2)} L`;
+        return `â‚¹${Math.round(num).toLocaleString('en-IN')}`;
     };
 
     return (
@@ -68,7 +68,7 @@ export function NSCCalculator() {
                                 <CardDescription>National Savings Certificate (VIII Issue)</CardDescription>
                             </div>
                             <div className="flex flex-col gap-1.5 items-end">
-                                <Badge variant="secondary" className="bg-blue-50 text-blue-700 border-blue-200">
+                                <Badge variant="secondary" className="bg-secondary-50 text-secondary-700 border-secondary-200">
                                     <ShieldCheck className="w-3 h-3 mr-1" /> Sovereign Guarantee
                                 </Badge>
                                 <Badge variant="outline" className="text-xs">
@@ -93,7 +93,7 @@ export function NSCCalculator() {
                                 </div>
                             </div>
                             <Slider value={[investment]} onValueChange={(v) => setInvestment(v[0])} min={1000} max={500000} step={1000} className="py-2" />
-                            <p className="text-[10px] text-slate-500">Min Investment: ₹1,000 (No upper limit)</p>
+                            <p className="text-[10px] text-slate-500">Min Investment: â‚¹1,000 (No upper limit)</p>
                         </div>
 
                         {/* Rate */}
@@ -109,11 +109,11 @@ export function NSCCalculator() {
                             <p className="text-[10px] text-slate-500">Current Rate: 7.7% (compounded annually)</p>
                         </div>
 
-                         <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl flex items-start gap-3">
-                            <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                         <div className="p-4 bg-secondary-50 border border-secondary-200 rounded-xl flex items-start gap-3">
+                            <Info className="w-5 h-5 text-secondary-600 flex-shrink-0 mt-0.5" />
                             <div>
-                                <p className="text-sm font-bold text-blue-800 mb-1">Reinvestment Benefit</p>
-                                <p className="text-xs text-blue-700 leading-relaxed">
+                                <p className="text-sm font-bold text-secondary-800 mb-1">Reinvestment Benefit</p>
+                                <p className="text-xs text-secondary-700 leading-relaxed">
                                     Interest earned each year is deemed to be reinvested and qualifies for tax deduction under Section 80C.
                                 </p>
                             </div>
@@ -123,14 +123,14 @@ export function NSCCalculator() {
 
                 {/* Results */}
                 <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 relative overflow-hidden">
-                     <div className="absolute top-0 right-0 w-64 h-64 bg-blue-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                     <div className="absolute top-0 right-0 w-64 h-64 bg-secondary-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                      <CardContent className="pt-8 relative z-10 flex flex-col justify-between h-full">
                          <div className="text-center mb-6">
                              <p className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-2">Maturity Amount</p>
-                             <div className="text-5xl font-extrabold text-blue-700 mb-2">
+                             <div className="text-5xl font-extrabold text-secondary-700 mb-2">
                                 {formatCurrency(result.maturityAmount)}
                              </div>
-                             <p className="text-xs font-medium text-slate-500 bg-white/50 inline-block px-3 py-1 rounded-full border border-blue-100">
+                             <p className="text-xs font-medium text-slate-500 bg-white/50 inline-block px-3 py-1 rounded-full border border-secondary-100">
                                  After 5 Years
                              </p>
                         </div>
@@ -164,7 +164,7 @@ export function NSCCalculator() {
                             <BarChart data={result.yearlyData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                                 <XAxis dataKey="year" tick={{fontSize: 12}} stroke="#94a3b8" />
-                                <YAxis tick={{fontSize: 12}} stroke="#94a3b8" tickFormatter={(value) => `₹${value/1000}k`} />
+                                <YAxis tick={{fontSize: 12}} stroke="#94a3b8" tickFormatter={(value) => `â‚¹${value/1000}k`} />
                                 <Tooltip 
                                     cursor={{fill: 'transparent'}}
                                     content={({ active, payload }) => {
@@ -182,7 +182,7 @@ export function NSCCalculator() {
                                                             <span>Interest:</span>
                                                             <span className="font-bold">+{formatCurrency(data.interest)}</span>
                                                         </p>
-                                                        <div className="border-t pt-1 mt-1 flex justify-between gap-4 text-blue-700 font-bold">
+                                                        <div className="border-t pt-1 mt-1 flex justify-between gap-4 text-secondary-700 font-bold">
                                                             <span>Closing:</span>
                                                             <span>{formatCurrency(data.closingBalance)}</span>
                                                         </div>

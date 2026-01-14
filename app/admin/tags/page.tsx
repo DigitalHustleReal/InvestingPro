@@ -100,8 +100,11 @@ export default function TagsPage() {
 
     const generateSlug = (name: string) => name.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-');
 
-    const handleCreate = async () => {
-        if (!formData.name.trim()) return toast.error('Name required');
+    const handleCreate = async (): Promise<void> => {
+        if (!formData.name.trim()) {
+            toast.error('Name required');
+            return;
+        }
         const supabase = createClient();
         await supabase.from('tags').insert([{ name: formData.name, slug: formData.slug || generateSlug(formData.name) }]);
         queryClient.invalidateQueries({ queryKey: ['tags'] });

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -65,7 +65,7 @@ export function PreviewPane({ content, title, isOpen, onClose }: PreviewPaneProp
                         </div>
                         <button
                             onClick={onClose}
-                            className="p-2 hover:bg-danger-500/20 hover:text-red-400 text-slate-400 rounded-lg transition-colors"
+                            className="p-2 hover:bg-danger-500/20 hover:text-danger-400 text-slate-400 rounded-lg transition-colors"
                         >
                             <X className="w-5 h-5" />
                         </button>

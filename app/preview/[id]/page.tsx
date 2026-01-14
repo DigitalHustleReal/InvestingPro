@@ -152,7 +152,7 @@ export default function PreviewArticlePage() {
                     <AutoBreadcrumbs />
 
                     <div className="mb-8">
-                        <Badge className="mb-4 bg-blue-100 text-blue-700 border-0">
+                        <Badge className="mb-4 bg-secondary-100 text-secondary-700 border-0">
                             {article.category?.replace(/-/g, ' ')}
                         </Badge>
                         <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-6 leading-tight">

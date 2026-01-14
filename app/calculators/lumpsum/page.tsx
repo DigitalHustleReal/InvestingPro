@@ -36,7 +36,7 @@ export default function LumpsumCalculatorPage() {
             {
                 "@type": "HowToStep",
                 "name": "Enter Investment Amount",
-                "text": "Input your total one-time investment amount (minimum ₹500)."
+                "text": "Input your total one-time investment amount (minimum â‚¹500)."
             },
             {
                 "@type": "HowToStep",
@@ -89,7 +89,7 @@ export default function LumpsumCalculatorPage() {
         },
         {
             question: "How to calculate lumpsum returns?",
-            answer: "Lumpsum returns are calculated using compound interest formula: FV = PV × (1 + r)^n, where FV is future value, PV is present value (investment amount), r is annual return rate, and n is number of years. Our calculator does this automatically and also shows inflation-adjusted returns."
+            answer: "Lumpsum returns are calculated using compound interest formula: FV = PV Ã— (1 + r)^n, where FV is future value, PV is present value (investment amount), r is annual return rate, and n is number of years. Our calculator does this automatically and also shows inflation-adjusted returns."
         },
         {
             question: "What is a good return rate for lumpsum investment?",
@@ -192,7 +192,7 @@ export default function LumpsumCalculatorPage() {
                     </Card>
                     <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-purple-50 to-white dark:from-slate-800 dark:to-slate-900">
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-2 text-xl font-bold text-purple-700 dark:text-purple-400">
+                            <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
                                 <CheckCircle2 className="w-5 h-5" />
                                 Ideal for Windfalls
                             </CardTitle>

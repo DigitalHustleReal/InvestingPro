@@ -398,7 +398,7 @@ export default function EditArticlePage() {
                                     <Button
                                         onClick={handlePublish}
                                         disabled={publishMutation.isPending || saving}
-                                        className="gap-2 bg-blue-600 hover:bg-blue-700 text-white"
+                                        className="gap-2 bg-secondary-600 hover:bg-secondary-700 text-white"
                                     >
                                         {publishMutation.isPending ? (
                                             <>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from 'react';
 import { 
@@ -65,7 +65,7 @@ export default function ProductAnalyticsPage() {
   };
 
   const formatCurrency = (num: number) => {
-    return `₹${num.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+    return `â‚¹${num.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
   };
 
   return (
@@ -129,8 +129,8 @@ export default function ProductAnalyticsPage() {
                     <p className="text-3xl font-bold">{formatNumber(data.totals.totalClicks)}</p>
                     <p className="text-xs text-primary-400 mt-1">CTR: {data.avgCTR}%</p>
                   </div>
-                  <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
-                    <MousePointerClick className="w-6 h-6 text-blue-400" />
+                  <div className="w-12 h-12 bg-secondary-500/20 rounded-xl flex items-center justify-center">
+                    <MousePointerClick className="w-6 h-6 text-secondary-400" />
                   </div>
                 </div>
               </CardContent>
@@ -144,7 +144,7 @@ export default function ProductAnalyticsPage() {
                     <p className="text-3xl font-bold">{formatNumber(data.totals.totalConversions)}</p>
                   </div>
                   <div className="w-12 h-12 bg-success-500/20 rounded-xl flex items-center justify-center">
-                    <Target className="w-6 h-6 text-green-400" />
+                    <Target className="w-6 h-6 text-success-400" />
                   </div>
                 </div>
               </CardContent>
@@ -203,13 +203,13 @@ export default function ProductAnalyticsPage() {
                         <td className="py-4 px-4 text-right font-mono">{formatNumber(product.views)}</td>
                         <td className="py-4 px-4 text-right font-mono">{formatNumber(product.clicks)}</td>
                         <td className="py-4 px-4 text-right">
-                          <span className={`font-mono ${parseFloat(product.ctr) > 5 ? 'text-green-400' : 'text-slate-400'}`}>
+                          <span className={`font-mono ${parseFloat(product.ctr) > 5 ? 'text-success-400' : 'text-slate-400'}`}>
                             {product.ctr}%
                           </span>
                         </td>
                         <td className="py-4 px-4 text-right font-mono">{product.conversions}</td>
                         <td className="py-4 px-4 text-right">
-                          <span className={`font-mono ${parseFloat(product.conversionRate) > 10 ? 'text-green-400' : 'text-slate-400'}`}>
+                          <span className={`font-mono ${parseFloat(product.conversionRate) > 10 ? 'text-success-400' : 'text-slate-400'}`}>
                             {product.conversionRate}%
                           </span>
                         </td>

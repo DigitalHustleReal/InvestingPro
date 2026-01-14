@@ -335,7 +335,7 @@ export default function ArticleInspector({
                                     disabled={saving || status === 'published'}
                                     variant="outline"
                                     size="sm"
-                                    className="flex-1 border-green-900 text-green-400 hover:bg-green-900/20"
+                                    className="flex-1 border-success-900 text-success-400 hover:bg-success-900/20"
                                 >
                                     <Send className="w-4 h-4 mr-2" />
                                     Publish
@@ -384,7 +384,7 @@ export default function ArticleInspector({
                                 <Button
                                     variant="ghost"
                                     size="sm"
-                                    className="h-6 text-secondary-600 dark:text-secondary-400 hover:bg-secondary-50 dark:hover:bg-purple-900/20 hover:text-secondary-700 dark:hover:text-secondary-300"
+                                    className="h-6 text-secondary-600 dark:text-secondary-400 hover:bg-secondary-50 dark:hover:bg-primary-900/20 hover:text-secondary-700 dark:hover:text-secondary-300"
                                     onClick={handleAutoCategorize}
                                     disabled={isAutoCategorizing}
                                 >
@@ -472,9 +472,9 @@ export default function ArticleInspector({
                                             {kw}
                                             <button
                                                 onClick={() => removeSecondaryKeyword(kw)}
-                                                className="ml-1 hover:text-red-400"
+                                                className="ml-1 hover:text-danger-400"
                                             >
-                                                ×
+                                                Ã—
                                             </button>
                                         </Badge>
                                     ))}
@@ -509,7 +509,7 @@ export default function ArticleInspector({
                         <Button
                             variant="ghost"
                             size="sm"
-                            className="h-6 text-secondary-600 dark:text-secondary-400 hover:bg-secondary-50 dark:hover:bg-purple-900/20 hover:text-secondary-700 dark:hover:text-secondary-300"
+                            className="h-6 text-secondary-600 dark:text-secondary-400 hover:bg-secondary-50 dark:hover:bg-primary-900/20 hover:text-secondary-700 dark:hover:text-secondary-300"
                             onClick={handleAutoTag}
                             disabled={isAutoTagging}
                         >
@@ -532,9 +532,9 @@ export default function ArticleInspector({
                                         {tag}
                                         <button
                                             onClick={() => removeTag(tag)}
-                                            className="ml-1 hover:text-danger-600 dark:hover:text-red-400"
+                                            className="ml-1 hover:text-danger-600 dark:hover:text-danger-400"
                                         >
-                                            ×
+                                            Ã—
                                         </button>
                                     </Badge>
                                 ))}
@@ -566,7 +566,7 @@ export default function ArticleInspector({
                         <Button 
                             variant="ghost" 
                             size="sm" 
-                            className="h-6 text-secondary-400 hover:bg-purple-900/20 hover:text-secondary-300"
+                            className="h-6 text-secondary-400 hover:bg-primary-900/20 hover:text-secondary-300"
                             onClick={handleAutoOptimize}
                             disabled={isOptimizing}
                         >
@@ -617,12 +617,12 @@ export default function ArticleInspector({
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent className="bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200">
-                                <SelectItem value="hi">Hindi (हिंदी)</SelectItem>
-                                <SelectItem value="te">Telugu (తెలుగు)</SelectItem>
-                                <SelectItem value="mr">Marathi (मराठी)</SelectItem>
-                                <SelectItem value="ta">Tamil (தமிழ்)</SelectItem>
-                                <SelectItem value="bn">Bengali (বাংলা)</SelectItem>
-                                <SelectItem value="gu">Gujarati (ગુજરાતી)</SelectItem>
+                                <SelectItem value="hi">Hindi (à¤¹à¤¿à¤‚à¤¦à¥€)</SelectItem>
+                                <SelectItem value="te">Telugu (à°¤à±†à°²à±à°—à±)</SelectItem>
+                                <SelectItem value="mr">Marathi (à¤®à¤°à¤¾à¤ à¥€)</SelectItem>
+                                <SelectItem value="ta">Tamil (à®¤à®®à®¿à®´à¯)</SelectItem>
+                                <SelectItem value="bn">Bengali (à¦¬à¦¾à¦‚à¦²à¦¾)</SelectItem>
+                                <SelectItem value="gu">Gujarati (àª—à«àªœàª°àª¾àª¤à«€)</SelectItem>
                             </SelectContent>
                         </Select>
                         <Button 

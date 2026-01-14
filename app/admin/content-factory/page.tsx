@@ -7,7 +7,7 @@ import AdminLayout from '@/components/admin/AdminLayout';
 import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
 
 /**
- * 🤖 CONTENT FACTORY - ADMIN AUTOMATION PAGE
+ * ðŸ¤– CONTENT FACTORY - ADMIN AUTOMATION PAGE
  * 
  * Features:
  * - One-click bulk generation
@@ -94,7 +94,7 @@ export default function ContentFactoryPage() {
                     {/* Header */}
                     <div className="space-y-2">
                         <h1 className="text-4xl font-bold bg-gradient-to-r from-secondary-400 to-pink-400 bg-clip-text text-transparent">
-                            🤖 AI Content Factory
+                            ðŸ¤– AI Content Factory
                         </h1>
                         <p className="text-slate-400">
                             Automated bulk article generation with real-time progress tracking
@@ -102,7 +102,7 @@ export default function ContentFactoryPage() {
                     </div>
 
                     {/* Controls */}
-                    <Card className="bg-[#1A1128]/50 border-secondary-500/20 p-6 backdrop-blur-xl">
+                    <Card className="bg-admin-surface/50 border-admin-border p-6 backdrop-blur-xl">
                         <div className="space-y-4">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 {/* Article Count */}
@@ -112,7 +112,7 @@ export default function ContentFactoryPage() {
                                         value={count}
                                         onChange={(e) => setCount(parseInt(e.target.value))}
                                         disabled={isGenerating}
-                                        className="w-full bg-[#0A0118] border border-secondary-500/30 rounded-lg px-4 py-2 text-white"
+                                        className="w-full bg-admin-bg border border-admin-border rounded-lg px-4 py-2 text-white"
                                     >
                                         <option value={5}>5 Articles</option>
                                         <option value={10}>10 Articles</option>
@@ -129,7 +129,7 @@ export default function ContentFactoryPage() {
                                         value={phase}
                                         onChange={(e) => setPhase(e.target.value)}
                                         disabled={isGenerating}
-                                        className="w-full bg-[#0A0118] border border-secondary-500/30 rounded-lg px-4 py-2 text-white"
+                                        className="w-full bg-admin-bg border border-admin-border rounded-lg px-4 py-2 text-white"
                                     >
                                         <option value="mvl">MVL Core</option>
                                         <option value="month1">Month 1</option>
@@ -145,7 +145,7 @@ export default function ContentFactoryPage() {
                                         disabled={isGenerating}
                                         className="w-full bg-gradient-to-r from-secondary-500 to-pink-500 hover:from-secondary-600 hover:to-pink-600 text-white font-semibold py-2"
                                     >
-                                        {isGenerating ? '⏳ Generating...' : '🚀 Start Generation'}
+                                        {isGenerating ? 'â³ Generating...' : 'ðŸš€ Start Generation'}
                                     </Button>
                                 </div>
                             </div>
@@ -154,7 +154,7 @@ export default function ContentFactoryPage() {
 
                     {/* Progress Bar */}
                     {progress.length > 0 && (
-                        <Card className="bg-[#1A1128]/50 border-secondary-500/20 p-6 backdrop-blur-xl">
+                        <Card className="bg-admin-surface/50 border-admin-border p-6 backdrop-blur-xl">
                             <div className="space-y-4">
                                 <div className="flex items-center justify-between">
                                     <h2 className="text-xl font-semibold">Generation Progress</h2>
@@ -164,7 +164,7 @@ export default function ContentFactoryPage() {
                                 </div>
 
                                 {/* Progress Bar */}
-                                <div className="w-full bg-[#0A0118] rounded-full h-4 overflow-hidden">
+                                <div className="w-full bg-admin-bg rounded-full h-4 overflow-hidden">
                                     <div 
                                         className="h-full bg-gradient-to-r from-secondary-500 to-pink-500 transition-all duration-500"
                                         style={{ width: `${percentage}%` }}
@@ -179,13 +179,13 @@ export default function ContentFactoryPage() {
                                 {latestStatus?.status === 'complete' && (
                                     <div className="grid grid-cols-3 gap-4 pt-4 border-t border-secondary-500/20">
                                         <div className="text-center">
-                                            <div className="text-2xl font-bold text-green-400">
+                                            <div className="text-2xl font-bold text-success-400">
                                                 {latestStatus.success || 0}
                                             </div>
                                             <div className="text-sm text-slate-400">Successful</div>
                                         </div>
                                         <div className="text-center">
-                                            <div className="text-2xl font-bold text-red-400">
+                                            <div className="text-2xl font-bold text-danger-400">
                                                 {latestStatus.failed || 0}
                                             </div>
                                             <div className="text-sm text-slate-400">Failed</div>
@@ -204,42 +204,42 @@ export default function ContentFactoryPage() {
 
                     {/* Console Output */}
                     {progress.length > 0 && (
-                        <Card className="bg-[#0A0118] border-secondary-500/20 p-6 backdrop-blur-xl">
+                        <Card className="bg-admin-bg border-admin-border p-6 backdrop-blur-xl">
                             <h2 className="text-xl font-semibold mb-4">Console Output</h2>
                             <div className="space-y-2 max-h-96 overflow-y-auto font-mono text-sm">
                                 {progress.map((item, i) => (
                                     <div key={i} className="flex items-start gap-2">
                                         {item.status === 'started' && (
                                             <div className="text-secondary-400">
-                                                ▶ Started generation: {item.total} articles (Authority: {item.authority})
+                                                â–¶ Started generation: {item.total} articles (Authority: {item.authority})
                                             </div>
                                         )}
                                         {item.status === 'generating' && (
-                                            <div className="text-yellow-400">
-                                                ⏳ [{item.current}/{item.total}] {item.topic}
+                                            <div className="text-accent-400">
+                                                â³ [{item.current}/{item.total}] {item.topic}
                                             </div>
                                         )}
                                         {item.status === 'log' && (
                                             <div className="text-slate-400 pl-4">{item.message}</div>
                                         )}
                                         {item.status === 'success' && (
-                                            <div className="text-green-400">
-                                                ✅ [{item.current}/{item.total}] {item.topic}
+                                            <div className="text-success-400">
+                                                âœ… [{item.current}/{item.total}] {item.topic}
                                             </div>
                                         )}
                                         {item.status === 'error' && (
-                                            <div className="text-red-400">
-                                                ❌ [{item.current}/{item.total}] {item.topic}: {item.error}
+                                            <div className="text-danger-400">
+                                                âŒ [{item.current}/{item.total}] {item.topic}: {item.error}
                                             </div>
                                         )}
                                         {item.status === 'complete' && (
-                                            <div className="text-green-400 font-bold">
-                                                🎉 Generation complete! {item.success}/{item.total} successful
+                                            <div className="text-success-400 font-bold">
+                                                ðŸŽ‰ Generation complete! {item.success}/{item.total} successful
                                             </div>
                                         )}
                                         {item.status === 'fatal_error' && (
-                                            <div className="text-red-400 font-bold">
-                                                💥 Fatal error: {item.error}
+                                            <div className="text-danger-400 font-bold">
+                                                ðŸ’¥ Fatal error: {item.error}
                                             </div>
                                         )}
                                     </div>
@@ -266,7 +266,7 @@ export default function ContentFactoryPage() {
 
                         <Card className="bg-gradient-to-br from-success-500/10 to-success-500/10 border-success-500/20 p-6">
                             <div className="text-sm text-slate-400 mb-2">Success Rate</div>
-                            <div className="text-3xl font-bold text-green-400">
+                            <div className="text-3xl font-bold text-success-400">
                                 {latestStatus?.success && latestStatus?.total
                                     ? `${((latestStatus.success / latestStatus.total) * 100).toFixed(0)}%`
                                     : '...'}

@@ -10,6 +10,33 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* Focus Indicators - WCAG 2.1 AA Compliance (UI/UX Quick Win #4) */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary-500;
+    outline-style: solid;
+  }
+  
+  button:focus-visible, 
+  a:focus-visible,
+  [role="button"]:focus-visible {
+    @apply ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-slate-900;
+    outline: none;
+  }
+  
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    @apply ring-2 ring-primary-500 ring-offset-0 border-primary-500;
+    outline: none;
+  }
+
+  /* Skip to content link for screen readers */
+  .skip-to-content {
+    @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 
+           focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary-600 focus:text-white 
+           focus:rounded-lg focus:font-semibold focus:shadow-lg;
+  }
+
   /* Sleek Dark Scrollbar */
   ::-webkit-scrollbar {
     width: 10px;
@@ -32,6 +59,46 @@
 
   .premium-gradient-text {
     @apply bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent;
+  }
+
+  /* Admin Glassmorphism Theme Utilities */
+  .admin-glass {
+    @apply bg-admin-glass backdrop-blur-xl border border-admin-border;
+  }
+  
+  .admin-glass-card {
+    @apply bg-admin-surface/80 backdrop-blur-xl 
+           border border-admin-border rounded-2xl 
+           shadow-lg shadow-admin-accent/10;
+  }
+  
+  .admin-glass-hover {
+    @apply hover:bg-admin-glass-hover hover:border-admin-border-strong
+           transition-all duration-300;
+  }
+  
+  .admin-gradient-text {
+    @apply bg-gradient-to-r from-admin-accent to-admin-accent-glow 
+           bg-clip-text text-transparent;
+  }
+  
+  .admin-input {
+    @apply bg-admin-input border border-admin-border rounded-lg
+           text-admin-text placeholder:text-admin-text-dim
+           focus:border-admin-accent focus:ring-1 focus:ring-admin-accent
+           transition-all duration-200;
+  }
+  
+  .admin-button-primary {
+    @apply bg-admin-accent hover:bg-admin-accent-strong text-white
+           rounded-lg font-medium transition-all duration-200
+           shadow-lg shadow-admin-accent/25 hover:shadow-admin-accent/40;
+  }
+  
+  .admin-button-ghost {
+    @apply bg-transparent hover:bg-admin-surface-hover text-admin-text-muted
+           hover:text-admin-text rounded-lg transition-all duration-200
+           border border-transparent hover:border-admin-border;
   }
 
   /* GLOBAL CONTENT THEME (Prose Overrides) */
@@ -76,6 +143,29 @@
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  /* Reduced motion preference support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .prose a {
+      @apply underline;
+    }
+    
+    button, a {
+      @apply border-2;
+    }
   }
 
   /* Shimmer Animation */

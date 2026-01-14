@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
@@ -302,7 +302,7 @@ export default function BatchGeneratorPage() {
                                         <div className="text-slate-500 italic">Waiting for logs...</div>
                                     )}
                                     {batchProgress?.items?.map((item: string, i: number) => (
-                                        <div key={i} className="flex items-center text-green-400 animate-in fade-in slide-in-from-left-2">
+                                        <div key={i} className="flex items-center text-success-400 animate-in fade-in slide-in-from-left-2">
                                             <CheckCircle2 className="w-3 h-3 mr-2 shrink-0" />
                                             Generated: {item}
                                         </div>

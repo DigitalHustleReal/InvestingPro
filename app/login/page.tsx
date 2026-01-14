@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 /**
  * Public Login Page
@@ -136,7 +136,7 @@ export default function LoginPage() {
             <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
               <TrendingUp className="w-6 h-6 text-white" />
             </div>
-            <span className="text-2xl font-bold text-white">InvestingP₹o</span>
+            <span className="text-2xl font-bold text-white">InvestingPâ‚¹o</span>
           </div>
 
           <h1 className="text-4xl font-bold text-white mb-6">
@@ -168,7 +168,7 @@ export default function LoginPage() {
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center">
                 <TrendingUp className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-slate-900 dark:text-white">InvestingP₹o</span>
+              <span className="text-xl font-bold text-slate-900 dark:text-white">InvestingPâ‚¹o</span>
             </div>
           </div>
 
@@ -177,14 +177,14 @@ export default function LoginPage() {
 
           {/* Error/Message Display */}
           {error && (
-            <div className="mb-4 p-3 bg-danger-50 dark:bg-danger-500/10 border border-red-200 dark:border-danger-500/20 rounded-lg flex items-center gap-2 text-danger-600 dark:text-red-400 text-sm">
+            <div className="mb-4 p-3 bg-danger-50 dark:bg-danger-500/10 border border-danger-200 dark:border-danger-500/20 rounded-lg flex items-center gap-2 text-danger-600 dark:text-danger-400 text-sm">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
               {error}
             </div>
           )}
 
           {message && (
-            <div className="mb-4 p-3 bg-success-50 dark:bg-success-500/10 border border-green-200 dark:border-success-500/20 rounded-lg flex items-center gap-2 text-success-600 dark:text-green-400 text-sm">
+            <div className="mb-4 p-3 bg-success-50 dark:bg-success-500/10 border border-success-200 dark:border-success-500/20 rounded-lg flex items-center gap-2 text-success-600 dark:text-success-400 text-sm">
               <Sparkles className="w-4 h-4 flex-shrink-0" />
               {message}
             </div>
@@ -255,7 +255,7 @@ export default function LoginPage() {
                 <input
                   id="password"
                   type="password"
-                  placeholder="••••••••"
+                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required

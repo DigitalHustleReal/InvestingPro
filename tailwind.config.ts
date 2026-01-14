@@ -128,6 +128,36 @@ const config: Config = {
                     dark: '#020617',      // Replaces bg-[#020617]
                     darker: '#0f172a',    // Replaces bg-[#0f172a] 
                     darkest: '#0a0c10',   // Replaces bg-[#0a0c10]
+                },
+                // Admin Glassmorphism Theme (Replaces hardcoded hex values)
+                admin: {
+                    // Base surfaces
+                    'bg': '#0A0118',           // Main admin background (replaces #0A0118)
+                    'surface': '#1A1128',      // Card backgrounds (replaces #1A1128)
+                    'surface-hover': '#2D1B4E', // Hover state (replaces #2D1B4E)
+                    
+                    // Glass effects (use with backdrop-blur)
+                    'glass': 'rgba(26, 17, 40, 0.8)',
+                    'glass-border': 'rgba(139, 92, 246, 0.2)',
+                    'glass-hover': 'rgba(45, 27, 78, 0.9)',
+                    
+                    // Text variants
+                    'text': '#F8FAFC',
+                    'text-muted': '#A78BFA',
+                    'text-dim': '#6D5D8F',
+                    
+                    // Accent colors
+                    'accent': '#8B5CF6',        // Primary violet
+                    'accent-glow': '#A78BFA',   // Glow effect
+                    'accent-strong': '#7C3AED', // Darker accent
+                    
+                    // Borders
+                    'border': 'rgba(139, 92, 246, 0.3)',
+                    'border-strong': 'rgba(139, 92, 246, 0.5)',
+                    
+                    // Input fields
+                    'input': '#0F0A1A',
+                    'input-focus': '#1A1128',
                 }
             },
             fontFamily: {
@@ -169,15 +199,32 @@ const config: Config = {
                 '3xl': '3rem',   // Keep for compatibility (legacy)
             },
             boxShadow: {
-                'sm': '0 1px 3px 0 rgb(0 0 0 / 0.08)',
+                // Standard shadows with layered depth (UI/UX Phase 2)
+                'xs': '0 1px 2px rgba(0, 0, 0, 0.05)',
+                'sm': '0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.05)',
                 'base': '0 4px 12px 0 rgb(0 0 0 / 0.08)',
                 'md': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-                'lg': '0 8px 24px -3px rgb(0 0 0 / 0.12)',
-                'xl': '0 16px 48px -5px rgb(0 0 0 / 0.16)',
-                '2xl': '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-                'primary': '0 4px 12px rgba(10, 95, 86, 0.15)',      // Teal brand shadow
-                'primary-lg': '0 8px 20px rgba(10, 95, 86, 0.25)',  // Teal brand shadow (hover)
-                'accent': '0 4px 12px rgba(217, 119, 6, 0.15)',     // Amber accent shadow
+                'lg': '0 10px 20px -3px rgb(0 0 0 / 0.12), 0 4px 6px -4px rgb(0 0 0 / 0.08)',
+                'xl': '0 20px 40px -5px rgb(0 0 0 / 0.15), 0 8px 16px -8px rgb(0 0 0 / 0.1)',
+                '2xl': '0 30px 60px -12px rgb(0 0 0 / 0.2), 0 12px 24px -12px rgb(0 0 0 / 0.15)',
+                
+                // Brand colored shadows
+                'primary': '0 4px 12px rgba(20, 184, 166, 0.15)',      // Teal brand shadow
+                'primary-lg': '0 8px 24px rgba(20, 184, 166, 0.25)',   // Teal brand shadow (hover)
+                'secondary': '0 4px 12px rgba(14, 165, 233, 0.15)',    // Sky/Blue shadow
+                'secondary-lg': '0 8px 24px rgba(14, 165, 233, 0.25)', // Sky/Blue shadow (hover)
+                'accent': '0 4px 12px rgba(245, 158, 11, 0.15)',       // Amber accent shadow
+                'accent-lg': '0 8px 24px rgba(245, 158, 11, 0.25)',    // Amber accent shadow (hover)
+                'success': '0 4px 12px rgba(16, 185, 129, 0.15)',      // Success shadow
+                'danger': '0 4px 12px rgba(239, 68, 68, 0.15)',        // Danger shadow
+                
+                // Card-specific shadows for depth
+                'card': '0 2px 8px -2px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.06)',
+                'card-hover': '0 12px 28px -6px rgba(0, 0, 0, 0.12), 0 4px 8px -4px rgba(0, 0, 0, 0.08)',
+                
+                // Inner shadows for depth
+                'inner-sm': 'inset 0 1px 2px rgba(0, 0, 0, 0.05)',
+                'inner': 'inset 0 2px 4px rgba(0, 0, 0, 0.06)',
             },
             animation: {
                 'fade-in': 'fadeIn 0.5s ease-in',

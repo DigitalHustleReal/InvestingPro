@@ -172,19 +172,19 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 const getRiskColor = (risk: string) => {
   switch (risk) {
-    case 'low': return 'bg-green-100 text-green-700 border-green-200'
-    case 'moderate': return 'bg-yellow-100 text-yellow-700 border-yellow-200'
-    case 'high': return 'bg-orange-100 text-orange-700 border-orange-200'
-    case 'very_high': return 'bg-red-100 text-red-700 border-red-200'
+    case 'low': return 'bg-success-100 text-success-700 border-success-200'
+    case 'moderate': return 'bg-accent-100 text-accent-700 border-accent-200'
+    case 'high': return 'bg-accent-100 text-accent-700 border-accent-200'
+    case 'very_high': return 'bg-danger-100 text-danger-700 border-danger-200'
     default: return 'bg-gray-100 text-gray-700 border-gray-200'
   }
 }
 
 const getReturnColor = (value: number) => {
-  if (value >= 15) return 'text-green-600'
+  if (value >= 15) return 'text-success-600'
   if (value >= 10) return 'text-primary-600'
-  if (value >= 5) return 'text-yellow-600'
-  return 'text-red-600'
+  if (value >= 5) return 'text-accent-600'
+  return 'text-danger-600'
 }
 
 export default async function MutualFundDetailPage({ params }: { params: { slug: string } }) {
@@ -391,9 +391,9 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
                 </CardContent>
               </Card>
               
-              <Card className="border-red-200 bg-red-50/30">
+              <Card className="border-danger-200 bg-danger-50/30">
                 <CardHeader>
-                  <CardTitle className="text-red-700 flex items-center gap-6 md:p-8">
+                  <CardTitle className="text-danger-700 flex items-center gap-6 md:p-8">
                     <XCircle className="w-5 h-5" />
                     Limitations
                   </CardTitle>
@@ -402,7 +402,7 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
                   <ul className="space-y-2">
                     {fund.cons.map((con, index) => (
                       <li key={index} className="flex items-start gap-2 text-gray-700">
-                        <XCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-1" />
+                        <XCircle className="w-4 h-4 text-danger-600 flex-shrink-0 mt-1" />
                         <span className="text-sm">{con}</span>
                       </li>
                     ))}
@@ -490,7 +490,7 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
               <Card>
                 <CardHeader>
                   <CardTitle className="text-base flex items-center gap-6 md:p-8">
-                    <ShieldCheck className="w-5 h-5 text-green-600" />
+                    <ShieldCheck className="w-5 h-5 text-success-600" />
                     Suitable For
                   </CardTitle>
                 </CardHeader>
@@ -498,7 +498,7 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
                   <ul className="space-y-2">
                     {fund.suitableFor.map((item, index) => (
                       <li key={index} className="flex items-start gap-2 text-sm text-gray-700">
-                        <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-success-500 flex-shrink-0 mt-0.5" />
                         {item}
                       </li>
                     ))}
@@ -508,12 +508,12 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
               
               {/* Tax Benefits */}
               {fund.taxBenefits && (
-                <Card className="bg-blue-50 border-blue-200">
+                <Card className="bg-secondary-50 border-secondary-200">
                   <CardHeader>
-                    <CardTitle className="text-base text-blue-900">Tax Information</CardTitle>
+                    <CardTitle className="text-base text-secondary-900">Tax Information</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-blue-800">{fund.taxBenefits}</p>
+                    <p className="text-sm text-secondary-800">{fund.taxBenefits}</p>
                   </CardContent>
                 </Card>
               )}

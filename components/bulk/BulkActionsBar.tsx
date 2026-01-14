@@ -125,7 +125,7 @@ export function BulkActionsBar({
                     <Button
                         size="sm"
                         variant="ghost"
-                        className="text-green-400 hover:bg-green-400/10"
+                        className="text-success-400 hover:bg-success-400/10"
                         onClick={() => handleBulkAction('publish')}
                         disabled={isProcessing}
                         title="Publish selected"
@@ -137,7 +137,7 @@ export function BulkActionsBar({
                     <Button
                         size="sm"
                         variant="ghost"
-                        className="text-orange-400 hover:bg-orange-400/10"
+                        className="text-accent-400 hover:bg-accent-400/10"
                         onClick={() => handleBulkAction('unpublish')}
                         disabled={isProcessing}
                         title="Unpublish selected"
@@ -161,7 +161,7 @@ export function BulkActionsBar({
                     <Button
                         size="sm"
                         variant="ghost"
-                        className="text-red-400 hover:bg-red-400/10"
+                        className="text-danger-400 hover:bg-danger-400/10"
                         onClick={() => handleBulkAction('delete')}
                         disabled={isProcessing}
                         title="Delete selected"

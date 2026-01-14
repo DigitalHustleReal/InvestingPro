@@ -209,10 +209,10 @@ export default function DataTableDemo() {
       header: 'Risk',
       accessor: (row) => {
         const riskColors: Record<string, string> = {
-          'Low to Moderate': 'bg-success-100 text-success-700 dark:bg-green-900/20 dark:text-green-400',
-          'Moderate': 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400',
-          'Moderately High': 'bg-orange-100 text-orange-700 dark:bg-orange-900/20 dark:text-orange-400',
-          'High': 'bg-danger-100 text-danger-700 dark:bg-red-900/20 dark:text-red-400',
+          'Low to Moderate': 'bg-success-100 text-success-700 dark:bg-success-900/20 dark:text-success-400',
+          'Moderate': 'bg-accent-100 text-accent-700 dark:bg-accent-900/20 dark:text-accent-400',
+          'Moderately High': 'bg-accent-100 text-accent-700 dark:bg-accent-900/20 dark:text-accent-400',
+          'High': 'bg-danger-100 text-danger-700 dark:bg-danger-900/20 dark:text-danger-400',
           'Very High': 'bg-rose-100 text-rose-700 dark:bg-rose-900/20 dark:text-rose-400'
         };
         return (
@@ -292,12 +292,12 @@ export default function DataTableDemo() {
               Desktop Features
             </h3>
             <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-              <li>✅ Sortable columns (click headers)</li>
-              <li>✅ Row selection with checkboxes</li>
-              <li>✅ Pagination with page numbers</li>
-              <li>✅ Row click handlers</li>
-              <li>✅ Custom cell renderers</li>
-              <li>✅ Dark mode support</li>
+              <li>âœ… Sortable columns (click headers)</li>
+              <li>âœ… Row selection with checkboxes</li>
+              <li>âœ… Pagination with page numbers</li>
+              <li>âœ… Row click handlers</li>
+              <li>âœ… Custom cell renderers</li>
+              <li>âœ… Dark mode support</li>
             </ul>
           </Card>
 
@@ -307,12 +307,12 @@ export default function DataTableDemo() {
               Mobile Features
             </h3>
             <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-              <li>✅ Automatic card layout on mobile</li>
-              <li>✅ Hide non-essential columns</li>
-              <li>✅ Touch-friendly interactions</li>
-              <li>✅ Responsive pagination</li>
-              <li>✅ Grid layout for secondary info</li>
-              <li>✅ Optimized for small screens</li>
+              <li>âœ… Automatic card layout on mobile</li>
+              <li>âœ… Hide non-essential columns</li>
+              <li>âœ… Touch-friendly interactions</li>
+              <li>âœ… Responsive pagination</li>
+              <li>âœ… Grid layout for secondary info</li>
+              <li>âœ… Optimized for small screens</li>
             </ul>
           </Card>
         </div>

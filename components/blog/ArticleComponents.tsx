@@ -49,7 +49,7 @@ export function Callout({ type, title, children, className }: CalloutProps) {
       bgColor: 'bg-danger-50',
       borderColor: 'border-danger-500',
       iconColor: 'text-danger-600',
-      titleColor: 'text-red-900',
+      titleColor: 'text-danger-900',
       defaultTitle: 'Warning'
     },
     'example': {

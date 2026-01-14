@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from 'react';
 import {
@@ -443,7 +443,7 @@ export default function LoansPage() {
                                     <li className="flex items-center gap-3"><CheckCircle2 className="text-white/90" /> Keep Salary Slips & Bank Statements ready</li>
                                     <li className="flex items-center gap-3"><CheckCircle2 className="text-white/90" /> Compare ROI across top 3 lenders</li>
                                 </ul>
-                                <Button className="bg-white hover:bg-blue-50 text-primary-600 font-bold h-12 px-8 rounded-xl shadow-lg transition-all">
+                                <Button className="bg-white hover:bg-secondary-50 text-primary-600 font-bold h-12 px-8 rounded-xl shadow-lg transition-all">
                                     Check My CIBIL Score
                                 </Button>
                             </div>

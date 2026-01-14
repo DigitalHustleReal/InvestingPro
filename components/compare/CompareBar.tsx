@@ -89,7 +89,7 @@ export default function CompareBar() {
                             {product.name}
                         </p>
                         <div className="flex items-center gap-1">
-                            <span className="text-[10px] text-yellow-600 dark:text-yellow-400">★</span>
+                            <span className="text-[10px] text-accent-600 dark:text-accent-400">â˜…</span>
                             <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
                             {/* Handle both object and primitive rating structures */}
                             {typeof product.rating === 'object' 
@@ -103,7 +103,7 @@ export default function CompareBar() {
                         {/* Remove Button */}
                         <button
                         onClick={() => removeProduct(product.id)}
-                        className="p-1 hover:bg-danger-100 dark:hover:bg-red-900/30 rounded-full group/remove transition-colors"
+                        className="p-1 hover:bg-danger-100 dark:hover:bg-danger-900/30 rounded-full group/remove transition-colors"
                         aria-label="Remove"
                         >
                         <X className="w-3.5 h-3.5 text-slate-400 group-hover/remove:text-danger-500" />
@@ -118,7 +118,7 @@ export default function CompareBar() {
                     variant="ghost"
                     size="sm"
                     onClick={clearAll}
-                    className="hidden sm:flex text-xs font-semibold text-slate-500 hover:text-danger-600 hover:bg-danger-50 dark:hover:bg-red-900/10"
+                    className="hidden sm:flex text-xs font-semibold text-slate-500 hover:text-danger-600 hover:bg-danger-50 dark:hover:bg-danger-900/10"
                 >
                     Clear All
                 </Button>

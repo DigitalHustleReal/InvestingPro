@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef, DragEvent } from 'react';
 import { mediaService, UploadProgress } from '@/lib/media/media-service';
@@ -186,7 +186,7 @@ export function MediaUploader({
 
                 {/* Error Message */}
                 {error && (
-                    <div className="mt-4 p-3 bg-danger-50 border border-red-200 rounded-lg">
+                    <div className="mt-4 p-3 bg-danger-50 border border-danger-200 rounded-lg">
                         <p className="text-sm text-danger-600">{error}</p>
                     </div>
                 )}
@@ -196,13 +196,13 @@ export function MediaUploader({
             {!uploading && !error && (
                 <div className="mt-4 p-4 bg-secondary-50 border border-secondary-200 rounded-lg">
                     <h4 className="text-sm font-medium text-secondary-900 mb-2">
-                        💡 Upload Tips:
+                        ðŸ’¡ Upload Tips:
                     </h4>
                     <ul className="text-sm text-secondary-700 space-y-1">
-                        <li>• Use descriptive filenames for better SEO</li>
-                        <li>• Optimize images before upload (recommended: under 500KB)</li>
-                        <li>• Landscape images work best for featured images (16:9 ratio)</li>
-                        <li>• Add alt text after upload for accessibility</li>
+                        <li>â€¢ Use descriptive filenames for better SEO</li>
+                        <li>â€¢ Optimize images before upload (recommended: under 500KB)</li>
+                        <li>â€¢ Landscape images work best for featured images (16:9 ratio)</li>
+                        <li>â€¢ Add alt text after upload for accessibility</li>
                     </ul>
                 </div>
             )}

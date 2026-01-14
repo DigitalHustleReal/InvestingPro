@@ -224,22 +224,13 @@ export default function EditArticlePage() {
         }
 
         setSaving(true);
-        await saveMutation.mutateAsync(metadata);
-    };
-
-    const handlePublish = async (metadata: any) => {
-        if (!title.trim()) {
-            toast.error('Please enter a title');
-            return;
+        
+        // If status is 'published', use publish mutation instead
+        if (metadata?.status === 'published') {
+            await publishMutation.mutateAsync(metadata);
+        } else {
+            await saveMutation.mutateAsync(metadata);
         }
-
-        if (!editorContent) {
-            toast.error('No content to publish');
-            return;
-        }
-
-        setSaving(true);
-        await publishMutation.mutateAsync(metadata);
     };
 
     const handlePreview = () => {
@@ -285,15 +276,21 @@ export default function EditArticlePage() {
             inspectorContent={
                 <ArticleInspector
                     article={{
-                        ...article,
+                        id: article.id,
                         title,
                         excerpt,
                         body_markdown: editorContent?.markdown || article.body_markdown,
                         body_html: editorContent?.html || article.body_html,
                         content: editorContent?.markdown || article.content,
+                        status: article.status,
+                        category: article.category as any,
+                        language: article.language as any,
+                        tags: article.tags,
+                        seo_title: article.seo_title,
+                        seo_description: article.seo_description,
+                        ...(('search_intent' in article) && { search_intent: (article as any).search_intent }),
                     }}
                     onSave={handleSave}
-                    onPublish={handlePublish}
                     onPreview={handlePreview}
                     saving={saving}
                 />

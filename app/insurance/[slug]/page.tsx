@@ -119,37 +119,37 @@ export default async function InsuranceDetailPage({ params }: { params: { slug: 
             {/* Left: Details */}
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-4">
-                <span className="bg-purple-500/20 text-purple-200 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                <span className="bg-primary-500/20 text-primary-200 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                   <InsuranceIcon className="w-4 h-4" />
                   {insurance.insuranceType}
                 </span>
                 <div className="flex items-center gap-1">
                   <Star className="w-5 h-5 text-amber-400 fill-amber-400" />
                   <span className="font-bold text-lg">{insurance.rating}</span>
-                  <span className="text-purple-200 text-sm">/5</span>
+                  <span className="text-primary-200 text-sm">/5</span>
                 </div>
               </div>
               
               <h1 className="text-3xl md:text-4xl font-bold mb-2">{insurance.name}</h1>
-              <p className="text-purple-100 mb-6">{insurance.provider}</p>
-              <p className="text-lg text-purple-100 mb-8 max-w-2xl">{insurance.description}</p>
+              <p className="text-primary-100 mb-6">{insurance.provider}</p>
+              <p className="text-lg text-primary-100 mb-8 max-w-2xl">{insurance.description}</p>
               
               {/* Quick Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4">
                 <div>
-                  <p className="text-sm text-purple-200">Cover Amount</p>
+                  <p className="text-sm text-primary-200">Cover Amount</p>
                   <p className="text-xl font-bold">{insurance.coverAmount}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-purple-200">Premium</p>
+                  <p className="text-sm text-primary-200">Premium</p>
                   <p className="text-xl font-bold">{insurance.premium}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-purple-200">Claim Ratio</p>
+                  <p className="text-sm text-primary-200">Claim Ratio</p>
                   <p className="text-xl font-bold">{insurance.claimSettlementRatio}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-purple-200">Type</p>
+                  <p className="text-sm text-primary-200">Type</p>
                   <p className="text-xl font-bold">{insurance.insuranceType.split(' ')[0]}</p>
                 </div>
               </div>
@@ -159,13 +159,13 @@ export default async function InsuranceDetailPage({ params }: { params: { slug: 
             <div className="lg:col-span-1">
               <Card className="bg-white/10 backdrop-blur-sm border-white/20">
                 <CardContent className="p-6">
-                  <p className="text-sm text-purple-200 mb-4">Get covered in minutes</p>
+                  <p className="text-sm text-primary-200 mb-4">Get covered in minutes</p>
                   <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-6 text-lg mb-3">
                       Get Quote <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
-                  <div className="flex items-center justify-center gap-2 text-purple-200 text-sm">
+                  <div className="flex items-center justify-center gap-2 text-primary-200 text-sm">
                     <ShieldCheck className="w-4 h-4" />
                     <span>IRDAI Approved • Instant Policy</span>
                   </div>
@@ -193,7 +193,7 @@ export default async function InsuranceDetailPage({ params }: { params: { slug: 
                 <ul className="space-y-3">
                   {insurance.coverageDetails.map((item, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-success-500 flex-shrink-0 mt-0.5" />
                       <span className="text-slate-700 dark:text-slate-300">{item}</span>
                     </li>
                   ))}
@@ -224,7 +224,7 @@ export default async function InsuranceDetailPage({ params }: { params: { slug: 
             {/* Exclusions */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-red-600">
+                <CardTitle className="flex items-center gap-2 text-danger-600">
                   <XCircle className="w-5 h-5" />
                   What's Not Covered
                 </CardTitle>
@@ -233,7 +233,7 @@ export default async function InsuranceDetailPage({ params }: { params: { slug: 
                 <ul className="space-y-3">
                   {insurance.exclusions.map((item, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                      <XCircle className="w-5 h-5 text-danger-500 flex-shrink-0 mt-0.5" />
                       <span className="text-slate-700 dark:text-slate-300">{item}</span>
                     </li>
                   ))}
@@ -243,9 +243,9 @@ export default async function InsuranceDetailPage({ params }: { params: { slug: 
 
             {/* Pros & Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-green-200 dark:border-green-800">
-                <CardHeader className="bg-green-50 dark:bg-green-900/20">
-                  <CardTitle className="text-green-700 dark:text-green-400 flex items-center gap-2">
+              <Card className="border-success-200 dark:border-success-800">
+                <CardHeader className="bg-success-50 dark:bg-success-900/20">
+                  <CardTitle className="text-success-700 dark:text-success-400 flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5" />
                     Pros
                   </CardTitle>
@@ -254,7 +254,7 @@ export default async function InsuranceDetailPage({ params }: { params: { slug: 
                   <ul className="space-y-2">
                     {insurance.pros.map((pro, index) => (
                       <li key={index} className="flex items-start gap-2 text-sm">
-                        <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-success-500 flex-shrink-0 mt-0.5" />
                         <span>{pro}</span>
                       </li>
                     ))}
@@ -262,9 +262,9 @@ export default async function InsuranceDetailPage({ params }: { params: { slug: 
                 </CardContent>
               </Card>
               
-              <Card className="border-red-200 dark:border-red-800">
-                <CardHeader className="bg-red-50 dark:bg-red-900/20">
-                  <CardTitle className="text-red-700 dark:text-red-400 flex items-center gap-2">
+              <Card className="border-danger-200 dark:border-danger-800">
+                <CardHeader className="bg-danger-50 dark:bg-danger-900/20">
+                  <CardTitle className="text-danger-700 dark:text-danger-400 flex items-center gap-2">
                     <XCircle className="w-5 h-5" />
                     Cons
                   </CardTitle>
@@ -273,7 +273,7 @@ export default async function InsuranceDetailPage({ params }: { params: { slug: 
                   <ul className="space-y-2">
                     {insurance.cons.map((con, index) => (
                       <li key={index} className="flex items-start gap-2 text-sm">
-                        <XCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+                        <XCircle className="w-4 h-4 text-danger-500 flex-shrink-0 mt-0.5" />
                         <span>{con}</span>
                       </li>
                     ))}
@@ -289,9 +289,9 @@ export default async function InsuranceDetailPage({ params }: { params: { slug: 
               <Card className="bg-gradient-to-br from-purple-600 to-violet-600 text-white">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Protect Your Family</h3>
-                  <p className="text-sm text-purple-100 mb-4">Get instant quotes now</p>
+                  <p className="text-sm text-primary-100 mb-4">Get instant quotes now</p>
                   <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full bg-white text-purple-600 hover:bg-gray-100 font-semibold py-6 mb-3">
+                    <Button className="w-full bg-white text-primary-600 hover:bg-gray-100 font-semibold py-6 mb-3">
                       Get Quote <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>

@@ -96,7 +96,7 @@ export default function AuthorProfilePage({ params }: { params: { slug: string }
                                     />
                                 </div>
                                 <h1 className="text-2xl font-bold text-slate-900 mb-1">{author.name}</h1>
-                                <p className="text-blue-600 font-medium mb-4">{author.role}</p>
+                                <p className="text-secondary-600 font-medium mb-4">{author.role}</p>
                                 
                                 <div className="flex items-center gap-2 text-slate-500 text-sm mb-6">
                                     <MapPin className="w-4 h-4" />
@@ -104,10 +104,10 @@ export default function AuthorProfilePage({ params }: { params: { slug: string }
                                 </div>
 
                                 <div className="flex gap-4 mb-8">
-                                    <Button variant="outline" size="icon" className="rounded-full w-10 h-10 border-slate-200 hover:text-blue-500">
+                                    <Button variant="outline" size="icon" className="rounded-full w-10 h-10 border-slate-200 hover:text-secondary-500">
                                         <Twitter className="w-4 h-4" />
                                     </Button>
-                                    <Button variant="outline" size="icon" className="rounded-full w-10 h-10 border-slate-200 hover:text-blue-700">
+                                    <Button variant="outline" size="icon" className="rounded-full w-10 h-10 border-slate-200 hover:text-secondary-700">
                                         <Linkedin className="w-4 h-4" />
                                     </Button>
                                     <Button variant="outline" size="icon" className="rounded-full w-10 h-10 border-slate-200 hover:text-primary-600">
@@ -153,7 +153,7 @@ export default function AuthorProfilePage({ params }: { params: { slug: string }
                                 <p className="text-sm font-semibold text-slate-900 mb-3 uppercase tracking-wide">Areas of Expertise</p>
                                 <div className="flex flex-wrap gap-2">
                                     {author.expertise.map((skill, i) => (
-                                        <span key={i} className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm font-medium border border-blue-100">
+                                        <span key={i} className="px-3 py-1 bg-secondary-50 text-secondary-700 rounded-full text-sm font-medium border border-secondary-100">
                                             {skill}
                                         </span>
                                     ))}
@@ -179,7 +179,7 @@ export default function AuthorProfilePage({ params }: { params: { slug: string }
                         <div>
                             <div className="flex items-center justify-between mb-6">
                                 <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-                                    <TrendingUp className="w-6 h-6 text-blue-600" />
+                                    <TrendingUp className="w-6 h-6 text-secondary-600" />
                                     Latest Analysis
                                 </h2>
                             </div>
@@ -200,13 +200,13 @@ export default function AuthorProfilePage({ params }: { params: { slug: string }
                                         </div>
                                         <div className="p-6 flex flex-col justify-center">
                                             <div className="text-xs text-slate-500 mb-2">{article.date}</div>
-                                            <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
+                                            <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-secondary-600 transition-colors line-clamp-2">
                                                 {article.title}
                                             </h3>
                                             <p className="text-slate-600 line-clamp-2 mb-4">
                                                 {article.excerpt}
                                             </p>
-                                            <span className="text-blue-600 text-sm font-medium group-hover:underline">Read Analysis &rarr;</span>
+                                            <span className="text-secondary-600 text-sm font-medium group-hover:underline">Read Analysis &rarr;</span>
                                         </div>
                                     </Link>
                                 ))}

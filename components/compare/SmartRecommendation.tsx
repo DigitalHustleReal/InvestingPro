@@ -47,12 +47,12 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-yellow-50 via-white to-orange-50 dark:from-yellow-900/10 dark:via-slate-900 dark:to-orange-900/10 p-8 mb-8 border-2 border-yellow-200 dark:border-yellow-800/50 shadow-xl"
+            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-yellow-50 via-white to-orange-50 dark:from-yellow-900/10 dark:via-slate-900 dark:to-orange-900/10 p-8 mb-8 border-2 border-accent-200 dark:border-accent-800/50 shadow-xl"
         >
             {/* Animated Background Blobs */}
             <div className="absolute inset-0 opacity-20 pointer-events-none">
-                <div className="absolute top-0 left-0 w-64 h-64 bg-yellow-400 rounded-full blur-3xl animate-pulse" />
-                <div className="absolute bottom-0 right-0 w-64 h-64 bg-orange-400 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+                <div className="absolute top-0 left-0 w-64 h-64 bg-accent-400 rounded-full blur-3xl animate-pulse" />
+                <div className="absolute bottom-0 right-0 w-64 h-64 bg-accent-400 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
             </div>
 
             {/* Content */}
@@ -79,12 +79,12 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
                 </div>
 
                 {/* Winner Card */}
-                <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-2xl border-2 border-yellow-200 dark:border-yellow-800/50">
+                <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-2xl border-2 border-accent-200 dark:border-accent-800/50">
                     <div className="flex flex-col sm:flex-row items-center gap-6">
                         {/* Product Image */}
                         {winner.image_url && (
                             <div className="relative">
-                                <div className="absolute inset-0 bg-yellow-500/30 rounded-2xl blur-xl" />
+                                <div className="absolute inset-0 bg-accent-500/30 rounded-2xl blur-xl" />
                                 <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-white shadow-xl ring-4 ring-yellow-200">
                                     <Image
                                         src={winner.image_url}
@@ -115,7 +115,7 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
                             </h4>
                             <div className="flex items-center justify-center sm:justify-start gap-4 mb-3">
                                 <div className="flex items-center gap-1">
-                                    <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                                    <Star className="w-5 h-5 fill-yellow-400 text-accent-400" />
                                     <span className="font-bold text-lg">{winner.rating.overall.toFixed(1)}</span>
                                 </div>
                                 <div className="flex items-center gap-1">
@@ -136,7 +136,7 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
                                             transition={{ delay: 0.5 + idx * 0.1 }}
                                             className="flex items-center gap-2"
                                         >
-                                            <reason.icon className="w-4 h-4 text-success-600 dark:text-green-400" />
+                                            <reason.icon className="w-4 h-4 text-success-600 dark:text-success-400" />
                                             <span className="text-sm text-slate-700 dark:text-slate-300">{reason.text}</span>
                                         </motion.div>
                                     ))}

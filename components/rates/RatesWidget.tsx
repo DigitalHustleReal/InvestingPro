@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -26,9 +26,9 @@ const RATES_DATA: Record<string, RateItem[]> = {
         { label: "Car Loan", value: "8.85%", trend: "stable" }
     ],
     investing: [
-        { label: "Gold (24K)", value: "₹72,450", trend: "up", subtext: "per 10g" },
-        { label: "Silver", value: "₹83,100", trend: "up", subtext: "per kg" },
-        { label: "Nifty 50 1Y Rtn", value: "26.4%", trend: "up" },
+        { label: "Gold (24K)", value: "â‚¹72,450", trend: "up", subtext: "per 10g" },
+        { label: "Silver", value: "â‚¹83,100", trend: "up", subtext: "per kg" },
+        { label: "PPF Rate", value: "7.1%", trend: "stable", subtext: "govt backed" },
         { label: "Inflation", value: "4.85%", trend: "down" }
     ],
     banking: [
@@ -59,7 +59,7 @@ export default function RatesWidget({ category, title, className }: RatesWidgetP
                             <div className="flex items-center gap-1">
                                 <span className={cn("text-lg font-bold", 
                                     rate.trend === 'up' ? "text-success-600" : 
-                                    rate.trend === 'down' ? "text-indigo-600" : "text-slate-900 dark:text-white"
+                                    rate.trend === 'down' ? "text-primary-600" : "text-slate-900 dark:text-white"
                                 )}>
                                     {rate.value}
                                 </span>

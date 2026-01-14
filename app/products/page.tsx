@@ -1,4 +1,4 @@
-
+﻿
 import React from 'react';
 import { productService } from '@/lib/products/product-service';
 import ProductCard from '@/components/products/ProductCard';
@@ -48,8 +48,8 @@ export default async function ProductsPage({
                 <ProductCategoryTabs />
                 
                 {error ? (
-                    <div className="p-8 bg-danger-50 border border-red-200 rounded-lg text-center">
-                        <h3 className="text-red-800 font-bold mb-2">Setup Required</h3>
+                    <div className="p-8 bg-danger-50 border border-danger-200 rounded-lg text-center">
+                        <h3 className="text-danger-800 font-bold mb-2">Setup Required</h3>
                         <p className="text-danger-700 mb-4">The products table is missing or inaccessible.</p>
                         <p className="text-sm text-danger-600 font-mono bg-danger-100 p-2 rounded inline-block">
                             Run migration: supabase/migrations/20260102_products_schema.sql

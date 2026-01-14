@@ -13,7 +13,7 @@ export default function CMSScrapersPage() {
                 <div className="flex items-center justify-between">
                     <div>
                         <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
-                            <Rss className="w-8 h-8 text-orange-400" />
+                            <Rss className="w-8 h-8 text-accent-400" />
                             Scraper Management
                         </h1>
                         <p className="text-slate-400">Monitor and manage all data scrapers</p>

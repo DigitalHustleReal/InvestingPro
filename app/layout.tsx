@@ -75,8 +75,16 @@ export default async function RootLayout({
                     <Analytics />
                   </Suspense>
 
+                  {/* Skip to Content Link - Accessibility (UI/UX Phase 1) */}
+                  <a 
+                    href="#main-content" 
+                    className="skip-to-content"
+                  >
+                    Skip to main content
+                  </a>
+
                   <Navbar initialConfig={navConfig} />
-                  <main className="flex-grow">
+                  <main id="main-content" className="flex-grow" tabIndex={-1}>
                     <PageErrorBoundary pageName="Root Layout">
                       <LeadCaptureProvider>
                         {children}
@@ -90,7 +98,9 @@ export default async function RootLayout({
                      Uncomment and add your ID here to auto-monetize 1000s of links
                   */}
                   {/* <script async src="https://cuelinks.com/js/..." /> */}
-                  <Footer />
+                  <PageErrorBoundary pageName="Footer">
+                    <Footer />
+                  </PageErrorBoundary>
                   <CookieConsent />
                   <Toaster />
                 </NavigationProvider>

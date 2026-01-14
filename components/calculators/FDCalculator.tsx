@@ -58,9 +58,9 @@ export function FDCalculator() {
     const result = calculateFD();
 
     const formatCurrency = (num: number) => {
-        if (num >= 10000000) return `₹${(num / 10000000).toFixed(2)} Cr`;
-        if (num >= 100000) return `₹${(num / 100000).toFixed(2)} L`;
-        return `₹${num.toLocaleString('en-IN')}`;
+        if (num >= 10000000) return `â‚¹${(num / 10000000).toFixed(2)} Cr`;
+        if (num >= 100000) return `â‚¹${(num / 100000).toFixed(2)} L`;
+        return `â‚¹${num.toLocaleString('en-IN')}`;
     };
 
     // Generate growth projection data
@@ -163,7 +163,7 @@ export function FDCalculator() {
                         <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200">
                             <span className="text-xs font-semibold text-slate-600 mr-1">Quick Examples:</span>
                             {[
-                                { label: "₹10L FD", principal: 1000000, years: 5, rate: 7 },
+                                { label: "â‚¹10L FD", principal: 1000000, years: 5, rate: 7 },
                                 { label: "Short Term", principal: 500000, years: 1, rate: 6.5 },
                                 { label: "Long Term", principal: 1000000, years: 10, rate: 7.5 },
                                 { label: "High Rate", principal: 500000, years: 3, rate: 8 },
@@ -219,7 +219,7 @@ export function FDCalculator() {
                                             <div className="absolute left-0 bottom-full mb-2 w-64 p-3 bg-slate-900 text-white text-xs rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 shadow-xl">
                                                 <div className="font-semibold mb-1.5">FD Formula:</div>
                                                 <div className="text-[10px] font-mono leading-relaxed">
-                                                    A = P × (1 + r/n)^(n×t)<br />
+                                                    A = P Ã— (1 + r/n)^(nÃ—t)<br />
                                                     Where:<br />
                                                     P = Principal, r = Rate,<br />
                                                     n = Compounding frequency,<br />
@@ -368,7 +368,7 @@ export function FDCalculator() {
                             </div>
                             <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-accent-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Interest</p>
-                                <p className="text-base sm:text-lg font-extrabold text-orange-600">{formatCurrency(result.interestEarned)}</p>
+                                <p className="text-base sm:text-lg font-extrabold text-accent-600">{formatCurrency(result.interestEarned)}</p>
                             </div>
                             <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-accent-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">
@@ -451,9 +451,9 @@ export function FDCalculator() {
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Principal</p>
                                     <p className="text-lg font-bold text-slate-900">{formatCurrency(principal)}</p>
                                 </div>
-                                <div className="p-4 bg-orange-50 rounded-xl border border-orange-100">
+                                <div className="p-4 bg-accent-50 rounded-xl border border-accent-100">
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Interest Rate</p>
-                                    <p className="text-lg font-bold text-orange-600">{interestRate}%</p>
+                                    <p className="text-lg font-bold text-accent-600">{interestRate}%</p>
                                 </div>
                             </div>
 
@@ -473,7 +473,7 @@ export function FDCalculator() {
                                                 {yearlyData.slice(0, 10).map((row, idx) => (
                                                     <tr key={idx} className="hover:bg-slate-50 transition-colors">
                                                         <td className="px-3 py-2.5 text-sm font-semibold text-slate-900">Year {row.year}</td>
-                                                        <td className="px-3 py-2.5 text-sm text-right font-semibold text-orange-600">{formatCurrency(row.interest)}</td>
+                                                        <td className="px-3 py-2.5 text-sm text-right font-semibold text-accent-600">{formatCurrency(row.interest)}</td>
                                                         <td className="px-3 py-2.5 text-sm text-right font-medium text-slate-600">{formatCurrency(row.total)}</td>
                                                     </tr>
                                                 ))}
@@ -487,7 +487,7 @@ export function FDCalculator() {
                                                 {yearlyData.length > 0 && (
                                                     <tr className="bg-accent-50 border-t-2 border-accent-200">
                                                         <td className="px-3 py-3 text-sm font-bold text-slate-900">Final</td>
-                                                        <td className="px-3 py-3 text-sm text-right font-bold text-orange-600">{formatCurrency(result.interestEarned)}</td>
+                                                        <td className="px-3 py-3 text-sm text-right font-bold text-accent-600">{formatCurrency(result.interestEarned)}</td>
                                                         <td className="px-3 py-3 text-sm text-right font-bold text-accent-600">{formatCurrency(adjustForInflation ? result.realValue : result.maturityAmount)}</td>
                                                     </tr>
                                                 )}

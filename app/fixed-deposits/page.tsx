@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from 'react';
 import { api } from "@/lib/api";
@@ -71,7 +71,7 @@ export default function FixedDepositsPage() {
             <div className="bg-slate-900 relative overflow-hidden pt-20 pb-32">
                 <div className="absolute inset-0 opacity-20 pointer-events-none">
                     <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-accent-600 rounded-full blur-[120px]" />
-                    <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-orange-600 rounded-full blur-[100px]" />
+                    <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-accent-600 rounded-full blur-[100px]" />
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -107,7 +107,7 @@ export default function FixedDepositsPage() {
                     {[
                         { label: "Bank Max Yield", value: "7.85%", sub: "For Senior Citizens", icon: Percent, color: "bg-primary-600" },
                         { label: "NBFC Max Yield", value: "8.65%", sub: "Aggressive Returns", icon: Zap, color: "bg-accent-600" },
-                        { label: "Insured Amount", value: "₹5 Lakh", sub: "DICGC per Bank", icon: Shield, color: "bg-primary-600" },
+                        { label: "Insured Amount", value: "â‚¹5 Lakh", sub: "DICGC per Bank", icon: Shield, color: "bg-primary-600" },
                         { label: "Minimum Lock-in", value: "7 Days", sub: "Maximum Liquidity", icon: Clock, color: "bg-secondary-600" },
                     ].map((stat, index) => (
                         <Card key={index} className="rounded-[2.5rem] border-0 shadow-2xl bg-white overflow-hidden group">
@@ -282,11 +282,11 @@ export default function FixedDepositsPage() {
                             <div className="pt-8 border-t border-white/5 grid grid-cols-2 gap-6">
                                 <div>
                                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-2">DICGC Scheme</p>
-                                    <p className="text-xs text-white font-bold leading-relaxed">Insurance cover up to ₹5L per bank including principal + interest.</p>
+                                    <p className="text-xs text-white font-bold leading-relaxed">Insurance cover up to â‚¹5L per bank including principal + interest.</p>
                                 </div>
                                 <div>
                                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-2">Section 80C</p>
-                                    <p className="text-xs text-white font-bold leading-relaxed">Tax Saver FDs offer deductions up to ₹1.5L yearly income.</p>
+                                    <p className="text-xs text-white font-bold leading-relaxed">Tax Saver FDs offer deductions up to â‚¹1.5L yearly income.</p>
                                 </div>
                             </div>
                         </CardContent>

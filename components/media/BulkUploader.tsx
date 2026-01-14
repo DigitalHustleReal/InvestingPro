@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef } from 'react';
 import { mediaService, UploadProgress } from '@/lib/media/media-service';
@@ -91,7 +91,7 @@ export function BulkUploader() {
             {/* Header */}
             <div className="p-4 border-b bg-slate-50">
                 <h3 className="text-lg font-bold text-slate-900 mb-2">
-                    📤 Bulk Upload
+                    ðŸ“¤ Bulk Upload
                 </h3>
                 <p className="text-sm text-slate-600 mb-4">
                     Upload multiple images at once. All images will be automatically optimized.
@@ -102,7 +102,7 @@ export function BulkUploader() {
                     <div className="flex gap-4 mb-4 text-sm">
                         <span className="text-slate-600">Total: <strong>{stats.total}</strong></span>
                         {stats.pending > 0 && <span className="text-secondary-600">Pending: <strong>{stats.pending}</strong></span>}
-                        {stats.uploading > 0 && <span className="text-orange-600">Uploading: <strong>{stats.uploading}</strong></span>}
+                        {stats.uploading > 0 && <span className="text-accent-600">Uploading: <strong>{stats.uploading}</strong></span>}
                         {stats.complete > 0 && <span className="text-success-600">Complete: <strong>{stats.complete}</strong></span>}
                         {stats.error > 0 && <span className="text-danger-600">Error: <strong>{stats.error}</strong></span>}
                     </div>
@@ -123,7 +123,7 @@ export function BulkUploader() {
                         disabled={uploading}
                         className="px-4 py-2 bg-secondary-600 text-white rounded-lg hover:bg-secondary-700 font-medium disabled:opacity-50"
                     >
-                        ➕ Select Files
+                        âž• Select Files
                     </button>
                     {stats.pending > 0 && (
                         <button
@@ -131,7 +131,7 @@ export function BulkUploader() {
                             disabled={uploading}
                             className="px-4 py-2 bg-success-600 text-white rounded-lg hover:bg-success-700 font-medium disabled:opacity-50"
                         >
-                            {uploading ? '⏳ Uploading...' : `⬆️ Upload ${stats.pending} File${stats.pending > 1 ? 's' : ''}`}
+                            {uploading ? 'â³ Uploading...' : `â¬†ï¸ Upload ${stats.pending} File${stats.pending > 1 ? 's' : ''}`}
                         </button>
                     )}
                     {stats.complete > 0 && !uploading && (
@@ -139,7 +139,7 @@ export function BulkUploader() {
                             onClick={handleClearCompleted}
                             className="px-4 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 font-medium"
                         >
-                            🗑️ Clear Completed
+                            ðŸ—‘ï¸ Clear Completed
                         </button>
                     )}
                 </div>
@@ -178,9 +178,9 @@ export function BulkUploader() {
                                 key={item.id}
                                 className={`border rounded-lg p-3 ${
                                     item.status === 'complete'
-                                        ? 'bg-success-50 border-green-200'
+                                        ? 'bg-success-50 border-success-200'
                                         : item.status === 'error'
-                                        ? 'bg-danger-50 border-red-200'
+                                        ? 'bg-danger-50 border-danger-200'
                                         : item.status === 'uploading'
                                         ? 'bg-secondary-50 border-secondary-200'
                                         : 'bg-slate-50 border-slate-200'
@@ -189,9 +189,9 @@ export function BulkUploader() {
                                 <div className="flex items-center gap-3">
                                     {/* Status Icon */}
                                     <div className="text-2xl">
-                                        {item.status === 'complete' ? '✅' :
-                                         item.status === 'error' ? '❌' :
-                                         item.status === 'uploading' ? '⏳' : '📄'}
+                                        {item.status === 'complete' ? 'âœ…' :
+                                         item.status === 'error' ? 'âŒ' :
+                                         item.status === 'uploading' ? 'â³' : 'ðŸ“„'}
                                     </div>
 
                                     {/* Info */}
@@ -228,7 +228,7 @@ export function BulkUploader() {
                                         {/* Complete */}
                                         {item.status === 'complete' && (
                                             <p className="text-sm text-success-600 mt-1">
-                                                ✓ Upload complete!
+                                                âœ“ Upload complete!
                                             </p>
                                         )}
                                     </div>
@@ -238,7 +238,7 @@ export function BulkUploader() {
                                         <button
                                             onClick={() => handleRemove(item.id)}
                                             disabled={uploading}
-                                            className="px-3 py-1 text-sm bg-danger-100 text-danger-700 rounded hover:bg-red-200 disabled:opacity-50"
+                                            className="px-3 py-1 text-sm bg-danger-100 text-danger-700 rounded hover:bg-danger-200 disabled:opacity-50"
                                         >
                                             Remove
                                         </button>
@@ -254,13 +254,13 @@ export function BulkUploader() {
             {items.length === 0 && (
                 <div className="border-t p-4 bg-secondary-50">
                     <h4 className="text-sm font-medium text-secondary-900 mb-2">
-                        💡 Bulk Upload Tips:
+                        ðŸ’¡ Bulk Upload Tips:
                     </h4>
                     <ul className="text-sm text-secondary-700 space-y-1">
-                        <li>• Select multiple files at once (Ctrl/Cmd + Click)</li>
-                        <li>• All images will be automatically optimized to WebP</li>
-                        <li>• Typical savings: 50-80% per image</li>
-                        <li>• Upload up to 50 images at a time</li>
+                        <li>â€¢ Select multiple files at once (Ctrl/Cmd + Click)</li>
+                        <li>â€¢ All images will be automatically optimized to WebP</li>
+                        <li>â€¢ Typical savings: 50-80% per image</li>
+                        <li>â€¢ Upload up to 50 images at a time</li>
                     </ul>
                 </div>
             )}

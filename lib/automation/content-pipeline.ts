@@ -288,21 +288,21 @@ export async function runAutomationPipeline(config: PipelineConfig): Promise<Pip
         
         reportProgress('plagiarism_check', 'running', 60, 'Checking for plagiarism...');
         
-        const plagiarismResult = await checkPlagiarism(contentMarkdown);
+        const plagiarismResult = await checkPlagiarism(contentMarkdown, config.topic);
         
         result.stages.plagiarism_check = {
-            similarity_percentage: plagiarismResult.similarity_percentage,
+            similarity_percentage: plagiarismResult.similarityScore,
             matches_found: plagiarismResult.matches.length,
-            verdict: plagiarismResult.verdict
+            verdict: plagiarismResult.isPlagiarized ? 'Failed' : 'Passed'
         };
         
-        result.plagiarism_percentage = plagiarismResult.similarity_percentage;
+        result.plagiarism_percentage = plagiarismResult.similarityScore;
         
-        if (plagiarismResult.similarity_percentage > (mergedConfig.maxPlagiarismPercentage || 5)) {
-            result.warnings.push(`Plagiarism ${plagiarismResult.similarity_percentage}% exceeds maximum ${mergedConfig.maxPlagiarismPercentage}%`);
+        if (plagiarismResult.similarityScore > (mergedConfig.maxPlagiarismPercentage || 5)) {
+            result.warnings.push(`Plagiarism ${plagiarismResult.similarityScore}% exceeds maximum ${mergedConfig.maxPlagiarismPercentage}%`);
         }
         
-        reportProgress('plagiarism_check', 'complete', 65, `Plagiarism: ${plagiarismResult.similarity_percentage}% (${plagiarismResult.matches.length} matches)`);
+        reportProgress('plagiarism_check', 'complete', 65, `Plagiarism: ${plagiarismResult.similarityScore}% (${plagiarismResult.matches.length} matches)`);
         
         // ===================================================================
         // STAGE 6: IMAGE GENERATION
@@ -331,15 +331,15 @@ export async function runAutomationPipeline(config: PipelineConfig): Promise<Pip
             }
             
             // Generate alt text
-            const altText = await generateImageAltText(featuredImage.url, {
+            const altText = await generateImageAltText(featuredImage!.url, {
                 context: config.category,
                 keyword: finalKeyword
             });
             
             result.stages.image_generation = {
-                source: featuredImage.quality_score >= 70 ? 'stock' : 'ai',
+                source: featuredImage!.quality_score >= 70 ? 'stock' : 'ai',
                 alt_text: altText.alt_text,
-                url: featuredImage.url
+                url: featuredImage!.url
             };
             
             reportProgress('image_generation', 'complete', 75, `Image generated: ${altText.alt_text}`);
@@ -425,14 +425,17 @@ export async function runAutomationPipeline(config: PipelineConfig): Promise<Pip
             quality_score: qualityResult.total_score,
             seo_score: seoResult.overall_score,
             ai_generated: true
-        }).select().single();
+        } as any).select().single();
         
         if (error) {
             throw new Error(`Database save failed: ${error.message}`);
         }
         
-        result.article_id = article.id;
-        result.article_slug = article.slug;
+        // Cast article to any to avoid 'never' type usage
+        const articleData = article as any;
+
+        result.article_id = articleData.id;
+        result.article_slug = articleData.slug;
         
         reportProgress('save_database', 'complete', 100, `Saved as ${mergedConfig.autoPublish ? 'published' : 'draft'}`);
         

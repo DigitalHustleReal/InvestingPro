@@ -110,8 +110,8 @@ export default function CMSDashboardPage() {
                     <Card className="bg-white/[0.03] border-white/5">
                         <CardContent className="p-6">
                             <div className="flex items-center justify-between mb-4">
-                                <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center">
-                                    <Rss className="w-6 h-6 text-orange-400" />
+                                <div className="w-12 h-12 rounded-xl bg-accent-500/10 flex items-center justify-center">
+                                    <Rss className="w-6 h-6 text-accent-400" />
                                 </div>
                             </div>
                             <p className="text-sm font-medium text-slate-400 mb-1">Scrapers</p>
@@ -187,8 +187,8 @@ export default function CMSDashboardPage() {
                         <Card className="bg-white/[0.03] border-white/5 hover:border-primary-500/30 transition-all cursor-pointer">
                             <CardContent className="p-6">
                                 <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center">
-                                        <Rss className="w-6 h-6 text-orange-400" />
+                                    <div className="w-12 h-12 rounded-xl bg-accent-500/10 flex items-center justify-center">
+                                        <Rss className="w-6 h-6 text-accent-400" />
                                     </div>
                                     <div>
                                         <h3 className="font-bold text-white mb-1">Scraper Management</h3>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from 'react';
 import {
@@ -40,7 +40,7 @@ const investingTypes = [
 const FAQ_DATA = [
     {
         q: "How much should I invest monthly?",
-        a: "A common rule is 20% of your post-tax income. However, it depends on your financial goals. Start with whatever you can afford, even ₹500/month, and increase it annually."
+        a: "A common rule is 20% of your post-tax income. However, it depends on your financial goals. Start with whatever you can afford, even â‚¹500/month, and increase it annually."
     },
     {
         q: "What is asset allocation?",
@@ -52,7 +52,7 @@ const FAQ_DATA = [
     },
     {
         q: "How are investment returns taxed?",
-        a: "It varies. Long-term equity gains (>1 year) are taxed at 10% above ₹1.25L. Short-term (<1 year) at 15%. Debt funds are taxed at your slab rate."
+        a: "It varies. Long-term equity gains (>1 year) are taxed at 10% above â‚¹1.25L. Short-term (<1 year) at 15%. Debt funds are taxed at your slab rate."
     }
 ];
 
@@ -209,7 +209,7 @@ export default function InvestingPage() {
 
                              <div className="mt-12 flex flex-wrap justify-center lg:justify-start gap-8">
                                 {[
-                                    { label: "Assets Tracked", value: "₹50Cr+", icon: PieChart },
+                                    { label: "Assets Tracked", value: "â‚¹50Cr+", icon: PieChart },
                                     { label: "Avg Returns", value: "18.2%", icon: ArrowUpRight },
                                     { label: "Zero Commission", value: "Direct", icon: CheckCircle2 }
                                 ].map((stat, i) => (
@@ -230,7 +230,7 @@ export default function InvestingPage() {
                                 <div className="flex justify-between items-start mb-8 z-10 relative">
                                     <div>
                                         <div className="text-sm text-slate-500 font-medium mb-1">Portfolio Value</div>
-                                        <div className="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">₹24,50,000</div>
+                                        <div className="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">â‚¹24,50,000</div>
                                         <div className="flex items-center gap-1 text-primary-500 font-bold text-sm mt-1">
                                             <ArrowUpRight size={16} /> +22.4% this year
                                         </div>
@@ -443,7 +443,7 @@ export default function InvestingPage() {
                                 
                                 {/* Decor */}
                                 <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-                                <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+                                <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
                             </div>
                         </div>
 

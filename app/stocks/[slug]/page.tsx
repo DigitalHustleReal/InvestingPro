@@ -105,8 +105,8 @@ export default async function StockDetailPage({ params }: { params: { slug: stri
   }
 
   const TrendIcon = stock.isPositive ? TrendingUp : TrendingDown;
-  const trendColor = stock.isPositive ? 'text-green-500' : 'text-red-500';
-  const trendBg = stock.isPositive ? 'bg-green-50 dark:bg-green-900/20' : 'bg-red-50 dark:bg-red-900/20';
+  const trendColor = stock.isPositive ? 'text-success-500' : 'text-danger-500';
+  const trendBg = stock.isPositive ? 'bg-success-50 dark:bg-success-900/20' : 'bg-danger-50 dark:bg-danger-900/20';
   
   return (
     <div className="bg-slate-50 dark:bg-slate-950 min-h-screen">
@@ -156,11 +156,11 @@ export default async function StockDetailPage({ params }: { params: { slug: stri
                 </div>
                 <div>
                   <p className="text-sm text-slate-400">52W High</p>
-                  <p className="text-lg font-bold text-green-400">{stock.weekHigh52}</p>
+                  <p className="text-lg font-bold text-success-400">{stock.weekHigh52}</p>
                 </div>
                 <div>
                   <p className="text-sm text-slate-400">52W Low</p>
-                  <p className="text-lg font-bold text-red-400">{stock.weekLow52}</p>
+                  <p className="text-lg font-bold text-danger-400">{stock.weekLow52}</p>
                 </div>
               </div>
             </div>
@@ -173,16 +173,16 @@ export default async function StockDetailPage({ params }: { params: { slug: stri
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-slate-300">Analyst Rating</span>
                     <span className={`px-3 py-1 rounded-full text-sm font-bold ${
-                      stock.analystRating === 'Buy' ? 'bg-green-500 text-white' :
-                      stock.analystRating === 'Hold' ? 'bg-yellow-500 text-black' :
-                      'bg-red-500 text-white'
+                      stock.analystRating === 'Buy' ? 'bg-success-500 text-white' :
+                      stock.analystRating === 'Hold' ? 'bg-accent-500 text-black' :
+                      'bg-danger-500 text-white'
                     }`}>
                       {stock.analystRating}
                     </span>
                   </div>
                   <div className="flex items-center justify-between mb-6">
                     <span className="text-slate-300">Target Price</span>
-                    <span className="text-xl font-bold text-green-400">{stock.targetPrice}</span>
+                    <span className="text-xl font-bold text-success-400">{stock.targetPrice}</span>
                   </div>
                   
                   <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
@@ -236,9 +236,9 @@ export default async function StockDetailPage({ params }: { params: { slug: stri
               <CardContent>
                 <div className="relative pt-6 pb-2">
                   <div className="flex justify-between text-sm mb-2">
-                    <span className="text-red-500 font-semibold">{stock.weekLow52}</span>
+                    <span className="text-danger-500 font-semibold">{stock.weekLow52}</span>
                     <span className="text-slate-500">Current: {stock.currentPrice}</span>
-                    <span className="text-green-500 font-semibold">{stock.weekHigh52}</span>
+                    <span className="text-success-500 font-semibold">{stock.weekHigh52}</span>
                   </div>
                   <div className="h-3 bg-gradient-to-r from-red-200 via-yellow-200 to-green-200 rounded-full relative">
                     <div 
@@ -252,9 +252,9 @@ export default async function StockDetailPage({ params }: { params: { slug: stri
 
             {/* Pros & Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-green-200 dark:border-green-800">
-                <CardHeader className="bg-green-50 dark:bg-green-900/20">
-                  <CardTitle className="text-green-700 dark:text-green-400 flex items-center gap-2">
+              <Card className="border-success-200 dark:border-success-800">
+                <CardHeader className="bg-success-50 dark:bg-success-900/20">
+                  <CardTitle className="text-success-700 dark:text-success-400 flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5" />
                     Investment Strengths
                   </CardTitle>
@@ -263,7 +263,7 @@ export default async function StockDetailPage({ params }: { params: { slug: stri
                   <ul className="space-y-2">
                     {stock.pros.map((pro, index) => (
                       <li key={index} className="flex items-start gap-2 text-sm">
-                        <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-success-500 flex-shrink-0 mt-0.5" />
                         <span>{pro}</span>
                       </li>
                     ))}
@@ -271,9 +271,9 @@ export default async function StockDetailPage({ params }: { params: { slug: stri
                 </CardContent>
               </Card>
               
-              <Card className="border-red-200 dark:border-red-800">
-                <CardHeader className="bg-red-50 dark:bg-red-900/20">
-                  <CardTitle className="text-red-700 dark:text-red-400 flex items-center gap-2">
+              <Card className="border-danger-200 dark:border-danger-800">
+                <CardHeader className="bg-danger-50 dark:bg-danger-900/20">
+                  <CardTitle className="text-danger-700 dark:text-danger-400 flex items-center gap-2">
                     <XCircle className="w-5 h-5" />
                     Risk Factors
                   </CardTitle>
@@ -282,7 +282,7 @@ export default async function StockDetailPage({ params }: { params: { slug: stri
                   <ul className="space-y-2">
                     {stock.cons.map((con, index) => (
                       <li key={index} className="flex items-start gap-2 text-sm">
-                        <XCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+                        <XCircle className="w-4 h-4 text-danger-500 flex-shrink-0 mt-0.5" />
                         <span>{con}</span>
                       </li>
                     ))}

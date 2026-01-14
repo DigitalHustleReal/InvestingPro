@@ -62,7 +62,7 @@ export default function SocialDistributionPanel({
         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
             <CardHeader className="border-b border-white/5 px-6 py-4 flex flex-row items-center justify-between">
                 <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                    <Sparkles className="w-4 h-4 text-pink-400" />
+                    <Sparkles className="w-4 h-4 text-danger-400" />
                     Social Distribution Assets
                 </CardTitle>
                 {hasPosts && posts?.generated_at && (
@@ -79,7 +79,7 @@ export default function SocialDistributionPanel({
                             <Button 
                                 onClick={handleRegenerate}
                                 disabled={isRegenerating}
-                                className="bg-pink-600 hover:bg-pink-700 text-white"
+                                className="bg-danger-600 hover:bg-danger-700 text-white"
                             >
                                 {isRegenerating ? (
                                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -165,7 +165,7 @@ export default function SocialDistributionPanel({
                             <div className="space-y-3">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
-                                        <Instagram className="w-4 h-4 text-pink-400" />
+                                        <Instagram className="w-4 h-4 text-danger-400" />
                                         <span className="text-xs font-bold uppercase tracking-widest text-slate-400">
                                             Instagram Caption
                                         </span>

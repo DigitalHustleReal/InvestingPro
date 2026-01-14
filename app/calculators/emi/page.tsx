@@ -31,7 +31,7 @@ export default function EMICalculatorPage() {
                 "name": "How to calculate EMI?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "EMI is calculated using the formula: EMI = [P × r × (1+r)^n] / [(1+r)^n - 1], where P is principal loan amount, r is monthly interest rate (annual rate/12), and n is number of monthly installments."
+                    "text": "EMI is calculated using the formula: EMI = [P Ã— r Ã— (1+r)^n] / [(1+r)^n - 1], where P is principal loan amount, r is monthly interest rate (annual rate/12), and n is number of monthly installments."
                 }
             },
             {
@@ -126,7 +126,7 @@ export default function EMICalculatorPage() {
                         </Card>
                         <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-purple-50 to-white dark:from-slate-800 dark:to-slate-900">
                             <CardHeader>
-                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-purple-700 dark:text-purple-400">
+                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
                                     <CheckCircle2 className="w-5 h-5" />
                                     Accessibility
                                 </CardTitle>
@@ -194,7 +194,7 @@ export default function EMICalculatorPage() {
                                 },
                                 {
                                     q: "How to calculate EMI?",
-                                    a: "EMI is calculated using formula: EMI = [P × r × (1+r)^n] / [(1+r)^n - 1], where P is principal (loan amount), r is monthly interest rate (annual rate ÷ 12), and n is loan tenure in months. For example, ₹50 lakhs at 8.5% for 20 years: EMI = [50L × 0.7083% × (1.007083)^240] / [(1.007083)^240 - 1] = ₹43,391. Our EMI calculator does this automatically and shows detailed breakdown."
+                                    a: "EMI is calculated using formula: EMI = [P Ã— r Ã— (1+r)^n] / [(1+r)^n - 1], where P is principal (loan amount), r is monthly interest rate (annual rate Ã· 12), and n is loan tenure in months. For example, â‚¹50 lakhs at 8.5% for 20 years: EMI = [50L Ã— 0.7083% Ã— (1.007083)^240] / [(1.007083)^240 - 1] = â‚¹43,391. Our EMI calculator does this automatically and shows detailed breakdown."
                                 },
                                 {
                                     q: "What factors affect EMI?",
@@ -210,7 +210,7 @@ export default function EMICalculatorPage() {
                                 },
                                 {
                                     q: "What is the maximum EMI I can afford?",
-                                    a: "Generally, EMI should not exceed 40-50% of your monthly take-home income. For example, if monthly income is ₹1 lakh, EMI should be ₹40,000-50,000 maximum. Consider other expenses (living costs, savings, investments, emergency fund) before deciding EMI amount. Banks typically approve loans where EMI is 40-60% of income. Use our calculator to find affordable loan amount based on your income."
+                                    a: "Generally, EMI should not exceed 40-50% of your monthly take-home income. For example, if monthly income is â‚¹1 lakh, EMI should be â‚¹40,000-50,000 maximum. Consider other expenses (living costs, savings, investments, emergency fund) before deciding EMI amount. Banks typically approve loans where EMI is 40-60% of income. Use our calculator to find affordable loan amount based on your income."
                                 },
                                 {
                                     q: "EMI calculator for car loan?",
@@ -218,7 +218,7 @@ export default function EMICalculatorPage() {
                                 },
                                 {
                                     q: "How does EMI work?",
-                                    a: "EMI (Equated Monthly Installment) is a fixed amount paid monthly to repay loan. Each EMI consists of both principal repayment and interest payment. Initially, interest component is higher (70-80% of EMI), but as loan progresses, principal component increases. For example, ₹1L EMI for home loan: Month 1 might have ₹70K interest + ₹30K principal, Month 120 might have ₹40K interest + ₹60K principal. This is called amortization."
+                                    a: "EMI (Equated Monthly Installment) is a fixed amount paid monthly to repay loan. Each EMI consists of both principal repayment and interest payment. Initially, interest component is higher (70-80% of EMI), but as loan progresses, principal component increases. For example, â‚¹1L EMI for home loan: Month 1 might have â‚¹70K interest + â‚¹30K principal, Month 120 might have â‚¹40K interest + â‚¹60K principal. This is called amortization."
                                 },
                                 {
                                     q: "What is prepayment in EMI?",
@@ -234,7 +234,7 @@ export default function EMICalculatorPage() {
                                 },
                                 {
                                     q: "What happens if I miss EMI payment?",
-                                    a: "Missing EMI payment results in: 1) Late payment charges (typically ₹500-2000), 2) Penal interest on overdue amount (2-3% extra), 3) Negative impact on credit score, 4) Risk of loan default if missed for 3+ months. Banks may send legal notices and can initiate recovery proceedings. Always pay EMI on time. Set up auto-debit or reminders to avoid missing payments."
+                                    a: "Missing EMI payment results in: 1) Late payment charges (typically â‚¹500-2000), 2) Penal interest on overdue amount (2-3% extra), 3) Negative impact on credit score, 4) Risk of loan default if missed for 3+ months. Banks may send legal notices and can initiate recovery proceedings. Always pay EMI on time. Set up auto-debit or reminders to avoid missing payments."
                                 },
                                 {
                                     q: "EMI calculator accuracy?",
@@ -246,7 +246,7 @@ export default function EMICalculatorPage() {
                                 },
                                 {
                                     q: "How to calculate total interest on loan?",
-                                    a: "Total interest = (EMI × Total Months) - Principal Amount. For example, ₹50L loan at 8.5% for 20 years: EMI = ₹43,391, Total payment = ₹43,391 × 240 = ₹1.04 Cr, Total interest = ₹1.04 Cr - ₹50L = ₹54L. Our EMI calculator shows total interest automatically. Higher interest rate and longer tenure increase total interest significantly."
+                                    a: "Total interest = (EMI Ã— Total Months) - Principal Amount. For example, â‚¹50L loan at 8.5% for 20 years: EMI = â‚¹43,391, Total payment = â‚¹43,391 Ã— 240 = â‚¹1.04 Cr, Total interest = â‚¹1.04 Cr - â‚¹50L = â‚¹54L. Our EMI calculator shows total interest automatically. Higher interest rate and longer tenure increase total interest significantly."
                                 },
                                 {
                                     q: "EMI calculator for business loan?",
@@ -262,7 +262,7 @@ export default function EMICalculatorPage() {
                                 },
                                 {
                                     q: "How to calculate loan eligibility?",
-                                    a: "Loan eligibility depends on: 1) Income (40-60% can go towards EMI), 2) Age (affects maximum tenure), 3) Credit score, 4) Existing loans. Formula: Eligible Loan = (Monthly Income × EMI Ratio × Loan Tenure) / (1 + (Rate × Tenure)). Banks use different formulas. Use our calculator in reverse - enter affordable EMI to find eligible loan amount. Banks provide precise eligibility based on documents."
+                                    a: "Loan eligibility depends on: 1) Income (40-60% can go towards EMI), 2) Age (affects maximum tenure), 3) Credit score, 4) Existing loans. Formula: Eligible Loan = (Monthly Income Ã— EMI Ratio Ã— Loan Tenure) / (1 + (Rate Ã— Tenure)). Banks use different formulas. Use our calculator in reverse - enter affordable EMI to find eligible loan amount. Banks provide precise eligibility based on documents."
                                 },
                                 {
                                     q: "What is reducing balance method in EMI?",
@@ -278,7 +278,7 @@ export default function EMICalculatorPage() {
                                 },
                                 {
                                     q: "How does loan tenure affect EMI?",
-                                    a: "Longer tenure = Lower EMI but Higher total interest. Shorter tenure = Higher EMI but Lower total interest. For example, ₹50L at 8.5%: 15 years = ₹49,200 EMI (₹38.5L interest), 20 years = ₹43,391 EMI (₹54L interest), 25 years = ₹40,083 EMI (₹70L interest). Choose tenure based on EMI affordability and interest cost. Our calculator shows comparison for different tenures."
+                                    a: "Longer tenure = Lower EMI but Higher total interest. Shorter tenure = Higher EMI but Lower total interest. For example, â‚¹50L at 8.5%: 15 years = â‚¹49,200 EMI (â‚¹38.5L interest), 20 years = â‚¹43,391 EMI (â‚¹54L interest), 25 years = â‚¹40,083 EMI (â‚¹70L interest). Choose tenure based on EMI affordability and interest cost. Our calculator shows comparison for different tenures."
                                 },
                                 {
                                     q: "EMI calculator for gold loan?",

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import Link from 'next/link';
 import { DataTable } from '@/components/data-table/DataTable';
 import { ColumnDef } from '@/components/data-table/types';
@@ -57,7 +57,7 @@ export function CreditCardTable({ cards }: CreditCardTableProps) {
                 return (
                     <div className="text-center">
                         <p className={`font-bold ${feeNum === 0 ? 'text-primary-600' : 'text-slate-900 dark:text-white'}`}>
-                            {feeNum === 0 ? '₹0' : `₹${feeNum.toLocaleString()}`}
+                            {feeNum === 0 ? 'â‚¹0' : `â‚¹${feeNum.toLocaleString()}`}
                         </p>
                         {feeNum === 0 && (
                             <Badge className="text-[8px] bg-primary-100 text-primary-700 border-0 mt-1">
@@ -146,10 +146,10 @@ export function CreditCardTable({ cards }: CreditCardTableProps) {
             accessor: (row) => {
                 const bestFor = row.best_for || row.bestFor || 'General';
                 const badgeColors: Record<string, string> = {
-                    'Travel': 'bg-blue-100 text-blue-700 border-blue-200',
+                    'Travel': 'bg-secondary-100 text-secondary-700 border-secondary-200',
                     'Cashback': 'bg-success-100 text-success-700 border-emerald-200',
                     'Premium': 'bg-accent-100 text-accent-700 border-accent-200',
-                    'Rewards': 'bg-purple-100 text-purple-700 border-purple-200',
+                    'Rewards': 'bg-primary-100 text-primary-700 border-primary-200',
                     'General': 'bg-slate-100 text-slate-700 border-slate-200'
                 };
                 
@@ -178,7 +178,7 @@ export function CreditCardTable({ cards }: CreditCardTableProps) {
                     </Link>
                     <Link href={row.affiliate_link || row.link || `/credit-cards/${row.slug}`} className="w-full">
                         <Button 
-                            className="w-full h-9 rounded-xl bg-primary-600 hover:bg-blue-600 dark:bg-primary-500 dark:hover:bg-blue-500 text-white font-bold text-[10px] uppercase tracking-wider transition-all"
+                            className="w-full h-9 rounded-xl bg-primary-600 hover:bg-secondary-600 dark:bg-primary-500 dark:hover:bg-secondary-500 text-white font-bold text-[10px] uppercase tracking-wider transition-all"
                         >
                             Apply
                             <ArrowUpRight className="w-3 h-3 ml-1" />

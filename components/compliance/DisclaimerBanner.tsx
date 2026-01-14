@@ -48,7 +48,7 @@ const disclaimerContent = {
     iconColor: 'text-danger-700',
     bgColor: 'bg-danger-50',
     borderColor: 'border-danger-600',
-    textColor: 'text-red-900',
+    textColor: 'text-danger-900',
     title: 'SEBI Regulatory Notice',
     text: 'InvestingPro.in is NOT a SEBI registered investment advisor (RIA). We provide comparison and educational content only. Investment decisions should be made after consulting with SEBI registered advisors. Refer to www.sebi.gov.in for registered advisors.',
   },

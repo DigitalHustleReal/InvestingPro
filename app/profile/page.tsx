@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -105,7 +105,7 @@ export default function ProfilePage() {
         const styles: Record<string, string> = {
             pending: 'bg-accent-100 text-accent-700 dark:bg-accent-500/20 dark:text-accent-400',
             approved: 'bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-400',
-            rejected: 'bg-danger-100 text-danger-700 dark:bg-danger-500/20 dark:text-red-400',
+            rejected: 'bg-danger-100 text-danger-700 dark:bg-danger-500/20 dark:text-danger-400',
             'revision-requested': 'bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-400',
             published: 'bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-400'
         };
@@ -154,7 +154,7 @@ export default function ProfilePage() {
                                             <Globe className="w-3.5 h-3.5" />
                                             <span className="text-sm">Mumbai, India</span>
                                         </div>
-                                        <span className="text-slate-700">•</span>
+                                        <span className="text-slate-700">â€¢</span>
                                         <div className="flex items-center gap-1.5">
                                             <Zap className="w-3.5 h-3.5 text-accent-500" />
                                             <span className="text-sm">{user.points} XP Portfolio</span>
@@ -239,7 +239,7 @@ export default function ProfilePage() {
                                     </div>
                                     <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Authority Pending</h3>
                                     <p className="text-slate-500 dark:text-slate-400 font-medium mb-10">You haven't published any analysis articles yet. Share your market wisdom with the community.</p>
-                                    <Button className="rounded-2xl bg-primary-600 hover:bg-blue-600 dark:bg-primary-500 dark:hover:bg-blue-500 text-white font-bold h-14 px-8 shadow-xl transition-all">Submit Your First Article</Button>
+                                    <Button className="rounded-2xl bg-primary-600 hover:bg-secondary-600 dark:bg-primary-500 dark:hover:bg-secondary-500 text-white font-bold h-14 px-8 shadow-xl transition-all">Submit Your First Article</Button>
                                 </Card>
                             ) : (
                                 <div className="grid md:grid-cols-2 gap-6">
@@ -303,7 +303,7 @@ export default function ProfilePage() {
                                                                     />
                                                                 ))}
                                                             </div>
-                                                            <span className="text-slate-300">•</span>
+                                                            <span className="text-slate-300">â€¢</span>
                                                             <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-st">
                                                                 {new Date(review.created_at || review.created_date).toLocaleDateString()}
                                                             </span>

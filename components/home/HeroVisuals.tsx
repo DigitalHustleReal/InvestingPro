@@ -50,7 +50,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                                     <SignalIcon />
                                 </div>
                                 <div className="text-white/90 font-mono text-xl tracking-widest mt-8">
-                                    •••• •••• •••• 4289
+                                    â€¢â€¢â€¢â€¢ â€¢â€¢â€¢â€¢ â€¢â€¢â€¢â€¢ 4289
                                 </div>
                                 <div className="flex justify-between items-end">
                                     <div>
@@ -72,8 +72,8 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                             transition={{ delay: 0.5 }}
                             className="absolute -bottom-6 -right-6 bg-white dark:bg-slate-800 p-3 rounded-xl shadow-xl flex items-center gap-3 border border-slate-100 dark:border-slate-700"
                         >
-                            <div className="bg-success-100 dark:bg-green-900/30 p-2 rounded-full">
-                                <Check className="w-5 h-5 text-success-600 dark:text-green-400" />
+                            <div className="bg-success-100 dark:bg-success-900/30 p-2 rounded-full">
+                                <Check className="w-5 h-5 text-success-600 dark:text-success-400" />
                             </div>
                             <div>
                                 <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Approval Chance</div>
@@ -102,7 +102,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                                 <Landmark className="w-8 h-8" />
                             </div>
                             <div className="text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wide font-semibold mb-1">Loan Application</div>
-                            <div className="text-2xl font-bold text-slate-900 dark:text-white mb-2">₹ 50,00,000</div>
+                            <div className="text-2xl font-bold text-slate-900 dark:text-white mb-2">â‚¹ 50,00,000</div>
                             <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-4">
                                 <div className="h-full bg-primary-500 w-[90%]" />
                             </div>
@@ -149,8 +149,8 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                             {/* Inner Protected Content */}
                             <div className="absolute inset-0 flex flex-col items-center justify-center pt-4">
                                 <div className="flex -space-x-4 mb-3">
-                                    <div className="w-12 h-12 bg-primary-100 rounded-full border-2 border-white flex items-center justify-center">👨‍👩‍👧</div>
-                                    <div className="w-12 h-12 bg-pink-100 rounded-full border-2 border-white flex items-center justify-center">❤️</div>
+                                    <div className="w-12 h-12 bg-primary-100 rounded-full border-2 border-white flex items-center justify-center">ðŸ‘¨â€ðŸ‘©â€ðŸ‘§</div>
+                                    <div className="w-12 h-12 bg-danger-100 rounded-full border-2 border-white flex items-center justify-center">â¤ï¸</div>
                                 </div>
                                 <div className="bg-white dark:bg-slate-800 px-3 py-1 rounded-full shadow-sm border border-primary-100 dark:border-primary-900/50">
                                     <span className="text-xs font-bold text-primary-700 dark:text-primary-300">100% Protected</span>
@@ -165,7 +165,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                             transition={{ delay: 0.2 }}
                             className="absolute top-10 -left-12 bg-white dark:bg-slate-800 p-3 rounded-xl shadow-lg border border-slate-100 dark:border-slate-700 flex items-center gap-3"
                         >
-                            <div className="bg-orange-100 p-1.5 rounded-lg"><Lock className="w-4 h-4 text-orange-600" /></div>
+                            <div className="bg-accent-100 p-1.5 rounded-lg"><Lock className="w-4 h-4 text-accent-600" /></div>
                             <div className="text-xs font-bold">Term Life</div>
                         </motion.div>
 
@@ -191,9 +191,9 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                         <div className="flex justify-between items-center mb-6">
                             <div>
                                 <div className="text-xs text-slate-500 uppercase tracking-wide">Total Wealth</div>
-                                <div className="text-2xl font-bold text-slate-900 dark:text-white">₹ 12,45,000</div>
+                                <div className="text-2xl font-bold text-slate-900 dark:text-white">â‚¹ 12,45,000</div>
                             </div>
-                            <div className="bg-success-100 dark:bg-green-900/30 text-success-700 dark:text-green-400 px-2 py-1 rounded-lg text-sm font-bold flex items-center gap-1">
+                            <div className="bg-success-100 dark:bg-success-900/30 text-success-700 dark:text-success-400 px-2 py-1 rounded-lg text-sm font-bold flex items-center gap-1">
                                 <TrendingUp className="w-4 h-4" /> +14.2%
                             </div>
                         </div>
@@ -214,11 +214,11 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                         <div className="grid grid-cols-2 gap-3">
                              <div className="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-lg">
                                  <div className="text-[10px] text-slate-500">SIP Active</div>
-                                 <div className="font-semibold text-slate-900 dark:text-white text-sm">₹ 25k/mo</div>
+                                 <div className="font-semibold text-slate-900 dark:text-white text-sm">â‚¹ 25k/mo</div>
                              </div>
                              <div className="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-lg">
                                  <div className="text-[10px] text-slate-500">Projected</div>
-                                 <div className="font-semibold text-slate-900 dark:text-white text-sm">₹ 2.5 Cr</div>
+                                 <div className="font-semibold text-slate-900 dark:text-white text-sm">â‚¹ 2.5 Cr</div>
                              </div>
                         </div>
                     </motion.div>
@@ -238,11 +238,11 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                         >
                             <div className="text-right mb-4">
                                 <div className="text-slate-400 text-xs mb-1">Monthly Investment</div>
-                                <div className="text-2xl font-mono text-primary-400">₹ 10,000</div>
+                                <div className="text-2xl font-mono text-primary-400">â‚¹ 10,000</div>
                             </div>
                             <div className="grid grid-cols-4 gap-2 mb-4">
-                                {['7', '8', '9', '÷', '4', '5', '6', '×', '1', '2', '3', '-', '0', '.', '=', '+'].map((btn, i) => (
-                                    <div key={i} className={`h-10 rounded-lg flex items-center justify-center text-sm font-medium ${['÷', '×', '-', '+', '='].includes(btn) ? 'bg-primary-600' : 'bg-slate-700'}`}>
+                                {['7', '8', '9', 'Ã·', '4', '5', '6', 'Ã—', '1', '2', '3', '-', '0', '.', '=', '+'].map((btn, i) => (
+                                    <div key={i} className={`h-10 rounded-lg flex items-center justify-center text-sm font-medium ${['Ã·', 'Ã—', '-', '+', '='].includes(btn) ? 'bg-primary-600' : 'bg-slate-700'}`}>
                                         {btn}
                                     </div>
                                 ))}
@@ -260,7 +260,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                                 <div className="bg-primary-100 p-2 rounded-full"><PieChart className="w-5 h-5 text-primary-600" /></div>
                                 <div>
                                     <div className="text-xs text-slate-500 font-medium">Future Value (20 yr)</div>
-                                    <div className="text-lg font-bold text-primary-600">₹ 98.5 Lakhs</div>
+                                    <div className="text-lg font-bold text-primary-600">â‚¹ 98.5 Lakhs</div>
                                 </div>
                             </div>
                         </motion.div>

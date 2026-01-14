@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from 'next/link';
 import { Card, CardContent } from "@/components/ui/card";
@@ -62,8 +62,8 @@ const goals = [
         icon: PiggyBank,
         title: "Save More",
         description: "Compare savings accounts, FDs, and RDs for best returns",
-        color: "text-cyan-600",
-        bg: "bg-cyan-50",
+        color: "text-secondary-600",
+        bg: "bg-secondary-50",
         border: "border-cyan-200",
         href: "/banking",
         cta: "Compare Rates",

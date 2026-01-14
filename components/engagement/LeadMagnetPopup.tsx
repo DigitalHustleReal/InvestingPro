@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 /**
  * Lead Magnet Popup System
@@ -185,10 +185,10 @@ export function LeadMagnetPopup({
         {success ? (
           <div className="p-8 text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-success-100 dark:bg-success-500/20 mb-4">
-              <CheckCircle className="w-8 h-8 text-success-600 dark:text-green-400" />
+              <CheckCircle className="w-8 h-8 text-success-600 dark:text-success-400" />
             </div>
             <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
-              You're in! 🎉
+              You're in! ðŸŽ‰
             </h3>
             <p className="text-slate-600 dark:text-slate-400 mb-4">
               {variant === 'newsletter' 
@@ -229,7 +229,7 @@ export function LeadMagnetPopup({
               </p>
 
               {error && (
-                <div className="mb-4 p-2 bg-danger-50 dark:bg-danger-500/10 border border-red-200 dark:border-danger-500/20 rounded-lg text-danger-600 dark:text-red-400 text-sm text-center">
+                <div className="mb-4 p-2 bg-danger-50 dark:bg-danger-500/10 border border-danger-200 dark:border-danger-500/20 rounded-lg text-danger-600 dark:text-danger-400 text-sm text-center">
                   {error}
                 </div>
               )}

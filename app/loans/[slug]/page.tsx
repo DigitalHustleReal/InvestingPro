@@ -246,7 +246,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
                   </div>
                   <div>
                     <p className="text-sm text-primary-200">Monthly EMI</p>
-                    <p className="text-2xl font-bold text-yellow-300">₹{loan.emiExample.emi.toLocaleString()}</p>
+                    <p className="text-2xl font-bold text-accent-300">₹{loan.emiExample.emi.toLocaleString()}</p>
                   </div>
                 </div>
                 <div className="bg-white/10 rounded-lg p-3">
@@ -288,7 +288,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {loan.benefits.map((benefit, index) => (
                     <li key={index} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-blue-500 flex-shrink-0 mt-1" />
+                      <CheckCircle2 className="w-4 h-4 text-secondary-500 flex-shrink-0 mt-1" />
                       <span className="text-gray-700 text-sm">{benefit}</span>
                     </li>
                   ))}
@@ -324,9 +324,9 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
                 </CardContent>
               </Card>
               
-              <Card className="border-red-200 bg-red-50/30">
+              <Card className="border-danger-200 bg-danger-50/30">
                 <CardHeader>
-                  <CardTitle className="text-red-700 flex items-center gap-6 md:p-8">
+                  <CardTitle className="text-danger-700 flex items-center gap-6 md:p-8">
                     <XCircle className="w-5 h-5" />
                     Disadvantages
                   </CardTitle>
@@ -335,7 +335,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
                   <ul className="space-y-2">
                     {loan.cons.map((con, index) => (
                       <li key={index} className="flex items-start gap-2 text-gray-700">
-                        <XCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-1" />
+                        <XCircle className="w-4 h-4 text-danger-600 flex-shrink-0 mt-1" />
                         <span className="text-sm">{con}</span>
                       </li>
                     ))}
@@ -459,11 +459,11 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
               </Card>
               
               {/* Important Notice */}
-              <Card className="bg-red-50 border-red-200">
+              <Card className="bg-danger-50 border-danger-200">
                 <CardContent className="p-6 md:p-8">
                   <div className="flex gap-3">
-                    <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                    <div className="text-xs text-red-800">
+                    <AlertTriangle className="w-5 h-5 text-danger-600 flex-shrink-0 mt-0.5" />
+                    <div className="text-xs text-danger-800">
                       <p className="font-semibold mb-1">Borrow Responsibly</p>
                       <p>Failure to repay may impact your credit score and lead to legal action. Ensure EMI fits your budget.</p>
                     </div>

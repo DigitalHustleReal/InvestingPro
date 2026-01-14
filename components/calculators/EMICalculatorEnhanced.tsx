@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -72,9 +72,9 @@ export function EMICalculatorEnhanced() {
     const yearlyData = generateYearlyBreakdown();
 
     const formatCurrency = (num: number) => {
-        if (num >= 10000000) return `₹${(num / 10000000).toFixed(2)} Cr`;
-        if (num >= 100000) return `₹${(num / 100000).toFixed(2)} L`;
-        return `₹${num.toLocaleString('en-IN')}`;
+        if (num >= 10000000) return `â‚¹${(num / 10000000).toFixed(2)} Cr`;
+        if (num >= 100000) return `â‚¹${(num / 100000).toFixed(2)} L`;
+        return `â‚¹${num.toLocaleString('en-IN')}`;
     };
 
     const emiChartData = [
@@ -107,9 +107,9 @@ export function EMICalculatorEnhanced() {
                         <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200">
                             <span className="text-xs font-semibold text-slate-600 mr-1">Quick Examples:</span>
                             {[
-                                { label: "Home Loan ₹50L", loan: 5000000, years: 20, rate: 8.5 },
-                                { label: "Car Loan ₹10L", loan: 1000000, years: 5, rate: 9.5 },
-                                { label: "Personal Loan ₹5L", loan: 500000, years: 3, rate: 12 },
+                                { label: "Home Loan â‚¹50L", loan: 5000000, years: 20, rate: 8.5 },
+                                { label: "Car Loan â‚¹10L", loan: 1000000, years: 5, rate: 9.5 },
+                                { label: "Personal Loan â‚¹5L", loan: 500000, years: 3, rate: 12 },
                                 { label: "Business Loan", loan: 2000000, years: 5, rate: 11 },
                             ].map((preset, idx) => (
                                 <button
@@ -163,11 +163,11 @@ export function EMICalculatorEnhanced() {
                                             <div className="absolute left-0 bottom-full mb-2 w-72 p-3 bg-slate-900 text-white text-xs rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 shadow-xl">
                                                 <div className="font-semibold mb-1.5">EMI Formula:</div>
                                                 <div className="text-[10px] font-mono leading-relaxed">
-                                                    EMI = [P × r × (1+r)^n] / [(1+r)^n - 1]<br />
+                                                    EMI = [P Ã— r Ã— (1+r)^n] / [(1+r)^n - 1]<br />
                                                     Where:<br />
                                                     P = Principal (Loan Amount)<br />
                                                     r = Monthly Interest Rate<br />
-                                                    (Annual Rate ÷ 12)<br />
+                                                    (Annual Rate Ã· 12)<br />
                                                     n = Loan Tenure in months
                                                     <div className="mt-2 pt-2 border-t border-slate-700 text-slate-300">
                                                         Higher rate = Higher EMI
@@ -247,7 +247,7 @@ export function EMICalculatorEnhanced() {
                             </div>
                             <div className="text-center p-3 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-accent-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Interest</p>
-                                <p className="text-base sm:text-lg font-extrabold text-orange-600">{formatCurrency(emiResult.totalInterest)}</p>
+                                <p className="text-base sm:text-lg font-extrabold text-accent-600">{formatCurrency(emiResult.totalInterest)}</p>
                             </div>
                             <div className="text-center p-3 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-accent-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Total Pay</p>
@@ -350,7 +350,7 @@ export function EMICalculatorEnhanced() {
                                                     <tr key={idx} className="hover:bg-slate-50 transition-colors">
                                                         <td className="px-3 py-2.5 text-sm font-semibold text-slate-900">Year {row.year}</td>
                                                         <td className="px-3 py-2.5 text-sm text-right font-semibold text-primary-600">{formatCurrency(row.principal)}</td>
-                                                        <td className="px-3 py-2.5 text-sm text-right font-semibold text-orange-600">{formatCurrency(row.interest)}</td>
+                                                        <td className="px-3 py-2.5 text-sm text-right font-semibold text-accent-600">{formatCurrency(row.interest)}</td>
                                                         <td className="px-3 py-2.5 text-sm text-right font-medium text-slate-600">{formatCurrency(row.remaining)}</td>
                                                     </tr>
                                                 ))}
@@ -365,7 +365,7 @@ export function EMICalculatorEnhanced() {
                                                     <tr className="bg-accent-50 border-t-2 border-accent-200">
                                                         <td className="px-3 py-3 text-sm font-bold text-slate-900">Total</td>
                                                         <td className="px-3 py-3 text-sm text-right font-bold text-primary-600">{formatCurrency(emiLoan)}</td>
-                                                        <td className="px-3 py-3 text-sm text-right font-bold text-orange-600">{formatCurrency(emiResult.totalInterest)}</td>
+                                                        <td className="px-3 py-3 text-sm text-right font-bold text-accent-600">{formatCurrency(emiResult.totalInterest)}</td>
                                                         <td className="px-3 py-3 text-sm text-right font-bold text-slate-900">-</td>
                                                     </tr>
                                                 )}

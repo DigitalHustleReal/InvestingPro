@@ -266,3 +266,5 @@ export class SEOAnalyzer {
         };
     }
 }
+
+export const seoAnalyzer = SEOAnalyzer;

@@ -232,7 +232,7 @@ Return ONLY valid JSON.
             body_html: htmlContent,
             body_markdown: markdownContent,
             excerpt: structuredContent.excerpt || generatedContent.excerpt || '',
-            featured_image: featuredImage,
+            featured_image: featuredImage || undefined,
             seo_title: structuredContent.seo_title || generatedContent.seo_title || structuredContent.title || topic,
             meta_description: structuredContent.seo_description || generatedContent.seo_description || '',
             keywords: targetKeywords,

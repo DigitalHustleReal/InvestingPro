@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -60,9 +60,9 @@ export function KVPCalculator() {
     const result = calculateKVP();
 
     const formatCurrency = (num: number) => {
-        if (num >= 10000000) return `₹${(num / 10000000).toFixed(2)} Cr`;
-        if (num >= 100000) return `₹${(num / 100000).toFixed(2)} L`;
-        return `₹${Math.round(num).toLocaleString('en-IN')}`;
+        if (num >= 10000000) return `â‚¹${(num / 10000000).toFixed(2)} Cr`;
+        if (num >= 100000) return `â‚¹${(num / 100000).toFixed(2)} L`;
+        return `â‚¹${Math.round(num).toLocaleString('en-IN')}`;
     };
 
     return (
@@ -77,7 +77,7 @@ export function KVPCalculator() {
                                 <CardDescription>Kisan Vikas Patra Doubling Calculator</CardDescription>
                             </div>
                             <div className="flex flex-col gap-1.5 items-end">
-                                <Badge variant="secondary" className="bg-success-50 text-success-700 border-green-200">
+                                <Badge variant="secondary" className="bg-success-50 text-success-700 border-success-200">
                                     <CheckCircle2 className="w-3 h-3 mr-1" /> Govt Guarantee
                                 </Badge>
                             </div>
@@ -99,7 +99,7 @@ export function KVPCalculator() {
                                 </div>
                             </div>
                             <Slider value={[investment]} onValueChange={(v) => setInvestment(v[0])} min={1000} max={1000000} step={1000} className="py-2" />
-                            <p className="text-[10px] text-slate-500">Min Investment: ₹1,000</p>
+                            <p className="text-[10px] text-slate-500">Min Investment: â‚¹1,000</p>
                         </div>
 
                         {/* Rate */}
@@ -115,11 +115,11 @@ export function KVPCalculator() {
                             <p className="text-[10px] text-slate-500">Current Rate: 7.5%</p>
                         </div>
 
-                         <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-xl flex items-start gap-3">
-                            <Info className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                         <div className="p-4 bg-accent-50 border border-accent-200 rounded-xl flex items-start gap-3">
+                            <Info className="w-5 h-5 text-accent-600 flex-shrink-0 mt-0.5" />
                             <div>
-                                <p className="text-sm font-bold text-yellow-800 mb-1">Money Doubling Scheme</p>
-                                <p className="text-xs text-yellow-700 leading-relaxed">
+                                <p className="text-sm font-bold text-accent-800 mb-1">Money Doubling Scheme</p>
+                                <p className="text-xs text-accent-700 leading-relaxed">
                                     KVP guarantees to double your investment. At {interestRate}%, it takes approximately 
                                     <span className="font-bold"> {result.period.years} years & {result.period.months} months</span>.
                                 </p>
@@ -130,7 +130,7 @@ export function KVPCalculator() {
 
                 {/* Results */}
                 <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-success-50 to-success-50 relative overflow-hidden">
-                     <div className="absolute top-0 right-0 w-64 h-64 bg-green-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                     <div className="absolute top-0 right-0 w-64 h-64 bg-success-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                      <CardContent className="pt-8 relative z-10 flex flex-col justify-between h-full">
                         <div className="text-center mb-8">
                              <p className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-2">Maturity Amount</p>
@@ -176,7 +176,7 @@ export function KVPCalculator() {
                                 </defs>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                                 <XAxis dataKey="year" tick={{fontSize: 12}} stroke="#94a3b8" />
-                                <YAxis tick={{fontSize: 12}} stroke="#94a3b8" tickFormatter={(value) => `₹${value/1000}k`} />
+                                <YAxis tick={{fontSize: 12}} stroke="#94a3b8" tickFormatter={(value) => `â‚¹${value/1000}k`} />
                                 <Tooltip formatter={(value: number | undefined) => formatCurrency(value || 0)} />
                                 <Area type="step" dataKey="amount" stroke="#16a34a" fill="url(#colorKVP)" strokeWidth={2} name="Value" />
                             </AreaChart>

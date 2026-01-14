@@ -21,7 +21,12 @@
     "generate:author-images": "tsx scripts/generate-author-images.ts",
     "cms:verify": "tsx scripts/verify-cms-setup.ts",
     "cms:migrate": "tsx scripts/run-cms-migration.ts",
-    "cms:init": "tsx scripts/initialize-cms.ts"
+    "cms:init": "tsx scripts/initialize-cms.ts",
+    "deploy:check-env": "tsx scripts/setup-production.ts",
+    "deploy:check-db": "tsx scripts/apply-migrations.ts",
+    "deploy:create-admin": "tsx scripts/create-admin.ts",
+    "deploy:test": "tsx scripts/test-critical-flows.ts",
+    "deploy:validate": "npm run deploy:check-env && npm run deploy:check-db && npm run build"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Enhanced WordPress-Style CMS with Bulk Operations
  */
 
@@ -134,9 +134,9 @@ export default function EnhancedWordPressStyleCMS({
 
     const getStatusColor = (status: string) => {
         switch (status) {
-            case 'published': return 'bg-success-100 text-green-800 border-green-200';
+            case 'published': return 'bg-success-100 text-success-800 border-success-200';
             case 'draft': return 'bg-slate-100 text-slate-800 border-slate-200';
-            case 'review': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+            case 'review': return 'bg-accent-100 text-accent-800 border-accent-200';
             case 'archived': return 'bg-slate-100 text-slate-800 border-slate-200';
             default: return 'bg-slate-100 text-slate-800 border-slate-200';
         }
@@ -168,9 +168,9 @@ export default function EnhancedWordPressStyleCMS({
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-4">
                 {[
                     { label: 'Total', count: statusCounts.all, icon: FileText, color: 'text-slate-400' },
-                    { label: 'Published', count: statusCounts.published, icon: TrendingUp, color: 'text-green-400' },
+                    { label: 'Published', count: statusCounts.published, icon: TrendingUp, color: 'text-success-400' },
                     { label: 'Draft', count: statusCounts.draft, icon: FileText, color: 'text-slate-400' },
-                    { label: 'Review', count: statusCounts.review, icon: Eye, color: 'text-yellow-400' },
+                    { label: 'Review', count: statusCounts.review, icon: Eye, color: 'text-accent-400' },
                     { label: 'Archived', count: statusCounts.archived, icon: FileText, color: 'text-slate-400' },
                 ].map(stat => (
                     <Card key={stat.label} className="border-slate-200">

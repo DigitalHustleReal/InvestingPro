@@ -32,11 +32,11 @@ export default function HowWeMakeMoneyPage() {
 
                 {/* Main Content */}
                 <div className="prose prose-lg dark:prose-invert max-w-none">
-                    <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6 mb-8">
-                        <h2 className="text-xl font-bold text-blue-900 dark:text-blue-200 mb-3 mt-0">
+                    <div className="bg-secondary-50 dark:bg-secondary-900/20 border border-secondary-200 dark:border-secondary-800 rounded-xl p-6 mb-8">
+                        <h2 className="text-xl font-bold text-secondary-900 dark:text-secondary-200 mb-3 mt-0">
                             The Short Answer
                         </h2>
-                        <p className="text-blue-800 dark:text-blue-300 mb-0">
+                        <p className="text-secondary-800 dark:text-secondary-300 mb-0">
                             InvestingPro is an independent comparison platform supported by <strong>affiliate commissions</strong>. 
                             When you apply for a product through our links, we may earn a fee from the provider. 
                             This allows us to offer our comparison tools and research completely free to you.
@@ -174,7 +174,7 @@ export default function HowWeMakeMoneyPage() {
 
                     <p className="text-stone-700 dark:text-slate-300 mt-6">
                         <Link href="/methodology" className="text-primary-600 dark:text-primary-400 font-semibold hover:underline">
-                            Read our full methodology →
+                            Read our full methodology â†’
                         </Link>
                     </p>
 

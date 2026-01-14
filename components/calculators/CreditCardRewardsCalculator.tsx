@@ -114,15 +114,15 @@ export default function CreditCardRewardsCalculator() {
   const totalMonthlySpending = Object.values(spending).reduce((a, b) => a + b, 0);
 
   const formatCurrency = (value: number) => {
-    return `₹${value.toLocaleString('en-IN')}`;
+    return `â‚¹${value.toLocaleString('en-IN')}`;
   };
 
   const categories: Array<{ key: keyof SpendingCategories; label: string; icon: any; color: string }> = [
-    { key: 'travel', label: 'Travel', icon: '✈️', color: 'from-blue-500 to-cyan-500' },
-    { key: 'dining', label: 'Dining', icon: '🍽️', color: 'from-orange-500 to-danger-500' },
-    { key: 'shopping', label: 'Shopping', icon: '🛍️', color: 'from-purple-500 to-pink-500' },
-    { key: 'bills', label: 'Bills', icon: '📱', color: 'from-success-500 to-success-500' },
-    { key: 'others', label: 'Others', icon: '💳', color: 'from-slate-500 to-slate-500' }
+    { key: 'travel', label: 'Travel', icon: 'âœˆï¸', color: 'from-blue-500 to-cyan-500' },
+    { key: 'dining', label: 'Dining', icon: 'ðŸ½ï¸', color: 'from-orange-500 to-danger-500' },
+    { key: 'shopping', label: 'Shopping', icon: 'ðŸ›ï¸', color: 'from-purple-500 to-pink-500' },
+    { key: 'bills', label: 'Bills', icon: 'ðŸ“±', color: 'from-success-500 to-success-500' },
+    { key: 'others', label: 'Others', icon: 'ðŸ’³', color: 'from-slate-500 to-slate-500' }
   ];
 
   return (
@@ -161,7 +161,7 @@ export default function CreditCardRewardsCalculator() {
                     {cat.label}
                   </label>
                   <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold">₹</span>
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold">â‚¹</span>
                     <input
                       type="number"
                       value={spending[cat.key]}
@@ -219,7 +219,7 @@ export default function CreditCardRewardsCalculator() {
                           <p className="text-xs text-slate-500">{card.provider}</p>
                         </div>
                         {index === 0 && (
-                          <div className="text-2xl">🏆</div>
+                          <div className="text-2xl">ðŸ†</div>
                         )}
                       </div>
                     </div>
@@ -238,14 +238,14 @@ export default function CreditCardRewardsCalculator() {
                         "rounded-lg p-3",
                         card.netBenefit > 0 
                           ? "bg-success-50 dark:bg-emerald-900/20" 
-                          : "bg-danger-50 dark:bg-red-900/20"
+                          : "bg-danger-50 dark:bg-danger-900/20"
                       )}>
                         <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase mb-1">Net Benefit</p>
                         <p className={cn(
                           "text-sm font-bold",
                           card.netBenefit > 0 
                             ? "text-success-700 dark:text-emerald-400" 
-                            : "text-danger-700 dark:text-red-400"
+                            : "text-danger-700 dark:text-danger-400"
                         )}>
                           {card.netBenefit > 0 ? '+' : ''}{formatCurrency(Math.round(card.netBenefit))}
                         </p>
@@ -258,7 +258,7 @@ export default function CreditCardRewardsCalculator() {
                       className={cn(
                         "w-full",
                         index === 0 
-                          ? "bg-primary-600 hover:bg-blue-600 text-white" 
+                          ? "bg-primary-600 hover:bg-secondary-600 text-white" 
                           : "bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-white"
                       )}
                     >

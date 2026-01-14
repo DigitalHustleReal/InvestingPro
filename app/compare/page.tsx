@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -89,7 +89,7 @@ export default function ComparisonPage() {
                     <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">No Products Selected</h1>
                     <p className="text-slate-500 mb-8">Select products from any category to start comparing them side-by-side.</p>
                     <Link href="/credit-cards">
-                        <Button className="bg-primary-600 hover:bg-blue-600 text-white rounded-xl">
+                        <Button className="bg-primary-600 hover:bg-secondary-600 text-white rounded-xl">
                             Browse Products
                         </Button>
                     </Link>
@@ -146,7 +146,7 @@ export default function ComparisonPage() {
                         <Button variant="outline" size="sm" onClick={clearAll} className="h-9 text-xs">
                              <X className="w-3.5 h-3.5 mr-1.5" /> Clear
                         </Button>
-                        <Button className="h-9 text-xs bg-primary-600 hover:bg-blue-600 text-white">
+                        <Button className="h-9 text-xs bg-primary-600 hover:bg-secondary-600 text-white">
                              <Share2 className="w-3.5 h-3.5 mr-1.5" /> Share
                         </Button>
                     </div>
@@ -196,12 +196,12 @@ export default function ComparisonPage() {
                                             </h3>
                                             <div className="flex items-center justify-center gap-1 mb-4">
                                                 <Badge variant="secondary" className="bg-primary-50 text-primary-700 hover:bg-primary-50 border-0 text-[10px]">
-                                                    {product.rating.overall} ★
+                                                    {product.rating.overall} â˜…
                                                 </Badge>
                                                 <span className="text-xs text-slate-500">{product.provider_name}</span>
                                             </div>
                                             <Link href={product.affiliate_link ||  product.official_link || '#'}>
-                                                <Button size="sm" className="w-full bg-primary-600 hover:bg-blue-600 text-white rounded-lg">
+                                                <Button size="sm" className="w-full bg-primary-600 hover:bg-secondary-600 text-white rounded-lg">
                                                     Apply Now
                                                 </Button>
                                             </Link>

@@ -52,9 +52,9 @@ export function CompoundInterestCalculator() {
     const result = calculateCI();
 
     const formatCurrency = (num: number) => {
-        if (num >= 10000000) return `₹${(num / 10000000).toFixed(2)} Cr`;
-        if (num >= 100000) return `₹${(num / 100000).toFixed(2)} L`;
-        return `₹${Math.round(num).toLocaleString('en-IN')}`;
+        if (num >= 10000000) return `â‚¹${(num / 10000000).toFixed(2)} Cr`;
+        if (num >= 100000) return `â‚¹${(num / 100000).toFixed(2)} L`;
+        return `â‚¹${Math.round(num).toLocaleString('en-IN')}`;
     };
 
     return (
@@ -68,7 +68,7 @@ export function CompoundInterestCalculator() {
                                 <CardTitle className="text-xl mb-1">Compound Interest</CardTitle>
                                 <CardDescription>Power of Compounding</CardDescription>
                             </div>
-                            <Badge variant="secondary" className="bg-purple-50 text-purple-700 border-purple-200">
+                            <Badge variant="secondary" className="bg-primary-50 text-primary-700 border-primary-200">
                                 <TrendingUp className="w-3 h-3 mr-1" /> Exponential
                             </Badge>
                         </div>
@@ -144,11 +144,11 @@ export function CompoundInterestCalculator() {
 
                 {/* Results */}
                 <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-purple-50 to-indigo-50 relative overflow-hidden">
-                     <div className="absolute top-0 right-0 w-64 h-64 bg-purple-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                      <CardContent className="pt-8 relative z-10 flex flex-col justify-between h-full">
                          <div className="text-center mb-6">
                              <p className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-2">Maturity Amount</p>
-                             <div className="text-5xl font-extrabold text-purple-700 mb-2">
+                             <div className="text-5xl font-extrabold text-primary-700 mb-2">
                                 {formatCurrency(result.totalAmount)}
                              </div>
                         </div>
@@ -164,12 +164,12 @@ export function CompoundInterestCalculator() {
                              </div>
                         </div>
                         
-                         <div className="p-4 bg-purple-100/50 rounded-xl mt-4 border border-purple-200/50">
+                         <div className="p-4 bg-primary-100/50 rounded-xl mt-4 border border-primary-200/50">
                              <div className="flex items-center gap-2 mb-2">
-                                <Calculator className="w-4 h-4 text-purple-600" />
-                                <span className="text-xs font-bold text-purple-800">Formula</span>
+                                <Calculator className="w-4 h-4 text-primary-600" />
+                                <span className="text-xs font-bold text-primary-800">Formula</span>
                              </div>
-                             <p className="text-[10px] text-purple-700 font-mono leading-relaxed">
+                             <p className="text-[10px] text-primary-700 font-mono leading-relaxed">
                                 A = P(1 + r/n)^(nt)
                              </p>
                         </div>
@@ -194,7 +194,7 @@ export function CompoundInterestCalculator() {
                                 </defs>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                                 <XAxis dataKey="year" tick={{fontSize: 12}} stroke="#94a3b8" />
-                                <YAxis tick={{fontSize: 12}} stroke="#94a3b8" tickFormatter={(value) => `₹${value/1000}k`} />
+                                <YAxis tick={{fontSize: 12}} stroke="#94a3b8" tickFormatter={(value) => `â‚¹${value/1000}k`} />
                                 <Tooltip formatter={(value: number | undefined) => formatCurrency(value || 0)} />
                                 <Legend />
                                 <Area type="monotone" dataKey="compound" stroke="#8b5cf6" fillOpacity={1} fill="url(#colorCompound)" name="Compound Interest" strokeWidth={2} />

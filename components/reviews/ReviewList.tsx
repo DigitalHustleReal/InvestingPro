@@ -70,12 +70,12 @@ export default function ReviewList({ productSlug, refreshTrigger }: ReviewListPr
                         {review.user?.email?.split('@')[0] || 'Anonymous'}
                     </span>
                     {review.is_verified_purchase && (
-                        <span className="flex items-center gap-0.5 text-xs text-success-600 bg-success-50 dark:bg-green-900/20 px-1.5 py-0.5 rounded-full">
+                        <span className="flex items-center gap-0.5 text-xs text-success-600 bg-success-50 dark:bg-success-900/20 px-1.5 py-0.5 rounded-full">
                             <CheckCircle2 size={10} /> Verified
                         </span>
                     )}
                     {review.category && (
-                       <span className="text-xs text-blue-600 bg-blue-50 dark:bg-blue-900/20 px-2 py-0.5 rounded-full font-medium">
+                       <span className="text-xs text-secondary-600 bg-secondary-50 dark:bg-secondary-900/20 px-2 py-0.5 rounded-full font-medium">
                          {review.category}
                        </span>
                     )}
@@ -109,7 +109,7 @@ export default function ReviewList({ productSlug, refreshTrigger }: ReviewListPr
                  </span>
                ))}
                {(review.cons?.length || 0) > 0 && review.cons!.slice(0,2).map(c => (
-                 <span key={c} className="text-xs text-danger-700 bg-danger-50 dark:bg-red-900/20 dark:text-red-400 px-2 py-1 rounded-md border border-danger-100 dark:border-red-800">
+                 <span key={c} className="text-xs text-danger-700 bg-danger-50 dark:bg-danger-900/20 dark:text-danger-400 px-2 py-1 rounded-md border border-danger-100 dark:border-danger-800">
                    - {c}
                  </span>
                ))}

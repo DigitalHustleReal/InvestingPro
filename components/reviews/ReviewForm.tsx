@@ -56,7 +56,7 @@ export default function ReviewForm({ productSlug, productType, userId, onSuccess
       <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Write a Review</h3>
       
       {error && (
-        <div className="p-3 text-sm text-danger-500 bg-danger-50 dark:bg-red-900/20 rounded-lg">
+        <div className="p-3 text-sm text-danger-500 bg-danger-50 dark:bg-danger-900/20 rounded-lg">
           {error}
         </div>
       )}

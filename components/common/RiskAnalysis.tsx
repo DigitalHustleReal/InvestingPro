@@ -47,8 +47,8 @@ export default function RiskAnalysis({ holdings, user }: RiskAnalysisProps) {
         aggressive: {
             equity: { min: 70, max: 90 },
             debt: { min: 10, max: 30 },
-            colorClass: 'bg-orange-100 text-orange-700',
-            borderClass: 'border-orange-200'
+            colorClass: 'bg-accent-100 text-accent-700',
+            borderClass: 'border-accent-200'
         }
     };
 

@@ -108,36 +108,36 @@ export default async function DematAccountDetailPage({ params }: { params: { slu
             {/* Left: Details */}
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-4">
-                <span className="bg-blue-500/20 text-blue-200 px-3 py-1 rounded-full text-sm font-medium">
+                <span className="bg-secondary-500/20 text-secondary-200 px-3 py-1 rounded-full text-sm font-medium">
                   Demat Account
                 </span>
                 <div className="flex items-center gap-1">
                   <Star className="w-5 h-5 text-amber-400 fill-amber-400" />
                   <span className="font-bold text-lg">{account.rating}</span>
-                  <span className="text-blue-200 text-sm">/5</span>
+                  <span className="text-secondary-200 text-sm">/5</span>
                 </div>
               </div>
               
               <h1 className="text-3xl md:text-4xl font-bold mb-2">{account.name}</h1>
-              <p className="text-blue-100 mb-6">{account.provider}</p>
-              <p className="text-lg text-blue-100 mb-8 max-w-2xl">{account.description}</p>
+              <p className="text-secondary-100 mb-6">{account.provider}</p>
+              <p className="text-lg text-secondary-100 mb-8 max-w-2xl">{account.description}</p>
               
               {/* Quick Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4">
                 <div>
-                  <p className="text-sm text-blue-200">Account Opening</p>
+                  <p className="text-sm text-secondary-200">Account Opening</p>
                   <p className="text-xl font-bold">₹{account.accountOpeningFee}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-blue-200">AMC</p>
+                  <p className="text-sm text-secondary-200">AMC</p>
                   <p className="text-xl font-bold">₹{account.annualMaintenanceFee}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-blue-200">Equity Delivery</p>
+                  <p className="text-sm text-secondary-200">Equity Delivery</p>
                   <p className="text-xl font-bold">{account.equityDeliveryBrokerage}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-blue-200">Intraday</p>
+                  <p className="text-sm text-secondary-200">Intraday</p>
                   <p className="text-xl font-bold">{account.intradayBrokerage}</p>
                 </div>
               </div>
@@ -147,13 +147,13 @@ export default async function DematAccountDetailPage({ params }: { params: { slu
             <div className="lg:col-span-1">
               <Card className="bg-white/10 backdrop-blur-sm border-white/20">
                 <CardContent className="p-6">
-                  <p className="text-sm text-blue-200 mb-4">Open your demat account in 15 minutes</p>
+                  <p className="text-sm text-secondary-200 mb-4">Open your demat account in 15 minutes</p>
                   <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-6 text-lg mb-3">
                       Open Account <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
-                  <div className="flex items-center justify-center gap-2 text-blue-200 text-sm">
+                  <div className="flex items-center justify-center gap-2 text-secondary-200 text-sm">
                     <Zap className="w-4 h-4" />
                     <span>100% Digital • Paperless KYC</span>
                   </div>
@@ -241,9 +241,9 @@ export default async function DematAccountDetailPage({ params }: { params: { slu
 
             {/* Pros & Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-green-200 dark:border-green-800">
-                <CardHeader className="bg-green-50 dark:bg-green-900/20">
-                  <CardTitle className="text-green-700 dark:text-green-400 flex items-center gap-2">
+              <Card className="border-success-200 dark:border-success-800">
+                <CardHeader className="bg-success-50 dark:bg-success-900/20">
+                  <CardTitle className="text-success-700 dark:text-success-400 flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5" />
                     Pros
                   </CardTitle>
@@ -252,7 +252,7 @@ export default async function DematAccountDetailPage({ params }: { params: { slu
                   <ul className="space-y-2">
                     {account.pros.map((pro, index) => (
                       <li key={index} className="flex items-start gap-2 text-sm">
-                        <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-success-500 flex-shrink-0 mt-0.5" />
                         <span>{pro}</span>
                       </li>
                     ))}
@@ -260,9 +260,9 @@ export default async function DematAccountDetailPage({ params }: { params: { slu
                 </CardContent>
               </Card>
               
-              <Card className="border-red-200 dark:border-red-800">
-                <CardHeader className="bg-red-50 dark:bg-red-900/20">
-                  <CardTitle className="text-red-700 dark:text-red-400 flex items-center gap-2">
+              <Card className="border-danger-200 dark:border-danger-800">
+                <CardHeader className="bg-danger-50 dark:bg-danger-900/20">
+                  <CardTitle className="text-danger-700 dark:text-danger-400 flex items-center gap-2">
                     <XCircle className="w-5 h-5" />
                     Cons
                   </CardTitle>
@@ -271,7 +271,7 @@ export default async function DematAccountDetailPage({ params }: { params: { slu
                   <ul className="space-y-2">
                     {account.cons.map((con, index) => (
                       <li key={index} className="flex items-start gap-2 text-sm">
-                        <XCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+                        <XCircle className="w-4 h-4 text-danger-500 flex-shrink-0 mt-0.5" />
                         <span>{con}</span>
                       </li>
                     ))}
@@ -288,13 +288,13 @@ export default async function DematAccountDetailPage({ params }: { params: { slu
               <Card className="bg-gradient-to-br from-blue-600 to-indigo-600 text-white">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Ready to Start Trading?</h3>
-                  <p className="text-sm text-blue-100 mb-4">Open your account in minutes</p>
+                  <p className="text-sm text-secondary-100 mb-4">Open your account in minutes</p>
                   <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full bg-white text-blue-600 hover:bg-gray-100 font-semibold py-6 mb-3">
+                    <Button className="w-full bg-white text-secondary-600 hover:bg-gray-100 font-semibold py-6 mb-3">
                       Open Account <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
-                  <p className="text-xs text-blue-100 text-center">
+                  <p className="text-xs text-secondary-100 text-center">
                     Free account opening • 2-3 min process
                   </p>
                 </CardContent>

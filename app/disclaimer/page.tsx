@@ -18,15 +18,15 @@ export default function DisclaimerPage() {
 
         <div className="prose prose-slate max-w-none">
           {/* Critical Notice */}
-          <div className="bg-danger-50 border-2 border-red-300 p-6 rounded-lg mb-8">
-            <h2 className="text-2xl font-bold text-red-900 mb-4 flex items-center gap-2">
+          <div className="bg-danger-50 border-2 border-danger-300 p-6 rounded-lg mb-8">
+            <h2 className="text-2xl font-bold text-danger-900 mb-4 flex items-center gap-2">
               <AlertTriangle className="w-6 h-6" />
               IMPORTANT NOTICE
             </h2>
-            <p className="text-red-800 font-semibold mb-4">
+            <p className="text-danger-800 font-semibold mb-4">
               InvestingPro is an information and comparison platform ONLY. We do NOT provide investment advice, financial advisory services, or act as brokers/distributors.
             </p>
-            <p className="text-red-800">
+            <p className="text-danger-800">
               All financial decisions are made at YOUR OWN RISK. Please consult a SEBI-registered investment advisor before making any financial decisions.
             </p>
           </div>
@@ -48,15 +48,15 @@ export default function DisclaimerPage() {
             </ul>
           </section>
 
-          <section className="mb-8 bg-yellow-50 border border-yellow-300 p-6 rounded-lg">
-            <h2 className="text-2xl font-bold text-yellow-900 mb-4">2. Investment Risk Disclaimer (Mutual Funds & Securities)</h2>
-            <p className="text-yellow-800 font-semibold mb-4">
+          <section className="mb-8 bg-accent-50 border border-accent-300 p-6 rounded-lg">
+            <h2 className="text-2xl font-bold text-accent-900 mb-4">2. Investment Risk Disclaimer (Mutual Funds & Securities)</h2>
+            <p className="text-accent-800 font-semibold mb-4">
               STANDARD SEBI DISCLAIMER:
             </p>
-            <p className="text-yellow-800 mb-4">
+            <p className="text-accent-800 mb-4">
               <strong>Mutual Fund investments are subject to market risks. Read all scheme-related documents carefully before investing.</strong>
             </p>
-            <ul className="list-disc list-inside text-yellow-800 space-y-2 mb-4">
+            <ul className="list-disc list-inside text-accent-800 space-y-2 mb-4">
               <li>Past performance is not indicative of future results</li>
               <li>NAV (Net Asset Value) may go up or down</li>
               <li>There is no guarantee of returns or capital protection</li>
@@ -64,7 +64,7 @@ export default function DisclaimerPage() {
               <li>Equity investments carry higher risk but potential for higher returns</li>
               <li>Debt fund returns are subject to interest rate fluctuations</li>
             </ul>
-            <p className="text-yellow-800">
+            <p className="text-accent-800">
               <strong>Before Investing:</strong> Consult a SEBI-registered investment advisor (RIA) to assess your risk profile, financial goals, and suitability.
             </p>
           </section>
@@ -243,13 +243,13 @@ export default function DisclaimerPage() {
               <strong>Best Practices:</strong>
             </p>
             <ul className="list-disc list-inside text-primary-800 space-y-2 mb-4">
-              <li>✅ Use InvestingPro for comparison and research</li>
-              <li>✅ Verify product details with the provider before applying</li>
-              <li>✅ Consult a SEBI-registered advisor for investment decisions</li>
-              <li>✅ Read all scheme documents and terms & conditions</li>
-              <li>✅ Assess your risk tolerance and financial goals</li>
-              <li>✅ Diversify investments to reduce risk</li>
-              <li>✅ Borrow only what you can afford to repay</li>
+              <li>âœ… Use InvestingPro for comparison and research</li>
+              <li>âœ… Verify product details with the provider before applying</li>
+              <li>âœ… Consult a SEBI-registered advisor for investment decisions</li>
+              <li>âœ… Read all scheme documents and terms & conditions</li>
+              <li>âœ… Assess your risk tolerance and financial goals</li>
+              <li>âœ… Diversify investments to reduce risk</li>
+              <li>âœ… Borrow only what you can afford to repay</li>
             </ul>
           </section>
 
@@ -265,12 +265,12 @@ export default function DisclaimerPage() {
             </div>
           </section>
 
-          <div className="mt-12 pt-8 border-t-2 border-red-300 bg-danger-50 p-6 rounded-lg">
-            <h3 className="text-xl font-bold text-red-900 mb-4">FINAL REMINDER</h3>
-            <p className="text-red-800 font-semibold">
+          <div className="mt-12 pt-8 border-t-2 border-danger-300 bg-danger-50 p-6 rounded-lg">
+            <h3 className="text-xl font-bold text-danger-900 mb-4">FINAL REMINDER</h3>
+            <p className="text-danger-800 font-semibold">
               InvestingPro is an information platform. We do NOT sell financial products, provide financial advice, or act as intermediaries. All transactions are between you and the financial product providers.
             </p>
-            <p className="text-red-800 mt-4">
+            <p className="text-danger-800 mt-4">
               <strong>INVEST WISELY. BORROW RESPONSIBLY. INSURE ADEQUATELY.</strong>
             </p>
           </div>

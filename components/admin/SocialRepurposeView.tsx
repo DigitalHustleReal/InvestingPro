@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/Button";
@@ -85,7 +85,7 @@ export default function SocialRepurposeView({ articleId }: SocialRepurposeViewPr
                             Facebook
                         </TabsTrigger>
                         <TabsTrigger value="instagram" className="rounded-lg data-[state=active]:bg-white">
-                            <Instagram className="w-4 h-4 mr-2 text-pink-600" />
+                            <Instagram className="w-4 h-4 mr-2 text-danger-600" />
                             Instagram
                         </TabsTrigger>
                     </TabsList>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
@@ -93,7 +93,7 @@ export default function SEOExperimentsPage() {
                                     {exp.variants.map((variant, idx) => {
                                         const isWinner = variant.ctr >= Math.max(...exp.variants.map(v => v.ctr));
                                         return (
-                                            <div key={variant.id} className={`relative p-3 rounded-lg border ${isWinner ? 'border-green-200 bg-success-50' : 'border-slate-100 bg-white'}`}>
+                                            <div key={variant.id} className={`relative p-3 rounded-lg border ${isWinner ? 'border-success-200 bg-success-50' : 'border-slate-100 bg-white'}`}>
                                                 {isWinner && (
                                                     <div className="absolute -right-2 -top-2 bg-success-500 text-white p-1 rounded-full shadow-sm">
                                                         <TrendingUp className="w-3 h-3" />

@@ -260,8 +260,8 @@ export default function AutomationControls({ className = "" }: AutomationControl
             <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                 <CardHeader className="border-b border-white/5 px-8 py-6">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                        <div className="w-8 h-8 rounded-lg bg-pink-500/10 flex items-center justify-center">
-                            <Zap className="w-4 h-4 text-pink-400" />
+                        <div className="w-8 h-8 rounded-lg bg-danger-500/10 flex items-center justify-center">
+                            <Zap className="w-4 h-4 text-danger-400" />
                         </div>
                         Proactive Generation
                     </CardTitle>
@@ -276,7 +276,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                         </div>
                         <Button
                             size="lg"
-                            className="h-12 px-8 rounded-xl font-extrabold uppercase tracking-widest text-[11px] bg-pink-500 text-white hover:bg-pink-600 shadow-[0_0_20px_rgba(236,72,153,0.3)] transition-all active:scale-95 border-0"
+                            className="h-12 px-8 rounded-xl font-extrabold uppercase tracking-widest text-[11px] bg-danger-500 text-white hover:bg-danger-600 shadow-[0_0_20px_rgba(236,72,153,0.3)] transition-all active:scale-95 border-0"
                             onClick={() => router.push('/admin/content-factory')}
                         >
                             <Play className="w-5 h-5 mr-3 fill-current" />
@@ -359,7 +359,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                                                         className="h-10 px-6 bg-white/5 text-white hover:bg-white/10 rounded-xl font-bold uppercase tracking-widest text-[10px]"
                                                         onClick={() => window.open(`/admin/articles/edit/${run.result.article_id}`, '_blank')}
                                                     >
-                                                        Review Output →
+                                                        Review Output â†’
                                                     </Button>
                                                 )}
                                             </div>

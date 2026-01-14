@@ -85,11 +85,11 @@ export default function SemanticTitleGenerator({
             case 'question':
                 return 'bg-secondary-100 text-secondary-800 dark:bg-secondary-900 dark:text-secondary-200';
             case 'number':
-                return 'bg-success-100 text-green-800 dark:bg-green-900 dark:text-green-200';
+                return 'bg-success-100 text-success-800 dark:bg-success-900 dark:text-success-200';
             case 'emotional':
-                return 'bg-secondary-100 text-secondary-800 dark:bg-purple-900 dark:text-secondary-200';
+                return 'bg-secondary-100 text-secondary-800 dark:bg-primary-900 dark:text-secondary-200';
             case 'power-word':
-                return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
+                return 'bg-accent-100 text-accent-800 dark:bg-accent-900 dark:text-accent-200';
             default:
                 return 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200';
         }
@@ -97,9 +97,9 @@ export default function SemanticTitleGenerator({
 
     const getScoreColor = (score?: number) => {
         if (!score) return 'text-slate-500';
-        if (score >= 80) return 'text-success-600 dark:text-green-400';
-        if (score >= 60) return 'text-yellow-600 dark:text-yellow-400';
-        return 'text-danger-600 dark:text-red-400';
+        if (score >= 80) return 'text-success-600 dark:text-success-400';
+        if (score >= 60) return 'text-accent-600 dark:text-accent-400';
+        return 'text-danger-600 dark:text-danger-400';
     };
 
     // Sort variations by combined score (SEO + CTR)

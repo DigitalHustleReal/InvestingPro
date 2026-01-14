@@ -86,8 +86,8 @@ export default function RiskResult({ score, profile, onRetake }: RiskResultProps
                         <div className="grid grid-cols-1 gap-3">
                             {profile.recommendations.map((rec, idx) => (
                                 <div key={idx} className="flex items-center p-3 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
-                                    <div className="bg-success-100 dark:bg-green-900/30 p-2 rounded-full mr-3">
-                                        <ArrowRight className="w-4 h-4 text-success-600 dark:text-green-400" />
+                                    <div className="bg-success-100 dark:bg-success-900/30 p-2 rounded-full mr-3">
+                                        <ArrowRight className="w-4 h-4 text-success-600 dark:text-success-400" />
                                     </div>
                                     <span className="font-medium text-slate-700 dark:text-slate-200">{rec}</span>
                                 </div>

@@ -265,7 +265,7 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-6 md:p-8">
-                  <Gift className="w-6 h-6 text-purple-600" />
+                  <Gift className="w-6 h-6 text-primary-600" />
                   Rewards Program
                 </CardTitle>
               </CardHeader>
@@ -298,8 +298,8 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
                     <div key={index}>
                       <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
                         {benefit.category === 'Travel' && <Plane className="w-5 h-5 text-primary-600" />}
-                        {benefit.category === 'Dining' && <ShoppingBag className="w-5 h-5 text-orange-600" />}
-                        {benefit.category === 'Shopping' && <Gift className="w-5 h-5 text-purple-600" />}
+                        {benefit.category === 'Dining' && <ShoppingBag className="w-5 h-5 text-accent-600" />}
+                        {benefit.category === 'Shopping' && <Gift className="w-5 h-5 text-primary-600" />}
                         {benefit.category}
                       </h3>
                       <ul className="space-y-2 ml-7">
@@ -337,9 +337,9 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
                 </CardContent>
               </Card>
               
-              <Card className="border-red-200 bg-red-50/30">
+              <Card className="border-danger-200 bg-danger-50/30">
                 <CardHeader>
-                  <CardTitle className="text-red-700 flex items-center gap-6 md:p-8">
+                  <CardTitle className="text-danger-700 flex items-center gap-6 md:p-8">
                     <XCircle className="w-5 h-5" />
                     Cons
                   </CardTitle>
@@ -348,7 +348,7 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
                   <ul className="space-y-2">
                     {card.cons.map((con, index) => (
                       <li key={index} className="flex items-start gap-2 text-gray-700">
-                        <XCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-1" />
+                        <XCircle className="w-4 h-4 text-danger-600 flex-shrink-0 mt-1" />
                         <span className="text-sm">{con}</span>
                       </li>
                     ))}

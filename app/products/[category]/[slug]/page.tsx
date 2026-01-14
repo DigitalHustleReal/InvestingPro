@@ -108,7 +108,7 @@ export default function ProductDetailPage() {
                             <div className="flex items-center gap-3 mb-2">
                                 <Badge className="bg-teal-500/20 text-teal-400 border-0">{categoryLabel}</Badge>
                                 {product.verification_status === 'verified' && (
-                                    <Badge className="bg-green-500/20 text-green-400 border-0 flex items-center gap-1">
+                                    <Badge className="bg-success-500/20 text-success-400 border-0 flex items-center gap-1">
                                         <Shield className="w-3 h-3" /> Verified
                                     </Badge>
                                 )}
@@ -130,7 +130,7 @@ export default function ProductDetailPage() {
                                     </div>
                                 )}
                                 {product.trust_score && product.trust_score >= 80 && (
-                                    <div className="flex items-center gap-2 text-green-400">
+                                    <div className="flex items-center gap-2 text-success-400">
                                         <CheckCircle className="w-5 h-5" />
                                         <span className="font-medium">Top Rated</span>
                                     </div>
@@ -226,12 +226,12 @@ export default function ProductDetailPage() {
                                     <div className="flex items-center gap-3">
                                         <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
                                             product.verification_status === 'verified' 
-                                                ? 'bg-green-100' 
+                                                ? 'bg-success-100' 
                                                 : 'bg-slate-100'
                                         }`}>
                                             <Shield className={`w-4 h-4 ${
                                                 product.verification_status === 'verified' 
-                                                    ? 'text-green-600' 
+                                                    ? 'text-success-600' 
                                                     : 'text-slate-400'
                                             }`} />
                                         </div>

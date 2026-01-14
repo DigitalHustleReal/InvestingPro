@@ -13,7 +13,7 @@ export async function getIndianStockQuote(symbol: string, exchange: 'NSE' | 'BSE
   const fullSymbol = symbol.includes('.') ? symbol : `${symbol}${suffix}`;
   
   try {
-    const quote = await yahooFinance.quote(fullSymbol);
+    const quote = await yahooFinance.quote(fullSymbol) as any;
     
     return {
       symbol: quote.symbol,
@@ -54,9 +54,9 @@ export async function getHistoricalPrices(
       period1,
       period2,
       interval
-    });
+    }) as any[];
     
-    return history.map(h => ({
+    return history.map((h: any) => ({
       date: h.date,
       open: h.open,
       high: h.high,
@@ -75,9 +75,9 @@ export async function getHistoricalPrices(
  */
 export async function searchStocks(query: string) {
   try {
-    const results = await yahooFinance.search(query);
+    const results = await yahooFinance.search(query) as any;
     
-    return results.quotes.map(q => ({
+    return results.quotes.map((q: any) => ({
       symbol: q.symbol,
       name: q.longname || q.shortname,
       exchange: q.exchange,
@@ -98,7 +98,7 @@ export async function getMultipleQuotes(symbols: string[], exchange: 'NSE' | 'BS
   try {
     const quotes = await Promise.all(
       fullSymbols.map(symbol => yahooFinance.quote(symbol))
-    );
+    ) as any[];
     
     return quotes.map(quote => ({
       symbol: quote.symbol,
@@ -121,7 +121,7 @@ export async function getCompanyProfile(symbol: string, exchange: 'NSE' | 'BSE' 
   try {
     const quote = await yahooFinance.quoteSummary(fullSymbol, {
       modules: ['assetProfile', 'summaryDetail', 'financialData']
-    });
+    }) as any;
     
     return {
       symbol: fullSymbol,

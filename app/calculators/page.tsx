@@ -1,4 +1,4 @@
-"use client";
+"use client"; // Rebuild trigger
 
 import React, { useState } from 'react';
 import SEOHead from "@/components/common/SEOHead";
@@ -9,8 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-    Calculator,
-    TrendingUp,
+    Calculator as CalculatorIcon,
+    TrendingUp as TrendingUpIcon,
     PiggyBank,
     Home,
     Receipt,
@@ -81,7 +81,7 @@ export default function CalculatorsPage() {
                     <div className="max-w-3xl mx-auto text-center">
                         {/* Badge */}
                         <Badge className="mb-6 bg-primary-50 text-primary-700 border-primary-200 px-4 py-2 uppercase tracking-widest text-xs font-bold inline-flex items-center gap-2">
-                            <Calculator className="w-3 h-3" />
+                            <CalculatorIcon className="w-3 h-3" />
                             12 Free Tools
                         </Badge>
 
@@ -101,7 +101,7 @@ export default function CalculatorsPage() {
                         {/* Stats */}
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
                             {[
-                                { label: "Calculators", value: "13+", icon: <Calculator className="w-5 h-5" /> },
+                                { label: "Calculators", value: "13+", icon: <CalculatorIcon className="w-5 h-5" /> },
                                 { label: "Inflation Adjusted", value: "All", icon: <Percent className="w-5 h-5" /> },
                                 { label: "Free Forever", value: "100%", icon: <CheckCircle2 className="w-5 h-5" /> },
                                 { label: "Updated Daily", value: "24/7", icon: <Clock className="w-5 h-5" /> }
@@ -167,7 +167,7 @@ export default function CalculatorsPage() {
                     </div>
                     <TabsList className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-1.5 h-auto inline-flex flex-wrap rounded-xl shadow-sm gap-2">
                         <TabsTrigger value="sip" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <TrendingUp className="w-4 h-4 mr-2" />
+                            <TrendingUpIcon className="w-4 h-4 mr-2" />
                             SIP
                         </TabsTrigger>
                         <TabsTrigger value="swp" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
@@ -239,11 +239,11 @@ export default function CalculatorsPage() {
                             MIS
                         </TabsTrigger>
                         <TabsTrigger value="si" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <Calculator className="w-4 h-4 mr-2" />
+                            <CalculatorIcon className="w-4 h-4 mr-2" />
                             Simple Int.
                         </TabsTrigger>
                          <TabsTrigger value="ci" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <TrendingUp className="w-4 h-4 mr-2" />
+                            <TrendingUpIcon className="w-4 h-4 mr-2" />
                             Compound Int.
                         </TabsTrigger>
 
@@ -628,7 +628,7 @@ export default function CalculatorsPage() {
                                         className="p-4 bg-white rounded-xl hover:shadow-md transition-all group"
                                     >
                                         <div className="flex items-center gap-2 mb-2">
-                                            <Calculator className="w-4 h-4 text-primary-600 group-hover:text-primary-700" />
+                                            <CalculatorIcon className="w-4 h-4 text-primary-600 group-hover:text-primary-700" />
                                             <span className="font-semibold text-slate-900 group-hover:text-primary-600">{item.name}</span>
                                         </div>
                                         <p className="text-sm text-slate-600">{item.desc}</p>

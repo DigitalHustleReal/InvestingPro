@@ -62,7 +62,7 @@ export default function AffiliatesPage() {
         },
         {
             label: 'Revenue',
-            value: `₹${(stats?.totalRevenue || 0).toLocaleString()}`,
+            value: `â‚¹${(stats?.totalRevenue || 0).toLocaleString()}`,
             icon: DollarSign,
             color: 'text-accent-400',
             bg: 'bg-accent-500/10',
@@ -170,7 +170,7 @@ export default function AffiliatesPage() {
                                                     "w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm",
                                                     idx === 0 ? "bg-accent-500/20 text-accent-400" :
                                                     idx === 1 ? "bg-slate-500/20 text-slate-400" :
-                                                    "bg-orange-500/20 text-orange-400"
+                                                    "bg-accent-500/20 text-accent-400"
                                                 )}>
                                                     {idx + 1}
                                                 </div>
@@ -181,7 +181,7 @@ export default function AffiliatesPage() {
                                                     <div className="text-slate-400">{partner.clicks} clicks</div>
                                                 </div>
                                                 <div className="text-right min-w-[80px]">
-                                                    <div className="font-bold text-primary-400">₹{partner.revenue}</div>
+                                                    <div className="font-bold text-primary-400">â‚¹{partner.revenue}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -240,21 +240,21 @@ export default function AffiliatesPage() {
                         <h4 className="font-bold text-white mb-2">Create Short Link</h4>
                         <p className="text-sm text-slate-400 mb-4">Generate trackable affiliate links</p>
                         <Button variant="ghost" className="text-primary-400 hover:text-primary-300 p-0 h-auto">
-                            Create Link →
+                            Create Link â†’
                         </Button>
                     </Card>
                     <Card className="bg-gradient-to-br from-success-500/10 to-primary-500/10 border-primary-500/20 rounded-2xl p-6">
                         <h4 className="font-bold text-white mb-2">Add Partner</h4>
                         <p className="text-sm text-slate-400 mb-4">Register new affiliate partners</p>
                         <Button variant="ghost" className="text-primary-400 hover:text-primary-300 p-0 h-auto">
-                            Add Partner →
+                            Add Partner â†’
                         </Button>
                     </Card>
                     <Card className="bg-gradient-to-br from-accent-500/10 to-orange-500/10 border-accent-500/20 rounded-2xl p-6">
                         <h4 className="font-bold text-white mb-2">Export Report</h4>
                         <p className="text-sm text-slate-400 mb-4">Download performance data</p>
                         <Button variant="ghost" className="text-accent-400 hover:text-accent-300 p-0 h-auto">
-                            Export CSV →
+                            Export CSV â†’
                         </Button>
                     </Card>
                 </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -124,7 +124,7 @@ function ScraperCard({ scraper, onExecute, isExecuting }: any) {
         switch (status) {
             case 'completed': return 'bg-success-500';
             case 'failed': return 'bg-danger-500';
-            case 'running': return 'bg-yellow-500 animate-pulse';
+            case 'running': return 'bg-accent-500 animate-pulse';
             default: return 'bg-slate-500';
         }
     };
@@ -140,7 +140,7 @@ function ScraperCard({ scraper, onExecute, isExecuting }: any) {
                                 {scraper.display_name || scraper.name}
                             </CardTitle>
                             <p className="text-sm text-slate-500 mt-1">
-                                {scraper.category} • {scraper.source_type}
+                                {scraper.category} â€¢ {scraper.source_type}
                             </p>
                         </div>
                     </div>

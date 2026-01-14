@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/Button";
@@ -47,7 +47,7 @@ export default function CategoryHeroCarousel({ slides, className }: CategoryHero
             <div className="relative z-10 container px-8 md:px-12 grid md:grid-cols-2 gap-8 items-center py-10">
                 <div className="space-y-6 animate-in slide-in-from-left-4 fade-in duration-500" key={slide.id}>
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-sm font-semibold">
-                        <Star className="w-4 h-4 text-yellow-300 fill-yellow-300" />
+                        <Star className="w-4 h-4 text-accent-300 fill-yellow-300" />
                         {slide.subtitle}
                     </div>
                     <h2 className="text-4xl md:text-5xl font-bold leading-tight">

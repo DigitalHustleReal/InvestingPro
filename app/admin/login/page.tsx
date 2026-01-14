@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 /**
  * Premium Admin Login Page
@@ -155,7 +155,7 @@ export default function AdminLoginPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-600 shadow-lg shadow-primary-500/25 mb-4">
             <Zap className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-white">InvestingP₹o</h1>
+          <h1 className="text-2xl font-bold text-white">InvestingPâ‚¹o</h1>
           <p className="text-slate-400 text-sm mt-1">Authority CMS</p>
         </div>
 
@@ -168,14 +168,14 @@ export default function AdminLoginPage() {
 
           {/* Error/Message Display */}
           {error && (
-            <div className="mb-4 p-3 bg-danger-500/10 border border-danger-500/20 rounded-lg flex items-center gap-2 text-red-400 text-sm">
+            <div className="mb-4 p-3 bg-danger-500/10 border border-danger-500/20 rounded-lg flex items-center gap-2 text-danger-400 text-sm">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
               {error}
             </div>
           )}
 
           {message && (
-            <div className="mb-4 p-3 bg-success-500/10 border border-success-500/20 rounded-lg flex items-center gap-2 text-green-400 text-sm">
+            <div className="mb-4 p-3 bg-success-500/10 border border-success-500/20 rounded-lg flex items-center gap-2 text-success-400 text-sm">
               <Sparkles className="w-4 h-4 flex-shrink-0" />
               {message}
             </div>
@@ -237,7 +237,7 @@ export default function AdminLoginPage() {
                 <input
                   id="password"
                   type="password"
-                  placeholder="••••••••"
+                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -287,7 +287,7 @@ export default function AdminLoginPage() {
 
         {/* Footer */}
         <p className="text-center text-slate-500 text-xs mt-6">
-          Protected by Supabase Auth • Secure & Encrypted
+          Protected by Supabase Auth â€¢ Secure & Encrypted
         </p>
       </div>
     </div>

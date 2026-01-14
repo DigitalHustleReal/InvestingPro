@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -189,7 +189,7 @@ export default function BulkGenerationPanel() {
                                 </div>
                                 <div>
                                     <p className="text-slate-400">Published</p>
-                                    <p className="text-green-400 font-bold text-lg">
+                                    <p className="text-success-400 font-bold text-lg">
                                         {bulkGenerate.data.result?.totalPublished || 0}
                                     </p>
                                 </div>

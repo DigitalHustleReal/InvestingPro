@@ -1,4 +1,4 @@
-
+﻿
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -35,6 +35,7 @@ import { ResponsiveFilterContainer } from "@/components/products/ResponsiveFilte
 import { InsuranceTable } from "@/components/insurance/InsuranceTable";
 import { LayoutGrid, Table as TableIcon } from 'lucide-react';
 import InsuranceCoverageCalculator from '@/components/calculators/InsuranceCoverageCalculator';
+import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 
 export default function InsurancePage() {
     const [protectionScore, setProtectionScore] = useState(0);
@@ -103,7 +104,7 @@ export default function InsurancePage() {
 
     const getScoreColor = (score: number) => {
         if (score >= 80) return 'text-primary-500';
-        if (score >= 50) return 'text-yellow-500';
+        if (score >= 50) return 'text-accent-500';
         return 'text-danger-500';
     };
 
@@ -185,6 +186,7 @@ export default function InsurancePage() {
                 </div>
 
                 <div className="container mx-auto px-4 relative z-10">
+                    <AutoBreadcrumbs />
                     <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
                         
                         {/* Hero Text */}
@@ -220,7 +222,7 @@ export default function InsurancePage() {
                                 {[
                                     { label: "Verified Insurers", value: "20+", icon: ShieldCheck },
                                     { label: "Claim Settlement", value: "95%", icon: CheckCircle2 },
-                                    { label: "Avg. Savings", value: "₹14K/yr", icon: TrendingUp }
+                                    { label: "Avg. Savings", value: "â‚¹14K/yr", icon: TrendingUp }
                                 ].map((stat, i) => (
                                     <div key={i} className="flex flex-col">
                                         <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">
@@ -329,7 +331,7 @@ export default function InsurancePage() {
                                                     )}
                                                     {!answers.hasLifeInsurance && answers.hasDependents && (
                                                         <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
-                                                            <AlertTriangle className="w-4 h-4 text-orange-500 mt-0.5 shrink-0" />
+                                                            <AlertTriangle className="w-4 h-4 text-accent-500 mt-0.5 shrink-0" />
                                                             <span><strong>Urgent:</strong> Term Insurance for family protection</span>
                                                         </li>
                                                     )}
@@ -477,14 +479,14 @@ export default function InsurancePage() {
                         <Badge className="mb-4 bg-secondary-50 text-secondary-700 border-secondary-100">Protection Academy</Badge>
                         <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Demystifying Insurance Claims</h2>
                         <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                            Insurance is not an investment—it's risk management. Learn how to choose coverage that actually pays out.
+                            Insurance is not an investmentâ€”it's risk management. Learn how to choose coverage that actually pays out.
                         </p>
                     </div>
 
                     {/* 1. Types of Insurance Grid */}
                     <div className="grid md:grid-cols-3 gap-8 mb-24">
                         {[
-                            { title: "Term Life", desc: "Pure protection for your family. High cover at low cost (₹1Cr cover for ₹500/mo). No returns, just security.", icon: Shield },
+                            { title: "Term Life", desc: "Pure protection for your family. High cover at low cost (â‚¹1Cr cover for â‚¹500/mo). No returns, just security.", icon: Shield },
                             { title: "Health Insurance", desc: "Covers hospitalization and medical bills. Cashless treatment at network hospitals. Save tax under Sec 80D.", icon: Heart },
                             { title: "Motor Insurance", desc: "Mandatory by law (Third Party). Comprehensive plans cover own damage and theft. No Claim Bonus saves up to 50%.", icon: Car }
                         ].map((item, i) => (
@@ -510,7 +512,7 @@ export default function InsurancePage() {
                                     <li className="flex items-center gap-3"><CheckCircle2 className="text-white/90" /> Submit pre-auth form with doctor's ID</li>
                                     <li className="flex items-center gap-3"><CheckCircle2 className="text-white/90" /> Insurer approves amount directly to hospital</li>
                                 </ul>
-                                <Button className="bg-white hover:bg-blue-50 text-primary-600 font-bold h-12 px-8 rounded-xl shadow-lg transition-all">
+                                <Button className="bg-white hover:bg-secondary-50 text-primary-600 font-bold h-12 px-8 rounded-xl shadow-lg transition-all">
                                     Find Network Hospitals
                                 </Button>
                             </div>

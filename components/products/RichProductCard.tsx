@@ -1,4 +1,4 @@
-
+﻿
 "use client";
 
 import React from 'react';
@@ -43,7 +43,7 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
     const getTrustColor = (score: number) => {
         if (score >= 90) return 'text-primary-500 ring-primary-500/20';
         if (score >= 75) return 'text-primary-500 ring-primary-500/20';
-        if (score >= 50) return 'text-yellow-500 ring-yellow-500/20';
+        if (score >= 50) return 'text-accent-500 ring-yellow-500/20';
         return 'text-danger-500 ring-danger-500/20';
     };
 

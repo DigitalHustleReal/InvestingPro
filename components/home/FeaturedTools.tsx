@@ -49,7 +49,7 @@ export default function FeaturedTools() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-8">
                     <div>
-                        <Badge variant="outline" className="mb-4 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-widest text-">
+                        <Badge variant="outline" className="mb-4 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-widest text-xs">
                             <Sparkles size={12} className="mr-2 text-primary-500" />
                             Quant Utilities
                         </Badge>

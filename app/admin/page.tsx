@@ -102,7 +102,20 @@ export default function AdminPage() {
 
     const { data: reviews = [] } = useQuery({
         queryKey: ['reviews-all'],
-        queryFn: () => api.entities.Review.list('-created_date', 100),
+        queryFn: async () => {
+            // Fetch all reviews for admin dashboard
+            const supabase = createClient();
+            const { data, error } = await supabase
+                .from('reviews')
+                .select('*')
+                .order('created_at', { ascending: false })
+                .limit(100);
+            if (error) {
+                console.error('Error fetching reviews:', error);
+                return [];
+            }
+            return data || [];
+        },
         initialData: []
     });
 
@@ -498,8 +511,8 @@ export default function AdminPage() {
                         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                             <CardHeader className="pb-4 border-b border-white/5 px-7">
                                 <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                                    <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center">
-                                        <Rss className="w-4 h-4 text-orange-400" />
+                                    <div className="w-8 h-8 rounded-lg bg-accent-500/10 flex items-center justify-center">
+                                        <Rss className="w-4 h-4 text-accent-400" />
                                     </div>
                                     RSS Dynamics
                                 </CardTitle>
@@ -575,7 +588,7 @@ export default function AdminPage() {
                                 )}
                                 {socialMetrics.instagram && (
                                     <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
-                                        <Instagram className="w-6 h-6 text-pink-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
+                                        <Instagram className="w-6 h-6 text-danger-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
                                         <div className="text-2xl font-bold text-white tabular-nums mb-1">{socialMetrics.instagram.followers?.toLocaleString()}</div>
                                         <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
                                         <div className="text-[10px] font-bold text-primary-400 bg-primary-400/10 px-2 py-0.5 rounded-full inline-block">
@@ -942,8 +955,8 @@ export default function AdminPage() {
                                             {/* Instagram */}
                                             <div className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-pink-500/30 transition-all group">
                                                 <div className="flex items-center gap-5">
-                                                    <div className="w-14 h-14 bg-pink-500/10 rounded-xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                                        <Instagram className="w-6 h-6 text-pink-400" />
+                                                    <div className="w-14 h-14 bg-danger-500/10 rounded-xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                                        <Instagram className="w-6 h-6 text-danger-400" />
                                                     </div>
                                                     <div>
                                                         <h4 className="font-bold text-white tracking-tight">Instagram Visuals</h4>
@@ -957,7 +970,7 @@ export default function AdminPage() {
                                                 </div>
                                                 <Button size="sm" variant="ghost" className={cn(
                                                     "h-10 px-6 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all",
-                                                    socialMetrics.instagram ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-pink-600 text-white hover:bg-pink-700 shadow-[0_0_15px_rgba(219,39,119,0.3)]"
+                                                    socialMetrics.instagram ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-danger-600 text-white hover:bg-danger-700 shadow-[0_0_15px_rgba(219,39,119,0.3)]"
                                                 )}>
                                                     {socialMetrics.instagram ? 'Terminate' : 'Initialize'}
                                                 </Button>
@@ -1063,7 +1076,7 @@ export default function AdminPage() {
                                         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                                             <CardHeader className="border-b border-white/5 px-8 py-5">
                                                 <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                                                    <Instagram className="w-4 h-4 text-pink-400" />
+                                                    <Instagram className="w-4 h-4 text-danger-400" />
                                                     Instagram Visual Feed
                                                 </CardTitle>
                                             </CardHeader>
@@ -1079,7 +1092,7 @@ export default function AdminPage() {
                                                             <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Resonance</div>
                                                         </div>
                                                         <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-pink-400 mb-1 tabular-nums">{socialMetrics.instagram.posts}</div>
+                                                            <div className="text-lg font-bold text-danger-400 mb-1 tabular-nums">{socialMetrics.instagram.posts}</div>
                                                             <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Interactions</div>
                                                         </div>
                                                     </div>
@@ -1091,7 +1104,7 @@ export default function AdminPage() {
                                         <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                                             <CardHeader className="border-b border-white/5 px-8 py-5">
                                                 <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                                                    <Youtube className="w-4 h-4 text-red-400" />
+                                                    <Youtube className="w-4 h-4 text-danger-400" />
                                                     YouTube Broadcast Stream
                                                 </CardTitle>
                                             </CardHeader>
@@ -1107,7 +1120,7 @@ export default function AdminPage() {
                                                             <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Playback Yield</div>
                                                         </div>
                                                         <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-red-400 mb-1 tabular-nums">{socialMetrics.youtube.videos}</div>
+                                                            <div className="text-lg font-bold text-danger-400 mb-1 tabular-nums">{socialMetrics.youtube.videos}</div>
                                                             <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Video Nodes</div>
                                                         </div>
                                                     </div>
@@ -1168,7 +1181,11 @@ export default function AdminPage() {
                 onOpenChange={setRejectDialogOpen}
                 onConfirm={async () => {
                     if (reviewToReject) {
-                        await api.entities.Review.update(reviewToReject, { status: 'rejected' });
+                        const supabase = createClient();
+                        await supabase
+                            .from('reviews')
+                            .update({ status: 'rejected' })
+                            .eq('id', reviewToReject);
                         queryClient.invalidateQueries({ queryKey: ['reviews-all'] });
                         toast.success('Review rejected');
                         setReviewToReject(null);

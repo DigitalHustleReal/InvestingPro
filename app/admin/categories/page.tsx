@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
@@ -155,7 +155,7 @@ export default function CategoriesPage() {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder="Search categories..."
-                            className="w-full pl-10 pr-4 py-2.5 bg-slate-800/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            className="w-full pl-10 pr-4 py-2.5 bg-slate-800/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-secondary-500/50"
                         />
                     </div>
                 </ContentSection>
@@ -214,7 +214,7 @@ export default function CategoriesPage() {
                                                         <Calendar className="w-3 h-3" />
                                                         {new Date(category.created_at).toLocaleDateString()}
                                                     </div>
-                                                ) : '—'}
+                                                ) : 'â€”'}
                                             </td>
                                             <td className="px-4 py-4">
                                                 <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">

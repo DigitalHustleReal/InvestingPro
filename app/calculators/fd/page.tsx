@@ -33,7 +33,7 @@ export default function FDCalculatorPage() {
                 "name": "How to calculate FD maturity amount?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "FD maturity amount is calculated using compound interest formula: A = P × (1 + r/n)^(n×t), where P is principal, r is annual interest rate, n is compounding frequency, and t is tenure in years."
+                    "text": "FD maturity amount is calculated using compound interest formula: A = P Ã— (1 + r/n)^(nÃ—t), where P is principal, r is annual interest rate, n is compounding frequency, and t is tenure in years."
                 }
             },
             {
@@ -49,7 +49,7 @@ export default function FDCalculatorPage() {
                 "name": "FD calculator with tax deduction?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "FD interest is taxable as per your income tax slab. TDS of 10% is deducted if interest exceeds ₹40,000 annually (₹50,000 for senior citizens). Our FD calculator shows interest before tax. Deduct tax based on your slab to get net returns."
+                    "text": "FD interest is taxable as per your income tax slab. TDS of 10% is deducted if interest exceeds â‚¹40,000 annually (â‚¹50,000 for senior citizens). Our FD calculator shows interest before tax. Deduct tax based on your slab to get net returns."
                 }
             }
         ]
@@ -130,13 +130,13 @@ export default function FDCalculatorPage() {
                             </CardHeader>
                             <CardContent>
                                 <p className="text-slate-600 dark:text-slate-300">
-                                    Bank FDs are insured up to ₹5 Lakhs by DICGC (RBI subsidiary). This makes them virtually risk-free for conservative investors.
+                                    Bank FDs are insured up to â‚¹5 Lakhs by DICGC (RBI subsidiary). This makes them virtually risk-free for conservative investors.
                                 </p>
                             </CardContent>
                         </Card>
                         <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-purple-50 to-white dark:from-slate-800 dark:to-slate-900">
                             <CardHeader>
-                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-purple-700 dark:text-purple-400">
+                                <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
                                     <TrendingUp className="w-5 h-5" />
                                     Liquidity
                                 </CardTitle>
@@ -172,7 +172,7 @@ export default function FDCalculatorPage() {
                                 Most banks in India use <strong>Quarterly Compounding</strong> for Fixed Deposits. The formula used is:
                             </p>
                             <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl font-mono text-center text-lg font-bold text-primary-700 dark:text-primary-400 border border-slate-200 dark:border-slate-700">
-                                A = P × (1 + r/n)<sup>(n × t)</sup>
+                                A = P Ã— (1 + r/n)<sup>(n Ã— t)</sup>
                             </div>
                             <div className="grid grid-cols-2 gap-4 text-sm text-slate-600 dark:text-slate-400">
                                 <div><span className="font-bold text-slate-900 dark:text-white">A</span> = Maturity Amount</div>
@@ -199,7 +199,7 @@ export default function FDCalculatorPage() {
                             {[
                                 {
                                     q: "How to calculate FD maturity amount?",
-                                    a: "FD maturity amount is calculated using compound interest formula: A = P × (1 + r/n)^(n×t), where P is principal amount, r is annual interest rate, n is compounding frequency (4 for quarterly, 12 for monthly, 1 for annual), and t is tenure in years. Our FD calculator does this automatically for you, showing accurate maturity amount based on your inputs."
+                                    a: "FD maturity amount is calculated using compound interest formula: A = P Ã— (1 + r/n)^(nÃ—t), where P is principal amount, r is annual interest rate, n is compounding frequency (4 for quarterly, 12 for monthly, 1 for annual), and t is tenure in years. Our FD calculator does this automatically for you, showing accurate maturity amount based on your inputs."
                                 },
                                 {
                                     q: "What is the best FD interest rate in India?",
@@ -207,7 +207,7 @@ export default function FDCalculatorPage() {
                                 },
                                 {
                                     q: "FD calculator with tax deduction?",
-                                    a: "FD interest is taxable as per your income tax slab. TDS of 10% is deducted at source if interest exceeds ₹40,000 annually (₹50,000 for senior citizens). Our FD calculator shows interest before tax. Deduct tax based on your slab (5%, 20%, or 30%) to get net returns. Submit Form 15G/15H to avoid TDS if your total income is below taxable limit."
+                                    a: "FD interest is taxable as per your income tax slab. TDS of 10% is deducted at source if interest exceeds â‚¹40,000 annually (â‚¹50,000 for senior citizens). Our FD calculator shows interest before tax. Deduct tax based on your slab (5%, 20%, or 30%) to get net returns. Submit Form 15G/15H to avoid TDS if your total income is below taxable limit."
                                 },
                                 {
                                     q: "Which compounding frequency is better for FD?",
@@ -215,7 +215,7 @@ export default function FDCalculatorPage() {
                                 },
                                 {
                                     q: "What is the minimum FD amount?",
-                                    a: "Minimum FD amount varies by bank, typically ranging from ₹1,000 to ₹5,000. Some banks allow FDs as low as ₹100 for online accounts. There's usually no maximum limit. Banks may offer higher rates for larger deposits (₹1 crore+). Check with your specific bank for their minimum requirements."
+                                    a: "Minimum FD amount varies by bank, typically ranging from â‚¹1,000 to â‚¹5,000. Some banks allow FDs as low as â‚¹100 for online accounts. There's usually no maximum limit. Banks may offer higher rates for larger deposits (â‚¹1 crore+). Check with your specific bank for their minimum requirements."
                                 },
                                 {
                                     q: "Can I break FD before maturity?",
@@ -223,7 +223,7 @@ export default function FDCalculatorPage() {
                                 },
                                 {
                                     q: "Is FD interest taxable every year?",
-                                    a: "FD interest is taxable as per your income tax slab, but tax is due only when interest is paid or credited. For cumulative FDs, interest is credited at maturity, so tax is due in the maturity year. For non-cumulative FDs with periodic payouts, tax is due each year interest is paid. TDS is deducted annually if interest exceeds ₹40,000 (₹50,000 for seniors)."
+                                    a: "FD interest is taxable as per your income tax slab, but tax is due only when interest is paid or credited. For cumulative FDs, interest is credited at maturity, so tax is due in the maturity year. For non-cumulative FDs with periodic payouts, tax is due each year interest is paid. TDS is deducted annually if interest exceeds â‚¹40,000 (â‚¹50,000 for seniors)."
                                 },
                                 {
                                     q: "FD vs savings account - which is better?",
@@ -235,15 +235,15 @@ export default function FDCalculatorPage() {
                                 },
                                 {
                                     q: "What happens if bank closes my FD bank?",
-                                    a: "FD deposits up to ₹5 lakhs are insured by Deposit Insurance and Credit Guarantee Corporation (DICGC). If bank closes, you'll receive insured amount (principal + interest up to ₹5L) from DICGC. For amounts above ₹5L, recovery depends on bank's assets. Choose banks with good ratings and consider splitting large FDs across multiple banks."
+                                    a: "FD deposits up to â‚¹5 lakhs are insured by Deposit Insurance and Credit Guarantee Corporation (DICGC). If bank closes, you'll receive insured amount (principal + interest up to â‚¹5L) from DICGC. For amounts above â‚¹5L, recovery depends on bank's assets. Choose banks with good ratings and consider splitting large FDs across multiple banks."
                                 },
                                 {
                                     q: "FD calculator for senior citizens?",
-                                    a: "Senior citizens (60+ years) get 0.25-0.5% extra interest on FDs. TDS limit is higher (₹50,000 vs ₹40,000). Our FD calculator allows you to input any interest rate, so add 0.25-0.5% to regular rate for senior citizen calculations. Senior citizen rates typically range from 6.5% to 8.5% depending on bank and tenure."
+                                    a: "Senior citizens (60+ years) get 0.25-0.5% extra interest on FDs. TDS limit is higher (â‚¹50,000 vs â‚¹40,000). Our FD calculator allows you to input any interest rate, so add 0.25-0.5% to regular rate for senior citizen calculations. Senior citizen rates typically range from 6.5% to 8.5% depending on bank and tenure."
                                 },
                                 {
                                     q: "How to calculate FD interest manually?",
-                                    a: "Use formula: A = P × (1 + r/n)^(n×t), where A = Maturity amount, P = Principal, r = Annual rate (as decimal), n = Compounding frequency, t = Time in years. For quarterly compounding: n=4, for monthly: n=12, for annual: n=1. Interest = A - P. However, using our FD calculator is much easier and provides instant accurate results."
+                                    a: "Use formula: A = P Ã— (1 + r/n)^(nÃ—t), where A = Maturity amount, P = Principal, r = Annual rate (as decimal), n = Compounding frequency, t = Time in years. For quarterly compounding: n=4, for monthly: n=12, for annual: n=1. Interest = A - P. However, using our FD calculator is much easier and provides instant accurate results."
                                 },
                                 {
                                     q: "Can I open FD online?",
@@ -251,7 +251,7 @@ export default function FDCalculatorPage() {
                                 },
                                 {
                                     q: "FD vs recurring deposit (RD) - which is better?",
-                                    a: "FD is for lump sum investment, RD for regular monthly deposits. FD is better if you have lump sum money and want to invest at once. RD is better if you want to invest monthly from salary. FD typically offers slightly higher rates than RD for same tenure. Choose based on your cash flow - lump sum → FD, monthly savings → RD."
+                                    a: "FD is for lump sum investment, RD for regular monthly deposits. FD is better if you have lump sum money and want to invest at once. RD is better if you want to invest monthly from salary. FD typically offers slightly higher rates than RD for same tenure. Choose based on your cash flow - lump sum â†’ FD, monthly savings â†’ RD."
                                 },
                                 {
                                     q: "What is the maximum FD tenure?",
@@ -263,7 +263,7 @@ export default function FDCalculatorPage() {
                                 },
                                 {
                                     q: "FD interest calculation method?",
-                                    a: "FD interest is calculated using compound interest formula. Interest compounds based on frequency - quarterly (every 3 months), monthly (every month), or annually (once a year). More frequent compounding = higher returns. Formula: A = P × (1 + r/n)^(n×t). Our FD calculator uses this formula for accurate calculations."
+                                    a: "FD interest is calculated using compound interest formula. Interest compounds based on frequency - quarterly (every 3 months), monthly (every month), or annually (once a year). More frequent compounding = higher returns. Formula: A = P Ã— (1 + r/n)^(nÃ—t). Our FD calculator uses this formula for accurate calculations."
                                 },
                                 {
                                     q: "Can I change FD tenure after opening?",
@@ -291,11 +291,11 @@ export default function FDCalculatorPage() {
                                 },
                                 {
                                     q: "Can I have multiple FDs?",
-                                    a: "Yes, you can have multiple FDs with same or different banks. This helps with liquidity - you can break one FD while others continue. Consider laddering strategy - open FDs with different maturity dates to have regular liquidity. Multiple FDs also help stay within DICGC insurance limit (₹5L per bank)."
+                                    a: "Yes, you can have multiple FDs with same or different banks. This helps with liquidity - you can break one FD while others continue. Consider laddering strategy - open FDs with different maturity dates to have regular liquidity. Multiple FDs also help stay within DICGC insurance limit (â‚¹5L per bank)."
                                 },
                                 {
                                     q: "FD calculator for tax saving FD?",
-                                    a: "Tax saving FD has 5-year lock-in, qualifies for Section 80C deduction up to ₹1.5L. Interest is taxable. Our FD calculator works for tax saving FDs - just set tenure to 5 years. Remember: Tax saving FD cannot be broken before 5 years, unlike regular FD. Compare returns with other 80C options like PPF, ELSS."
+                                    a: "Tax saving FD has 5-year lock-in, qualifies for Section 80C deduction up to â‚¹1.5L. Interest is taxable. Our FD calculator works for tax saving FDs - just set tenure to 5 years. Remember: Tax saving FD cannot be broken before 5 years, unlike regular FD. Compare returns with other 80C options like PPF, ELSS."
                                 }
                             ].map((faq, idx) => (
                                 <div key={idx} className="border-b border-slate-200 pb-8 last:border-0">

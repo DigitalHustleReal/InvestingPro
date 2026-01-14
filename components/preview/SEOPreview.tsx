@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { AlertCircle, CheckCircle } from 'lucide-react';
 
@@ -58,7 +58,7 @@ export function SEOPreview({ title, metaDescription, slug, featuredImage }: SEOP
                                 <span className="text-xs">Optimal</span>
                             </div>
                         ) : (
-                            <div className="flex items-center gap-1 text-orange-600">
+                            <div className="flex items-center gap-1 text-accent-600">
                                 <AlertCircle className="w-4 h-4" />
                                 <span className="text-xs">Too long</span>
                             </div>
@@ -67,7 +67,7 @@ export function SEOPreview({ title, metaDescription, slug, featuredImage }: SEOP
                     <div className="w-full bg-slate-200 rounded-full h-2">
                         <div
                             className={`h-2 rounded-full transition-all ${
-                                titleStatus === 'good' ? 'bg-success-500' : 'bg-orange-500'
+                                titleStatus === 'good' ? 'bg-success-500' : 'bg-accent-500'
                             }`}
                             style={{ width: `${Math.min((titleLength / titleLimit) * 100, 100)}%` }}
                         />
@@ -81,7 +81,7 @@ export function SEOPreview({ title, metaDescription, slug, featuredImage }: SEOP
                                 <span className="text-xs">Optimal</span>
                             </div>
                         ) : (
-                            <div className="flex items-center gap-1 text-orange-600">
+                            <div className="flex items-center gap-1 text-accent-600">
                                 <AlertCircle className="w-4 h-4" />
                                 <span className="text-xs">{descLength < 120 ? 'Too short' : 'Too long'}</span>
                             </div>
@@ -90,7 +90,7 @@ export function SEOPreview({ title, metaDescription, slug, featuredImage }: SEOP
                     <div className="w-full bg-slate-200 rounded-full h-2">
                         <div
                             className={`h-2 rounded-full transition-all ${
-                                descStatus === 'good' ? 'bg-success-500' : 'bg-orange-500'
+                                descStatus === 'good' ? 'bg-success-500' : 'bg-accent-500'
                             }`}
                             style={{ width: `${Math.min((descLength / descLimit) * 100, 100)}%` }}
                         />
@@ -143,7 +143,7 @@ export function SEOPreview({ title, metaDescription, slug, featuredImage }: SEOP
                         <div className="text-xs text-slate-600 line-clamp-2">
                             {metaDescription || 'Your description here'}
                         </div>
-                        <div className="text-xs text-slate-500 mt-2">🔗 investingpro.in</div>
+                        <div className="text-xs text-slate-500 mt-2">ðŸ”— investingpro.in</div>
                     </div>
                 </div>
             </div>

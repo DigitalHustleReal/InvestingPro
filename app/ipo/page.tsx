@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -25,6 +25,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SEOHead from "@/components/common/SEOHead";
 import Link from 'next/link';
+import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 
 // IPO Data Interface matching our service
 interface IPOData {
@@ -86,8 +87,8 @@ export default function IPOPage() {
     };
 
     const formatCurrency = (amount?: number): string => {
-        if (!amount) return '—';
-        return `₹${amount.toLocaleString('en-IN')}`;
+        if (!amount) return 'â€”';
+        return `â‚¹${amount.toLocaleString('en-IN')}`;
     };
 
     const getStatusColor = (status: string) => {
@@ -102,13 +103,13 @@ export default function IPOPage() {
     const getGMPColor = (gmp?: number) => {
         if (!gmp) return 'text-slate-600 dark:text-slate-400';
         if (gmp > 0) return 'text-primary-600 dark:text-primary-400';
-        return 'text-danger-600 dark:text-red-400';
+        return 'text-danger-600 dark:text-danger-400';
     };
 
     const getSubscriptionColor = (value?: number) => {
         if (!value) return 'bg-slate-400';
         if (value >= 100) return 'bg-primary-500';
-        if (value >= 50) return 'bg-yellow-500';
+        if (value >= 50) return 'bg-accent-500';
         return 'bg-slate-400';
     };
 
@@ -187,7 +188,7 @@ export default function IPOPage() {
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
                             {[
                                 { label: "Active IPOs", value: ipos.length.toString(), icon: Target, color: "emerald" },
-                                { label: "Avg GMP", value: `+₹${Math.round(ipos.reduce((acc, ipo) => acc + (ipo.gmp || 0), 0) / (ipos.length || 1))}`, icon: TrendingUp, color: "teal" },
+                                { label: "Avg GMP", value: `+â‚¹${Math.round(ipos.reduce((acc, ipo) => acc + (ipo.gmp || 0), 0) / (ipos.length || 1))}`, icon: TrendingUp, color: "teal" },
                                 { label: "This Month", value: ipos.filter(ipo => {
                                     const listingDate = ipo.listingDate ? new Date(ipo.listingDate) : null;
                                     return listingDate && listingDate.getMonth() === new Date().getMonth();
@@ -281,15 +282,15 @@ export default function IPOPage() {
                                             <div className="flex-1 min-w-0">
                                                                 <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-1">{ipo.companyName}</h3>
                                                 <Badge className={getStatusColor(status)}>
-                                                    {status === 'open' && '🟢 '}
-                                                    {status === 'upcoming' && '🔵 '}
-                                                    {status === 'closed' && '⚪ '}
+                                                    {status === 'open' && 'ðŸŸ¢ '}
+                                                    {status === 'upcoming' && 'ðŸ”µ '}
+                                                    {status === 'closed' && 'âšª '}
                                                                     {status.toUpperCase()}
                                                 </Badge>
                                                 <div className="mt-3 text-sm">
                                                     <div className="text-slate-500 dark:text-slate-400">Issue Price</div>
                                                                     <div className="font-bold text-slate-900 dark:text-white text-xl">{formatCurrency(ipo.issuePrice)}</div>
-                                                                    <div className="text-xs text-slate-500 mt-1">Lot Size: {ipo.lotSize || '—'} shares</div>
+                                                                    <div className="text-xs text-slate-500 mt-1">Lot Size: {ipo.lotSize || 'â€”'} shares</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -306,7 +307,7 @@ export default function IPOPage() {
                                                 </div>
                                                                 <div className={`flex items-center gap-2 text-4xl font-bold mb-2 ${getGMPColor(ipo.gmp)}`}>
                                                                     {ipo.gmp && ipo.gmp > 0 ? <ArrowUpRight size={28} /> : <ArrowDownRight size={28} />}
-                                                                    ₹{Math.abs(ipo.gmp || 0)}
+                                                                    â‚¹{Math.abs(ipo.gmp || 0)}
                                                 </div>
                                                                 <div className={`text-sm font-semibold ${getGMPColor(ipo.gmp)}`}>
                                                     {gmpPercent > 0 ? '+' : ''}{gmpPercent}% over issue price
@@ -356,21 +357,21 @@ export default function IPOPage() {
                                                 <div>
                                                     <div className="text-slate-500 dark:text-slate-400 mb-1">Opens</div>
                                                     <div className="font-semibold text-slate-900 dark:text-white">
-                                                                        {ipo.openDate ? new Date(ipo.openDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '—'}
+                                                                        {ipo.openDate ? new Date(ipo.openDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'â€”'}
                                                     </div>
                                                 </div>
-                                                <div className="text-slate-300 dark:text-slate-700">→</div>
+                                                <div className="text-slate-300 dark:text-slate-700">â†’</div>
                                                 <div>
                                                     <div className="text-slate-500 dark:text-slate-400 mb-1">Closes</div>
                                                     <div className="font-semibold text-slate-900 dark:text-white">
-                                                                        {ipo.closeDate ? new Date(ipo.closeDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '—'}
+                                                                        {ipo.closeDate ? new Date(ipo.closeDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'â€”'}
                                                     </div>
                                                 </div>
-                                                <div className="text-slate-300 dark:text-slate-700">→</div>
+                                                <div className="text-slate-300 dark:text-slate-700">â†’</div>
                                                 <div>
                                                     <div className="text-slate-500 dark:text-slate-400 mb-1">Listing</div>
                                                     <div className="font-semibold text-slate-900 dark:text-white">
-                                                                        {ipo.listingDate ? new Date(ipo.listingDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '—'}
+                                                                        {ipo.listingDate ? new Date(ipo.listingDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'â€”'}
                                                     </div>
                                                 </div>
                                             </div>
@@ -390,7 +391,7 @@ export default function IPOPage() {
                                             </Button>
                                         </Link>
                                         <Link href="/demat-accounts" className="text-xs text-center text-slate-500 hover:text-primary-600 mt-1">
-                                            More brokers →
+                                            More brokers â†’
                                         </Link>
                                     </div>
                                 </div>

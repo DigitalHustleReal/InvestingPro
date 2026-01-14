@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { cn } from '@/lib/utils';
 import { Check, X, Star } from 'lucide-react';
 
@@ -25,7 +25,7 @@ export default function ReviewVerdict({
         ? { color: 'text-primary-700', bg: 'bg-primary-50', border: 'border-primary-200', fill: 'bg-primary-500' }
         : score >= 5 
             ? { color: 'text-accent-700', bg: 'bg-accent-50', border: 'border-accent-200', fill: 'bg-accent-500' }
-            : { color: 'text-danger-700', bg: 'bg-danger-50', border: 'border-red-200', fill: 'bg-danger-500' };
+            : { color: 'text-danger-700', bg: 'bg-danger-50', border: 'border-danger-200', fill: 'bg-danger-500' };
 
     return (
         <div className="my-8 rounded-2xl border bg-white shadow-sm overflow-hidden border-slate-200">

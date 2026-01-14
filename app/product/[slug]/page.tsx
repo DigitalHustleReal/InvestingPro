@@ -52,7 +52,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
                                 {product.provider_name}
                             </Badge>
                             {product.is_verified && (
-                                <Badge className="bg-blue-600 text-white gap-1">
+                                <Badge className="bg-secondary-600 text-white gap-1">
                                     <ShieldCheck className="w-3 h-3" /> Verified Asset
                                 </Badge>
                             )}
@@ -139,15 +139,15 @@ export default async function ProductPage({ params }: { params: { slug: string }
                             </CardContent>
                         </Card>
 
-                        <Card className="border border-red-100 bg-red-50/30 dark:bg-red-900/10 dark:border-red-500/20">
+                        <Card className="border border-danger-100 bg-danger-50/30 dark:bg-danger-900/10 dark:border-danger-500/20">
                             <CardHeader>
-                                <CardTitle className="text-red-700 dark:text-red-400">Cons</CardTitle>
+                                <CardTitle className="text-danger-700 dark:text-danger-400">Cons</CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <ul className="space-y-3">
                                     {product.cons.length > 0 ? product.cons.map((con, i) => (
                                         <li key={i} className="flex gap-3 text-slate-700 dark:text-slate-300">
-                                            <Info className="w-5 h-5 text-red-500 shrink-0" />
+                                            <Info className="w-5 h-5 text-danger-500 shrink-0" />
                                             {con}
                                         </li>
                                     )) : <li className="text-slate-400 italic">No specific cons listed.</li>}

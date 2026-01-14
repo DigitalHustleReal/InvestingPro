@@ -48,9 +48,9 @@ export function MISCalculator() {
     const result = calculateMIS();
 
     const formatCurrency = (num: number) => {
-        if (num >= 10000000) return `₹${(num / 10000000).toFixed(2)} Cr`;
-        if (num >= 100000) return `₹${(num / 100000).toFixed(2)} L`;
-        return `₹${Math.round(num).toLocaleString('en-IN')}`;
+        if (num >= 10000000) return `â‚¹${(num / 10000000).toFixed(2)} Cr`;
+        if (num >= 100000) return `â‚¹${(num / 100000).toFixed(2)} L`;
+        return `â‚¹${Math.round(num).toLocaleString('en-IN')}`;
     };
 
     return (
@@ -65,12 +65,12 @@ export function MISCalculator() {
                                 <CardDescription>Post Office Monthly Income Scheme</CardDescription>
                             </div>
                             <div className="flex flex-col gap-1.5 items-end">
-                                <Badge variant="secondary" className="bg-blue-50 text-blue-700 border-blue-200">
+                                <Badge variant="secondary" className="bg-secondary-50 text-secondary-700 border-secondary-200">
                                     <ShieldCheck className="w-3 h-3 mr-1" /> Govt Scheme
                                 </Badge>
                                 <button 
                                     onClick={() => setIsJointAccount(!isJointAccount)}
-                                    className={`text-xs px-2 py-1 rounded-full border transition-colors flex items-center gap-1 ${isJointAccount ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'bg-slate-50 text-slate-600 border-slate-200'}`}
+                                    className={`text-xs px-2 py-1 rounded-full border transition-colors flex items-center gap-1 ${isJointAccount ? 'bg-primary-50 text-primary-700 border-primary-200' : 'bg-slate-50 text-slate-600 border-slate-200'}`}
                                 >
                                     <Users className="w-3 h-3" />
                                     {isJointAccount ? "Joint Account (max 15L)" : "Single Account (max 9L)"}
@@ -103,7 +103,7 @@ export function MISCalculator() {
                                 className="py-2" 
                             />
                             <div className="flex justify-between text-[10px] text-slate-500">
-                                <span>Min: ₹1,000</span>
+                                <span>Min: â‚¹1,000</span>
                                 <span>Max: {formatCurrency(maxInvestment)}</span>
                             </div>
                         </div>
@@ -121,11 +121,11 @@ export function MISCalculator() {
                             <p className="text-[10px] text-slate-500">Current Rate: 7.4%</p>
                         </div>
 
-                         <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl flex items-start gap-3">
-                            <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                         <div className="p-4 bg-secondary-50 border border-secondary-200 rounded-xl flex items-start gap-3">
+                            <Info className="w-5 h-5 text-secondary-600 flex-shrink-0 mt-0.5" />
                             <div>
-                                <p className="text-sm font-bold text-blue-800 mb-1">Guaranteed Monthly Income</p>
-                                <p className="text-xs text-blue-700 leading-relaxed">
+                                <p className="text-sm font-bold text-secondary-800 mb-1">Guaranteed Monthly Income</p>
+                                <p className="text-xs text-secondary-700 leading-relaxed">
                                     Get a guaranteed monthly payout of <span className="font-bold">{formatCurrency(result.monthlyInterest)}</span> for 5 years. Principal returns at maturity.
                                 </p>
                             </div>
@@ -135,16 +135,16 @@ export function MISCalculator() {
 
                 {/* Results */}
                 <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 relative overflow-hidden">
-                     <div className="absolute top-0 right-0 w-64 h-64 bg-blue-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                     <div className="absolute top-0 right-0 w-64 h-64 bg-secondary-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                      <CardContent className="pt-8 relative z-10 flex flex-col justify-between h-full">
                          <div className="text-center mb-6">
                              <p className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-2">Monthly Income</p>
-                             <div className="text-5xl font-extrabold text-blue-700 mb-2">
+                             <div className="text-5xl font-extrabold text-secondary-700 mb-2">
                                 {formatCurrency(result.monthlyInterest)}
                              </div>
-                             <div className="inline-flex items-center gap-2 bg-white/50 px-3 py-1 rounded-full border border-blue-100">
-                                <CalendarClock className="w-3 h-3 text-blue-600" />
-                                <span className="text-xs font-bold text-blue-700">Paid Monthly</span>
+                             <div className="inline-flex items-center gap-2 bg-white/50 px-3 py-1 rounded-full border border-secondary-100">
+                                <CalendarClock className="w-3 h-3 text-secondary-600" />
+                                <span className="text-xs font-bold text-secondary-700">Paid Monthly</span>
                              </div>
                         </div>
 

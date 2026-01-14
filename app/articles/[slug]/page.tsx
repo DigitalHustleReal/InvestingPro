@@ -34,6 +34,7 @@ import ContextualProducts from '@/components/products/ContextualProducts';
 import TopPicksSidebar from '@/components/products/TopPicksSidebar';
 import LeadMagnet from '@/components/monetization/LeadMagnet';
 import SeamlessCTA from '@/components/articles/SeamlessCTA';
+import { ReadingProgressBar } from '@/components/articles/ReadingProgressBar';
 
 export default function ArticleDetailPage() {
     const params = useParams();
@@ -177,13 +178,8 @@ export default function ArticleDetailPage() {
 
     return (
         <div className="min-h-screen bg-white relative">
-            {/* Reading Progress Bar */}
-            <div className="fixed top-0 left-0 w-full h-1.5 bg-slate-100 z-[100]">
-                <div 
-                    className="h-full bg-gradient-to-r from-primary-500 to-primary-600 transition-all duration-150 ease-out"
-                    style={{ width: `${readingProgress}%` }}
-                />
-            </div>
+            {/* Reading Progress Bar (UI/UX Phase 3) */}
+            <ReadingProgressBar targetId="article-content" height={2} />
 
             <SEOHead
                 title={article.seo_title || `${article.title} | InvestingPro`}
@@ -194,18 +190,18 @@ export default function ArticleDetailPage() {
 
             {/* Preview Banner */}
             {previewToken && article.status !== 'published' && (
-                <div className="bg-yellow-100 border-b border-yellow-300 px-4 py-2 text-center relative z-50">
-                    <p className="text-sm text-yellow-800 flex items-center justify-center gap-2">
+                <div className="bg-accent-100 border-b border-accent-300 px-4 py-2 text-center relative z-50">
+                    <p className="text-sm text-accent-800 flex items-center justify-center gap-2">
                         <strong>PREVIEW MODE</strong> - This article is {article.status}. 
                         {article.id ? (
                             <a 
                                 href={`/admin/articles/${article.id}/edit`} 
-                                className="ml-2 underline font-bold hover:text-yellow-900"
+                                className="ml-2 underline font-bold hover:text-accent-900"
                             >
                                 Edit Article ✏️
                             </a>
                         ) : (
-                            <span className="text-red-500 text-xs ml-2">(ID Missing)</span>
+                            <span className="text-danger-500 text-xs ml-2">(ID Missing)</span>
                         )}
                     </p>
                 </div>
@@ -281,11 +277,13 @@ export default function ArticleDetailPage() {
 
                         {/* Content */}
                         <AdvertiserDisclosure className="mb-8" />
-                        <ArticleRenderer
-                            body_html={article.body_html}
-                            body_markdown={article.body_markdown}
-                            content={article.content}
-                        />
+                        <div id="article-content">
+                            <ArticleRenderer
+                                body_html={article.body_html}
+                                body_markdown={article.body_markdown}
+                                content={article.content}
+                            />
+                        </div>
 
                         {/* Seamless Actions */}
                         <SeamlessCTA category={article.category} />

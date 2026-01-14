@@ -173,9 +173,9 @@ export default async function PPFNPSDetailPage({ params }: { params: { slug: str
           {/* Left Column */}
           <div className="lg:col-span-2 space-y-8">
             {/* Tax Benefits */}
-            <Card className="border-green-200 dark:border-green-800">
-              <CardHeader className="bg-green-50 dark:bg-green-900/20">
-                <CardTitle className="flex items-center gap-2 text-green-700 dark:text-green-400">
+            <Card className="border-success-200 dark:border-success-800">
+              <CardHeader className="bg-success-50 dark:bg-success-900/20">
+                <CardTitle className="flex items-center gap-2 text-success-700 dark:text-success-400">
                   <Calculator className="w-5 h-5" />
                   Tax Benefits
                 </CardTitle>
@@ -184,7 +184,7 @@ export default async function PPFNPSDetailPage({ params }: { params: { slug: str
                 <ul className="space-y-3">
                   {scheme.taxBenefits.map((benefit, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-success-500 flex-shrink-0 mt-0.5" />
                       <span className="text-slate-700 dark:text-slate-300">{benefit}</span>
                     </li>
                   ))}
@@ -240,9 +240,9 @@ export default async function PPFNPSDetailPage({ params }: { params: { slug: str
 
             {/* Pros & Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-green-200 dark:border-green-800">
-                <CardHeader className="bg-green-50 dark:bg-green-900/20">
-                  <CardTitle className="text-green-700 dark:text-green-400 flex items-center gap-2">
+              <Card className="border-success-200 dark:border-success-800">
+                <CardHeader className="bg-success-50 dark:bg-success-900/20">
+                  <CardTitle className="text-success-700 dark:text-success-400 flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5" />
                     Pros
                   </CardTitle>
@@ -251,7 +251,7 @@ export default async function PPFNPSDetailPage({ params }: { params: { slug: str
                   <ul className="space-y-2">
                     {scheme.pros.map((pro, index) => (
                       <li key={index} className="flex items-start gap-2 text-sm">
-                        <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-success-500 flex-shrink-0 mt-0.5" />
                         <span>{pro}</span>
                       </li>
                     ))}
@@ -259,9 +259,9 @@ export default async function PPFNPSDetailPage({ params }: { params: { slug: str
                 </CardContent>
               </Card>
               
-              <Card className="border-red-200 dark:border-red-800">
-                <CardHeader className="bg-red-50 dark:bg-red-900/20">
-                  <CardTitle className="text-red-700 dark:text-red-400 flex items-center gap-2">
+              <Card className="border-danger-200 dark:border-danger-800">
+                <CardHeader className="bg-danger-50 dark:bg-danger-900/20">
+                  <CardTitle className="text-danger-700 dark:text-danger-400 flex items-center gap-2">
                     <XCircle className="w-5 h-5" />
                     Cons
                   </CardTitle>
@@ -270,7 +270,7 @@ export default async function PPFNPSDetailPage({ params }: { params: { slug: str
                   <ul className="space-y-2">
                     {scheme.cons.map((con, index) => (
                       <li key={index} className="flex items-start gap-2 text-sm">
-                        <XCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+                        <XCircle className="w-4 h-4 text-danger-500 flex-shrink-0 mt-0.5" />
                         <span>{con}</span>
                       </li>
                     ))}
@@ -323,11 +323,11 @@ export default async function PPFNPSDetailPage({ params }: { params: { slug: str
               </Card>
               
               {/* Government Notice */}
-              <Card className="mt-6 bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
+              <Card className="mt-6 bg-secondary-50 dark:bg-secondary-900/20 border-secondary-200 dark:border-secondary-800">
                 <CardContent className="p-4">
                   <div className="flex gap-3">
-                    <ShieldCheck className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                    <div className="text-xs text-blue-800 dark:text-blue-200">
+                    <ShieldCheck className="w-5 h-5 text-secondary-600 flex-shrink-0" />
+                    <div className="text-xs text-secondary-800 dark:text-secondary-200">
                       <p className="font-semibold mb-1">Government Backed</p>
                       <p>This is a sovereign scheme backed by Government of India. Your investment is 100% safe.</p>
                     </div>

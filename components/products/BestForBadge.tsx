@@ -24,9 +24,9 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'cashback-dining',
     label: 'Best for Dining & Food',
     icon: Utensils,
-    color: 'text-orange-700',
-    bgColor: 'bg-orange-50',
-    borderColor: 'border-orange-200',
+    color: 'text-accent-700',
+    bgColor: 'bg-accent-50',
+    borderColor: 'border-accent-200',
     description: '12% cashback on restaurants & food delivery'
   },
   'fuel-savings': {
@@ -35,7 +35,7 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     icon: Fuel,
     color: 'text-success-700',
     bgColor: 'bg-success-50',
-    borderColor: 'border-green-200',
+    borderColor: 'border-success-200',
     description: 'Fuel surcharge waiver, toll cashback'
   },
   'zero-fees': {
@@ -51,9 +51,9 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'balance-transfer',
     label: 'Best for Balance Transfer',
     icon: RefreshCw,
-    color: 'text-purple-700',
-    bgColor: 'bg-purple-50',
-    borderColor: 'border-purple-200',
+    color: 'text-primary-700',
+    bgColor: 'bg-primary-50',
+    borderColor: 'border-primary-200',
     description: 'Low APR, 0% intro rates on transfers'
   },
   'cashback-general': {
@@ -69,8 +69,8 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'shopping-rewards',
     label: 'Best for Online Shopping',
     icon: ShoppingCart,
-    color: 'text-pink-700',
-    bgColor: 'bg-pink-50',
+    color: 'text-danger-700',
+    bgColor: 'bg-danger-50',
     borderColor: 'border-pink-200',
     description: 'Amazon, Flipkart, e-commerce rewards'
   },
@@ -87,9 +87,9 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'premium-lifestyle',
     label: 'Best for VIP Perks',
     icon: Crown,
-    color: 'text-yellow-700',
-    bgColor: 'bg-yellow-50',
-    borderColor: 'border-yellow-200',
+    color: 'text-accent-700',
+    bgColor: 'bg-accent-50',
+    borderColor: 'border-accent-200',
     description: 'Concierge, golf, spa access'
   },
   'student-starter': {
@@ -98,7 +98,7 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     icon: GraduationCap,
     color: 'text-primary-700',
     bgColor: 'bg-primary-50',
-    borderColor: 'border-indigo-200',
+    borderColor: 'border-primary-200',
     description: 'Low income limit, entry-level benefits'
   },
   
@@ -143,8 +143,8 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'car-loan',
     label: 'Best for Auto Purchase',
     icon: Car,
-    color: 'text-cyan-700',
-    bgColor: 'bg-cyan-50',
+    color: 'text-secondary-700',
+    bgColor: 'bg-secondary-50',
     borderColor: 'border-cyan-200',
     description: 'New/used cars, low down payment, flexible EMI'
   },
@@ -163,9 +163,9 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'retirement-fund',
     label: 'Best for Retirement',
     icon: Palmtree,
-    color: 'text-orange-700',
-    bgColor: 'bg-orange-50',
-    borderColor: 'border-orange-200',
+    color: 'text-accent-700',
+    bgColor: 'bg-accent-50',
+    borderColor: 'border-accent-200',
     description: 'Long-term growth, low risk, retirement planning'
   },
   'tax-saving-fund': {
@@ -174,7 +174,7 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     icon: FileText,
     color: 'text-success-700',
     bgColor: 'bg-success-50',
-    borderColor: 'border-green-200',
+    borderColor: 'border-success-200',
     description: 'ELSS, Section 80C benefits, 3-year lock-in'
   },
   'aggressive-growth': {
@@ -183,7 +183,7 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     icon: Rocket,
     color: 'text-danger-700',
     bgColor: 'bg-danger-50',
-    borderColor: 'border-red-200',
+    borderColor: 'border-danger-200',
     description: 'Small-cap, mid-cap, high risk, high reward'
   },
   'index-fund': {
@@ -199,9 +199,9 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'balanced-fund',
     label: 'Best for Balanced Growth',
     icon: Scale,
-    color: 'text-purple-700',
-    bgColor: 'bg-purple-50',
-    borderColor: 'border-purple-200',
+    color: 'text-primary-700',
+    bgColor: 'bg-primary-50',
+    borderColor: 'border-primary-200',
     description: 'Hybrid fund, equity + debt, moderate risk'
   },
   'liquid-fund': {

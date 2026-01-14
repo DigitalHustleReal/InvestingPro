@@ -1,167 +1,215 @@
-# InvestingPro Color Migration Script
-# Migrates off-brand colors to unified design system tokens
+# migrate-colors.ps1
+# Migrates raw Tailwind colors to semantic tokens
 # Run: .\scripts\migrate-colors.ps1
 
 $ErrorActionPreference = "Continue"
-$scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path
-$projectRoot = Split-Path -Parent $scriptPath
 
-Write-Host "=====================================" -ForegroundColor Cyan
-Write-Host "  InvestingPro Color Migration Tool" -ForegroundColor Cyan
-Write-Host "=====================================" -ForegroundColor Cyan
+Write-Host "=======================================" -ForegroundColor Cyan
+Write-Host "  Semantic Color Migration" -ForegroundColor Cyan
+Write-Host "=======================================" -ForegroundColor Cyan
 Write-Host ""
 
-# Define replacement mappings
+# Define color replacements
 $replacements = @(
-    # P3-1: Gray to Slate (Neutrals)
-    @{ Pattern = 'gray-50'; Replacement = 'slate-50'; Description = 'Gray 50 to Slate 50' },
-    @{ Pattern = 'gray-100'; Replacement = 'slate-100'; Description = 'Gray 100 to Slate 100' },
-    @{ Pattern = 'gray-200'; Replacement = 'slate-200'; Description = 'Gray 200 to Slate 200' },
-    @{ Pattern = 'gray-300'; Replacement = 'slate-300'; Description = 'Gray 300 to Slate 300' },
-    @{ Pattern = 'gray-400'; Replacement = 'slate-400'; Description = 'Gray 400 to Slate 400' },
-    @{ Pattern = 'gray-500'; Replacement = 'slate-500'; Description = 'Gray 500 to Slate 500' },
-    @{ Pattern = 'gray-600'; Replacement = 'slate-600'; Description = 'Gray 600 to Slate 600' },
-    @{ Pattern = 'gray-700'; Replacement = 'slate-700'; Description = 'Gray 700 to Slate 700' },
-    @{ Pattern = 'gray-800'; Replacement = 'slate-800'; Description = 'Gray 800 to Slate 800' },
-    @{ Pattern = 'gray-900'; Replacement = 'slate-900'; Description = 'Gray 900 to Slate 900' },
-    @{ Pattern = 'gray-950'; Replacement = 'slate-950'; Description = 'Gray 950 to Slate 950' },
+    # Blue to Secondary (info, links, trust)
+    @{ From = 'bg-blue-50'; To = 'bg-secondary-50' },
+    @{ From = 'bg-blue-100'; To = 'bg-secondary-100' },
+    @{ From = 'bg-blue-200'; To = 'bg-secondary-200' },
+    @{ From = 'bg-blue-300'; To = 'bg-secondary-300' },
+    @{ From = 'bg-blue-400'; To = 'bg-secondary-400' },
+    @{ From = 'bg-blue-500'; To = 'bg-secondary-500' },
+    @{ From = 'bg-blue-600'; To = 'bg-secondary-600' },
+    @{ From = 'bg-blue-700'; To = 'bg-secondary-700' },
+    @{ From = 'bg-blue-800'; To = 'bg-secondary-800' },
+    @{ From = 'bg-blue-900'; To = 'bg-secondary-900' },
+    @{ From = 'text-blue-50'; To = 'text-secondary-50' },
+    @{ From = 'text-blue-100'; To = 'text-secondary-100' },
+    @{ From = 'text-blue-200'; To = 'text-secondary-200' },
+    @{ From = 'text-blue-300'; To = 'text-secondary-300' },
+    @{ From = 'text-blue-400'; To = 'text-secondary-400' },
+    @{ From = 'text-blue-500'; To = 'text-secondary-500' },
+    @{ From = 'text-blue-600'; To = 'text-secondary-600' },
+    @{ From = 'text-blue-700'; To = 'text-secondary-700' },
+    @{ From = 'text-blue-800'; To = 'text-secondary-800' },
+    @{ From = 'text-blue-900'; To = 'text-secondary-900' },
+    @{ From = 'border-blue-50'; To = 'border-secondary-50' },
+    @{ From = 'border-blue-100'; To = 'border-secondary-100' },
+    @{ From = 'border-blue-200'; To = 'border-secondary-200' },
+    @{ From = 'border-blue-300'; To = 'border-secondary-300' },
+    @{ From = 'border-blue-400'; To = 'border-secondary-400' },
+    @{ From = 'border-blue-500'; To = 'border-secondary-500' },
+    @{ From = 'border-blue-600'; To = 'border-secondary-600' },
+    @{ From = 'ring-blue-500'; To = 'ring-secondary-500' },
+    @{ From = 'ring-blue-600'; To = 'ring-secondary-600' },
+    @{ From = 'hover:bg-blue-50'; To = 'hover:bg-secondary-50' },
+    @{ From = 'hover:bg-blue-100'; To = 'hover:bg-secondary-100' },
+    @{ From = 'hover:bg-blue-600'; To = 'hover:bg-secondary-600' },
+    @{ From = 'hover:bg-blue-700'; To = 'hover:bg-secondary-700' },
+    @{ From = 'hover:text-blue-600'; To = 'hover:text-secondary-600' },
+    @{ From = 'hover:text-blue-700'; To = 'hover:text-secondary-700' },
+    @{ From = 'focus:ring-blue-500'; To = 'focus:ring-secondary-500' },
     
-    # P3-2: Teal to Primary (Brand Primary)
-    @{ Pattern = 'teal-50'; Replacement = 'primary-50'; Description = 'Teal 50 to Primary 50' },
-    @{ Pattern = 'teal-100'; Replacement = 'primary-100'; Description = 'Teal 100 to Primary 100' },
-    @{ Pattern = 'teal-200'; Replacement = 'primary-200'; Description = 'Teal 200 to Primary 200' },
-    @{ Pattern = 'teal-300'; Replacement = 'primary-300'; Description = 'Teal 300 to Primary 300' },
-    @{ Pattern = 'teal-400'; Replacement = 'primary-400'; Description = 'Teal 400 to Primary 400' },
-    @{ Pattern = 'teal-500'; Replacement = 'primary-500'; Description = 'Teal 500 to Primary 500' },
-    @{ Pattern = 'teal-600'; Replacement = 'primary-600'; Description = 'Teal 600 to Primary 600' },
-    @{ Pattern = 'teal-700'; Replacement = 'primary-700'; Description = 'Teal 700 to Primary 700' },
-    @{ Pattern = 'teal-800'; Replacement = 'primary-800'; Description = 'Teal 800 to Primary 800' },
-    @{ Pattern = 'teal-900'; Replacement = 'primary-900'; Description = 'Teal 900 to Primary 900' },
-    @{ Pattern = 'teal-950'; Replacement = 'primary-950'; Description = 'Teal 950 to Primary 950' },
+    # Yellow to Accent (warning, highlights, CTAs)
+    @{ From = 'bg-yellow-50'; To = 'bg-accent-50' },
+    @{ From = 'bg-yellow-100'; To = 'bg-accent-100' },
+    @{ From = 'bg-yellow-200'; To = 'bg-accent-200' },
+    @{ From = 'bg-yellow-300'; To = 'bg-accent-300' },
+    @{ From = 'bg-yellow-400'; To = 'bg-accent-400' },
+    @{ From = 'bg-yellow-500'; To = 'bg-accent-500' },
+    @{ From = 'bg-yellow-600'; To = 'bg-accent-600' },
+    @{ From = 'bg-yellow-700'; To = 'bg-accent-700' },
+    @{ From = 'text-yellow-50'; To = 'text-accent-50' },
+    @{ From = 'text-yellow-100'; To = 'text-accent-100' },
+    @{ From = 'text-yellow-200'; To = 'text-accent-200' },
+    @{ From = 'text-yellow-300'; To = 'text-accent-300' },
+    @{ From = 'text-yellow-400'; To = 'text-accent-400' },
+    @{ From = 'text-yellow-500'; To = 'text-accent-500' },
+    @{ From = 'text-yellow-600'; To = 'text-accent-600' },
+    @{ From = 'text-yellow-700'; To = 'text-accent-700' },
+    @{ From = 'text-yellow-800'; To = 'text-accent-800' },
+    @{ From = 'border-yellow-200'; To = 'border-accent-200' },
+    @{ From = 'border-yellow-300'; To = 'border-accent-300' },
+    @{ From = 'border-yellow-400'; To = 'border-accent-400' },
+    @{ From = 'border-yellow-500'; To = 'border-accent-500' },
     
-    # P3-3: Emerald/Green to Success (Semantic positive)
-    @{ Pattern = 'emerald-50'; Replacement = 'success-50'; Description = 'Emerald 50 to Success 50' },
-    @{ Pattern = 'emerald-100'; Replacement = 'success-100'; Description = 'Emerald 100 to Success 100' },
-    @{ Pattern = 'emerald-500'; Replacement = 'success-500'; Description = 'Emerald 500 to Success 500' },
-    @{ Pattern = 'emerald-600'; Replacement = 'success-600'; Description = 'Emerald 600 to Success 600' },
-    @{ Pattern = 'emerald-700'; Replacement = 'success-700'; Description = 'Emerald 700 to Success 700' },
-    @{ Pattern = 'green-50'; Replacement = 'success-50'; Description = 'Green 50 to Success 50' },
-    @{ Pattern = 'green-100'; Replacement = 'success-100'; Description = 'Green 100 to Success 100' },
-    @{ Pattern = 'green-500'; Replacement = 'success-500'; Description = 'Green 500 to Success 500' },
-    @{ Pattern = 'green-600'; Replacement = 'success-600'; Description = 'Green 600 to Success 600' },
-    @{ Pattern = 'green-700'; Replacement = 'success-700'; Description = 'Green 700 to Success 700' },
+    # Red to Danger (errors, losses, negative)
+    @{ From = 'bg-red-50'; To = 'bg-danger-50' },
+    @{ From = 'bg-red-100'; To = 'bg-danger-100' },
+    @{ From = 'bg-red-200'; To = 'bg-danger-200' },
+    @{ From = 'bg-red-300'; To = 'bg-danger-300' },
+    @{ From = 'bg-red-400'; To = 'bg-danger-400' },
+    @{ From = 'bg-red-500'; To = 'bg-danger-500' },
+    @{ From = 'bg-red-600'; To = 'bg-danger-600' },
+    @{ From = 'bg-red-700'; To = 'bg-danger-700' },
+    @{ From = 'text-red-50'; To = 'text-danger-50' },
+    @{ From = 'text-red-100'; To = 'text-danger-100' },
+    @{ From = 'text-red-200'; To = 'text-danger-200' },
+    @{ From = 'text-red-300'; To = 'text-danger-300' },
+    @{ From = 'text-red-400'; To = 'text-danger-400' },
+    @{ From = 'text-red-500'; To = 'text-danger-500' },
+    @{ From = 'text-red-600'; To = 'text-danger-600' },
+    @{ From = 'text-red-700'; To = 'text-danger-700' },
+    @{ From = 'text-red-800'; To = 'text-danger-800' },
+    @{ From = 'border-red-200'; To = 'border-danger-200' },
+    @{ From = 'border-red-300'; To = 'border-danger-300' },
+    @{ From = 'border-red-400'; To = 'border-danger-400' },
+    @{ From = 'border-red-500'; To = 'border-danger-500' },
+    @{ From = 'ring-red-500'; To = 'ring-danger-500' },
+    @{ From = 'hover:bg-red-600'; To = 'hover:bg-danger-600' },
+    @{ From = 'hover:bg-red-700'; To = 'hover:bg-danger-700' },
     
-    # P3-4: Amber to Accent (Brand accent)
-    @{ Pattern = 'amber-50'; Replacement = 'accent-50'; Description = 'Amber 50 to Accent 50' },
-    @{ Pattern = 'amber-100'; Replacement = 'accent-100'; Description = 'Amber 100 to Accent 100' },
-    @{ Pattern = 'amber-200'; Replacement = 'accent-200'; Description = 'Amber 200 to Accent 200' },
-    @{ Pattern = 'amber-300'; Replacement = 'accent-300'; Description = 'Amber 300 to Accent 300' },
-    @{ Pattern = 'amber-400'; Replacement = 'accent-400'; Description = 'Amber 400 to Accent 400' },
-    @{ Pattern = 'amber-500'; Replacement = 'accent-500'; Description = 'Amber 500 to Accent 500' },
-    @{ Pattern = 'amber-600'; Replacement = 'accent-600'; Description = 'Amber 600 to Accent 600' },
-    @{ Pattern = 'amber-700'; Replacement = 'accent-700'; Description = 'Amber 700 to Accent 700' },
-    @{ Pattern = 'amber-800'; Replacement = 'accent-800'; Description = 'Amber 800 to Accent 800' },
-    @{ Pattern = 'amber-900'; Replacement = 'accent-900'; Description = 'Amber 900 to Accent 900' },
+    # Green to Success (gains, positive, success)
+    @{ From = 'bg-green-50'; To = 'bg-success-50' },
+    @{ From = 'bg-green-100'; To = 'bg-success-100' },
+    @{ From = 'bg-green-200'; To = 'bg-success-200' },
+    @{ From = 'bg-green-300'; To = 'bg-success-300' },
+    @{ From = 'bg-green-400'; To = 'bg-success-400' },
+    @{ From = 'bg-green-500'; To = 'bg-success-500' },
+    @{ From = 'bg-green-600'; To = 'bg-success-600' },
+    @{ From = 'bg-green-700'; To = 'bg-success-700' },
+    @{ From = 'text-green-50'; To = 'text-success-50' },
+    @{ From = 'text-green-100'; To = 'text-success-100' },
+    @{ From = 'text-green-200'; To = 'text-success-200' },
+    @{ From = 'text-green-300'; To = 'text-success-300' },
+    @{ From = 'text-green-400'; To = 'text-success-400' },
+    @{ From = 'text-green-500'; To = 'text-success-500' },
+    @{ From = 'text-green-600'; To = 'text-success-600' },
+    @{ From = 'text-green-700'; To = 'text-success-700' },
+    @{ From = 'text-green-800'; To = 'text-success-800' },
+    @{ From = 'border-green-200'; To = 'border-success-200' },
+    @{ From = 'border-green-300'; To = 'border-success-300' },
+    @{ From = 'border-green-400'; To = 'border-success-400' },
+    @{ From = 'border-green-500'; To = 'border-success-500' },
+    @{ From = 'ring-green-500'; To = 'ring-success-500' },
+    @{ From = 'hover:bg-green-600'; To = 'hover:bg-success-600' },
+    @{ From = 'hover:bg-green-700'; To = 'hover:bg-success-700' },
     
-    # P3-5: Sky/Blue to Secondary (Info/Trust)
-    @{ Pattern = 'sky-50'; Replacement = 'secondary-50'; Description = 'Sky 50 to Secondary 50' },
-    @{ Pattern = 'sky-100'; Replacement = 'secondary-100'; Description = 'Sky 100 to Secondary 100' },
-    @{ Pattern = 'sky-200'; Replacement = 'secondary-200'; Description = 'Sky 200 to Secondary 200' },
-    @{ Pattern = 'sky-300'; Replacement = 'secondary-300'; Description = 'Sky 300 to Secondary 300' },
-    @{ Pattern = 'sky-400'; Replacement = 'secondary-400'; Description = 'Sky 400 to Secondary 400' },
-    @{ Pattern = 'sky-500'; Replacement = 'secondary-500'; Description = 'Sky 500 to Secondary 500' },
-    @{ Pattern = 'sky-600'; Replacement = 'secondary-600'; Description = 'Sky 600 to Secondary 600' },
-    @{ Pattern = 'sky-700'; Replacement = 'secondary-700'; Description = 'Sky 700 to Secondary 700' },
+    # Orange to Accent (attention, warnings)
+    @{ From = 'bg-orange-50'; To = 'bg-accent-50' },
+    @{ From = 'bg-orange-100'; To = 'bg-accent-100' },
+    @{ From = 'bg-orange-200'; To = 'bg-accent-200' },
+    @{ From = 'bg-orange-300'; To = 'bg-accent-300' },
+    @{ From = 'bg-orange-400'; To = 'bg-accent-400' },
+    @{ From = 'bg-orange-500'; To = 'bg-accent-500' },
+    @{ From = 'bg-orange-600'; To = 'bg-accent-600' },
+    @{ From = 'text-orange-500'; To = 'text-accent-500' },
+    @{ From = 'text-orange-600'; To = 'text-accent-600' },
+    @{ From = 'border-orange-200'; To = 'border-accent-200' },
+    @{ From = 'border-orange-300'; To = 'border-accent-300' },
     
-    # P3-6: Red to Danger (Semantic negative)
-    @{ Pattern = 'red-50'; Replacement = 'danger-50'; Description = 'Red 50 to Danger 50' },
-    @{ Pattern = 'red-100'; Replacement = 'danger-100'; Description = 'Red 100 to Danger 100' },
-    @{ Pattern = 'red-500'; Replacement = 'danger-500'; Description = 'Red 500 to Danger 500' },
-    @{ Pattern = 'red-600'; Replacement = 'danger-600'; Description = 'Red 600 to Danger 600' },
-    @{ Pattern = 'red-700'; Replacement = 'danger-700'; Description = 'Red 700 to Danger 700' }
+    # Purple to Primary (brand)
+    @{ From = 'bg-purple-50'; To = 'bg-primary-50' },
+    @{ From = 'bg-purple-100'; To = 'bg-primary-100' },
+    @{ From = 'bg-purple-200'; To = 'bg-primary-200' },
+    @{ From = 'bg-purple-500'; To = 'bg-primary-500' },
+    @{ From = 'bg-purple-600'; To = 'bg-primary-600' },
+    @{ From = 'bg-purple-700'; To = 'bg-primary-700' },
+    @{ From = 'text-purple-500'; To = 'text-primary-500' },
+    @{ From = 'text-purple-600'; To = 'text-primary-600' },
+    @{ From = 'text-purple-700'; To = 'text-primary-700' },
+    @{ From = 'border-purple-200'; To = 'border-primary-200' },
+    @{ From = 'border-purple-500'; To = 'border-primary-500' },
+    
+    # Indigo to Primary (brand)
+    @{ From = 'bg-indigo-50'; To = 'bg-primary-50' },
+    @{ From = 'bg-indigo-100'; To = 'bg-primary-100' },
+    @{ From = 'bg-indigo-500'; To = 'bg-primary-500' },
+    @{ From = 'bg-indigo-600'; To = 'bg-primary-600' },
+    @{ From = 'bg-indigo-700'; To = 'bg-primary-700' },
+    @{ From = 'text-indigo-500'; To = 'text-primary-500' },
+    @{ From = 'text-indigo-600'; To = 'text-primary-600' },
+    @{ From = 'border-indigo-200'; To = 'border-primary-200' },
+    @{ From = 'border-indigo-500'; To = 'border-primary-500' },
+    
+    # Cyan to Secondary (info variant)
+    @{ From = 'bg-cyan-50'; To = 'bg-secondary-50' },
+    @{ From = 'bg-cyan-100'; To = 'bg-secondary-100' },
+    @{ From = 'bg-cyan-500'; To = 'bg-secondary-500' },
+    @{ From = 'bg-cyan-600'; To = 'bg-secondary-600' },
+    @{ From = 'text-cyan-500'; To = 'text-secondary-500' },
+    @{ From = 'text-cyan-600'; To = 'text-secondary-600' },
+    
+    # Pink to Danger (alerts)
+    @{ From = 'bg-pink-50'; To = 'bg-danger-50' },
+    @{ From = 'bg-pink-100'; To = 'bg-danger-100' },
+    @{ From = 'bg-pink-500'; To = 'bg-danger-500' },
+    @{ From = 'bg-pink-600'; To = 'bg-danger-600' },
+    @{ From = 'text-pink-500'; To = 'text-danger-500' },
+    @{ From = 'text-pink-600'; To = 'text-danger-600' }
 )
 
-# File extensions to process
-$extensions = @("*.tsx", "*.ts", "*.jsx", "*.js")
+# Get all TSX files
+$files = Get-ChildItem -Path "app","components" -Recurse -Include "*.tsx" -File
 
-# Directories to exclude
-$excludeDirs = @("node_modules", ".next", ".git", "dist", "build")
-
-# Track statistics
-$totalFiles = 0
 $totalReplacements = 0
-$changedFiles = @()
-
-Write-Host "Scanning project files..." -ForegroundColor Yellow
-Write-Host ""
-
-# Get all files to process
-$files = Get-ChildItem -Path $projectRoot -Recurse -Include $extensions | Where-Object {
-    $exclude = $false
-    foreach ($dir in $excludeDirs) {
-        if ($_.FullName -like "*\$dir\*") {
-            $exclude = $true
-            break
-        }
-    }
-    -not $exclude
-}
-
-Write-Host "Found $($files.Count) files to scan" -ForegroundColor Cyan
-Write-Host ""
+$modifiedFiles = @()
 
 foreach ($file in $files) {
-    $content = Get-Content -Path $file.FullName -Raw -ErrorAction SilentlyContinue
+    $content = Get-Content $file.FullName -Raw -ErrorAction SilentlyContinue
     if (-not $content) { continue }
     
     $originalContent = $content
-    $fileChanges = 0
+    $fileModified = $false
     
     foreach ($replacement in $replacements) {
-        # Use word boundary matching to avoid partial replacements
-        $pattern = "\b$($replacement.Pattern)\b"
-        $matches = [regex]::Matches($content, $pattern)
-        
-        if ($matches.Count -gt 0) {
-            $content = $content -replace $pattern, $replacement.Replacement
-            $fileChanges += $matches.Count
+        if ($content -match [regex]::Escape($replacement.From)) {
+            $content = $content -replace [regex]::Escape($replacement.From), $replacement.To
+            $fileModified = $true
+            $totalReplacements++
         }
     }
     
-    if ($fileChanges -gt 0) {
-        # Write changes back to file
-        Set-Content -Path $file.FullName -Value $content -NoNewline
-        $totalFiles++
-        $totalReplacements += $fileChanges
-        $relativePath = $file.FullName.Replace($projectRoot, "").TrimStart("\")
-        $changedFiles += @{ Path = $relativePath; Changes = $fileChanges }
-        Write-Host "  + $relativePath ($fileChanges changes)" -ForegroundColor Green
+    if ($fileModified) {
+        Set-Content -Path $file.FullName -Value $content -NoNewline -Encoding UTF8
+        $modifiedFiles += $file.FullName.Replace((Get-Location).Path, "").TrimStart("\")
+        Write-Host "Modified: $($file.Name)" -ForegroundColor Yellow
     }
 }
 
 Write-Host ""
-Write-Host "=====================================" -ForegroundColor Cyan
-Write-Host "  Migration Complete!" -ForegroundColor Cyan
-Write-Host "=====================================" -ForegroundColor Cyan
+Write-Host "=======================================" -ForegroundColor Green
+Write-Host "  Migration Complete!" -ForegroundColor Green
+Write-Host "=======================================" -ForegroundColor Green
 Write-Host ""
-Write-Host "Summary:" -ForegroundColor Yellow
-Write-Host "  Files modified: $totalFiles" -ForegroundColor White
-Write-Host "  Total replacements: $totalReplacements" -ForegroundColor White
-Write-Host ""
-
-if ($changedFiles.Count -gt 0) {
-    Write-Host "Changed files:" -ForegroundColor Yellow
-    foreach ($cf in $changedFiles | Sort-Object -Property Changes -Descending | Select-Object -First 20) {
-        Write-Host "  - $($cf.Path): $($cf.Changes) changes" -ForegroundColor Gray
-    }
-    if ($changedFiles.Count -gt 20) {
-        Write-Host "  ... and $($changedFiles.Count - 20) more files" -ForegroundColor Gray
-    }
-}
-
-Write-Host ""
-Write-Host "Next steps:" -ForegroundColor Yellow
-Write-Host "  1. Run 'npm run build' to verify changes" -ForegroundColor White
-Write-Host "  2. Review visual appearance in dev server" -ForegroundColor White
-Write-Host "  3. Commit changes" -ForegroundColor White
-Write-Host ""
+Write-Host "Total replacements: $totalReplacements" -ForegroundColor White
+Write-Host "Files modified: $($modifiedFiles.Count)" -ForegroundColor White

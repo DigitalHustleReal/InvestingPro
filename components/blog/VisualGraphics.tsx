@@ -1,4 +1,4 @@
-import React from 'react'
+﻿import React from 'react'
 
 /**
  * CSS-Based Visual Graphics Components
@@ -225,14 +225,14 @@ export function GrowthIndicator({
   }
   
   const arrows = {
-    up: '↗',
-    down: '↘',
-    neutral: '→'
+    up: 'â†—',
+    down: 'â†˜',
+    neutral: 'â†’'
   }
   
   return (
     <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border-2 ${
-      trend === 'up' ? 'border-green-200' : trend === 'down' ? 'border-red-200' : 'border-slate-200'
+      trend === 'up' ? 'border-success-200' : trend === 'down' ? 'border-danger-200' : 'border-slate-200'
     }`}>
       <span className={`text-2xl font-bold ${colors[trend]}`}>{value}</span>
       <span className={`text-2xl ${colors[trend]}`}>{arrows[trend]}</span>
@@ -263,7 +263,7 @@ export function FeatureGrid({
             feature.available ? 'bg-primary-600' : 'bg-slate-400'
           }`}>
             <span className="text-white text-sm font-bold">
-              {feature.available ? '✓' : '✗'}
+              {feature.available ? 'âœ“' : 'âœ—'}
             </span>
           </div>
           <span className={`text-sm font-medium ${

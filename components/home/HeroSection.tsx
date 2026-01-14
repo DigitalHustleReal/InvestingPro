@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/Button";
-import { ArrowRight, TrendingUp, Shield, Calculator, CreditCard, Landmark, BookOpen } from "lucide-react";
+import { ArrowRight, TrendingUp, Shield, Calculator, CreditCard, Landmark, BookOpen, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { STAT_STRINGS } from "@/lib/constants/platform-stats";
 import { motion, AnimatePresence } from "framer-motion";
@@ -10,24 +10,24 @@ import { motion, AnimatePresence } from "framer-motion";
 import HeroVisuals from "./HeroVisuals";
 import { useNavigation } from "@/contexts/NavigationContext";
 
-// Carousel Data
+// Carousel Data - Compressed content for better UX (UI/UX Quick Win #2)
 const HERO_SLIDES = [
     {
         id: "all",
-        badge: "Independent • Unbiased • Fact-Checked",
+        badge: "Independent • Unbiased • Expert-Reviewed",
         headline: "Find Your Perfect Financial Product",
         highlight: "In 30 Seconds",
-        desc: `Stop overpaying on fees and interest. We analyze ${STAT_STRINGS.coverage} to find the best match for YOUR financial situation.`,
+        desc: `Compare ${STAT_STRINGS.coverage} — find the best match for your needs.`,
         gradient: "from-primary-600 via-primary-500 to-secondary-500",
-        primaryCta: { text: "Compare Credit Cards", href: "/credit-cards", icon: CreditCard },
-        secondaryCta: { text: "Financial Calculators", href: "/calculators", icon: Calculator }
+        primaryCta: { text: "Compare Cards", href: "/credit-cards", icon: CreditCard },
+        secondaryCta: { text: "Calculators", href: "/calculators", icon: Calculator }
     },
     {
         id: "credit-cards",
         badge: "Rewards • Cashback • Lounge Access",
         headline: "Maximize Your Spends",
         highlight: "With Best Cards",
-        desc: "Compare 100+ credit cards instantly. Find lifetime free cards, maximum cashback, and exclusive travel perks.",
+        desc: "100+ cards compared. Find lifetime free, max cashback & travel perks.",
         gradient: "from-secondary-600 via-secondary-500 to-primary-500",
         primaryCta: { text: "Compare Cards", href: "/credit-cards", icon: CreditCard },
         secondaryCta: { text: "Check Eligibility", href: "/credit-cards/check-eligibility", icon: Shield }
@@ -37,17 +37,17 @@ const HERO_SLIDES = [
         badge: "Term Life • Health • Motor",
         headline: "Protect Your Family",
         highlight: "For Less",
-        desc: "Don't leave your future to chance. Compare premium vs coverage across 25+ insurers to find the policy that actually pays out when you need it.",
+        desc: "Compare 25+ insurers. Find coverage that pays when you need it.",
         gradient: "from-primary-600 via-primary-500 to-success-500",
         primaryCta: { text: "Compare Insurance", href: "/insurance", icon: Shield },
-        secondaryCta: { text: "Insurance Guides", href: "/guides/insurance", icon: BookOpen }
+        secondaryCta: { text: "Guides", href: "/guides/insurance", icon: BookOpen }
     },
     {
         id: "loans",
-        badge: "Lowest Interest Rates • Instant Approval",
+        badge: "Lowest Rates • Quick Approval",
         headline: "Dream Home, Dream Car",
         highlight: "Made Affordable",
-        desc: "Compare interest rates from 50+ banks instantly. Get the lowest EMI for your home and personal loans with our advanced eligibility checker.",
+        desc: "50+ banks compared. Get lowest EMI with instant eligibility check.",
         gradient: "from-primary-600 via-primary-500 to-secondary-500",
         primaryCta: { text: "Compare Loans", href: "/loans", icon: Landmark },
         secondaryCta: { text: "Check Eligibility", href: "/loans/eligibility", icon: Shield }
@@ -57,17 +57,17 @@ const HERO_SLIDES = [
         badge: "Mutual Funds • FDs • SIPs",
         headline: "Grow Your Wealth",
         highlight: "Smartly",
-        desc: "Zero commission direct mutual funds, high-yield FDs, and disciplined SIPs. Build a portfolio that beats inflation.",
+        desc: "Zero commission funds, high-yield FDs. Beat inflation.",
         gradient: "from-secondary-600 via-secondary-500 to-secondary-400",
         primaryCta: { text: "Start Investing", href: "/mutual-funds", icon: TrendingUp },
         secondaryCta: { text: "SIP Calculator", href: "/calculators/sip", icon: Calculator }
     },
     {
         id: "tools",
-        badge: "SIP • EMI • Income Tax • PPF",
+        badge: "SIP • EMI • Tax • PPF",
         headline: "Plan Your Finances",
         highlight: "With Precision",
-        desc: "Use our 50+ free financial calculators to plan your investments, loans, and taxes. Accurate, instant, and easy to use.",
+        desc: "50+ free calculators. Accurate results, instantly.",
         gradient: "from-primary-600 via-primary-500 to-success-500",
         primaryCta: { text: "All Calculators", href: "/calculators", icon: Calculator },
         secondaryCta: { text: "Tax Planner", href: "/calculators/income-tax", icon: Calculator }
@@ -183,20 +183,50 @@ export default function HeroSection() {
                             />
                         </div>
 
-                        {/* Slider Indicators */}
-                        <div className="flex gap-2 mt-4 ml-1">
-                            {HERO_SLIDES.map((_, idx) => (
-                                <button
-                                    key={idx}
-                                    onClick={() => setCurrentSlide(idx)}
-                                    className={`h-1.5 rounded-full transition-all duration-500 ${
-                                        currentSlide === idx 
-                                        ? "w-8 bg-primary-600 dark:bg-primary-400" 
-                                        : "w-2 bg-slate-300 dark:bg-slate-700 hover:bg-primary-300"
-                                    }`}
-                                    aria-label={`Go to slide ${idx + 1}`}
-                                />
-                            ))}
+                        {/* Slider Controls - Indicators + Navigation Arrows (UI/UX Phase 3) */}
+                        <div className="flex items-center gap-4 mt-4">
+                            {/* Prev Button */}
+                            <button
+                                onClick={() => setCurrentSlide((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)}
+                                className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:border-primary-300 dark:hover:border-primary-700 hover:text-primary-600 dark:hover:text-primary-400 transition-all shadow-sm hover:shadow-md"
+                                aria-label="Previous slide"
+                            >
+                                <ChevronLeft className="w-5 h-5" />
+                            </button>
+                            
+                            {/* Indicators */}
+                            <div className="flex gap-2">
+                                {HERO_SLIDES.map((_, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => {
+                                            setCurrentSlide(idx);
+                                            setIsPaused(true);
+                                        }}
+                                        className={`h-2 rounded-full transition-all duration-500 ${
+                                            currentSlide === idx 
+                                            ? "w-8 bg-primary-600 dark:bg-primary-400" 
+                                            : "w-2 bg-slate-300 dark:bg-slate-700 hover:bg-primary-300 dark:hover:bg-primary-600"
+                                        }`}
+                                        aria-label={`Go to slide ${idx + 1}`}
+                                        aria-current={currentSlide === idx ? 'true' : 'false'}
+                                    />
+                                ))}
+                            </div>
+                            
+                            {/* Next Button */}
+                            <button
+                                onClick={() => setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length)}
+                                className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:border-primary-300 dark:hover:border-primary-700 hover:text-primary-600 dark:hover:text-primary-400 transition-all shadow-sm hover:shadow-md"
+                                aria-label="Next slide"
+                            >
+                                <ChevronRight className="w-5 h-5" />
+                            </button>
+                            
+                            {/* Pause/Play indicator */}
+                            <span className="text-xs text-slate-400 dark:text-slate-500 ml-2">
+                                {isPaused ? '⏸ Paused' : '▶ Auto'}
+                            </span>
                         </div>
                     </div>
 

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -168,7 +168,7 @@ export function MediaLibrary({ onSelect, selectionMode = false }: MediaLibraryPr
                                                 </a>
                                                 <button
                                                     onClick={(e) => handleDelete(e, item)}
-                                                    className="p-2 bg-danger-500/20 hover:bg-danger-500/40 text-red-400 rounded-full backdrop-blur-sm transition-colors"
+                                                    className="p-2 bg-danger-500/20 hover:bg-danger-500/40 text-danger-400 rounded-full backdrop-blur-sm transition-colors"
                                                     title="Delete"
                                                 >
                                                     <Trash2 className="w-4 h-4" />
@@ -203,14 +203,14 @@ export function MediaLibrary({ onSelect, selectionMode = false }: MediaLibraryPr
                                         <div className="flex-1 min-w-0">
                                             <p className="text-sm font-medium text-slate-200 truncate">{item.name}</p>
                                             <p className="text-xs text-slate-500">
-                                                {(item.size / 1024).toFixed(1)} KB • {format(new Date(item.created_at), 'MMM d, yyyy HH:mm')}
+                                                {(item.size / 1024).toFixed(1)} KB â€¢ {format(new Date(item.created_at), 'MMM d, yyyy HH:mm')}
                                             </p>
                                         </div>
                                         <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                             <button onClick={(e) => copyUrl(e, item.url)} className="p-2 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-white">
                                                 <Copy className="w-4 h-4" />
                                             </button>
-                                            <button onClick={(e) => handleDelete(e, item)} className="p-2 hover:bg-danger-500/20 rounded-lg text-slate-400 hover:text-red-400">
+                                            <button onClick={(e) => handleDelete(e, item)} className="p-2 hover:bg-danger-500/20 rounded-lg text-slate-400 hover:text-danger-400">
                                                 <Trash2 className="w-4 h-4" />
                                             </button>
                                         </div>

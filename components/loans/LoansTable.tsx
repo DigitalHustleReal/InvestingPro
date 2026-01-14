@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import Link from 'next/link';
 import { DataTable } from '@/components/data-table/DataTable';
 import { ColumnDef } from '@/components/data-table/types';
@@ -74,7 +74,7 @@ export function LoansTable({ loans }: LoansTableProps) {
             key: 'max_amount',
             header: 'Max Amount',
             accessor: (row) => {
-                const amount = row.features?.max_loan_amount || row.features?.['Max Amount'] || '₹40L';
+                const amount = row.features?.max_loan_amount || row.features?.['Max Amount'] || 'â‚¹40L';
                 
                 return (
                     <div className="text-center">
@@ -180,7 +180,7 @@ export function LoansTable({ loans }: LoansTableProps) {
                     </Link>
                     <Link href={row.affiliate_link || row.link || `/loans/${row.slug}`} className="w-full">
                         <Button 
-                            className="w-full h-9 rounded-xl bg-primary-600 hover:bg-blue-600 dark:bg-primary-500 dark:hover:bg-blue-500 text-white font-bold text-[10px] uppercase tracking-wider transition-all"
+                            className="w-full h-9 rounded-xl bg-primary-600 hover:bg-secondary-600 dark:bg-primary-500 dark:hover:bg-secondary-500 text-white font-bold text-[10px] uppercase tracking-wider transition-all"
                         >
                             Apply
                             <ArrowUpRight className="w-3 h-3 ml-1" />

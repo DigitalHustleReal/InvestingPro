@@ -96,9 +96,9 @@ export function SSYCalculator() {
     const yearlyData = generateYearlyData();
 
     const formatCurrency = (num: number) => {
-        if (num >= 10000000) return `₹${(num / 10000000).toFixed(2)} Cr`;
-        if (num >= 100000) return `₹${(num / 100000).toFixed(2)} L`;
-        return `₹${Math.round(num).toLocaleString('en-IN')}`;
+        if (num >= 10000000) return `â‚¹${(num / 10000000).toFixed(2)} Cr`;
+        if (num >= 100000) return `â‚¹${(num / 100000).toFixed(2)} L`;
+        return `â‚¹${Math.round(num).toLocaleString('en-IN')}`;
     };
 
     return (
@@ -134,7 +134,7 @@ export function SSYCalculator() {
                                 step={250}
                                 className="py-2"
                             />
-                            <p className="text-xs text-slate-500">Min: ₹250, Max: ₹1.5 Lakh</p>
+                            <p className="text-xs text-slate-500">Min: â‚¹250, Max: â‚¹1.5 Lakh</p>
                         </div>
 
                         {/* Girl's Age */}
@@ -221,9 +221,9 @@ export function SSYCalculator() {
                                     EEE Status: Tax-free Invest, Interest & Maturity
                                 </p>
                             </div>
-                            <div className="p-3 bg-indigo-50 border border-indigo-200 rounded-xl">
-                                <p className="text-[10px] font-bold text-indigo-700 uppercase tracking-widest mb-1">Maturity</p>
-                                <p className="text-xs text-indigo-800 font-medium">
+                            <div className="p-3 bg-primary-50 border border-primary-200 rounded-xl">
+                                <p className="text-[10px] font-bold text-primary-700 uppercase tracking-widest mb-1">Maturity</p>
+                                <p className="text-xs text-primary-800 font-medium">
                                     21 Years from opening (Age {girlAge + 21})
                                 </p>
                             </div>

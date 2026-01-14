@@ -38,6 +38,7 @@ import { FilterSidebar } from "@/components/mutual-funds/FilterSidebar";
 import { FundTable } from "@/components/mutual-funds/FundTable";
 import { ResponsiveFilterContainer } from "@/components/products/ResponsiveFilterContainer";
 import { SIPCalculator } from "@/components/calculators/SIPCalculator";
+import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 
 const FUND_CATEGORIES = ["All", "Equity", "Debt", "Hybrid", "ELSS", "Index"];
 
@@ -46,7 +47,7 @@ const riskColors: Record<string, string> = {
     "Low to Moderate": "bg-primary- text-primary- border-primary-",
     "Moderate": "bg-secondary-50 text-secondary-700 border-secondary-100",
     "Moderately High": "bg-accent-50 text-accent-700 border-accent-100",
-    "High": "bg-orange-50 text-orange-700 border-orange-100",
+    "High": "bg-accent-50 text-accent-700 border-accent-100",
     "Very High": "bg-danger-50 text-danger-700 border-danger-100",
 };
 
@@ -67,7 +68,7 @@ const MF_SLIDES = [
     {
         id: '2',
         title: "Tax Saving ELSS",
-        subtitle: "Save ₹46,800",
+        subtitle: "Save â‚¹46,800",
         description: "Invest in Equity Linked Savings Schemes and save tax under Section 80C. Best wealth creation + tax saving combo.",
         ctaText: "Explore ELSS",
         ctaLink: "?category=ELSS",
@@ -75,7 +76,7 @@ const MF_SLIDES = [
     },
     {
         id: '3',
-        title: "Start SIP at ₹500",
+        title: "Start SIP at â‚¹500",
         subtitle: "Beginner Friendly",
         description: "You don't need a lot of money to start. Build wealth with small, disciplined monthly investments.",
         ctaText: "Start SIP",
@@ -236,6 +237,7 @@ export default function MutualFundsPage() {
             {/* Carousel Hero Section */}
             <div className="bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 pt-28 pb-12 relative overflow-hidden">
                 <div className="container mx-auto px-4">
+                     <AutoBreadcrumbs />
                      <CategoryHeroCarousel slides={MF_SLIDES} className="mb-12 shadow-2xl" />
                      
                      <div className="relative group max-w-xl mx-auto -mt-20 z-20">
@@ -412,7 +414,7 @@ export default function MutualFundsPage() {
                                                         </Button>
                                                     </Link>
                                                     <Link href={`/mutual-funds/${fund.id}`} className="w-full">
-                                                        <Button className="w-full h-12 rounded-2xl bg-primary-600 hover:bg-blue-600 dark:bg-primary-500 dark:hover:bg-blue-500 text-white font-extrabold text-[11px] uppercase tracking-[0.2em] shadow-xl shadow-primary-500/20 transition-all">
+                                                        <Button className="w-full h-12 rounded-2xl bg-primary-600 hover:bg-secondary-600 dark:bg-primary-500 dark:hover:bg-secondary-500 text-white font-extrabold text-[11px] uppercase tracking-[0.2em] shadow-xl shadow-primary-500/20 transition-all">
                                                             Allocate
                                                             <ArrowUpRight className="w-4 h-4 ml-2" />
                                                         </Button>
@@ -499,10 +501,10 @@ export default function MutualFundsPage() {
                                 <Badge className="mb-6 bg-white/20 text-white border-white/30 backdrop-blur-sm">Power of Compounding</Badge>
                                 <h3 className="text-4xl font-bold mb-6">Start Early to Retire Rich</h3>
                                 <p className="text-white/90 text-lg mb-8 leading-relaxed">
-                                    Investing ₹5,000/month for 20 years can turn into ₹50 Lakhs. 
-                                    Delaying by just 5 years can cost you over ₹25 Lakhs in returns.
+                                    Investing â‚¹5,000/month for 20 years can turn into â‚¹50 Lakhs. 
+                                    Delaying by just 5 years can cost you over â‚¹25 Lakhs in returns.
                                 </p>
-                                <Button className="bg-white hover:bg-blue-50 text-primary-600 font-bold h-12 px-8 rounded-xl shadow-lg transition-all">
+                                <Button className="bg-white hover:bg-secondary-50 text-primary-600 font-bold h-12 px-8 rounded-xl shadow-lg transition-all">
                                     Start SIP Calculator
                                 </Button>
                             </div>

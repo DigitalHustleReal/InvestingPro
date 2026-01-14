@@ -3,44 +3,40 @@
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { TrendingUp, TrendingDown, Clock, MessageSquare, ChevronRight } from 'lucide-react';
+import { AlertCircle, Clock, Newspaper, ChevronRight } from 'lucide-react';
 
 const newsItems = [
     {
         id: 1,
-        source: "Bloomberg",
+        source: "RBI",
         title: "RBI Holds Repo Rate at 6.5%, Focuses on Inflation Control",
         time: "2h ago",
-        sentiment: "positive",
-        score: 0.85,
-        tag: "Economy"
-    },
-    {
-        id: 2,
-        source: "Reuter India",
-        title: "HDFC Bank Q4 Results: Net Profit Surges 37% YoY",
-        time: "4h ago",
-        sentiment: "bullish",
-        score: 0.92,
+        impact: "high",
         tag: "Banking"
     },
     {
-        id: 3,
+        id: 2,
         source: "Economic Times",
-        title: "Nifty Smallcap Index Faces 2% Correction Amid Overvaluation Fears",
+        title: "New Tax Regime: 80% of Taxpayers Opt for Simplified Structure",
+        time: "4h ago",
+        impact: "high",
+        tag: "Taxation"
+    },
+    {
+        id: 3,
+        source: "Mint",
+        title: "Health Insurance Premium Hikes Expected in Q2 2026",
         time: "6h ago",
-        sentiment: "bearish",
-        score: 0.25,
-        tag: "Markets"
+        impact: "medium",
+        tag: "Insurance"
     },
     {
         id: 4,
-        source: "Mint",
-        title: "TCS Secures $1.5 Billion Transformation Deal with UK's Aviva",
+        source: "Business Standard",
+        title: "SBI Launches New Fixed Deposit Scheme with Higher Returns",
         time: "8h ago",
-        sentiment: "bullish",
-        score: 0.88,
-        tag: "IT Services"
+        impact: "medium",
+        tag: "Banking"
     }
 ];
 
@@ -48,40 +44,41 @@ export default function NewsSentiment() {
     return (
         <div className="space-y-4">
             <div className="flex items-center justify-between px-2">
-                <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-st flex items-center gap-2">
-                    <MessageSquare size={14} className="text-primary-400" />
-                    News Sentiment Alpha
+                <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+                    <Newspaper size={14} className="text-primary-400" />
+                    Financial News Digest
                 </h3>
-                <Badge variant="outline" className="text-[9px] font-bold border-slate-800 text-slate-400">LIVE FEED</Badge>
+                <Badge variant="outline" className="text-[9px] font-bold border-slate-300 text-slate-600">LIVE FEED</Badge>
             </div>
 
             <div className="grid grid-cols-1 gap-3">
                 {newsItems.map((news) => (
-                    <Card key={news.id} className="bg-slate-900/40 border-slate-800/60 hover:border-primary-500/30 transition-all group cursor-pointer overflow-hidden rounded-2xl">
-                        <CardContent className="p-6 md:p-8">
+                    <Card key={news.id} className="bg-white border-slate-200 hover:border-primary-300 hover:shadow-lg transition-all group cursor-pointer overflow-hidden rounded-2xl">
+                        <CardContent className="p-6">
                             <div className="flex justify-between items-start mb-2">
                                 <div className="flex items-center gap-2">
-                                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">{news.source}</span>
-                                    <span className="text-[10px] text-slate-700">•</span>
+                                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{news.source}</span>
+                                    <span className="text-[10px] text-slate-400">•</span>
                                     <span className="text-[10px] font-bold text-slate-500 flex items-center gap-1">
                                         <Clock size={10} /> {news.time}
                                     </span>
                                 </div>
-                                <div className={`px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-widest flex items-center gap-1 ${news.sentiment === 'bullish' || news.sentiment === 'positive'
-                                        ? 'bg-primary-500/10 text-primary-400'
-                                        : 'bg-rose-500/10 text-rose-400'
-                                    }`}>
-                                    {news.sentiment === 'bullish' ? <TrendingUp size={10} /> : <TrendingDown size={10} />}
-                                    {(news.score * 10).toFixed(1)} Sentiment
+                                <div className={`px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-widest flex items-center gap-1 ${
+                                    news.impact === 'high'
+                                        ? 'bg-primary-100 text-primary-700'
+                                        : 'bg-slate-100 text-slate-600'
+                                }`}>
+                                    <AlertCircle size={10} />
+                                    {news.impact} Impact
                                 </div>
                             </div>
-                            <h4 className="text-sm font-bold text-slate-200 group-hover:text-primary-300 transition-colors leading-snug">
+                            <h4 className="text-sm font-bold text-slate-900 group-hover:text-primary-600 transition-colors leading-snug">
                                 {news.title}
                             </h4>
-                            <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/5">
-                                <Badge className="bg-slate-800/50 text-slate-400 border-0 text-[10px] font-bold">{news.tag}</Badge>
-                                <div className="flex items-center gap-1 text-[10px] font-bold text-slate-500 group-hover:text-white transition-colors">
-                                    Analyze <ChevronRight size={12} />
+                            <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-100">
+                                <Badge className="bg-slate-100 text-slate-700 border-0 text-[10px] font-bold">{news.tag}</Badge>
+                                <div className="flex items-center gap-1 text-[10px] font-bold text-slate-500 group-hover:text-primary-600 transition-colors">
+                                    Read More <ChevronRight size={12} />
                                 </div>
                             </div>
                         </CardContent>
@@ -89,8 +86,8 @@ export default function NewsSentiment() {
                 ))}
             </div>
 
-            <button className="w-full py-3 rounded-xl border border-dashed border-slate-800 text-[10px] font-semibold text-slate-500 uppercase tracking-st hover:border-slate-700 hover:text-slate-400 transition-all">
-                View Entire News Deck
+            <button className="w-full py-3 rounded-xl border border-dashed border-slate-300 text-[10px] font-semibold text-slate-600 uppercase tracking-wider hover:border-primary-400 hover:text-primary-600 transition-all">
+                View All Financial News
             </button>
         </div>
     );

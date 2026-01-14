@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -142,7 +142,7 @@ export default function BudgetGovernorPanel() {
                                 <div 
                                     className={`h-2 rounded-full ${
                                         tokensPercent >= 90 ? 'bg-danger-500' :
-                                        tokensPercent >= 75 ? 'bg-yellow-500' :
+                                        tokensPercent >= 75 ? 'bg-accent-500' :
                                         'bg-success-500'
                                     }`}
                                     style={{ width: `${Math.min(100, tokensPercent)}%` }}
@@ -164,7 +164,7 @@ export default function BudgetGovernorPanel() {
                                 <div 
                                     className={`h-2 rounded-full ${
                                         imagesPercent >= 90 ? 'bg-danger-500' :
-                                        imagesPercent >= 75 ? 'bg-yellow-500' :
+                                        imagesPercent >= 75 ? 'bg-accent-500' :
                                         'bg-success-500'
                                     }`}
                                     style={{ width: `${Math.min(100, imagesPercent)}%` }}
@@ -186,7 +186,7 @@ export default function BudgetGovernorPanel() {
                                 <div 
                                     className={`h-2 rounded-full ${
                                         costPercent >= 90 ? 'bg-danger-500' :
-                                        costPercent >= 75 ? 'bg-yellow-500' :
+                                        costPercent >= 75 ? 'bg-accent-500' :
                                         'bg-success-500'
                                     }`}
                                     style={{ width: `${Math.min(100, costPercent)}%` }}

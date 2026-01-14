@@ -54,7 +54,7 @@ export function FinancialHealthCalculator() {
         }
 
         if (emergencyMonths < 6) {
-             insights.push({ type: 'info', text: `Build emergency fund to cover 6 months expenses (₹${(monthlyExpenses * 6).toLocaleString()}).` });
+             insights.push({ type: 'info', text: `Build emergency fund to cover 6 months expenses (â‚¹${(monthlyExpenses * 6).toLocaleString()}).` });
         }
 
         // 3. Debt-to-Income Ratio (20 points) - using monthly payments
@@ -95,7 +95,7 @@ export function FinancialHealthCalculator() {
         let color = "text-danger-500";
         if (finalScore >= 80) { status = "Excellent"; color = "text-success-600"; }
         else if (finalScore >= 60) { status = "Good"; color = "text-primary-600"; }
-        else if (finalScore >= 40) { status = "Fair"; color = "text-yellow-600"; }
+        else if (finalScore >= 40) { status = "Fair"; color = "text-accent-600"; }
 
         return {
             score: finalScore,
@@ -270,10 +270,10 @@ export function FinancialHealthCalculator() {
                             <div className="space-y-3">
                                 {result.insights.map((insight, i) => (
                                     <div key={i} className={`flex gap-3 p-3 rounded-lg border ${
-                                        insight.type === 'danger' ? 'bg-danger-50 border-danger-100 text-red-800' :
+                                        insight.type === 'danger' ? 'bg-danger-50 border-danger-100 text-danger-800' :
                                         insight.type === 'warning' ? 'bg-accent-50 border-accent-100 text-accent-800' :
-                                        insight.type === 'critical' ? 'bg-danger-100 border-red-200 text-red-900 font-bold' :
-                                        'bg-blue-50 border-blue-100 text-blue-800'
+                                        insight.type === 'critical' ? 'bg-danger-100 border-danger-200 text-danger-900 font-bold' :
+                                        'bg-secondary-50 border-secondary-100 text-secondary-800'
                                     }`}>
                                         {insight.type === 'danger' || insight.type === 'critical' ? <AlertTriangle className="w-5 h-5 shrink-0" /> : <Info className="w-5 h-5 shrink-0" />}
                                         <p className="text-sm">{insight.text}</p>

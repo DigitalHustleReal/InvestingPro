@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
@@ -29,7 +29,7 @@ export default function CredentialVaultPage() {
         <AdminLayout>
             <div className="p-6 max-w-4xl mx-auto">
                 <div className="flex items-center gap-3 mb-8">
-                    <div className="p-3 bg-slate-900 rounded-lg text-yellow-500">
+                    <div className="p-3 bg-slate-900 rounded-lg text-accent-500">
                         <Shield className="w-8 h-8" />
                     </div>
                     <div>
@@ -54,7 +54,7 @@ export default function CredentialVaultPage() {
                                 {isVisible ? <EyeOff className="w-4 h-4 mr-2" /> : <Eye className="w-4 h-4 mr-2" />}
                                 {isVisible ? 'Hide Text' : 'Show Text'}
                             </Button>
-                            <Button size="sm" onClick={handleSave} className="bg-yellow-600 hover:bg-yellow-700 text-white border-none">
+                            <Button size="sm" onClick={handleSave} className="bg-accent-600 hover:bg-accent-700 text-white border-none">
                                 <Save className="w-4 h-4 mr-2" />
                                 Save Updates
                             </Button>
@@ -72,7 +72,7 @@ export default function CredentialVaultPage() {
                         <Textarea
                             value={notes}
                             onChange={(e) => setNotes(e.target.value)}
-                            className="min-h-[500px] w-full bg-slate-950 text-green-400 font-mono text-sm p-6 border-none focus:ring-0 resize-none leading-relaxed"
+                            className="min-h-[500px] w-full bg-slate-950 text-success-400 font-mono text-sm p-6 border-none focus:ring-0 resize-none leading-relaxed"
                             placeholder={"// Paste your keys here\nOPENAI_API_KEY=sk-...\nSUPABASE_KEY=ey...\n\n// Note: This is stored in your browser's LocalStorage only."}
                             spellCheck={false}
                         />

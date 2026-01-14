@@ -103,7 +103,7 @@ export default function ProductCategoryPage() {
             <div className="bg-slate-900 border-b border-slate-800 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10 pointer-events-none">
                     <div className="absolute top-0 left-1/4 w-96 h-96 bg-teal-500 rounded-full blur-[128px]" />
-                    <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500 rounded-full blur-[128px]" />
+                    <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary-500 rounded-full blur-[128px]" />
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
@@ -192,7 +192,7 @@ export default function ProductCategoryPage() {
                                         {/* Status */}
                                         <div className="flex flex-wrap gap-2 mb-4">
                                             {product.verification_status === 'verified' && (
-                                                <Badge className="bg-green-100 text-green-700 border-0 text-xs flex items-center gap-1">
+                                                <Badge className="bg-success-100 text-success-700 border-0 text-xs flex items-center gap-1">
                                                     <Shield className="w-3 h-3" /> Verified
                                                 </Badge>
                                             )}

@@ -37,7 +37,7 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
     }
 
     return (
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-all duration-300 p-6 relative group overflow-hidden">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 p-6 relative group overflow-hidden min-h-[180px] flex flex-col">
             {product.isPopular && (
                 <div className="absolute top-0 right-0 bg-primary-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
                     POPULAR

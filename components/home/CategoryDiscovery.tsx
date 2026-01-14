@@ -1,78 +1,14 @@
-
 "use client";
 
 import React from 'react';
 import Link from 'next/link';
 import { Card, CardContent } from "@/components/ui/card";
-import { 
-    CreditCard, 
-    Landmark, 
-    TrendingUp, 
-    Shield, 
-    Calculator, 
-    Newspaper,
-    BookOpen,
-    Gem
-} from "lucide-react";
-
-const categories = [
-    {
-        title: "Credit Cards",
-        icon: CreditCard,
-        description: "Compare reward rates, cashback & fees",
-        href: "/credit-cards"
-    },
-    {
-        title: "Loans",
-        icon: Landmark,
-        description: "Lowest rates for home, personal & car loans",
-        href: "/loans"
-    },
-    {
-        title: "Insurance",
-        icon: Shield,
-        description: "Protect your family with curated plans",
-        href: "/insurance"
-    },
-    {
-        title: "Mutual Funds",
-        icon: TrendingUp,
-        description: "Direct plans with zero commission",
-        href: "/mutual-funds"
-    },
-    {
-        title: "Calculators",
-        icon: Calculator,
-        description: "SIP, EMI, tax & retirement planners",
-        href: "/calculators"
-    },
-    {
-        title: "Financial Guides",
-        icon: BookOpen,
-        description: "Expert tips & money management",
-        href: "/blog"
-    },
-    {
-        title: "Fixed Deposits",
-        icon: Landmark,
-        description: "Guaranteed returns & safety",
-        href: "/fixed-deposits"
-    },
-    {
-        title: "Income Tax",
-        icon: Calculator,
-        description: "Save tax with smart planning",
-        href: "/taxes"
-    },
-    {
-        title: "Small Business",
-        icon: Gem,
-        description: "Loans & tools for growth",
-        href: "/small-business"
-    }
-];
+import { getHomepageCategories } from '@/lib/navigation/utils';
 
 export default function CategoryDiscovery() {
+    // Memoize categories to avoid recomputation on every render
+    const categories = React.useMemo(() => getHomepageCategories(), []);
+    
     return (
         <section className="relative py-16 bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-900 overflow-hidden">
             <div className="container mx-auto px-4 relative z-10">

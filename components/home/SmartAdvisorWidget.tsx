@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
@@ -101,7 +101,7 @@ export default function SmartAdvisorWidget() {
             recs.push({
                 category: 'Insurance',
                 title: 'Term Life Insurance',
-                description: 'Comprehensive family protection starting at ₹399/month',
+                description: 'Comprehensive family protection starting at â‚¹399/month',
                 link: '/insurance',
                 icon: <Shield className="w-5 h-5 text-secondary-600" />,
                 priority: 'high'
@@ -123,7 +123,7 @@ export default function SmartAdvisorWidget() {
                 title: 'Credit Builder Cards',
                 description: 'Build your credit history with starter-friendly cards',
                 link: '/credit-cards',
-                icon: <CreditCard className="w-5 h-5 text-orange-600" />,
+                icon: <CreditCard className="w-5 h-5 text-accent-600" />,
                 priority: 'high'
             });
             if (lifeStage !== 'student') {

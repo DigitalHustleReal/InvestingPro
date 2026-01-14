@@ -1,4 +1,4 @@
-
+﻿
 import React from 'react';
 import { Metadata } from 'next';
 import { FinancialHealthCalculator } from '@/components/calculators/FinancialHealthCalculator';
@@ -26,7 +26,7 @@ export default function FinancialHealthPage() {
         </p>
         <div className="flex gap-2">
             <Badge variant="secondary" className="bg-success-50 text-success-700">Free Tool</Badge>
-            <Badge variant="secondary" className="bg-blue-50 text-blue-700">Instant Report</Badge>
+            <Badge variant="secondary" className="bg-secondary-50 text-secondary-700">Instant Report</Badge>
         </div>
       </div>
       

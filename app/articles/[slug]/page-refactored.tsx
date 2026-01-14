@@ -140,8 +140,8 @@ export default function ArticleDetailPage() {
 
             {/* Preview Banner */}
             {previewToken && article.status !== 'published' && (
-                <div className="bg-yellow-100 border-b border-yellow-300 px-4 py-2 text-center">
-                    <p className="text-sm text-yellow-800">
+                <div className="bg-accent-100 border-b border-accent-300 px-4 py-2 text-center">
+                    <p className="text-sm text-accent-800">
                         <strong>PREVIEW MODE</strong> - This article is {article.status}. 
                         <Link href={`/admin/articles/${article.id}/edit`} className="ml-2 underline">
                             Edit Article

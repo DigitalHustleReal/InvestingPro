@@ -115,7 +115,7 @@ export default function AnalyticsDashboard() {
                                             "w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm",
                                             idx === 0 ? "bg-accent-500/20 text-accent-400" :
                                             idx === 1 ? "bg-slate-500/20 text-slate-400" :
-                                            idx === 2 ? "bg-orange-500/20 text-orange-400" :
+                                            idx === 2 ? "bg-accent-500/20 text-accent-400" :
                                             "bg-white/5 text-slate-500"
                                         )}>
                                             {idx + 1}
@@ -169,7 +169,7 @@ export default function AnalyticsDashboard() {
                                                 {cat.category?.replace(/-/g, ' ') || 'Uncategorized'}
                                             </span>
                                             <span className="text-slate-500">
-                                                {cat.articleCount} articles • {cat.totalViews.toLocaleString()} views
+                                                {cat.articleCount} articles â€¢ {cat.totalViews.toLocaleString()} views
                                             </span>
                                         </div>
                                         <div className="h-2 bg-white/5 rounded-full overflow-hidden">

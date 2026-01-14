@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -142,14 +142,14 @@ export default function SEOScoreCalculator({
 
     const getScoreColor = (score: number) => {
         if (score >= 80) return 'text-primary-600';
-        if (score >= 60) return 'text-yellow-600';
+        if (score >= 60) return 'text-accent-600';
         return 'text-danger-600';
     };
 
     const getScoreBadge = (score: number) => {
         if (score >= 80) return 'bg-primary-100 text-primary-800';
-        if (score >= 60) return 'bg-yellow-100 text-yellow-800';
-        return 'bg-danger-100 text-red-800';
+        if (score >= 60) return 'bg-accent-100 text-accent-800';
+        return 'bg-danger-100 text-danger-800';
     };
 
     return (

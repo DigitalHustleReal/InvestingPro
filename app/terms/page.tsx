@@ -95,19 +95,19 @@ export default function TermsPage() {
             </ul>
           </section>
 
-          <section className="mb-8 bg-yellow-50 p-6 rounded-lg border border-yellow-200">
-            <h2 className="text-2xl font-bold text-yellow-900 mb-4">6. Financial Disclaimer</h2>
-            <p className="text-yellow-800 mb-4">
+          <section className="mb-8 bg-accent-50 p-6 rounded-lg border border-accent-200">
+            <h2 className="text-2xl font-bold text-accent-900 mb-4">6. Financial Disclaimer</h2>
+            <p className="text-accent-800 mb-4">
               <strong>IMPORTANT:</strong> InvestingPro provides information for comparison purposes only. We do NOT provide financial advice.
             </p>
-            <ul className="list-disc list-inside text-yellow-800 space-y-2 mb-4">
+            <ul className="list-disc list-inside text-accent-800 space-y-2 mb-4">
               <li>All investment decisions are made at your own risk</li>
               <li>Past performance does not guarantee future results</li>
               <li>We are not responsible for losses incurred from using our information</li>
               <li>Consult a certified financial planner before making investment decisions</li>
               <li>Product information may not be up-to-date; verify with providers</li>
             </ul>
-            <p className="text-yellow-800">
+            <p className="text-accent-800">
               <strong>Investment & Credit Risk:</strong> Financial products are subject to market risks. Read all scheme-related documents carefully before investing. Credit approval is subject to lender criteria.
             </p>
           </section>
@@ -197,7 +197,7 @@ export default function TermsPage() {
               <li>We are not liable for losses resulting from your use of the Service</li>
               <li>We are not liable for inaccurate information or outdated product details</li>
               <li>We are not liable for actions taken by third-party providers</li>
-              <li>Our total liability to you shall not exceed ₹1,000 or the amount you paid us (if any), whichever is greater</li>
+              <li>Our total liability to you shall not exceed â‚¹1,000 or the amount you paid us (if any), whichever is greater</li>
             </ul>
           </section>
 

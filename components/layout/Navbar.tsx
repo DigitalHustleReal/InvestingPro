@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import {
     Sheet,
@@ -16,7 +16,7 @@ import {
     NavigationMenuList,
     NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Menu, X, ChevronDown, ChevronRight, Search } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronRight, Search, User } from "lucide-react";
 import Logo from "@/components/common/Logo";
 import { NAVIGATION_CONFIG, EDITORIAL_INTENTS } from "@/lib/navigation/config";
 import LanguageSwitcher from "@/components/common/LanguageSwitcher";
@@ -28,7 +28,7 @@ import { useNavigation } from "@/contexts/NavigationContext";
 // Constants
 const DROPDOWN_CLOSE_DELAY = 250; // ms - Standard UX timing for dropdown hover
 
-// Unified Search Button Component
+// Unified Search Button Component - Enhanced for prominence (UI/UX Quick Win #1)
 function SearchButton({ variant = 'desktop' }: { variant?: 'desktop' | 'mobile' }) {
     const { openSearch } = useSearch();
     
@@ -36,25 +36,32 @@ function SearchButton({ variant = 'desktop' }: { variant?: 'desktop' | 'mobile' 
         return (
             <button 
                 onClick={openSearch}
-                className="w-full flex items-center gap-3 h-12 pl-4 pr-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 hover:bg-slate-100 transition-all duration-200 text-sm text-left shadow-inner"
+                className="w-full flex items-center gap-3 h-12 pl-4 pr-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-200 text-sm text-left shadow-sm hover:shadow-md"
             >
-                <Search className="w-4 h-4 text-slate-400" />
-                <span>Search products, taxes, or guides...</span>
+                <Search className="w-4 h-4 text-primary-500" />
+                <span className="flex-1">Search products, guides...</span>
+                <kbd className="px-2 py-0.5 text-xs bg-white dark:bg-slate-700 rounded border border-slate-200 dark:border-slate-600 text-slate-400">⌘K</kbd>
             </button>
         );
     }
     
     return (
-        <Button
-            variant="ghost"
+        <button
             onClick={openSearch}
-            className="hidden lg:flex items-center gap-2 h-10 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 px-3 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2"
-            aria-label="Search"
+            className="hidden lg:flex items-center gap-2 h-10 w-64 xl:w-72 px-4 
+                       bg-slate-50 dark:bg-slate-800/50 
+                       border border-slate-200 dark:border-slate-700 
+                       hover:border-primary-400 dark:hover:border-primary-500 
+                       hover:bg-white dark:hover:bg-slate-800
+                       rounded-xl transition-all duration-200 
+                       shadow-sm hover:shadow-md
+                       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+            aria-label="Search products and guides"
         >
-            <Search className="w-4 h-4" />
-            <span className="text-sm font-medium">Search</span>
-            <kbd className="hidden xl:inline-flex ml-2 px-1.5 py-0.5 text-xs bg-slate-100 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700">⌘K</kbd>
-        </Button>
+            <Search className="w-4 h-4 text-primary-500 flex-shrink-0" />
+            <span className="text-sm text-slate-500 dark:text-slate-400 flex-1 text-left truncate">Search products, guides...</span>
+            <kbd className="hidden xl:inline-flex px-2 py-0.5 text-xs bg-white dark:bg-slate-700 rounded border border-slate-200 dark:border-slate-600 text-slate-400 font-mono">⌘K</kbd>
+        </button>
     );
 }
 
@@ -79,6 +86,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
     const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>({});
 
     const pathname = usePathname();
+    const router = useRouter();
     const { openSearch } = useSearch();
     const isHomePage = pathname === "/";
     const { setActiveCategory } = useNavigation();
@@ -108,29 +116,20 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
         };
     }, [isOpen]);
     
-    // Filter and reorder categories based on high-intent search volume
-    const PRIORITY_SLUGS = ['credit-cards', 'insurance', 'loans', 'investing', 'tools'];
+    // Filter and reorder categories based on high-intent search volume (memoized for performance)
+    const PRIORITY_SLUGS = ['credit-cards', 'insurance', 'loans', 'investing', 'calculators'];
     
-    const navigationCategories = PRIORITY_SLUGS
-        .map(slug => config.find(c => c.slug === slug))
-        .filter((c): c is typeof NAVIGATION_CONFIG[0] => c !== undefined);
+    const navigationCategories = React.useMemo(() => 
+        PRIORITY_SLUGS
+            .map(slug => config.find(c => c.slug === slug))
+            .filter((c): c is typeof NAVIGATION_CONFIG[0] => c !== undefined),
+        [config]
+    );
 
-    // Toggle dropdown on click - only one open at a time
-    const toggleDropdown = (categorySlug: string) => {
-        // Update navigation context for hero sync (only on homepage)
-        if (isHomePage) {
-            setActiveCategory(categorySlug);
-        }
-        
-        setOpenDropdowns(prev => {
-            const isCurrentlyOpen = prev[categorySlug];
-            // If clicking the same category, close it. Otherwise, open only this one.
-            if (isCurrentlyOpen) {
-                return {};
-            } else {
-                return { [categorySlug]: true };
-            }
-        });
+    // Navigate to category page on click, open menu on hover
+    const handleCategoryClick = (categorySlug: string) => {
+        // Navigate to category page
+        router.push(`/${categorySlug}`);
     };
     
     // Auto-close mobile menu when pathname changes (navigation occurs)
@@ -206,7 +205,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                                     ? 'text-secondary-600 dark:text-secondary-400 font-bold' 
                                                     : ''
                                                 }`}
-                                                onClick={() => toggleDropdown(category.slug)}
+                                                onClick={() => handleCategoryClick(category.slug)}
                                                 onMouseEnter={() => handleMouseEnter(category.slug)}
                                             >
                                                 {displayName}
@@ -215,12 +214,19 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                                 isOpen={isDropdownOpen}
                                                 onMouseEnter={() => handleMouseEnter(category.slug)}
                                                 onMouseLeave={() => handleMouseLeave(category.slug)}
+                                                role="menu"
+                                                aria-label={`${category.name} submenu`}
                                             >
                                                 <div 
                                                     className="w-[900px] p-6 bg-white shadow-xl rounded-xl border border-slate-100"
                                                     onMouseLeave={() => {
                                                         setActiveIntents(prev => ({ ...prev, [category.slug]: 0 }));
                                                         handleMouseLeave(category.slug);
+                                                    }}
+                                                    onKeyDown={(e) => {
+                                                        if (e.key === 'Escape') {
+                                                            setOpenDropdowns({});
+                                                        }
                                                     }}
                                                 >
                                                 <div className="grid grid-cols-3 gap-8">
@@ -229,22 +235,29 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                                         <nav className="space-y-1" role="list">
                                                             {category.intents.map((intent, index) => {
                                                                 const isActive = (activeIntents[category.slug] ?? 0) === index;
+                                                                const intentHref = `/${category.slug}/${intent.slug}`;
                                                                 return (
-                                                                    <div
+                                                                    <Link
                                                                         key={intent.slug}
+                                                                        href={intentHref}
                                                                         role="listitem"
+                                                                        aria-label={`${intent.name} ${category.name}`}
+                                                                        aria-current={isActive ? 'true' : undefined}
                                                                         onMouseEnter={() => setActiveIntent(category.slug, index)}
                                                                         onKeyDown={(e) => {
                                                                             if (e.key === 'ArrowDown' && index < category.intents.length - 1) {
                                                                                 e.preventDefault();
                                                                                 setActiveIntent(category.slug, index + 1);
-                                                                                const nextElement = e.currentTarget.nextElementSibling?.querySelector('a') as HTMLElement;
+                                                                                const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
                                                                                 nextElement?.focus();
                                                                             } else if (e.key === 'ArrowUp' && index > 0) {
                                                                                 e.preventDefault();
                                                                                 setActiveIntent(category.slug, index - 1);
-                                                                                const prevElement = e.currentTarget.previousElementSibling?.querySelector('a') as HTMLElement;
+                                                                                const prevElement = e.currentTarget.previousElementSibling as HTMLElement;
                                                                                 prevElement?.focus();
+                                                                            } else if (e.key === 'Escape') {
+                                                                                e.preventDefault();
+                                                                                setOpenDropdowns({});
                                                                             }
                                                                         }}
                                                                         className={`group flex items-center justify-between px-3 py-2.5 rounded-lg transition-all cursor-pointer ${
@@ -264,7 +277,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                                                             )}
                                                                         </div>
                                                                         {isActive && <ChevronRight className="w-4 h-4 text-primary-500" />}
-                                                                    </div>
+                                                                    </Link>
                                                                 );
                                                             })}
                                                         </nav>
@@ -374,19 +387,37 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                         </NavigationMenu>
                     </div>
 
-                    {/* Search Button - Opens Command Palette */}
+                    {/* Utility Area - Search, Login, CTA */}
                     <div className="flex items-center gap-3">
                         <div className="hidden lg:block">
                             <ThemeToggle />
                         </div>
-                        <SearchButton variant="desktop" />
+                        
+                        {/* Icon-only Search Button */}
+                        <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            onClick={openSearch}
+                            className="hidden lg:flex text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded-xl"
+                            aria-label="Search products and guides"
+                        >
+                            <Search className="w-5 h-5" />
+                        </Button>
 
                         {/* CTA Button - Hidden on mobile/tablet */}
                         <div className="hidden lg:flex items-center gap-3 ml-2">
-                            <Link href="/login" className="text-sm font-semibold text-slate-600 dark:text-slate-200 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2 rounded-lg px-3 py-2">
-                                Log In
+                            {/* Icon-only Login Button */}
+                            <Link href="/login" className="inline-flex items-center justify-center">
+                                <Button 
+                                    variant="ghost" 
+                                    size="icon" 
+                                    className="text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded-xl"
+                                    aria-label="Sign In"
+                                    title="Sign In"
+                                >
+                                    <User className="w-5 h-5" />
+                                </Button>
                             </Link>
-                            
                             
                             <Button asChild className="bg-secondary-600 hover:bg-secondary-700 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-secondary-600/20 transition-all duration-200 h-10 px-6 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2">
                                 <Link href="/compare">

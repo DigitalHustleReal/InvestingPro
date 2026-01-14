@@ -1,4 +1,4 @@
-
+﻿
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -30,6 +30,7 @@ import CreditCardRewardsCalculator from '@/components/calculators/CreditCardRewa
 import CategoryHeroCarousel from '@/components/common/CategoryHeroCarousel';
 import ContextualNewsWidget from '@/components/news/ContextualNewsWidget';
 import RatesWidget from '@/components/rates/RatesWidget';
+import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 
 const HERO_SLIDES = [
     {
@@ -163,6 +164,7 @@ const CreditCardsPage = () => {
 
             <div className="bg-slate-50 dark:bg-slate-950 pt-24 pb-12">
                  <div className="container mx-auto px-4">
+                      <AutoBreadcrumbs />
                       {/* New Dynamic Carousel Hero */}
                       <CategoryHeroCarousel slides={HERO_SLIDES} className="mb-12 shadow-2xl" />
                       
@@ -194,7 +196,7 @@ const CreditCardsPage = () => {
                             <div className="bg-gradient-to-br from-primary-600 to-success-700 rounded-[2rem] p-6 text-white relative overflow-hidden shadow-xl shadow-primary-500/20">
                                 <div className="relative z-10">
                                     <div className="h-10 w-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center mb-4">
-                                        <Zap className="w-6 h-6 text-yellow-300" />
+                                        <Zap className="w-6 h-6 text-accent-300" />
                                     </div>
                                     <h3 className="font-bold text-lg mb-2">Not sure which card?</h3>
                                     <p className="text-primary-100 text-sm mb-4">Take our 30-second quiz to find your perfect financial match.</p>
@@ -318,7 +320,7 @@ const CreditCardsPage = () => {
                             
                             {/* Decor */}
                             <div className="absolute top-0 right-0 w-64 h-64 bg-primary-/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary-500/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
                         </div>
                     </div>
 
@@ -386,7 +388,7 @@ const CreditCardsPage = () => {
                                 },
                                 {
                                     q: "Annual Fee Waiver?",
-                                    a: "Most cards waive the annual fee if you cross a spending milestone (e.g., Spend ₹1 Lakh in a year) to reverse the fee."
+                                    a: "Most cards waive the annual fee if you cross a spending milestone (e.g., Spend â‚¹1 Lakh in a year) to reverse the fee."
                                 }
                             ].map((faq, i) => (
                                 <div key={i} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 hover:shadow-md transition-shadow">

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/Button";
@@ -200,7 +200,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
                                 <Button
                                     onClick={() => setShowRejectDialog(true)}
                                     variant="outline"
-                                    className="w-full border-red-300 text-danger-700 hover:bg-danger-50 bg-white"
+                                    className="w-full border-danger-300 text-danger-700 hover:bg-danger-50 bg-white"
                                 >
                                     <XCircle className="w-4 h-4 mr-1 sm:mr-2" />
                                     Reject
@@ -217,7 +217,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
                     <DialogHeader>
                         <DialogTitle className="text-2xl">{article.title}</DialogTitle>
                         <DialogDescription>
-                            By {article.author_name} • {article.read_time} min read
+                            By {article.author_name} â€¢ {article.read_time} min read
                         </DialogDescription>
                     </DialogHeader>
                     

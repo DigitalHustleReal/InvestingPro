@@ -1,4 +1,4 @@
-/**
+﻿/**
  * WordPress-Style Pages UI Component
  * 
  * Provides a polished, professional Pages management experience matching WordPress
@@ -73,11 +73,11 @@ export default function WordPressStylePages({
     const getStatusColor = (status: string) => {
         switch (status) {
             case 'published':
-                return 'bg-success-100 text-green-800 border-green-200';
+                return 'bg-success-100 text-success-800 border-success-200';
             case 'draft':
                 return 'bg-slate-100 text-slate-800 border-slate-200';
             case 'review':
-                return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+                return 'bg-accent-100 text-accent-800 border-accent-200';
             case 'archived':
                 return 'bg-slate-100 text-slate-800 border-slate-200';
             default:
@@ -163,7 +163,7 @@ export default function WordPressStylePages({
                                 <p className="text-xs md:text-sm text-slate-500 truncate">Published</p>
                                 <p className="text-xl md:text-2xl font-bold text-success-600">{statusCounts.published}</p>
                             </div>
-                            <TrendingUp className="w-6 h-6 md:w-8 md:h-8 text-green-400 flex-shrink-0 ml-2" />
+                            <TrendingUp className="w-6 h-6 md:w-8 md:h-8 text-success-400 flex-shrink-0 ml-2" />
                         </div>
                     </CardContent>
                 </Card>
@@ -183,9 +183,9 @@ export default function WordPressStylePages({
                         <div className="flex items-center justify-between">
                             <div className="min-w-0 flex-1">
                                 <p className="text-xs md:text-sm text-slate-500 truncate">Review</p>
-                                <p className="text-xl md:text-2xl font-bold text-yellow-600">{statusCounts.review}</p>
+                                <p className="text-xl md:text-2xl font-bold text-accent-600">{statusCounts.review}</p>
                             </div>
-                            <Eye className="w-6 h-6 md:w-8 md:h-8 text-yellow-400 flex-shrink-0 ml-2" />
+                            <Eye className="w-6 h-6 md:w-8 md:h-8 text-accent-400 flex-shrink-0 ml-2" />
                         </div>
                     </CardContent>
                 </Card>

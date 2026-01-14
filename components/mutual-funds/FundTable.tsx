@@ -71,8 +71,8 @@ export function FundTable({ funds }: FundTableProps) {
                 <span 
                     className={cn(
                         "text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter", 
-                        row.risk === "Very High" ? "text-danger-600 bg-danger-50 dark:bg-red-900/20" :
-                        row.risk === "High" ? "text-orange-600 bg-orange-50 dark:bg-orange-900/20" :
+                        row.risk === "Very High" ? "text-danger-600 bg-danger-50 dark:bg-danger-900/20" :
+                        row.risk === "High" ? "text-accent-600 bg-accent-50 dark:bg-accent-900/20" :
                         "text-primary-600 bg-primary-50 dark:bg-primary-900/20"
                     )}
                 >
@@ -119,7 +119,7 @@ export function FundTable({ funds }: FundTableProps) {
             header: 'AUM (Cr)',
             accessor: (row) => (
                 <span className="text-sm font-bold text-slate-600 dark:text-slate-400 tabular-nums">
-                    ₹{row.aum}
+                    â‚¹{row.aum}
                 </span>
             ),
             sortable: true,

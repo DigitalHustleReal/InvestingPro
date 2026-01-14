@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 /**
  * Premium Admin Signup Page
@@ -135,7 +135,7 @@ export default function AdminSignupPage() {
         <div className="w-full max-w-md relative z-10">
           <div className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-success-500/20 mb-4">
-              <CheckCircle className="w-8 h-8 text-green-400" />
+              <CheckCircle className="w-8 h-8 text-success-400" />
             </div>
             <h2 className="text-xl font-semibold text-white mb-2">Check your email</h2>
             <p className="text-slate-400 mb-6">
@@ -172,7 +172,7 @@ export default function AdminSignupPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-600 shadow-lg shadow-primary-500/25 mb-4">
             <Zap className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-white">InvestingP₹o</h1>
+          <h1 className="text-2xl font-bold text-white">InvestingPâ‚¹o</h1>
           <p className="text-slate-400 text-sm mt-1">Create your account</p>
         </div>
 
@@ -180,7 +180,7 @@ export default function AdminSignupPage() {
         <div className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
           {/* Error Display */}
           {error && (
-            <div className="mb-4 p-3 bg-danger-500/10 border border-danger-500/20 rounded-lg flex items-center gap-2 text-red-400 text-sm">
+            <div className="mb-4 p-3 bg-danger-500/10 border border-danger-500/20 rounded-lg flex items-center gap-2 text-danger-400 text-sm">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
               {error}
             </div>

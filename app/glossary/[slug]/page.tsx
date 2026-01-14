@@ -154,7 +154,7 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
                                     {termData.category}
                                 </Badge>
                                 <div className="flex items-center gap-2 text-sm text-slate-500">
-                                    <CheckCircle className="w-4 h-4 text-green-600" />
+                                    <CheckCircle className="w-4 h-4 text-success-600" />
                                     <span>Fact-Checked</span>
                                 </div>
                             </div>
@@ -277,11 +277,11 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
                                     <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
                                         Common Mistakes to Avoid
                                     </h2>
-                                    <div className="bg-red-50 dark:bg-red-950/20 rounded-xl p-6 border border-red-200 dark:border-red-900">
+                                    <div className="bg-danger-50 dark:bg-danger-950/20 rounded-xl p-6 border border-danger-200 dark:border-danger-900">
                                         <ul className="space-y-3">
                                             {termData.common_mistakes.map((mistake: string, i: number) => (
-                                                <li key={i} className="flex gap-3 text-red-900 dark:text-red-200">
-                                                    <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+                                                <li key={i} className="flex gap-3 text-danger-900 dark:text-danger-200">
+                                                    <AlertCircle className="w-5 h-5 text-danger-600 dark:text-danger-400 flex-shrink-0 mt-0.5" />
                                                     <span className="text-lg">{mistake}</span>
                                                 </li>
                                             ))}

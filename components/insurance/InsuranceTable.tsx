@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import Link from 'next/link';
 import { DataTable } from '@/components/data-table/DataTable';
 import { ColumnDef } from '@/components/data-table/types';
@@ -56,7 +56,7 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
             key: 'premium',
             header: 'Premium',
             accessor: (row) => {
-                const premium = row.features?.premium || row.features?.['Premium'] || '₹500/mo';
+                const premium = row.features?.premium || row.features?.['Premium'] || 'â‚¹500/mo';
                 
                 return (
                     <div className="text-center">
@@ -75,7 +75,7 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
             key: 'coverage',
             header: 'Coverage',
             accessor: (row) => {
-                const coverage = row.features?.coverage || row.features?.['Coverage'] || '₹1Cr';
+                const coverage = row.features?.coverage || row.features?.['Coverage'] || 'â‚¹1Cr';
                 
                 return (
                     <div className="text-center">
@@ -176,7 +176,7 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
                     </Link>
                     <Link href={row.affiliate_link || row.link || `/insurance/${row.slug}`} className="w-full">
                         <Button 
-                            className="w-full h-9 rounded-xl bg-primary-600 hover:bg-blue-600 dark:bg-primary-500 dark:hover:bg-blue-500 text-white font-bold text-[10px] uppercase tracking-wider transition-all"
+                            className="w-full h-9 rounded-xl bg-primary-600 hover:bg-secondary-600 dark:bg-primary-500 dark:hover:bg-secondary-500 text-white font-bold text-[10px] uppercase tracking-wider transition-all"
                         >
                             Get Quote
                             <ArrowUpRight className="w-3 h-3 ml-1" />

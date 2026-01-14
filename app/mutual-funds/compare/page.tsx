@@ -1,4 +1,4 @@
-import { api } from "@/lib/api";
+﻿import { api } from "@/lib/api";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import { ArrowLeft, Check, X, Minus } from "lucide-react";
@@ -53,7 +53,7 @@ export default async function CompareMutualFunds({ searchParams }: { searchParam
                                 </Link>
                                 <div className="flex items-center gap-1">
                                     <span className="text-xs font-bold bg-secondary-100 text-secondary-700 px-1.5 py-0.5 rounded">
-                                        {fund!.rating}.0 ★
+                                        {fund!.rating}.0 â˜…
                                     </span>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@ export default async function CompareMutualFunds({ searchParams }: { searchParam
                         <ComparisonRow label="Provider" funds={funds} render={(f) => f.provider} />
                         <ComparisonRow label="Category" funds={funds} render={(f) => <span className="capitalize">{f.category.replace('_', ' ')}</span>} />
                         <ComparisonRow label="Risk Level" funds={funds} render={(f) => (
-                            <span className={`font-medium ${f.risk_level === 'very_high' ? 'text-danger-600' : 'text-orange-500'} capitalize`}>
+                            <span className={`font-medium ${f.risk_level === 'very_high' ? 'text-danger-600' : 'text-accent-500'} capitalize`}>
                                 {f.risk_level.replace('_', ' ')}
                             </span>
                         )} />

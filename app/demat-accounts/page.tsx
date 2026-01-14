@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from 'react';
 import Link from 'next/link';
@@ -23,6 +23,7 @@ import {
 import { api } from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
+import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 
 export default function DematAccountsPage() {
     const { data: brokers = [], isLoading } = useQuery({
@@ -52,15 +53,16 @@ export default function DematAccountsPage() {
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                    <AutoBreadcrumbs />
                     <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 mb-8 border border-white/10">
                         <Trophy className="w-4 h-4 text-accent-400" />
                         <span className="text-white font-bold text-xs uppercase tracking-[0.2em]">2024 Broker Awards</span>
                     </div>
                     <h1 className="text-4xl sm:text-6xl font-extrabold text-white mb-6 tracking-tight leading-tight">
-                        Unlock the <span className="text-secondary-400">Indian Markets</span>
+                        Begin Your <span className="text-secondary-400">Wealth Journey</span>
                     </h1>
                     <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-                        Compare India's leading stockbrokers. Save on brokerage, access world-class trading tools, and start your wealth journey today.
+                        Compare India's leading investment platforms. Access low-cost brokerage, build long-term portfolios, and start systematic wealth creation today.
                     </p>
                 </div>
             </div>
@@ -70,7 +72,7 @@ export default function DematAccountsPage() {
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                     {[
                         { icon: Users, label: "Active Investors", value: "3.5Cr+", color: "bg-primary-600", shadow: "shadow-blue-500/20" },
-                        { icon: Zap, label: "Lowest Fees", value: "₹0 Delivery", color: "bg-primary-600", shadow: "shadow-primary-500/20" },
+                        { icon: Zap, label: "Lowest Fees", value: "â‚¹0 Delivery", color: "bg-primary-600", shadow: "shadow-primary-500/20" },
                         { icon: Shield, label: "SEBI Certified", value: "Fully Secure", color: "bg-secondary-600", shadow: "shadow-purple-500/20" },
                         { icon: Smartphone, label: "Digital KYC", value: "Paperless", color: "bg-accent-600", shadow: "shadow-accent-500/20" },
                     ].map((stat, index) => (
@@ -108,7 +110,7 @@ export default function DematAccountsPage() {
 
                 <div className="space-y-8">
                     {brokers.map((broker: any, index: number) => (
-                        <Card key={index} className={`rounded-[2.5rem] border-0 shadow-xl shadow-slate-200/50 overflow-hidden transition-all hover:-translate-y-1 hover:shadow-2xl ${broker.featured ? 'ring-2 ring-blue-500' : ''}`}>
+                        <Card key={index} className={`rounded-[2.5rem] border-0 shadow-xl shadow-slate-200/50 overflow-hidden transition-all hover:-translate-y-1 hover:shadow-2xl ${broker.featured ? 'ring-2 ring-secondary-500' : ''}`}>
                             {broker.featured && (
                                 <div className="bg-gradient-to-r from-secondary-600 to-blue-700 text-white text-center py-2 text-[10px] font-bold uppercase tracking-[0.3em] flex items-center justify-center gap-2">
                                     <Star className="w-3 h-3 fill-white" />
@@ -192,7 +194,7 @@ export default function DematAccountsPage() {
                                                 <p className="text-[10px] font-bold text-white/60 uppercase tracking-widest mb-1">Tailored for</p>
                                                 <p className="text-sm font-extrabold leading-tight mb-6">{broker.bestFor}</p>
                                             </div>
-                                            <Button className="w-full rounded-2xl bg-white hover:bg-blue-50 text-primary-600 font-bold py-6 shadow-lg transition-all active:scale-95">
+                                            <Button className="w-full rounded-2xl bg-white hover:bg-secondary-50 text-primary-600 font-bold py-6 shadow-lg transition-all active:scale-95">
                                                 Get Started
                                                 <ArrowUpRight className="w-4 h-4 ml-2" />
                                             </Button>

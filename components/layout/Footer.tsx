@@ -10,6 +10,7 @@ import Logo from "@/components/common/Logo";
 import NewsletterWidget from "@/components/engagement/NewsletterWidget";
 import { NAVIGATION_CATEGORIES } from '@/lib/navigation/categories';
 import { SecurityBadgeGroup } from '@/components/compliance/SecurityBadge';
+import { getFooterLinks, getComparisonPages } from '@/lib/navigation/utils';
 
 // Helper to replace createPageUrl
 const getHref = (pageName: string) => {
@@ -52,7 +53,7 @@ const footerLinks = {
         { name: "GST Calculator", page: "Calculators" },
         { name: "Compare Funds", page: "MutualFunds" },
         { name: "Tax Calculator", page: "Calculators" },
-        { name: "Alpha Terminal", page: "AlphaTerminal" },
+        { name: "Financial Tools", page: "Calculators" },
     ],
     resources: [
         { name: "Glossary", page: "Glossary" },
@@ -75,6 +76,14 @@ const footerLinks = {
 export function Footer() {
     const [showScrollTop, setShowScrollTop] = React.useState(false);
     const [disclaimerExpanded, setDisclaimerExpanded] = React.useState(false);
+
+    // Get footer links from NAVIGATION_CONFIG (memoized for performance)
+    const footerData = React.useMemo(() => getFooterLinks(), []);
+    const comparisonPages = React.useMemo(() => getComparisonPages(), []);
+    
+    // Limit calculators and comparisons for display (can be adjusted)
+    const displayCalculators = React.useMemo(() => footerData.calculators.slice(0, 10), [footerData.calculators]);
+    const displayComparisons = React.useMemo(() => comparisonPages.slice(0, 8), [comparisonPages]);
 
     React.useEffect(() => {
         const toggleVisibility = () => {
@@ -236,28 +245,29 @@ export function Footer() {
                         <div className="mb-8">
                             <h4 className="text-slate-900 dark:text-white font-bold tracking-wide mb-4">Calculators</h4>
                             <ul className="space-y-2">
-                                {[
-                                    { name: "SIP Calculator", href: "/calculators" },
-                                    { name: "EMI Calculator", href: "/calculators" },
-                                    { name: "Income Tax Calculator", href: "/calculators" },
-                                    { name: "PPF Calculator", href: "/calculators" },
-                                    { name: "GST Calculator", href: "/calculators" },
-                                ].map((link, i) => (
+                                {displayCalculators.map((link, i) => (
                                     <li key={i}>
                                         <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
                         </div>
+                        {displayComparisons.length > 0 && (
+                            <div className="mb-8">
+                                <h4 className="text-slate-900 dark:text-white font-bold tracking-wide mb-4">Comparisons</h4>
+                                <ul className="space-y-2">
+                                    {displayComparisons.map((link, i) => (
+                                        <li key={i}>
+                                            <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
                         <div>
                             <h4 className="text-slate-900 dark:text-white font-bold tracking-wide mb-4">Resources</h4>
                             <ul className="space-y-2">
-                                {[
-                                    { name: "Glossary", href: "/glossary" },
-                                    { name: "Financial Guides", href: "/guides" },
-                                    { name: "Market News", href: "/blog" },
-                                    { name: "Methodology", href: "/methodology" },
-                                ].map((link, i) => (
+                                {footerData.resources.map((link, i) => (
                                     <li key={i}>
                                         <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
