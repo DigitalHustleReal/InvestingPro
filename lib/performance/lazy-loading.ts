@@ -4,7 +4,8 @@
  * Provides utilities for lazy loading components and code splitting
  */
 
-import { ComponentType, lazy, Suspense } from 'react';
+import { ComponentType, lazy, Suspense, ReactNode } from 'react';
+import React from 'react';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 
 /**
@@ -12,15 +13,16 @@ import LoadingSpinner from '@/components/common/LoadingSpinner';
  */
 export function lazyLoad<T extends ComponentType<any>>(
     importFn: () => Promise<{ default: T }>,
-    fallback?: React.ReactNode
+    fallback?: ReactNode
 ) {
     const LazyComponent = lazy(importFn);
     
     return function LazyWrapper(props: any) {
-        return (
-            <Suspense fallback={fallback || <LoadingSpinner text="Loading..." />}>
-                <LazyComponent {...props} />
-            </Suspense>
+        const defaultFallback = React.createElement(LoadingSpinner, { text: "Loading..." });
+        return React.createElement(
+            Suspense,
+            { fallback: fallback || defaultFallback },
+            React.createElement(LazyComponent, props)
         );
     };
 }
@@ -30,22 +32,22 @@ export function lazyLoad<T extends ComponentType<any>>(
  */
 export const LazyAdminDashboard = lazyLoad(
     () => import('@/components/admin/Dashboard'),
-    <LoadingSpinner text="Loading admin dashboard..." />
+    React.createElement(LoadingSpinner, { text: "Loading admin dashboard..." })
 );
 
 export const LazyArticleEditor = lazyLoad(
     () => import('@/components/admin/ArticleEditor'),
-    <LoadingSpinner text="Loading editor..." />
+    React.createElement(LoadingSpinner, { text: "Loading editor..." })
 );
 
 export const LazyAIContentGenerator = lazyLoad(
     () => import('@/components/admin/AIContentGenerator'),
-    <LoadingSpinner text="Loading AI generator..." />
+    React.createElement(LoadingSpinner, { text: "Loading AI generator..." })
 );
 
 export const LazyWorkflowManager = lazyLoad(
     () => import('@/components/admin/WorkflowManager'),
-    <LoadingSpinner text="Loading workflows..." />
+    React.createElement(LoadingSpinner, { text: "Loading workflows..." })
 );
 
 /**
@@ -53,27 +55,27 @@ export const LazyWorkflowManager = lazyLoad(
  */
 export const LazySIPCalculator = lazyLoad(
     () => import('@/components/calculators/SIPCalculator'),
-    <LoadingSpinner text="Loading calculator..." />
+    React.createElement(LoadingSpinner, { text: "Loading calculator..." })
 );
 
 export const LazyEMICalculator = lazyLoad(
     () => import('@/components/calculators/EMICalculator'),
-    <LoadingSpinner text="Loading calculator..." />
+    React.createElement(LoadingSpinner, { text: "Loading calculator..." })
 );
 
 export const LazyFDCalculator = lazyLoad(
     () => import('@/components/calculators/FDCalculator'),
-    <LoadingSpinner text="Loading calculator..." />
+    React.createElement(LoadingSpinner, { text: "Loading calculator..." })
 );
 
 export const LazyTaxCalculator = lazyLoad(
     () => import('@/components/calculators/TaxCalculator'),
-    <LoadingSpinner text="Loading calculator..." />
+    React.createElement(LoadingSpinner, { text: "Loading calculator..." })
 );
 
 export const LazyRetirementCalculator = lazyLoad(
     () => import('@/components/calculators/RetirementCalculator'),
-    <LoadingSpinner text="Loading calculator..." />
+    React.createElement(LoadingSpinner, { text: "Loading calculator..." })
 );
 
 /**
@@ -81,12 +83,12 @@ export const LazyRetirementCalculator = lazyLoad(
  */
 export const LazyChart = lazyLoad(
     () => import('@/components/charts/Chart'),
-    <div className="h-64 bg-slate-100 animate-pulse rounded" />
+    React.createElement('div', { className: "h-64 bg-slate-100 animate-pulse rounded" })
 );
 
 export const LazyDataTable = lazyLoad(
     () => import('@/components/common/DataTable'),
-    <LoadingSpinner text="Loading table..." />
+    React.createElement(LoadingSpinner, { text: "Loading table..." })
 );
 
 /**
@@ -94,7 +96,7 @@ export const LazyDataTable = lazyLoad(
  */
 export const LazyMarkdownRenderer = lazyLoad(
     () => import('@/components/common/MarkdownRenderer'),
-    <LoadingSpinner text="Loading content..." />
+    React.createElement(LoadingSpinner, { text: "Loading content..." })
 );
 
 /**

@@ -558,10 +558,12 @@ export class ArticleService {
                 if (!altRpcError && altRpcData && altRpcData.length > 0) {
                     articles = (altRpcData as any[]).map(item => this.normalizeArticle(item));
                 }
+            }
             
             if (altRpcError) {
                 logger.error('All RPC fallbacks failed', altRpcError);
             }
+        }
         }
 
         // Cache the result
