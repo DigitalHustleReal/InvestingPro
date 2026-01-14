@@ -10,6 +10,7 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
+    "db:migrate": "tsx scripts/run-migrations.ts",
     "check:exports": "node scripts/check-exports.js",
     "validate": "npm run type-check && npm run check:exports && npm run lint",
     "test": "jest",
