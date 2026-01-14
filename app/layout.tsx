@@ -40,6 +40,7 @@ const mono = JetBrains_Mono({
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { NavigationProvider } from "@/contexts/NavigationContext";
+import { initializeEventSystem } from "@/lib/events/setup";
 
 // ... existing imports ...
 
@@ -48,6 +49,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Initialize event system (runs once per server instance)
+  initializeEventSystem();
+  
   // Fetch navigation on the server
   const navConfig = await getNavigation();
 

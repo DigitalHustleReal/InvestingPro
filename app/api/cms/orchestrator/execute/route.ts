@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cmsOrchestrator, OrchestrationContext } from '@/lib/agents/orchestrator';
 import { createClient } from '@supabase/supabase-js';
 import { logger } from '@/lib/logger';
+import { createAPIWrapper } from '@/lib/middleware/api-wrapper';
+import { withValidation } from '@/lib/middleware/validation';
+import { orchestratorExecuteSchema } from '@/lib/validation/schemas';
 
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -14,10 +17,13 @@ const supabase = createClient(
  * Executes complete content generation cycles
  */
 
-export async function POST(request: NextRequest) {
+export const POST = createAPIWrapper('/api/cms/orchestrator/execute', {
+    rateLimitType: 'ai', // AI generation - strict rate limit
+    trackMetrics: true,
+})(
+    withValidation(orchestratorExecuteSchema, undefined)(
+        async (request: NextRequest, body: any, _query?: unknown) => {
     try {
-        const body = await request.json();
-        
         const context: OrchestrationContext = {
             mode: body.mode || 'fully-automated',
             goals: body.goals || {
@@ -71,18 +77,21 @@ export async function POST(request: NextRequest) {
         });
         
     } catch (error: any) {
-        logger.error('Orchestrator API error', error);
-        return NextResponse.json({
-            success: false,
-            error: error.message
-        }, { status: 500 });
+        logger.error('Orchestrator API error', error instanceof Error ? error : new Error(String(error)));
+        throw error; // Let API wrapper handle the error response
     }
-}
+    }
+)
+);
 
 /**
  * Get cycle status
  */
-export async function GET(request: NextRequest) {
+export const GET = createAPIWrapper('/api/cms/orchestrator/execute', {
+    rateLimitType: 'authenticated',
+    trackMetrics: true,
+})(
+    async (request: NextRequest) => {
     try {
         const { searchParams } = new URL(request.url);
         const cycleId = searchParams.get('cycleId');
@@ -107,9 +116,8 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ success: true, cycles });
         
     } catch (error: any) {
-        return NextResponse.json({
-            success: false,
-            error: error.message
-        }, { status: 500 });
+        logger.error('Orchestrator GET error', error instanceof Error ? error : new Error(String(error)));
+        throw error; // Let API wrapper handle error response
     }
-}
+    }
+);

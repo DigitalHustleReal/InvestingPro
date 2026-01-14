@@ -80,6 +80,7 @@
     "gray-matter": "^4.0.3",
     "groq-sdk": "^0.37.0",
     "html2canvas": "^1.4.1",
+    "inngest": "^3.49.1",
     "jsdom": "^27.4.0",
     "jspdf": "^4.0.0",
     "lucide-react": "^0.556.0",

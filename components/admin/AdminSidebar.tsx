@@ -83,6 +83,7 @@ const navSections: NavSection[] = [
         title: 'INSIGHTS',
         items: [
             { label: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
+            { label: 'Metrics', href: '/admin/metrics', icon: Activity },
             { label: 'SEO Health', href: '/admin/seo', icon: Activity },
             { label: 'Experiments', href: '/admin/seo/experiments', icon: FlaskConical },
         ],

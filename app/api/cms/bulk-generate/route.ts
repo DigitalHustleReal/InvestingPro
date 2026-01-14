@@ -1,98 +1,93 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { BulkGenerationAgent, BulkGenerationConfig } from '@/lib/agents/bulk-generation-agent';
-import { createClient } from '@supabase/supabase-js';
+import { inngest } from '@/lib/queue/inngest-client';
 import { logger } from '@/lib/logger';
-
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
-
-const bulkAgent = new BulkGenerationAgent();
+import { createAPIWrapper } from '@/lib/middleware/api-wrapper';
+import { withValidation } from '@/lib/middleware/validation';
+import { bulkGenerateSchema } from '@/lib/validation/schemas';
 
 /**
- * Bulk Content Generation API
+ * Bulk Content Generation API (Queue-based)
  * 
- * Generates multiple articles in batches
+ * This route now uses Inngest queue for async processing.
+ * Returns immediately with a job ID for status tracking.
  */
+export const POST = createAPIWrapper('/api/cms/bulk-generate', {
+    rateLimitType: 'ai', // AI generation - strict rate limit
+    trackMetrics: true,
+})(
+    withValidation(bulkGenerateSchema, undefined)(
+        async (request: NextRequest, body: any, _query: unknown) => {
+            try {
+                // Body is already validated by middleware
+                // Support both old config format and new topics format
+                let topics: string[] = [];
+                let options: Record<string, any> = {};
 
-export async function POST(request: NextRequest) {
-    try {
-        const body = await request.json();
-        
-        const config: BulkGenerationConfig = {
-            totalArticles: body.totalArticles || 10,
-            batchSize: body.batchSize || 5,
-            parallelBatches: body.parallelBatches || 2,
-            qualityThreshold: body.qualityThreshold || 80,
-            categories: body.categories,
-            delayBetweenBatches: body.delayBetweenBatches || 5000
-        };
-        
-        // Validate
-        if (config.totalArticles <= 0 || config.totalArticles > 1000) {
-            return NextResponse.json({
-                success: false,
-                error: 'totalArticles must be between 1 and 1000'
-            }, { status: 400 });
+                if (body.topics && Array.isArray(body.topics)) {
+                    // New format: topics array provided directly
+                    topics = body.topics;
+                    options = body.options || {};
+                } else {
+                    // Old format: config object - convert to topics
+                    // For now, we'll require topics to be provided
+                    // TODO: Add logic to generate topics from config if needed
+                    return NextResponse.json(
+                        { 
+                            error: 'Topics array is required. Please provide topics array in the request body.',
+                            hint: 'Send { topics: ["topic1", "topic2", ...], options: {...} }'
+                        },
+                        { status: 400 }
+                    );
+                }
+
+                if (!topics || topics.length === 0) {
+                    return NextResponse.json(
+                        { error: 'Topics array is required and must not be empty' },
+                        { status: 400 }
+                    );
+                }
+
+                // Send to queue instead of processing synchronously
+                const result = await inngest.send({
+                    name: 'content/bulk-generate',
+                    data: {
+                        topics,
+                        options
+                    },
+                });
+
+                logger.info('Bulk generation queued', { 
+                    eventIds: result.ids,
+                    topicCount: topics.length,
+                    jobId: result.ids[0]
+                });
+
+                // Return immediately with job ID
+                return NextResponse.json({
+                    success: true,
+                    message: 'Bulk generation queued',
+                    jobId: result.ids[0],
+                    status: 'queued',
+                    topicCount: topics.length,
+                    // Provide status endpoint URL
+                    statusUrl: `/api/jobs/${result.ids[0]}/status`
+                });
+
+            } catch (error: unknown) {
+                logger.error('Bulk generation queue error', error instanceof Error ? error : new Error(String(error)));
+                throw error; // Let API wrapper handle error response
+            }
         }
-        
-        // Create bulk generation record
-        const { data: bulkRecord } = await supabase
-            .from('content_generation_cycles')
-            .insert({
-                cycle_type: 'bulk-generation',
-                target_articles: config.totalArticles,
-                target_quality: config.qualityThreshold,
-                status: 'running'
-            })
-            .select()
-            .single();
-        
-        const cycleId = bulkRecord?.id;
-        
-        logger.info('Bulk generation started', { cycleId, config });
-        
-        // Execute bulk generation
-        const useParallel = body.parallel !== false;
-        const result = useParallel
-            ? await bulkAgent.generateBulkParallel(config)
-            : await bulkAgent.generateBulk(config);
-        
-        // Update record
-        if (cycleId) {
-            await supabase
-                .from('content_generation_cycles')
-                .update({
-                    status: result.success ? 'completed' : 'failed',
-                    articles_generated: result.totalGenerated,
-                    articles_published: result.totalPublished,
-                    average_performance_score: result.averageQualityScore,
-                    errors: result.batches.flatMap(b => b.errors),
-                    completed_at: new Date().toISOString()
-                })
-                .eq('id', cycleId);
-        }
-        
-        return NextResponse.json({
-            success: true,
-            cycleId,
-            result
-        });
-        
-    } catch (error: any) {
-        logger.error('Bulk generation API error', error);
-        return NextResponse.json({
-            success: false,
-            error: error.message
-        }, { status: 500 });
-    }
-}
+    )
+);
 
 /**
  * Get bulk generation status
  */
-export async function GET(request: NextRequest) {
+export const GET = createAPIWrapper('/api/cms/bulk-generate', {
+    rateLimitType: 'authenticated',
+    trackMetrics: true,
+})(async (request: NextRequest) => {
     try {
         const { searchParams } = new URL(request.url);
         const cycleId = searchParams.get('cycleId');
@@ -119,9 +114,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ success: true, cycles });
         
     } catch (error: any) {
-        return NextResponse.json({
-            success: false,
-            error: error.message
-        }, { status: 500 });
+        logger.error('Bulk generation GET error', error instanceof Error ? error : new Error(String(error)));
+        throw error; // Let API wrapper handle error response
     }
-}
+});

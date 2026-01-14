@@ -11,6 +11,9 @@ import { checkPlagiarism, generatePlagiarismReport } from '@/lib/quality/plagiar
 import { generateImageAltText } from '@/lib/quality/image-alt-generator';
 import { generateArticleSchema, extractFAQsFromContent } from '@/lib/seo/schema-generator';
 import { imageService } from '@/lib/images/stock-image-service';
+import { eventPublisher, EventType } from '@/lib/events';
+import { sanitizeHTML } from '@/lib/middleware/input-sanitization';
+import { triggerArticlePublishingWorkflow } from '@/lib/workflows/hooks/article-workflow-hooks';
 
 /**
  * CORE ARTICLE GENERATION LOGIC
@@ -266,13 +269,30 @@ function enhanceForUniqueness(brief: ResearchBrief | undefined, attempt: number)
 export async function generateArticleCore(
     topic: string, 
     logFn: (msg: string) => void = console.log,
-    options: { dryRun?: boolean; authorId?: string } | boolean = false // Backwards compatibility for boolean
+    options: { dryRun?: boolean; authorId?: string; cycleId?: string } | boolean = false // Backwards compatibility for boolean
 ): Promise<{ success: boolean; article?: any; error?: string; duration?: string; url?: string }> {
     const startTime = Date.now();
     
     // Handle old boolean signature (dryRun) vs new object signature
     const dryRun = typeof options === 'boolean' ? options : options?.dryRun;
     const authorId = typeof options === 'object' ? options?.authorId : undefined;
+    const cycleId = typeof options === 'object' ? options?.cycleId : undefined;
+    
+    // Publish generation started event
+    try {
+        await eventPublisher.publish({
+            type: EventType.CONTENT_GENERATION_STARTED,
+            source: 'ArticleGenerator',
+            payload: {
+                topic,
+                agentId: 'ArticleGenerator',
+                cycleId
+            }
+        });
+    } catch (error) {
+        // Don't fail generation if event publishing fails
+        logFn('⚠️ Failed to publish generation started event');
+    }
     // ============================================================================
     // STEP 0: CHECK FOR DUPLICATES FIRST (Prevents wasted API calls)
     // ============================================================================
@@ -520,18 +540,24 @@ export async function generateArticleCore(
             logFn('   ⚠️ Could not fetch users. Defaulting to null author.');
         }
 
+        // Sanitize HTML content before storing
+        const sanitizedHTML = sanitizeHTML(html);
+        const sanitizedExcerpt = sanitizeHTML(excerpt);
+        const sanitizedTitle = sanitizeHTML(title);
+        const sanitizedSeoTitle = sanitizeHTML(seoTitle);
+
         // Prepare insert data
         const insertPayload = {
-            title,
+            title: sanitizedTitle,
             slug,
-            body_html: html,
+            body_html: sanitizedHTML,
             body_markdown: '', // Store as HTML for now
-            content: html, // Keep content for full-text search if needed
-            excerpt,
-            meta_title: seoTitle,
-            meta_description: excerpt,
-            seo_title: seoTitle,
-            seo_description: excerpt,
+            content: sanitizedHTML, // Keep content for full-text search if needed
+            excerpt: sanitizedExcerpt,
+            meta_title: sanitizedSeoTitle,
+            meta_description: sanitizedExcerpt,
+            seo_title: sanitizedSeoTitle,
+            seo_description: sanitizedExcerpt,
             category,
             tags,
             status, // 'draft' or 'published' based on quality
@@ -588,6 +614,59 @@ export async function generateArticleCore(
             throw new Error(`Database error: ${error.message} (Detail: ${error?.details || ''})`);
         }
 
+            // Trigger content generation workflow for AI-generated articles
+            try {
+                await triggerArticlePublishingWorkflow(article.id);
+                logFn(`   🔄 Workflow triggered: Content generation workflow started for article ${article.id}`);
+            } catch (workflowError) {
+                // Don't fail article creation if workflow fails
+                logFn(`   ⚠️  Workflow trigger failed (non-critical): ${workflowError instanceof Error ? workflowError.message : String(workflowError)}`);
+            }
+
+            // Publish events
+            try {
+                // Article created event
+                await eventPublisher.publish({
+                    type: EventType.ARTICLE_CREATED,
+                    source: 'ArticleGenerator',
+                    payload: {
+                        articleId: article.id,
+                        title: article.title,
+                        slug: article.slug,
+                        authorId: article.author_id
+                    }
+                });
+
+                // If published, publish article published event
+                if (status === 'published') {
+                    await eventPublisher.publish({
+                        type: EventType.ARTICLE_PUBLISHED,
+                        source: 'ArticleGenerator',
+                        payload: {
+                            articleId: article.id,
+                            slug: article.slug,
+                            publishedAt: article.published_at || new Date().toISOString()
+                        }
+                    });
+                }
+
+                // Content generation completed event
+                await eventPublisher.publish({
+                    type: EventType.CONTENT_GENERATION_COMPLETED,
+                    source: 'ArticleGenerator',
+                    payload: {
+                        articleId: article.id,
+                        topic,
+                        agentId: 'ArticleGenerator',
+                        cycleId,
+                        duration: Date.now() - startTime
+                    }
+                });
+            } catch (eventError) {
+                // Don't fail generation if event publishing fails
+                logFn('⚠️ Failed to publish events (non-critical)');
+            }
+
             // Log completion
             const statusIcon = status === 'published' ? '✅' : '📝';
             logFn(`   ${statusIcon} ${status.toUpperCase()} SUCCESSFULLY!`);
@@ -605,6 +684,22 @@ export async function generateArticleCore(
             logFn(`   ❌ Generation failed (attempt ${attempt}/${MAX_RETRIES}): ${error.message}`);
             
             if (attempt === MAX_RETRIES) {
+                // Publish generation failed event
+                try {
+                    await eventPublisher.publish({
+                        type: EventType.CONTENT_GENERATION_FAILED,
+                        source: 'ArticleGenerator',
+                        payload: {
+                            topic,
+                            agentId: 'ArticleGenerator',
+                            cycleId,
+                            error: error.message
+                        }
+                    });
+                } catch (eventError) {
+                    // Don't fail if event publishing fails
+                }
+
                 // Re-throw on final attempt
                 return {
                     success: false,
@@ -619,6 +714,22 @@ export async function generateArticleCore(
     }
 
     // If we get here, all retries failed (shouldn't happen but just in case)
+    // Publish generation failed event
+    try {
+        await eventPublisher.publish({
+            type: EventType.CONTENT_GENERATION_FAILED,
+            source: 'ArticleGenerator',
+            payload: {
+                topic,
+                agentId: 'ArticleGenerator',
+                cycleId,
+                error: `Failed after ${MAX_RETRIES} attempts`
+            }
+        });
+    } catch (eventError) {
+        // Don't fail if event publishing fails
+    }
+
     return {
         success: false,
         error: `Failed to generate quality article after ${MAX_RETRIES} attempts`,

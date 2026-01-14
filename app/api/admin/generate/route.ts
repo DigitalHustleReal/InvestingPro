@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { createAPIWrapper } from '@/lib/middleware/api-wrapper';
 import { generateArticleCore } from '@/lib/automation/article-generator';
+import { logger } from '@/lib/logger';
 
-export async function POST(req: NextRequest) {
+export const POST = createAPIWrapper('/api/admin/generate', {
+    rateLimitType: 'admin',
+    trackMetrics: true,
+})(async (request: NextRequest) => {
     try {
         const { topic } = await req.json();
 
@@ -21,9 +26,7 @@ export async function POST(req: NextRequest) {
         });
 
     } catch (error: any) {
-        return NextResponse.json({ 
-            success: false, 
-            error: error.message 
-        }, { status: 500 });
+        logger.error('Admin generate error', error instanceof Error ? error : new Error(String(error)));
+        throw error; // Let API wrapper handle error response
     }
-}
+});

@@ -1,12 +1,20 @@
-import { createServerClient, type CookieOptions } from '@supabase/ssr'
-import { NextResponse, type NextRequest } from 'next/server'
+import { createServerClient } from '@supabase/ssr';
+import { NextResponse, type NextRequest } from 'next/server';
+import { setRequestContext, clearRequestContext } from '@/lib/middleware/request-context';
+import { nanoid } from 'nanoid';
 
 export async function middleware(request: NextRequest) {
-    let response = NextResponse.next({
-        request: {
-            headers: request.headers,
-        },
-    })
+    // Generate correlation ID for request tracking
+    const correlationId = nanoid();
+    const requestId = request.headers.get('x-request-id') || nanoid();
+    
+    // Set request context for logging
+    setRequestContext(correlationId, requestId);
+
+    // Add correlation ID to response headers
+    const response = NextResponse.next();
+    response.headers.set('x-correlation-id', correlationId);
+    response.headers.set('x-request-id', requestId);
 
     // Protect admin routes (UI and API)
     const isAdminUI = request.nextUrl.pathname.startsWith('/admin');
@@ -19,27 +27,17 @@ export async function middleware(request: NextRequest) {
         }
 
         // Check if Supabase environment variables are properly configured
-        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-        const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-        const hasSupabaseConfig = supabaseUrl && supabaseAnonKey && 
-                                  supabaseUrl.trim() !== '' && 
-                                  supabaseAnonKey.trim() !== '';
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-        // SECURE DEV BYPASS: Only allow bypass with explicit secret key
-        // Set ADMIN_BYPASS_KEY in .env.local for local development ONLY
-        // NEVER set this in production
-        const bypassKey = process.env.ADMIN_BYPASS_KEY;
-        const requestBypassKey = request.headers.get('x-admin-bypass') || 
-                                 request.cookies.get('admin_bypass')?.value;
-        
-        if (bypassKey && requestBypassKey === bypassKey) {
-            // Explicit bypass for local development with secret key
-            console.warn('[MIDDLEWARE] Admin bypass active - NEVER use in production');
-            return response;
-        }
+        if (!supabaseUrl || !supabaseAnonKey) {
+            // Development/Staging: Allow access with warning
+            if (process.env.NODE_ENV === 'development' || process.env.VERCEL_ENV === 'preview') {
+                console.warn('⚠️ Supabase not configured - allowing access in development/preview');
+                return response;
+            }
 
-        // If Supabase not configured and no bypass key, show helpful error
-        if (!hasSupabaseConfig) {
+            // Production: Redirect to login with error
             const url = request.nextUrl.clone();
             url.pathname = '/admin/login';
             url.searchParams.set('error', 'supabase_not_configured');
@@ -48,7 +46,7 @@ export async function middleware(request: NextRequest) {
 
         // PRODUCTION ONLY: Enforce authentication when Supabase is fully configured
         // All auth logic below only runs in production with valid Supabase config
-        
+
         // Create Supabase client for middleware authentication
         const supabase = createServerClient(
             supabaseUrl!,
@@ -56,41 +54,31 @@ export async function middleware(request: NextRequest) {
             {
                 cookies: {
                     get(name: string) {
-                        return request.cookies.get(name)?.value
+                        return request.cookies.get(name)?.value;
                     },
-                    set(name: string, value: string, options: CookieOptions) {
+                    set(name: string, value: string, options: any) {
                         request.cookies.set({
                             name,
                             value,
                             ...options,
-                        })
-                        response = NextResponse.next({
-                            request: {
-                                headers: request.headers,
-                            },
-                        })
+                        });
                         response.cookies.set({
                             name,
                             value,
                             ...options,
-                        })
+                        });
                     },
-                    remove(name: string, options: CookieOptions) {
+                    remove(name: string, options: any) {
                         request.cookies.set({
                             name,
                             value: '',
                             ...options,
-                        })
-                        response = NextResponse.next({
-                            request: {
-                                headers: request.headers,
-                            },
-                        })
+                        });
                         response.cookies.set({
                             name,
                             value: '',
                             ...options,
-                        })
+                        });
                     },
                 },
             }
@@ -125,6 +113,12 @@ export async function middleware(request: NextRequest) {
         }
     }
 
+    // Cleanup: Clear request context after response (in background)
+    // Note: This runs after response is sent, so it's fire-and-forget
+    setTimeout(() => {
+        clearRequestContext();
+    }, 0);
+
     return response
 }
 
@@ -140,4 +134,3 @@ export const config = {
         '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
     ],
 }
-

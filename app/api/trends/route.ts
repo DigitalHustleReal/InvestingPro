@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { trendsService } from '@/lib/trends/TrendsService';
+import { trendsService } from '@/lib/services';
+import { createAPIWrapper } from '@/lib/middleware/api-wrapper';
+import { withValidation } from '@/lib/middleware/validation';
+import { trendsQuerySchema } from '@/lib/validation/schemas';
+import { logger } from '@/lib/logger';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 3600; // Cache for 1 hour
@@ -8,17 +12,28 @@ export const revalidate = 3600; // Cache for 1 hour
  * Get Trending Topics API
  * GET /api/trends?category=markets
  */
-export async function GET(request: NextRequest) {
-    const searchParams = request.nextUrl.searchParams;
-    const category = (searchParams.get('category') as 'markets' | 'personal-finance' | 'technology') || 'markets';
-
-    try {
-        const trends = await trendsService.getTrendingTopics(category);
-        return NextResponse.json({ success: true, trends });
-    } catch (error) {
-        return NextResponse.json(
-            { success: false, error: 'Failed to fetch trends' },
-            { status: 500 }
-        );
-    }
-}
+export const GET = createAPIWrapper('/api/trends', {
+    rateLimitType: 'public',
+    trackMetrics: true,
+})(
+    withValidation(undefined, trendsQuerySchema)(
+        async (request: NextRequest, _body: unknown, query: any) => {
+            try {
+                // Query parameters are already validated by middleware
+                const category = (query?.category as 'markets' | 'personal-finance' | 'technology') || 'markets';
+                const limit = query?.limit || 10;
+                
+                const result = await trendsService.getTrending({
+                    category,
+                    limit,
+                    timeframe: 'week'
+                });
+                
+                return NextResponse.json({ success: true, trends: result.trends });
+            } catch (error) {
+                logger.error('Trends API error', error instanceof Error ? error : new Error(String(error)));
+                throw error; // Let API wrapper handle error response
+            }
+        }
+    )
+);

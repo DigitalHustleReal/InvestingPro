@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
+import WebVitalsTracker from '@/components/performance/WebVitalsTracker';
 
 declare global {
     interface Window {
@@ -35,5 +36,9 @@ export default function Analytics() {
         }
     }, [pathname, searchParams]);
 
-    return null;
+    return (
+        <>
+            <WebVitalsTracker />
+        </>
+    );
 }

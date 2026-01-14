@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { createAPIWrapper } from '@/lib/middleware/api-wrapper';
+import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/server';
 import { analyticsService } from '@/lib/analytics/service';
 import { SEOAnalyzer } from '@/lib/analytics/seo-analyzer';
-import { logger } from '@/lib/logger';
 
 export async function GET(req: NextRequest) {
     try {
@@ -14,7 +15,7 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const { searchParams } = new URL(req.url);
+        const { searchParams } = new URL(request.url);
         const type = searchParams.get('type') || 'overview';
         const articleId = searchParams.get('articleId');
 
@@ -53,15 +54,15 @@ export async function GET(req: NextRequest) {
         }
 
     } catch (error) {
-        logger.error('Analytics API error', error as Error);
-        return NextResponse.json({ error: 'Failed to fetch analytics' }, { status: 500 });
+        logger.error('Analytics API error', error instanceof Error ? error : new Error(String(error)));
+        throw error; // Let API wrapper handle error response
     }
 }
 
 // Record view endpoint
 export async function POST(req: NextRequest) {
     try {
-        const body = await req.json();
+        const body = await request.json();
         const { articleId, referrer, duration } = body;
 
         if (!articleId) {
@@ -81,7 +82,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ success: true });
 
     } catch (error) {
-        logger.error('Failed to record view', error as Error);
-        return NextResponse.json({ error: 'Failed to record view' }, { status: 500 });
+        logger.error('Failed to record view', error instanceof Error ? error : new Error(String(error)));
+        throw error; // Let API wrapper handle error response
     }
 }

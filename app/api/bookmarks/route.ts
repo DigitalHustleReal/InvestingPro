@@ -1,9 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { bookmarkService } from '@/lib/engagement/bookmark-service';
+import { bookmarkService } from '@/lib/services';
 import { logger } from '@/lib/logger';
+import { createAPIWrapper } from '@/lib/middleware/api-wrapper';
+import { withValidation } from '@/lib/middleware/validation';
+import { bookmarkSchema } from '@/lib/validation/schemas';
+import { sanitizeText } from '@/lib/middleware/input-sanitization';
 
-export async function GET(req: NextRequest) {
+export const GET = createAPIWrapper('/api/bookmarks', {
+    rateLimitType: 'authenticated',
+    trackMetrics: true,
+    requireAuth: true, // Bookmarks require authentication
+})(async (request: NextRequest) => {
     try {
         const supabase = await createClient();
         const { data: { user } } = await supabase.auth.getUser();
@@ -12,7 +20,7 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const { searchParams } = new URL(req.url);
+        const { searchParams } = new URL(request.url);
         const articleId = searchParams.get('articleId');
         const type = searchParams.get('type') || 'check';
 
@@ -43,12 +51,18 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
 
     } catch (error) {
-        logger.error('Bookmarks API GET error', error as Error);
-        return NextResponse.json({ error: 'Failed to fetch' }, { status: 500 });
+        logger.error('Bookmarks API GET error', error instanceof Error ? error : new Error(String(error)));
+        throw error; // Let API wrapper handle error response
     }
-}
+});
 
-export async function POST(req: NextRequest) {
+export const POST = createAPIWrapper('/api/bookmarks', {
+    rateLimitType: 'authenticated',
+    trackMetrics: true,
+    requireAuth: true,
+})(
+    withValidation(bookmarkSchema, undefined)(
+        async (request: NextRequest, body: any, _query: unknown) => {
     try {
         const supabase = await createClient();
         const { data: { user } } = await supabase.auth.getUser();
@@ -57,8 +71,11 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const body = await req.json();
+        // Body is already validated by middleware
         const { articleId, notes, action, progress, readTime } = body;
+
+        // Sanitize user inputs
+        const sanitizedNotes = notes ? sanitizeText(notes) : notes;
 
         if (action === 'progress' && articleId) {
             // Update reading progress
@@ -66,20 +83,22 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ success: true });
         }
 
-        if (!articleId) {
-            return NextResponse.json({ error: 'articleId required' }, { status: 400 });
-        }
-
-        const success = await bookmarkService.addBookmark(user.id, articleId, notes);
+        const success = await bookmarkService.addBookmark(user.id, articleId, sanitizedNotes);
         return NextResponse.json({ success });
 
     } catch (error) {
-        logger.error('Bookmarks API POST error', error as Error);
-        return NextResponse.json({ error: 'Failed to bookmark' }, { status: 500 });
+        logger.error('Bookmarks API POST error', error instanceof Error ? error : new Error(String(error)));
+        throw error; // Let API wrapper handle error response
     }
-}
+    }
+)
+);
 
-export async function DELETE(req: NextRequest) {
+export const DELETE = createAPIWrapper('/api/bookmarks', {
+    rateLimitType: 'authenticated',
+    trackMetrics: true,
+    requireAuth: true,
+})(async (request: NextRequest) => {
     try {
         const supabase = await createClient();
         const { data: { user } } = await supabase.auth.getUser();
@@ -88,7 +107,7 @@ export async function DELETE(req: NextRequest) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const body = await req.json();
+        const body = await request.json();
         const { articleId } = body;
 
         if (!articleId) {
@@ -99,7 +118,7 @@ export async function DELETE(req: NextRequest) {
         return NextResponse.json({ success });
 
     } catch (error) {
-        logger.error('Bookmarks API DELETE error', error as Error);
-        return NextResponse.json({ error: 'Failed to remove bookmark' }, { status: 500 });
+        logger.error('Bookmarks API DELETE error', error instanceof Error ? error : new Error(String(error)));
+        throw error; // Let API wrapper handle error response
     }
-}
+});

@@ -1,46 +1,66 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServiceClient } from '@/lib/supabase/service';
 import { createClient as createServerClient } from '@/lib/supabase/server';
+import { createAPIWrapper } from '@/lib/middleware/api-wrapper';
+import { withValidation } from '@/lib/middleware/validation';
+import { analyticsTrackSchema } from '@/lib/validation/schemas';
+import { logger } from '@/lib/logger';
 
 /**
  * Analytics Event Tracking API
  * POST /api/analytics/track
  */
-export async function POST(request: NextRequest) {
+export const POST = createAPIWrapper('/api/analytics/track', {
+    rateLimitType: 'public',
+    trackMetrics: true,
+})(
+    withValidation(analyticsTrackSchema, undefined)(
+        async (request: NextRequest, event: any, _query: unknown) => {
     try {
-        const event = await request.json();
+        // Event is already validated by middleware
         const supabase = createServiceClient();
 
-        // Store event in analytics table
-        const { error } = await supabase
-            .from('analytics_events')
-            .insert({
-                event_name: event.event,
-                properties: event.properties || {},
-                timestamp: event.timestamp || new Date().toISOString(),
-                user_agent: request.headers.get('user-agent'),
-                ip_address: request.headers.get('x-forwarded-for') || 
-                           request.headers.get('x-real-ip') || 
-                           'unknown'
-            });
+        // Store event in analytics table (if table exists)
+        try {
+            const { error } = await supabase
+                .from('analytics_events')
+                .insert({
+                    event_name: event.event,
+                    properties: event.properties || {},
+                    timestamp: event.timestamp || new Date().toISOString(),
+                    user_agent: request.headers.get('user-agent'),
+                    ip_address: request.headers.get('x-forwarded-for') || 
+                               request.headers.get('x-real-ip') || 
+                               'unknown'
+                });
 
-        if (error) {
-            console.error('Analytics insert error:', error);
-            // Don't return error to client - fail silently
+            if (error) {
+                // Table might not exist yet - fail silently
+                logger.debug('Analytics insert skipped', { error: error.message });
+            }
+        } catch (dbError) {
+            // Table doesn't exist or other DB error - fail silently for analytics
+            logger.debug('Analytics table not available', { error: dbError instanceof Error ? dbError.message : String(dbError) });
         }
 
         return NextResponse.json({ success: true });
     } catch (error) {
-        console.error('Analytics API error:', error);
-        return NextResponse.json({ success: false }, { status: 200 }); // Return 200 anyway
+        logger.error('Analytics API error', error instanceof Error ? error : new Error(String(error)));
+        // Return 200 anyway - analytics should never break user experience
+        return NextResponse.json({ success: false }, { status: 200 });
     }
-}
+    }
+)
+);
 
 /**
  * Get Analytics Stats
  * GET /api/analytics/stats?period=today|week|month
  */
-export async function GET(request: NextRequest) {
+export const GET = createAPIWrapper('/api/analytics/track', {
+    rateLimitType: 'authenticated',
+    trackMetrics: true,
+})(async (request: NextRequest) => {
     try {
         // 1. Check Authentication & Role
         const serverSupabase = await createServerClient();
@@ -105,10 +125,10 @@ export async function GET(request: NextRequest) {
 
         return NextResponse.json(stats);
     } catch (error) {
-        console.error('Analytics stats error:', error);
-        return NextResponse.json({ error: 'Failed to fetch stats' }, { status: 500 });
+        logger.error('Analytics stats error', error instanceof Error ? error : new Error(String(error)));
+        throw error; // Let API wrapper handle error response
     }
-}
+});
 
 
 function getTopProducts(events: any[]): Array<{ name: string; views: number }> {

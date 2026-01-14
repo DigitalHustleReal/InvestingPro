@@ -1,40 +1,46 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { newsletterService } from '@/lib/engagement/newsletter-service';
+import { newsletterService } from '@/lib/services';
 import { logger } from '@/lib/logger';
+import { createAPIWrapper } from '@/lib/middleware/api-wrapper';
+import { withValidation } from '@/lib/middleware/validation';
+import { newsletterSubscribeSchema } from '@/lib/validation/schemas';
+import { sanitizeText } from '@/lib/middleware/input-sanitization';
 
-export async function POST(req: NextRequest) {
-    try {
-        const body = await req.json();
-        const { email, name, interests, frequency } = body;
+export const POST = createAPIWrapper('/api/newsletter', {
+    rateLimitType: 'public',
+    trackMetrics: true,
+})(
+    withValidation(newsletterSubscribeSchema, undefined)(
+        async (request: NextRequest, body: any, _query: unknown) => {
+            try {
+                // Body is already validated by middleware
+                // Sanitize user inputs
+                const sanitizedEmail = body.email ? sanitizeText(body.email) : body.email;
+                const sanitizedName = body.name ? sanitizeText(body.name) : body.name;
+                
+                const result = await newsletterService.subscribe(
+                    sanitizedEmail,
+                    body.source || 'website',
+                    sanitizedName,
+                    body.interests,
+                    body.frequency
+                );
 
-        if (!email) {
-            return NextResponse.json(
-                { success: false, message: 'Email is required' },
-                { status: 400 }
-            );
+                return NextResponse.json(result);
+            } catch (error) {
+                logger.error('Newsletter API error', error instanceof Error ? error : new Error(String(error)));
+                throw error; // Let API wrapper handle error response
+            }
         }
+    )
+);
 
-        const result = await newsletterService.subscribe({
-            email,
-            name,
-            interests,
-            frequency
-        });
-
-        return NextResponse.json(result);
-
-    } catch (error) {
-        logger.error('Newsletter API error', error as Error);
-        return NextResponse.json(
-            { success: false, message: 'Failed to process request' },
-            { status: 500 }
-        );
-    }
-}
-
-export async function GET(req: NextRequest) {
+export const GET = createAPIWrapper('/api/newsletter', {
+    rateLimitType: 'public',
+    trackMetrics: true,
+})(async (request: NextRequest) => {
     try {
-        const { searchParams } = new URL(req.url);
+        const { searchParams } = new URL(request.url);
         const action = searchParams.get('action');
         const token = searchParams.get('token');
 
@@ -54,17 +60,17 @@ export async function GET(req: NextRequest) {
         );
 
     } catch (error) {
-        logger.error('Newsletter API GET error', error as Error);
-        return NextResponse.json(
-            { error: 'Failed to process request' },
-            { status: 500 }
-        );
+        logger.error('Newsletter API GET error', error instanceof Error ? error : new Error(String(error)));
+        throw error; // Let API wrapper handle error response
     }
-}
+});
 
-export async function DELETE(req: NextRequest) {
+export const DELETE = createAPIWrapper('/api/newsletter', {
+    rateLimitType: 'public',
+    trackMetrics: true,
+})(async (request: NextRequest) => {
     try {
-        const { searchParams } = new URL(req.url);
+        const { searchParams } = new URL(request.url);
         const email = searchParams.get('email');
 
         if (!email) {
@@ -74,14 +80,13 @@ export async function DELETE(req: NextRequest) {
             );
         }
 
-        const result = await newsletterService.unsubscribe(email);
+        // Sanitize email input
+        const sanitizedEmail = sanitizeText(email);
+        const result = await newsletterService.unsubscribe(sanitizedEmail);
         return NextResponse.json(result);
 
     } catch (error) {
-        logger.error('Newsletter unsubscribe error', error as Error);
-        return NextResponse.json(
-            { success: false, message: 'Failed to unsubscribe' },
-            { status: 500 }
-        );
+        logger.error('Newsletter unsubscribe error', error instanceof Error ? error : new Error(String(error)));
+        throw error; // Let API wrapper handle error response
     }
-}
+});

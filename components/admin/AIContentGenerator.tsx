@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,11 +14,13 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { api } from "@/lib/api"; // Adjusted path
-import { Sparkles, Loader2, AlertTriangle, CheckCircle2, Info } from "lucide-react";
+import { Sparkles, Loader2, AlertTriangle, CheckCircle2, Info, Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { AIContentMetadata, AIDataSource } from "@/lib/ai/constraints";
 import type { StructuredContent } from "@/types/structured-content";
 import { structuredToMarkdown } from "@/types/structured-content";
+import { queueArticleGeneration } from "@/lib/utils/job-queue";
+import { useJobStatus } from "@/lib/hooks/useJobStatus";
 
 /**
  * AI Content Generator - SUPPORT TOOL ONLY
@@ -68,13 +70,17 @@ export default function AIContentGenerator() {
 
     const [keywords, setKeywords] = useState('');
     const [generating, setGenerating] = useState(false);
+    const [jobId, setJobId] = useState<string | null>(null);
     const [generatedContent, setGeneratedContent] = useState<{ article: any; structured?: StructuredContent } | null>(null);
     const [dataSources, setDataSources] = useState<AIDataSource[]>([]);
 
-    const generateArticle = async () => {
-        setGenerating(true);
-        try {
-            // Build data sources from Supabase (if available)
+    // Poll job status when jobId is set
+    const { status: jobStatus, data: jobData, error: jobError } = useJobStatus({
+        jobId,
+        pollInterval: 2000,
+        enabled: !!jobId,
+        onComplete: (result: any) => {
+            // Job completed successfully
             const sources: AIDataSource[] = [
                 {
                     source_type: 'supabase',
@@ -84,45 +90,58 @@ export default function AIContentGenerator() {
                 }
             ];
             
-            // Use the structured JSON API endpoint
-            const response = await fetch('/api/articles/generate-comprehensive', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    topic,
-                    category: categoryStr,
-                    targetKeywords: keywords.split(',').map(k => k.trim()).filter(Boolean),
-                    targetAudience: 'general',
-                    contentLength: 'comprehensive',
-                    wordCount: 1500,
-                    language: languageStr,
-                    tone: toneStr,
-                }),
+            // Handle result structure - could be { article: {...} } or direct article object
+            let articleData = null;
+            if (result && result.article) {
+                articleData = result.article;
+            } else if (result) {
+                articleData = result;
+            }
+            
+            if (articleData) {
+                setGeneratedContent({ 
+                    article: articleData, 
+                    structured: articleData.structured_content || result.structured 
+                });
+                setDataSources(sources);
+            }
+            setGenerating(false);
+            setJobId(null);
+        },
+        onError: (error: string) => {
+            alert('Error generating content: ' + error);
+            setGenerating(false);
+            setJobId(null);
+        }
+    });
+
+    const generateArticle = async () => {
+        setGenerating(true);
+        setJobId(null);
+        setGeneratedContent(null);
+        setDataSources([]);
+        
+        try {
+            // Queue the article generation job
+            const response = await queueArticleGeneration({
+                topic,
+                category: categoryStr,
+                targetKeywords: keywords.split(',').map(k => k.trim()).filter(Boolean),
+                targetAudience: 'general',
+                contentLength: 'comprehensive',
+                wordCount: 1500,
             });
 
-            if (!response.ok) {
-                let errorMessage = 'Article generation failed';
-                try {
-                    const errorData = await response.json();
-                    errorMessage = errorData.error || errorData.message || errorMessage;
-                } catch (e) {
-                    errorMessage = `HTTP ${response.status}: ${response.statusText}`;
-                }
-                throw new Error(errorMessage);
-            }
-
-            const data = await response.json();
-            
-            if (data.success && data.article) {
-                setGeneratedContent(data);
-                setDataSources(sources);
+            if (response.success && response.jobId) {
+                // Job queued successfully - start polling
+                setJobId(response.jobId);
             } else {
-                throw new Error(data.error || 'Article generation failed');
+                throw new Error(response.message || 'Failed to queue article generation');
             }
         } catch (error: any) {
-            alert('Error generating content: ' + error.message);
-        } finally {
+            alert('Error queuing article generation: ' + error.message);
             setGenerating(false);
+            setJobId(null);
         }
     };
 
@@ -267,7 +286,7 @@ export default function AIContentGenerator() {
                     {generating ? (
                         <>
                             <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                            Generating Article...
+                            {jobStatus === 'queued' ? 'Queued...' : jobStatus === 'running' ? 'Generating Article...' : 'Processing...'}
                         </>
                     ) : (
                         <>
@@ -276,6 +295,31 @@ export default function AIContentGenerator() {
                         </>
                     )}
                 </Button>
+
+                {/* Job Status Display */}
+                {jobId && jobStatus && (
+                    <div className="mt-4 p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <div className="flex items-center gap-2 mb-2">
+                            {jobStatus === 'queued' && <Clock className="w-4 h-4 text-blue-600" />}
+                            {jobStatus === 'running' && <Loader2 className="w-4 h-4 text-blue-600 animate-spin" />}
+                            {jobStatus === 'completed' && <CheckCircle2 className="w-4 h-4 text-green-600" />}
+                            {jobStatus === 'failed' && <AlertTriangle className="w-4 h-4 text-red-600" />}
+                            <span className="text-sm font-semibold">
+                                Status: {jobStatus.charAt(0).toUpperCase() + jobStatus.slice(1)}
+                            </span>
+                        </div>
+                        {jobError && (
+                            <div className="text-sm text-red-600 mt-2">
+                                Error: {jobError}
+                            </div>
+                        )}
+                        {jobStatus === 'queued' || jobStatus === 'running' ? (
+                            <div className="text-xs text-slate-600 mt-1">
+                                Job ID: {jobId}
+                            </div>
+                        ) : null}
+                    </div>
+                )}
 
                 {generatedContent && generatedContent.article && (
                     <div className="space-y-4 border-t pt-6">

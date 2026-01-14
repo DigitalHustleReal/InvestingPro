@@ -1,46 +1,58 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { searchService } from '@/lib/search/service';
+import { searchService } from '@/lib/services';
 import { logger } from '@/lib/logger';
+import { createAPIWrapper } from '@/lib/middleware/api-wrapper';
+import { withValidation } from '@/lib/middleware/validation';
+import { searchQuerySchema } from '@/lib/validation/schemas';
+import { sanitizeSearchQuery } from '@/lib/middleware/input-sanitization';
 
-export async function GET(req: NextRequest) {
-    try {
-        const { searchParams } = new URL(req.url);
-        const query = searchParams.get('q') || '';
-        const type = searchParams.get('type') || 'search';
-        const category = searchParams.get('category') || undefined;
-        const limit = parseInt(searchParams.get('limit') || '10');
-        const articleId = searchParams.get('articleId');
+export const GET = createAPIWrapper('/api/search', {
+    rateLimitType: 'public',
+    trackMetrics: true,
+})(
+    withValidation(undefined, searchQuerySchema)(
+        async (request: NextRequest, _body: unknown, query: any) => {
+            try {
+                // Query parameters are already validated by middleware
+                // Sanitize search query to prevent XSS
+                const searchQuery = query?.q ? sanitizeSearchQuery(query.q) : '';
+                const type = query?.type || 'search';
+                const category = query?.category || undefined;
+                const limit = query?.limit || 10;
+                const articleId = query?.articleId;
 
-        switch (type) {
-            case 'search':
-                const searchResults = await searchService.search(query, {
-                    limit,
-                    category,
-                    sortBy: searchParams.get('sortBy') as any || 'relevance'
-                });
-                return NextResponse.json(searchResults);
+                switch (type) {
+                    case 'search':
+                        const searchResults = await searchService.search({
+                            q: searchQuery,
+                            type: 'all',
+                            category,
+                            limit
+                        });
+                        return NextResponse.json(searchResults);
 
-            case 'related':
-                if (!articleId) {
-                    return NextResponse.json({ error: 'articleId required' }, { status: 400 });
+                    case 'related':
+                        if (!articleId) {
+                            return NextResponse.json({ error: 'articleId required' }, { status: 400 });
+                        }
+                        const relatedResults = await searchService.getRelated(searchQuery || articleId, limit);
+                        return NextResponse.json({ results: relatedResults });
+
+                    case 'trending':
+                        const trendingResults = await searchService.getTrending(limit);
+                        return NextResponse.json({ results: trendingResults });
+
+                    case 'suggestions':
+                        const suggestions = await searchService.getSuggestions(searchQuery, limit);
+                        return NextResponse.json({ suggestions });
+
+                    default:
+                        return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
                 }
-                const relatedResults = await searchService.getRelatedArticles(articleId, limit);
-                return NextResponse.json({ results: relatedResults });
-
-            case 'trending':
-                const trendingResults = await searchService.getTrending(limit);
-                return NextResponse.json({ results: trendingResults });
-
-            case 'suggestions':
-                const suggestions = await searchService.getSuggestions();
-                return NextResponse.json({ suggestions });
-
-            default:
-                return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
+            } catch (error) {
+                logger.error('Search API error', error instanceof Error ? error : new Error(String(error)));
+                throw error; // Let API wrapper handle error response
+            }
         }
-
-    } catch (error) {
-        logger.error('Search API error', error as Error);
-        return NextResponse.json({ error: 'Search failed' }, { status: 500 });
-    }
-}
+    )
+);

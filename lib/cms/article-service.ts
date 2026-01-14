@@ -12,6 +12,8 @@ import { normalizeArticleBody } from '@/lib/content/normalize';
 import { htmlToMarkdown } from '@/lib/editor/markdown';
 import { logger } from '@/lib/logger';
 import { TaxonomyService } from './taxonomy-service';
+import { triggerArticlePublishingWorkflow, transitionArticleState } from '@/lib/workflows/hooks/article-workflow-hooks';
+import { invalidateArticleCache } from '@/lib/cache/cache-invalidation';
 
 /**
  * Article Status Lifecycle (WordPress-style)
@@ -232,6 +234,8 @@ export class ArticleService {
             throw new Error('Article not found');
         }
 
+        const previousStatus = existing.status;
+
         // Update article (preserve status)
         const updateData: any = {
             ...metadata,
@@ -254,6 +258,30 @@ export class ArticleService {
             logger.error('Failed to save article', error);
             throw new Error(error.message || 'Failed to save article');
         }
+
+        // Trigger state transition if status changed
+        if (metadata.status && metadata.status !== previousStatus) {
+            try {
+                await transitionArticleState(
+                    id,
+                    previousStatus,
+                    metadata.status,
+                    'update',
+                    existing.author_id || undefined
+                );
+                logger.info('Article state transition triggered', { 
+                    articleId: id, 
+                    from: previousStatus, 
+                    to: metadata.status 
+                });
+            } catch (workflowError) {
+                // Don't fail save if workflow fails
+                logger.error('Failed to trigger state transition', workflowError instanceof Error ? workflowError : new Error(String(workflowError)), { articleId: id });
+            }
+        }
+
+        // Invalidate cache
+        await invalidateArticleCache(id);
 
         return {
             id: data.id,
@@ -600,6 +628,10 @@ export class ArticleService {
     }>): Promise<void> {
         const supabase = this.getClient();
         
+        // Get existing article to track status change
+        const existing = await this.getById(id);
+        const previousStatus = existing?.status;
+
         const { error } = await supabase
             .from('articles')
             .update({
@@ -612,6 +644,30 @@ export class ArticleService {
             logger.error('Failed to update article', error);
             throw new Error(error.message || 'Failed to update article');
         }
+        
+        // Trigger state transition if status changed
+        if (updates.status && updates.status !== previousStatus) {
+            try {
+                await transitionArticleState(
+                    id,
+                    previousStatus || 'draft',
+                    updates.status,
+                    'update',
+                    existing?.author_id || undefined
+                );
+                logger.info('Article state transition triggered', { 
+                    articleId: id, 
+                    from: previousStatus, 
+                    to: updates.status 
+                });
+            } catch (workflowError) {
+                // Don't fail update if workflow fails
+                logger.error('Failed to trigger state transition', workflowError instanceof Error ? workflowError : new Error(String(workflowError)), { articleId: id });
+            }
+        }
+
+        // Invalidate cache
+        await invalidateArticleCache(id);
         
         logger.info('Article updated', { id, updates: Object.keys(updates) });
     }

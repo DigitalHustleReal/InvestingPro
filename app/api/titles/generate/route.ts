@@ -2,22 +2,23 @@ import { NextRequest, NextResponse } from 'next/server';
 import { keywordResearchService } from '@/lib/keyword-research/KeywordResearchService';
 import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
+import { createAPIWrapper } from '@/lib/middleware/api-wrapper';
+import { withValidation } from '@/lib/middleware/validation';
+import { titleGenerateSchema } from '@/lib/validation/schemas';
 
 /**
  * Generate Semantic Title Variations API
  * POST /api/titles/generate
  */
-export async function POST(request: NextRequest) {
+export const POST = createAPIWrapper('/api/titles/generate', {
+    rateLimitType: 'ai', // AI generation - strict rate limit
+    trackMetrics: true,
+})(
+    withValidation(titleGenerateSchema, undefined)(
+        async (request: NextRequest, body: any, _query: unknown) => {
     try {
-        const body = await request.json();
+        // Body is already validated by middleware
         const { original_title, primary_keyword, count = 10, article_id } = body;
-
-        if (!original_title || !primary_keyword) {
-            return NextResponse.json(
-                { success: false, error: 'original_title and primary_keyword are required' },
-                { status: 400 }
-            );
-        }
 
         const variations = await keywordResearchService.generateTitleVariations(
             original_title,
@@ -48,12 +49,10 @@ export async function POST(request: NextRequest) {
             count: variations.length
         });
     } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : 'Failed to generate title variations';
         logger.error('Error generating title variations', error instanceof Error ? error : new Error(String(error)));
-        return NextResponse.json(
-            { success: false, error: errorMessage },
-            { status: 500 }
-        );
+        throw error; // Let API wrapper handle error response
     }
-}
+    }
+)
+);
 

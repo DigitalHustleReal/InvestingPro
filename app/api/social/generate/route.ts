@@ -6,6 +6,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import OpenAI from 'openai';
+import { createAPIWrapper } from '@/lib/middleware/api-wrapper';
+import { withValidation } from '@/lib/middleware/validation';
+import { socialGenerateSchema } from '@/lib/validation/schemas';
+import { logger } from '@/lib/logger';
 
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -16,13 +20,15 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
 });
 
-export async function POST(request: NextRequest) {
+export const POST = createAPIWrapper('/api/social/generate', {
+    rateLimitType: 'ai', // AI generation - strict rate limit
+    trackMetrics: true,
+})(
+    withValidation(socialGenerateSchema, undefined)(
+        async (request: NextRequest, body: any, _query: unknown) => {
     try {
-        const { articleId } = await request.json();
-
-        if (!articleId) {
-            return NextResponse.json({ error: 'Article ID required' }, { status: 400 });
-        }
+        // Body is already validated by middleware
+        const { articleId } = body;
 
         // 1. Fetch Article Data
         const { data: article, error: articleError } = await supabase
@@ -33,7 +39,7 @@ export async function POST(request: NextRequest) {
 
         if (articleError) throw articleError;
 
-        console.log(`📱 Generating social posts for: "${article.title}"`);
+        logger.info('Generating social posts', { articleId, title: article.title });
 
         // 2. Generate Content with GPT-4
         const completion = await openai.chat.completions.create({
@@ -100,7 +106,9 @@ export async function POST(request: NextRequest) {
         });
 
     } catch (error: any) {
-        console.error('Social generation error:', error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        logger.error('Social generation error', error instanceof Error ? error : new Error(String(error)));
+        throw error; // Let API wrapper handle error response
     }
-}
+    }
+)
+);
