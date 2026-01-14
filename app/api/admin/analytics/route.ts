@@ -5,7 +5,7 @@ import { createClient } from '@/lib/supabase/server';
 import { analyticsService } from '@/lib/analytics/service';
 import { SEOAnalyzer } from '@/lib/analytics/seo-analyzer';
 
-export async function GET(req: NextRequest) {
+export async function GET(request: NextRequest) {
     try {
         // Auth Check
         const supabase = await createClient();
@@ -60,7 +60,7 @@ export async function GET(req: NextRequest) {
 }
 
 // Record view endpoint
-export async function POST(req: NextRequest) {
+export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
         const { articleId, referrer, duration } = body;
