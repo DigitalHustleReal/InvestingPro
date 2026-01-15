@@ -50,6 +50,11 @@
 - ✅ Admin components - Fixed `rose-*` → `danger-*` (6 files)
 - ✅ Portfolio components - Fixed `rose-*` → `danger-*` (3 files)
 - ✅ Table components - Fixed `rose-*` → `danger-*` (2 files)
+- ✅ Engagement components - Fixed `rose-*` → `danger-*` (2 files)
+- ✅ Editorial components - Fixed `rose-*` → `danger-*` (2 files)
+- ✅ Market components - Fixed `rose-*` → `danger-*` (2 files)
+- ✅ Home/Layout components - Fixed `rose-*` → `danger-*` (2 files)
+- ✅ Ranking/Articles/Filter components - Fixed `rose-*` → `danger-*` (5 files)
 
 ---
 
@@ -111,4 +116,4 @@
 ---
 
 *Last Updated: January 23, 2026*  
-*Status: Phase 2 In Progress - 40 files fixed, 25+ remaining*
+*Status: Phase 2 In Progress - 48 files fixed, 15+ remaining*
