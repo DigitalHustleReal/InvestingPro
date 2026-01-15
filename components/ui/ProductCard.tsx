@@ -5,6 +5,7 @@ import { FinancialProduct, CreditCard, Loan, MutualFund } from "@/types";
 import { formatCurrency, formatPercentage } from "@/lib/utils";
 import BestForBadge from "@/components/products/BestForBadge";
 import AffiliateDisclosure from '@/components/common/AffiliateDisclosure';
+import DecisionCTA from '@/components/common/DecisionCTA';
 
 interface ProductCardProps {
     product: FinancialProduct;
