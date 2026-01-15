@@ -80,20 +80,30 @@ class AlertManager {
      * Check error rate from Axiom logs
      */
     private async checkErrorRate(thresholdPercent: number, windowMinutes: number): Promise<boolean> {
-        // Query Axiom for error rate in last windowMinutes
-        // This would query: error logs / total logs in time window
-        // For now, return false (will be implemented with Axiom API)
-        // TODO: Implement Axiom query
-        return false;
+        try {
+            const { getAxiomClient } = await import('./axiom-client');
+            const axiomClient = getAxiomClient();
+            const { rate } = await axiomClient.getErrorRate(windowMinutes);
+            return rate >= thresholdPercent;
+        } catch (error) {
+            logger.error('Failed to check error rate', error as Error);
+            return false;
+        }
     }
 
     /**
      * Check API latency (p95)
      */
     private async checkLatency(thresholdMs: number, windowMinutes: number): Promise<boolean> {
-        // Query Axiom for p95 latency in last windowMinutes
-        // TODO: Implement Axiom query
-        return false;
+        try {
+            const { getAxiomClient } = await import('./axiom-client');
+            const axiomClient = getAxiomClient();
+            const p95Latency = await axiomClient.getP95Latency(windowMinutes);
+            return p95Latency >= thresholdMs;
+        } catch (error) {
+            logger.error('Failed to check latency', error as Error);
+            return false;
+        }
     }
 
     /**
@@ -156,9 +166,15 @@ class AlertManager {
      * Check AI provider failure rate
      */
     private async checkAIFailureRate(thresholdPercent: number, windowMinutes: number): Promise<boolean> {
-        // Query Axiom for AI provider failures
-        // TODO: Implement Axiom query
-        return false;
+        try {
+            const { getAxiomClient } = await import('./axiom-client');
+            const axiomClient = getAxiomClient();
+            const { rate } = await axiomClient.getAIFailureRate(windowMinutes);
+            return rate >= thresholdPercent;
+        } catch (error) {
+            logger.error('Failed to check AI failure rate', error as Error);
+            return false;
+        }
     }
 
     /**
@@ -263,29 +279,38 @@ class AlertManager {
             return;
         }
 
-        // Use your email service (Resend, SendGrid, etc.)
-        // For now, log it (implement with your email service)
-        logger.info('Email alert would be sent', {
-            to: email,
-            subject: `[${alert.severity.toUpperCase()}] ${rule.name}`,
-            alertId: alert.id,
-        });
-
-        // TODO: Integrate with email service
-        // Example with Resend:
-        // await fetch('https://api.resend.com/emails', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({
-        //         from: 'alerts@investingpro.in',
-        //         to: email,
-        //         subject: `[${alert.severity.toUpperCase()}] ${rule.name}`,
-        //         html: this.formatEmailAlert(alert, rule),
-        //     }),
-        // });
+        // Try to send email via Resend if configured
+        const resendApiKey = process.env.RESEND_API_KEY;
+        if (resendApiKey) {
+            try {
+                await fetch('https://api.resend.com/emails', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${resendApiKey}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        from: process.env.ALERT_EMAIL_FROM || 'alerts@investingpro.in',
+                        to: email,
+                        subject: `[${alert.severity.toUpperCase()}] ${rule.name}`,
+                        html: this.formatEmailAlert(alert, rule),
+                    }),
+                });
+                logger.info('Email alert sent', { to: email, alertId: alert.id });
+            } catch (error) {
+                logger.error('Failed to send email alert', error as Error, {
+                    to: email,
+                    alertId: alert.id,
+                });
+            }
+        } else {
+            // Fallback: log if no email service configured
+            logger.warn('Email alert would be sent (no email service configured)', {
+                to: email,
+                subject: `[${alert.severity.toUpperCase()}] ${rule.name}`,
+                alertId: alert.id,
+            });
+        }
     }
 
     /**
@@ -382,6 +407,62 @@ class AlertManager {
             alert.resolvedAt = new Date();
             logger.info('Alert resolved', { alertId });
         }
+    }
+
+    /**
+     * Format email alert HTML
+     */
+    private formatEmailAlert(alert: Alert, rule: AlertRule): string {
+        const severityColor = alert.severity === 'critical' ? '#FF0000' : 
+                             alert.severity === 'warning' ? '#FFA500' : '#36A64F';
+        
+        return `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <style>
+                    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+                    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+                    .header { background-color: ${severityColor}; color: white; padding: 20px; border-radius: 5px 5px 0 0; }
+                    .content { background-color: #f9f9f9; padding: 20px; border: 1px solid #ddd; }
+                    .detail { margin: 10px 0; }
+                    .label { font-weight: bold; }
+                    .footer { margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="header">
+                        <h2>🚨 ${rule.name}</h2>
+                    </div>
+                    <div class="content">
+                        <div class="detail">
+                            <span class="label">Severity:</span> ${alert.severity.toUpperCase()}
+                        </div>
+                        <div class="detail">
+                            <span class="label">Message:</span> ${alert.message}
+                        </div>
+                        <div class="detail">
+                            <span class="label">Time:</span> ${alert.timestamp.toISOString()}
+                        </div>
+                        <div class="detail">
+                            <span class="label">Rule:</span> ${rule.description}
+                        </div>
+                        ${Object.keys(alert.details).length > 0 ? `
+                            <div class="detail">
+                                <span class="label">Details:</span>
+                                <pre>${JSON.stringify(alert.details, null, 2)}</pre>
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="footer">
+                        <p>This is an automated alert from InvestingPro monitoring system.</p>
+                        <p>Alert ID: ${alert.id}</p>
+                    </div>
+                </div>
+            </body>
+            </html>
+        `;
     }
 }
 
