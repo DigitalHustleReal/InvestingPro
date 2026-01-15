@@ -1,20 +1,25 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { productService, Product } from '@/lib/products/product-service';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/Button';
 import { Star, ArrowRight, Award } from 'lucide-react';
 import Link from 'next/link';
+import { getCategoryImageConfig, type ProductCategory } from '@/lib/images/category-image-config';
 
 export default function TopPicksSidebar({ category }: { category: string }) {
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
+    
+    // Get image config for this category
+    const productCat = category.replace('-', '_') as ProductCategory;
+    const imageConfig = getCategoryImageConfig(productCat);
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const productCat = category.replace('-', '_');
                 // We use the service directly which works on client if initialized with public key
                 const data = await productService.getProducts(productCat);
                 setProducts(data.slice(0, 3));
@@ -25,7 +30,7 @@ export default function TopPicksSidebar({ category }: { category: string }) {
             }
         };
         fetchProducts();
-    }, [category]);
+    }, [category, productCat]);
 
     if (!loading && products.length === 0) return null;
 
@@ -46,7 +51,21 @@ export default function TopPicksSidebar({ category }: { category: string }) {
                 Array.isArray(products) && products.map(p => (
                     <Card key={p.id} className="p-6 md:p-8 border-slate-100 hover:border-primary-200 transition-colors group">
                         <div className="flex gap-4">
-                            <img src={p.image_url} alt={p.name} className="w-12 h-12 object-contain bg-slate-50 rounded p-1 shrink-0" />
+                            <div className="w-12 h-12 bg-slate-50 rounded p-1 shrink-0 relative overflow-hidden">
+                                {p.image_url ? (
+                                    <Image 
+                                        src={p.image_url} 
+                                        alt={p.name}
+                                        width={48}
+                                        height={48}
+                                        className="w-full h-full object-contain"
+                                        quality={imageConfig.quality}
+                                        loading={imageConfig.loading}
+                                    />
+                                ) : (
+                                    <div className="w-full h-full bg-slate-100 rounded" />
+                                )}
+                            </div>
                             <div className="flex-1 min-w-0">
                                 <h4 className="font-bold text-sm text-slate-900 truncate group-hover:text-primary-700 transition-colors">
                                     {p.name}

@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 import { Product } from '@/lib/products/product-service';
 import { useCompare } from '@/contexts/CompareContext';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -10,10 +11,14 @@ import { Badge } from '@/components/ui/badge';
 import { Star, Check } from 'lucide-react';
 import Link from 'next/link';
 import VerificationBadge, { LastUpdated } from '../trust/VerificationBadge';
+import { getCategoryImageConfig, type ProductCategory } from '@/lib/images/category-image-config';
 
 export default function ProductCard({ product }: { product: Product }) {
     const { addProduct, removeProduct, isSelected } = useCompare();
     const selected = isSelected(product.id);
+
+    // Get category-specific image config
+    const imageConfig = getCategoryImageConfig((product.category || 'mutual_fund') as ProductCategory);
 
     // Extract key feature for display (e.g. Annual Fee)
     const annualFee = product.features?.['annual_fee'];
@@ -35,13 +40,22 @@ export default function ProductCard({ product }: { product: Product }) {
             </div>
 
             {/* Image Area */}
-            <div className="p-6 pb-0 flex flex-col items-center justify-center bg-gradient-to-b from-slate-50 to-white min-h-[160px]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img 
-                    src={product.image_url} 
-                    alt={product.name} 
-                    className="h-32 object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300"
-                />
+            <div className="p-6 pb-0 flex flex-col items-center justify-center bg-gradient-to-b from-slate-50 to-white min-h-[160px] relative">
+                {product.image_url ? (
+                    <Image 
+                        src={product.image_url} 
+                        alt={product.name}
+                        width={128}
+                        height={128}
+                        className="h-32 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300"
+                        quality={imageConfig.quality}
+                        loading={imageConfig.loading}
+                    />
+                ) : (
+                    <div className="h-32 w-32 bg-slate-200 rounded flex items-center justify-center">
+                        <span className="text-2xl font-bold text-slate-400">{product.name.charAt(0)}</span>
+                    </div>
+                )}
             </div>
 
             <CardContent className="flex-1 p-6 md:p-8">

@@ -2,6 +2,7 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/Button';
@@ -14,6 +15,7 @@ import AffiliateDisclosure from '@/components/common/AffiliateDisclosure';
 
 import { useCompare } from '@/contexts/CompareContext';
 import DecisionCTA from '@/components/common/DecisionCTA';
+import { getCategoryImageConfig, getCategoryImageSizes, type ProductCategory } from '@/lib/images/category-image-config';
 
 interface RichProductCardProps {
     product: RichProduct;
@@ -47,6 +49,10 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
         if (score >= 50) return 'text-accent-500 ring-yellow-500/20';
         return 'text-danger-500 ring-danger-500/20';
     };
+
+    // Get category-specific image config
+    const imageConfig = getCategoryImageConfig((product.category || 'mutual_fund') as ProductCategory);
+    const imageSizes = getCategoryImageSizes((product.category || 'mutual_fund') as ProductCategory);
 
     return (
         <Card className={cn(
@@ -90,12 +96,20 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
                 isList ? "w-full md:w-80 border-b md:border-b-0 md:border-r border-slate-100" : "border-b border-slate-100"
             )}>
                 {/* Product Image - Direct Display with Shadow */}
-                <div className="w-full max-w-[280px] aspect-[1.6/1] rounded-xl overflow-hidden mb-4 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="w-full max-w-[280px] aspect-[1.6/1] rounded-xl overflow-hidden mb-4 shadow-lg hover:shadow-xl transition-shadow relative">
                     {product.image_url ? (
-                        <img 
+                        <Image 
                             src={product.image_url} 
-                            alt={product.name} 
+                            alt={product.name}
+                            width={imageConfig.defaultWidth}
+                            height={imageConfig.defaultHeight}
                             className="w-full h-full object-cover rounded-xl"
+                            sizes={imageSizes}
+                            quality={imageConfig.quality}
+                            priority={imageConfig.priority}
+                            loading={imageConfig.loading}
+                            placeholder="blur"
+                            blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iI2YxZjVmOSIvPjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iNCIgZmlsbD0iIzBkOTQ4OCIvPjwvc3ZnPg=="
                         />
                     ) : (
                         <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center rounded-xl">

@@ -1,16 +1,22 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { productService } from '@/lib/products/product-service';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/Button';
 import { Star, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
+import { getCategoryImageConfig, getCategoryImageSizes, type ProductCategory } from '@/lib/images/category-image-config';
 
 export default function ContextualProducts({ category }: { category: string }) {
     // Map article categories to product categories
-    const productCat = (category || 'credit_card').replace('-', '_');
+    const productCat = (category || 'credit_card').replace('-', '_') as ProductCategory;
+    
+    // Get image config for this category
+    const imageConfig = getCategoryImageConfig(productCat);
+    const imageSizes = getCategoryImageSizes(productCat);
     
     const { data: products, isLoading } = useQuery({
         queryKey: ['contextual-products', productCat],
@@ -51,8 +57,20 @@ export default function ContextualProducts({ category }: { category: string }) {
                     {Array.isArray(products) && products.map(p => (
                         <Card key={p.id} className="bg-slate-800/40 border-slate-700/50 p-6 flex flex-col hover:border-primary-500/50 transition-all group backdrop-blur-md">
                             <div className="flex justify-between items-start mb-5">
-                                <div className="p-2 bg-white rounded-xl w-14 h-14 flex items-center justify-center shadow-inner overflow-hidden">
-                                     <img src={p.image_url} alt={p.name} className="w-full h-full object-contain" />
+                                <div className="p-2 bg-white rounded-xl w-14 h-14 flex items-center justify-center shadow-inner overflow-hidden relative">
+                                     {p.image_url ? (
+                                        <Image 
+                                            src={p.image_url} 
+                                            alt={p.name}
+                                            width={56}
+                                            height={56}
+                                            className="w-full h-full object-contain"
+                                            quality={imageConfig.quality}
+                                            loading={imageConfig.loading}
+                                        />
+                                     ) : (
+                                        <div className="w-full h-full bg-slate-100 rounded" />
+                                     )}
                                 </div>
                                 <div className="text-accent-400 flex items-center gap-1.5 text-xs font-bold bg-slate-900/80 px-2.5 py-1 rounded-full border border-slate-700">
                                     <Star className="w-3.5 h-3.5 fill-current" /> {p.rating}

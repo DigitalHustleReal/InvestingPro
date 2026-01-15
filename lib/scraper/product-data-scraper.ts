@@ -15,6 +15,7 @@
 import { createServiceClient } from '@/lib/supabase/service';
 import { logger } from '@/lib/logger';
 import * as cheerio from 'cheerio';
+import { uploadProductImage } from '@/lib/images/cloudinary-service';
 
 interface CreditCardData {
     name: string;
@@ -281,6 +282,29 @@ export class ProductDataScraper {
     async saveCreditCard(data: CreditCardData): Promise<boolean> {
         try {
             const slug = this.generateSlug(data.name);
+            
+            // Upload image to Cloudinary if URL exists
+            let imageUrl = data.image_url;
+            if (data.image_url && !data.image_url.includes('cloudinary.com')) {
+                try {
+                    const uploadResult = await uploadProductImage(data.image_url, slug);
+                    if (uploadResult.success && uploadResult.url) {
+                        imageUrl = uploadResult.url;
+                        logger.info('Credit card image uploaded to Cloudinary', { slug, publicId: uploadResult.publicId });
+                    } else {
+                        logger.warn('Failed to upload credit card image to Cloudinary, using original URL', { 
+                            slug, 
+                            error: uploadResult.error 
+                        });
+                    }
+                } catch (uploadError) {
+                    logger.warn('Error uploading credit card image to Cloudinary, using original URL', { 
+                        slug, 
+                        error: uploadError 
+                    });
+                    // Continue with original URL if upload fails
+                }
+            }
 
             const { error } = await this.supabase
                 .from('credit_cards')
@@ -296,7 +320,7 @@ export class ProductDataScraper {
                     rewards: data.rewards || [],
                     pros: data.pros || [],
                     cons: data.cons || [],
-                    image_url: data.image_url,
+                    image_url: imageUrl,
                     apply_link: data.apply_link,
                     description: data.description,
                     updated_at: new Date().toISOString(),
@@ -309,7 +333,7 @@ export class ProductDataScraper {
                 return false;
             }
 
-            logger.info('Credit card saved', { name: data.name, slug });
+            logger.info('Credit card saved', { name: data.name, slug, imageUrl });
             return true;
         } catch (error) {
             logger.error('Exception saving credit card', { error, data });
@@ -323,6 +347,10 @@ export class ProductDataScraper {
     async saveMutualFund(data: MutualFundData): Promise<boolean> {
         try {
             const slug = this.generateSlug(data.name);
+            
+            // Note: Mutual funds typically don't have image_url in MutualFundData interface
+            // But if they do in the future, we can add Cloudinary upload here
+            // For now, we'll skip image upload for mutual funds as they usually don't have product images
 
             const { error } = await this.supabase
                 .from('mutual_funds')
@@ -666,6 +694,29 @@ export class ProductDataScraper {
     async saveInsurance(data: InsuranceData): Promise<boolean> {
         try {
             const slug = this.generateSlug(data.name);
+            
+            // Upload image to Cloudinary if URL exists
+            let imageUrl = data.image_url;
+            if (data.image_url && !data.image_url.includes('cloudinary.com')) {
+                try {
+                    const uploadResult = await uploadProductImage(data.image_url, slug);
+                    if (uploadResult.success && uploadResult.url) {
+                        imageUrl = uploadResult.url;
+                        logger.info('Insurance image uploaded to Cloudinary', { slug, publicId: uploadResult.publicId });
+                    } else {
+                        logger.warn('Failed to upload insurance image to Cloudinary, using original URL', { 
+                            slug, 
+                            error: uploadResult.error 
+                        });
+                    }
+                } catch (uploadError) {
+                    logger.warn('Error uploading insurance image to Cloudinary, using original URL', { 
+                        slug, 
+                        error: uploadError 
+                    });
+                    // Continue with original URL if upload fails
+                }
+            }
 
             // Save to affiliate_products table (since there's no dedicated insurance table)
             const { error } = await this.supabase
@@ -682,7 +733,7 @@ export class ProductDataScraper {
                         coverage_min: data.coverage_amount_min,
                         coverage_max: data.coverage_amount_max,
                     },
-                    image_url: data.image_url,
+                    image_url: imageUrl,
                     affiliate_link: data.apply_link || '',
                     status: 'active',
                     updated_at: new Date().toISOString(),
@@ -695,7 +746,7 @@ export class ProductDataScraper {
                 return false;
             }
 
-            logger.info('Insurance saved', { name: data.name });
+            logger.info('Insurance saved', { name: data.name, slug, imageUrl });
             return true;
         } catch (error) {
             logger.error('Exception saving insurance', { error, data });
@@ -709,6 +760,29 @@ export class ProductDataScraper {
     async saveLoan(data: LoanData): Promise<boolean> {
         try {
             const slug = this.generateSlug(data.name);
+            
+            // Upload image to Cloudinary if URL exists
+            let imageUrl = data.image_url;
+            if (data.image_url && !data.image_url.includes('cloudinary.com')) {
+                try {
+                    const uploadResult = await uploadProductImage(data.image_url, slug);
+                    if (uploadResult.success && uploadResult.url) {
+                        imageUrl = uploadResult.url;
+                        logger.info('Loan image uploaded to Cloudinary', { slug, publicId: uploadResult.publicId });
+                    } else {
+                        logger.warn('Failed to upload loan image to Cloudinary, using original URL', { 
+                            slug, 
+                            error: uploadResult.error 
+                        });
+                    }
+                } catch (uploadError) {
+                    logger.warn('Error uploading loan image to Cloudinary, using original URL', { 
+                        slug, 
+                        error: uploadError 
+                    });
+                    // Continue with original URL if upload fails
+                }
+            }
 
             // First, upsert to products table
             const { data: product, error: productError } = await this.supabase
@@ -718,6 +792,7 @@ export class ProductDataScraper {
                     name: data.name,
                     product_type: 'personal_loan',
                     provider: data.provider,
+                    image_url: imageUrl, // Store image URL in products table
                     is_active: true,
                     last_updated_at: new Date().toISOString(),
                 }, {
