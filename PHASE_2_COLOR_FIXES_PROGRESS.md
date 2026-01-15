@@ -40,6 +40,16 @@
 - ✅ `app/loans/page.tsx` - Fixed `blue-600` → `secondary-600`, `accent-blue-500` → `accent-secondary-500`
 - ✅ `app/insurance/page.tsx` - Fixed `blue-600` → `secondary-600`, `shadow-blue-500` → `shadow-secondary-500`
 - ✅ `app/stocks/page.tsx` - Fixed `blue-600` → `secondary-600`
+- ✅ `SIPCalculatorWithInflation.tsx` - Fixed hardcoded hex colors
+- ✅ `LumpsumCalculatorWithInflation.tsx` - Fixed hardcoded hex colors
+- ✅ `HomeLoanVsSIPCalculator.tsx` - Fixed chart colors
+- ✅ `InflationAdjustedCalculator.tsx` - Fixed chart color
+- ✅ `GoalPlanningCalculator.tsx` - Fixed chart color
+- ✅ `app/articles/page.tsx` - Fixed `blue-50` → `secondary-50`
+- ✅ `app/category/[slug]/page.tsx` - Fixed `blue-50` and `teal-50` → theme colors
+- ✅ Admin components - Fixed `rose-*` → `danger-*` (6 files)
+- ✅ Portfolio components - Fixed `rose-*` → `danger-*` (3 files)
+- ✅ Table components - Fixed `rose-*` → `danger-*` (2 files)
 
 ---
 
@@ -101,4 +111,4 @@
 ---
 
 *Last Updated: January 23, 2026*  
-*Status: Phase 2 In Progress - 29 files fixed, 35+ remaining*
+*Status: Phase 2 In Progress - 40 files fixed, 25+ remaining*
