@@ -66,12 +66,12 @@ export default function DiffView({ draft, onClose }: DiffViewProps) {
                 </div>
 
                 {forbiddenPhrases.length > 0 && (
-                    <div className="bg-rose-50 p-4 rounded-lg border border-rose-200">
-                        <div className="text-sm font-bold text-rose-700 mb-2 flex items-center gap-2">
+                    <div className="bg-danger-50 p-4 rounded-lg border border-danger-200">
+                        <div className="text-sm font-bold text-danger-700 mb-2 flex items-center gap-2">
                             <AlertTriangle className="w-4 h-4" />
                             Forbidden Phrases Detected:
                         </div>
-                        <ul className="list-disc list-inside text-sm text-rose-600 space-y-1">
+                        <ul className="list-disc list-inside text-sm text-danger-600 space-y-1">
                             {forbiddenPhrases.map((phrase: string, idx: number) => (
                                 <li key={idx}>{phrase}</li>
                             ))}

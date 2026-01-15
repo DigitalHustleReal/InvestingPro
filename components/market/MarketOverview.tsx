@@ -99,7 +99,7 @@ export default function MarketOverview() {
                         {TRENDS.map((sec, i) => (
                             <div key={i} className="flex items-center gap-1">
                                 <span className="text-slate-300 font-semibold">{sec.name}</span>
-                                <span className={sec.positive ? "text-primary-400" : "text-rose-400"}>
+                                <span className={sec.positive ? "text-primary-400" : "text-danger-400"}>
                                     {sec.change}
                                 </span>
                             </div>

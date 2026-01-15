@@ -55,7 +55,7 @@ export default function WatchlistSparklines() {
 
                             <div className="w-1/3 text-right">
                                 <div className="font-bold text-slate-900 dark:text-white">₹{stock.price}</div>
-                                <div className={`text-xs font-bold ${stock.positive ? 'text-primary-600 dark:text-primary-400' : 'text-rose-600 dark:text-rose-400'}`}>
+                                <div className={`text-xs font-bold ${stock.positive ? 'text-primary-600 dark:text-primary-400' : 'text-danger-600 dark:text-danger-400'}`}>
                                     {stock.change}
                                 </div>
                             </div>

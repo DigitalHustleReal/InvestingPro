@@ -61,7 +61,7 @@ const CATEGORY_OFFERS: Record<string, CategoryOffer> = {
   },
   'insurance': {
     icon: Shield,
-    color: 'from-rose-500 to-pink-600',
+    color: 'from-danger-500 to-danger-600',
     title: 'Insurance Buying Guide',
     subtitle: 'Don\'t overpay again',
     description: 'Learn how to choose the right coverage without paying for features you don\'t need.',
