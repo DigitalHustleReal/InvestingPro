@@ -17,6 +17,12 @@ import AutoInternalLinks from '@/components/common/AutoInternalLinks';
 import { generateSchema } from '@/lib/linking/schema';
 import { generateCanonicalUrl } from '@/lib/linking/canonical';
 import { generateBreadcrumbSchema } from '@/lib/linking/breadcrumbs';
+import QuoteSelector from '@/components/content/QuoteSelector';
+import EngagementHooks from '@/components/engagement/EngagementHooks';
+import BookmarkButton from '@/components/engagement/BookmarkButton';
+import SocialShareButtons from '@/components/common/SocialShareButtons';
+import RelatedArticles from '@/components/articles/RelatedArticles';
+import { ReadingProgressBar } from '@/components/articles/ReadingProgressBar';
 
 interface Article {
     id: string;
