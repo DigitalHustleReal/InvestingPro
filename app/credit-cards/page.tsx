@@ -21,7 +21,7 @@ import { ResponsiveFilterContainer } from '@/components/products/ResponsiveFilte
 import { CreditCardTable } from '@/components/credit-cards/CreditCardTable';
 import { LayoutGrid, Table as TableIcon } from 'lucide-react';
 
-import CategoryHeroCarousel from '@/components/common/CategoryHeroCarousel';
+import CategoryHero from '@/components/common/CategoryHero';
 import ContextualNewsWidget from '@/components/news/ContextualNewsWidget';
 import RatesWidget from '@/components/rates/RatesWidget';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
@@ -159,30 +159,29 @@ const CreditCardsPage = () => {
             <div className="bg-slate-50 dark:bg-slate-950 pt-24 pb-12">
                  <div className="container mx-auto px-4">
                       <AutoBreadcrumbs />
-                      {/* New Dynamic Carousel Hero */}
-                      <CategoryHeroCarousel slides={HERO_SLIDES} className="mb-12 shadow-2xl" />
                       
-                      {/* Decision Engine CTA - Prominent */}
-                      <div className="max-w-4xl mx-auto mb-12 relative z-20 -mt-20">
-                          <div className="bg-gradient-to-r from-primary-600 to-primary-500 rounded-2xl p-8 text-white shadow-2xl">
-                              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                                  <div className="flex-1">
-                                      <div className="flex items-center gap-2 mb-3">
-                                          <Sparkles className="w-6 h-6" />
-                                          <span className="text-sm font-semibold uppercase tracking-wider text-primary-100">Decision Engine</span>
-                                      </div>
-                                      <h2 className="text-2xl md:text-3xl font-bold mb-2">Find Your Perfect Credit Card</h2>
-                                      <p className="text-primary-100 text-lg">Get personalized recommendations based on your spending pattern, lifestyle, and eligibility. Compare and apply instantly.</p>
-                                  </div>
-                                  <Link href="/credit-cards/find-your-card">
-                                      <Button size="lg" className="bg-white text-primary-700 font-bold hover:bg-primary-50 h-14 px-8 text-lg">
-                                          Find My Perfect Card
-                                          <ArrowRight className="w-5 h-5 ml-2" />
-                                      </Button>
-                                  </Link>
-                              </div>
-                          </div>
-                      </div>
+                      {/* Premium Authoritative Hero */}
+                      <CategoryHero
+                          title="Compare 1000+ Credit Cards"
+                          subtitle="Make Smart Decisions. Apply Instantly."
+                          description="Get personalized recommendations based on your spending pattern, lifestyle, and eligibility. Compare cards side-by-side and apply instantly with our affiliate partners."
+                          primaryCta={{
+                              text: "Find Your Perfect Card",
+                              href: "/credit-cards/find-your-card"
+                          }}
+                          secondaryCta={{
+                              text: "Compare All Cards",
+                              href: "#compare"
+                          }}
+                          stats={[
+                              { label: "Cards Compared", value: "1000+" },
+                              { label: "Instant Apply", value: "Yes" },
+                              { label: "Decision Engine", value: "Active" }
+                          ]}
+                          badge="Helps You Decide • Expert-Reviewed • Instant Apply"
+                          variant="primary"
+                          className="mb-12"
+                      />
 
                       {/* Search Bar */}
                       <div className="max-w-xl mx-auto mb-12 relative group z-20">

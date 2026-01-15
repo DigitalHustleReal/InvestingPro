@@ -564,7 +564,6 @@ export class ArticleService {
                 logger.error('All RPC fallbacks failed', altRpcError);
             }
         }
-        }
 
         // Cache the result
         if (articles.length > 0) {

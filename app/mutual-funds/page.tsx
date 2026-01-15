@@ -52,7 +52,7 @@ const riskColors: Record<string, string> = {
     "Very High": "bg-danger-50 text-danger-700 border-danger-100",
 };
 
-import CategoryHeroCarousel from '@/components/common/CategoryHeroCarousel';
+import CategoryHero from '@/components/common/CategoryHero';
 import ContextualNewsWidget from '@/components/news/ContextualNewsWidget';
 import RatesWidget from '@/components/rates/RatesWidget';
 
@@ -236,29 +236,29 @@ export default function MutualFundsPage() {
             <div className="bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 pt-28 pb-12 relative overflow-hidden">
                 <div className="container mx-auto px-4">
                      <AutoBreadcrumbs />
-                     <CategoryHeroCarousel slides={MF_SLIDES} className="mb-12 shadow-2xl" />
                      
-                     {/* Decision Engine CTA - Prominent */}
-                     <div className="max-w-4xl mx-auto mb-12 relative z-20 -mt-20">
-                         <div className="bg-gradient-to-r from-green-600 to-emerald-500 rounded-2xl p-8 text-white shadow-2xl">
-                             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                                 <div className="flex-1">
-                                     <div className="flex items-center gap-2 mb-3">
-                                         <Sparkles className="w-6 h-6" />
-                                         <span className="text-sm font-semibold uppercase tracking-wider text-green-100">Decision Engine</span>
-                                     </div>
-                                     <h2 className="text-2xl md:text-3xl font-bold mb-2">Find Your Perfect Mutual Fund</h2>
-                                     <p className="text-green-100 text-lg">Get personalized recommendations based on your investment goals, risk profile, and timeline. Compare and start SIP instantly.</p>
-                                 </div>
-                                 <Link href="/mutual-funds/find-your-fund">
-                                     <Button size="lg" className="bg-white text-green-700 font-bold hover:bg-green-50 h-14 px-8 text-lg">
-                                         Find My Perfect Fund
-                                         <ArrowRight className="w-5 h-5 ml-2" />
-                                     </Button>
-                                 </Link>
-                             </div>
-                         </div>
-                     </div>
+                     {/* Premium Authoritative Hero */}
+                     <CategoryHero
+                         title="Compare 1000+ Mutual Funds"
+                         subtitle="Make Smart Investment Decisions"
+                         description="Get personalized fund recommendations based on your investment goals, risk profile, and timeline. Compare funds side-by-side and start SIP instantly with our affiliate partners."
+                         primaryCta={{
+                             text: "Find Your Perfect Fund",
+                             href: "/mutual-funds/find-your-fund"
+                         }}
+                         secondaryCta={{
+                             text: "Compare All Funds",
+                             href: "#compare"
+                         }}
+                         stats={[
+                             { label: "Funds Compared", value: "1000+" },
+                             { label: "Goal-Based Matching", value: "Yes" },
+                             { label: "Instant SIP Setup", value: "Active" }
+                         ]}
+                         badge="Helps You Decide • Goal-Based • Instant SIP"
+                         variant="secondary"
+                         className="mb-12"
+                     />
 
                      <div className="relative group max-w-xl mx-auto mb-12 z-20">
                         <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
