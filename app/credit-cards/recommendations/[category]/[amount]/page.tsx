@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import SpendingPatternPage from '@/components/credit-cards/SpendingPatternPage';
 import { createClient } from '@/lib/supabase/server';
+import { createServiceClient } from '@/lib/supabase/service';
 
 interface PageProps {
     params: Promise<{
@@ -31,8 +32,37 @@ const CATEGORY_LABELS: Record<string, string> = {
     'other': 'Other Expenses'
 };
 
+/**
+ * Generate static params for spending-based recommendation pages
+ * Creates pages for common spending categories and amounts
+ */
+export async function generateStaticParams() {
+  const categories = ['groceries', 'fuel', 'travel', 'online-shopping', 'dining', 'utilities'];
+  // Common spending amounts in ₹
+  const amounts = [
+    5000, 10000, 15000, 20000, 25000, 30000, 
+    40000, 50000, 75000, 100000, 150000, 200000
+  ];
+  
+  const params = categories.flatMap(category =>
+    amounts.map(amount => ({ 
+      category, 
+      amount: amount.toString() 
+    }))
+  );
+  
+  console.log(`[generateStaticParams] Generating ${params.length} spending-based pages`);
+  return params;
+}
+
+// Force static generation with ISR
+export const dynamic = 'force-static';
+// Revalidate daily (spending patterns don't change as frequently as product data)
+export const revalidate = 86400; // 24 hours
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const { category, amount } = await params;
+    const resolvedParams = await params;
+    const { category, amount } = resolvedParams;
     const categoryLabel = CATEGORY_LABELS[category] || category;
     const amountNum = parseInt(amount) || 0;
     const formattedAmount = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(amountNum);
@@ -62,12 +92,14 @@ export default async function SpendingPatternDetailPage({ params }: PageProps) {
     const spendingField = CATEGORY_MAP[category];
     const categoryLabel = CATEGORY_LABELS[category] || category;
 
-    // Fetch credit cards
-    const supabase = await createClient();
+    // Fetch credit cards - use service client for static generation
+    // Service client bypasses RLS which is needed for build-time static generation
+    // For ISR revalidation, this will also work correctly
+    const supabase = createServiceClient();
+    
     const { data: cards, error } = await supabase
         .from('credit_cards')
         .select('*')
-        .eq('status', 'active')
         .order('rating', { ascending: false })
         .limit(50);
 

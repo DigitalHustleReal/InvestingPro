@@ -65,9 +65,11 @@ interface CreditCardDetail {
 }
 
 import { createClient } from '@/lib/supabase/server'
+import { createServiceClient } from '@/lib/supabase/service'
 
-async function getCreditCardData(slug: string): Promise<CreditCardDetail | null> {
-  const supabase = await createClient();
+async function getCreditCardData(slug: string, useServiceClient: boolean = false): Promise<CreditCardDetail | null> {
+  // Use service client for build-time (generateStaticParams), server client for runtime
+  const supabase = useServiceClient ? createServiceClient() : await createClient();
   console.log(`[CardPage] Fetching slug: ${slug}`);
   const { data: card, error } = await supabase
     .from('credit_cards')
@@ -164,7 +166,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function CreditCardDetailPage(props: { params: Promise<{ slug: string }> }) {
   const params = await props.params;
-  const card = await getCreditCardData(params.slug)
+  const card = await getCreditCardData(params.slug, false) // Use server client for runtime
   
   if (!card) {
     notFound()

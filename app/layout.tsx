@@ -15,6 +15,7 @@ import { SearchProvider } from "@/components/search/SearchProvider";
 import { CompareProvider } from "@/contexts/CompareContext";
 import CompareBar from "@/components/compare/CompareBar";
 import { LeadCaptureProvider } from "@/components/engagement/LeadCaptureProvider";
+import PerformanceMonitor from "@/components/performance/PerformanceMonitor";
 
 
 // Font configurations with CSS variables
@@ -85,7 +86,7 @@ export default async function RootLayout({
                 <NavigationProvider>
                   <Suspense fallback={null}>
                     <Analytics />
-                    <PerformanceMonitor />
+                    {/* <PerformanceMonitor /> */}
                   </Suspense>
 
                   {/* Skip to Content Link - Accessibility (UI/UX Phase 1) */}

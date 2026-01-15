@@ -156,8 +156,44 @@ async function getMutualFundData(slug: string): Promise<MutualFundDetail | null>
   };
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const fund = await getMutualFundData(params.slug)
+/**
+ * Generate static params for all active mutual funds
+ * This pre-generates all product pages at build time for better SEO
+ */
+export async function generateStaticParams() {
+  try {
+    const supabase = createServiceClient();
+    const { data: funds, error } = await supabase
+      .from('mutual_funds')
+      .select('slug')
+      .not('slug', 'is', null);
+    
+    if (error) {
+      console.error('[generateStaticParams] Error fetching mutual funds:', error);
+      return [];
+    }
+    
+    if (!funds || funds.length === 0) {
+      console.warn('[generateStaticParams] No active mutual funds found');
+      return [];
+    }
+    
+    console.log(`[generateStaticParams] Generating ${funds.length} mutual fund pages`);
+    return funds.map(fund => ({ slug: fund.slug }));
+  } catch (error) {
+    console.error('[generateStaticParams] Failed to generate static params:', error);
+    return [];
+  }
+}
+
+// Force static generation with ISR (Incremental Static Regeneration)
+export const dynamic = 'force-static';
+// Revalidate every hour to keep NAV and returns data fresh
+export const revalidate = 3600; // 1 hour
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const fund = await getMutualFundData(slug)
   
   if (!fund) {
     return {
@@ -189,8 +225,9 @@ const getReturnColor = (value: number) => {
   return 'text-danger-600'
 }
 
-export default async function MutualFundDetailPage({ params }: { params: { slug: string } }) {
-  const fund = await getMutualFundData(params.slug)
+export default async function MutualFundDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const fund = await getMutualFundData(slug)
   
   if (!fund) {
     notFound()
