@@ -446,5 +446,11 @@ We're a **decision-making platform**, not an educational content provider.
 
 ---
 
+## 📄 Related Documents
+
+- **`PRODUCT_COMPARISON_ADVANTAGES.md`** - Detailed breakdown of what makes our product comparison better (scoring, analysis, reviews, data)
+
+---
+
 *Last Updated: January 23, 2026*  
 *Status: Core Value Proposition Defined ✅*
