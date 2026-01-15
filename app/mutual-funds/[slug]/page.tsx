@@ -20,6 +20,8 @@ import {
 import DifferentiationCard from '@/components/products/DifferentiationCard'
 import { scoreMutualFund } from '@/lib/products/scoring-rules'
 import { MutualFund } from '@/types'
+import DecisionFramework from '@/components/common/DecisionFramework'
+import DecisionCTA from '@/components/common/DecisionCTA'
 
 interface MutualFundDetail {
   id: string
@@ -257,11 +259,16 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
                     </div>
                   </div>
                   
-                  <a href={fund.applyLink} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-6 text-lg mb-2">
-                      Invest Now <ExternalLink className="w-5 h-5 ml-2" />
-                    </Button>
-                  </a>
+                  <DecisionCTA
+                    text="Start SIP Now"
+                    href={fund.applyLink}
+                    productId={fund.id}
+                    variant="primary"
+                    size="lg"
+                    className="w-full h-14 text-lg font-bold mb-2"
+                    isExternal={!!fund.applyLink}
+                    showIcon={true}
+                  />
                   <p className="text-xs text-primary-200 text-center">Start SIP or make lumpsum investment</p>
                 </CardContent>
               </Card>
@@ -270,6 +277,17 @@ export default async function MutualFundDetailPage({ params }: { params: { slug:
         </div>
       </div>
       
+      {/* Decision Framework */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
+        <DecisionFramework
+          productId={fund.id}
+          productName={fund.name}
+          category="mutual-funds"
+          affiliateLink={fund.applyLink}
+          variant="compact"
+        />
+      </div>
+
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

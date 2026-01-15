@@ -19,6 +19,8 @@ import ProductReviews from '@/components/reviews/ProductReviews'
 import DifferentiationCard from '@/components/products/DifferentiationCard'
 import { scoreCreditCard } from '@/lib/products/scoring-rules'
 import { CreditCard as CreditCardType } from '@/types'
+import DecisionFramework from '@/components/common/DecisionFramework'
+import DecisionCTA from '@/components/common/DecisionCTA'
 
 interface CreditCardDetail {
   id: string
@@ -218,11 +220,16 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
               <Card className="bg-white/10 backdrop-blur-sm border-white/20">
                 <CardContent className="p-6">
                   <p className="text-sm text-slate-300 mb-4">Start your application now</p>
-                  <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-6 text-lg mb-3">
-                      Apply Now <ExternalLink className="w-5 h-5 ml-2" />
-                    </Button>
-                  </a>
+                  <DecisionCTA
+                    text="Apply Instantly"
+                    href={card.applyLink}
+                    productId={card.id}
+                    variant="primary"
+                    size="lg"
+                    className="w-full h-14 text-lg font-bold mb-3"
+                    isExternal={!!card.applyLink}
+                    showIcon={true}
+                  />
                   {card.welcomeBonus && (
                     <div className="bg-amber-500/20 border border-amber-500/50 rounded-lg p-6 md:p-8 text-center">
                       <Gift className="w-5 h-5 mx-auto mb-1 text-amber-400" />
@@ -236,6 +243,17 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
         </div>
       </div>
       
+      {/* Decision Framework */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
+        <DecisionFramework
+          productId={card.id}
+          productName={card.name}
+          category="credit-cards"
+          affiliateLink={card.applyLink}
+          variant="compact"
+        />
+      </div>
+
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
