@@ -23,9 +23,9 @@ export default function GlobalError({
       <div className="max-w-md w-full text-center">
         {/* Animated Icon */}
         <div className="relative mb-8 inline-block">
-          <div className="absolute inset-0 bg-rose-500/20 blur-2xl rounded-full scale-150 animate-pulse" />
-          <div className="relative bg-white dark:bg-slate-900 w-20 h-20 rounded-2xl flex items-center justify-center border border-rose-100 dark:border-rose-500/20 shadow-xl">
-            <AlertCircle className="w-10 h-10 text-rose-500" />
+          <div className="absolute inset-0 bg-danger-500/20 blur-2xl rounded-full scale-150 animate-pulse" />
+          <div className="relative bg-white dark:bg-slate-900 w-20 h-20 rounded-2xl flex items-center justify-center border border-danger-100 dark:border-danger-500/20 shadow-xl">
+            <AlertCircle className="w-10 h-10 text-danger-500" />
           </div>
         </div>
 

@@ -163,7 +163,7 @@ export default function StocksPage() {
                     <Card className="rounded-[3rem] border-0 shadow-2xl bg-white p-6 md:p-8 group overflow-hidden">
                         <div className="flex items-center justify-between mb-8">
                             <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 rounded-2xl bg-rose-50 flex items-center justify-center text-rose-600">
+                                <div className="w-12 h-12 rounded-2xl bg-danger-50 flex items-center justify-center text-danger-600">
                                     <TrendingDown className="w-6 h-6" />
                                 </div>
                                 <div>
@@ -177,7 +177,7 @@ export default function StocksPage() {
                             {topLosers.map((stock, i) => (
                                 <div key={i} className="flex items-center justify-between p-5 bg-slate-50/50 rounded-2xl border border-transparent hover:border-rose-100 hover:bg-white transition-all group/item">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center font-semibold text- text-slate-400 group-hover/item:bg-rose-600 group-hover/item:text-white transition-colors">
+                                        <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center font-semibold text- text-slate-400 group-hover/item:bg-danger-600 group-hover/item:text-white transition-colors">
                                             {stock.name.substring(0, 2)}
                                         </div>
                                         <div>

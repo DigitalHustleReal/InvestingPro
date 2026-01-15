@@ -317,7 +317,7 @@ export default function AdminPage() {
             label: 'Pending Articles',
             value: pendingArticlesCount,
             icon: FileText,
-            color: 'bg-rose-500',
+            color: 'bg-danger-500',
             change: 'User submissions',
             trend: 'down'
         });
@@ -384,7 +384,7 @@ export default function AdminPage() {
                                         </div>
                                         {stat.trend && (
                                             <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold ${
-                                                stat.trend === 'up' ? 'bg-primary-500/10 text-primary-400' : 'bg-rose-500/10 text-rose-400'
+                                                stat.trend === 'up' ? 'bg-primary-500/10 text-primary-400' : 'bg-danger-500/10 text-danger-400'
                                             }`}>
                                                 {stat.trend === 'up' ? (
                                                     <ArrowUpRight className="w-4 h-4" />
@@ -488,7 +488,7 @@ export default function AdminPage() {
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <span className="text-sm font-medium text-slate-400">Drop Rate</span>
-                                        <span className="text-sm font-bold text-rose-400 tabular-nums">{pipelineStatus.failed || 0}</span>
+                                        <span className="text-sm font-bold text-danger-400 tabular-nums">{pipelineStatus.failed || 0}</span>
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <span className="text-sm font-medium text-slate-400">Avg. Cycle</span>
@@ -630,18 +630,18 @@ export default function AdminPage() {
                                         </div>
                                         <div className="flex items-center gap-3">
                                             <div className={`text-sm font-bold tabular-nums ${
-                                                trend.trend === 'up' ? 'text-primary-400' : 'text-rose-400'
+                                                trend.trend === 'up' ? 'text-primary-400' : 'text-danger-400'
                                             }`}>
                                                 {trend.trend === 'up' ? '+' : ''}{trend.change}%
                                             </div>
                                             <div className={cn(
                                                 "w-8 h-8 rounded-lg flex items-center justify-center",
-                                                trend.trend === 'up' ? 'bg-primary-500/10' : 'bg-rose-500/10'
+                                                trend.trend === 'up' ? 'bg-primary-500/10' : 'bg-danger-500/10'
                                             )}>
                                                 {trend.trend === 'up' ? (
                                                     <ArrowUpRight className="w-4 h-4 text-primary-400" />
                                                 ) : (
-                                                    <ArrowDownRight className="w-4 h-4 text-rose-400" />
+                                                    <ArrowDownRight className="w-4 h-4 text-danger-400" />
                                                 )}
                                             </div>
                                         </div>
@@ -890,7 +890,7 @@ export default function AdminPage() {
                                                         <h4 className="font-bold text-white tracking-tight">Facebook Interface</h4>
                                                         <p className={cn(
                                                             "text-[10px] font-bold uppercase tracking-widest mt-1",
-                                                            socialMetrics.facebook ? 'text-primary-400' : 'text-rose-400'
+                                                            socialMetrics.facebook ? 'text-primary-400' : 'text-danger-400'
                                                         )}>
                                                             {socialMetrics.facebook ? 'Node Active / Syncing' : 'Link Offline'}
                                                         </p>
@@ -898,7 +898,7 @@ export default function AdminPage() {
                                                 </div>
                                                 <Button size="sm" variant="ghost" className={cn(
                                                     "h-10 px-6 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all",
-                                                    socialMetrics.facebook ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-secondary-500 text-white hover:bg-primary-600 shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+                                                    socialMetrics.facebook ? "bg-white/5 text-slate-400 hover:bg-danger-500/10 hover:text-danger-400" : "bg-secondary-500 text-white hover:bg-primary-600 shadow-[0_0_15px_rgba(59,130,246,0.3)]"
                                                 )}>
                                                     {socialMetrics.facebook ? 'Terminate' : 'Initialize'}
                                                 </Button>
@@ -914,7 +914,7 @@ export default function AdminPage() {
                                                         <h4 className="font-bold text-white tracking-tight">Twitter Stream</h4>
                                                         <p className={cn(
                                                             "text-[10px] font-bold uppercase tracking-widest mt-1",
-                                                            socialMetrics.twitter ? 'text-primary-400' : 'text-rose-400'
+                                                            socialMetrics.twitter ? 'text-primary-400' : 'text-danger-400'
                                                         )}>
                                                             {socialMetrics.twitter ? 'Node Active / Syncing' : 'Link Offline'}
                                                         </p>
@@ -922,7 +922,7 @@ export default function AdminPage() {
                                                 </div>
                                                 <Button size="sm" variant="ghost" className={cn(
                                                     "h-10 px-6 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all",
-                                                    socialMetrics.twitter ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-secondary-500 text-white hover:bg-secondary-600 shadow-[0_0_15px_rgba(14,165,233,0.3)]"
+                                                    socialMetrics.twitter ? "bg-white/5 text-slate-400 hover:bg-danger-500/10 hover:text-danger-400" : "bg-secondary-500 text-white hover:bg-secondary-600 shadow-[0_0_15px_rgba(14,165,233,0.3)]"
                                                 )}>
                                                     {socialMetrics.twitter ? 'Terminate' : 'Initialize'}
                                                 </Button>
@@ -938,7 +938,7 @@ export default function AdminPage() {
                                                         <h4 className="font-bold text-white tracking-tight">LinkedIn Authority</h4>
                                                         <p className={cn(
                                                             "text-[10px] font-bold uppercase tracking-widest mt-1",
-                                                            socialMetrics.linkedin ? 'text-primary-400' : 'text-rose-400'
+                                                            socialMetrics.linkedin ? 'text-primary-400' : 'text-danger-400'
                                                         )}>
                                                             {socialMetrics.linkedin ? 'Node Active / Syncing' : 'Link Offline'}
                                                         </p>
@@ -946,7 +946,7 @@ export default function AdminPage() {
                                                 </div>
                                                 <Button size="sm" variant="ghost" className={cn(
                                                     "h-10 px-6 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all",
-                                                    socialMetrics.linkedin ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-primary-600 text-white hover:bg-primary-700 shadow-[0_0_15px_rgba(79,70,229,0.3)]"
+                                                    socialMetrics.linkedin ? "bg-white/5 text-slate-400 hover:bg-danger-500/10 hover:text-danger-400" : "bg-primary-600 text-white hover:bg-primary-700 shadow-[0_0_15px_rgba(79,70,229,0.3)]"
                                                 )}>
                                                     {socialMetrics.linkedin ? 'Terminate' : 'Initialize'}
                                                 </Button>
@@ -962,7 +962,7 @@ export default function AdminPage() {
                                                         <h4 className="font-bold text-white tracking-tight">Instagram Visuals</h4>
                                                         <p className={cn(
                                                             "text-[10px] font-bold uppercase tracking-widest mt-1",
-                                                            socialMetrics.instagram ? 'text-primary-400' : 'text-rose-400'
+                                                            socialMetrics.instagram ? 'text-primary-400' : 'text-danger-400'
                                                         )}>
                                                             {socialMetrics.instagram ? 'Node Active / Syncing' : 'Link Offline'}
                                                         </p>
@@ -970,7 +970,7 @@ export default function AdminPage() {
                                                 </div>
                                                 <Button size="sm" variant="ghost" className={cn(
                                                     "h-10 px-6 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all",
-                                                    socialMetrics.instagram ? "bg-white/5 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400" : "bg-danger-600 text-white hover:bg-danger-700 shadow-[0_0_15px_rgba(219,39,119,0.3)]"
+                                                    socialMetrics.instagram ? "bg-white/5 text-slate-400 hover:bg-danger-500/10 hover:text-danger-400" : "bg-danger-600 text-white hover:bg-danger-700 shadow-[0_0_15px_rgba(219,39,119,0.3)]"
                                                 )}>
                                                     {socialMetrics.instagram ? 'Terminate' : 'Initialize'}
                                                 </Button>
@@ -1148,7 +1148,7 @@ export default function AdminPage() {
                                                     <div className="flex items-center gap-8">
                                                         <div className="text-right">
                                                             <div className={`text-xl font-extrabold tabular-nums ${
-                                                                trend.trend === 'up' ? 'text-primary-400' : 'text-rose-400'
+                                                                trend.trend === 'up' ? 'text-primary-400' : 'text-danger-400'
                                                             }`}>
                                                                 {trend.trend === 'up' ? '+' : ''}{trend.change}%
                                                             </div>
@@ -1156,12 +1156,12 @@ export default function AdminPage() {
                                                         </div>
                                                         <div className={cn(
                                                             "w-12 h-12 rounded-xl flex items-center justify-center shadow-lg transition-transform group-hover:scale-110",
-                                                            trend.trend === 'up' ? 'bg-primary-500/10' : 'bg-rose-500/10'
+                                                            trend.trend === 'up' ? 'bg-primary-500/10' : 'bg-danger-500/10'
                                                         )}>
                                                             {trend.trend === 'up' ? (
                                                                 <ArrowUpRight className="w-6 h-6 text-primary-400" />
                                                             ) : (
-                                                                <ArrowDownRight className="w-6 h-6 text-rose-400" />
+                                                                <ArrowDownRight className="w-6 h-6 text-danger-400" />
                                                             )}
                                                         </div>
                                                     </div>

@@ -108,7 +108,7 @@ export default function TerminalPage() {
                                                         {item.symbol[0]}
                                                     </div>
                                                     <Badge className={`px-3 py-1 border-0 rounded-full text-[10px] font-bold uppercase ${
-                                                        item.status === 'bullish' ? 'bg-primary-500/10 text-primary-400' : 'bg-rose-500/10 text-rose-400'
+                                                        item.status === 'bullish' ? 'bg-primary-500/10 text-primary-400' : 'bg-danger-500/10 text-danger-400'
                                                     }`}>
                                                         {item.signal}
                                                     </Badge>
@@ -211,7 +211,7 @@ export default function TerminalPage() {
                                                             {item.symbol[0]}
                                                         </div>
                                                         <Badge className={`px-2 py-1 border-0 rounded-full text-[9px] font-bold uppercase ${
-                                                            item.status === 'bullish' ? 'bg-primary-500/10 text-primary-400' : 'bg-rose-500/10 text-rose-400'
+                                                            item.status === 'bullish' ? 'bg-primary-500/10 text-primary-400' : 'bg-danger-500/10 text-danger-400'
                                                         }`}>
                                                             {item.signal}
                                                         </Badge>

@@ -119,8 +119,8 @@ export default function ArticleVersionHistory({
 
     if (error) {
         return (
-            <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-red-800">{error}</p>
+            <div className="p-4 bg-danger-50 border border-danger-200 rounded-lg">
+                <p className="text-danger-800">{error}</p>
                 <Button
                     onClick={loadVersionHistory}
                     className="mt-2"
@@ -165,7 +165,7 @@ export default function ArticleVersionHistory({
                                         Version {version.version_number}
                                     </span>
                                     {version.version_number === history.versions[0]?.version_number && (
-                                        <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-green-100 text-green-800 text-xs rounded-full">
+                                        <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-success-100 text-success-800 text-xs rounded-full">
                                             <CheckCircle className="w-3 h-3" />
                                             Current
                                         </span>

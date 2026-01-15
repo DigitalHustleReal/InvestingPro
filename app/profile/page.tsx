@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -263,9 +263,9 @@ export default function ProfilePage() {
                                                     </div>
                                                 </div>
                                                 {article.rejection_reason && (
-                                                    <div className="mt-6 p-4 bg-rose-50 dark:bg-rose-900/20 rounded-2xl border border-rose-100 dark:border-rose-900/50 flex gap-3">
-                                                        <div className="w-6 h-6 rounded-full bg-rose-500 text-white flex items-center justify-center shrink-0 text-[10px] font-bold pt-0.5">!</div>
-                                                        <p className="text-xs font-bold text-rose-700 dark:text-rose-400 leading-relaxed italic">
+                                                    <div className="mt-6 p-4 bg-danger-50 dark:bg-danger-900/20 rounded-2xl border border-danger-100 dark:border-danger-900/50 flex gap-3">
+                                                        <div className="w-6 h-6 rounded-full bg-danger-500 text-white flex items-center justify-center shrink-0 text-[10px] font-bold pt-0.5">!</div>
+                                                        <p className="text-xs font-bold text-danger-700 dark:text-danger-400 leading-relaxed italic">
                                                             {article.rejection_reason}
                                                         </p>
                                                     </div>

@@ -302,14 +302,14 @@ export default function AIContentGenerator() {
                         <div className="flex items-center gap-2 mb-2">
                             {jobStatus === 'queued' && <Clock className="w-4 h-4 text-secondary-600" />}
                             {jobStatus === 'running' && <Loader2 className="w-4 h-4 text-secondary-600 animate-spin" />}
-                            {jobStatus === 'completed' && <CheckCircle2 className="w-4 h-4 text-green-600" />}
-                            {jobStatus === 'failed' && <AlertTriangle className="w-4 h-4 text-red-600" />}
+                            {jobStatus === 'completed' && <CheckCircle2 className="w-4 h-4 text-success-600" />}
+                            {jobStatus === 'failed' && <AlertTriangle className="w-4 h-4 text-danger-600" />}
                             <span className="text-sm font-semibold">
                                 Status: {jobStatus.charAt(0).toUpperCase() + jobStatus.slice(1)}
                             </span>
                         </div>
                         {jobError && (
-                            <div className="text-sm text-red-600 mt-2">
+                            <div className="text-sm text-danger-600 mt-2">
                                 Error: {jobError}
                             </div>
                         )}

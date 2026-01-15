@@ -148,11 +148,11 @@ export default function AuditLogViewer({ initialFilters }: AuditLogViewerProps) 
     const getSeverityColor = (severity: string) => {
         switch (severity) {
             case 'critical':
-                return 'bg-red-100 text-red-800';
+                return 'bg-danger-100 text-danger-800';
             case 'error':
-                return 'bg-orange-100 text-orange-800';
+                return 'bg-accent-100 text-accent-800';
             case 'warning':
-                return 'bg-yellow-100 text-yellow-800';
+                return 'bg-warning-100 text-warning-800';
             default:
                 return 'bg-secondary-100 text-secondary-800';
         }
@@ -161,11 +161,11 @@ export default function AuditLogViewer({ initialFilters }: AuditLogViewerProps) 
     const getActionColor = (action: string) => {
         switch (action) {
             case 'create':
-                return 'bg-green-100 text-green-800';
+                return 'bg-success-100 text-success-800';
             case 'update':
                 return 'bg-secondary-100 text-secondary-800';
             case 'delete':
-                return 'bg-red-100 text-red-800';
+                return 'bg-danger-100 text-danger-800';
             default:
                 return 'bg-slate-100 text-slate-800';
         }
@@ -278,8 +278,8 @@ export default function AuditLogViewer({ initialFilters }: AuditLogViewerProps) 
 
             {/* Error State */}
             {error && (
-                <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-                    <p className="text-red-800">{error}</p>
+                <div className="p-4 bg-danger-50 border border-danger-200 rounded-lg">
+                    <p className="text-danger-800">{error}</p>
                     <Button
                         onClick={loadAuditLogs}
                         className="mt-2"

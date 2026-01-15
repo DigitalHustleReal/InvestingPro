@@ -236,7 +236,7 @@ export default function EditorialDashboard() {
                             <Badge className="bg-primary-100 text-primary-700 text-sm font-bold px-4 py-2">
                                 {stats.total} Drafts
                             </Badge>
-                            <Badge className="bg-rose-100 text-rose-700 text-sm font-bold px-4 py-2">
+                            <Badge className="bg-danger-100 text-danger-700 text-sm font-bold px-4 py-2">
                                 {stats.high} High Risk
                             </Badge>
                         </div>
@@ -330,7 +330,7 @@ export default function EditorialDashboard() {
                                     <Button
                                         size="sm"
                                         variant="outline"
-                                        className="border-rose-200 text-rose-600 hover:bg-rose-50"
+                                        className="border-danger-200 text-danger-600 hover:bg-danger-50"
                                         onClick={handleBatchReject}
                                         disabled={batchRejectMutation.isPending}
                                     >

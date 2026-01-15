@@ -55,7 +55,7 @@ export default async function ProductReviewPage({ params }: { params: Promise<{ 
                                      {product.rating}/5
                                  </div>
                                  <Link href={product.affiliate_link || '#'}>
-                                     <Button className="gap-2 bg-teal-600 hover:bg-teal-700">
+                                     <Button className="gap-2 bg-primary-600 hover:bg-primary-700">
                                          Visit Site <ExternalLink className="w-4 h-4" />
                                      </Button>
                                  </Link>
@@ -72,25 +72,25 @@ export default async function ProductReviewPage({ params }: { params: Promise<{ 
                         {/* Pros & Cons */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="bg-white p-6 rounded-xl border border-slate-200">
-                                <h3 className="font-bold text-lg mb-4 text-teal-700 flex items-center gap-2">
-                                    <Check className="w-5 h-5 bg-teal-100 rounded-full p-1" /> Pros
+                                <h3 className="font-bold text-lg mb-4 text-primary-700 flex items-center gap-2">
+                                    <Check className="w-5 h-5 bg-primary-100 rounded-full p-1" /> Pros
                                 </h3>
                                 <ul className="space-y-3">
                                     {(product.pros || []).map(pro => (
                                         <li key={pro} className="text-slate-700 text-sm flex gap-2">
-                                            <span className="text-teal-500">•</span> {pro}
+                                            <span className="text-primary-500">•</span> {pro}
                                         </li>
                                     ))}
                                 </ul>
                             </div>
                             <div className="bg-white p-6 rounded-xl border border-slate-200">
-                                <h3 className="font-bold text-lg mb-4 text-rose-700 flex items-center gap-2">
-                                    <X className="w-5 h-5 bg-rose-100 rounded-full p-1" /> Cons
+                                <h3 className="font-bold text-lg mb-4 text-danger-700 flex items-center gap-2">
+                                    <X className="w-5 h-5 bg-danger-100 rounded-full p-1" /> Cons
                                 </h3>
                                 <ul className="space-y-3">
                                     {(product.cons || []).map(con => (
                                         <li key={con} className="text-slate-700 text-sm flex gap-2">
-                                            <span className="text-rose-500">•</span> {con}
+                                            <span className="text-danger-500">•</span> {con}
                                         </li>
                                     ))}
                                 </ul>
@@ -113,11 +113,11 @@ export default async function ProductReviewPage({ params }: { params: Promise<{ 
 
                     {/* Sidebar */}
                     <div className="space-y-6">
-                        <div className="bg-gradient-to-br from-teal-600 to-blue-700 rounded-xl p-6 text-white text-center">
+                        <div className="bg-gradient-to-br from-primary-600 to-secondary-700 rounded-xl p-6 text-white text-center">
                             <h3 className="font-bold text-xl mb-2">Ready to Apply?</h3>
-                            <p className="text-teal-100 mb-6 text-sm">Get exclusive benefits when you apply through InvestingPro.</p>
+                            <p className="text-primary-100 mb-6 text-sm">Get exclusive benefits when you apply through InvestingPro.</p>
                             <Link href={product.affiliate_link || '#'}>
-                                <Button size="lg" className="w-full bg-white text-teal-700 hover:bg-teal-50">
+                                <Button size="lg" className="w-full bg-white text-primary-700 hover:bg-primary-50">
                                     Apply Now
                                 </Button>
                             </Link>

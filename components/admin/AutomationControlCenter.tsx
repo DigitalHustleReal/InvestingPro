@@ -127,11 +127,11 @@ export default function AutomationControlCenter() {
 
     const getStateColor = (state: string) => {
         switch (state) {
-            case 'completed': return 'bg-green-500';
+            case 'completed': return 'bg-success-500';
             case 'running': return 'bg-secondary-500';
-            case 'failed': return 'bg-red-500';
-            case 'paused': return 'bg-yellow-500';
-            default: return 'bg-gray-500';
+            case 'failed': return 'bg-danger-500';
+            case 'paused': return 'bg-warning-500';
+            default: return 'bg-slate-500';
         }
     };
 
@@ -153,11 +153,11 @@ export default function AutomationControlCenter() {
                             <div className="text-sm text-muted-foreground">Running</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-2xl font-bold text-red-500">{status.failedWorkflows}</div>
+                            <div className="text-2xl font-bold text-danger-500">{status.failedWorkflows}</div>
                             <div className="text-sm text-muted-foreground">Failed (24h)</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-2xl font-bold text-yellow-500">{status.stuckWorkflows}</div>
+                            <div className="text-2xl font-bold text-warning-500">{status.stuckWorkflows}</div>
                             <div className="text-sm text-muted-foreground">Stuck</div>
                         </div>
                         <div className="text-center">

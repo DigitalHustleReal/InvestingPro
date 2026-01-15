@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
     // Get conversion data
     const { data: conversions, error: convError } = await supabase
       .from('affiliate_conversions')
-      .select('product_slug, commission_amount')
+      .select('product_slug, commission')
       .gte('converted_at', startDate.toISOString());
 
     // Aggregate by product
@@ -64,7 +64,7 @@ export async function GET(request: NextRequest) {
       const key = c.product_slug;
       if (!productStats[key]) productStats[key] = { views: 0, clicks: 0, conversions: 0, revenue: 0 };
       productStats[key].conversions++;
-      productStats[key].revenue += parseFloat(c.commission_amount) || 0;
+      productStats[key].revenue += parseFloat(c.commission) || 0;
     });
 
     // Calculate totals

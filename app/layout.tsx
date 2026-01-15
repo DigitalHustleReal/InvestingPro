@@ -5,7 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { cn } from "@/lib/utils";
 import Analytics from "@/components/common/Analytics";
-import CookieConsent from "@/components/common/CookieConsent";
+import CookieConsent from "@/components/legal/CookieConsent";
 import QueryProvider from "@/components/providers/QueryProvider";
 import ErrorBoundaryProvider from "@/components/providers/ErrorBoundaryProvider";
 import PageErrorBoundary from "@/components/common/PageErrorBoundary";

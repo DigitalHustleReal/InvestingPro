@@ -109,10 +109,10 @@ export default function CostDashboard() {
     };
 
     const getStatusColor = (percent: number): string => {
-        if (percent >= 100) return 'bg-red-500';
-        if (percent >= 80) return 'bg-orange-500';
-        if (percent >= 50) return 'bg-yellow-500';
-        return 'bg-green-500';
+        if (percent >= 100) return 'bg-danger-500';
+        if (percent >= 80) return 'bg-accent-500';
+        if (percent >= 50) return 'bg-warning-500';
+        return 'bg-success-500';
     };
 
     if (loading) {
@@ -125,8 +125,8 @@ export default function CostDashboard() {
 
     if (error) {
         return (
-            <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-red-800">{error}</p>
+            <div className="p-4 bg-danger-50 border border-danger-200 rounded-lg">
+                <p className="text-danger-800">{error}</p>
                 <Button onClick={loadCostData} className="mt-2" variant="outline" size="sm">
                     Retry
                 </Button>

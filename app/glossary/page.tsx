@@ -23,7 +23,7 @@ const CATEGORY_CONFIG: Record<string, { icon: any, color: string }> = {
     'Credit Cards': { icon: CreditCard, color: 'text-primary-600 bg-primary-50 dark:bg-primary-900/20' },
     'Economy': { icon: Zap, color: 'text-accent-600 bg-accent-50 dark:bg-accent-900/20' },
     'Banking': { icon: Landmark, color: 'text-secondary-600 bg-secondary-50 dark:bg-secondary-900/20' },
-    'Taxation': { icon: BookOpen, color: 'text-rose-600 bg-rose-50 dark:bg-rose-900/20' }
+    'Taxation': { icon: BookOpen, color: 'text-danger-600 bg-danger-50 dark:bg-danger-900/20' }
 };
 
 export default function GlossaryPage() {

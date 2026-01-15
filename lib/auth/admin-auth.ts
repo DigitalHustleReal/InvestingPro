@@ -1,160 +1,131 @@
 /**
- * Admin Authentication Helper
+ * Admin Authentication Module
+ * Week 1 Task 2: Implement proper admin authentication
  * 
- * Provides utilities for checking admin access in API routes
+ * This replaces the TODO in lib/auth/admin-auth.ts
  */
 
-import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-import { env } from '@/lib/env';
+import { createClient } from '@/lib/supabase/server';
+import { cache } from 'react';
 
 /**
- * Check if the current user is authenticated and has admin role
- * Uses service role to check user_roles table
- * @param request NextRequest object
- * @returns { user: User | null, isAdmin: boolean, error: string | null }
+ * Check if a user has admin role
+ * Uses React cache to prevent duplicate database queries
  */
-export async function checkAdminAuth(request: NextRequest) {
-    try {
-        // Get auth token from Authorization header
-        const authHeader = request.headers.get('authorization');
-        const token = authHeader?.replace('Bearer ', '');
+export const isAdmin = cache(async (userId: string): Promise<boolean> => {
+  if (!userId) return false;
 
-        if (!token) {
-            // Try to get from cookies (for browser requests)
-            const cookieHeader = request.headers.get('cookie');
-            // Extract access token from cookies if available
-            // Note: In production, you'd parse cookies properly
-            return {
-                user: null,
-                isAdmin: false,
-                error: 'No authentication token provided'
-            };
-        }
+  try {
+    const supabase = createClient();
+    
+    const { data, error } = await supabase
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', userId)
+      .single();
 
-        // Create Supabase client with anon key to verify user
-        const supabase = createClient(
-            env.NEXT_PUBLIC_SUPABASE_URL,
-            env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-            {
-                global: {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            }
-        );
-
-        // Get user
-        const { data: { user }, error: authError } = await supabase.auth.getUser(token);
-
-        if (authError || !user) {
-            return {
-                user: null,
-                isAdmin: false,
-                error: 'Invalid or expired authentication token'
-            };
-        }
-
-        // Check admin role using service role client
-        const serviceSupabase = createClient(
-            env.NEXT_PUBLIC_SUPABASE_URL,
-            env.SUPABASE_SERVICE_ROLE_KEY
-        );
-
-        // Try RPC function first
-        const { data: roleData } = await serviceSupabase
-            .rpc('get_user_role', { user_id: user.id })
-            .single()
-            .catch(() => ({ data: null }));
-
-        if (roleData) {
-            const isAdmin = roleData === 'admin' || roleData === 'editor';
-            return {
-                user,
-                isAdmin,
-                error: isAdmin ? null : 'User does not have admin access'
-            };
-        }
-
-        // Fallback: Check user_roles table directly
-        const { data: userRole } = await serviceSupabase
-            .from('user_roles')
-            .select('role')
-            .eq('user_id', user.id)
-            .single();
-
-        const isAdmin = userRole?.role === 'admin' || userRole?.role === 'editor';
-        
-        return {
-            user,
-            isAdmin,
-            error: isAdmin ? null : 'User does not have admin access'
-        };
-
-    } catch (error: any) {
-        return {
-            user: null,
-            isAdmin: false,
-            error: error.message || 'Authentication check failed'
-        };
+    if (error) {
+      console.error('[Admin Auth] Error checking admin status:', error);
+      return false;
     }
+
+    return data?.role === 'admin';
+  } catch (error) {
+    console.error('[Admin Auth] Unexpected error:', error);
+    return false;
+  }
+});
+
+/**
+ * Check if a user has editor role (can create/edit content)
+ */
+export const isEditor = cache(async (userId: string): Promise<boolean> => {
+  if (!userId) return false;
+
+  try {
+    const supabase = createClient();
+    
+    const { data, error } = await supabase
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', userId)
+      .single();
+
+    if (error) return false;
+
+    return data?.role === 'admin' || data?.role === 'editor';
+  } catch (error) {
+    return false;
+  }
+});
+
+/**
+ * Require admin authentication
+ * Throws error if user is not authenticated or not an admin
+ * Use in server components and API routes
+ */
+export async function requireAdmin() {
+  const supabase = createClient();
+  const { data: { user }, error } = await supabase.auth.getUser();
+
+  if (error || !user) {
+    throw new Error('Unauthorized: Not logged in');
+  }
+
+  const admin = await isAdmin(user.id);
+  
+  if (!admin) {
+    throw new Error('Forbidden: Admin access required');
+  }
+
+  return user;
 }
 
 /**
- * Middleware wrapper for admin-only endpoints
- * Returns 401 if not authenticated, 403 if not admin
- * 
- * Note: For now, we'll allow service role access (for internal use)
- * In production, you should enforce proper user authentication
+ * Require editor authentication (admin or editor role)
+ * Use for content management features
  */
-export async function requireAdmin(request: NextRequest) {
-    // For now, allow service role access (used by internal systems)
-    // TODO: Implement proper user authentication check
-    // This is a temporary solution - in production, you should check actual user auth
-    
-    // Check if request has service role key (internal use)
-    const authHeader = request.headers.get('authorization');
-    if (authHeader?.includes(env.SUPABASE_SERVICE_ROLE_KEY)) {
-        return {
-            error: false,
-            user: null // Service role doesn't have a user
-        };
+export async function requireEditor() {
+  const supabase = createClient();
+  const { data: { user }, error } = await supabase.auth.getUser();
+
+  if (error || !user) {
+    throw new Error('Unauthorized: Not logged in');
+  }
+
+  const editor = await isEditor(user.id);
+  
+  if (!editor) {
+    throw new Error('Forbidden: Editor access required');
+  }
+
+  return user;
+}
+
+/**
+ * Get current user with role information
+ * Returns null if not authenticated
+ */
+export async function getCurrentUserWithRole() {
+  try {
+    const supabase = createClient();
+    const { data: { user }, error } = await supabase.auth.getUser();
+
+    if (error || !user) {
+      return null;
     }
 
-    // Try to check user authentication
-    const auth = await checkAdminAuth(request);
-
-    if (!auth.user) {
-        return {
-            error: true,
-            response: NextResponse.json(
-                {
-                    error: 'Unauthorized',
-                    code: 'UNAUTHORIZED',
-                    message: auth.error || 'Authentication required'
-                },
-                { status: 401 }
-            )
-        };
-    }
-
-    if (!auth.isAdmin) {
-        return {
-            error: true,
-            response: NextResponse.json(
-                {
-                    error: 'Forbidden',
-                    code: 'FORBIDDEN',
-                    message: 'Admin access required'
-                },
-                { status: 403 }
-            )
-        };
-    }
+    const { data: roleData } = await supabase
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', user.id)
+      .single();
 
     return {
-        error: false,
-        user: auth.user
+      ...user,
+      role: roleData?.role || 'viewer',
     };
+  } catch (error) {
+    return null;
+  }
 }
