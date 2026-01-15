@@ -55,6 +55,11 @@
 - ✅ Market components - Fixed `rose-*` → `danger-*` (2 files)
 - ✅ Home/Layout components - Fixed `rose-*` → `danger-*` (2 files)
 - ✅ Ranking/Articles/Filter components - Fixed `rose-*` → `danger-*` (5 files)
+- ✅ AdminUIKit - Fixed `rose-*` → `danger-*` (5 instances)
+- ✅ ErrorBoundary - Fixed `rose-*` → `danger-*`
+- ✅ AIContentGenerator - Fixed `blue-*` → `secondary-*`
+- ✅ AuditLogViewer - Fixed `blue-*` → `secondary-*`
+- ✅ AutomationControlCenter - Fixed `blue-*` → `secondary-*`
 
 ---
 
@@ -116,4 +121,4 @@
 ---
 
 *Last Updated: January 23, 2026*  
-*Status: Phase 2 In Progress - 48 files fixed, 15+ remaining*
+*Status: Phase 2 In Progress - 53 files fixed, 10+ remaining*
