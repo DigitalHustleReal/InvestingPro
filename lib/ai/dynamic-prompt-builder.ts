@@ -10,6 +10,12 @@
 import { getAuthorSystemPrompt, getAuthorForCategory, type AuthorPersona } from '@/lib/content/author-personas';
 import { getCategoryPrompt, type FinanceCategory } from '@/lib/prompts/category-prompts';
 import { ContentTemplate, selectTemplate, type ContentTemplate as TemplateType } from '@/lib/templates/content-templates';
+import { 
+    determineOptimalTone, 
+    buildToneInstructions,
+    type ContentPurpose,
+    type ContentIntent 
+} from '@/lib/content/tone-manager';
 
 export type ContentType = 'comparison' | 'howto' | 'ultimate' | 'listicle';
 
@@ -22,6 +28,12 @@ export interface PromptBuilderParams {
     keywords?: string[];
     targetAudience?: string;
     wordCount?: number;
+    // Tone management
+    purpose?: ContentPurpose; // persuasive, educational, comparison, etc.
+    intent?: ContentIntent; // monetization, education, decision-making, awareness
+    hasAffiliateProducts?: boolean;
+    hasApplicationFlow?: boolean;
+    customTone?: string; // Override tone if needed
 }
 
 export interface CombinedPrompt {
@@ -308,6 +320,18 @@ KEYWORDS TO EMPHASIZE: life insurance, savings, maturity benefits, surrender val
 export async function buildDynamicPrompt(
     params: PromptBuilderParams
 ): Promise<CombinedPrompt> {
+    // Determine optimal tone based on purpose, intent, and context
+    const optimalTone = params.customTone 
+        ? undefined // Will use custom tone if provided
+        : determineOptimalTone({
+            purpose: params.purpose,
+            intent: params.intent,
+            contentType: params.contentType,
+            category: params.category,
+            hasAffiliateProducts: params.hasAffiliateProducts,
+            hasApplicationFlow: params.hasApplicationFlow,
+            isMonetizationFocused: params.intent === 'monetization' || params.hasAffiliateProducts || params.hasApplicationFlow
+        });
     // 1. Get Writer Prompt (Highest Priority)
     const writer = params.writerId 
         ? getAuthorForCategory(params.category) // Use provided writer or default for category
@@ -408,6 +432,9 @@ function buildUserPrompt(params: {
     categoryRequiredSections: string[];
     targetAudience: string;
     wordCount: number;
+    tone?: string;
+    purpose?: ContentPurpose;
+    intent?: ContentIntent;
 }): string {
     // Replace basic template variables
     let prompt = params.template
@@ -444,6 +471,17 @@ function buildUserPrompt(params: {
     
     // Add word count requirement
     prompt += `\n\nWORD COUNT REQUIREMENT: Minimum ${params.wordCount} words. This is mandatory, not a suggestion.`;
+    
+    // Add tone-specific reminders
+    if (params.tone) {
+        if (params.purpose === 'persuasive' || params.intent === 'monetization') {
+            prompt += `\n\nIMPORTANT: This content should drive action. Include clear CTAs, highlight value proposition, and make it easy for readers to apply or take the next step.`;
+        }
+        
+        if (params.purpose === 'educational' || params.intent === 'education') {
+            prompt += `\n\nIMPORTANT: This content should educate and inform. Focus on explaining concepts clearly, use examples, and help readers understand rather than sell.`;
+        }
+    }
     
     return prompt;
 }
