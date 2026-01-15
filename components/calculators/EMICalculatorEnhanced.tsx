@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -78,8 +78,8 @@ export function EMICalculatorEnhanced() {
     };
 
     const emiChartData = [
-        { name: 'Principal', value: emiLoan, color: '#3b82f6' },
-        { name: 'Interest', value: emiResult.totalInterest, color: '#2563eb' },
+        { name: 'Principal', value: emiLoan, color: '#0ea5e9' }, // secondary-500
+        { name: 'Interest', value: emiResult.totalInterest, color: '#0284c7' }, // secondary-600
     ];
 
     return (

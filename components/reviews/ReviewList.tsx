@@ -104,7 +104,7 @@ export default function ReviewList({ productSlug, refreshTrigger }: ReviewListPr
           {(review.pros?.length || 0) > 0 && (
              <div className="mt-2 flex flex-wrap gap-2">
                {review.pros!.slice(0,3).map(p => (
-                 <span key={p} className="text-xs text-success-700 bg-success-50 dark:bg-emerald-900/20 dark:text-emerald-400 px-2 py-1 rounded-md border border-success-100 dark:border-emerald-800">
+                 <span key={p} className="text-xs text-success-700 bg-success-50 dark:bg-success-900/20 dark:text-success-400 px-2 py-1 rounded-md border border-success-100 dark:border-success-800">
                    + {p}
                  </span>
                ))}

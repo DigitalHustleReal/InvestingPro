@@ -54,11 +54,11 @@ export default function CategoryHero({
             button: "bg-primary-600 hover:bg-primary-700 text-white"
         },
         secondary: {
-            gradient: "from-green-600 via-emerald-500 to-green-600",
-            bg: "bg-green-50 dark:bg-green-950/20",
-            border: "border-green-200 dark:border-green-800",
-            text: "text-green-700 dark:text-green-300",
-            button: "bg-green-600 hover:bg-green-700 text-white"
+            gradient: "from-success-600 via-success-500 to-success-600",
+            bg: "bg-success-50 dark:bg-success-950/20",
+            border: "border-success-200 dark:border-success-800",
+            text: "text-success-700 dark:text-success-300",
+            button: "bg-success-600 hover:bg-success-700 text-white"
         },
         neutral: {
             gradient: "from-slate-700 via-slate-600 to-slate-700",

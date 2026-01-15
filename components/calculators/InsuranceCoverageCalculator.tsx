@@ -235,12 +235,12 @@ export default function InsuranceCoverageCalculator() {
               </div>
 
               {/* Estimated Premium */}
-              <div className="p-5 bg-success-50 dark:bg-emerald-900/20 border-2 border-emerald-200 dark:border-emerald-800 rounded-xl">
+              <div className="p-5 bg-success-50 dark:bg-success-900/20 border-2 border-success-200 dark:border-success-800 rounded-xl">
                 <div className="flex items-center gap-2 mb-1">
-                  <DollarSign className="w-4 h-4 text-success-600 dark:text-emerald-400" />
-                  <p className="text-xs font-semibold text-success-700 dark:text-emerald-400 uppercase tracking-wider">Estimated Annual Premium</p>
+                  <DollarSign className="w-4 h-4 text-success-600 dark:text-success-400" />
+                  <p className="text-xs font-semibold text-success-700 dark:text-success-400 uppercase tracking-wider">Estimated Annual Premium</p>
                 </div>
-                <p className="text-2xl font-bold text-success-700 dark:text-emerald-300">{formatCurrency(result.estimatedAnnualPremium)}</p>
+                <p className="text-2xl font-bold text-success-700 dark:text-success-300">{formatCurrency(result.estimatedAnnualPremium)}</p>
                 <p className="text-xs text-success-600 dark:text-success-500 mt-1">Based on your age group</p>
               </div>
             </div>

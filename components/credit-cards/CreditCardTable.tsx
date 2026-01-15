@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { DataTable } from '@/components/data-table/DataTable';
 import { ColumnDef } from '@/components/data-table/types';
@@ -22,7 +22,7 @@ export function CreditCardTable({ cards }: CreditCardTableProps) {
             accessor: (row) => (
                 <div className="flex flex-col gap-2 min-w-[280px]">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-blue-500 flex items-center justify-center text-white shadow-md">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center text-white shadow-md">
                             <CardIcon className="w-5 h-5" />
                         </div>
                         <div className="flex-1">
@@ -147,7 +147,7 @@ export function CreditCardTable({ cards }: CreditCardTableProps) {
                 const bestFor = row.best_for || row.bestFor || 'General';
                 const badgeColors: Record<string, string> = {
                     'Travel': 'bg-secondary-100 text-secondary-700 border-secondary-200',
-                    'Cashback': 'bg-success-100 text-success-700 border-emerald-200',
+                    'Cashback': 'bg-success-100 text-success-700 border-success-200',
                     'Premium': 'bg-accent-100 text-accent-700 border-accent-200',
                     'Rewards': 'bg-primary-100 text-primary-700 border-primary-200',
                     'General': 'bg-slate-100 text-slate-700 border-slate-200'
