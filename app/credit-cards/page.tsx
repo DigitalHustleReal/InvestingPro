@@ -4,13 +4,8 @@
 import React, { useState, useEffect } from 'react';
 import {
     Search,
-    CreditCard as CardIcon,
-    Zap,
     Sparkles,
-    Plane,
-    ShoppingBag,
-    ArrowRight,
-    BookOpen
+    ArrowRight
 } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/Button";
