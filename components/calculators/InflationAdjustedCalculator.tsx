@@ -205,7 +205,7 @@ export function InflationAdjustedCalculator() {
                                     <Legend />
                                     <Line type="monotone" dataKey="nominal" stroke="#0d9488" strokeWidth={2} name="Nominal Value" />
                                     <Line type="monotone" dataKey="real" stroke="#14b8a6" strokeWidth={2} name="Real Value (Inflation Adjusted)" />
-                                    <Line type="monotone" dataKey="inflation" stroke="#2563eb" strokeWidth={2} strokeDasharray="5 5" name="Inflation Impact" />
+                                    <Line type="monotone" dataKey="inflation" stroke="#0ea5e9" strokeWidth={2} strokeDasharray="5 5" name="Inflation Impact" /> {/* secondary-500 */}
                                 </LineChart>
                             </ResponsiveContainer>
                         </div>
