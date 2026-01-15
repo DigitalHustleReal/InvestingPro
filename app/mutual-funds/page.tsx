@@ -227,8 +227,8 @@ export default function MutualFundsPage() {
         <PageErrorBoundary pageName="Mutual Funds Page">
             <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-20 transition-colors duration-300">
                 <SEOHead
-                    title="Direct Mutual Funds: High-Fidelity Performance Analysis | InvestingPro"
-                    description="Compare 5,000+ mutual funds with raw data, risk-adjusted scores, and expert picking algorithms. Institutional grade fund analysis for Indian investors."
+                    title="Find Your Perfect Mutual Fund - Compare & Start SIP Instantly | InvestingPro"
+                    description="Compare 1000+ mutual funds. Get personalized recommendations based on your goals, risk profile, and timeline. Make smart decisions and start SIP instantly."
                     structuredData={structuredData}
                 />
 
@@ -240,12 +240,34 @@ export default function MutualFundsPage() {
                      <AutoBreadcrumbs />
                      <CategoryHeroCarousel slides={MF_SLIDES} className="mb-12 shadow-2xl" />
                      
-                     <div className="relative group max-w-xl mx-auto -mt-20 z-20">
+                     {/* Decision Engine CTA - Prominent */}
+                     <div className="max-w-4xl mx-auto mb-12 relative z-20 -mt-20">
+                         <div className="bg-gradient-to-r from-green-600 to-emerald-500 rounded-2xl p-8 text-white shadow-2xl">
+                             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                                 <div className="flex-1">
+                                     <div className="flex items-center gap-2 mb-3">
+                                         <Sparkles className="w-6 h-6" />
+                                         <span className="text-sm font-semibold uppercase tracking-wider text-green-100">Decision Engine</span>
+                                     </div>
+                                     <h2 className="text-2xl md:text-3xl font-bold mb-2">Find Your Perfect Mutual Fund</h2>
+                                     <p className="text-green-100 text-lg">Get personalized recommendations based on your investment goals, risk profile, and timeline. Compare and start SIP instantly.</p>
+                                 </div>
+                                 <Link href="/mutual-funds/find-your-fund">
+                                     <Button size="lg" className="bg-white text-green-700 font-bold hover:bg-green-50 h-14 px-8 text-lg">
+                                         Find My Perfect Fund
+                                         <ArrowRight className="w-5 h-5 ml-2" />
+                                     </Button>
+                                 </Link>
+                             </div>
+                         </div>
+                     </div>
+
+                     <div className="relative group max-w-xl mx-auto mb-12 z-20">
                         <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
                             <Search className="h-5 w-5 text-slate-400 group-focus-within:text-primary- transition-colors" />
                         </div>
                         <Input
-                            placeholder="Search by fund name, AMC, or category..."
+                            placeholder="Search funds (e.g. 'HDFC Equity', 'Large Cap')..."
                             className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white border border-slate-200 text-slate-900 placeholder:text-slate-500 focus:border-primary- focus:ring-2 focus:ring-primary-/20 transition-all shadow-xl"
                             value={searchTerm}
                             onChange={(e) => {
