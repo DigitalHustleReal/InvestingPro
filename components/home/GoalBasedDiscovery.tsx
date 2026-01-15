@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from 'next/link';
 import { Card, CardContent } from "@/components/ui/card";
@@ -51,9 +51,9 @@ const goals = [
         icon: Shield,
         title: "Protect My Family",
         description: "Find the best life, health, and term insurance plans",
-        color: "text-rose-600",
-        bg: "bg-rose-50",
-        border: "border-rose-200",
+        color: "text-danger-600",
+        bg: "bg-danger-50",
+        border: "border-danger-200",
         href: "/insurance",
         cta: "Compare Insurance",
         features: ["Premium Calculator", "Coverage Guide", "Claim Process"]

@@ -353,7 +353,7 @@ export function Footer() {
                                 {/* Centered India Badge - The Heart of the App */}
                                 <div className="order-1 md:order-2 flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-800/50 border border-slate-700/50 hover:bg-slate-800 transition-colors cursor-default">
                                     <span className="text-xs font-medium text-slate-300 flex items-center gap-1.5">
-                                        Made with <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" /> in India
+                                        Made with <Heart className="w-3.5 h-3.5 text-danger-500 fill-danger-500" /> in India
                                     </span>
                                 </div>
 
