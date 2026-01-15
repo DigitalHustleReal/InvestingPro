@@ -16,7 +16,7 @@ export default function TermsOfServicePage() {
             Terms of Service
           </h1>
           <p className="text-slate-600 dark:text-slate-400 mb-8">
-            Last updated: January 16, 2026
+            Last updated: January 23, 2026
           </p>
 
           <div className="prose dark:prose-invert max-w-none space-y-6">
