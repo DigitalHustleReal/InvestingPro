@@ -45,7 +45,7 @@ const FUND_CATEGORIES = ["All", "Equity", "Debt", "Hybrid", "ELSS", "Index"];
 
 const riskColors: Record<string, string> = {
     "Low": "bg-success-50 text-success-700 border-success-100",
-    "Low to Moderate": "bg-primary- text-primary- border-primary-",
+    "Low to Moderate": "bg-primary-50 text-primary-700 border-primary-100",
     "Moderate": "bg-secondary-50 text-secondary-700 border-secondary-100",
     "Moderately High": "bg-accent-50 text-accent-700 border-accent-100",
     "High": "bg-accent-50 text-accent-700 border-accent-100",
@@ -486,7 +486,7 @@ export default function MutualFundsPage() {
                     </div>
 
                     {/* 2. Visual Guide Placeholder (Canva) */}
-                    <div className="bg-gradient-to-br from-primary-600 to-blue-600 dark:from-primary-500 dark:to-blue-500 rounded-[3rem] overflow-hidden relative mb-24 text-white shadow-2xl shadow-primary-500/20">
+                    <div className="bg-gradient-to-br from-primary-600 to-secondary-600 dark:from-primary-500 dark:to-secondary-500 rounded-[3rem] overflow-hidden relative mb-24 text-white shadow-2xl shadow-primary-500/20">
                         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
                         <div className="flex flex-col md:flex-row items-center">
                             <div className="p-12 md:p-20 md:w-1/2 relative z-10">

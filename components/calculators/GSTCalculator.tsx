@@ -68,8 +68,8 @@ export function GSTCalculator() {
     };
 
     const chartData = [
-        { name: 'Base Amount', value: result.baseAmount, color: '#3b82f6' },
-        { name: 'GST', value: result.gstAmount, color: '#10b981' },
+        { name: 'Base Amount', value: result.baseAmount, color: '#0ea5e9' }, // secondary-500
+        { name: 'GST', value: result.gstAmount, color: '#10b981' }, // success-500
     ];
 
     return (
