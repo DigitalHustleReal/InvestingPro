@@ -14,22 +14,22 @@ import { useNavigation } from "@/contexts/NavigationContext";
 const HERO_SLIDES = [
     {
         id: "all",
-        badge: "Independent • Unbiased • Expert-Reviewed",
-        headline: "Find Your Perfect Financial Product",
-        highlight: "In 30 Seconds",
-        desc: `Compare ${STAT_STRINGS.coverage} — find the best match for your needs.`,
+        badge: "Helps You Decide • Expert-Reviewed • Instant Apply",
+        headline: "Compare 1000+ Credit Cards",
+        highlight: "& Mutual Funds",
+        desc: `India's Decision-Making Platform. Make smart financial decisions with real-time comparisons and instant application links.`,
         gradient: "from-primary-600 via-primary-500 to-secondary-500",
-        primaryCta: { text: "Compare Cards", href: "/credit-cards", icon: CreditCard },
-        secondaryCta: { text: "Calculators", href: "/calculators", icon: Calculator }
+        primaryCta: { text: "Find Your Perfect Card", href: "/credit-cards", icon: CreditCard },
+        secondaryCta: { text: "Start Investing", href: "/mutual-funds", icon: Calculator }
     },
     {
         id: "credit-cards",
-        badge: "Rewards • Cashback • Lounge Access",
-        headline: "Maximize Your Spends",
-        highlight: "With Best Cards",
-        desc: "100+ cards compared. Find lifetime free, max cashback & travel perks.",
+        badge: "Helps You Decide • Instant Apply",
+        headline: "Find Your Perfect",
+        highlight: "Credit Card",
+        desc: "Compare 1000+ cards. Get spending-based recommendations, lifestyle matching, and instant application links.",
         gradient: "from-secondary-600 via-secondary-500 to-primary-500",
-        primaryCta: { text: "Compare Cards", href: "/credit-cards", icon: CreditCard },
+        primaryCta: { text: "Find Your Perfect Card", href: "/credit-cards", icon: CreditCard },
         secondaryCta: { text: "Check Eligibility", href: "/credit-cards/check-eligibility", icon: Shield }
     },
     {
@@ -54,13 +54,13 @@ const HERO_SLIDES = [
     },
     {
         id: "investing",
-        badge: "Mutual Funds • FDs • SIPs",
-        headline: "Grow Your Wealth",
-        highlight: "Smartly",
-        desc: "Zero commission funds, high-yield FDs. Beat inflation.",
+        badge: "Helps You Decide • Goal-Based • Instant SIP",
+        headline: "Start Your Investment",
+        highlight: "Journey",
+        desc: "Compare 1000+ mutual funds. Get goal-based recommendations, risk-profiled matching, and instant SIP setup.",
         gradient: "from-secondary-600 via-secondary-500 to-secondary-400",
-        primaryCta: { text: "Start Investing", href: "/mutual-funds", icon: TrendingUp },
-        secondaryCta: { text: "SIP Calculator", href: "/calculators/sip", icon: Calculator }
+        primaryCta: { text: "Start Your Investment Journey", href: "/mutual-funds", icon: TrendingUp },
+        secondaryCta: { text: "Find Your Fund", href: "/mutual-funds/find-your-fund", icon: Calculator }
     },
     {
         id: "tools",

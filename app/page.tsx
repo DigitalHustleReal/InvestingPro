@@ -29,7 +29,7 @@ export default function Home() {
         "@context": "https://schema.org",
         "@type": "Organization", // Changed from FinancialService
         "name": "InvestingPro.in",
-        "description": "India's Best Financial Platform. Compare investments, access terminal-grade tools, and optimize your wealth.",
+        "description": "India's Decision-Making Platform for Credit Cards & Investments. Compare, decide, and apply instantly.",
         "url": "https://investingpro.in",
         "aggregateRating": STRUCTURED_DATA_STATS.aggregateRating // Using imported constant
     };
@@ -37,8 +37,8 @@ export default function Home() {
     return (
         <main className="flex flex-col min-h-screen bg-white">
             <SEOHead
-                title="InvestingPro - Find Your Perfect Financial Product In 30 Seconds"
-                description={STAT_STRINGS.fullDescription} // Using imported constant
+                title="InvestingPro - Compare 1000+ Credit Cards & Mutual Funds. Make Smart Decisions. Apply Instantly."
+                description="India's Decision-Making Platform for Credit Cards & Investments. Compare, decide, and apply instantly with real-time comparisons, expert reviews, and instant application links."
                 structuredData={structuredData}
             />
 
