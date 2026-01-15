@@ -5,7 +5,8 @@ import React, { useState, useEffect } from 'react';
 import {
     Search,
     Sparkles,
-    ArrowRight
+    ArrowRight,
+    Zap
 } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/Button";
