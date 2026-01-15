@@ -27,36 +27,6 @@ import ContextualNewsWidget from '@/components/news/ContextualNewsWidget';
 import RatesWidget from '@/components/rates/RatesWidget';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 
-const HERO_SLIDES = [
-    {
-        id: '1',
-        title: "Find Your Perfect Credit Card",
-        subtitle: "Decision-Focused Recommendations",
-        description: "Get personalized card recommendations based on your spending pattern, lifestyle, and eligibility. Compare and apply instantly.",
-        ctaText: "Find My Perfect Card",
-        ctaLink: "/credit-cards/find-your-card",
-        color: "from-primary-600 to-primary-500"
-    },
-    {
-        id: '2',
-        title: "Compare 1000+ Credit Cards",
-        subtitle: "Make Smart Decisions",
-        description: "Compare cards side-by-side. See fees, rewards, and benefits. Apply instantly with our affiliate partners.",
-        ctaText: "Compare Cards",
-        ctaLink: "#compare",
-        color: "from-slate-900 to-slate-800"
-    },
-    {
-        id: '3',
-        title: "Lifetime Free Cards",
-        subtitle: "Zero Annual Fees",
-        description: "Find cards with no annual fees. Perfect for maximizing rewards without paying fees.",
-        ctaText: "Find Free Cards",
-        ctaLink: "?type=lifetime_free",
-        color: "from-emerald-900 to-slate-900"
-    }
-];
-
 const CreditCardsPage = () => {
     const [assets, setAssets] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
