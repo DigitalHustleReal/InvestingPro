@@ -1,4 +1,4 @@
-﻿
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -198,11 +198,13 @@ const CreditCardsPage = () => {
                                     <div className="h-10 w-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center mb-4">
                                         <Zap className="w-6 h-6 text-accent-300" />
                                     </div>
-                                    <h3 className="font-bold text-lg mb-2">Not sure which card?</h3>
-                                    <p className="text-primary-100 text-sm mb-4">Take our 30-second quiz to find your perfect financial match.</p>
-                                    <Button size="sm" className="w-full bg-white text-primary-700 font-bold hover:bg-primary-50">
-                                        Start Quiz
-                                    </Button>
+                                    <h3 className="font-bold text-lg mb-2">Find Your Perfect Card</h3>
+                                    <p className="text-primary-100 text-sm mb-4">Get personalized recommendations based on your spending, lifestyle, and eligibility.</p>
+                                    <Link href="/credit-cards/find-your-card">
+                                        <Button size="sm" className="w-full bg-white text-primary-700 font-bold hover:bg-primary-50">
+                                            Find My Card
+                                        </Button>
+                                    </Link>
                                 </div>
                             </div>
                             
