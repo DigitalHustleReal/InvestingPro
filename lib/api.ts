@@ -206,12 +206,14 @@ export const api = {
              */
             InvokeLLM: async ({ 
                 prompt, 
+                systemPrompt: customSystemPrompt,
                 contextData, 
                 citations,
                 operation = 'general',
                 dataSources = []
             }: { 
                 prompt: string;
+                systemPrompt?: string;
                 contextData?: any; 
                 citations?: string[]; 
                 operation?: string;
@@ -220,7 +222,8 @@ export const api = {
                 if (FORBIDDEN_AI_OPERATIONS.includes(operation)) {
                     throw new Error(`Operation "${operation}" is forbidden.`);
                 }
-                const systemPrompt = generateSystemPrompt(operation);
+                // Use custom system prompt if provided (from dynamic prompt builder), otherwise generate default
+                const systemPrompt = customSystemPrompt || generateSystemPrompt(operation);
                 const enhancedPrompt = contextData 
                     ? `${prompt}\n\nVerified Data:\n${JSON.stringify(contextData, null, 2)}`
                     : prompt;

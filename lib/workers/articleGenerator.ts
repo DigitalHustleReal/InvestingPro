@@ -4,6 +4,48 @@ import { logger } from '@/lib/logger';
 import { normalizeArticleBody } from '@/lib/content/normalize';
 import { htmlToMarkdown } from '@/lib/editor/markdown';
 
+/**
+ * Detect subcategory from topic and category (for worker)
+ */
+function detectSubcategoryForWorker(topic: string, category: string): string | undefined {
+    const text = topic.toLowerCase();
+    
+    if (category === 'credit-cards') {
+        if (text.includes('travel') || text.includes('lounge') || text.includes('miles')) return 'travel';
+        if (text.includes('cashback') || text.includes('cash back')) return 'cashback';
+        if (text.includes('premium') || text.includes('concierge')) return 'premium';
+        if (text.includes('reward') || text.includes('points')) return 'rewards';
+        if (text.includes('shopping') || text.includes('online')) return 'shopping';
+        if (text.includes('fuel') || text.includes('petrol') || text.includes('diesel')) return 'fuel';
+        if (text.includes('free') || text.includes('lifetime free')) return 'lifetime_free';
+    }
+    
+    if (category === 'mutual-funds') {
+        if (text.includes('equity') || text.includes('stock')) return 'equity';
+        if (text.includes('debt') || text.includes('bond')) return 'debt';
+        if (text.includes('hybrid') || text.includes('balanced')) return 'hybrid';
+        if (text.includes('elss') || text.includes('tax saving')) return 'elss';
+        if (text.includes('large cap') || text.includes('large-cap')) return 'large-cap';
+        if (text.includes('mid cap') || text.includes('mid-cap')) return 'mid-cap';
+        if (text.includes('small cap') || text.includes('small-cap')) return 'small-cap';
+    }
+    
+    if (category === 'loans') {
+        if (text.includes('personal')) return 'personal';
+        if (text.includes('home') || text.includes('housing')) return 'home';
+        if (text.includes('car') || text.includes('vehicle') || text.includes('auto')) return 'car';
+        if (text.includes('education') || text.includes('student')) return 'education';
+    }
+    
+    if (category === 'insurance') {
+        if (text.includes('term')) return 'term';
+        if (text.includes('health') || text.includes('medical')) return 'health';
+        if (text.includes('life') && !text.includes('term')) return 'life';
+    }
+    
+    return undefined;
+}
+
 export interface ArticleGenerationParams {
     topic: string;
     category?: string;
@@ -75,8 +117,67 @@ export async function generateArticleContent(params: ArticleGenerationParams): P
             confidence: 0.8
         }];
 
-        // Build structured prompt
-        const structuredPrompt = prompt || `
+        // Try dynamic prompt builder (Phase 4 integration)
+        let systemPrompt: string | undefined;
+        let userPrompt: string;
+        
+        try {
+            const { buildDynamicPrompt, type ContentType } = await import('@/lib/ai/dynamic-prompt-builder');
+            const { isValidCategory, type FinanceCategory } = await import('@/lib/prompts/category-prompts');
+            
+            // Map category to finance category
+            const categoryMap: Record<string, FinanceCategory> = {
+                'credit-cards': 'credit-cards',
+                'mutual-funds': 'mutual-funds',
+                'loans': 'loans',
+                'insurance': 'insurance',
+                'tax-planning': 'tax',
+                'taxes': 'tax',
+                'stocks': 'stocks',
+                'banking': 'banking',
+                'investing-basics': 'investing-basics',
+                'investing': 'investing-basics'
+            };
+            
+            const financeCategory = category && isValidCategory(categoryMap[category] || category as FinanceCategory)
+                ? (categoryMap[category] || category as FinanceCategory)
+                : 'investing-basics';
+            
+            // Determine content type
+            const contentType: ContentType = 
+                topic.toLowerCase().includes('vs') || topic.toLowerCase().includes('comparison') ? 'comparison' :
+                topic.toLowerCase().includes('how to') || topic.toLowerCase().includes('guide') ? 'howto' :
+                topic.toLowerCase().includes('top') || topic.toLowerCase().includes('best') ? 'listicle' :
+                'ultimate';
+            
+            // Detect subcategory
+            const subcategory = detectSubcategoryForWorker(topic, financeCategory);
+            
+            // Build dynamic prompt
+            const dynamicPrompt = await buildDynamicPrompt({
+                contentType,
+                category: financeCategory,
+                subcategory,
+                topic,
+                keywords: targetKeywords,
+                targetAudience,
+                wordCount
+            });
+            
+            systemPrompt = dynamicPrompt.systemPrompt;
+            userPrompt = dynamicPrompt.userPrompt;
+            
+            logger.info('Using dynamic prompt builder', {
+                category: financeCategory,
+                subcategory,
+                contentType,
+                writer: dynamicPrompt.metadata.writer
+            });
+        } catch (error) {
+            // Fallback to simple prompt
+            logger.warn('Dynamic prompt builder failed, using fallback', { error });
+            systemPrompt = undefined;
+            userPrompt = prompt || `
 Generate a comprehensive article about: ${topic}
 
 Category: ${category}
@@ -116,16 +217,18 @@ CRITICAL: You MUST respond with ONLY valid JSON in this exact structure:
 Return ONLY valid JSON.
 `;
 
-        // Invoke AI
+        // Invoke AI with dynamic prompts
         const generatedContent = await api.integrations.Core.InvokeLLM({
-            prompt: structuredPrompt,
+            prompt: userPrompt,
+            systemPrompt: systemPrompt, // Pass system prompt if available
             operation: 'summarize_factual_data', // Using summarize for now as it's a allowed op
             dataSources,
             contextData: {
                 topic,
                 category,
                 targetKeywords,
-                targetAudience
+                targetAudience,
+                usesDynamicPrompts: !!systemPrompt
             }
         });
 

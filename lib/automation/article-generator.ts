@@ -37,11 +37,70 @@ function getSupabaseClient() {
     return supabaseClient;
 }
 
-// High-Authority Article Prompt
+// High-Authority Article Prompt with Dynamic Prompt Builder
 import { promptService } from '@/lib/ai/prompt-service';
+import { buildDynamicPrompt, type ContentType } from '@/lib/ai/dynamic-prompt-builder';
+import { isValidCategory, type FinanceCategory } from '@/lib/prompts/category-prompts';
 
-async function getArticlePrompt(topic: string, brief?: ResearchBrief): Promise<string> {
-    // Try to fetch from DB
+async function getArticlePrompt(
+    topic: string, 
+    category?: string,
+    contentType: ContentType = 'ultimate',
+    subcategory?: string,
+    brief?: ResearchBrief
+): Promise<{ systemPrompt: string; userPrompt: string }> {
+    // Determine category - map article categories to finance categories
+    const categoryMap: Record<string, FinanceCategory> = {
+        'credit-cards': 'credit-cards',
+        'mutual-funds': 'mutual-funds',
+        'loans': 'loans',
+        'insurance': 'insurance',
+        'tax-planning': 'tax',
+        'taxes': 'tax',
+        'stocks': 'stocks',
+        'banking': 'banking',
+        'investing-basics': 'investing-basics',
+        'investing': 'investing-basics',
+        'personal-finance': 'investing-basics'
+    };
+    
+    const financeCategory = category && isValidCategory(categoryMap[category] || category as FinanceCategory)
+        ? (categoryMap[category] || category as FinanceCategory)
+        : 'investing-basics';
+    
+    // Try dynamic prompt builder first (Phase 3 implementation)
+    try {
+        const dynamicPrompt = await buildDynamicPrompt({
+            contentType,
+            category: financeCategory,
+            subcategory,
+            topic,
+            keywords: brief?.keywords || [],
+            targetAudience: 'general',
+            wordCount: brief?.recommended_word_count || 2000
+        });
+        
+        // Append research brief if available
+        let userPrompt = dynamicPrompt.userPrompt;
+        if (brief) {
+            userPrompt += `\n\nCOMPETITIVE INTELLIGENCE (BEAT THESE GAPS):
+            - **MISSING IN COMPETITORS**: ${brief.content_gaps.join("; ")}.
+            - **MANDATORY STATS**: ${brief.key_statistics.join("; ")}.
+            - **UNIQUE ANGLE**: ${brief.unique_angle}.
+            
+            Ensure you cover these gaps to make this the #1 article on Google.`;
+        }
+        
+        return {
+            systemPrompt: dynamicPrompt.systemPrompt,
+            userPrompt: userPrompt
+        };
+    } catch (error) {
+        // Fallback to old system if dynamic builder fails
+        console.warn('Dynamic prompt builder failed, falling back to legacy system:', error);
+    }
+    
+    // Fallback: Try to fetch from DB
     const dbPrompt = await promptService.getPrompt('article-generator');
     
     if (dbPrompt) {
@@ -75,7 +134,11 @@ async function getArticlePrompt(topic: string, brief?: ResearchBrief): Promise<s
         }
         
         promptText += `\nGenerate the extensive, high-quality article now.`;
-        return promptText;
+        
+        return {
+            systemPrompt: dbPrompt.system_prompt || 'You are an expert financial writer.',
+            userPrompt: promptText
+        };
     }
 
     // Fallback to Hardcoded Prompt (Original High-Quality Prompt)
@@ -178,16 +241,43 @@ async function getArticlePrompt(topic: string, brief?: ResearchBrief): Promise<s
 }
 
 // AI Generation with foolproof failover
-async function generateWithAI(topic: string, brief?: ResearchBrief, logFn: (msg: string) => void = console.log): Promise<string> {
+async function generateWithAI(
+    topic: string, 
+    category?: string,
+    contentType: ContentType = 'ultimate',
+    subcategory?: string,
+    brief?: ResearchBrief, 
+    logFn: (msg: string) => void = console.log
+): Promise<string> {
     // USE RELATIVE PATH to avoid @ alias issues in tsx/node scripts
     const { api } = await import('../api');
     
     try {
-        logFn(`🔵 Initializing Foolproof Generation Relay...`);
+        logFn(`🔵 Initializing Foolproof Generation Relay with Dynamic Prompts...`);
+        
+        // Get dynamic prompts (Phase 3 implementation)
+        const prompts = await getArticlePrompt(topic, category, contentType, subcategory, brief);
+        
+        logFn(`📝 Using dynamic prompts - Writer: ${category || 'default'}, Category: ${category || 'investing-basics'}, Subcategory: ${subcategory || 'none'}, Content-Type: ${contentType}`);
+        
+        // Invoke LLM with system and user prompts
         const result = await api.integrations.Core.InvokeLLM({
-            prompt: await getArticlePrompt(topic, brief),
+            prompt: prompts.userPrompt,
+            systemPrompt: prompts.systemPrompt, // Pass system prompt if API supports it
             operation: 'generate_article',
-            contextData: { topic, brief }
+            contextData: { 
+                topic, 
+                category,
+                contentType,
+                subcategory,
+                brief,
+                promptMetadata: {
+                    writer: category || 'default',
+                    category: category || 'investing-basics',
+                    subcategory: subcategory || 'none',
+                    contentType
+                }
+            }
         });
 
         if (!result || !result.content) {
@@ -240,6 +330,48 @@ function detectClassification(title: string, content: string): { category: strin
     if (text.includes('money')) tags.push('personal-finance');
 
     return { category, tags };
+}
+
+/**
+ * Detect subcategory from topic and category
+ */
+function detectSubcategory(topic: string, category: string): string | undefined {
+    const text = topic.toLowerCase();
+    
+    if (category === 'credit-cards') {
+        if (text.includes('travel') || text.includes('lounge') || text.includes('miles')) return 'travel';
+        if (text.includes('cashback') || text.includes('cash back')) return 'cashback';
+        if (text.includes('premium') || text.includes('concierge')) return 'premium';
+        if (text.includes('reward') || text.includes('points')) return 'rewards';
+        if (text.includes('shopping') || text.includes('online')) return 'shopping';
+        if (text.includes('fuel') || text.includes('petrol') || text.includes('diesel')) return 'fuel';
+        if (text.includes('free') || text.includes('lifetime free')) return 'lifetime_free';
+    }
+    
+    if (category === 'mutual-funds') {
+        if (text.includes('equity') || text.includes('stock')) return 'equity';
+        if (text.includes('debt') || text.includes('bond')) return 'debt';
+        if (text.includes('hybrid') || text.includes('balanced')) return 'hybrid';
+        if (text.includes('elss') || text.includes('tax saving')) return 'elss';
+        if (text.includes('large cap') || text.includes('large-cap')) return 'large-cap';
+        if (text.includes('mid cap') || text.includes('mid-cap')) return 'mid-cap';
+        if (text.includes('small cap') || text.includes('small-cap')) return 'small-cap';
+    }
+    
+    if (category === 'loans') {
+        if (text.includes('personal')) return 'personal';
+        if (text.includes('home') || text.includes('housing')) return 'home';
+        if (text.includes('car') || text.includes('vehicle') || text.includes('auto')) return 'car';
+        if (text.includes('education') || text.includes('student')) return 'education';
+    }
+    
+    if (category === 'insurance') {
+        if (text.includes('term')) return 'term';
+        if (text.includes('health') || text.includes('medical')) return 'health';
+        if (text.includes('life') && !text.includes('term')) return 'life';
+    }
+    
+    return undefined;
 }
 
 /**
@@ -373,7 +505,25 @@ export async function generateArticleCore(
             // 1. Generate Content (with uniqueness enhancement on retries)
             logFn('1️⃣ Generating article with AI...');
             const enhancedBrief = attempt > 1 ? enhanceForUniqueness(brief, attempt) : brief;
-            const rawResponse = await generateWithAI(topic, enhancedBrief, logFn);
+            // Detect category and subcategory from topic/brief
+            const detectedCategory = detectClassification(topic, '').category;
+            const subcategory = detectSubcategory(topic, detectedCategory);
+            
+            // Determine content type from topic
+            const contentType: ContentType = 
+                topic.toLowerCase().includes('vs') || topic.toLowerCase().includes('comparison') ? 'comparison' :
+                topic.toLowerCase().includes('how to') || topic.toLowerCase().includes('guide') ? 'howto' :
+                topic.toLowerCase().includes('top') || topic.toLowerCase().includes('best') ? 'listicle' :
+                'ultimate';
+            
+            const rawResponse = await generateWithAI(
+                topic, 
+                detectedCategory, 
+                contentType, 
+                subcategory, 
+                enhancedBrief, 
+                logFn
+            );
         
         let html = rawResponse;
         let aiImageKeywords = topic; 
