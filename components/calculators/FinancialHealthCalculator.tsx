@@ -116,10 +116,10 @@ export function FinancialHealthCalculator() {
     const emailFloat = (num: number) => parseFloat(num.toFixed(1));
 
     const getScoreColor = (score: number) => {
-        if (score >= 80) return "#059669"; // Emerald 600
-        if (score >= 60) return "#0d9488"; // Teal 600
-        if (score >= 40) return "#d97706"; // Amber 600
-        return "#dc2626"; // Red 600
+        if (score >= 80) return "#059669"; // success-600
+        if (score >= 60) return "#0d9488"; // primary-600
+        if (score >= 40) return "#d97706"; // accent-600
+        return "#dc2626"; // danger-600
     };
 
     const chartData = [
