@@ -307,8 +307,8 @@ export function LumpsumCalculatorWithInflation() {
                                 <AreaChart data={growthData}>
                                     <defs>
                                         <linearGradient id="colorLumpsum" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
-                                            <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+                                            <stop offset="5%" stopColor="#0ea5e9" stopOpacity={0.3} /> {/* secondary-500 */}
+                                            <stop offset="95%" stopColor="#0ea5e9" stopOpacity={0} />
                                         </linearGradient>
                                         <linearGradient id="colorLumpsumReal" x1="0" y1="0" x2="0" y2="1">
                                             <stop offset="5%" stopColor="#2563eb" stopOpacity={0.3} />
@@ -328,7 +328,7 @@ export function LumpsumCalculatorWithInflation() {
                                     />
                                     <Area type="monotone" dataKey="value" stroke="#14b8a6" fill="url(#colorLumpsum)" strokeWidth={2} name="Nominal" />
                                     {adjustForInflation && (
-                                        <Area type="monotone" dataKey="realValue" stroke="#2563eb" fill="url(#colorLumpsumReal)" strokeWidth={2} name="Real (Inflation Adjusted)" />
+                                        <Area type="monotone" dataKey="realValue" stroke="#0ea5e9" fill="url(#colorLumpsumReal)" strokeWidth={2} name="Real (Inflation Adjusted)" /> {/* secondary-500 */}
                                     )}
                                 </AreaChart>
                             </ResponsiveContainer>

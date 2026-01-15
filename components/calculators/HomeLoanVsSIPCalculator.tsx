@@ -90,8 +90,8 @@ export function HomeLoanVsSIPCalculator() {
             {
                 label: 'Cost of Loan (Interest Only)',
                 data: results.interestData,
-                borderColor: '#2563eb',
-                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                borderColor: '#0ea5e9', // secondary-500
+                backgroundColor: 'rgba(14, 165, 233, 0.1)', // secondary-500 with opacity
                 fill: true,
                 tension: 0.4
             },
