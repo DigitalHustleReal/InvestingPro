@@ -56,36 +56,6 @@ import CategoryHero from '@/components/common/CategoryHero';
 import ContextualNewsWidget from '@/components/news/ContextualNewsWidget';
 import RatesWidget from '@/components/rates/RatesWidget';
 
-const MF_SLIDES = [
-    {
-        id: '1',
-        title: "Find Your Perfect Mutual Fund",
-        subtitle: "Goal-Based Recommendations",
-        description: "Get personalized fund recommendations based on your investment goals, risk profile, and timeline. Start SIP instantly.",
-        ctaText: "Find My Perfect Fund",
-        ctaLink: "/mutual-funds/find-your-fund",
-        color: "from-green-600 to-emerald-500"
-    },
-    {
-        id: '2',
-        title: "Tax Saving ELSS",
-        subtitle: "Save â‚¹46,800",
-        description: "Invest in Equity Linked Savings Schemes and save tax under Section 80C. Best wealth creation + tax saving combo.",
-        ctaText: "Explore ELSS",
-        ctaLink: "?category=ELSS",
-        color: "from-emerald-900 to-slate-900"
-    },
-    {
-        id: '3',
-        title: "Start SIP at â‚¹500",
-        subtitle: "Beginner Friendly",
-        description: "You don't need a lot of money to start. Build wealth with small, disciplined monthly investments.",
-        ctaText: "Start SIP",
-        ctaLink: "#sip-calculator",
-        color: "from-purple-900 to-slate-900"
-    }
-];
-
 export default function MutualFundsPage() {
     const [viewMode, setViewMode] = useState<'grid' | 'table'>('table'); // Default to table for Pro users
 
