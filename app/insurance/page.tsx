@@ -37,6 +37,7 @@ import { LayoutGrid, Table as TableIcon } from 'lucide-react';
 import InsuranceCoverageCalculator from '@/components/calculators/InsuranceCoverageCalculator';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 import CategoryHero from '@/components/common/CategoryHero';
+import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
 
 export default function InsurancePage() {
     const [protectionScore, setProtectionScore] = useState(0);
@@ -533,6 +534,11 @@ export default function InsurancePage() {
                     </div>
 
                 </div>
+            </div>
+
+            {/* Compliance Disclaimer */}
+            <div className="container mx-auto px-4 pb-8">
+                <ComplianceDisclaimer variant="compact" />
             </div>
 
         </div>

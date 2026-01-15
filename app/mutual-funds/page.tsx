@@ -55,6 +55,7 @@ const riskColors: Record<string, string> = {
 import CategoryHero from '@/components/common/CategoryHero';
 import ContextualNewsWidget from '@/components/news/ContextualNewsWidget';
 import RatesWidget from '@/components/rates/RatesWidget';
+import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
 
 export default function MutualFundsPage() {
     const [viewMode, setViewMode] = useState<'grid' | 'table'>('table'); // Default to table for Pro users
@@ -531,6 +532,11 @@ export default function MutualFundsPage() {
                     </div>
 
                 </div>
+            </div>
+
+            {/* Compliance Disclaimer */}
+            <div className="container mx-auto px-4 pb-8">
+                <ComplianceDisclaimer variant="compact" />
             </div>
 
         </div>

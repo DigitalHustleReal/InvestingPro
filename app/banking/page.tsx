@@ -27,6 +27,7 @@ import Link from "next/link";
 import SEOHead from "@/components/common/SEOHead";
 import CategoryHero from '@/components/common/CategoryHero';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
+import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
 
 // Mock data for FD rates (in production, fetch from API)
 const fdRates = [
@@ -405,6 +406,11 @@ export default function BankingPage() {
                     </div>
                 </div>
             </section>
+
+            {/* Compliance Disclaimer */}
+            <div className="container mx-auto px-4 pb-8">
+                <ComplianceDisclaimer variant="compact" />
+            </div>
         </main>
     );
 }

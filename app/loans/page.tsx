@@ -36,6 +36,7 @@ import ContextualNewsWidget from '@/components/news/ContextualNewsWidget';
 import RatesWidget from '@/components/rates/RatesWidget';
 import CategoryHero from '@/components/common/CategoryHero';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
+import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
 
 export default function LoansPage() {
     // Calculator State
@@ -465,6 +466,11 @@ export default function LoansPage() {
                     </div>
 
                 </div>
+            </div>
+
+            {/* Compliance Disclaimer */}
+            <div className="container mx-auto px-4 pb-8">
+                <ComplianceDisclaimer variant="compact" />
             </div>
 
         </div>

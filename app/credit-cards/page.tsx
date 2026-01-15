@@ -26,6 +26,7 @@ import CategoryHero from '@/components/common/CategoryHero';
 import ContextualNewsWidget from '@/components/news/ContextualNewsWidget';
 import RatesWidget from '@/components/rates/RatesWidget';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
+import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
 
 const CreditCardsPage = () => {
     const [assets, setAssets] = useState<any[]>([]);
@@ -288,6 +289,11 @@ const CreditCardsPage = () => {
                 </div>
             </div>
                 </div>
+            </div>
+
+            {/* Compliance Disclaimer */}
+            <div className="container mx-auto px-4 pb-8">
+                <ComplianceDisclaimer variant="compact" />
             </div>
 
 
