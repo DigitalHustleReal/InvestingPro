@@ -26,7 +26,7 @@ export default function NewsletterSection() {
             </div>
 
             <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-success-600 mb-8 shadow-lg shadow-primary-500/25">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 mb-8 shadow-lg shadow-primary-500/25">
                     <Mail className="w-8 h-8 text-white" />
                 </div>
 
@@ -51,7 +51,7 @@ export default function NewsletterSection() {
                             <Button
                                 type="submit"
                                 size="lg"
-                                className="h-14 px-8 bg-gradient-to-r from-primary-500 to-success-500 hover:from-primary-600 hover:to-success-600 rounded-xl shadow-lg shadow-primary-500/25 border-0 text-white font-semibold"
+                                className="h-14 px-8 bg-gradient-to-r from-primary-500 to-primary-700 hover:from-primary-600 hover:to-primary-800 rounded-xl shadow-lg shadow-primary-500/25 border-0 text-white font-semibold"
                             >
                                 Subscribe
                                 <ArrowRight className="ml-2 w-5 h-5" />

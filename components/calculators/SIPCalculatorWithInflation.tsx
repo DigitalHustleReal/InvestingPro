@@ -180,15 +180,15 @@ export function SIPCalculatorWithInflation() {
                             <div className="grid grid-cols-3 gap-2 p-3 bg-slate-50 dark:bg-slate-800 rounded-lg mb-4">
                                 <div className="text-center">
                                     <p className="text-xs text-slate-500 mb-1">Monthly</p>
-                                    <p className="text-sm font-bold text-slate-900 dark:text-white dark:text-slate-100">{formatCurrency(monthlyInvestment)}</p>
+                                    <p className="text-sm font-bold text-slate-900 dark:text-white">{formatCurrency(monthlyInvestment)}</p>
                                 </div>
                                 <div className="text-center">
                                     <p className="text-xs text-slate-500 mb-1">Years</p>
-                                    <p className="text-sm font-bold text-slate-900 dark:text-white dark:text-slate-100">{years}</p>
+                                    <p className="text-sm font-bold text-slate-900 dark:text-white">{years}</p>
                                 </div>
                                 <div className="text-center">
                                     <p className="text-xs text-slate-500 mb-1">Return</p>
-                                    <p className="text-sm font-bold text-slate-900 dark:text-white dark:text-slate-100">{expectedReturn}%</p>
+                                    <p className="text-sm font-bold text-slate-900 dark:text-white">{expectedReturn}%</p>
                                 </div>
                             </div>
                             
@@ -612,7 +612,8 @@ export function SIPCalculatorWithInflation() {
                                     />
                                     <Area type="monotone" dataKey="value" stroke="#14b8a6" fill="url(#colormonthlyInvestment)" strokeWidth={2} name="Nominal" />
                                     {adjustForInflation && (
-                                        <Area type="monotone" dataKey="realValue" stroke="#0ea5e9" fill="url(#colormonthlyInvestmentReal)" strokeWidth={2} name="Real (Inflation Adjusted)" /> {/* secondary-500 */}
+                                        {/* secondary-500 */}
+                                        <Area type="monotone" dataKey="realValue" stroke="#0ea5e9" fill="url(#colormonthlyInvestmentReal)" strokeWidth={2} name="Real (Inflation Adjusted)" />
                                     )}
                                 </AreaChart>
                             </ResponsiveContainer>

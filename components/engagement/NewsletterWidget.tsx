@@ -68,7 +68,7 @@ export default function NewsletterWidget({
                 <Button 
                     type="submit" 
                     disabled={status === 'loading' || status === 'success'}
-                    className="h-12 px-6 bg-gradient-to-r from-primary-500 to-success-600 hover:from-primary-400 hover:to-success-500 text-white font-semibold transition-all shadow-lg shadow-primary-500/20"
+                    className="h-12 px-6 bg-gradient-to-r from-primary-500 to-primary-700 hover:from-primary-600 hover:to-primary-800 text-white font-semibold transition-all shadow-lg shadow-primary-500/20"
                 >
                     {status === 'loading' ? (
                         <Loader2 className="w-4 h-4 animate-spin text-white" />

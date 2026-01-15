@@ -226,7 +226,7 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                     </div>
 
                     {/* Icon */}
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-success-600 flex items-center justify-center mb-6 mx-auto">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center mb-6 mx-auto">
                         <StepIcon className="w-8 h-8 text-white" />
                     </div>
 

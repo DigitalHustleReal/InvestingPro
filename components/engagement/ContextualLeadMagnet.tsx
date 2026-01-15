@@ -51,7 +51,7 @@ const CATEGORY_OFFERS: Record<string, CategoryOffer> = {
   },
   'mutual-funds': {
     icon: TrendingUp,
-    color: 'from-success-500 to-primary-600',
+    color: 'from-primary-500 to-primary-700',
     title: 'Top Mutual Funds 2026',
     subtitle: 'Expert-picked funds',
     description: 'Our research team analyzed 500+ schemes. Get the top picks for every goal.',

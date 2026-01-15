@@ -290,7 +290,7 @@ export default function DarkThemeCMS({
                                             </td>
                                             <td className="px-4 py-4 hidden md:table-cell">
                                                 <div className="flex items-center gap-2">
-                                                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-primary-500 to-success-500 flex items-center justify-center text-white text-xs font-medium">
+                                                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white text-xs font-medium">
                                                         {(article.author_name || 'A')[0].toUpperCase()}
                                                     </div>
                                                     <span className="text-sm text-slate-300">{article.author_name || 'Admin'}</span>

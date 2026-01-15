@@ -122,8 +122,10 @@ export async function generateArticleContent(params: ArticleGenerationParams): P
         let userPrompt: string;
         
         try {
-            const { buildDynamicPrompt, type ContentType } = await import('@/lib/ai/dynamic-prompt-builder');
-            const { isValidCategory, type FinanceCategory } = await import('@/lib/prompts/category-prompts');
+            const { buildDynamicPrompt } = await import('@/lib/ai/dynamic-prompt-builder');
+            const { isValidCategory } = await import('@/lib/prompts/category-prompts');
+            type ContentType = 'comparison' | 'howto' | 'ultimate' | 'listicle';
+            type FinanceCategory = 'credit-cards' | 'mutual-funds' | 'loans' | 'insurance' | 'tax' | 'stocks' | 'banking' | 'investing-basics';
             
             // Map category to finance category
             const categoryMap: Record<string, FinanceCategory> = {
