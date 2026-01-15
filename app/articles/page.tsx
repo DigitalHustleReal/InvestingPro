@@ -85,7 +85,7 @@ export default function ArticlesPage() {
             />
 
             {/* Header */}
-            <div className="bg-gradient-to-br from-primary-50 to-blue-50 border-b border-slate-200">
+            <div className="bg-gradient-to-br from-primary-50 to-secondary-50 border-b border-slate-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                     <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4">
                         Articles & Guides

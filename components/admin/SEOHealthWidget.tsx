@@ -69,10 +69,10 @@ export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetP
     }
 
     const scoreColor = seoData.overall >= 80 ? 'text-primary-400' : 
-                       seoData.overall >= 50 ? 'text-accent-400' : 'text-rose-400';
+                       seoData.overall >= 50 ? 'text-accent-400' : 'text-danger-400';
     
     const scoreBg = seoData.overall >= 80 ? 'bg-primary-500' : 
-                    seoData.overall >= 50 ? 'bg-accent-500' : 'bg-rose-500';
+                    seoData.overall >= 50 ? 'bg-accent-500' : 'bg-danger-500';
 
     const checks = [
         { key: 'title', label: 'Title', icon: Type, data: seoData.breakdown.title },
@@ -87,7 +87,7 @@ export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetP
         switch (status) {
             case 'good': return <CheckCircle2 className="w-4 h-4 text-primary-400" />;
             case 'warning': return <AlertTriangle className="w-4 h-4 text-accent-400" />;
-            case 'error': return <XCircle className="w-4 h-4 text-rose-400" />;
+            case 'error': return <XCircle className="w-4 h-4 text-danger-400" />;
             default: return null;
         }
     };

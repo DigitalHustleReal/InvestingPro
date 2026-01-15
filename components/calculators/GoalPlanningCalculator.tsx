@@ -273,7 +273,7 @@ export function GoalPlanningCalculator() {
                                     />
                                     <Legend />
                                     <Line type="monotone" dataKey="corpus" stroke="#14b8a6" strokeWidth={2} name="Your Corpus" />
-                                    <Line type="monotone" dataKey="goal" stroke="#2563eb" strokeWidth={2} strokeDasharray="5 5" name="Goal Amount" />
+                                    <Line type="monotone" dataKey="goal" stroke="#0ea5e9" strokeWidth={2} strokeDasharray="5 5" name="Goal Amount" /> {/* secondary-500 */}
                                 </LineChart>
                             </ResponsiveContainer>
                         </div>
