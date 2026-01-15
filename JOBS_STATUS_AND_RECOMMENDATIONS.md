@@ -40,6 +40,13 @@
 **Status:** ✅ Complete & Exported  
 **Impact:** Maintains content quality
 
+### 6. Product Data Scraping Job ✅ **NEW**
+**File:** `lib/jobs/product-data-scraping.ts`  
+**Status:** ✅ CREATED & EXPORTED  
+**Schedule:** Weekly (Wednesday at 3 AM)  
+**Purpose:** Scrapes and updates Credit Cards and Mutual Funds data  
+**Impact:** Keeps product data fresh and accurate
+
 ---
 
 ## 📊 Job Summary
