@@ -60,10 +60,12 @@ const footerLinks = {
         { name: "Guides", page: "Guides" },
     ],
     legal: [
-        { name: "Privacy Policy", page: "Privacy" },
-        { name: "Terms of Service", page: "Terms" },
-        { name: "Disclaimer", page: "Disclaimer" },
-        { name: "Accessibility", page: "Accessibility" },
+        { name: "Terms of Service", href: "/terms-of-service" },
+        { name: "Privacy Policy", href: "/privacy-policy" },
+        { name: "Cookie Policy", href: "/cookie-policy" },
+        { name: "Disclaimer", href: "/disclaimer" },
+        { name: "Affiliate Disclosure", href: "/affiliate-disclosure" },
+        { name: "Accessibility", href: "/accessibility" },
     ],
     company: [
         { name: "About Us", page: "About" },

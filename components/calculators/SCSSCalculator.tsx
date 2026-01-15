@@ -84,7 +84,7 @@ export function SCSSCalculator() {
                                         type="number" 
                                         value={investment} 
                                         onChange={(e) => setInvestment(Number(e.target.value))}
-                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900" 
+                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-white" 
                                     />
                                 </div>
                             </div>
@@ -101,7 +101,7 @@ export function SCSSCalculator() {
                                 <Label className="text-sm font-semibold text-slate-700">Interest Rate</Label>
                                 <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
                                     <Percent className="w-3.5 h-3.5 text-slate-500" />
-                                    <span className="text-sm font-bold text-slate-900">{interestRate}%</span>
+                                    <span className="text-sm font-bold text-slate-900 dark:text-white">{interestRate}%</span>
                                 </div>
                             </div>
                             <Slider value={[interestRate]} onValueChange={(v) => setInterestRate(v[0])} min={7} max={9} step={0.1} className="py-2" />
@@ -180,7 +180,7 @@ export function SCSSCalculator() {
                                                         </p>
                                                          <p className="flex justify-between gap-4 text-slate-500">
                                                             <span>Cumulative:</span>
-                                                            <span className="font-medium text-slate-900">{formatCurrency(data.cumulative)}</span>
+                                                            <span className="font-medium text-slate-900 dark:text-white">{formatCurrency(data.cumulative)}</span>
                                                         </p>
                                                     </div>
                                                 </div>

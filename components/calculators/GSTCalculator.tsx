@@ -179,7 +179,7 @@ export function GSTCalculator() {
                                 <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
                                     {calculationType === 'exclusive' ? 'Base Amount' : 'Base Amount (Excluding GST)'}
                                 </div>
-                                <div className="text-3xl font-bold text-slate-900">
+                                <div className="text-3xl font-bold text-slate-900 dark:text-white">
                                     {formatCurrency(result.baseAmount)}
                                 </div>
                             </div>
@@ -209,15 +209,15 @@ export function GSTCalculator() {
                             <div className="space-y-2 text-sm">
                                 <div className="flex justify-between items-center">
                                     <span className="text-slate-600">CGST ({gstRate / 2}%):</span>
-                                    <span className="font-semibold text-slate-900">{formatCurrency(result.cgst)}</span>
+                                    <span className="font-semibold text-slate-900 dark:text-white">{formatCurrency(result.cgst)}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-slate-600">SGST ({gstRate / 2}%):</span>
-                                    <span className="font-semibold text-slate-900">{formatCurrency(result.sgst)}</span>
+                                    <span className="font-semibold text-slate-900 dark:text-white">{formatCurrency(result.sgst)}</span>
                                 </div>
                                 <div className="flex justify-between items-center pt-2 border-t border-slate-200">
                                     <span className="text-slate-600">IGST ({gstRate}%):</span>
-                                    <span className="font-semibold text-slate-900">{formatCurrency(result.igst)}</span>
+                                    <span className="font-semibold text-slate-900 dark:text-white">{formatCurrency(result.igst)}</span>
                                 </div>
                             </div>
                         </div>

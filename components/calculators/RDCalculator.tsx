@@ -132,7 +132,7 @@ export function RDCalculator() {
                                         type="number" 
                                         value={monthlyDeposit} 
                                         onChange={(e) => setMonthlyDeposit(Number(e.target.value))}
-                                        className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900" 
+                                        className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-white" 
                                     />
                                 </div>
                             </div>
@@ -145,7 +145,7 @@ export function RDCalculator() {
                                 <Label className="text-sm font-semibold text-slate-700">Time Period (Years)</Label>
                                 <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
                                     <Calendar className="w-3.5 h-3.5 text-slate-500" />
-                                    <span className="text-sm font-bold text-slate-900">{years} Yr</span>
+                                    <span className="text-sm font-bold text-slate-900 dark:text-white">{years} Yr</span>
                                 </div>
                             </div>
                             <Slider value={[years]} onValueChange={(v) => setYears(v[0])} min={1} max={10} step={1} className="py-2" />
@@ -157,7 +157,7 @@ export function RDCalculator() {
                                 <Label className="text-sm font-semibold text-slate-700">Interest Rate (p.a)</Label>
                                 <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
                                     <Percent className="w-3.5 h-3.5 text-slate-500" />
-                                    <span className="text-sm font-bold text-slate-900">{interestRate}%</span>
+                                    <span className="text-sm font-bold text-slate-900 dark:text-white">{interestRate}%</span>
                                 </div>
                             </div>
                             <Slider value={[interestRate]} onValueChange={(v) => setInterestRate(v[0])} min={3} max={12} step={0.1} className="py-2" />
@@ -173,7 +173,7 @@ export function RDCalculator() {
                         <div className="grid grid-cols-2 gap-4 mb-6">
                             <div className="p-4 bg-white/60 backdrop-blur-sm rounded-xl border border-white/50 text-center">
                                 <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Maturity Amount</p>
-                                <p className="text-2xl font-extrabold text-slate-900">{formatCurrency(result.maturityAmount)}</p>
+                                <p className="text-2xl font-extrabold text-slate-900 dark:text-white">{formatCurrency(result.maturityAmount)}</p>
                             </div>
                              <div className="p-4 bg-white/60 backdrop-blur-sm rounded-xl border border-white/50 text-center">
                                 <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Total Interest</p>

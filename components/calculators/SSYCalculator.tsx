@@ -122,7 +122,7 @@ export function SSYCalculator() {
                                         type="number"
                                         value={annualContribution}
                                         onChange={(e) => setAnnualContribution(Number(e.target.value))}
-                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900"
+                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-white"
                                     />
                                 </div>
                             </div>
@@ -143,7 +143,7 @@ export function SSYCalculator() {
                                 <Label className="text-sm text-slate-700 font-semibold">Girl's Current Age</Label>
                                 <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
                                     <Calendar className="w-3.5 h-3.5 text-slate-500" />
-                                    <span className="text-sm font-bold text-slate-900">{girlAge} Y</span>
+                                    <span className="text-sm font-bold text-slate-900 dark:text-white">{girlAge} Y</span>
                                 </div>
                             </div>
                             <Slider
@@ -163,7 +163,7 @@ export function SSYCalculator() {
                                 <Label className="text-sm text-slate-700 font-semibold">Interest Rate (p.a.)</Label>
                                 <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
                                     <Percent className="w-3.5 h-3.5 text-slate-500" />
-                                    <span className="text-sm font-bold text-slate-900">{interestRate}%</span>
+                                    <span className="text-sm font-bold text-slate-900 dark:text-white">{interestRate}%</span>
                                 </div>
                             </div>
                             <Slider
@@ -199,7 +199,7 @@ export function SSYCalculator() {
                                     <Label className="text-sm text-slate-700 font-semibold">Expected Inflation Rate</Label>
                                     <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
                                         <Percent className="w-3.5 h-3.5 text-slate-500" />
-                                        <span className="text-sm font-bold text-slate-900">{inflationRate}%</span>
+                                        <span className="text-sm font-bold text-slate-900 dark:text-white">{inflationRate}%</span>
                                     </div>
                                 </div>
                                 <Slider
@@ -237,7 +237,7 @@ export function SSYCalculator() {
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
                             <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Total Invested</p>
-                                <p className="text-base sm:text-lg font-extrabold text-slate-900 transform transition-all hover:scale-105">{formatCurrency(result.totalContributed)}</p>
+                                <p className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white transform transition-all hover:scale-105">{formatCurrency(result.totalContributed)}</p>
                             </div>
                             <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">
