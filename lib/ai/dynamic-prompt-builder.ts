@@ -322,7 +322,7 @@ export async function buildDynamicPrompt(
 ): Promise<CombinedPrompt> {
     // Determine optimal tone based on purpose, intent, and context
     const optimalTone = params.customTone 
-        ? undefined // Will use custom tone if provided
+        ? (params.customTone as any) // Use custom tone if provided
         : determineOptimalTone({
             purpose: params.purpose,
             intent: params.intent,
@@ -332,6 +332,15 @@ export async function buildDynamicPrompt(
             hasApplicationFlow: params.hasApplicationFlow,
             isMonetizationFocused: params.intent === 'monetization' || params.hasAffiliateProducts || params.hasApplicationFlow
         });
+    
+    // Build tone instructions
+    const toneInstructions = buildToneInstructions(
+        optimalTone,
+        params.purpose,
+        params.intent,
+        params.category
+    );
+    
     // 1. Get Writer Prompt (Highest Priority)
     const writer = params.writerId 
         ? getAuthorForCategory(params.category) // Use provided writer or default for category
@@ -351,9 +360,10 @@ export async function buildDynamicPrompt(
     const template = selectTemplate(params.contentType);
     const contentTypePrompt = template.system_prompt;
     
-    // 5. Combine System Prompts with Priority: Writer > Subcategory > Category > Content-Type
+    // 5. Combine System Prompts with Priority: Writer > Tone > Subcategory > Category > Content-Type
     const systemPrompt = combineSystemPrompts({
         writer: writerPrompt,
+        tone: toneInstructions,
         subcategory: subcategoryPrompt,
         category: categorySystemPrompt,
         contentType: contentTypePrompt
@@ -370,7 +380,10 @@ export async function buildDynamicPrompt(
         categoryKeywords: categoryPrompt.keywords,
         categoryRequiredSections: categoryPrompt.required_sections,
         targetAudience: params.targetAudience || 'general',
-        wordCount: params.wordCount || template.target_word_count.min
+        wordCount: params.wordCount || template.target_word_count.min,
+        tone: optimalTone,
+        purpose: params.purpose,
+        intent: params.intent
     });
     
     return {
