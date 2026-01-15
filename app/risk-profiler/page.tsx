@@ -105,7 +105,7 @@ const riskProfiles: Record<string, any> = {
     Moderate: {
         name: "Moderate",
         icon: TrendingUp,
-        color: "from-success-500 to-primary-600",
+        color: "from-primary-500 to-primary-700",
         bgLight: "bg-primary-50",
         text: "text-primary-700",
         description: "You're comfortable with moderate risk for balanced growth. You understand that some volatility is necessary for wealth creation.",
@@ -119,9 +119,9 @@ const riskProfiles: Record<string, any> = {
     Aggressive: {
         name: "Aggressive",
         icon: Zap,
-        color: "from-accent-500 to-accent-600",
-        bgLight: "bg-secondary-50",
-        text: "text-secondary-700",
+        color: "from-accent-500 to-accent-700",
+        bgLight: "bg-accent-50",
+        text: "text-accent-700",
         description: "You seek maximum returns and can handle high volatility. You have a long-term horizon and view market dips as buying opportunities.",
         recommendations: [
             { category: "Mid & Small Cap Equities", allocation: "40%", icon: Zap },
@@ -274,7 +274,7 @@ export default function RiskProfiler() {
                             </div>
                             <div className="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
                                 <div
-                                    className="bg-gradient-to-r from-secondary-500 to-indigo-600 h-full transition-all duration-700 ease-out rounded-full"
+                                    className="bg-gradient-to-r from-secondary-500 to-secondary-700 h-full transition-all duration-700 ease-out rounded-full"
                                     style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
                                 />
                             </div>

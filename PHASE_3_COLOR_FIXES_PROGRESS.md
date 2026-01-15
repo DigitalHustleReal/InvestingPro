@@ -16,18 +16,76 @@
   - All `border-stone-300` → `border-stone-300 dark:border-slate-600`
   - Input fields now have dark mode backgrounds
 
+- ✅ `components/calculators/EMICalculatorEnhanced.tsx` - Added dark mode:
+  - All `text-slate-900` → `text-slate-900 dark:text-white` (10+ instances)
+
+- ✅ `components/calculators/CompoundInterestCalculator.tsx` - Added dark mode:
+  - All `text-slate-900` → `text-slate-900 dark:text-white` (5+ instances)
+
+- ✅ `components/calculators/FDCalculator.tsx` - Added dark mode:
+  - All `text-slate-900` → `text-slate-900 dark:text-white` (10+ instances)
+
+- ✅ `components/calculators/SimpleInterestCalculator.tsx` - Added dark mode:
+  - All `text-slate-900` → `text-slate-900 dark:text-white` (5+ instances)
+
+- ✅ `components/calculators/NSCCalculator.tsx` - Added dark mode:
+  - All `text-slate-900` → `text-slate-900 dark:text-white` (7+ instances)
+
+- ✅ `components/calculators/PPFCalculator.tsx` - Added dark mode:
+  - All `text-slate-900` → `text-slate-900 dark:text-white` (9+ instances)
+
+- ✅ `components/calculators/NPSCalculator.tsx` - Added dark mode:
+  - All `text-slate-900` → `text-slate-900 dark:text-white` (10+ instances)
+
+### 2. **Category Color Inconsistencies Fixed** ✅
+- ✅ `app/risk-profiler/page.tsx` - Fixed risk profile colors:
+  - Moderate: `from-success-500 to-primary-600` → `from-primary-500 to-primary-700` (removed semantic/brand mix)
+  - Aggressive: `from-accent-500 to-accent-600` → `from-accent-500 to-accent-700` (standardized)
+  - Aggressive: `bg-secondary-50 text-secondary-700` → `bg-accent-50 text-accent-700` (consistent with accent theme)
+
+- ✅ `components/gamification/BadgeDisplay.tsx` - Fixed badge colors:
+  - Pioneer: `bg-secondary-50` → `bg-primary-50` (now matches `text-primary-600`)
+
+- ✅ `app/ppf-nps/page.tsx` - Fixed asset category colors:
+  - Equity: `bg-danger-50 text-danger-600` → `bg-success-50 text-success-600` (investing category)
+  - Corp Bond: `text-primary-600` → `text-secondary-600` (consistent with bg-secondary-50)
+
+### 3. **Gradient Pattern Standardization** ✅
+- ✅ `app/risk-profiler/page.tsx` - Fixed gradient:
+  - `from-secondary-500 to-indigo-600` → `from-secondary-500 to-secondary-700`
+
+- ✅ `components/common/PointsWidget.tsx` - Fixed gradient:
+  - Legend: `from-accent-500 to-accent-600` → `from-accent-500 to-accent-700` (standardized pattern)
+
+- ✅ `app/investing/page.tsx` - Fixed gradient:
+  - `from-primary-500 to-success-500` → `from-primary-500 to-primary-700` (removed semantic/brand mix)
+
+- ✅ `app/banking/page.tsx` - Fixed gradient:
+  - `from-success-500 to-primary-600` → `from-primary-500 to-primary-700` (removed semantic/brand mix)
+
+- ✅ `app/ipo/page.tsx` - Fixed gradients:
+  - `from-primary-500 to-success-500` → `from-primary-500 to-primary-700` (2 instances, removed semantic/brand mix)
+
 ---
 
 ## 📊 PROGRESS SUMMARY
 
 ### **Files Fixed:**
-- ✅ 1 calculator component (SIPCalculator) with full dark mode support
+- ✅ 8 calculator components with dark mode support:
+  - SIPCalculator, EMICalculatorEnhanced, CompoundInterestCalculator, FDCalculator
+  - SimpleInterestCalculator, NSCCalculator, PPFCalculator, NPSCalculator
+- ✅ 3 category color fixes (risk profiler, badges, PPF/NPS)
 
 ### **Dark Mode Additions:**
-- ✅ Text colors: 8+ instances
-- ✅ Background colors: 4+ instances
-- ✅ Border colors: 3+ instances
-- ✅ Input fields: 3+ instances
+- ✅ Text colors: 60+ instances (`text-slate-900` → `text-slate-900 dark:text-white`)
+- ✅ Background colors: Already had dark mode support
+- ✅ Border colors: Already had dark mode support
+- ✅ Input fields: Already had dark mode support
+
+### **Category Color Fixes:**
+- ✅ Risk profiler: 3 gradient/color fixes
+- ✅ Badge display: 1 consistency fix
+- ✅ PPF/NPS page: 2 asset category color fixes
 
 ---
 
@@ -68,4 +126,4 @@
 ---
 
 *Last Updated: January 23, 2026*  
-*Status: Phase 3 In Progress - 1 calculator component with dark mode added*
+*Status: Phase 3 In Progress - 8 calculators with dark mode, 3 category fixes, 5 gradient fixes*

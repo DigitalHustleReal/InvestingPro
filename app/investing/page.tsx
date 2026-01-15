@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from 'react';
 import {
@@ -186,7 +186,7 @@ export default function InvestingPage() {
                             
                             <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-8 text-slate-900 dark:text-white leading-[1.1]">
                                 Grow Your Wealth <br className="hidden lg:block" />
-                                <span className="bg-gradient-to-r from-primary-500 to-success-500 bg-clip-text text-transparent">With Confidence</span>
+                                <span className="bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text text-transparent">With Confidence</span>
                             </h1>
                             
                             <p className="text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">

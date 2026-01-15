@@ -97,7 +97,7 @@ export function NPSCalculator() {
                             <div className="flex justify-between items-center">
                                 <Label className="text-sm text-slate-700 font-semibold">Current Age</Label>
                                 <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <span className="text-sm font-bold text-slate-900">{currentAge} Y</span>
+                                    <span className="text-sm font-bold text-slate-900 dark:text-white">{currentAge} Y</span>
                                 </div>
                             </div>
                             <Slider
@@ -115,7 +115,7 @@ export function NPSCalculator() {
                             <div className="flex justify-between items-center">
                                 <Label className="text-sm text-slate-700 font-semibold">Retirement Age</Label>
                                 <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <span className="text-sm font-bold text-slate-900">{retirementAge} Y</span>
+                                    <span className="text-sm font-bold text-slate-900 dark:text-white">{retirementAge} Y</span>
                                 </div>
                             </div>
                             <Slider
@@ -138,7 +138,7 @@ export function NPSCalculator() {
                                         type="number"
                                         value={monthlyContribution}
                                         onChange={(e) => setMonthlyContribution(Number(e.target.value))}
-                                        className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900"
+                                        className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-white"
                                     />
                                 </div>
                             </div>
@@ -158,7 +158,7 @@ export function NPSCalculator() {
                                 <Label className="text-sm text-slate-700 font-semibold">Expected Return (p.a.)</Label>
                                 <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
                                     <Percent className="w-3.5 h-3.5 text-slate-500" />
-                                    <span className="text-sm font-bold text-slate-900">{expectedReturn}%</span>
+                                    <span className="text-sm font-bold text-slate-900 dark:text-white">{expectedReturn}%</span>
                                 </div>
                             </div>
                             <Slider
@@ -194,7 +194,7 @@ export function NPSCalculator() {
                                     <Label className="text-sm text-slate-700 font-semibold">Expected Inflation Rate (p.a.)</Label>
                                     <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
                                         <Percent className="w-3.5 h-3.5 text-slate-500" />
-                                        <span className="text-sm font-bold text-slate-900">{inflationRate}%</span>
+                                        <span className="text-sm font-bold text-slate-900 dark:text-white">{inflationRate}%</span>
                                     </div>
                                 </div>
                                 <Slider
@@ -224,7 +224,7 @@ export function NPSCalculator() {
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
                             <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Contributed</p>
-                                <p className="text-base sm:text-lg font-extrabold text-slate-900">{formatCurrency(result.totalContributed)}</p>
+                                <p className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">{formatCurrency(result.totalContributed)}</p>
                             </div>
                             <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">

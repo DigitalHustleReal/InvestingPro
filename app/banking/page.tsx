@@ -138,7 +138,7 @@ export default function BankingPage() {
                     <div className="max-w-6xl mx-auto">
                         <Card className="bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 shadow-2xl rounded-3xl overflow-hidden">
                             {/* Table Header with Controls */}
-                            <div className="bg-gradient-to-r from-success-500 to-primary-600 p-6">
+                            <div className="bg-gradient-to-r from-primary-500 to-primary-700 p-6">
                                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                                     <div>
                                         <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">

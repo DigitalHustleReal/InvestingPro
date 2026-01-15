@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -176,7 +176,7 @@ export default function IPOPage() {
                         
                         <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-8 text-slate-900 dark:text-white leading-[1.1]">
                             IPO Calendar & <br className="hidden lg:block" />
-                            <span className="bg-gradient-to-r from-primary-500 to-success-500 bg-clip-text text-transparent">GMP Tracker</span>
+                            <span className="bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text text-transparent">GMP Tracker</span>
                         </h1>
                         
                         <p className="text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed">
@@ -276,7 +276,7 @@ export default function IPOPage() {
                                     {/* Left: Company Info */}
                                     <div className="lg:w-72 p-8 border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50">
                                         <div className="flex items-start gap-4">
-                                            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-success-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
+                                            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center font-bold text-white text-lg shrink-0">
                                                                 {ipo.companyName.substring(0, 3).toUpperCase()}
                                             </div>
                                             <div className="flex-1 min-w-0">

@@ -248,8 +248,8 @@ export default function PPFandNPSPage() {
                                     <h3 className="text-xl font-bold text-slate-900 tracking-tight mb-6">Dynamic Asset Categories</h3>
                                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                         {[
-                                            { name: "Equity (E)", desc: "Market Linked", color: "bg-danger-50 text-danger-600", border: 'border-danger-100' },
-                                            { name: "Corp Bond (C)", desc: "Fixed Yield", color: "bg-secondary-50 text-primary-600", border: 'border-secondary-100' },
+                                            { name: "Equity (E)", desc: "Market Linked", color: "bg-success-50 text-success-600", border: 'border-success-100' },
+                                            { name: "Corp Bond (C)", desc: "Fixed Yield", color: "bg-secondary-50 text-secondary-600", border: 'border-secondary-100' },
                                             { name: "Gov Bond (G)", desc: "Zero Risk", color: "bg-primary-50 text-primary-600", border: 'border-primary-100' },
                                             { name: "Alt Assets (A)", desc: "Global Real Estate", color: "bg-secondary-50 text-secondary-600", border: 'border-secondary-100' },
                                         ].map((asset, index) => (

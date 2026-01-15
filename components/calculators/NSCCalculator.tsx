@@ -88,7 +88,7 @@ export function NSCCalculator() {
                                         type="number" 
                                         value={investment} 
                                         onChange={(e) => setInvestment(Number(e.target.value))}
-                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900" 
+                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-white" 
                                     />
                                 </div>
                             </div>
@@ -102,7 +102,7 @@ export function NSCCalculator() {
                                 <Label className="text-sm font-semibold text-slate-700">Interest Rate</Label>
                                 <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
                                     <Percent className="w-3.5 h-3.5 text-slate-500" />
-                                    <span className="text-sm font-bold text-slate-900">{interestRate}%</span>
+                                    <span className="text-sm font-bold text-slate-900 dark:text-white">{interestRate}%</span>
                                 </div>
                             </div>
                             <Slider value={[interestRate]} onValueChange={(v) => setInterestRate(v[0])} min={6} max={9} step={0.1} className="py-2" />
@@ -138,7 +138,7 @@ export function NSCCalculator() {
                         <div className="bg-white/60 backdrop-blur-sm rounded-xl border border-white/50 p-4 space-y-3">
                              <div className="flex justify-between items-center text-sm">
                                 <span className="text-slate-600">Principal Invested</span>
-                                <span className="font-bold text-slate-900">{formatCurrency(investment)}</span>
+                                <span className="font-bold text-slate-900 dark:text-white">{formatCurrency(investment)}</span>
                              </div>
                              <div className="flex justify-between items-center text-sm border-t border-dashed border-slate-300 pt-3">
                                 <span className="text-slate-600">Total Interest Earned</span>
@@ -176,7 +176,7 @@ export function NSCCalculator() {
                                                     <div className="space-y-1">
                                                         <p className="flex justify-between gap-4 text-slate-500">
                                                             <span>Opening:</span>
-                                                            <span className="font-medium text-slate-900">{formatCurrency(data.openingBalance)}</span>
+                                                            <span className="font-medium text-slate-900 dark:text-white">{formatCurrency(data.openingBalance)}</span>
                                                         </p>
                                                         <p className="flex justify-between gap-4 text-success-600">
                                                             <span>Interest:</span>

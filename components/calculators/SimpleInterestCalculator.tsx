@@ -64,7 +64,7 @@ export function SimpleInterestCalculator() {
                                         type="number" 
                                         value={principal} 
                                         onChange={(e) => setPrincipal(Number(e.target.value))}
-                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900" 
+                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-white" 
                                     />
                                 </div>
                             </div>
@@ -82,7 +82,7 @@ export function SimpleInterestCalculator() {
                                         type="number" 
                                         value={rate} 
                                         onChange={(e) => setRate(Number(e.target.value))}
-                                        className="w-20 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900" 
+                                        className="w-20 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-white" 
                                     />
                                 </div>
                             </div>
@@ -99,7 +99,7 @@ export function SimpleInterestCalculator() {
                                         type="number" 
                                         value={time} 
                                         onChange={(e) => setTime(Number(e.target.value))}
-                                        className="w-20 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900" 
+                                        className="w-20 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-white" 
                                     />
                                 </div>
                             </div>
@@ -122,7 +122,7 @@ export function SimpleInterestCalculator() {
                         <div className="bg-white/60 backdrop-blur-sm rounded-xl border border-white/50 p-4 space-y-3">
                              <div className="flex justify-between items-center text-sm">
                                 <span className="text-slate-600">Principal Amount</span>
-                                <span className="font-bold text-slate-900">{formatCurrency(principal)}</span>
+                                <span className="font-bold text-slate-900 dark:text-white">{formatCurrency(principal)}</span>
                              </div>
                              <div className="flex justify-between items-center text-sm border-t border-dashed border-slate-300 pt-3">
                                 <span className="text-slate-600 font-bold">Total Amount</span>
