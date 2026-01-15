@@ -79,8 +79,8 @@ export function TaxCalculator() {
     ];
 
     const taxBreakdownData = [
-        { name: 'Old Tax', value: result.oldTax, color: '#3b82f6' },
-        { name: 'New Tax', value: result.newTax, color: '#10b981' },
+        { name: 'Old Tax', value: result.oldTax, color: '#0ea5e9' }, // secondary-500
+        { name: 'New Tax', value: result.newTax, color: '#10b981' }, // success-500
     ];
 
     return (

@@ -409,12 +409,12 @@ export function FDCalculator() {
                                 <AreaChart data={growthData}>
                                     <defs>
                                         <linearGradient id="colorFD" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#2563eb" stopOpacity={0.3} />
-                                            <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
+                                            <stop offset="5%" stopColor="#0ea5e9" stopOpacity={0.3} /> {/* secondary-500 */}
+                                            <stop offset="95%" stopColor="#0ea5e9" stopOpacity={0} />
                                         </linearGradient>
                                         <linearGradient id="colorFDReal" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#2563eb" stopOpacity={0.3} />
-                                            <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
+                                            <stop offset="5%" stopColor="#0ea5e9" stopOpacity={0.3} /> {/* secondary-500 */}
+                                            <stop offset="95%" stopColor="#0ea5e9" stopOpacity={0} />
                                         </linearGradient>
                                     </defs>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />

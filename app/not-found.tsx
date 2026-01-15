@@ -9,7 +9,7 @@ export default function NotFound() {
       <div className="max-w-xl w-full">
         {/* Visual Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-24 h-24 rounded-[2rem] bg-gradient-to-br from-secondary-500 to-indigo-600 shadow-xl shadow-blue-500/20 mb-8 transform rotate-3">
+          <div className="inline-flex items-center justify-center w-24 h-24 rounded-[2rem] bg-gradient-to-br from-secondary-500 to-secondary-600 shadow-xl shadow-secondary-500/20 mb-8 transform rotate-3">
              <span className="text-4xl font-black text-white italic">404</span>
           </div>
           <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">

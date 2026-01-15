@@ -305,8 +305,8 @@ export function EMICalculatorEnhanced() {
                                         contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
                                     />
                                     <Legend />
-                                    <Bar dataKey="principal" stackId="a" fill="#3b82f6" name="Principal" />
-                                    <Bar dataKey="interest" stackId="a" fill="#2563eb" name="Interest" />
+                                    <Bar dataKey="principal" stackId="a" fill="#0ea5e9" name="Principal" /> {/* secondary-500 */}
+                                    <Bar dataKey="interest" stackId="a" fill="#0284c7" name="Interest" /> {/* secondary-600 */}
                                 </BarChart>
                             </ResponsiveContainer>
                         </div>
