@@ -288,7 +288,20 @@ async function generateWithAI(
         return result.content;
     } catch (error: any) {
         logFn(`❌ Generation failed: ${error.message}`);
-        throw error;
+        // Fallback to simple prompt if dynamic builder fails
+        logFn(`🔄 Falling back to simple prompt...`);
+        try {
+            const { api } = await import('../api');
+            const result = await api.integrations.Core.InvokeLLM({
+                prompt: `Write a comprehensive article about: ${topic}`,
+                operation: 'generate_article',
+                contextData: { topic, category }
+            });
+            return result?.content || '';
+        } catch (fallbackError: any) {
+            logFn(`❌ Fallback also failed: ${fallbackError.message}`);
+            throw error; // Throw original error
+        }
     }
 }
 
