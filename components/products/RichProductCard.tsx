@@ -1,4 +1,4 @@
-﻿
+
 "use client";
 
 import React from 'react';
@@ -13,6 +13,7 @@ import BestForBadge from './BestForBadge';
 import AffiliateDisclosure from '@/components/common/AffiliateDisclosure';
 
 import { useCompare } from '@/contexts/CompareContext';
+import DecisionCTA from '@/components/common/DecisionCTA';
 
 interface RichProductCardProps {
     product: RichProduct;
@@ -171,18 +172,30 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
                 </CardContent>
 
                 <CardFooter className="pt-0 gap-3 border-t border-slate-50 p-4 bg-slate-50/30 flex-col items-stretch">
-                    {/* CTA Buttons */}
+                    {/* Decision-Focused CTA Buttons */}
                     <div className="flex gap-3">
-                        <Button variant="outline" className="flex-1 text-xs h-9 border-slate-200 hover:border-primary-200 hover:text-primary-700 hover:bg-primary-50" asChild>
-                            <Link href={`/product/${product.slug}`}>
-                                View Details
-                            </Link>
-                        </Button>
-                        <Button className="flex-1 text-xs h-9 bg-primary-600 hover:bg-primary-700 text-white shadow-primary-200 hover:shadow-primary-300 shadow-lg transition-all" asChild>
-                            <Link href={`/go/${product.slug}`} target="_blank">
-                                Apply Now <ArrowRight className="w-3 h-3 ml-1.5" />
-                            </Link>
-                        </Button>
+                        <DecisionCTA
+                            text="Compare Details"
+                            href={`/product/${product.slug}`}
+                            variant="outline"
+                            size="sm"
+                            className="flex-1 text-xs h-9"
+                            showIcon={false}
+                        />
+                        <DecisionCTA
+                            text={product.category === 'credit_card' ? "Apply Instantly" : 
+                                  product.category === 'mutual_fund' ? "Start SIP Now" :
+                                  product.category === 'loan' ? "Check Eligibility" :
+                                  product.category === 'insurance' ? "Get Protected" :
+                                  "Apply Now"}
+                            href={product.affiliate_link || `/go/${product.slug}`}
+                            productId={product.id}
+                            variant="primary"
+                            size="sm"
+                            className="flex-1 text-xs h-9"
+                            isExternal={!!product.affiliate_link}
+                            showIcon={true}
+                        />
                     </div>
                     
                     {/* Affiliate Disclosure - FTC Compliance */}

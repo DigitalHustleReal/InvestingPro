@@ -97,9 +97,18 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
                 {/* Right: Actions */}
                 <div className="md:w-1/5 flex flex-col justify-center gap-3 border-t md:border-t-0 border-slate-100 pt-4 md:pt-0">
                     <div className="flex flex-col gap-1">
-                        <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold">
-                            Apply Now
-                        </Button>
+                        <DecisionCTA
+                            text={product.category === 'credit_card' ? "Apply Instantly" : 
+                                  product.category === 'mutual_fund' ? "Start SIP Now" :
+                                  product.category === 'loan' ? "Check Eligibility" :
+                                  product.category === 'insurance' ? "Get Protected" :
+                                  "Apply Now"}
+                            href={product.applyLink || `/${(product.category || 'credit_card').replace('_', '-')}s/${product.id}`}
+                            productId={product.id}
+                            variant="primary"
+                            className="w-full"
+                            isExternal={!!product.applyLink}
+                        />
                         {/* Affiliate Disclosure - FTC Compliance */}
                         <AffiliateDisclosure 
                             variant="button" 
@@ -107,11 +116,14 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
                         />
                     </div>
                     
-                    <Link href={`/${(product.category || 'credit_card').replace('_', '-')}s/${product.id}`} className="w-full">
-                        <Button variant="outline" className="w-full text-xs h-9">
-                            View Details
-                        </Button>
-                    </Link>
+                    <DecisionCTA
+                        text="Compare Details"
+                        href={`/${(product.category || 'credit_card').replace('_', '-')}s/${product.id}`}
+                        variant="outline"
+                        size="sm"
+                        className="w-full text-xs h-9"
+                        showIcon={false}
+                    />
 
                     {showCompare && (
                         <div className="flex items-center justify-center gap-2 mt-1">
