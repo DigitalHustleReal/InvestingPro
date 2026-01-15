@@ -147,9 +147,44 @@ async function getCreditCardData(slug: string, useServiceClient: boolean = false
   };
 }
 
+/**
+ * Generate static params for all active credit cards
+ * This pre-generates all product pages at build time for better SEO
+ */
+export async function generateStaticParams() {
+  try {
+    const supabase = createServiceClient();
+    const { data: cards, error } = await supabase
+      .from('credit_cards')
+      .select('slug')
+      .not('slug', 'is', null);
+    
+    if (error) {
+      console.error('[generateStaticParams] Error fetching credit cards:', error);
+      return [];
+    }
+    
+    if (!cards || cards.length === 0) {
+      console.warn('[generateStaticParams] No credit cards found');
+      return [];
+    }
+    
+    console.log(`[generateStaticParams] Generating ${cards.length} credit card pages`);
+    return cards.map(card => ({ slug: card.slug }));
+  } catch (error) {
+    console.error('[generateStaticParams] Failed to generate static params:', error);
+    return [];
+  }
+}
+
+// Force static generation with ISR (Incremental Static Regeneration)
+export const dynamic = 'force-static';
+// Revalidate every hour to keep data fresh while maintaining static benefits
+export const revalidate = 3600; // 1 hour
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const card = await getCreditCardData(slug)
+  const card = await getCreditCardData(slug, true) // Use service client for metadata generation (build-time)
   
   if (!card) {
     return {
