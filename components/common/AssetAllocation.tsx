@@ -3,6 +3,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { getAssetColor } from '@/lib/utils/chart-colors';
 
 interface Holding {
     asset_category: string;
@@ -25,12 +26,9 @@ export default function AssetAllocation({ holdings }: AssetAllocationProps) {
         value
     }));
 
-    const COLORS: Record<string, string> = {
-        'Equity': '#3b82f6',
-        'Debt': '#10b981',
-        'Hybrid': '#8b5cf6',
-        'Gold': '#f59e0b',
-        'International': '#06b6d4'
+    // Get color for each asset category using theme colors
+    const getColorForCategory = (category: string): string => {
+        return getAssetColor(category);
     };
 
     const totalValue = data.reduce((sum, item) => sum + item.value, 0);
@@ -41,7 +39,7 @@ export default function AssetAllocation({ holdings }: AssetAllocationProps) {
                 <CardHeader>
                     <CardTitle>Asset Allocation</CardTitle>
                 </CardHeader>
-                <CardContent className="h-64 flex items-center justify-center text-slate-500">
+                <CardContent className="h-64 flex items-center justify-center text-slate-500 dark:text-slate-400">
                     No data available
                 </CardContent>
             </Card>
@@ -68,7 +66,7 @@ export default function AssetAllocation({ holdings }: AssetAllocationProps) {
                                 dataKey="value"
                             >
                                 {data.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={COLORS[entry.name] || '#94a3b8'} />
+                                    <Cell key={`cell-${index}`} fill={getColorForCategory(entry.name)} />
                                 ))}
                             </Pie>
                             <Tooltip formatter={(value: number | undefined) => `₹${(value || 0).toLocaleString('en-IN')}`} />

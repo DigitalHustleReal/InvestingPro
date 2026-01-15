@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import { getSocialColor } from '@/lib/utils/theme-colors';
 
 export interface ComparisonItem {
     label: string;
@@ -163,7 +164,7 @@ export default function SharableComparisonCard({
                                 aria-label="Tweet comparison"
                                 title="Tweet this comparison"
                             >
-                                <Twitter className="w-4 h-4 text-[#1DA1F2]" />
+                                <Twitter className="w-4 h-4" style={{ color: getSocialColor('twitter') }} />
                             </button>
                             <button
                                 onClick={handleCopy}

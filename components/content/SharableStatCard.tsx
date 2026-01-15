@@ -13,6 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import { getSocialColor } from '@/lib/utils/theme-colors';
 
 export interface SharableStatCardProps {
     /**
@@ -218,7 +219,7 @@ export default function SharableStatCard({
                                 aria-label="Tweet stat"
                                 title="Tweet this stat"
                             >
-                                <Twitter className="w-3.5 h-3.5 text-[#1DA1F2]" />
+                                <Twitter className="w-3.5 h-3.5" style={{ color: getSocialColor('twitter') }} />
                             </button>
                             <button
                                 onClick={handleCopy}

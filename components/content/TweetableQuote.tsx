@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/Button';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import { getSocialColor } from '@/lib/utils/theme-colors';
 
 export interface TweetableQuoteProps {
     /**
@@ -244,7 +245,11 @@ export default function TweetableQuote({
                                 <Button
                                     size="sm"
                                     onClick={handleTweet}
-                                    className="bg-[#1DA1F2] hover:bg-[#1a8cd8] text-white"
+                                    style={{ 
+                                        backgroundColor: getSocialColor('twitter'),
+                                        color: 'white'
+                                    }}
+                                    className="hover:opacity-90 transition-opacity"
                                 >
                                     <Twitter className="w-4 h-4 mr-2" />
                                     Tweet This

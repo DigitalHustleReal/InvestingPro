@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import { getSocialColor } from '@/lib/utils/theme-colors';
 
 export interface QuoteSelectorProps {
     /**
@@ -235,11 +236,15 @@ export default function QuoteSelector({
                     </button>
                 </div>
                 <div className="px-3 pb-3 flex items-center gap-2 border-t border-slate-200 dark:border-slate-800 pt-3">
-                    <Button
-                        size="sm"
-                        onClick={handleTweet}
-                        className="bg-[#1DA1F2] hover:bg-[#1a8cd8] text-white flex-1"
-                    >
+                                    <Button
+                                        size="sm"
+                                        onClick={handleTweet}
+                                        style={{ 
+                                            backgroundColor: getSocialColor('twitter'),
+                                            color: 'white'
+                                        }}
+                                        className="hover:opacity-90 transition-opacity flex-1"
+                                    >
                         <Twitter className="w-4 h-4 mr-2" />
                         Tweet This
                     </Button>
