@@ -3,6 +3,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { getChartColorPalette, getAssetColor } from '@/lib/utils/chart-colors';
 
 interface AssetAllocationProps {
     holdings: any[];
@@ -20,7 +21,10 @@ export default function AssetAllocation({ holdings = [] }: AssetAllocationProps)
         value
     }));
 
-    const COLORS = ['#0ea5e9', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444'];
+    // Use theme colors for chart
+    const getColorForCategory = (category: string, index: number): string => {
+        return getAssetColor(category) || getChartColorPalette(5)[index % 5];
+    };
 
     return (
         <Card className="rounded-[3rem] border-0 shadow-2xl bg-white overflow-hidden p-6 md:p-8">
@@ -49,7 +53,7 @@ export default function AssetAllocation({ holdings = [] }: AssetAllocationProps)
                                 dataKey="value"
                             >
                                 {data.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                    <Cell key={`cell-${index}`} fill={getColorForCategory(entry.name, index)} />
                                 ))}
                             </Pie>
                             <Tooltip

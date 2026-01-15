@@ -61,7 +61,7 @@ export default function InsuranceCoverageCalculator() {
   return (
     <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-900 dark:to-slate-950 rounded-3xl border-2 border-primary-500/20 dark:border-primary-500/30 shadow-2xl shadow-primary-900/10 overflow-hidden">
       {/* Header */}
-      <div className="bg-gradient-to-r from-primary-600 to-blue-600 dark:from-primary-500 dark:to-blue-500 p-6 sm:p-8">
+      <div className="bg-gradient-to-r from-primary-600 to-secondary-600 dark:from-primary-500 dark:to-secondary-500 p-6 sm:p-8">
         <div className="flex items-center gap-3 mb-2">
           <div className="p-2.5 bg-white/20 backdrop-blur-sm rounded-xl">
             <Shield className="w-6 h-6 text-white" />

@@ -91,7 +91,7 @@ const riskProfiles: Record<string, any> = {
     Conservative: {
         name: "Conservative",
         icon: Shield,
-        color: "from-secondary-500 to-indigo-600",
+        color: "from-secondary-500 to-secondary-600",
         bgLight: "bg-secondary-50",
         text: "text-secondary-700",
         description: "You prefer stable, low-risk investments with predictable returns. Your priority is wealth preservation over short-term spikes.",
@@ -119,7 +119,7 @@ const riskProfiles: Record<string, any> = {
     Aggressive: {
         name: "Aggressive",
         icon: Zap,
-        color: "from-secondary-600 to-pink-600",
+        color: "from-accent-500 to-accent-600",
         bgLight: "bg-secondary-50",
         text: "text-secondary-700",
         description: "You seek maximum returns and can handle high volatility. You have a long-term horizon and view market dips as buying opportunities.",

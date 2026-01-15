@@ -34,7 +34,7 @@ export function MISCalculator() {
         // Data for Pie Chart
         const chartData = [
             { name: "Principal Invested", value: investment, color: "#cbd5e1" }, // slate-300
-            { name: "Total Interest", value: Math.round(totalInterest), color: "#3b82f6" } // blue-500
+            { name: "Total Interest", value: Math.round(totalInterest), color: "#0ea5e9" } // secondary-500
         ];
 
         return {

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -21,7 +21,7 @@ export function SimpleInterestCalculator() {
         
         const chartData = [
             { name: "Principal", value: principal, color: "#cbd5e1" }, // slate-300
-            { name: "Interest Earned", value: Math.round(simpleInterest), color: "#3b82f6" } // blue-500
+            { name: "Interest Earned", value: Math.round(simpleInterest), color: "#0ea5e9" } // secondary-500
         ];
 
         return {
@@ -109,7 +109,7 @@ export function SimpleInterestCalculator() {
                 </Card>
 
                 {/* Results */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 relative overflow-hidden">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-secondary-50 to-secondary-100 relative overflow-hidden dark:from-secondary-950 dark:to-secondary-900">
                      <div className="absolute top-0 right-0 w-64 h-64 bg-secondary-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                      <CardContent className="pt-8 relative z-10 flex flex-col justify-between h-full">
                          <div className="text-center mb-6">
