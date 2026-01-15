@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from 'react';
 import { api } from "@/lib/api";
@@ -325,7 +325,7 @@ export default function StocksPage() {
                 </div>
 
                 {/* Macro Wisdom Section */}
-                <div className="bg-gradient-to-br from-primary-600 to-blue-600 dark:from-primary-500 dark:to-blue-500 rounded-[4rem] p-16 lg:p-24 text-white overflow-hidden relative group shadow-2xl shadow-primary-500/20">
+                <div className="bg-gradient-to-br from-primary-600 to-secondary-600 dark:from-primary-500 dark:to-secondary-500 rounded-[4rem] p-16 lg:p-24 text-white overflow-hidden relative group shadow-2xl shadow-primary-500/20">
                     <Globe className="absolute -right-24 -bottom-24 w-96 h-96 text-white/5 group-hover:rotate-12 transition-transform duration-700" />
                     <div className="max-w-3xl relative z-10">
                         <Badge className="bg-white/20 text-white border-white/30 backdrop-blur-sm px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] mb-10">Institutional View</Badge>

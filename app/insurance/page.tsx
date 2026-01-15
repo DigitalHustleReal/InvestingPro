@@ -221,7 +221,7 @@ export default function InsurancePage() {
 
                     {/* Protection Score Widget */}
                     <div id="protection-score" className="max-w-md mx-auto mb-12">
-                            <Card className="rounded-[2.5rem] bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xl shadow-blue-500/10 overflow-hidden">
+                            <Card className="rounded-[2.5rem] bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xl shadow-secondary-500/10 overflow-hidden">
                                 <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-primary-400 via-primary-600 to-secondary-500" />
                                 
                                 <CardHeader className="p-8 pb-6">
@@ -486,7 +486,7 @@ export default function InsurancePage() {
                     </div>
 
                     {/* 2. Visual Guide Placeholder (Canva) */}
-                    <div className="bg-gradient-to-br from-primary-600 to-blue-600 dark:from-primary-500 dark:to-blue-500 rounded-[3rem] overflow-hidden relative mb-24 text-white shadow-2xl shadow-primary-500/20">
+                    <div className="bg-gradient-to-br from-primary-600 to-secondary-600 dark:from-primary-500 dark:to-secondary-500 rounded-[3rem] overflow-hidden relative mb-24 text-white shadow-2xl shadow-primary-500/20">
                         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
                         <div className="flex flex-col md:flex-row items-center">
                             <div className="p-12 md:p-20 md:w-1/2 relative z-10">
