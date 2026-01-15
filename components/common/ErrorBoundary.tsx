@@ -71,8 +71,8 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
             return (
                 <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
                     <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center">
-                        <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <AlertCircle className="w-8 h-8 text-rose-600" />
+                        <div className="w-16 h-16 bg-danger-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <AlertCircle className="w-8 h-8 text-danger-600" />
                         </div>
                         <h1 className="text-2xl font-bold text-slate-900 mb-2">
                             Something went wrong

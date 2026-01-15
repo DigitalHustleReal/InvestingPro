@@ -18,7 +18,7 @@ const iconColorClasses = {
     purple: 'from-secondary-500 to-pink-500 shadow-purple-500/25',
     blue: 'from-secondary-500 to-cyan-500 shadow-primary-500/25',
     amber: 'from-accent-500 to-orange-500 shadow-accent-500/25',
-    rose: 'from-rose-500 to-danger-500 shadow-rose-500/25',
+    rose: 'from-danger-500 to-danger-600 shadow-danger-500/25',
 };
 
 export function AdminPageHeader({
@@ -81,7 +81,7 @@ export function StatCard({ label, value, change, changeType = 'neutral', icon: I
         purple: 'border-secondary-500/20 hover:border-secondary-500/40',
         blue: 'border-secondary-500/20 hover:border-secondary-500/40',
         amber: 'border-accent-500/20 hover:border-accent-500/40',
-        rose: 'border-rose-500/20 hover:border-rose-500/40',
+        rose: 'border-danger-500/20 hover:border-danger-500/40',
     };
 
     const changeColors = {
@@ -162,7 +162,7 @@ export function ActionButton({
         primary: 'bg-gradient-to-r from-primary-500 to-success-500 text-white shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40',
         secondary: 'bg-white/10 text-white border border-white/10 hover:bg-white/20',
         ghost: 'text-slate-400 hover:text-white hover:bg-white/10',
-        danger: 'bg-rose-500/20 text-rose-400 border border-rose-500/30 hover:bg-rose-500/30',
+        danger: 'bg-danger-500/20 text-danger-400 border border-danger-500/30 hover:bg-danger-500/30',
     };
 
     const sizes = {

@@ -300,8 +300,8 @@ export default function AIContentGenerator() {
                 {jobId && jobStatus && (
                     <div className="mt-4 p-4 bg-slate-50 rounded-lg border border-slate-200">
                         <div className="flex items-center gap-2 mb-2">
-                            {jobStatus === 'queued' && <Clock className="w-4 h-4 text-blue-600" />}
-                            {jobStatus === 'running' && <Loader2 className="w-4 h-4 text-blue-600 animate-spin" />}
+                            {jobStatus === 'queued' && <Clock className="w-4 h-4 text-secondary-600" />}
+                            {jobStatus === 'running' && <Loader2 className="w-4 h-4 text-secondary-600 animate-spin" />}
                             {jobStatus === 'completed' && <CheckCircle2 className="w-4 h-4 text-green-600" />}
                             {jobStatus === 'failed' && <AlertTriangle className="w-4 h-4 text-red-600" />}
                             <span className="text-sm font-semibold">
