@@ -91,6 +91,7 @@ const navSections: NavSection[] = [
     {
         title: 'MONETIZATION',
         items: [
+            { label: 'Revenue Dashboard', href: '/admin/revenue', icon: DollarSign },
             { label: 'Product Catalog', href: '/admin/products', icon: Package },
             { label: 'Affiliates', href: '/admin/affiliates', icon: DollarSign },
             { label: 'Ads', href: '/admin/ads', icon: Megaphone },
