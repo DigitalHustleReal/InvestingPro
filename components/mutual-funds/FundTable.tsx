@@ -88,7 +88,7 @@ export function FundTable({ funds }: FundTableProps) {
             header: '1Y Return',
             accessor: (row) => (
                 <div className="flex flex-col items-end">
-                    <span className={cn("text-sm font-bold", row.returns_1y >= 0 ? 'text-primary-600' : 'text-rose-600')}>
+                    <span className={cn("text-sm font-bold", row.returns_1y >= 0 ? 'text-primary-600' : 'text-danger-600')}>
                         {row.returns_1y}%
                     </span>
                     <span className="text-[9px] text-slate-400 font-bold uppercase">1Y</span>

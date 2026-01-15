@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { DataTable } from '@/components/data-table/DataTable';
 import { ColumnDef } from '@/components/data-table/types';
@@ -114,7 +114,7 @@ export function LoansTable({ loans }: LoansTableProps) {
                 
                 return (
                     <div className="text-center">
-                        <p className={`font-bold ${feeNum < 1.5 ? 'text-primary-600' : feeNum > 3 ? 'text-rose-600' : 'text-slate-900 dark:text-white'}`}>
+                        <p className={`font-bold ${feeNum < 1.5 ? 'text-primary-600' : feeNum > 3 ? 'text-danger-600' : 'text-slate-900 dark:text-white'}`}>
                             {fee}
                         </p>
                         {feeNum < 1.5 && (
@@ -123,7 +123,7 @@ export function LoansTable({ loans }: LoansTableProps) {
                             </Badge>
                         )}
                         {feeNum > 3 && (
-                            <Badge className="text-[7px] bg-rose-100 text-rose-700 border-0 mt-1 h-4">
+                            <Badge className="text-[7px] bg-danger-100 text-danger-700 border-0 mt-1 h-4">
                                 High Fee
                             </Badge>
                         )}
