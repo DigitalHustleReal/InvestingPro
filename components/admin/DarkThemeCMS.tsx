@@ -326,7 +326,7 @@ export default function DarkThemeCMS({
                                                         </button>
                                                     </Link>
                                                     {onDelete && (
-                                                        <button onClick={() => { if (confirm('Delete this article?')) onDelete(article.id); }} className="p-2 hover:bg-rose-500/20 rounded-lg text-slate-400 hover:text-rose-400 transition-colors" title="Delete">
+                                                        <button onClick={() => { if (confirm('Delete this article?')) onDelete(article.id); }} className="p-2 hover:bg-danger-500/20 rounded-lg text-slate-400 hover:text-danger-400 transition-colors" title="Delete">
                                                             <Trash2 className="w-4 h-4" />
                                                         </button>
                                                     )}
@@ -368,7 +368,7 @@ export default function DarkThemeCMS({
                                 <button onClick={() => handleBulkAction('export')} className="px-4 py-2 bg-secondary-500/20 hover:bg-secondary-500/30 text-secondary-400 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors">
                                     <Download className="w-4 h-4" /> Export
                                 </button>
-                                <button onClick={() => handleBulkAction('delete')} disabled={!!bulkLoading} className="px-4 py-2 bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors disabled:opacity-50">
+                                <button onClick={() => handleBulkAction('delete')} disabled={!!bulkLoading} className="px-4 py-2 bg-danger-500/20 hover:bg-danger-500/30 text-danger-400 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors disabled:opacity-50">
                                     <Trash2 className="w-4 h-4" /> Delete
                                 </button>
                             </div>
