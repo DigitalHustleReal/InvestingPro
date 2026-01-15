@@ -56,7 +56,7 @@ export default function EditProductPage() {
                         <ArrowLeft className="w-4 h-4" /> Back to Products
                     </Link>
                     <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/25">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary-500 to-secondary-600 flex items-center justify-center shadow-lg shadow-secondary-500/25">
                             <Edit className="w-6 h-6 text-white" />
                         </div>
                         <div>

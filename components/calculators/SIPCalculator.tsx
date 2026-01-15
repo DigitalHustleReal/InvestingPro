@@ -57,8 +57,8 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
           <TrendingUp className="w-6 h-6 text-primary-600" />
         </div>
         <div>
-          <h3 className="text-xl font-bold text-stone-900">SIP Calculator</h3>
-          <p className="text-sm text-stone-600">Plan your wealth creation journey</p>
+          <h3 className="text-xl font-bold text-stone-900 dark:text-white">SIP Calculator</h3>
+          <p className="text-sm text-stone-600 dark:text-slate-400">Plan your wealth creation journey</p>
         </div>
       </div>
 
@@ -67,7 +67,7 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
         <div className="space-y-6">
           {/* Monthly Investment */}
           <div>
-            <label className="flex items-center gap-2 text-sm font-semibold text-stone-900 mb-2">
+            <label className="flex items-center gap-2 text-sm font-semibold text-stone-900 dark:text-white mb-2">
               <IndianRupee className="w-4 h-4" />
               Monthly Investment
             </label>
@@ -79,23 +79,23 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
                 step="500"
                 value={monthlyInvestment}
                 onChange={(e) => setMonthlyInvestment(Number(e.target.value))}
-                className="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-primary-600"
+                className="w-full h-2 bg-stone-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-primary-600"
               />
               <div className="flex items-center gap-2">
                 <input
                   type="number"
                   value={monthlyInvestment}
                   onChange={(e) => setMonthlyInvestment(Number(e.target.value))}
-                  className="flex-1 px-4 py-2 border border-stone-300 rounded-lg font-mono text-lg font-semibold focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+                  className="flex-1 px-4 py-2 border border-stone-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white rounded-lg font-mono text-lg font-semibold focus:ring-2 focus:ring-primary-600 focus:border-transparent"
                 />
-                <span className="text-stone-600 font-medium">/month</span>
+                <span className="text-stone-600 dark:text-slate-400 font-medium">/month</span>
               </div>
             </div>
           </div>
 
           {/* Duration */}
           <div>
-            <label className="flex items-center gap-2 text-sm font-semibold text-stone-900 mb-2">
+            <label className="flex items-center gap-2 text-sm font-semibold text-stone-900 dark:text-white mb-2">
               <Calendar className="w-4 h-4" />
               Investment Duration
             </label>
@@ -106,7 +106,7 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
                 max="30"
                 value={years}
                 onChange={(e) => setYears(Number(e.target.value))}
-                className="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-primary-600"
+                className="w-full h-2 bg-stone-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-primary-600"
               />
               <div className="flex items-center gap-2">
                 <input
@@ -115,16 +115,16 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
                   onChange={(e) => setYears(Number(e.target.value))}
                   min="1"
                   max="30"
-                  className="flex-1 px-4 py-2 border border-stone-300 rounded-lg font-mono text-lg font-semibold focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+                  className="flex-1 px-4 py-2 border border-stone-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white rounded-lg font-mono text-lg font-semibold focus:ring-2 focus:ring-primary-600 focus:border-transparent"
                 />
-                <span className="text-stone-600 font-medium">years</span>
+                <span className="text-stone-600 dark:text-slate-400 font-medium">years</span>
               </div>
             </div>
           </div>
 
           {/* Expected Return */}
           <div>
-            <label className="flex items-center gap-2 text-sm font-semibold text-stone-900 mb-2">
+            <label className="flex items-center gap-2 text-sm font-semibold text-stone-900 dark:text-white mb-2">
               <Percent className="w-4 h-4" />
               Expected Annual Return
             </label>
@@ -136,7 +136,7 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
                 step="0.5"
                 value={expectedReturn}
                 onChange={(e) => setExpectedReturn(Number(e.target.value))}
-                className="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-primary-600"
+                className="w-full h-2 bg-stone-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-primary-600"
               />
               <div className="flex items-center gap-2">
                 <input
@@ -146,9 +146,9 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
                   min="1"
                   max="30"
                   step="0.5"
-                  className="flex-1 px-4 py-2 border border-stone-300 rounded-lg font-mono text-lg font-semibold focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+                  className="flex-1 px-4 py-2 border border-stone-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white rounded-lg font-mono text-lg font-semibold focus:ring-2 focus:ring-primary-600 focus:border-transparent"
                 />
-                <span className="text-stone-600 font-medium">% p.a.</span>
+                <span className="text-stone-600 dark:text-slate-400 font-medium">% p.a.</span>
               </div>
             </div>
           </div>
@@ -172,8 +172,8 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
             {/* Total Invested */}
             <div className="flex items-center justify-between p-4 bg-stone-50 rounded-lg border border-stone-200">
               <div>
-                <p className="text-xs text-stone-600 mb-1">Amount Invested</p>
-                <p className="text-xl font-bold font-mono text-stone-900">
+                <p className="text-xs text-stone-600 dark:text-slate-400 mb-1">Amount Invested</p>
+                <p className="text-xl font-bold font-mono text-stone-900 dark:text-white">
                   {formatINR(results.totalInvested, { compact: true })}
                 </p>
               </div>
@@ -201,7 +201,7 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
 
           {/* Composition Bar */}
           <div className="pt-4">
-            <p className="text-xs font-semibold text-stone-700 mb-2">Investment Composition</p>
+            <p className="text-xs font-semibold text-stone-700 dark:text-slate-300 mb-2">Investment Composition</p>
             <div className="h-8 flex rounded-lg overflow-hidden">
               <div
                 className="bg-secondary-500 flex items-center justify-center text-white text-xs font-semibold"
@@ -220,7 +220,7 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
                 {((results.returns / results.futureValue) * 100).toFixed(0)}%
               </div>
             </div>
-            <div className="flex justify-between mt-2 text-xs text-stone-600">
+            <div className="flex justify-between mt-2 text-xs text-stone-600 dark:text-slate-400">
               <span>• Your Investment</span>
               <span>Returns •</span>
             </div>

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from 'react';
 import { 
@@ -73,7 +73,7 @@ export default function ProductAnalyticsPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-primary-400 to-emerald-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-primary-400 to-success-400 bg-clip-text text-transparent">
             Product Intelligence
           </h1>
           <p className="text-slate-400 mt-1">Track views, clicks, and conversions across all products</p>

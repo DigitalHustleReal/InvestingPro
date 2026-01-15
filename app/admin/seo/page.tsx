@@ -49,14 +49,14 @@ export default function SEOHealthPage() {
         if (!score) return 'text-slate-500';
         if (score >= 80) return 'text-primary-400';
         if (score >= 50) return 'text-accent-400';
-        return 'text-rose-400';
+        return 'text-danger-400';
     };
 
     const getStatusIcon = (score?: number) => {
         if (!score) return null;
         if (score >= 80) return <CheckCircle2 className="w-4 h-4 text-primary-400" />;
         if (score >= 50) return <AlertTriangle className="w-4 h-4 text-accent-400" />;
-        return <XCircle className="w-4 h-4 text-rose-400" />;
+        return <XCircle className="w-4 h-4 text-danger-400" />;
     };
 
     return (

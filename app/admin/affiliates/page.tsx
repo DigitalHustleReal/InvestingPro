@@ -131,7 +131,7 @@ export default function AffiliatesPage() {
                                     </div>
                                     <div className={cn(
                                         "flex items-center gap-1 text-xs font-bold",
-                                        metric.changeType === 'up' ? 'text-primary-400' : 'text-rose-400'
+                                        metric.changeType === 'up' ? 'text-primary-400' : 'text-danger-400'
                                     )}>
                                         {metric.changeType === 'up' 
                                             ? <ArrowUpRight className="w-3 h-3" />

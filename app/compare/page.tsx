@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -258,7 +258,7 @@ export default function ComparisonPage() {
                                                             : false;
 
                                                     return (
-                                                        <td key={`${product.id}-${field.key}`} className={`p-4 align-top text-sm border-r border-slate-50 dark:border-slate-900 text-center ${isBest ? 'bg-success-50/50 dark:bg-emerald-900/10' : ''}`}>
+                                                        <td key={`${product.id}-${field.key}`} className={`p-4 align-top text-sm border-r border-slate-50 dark:border-slate-900 text-center ${isBest ? 'bg-success-50/50 dark:bg-success-900/10' : ''}`}>
                                                             {renderCell(value, field.type, isBest)}
                                                         </td>
                                                     );
@@ -333,7 +333,7 @@ function renderCell(value: any, type: FieldType, isBest: boolean) {
     };
 
     return (
-        <div className={`relative ${isBest ? 'text-success-700 dark:text-emerald-400 font-medium' : ''}`}>
+        <div className={`relative ${isBest ? 'text-success-700 dark:text-success-400 font-medium' : ''}`}>
             {content()}
             {isBest && <Badge className="absolute -top-3 -right-2 scale-[0.7] bg-success-100 text-success-700 border-0">Winner</Badge>}
         </div>

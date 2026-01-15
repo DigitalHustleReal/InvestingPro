@@ -68,7 +68,7 @@ export default function FindYourFundPage() {
             />
 
             {/* Hero Section */}
-            <div className="bg-gradient-to-r from-green-600 to-emerald-500 text-white py-16">
+            <div className="bg-gradient-to-r from-success-600 to-success-500 text-white py-16">
                 <div className="container mx-auto px-6">
                     <div className="max-w-3xl mx-auto text-center">
                         <h1 className="text-4xl md:text-5xl font-bold mb-4">

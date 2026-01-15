@@ -100,43 +100,43 @@ export default async function FixedDepositDetailPage({ params }: { params: { slu
   return (
     <div className="bg-slate-50 dark:bg-slate-950 min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-emerald-900 to-teal-800 text-white">
+      <div className="bg-gradient-to-br from-success-900 to-primary-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             {/* Left: Details */}
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-4">
-                <span className="bg-emerald-500/20 text-emerald-200 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                <span className="bg-emerald-500/20 text-success-200 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                   <Landmark className="w-4 h-4" />
                   Fixed Deposit
                 </span>
                 <div className="flex items-center gap-1">
                   <Star className="w-5 h-5 text-amber-400 fill-amber-400" />
                   <span className="font-bold text-lg">{fd.rating}</span>
-                  <span className="text-emerald-200 text-sm">/5</span>
+                  <span className="text-success-200 text-sm">/5</span>
                 </div>
               </div>
               
               <h1 className="text-3xl md:text-4xl font-bold mb-2">{fd.name}</h1>
-              <p className="text-emerald-100 mb-6">{fd.provider}</p>
-              <p className="text-lg text-emerald-100 mb-8 max-w-2xl">{fd.description}</p>
+              <p className="text-success-100 mb-6">{fd.provider}</p>
+              <p className="text-lg text-success-100 mb-8 max-w-2xl">{fd.description}</p>
               
               {/* Quick Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4">
                 <div>
-                  <p className="text-sm text-emerald-200">Interest Rate</p>
+                  <p className="text-sm text-success-200">Interest Rate</p>
                   <p className="text-xl font-bold">{fd.interestRate}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-emerald-200">Senior Citizen</p>
+                  <p className="text-sm text-success-200">Senior Citizen</p>
                   <p className="text-xl font-bold">{fd.seniorCitizenRate}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-emerald-200">Min Deposit</p>
+                  <p className="text-sm text-success-200">Min Deposit</p>
                   <p className="text-xl font-bold">{fd.minDeposit}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-emerald-200">Tenure</p>
+                  <p className="text-sm text-success-200">Tenure</p>
                   <p className="text-xl font-bold">{fd.tenure.split(' ')[0]}</p>
                 </div>
               </div>
@@ -146,13 +146,13 @@ export default async function FixedDepositDetailPage({ params }: { params: { slu
             <div className="lg:col-span-1">
               <Card className="bg-white/10 backdrop-blur-sm border-white/20">
                 <CardContent className="p-6">
-                  <p className="text-sm text-emerald-200 mb-4">Start earning guaranteed returns</p>
+                  <p className="text-sm text-success-200 mb-4">Start earning guaranteed returns</p>
                   <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-6 text-lg mb-3">
                       Open FD <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
-                  <div className="flex items-center justify-center gap-2 text-emerald-200 text-sm">
+                  <div className="flex items-center justify-center gap-2 text-success-200 text-sm">
                     <ShieldCheck className="w-4 h-4" />
                     <span>DICGC Insured up to ₹5 Lakh</span>
                   </div>
@@ -269,12 +269,12 @@ export default async function FixedDepositDetailPage({ params }: { params: { slu
           {/* Right Column - Sidebar */}
           <div className="space-y-6">
             <div className="sticky top-6">
-              <Card className="bg-gradient-to-br from-emerald-600 to-teal-600 text-white">
+              <Card className="bg-gradient-to-br from-success-600 to-primary-600 text-white">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Start Earning Today</h3>
-                  <p className="text-sm text-emerald-100 mb-4">Guaranteed returns with zero risk</p>
+                  <p className="text-sm text-success-100 mb-4">Guaranteed returns with zero risk</p>
                   <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full bg-white text-emerald-600 hover:bg-gray-100 font-semibold py-6 mb-3">
+                    <Button className="w-full bg-white text-success-600 hover:bg-gray-100 font-semibold py-6 mb-3">
                       Open FD <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>

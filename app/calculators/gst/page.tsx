@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React from 'react';
 import SEOHead from "@/components/common/SEOHead";
@@ -252,7 +252,7 @@ export default function GSTCalculatorPage() {
                 </Card>
 
                 {/* Related Calculators */}
-                <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-primary-50 to-emerald-50">
+                <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-primary-50 to-success-50">
                     <CardHeader>
                         <CardTitle className="text-2xl font-bold text-slate-900">Related Business Calculators</CardTitle>
                     </CardHeader>

@@ -183,7 +183,7 @@ export default function RankingExplanation({
                             <ul className="space-y-2">
                                 {weaknesses.map((weakness, idx) => (
                                     <li key={idx} className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300">
-                                        <XCircle className="w-4 h-4 text-rose-600 mt-0.5 flex-shrink-0" />
+                                        <XCircle className="w-4 h-4 text-danger-600 mt-0.5 flex-shrink-0" />
                                         <span>{weakness}</span>
                                     </li>
                                 ))}

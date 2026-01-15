@@ -118,7 +118,7 @@ export default function CreditCardRewardsCalculator() {
   };
 
   const categories: Array<{ key: keyof SpendingCategories; label: string; icon: any; color: string }> = [
-    { key: 'travel', label: 'Travel', icon: 'âœˆï¸', color: 'from-blue-500 to-cyan-500' },
+    { key: 'travel', label: 'Travel', icon: 'âœˆï¸', color: 'from-secondary-500 to-secondary-600' },
     { key: 'dining', label: 'Dining', icon: 'ðŸ½ï¸', color: 'from-orange-500 to-danger-500' },
     { key: 'shopping', label: 'Shopping', icon: 'ðŸ›ï¸', color: 'from-purple-500 to-pink-500' },
     { key: 'bills', label: 'Bills', icon: 'ðŸ“±', color: 'from-success-500 to-success-500' },
@@ -203,7 +203,7 @@ export default function CreditCardRewardsCalculator() {
                 >
                   {index === 0 && (
                     <div className="absolute top-0 right-0">
-                      <Badge className="rounded-tl-none rounded-br-none bg-gradient-to-r from-primary-600 to-blue-600 text-white border-0">
+                      <Badge className="rounded-tl-none rounded-br-none bg-gradient-to-r from-primary-600 to-secondary-600 text-white border-0">
                         <Sparkles className="w-3 h-3 mr-1" />
                         Best Match
                       </Badge>
@@ -228,7 +228,7 @@ export default function CreditCardRewardsCalculator() {
                     <div className="grid grid-cols-3 gap-3 mb-4">
                       <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-3">
                         <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase mb-1">Annual Rewards</p>
-                        <p className="text-sm font-bold text-success-600 dark:text-emerald-400">{formatCurrency(Math.round(card.annualRewards))}</p>
+                        <p className="text-sm font-bold text-success-600 dark:text-success-400">{formatCurrency(Math.round(card.annualRewards))}</p>
                       </div>
                       <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-3">
                         <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase mb-1">Annual Fee</p>
@@ -237,14 +237,14 @@ export default function CreditCardRewardsCalculator() {
                       <div className={cn(
                         "rounded-lg p-3",
                         card.netBenefit > 0 
-                          ? "bg-success-50 dark:bg-emerald-900/20" 
+                          ? "bg-success-50 dark:bg-success-900/20" 
                           : "bg-danger-50 dark:bg-danger-900/20"
                       )}>
                         <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase mb-1">Net Benefit</p>
                         <p className={cn(
                           "text-sm font-bold",
                           card.netBenefit > 0 
-                            ? "text-success-700 dark:text-emerald-400" 
+                            ? "text-success-700 dark:text-success-400" 
                             : "text-danger-700 dark:text-danger-400"
                         )}>
                           {card.netBenefit > 0 ? '+' : ''}{formatCurrency(Math.round(card.netBenefit))}

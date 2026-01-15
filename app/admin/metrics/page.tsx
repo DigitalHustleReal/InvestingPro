@@ -63,7 +63,7 @@ export default function MetricsDashboard() {
             label: 'Total Requests',
             value: metricsData?.totalRequests || 0,
             icon: Activity,
-            color: 'bg-blue-500',
+            color: 'bg-secondary-500',
             trend: null,
         },
         {

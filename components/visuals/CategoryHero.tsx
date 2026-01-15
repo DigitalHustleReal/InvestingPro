@@ -258,7 +258,7 @@ function getCategoryColors(category: string) {
         'loans': { gradient: 'from-success-500 to-primary-500' },
         'banking': { gradient: 'from-secondary-500 to-cyan-500' },
         'investing': { gradient: 'from-primary-500 to-success-500' },
-        'insurance': { gradient: 'from-rose-500 to-pink-500' },
+        'insurance': { gradient: 'from-danger-500 to-danger-600' },
         'small-business': { gradient: 'from-accent-500 to-orange-500' },
     };
     

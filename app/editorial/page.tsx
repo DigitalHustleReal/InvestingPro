@@ -250,10 +250,10 @@ export default function EditorialDashboard() {
                                 <div className="text-xs text-slate-500 font-medium">Total Drafts</div>
                             </CardContent>
                         </Card>
-                        <Card className="border-rose-200 bg-rose-50">
+                        <Card className="border-danger-200 bg-danger-50">
                             <CardContent className="p-6 md:p-8">
-                                <div className="text-2xl font-bold text-rose-700">{stats.high}</div>
-                                <div className="text-xs text-rose-600 font-medium">High Risk</div>
+                                <div className="text-2xl font-bold text-danger-700">{stats.high}</div>
+                                <div className="text-xs text-danger-600 font-medium">High Risk</div>
                             </CardContent>
                         </Card>
                         <Card className="border-accent-200 bg-accent-50">

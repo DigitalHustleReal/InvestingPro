@@ -193,7 +193,7 @@ export default function EditorialDraftCard({
                         {/* Risk Indicators */}
                         <div className="flex flex-wrap gap-2 mb-4">
                             {forbiddenPhrases.length > 0 && (
-                                <Badge className="bg-rose-100 text-rose-700 border-rose-300 text-xs">
+                                <Badge className="bg-danger-100 text-danger-700 border-danger-300 text-xs">
                                     <AlertTriangle className="w-3 h-3 mr-1" />
                                     {forbiddenPhrases.length} forbidden phrase(s)
                                 </Badge>

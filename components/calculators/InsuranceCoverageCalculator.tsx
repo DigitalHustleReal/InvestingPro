@@ -206,7 +206,7 @@ export default function InsuranceCoverageCalculator() {
             </h3>
 
             {/* Recommended Coverage - Hero Card */}
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-primary-600 to-blue-600 dark:from-primary-500 dark:to-blue-500 text-white shadow-xl shadow-primary-500/30">
+            <div className="p-6 rounded-2xl bg-gradient-to-br from-primary-600 to-secondary-600 dark:from-primary-500 dark:to-secondary-500 text-white shadow-xl shadow-primary-500/30">
               <div className="flex items-center gap-2 mb-2">
                 <Shield className="w-5 h-5" />
                 <p className="text-xs font-bold uppercase tracking-wider opacity-90">Recommended Coverage</p>

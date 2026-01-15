@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React from 'react';
 import Link from 'next/link';
@@ -71,7 +71,7 @@ export default function DematAccountsPage() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-20">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                     {[
-                        { icon: Users, label: "Active Investors", value: "3.5Cr+", color: "bg-primary-600", shadow: "shadow-blue-500/20" },
+                        { icon: Users, label: "Active Investors", value: "3.5Cr+", color: "bg-primary-600", shadow: "shadow-secondary-500/20" },
                         { icon: Zap, label: "Lowest Fees", value: "â‚¹0 Delivery", color: "bg-primary-600", shadow: "shadow-primary-500/20" },
                         { icon: Shield, label: "SEBI Certified", value: "Fully Secure", color: "bg-secondary-600", shadow: "shadow-purple-500/20" },
                         { icon: Smartphone, label: "Digital KYC", value: "Paperless", color: "bg-accent-600", shadow: "shadow-accent-500/20" },
@@ -112,7 +112,7 @@ export default function DematAccountsPage() {
                     {brokers.map((broker: any, index: number) => (
                         <Card key={index} className={`rounded-[2.5rem] border-0 shadow-xl shadow-slate-200/50 overflow-hidden transition-all hover:-translate-y-1 hover:shadow-2xl ${broker.featured ? 'ring-2 ring-secondary-500' : ''}`}>
                             {broker.featured && (
-                                <div className="bg-gradient-to-r from-secondary-600 to-blue-700 text-white text-center py-2 text-[10px] font-bold uppercase tracking-[0.3em] flex items-center justify-center gap-2">
+                                <div className="bg-gradient-to-r from-secondary-600 to-secondary-700 text-white text-center py-2 text-[10px] font-bold uppercase tracking-[0.3em] flex items-center justify-center gap-2">
                                     <Star className="w-3 h-3 fill-white" />
                                     Editor's Premier Choice
                                 </div>
@@ -188,7 +188,7 @@ export default function DematAccountsPage() {
 
                                     {/* Transaction Panel */}
                                     <div className="lg:col-span-1 flex flex-col justify-center">
-                                        <div className="bg-gradient-to-br from-primary-600 to-blue-600 dark:from-primary-500 dark:to-blue-500 rounded-[2rem] p-6 mb-4 text-white relative h-full flex flex-col justify-between overflow-hidden group/cta shadow-xl shadow-primary-500/20">
+                                        <div className="bg-gradient-to-br from-primary-600 to-secondary-600 dark:from-primary-500 dark:to-secondary-500 rounded-[2rem] p-6 mb-4 text-white relative h-full flex flex-col justify-between overflow-hidden group/cta shadow-xl shadow-primary-500/20">
                                             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
                                             <div className="relative z-10">
                                                 <p className="text-[10px] font-bold text-white/60 uppercase tracking-widest mb-1">Tailored for</p>

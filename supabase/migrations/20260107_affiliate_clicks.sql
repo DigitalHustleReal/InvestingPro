@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS public.affiliate_clicks (
     -- Revenue tracking (updated via webhook or manual)
     conversion_status TEXT DEFAULT 'pending',
     -- 'pending', 'converted', 'rejected', 'expired'
-    commission_amount DECIMAL(10,2),
+    commission_earned DECIMAL(10,2) DEFAULT 0,
     commission_currency TEXT DEFAULT 'INR',
     conversion_date TIMESTAMPTZ,
     
@@ -92,7 +92,7 @@ SELECT
     COUNT(*) as total_clicks,
     COUNT(DISTINCT session_id) as unique_sessions,
     COUNT(CASE WHEN conversion_status = 'converted' THEN 1 END) as conversions,
-    SUM(CASE WHEN conversion_status = 'converted' THEN commission_amount ELSE 0 END) as revenue
+    SUM(CASE WHEN conversion_status = 'converted' THEN commission_earned ELSE 0 END) as revenue
 FROM public.affiliate_clicks
 GROUP BY DATE(created_at), category
 ORDER BY date DESC;
@@ -110,7 +110,7 @@ SELECT
         NULLIF(COUNT(*), 0) * 100, 
         2
     ) as conversion_rate,
-    SUM(CASE WHEN conversion_status = 'converted' THEN commission_amount ELSE 0 END) as total_revenue
+    SUM(CASE WHEN conversion_status = 'converted' THEN commission_earned ELSE 0 END) as total_revenue
 FROM public.affiliate_clicks
 GROUP BY product_name, product_slug, category
 ORDER BY total_clicks DESC;
@@ -122,7 +122,7 @@ SELECT
     source_page,
     COUNT(*) as clicks,
     COUNT(CASE WHEN conversion_status = 'converted' THEN 1 END) as conversions,
-    SUM(CASE WHEN conversion_status = 'converted' THEN commission_amount ELSE 0 END) as revenue
+    SUM(CASE WHEN conversion_status = 'converted' THEN commission_earned ELSE 0 END) as revenue
 FROM public.affiliate_clicks
 GROUP BY source_component, source_page
 ORDER BY clicks DESC;
@@ -182,14 +182,14 @@ BEGIN
     SELECT 
         COUNT(*)::BIGINT as total_clicks,
         COUNT(CASE WHEN conversion_status = 'converted' THEN 1 END)::BIGINT as total_conversions,
-        COALESCE(SUM(CASE WHEN conversion_status = 'converted' THEN commission_amount ELSE 0 END), 0) as total_revenue,
+        COALESCE(SUM(CASE WHEN conversion_status = 'converted' THEN commission_earned ELSE 0 END), 0) as total_revenue,
         ROUND(
             COUNT(CASE WHEN conversion_status = 'converted' THEN 1 END)::DECIMAL / 
             NULLIF(COUNT(*), 0) * 100, 
             2
         ) as conversion_rate,
         ROUND(
-            AVG(CASE WHEN conversion_status = 'converted' THEN commission_amount END),
+            AVG(CASE WHEN conversion_status = 'converted' THEN commission_earned END),
             2
         ) as avg_commission
     FROM public.affiliate_clicks

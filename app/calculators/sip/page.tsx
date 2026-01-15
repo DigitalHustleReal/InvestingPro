@@ -367,7 +367,7 @@ export default function SIPCalculatorPage() {
                 </Card>
 
                 {/* External Authority Links */}
-                <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50">
+                <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-secondary-50 to-secondary-100">
                     <CardHeader>
                         <CardTitle className="text-xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
                             <Info className="w-6 h-6 text-primary-600" />

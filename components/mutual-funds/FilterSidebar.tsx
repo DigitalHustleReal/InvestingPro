@@ -164,7 +164,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                  <div className="space-y-4">
                      <div className="flex items-center justify-between">
                          <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Max Expense Ratio</label>
-                         <span className="text-sm font-bold text-rose-600">{filters.maxExpenseRatio}%</span>
+                         <span className="text-sm font-bold text-danger-600">{filters.maxExpenseRatio}%</span>
                     </div>
                     <Slider
                         defaultValue={[filters.maxExpenseRatio]}

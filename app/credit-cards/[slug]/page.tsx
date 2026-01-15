@@ -468,7 +468,7 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
 
             {/* Apply CTA (Sticky) */}
             <div className="sticky top-6">
-              <Card className="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white">
+              <Card className="bg-gradient-to-br from-success-500 to-success-600 text-white">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Ready to Apply?</h3>
                   <p className="text-sm text-primary-100 mb-4">Get instant approval decision online</p>

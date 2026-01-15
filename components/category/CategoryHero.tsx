@@ -77,7 +77,7 @@ const categoryConfigs: Record<string, {
     },
     'insurance': {
         icon: Shield,
-        gradient: 'from-rose-600 to-pink-600',
+        gradient: 'from-danger-600 to-danger-700',
         headline: 'Protect what matters most',
         subheadline: 'Compare life, health, term, and vehicle insurance from top insurers. Get comprehensive coverage.',
         searchPlaceholder: 'Search insurance plans by type or coverage...',

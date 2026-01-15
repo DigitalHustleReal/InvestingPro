@@ -180,7 +180,7 @@ export default function ReviewQueuePage() {
                                             <CheckCircle2 className="w-4 h-4" /> Approve
                                         </button>
                                         <button 
-                                            className="flex-1 md:flex-none px-4 py-2 bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors"
+                                            className="flex-1 md:flex-none px-4 py-2 bg-danger-500/20 hover:bg-danger-500/30 text-danger-400 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors"
                                             onClick={() => openReviewDialog(article, 'reject')}
                                         >
                                             <XCircle className="w-4 h-4" /> Changes
@@ -221,7 +221,7 @@ export default function ReviewQueuePage() {
                             
                             <div className="space-y-2">
                                 <label className="text-sm font-medium text-slate-300">
-                                    Editorial Notes {actionType === 'reject' && <span className="text-rose-400">*</span>}
+                                    Editorial Notes {actionType === 'reject' && <span className="text-danger-400">*</span>}
                                 </label>
                                 <Textarea 
                                     placeholder={actionType === 'approve' ? "Optional: Great work on..." : "Required: Please fix..."}
@@ -245,7 +245,7 @@ export default function ReviewQueuePage() {
                                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 ${
                                     actionType === 'approve' 
                                         ? 'bg-primary-500 hover:bg-primary-600 text-white' 
-                                        : 'bg-rose-500 hover:bg-rose-600 text-white'
+                                        : 'bg-danger-500 hover:bg-danger-600 text-white'
                                 }`}
                             >
                                 {isSubmitting ? 'Processing...' : (actionType === 'approve' ? 'Confirm Approval' : 'Send Request')}

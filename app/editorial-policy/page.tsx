@@ -138,23 +138,23 @@ export default function EditorialPolicyPage() {
                                     <h3 className="font-semibold text-slate-900 mb-2">NOT Allowed:</h3>
                                     <ul className="space-y-2 text-sm text-slate-600">
                                         <li className="flex items-start gap-2">
-                                            <AlertTriangle className="w-4 h-4 text-rose-600 mt-0.5 flex-shrink-0" />
+                                            <AlertTriangle className="w-4 h-4 text-danger-600 mt-0.5 flex-shrink-0" />
                                             <span>Bulk article generation</span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <AlertTriangle className="w-4 h-4 text-rose-600 mt-0.5 flex-shrink-0" />
+                                            <AlertTriangle className="w-4 h-4 text-danger-600 mt-0.5 flex-shrink-0" />
                                             <span>AI-first content workflows</span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <AlertTriangle className="w-4 h-4 text-rose-600 mt-0.5 flex-shrink-0" />
+                                            <AlertTriangle className="w-4 h-4 text-danger-600 mt-0.5 flex-shrink-0" />
                                             <span>Unreviewed AI content</span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <AlertTriangle className="w-4 h-4 text-rose-600 mt-0.5 flex-shrink-0" />
+                                            <AlertTriangle className="w-4 h-4 text-danger-600 mt-0.5 flex-shrink-0" />
                                             <span>Financial advice or recommendations</span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <AlertTriangle className="w-4 h-4 text-rose-600 mt-0.5 flex-shrink-0" />
+                                            <AlertTriangle className="w-4 h-4 text-danger-600 mt-0.5 flex-shrink-0" />
                                             <span>Claims of expertise or regulatory registration</span>
                                         </li>
                                     </ul>

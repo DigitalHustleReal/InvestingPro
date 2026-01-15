@@ -139,7 +139,7 @@ export default function PersonalDashboard() {
                     <Card className="border-none shadow-sm bg-white dark:bg-slate-900">
                         <CardContent className="p-6 text-slate-900 dark:text-white">
                             <div className="flex justify-between items-start mb-4">
-                                <TrendingDown className="w-5 h-5 text-rose-500" />
+                                <TrendingDown className="w-5 h-5 text-danger-500" />
                             </div>
                             <div className="text-2xl font-bold text-slate-900 dark:text-white">₹{remainingBudget}</div>
                             <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">Remaining Budget</div>
@@ -237,7 +237,7 @@ export default function PersonalDashboard() {
                                                     </div>
                                                     <button 
                                                         onClick={() => deleteTransaction(t.id)}
-                                                        className="p-2 text-slate-300 hover:text-rose-500"
+                                                        className="p-2 text-slate-300 hover:text-danger-500"
                                                     >
                                                         <Trash2 className="w-4 h-4" />
                                                     </button>

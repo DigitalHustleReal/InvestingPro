@@ -154,7 +154,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
   return (
     <div className="bg-slate-50 min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-emerald-900 to-emerald-800 text-white">
+      <div className="bg-gradient-to-br from-success-900 to-success-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             {/* Left: Loan Info */}
@@ -399,7 +399,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
 
             {/* Apply CTA (Sticky) */}
             <div className="sticky top-6">
-              <Card className="bg-gradient-to-br from-emerald-600 to-emerald-700 text-white">
+              <Card className="bg-gradient-to-br from-success-600 to-success-700 text-white">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Get Instant Loan</h3>
                   <p className="text-sm text-primary-100 mb-4">Approval in 10 seconds</p>

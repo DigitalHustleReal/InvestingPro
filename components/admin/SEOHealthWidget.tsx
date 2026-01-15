@@ -172,7 +172,7 @@ export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetP
                                 key={idx}
                                 className={cn(
                                     "flex items-start gap-2 text-xs p-3 rounded-lg",
-                                    issue.type === 'error' ? 'bg-rose-500/10 text-rose-400' :
+                                    issue.type === 'error' ? 'bg-danger-500/10 text-danger-400' :
                                     issue.type === 'warning' ? 'bg-accent-500/10 text-accent-400' :
                                     'bg-white/5 text-slate-400'
                                 )}

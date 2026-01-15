@@ -120,7 +120,7 @@ export default function DesignSystemPage() {
                         <button className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm flex items-center gap-2">
                             <Layers className="w-4 h-4" /> Secondary Action
                         </button>
-                        <button className="px-4 py-2 bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 rounded-lg text-sm border border-rose-500/30">
+                        <button className="px-4 py-2 bg-danger-500/20 hover:bg-danger-500/30 text-danger-400 rounded-lg text-sm border border-danger-500/30">
                             Danger Action
                         </button>
                     </div>

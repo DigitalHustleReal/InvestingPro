@@ -161,7 +161,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
                 {/* Right: Author Box & Disclaimer */}
                 <div className="space-y-6">
                     <Card className="bg-slate-900 text-white rounded-3xl border-0 overflow-hidden">
-                        <div className="h-2 bg-gradient-to-r from-emerald-500 to-teal-500" />
+                        <div className="h-2 bg-gradient-to-r from-success-500 to-primary-500" />
                         <CardContent className="p-8">
                             <h3 className="font-bold text-lg mb-4">Why trust InvestingPro?</h3>
                             <p className="text-slate-400 text-sm leading-relaxed mb-6">

@@ -71,7 +71,7 @@ export default async function VersusPage({
         if (!p1 || !p2) {
             return (
                 <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
-                    <X className="w-12 h-12 text-rose-300 mb-4" />
+                    <X className="w-12 h-12 text-danger-300 mb-4" />
                     <h1 className="text-xl font-bold mb-2">Product Not Found</h1>
                     <p className="text-slate-500 mb-6">One or both products don't exist in our database.</p>
                     <Link href="/products"><Button>Go Back</Button></Link>

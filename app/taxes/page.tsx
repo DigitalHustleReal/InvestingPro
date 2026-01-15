@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from 'react';
 import { 
@@ -207,7 +207,7 @@ export default function TaxesPage() {
                             FINANCIAL YEAR 2025-26
                         </Badge>
                         <h1 className="text-5xl sm:text-7xl font-black text-slate-900 dark:text-white mb-6 leading-[1.1] tracking-tight">
-                            Save More. <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-primary-500 to-cyan-500">Tax Less.</span>
+                            Save More. <span className="text-transparent bg-clip-text bg-gradient-to-r from-success-400 via-primary-500 to-secondary-500">Tax Less.</span>
                         </h1>
                         <p className="text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
                             Stop overpaying taxes. Compare regimes, track deadlines, and optimize your 80C investments with India's most advanced tax toolkit.
@@ -303,7 +303,7 @@ export default function TaxesPage() {
                                 { date: 'March 31', title: 'Investment Proof Submission', desc: 'Last day to complete your 80C investments for FY 2024-25.', color: 'bg-primary-500' },
                                 { date: 'July 31', title: 'ITR Filing Deadline', desc: 'Standard deadline for individual tax payers and salaried employees.', color: 'bg-accent-500' },
                                 { date: 'Sept 30', title: 'Tax Audit Deadline', desc: 'Deadline for businesses and professionals requiring a tax audit.', color: 'bg-primary-500' },
-                                { date: 'Dec 31', title: 'Belated ITR Return', desc: 'Last chance to file your taxes with a penalty for late submission.', color: 'bg-rose-500' },
+                                { date: 'Dec 31', title: 'Belated ITR Return', desc: 'Last chance to file your taxes with a penalty for late submission.', color: 'bg-danger-500' },
                             ].map((item, idx) => (
                                 <div key={idx} className="flex group">
                                     <div className="flex flex-col items-center mr-6">

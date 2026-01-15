@@ -206,7 +206,7 @@ export default function LoansPage() {
                     {/* EMI Calculator Widget */}
                     <div id="emi-calculator" className="max-w-md mx-auto mb-12">
                         <Card className="rounded-[2.5rem] bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xl shadow-primary-500/10 overflow-hidden relative">
-                            <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-emerald-400 via-primary-500 to-secondary-500" />
+                            <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-success-400 via-primary-500 to-secondary-500" />
                             
                             <CardContent className="p-8">
                                 <div className="flex items-center justify-between mb-8">

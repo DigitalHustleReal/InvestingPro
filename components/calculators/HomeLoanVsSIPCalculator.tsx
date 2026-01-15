@@ -186,8 +186,8 @@ export function HomeLoanVsSIPCalculator() {
                     </Card>
                     <Card className="bg-danger-50 border-none shadow-sm">
                         <CardContent className="pt-6">
-                            <div className="text-2xl font-bold text-rose-600 mb-1">₹{results.totalInterest.toLocaleString()}</div>
-                            <div className="text-xs text-rose-500">Total Interest Outflow</div>
+                            <div className="text-2xl font-bold text-danger-600 mb-1">₹{results.totalInterest.toLocaleString()}</div>
+                            <div className="text-xs text-danger-500">Total Interest Outflow</div>
                         </CardContent>
                     </Card>
                     <Card className="bg-primary-600 text-white border-none shadow-sm">

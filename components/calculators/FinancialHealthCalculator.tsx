@@ -280,7 +280,7 @@ export function FinancialHealthCalculator() {
                                     </div>
                                 ))}
                                 {result.insights.length === 0 && (
-                                    <div className="flex gap-3 p-3 rounded-lg bg-success-50 border-success-100 text-emerald-800">
+                                    <div className="flex gap-3 p-3 rounded-lg bg-success-50 border-success-100 text-success-800">
                                         <CheckCircle2 className="w-5 h-5 shrink-0" />
                                         <p className="text-sm">You are doing great! Keep maintaining your healthy financial habits.</p>
                                     </div>

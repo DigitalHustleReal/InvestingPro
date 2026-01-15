@@ -108,11 +108,11 @@ export default function StocksPage() {
                                             {index.isUp ? (
                                                 <TrendingUp className="w-4 h-4 text-primary-400" />
                                             ) : (
-                                                <TrendingDown className="w-4 h-4 text-rose-400" />
+                                                <TrendingDown className="w-4 h-4 text-danger-400" />
                                             )}
                                         </div>
                                         <p className="text-xl font-bold text-white mb-1 tracking-tight">{index.value}</p>
-                                        <p className={`text-xs font-bold ${index.isUp ? 'text-primary-400' : 'text-rose-400'}`}>
+                                        <p className={`text-xs font-bold ${index.isUp ? 'text-primary-400' : 'text-danger-400'}`}>
                                             {index.change}
                                         </p>
                                     </CardContent>
@@ -171,11 +171,11 @@ export default function StocksPage() {
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Market Laggards</p>
                                 </div>
                             </div>
-                            <Button variant="ghost" className="rounded-xl font-semibold text- uppercase text-rose-600 tracking-widest">View All</Button>
+                            <Button variant="ghost" className="rounded-xl font-semibold text- uppercase text-danger-600 tracking-widest">View All</Button>
                         </div>
                         <div className="space-y-4">
                             {topLosers.map((stock, i) => (
-                                <div key={i} className="flex items-center justify-between p-5 bg-slate-50/50 rounded-2xl border border-transparent hover:border-rose-100 hover:bg-white transition-all group/item">
+                                <div key={i} className="flex items-center justify-between p-5 bg-slate-50/50 rounded-2xl border border-transparent hover:border-danger-100 hover:bg-white transition-all group/item">
                                     <div className="flex items-center gap-4">
                                         <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center font-semibold text- text-slate-400 group-hover/item:bg-danger-600 group-hover/item:text-white transition-colors">
                                             {stock.name.substring(0, 2)}
@@ -187,7 +187,7 @@ export default function StocksPage() {
                                     </div>
                                     <div className="text-right">
                                         <p className="font-bold text-slate-900">{stock.price}</p>
-                                        <p className="text-xs font-bold text-rose-600">{stock.change}</p>
+                                        <p className="text-xs font-bold text-danger-600">{stock.change}</p>
                                     </div>
                                 </div>
                             ))}

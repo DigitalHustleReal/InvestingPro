@@ -86,7 +86,7 @@ export function StatCard({ label, value, change, changeType = 'neutral', icon: I
 
     const changeColors = {
         positive: 'text-primary-400',
-        negative: 'text-rose-400',
+        negative: 'text-danger-400',
         neutral: 'text-slate-400',
     };
 
@@ -258,7 +258,7 @@ export function StatusBadge({ children, variant = 'default' }: BadgeProps) {
         default: 'bg-slate-700 text-slate-300',
         success: 'bg-primary-500/20 text-primary-400 border border-primary-500/30',
         warning: 'bg-accent-500/20 text-accent-400 border border-accent-500/30',
-        danger: 'bg-rose-500/20 text-rose-400 border border-rose-500/30',
+        danger: 'bg-danger-500/20 text-danger-400 border border-danger-500/30',
         info: 'bg-secondary-500/20 text-secondary-400 border border-secondary-500/30',
     };
 

@@ -42,7 +42,7 @@ export default function CMSDashboardPage() {
         switch (status) {
             case 'healthy': return 'bg-primary-500/10 text-primary-400 border-primary-500/20';
             case 'degraded': return 'bg-accent-500/10 text-accent-400 border-accent-500/20';
-            case 'unhealthy': return 'bg-rose-500/10 text-rose-400 border-rose-500/20';
+            case 'unhealthy': return 'bg-danger-500/10 text-danger-400 border-danger-500/20';
             default: return 'bg-slate-500/10 text-slate-400 border-slate-500/20';
         }
     };

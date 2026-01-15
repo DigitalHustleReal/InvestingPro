@@ -30,7 +30,7 @@ export default function CMSHealthPage() {
         switch (status) {
             case 'healthy': return 'bg-primary-500/10 text-primary-400 border-primary-500/20';
             case 'degraded': return 'bg-accent-500/10 text-accent-400 border-accent-500/20';
-            case 'unhealthy': return 'bg-rose-500/10 text-rose-400 border-rose-500/20';
+            case 'unhealthy': return 'bg-danger-500/10 text-danger-400 border-danger-500/20';
             default: return 'bg-slate-500/10 text-slate-400 border-slate-500/20';
         }
     };
@@ -76,7 +76,7 @@ export default function CMSHealthPage() {
                                 "w-5 h-5",
                                 health.overall === 'healthy' ? 'text-primary-400' :
                                 health.overall === 'degraded' ? 'text-accent-400' :
-                                health.overall === 'unhealthy' ? 'text-rose-400' :
+                                health.overall === 'unhealthy' ? 'text-danger-400' :
                                 'text-slate-400'
                             )} />
                             Overall System Health
@@ -148,13 +148,13 @@ export default function CMSHealthPage() {
                 {health.error && (
                     <Card className="bg-rose-500/10 border-rose-500/20">
                         <CardHeader className="border-b border-rose-500/20">
-                            <CardTitle className="text-lg font-bold text-rose-400 flex items-center gap-3">
+                            <CardTitle className="text-lg font-bold text-danger-400 flex items-center gap-3">
                                 <XCircle className="w-5 h-5" />
                                 System Errors
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="p-6">
-                            <p className="text-sm text-rose-300">{health.error}</p>
+                            <p className="text-sm text-danger-300">{health.error}</p>
                         </CardContent>
                     </Card>
                 )}

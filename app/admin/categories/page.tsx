@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
@@ -163,7 +163,7 @@ export default function CategoriesPage() {
                 {/* Table */}
                 {isLoading ? (
                     <div className="flex items-center justify-center py-20">
-                        <div className="w-10 h-10 border-4 border-secondary-500/30 border-t-blue-500 rounded-full animate-spin" />
+                        <div className="w-10 h-10 border-4 border-secondary-500/30 border-t-secondary-500 rounded-full animate-spin" />
                     </div>
                 ) : filteredCategories.length === 0 ? (
                     <ContentSection>
@@ -221,7 +221,7 @@ export default function CategoriesPage() {
                                                     <button onClick={() => handleEdit(category)} className="p-2 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition-colors">
                                                         <Edit className="w-4 h-4" />
                                                     </button>
-                                                    <button onClick={() => { setSelectedCategory(category); setIsDeleteDialogOpen(true); }} className="p-2 hover:bg-rose-500/20 rounded-lg text-slate-400 hover:text-rose-400 transition-colors">
+                                                    <button onClick={() => { setSelectedCategory(category); setIsDeleteDialogOpen(true); }} className="p-2 hover:bg-danger-500/20 rounded-lg text-slate-400 hover:text-danger-400 transition-colors">
                                                         <Trash2 className="w-4 h-4" />
                                                     </button>
                                                 </div>
@@ -297,7 +297,7 @@ export default function CategoriesPage() {
                 <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
                     <DialogContent className="bg-slate-900 border-slate-700 text-white">
                         <DialogHeader>
-                            <DialogTitle className="flex items-center gap-2 text-rose-400">
+                            <DialogTitle className="flex items-center gap-2 text-danger-400">
                                 <AlertCircle className="w-5 h-5" />
                                 Delete Category
                             </DialogTitle>
@@ -307,7 +307,7 @@ export default function CategoriesPage() {
                         </DialogHeader>
                         <DialogFooter className="gap-2">
                             <button onClick={() => setIsDeleteDialogOpen(false)} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm">Cancel</button>
-                            <button onClick={() => selectedCategory && deleteMutation.mutate(selectedCategory.id)} disabled={deleteMutation.isPending} className="px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white rounded-lg text-sm disabled:opacity-50">
+                            <button onClick={() => selectedCategory && deleteMutation.mutate(selectedCategory.id)} disabled={deleteMutation.isPending} className="px-4 py-2 bg-danger-500 hover:bg-danger-600 text-white rounded-lg text-sm disabled:opacity-50">
                                 {deleteMutation.isPending ? 'Deleting...' : 'Delete'}
                             </button>
                         </DialogFooter>

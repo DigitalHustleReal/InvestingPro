@@ -262,8 +262,8 @@ export default function ArticleDetail() {
                             
                             if (!normalizedHTML || normalizedHTML.trim().length < 10) {
                                 return (
-                                    <div className="p-8 bg-rose-50 rounded-lg border border-rose-200">
-                                        <p className="text-rose-800 text-center">
+                                    <div className="p-8 bg-danger-50 rounded-lg border border-danger-200">
+                                        <p className="text-danger-800 text-center">
                                             Error rendering content.
                                         </p>
                                     </div>

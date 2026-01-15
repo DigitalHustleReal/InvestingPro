@@ -132,7 +132,7 @@ export default function ProfilePage() {
                                 {user.profile_picture ? (
                                     <img src={user.profile_picture} alt={user.full_name} className="w-full h-full object-cover" />
                                 ) : (
-                                    <div className="w-full h-full bg-gradient-to-br from-emerald-400 to-primary-500 flex items-center justify-center">
+                                    <div className="w-full h-full bg-gradient-to-br from-success-400 to-primary-500 flex items-center justify-center">
                                         <UserIcon className="w-20 h-20 text-white" />
                                     </div>
                                 )}

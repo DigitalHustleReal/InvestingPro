@@ -221,7 +221,7 @@ export default function TerminalPage() {
                                                         <div className="text-xl font-bold text-white tracking-tight">{item.symbol}</div>
                                                         <div className="flex items-center gap-2">
                                                             <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">₹{item.price}</span>
-                                                            <span className={`text-xs font-bold ${item.status === 'bullish' ? 'text-primary-400' : 'text-rose-400'}`}>
+                                                            <span className={`text-xs font-bold ${item.status === 'bullish' ? 'text-primary-400' : 'text-danger-400'}`}>
                                                                 {item.change}
                                                             </span>
                                                         </div>
@@ -261,9 +261,9 @@ export default function TerminalPage() {
                                                             {item.trend === 'up' ? (
                                                                 <TrendingUp className="w-5 h-5 text-primary-400" />
                                                             ) : (
-                                                                <TrendingDown className="w-5 h-5 text-rose-400" />
+                                                                <TrendingDown className="w-5 h-5 text-danger-400" />
                                                             )}
-                                                            <span className={`text-lg font-bold ${item.trend === 'up' ? 'text-primary-400' : 'text-rose-400'}`}>
+                                                            <span className={`text-lg font-bold ${item.trend === 'up' ? 'text-primary-400' : 'text-danger-400'}`}>
                                                                 {item.change}
                                                             </span>
                                                         </div>

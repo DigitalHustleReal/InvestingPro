@@ -22,7 +22,7 @@ export default function DifferentiationCard({ score, productName }: Differentiat
         <Card className="bg-gradient-to-br from-slate-900 to-slate-800 text-white overflow-hidden border-slate-700">
             <CardHeader className="pb-2">
                 <CardTitle className="flex items-center gap-2 text-lg">
-                    <SearchCheck className="w-5 h-5 text-emerald-400" />
+                    <SearchCheck className="w-5 h-5 text-success-400" />
                     Why this card?
                 </CardTitle>
             </CardHeader>
@@ -43,7 +43,7 @@ export default function DifferentiationCard({ score, productName }: Differentiat
                     </div>
                     
                     <div className="text-center bg-white/5 p-3 rounded-lg border border-white/10 backdrop-blur-sm">
-                        <div className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400">
+                        <div className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-success-400 to-secondary-400">
                             {score.overall}
                         </div>
                         <div className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">

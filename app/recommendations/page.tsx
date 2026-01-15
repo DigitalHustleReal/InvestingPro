@@ -154,7 +154,7 @@ export default function SmartRecommendationsPage() {
     return (
         <div className="min-h-screen bg-slate-50 pb-20">
             {/* Hero */}
-            <section className="bg-gradient-to-br from-[#0B1221] via-blue-900 to-[#0B1221] text-white pt-12 pb-32 relative overflow-hidden">
+            <section className="bg-gradient-to-br from-[#0B1221] via-secondary-900 to-[#0B1221] text-white pt-12 pb-32 relative overflow-hidden">
                 <div className="container mx-auto px-6 relative z-10 text-center">
                     <div className="flex items-center justify-center gap-2 mb-4">
                         <Sparkles className="w-5 h-5 text-primary-400" />
@@ -224,7 +224,7 @@ export default function SmartRecommendationsPage() {
                                          
                                          {/* Context Card */}
                                          <div className="mb-[-20px] pt-8 pl-8 pr-8 pb-12 bg-success-50 rounded-t-2xl border border-success-100 relative top-6 z-0 -mx-4">
-                                              <p className="text-emerald-800 font-medium">
+                                              <p className="text-success-800 font-medium">
                                                   <span className="font-bold">Why it matches:</span> {res.matchReason}
                                               </p>
                                          </div>

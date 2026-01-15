@@ -436,11 +436,11 @@ export default function AIContentWriterPage() {
 
                                             {/* Error */}
                                             {error && (
-                                                <div className="p-4 bg-rose-50 border border-rose-200 rounded-lg flex items-start gap-3">
-                                                    <AlertCircle className="w-5 h-5 text-rose-600 flex-shrink-0 mt-0.5" />
+                                                <div className="p-4 bg-danger-50 border border-danger-200 rounded-lg flex items-start gap-3">
+                                                    <AlertCircle className="w-5 h-5 text-danger-600 flex-shrink-0 mt-0.5" />
                                                     <div className="flex-1">
                                                         <p className="font-semibold text-rose-900 mb-1">Error</p>
-                                                        <p className="text-sm text-rose-700">{error}</p>
+                                                        <p className="text-sm text-danger-700">{error}</p>
                                                     </div>
                                                 </div>
                                             )}

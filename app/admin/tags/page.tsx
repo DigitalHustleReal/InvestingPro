@@ -233,7 +233,7 @@ export default function TagsPage() {
                                                         <button onClick={() => { setSelectedTag(tag); setFormData({ name: tag.name, slug: tag.slug }); setIsEditDialogOpen(true); }} className="p-2 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition-colors">
                                                             <Edit className="w-4 h-4" />
                                                         </button>
-                                                        <button onClick={() => { setSelectedTag(tag); setIsDeleteDialogOpen(true); }} className="p-2 hover:bg-rose-500/20 rounded-lg text-slate-400 hover:text-rose-400 transition-colors">
+                                                        <button onClick={() => { setSelectedTag(tag); setIsDeleteDialogOpen(true); }} className="p-2 hover:bg-danger-500/20 rounded-lg text-slate-400 hover:text-danger-400 transition-colors">
                                                             <Trash2 className="w-4 h-4" />
                                                         </button>
                                                     </div>
@@ -313,7 +313,7 @@ export default function TagsPage() {
                         </DialogHeader>
                         <DialogFooter className="gap-2">
                             <button onClick={() => setIsDeleteDialogOpen(false)} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm">Cancel</button>
-                            <button onClick={handleDelete} className="px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white rounded-lg text-sm">Delete</button>
+                            <button onClick={handleDelete} className="px-4 py-2 bg-danger-500 hover:bg-danger-600 text-white rounded-lg text-sm">Delete</button>
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>

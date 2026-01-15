@@ -107,7 +107,7 @@ export default function AdminProductsPage() {
                         <div className="relative flex-1 max-w-md">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                             <input 
-                                className="w-full pl-10 pr-4 py-2.5 bg-slate-800/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-rose-500/50"
+                                className="w-full pl-10 pr-4 py-2.5 bg-slate-800/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-danger-500/50"
                                 placeholder="Search products..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -120,7 +120,7 @@ export default function AdminProductsPage() {
                                     onClick={() => setSelectedCategory(cat.value)}
                                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                                         selectedCategory === cat.value
-                                            ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/25'
+                                            ? 'bg-danger-500 text-white shadow-lg shadow-danger-500/25'
                                             : 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
                                     }`}
                                 >
@@ -148,7 +148,7 @@ export default function AdminProductsPage() {
                             <tbody className="divide-y divide-white/5">
                                 {isLoading ? (
                                     <tr><td colSpan={6} className="p-16 text-center">
-                                        <div className="w-10 h-10 border-4 border-rose-500/30 border-t-rose-500 rounded-full animate-spin mx-auto" />
+                                        <div className="w-10 h-10 border-4 border-danger-500/30 border-t-danger-500 rounded-full animate-spin mx-auto" />
                                     </td></tr>
                                 ) : filteredProducts.length === 0 ? (
                                     <tr><td colSpan={6} className="p-16 text-center text-slate-500">No products found</td></tr>
@@ -157,8 +157,8 @@ export default function AdminProductsPage() {
                                         <tr key={product.id} className={`group hover:bg-white/5 transition-colors ${!product.is_active ? 'opacity-50' : ''}`}>
                                             <td className="px-6 py-4">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500/20 to-pink-500/20 border border-rose-500/30 flex items-center justify-center">
-                                                        <Package className="w-5 h-5 text-rose-400" />
+                                                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-danger-500/20 to-danger-500/20 border border-danger-500/30 flex items-center justify-center">
+                                                        <Package className="w-5 h-5 text-danger-400" />
                                                     </div>
                                                     <div>
                                                         <div className="font-medium text-white">{product.name}</div>
@@ -216,7 +216,7 @@ export default function AdminProductsPage() {
                                                     )}
                                                     <button 
                                                         onClick={() => handleDelete(product.id, product.name)}
-                                                        className="p-2 hover:bg-rose-500/20 rounded-lg text-slate-400 hover:text-rose-400 transition-colors"
+                                                        className="p-2 hover:bg-danger-500/20 rounded-lg text-slate-400 hover:text-danger-400 transition-colors"
                                                     >
                                                         <Trash2 className="w-4 h-4" />
                                                     </button>
