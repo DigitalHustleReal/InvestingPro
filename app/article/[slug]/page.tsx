@@ -195,11 +195,17 @@ export default function ArticleDetail() {
                         </span>
                     </div>
 
-                    <div className="flex gap-2 mb-8">
-                        <Button variant="outline" size="sm" className="rounded-full">
-                            <Share2 className="w-4 h-4 mr-2" />
-                            Share
-                        </Button>
+                    <div className="flex items-center gap-3 mb-8">
+                        <SocialShareButtons
+                            title={article.title}
+                            url={typeof window !== 'undefined' ? window.location.href : ''}
+                            description={article.excerpt}
+                        />
+                        <BookmarkButton
+                            articleId={article.id}
+                            variant="icon"
+                            size="md"
+                        />
                     </div>
                 </div>
 
@@ -214,8 +220,22 @@ export default function ArticleDetail() {
                     </div>
                 )}
 
+                {/* Reading Progress Bar */}
+                <ReadingProgressBar targetId="article-content" />
+
+                {/* Quote Selector (enables text selection → tweet) */}
+                <QuoteSelector
+                    articleUrl={typeof window !== 'undefined' ? window.location.href : ''}
+                    articleTitle={article.title}
+                    category={article.category}
+                    enabled={true}
+                />
+
                 {/* Content */}
-                <div className="prose prose-lg prose-slate max-w-none prose-headings:font-bold prose-a:text-teal-600 hover:prose-a:text-teal-700">
+                <div 
+                    id="article-content"
+                    className="prose prose-lg prose-slate max-w-none prose-headings:font-bold prose-a:text-teal-600 hover:prose-a:text-teal-700"
+                >
                     {(() => {
                         // Get raw content from any source
                         const rawContent = article.body_html || article.body_markdown || article.content || '';
@@ -254,6 +274,16 @@ export default function ArticleDetail() {
                     })()}
                 </div>
 
+                {/* Engagement Hooks */}
+                <EngagementHooks
+                    articleId={article.id}
+                    category={article.category}
+                    readTime={article.read_time}
+                    enableScrollTracking={true}
+                    enableTimeTracking={true}
+                    enableExitIntent={true}
+                />
+
                 {/* Tags */}
                 {article.tags && article.tags.length > 0 && (
                     <div className="mt-16 pt-8 border-t">
@@ -270,6 +300,11 @@ export default function ArticleDetail() {
 
                 {/* Automated Internal Links */}
                 <AutoInternalLinks context={linkingContext} />
+
+                {/* Related Articles */}
+                <div className="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800">
+                    <RelatedArticles articleId={article.id} />
+                </div>
             </article>
         </div>
     );
