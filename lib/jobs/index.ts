@@ -13,3 +13,4 @@ export { contentCleanupJob } from './content-cleanup';
 export { contentPublishingJob } from './content-publishing';
 export { keywordDiscoveryJob } from './keyword-discovery';
 export { contentRefreshJob } from './content-refresh';
+export { productDataScrapingJob } from './product-data-scraping';
