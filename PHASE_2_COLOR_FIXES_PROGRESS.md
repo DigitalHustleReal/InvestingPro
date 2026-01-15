@@ -19,26 +19,34 @@
 - ✅ `risk-profiler/page.tsx` - Replaced `indigo-600` with `secondary-600`, `pink-600` with `accent-600`
 - ✅ `gamification/BadgeDisplay.tsx` - Replaced `rose-600/rose-50` with `danger-600/danger-50`
 - ✅ `common/PointsWidget.tsx` - Replaced `orange-500` with `accent-500`
+- ✅ `common/CategoryHero.tsx` - Replaced `emerald-*` and `green-*` with `success-*`
+- ✅ `reviews/ReviewList.tsx` - Replaced `emerald-*` with `success-*`
+- ✅ `credit-cards/CreditCardTable.tsx` - Replaced `blue-500` with `secondary-500`, `emerald-200` with `success-200`
 
 ### 3. **Financial Health Calculator** ✅
 - ✅ Fixed hardcoded emerald color references in comments
 - ✅ Chart colors now use theme colors
+
+### 4. **Additional Calculator Fixes** ✅
+- ✅ `EMICalculatorEnhanced.tsx` - Fixed chart colors (`blue-*` → `secondary-*`)
+- ✅ `InsuranceCoverageCalculator.tsx` - Fixed `blue-600` → `secondary-600`, `emerald-*` → `success-*`
 
 ---
 
 ## 📊 PROGRESS SUMMARY
 
 ### **Files Fixed:**
-- ✅ 8 calculator components
-- ✅ 4 common/portfolio components
+- ✅ 10 calculator components
+- ✅ 7 common/portfolio/components
 - ✅ 1 risk profiler page
 
 ### **Color Replacements:**
-- ✅ `blue-*` → `secondary-*` (10+ instances in calculators)
+- ✅ `blue-*` → `secondary-*` (15+ instances)
 - ✅ `indigo-*` → `secondary-*` (2 instances)
 - ✅ `pink-*` → `accent-*` (1 instance)
 - ✅ `rose-*` → `danger-*` (2 instances)
 - ✅ `orange-*` → `accent-*` (1 instance)
+- ✅ `emerald-*` → `success-*` (8+ instances)
 
 ---
 
@@ -83,4 +91,4 @@
 ---
 
 *Last Updated: January 23, 2026*  
-*Status: Phase 2 In Progress - 13 files fixed, 50+ remaining*
+*Status: Phase 2 In Progress - 18 files fixed, 45+ remaining*
