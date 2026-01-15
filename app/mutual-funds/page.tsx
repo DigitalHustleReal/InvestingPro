@@ -138,11 +138,8 @@ export default function MutualFundsPage() {
                     return {
                         id: p.slug || p.id,
                         name: p.name,
-                        category: p.category || 'Large Cap', // mapped 'mutual_fund' but UI wants sub-cat? 
-                        // Wait, api.ts returns category: 'mutual_fund', type: p.category (e.g. 'Large Cap')
+                        // api.ts returns category: 'mutual_fund', type: p.category (e.g. 'Large Cap')
                         // So p.type is the sub-category like 'Large Cap'
-                        // Let's check api.ts again: category: 'mutual_fund', type: p.category
-                        
                         category: p.type || 'Equity', 
                         type: 'Equity', // Hardcoded or derived? UI uses this for badge. 
                         
