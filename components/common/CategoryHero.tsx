@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Shield, TrendingUp, CheckCircle2, Sparkles } from "lucide-react";
 import Link from 'next/link';
 import { cn } from "@/lib/utils";
+import DecisionCTA from '@/components/common/DecisionCTA';
 
 interface CategoryHeroProps {
     title: string;
@@ -127,20 +128,25 @@ export default function CategoryHero({
                         </div>
                     )}
 
-                    {/* CTAs */}
+                    {/* Decision-Focused CTAs */}
                     <div className="flex flex-wrap gap-4">
-                        <Link href={primaryCta.href}>
-                            <Button size="lg" className={cn("h-14 px-8 text-base font-bold rounded-xl shadow-lg", style.button)}>
-                                {primaryCta.text}
-                                <ArrowRight className="w-5 h-5 ml-2" />
-                            </Button>
-                        </Link>
+                        <DecisionCTA
+                            text={primaryCta.text}
+                            href={primaryCta.href}
+                            variant="primary"
+                            size="lg"
+                            className={cn("h-14 px-8 text-base font-bold rounded-xl shadow-lg", style.button)}
+                            showIcon={true}
+                        />
                         {secondaryCta && (
-                            <Link href={secondaryCta.href}>
-                                <Button size="lg" variant="outline" className="h-14 px-8 text-base font-bold rounded-xl border-2">
-                                    {secondaryCta.text}
-                                </Button>
-                            </Link>
+                            <DecisionCTA
+                                text={secondaryCta.text}
+                                href={secondaryCta.href}
+                                variant="outline"
+                                size="lg"
+                                className="h-14 px-8 text-base font-bold rounded-xl border-2"
+                                showIcon={false}
+                            />
                         )}
                     </div>
                 </div>

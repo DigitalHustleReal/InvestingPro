@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import HeroVisuals from "./HeroVisuals";
 import { useNavigation } from "@/contexts/NavigationContext";
+import DecisionCTA from '@/components/common/DecisionCTA';
 
 // Carousel Data - Compressed content for better UX (UI/UX Quick Win #2)
 const HERO_SLIDES = [
@@ -153,20 +154,24 @@ export default function HeroSection() {
                                     Let's slide the CTAs.
                                 */}
 
-                                {/* CTAs */}
+                                {/* Decision-Focused CTAs */}
                                 <div className="flex flex-col sm:flex-row gap-4 mb-10">
-                                    <Link href={slide.primaryCta.href}>
-                                        <Button size="lg" className="h-14 px-8 text-base font-bold bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-700 hover:to-primary-600 text-white shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 hover:-translate-y-0.5 transition-all duration-300 rounded-xl border-0">
-                                            {slide.primaryCta.text}
-                                            {React.createElement(slide.primaryCta.icon, { className: "ml-2 w-5 h-5" })}
-                                        </Button>
-                                    </Link>
-                                    <Link href={slide.secondaryCta.href}>
-                                        <Button size="lg" variant="outline" className="h-14 px-8 text-base font-bold bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-primary-500/50 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/10 hover:-translate-y-0.5 transition-all duration-300 rounded-xl shadow-sm">
-                                            {slide.secondaryCta.text}
-                                            {/* {React.createElement(slide.secondaryCta.icon, { className: "ml-2 w-5 h-5 opacity-50" })} */}
-                                        </Button>
-                                    </Link>
+                                    <DecisionCTA
+                                        text={slide.primaryCta.text}
+                                        href={slide.primaryCta.href}
+                                        variant="primary"
+                                        size="lg"
+                                        className="h-14 px-8 text-base font-bold bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-700 hover:to-primary-600 text-white shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 hover:-translate-y-0.5 transition-all duration-300 rounded-xl border-0"
+                                        showIcon={true}
+                                    />
+                                    <DecisionCTA
+                                        text={slide.secondaryCta.text}
+                                        href={slide.secondaryCta.href}
+                                        variant="outline"
+                                        size="lg"
+                                        className="h-14 px-8 text-base font-bold bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-primary-500/50 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/10 hover:-translate-y-0.5 transition-all duration-300 rounded-xl shadow-sm"
+                                        showIcon={false}
+                                    />
                                 </div>
                             </motion.div>
                         </AnimatePresence>

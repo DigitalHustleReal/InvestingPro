@@ -56,6 +56,7 @@ import CategoryHero from '@/components/common/CategoryHero';
 import ContextualNewsWidget from '@/components/news/ContextualNewsWidget';
 import RatesWidget from '@/components/rates/RatesWidget';
 import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
+import DecisionCTA from '@/components/common/DecisionCTA';
 
 export default function MutualFundsPage() {
     const [viewMode, setViewMode] = useState<'grid' | 'table'>('table'); // Default to table for Pro users

@@ -27,6 +27,7 @@ import ContextualNewsWidget from '@/components/news/ContextualNewsWidget';
 import RatesWidget from '@/components/rates/RatesWidget';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
+import DecisionCTA from '@/components/common/DecisionCTA';
 
 const CreditCardsPage = () => {
     const [assets, setAssets] = useState<any[]>([]);
@@ -279,12 +280,14 @@ const CreditCardsPage = () => {
                         <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto">
                             Get personalized recommendations based on your spending pattern, lifestyle, and eligibility. Our decision engine will help you find the perfect card.
                         </p>
-                        <Link href="/credit-cards/find-your-card">
-                            <Button size="lg" className="bg-primary-600 hover:bg-primary-700 text-white font-bold h-14 px-8 text-lg">
-                                Find My Perfect Card
-                                <ArrowRight className="w-5 h-5 ml-2" />
-                            </Button>
-                        </Link>
+                        <DecisionCTA
+                            text="Find My Perfect Card"
+                            href="/credit-cards/find-your-card"
+                            variant="primary"
+                            size="lg"
+                            className="bg-primary-600 hover:bg-primary-700 text-white font-bold h-14 px-8 text-lg"
+                            showIcon={true}
+                        />
                     </div>
                 </div>
             </div>
