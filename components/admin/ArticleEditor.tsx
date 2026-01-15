@@ -23,6 +23,7 @@ import { htmlToMarkdown } from '@/lib/editor/markdown';
 import { tiptapToHTML } from '@/lib/editor/markdown';
 import './extensions/SemanticImage.css';
 import { Button } from '@/components/ui/Button';
+import { ImagePickerButton } from './editor/ImagePickerButton';
 import {
     Bold,
     Italic,
@@ -320,11 +321,13 @@ export default function ArticleEditor({
                     >
                         <LinkIcon className="w-4 h-4" />
                     </Button>
+                    <ImagePickerButton editor={editor} />
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={addSemanticImage}
                         className="text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800"
+                        title="Insert semantic image reference"
                     >
                         <ImageIcon className="w-4 h-4" />
                     </Button>

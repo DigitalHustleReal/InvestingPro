@@ -6,6 +6,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { contentAwareRecommender } from '@/lib/media/content-aware-recommender';
 
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -15,7 +16,7 @@ const supabase = createClient(
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
-        const { title, keywords = [], category = '' } = body;
+        const { title, keywords = [], category = '', content, tone, style } = body;
 
         if (!title) {
             return NextResponse.json({ error: 'Title is required' }, { status: 400 });
@@ -23,26 +24,64 @@ export async function POST(request: NextRequest) {
 
         console.log('🎨 Auto-selecting featured image...', { title, keywords, category });
 
-        // Extract keywords
+        // PRIORITY 1: Content-Aware Media Library Search (Enhanced)
+        try {
+            const recommendations = await contentAwareRecommender.recommendImages({
+                articleTitle: title,
+                articleContent: content,
+                category: category || '',
+                keywords: keywords.length > 0 ? keywords : extractKeywords(title, category),
+                tone: tone || 'professional',
+                style: style || 'modern'
+            });
+
+            if (recommendations.length > 0) {
+                const bestMatch = recommendations[0];
+                console.log('✅ Found content-aware match in Media Library!', {
+                    score: bestMatch.relevanceScore,
+                    reasons: bestMatch.matchReasons
+                });
+                
+                // Track usage
+                if (bestMatch.id) {
+                    // Usage tracking would happen when article is saved
+                }
+                
+                // Compare with stock photos for variety
+                const stockResult = await searchStockPhotos(
+                    keywords.length > 0 ? keywords : extractKeywords(title, category),
+                    request
+                );
+                
+                return NextResponse.json({
+                    url: bestMatch.publicUrl,
+                    source: 'media-library',
+                    keyword: bestMatch.title || bestMatch.altText || 'content-aware',
+                    message: `Using content-aware recommendation from library (relevance: ${(bestMatch.relevanceScore * 100).toFixed(0)}%)`,
+                    alternatives: stockResult ? [stockResult] : [],
+                    recommendations: recommendations.slice(1, 4).map(r => ({
+                        url: r.publicUrl,
+                        score: r.relevanceScore,
+                        reasons: r.matchReasons
+                    }))
+                });
+            }
+        } catch (error) {
+            console.warn('Content-aware recommendation failed, falling back to basic search:', error);
+        }
+
+        // FALLBACK: Basic Media Library Search
         const searchKeywords = keywords.length > 0 
             ? keywords 
             : extractKeywords(title, category);
 
         console.log('📋 Keywords:', searchKeywords);
 
-        // PRIORITY 1: Check Media Library first (use existing images)
         const libraryResult = await searchMediaLibrary(searchKeywords);
         if (libraryResult) {
-            console.log('✅ Found in Media Library!');
+            console.log('✅ Found in Media Library (basic search)!');
             
-            // Compare with stock photos to add variety
             const stockResult = await searchStockPhotos(searchKeywords, request);
-            
-            if (stockResult) {
-                console.log('📊 Comparing library vs stock photos...');
-                // Return library image but log stock alternative
-                console.log('💡 Stock alternative available:', stockResult.url);
-            }
             
             return NextResponse.json({
                 url: libraryResult.url,
