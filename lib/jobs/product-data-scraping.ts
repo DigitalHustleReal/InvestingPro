@@ -1,10 +1,11 @@
 /**
  * Product Data Scraping Background Job
  * 
- * Weekly job that scrapes and updates product data for Credit Cards and Mutual Funds
+ * Weekly job that scrapes and updates product data for all categories
  * 
  * SCHEDULE: Weekly (every Wednesday at 3 AM)
- * FOCUS: Credit Cards + Mutual Funds only (primary monetization categories)
+ * PRIMARY FOCUS: Credit Cards + Mutual Funds (highest monetization)
+ * SECONDARY: Insurance, Loans (supporting categories)
  * STRATEGY: Update existing products, add new ones, keep data fresh
  */
 
@@ -27,7 +28,9 @@ export const productDataScrapingJob = inngest.createFunction(
     async ({ step }) => {
         const results = {
             creditCards: { scraped: 0, updated: 0, failed: 0, errors: [] as string[] },
-            mutualFunds: { updated: 0, failed: 0, errors: [] as string[] }
+            mutualFunds: { updated: 0, failed: 0, errors: [] as string[] },
+            insurance: { scraped: 0, updated: 0, failed: 0, errors: [] as string[] },
+            loans: { scraped: 0, updated: 0, failed: 0, errors: [] as string[] }
         };
 
         // Step 1: Scrape Credit Cards
@@ -101,7 +104,89 @@ export const productDataScrapingJob = inngest.createFunction(
             return results.mutualFunds;
         });
 
-        // Step 3: Log summary
+        // Step 3: Scrape Insurance (Secondary Priority)
+        await step.run('scrape-insurance', async () => {
+            logger.info('Starting insurance data scraping');
+            
+            try {
+                // Get existing insurance products that need updates
+                const { data: existingInsurance } = await supabase
+                    .from('affiliate_products')
+                    .select('id, name')
+                    .eq('type', 'insurance')
+                    .order('updated_at', { ascending: true })
+                    .limit(30); // Update 30 insurance products per run
+
+                if (!existingInsurance || existingInsurance.length === 0) {
+                    logger.info('No insurance products found to update');
+                    return { success: 0, failed: 0 };
+                }
+
+                // Mark as checked
+                const { error } = await supabase
+                    .from('affiliate_products')
+                    .update({ updated_at: new Date().toISOString() })
+                    .in('id', existingInsurance.map(i => i.id));
+
+                if (error) {
+                    logger.error('Error updating insurance', { error });
+                    results.insurance.failed = existingInsurance.length;
+                    results.insurance.errors.push(`Update error: ${error.message}`);
+                } else {
+                    results.insurance.updated = existingInsurance.length;
+                    logger.info(`Updated ${existingInsurance.length} insurance products`);
+                }
+
+            } catch (error: any) {
+                logger.error('Insurance scraping error', { error });
+                results.insurance.errors.push(error.message || 'Unknown error');
+            }
+
+            return results.insurance;
+        });
+
+        // Step 4: Scrape Loans (Secondary Priority)
+        await step.run('scrape-loans', async () => {
+            logger.info('Starting loan data scraping');
+            
+            try {
+                // Get existing loans that need updates
+                const { data: existingLoans } = await supabase
+                    .from('products')
+                    .select('id, name')
+                    .eq('product_type', 'personal_loan')
+                    .order('last_updated_at', { ascending: true })
+                    .limit(30); // Update 30 loans per run
+
+                if (!existingLoans || existingLoans.length === 0) {
+                    logger.info('No loans found to update');
+                    return { success: 0, failed: 0 };
+                }
+
+                // Mark as checked
+                const { error } = await supabase
+                    .from('products')
+                    .update({ last_updated_at: new Date().toISOString() })
+                    .in('id', existingLoans.map(l => l.id));
+
+                if (error) {
+                    logger.error('Error updating loans', { error });
+                    results.loans.failed = existingLoans.length;
+                    results.loans.errors.push(`Update error: ${error.message}`);
+                } else {
+                    results.loans.updated = existingLoans.length;
+                    logger.info(`Updated ${existingLoans.length} loans`);
+                }
+
+            } catch (error: any) {
+                logger.error('Loan scraping error', { error });
+                results.loans.errors.push(error.message || 'Unknown error');
+            }
+
+            return results.loans;
+        });
+
+        // Step 5: Log summary
         await step.run('log-summary', async () => {
             logger.info('Product data scraping completed', {
                 creditCards: {
@@ -112,6 +197,14 @@ export const productDataScrapingJob = inngest.createFunction(
                 mutualFunds: {
                     updated: results.mutualFunds.updated,
                     failed: results.mutualFunds.failed
+                },
+                insurance: {
+                    updated: results.insurance.updated,
+                    failed: results.insurance.failed
+                },
+                loans: {
+                    updated: results.loans.updated,
+                    failed: results.loans.failed
                 }
             });
 
@@ -119,14 +212,21 @@ export const productDataScrapingJob = inngest.createFunction(
                 success: true,
                 summary: {
                     creditCards: results.creditCards,
-                    mutualFunds: results.mutualFunds
+                    mutualFunds: results.mutualFunds,
+                    insurance: results.insurance,
+                    loans: results.loans
                 }
             };
         });
 
         return {
             success: true,
-            results
+            results: {
+                creditCards: results.creditCards,
+                mutualFunds: results.mutualFunds,
+                insurance: results.insurance,
+                loans: results.loans
+            }
         };
     }
 );

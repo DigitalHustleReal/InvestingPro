@@ -1,12 +1,15 @@
 /**
  * Product Data Scraper
  * 
- * Automated scraping for Credit Cards and Mutual Funds data
- * Focus: Credit Cards + Mutual Funds (primary monetization categories)
+ * Automated scraping for all product categories
+ * Primary Focus: Credit Cards + Mutual Funds (highest monetization)
+ * Secondary: Insurance, Loans (supporting categories)
  * 
  * Data Sources:
  * - Credit Cards: BankBazaar, Paisabazaar, CardExpert
  * - Mutual Funds: AMFI NAV data, Value Research, Moneycontrol
+ * - Insurance: Policybazaar, BankBazaar, Paisabazaar
+ * - Loans: BankBazaar, Paisabazaar, RBI data
  */
 
 import { createServiceClient } from '@/lib/supabase/service';
@@ -43,6 +46,40 @@ interface MutualFundData {
     risk?: 'Low' | 'Moderate' | 'Moderately High' | 'High' | 'Very High';
     min_investment?: string;
     description?: string;
+}
+
+interface InsuranceData {
+    name: string;
+    provider: string;
+    type: 'term' | 'health' | 'motor' | 'life';
+    coverage_amount_min?: number;
+    coverage_amount_max?: number;
+    premium_monthly?: number;
+    premium_yearly?: number;
+    features?: string[];
+    claim_settlement_ratio?: number;
+    cashless_hospitals?: number;
+    waiting_period?: string;
+    description?: string;
+    image_url?: string;
+    apply_link?: string;
+}
+
+interface LoanData {
+    name: string;
+    provider: string;
+    type: 'personal' | 'home' | 'car' | 'education';
+    interest_rate_min?: number;
+    interest_rate_max?: number;
+    interest_rate_type?: 'fixed' | 'floating';
+    processing_fee?: string;
+    prepayment_charges?: string;
+    max_tenure_months?: number;
+    max_amount?: string;
+    min_age?: number;
+    description?: string;
+    image_url?: string;
+    apply_link?: string;
 }
 
 export class ProductDataScraper {
@@ -471,6 +508,414 @@ export class ProductDataScraper {
         }
 
         return { updated, failed };
+    }
+
+    /**
+     * Scrape Insurance from Policybazaar/BankBazaar
+     */
+    async scrapeInsuranceFromPolicybazaar(url: string): Promise<InsuranceData | null> {
+        const html = await this.fetchHTML(url);
+        if (!html) return null;
+
+        try {
+            const $ = cheerio.load(html);
+            
+            const name = $('h1, .product-title, .policy-name').first().text().trim();
+            if (!name) return null;
+
+            // Extract provider
+            const provider = this.extractProvider(name, url);
+
+            // Detect insurance type
+            const type = this.detectInsuranceType(name, url);
+
+            // Extract coverage amounts
+            const coverageText = $('.coverage-amount, [data-field="coverage"]').text();
+            const coverageMin = this.extractNumber(coverageText);
+            const coverageMax = this.extractNumber(coverageText.split('-')[1] || '');
+
+            // Extract premiums
+            const premiumMonthly = this.extractNumber($('.premium-monthly, [data-field="premium-monthly"]').text());
+            const premiumYearly = this.extractNumber($('.premium-yearly, [data-field="premium-yearly"]').text());
+
+            // Extract features
+            const features: string[] = [];
+            $('.feature-item, .benefit-item, .coverage-item').each((_, el) => {
+                const text = $(el).text().trim();
+                if (text) features.push(text);
+            });
+
+            // Extract claim settlement ratio
+            const claimRatio = this.extractNumber($('.claim-ratio, [data-field="claim-settlement"]').text());
+
+            // Extract cashless hospitals count
+            const cashlessHospitals = this.extractNumber($('.cashless-hospitals, [data-field="cashless"]').text());
+
+            // Extract waiting period
+            const waitingPeriod = $('.waiting-period, [data-field="waiting-period"]').text().trim() || undefined;
+
+            // Extract description
+            const description = $('.product-description, .policy-description, .overview').first().text().trim() || undefined;
+
+            // Extract image
+            const imageUrl = $('.product-image img, .policy-image img').attr('src') || 
+                           $('meta[property="og:image"]').attr('content') || undefined;
+
+            // Extract apply link
+            const applyLink = $('.apply-button, .apply-now, a[href*="apply"]').attr('href') || undefined;
+
+            return {
+                name,
+                provider,
+                type,
+                coverage_amount_min: coverageMin || undefined,
+                coverage_amount_max: coverageMax || undefined,
+                premium_monthly: premiumMonthly || undefined,
+                premium_yearly: premiumYearly || undefined,
+                features: features.length > 0 ? features : undefined,
+                claim_settlement_ratio: claimRatio || undefined,
+                cashless_hospitals: cashlessHospitals || undefined,
+                waiting_period: waitingPeriod,
+                description,
+                image_url: imageUrl,
+                apply_link: applyLink,
+            };
+        } catch (error) {
+            logger.error('Error scraping insurance from Policybazaar', { url, error });
+            return null;
+        }
+    }
+
+    /**
+     * Scrape Loan from BankBazaar/Paisabazaar
+     */
+    async scrapeLoanFromBankBazaar(url: string): Promise<LoanData | null> {
+        const html = await this.fetchHTML(url);
+        if (!html) return null;
+
+        try {
+            const $ = cheerio.load(html);
+            
+            const name = $('h1, .product-title, .loan-name').first().text().trim();
+            if (!name) return null;
+
+            // Extract provider
+            const provider = this.extractProvider(name, url);
+
+            // Detect loan type
+            const type = this.detectLoanType(name, url);
+
+            // Extract interest rates
+            const interestRateText = $('.interest-rate, [data-field="interest-rate"]').text();
+            const rates = this.extractInterestRateRange(interestRateText);
+            
+            // Extract interest rate type
+            const interestRateType = interestRateText.toLowerCase().includes('fixed') ? 'fixed' : 'floating';
+
+            // Extract processing fee
+            const processingFee = this.extractPrice($('.processing-fee, [data-field="processing-fee"]').text()) || undefined;
+
+            // Extract prepayment charges
+            const prepaymentCharges = this.extractPrice($('.prepayment-charges, [data-field="prepayment"]').text()) || undefined;
+
+            // Extract max tenure
+            const maxTenureText = $('.max-tenure, [data-field="tenure"]').text();
+            const maxTenureMonths = this.extractTenureInMonths(maxTenureText);
+
+            // Extract max amount
+            const maxAmount = this.extractPrice($('.max-amount, [data-field="max-amount"]').text()) || undefined;
+
+            // Extract min age
+            const minAge = this.extractNumber($('.min-age, [data-field="min-age"]').text()) || undefined;
+
+            // Extract description
+            const description = $('.product-description, .loan-description, .overview').first().text().trim() || undefined;
+
+            // Extract image
+            const imageUrl = $('.product-image img, .loan-image img').attr('src') || 
+                           $('meta[property="og:image"]').attr('content') || undefined;
+
+            // Extract apply link
+            const applyLink = $('.apply-button, .apply-now, a[href*="apply"]').attr('href') || undefined;
+
+            return {
+                name,
+                provider,
+                type,
+                interest_rate_min: rates.min || undefined,
+                interest_rate_max: rates.max || undefined,
+                interest_rate_type: interestRateType,
+                processing_fee: processingFee,
+                prepayment_charges: prepaymentCharges,
+                max_tenure_months: maxTenureMonths || undefined,
+                max_amount: maxAmount,
+                min_age: minAge,
+                description,
+                image_url: imageUrl,
+                apply_link: applyLink,
+            };
+        } catch (error) {
+            logger.error('Error scraping loan from BankBazaar', { url, error });
+            return null;
+        }
+    }
+
+    /**
+     * Save Insurance to database (using affiliate_products table)
+     */
+    async saveInsurance(data: InsuranceData): Promise<boolean> {
+        try {
+            const slug = this.generateSlug(data.name);
+
+            // Save to affiliate_products table (since there's no dedicated insurance table)
+            const { error } = await this.supabase
+                .from('affiliate_products')
+                .upsert({
+                    name: data.name,
+                    company: data.provider,
+                    type: 'insurance',
+                    description: data.description,
+                    features: data.features || [],
+                    pricing: {
+                        monthly: data.premium_monthly,
+                        yearly: data.premium_yearly,
+                        coverage_min: data.coverage_amount_min,
+                        coverage_max: data.coverage_amount_max,
+                    },
+                    image_url: data.image_url,
+                    affiliate_link: data.apply_link || '',
+                    status: 'active',
+                    updated_at: new Date().toISOString(),
+                }, {
+                    onConflict: 'name,company',
+                });
+
+            if (error) {
+                logger.error('Error saving insurance', { error, data });
+                return false;
+            }
+
+            logger.info('Insurance saved', { name: data.name });
+            return true;
+        } catch (error) {
+            logger.error('Exception saving insurance', { error, data });
+            return false;
+        }
+    }
+
+    /**
+     * Save Loan to database (using products + personal_loans tables)
+     */
+    async saveLoan(data: LoanData): Promise<boolean> {
+        try {
+            const slug = this.generateSlug(data.name);
+
+            // First, upsert to products table
+            const { data: product, error: productError } = await this.supabase
+                .from('products')
+                .upsert({
+                    slug,
+                    name: data.name,
+                    product_type: 'personal_loan',
+                    provider: data.provider,
+                    is_active: true,
+                    last_updated_at: new Date().toISOString(),
+                }, {
+                    onConflict: 'slug',
+                })
+                .select()
+                .single();
+
+            if (productError || !product) {
+                logger.error('Error saving product for loan', { error: productError, data });
+                return false;
+            }
+
+            // Then, upsert to personal_loans table
+            const { error: loanError } = await this.supabase
+                .from('personal_loans')
+                .upsert({
+                    product_id: product.id,
+                    interest_rate_min: data.interest_rate_min || null,
+                    interest_rate_max: data.interest_rate_max || null,
+                    processing_fee_value: data.processing_fee ? this.extractNumber(data.processing_fee) : null,
+                    updated_at: new Date().toISOString(),
+                }, {
+                    onConflict: 'product_id',
+                });
+
+            if (loanError) {
+                logger.error('Error saving loan details', { error: loanError, data });
+                return false;
+            }
+
+            logger.info('Loan saved', { name: data.name, slug });
+            return true;
+        } catch (error) {
+            logger.error('Exception saving loan', { error, data });
+            return false;
+        }
+    }
+
+    /**
+     * Extract provider name from text or URL
+     */
+    private extractProvider(name: string, url?: string): string {
+        const text = (name + ' ' + (url || '')).toLowerCase();
+        
+        // Insurance providers
+        if (text.includes('lic')) return 'LIC';
+        if (text.includes('hdfc life')) return 'HDFC Life';
+        if (text.includes('icici prudential')) return 'ICICI Prudential';
+        if (text.includes('sbi life')) return 'SBI Life';
+        if (text.includes('bajaj allianz')) return 'Bajaj Allianz';
+        if (text.includes('max life')) return 'Max Life';
+        if (text.includes('tata aia')) return 'Tata AIA';
+        if (text.includes('aditya birla')) return 'Aditya Birla Sun Life';
+        
+        // Banks (for loans)
+        if (text.includes('hdfc')) return 'HDFC Bank';
+        if (text.includes('sbi')) return 'SBI';
+        if (text.includes('axis')) return 'Axis Bank';
+        if (text.includes('icici')) return 'ICICI Bank';
+        if (text.includes('kotak')) return 'Kotak Mahindra Bank';
+        if (text.includes('yes bank')) return 'Yes Bank';
+        if (text.includes('indusind')) return 'IndusInd Bank';
+        if (text.includes('rbl')) return 'RBL Bank';
+        
+        return 'Unknown';
+    }
+
+    /**
+     * Detect insurance type from name or URL
+     */
+    private detectInsuranceType(name: string, url?: string): InsuranceData['type'] {
+        const text = (name + ' ' + (url || '')).toLowerCase();
+        
+        if (text.includes('term') || text.includes('life insurance')) return 'term';
+        if (text.includes('health') || text.includes('mediclaim')) return 'health';
+        if (text.includes('motor') || text.includes('car') || text.includes('vehicle')) return 'motor';
+        
+        return 'life'; // Default
+    }
+
+    /**
+     * Detect loan type from name or URL
+     */
+    private detectLoanType(name: string, url?: string): LoanData['type'] {
+        const text = (name + ' ' + (url || '')).toLowerCase();
+        
+        if (text.includes('home') || text.includes('housing')) return 'home';
+        if (text.includes('car') || text.includes('vehicle') || text.includes('auto')) return 'car';
+        if (text.includes('education') || text.includes('student')) return 'education';
+        
+        return 'personal'; // Default
+    }
+
+    /**
+     * Extract interest rate range from text (e.g., "10.5% - 18%")
+     */
+    private extractInterestRateRange(text: string): { min: number | null; max: number | null } {
+        if (!text) return { min: null, max: null };
+        
+        const rates = text.match(/(\d+(?:\.\d+)?)%/g);
+        if (!rates || rates.length === 0) return { min: null, max: null };
+        
+        const numbers = rates.map(r => parseFloat(r.replace('%', '')));
+        
+        if (numbers.length === 1) {
+            return { min: numbers[0], max: numbers[0] };
+        }
+        
+        return {
+            min: Math.min(...numbers),
+            max: Math.max(...numbers),
+        };
+    }
+
+    /**
+     * Extract tenure in months from text (e.g., "5 years" = 60 months)
+     */
+    private extractTenureInMonths(text: string): number | null {
+        if (!text) return null;
+        
+        // Try years first
+        const yearMatch = text.match(/(\d+(?:\.\d+)?)\s*years?/i);
+        if (yearMatch) {
+            return Math.round(parseFloat(yearMatch[1]) * 12);
+        }
+        
+        // Try months
+        const monthMatch = text.match(/(\d+(?:\.\d+)?)\s*months?/i);
+        if (monthMatch) {
+            return Math.round(parseFloat(monthMatch[1]));
+        }
+        
+        return null;
+    }
+
+    /**
+     * Scrape multiple insurance products from URLs
+     */
+    async scrapeInsurance(urls: string[]): Promise<{ success: number; failed: number }> {
+        let success = 0;
+        let failed = 0;
+
+        for (const url of urls) {
+            try {
+                const data = await this.scrapeInsuranceFromPolicybazaar(url);
+                if (data) {
+                    const saved = await this.saveInsurance(data);
+                    if (saved) {
+                        success++;
+                    } else {
+                        failed++;
+                    }
+                } else {
+                    failed++;
+                }
+                
+                // Rate limiting
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            } catch (error) {
+                logger.error('Error scraping insurance URL', { url, error });
+                failed++;
+            }
+        }
+
+        return { success, failed };
+    }
+
+    /**
+     * Scrape multiple loans from URLs
+     */
+    async scrapeLoans(urls: string[]): Promise<{ success: number; failed: number }> {
+        let success = 0;
+        let failed = 0;
+
+        for (const url of urls) {
+            try {
+                const data = await this.scrapeLoanFromBankBazaar(url);
+                if (data) {
+                    const saved = await this.saveLoan(data);
+                    if (saved) {
+                        success++;
+                    } else {
+                        failed++;
+                    }
+                } else {
+                    failed++;
+                }
+                
+                // Rate limiting
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            } catch (error) {
+                logger.error('Error scraping loan URL', { url, error });
+                failed++;
+            }
+        }
+
+        return { success, failed };
     }
 }
 
