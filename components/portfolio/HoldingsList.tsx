@@ -79,11 +79,11 @@ export default function HoldingsList({ holdings = [], onDelete }: HoldingsListPr
                                             <td className="py-6 text-right font-semibold text-slate-900 text-">₹{currentValue.toLocaleString('en-IN')}</td>
                                             <td className="py-6 text-right">
                                                 <div className="flex flex-col items-end">
-                                                    <div className={`flex items-center gap-1 font-bold text-sm ${isProfit ? 'text-primary-600' : 'text-rose-600'}`}>
+                                                    <div className={`flex items-center gap-1 font-bold text-sm ${isProfit ? 'text-primary-600' : 'text-danger-600'}`}>
                                                         {isProfit ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
                                                         {profitPercent.toFixed(2)}%
                                                     </div>
-                                                    <p className={`text-[10px] font-bold ${isProfit ? 'text-primary-400' : 'text-rose-400'}`}>+₹{Math.abs(profit).toLocaleString('en-IN')}</p>
+                                                    <p className={`text-[10px] font-bold ${isProfit ? 'text-primary-400' : 'text-danger-400'}`}>+₹{Math.abs(profit).toLocaleString('en-IN')}</p>
                                                 </div>
                                             </td>
                                             <td className="py-6 text-right">
@@ -91,7 +91,7 @@ export default function HoldingsList({ holdings = [], onDelete }: HoldingsListPr
                                                     variant="ghost"
                                                     size="icon"
                                                     onClick={() => onDelete(holding.id)}
-                                                    className="w-10 h-10 rounded-xl text-slate-300 hover:text-rose-600 hover:bg-rose-50 transition-all opacity-0 group-hover:opacity-100"
+                                                    className="w-10 h-10 rounded-xl text-slate-300 hover:text-danger-600 hover:bg-danger-50 transition-all opacity-0 group-hover:opacity-100"
                                                 >
                                                     <Trash2 className="w-4 h-4" />
                                                 </Button>

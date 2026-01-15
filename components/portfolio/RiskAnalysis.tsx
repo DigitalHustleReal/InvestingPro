@@ -18,7 +18,7 @@ export default function RiskAnalysis({ holdings = [], user }: RiskAnalysisProps)
     const getRiskColor = (score: number) => {
         if (score < 33) return "text-primary-500";
         if (score < 66) return "text-accent-500";
-        return "text-rose-500";
+        return "text-danger-500";
     };
 
     return (
@@ -54,7 +54,7 @@ export default function RiskAnalysis({ holdings = [], user }: RiskAnalysisProps)
                         </p>
                     </div>
                     <div className="flex items-start gap-3">
-                        <AlertTriangle className="w-5 h-5 text-rose-500 shrink-0 mt-1" />
+                        <AlertTriangle className="w-5 h-5 text-danger-500 shrink-0 mt-1" />
                         <p className="text-sm text-slate-300 font-medium leading-relaxed">
                             Sector concentration in <span className="text-white font-bold">Technology</span> is exceeding safety benchmarks.
                         </p>
