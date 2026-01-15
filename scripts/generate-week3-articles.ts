@@ -29,57 +29,78 @@ interface Topic {
     target_audience: string;
 }
 
-// Helper: Get Prompt (Updated for 2000+ words requirement)
+// Helper: Get Prompt (Updated for 2000+ words requirement - STRICT)
 function getArticlePrompt(topic: Topic): string {
      return `You are a financial content writer for InvestingPro, India's leading financial comparison platform.
 
 Write a comprehensive, SEO-optimized, decision-focused article on: "${topic.title}"
 
-REQUIREMENTS:
+CRITICAL REQUIREMENTS:
 1. Target Audience: ${topic.target_audience}
 2. Keywords to include: ${topic.keywords}
-3. Length: 2000+ words (Comprehensive, in-depth guide)
-4. Tone: Professional yet approachable, helpful, non-promotional, decision-focused
-5. Format: CLEAN HTML ONLY with PROFESSIONAL COMPONENTS
-6. Focus: Help readers make informed decisions, include comparisons, pros/cons, recommendations
+3. MINIMUM LENGTH: 2000 WORDS (ABSOLUTELY REQUIRED - this is non-negotiable)
+4. Target Length: 2200-2500 words for better SEO and comprehensiveness
+5. Tone: Professional yet approachable, helpful, non-promotional, decision-focused
+6. Format: CLEAN HTML ONLY with PROFESSIONAL COMPONENTS
+7. Focus: Help readers make informed decisions, include comparisons, pros/cons, recommendations
+
+WORD COUNT ENFORCEMENT:
+- You MUST generate at least 2000 words
+- Count words after HTML tags are removed
+- Use detailed explanations, examples, and comprehensive coverage
+- Expand each section with specific details, use cases, and real-world scenarios
+- Include extensive lists, comparisons, and detailed explanations
 
 FORMATTING RULES (CRITICAL):
 - Use ONLY these HTML tags: <h2>, <h3>, <p>, <ul>, <li>, <strong>, <em>, <blockquote>, <hr>, <div>, <table>, <thead>, <tbody>, <tr>, <th>, <td>
 - NO <h1> tags (title is separate)
 - NO Markdown symbols
 - Start with <h2>Introduction</h2>
-- Include 8-10 <h2> sections for comprehensive coverage
-- Use <h3> for sub-sections
-- Include at least 5-6 <ul> lists
-- Add 2-3 <blockquote> with expert tips
-- Include 1-2 comparison tables where relevant
+- Include 10-12 <h2> sections for comprehensive coverage (MORE SECTIONS = MORE WORDS)
+- Use <h3> for sub-sections (aim for 3-4 sub-sections per main section)
+- Include at least 8-10 <ul> lists (detailed bullet points)
+- Add 3-4 <blockquote> with expert tips and insights
+- Include 2-3 comparison tables where relevant (tables help add content)
 - End with <h2>Conclusion</h2> with actionable next steps
 
 PROFESSIONAL COMPONENTS (MUST INCLUDE):
-1. KEY TAKEAWAYS BOX (RIGHT AFTER Introduction) - 4-5 bullet points
-2. PRO TIP CALLOUTS (2-3 times throughout)
-3. COMPARISON TABLES (where applicable - e.g., comparing products, features, fees)
+1. KEY TAKEAWAYS BOX (RIGHT AFTER Introduction) - 6-7 detailed bullet points
+2. PRO TIP CALLOUTS (3-4 times throughout article)
+3. COMPARISON TABLES (2-3 tables - e.g., comparing products, features, fees, benefits)
 4. VISUAL ELEMENTS using clean HTML/Tailwind classes (progress bars, comparison sliders, metric cards)
+5. FREQUENTLY ASKED QUESTIONS (FAQ section with 5-6 questions)
 
-CONTENT STRUCTURE (2000+ words):
-- Introduction (200 words): Hook, problem statement, what readers will learn
-- Key Takeaways (100 words)
-- Understanding the Basics (300 words)
-- Key Features/Benefits (300 words)
-- Detailed Comparison/Analysis (400 words)
-- Pros and Cons (200 words)
-- Who Should Consider This (200 words)
-- How to Choose/Apply (300 words)
-- Common Mistakes to Avoid (200 words)
-- Conclusion with Action Items (200 words)
+DETAILED CONTENT STRUCTURE (TARGET: 2200-2500 words):
+- Introduction (300-350 words): Hook, problem statement, why this matters, what readers will learn
+- Key Takeaways Box (150 words): 6-7 comprehensive bullet points
+- Understanding the Basics (400-450 words): Deep dive into fundamentals, definitions, concepts
+- Key Features/Benefits (400-450 words): Detailed explanation of all features with examples
+- Detailed Comparison/Analysis (500-550 words): Comprehensive comparison with multiple products/options
+- Pros and Cons (300 words): Extensive pros and cons with explanations
+- Who Should Consider This (250 words): Target audience analysis with scenarios
+- How to Choose/Apply (400 words): Step-by-step guide with detailed instructions
+- Common Mistakes to Avoid (250 words): Detailed list of mistakes with explanations
+- Frequently Asked Questions (200 words): 5-6 questions with detailed answers
+- Conclusion with Action Items (250-300 words): Comprehensive summary and next steps
+
+CONTENT EXPANSION TECHNIQUES:
+- Use specific examples: "For instance, if you spend ₹20,000 per month on..."
+- Include Indian context: Mention Indian banks, AMCs, regulations, tax laws (Section 80C, etc.)
+- Add comparison scenarios: "Card A offers 5% cashback while Card B offers 3%, but..."
+- Explain why: Don't just state facts, explain the reasoning behind each point
+- Use numbers and statistics: "Studies show that 68% of investors prefer..."
+- Include real-world use cases: "A 30-year-old earning ₹10LPA should consider..."
 
 SEO OPTIMIZATION:
-- Naturally integrate keywords throughout
-- Use long-tail variations
-- Focus on search intent: "best", "compare", "how to choose", "which is better"
-- Include Indian context: ₹ currency, Indian regulations, Indian banks/AMCs
+- Naturally integrate keywords throughout (every 100-150 words)
+- Use long-tail variations of keywords
+- Focus on search intent: "best", "compare", "how to choose", "which is better", "review"
+- Include Indian context: ₹ currency, Indian regulations, Indian banks/AMCs, Indian tax laws
+- Use question-based headings: "What is...", "How to...", "Which is best for..."
 
-Generate ONLY the clean article content HTML now (2000+ words, no markdown):`;
+IMPORTANT: Before finishing, verify your content is AT LEAST 2000 words when HTML tags are removed. If shorter, expand sections with more details, examples, and explanations.
+
+Generate ONLY the clean article content HTML now (MINIMUM 2000 words, target 2200-2500 words, no markdown):`;
 }
 
 // AI Providers
@@ -222,6 +243,13 @@ async function main() {
             
             // Calculate word count
             const wordCount = content.replace(/<[^>]*>/g, '').split(/\s+/).length;
+            
+            // Warn if below target (but still save)
+            if (wordCount < 2000) {
+                console.log(`   ⚠️  WARNING: Article is ${wordCount} words (below 2000 target). Consider regenerating with updated prompt.`);
+            } else if (wordCount >= 2000) {
+                console.log(`   ✓ Word count OK: ${wordCount} words (meets 2000+ requirement)`);
+            }
             
             // Generate Metadata
             const metaDesc = await generateMeta(topic, content);

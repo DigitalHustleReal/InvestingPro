@@ -52,10 +52,17 @@
   - AI provider failover (Gemini → Groq → Mistral → OpenAI)
   - Automatic slug generation and duplicate checking
 
+**Status:**
+- ✅ Generation script started (Shell ID: 624286)
+- ⏳ Running in background - generating 25 articles sequentially
+- ⏱️ Estimated time: 5-10 minutes (3 seconds delay between articles)
+- 📊 Progress: Check terminal output for real-time status
+
 **Next Steps:**
-- Run generation script: `npx tsx scripts/generate-week3-articles.ts`
 - Monitor generation progress
-- Review and publish generated articles
+- Verify articles are being created in database
+- Review generated articles for quality
+- Articles will be auto-published with status='published'
 
 ### ✅ Task 4: Content-to-Revenue Mapping
 **Status:** COMPLETE (95% done)
