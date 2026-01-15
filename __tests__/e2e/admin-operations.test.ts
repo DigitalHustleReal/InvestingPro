@@ -7,7 +7,7 @@ import { createTestClient, createTestUser, cleanupTestData } from '../setup/test
 describe('Admin Operations (E2E)', () => {
   let supabase: ReturnType<typeof createTestClient>;
   let adminUserId: string;
-  let articleIds: string[] = [];
+  const articleIds: string[] = [];
 
   beforeAll(async () => {
     supabase = createTestClient();

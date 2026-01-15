@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     startDate.setDate(startDate.getDate() - days);
 
     // Get products grouped by company/brand
-    let productsQuery = supabase
+    const productsQuery = supabase
       .from('products')
       .select('id, name, provider_name, category, is_active');
 

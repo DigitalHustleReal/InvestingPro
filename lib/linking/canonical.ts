@@ -11,7 +11,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://investingpro.in';
  */
 export function generateCanonicalUrl(pathname: string, queryParams?: Record<string, string>): string {
     // Remove trailing slash
-    let path = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
+    const path = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
     
     // Remove query parameters that don't affect content
     // Keep only essential params (if any)

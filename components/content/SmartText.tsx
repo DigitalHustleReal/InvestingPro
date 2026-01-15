@@ -57,7 +57,7 @@ export function SmartText({ children, className = "" }: SmartTextProps) {
                 
                 if (regex.test(text)) {
                     const newParts: (string | React.ReactNode)[] = [];
-                    let lastIndex = 0;
+                    const lastIndex = 0;
                     
                     // We only want to replace the FIRST occurrence in a block of text to avoid clutter
                     // So we'll use replace with a callback once, or split carefully.

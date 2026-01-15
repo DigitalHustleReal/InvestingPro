@@ -242,7 +242,7 @@ export async function runAutomationPipeline(config: PipelineConfig): Promise<Pip
             maxTokens: 4000
         });
         
-        let contentMarkdown = generationResponse.content;
+        const contentMarkdown = generationResponse.content;
         
         result.stages.content_generation = {
             provider: generationResponse.provider,

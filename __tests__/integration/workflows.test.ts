@@ -18,7 +18,7 @@ jest.mock('@/lib/workflows/workflow-engine', () => {
 describe('Workflow Engine Integration', () => {
   let executor: WorkflowExecutor;
   let supabase: ReturnType<typeof createTestClient>;
-  let workflowInstanceIds: string[] = [];
+  const workflowInstanceIds: string[] = [];
 
   beforeAll(() => {
     executor = new WorkflowExecutor();

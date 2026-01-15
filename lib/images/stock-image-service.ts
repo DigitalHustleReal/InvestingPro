@@ -114,7 +114,7 @@ export class StockImageService {
         }
 
         // 2. Clean common garbage words
-        let clean = topic
+        const clean = topic
             .replace(/Guide|Complete|Beginners|How to|Start|In India|2026|Best|Review|Top|Vs|Difference|What is/gi, '')
             .replace(/[0-9]/g, '') // Remove numbers like 2026, 80C (unless mapped)
             .trim();

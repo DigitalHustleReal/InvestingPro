@@ -17,7 +17,7 @@ export function RDCalculator() {
     const calculateRD = () => {
         const totalMonths = years * 12;
         let maturityAmount = 0;
-        let totalInvested = monthlyDeposit * totalMonths;
+        const totalInvested = monthlyDeposit * totalMonths;
 
         // Iterate through each monthly deposit
         // Indian banks typically use quarterly compounding for RDs
@@ -68,7 +68,7 @@ export function RDCalculator() {
             // Simple approximation for chart points: Pro-rate the final maturity curve
             // Or re-calculate for partial duration 'y'
             const partialMonths = y * 12;
-            let partialInvested = monthlyDeposit * partialMonths;
+            const partialInvested = monthlyDeposit * partialMonths;
             let partialMaturity = 0;
             
             for (let i = 0; i < partialMonths; i++) {

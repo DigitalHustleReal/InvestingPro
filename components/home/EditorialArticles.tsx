@@ -58,7 +58,7 @@ export default function EditorialArticles() {
         try {
             // Fetch all articles and filter client-side for flexibility
             // This allows us to handle varying database schemas
-            let fetchedArticles = await api.entities.Article.list();
+            const fetchedArticles = await api.entities.Article.list();
 
             // Filter for published articles
             const publishedArticles = fetchedArticles.filter((article: any) => 

@@ -60,7 +60,7 @@ class SearchService {
             if (category) articleQuery = articleQuery.eq('category', category);
 
             // 2. Search Products
-            let productQuery = this.supabase
+            const productQuery = this.supabase
                 .from('products')
                 .select('id, name, slug, description, category, provider_name, image_url')
                 .eq('is_active', true)

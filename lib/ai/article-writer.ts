@@ -132,7 +132,7 @@ export async function generateArticle({
 
         // Fallback: If it's a string or missing fields, try to parse it manually
         // result.content is our primary source of text from InvokeLLM
-        let rawText = result.content || '';
+        const rawText = result.content || '';
         
         try {
             // If the raw text looks like JSON, try to parse it

@@ -72,7 +72,7 @@ export async function GET(request: NextRequest) {
         const patterns = categoryPatterns[category] || categoryPatterns['all'];
 
         // Build query
-        let query = supabase
+        const query = supabase
             .from('affiliate_clicks')
             .select('product_type, commission_earned, converted, article_id, product_id')
             .eq('converted', true)

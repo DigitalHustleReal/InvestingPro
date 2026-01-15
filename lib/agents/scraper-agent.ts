@@ -274,7 +274,7 @@ export class ScraperAgent extends BaseAgent {
         if (scheduleType === 'manual') return null;
         
         const now = new Date();
-        let nextRun = new Date(now);
+        const nextRun = new Date(now);
         
         switch (scheduleType) {
             case 'daily':

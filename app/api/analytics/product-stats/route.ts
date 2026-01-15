@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
     startDate.setDate(startDate.getDate() - days);
 
     // Get view counts by product
-    let viewsQuery = supabase
+    const viewsQuery = supabase
       .from('product_views')
       .select('product_slug, product_id')
       .gte('viewed_at', startDate.toISOString());

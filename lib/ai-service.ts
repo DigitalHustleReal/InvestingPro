@@ -149,7 +149,7 @@ class AIService {
         }
         
         let lastError: Error | null = null;
-        let attemptedProviders: string[] = [];
+        const attemptedProviders: string[] = [];
 
         // Try each provider in sequence
         for (let i = 0; i < this.providers.length; i++) {

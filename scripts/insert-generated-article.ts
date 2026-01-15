@@ -35,7 +35,7 @@ function extractContentFromHTML(htmlContent: string): {
     body: string;
 } {
     // Remove the ```html wrapper if present
-    let content = htmlContent.replace(/^```html\n/, '').replace(/\n```$/, '');
+    const content = htmlContent.replace(/^```html\n/, '').replace(/\n```$/, '');
     
     // Extract title
     const titleMatch = content.match(/<title>(.*?)<\/title>/s);

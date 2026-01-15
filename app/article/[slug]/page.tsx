@@ -23,6 +23,7 @@ import BookmarkButton from '@/components/engagement/BookmarkButton';
 import SocialShareButtons from '@/components/common/SocialShareButtons';
 import RelatedArticles from '@/components/articles/RelatedArticles';
 import { ReadingProgressBar } from '@/components/articles/ReadingProgressBar';
+import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
 
 interface Article {
     id: string;
@@ -303,6 +304,11 @@ export default function ArticleDetail() {
                         </div>
                     </div>
                 )}
+
+                {/* Compliance Disclaimer */}
+                <div className="mt-12">
+                    <ComplianceDisclaimer variant="compact" />
+                </div>
 
                 {/* Automated Internal Links */}
                 <AutoInternalLinks context={linkingContext} />

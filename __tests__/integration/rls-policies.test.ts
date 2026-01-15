@@ -9,7 +9,7 @@ describe('RLS Policies Integration', () => {
   let supabase: ReturnType<typeof createTestClient>;
   let adminUser: any;
   let regularUser: any;
-  let articleIds: string[] = [];
+  const articleIds: string[] = [];
 
   beforeAll(async () => {
     supabase = createTestClient();

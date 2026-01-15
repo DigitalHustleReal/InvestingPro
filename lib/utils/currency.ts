@@ -184,7 +184,7 @@ export function parseINR(value: string): number {
   if (!value) return 0;
 
   // Remove currency symbol and spaces
-  let cleaned = value.replace(/[₹\s,]/g, '');
+  const cleaned = value.replace(/[₹\s,]/g, '');
 
   // Handle compact notation
   if (cleaned.includes('Cr')) {

@@ -10,7 +10,7 @@ describe('API Endpoints Integration', () => {
   let supabase: ReturnType<typeof createTestClient>;
   let testUserId: string;
   let authToken: string;
-  let articleIds: string[] = [];
+  const articleIds: string[] = [];
 
   beforeAll(async () => {
     supabase = createTestClient();

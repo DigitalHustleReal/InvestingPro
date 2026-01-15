@@ -238,8 +238,8 @@ export class ProductDataScraper {
 
         try {
             const lines = text.split('\n');
-            let currentScheme: any = null;
-            let schemeName = '';
+            const currentScheme: any = null;
+            const schemeName = '';
             let fundHouse = '';
 
             for (const line of lines) {

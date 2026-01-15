@@ -119,7 +119,7 @@ export async function processLatestPipelineRun() {
             const { productScraper } = await import('@/lib/scraper/ts/product-scraper');
             
             logger.info(`Executing TS scraper: ${run.pipeline_type}`);
-            let outputLog = [];
+            const outputLog = [];
 
             if (run.pipeline_type === 'scraper_products' || run.pipeline_type === 'scraper_credit_cards') {
                 // Hardcoded fallback list if no params provided

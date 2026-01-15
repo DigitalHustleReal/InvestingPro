@@ -8,7 +8,7 @@ import { createTestClient, createTestUser, cleanupTestData } from '../setup/test
 describe('Article State Machine Integration', () => {
   let supabase: ReturnType<typeof createTestClient>;
   let testUserId: string;
-  let articleIds: string[] = [];
+  const articleIds: string[] = [];
 
   beforeAll(async () => {
     supabase = createTestClient();

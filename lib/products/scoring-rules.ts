@@ -60,7 +60,7 @@ export const scoreCreditCard = (card: CreditCard): ProductScore => {
     const feeScore = card.annualFee === 0 ? 10 : Math.max(0, 10 - (card.annualFee / 500)); // 0 fee = 10, 5000 fee = 0
     
     // Determine Best Fit
-    let tags: string[] = [];
+    const tags: string[] = [];
     if (travelScore > 7) tags.push('Best for Travel');
     if (shoppingScore > 7) tags.push('Top for Shopping');
     if (feeScore > 8) tags.push('Low Cost Gem');
@@ -101,7 +101,7 @@ export const scoreLoan = (loan: Loan): ProductScore => {
     const costScore = Math.max(0, 10 - (feeVal * 3)); // 0% fee = 10, 1% = 7, 3% = 1
 
     // Best For Tags
-    let tags: string[] = [];
+    const tags: string[] = [];
     if (interestScore > 8) tags.push('Low Interest Rate');
     if (costScore > 8) tags.push('Minimal Fees');
     if (tenureScore > 8) tags.push('Flexible Tenure');
@@ -133,7 +133,7 @@ export const scoreMutualFund = (mf: MutualFund): ProductScore => {
     const ratingScore = (mf.rating || 3) * 2; // 5 star = 10
 
     // Best For Tags
-    let tags: string[] = [];
+    const tags: string[] = [];
     if (returnScore > 8) tags.push('High Returns');
     if (expenseScore > 8) tags.push('Low Expense');
     if (ratingScore === 10) tags.push('Top Rated');

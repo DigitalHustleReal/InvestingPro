@@ -16,7 +16,7 @@ export function TaxCalculator() {
 
     const calculateTax = () => {
         // Old tax regime (2024-25)
-        let taxableIncome = income - deductions;
+        const taxableIncome = income - deductions;
         let oldTax = 0;
         
         if (taxableIncome <= 250000) {
@@ -30,7 +30,7 @@ export function TaxCalculator() {
         }
 
         // New tax regime (2024-25)
-        let newTaxableIncome = income; // No deductions in new regime
+        const newTaxableIncome = income; // No deductions in new regime
         let newTax = 0;
         
         if (newTaxableIncome <= 300000) {

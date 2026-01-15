@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
     if (partnersError) throw partnersError;
 
     // Get affiliate clicks
-    let clicksQuery = supabase
+    const clicksQuery = supabase
       .from('affiliate_clicks')
       .select('id, product_id, product_type, converted, commission_earned, created_at, conversion_date')
       .gte('created_at', startDate.toISOString());

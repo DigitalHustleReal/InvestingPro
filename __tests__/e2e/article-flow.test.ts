@@ -8,7 +8,7 @@ import { createTestClient, createTestUser, cleanupTestData, waitFor } from '../s
 describe('Article Creation and Publishing Flow (E2E)', () => {
   let supabase: ReturnType<typeof createTestClient>;
   let testUserId: string;
-  let articleIds: string[] = [];
+  const articleIds: string[] = [];
 
   beforeAll(async () => {
     supabase = createTestClient();

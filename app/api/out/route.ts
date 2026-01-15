@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
 
     try {
         let targetUrl = '';
-        let finalLinkId = linkId;
+        const finalLinkId = linkId;
 
         // CASE 1: Direct Affiliate Link ID (Preferred)
         if (linkId) {

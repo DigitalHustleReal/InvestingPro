@@ -88,7 +88,7 @@ export const GET = createAPIWrapper('/api/analytics/track', {
 
         // Calculate date range
         const now = new Date();
-        let startDate = new Date();
+        const startDate = new Date();
         
         switch (period) {
             case 'today':
