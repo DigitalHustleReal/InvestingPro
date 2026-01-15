@@ -30,6 +30,9 @@
 ### 4. **Additional Calculator Fixes** ✅
 - ✅ `EMICalculatorEnhanced.tsx` - Fixed chart colors (`blue-*` → `secondary-*`)
 - ✅ `InsuranceCoverageCalculator.tsx` - Fixed `blue-600` → `secondary-600`, `emerald-*` → `success-*`
+- ✅ `TaxCalculator.tsx` - Fixed hardcoded hex colors (`#3b82f6` → `#0ea5e9`)
+- ✅ `FDCalculator.tsx` - Fixed Area chart colors (`#2563eb` → `#0ea5e9`)
+- ✅ `app/not-found.tsx` - Fixed `indigo-600` → `secondary-600`, `blue-500` → `secondary-500`
 
 ---
 
@@ -91,4 +94,4 @@
 ---
 
 *Last Updated: January 23, 2026*  
-*Status: Phase 2 In Progress - 18 files fixed, 45+ remaining*
+*Status: Phase 2 In Progress - 22 files fixed, 40+ remaining*
