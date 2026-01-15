@@ -328,7 +328,6 @@ export function LumpsumCalculatorWithInflation() {
                                     />
                                     <Area type="monotone" dataKey="value" stroke="#14b8a6" fill="url(#colorLumpsum)" strokeWidth={2} name="Nominal" />
                                     {adjustForInflation && (
-                                        {/* secondary-500 */}
                                         <Area type="monotone" dataKey="realValue" stroke="#0ea5e9" fill="url(#colorLumpsumReal)" strokeWidth={2} name="Real (Inflation Adjusted)" />
                                     )}
                                 </AreaChart>

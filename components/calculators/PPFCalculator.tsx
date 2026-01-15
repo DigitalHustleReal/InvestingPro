@@ -261,7 +261,6 @@ export function PPFCalculator() {
                                     />
                                     <Area type="monotone" dataKey="corpus" stroke="#14b8a6" fill="url(#colorPPF)" strokeWidth={2} name="Corpus" />
                                     {adjustForInflation && (
-                                        {/* secondary-500 */}
                                         <Area type="monotone" dataKey="realValue" stroke="#0ea5e9" fill="transparent" strokeWidth={2} strokeDasharray="5 5" name="Real Value" />
                                     )}
                                 </AreaChart>

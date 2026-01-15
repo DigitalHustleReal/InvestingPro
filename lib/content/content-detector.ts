@@ -9,6 +9,7 @@
  * - Comparisons → ComparisonCard
  */
 
+import React from 'react';
 import ComparisonTable from '@/components/content/ComparisonTable';
 import TweetableQuote from '@/components/content/TweetableQuote';
 import SharableStatCard from '@/components/content/SharableStatCard';

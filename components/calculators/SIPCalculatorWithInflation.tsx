@@ -612,7 +612,6 @@ export function SIPCalculatorWithInflation() {
                                     />
                                     <Area type="monotone" dataKey="value" stroke="#14b8a6" fill="url(#colormonthlyInvestment)" strokeWidth={2} name="Nominal" />
                                     {adjustForInflation && (
-                                        {/* secondary-500 */}
                                         <Area type="monotone" dataKey="realValue" stroke="#0ea5e9" fill="url(#colormonthlyInvestmentReal)" strokeWidth={2} name="Real (Inflation Adjusted)" />
                                     )}
                                 </AreaChart>
