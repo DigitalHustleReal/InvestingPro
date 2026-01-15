@@ -17,7 +17,7 @@ const HERO_SLIDES = [
         badge: "Helps You Decide • Expert-Reviewed • Instant Apply",
         headline: "Compare 1000+ Credit Cards",
         highlight: "& Mutual Funds",
-        desc: `India's Decision-Making Platform. Make smart financial decisions with real-time comparisons and instant application links.`,
+        desc: `Compare. Decide. Apply. India's Smartest Financial Choices. Make smart financial decisions with real-time comparisons and instant application links.`,
         gradient: "from-primary-600 via-primary-500 to-secondary-500",
         primaryCta: { text: "Find Your Perfect Card", href: "/credit-cards", icon: CreditCard },
         secondaryCta: { text: "Start Investing", href: "/mutual-funds", icon: Calculator }

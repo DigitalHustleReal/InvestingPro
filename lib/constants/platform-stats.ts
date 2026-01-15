@@ -41,7 +41,7 @@ export const STAT_STRINGS = {
   heroTagline: `${PLATFORM_STATS.usersHelped} Indians Helped`,
   trustBadge: `${PLATFORM_STATS.rating}/5 Rating`,
   coverage: `${PLATFORM_STATS.productsTracked} products from ${PLATFORM_STATS.banksPartnered} banks`,
-  fullDescription: `India's Decision-Making Platform for Credit Cards & Investments. Compare 1000+ products, make smart decisions, and apply instantly. ${PLATFORM_STATS.usersHelped} Indians helped.`,
+  fullDescription: `Compare. Decide. Apply. India's Smartest Financial Choices. Compare 1000+ products, make smart decisions, and apply instantly. ${PLATFORM_STATS.usersHelped} Indians helped.`,
   testimonial: `We've already helped ${PLATFORM_STATS.usersHelped} Indians save money. You're next.`,
 } as const;
 
