@@ -1,23 +1,70 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { env } from '@/lib/env';
+import { requireAdmin } from '@/lib/auth/admin-auth';
 
 const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
 
 /**
  * GET /api/v1/admin/revenue/by-article
  * Returns revenue metrics for a specific article
+ * 
+ * Query Parameters:
+ * - articleId (required): UUID of the article
+ * - startDate (optional): ISO date string, defaults to 30 days ago
+ * - endDate (optional): ISO date string, defaults to now
  */
 export async function GET(request: NextRequest) {
     try {
+        // Check admin authentication
+        const adminCheck = await requireAdmin(request);
+        if (adminCheck.error) {
+            return adminCheck.response;
+        }
+
         const searchParams = request.nextUrl.searchParams;
         const articleId = searchParams.get('articleId');
-        const startDate = searchParams.get('startDate') || new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
-        const endDate = searchParams.get('endDate') || new Date().toISOString();
+        const startDateParam = searchParams.get('startDate');
+        const endDateParam = searchParams.get('endDate');
 
+        // Validate required parameters
         if (!articleId) {
             return NextResponse.json(
                 { error: 'articleId is required' },
+                { status: 400 }
+            );
+        }
+
+        // Validate UUID format
+        const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+        if (!uuidRegex.test(articleId)) {
+            return NextResponse.json(
+                { error: 'Invalid articleId format. Must be a valid UUID.' },
+                { status: 400 }
+            );
+        }
+
+        // Validate dates
+        if (startDateParam && isNaN(Date.parse(startDateParam))) {
+            return NextResponse.json(
+                { error: 'Invalid startDate format. Use ISO 8601 format.' },
+                { status: 400 }
+            );
+        }
+
+        if (endDateParam && isNaN(Date.parse(endDateParam))) {
+            return NextResponse.json(
+                { error: 'Invalid endDate format. Use ISO 8601 format.' },
+                { status: 400 }
+            );
+        }
+
+        const startDate = startDateParam || new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+        const endDate = endDateParam || new Date().toISOString();
+
+        if (new Date(startDate) > new Date(endDate)) {
+            return NextResponse.json(
+                { error: 'startDate must be before endDate' },
                 { status: 400 }
             );
         }
@@ -106,10 +153,26 @@ export async function GET(request: NextRequest) {
             affiliateBreakdown
         });
 
-    } catch (error) {
+    } catch (error: any) {
         console.error('Revenue by article error:', error);
+        
+        if (error.message?.includes('permission denied') || error.message?.includes('RLS')) {
+            return NextResponse.json(
+                { 
+                    error: 'Database permission error',
+                    code: 'DB_PERMISSION_ERROR',
+                    message: 'Unable to access revenue data. Please check database permissions.'
+                },
+                { status: 403 }
+            );
+        }
+
         return NextResponse.json(
-            { error: 'Failed to fetch article revenue data' },
+            { 
+                error: 'Internal server error',
+                code: 'INTERNAL_ERROR',
+                message: 'Failed to fetch article revenue data. Please try again later.'
+            },
             { status: 500 }
         );
     }
