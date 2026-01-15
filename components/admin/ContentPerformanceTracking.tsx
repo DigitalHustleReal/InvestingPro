@@ -381,9 +381,9 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
 
             {/* Needs Optimization */}
             {worstArticles.length > 0 && (
-                <Card className="bg-rose-500/[0.02] border-rose-500/10 rounded-2xl overflow-hidden">
-                    <CardHeader className="border-b border-rose-500/10 px-8 py-5">
-                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-rose-400 flex items-center gap-6 md:p-8">
+                <Card className="bg-danger-500/[0.02] border-danger-500/10 rounded-2xl overflow-hidden">
+                    <CardHeader className="border-b border-danger-500/10 px-8 py-5">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-danger-400 flex items-center gap-6 md:p-8">
                             <TrendingDown className="w-4 h-4" />
                             System Faults (Latency Detected)
                         </CardTitle>
@@ -391,7 +391,7 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                     <CardContent className="p-0">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 divide-x divide-rose-500/10">
                             {worstArticles.map((article: any, idx: number) => (
-                                <div key={article.id || idx} className="p-6 hover:bg-rose-500/[0.05] transition-colors">
+                                <div key={article.id || idx} className="p-6 hover:bg-danger-500/[0.05] transition-colors">
                                     <div className="flex items-center gap-3 mb-3">
                                         <div className="w-6 h-6 rounded bg-rose-500/10 flex items-center justify-center text-[9px] font-bold text-rose-400 border border-rose-500/20">
                                             {idx + 1}
@@ -402,8 +402,8 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                                         {article.title || 'Faulty Node'}
                                     </p>
                                     <div className="flex items-center justify-between">
-                                        <span className="text-[10px] font-semibold text-rose-400 uppercase tracking-st">{article.views || 0} hits</span>
-                                        <ArrowDownRight className="w-3 h-3 text-rose-400" />
+                                        <span className="text-[10px] font-semibold text-danger-400 uppercase tracking-st">{article.views || 0} hits</span>
+                                        <ArrowDownRight className="w-3 h-3 text-danger-400" />
                                     </div>
                                 </div>
                             ))}

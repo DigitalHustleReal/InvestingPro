@@ -57,7 +57,7 @@ export default function AIHealthMonitor() {
                             ) : isDegraded ? (
                                 <AlertTriangle className="w-2.5 h-2.5 text-accent-500" />
                             ) : (
-                                <RefreshCw className="w-2.5 h-2.5 text-rose-500 animate-spin" />
+                                <RefreshCw className="w-2.5 h-2.5 text-danger-500 animate-spin" />
                             )}
                         </div>
                     );

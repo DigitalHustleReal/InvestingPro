@@ -320,7 +320,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                                                     <div className={cn(
                                                         "flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-widest border border-white/5 shadow-sm",
                                                         run.status === 'completed' ? 'bg-primary-500/10 text-primary-400' :
-                                                        run.status === 'failed' ? 'bg-rose-500/10 text-rose-400' :
+                                                        run.status === 'failed' ? 'bg-danger-500/10 text-danger-400' :
                                                         'bg-accent-500/10 text-accent-400'
                                                     )}>
                                                         <StatusIcon className={cn("w-3 h-3", run.status === 'running' ? 'animate-spin' : '')} />
@@ -346,7 +346,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                                             <div className="flex items-center gap-4">
                                                 {run.error_message && (
                                                     <div className="max-w-[200px] text-right">
-                                                        <p className="text-[10px] text-rose-400 font-bold tracking-tight uppercase leading-relaxed">
+                                                        <p className="text-[10px] text-danger-400 font-bold tracking-tight uppercase leading-relaxed">
                                                             System Fault: {run.error_message}
                                                         </p>
                                                     </div>
