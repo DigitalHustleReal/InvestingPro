@@ -428,9 +428,9 @@ export function FDCalculator() {
                                         formatter={(value: number | undefined) => value !== undefined ? formatCurrency(value) : ''}
                                         contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
                                     />
-                                    <Area type="monotone" dataKey="value" stroke="#2563eb" fill="url(#colorFD)" strokeWidth={2} name="Nominal" />
+                                    <Area type="monotone" dataKey="value" stroke="#0ea5e9" fill="url(#colorFD)" strokeWidth={2} name="Nominal" /> {/* secondary-500 */}
                                     {adjustForInflation && (
-                                        <Area type="monotone" dataKey="realValue" stroke="#2563eb" fill="url(#colorFDReal)" strokeWidth={2} name="Real (Inflation Adjusted)" />
+                                        <Area type="monotone" dataKey="realValue" stroke="#0ea5e9" fill="url(#colorFDReal)" strokeWidth={2} name="Real (Inflation Adjusted)" />
                                     )}
                                 </AreaChart>
                             </ResponsiveContainer>
