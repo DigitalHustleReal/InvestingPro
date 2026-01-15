@@ -33,6 +33,13 @@
 - ✅ `TaxCalculator.tsx` - Fixed hardcoded hex colors (`#3b82f6` → `#0ea5e9`)
 - ✅ `FDCalculator.tsx` - Fixed Area chart colors (`#2563eb` → `#0ea5e9`)
 - ✅ `app/not-found.tsx` - Fixed `indigo-600` → `secondary-600`, `blue-500` → `secondary-500`
+- ✅ `PPFCalculator.tsx` - Fixed hardcoded hex color (`#2563eb` → `#0ea5e9`)
+- ✅ `NPSCalculator.tsx` - Fixed hardcoded hex color (`#2563eb` → `#0ea5e9`)
+- ✅ `GSTCalculator.tsx` - Fixed hardcoded hex color (`#3b82f6` → `#0ea5e9`)
+- ✅ `app/mutual-funds/page.tsx` - Fixed `blue-600` → `secondary-600`
+- ✅ `app/loans/page.tsx` - Fixed `blue-600` → `secondary-600`, `accent-blue-500` → `accent-secondary-500`
+- ✅ `app/insurance/page.tsx` - Fixed `blue-600` → `secondary-600`, `shadow-blue-500` → `shadow-secondary-500`
+- ✅ `app/stocks/page.tsx` - Fixed `blue-600` → `secondary-600`
 
 ---
 
@@ -94,4 +101,4 @@
 ---
 
 *Last Updated: January 23, 2026*  
-*Status: Phase 2 In Progress - 22 files fixed, 40+ remaining*
+*Status: Phase 2 In Progress - 29 files fixed, 35+ remaining*
