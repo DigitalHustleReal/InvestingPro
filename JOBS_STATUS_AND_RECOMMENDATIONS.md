@@ -49,10 +49,11 @@
 | Content Publishing | Daily 6 AM | ✅ Complete | 🔴 Critical |
 | Keyword Discovery | Weekly Mon 2 AM | ✅ Complete | ⚠️ High |
 | Content Refresh | Weekly Sun 3 AM | ✅ Complete | ⚠️ High |
+| Product Data Scraping | Weekly Wed 3 AM | ✅ Complete | ⚠️ High |
 | Content Scoring | (As needed) | ✅ Complete | ⚠️ Medium |
 | Content Cleanup | (As needed) | ✅ Complete | ⚠️ Medium |
 
-**Total Jobs:** 5  
+**Total Jobs:** 6  
 **Critical Jobs:** 1  
 **High Priority Jobs:** 2  
 **Medium Priority Jobs:** 2
@@ -61,24 +62,22 @@
 
 ## ⏳ POTENTIAL FUTURE JOBS (Not Critical)
 
-### 1. Product Data Update Job (Optional - Phase 2)
+### 1. Product Data Update Job ✅ **NOW COMPLETE**
 **Purpose:** Update credit card rates, offers, and mutual fund NAVs  
-**Schedule:** Weekly or Daily  
-**Priority:** ⚠️ Medium (Nice to have, not critical)
+**Schedule:** Weekly (Wednesday at 3 AM)  
+**Priority:** ⚠️ High (Now implemented)
 
-**Why Not Critical:**
-- Content refresh job already updates articles with product data
-- Manual updates are sufficient for launch
-- Can be added later when scaling
+**Status:** ✅ **CREATED**
+- `lib/jobs/product-data-scraping.ts` - Background job
+- `lib/scraper/product-data-scraper.ts` - Scraper implementation
+- Supports BankBazaar credit cards
+- Supports AMFI mutual fund NAVs
+- Rate limiting and error handling included
 
-**When to Add:**
-- After initial launch
-- When product data volume increases
-- When real-time updates become competitive advantage
-
-**Files to Create (if needed):**
-- `lib/jobs/product-data-update.ts`
-- `lib/scraper/product-scraper.ts` (already has README)
+**Next Steps:**
+- Add URL list for credit cards to scrape
+- Test scraping with real URLs
+- Add more data sources (Paisabazaar, Value Research)
 
 ---
 
