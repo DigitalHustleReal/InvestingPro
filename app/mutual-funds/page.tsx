@@ -31,7 +31,8 @@ import {
     PieChart,
     LayoutGrid,
     List,
-    ArrowRight
+    ArrowRight,
+    Sparkles
 } from "lucide-react";
 import Link from 'next/link';
 import { FilterSidebar } from "@/components/mutual-funds/FilterSidebar";
@@ -58,12 +59,12 @@ import RatesWidget from '@/components/rates/RatesWidget';
 const MF_SLIDES = [
     {
         id: '1',
-        title: "Top Rated Mutual Funds",
-        subtitle: "High Growth",
-        description: "Discover funds that have consistently beaten the benchmark over the last 5 years.",
-        ctaText: "View Top Funds",
-        ctaLink: "?sort=returns_3y",
-        color: "from-blue-900 to-slate-900"
+        title: "Find Your Perfect Mutual Fund",
+        subtitle: "Goal-Based Recommendations",
+        description: "Get personalized fund recommendations based on your investment goals, risk profile, and timeline. Start SIP instantly.",
+        ctaText: "Find My Perfect Fund",
+        ctaLink: "/mutual-funds/find-your-fund",
+        color: "from-green-600 to-emerald-500"
     },
     {
         id: '2',
