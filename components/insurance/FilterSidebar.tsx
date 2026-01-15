@@ -48,10 +48,10 @@ export function InsuranceFilterSidebar({ filters, setFilters }: FilterSidebarPro
          <div className="w-full bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden flex flex-col h-full lg:sticky lg:top-28">
             <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
                 <h3 className="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-rose-500" />
+                    <ShieldCheck className="w-4 h-4 text-danger-500" />
                     Policy Finder
                 </h3>
-                <Button variant="ghost" size="sm" onClick={handleReset} className="h-8 text-xs text-slate-500 hover:text-rose-600">
+                <Button variant="ghost" size="sm" onClick={handleReset} className="h-8 text-xs text-slate-500 hover:text-danger-600">
                     <RotateCcw className="w-3 h-3 mr-1" /> Reset
                 </Button>
             </div>
@@ -69,7 +69,7 @@ export function InsuranceFilterSidebar({ filters, setFilters }: FilterSidebarPro
                         max={100000}
                         step={1000}
                         onValueChange={(val) => setFilters(prev => ({ ...prev, maxPremium: val[0] }))}
-                        className="bg-rose-100 dark:bg-rose-900/20"
+                        className="bg-danger-100 dark:bg-danger-900/20"
                     />
                 </div>
 
@@ -98,7 +98,7 @@ export function InsuranceFilterSidebar({ filters, setFilters }: FilterSidebarPro
                                 onClick={() => toggleArrayItem('policyTypes', type)}
                                 className={`text-xs px-3 py-1.5 rounded-lg border transition-all font-semibold ${
                                     filters.policyTypes.includes(type)
-                                        ? 'bg-rose-600 text-white border-rose-600 shadow-lg shadow-rose-500/20'
+                                        ? 'bg-danger-600 text-white border-danger-600 shadow-lg shadow-danger-500/20'
                                         : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300'
                                 }`}
                             >

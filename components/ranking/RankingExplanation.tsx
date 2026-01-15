@@ -177,7 +177,7 @@ export default function RankingExplanation({
                     {weaknesses.length > 0 && (
                         <div>
                             <h4 className="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
-                                <XCircle className="w-5 h-5 text-rose-600" />
+                                <XCircle className="w-5 h-5 text-danger-600" />
                                 Areas for Improvement
                             </h4>
                             <ul className="space-y-2">

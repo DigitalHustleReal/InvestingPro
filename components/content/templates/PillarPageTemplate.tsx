@@ -145,14 +145,14 @@ export default function PillarPageTemplate({ content }: PillarPageTemplateProps)
                             </Card>
                             <Card className="border-0 shadow-lg">
                                 <CardContent className="p-6">
-                                    <h3 className="text-xl font-bold text-rose-600 mb-6 flex items-center gap-2">
+                                    <h3 className="text-xl font-bold text-danger-600 mb-6 flex items-center gap-2">
                                         <XCircle className="w-5 h-5" />
                                         Considerations
                                     </h3>
                                     <ul className="space-y-3">
                                         {sections.pros_cons.cons.map((con, idx) => (
                                             <li key={idx} className="flex items-start gap-3">
-                                                <XCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
+                                                <XCircle className="w-5 h-5 text-danger-600 shrink-0 mt-0.5" />
                                                 <span className="text-slate-700">{con}</span>
                                             </li>
                                         ))}
