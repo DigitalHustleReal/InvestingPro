@@ -1,4 +1,4 @@
-﻿
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -36,6 +36,7 @@ import { InsuranceTable } from "@/components/insurance/InsuranceTable";
 import { LayoutGrid, Table as TableIcon } from 'lucide-react';
 import InsuranceCoverageCalculator from '@/components/calculators/InsuranceCoverageCalculator';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
+import CategoryHero from '@/components/common/CategoryHero';
 
 export default function InsurancePage() {
     const [protectionScore, setProtectionScore] = useState(0);
@@ -177,65 +178,48 @@ export default function InsurancePage() {
                 description="Find out your Protection Score and compare life, health, car, and term insurance. Don't buy what you don't need."
             />
 
-            {/* --- HERO SECTION --- */}
-            <div className="relative overflow-hidden pt-32 pb-24 lg:pt-40 lg:pb-32 bg-gradient-to-b from-blue-50 to-slate-50 dark:from-slate-900 dark:to-slate-950">
-                {/* Background Decor */}
-                <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-secondary-500/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2 dark:bg-secondary-500/20" />
-                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary-500/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3 dark:bg-primary-500/20" />
-                </div>
-
-                <div className="container mx-auto px-4 relative z-10">
+            <div className="bg-slate-50 dark:bg-slate-950 pt-24 pb-12">
+                <div className="container mx-auto px-4">
                     <AutoBreadcrumbs />
-                    <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
-                        
-                        {/* Hero Text */}
-                        <div className="flex-1 text-center lg:text-left">
-                            <Badge className="mb-6 px-4 py-1.5 bg-secondary-50 text-secondary-600 dark:bg-secondary-500/10 dark:text-secondary-400 border border-secondary-100 dark:border-secondary-500/20 font-semibold uppercase tracking-wide text-[11px] inline-flex items-center gap-2 rounded-full">
-                                <Shield className="w-3.5 h-3.5" />
-                                Smart Protection Planning
-                            </Badge>
-                            
-                            <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-8 text-slate-900 dark:text-white leading-[1.1]">
-                                Buy Only What <br className="hidden lg:block" />
-                                <span className="bg-gradient-to-r from-primary-600 to-secondary-500 bg-clip-text text-transparent">You Need</span>
-                            </h1>
-                            
-                            <p className="text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
-                                Take our <span className="font-semibold text-slate-900 dark:text-white">2-minute Protection Score</span> assessment 
-                                to find your coverage gaps. Then compare 20+ insurers with zero spam.
-                            </p>
+                    
+                    {/* Premium Authoritative Hero */}
+                    <CategoryHero
+                        title="Compare Best Insurance Plans"
+                        subtitle="Buy Only What You Need"
+                        description="Take our 2-minute Protection Score assessment to find your coverage gaps. Then compare 20+ insurers with zero spam. Get the right coverage at the best price."
+                        primaryCta={{
+                            text: "Check Protection Score",
+                            href: "#protection-score"
+                        }}
+                        secondaryCta={{
+                            text: "Compare Plans",
+                            href: "#compare"
+                        }}
+                        stats={[
+                            { label: "Verified Insurers", value: "20+" },
+                            { label: "Claim Settlement", value: "95%" },
+                            { label: "Avg. Savings", value: "₹14K/yr" }
+                        ]}
+                        badge="Smart Protection Planning • Zero Spam • Best Prices"
+                        variant="secondary"
+                        className="mb-12"
+                    />
 
-                            <div className="relative group max-w-md mx-auto lg:mx-0 mb-8">
-                                <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-                                    <Search className="h-5 w-5 text-slate-500 group-focus-within:text-secondary-500 transition-colors" />
-                                </div>
-                                <Input
-                                    placeholder="Search plans (e.g. 'HDFC Life', 'Health Insurance')..."
-                                    className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-md border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-500 focus:border-secondary-500 transition-all font-medium shadow-sm"
-                                    value={searchTerm}
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
-                                />
-                            </div>
-
-                             <div className="mt-8 flex flex-wrap justify-center lg:justify-start gap-8">
-                                {[
-                                    { label: "Verified Insurers", value: "20+", icon: ShieldCheck },
-                                    { label: "Claim Settlement", value: "95%", icon: CheckCircle2 },
-                                    { label: "Avg. Savings", value: "â‚¹14K/yr", icon: TrendingUp }
-                                ].map((stat, i) => (
-                                    <div key={i} className="flex flex-col">
-                                        <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">
-                                            <stat.icon size={14} /> {stat.label}
-                                        </div>
-                                        <div className="text-2xl font-bold text-slate-900 dark:text-white">{stat.value}</div>
-                                    </div>
-                                ))}
-                            </div>
+                    {/* Search Bar */}
+                    <div className="max-w-xl mx-auto mb-12 relative group z-20">
+                        <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                            <Search className="h-5 w-5 text-stone-400 group-focus-within:text-secondary-600 transition-colors" />
                         </div>
+                        <Input
+                            placeholder="Search plans (e.g. 'HDFC Life', 'Health Insurance')..."
+                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-secondary-500 shadow-xl"
+                            value={searchTerm}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
 
-                        {/* Protection Score Widget */}
-                        <div className="flex-1 w-full max-w-md lg:max-w-lg">
+                    {/* Protection Score Widget */}
+                    <div id="protection-score" className="max-w-md mx-auto mb-12">
                             <Card className="rounded-[2.5rem] bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xl shadow-blue-500/10 overflow-hidden">
                                 <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-primary-400 via-primary-600 to-secondary-500" />
                                 

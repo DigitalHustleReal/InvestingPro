@@ -25,6 +25,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import SEOHead from "@/components/common/SEOHead";
+import CategoryHero from '@/components/common/CategoryHero';
+import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 
 // Mock data for FD rates (in production, fetch from API)
 const fdRates = [
@@ -100,37 +102,38 @@ export default function BankingPage() {
                 structuredData={structuredData}
             />
 
-            {/* HERO SECTION - Live Rate Radar */}
-            <section className="relative overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-success-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
-                {/* Background Decor */}
-                <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-secondary-300/20 dark:bg-secondary-500/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2" />
-                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary-300/20 dark:bg-primary-500/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3" />
+            <div className="bg-slate-50 dark:bg-slate-950 pt-24 pb-12">
+                <div className="container mx-auto px-4">
+                    <AutoBreadcrumbs />
+                    
+                    {/* Premium Authoritative Hero */}
+                    <CategoryHero
+                        title="Maximize Your Savings"
+                        subtitle="Live Rate Radar - Updated Daily"
+                        description="Compare FD rates up to 8.25%, high-yield savings accounts, and zero-balance options from 50+ banks. Get the best rates with our live rate comparison."
+                        primaryCta={{
+                            text: "Compare FD Rates",
+                            href: "#fd-rates"
+                        }}
+                        secondaryCta={{
+                            text: "View Savings Accounts",
+                            href: "#savings"
+                        }}
+                        stats={[
+                            { label: "Banks Compared", value: "50+" },
+                            { label: "Max FD Rate", value: "8.25%" },
+                            { label: "Updated", value: "Daily" }
+                        ]}
+                        badge="Live Rates • Updated Daily • Best Rates Guaranteed"
+                        variant="neutral"
+                        className="mb-12"
+                    />
                 </div>
+            </div>
 
-                <div className="container mx-auto px-4 relative z-10">
-                    {/* Top Badge */}
-                    <div className="flex justify-center mb-6">
-                        <Badge className="px-4 py-2 bg-white dark:bg-slate-900 text-primary-600 dark:text-primary-400 border-2 border-primary-100 dark:border-primary-500/20 font-bold uppercase tracking-wide text-xs inline-flex items-center gap-2 rounded-full shadow-lg">
-                            <RefreshCw className="w-4 h-4" />
-                            Updated Daily with Live Rates
-                        </Badge>
-                    </div>
-
-                    {/* Main Headline */}
-                    <div className="text-center mb-8 max-w-4xl mx-auto">
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white leading-tight mb-4">
-                            Maximize Your Savings with{' '}
-                            <span className="bg-gradient-to-r from-success-500 via-primary-500 to-secondary-500 bg-clip-text text-transparent">
-                                Live Rate Radar
-                            </span>
-                        </h1>
-                        <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                            Compare FD rates up to <strong className="font-bold text-primary-600 dark:text-primary-400">8.25%</strong>, high-yield savings accounts, and zero-balance options from <strong className="font-bold text-slate-900 dark:text-white">50+ banks</strong>.
-                        </p>
-                    </div>
-
-                    {/* Live Rate Radar - Interactive Table */}
+            {/* Live Rate Radar - Interactive Table */}
+            <section className="py-12 bg-white dark:bg-slate-900">
+                <div className="container mx-auto px-4">
                     <div className="max-w-6xl mx-auto">
                         <Card className="bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 shadow-2xl rounded-3xl overflow-hidden">
                             {/* Table Header with Controls */}
