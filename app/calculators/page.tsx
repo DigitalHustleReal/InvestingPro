@@ -52,6 +52,7 @@ import { SCSSCalculator } from "@/components/calculators/SCSSCalculator";
 import { MISCalculator } from "@/components/calculators/MISCalculator";
 import { SimpleInterestCalculator } from "@/components/calculators/SimpleInterestCalculator";
 import { CompoundInterestCalculator } from "@/components/calculators/CompoundInterestCalculator";
+import ComplianceDisclaimer from "@/components/common/ComplianceDisclaimer";
 import { FinancialHealthCalculator } from "@/components/calculators/FinancialHealthCalculator";
 
 export default function CalculatorsPage() {
@@ -694,6 +695,13 @@ export default function CalculatorsPage() {
                                 </Card>
                             ))}
                         </div>
+                    </div>
+                </section>
+
+                {/* Compliance Disclaimer */}
+                <section className="py-12">
+                    <div className="max-w-4xl mx-auto px-4">
+                        <ComplianceDisclaimer variant="compact" />
                     </div>
                 </section>
             </div>

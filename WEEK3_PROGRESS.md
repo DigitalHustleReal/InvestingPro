@@ -42,8 +42,8 @@
 - Long-tail, decision-focused keywords
 - Focus on conversion-oriented topics
 
-### 📋 Task 4: Content-to-Revenue Mapping
-**Status:** IN PROGRESS
+### ✅ Task 4: Content-to-Revenue Mapping
+**Status:** COMPLETE (95% done)
 
 **Infrastructure Found:**
 - ✅ `affiliate_clicks` table with `article_id` field
@@ -51,10 +51,28 @@
 - ✅ Analytics component exists (`components/common/Analytics.tsx`)
 - ✅ Revenue dashboard exists (`app/admin/revenue/page.tsx`)
 
-**Implementation Needed:**
-1. Link analytics events to affiliate clicks
-2. Create "Top Converting Articles" widget for revenue dashboard
-3. Track article → click → conversion funnel
+**Implementation Completed:**
+1. ✅ Created `/api/v1/admin/revenue/top-articles` API endpoint
+   - Aggregates revenue by article from `affiliate_clicks` table
+   - Returns top articles sorted by revenue with conversion stats
+   - Supports time range filtering (7d, 30d, 90d)
+2. ✅ Added "Top Converting Articles" widget to revenue dashboard
+   - Shows top 10 articles by revenue
+   - Displays revenue, conversions, conversion rate, views
+   - Links to article pages
+   - Shows category badges
+3. ✅ Enhanced `/api/out` route to extract article_id from source URL
+   - Automatically extracts article_id when clicks come from `/article/[slug]` pages
+   - Looks up article by slug to get article_id
+   - Maps to affiliate_clicks schema correctly
+4. ✅ Created migration to add `article_id` column to `affiliate_clicks` table
+   - Migration: `20260123_add_article_id_to_affiliate_clicks.sql`
+   - Adds article_id column with foreign key to articles
+   - Creates indexes for performance
+   - Backfills existing clicks from article pages
+
+**Remaining:**
+- Run migration to add article_id column (when ready to deploy)
 
 ---
 
@@ -83,11 +101,14 @@
 
 ## Files Modified
 
-1. `app/article/[slug]/page.tsx` - Added ComplianceDisclaimer component
+1. ✅ `app/article/[slug]/page.tsx` - Added ComplianceDisclaimer + fixed image alt text
+2. ✅ `app/calculators/page.tsx` - Added ComplianceDisclaimer component
+3. ✅ `app/api/v1/admin/revenue/top-articles/route.ts` - Created new API endpoint
+4. ✅ `app/admin/revenue/page.tsx` - Added Top Converting Articles widget
+5. ✅ `app/api/out/route.ts` - Enhanced to extract article_id from source URL
+6. ✅ `supabase/migrations/20260123_add_article_id_to_affiliate_clicks.sql` - Created migration
 
 ## Files to Modify Next
 
-1. `components/common/AffiliateLink.tsx` - Add article tracking
-2. `app/admin/revenue/page.tsx` - Add Top Converting Articles section
-3. Calculator pages - Add compliance disclaimers
-4. `lib/analytics/affiliate-tracking.ts` - Create revenue mapping utilities
+1. Run migration: `npx supabase db push` (to add article_id column)
+2. Generate 25 deep articles (Task 3 - Content Production)

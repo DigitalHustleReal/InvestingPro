@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/badge";
 import AdminLayout from "@/components/admin/AdminLayout";
 import {
     DollarSign,
@@ -15,7 +16,9 @@ import {
     BarChart3,
     FileText,
     Building2,
-    RefreshCw
+    RefreshCw,
+    Award,
+    ExternalLink
 } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 
@@ -87,6 +90,17 @@ export default function RevenueDashboardPage() {
             return response.json();
         },
         enabled: !!selectedCategory
+    });
+
+    // Fetch top converting articles
+    const { data: topArticlesData, isLoading: topArticlesLoading } = useQuery({
+        queryKey: ['top-converting-articles', timeRange],
+        queryFn: async () => {
+            const response = await fetch(`/api/v1/admin/revenue/top-articles?limit=10&startDate=${getStartDate(timeRange)}&endDate=${new Date().toISOString()}`);
+            if (!response.ok) throw new Error('Failed to fetch top articles');
+            return response.json();
+        },
+        refetchInterval: 60000 // Refetch every minute
     });
 
     const getStartDate = (range: string): string => {
@@ -368,6 +382,94 @@ export default function RevenueDashboardPage() {
                                                 )}
                                             </div>
                                         </div>
+                                    </div>
+                                )}
+                            </CardContent>
+                        </Card>
+
+                        {/* Top Converting Articles */}
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2">
+                                    <Award className="w-5 h-5 text-primary-600" />
+                                    Top Converting Articles
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                {topArticlesLoading ? (
+                                    <div className="text-center py-8 text-slate-500">Loading top articles...</div>
+                                ) : topArticlesData?.articles && topArticlesData.articles.length > 0 ? (
+                                    <div className="space-y-3">
+                                        <div className="flex items-center justify-between mb-4 p-3 bg-primary-50 dark:bg-primary-900/20 rounded-lg">
+                                            <div>
+                                                <p className="text-xs font-semibold text-primary-700 dark:text-primary-300 uppercase tracking-wider">
+                                                    Total Revenue from Articles
+                                                </p>
+                                                <p className="text-2xl font-bold text-primary-900 dark:text-primary-100">
+                                                    {formatCurrency(topArticlesData.totalRevenue)}
+                                                </p>
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-xs text-slate-500">Total Conversions</p>
+                                                <p className="text-lg font-bold text-slate-900 dark:text-white">
+                                                    {topArticlesData.totalConversions}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        
+                                        {topArticlesData.articles.map((article: any, idx: number) => (
+                                            <div
+                                                key={article.articleId}
+                                                className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-800"
+                                            >
+                                                <div className="flex items-center gap-4 flex-1">
+                                                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center">
+                                                        <span className="text-sm font-bold text-primary-700 dark:text-primary-300">
+                                                            {idx + 1}
+                                                        </span>
+                                                    </div>
+                                                    <FileText className="w-5 h-5 text-slate-400 flex-shrink-0" />
+                                                    <div className="flex-1 min-w-0">
+                                                        <a
+                                                            href={`/article/${article.articleSlug}`}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="font-semibold text-slate-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 line-clamp-1 flex items-center gap-1"
+                                                        >
+                                                            {article.articleTitle}
+                                                            <ExternalLink className="w-3 h-3 opacity-60" />
+                                                        </a>
+                                                        <div className="flex items-center gap-3 mt-1">
+                                                            <Badge variant="outline" className="text-xs">
+                                                                {article.category}
+                                                            </Badge>
+                                                            <span className="text-xs text-slate-500">
+                                                                {article.views.toLocaleString()} views
+                                                            </span>
+                                                            {article.conversionRate > 0 && (
+                                                                <span className="text-xs text-success-600 dark:text-success-400 font-medium">
+                                                                    {article.conversionRate.toFixed(2)}% CR
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="text-right ml-4">
+                                                    <div className="font-bold text-lg text-primary-600 dark:text-primary-400">
+                                                        {formatCurrency(article.revenue)}
+                                                    </div>
+                                                    <div className="text-xs text-slate-500 mt-1">
+                                                        {article.conversions} {article.conversions === 1 ? 'conversion' : 'conversions'}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className="text-center py-8 text-slate-500">
+                                        <FileText className="w-12 h-12 mx-auto mb-3 opacity-40" />
+                                        <p>No article conversions found for this period</p>
+                                        <p className="text-xs mt-2">Articles with affiliate clicks that converted will appear here</p>
                                     </div>
                                 )}
                             </CardContent>

@@ -53,32 +53,72 @@ export async function GET(request: NextRequest) {
             }
         }
 
-        // 2. Generate Click ID (UUID)
+        // 2. Extract article_id from source URL if it's an article page (before generating clickId)
+        let articleId: string | null = null;
+        if (sourcePage && sourcePage.startsWith('/article/')) {
+            const slug = sourcePage.replace('/article/', '').split('?')[0];
+            if (slug) {
+                // Look up article by slug to get article_id
+                const { data: article } = await supabase
+                    .from('articles')
+                    .select('id')
+                    .eq('slug', slug)
+                    .single();
+                if (article) {
+                    articleId = article.id;
+                }
+            }
+        }
+
+        // 3. Determine product_type and category from source
+        let productType: string | null = null;
+        let category: string | null = null;
+        
+        if (sourcePage.includes('credit-card') || sourcePage.includes('credit-cards')) {
+            productType = 'credit_card';
+            category = 'credit-cards';
+        } else if (sourcePage.includes('mutual-fund') || sourcePage.includes('mutual-funds')) {
+            productType = 'mutual_fund';
+            category = 'mutual-funds';
+        } else if (sourcePage.includes('insurance')) {
+            productType = 'insurance';
+            category = 'insurance';
+        } else if (sourcePage.includes('loan') || sourcePage.includes('loans')) {
+            productType = 'loan';
+            category = 'loans';
+        }
+
+        // 4. Generate Click ID for tracking
         const clickId = crypto.randomUUID();
 
-        // 3. Append Sub ID to Target URL 
+        // 5. Append Sub ID to Target URL 
         const separator = targetUrl.includes('?') ? '&' : '?';
         const finalUrl = `${targetUrl}${separator}sub1=${clickId}${userId ? `&sub2=${userId}` : ''}`;
 
-        // 4. Log Click
-        // We use the new schema 'affiliate_clicks'
-        const { error: logError } = await supabase.from('affiliate_clicks').insert({
-            id: clickId,
-            link_id: finalLinkId || null,
+        // 6. Log Click - Map to actual affiliate_clicks schema
+        const clickData: any = {
             product_id: productId || null,
-            user_id: userId || null,
             source_page: sourcePage,
-            destination_url: targetUrl,
-            user_agent: request.headers.get('user-agent'),
-            referrer: request.headers.get('referer'),
-            ip_hash: 'anonymized' // We don't store raw IP for privacy usually, or handle it via edge function
-        });
+            source_url: request.headers.get('referer') || sourcePage,
+            user_agent: request.headers.get('user-agent') || null,
+            ip_hash: 'anonymized', // Privacy-friendly
+            affiliate_link: targetUrl,
+            conversion_status: 'pending'
+        };
+
+        // Add optional fields only if they have values
+        if (productType) clickData.product_type = productType;
+        if (category) clickData.category = category;
+        if (articleId) clickData.article_id = articleId; // Will work after migration adds column
+
+        const { error: logError } = await supabase.from('affiliate_clicks').insert(clickData);
 
         if (logError) {
             console.error("Failed to log click:", logError);
+            // Don't block redirect on logging error - allow user to continue
         }
 
-        // 5. Redirect User
+        // 7. Redirect User
         return NextResponse.redirect(finalUrl);
 
     } catch (error) {

@@ -221,8 +221,10 @@ export default function ArticleDetail() {
                     <div className="relative aspect-video w-full mb-12 rounded-3xl overflow-hidden shadow-2xl">
                         <img
                             src={article.featured_image}
-                            alt={article.title}
+                            alt={article.title || 'Article featured image'}
                             className="w-full h-full object-cover"
+                            loading="lazy"
+                            decoding="async"
                         />
                     </div>
                 )}
