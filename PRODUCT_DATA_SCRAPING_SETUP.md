@@ -12,10 +12,11 @@
 **Features:**
 - ✅ Credit Card scraping from BankBazaar
 - ✅ Mutual Fund NAV updates from AMFI
+- ✅ Insurance scraping from Policybazaar
+- ✅ Loan scraping from BankBazaar
 - ✅ Automatic slug generation
-- ✅ Bank name extraction
-- ✅ Card type detection
-- ✅ Fund category detection
+- ✅ Provider name extraction
+- ✅ Product type detection (card type, insurance type, loan type, fund category)
 - ✅ Rate limiting (1 second between requests)
 - ✅ Error handling and retries
 - ✅ Database upsert support
@@ -23,18 +24,24 @@
 **Supported Data Sources:**
 - **Credit Cards:** BankBazaar (expandable to Paisabazaar, CardExpert)
 - **Mutual Funds:** AMFI NAV data (official source)
+- **Insurance:** Policybazaar, BankBazaar (expandable)
+- **Loans:** BankBazaar, Paisabazaar (expandable)
 
 ---
 
 ### 2. Background Job (`lib/jobs/product-data-scraping.ts`)
 
 **Schedule:** Weekly (Every Wednesday at 3 AM)  
-**Purpose:** Automatically update product data
+**Purpose:** Automatically update product data for all categories
 
 **What It Does:**
-1. Updates existing credit cards (50 per run)
-2. Updates mutual fund NAVs from AMFI
-3. Logs results and errors
+1. **Primary Categories:**
+   - Updates existing credit cards (50 per run)
+   - Updates mutual fund NAVs from AMFI
+2. **Secondary Categories:**
+   - Updates insurance products (30 per run)
+   - Updates loans (30 per run)
+3. Logs results and errors for all categories
 
 ---
 
@@ -66,7 +73,7 @@ The job runs automatically every Wednesday at 3 AM. No action needed.
 
 ## 📋 Data Sources
 
-### Credit Cards
+### Credit Cards (Primary)
 
 **Primary Source:** BankBazaar
 - URL Pattern: `https://www.bankbazaar.com/credit-card/[card-name].html`
@@ -82,7 +89,7 @@ The job runs automatically every Wednesday at 3 AM. No action needed.
 - CardExpert
 - Direct bank websites
 
-### Mutual Funds
+### Mutual Funds (Primary)
 
 **Primary Source:** AMFI (Association of Mutual Funds in India)
 - URL: `https://portal.amfiindia.com/spages/NAVAll.txt`
@@ -95,6 +102,38 @@ The job runs automatically every Wednesday at 3 AM. No action needed.
 **Future Sources (To Add):**
 - Value Research (for returns, ratings)
 - Moneycontrol (for AUM, expense ratio)
+
+### Insurance (Secondary)
+
+**Primary Source:** Policybazaar, BankBazaar
+- URL Pattern: `https://www.policybazaar.com/[insurance-type]/[policy-name].html`
+- Data Extracted:
+  - Name, Provider, Type (Term/Health/Motor)
+  - Coverage Amount (Min/Max)
+  - Premium (Monthly/Yearly)
+  - Features, Claim Settlement Ratio
+  - Cashless Hospitals, Waiting Period
+  - Image URL, Apply Link
+
+**Future Sources (To Add):**
+- Paisabazaar
+- Direct insurer websites
+
+### Loans (Secondary)
+
+**Primary Source:** BankBazaar, Paisabazaar
+- URL Pattern: `https://www.bankbazaar.com/[loan-type]/[loan-name].html`
+- Data Extracted:
+  - Name, Provider, Type (Personal/Home/Car/Education)
+  - Interest Rate (Min/Max, Fixed/Floating)
+  - Processing Fee, Prepayment Charges
+  - Max Tenure, Max Amount
+  - Min Age, Description
+  - Image URL, Apply Link
+
+**Future Sources (To Add):**
+- RBI data (for interest rates)
+- Direct bank websites
 
 ---
 
@@ -158,26 +197,69 @@ mutual_funds (
 )
 ```
 
+### Insurance (Uses affiliate_products table)
+
+```sql
+affiliate_products (
+    name TEXT,
+    company TEXT, -- Provider name
+    type TEXT, -- 'insurance'
+    description TEXT,
+    features TEXT[],
+    pricing JSONB, -- { monthly, yearly, coverage_min, coverage_max }
+    image_url TEXT,
+    affiliate_link TEXT,
+    status TEXT,
+    updated_at TIMESTAMPTZ
+)
+```
+
+### Loans (Uses products + personal_loans tables)
+
+```sql
+products (
+    slug TEXT UNIQUE,
+    name TEXT,
+    product_type TEXT, -- 'personal_loan'
+    provider TEXT,
+    is_active BOOLEAN,
+    last_updated_at TIMESTAMPTZ
+)
+
+personal_loans (
+    product_id UUID REFERENCES products(id),
+    interest_rate_min DECIMAL(5,2),
+    interest_rate_max DECIMAL(5,2),
+    processing_fee_value DECIMAL(10,2),
+    updated_at TIMESTAMPTZ
+)
+```
+
 ---
 
 ## 🎯 Next Steps
 
 ### Immediate (To Complete Scraping)
 
-1. **Add Credit Card URLs List**
-   - Create a list of BankBazaar URLs to scrape
+1. **Add Product URLs Lists**
+   - Create lists of URLs to scrape for each category:
+     - Credit Cards (BankBazaar URLs)
+     - Insurance (Policybazaar URLs)
+     - Loans (BankBazaar/Paisabazaar URLs)
    - Store in database or config file
-   - Update job to use this list
+   - Update job to use these lists
 
 2. **Add More Data Sources**
-   - Paisabazaar for credit cards
+   - Paisabazaar for credit cards and loans
    - Value Research for mutual fund details
-   - Direct bank APIs (if available)
+   - Direct bank/insurer APIs (if available)
 
 3. **Enhance Data Extraction**
-   - Better selectors for BankBazaar
+   - Better selectors for all sources
    - Extract pros/cons from reviews
    - Extract ratings from multiple sources
+   - Add more insurance providers
+   - Add more loan types (home, car, education)
 
 ### Future Enhancements
 
@@ -242,6 +324,32 @@ console.log(`Success: ${results.success}, Failed: ${results.failed}`);
 ```typescript
 const results = await productDataScraper.updateMutualFundNAVs();
 console.log(`Updated: ${results.updated}, Failed: ${results.failed}`);
+```
+
+### Scrape Insurance from URLs
+
+```typescript
+const urls = [
+    'https://www.policybazaar.com/term-insurance/hdfc-life.html',
+    'https://www.policybazaar.com/health-insurance/star-health.html',
+    // ... more URLs
+];
+
+const results = await productDataScraper.scrapeInsurance(urls);
+console.log(`Success: ${results.success}, Failed: ${results.failed}`);
+```
+
+### Scrape Loans from URLs
+
+```typescript
+const urls = [
+    'https://www.bankbazaar.com/personal-loan/hdfc-personal-loan.html',
+    'https://www.bankbazaar.com/home-loan/sbi-home-loan.html',
+    // ... more URLs
+];
+
+const results = await productDataScraper.scrapeLoans(urls);
+console.log(`Success: ${results.success}, Failed: ${results.failed}`);
 ```
 
 ---
