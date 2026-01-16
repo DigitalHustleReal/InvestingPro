@@ -3,18 +3,17 @@
 ## Day 1-2: Accessibility + Compliance
 
 ### ✅ Task 1: Compliance Disclaimers
-**Status:** IN PROGRESS (90% complete)
+**Status:** COMPLETE (100% done)
 
 **Completed:**
 - ✅ ComplianceDisclaimer component exists with 3 variants (compact, full, inline)
 - ✅ Footer has comprehensive disclaimers
 - ✅ Product pages have disclaimers (credit-cards, mutual-funds, loans, insurance, banking)
 - ✅ Comparison pages have disclaimers
-- ✅ **NEW:** Added ComplianceDisclaimer to article pages (`app/article/[slug]/page.tsx`)
-
-**Remaining:**
-- Verify all calculator pages have disclaimers
-- Ensure all blog/article listing pages have inline disclaimers
+- ✅ **Added ComplianceDisclaimer to article pages** (`app/article/[slug]/page.tsx`)
+- ✅ **Added ComplianceDisclaimer to calculator pages** (`app/calculators/page.tsx`)
+- ✅ **Added ComplianceDisclaimer to blog listing page** (`app/blog/page.tsx`)
+- ✅ All major content pages now have compliance disclaimers
 
 ### ⏳ Task 2: Accessibility Audit
 **Status:** RUNNING (Lighthouse CI audit in progress)
@@ -133,10 +132,13 @@
 
 1. ✅ `app/article/[slug]/page.tsx` - Added ComplianceDisclaimer + fixed image alt text
 2. ✅ `app/calculators/page.tsx` - Added ComplianceDisclaimer component
-3. ✅ `app/api/v1/admin/revenue/top-articles/route.ts` - Created new API endpoint
-4. ✅ `app/admin/revenue/page.tsx` - Added Top Converting Articles widget
-5. ✅ `app/api/out/route.ts` - Enhanced to extract article_id from source URL
-6. ✅ `supabase/migrations/20260123_add_article_id_to_affiliate_clicks.sql` - Created migration
+3. ✅ `app/blog/page.tsx` - Added ComplianceDisclaimer + improved accessibility (aria-labels, aria-hidden, image alt text)
+4. ✅ `app/api/v1/admin/revenue/top-articles/route.ts` - Created new API endpoint
+5. ✅ `app/admin/revenue/page.tsx` - Added Top Converting Articles widget
+6. ✅ `app/api/out/route.ts` - Enhanced to extract article_id from source URL
+7. ✅ `supabase/migrations/20260123_add_article_id_to_affiliate_clicks.sql` - Created migration
+8. ✅ `scripts/generate-week3-articles.ts` - Enhanced prompt with visual components and 2000+ word enforcement
+9. ✅ `scripts/data/week3_articles.json` - Created 25 article topics
 
 ## Files to Modify Next
 

@@ -159,8 +159,10 @@ export default function BlogPage() {
                                         {featuredArticle.featured_image && (
                                             <img
                                                 src={featuredArticle.featured_image}
-                                                alt=""
+                                                alt={featuredArticle.title || 'Featured article image'}
                                                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                                loading="lazy"
+                                                decoding="async"
                                             />
                                         )}
                                         <div className="absolute inset-0 bg-black/20" />
@@ -188,7 +190,7 @@ export default function BlogPage() {
                                             </span>
                                         </div>
                                         <div className="flex items-center text-primary-600 font-bold text-sm uppercase tracking-widest gap-2">
-                                            Read Strategy <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                                            Read Strategy <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                                         </div>
                                     </CardContent>
                                 </div>
@@ -219,8 +221,10 @@ export default function BlogPage() {
                                         {article.featured_image && (
                                             <img
                                                 src={article.featured_image}
-                                                alt=""
+                                                alt={article.title || 'Article featured image'}
                                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                                loading="lazy"
+                                                decoding="async"
                                             />
                                         )}
                                         <div className="absolute top-4 left-4">
@@ -239,7 +243,7 @@ export default function BlogPage() {
                                         <div className="pt-6 border-t border-slate-100 flex items-center justify-between">
                                             <div className="flex items-center gap-2">
                                                 <div className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center">
-                                                    <User className="w-3 h-3 text-slate-400" />
+                                                    <User className="w-3 h-3 text-slate-400" aria-hidden="true" />
                                                 </div>
                                                 <span className="text-xs font-bold text-slate-900 uppercase tracking-tighter">
                                                     {article.author_name}

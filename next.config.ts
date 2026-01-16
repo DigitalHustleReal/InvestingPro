@@ -47,15 +47,6 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizeCss: true,
     optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
-    // Fix OpenTelemetry build errors - exclude Node.js-only packages
-    serverComponentsExternalPackages: [
-      '@opentelemetry/sdk-node',
-      '@opentelemetry/auto-instrumentations-node',
-      '@opentelemetry/exporter-otlp-http',
-      '@opentelemetry/resources',
-      '@opentelemetry/semantic-conventions',
-      '@opentelemetry/api'
-    ],
   },
   
   // Turbopack configuration (Next.js 16 default)
