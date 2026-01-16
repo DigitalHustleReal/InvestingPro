@@ -1,9 +1,20 @@
 /**
  * Social Media Posting Automation
  * Auto-posts articles to Twitter, LinkedIn, etc.
+ * 
+ * FREE TIER OPTIONS:
+ * - RSS Feed: Generate RSS feed, use free services (IFTTT, Zapier free tier) to post
+ * - Twitter: Twitter API v2 free tier (1,500 tweets/month) - requires API keys
+ * - LinkedIn: No free API, requires OAuth - use RSS or manual posting
+ * 
+ * CURRENT: Generates posts, stores them for manual posting or RSS distribution
  */
 
+import { createClient } from '@supabase/supabase-js';
+import { env } from '@/lib/env';
 import { logger } from '@/lib/logger';
+
+const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
 
 export interface SocialPostParams {
     articleId: string;
@@ -123,18 +134,53 @@ function generateLinkedInPost(params: SocialPostParams): string {
 }
 
 /**
- * Post to Twitter (TODO: Implement with Twitter API v2)
+ * Post to Twitter using Twitter API v2 free tier
+ * 
+ * FREE TIER LIMITS:
+ * - 1,500 tweets per month
+ * - Read: 10,000 tweets per month
+ * 
+ * Requires:
+ * - TWITTER_BEARER_TOKEN (for OAuth 2.0)
+ * OR
+ * - TWITTER_API_KEY + TWITTER_API_SECRET + TWITTER_ACCESS_TOKEN + TWITTER_ACCESS_SECRET (for OAuth 1.0a)
  */
 async function postToTwitter(post: string): Promise<boolean> {
-    // TODO: Implement Twitter API integration
-    // const twitterApi = new TwitterApi({
-    //     appKey: process.env.TWITTER_API_KEY,
-    //     appSecret: process.env.TWITTER_API_SECRET,
-    //     accessToken: process.env.TWITTER_ACCESS_TOKEN,
-    //     accessSecret: process.env.TWITTER_ACCESS_SECRET
-    // });
-    // await twitterApi.v2.tweet(post);
-    return false;
+    try {
+        // Check if Twitter API is configured
+        const bearerToken = process.env.TWITTER_BEARER_TOKEN;
+        
+        if (!bearerToken) {
+            logger.debug('Twitter Bearer Token not configured, skipping Twitter API posting');
+            return false;
+        }
+
+        // Twitter API v2 endpoint
+        const response = await fetch('https://api.twitter.com/2/tweets', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${bearerToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                text: post
+            })
+        });
+
+        if (!response.ok) {
+            const error = await response.json().catch(() => ({ error: 'Unknown error' }));
+            throw new Error(`Twitter API error: ${JSON.stringify(error)}`);
+        }
+
+        const result = await response.json();
+        logger.info('Tweet posted successfully', { tweetId: result.data?.id });
+        return true;
+
+    } catch (error: any) {
+        logger.error('Failed to post to Twitter', error);
+        // Don't throw - allow fallback to manual posting
+        return false;
+    }
 }
 
 /**

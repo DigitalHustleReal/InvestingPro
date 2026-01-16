@@ -6,9 +6,9 @@
 import { createClient } from '@supabase/supabase-js';
 import { env } from '@/lib/env';
 import { logger } from '@/lib/logger';
-// import { Resend } from 'resend'; // TODO: Uncomment when Resend is configured
+import { Resend } from 'resend';
 
-// const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export interface NewArticleEmailParams {
     articleId: string;
@@ -50,30 +50,76 @@ export async function sendNewArticleEmail(params: NewArticleEmailParams): Promis
             };
         }
 
-        // TODO: Send email via Resend
-        // For now, log the email and return success
-        logger.info('Newsletter email prepared', {
-            articleId: params.articleId,
-            subscribers: subscribers.length,
-            title: params.title
-        });
+        // Check if Resend is configured
+        if (!process.env.RESEND_API_KEY) {
+            logger.warn('Resend API key not configured, skipping email', { articleId: params.articleId });
+            return {
+                sent: false,
+                subscribers: subscribers.length,
+                error: 'Resend API key not configured. Please set RESEND_API_KEY environment variable.'
+            };
+        }
 
         // Generate email HTML
         const emailHtml = generateArticleEmailHtml(params);
 
-        // TODO: Implement Resend email sending
-        // await resend.emails.send({
-        //     from: 'InvestingPro <newsletter@investingpro.in>',
-        //     to: subscribers.map(s => s.email),
-        //     subject: `📈 ${params.title}`,
-        //     html: emailHtml
-        // });
+        // Send email via Resend (batch sending for multiple subscribers)
+        try {
+            // Resend allows up to 50 recipients per request on free tier
+            // Send in batches of 50
+            const batchSize = 50;
+            const batches = [];
+            
+            for (let i = 0; i < subscribers.length; i += batchSize) {
+                const batch = subscribers.slice(i, i + batchSize);
+                batches.push(batch.map(s => s.email));
+            }
 
-        return {
-            sent: false, // Set to true when Resend is configured
-            subscribers: subscribers.length,
-            error: 'Resend API not yet configured. Email prepared but not sent.'
-        };
+            let sentCount = 0;
+            const errors: string[] = [];
+
+            for (const batchEmails of batches) {
+                try {
+                    const result = await resend.emails.send({
+                        from: process.env.RESEND_FROM_EMAIL || 'InvestingPro <onboarding@resend.dev>',
+                        to: batchEmails,
+                        subject: `📈 ${params.title}`,
+                        html: emailHtml,
+                        // Add reply-to if configured
+                        reply_to: process.env.RESEND_REPLY_TO || undefined
+                    });
+
+                    if (result.data) {
+                        sentCount += batchEmails.length;
+                        logger.info('Newsletter email batch sent', {
+                            articleId: params.articleId,
+                            batchSize: batchEmails.length,
+                            emailId: result.data.id
+                        });
+                    }
+                } catch (batchError: any) {
+                    logger.error('Error sending email batch', batchError, {
+                        articleId: params.articleId,
+                        batchSize: batchEmails.length
+                    });
+                    errors.push(batchError.message || 'Unknown error');
+                }
+            }
+
+            return {
+                sent: sentCount > 0,
+                subscribers: subscribers.length,
+                error: errors.length > 0 ? errors.join('; ') : undefined
+            };
+
+        } catch (error: any) {
+            logger.error('Error sending newsletter email', error, { articleId: params.articleId });
+            return {
+                sent: false,
+                subscribers: subscribers.length,
+                error: error.message || 'Failed to send email'
+            };
+        }
 
     } catch (error: any) {
         logger.error('Error sending newsletter email', error, { articleId: params.articleId });

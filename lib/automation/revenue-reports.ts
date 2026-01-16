@@ -7,6 +7,9 @@ import { createClient } from '@supabase/supabase-js';
 import { env } from '@/lib/env';
 import { getRevenueMetrics } from '@/lib/analytics/revenue-tracker';
 import { logger } from '@/lib/logger';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
 
