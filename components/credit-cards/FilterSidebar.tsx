@@ -14,6 +14,7 @@ export interface CCFilterState {
     networks: string[];
     issuers: string[];
     features: string[];
+    spendingCategories: string[]; // NEW: Spending-based filters
 }
 
 interface FilterSidebarProps {
@@ -25,6 +26,16 @@ const NETWORKS = ["Visa", "Mastercard", "Amex", "Rupay"];
 const ISSUERS = ["HDFC", "SBI", "Axis", "ICICI", "Amex", "IDFC First"];
 const FEATURES = ["Lounge Access", "No Forex Fee", "Fuel Surcharge Waiver", "Golf Access", "Air Miles"];
 
+// Spending categories for filtering
+const SPENDING_CATEGORIES = [
+    { value: "groceries", label: "Groceries & Supermarkets", icon: "🛒" },
+    { value: "travel", label: "Travel & Flights", icon: "✈️" },
+    { value: "fuel", label: "Fuel & Petrol", icon: "⛽" },
+    { value: "onlineShopping", label: "Online Shopping", icon: "🛍️" },
+    { value: "dining", label: "Dining & Restaurants", icon: "🍽️" },
+    { value: "entertainment", label: "Entertainment & Movies", icon: "🎬" }
+];
+
 export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
     
     const handleReset = () => {
@@ -33,7 +44,8 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
             minRewardRate: 0,
             networks: [],
             issuers: [],
-            features: []
+            features: [],
+            spendingCategories: [] // Reset spending categories
         });
     };
 
@@ -131,6 +143,26 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                              >
                                  {net}
                              </button>
+                         ))}
+                     </div>
+                 </div>
+
+                 {/* 5. Spending Categories (NEW) */}
+                 <div className="space-y-3">
+                     <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Best For Spending</label>
+                     <div className="space-y-2">
+                         {SPENDING_CATEGORIES.map((category) => (
+                             <div className="flex items-center space-x-2" key={category.value}>
+                                 <Checkbox 
+                                     id={`spending-${category.value}`} 
+                                     checked={filters.spendingCategories.includes(category.value)}
+                                     onCheckedChange={() => toggleArrayItem('spendingCategories', category.value)}
+                                 />
+                                 <Label htmlFor={`spending-${category.value}`} className="text-sm font-medium text-slate-600 dark:text-slate-300 cursor-pointer flex items-center gap-2">
+                                     <span>{category.icon}</span>
+                                     {category.label}
+                                 </Label>
+                             </div>
                          ))}
                      </div>
                  </div>

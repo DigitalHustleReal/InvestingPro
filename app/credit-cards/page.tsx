@@ -40,7 +40,8 @@ const CreditCardsPage = () => {
         minRewardRate: 0,
         networks: [],
         issuers: [],
-        features: []
+        features: [],
+        spendingCategories: [] // NEW: Spending categories filter
     });
     
     // View Mode State
@@ -80,14 +81,46 @@ const CreditCardsPage = () => {
         const featureMatch = filters.features.length === 0 || 
             filters.features.some(f => featuresStr.includes(f.toLowerCase()));
 
-        return searchMatch && issuerMatch && networkMatch && featureMatch;
+        // Spending Categories Filter (NEW)
+        const spendingMatch = filters.spendingCategories.length === 0 || 
+            filters.spendingCategories.some(category => {
+                const categoryLower = category.toLowerCase();
+                const cardType = (asset.type || asset.metadata?.type || "").toLowerCase();
+                const bestFor = (asset.best_for || "").toLowerCase();
+                
+                // Map spending categories to card types/features
+                // Normalize category key (handle camelCase "onlineShopping" -> "onlineshopping")
+                const normalizedCategory = categoryLower.replace(/([a-z])([A-Z])/g, '$1$2').toLowerCase();
+                
+                const categoryMapping: Record<string, string[]> = {
+                    "groceries": ["cashback", "shopping", "supermarket", "groceries"],
+                    "travel": ["travel", "premium", "air miles", "lounge"],
+                    "fuel": ["fuel", "petrol", "gas", "cashback"],
+                    "onlineshopping": ["shopping", "cashback", "ecommerce", "online"],
+                    "dining": ["dining", "restaurant", "food", "cashback"],
+                    "entertainment": ["entertainment", "movie", "cinema", "cashback"]
+                };
+                
+                const searchCategory = normalizedCategory.includes("online") ? "onlineshopping" : normalizedCategory;
+                
+                const matchingTerms = categoryMapping[searchCategory] || categoryMapping[normalizedCategory] || [categoryLower];
+                return matchingTerms.some(term => 
+                    featuresStr.includes(term) || 
+                    cardType.includes(term) || 
+                    bestFor.includes(term) ||
+                    name.includes(term)
+                );
+            });
+
+        return searchMatch && issuerMatch && networkMatch && featureMatch && spendingMatch;
     });
 
     // Count active filters for mobile badge
     const activeFiltersCount = 
         (filters.issuers.length > 0 ? 1 : 0) + 
         (filters.networks.length > 0 ? 1 : 0) +
-        (filters.features.length > 0 ? 1 : 0);
+        (filters.features.length > 0 ? 1 : 0) +
+        (filters.spendingCategories.length > 0 ? 1 : 0); // NEW: Include spending categories
 
     // Transform generic DB asset to RichProduct
     const richProducts: RichProduct[] = filteredAssets.map(a => ({
