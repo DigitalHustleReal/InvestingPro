@@ -232,6 +232,48 @@ export async function generateMonthlyReport(month?: string, year?: number): Prom
 }
 
 /**
+ * Format revenue report as text message for WhatsApp/Telegram
+ */
+export function formatRevenueReportAsMessage(report: RevenueReport): string {
+    const periodLabel = report.period === 'daily' ? 'Daily' : report.period === 'weekly' ? 'Weekly' : 'Monthly';
+    const growthEmoji = report.growth >= 0 ? '📈' : '📉';
+    const dateStr = new Date(report.startDate).toLocaleDateString('en-IN', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+    });
+
+    let message = `*${periodLabel} Revenue Report*\n`;
+    message += `📅 ${dateStr}\n\n`;
+    message += `💰 *Total Revenue:* ₹${report.totalRevenue.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n`;
+    message += `📊 *Previous:* ₹${report.previousRevenue.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n`;
+    message += `${growthEmoji} *Growth:* ${report.growth >= 0 ? '+' : ''}${report.growth.toFixed(2)}%\n\n`;
+    message += `✅ *Conversions:* ${report.conversions}\n`;
+    message += `📈 *Conversion Rate:* ${report.conversionRate.toFixed(2)}%\n\n`;
+
+    if (report.alerts.length > 0) {
+        message += `⚠️ *Alerts:*\n`;
+        report.alerts.forEach(alert => {
+            message += `• ${alert}\n`;
+        });
+        message += '\n';
+    }
+
+    if (report.topArticles.length > 0) {
+        message += `🏆 *Top Articles:*\n`;
+        report.topArticles.slice(0, 5).forEach((article, idx) => {
+            message += `${idx + 1}. ${article.articleTitle.substring(0, 40)}${article.articleTitle.length > 40 ? '...' : ''}\n`;
+            message += `   ₹${article.revenue.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n`;
+        });
+        message += '\n';
+    }
+
+    message += `_Automated report from InvestingPro.in_`;
+
+    return message;
+}
+
+/**
  * Format revenue report as email HTML
  */
 export function formatRevenueReportAsEmail(report: RevenueReport): string {

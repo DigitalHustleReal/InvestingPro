@@ -12,8 +12,8 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { generateDailyReport } from '@/lib/automation/revenue-reports';
-import { formatRevenueReportAsEmail } from '@/lib/automation/revenue-reports';
+import { generateDailyReport, formatRevenueReportAsMessage } from '@/lib/automation/revenue-reports';
+import { sendMessagingNotification } from '@/lib/automation/messaging-notifier';
 import { logger } from '@/lib/logger';
 
 // Verify cron secret (for Vercel Cron Jobs)
@@ -41,17 +41,52 @@ export async function GET(request: NextRequest) {
         // Generate daily report
         const report = await generateDailyReport();
 
-        // Format as email
-        const emailHtml = formatRevenueReportAsEmail(report);
+        // Format as message for WhatsApp/Telegram
+        const message = formatRevenueReportAsMessage(report);
 
-        // TODO: Send email via Resend
-        // For now, log the report
+        // Get recipients from environment variables
+        const telegramChatIds = process.env.REVENUE_REPORT_TELEGRAM_CHATS
+            ? process.env.REVENUE_REPORT_TELEGRAM_CHATS.split(',').map(id => id.trim()).filter(Boolean)
+            : [];
+
+        const whatsappNumbers = process.env.REVENUE_REPORT_WHATSAPP_NUMBERS
+            ? process.env.REVENUE_REPORT_WHATSAPP_NUMBERS.split(',').map(num => num.trim()).filter(Boolean)
+            : [];
+
+        // Send via WhatsApp and Telegram
+        let messagingResult = null;
+        if (telegramChatIds.length > 0 || whatsappNumbers.length > 0) {
+            try {
+                messagingResult = await sendMessagingNotification({
+                    message: message,
+                    recipients: {
+                        telegram: telegramChatIds.length > 0 ? telegramChatIds : undefined,
+                        whatsapp: whatsappNumbers.length > 0 ? whatsappNumbers : undefined
+                    }
+                });
+
+                logger.info('Revenue report sent via messaging', {
+                    telegram: messagingResult.telegram,
+                    whatsapp: messagingResult.whatsapp
+                });
+            } catch (messagingError: any) {
+                logger.error('Failed to send revenue report via messaging', messagingError);
+                messagingResult = {
+                    telegram: { sent: false, successCount: 0, failedCount: 0, errors: [messagingError.message] },
+                    whatsapp: { sent: false, successCount: 0, failedCount: 0, errors: [messagingError.message] }
+                };
+            }
+        } else {
+            logger.warn('No messaging recipients configured (REVENUE_REPORT_TELEGRAM_CHATS or REVENUE_REPORT_WHATSAPP_NUMBERS)');
+        }
+
         logger.info('Daily revenue report generated', {
             period: report.period,
             totalRevenue: report.totalRevenue,
             growth: report.growth,
             conversions: report.conversions,
-            alerts: report.alerts.length
+            alerts: report.alerts.length,
+            messagingSent: messagingResult?.telegram.sent || messagingResult?.whatsapp.sent || false
         });
 
         // Return report data
@@ -69,8 +104,13 @@ export async function GET(request: NextRequest) {
                 topArticlesCount: report.topArticles.length,
                 alertsCount: report.alerts.length
             },
-            emailHtml: emailHtml, // For now, return HTML. Later, send via Resend
-            message: 'Daily revenue report generated successfully. Email sending not yet implemented.'
+            messaging: messagingResult || {
+                telegram: { sent: false, successCount: 0, failedCount: 0, errors: ['No recipients configured'] },
+                whatsapp: { sent: false, successCount: 0, failedCount: 0, errors: ['No recipients configured'] }
+            },
+            message: messagingResult?.telegram.sent || messagingResult?.whatsapp.sent
+                ? 'Daily revenue report generated and sent via WhatsApp/Telegram successfully.'
+                : 'Daily revenue report generated successfully. WhatsApp/Telegram not configured (set REVENUE_REPORT_TELEGRAM_CHATS and/or REVENUE_REPORT_WHATSAPP_NUMBERS).'
         });
 
     } catch (error: any) {
