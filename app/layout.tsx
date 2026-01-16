@@ -16,6 +16,7 @@ import { CompareProvider } from "@/contexts/CompareContext";
 import CompareBar from "@/components/compare/CompareBar";
 import { LeadCaptureProvider } from "@/components/engagement/LeadCaptureProvider";
 import PerformanceMonitor from "@/components/performance/PerformanceMonitor";
+import ExitIntentPopup from "@/components/common/ExitIntentPopup";
 
 
 // Font configurations with CSS variables
@@ -116,6 +117,7 @@ export default async function RootLayout({
                     <Footer />
                   </PageErrorBoundary>
                   <CookieConsent />
+                  <ExitIntentPopup />
                   <Toaster />
                 </NavigationProvider>
               </CompareProvider>

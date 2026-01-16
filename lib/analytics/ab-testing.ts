@@ -45,13 +45,37 @@ export interface ABTestResult {
  */
 export async function createABTest(test: Omit<ABTest, 'id' | 'createdAt'>): Promise<ABTest> {
     try {
-        // In production, store in ab_tests table
-        // For now, return mock data
-        
+        // Store in ab_tests table
+        const { data, error } = await supabase
+            .from('ab_tests')
+            .insert({
+                name: test.name,
+                description: test.description,
+                element: test.element,
+                variants: test.variants,
+                status: test.status,
+                start_date: test.startDate,
+                end_date: test.endDate,
+                traffic_split: test.trafficSplit
+            })
+            .select()
+            .single();
+
+        if (error) {
+            throw error;
+        }
+
         const newTest: ABTest = {
-            id: `test-${Date.now()}`,
-            ...test,
-            createdAt: new Date().toISOString()
+            id: data.id,
+            name: data.name,
+            description: data.description,
+            element: data.element as ABTest['element'],
+            variants: data.variants as ABVariant[],
+            status: data.status as ABTest['status'],
+            startDate: data.start_date,
+            endDate: data.end_date || undefined,
+            trafficSplit: data.traffic_split,
+            createdAt: data.created_at
         };
 
         logger.info('A/B test created', { testId: newTest.id, name: newTest.name });
@@ -112,20 +136,21 @@ export async function trackConversion(
     testId: string,
     variantId: string,
     userId?: string,
-    sessionId?: string
+    sessionId?: string,
+    conversionValue?: number
 ): Promise<void> {
     try {
-        // In production, store in ab_test_events table
-        // await supabase.from('ab_test_events').insert({
-        //     test_id: testId,
-        //     variant_id: variantId,
-        //     user_id: userId,
-        //     session_id: sessionId,
-        //     event_type: 'conversion',
-        //     created_at: new Date().toISOString()
-        // });
+        // Store in ab_test_events table
+        await supabase.from('ab_test_events').insert({
+            test_id: testId,
+            variant_id: variantId,
+            user_id: userId,
+            session_id: sessionId,
+            event_type: 'conversion',
+            conversion_value: conversionValue
+        });
 
-        logger.info('A/B test conversion tracked', { testId, variantId });
+        logger.info('A/B test conversion tracked', { testId, variantId, conversionValue });
 
     } catch (error) {
         logger.error('Error tracking conversion', error);
@@ -219,10 +244,28 @@ export function isStatisticallySignificant(
  */
 export async function getActiveTests(): Promise<ABTest[]> {
     try {
-        // In production, query ab_tests table where status = 'running'
-        // For now, return empty array
-        
-        return [];
+        const { data, error } = await supabase
+            .from('ab_tests')
+            .select('*')
+            .eq('status', 'running')
+            .order('created_at', { ascending: false });
+
+        if (error) {
+            throw error;
+        }
+
+        return (data || []).map(test => ({
+            id: test.id,
+            name: test.name,
+            description: test.description,
+            element: test.element as ABTest['element'],
+            variants: test.variants as ABVariant[],
+            status: test.status as ABTest['status'],
+            startDate: test.start_date,
+            endDate: test.end_date || undefined,
+            trafficSplit: test.traffic_split,
+            createdAt: test.created_at
+        }));
 
     } catch (error) {
         logger.error('Error getting active tests', error);
@@ -235,11 +278,15 @@ export async function getActiveTests(): Promise<ABTest[]> {
  */
 export async function stopTest(testId: string, winnerVariantId: string): Promise<void> {
     try {
-        // In production, update ab_tests table
-        // await supabase
-        //     .from('ab_tests')
-        //     .update({ status: 'completed', end_date: new Date().toISOString(), winner_variant_id: winnerVariantId })
-        //     .eq('id', testId);
+        // Update ab_tests table
+        await supabase
+            .from('ab_tests')
+            .update({ 
+                status: 'completed', 
+                end_date: new Date().toISOString(), 
+                winner_variant_id: winnerVariantId 
+            })
+            .eq('id', testId);
 
         logger.info('A/B test stopped', { testId, winnerVariantId });
 
