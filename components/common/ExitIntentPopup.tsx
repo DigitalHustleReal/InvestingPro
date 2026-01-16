@@ -76,10 +76,13 @@ export default function ExitIntentPopup({
                 await onSubscribe(email);
             } else {
                 // Default: call newsletter subscribe API
-                const response = await fetch('/api/newsletter/subscribe', {
+                const response = await fetch('/api/newsletter', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email })
+                    body: JSON.stringify({ 
+                        email,
+                        source: `exit_intent_${variant}`
+                    })
                 });
 
                 if (!response.ok) {
