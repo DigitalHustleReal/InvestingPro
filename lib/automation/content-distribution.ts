@@ -114,7 +114,46 @@ export async function distributeContent(articleId: string): Promise<ContentDistr
             emailResult.error = error.message;
         }
 
-        // 3. Log distribution in database (optional - track distribution history)
+        // 3. Send to Telegram/WhatsApp channels
+        let messagingResult = {
+            telegram: { sent: false, successCount: 0, failedCount: 0, errors: [] as string[] },
+            whatsapp: { sent: false, successCount: 0, failedCount: 0, errors: [] as string[] }
+        };
+
+        try {
+            const message = formatArticlePostMessage({
+                title: article.title,
+                excerpt: article.excerpt || '',
+                url: articleUrl,
+                category: article.category
+            });
+
+            const telegramChatIds = process.env.TELEGRAM_CONTENT_CHANNELS
+                ? process.env.TELEGRAM_CONTENT_CHANNELS.split(',').map(id => id.trim()).filter(Boolean)
+                : [];
+
+            const whatsappNumbers = process.env.WHATSAPP_CONTENT_CHANNELS
+                ? process.env.WHATSAPP_CONTENT_CHANNELS.split(',').map(num => num.trim()).filter(Boolean)
+                : [];
+
+            if (telegramChatIds.length > 0 || whatsappNumbers.length > 0) {
+                const messagingSendResult = await sendMessagingNotification({
+                    message,
+                    recipients: {
+                        telegram: telegramChatIds.length > 0 ? telegramChatIds : undefined,
+                        whatsapp: whatsappNumbers.length > 0 ? whatsappNumbers : undefined
+                    }
+                });
+
+                messagingResult = messagingSendResult;
+            }
+        } catch (error: any) {
+            logger.error('Error sending messaging notification', error, { articleId });
+            messagingResult.telegram.errors.push(error.message);
+            messagingResult.whatsapp.errors.push(error.message);
+        }
+
+        // 4. Log distribution in database (optional - track distribution history)
         try {
             await supabase
                 .from('articles')
