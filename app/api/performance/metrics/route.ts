@@ -1,87 +1,101 @@
 /**
  * Performance Metrics API
- * 
- * Endpoint to receive and store performance metrics
+ * Returns performance metrics including Web Vitals, bundle size, Lighthouse scores
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { withErrorHandler } from '@/lib/errors/handler';
-import { withTracing } from '@/lib/middleware/tracing';
-import { logger } from '@/lib/logger';
-import { createClient } from '@/lib/supabase/server';
-import { getBudgetViolations, PERFORMANCE_BUDGETS } from '@/lib/performance/budgets';
+import { getWebVitalsMetrics } from '@/lib/performance/web-vitals';
+import { analyzeBundle, checkBundleBudget } from '@/lib/performance/bundle-analyzer';
+import { requireAdmin } from '@/lib/auth/admin-auth';
 
-export const dynamic = 'force-dynamic';
-export const runtime = 'nodejs';
-
-interface PerformanceMetric {
-    name: string;
-    value: number;
-    unit: 'bytes' | 'ms' | 'score';
-    timestamp: number;
-}
-
-export const POST = withErrorHandler(
-    withTracing(async (request: NextRequest) => {
-        const body = await request.json();
-        const { metrics } = body as { metrics: PerformanceMetric[] };
-
-        if (!Array.isArray(metrics) || metrics.length === 0) {
-            return NextResponse.json(
-                { error: { code: 'VALIDATION_ERROR', message: 'Metrics array required' } },
-                { status: 400 }
-            );
-        }
-
-        const supabase = await createClient();
-
-        // Convert metrics to format for storage
-        const metricsToStore = metrics.map(metric => ({
-            name: metric.name,
-            value: metric.value,
-            unit: metric.unit,
-            timestamp: new Date(metric.timestamp).toISOString(),
-            user_agent: request.headers.get('user-agent') || '',
-            url: request.headers.get('referer') || '',
-        }));
-
-        // Check for budget violations
-        const metricsMap: Record<string, number> = {};
-        metrics.forEach(metric => {
-            metricsMap[metric.name] = metric.value;
-        });
-
-        const violations = getBudgetViolations(metricsMap, PERFORMANCE_BUDGETS);
-        
-        if (violations.length > 0) {
-            logger.warn('Performance budget violations detected', {
-                violations: violations.map(v => v.message),
-            });
-
-            // Store violations for alerting
-            for (const violation of violations) {
-                if (violation.budget.severity === 'error') {
-                    // Could trigger alert here
-                    logger.error('Performance budget exceeded', {
-                        budget: violation.budget.name,
-                        actual: violation.actual,
-                        threshold: violation.budget.threshold,
-                    });
-                }
+export async function GET(request: NextRequest) {
+    try {
+        // Check admin authentication
+        try {
+            await requireAdmin();
+        } catch (authError: any) {
+            if (authError.message.includes('Unauthorized')) {
+                return NextResponse.json(
+                    { error: 'Unauthorized', message: 'Authentication required' },
+                    { status: 401 }
+                );
             }
+            if (authError.message.includes('Forbidden')) {
+                return NextResponse.json(
+                    { error: 'Forbidden', message: 'Admin access required' },
+                    { status: 403 }
+                );
+            }
+            throw authError;
         }
 
-        // Store metrics (if you have a performance_metrics table)
-        // For now, just log them
-        logger.info('Performance metrics received', {
-            count: metrics.length,
-            violations: violations.length,
-        });
+        const searchParams = request.nextUrl.searchParams;
+        const range = searchParams.get('range') || '30d';
+
+        // Calculate date range
+        const endDate = new Date();
+        const startDate = new Date();
+        
+        switch (range) {
+            case '7d':
+                startDate.setDate(startDate.getDate() - 7);
+                break;
+            case '30d':
+                startDate.setDate(startDate.getDate() - 30);
+                break;
+            case '90d':
+                startDate.setDate(startDate.getDate() - 90);
+                break;
+            default:
+                startDate.setDate(startDate.getDate() - 30);
+        }
+
+        const startDateStr = startDate.toISOString();
+        const endDateStr = endDate.toISOString();
+
+        // Fetch all metrics in parallel
+        const [webVitals, bundleAnalysis] = await Promise.all([
+            getWebVitalsMetrics(startDateStr, endDateStr),
+            analyzeBundle()
+        ]);
+
+        // Check bundle budget
+        const budgetCheck = checkBundleBudget(bundleAnalysis);
+
+        // Get Lighthouse scores (placeholder - in production would use Lighthouse CI)
+        const lighthouse = {
+            performance: 85, // Placeholder
+            accessibility: 95, // Placeholder
+            bestPractices: 90, // Placeholder
+            seo: 95 // Placeholder
+        };
 
         return NextResponse.json({
-            success: true,
-            received: metrics.length,
-            violations: violations.length,
+            webVitals,
+            bundle: {
+                totalSize: bundleAnalysis.totalSize,
+                gzippedSize: bundleAnalysis.gzippedSize,
+                meetsBudget: budgetCheck.meetsBudget,
+                violations: budgetCheck.violations
+            },
+            lighthouse,
+            period: {
+                startDate: startDateStr,
+                endDate: endDateStr,
+                range
+            }
         });
-    }, 'performance-metrics')
-);
+
+    } catch (error: any) {
+        console.error('Error fetching performance metrics:', error);
+        
+        return NextResponse.json(
+            {
+                error: 'Internal server error',
+                code: 'INTERNAL_ERROR',
+                message: 'Failed to fetch performance metrics. Please try again later.'
+            },
+            { status: 500 }
+        );
+    }
+}

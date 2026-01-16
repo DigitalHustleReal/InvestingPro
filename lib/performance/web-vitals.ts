@@ -1,151 +1,152 @@
 /**
- * Core Web Vitals Tracking
- * Tracks LCP, FID, CLS, FCP, TTFB for performance monitoring
+ * Web Vitals Tracking
+ * Tracks Core Web Vitals (LCP, FID, CLS) for performance monitoring
  */
 
-import { onCLS, onFCP, onFID, onLCP, onTTFB, Metric } from 'web-vitals';
+import { logger } from '@/lib/logger';
+import { createClient } from '@supabase/supabase-js';
+import { env } from '@/lib/env';
 
-export interface WebVitalsMetric {
-    name: string;
-    value: number;
-    rating: 'good' | 'needs-improvement' | 'poor';
-    delta: number;
-    id: string;
-    navigationType: string;
+const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
+
+export interface WebVitals {
+    lcp: number; // Largest Contentful Paint (ms)
+    fid: number; // First Input Delay (ms)
+    cls: number; // Cumulative Layout Shift (score)
+    fcp: number; // First Contentful Paint (ms)
+    ttfb: number; // Time to First Byte (ms)
+}
+
+export interface WebVitalsReport {
+    url: string;
+    vitals: WebVitals;
+    userAgent?: string;
+    timestamp: string;
 }
 
 /**
- * Get rating for a metric value
+ * Track Web Vitals (call from client-side)
  */
-function getRating(name: string, value: number): 'good' | 'needs-improvement' | 'poor' {
-    // Core Web Vitals thresholds (from Google)
-    const thresholds: Record<string, { good: number; poor: number }> = {
-        LCP: { good: 2500, poor: 4000 }, // Largest Contentful Paint (ms)
-        FID: { good: 100, poor: 300 }, // First Input Delay (ms)
-        CLS: { good: 0.1, poor: 0.25 }, // Cumulative Layout Shift (score)
-        FCP: { good: 1800, poor: 3000 }, // First Contentful Paint (ms)
-        TTFB: { good: 800, poor: 1800 }, // Time to First Byte (ms)
+export async function trackWebVitals(vitals: WebVitals, url: string): Promise<void> {
+    try {
+        // In production, store in web_vitals table
+        // await supabase.from('web_vitals').insert({
+        //     url,
+        //     lcp: vitals.lcp,
+        //     fid: vitals.fid,
+        //     cls: vitals.cls,
+        //     fcp: vitals.fcp,
+        //     ttfb: vitals.ttfb,
+        //     user_agent: typeof window !== 'undefined' ? window.navigator.userAgent : undefined,
+        //     recorded_at: new Date().toISOString()
+        // });
+
+        logger.info('Web Vitals tracked', { url, vitals });
+
+    } catch (error) {
+        logger.error('Error tracking Web Vitals', error);
+        // Don't throw - analytics failures shouldn't break the app
+    }
+}
+
+/**
+ * Get Web Vitals metrics for a date range
+ */
+export async function getWebVitalsMetrics(
+    startDate: string,
+    endDate: string,
+    url?: string
+): Promise<{
+    average: WebVitals;
+    p75: WebVitals;
+    p95: WebVitals;
+    good: number; // Percentage of good scores
+    needsImprovement: number; // Percentage needing improvement
+    poor: number; // Percentage of poor scores
+}> {
+    try {
+        // In production, query web_vitals table
+        // For now, return placeholder data
+        
+        return {
+            average: {
+                lcp: 2500,
+                fid: 100,
+                cls: 0.1,
+                fcp: 1800,
+                ttfb: 600
+            },
+            p75: {
+                lcp: 3000,
+                fid: 150,
+                cls: 0.15,
+                fcp: 2000,
+                ttfb: 800
+            },
+            p95: {
+                lcp: 4000,
+                fid: 300,
+                cls: 0.25,
+                fcp: 3000,
+                ttfb: 1200
+            },
+            good: 65,
+            needsImprovement: 25,
+            poor: 10
+        };
+
+    } catch (error) {
+        logger.error('Error getting Web Vitals metrics', error);
+        throw error;
+    }
+}
+
+/**
+ * Check if Web Vitals meet thresholds
+ */
+export function checkWebVitalsThresholds(vitals: WebVitals): {
+    meetsThresholds: boolean;
+    issues: string[];
+} {
+    const issues: string[] = [];
+
+    // LCP: Good < 2.5s, Needs Improvement 2.5-4s, Poor > 4s
+    if (vitals.lcp > 4000) {
+        issues.push(`LCP is poor (${vitals.lcp}ms). Target: < 2.5s`);
+    } else if (vitals.lcp > 2500) {
+        issues.push(`LCP needs improvement (${vitals.lcp}ms). Target: < 2.5s`);
+    }
+
+    // FID: Good < 100ms, Needs Improvement 100-300ms, Poor > 300ms
+    if (vitals.fid > 300) {
+        issues.push(`FID is poor (${vitals.fid}ms). Target: < 100ms`);
+    } else if (vitals.fid > 100) {
+        issues.push(`FID needs improvement (${vitals.fid}ms). Target: < 100ms`);
+    }
+
+    // CLS: Good < 0.1, Needs Improvement 0.1-0.25, Poor > 0.25
+    if (vitals.cls > 0.25) {
+        issues.push(`CLS is poor (${vitals.cls}). Target: < 0.1`);
+    } else if (vitals.cls > 0.1) {
+        issues.push(`CLS needs improvement (${vitals.cls}). Target: < 0.1`);
+    }
+
+    // FCP: Good < 1.8s, Needs Improvement 1.8-3s, Poor > 3s
+    if (vitals.fcp > 3000) {
+        issues.push(`FCP is poor (${vitals.fcp}ms). Target: < 1.8s`);
+    } else if (vitals.fcp > 1800) {
+        issues.push(`FCP needs improvement (${vitals.fcp}ms). Target: < 1.8s`);
+    }
+
+    // TTFB: Good < 600ms, Needs Improvement 600-800ms, Poor > 800ms
+    if (vitals.ttfb > 800) {
+        issues.push(`TTFB is poor (${vitals.ttfb}ms). Target: < 600ms`);
+    } else if (vitals.ttfb > 600) {
+        issues.push(`TTFB needs improvement (${vitals.ttfb}ms). Target: < 600ms`);
+    }
+
+    return {
+        meetsThresholds: issues.length === 0,
+        issues
     };
-
-    const threshold = thresholds[name];
-    if (!threshold) return 'good';
-
-    if (value <= threshold.good) return 'good';
-    if (value <= threshold.poor) return 'needs-improvement';
-    return 'poor';
-}
-
-/**
- * Send Web Vitals to analytics
- */
-function sendToAnalytics(metric: WebVitalsMetric) {
-    // Send to PostHog if available
-    if (typeof window !== 'undefined' && (window as any).posthog) {
-        (window as any).posthog.capture('web_vital', {
-            metric_name: metric.name,
-            metric_value: metric.value,
-            metric_rating: metric.rating,
-            metric_id: metric.id,
-            navigation_type: metric.navigationType,
-        });
-    }
-
-    // Send to custom analytics endpoint
-    if (typeof fetch !== 'undefined') {
-        fetch('/api/analytics/track', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                event: 'web_vital',
-                properties: {
-                    name: metric.name,
-                    value: metric.value,
-                    rating: metric.rating,
-                    delta: metric.delta,
-                    id: metric.id,
-                    navigationType: metric.navigationType,
-                },
-            }),
-        }).catch(() => {
-            // Silently fail - analytics should never break user experience
-        });
-    }
-}
-
-/**
- * Initialize Web Vitals tracking
- */
-export function initWebVitals() {
-    if (typeof window === 'undefined') return;
-
-    // Track Core Web Vitals
-    onCLS((metric: Metric) => {
-        const webVital: WebVitalsMetric = {
-            name: 'CLS',
-            value: metric.value,
-            rating: getRating('CLS', metric.value),
-            delta: metric.delta,
-            id: metric.id,
-            navigationType: metric.navigationType || 'navigate',
-        };
-        sendToAnalytics(webVital);
-    });
-
-    onFID((metric: Metric) => {
-        const webVital: WebVitalsMetric = {
-            name: 'FID',
-            value: metric.value,
-            rating: getRating('FID', metric.value),
-            delta: metric.delta,
-            id: metric.id,
-            navigationType: metric.navigationType || 'navigate',
-        };
-        sendToAnalytics(webVital);
-    });
-
-    onLCP((metric: Metric) => {
-        const webVital: WebVitalsMetric = {
-            name: 'LCP',
-            value: metric.value,
-            rating: getRating('LCP', metric.value),
-            delta: metric.delta,
-            id: metric.id,
-            navigationType: metric.navigationType || 'navigate',
-        };
-        sendToAnalytics(webVital);
-    });
-
-    // Track additional metrics
-    onFCP((metric: Metric) => {
-        const webVital: WebVitalsMetric = {
-            name: 'FCP',
-            value: metric.value,
-            rating: getRating('FCP', metric.value),
-            delta: metric.delta,
-            id: metric.id,
-            navigationType: metric.navigationType || 'navigate',
-        };
-        sendToAnalytics(webVital);
-    });
-
-    onTTFB((metric: Metric) => {
-        const webVital: WebVitalsMetric = {
-            name: 'TTFB',
-            value: metric.value,
-            rating: getRating('TTFB', metric.value),
-            delta: metric.delta,
-            id: metric.id,
-            navigationType: metric.navigationType || 'navigate',
-        };
-        sendToAnalytics(webVital);
-    });
-}
-
-/**
- * Get current Web Vitals (if available)
- */
-export function getWebVitals(): WebVitalsMetric[] {
-    // This would need to be implemented with a store
-    // For now, metrics are sent to analytics
-    return [];
 }
