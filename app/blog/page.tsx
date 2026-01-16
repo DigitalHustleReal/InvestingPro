@@ -12,6 +12,7 @@ import { Search, Clock, Calendar, Eye, User, ArrowRight, Loader2, X } from "luci
 import Link from 'next/link';
 import PageErrorBoundary from "@/components/common/PageErrorBoundary";
 import ComplianceDisclaimer from "@/components/common/ComplianceDisclaimer";
+import Image from 'next/image';
 
 // Debounce hook for search
 function useDebounce<T>(value: T, delay: number): T {
@@ -157,12 +158,14 @@ export default function BlogPage() {
                                     <div className="h-64 md:h-auto overflow-hidden relative">
                                         <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-secondary-600 transition-transform duration-700 group-hover:scale-110" />
                                         {featuredArticle.featured_image && (
-                                            <img
+                                            <Image
                                                 src={featuredArticle.featured_image}
                                                 alt={featuredArticle.title || 'Featured article image'}
-                                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                                fill
+                                                className="object-cover transition-transform duration-700 group-hover:scale-110"
                                                 loading="lazy"
-                                                decoding="async"
+                                                quality={85}
+                                                sizes="(max-width: 768px) 100vw, 50vw"
                                             />
                                         )}
                                         <div className="absolute inset-0 bg-black/20" />
@@ -219,12 +222,14 @@ export default function BlogPage() {
                                     <div className="h-56 relative overflow-hidden bg-slate-100">
                                         <div className="absolute inset-0 bg-gradient-to-br from-slate-400 to-slate-600 opacity-20" />
                                         {article.featured_image && (
-                                            <img
+                                            <Image
                                                 src={article.featured_image}
                                                 alt={article.title || 'Article featured image'}
-                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                                fill
+                                                className="object-cover transition-transform duration-700 group-hover:scale-110"
                                                 loading="lazy"
-                                                decoding="async"
+                                                quality={80}
+                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
                                             />
                                         )}
                                         <div className="absolute top-4 left-4">

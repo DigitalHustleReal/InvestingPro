@@ -24,6 +24,7 @@ import SocialShareButtons from '@/components/common/SocialShareButtons';
 import RelatedArticles from '@/components/articles/RelatedArticles';
 import { ReadingProgressBar } from '@/components/articles/ReadingProgressBar';
 import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
+import Image from 'next/image';
 
 interface Article {
     id: string;
@@ -219,12 +220,14 @@ export default function ArticleDetail() {
                 {/* Featured Image */}
                 {article.featured_image && (
                     <div className="relative aspect-video w-full mb-12 rounded-3xl overflow-hidden shadow-2xl">
-                        <img
+                        <Image
                             src={article.featured_image}
                             alt={article.title || 'Article featured image'}
-                            className="w-full h-full object-cover"
-                            loading="lazy"
-                            decoding="async"
+                            fill
+                            className="object-cover"
+                            priority
+                            quality={85}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
                         />
                     </div>
                 )}
