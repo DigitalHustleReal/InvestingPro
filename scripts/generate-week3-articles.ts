@@ -63,12 +63,77 @@ FORMATTING RULES (CRITICAL):
 - Include 2-3 comparison tables where relevant (tables help add content)
 - End with <h2>Conclusion</h2> with actionable next steps
 
-PROFESSIONAL COMPONENTS (MUST INCLUDE):
-1. KEY TAKEAWAYS BOX (RIGHT AFTER Introduction) - 6-7 detailed bullet points
-2. PRO TIP CALLOUTS (3-4 times throughout article)
-3. COMPARISON TABLES (2-3 tables - e.g., comparing products, features, fees, benefits)
-4. VISUAL ELEMENTS using clean HTML/Tailwind classes (progress bars, comparison sliders, metric cards)
-5. FREQUENTLY ASKED QUESTIONS (FAQ section with 5-6 questions)
+PROFESSIONAL COMPONENTS (MUST INCLUDE - Use these EXACT HTML structures):
+
+1. KEY TAKEAWAYS BOX (RIGHT AFTER Introduction) - Use this structure:
+<div class="bg-primary-50 border-l-4 border-primary-600 p-6 my-8 rounded-r-lg">
+    <h3 class="text-primary-900 font-bold text-lg mb-4">Key Takeaways</h3>
+    <ul class="space-y-3 list-none">
+        <li class="flex items-start"><span class="text-primary-600 mr-2 font-bold">✓</span> <span>First key point with detailed explanation...</span></li>
+        <li class="flex items-start"><span class="text-primary-600 mr-2 font-bold">✓</span> <span>Second key point...</span></li>
+        <!-- Continue for 6-7 points -->
+    </ul>
+</div>
+
+2. PRO TIP CALLOUTS (3-4 times throughout article) - Use this structure:
+<div class="bg-secondary-50 border border-secondary-200 p-5 my-6 rounded-lg">
+    <div class="flex items-start gap-3">
+        <span class="text-secondary-600 font-bold text-xl">💡</span>
+        <div>
+            <p class="font-bold text-secondary-900 mb-1">Pro Tip:</p>
+            <p class="text-secondary-800">Your expert tip or insight here with detailed explanation...</p>
+        </div>
+    </div>
+</div>
+
+3. COMPARISON TABLES (2-3 tables) - Use this structure:
+<table class="w-full border-collapse my-8">
+    <thead>
+        <tr class="bg-slate-100">
+            <th class="border border-slate-300 p-3 text-left font-bold">Feature</th>
+            <th class="border border-slate-300 p-3 text-left font-bold">Option A</th>
+            <th class="border border-slate-300 p-3 text-left font-bold">Option B</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="border border-slate-300 p-3">Feature Name</td>
+            <td class="border border-slate-300 p-3">Details for A</td>
+            <td class="border border-slate-300 p-3">Details for B</td>
+        </tr>
+        <!-- More rows -->
+    </tbody>
+</table>
+
+4. WARNING/CAUTION BOXES - Use this structure:
+<div class="bg-accent-50 border-l-4 border-accent-600 p-5 my-6 rounded-r-lg">
+    <p class="font-bold text-accent-900 mb-2">⚠️ Important:</p>
+    <p class="text-accent-800">Warning or caution message with detailed explanation...</p>
+</div>
+
+5. METRIC CARDS (use inline for stats) - Use this structure:
+<div class="bg-gradient-to-br from-primary-50 to-secondary-50 p-6 my-8 rounded-xl border border-primary-200">
+    <div class="grid grid-cols-2 gap-4">
+        <div class="text-center">
+            <p class="text-3xl font-bold text-primary-600">68%</p>
+            <p class="text-sm text-slate-600">Users prefer this</p>
+        </div>
+        <div class="text-center">
+            <p class="text-3xl font-bold text-secondary-600">₹50K</p>
+            <p class="text-sm text-slate-600">Average savings</p>
+        </div>
+    </div>
+</div>
+
+6. FREQUENTLY ASKED QUESTIONS - Use this structure:
+<h2>Frequently Asked Questions</h2>
+<div class="space-y-6 my-8">
+    <div class="border-l-4 border-primary-500 pl-4">
+        <h3 class="font-bold text-slate-900 mb-2">What is [topic]?</h3>
+        <p class="text-slate-700">Detailed answer with explanation...</p>
+    </div>
+    <!-- More FAQ items -->
+</div>
 
 DETAILED CONTENT STRUCTURE (TARGET: 2200-2500 words):
 - Introduction (300-350 words): Hook, problem statement, why this matters, what readers will learn
@@ -206,11 +271,22 @@ async function main() {
         try {
             // Check existence
             const slug = createSlug(topic.title);
-            const { data: existing } = await supabase.from('articles').select('id').eq('slug', slug).single();
+            const { data: existing } = await supabase.from('articles').select('id, content, body_html').eq('slug', slug).single();
+            
+            // Check if article exists and if word count is below 2000
             if (existing) {
-                console.log(`⏩ Skipping "${topic.title}" (Already exists)`);
-                skipped++;
-                continue;
+                const existingContent = existing.body_html || existing.content || '';
+                const existingWordCount = existingContent.replace(/<[^>]*>/g, '').split(/\s+/).length;
+                
+                if (existingWordCount < 2000) {
+                    console.log(`⚠️  "${topic.title}" exists but only has ${existingWordCount} words (below 2000 target). Regenerating...`);
+                    // Delete existing article to regenerate
+                    await supabase.from('articles').delete().eq('id', existing.id);
+                } else {
+                    console.log(`⏩ Skipping "${topic.title}" (Already exists with ${existingWordCount} words)`);
+                    skipped++;
+                    continue;
+                }
             }
             
             console.log(`\n📝 [${generated + skipped + 1}/${topics.length}] Generating "${topic.title}"...`);

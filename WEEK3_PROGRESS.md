@@ -24,9 +24,16 @@
 - ✅ Target: 90+ accessibility score
 - ✅ Running audit on critical pages
 
+**Fixes Applied:**
+- ✅ Fixed image alt text in article pages (with fallback)
+- ✅ Added `loading="lazy"` and `decoding="async"` to images
+- ✅ Added `type="button"` to clear search button in blog page
+- ✅ Added `aria-hidden="true"` to decorative icons
+- ✅ Verified input fields have proper `aria-label` attributes
+
 **Next Steps:**
-- Review audit results
-- Fix critical accessibility issues
+- Review Lighthouse audit results when available
+- Fix any remaining critical accessibility issues
 - Re-run audit to verify 90+ score
 
 ---
@@ -53,9 +60,10 @@
   - Automatic slug generation and duplicate checking
 
 **Status:**
-- ✅ Generation script started (Shell ID: 624286)
+- ✅ Prompt updated with visual components (key takeaways, pro tips, tables, metric cards, FAQs)
+- ✅ Generation script restarted with enhanced prompt (Shell ID: new)
 - ⏳ Running in background - generating 25 articles sequentially
-- ⏱️ Estimated time: 5-10 minutes (3 seconds delay between articles)
+- ⏱️ Estimated time: 10-15 minutes (2000+ words per article)
 - 📊 Progress: Check terminal output for real-time status
 
 **Next Steps:**

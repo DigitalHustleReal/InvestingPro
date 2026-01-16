@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/Button";
 import { Search, Clock, Calendar, Eye, User, ArrowRight, Loader2, X } from "lucide-react";
 import Link from 'next/link';
 import PageErrorBoundary from "@/components/common/PageErrorBoundary";
+import ComplianceDisclaimer from "@/components/common/ComplianceDisclaimer";
 
 // Debounce hook for search
 function useDebounce<T>(value: T, delay: number): T {
@@ -174,15 +175,15 @@ export default function BlogPage() {
                                         </p>
                                         <div className="flex items-center gap-6 text-xs text-slate-400 font-bold uppercase tracking-tight mb-8">
                                             <span className="flex items-center gap-2">
-                                                <Calendar className="w-3.5 h-3.5" />
+                                                <Calendar className="w-3.5 h-3.5" aria-hidden="true" />
                                                 {new Date(featuredArticle.published_date || Date.now()).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })}
                                             </span>
                                             <span className="flex items-center gap-2">
-                                                <Clock className="w-3.5 h-3.5" />
+                                                <Clock className="w-3.5 h-3.5" aria-hidden="true" />
                                                 {featuredArticle.read_time} min read
                                             </span>
                                             <span className="flex items-center gap-2">
-                                                <Eye className="w-3.5 h-3.5 text-primary-500" strokeWidth={2} />
+                                                <Eye className="w-3.5 h-3.5 text-primary-500" strokeWidth={2} aria-hidden="true" />
                                                 {featuredArticle.views || 0} views
                                             </span>
                                         </div>
@@ -281,6 +282,11 @@ export default function BlogPage() {
                         />
                     </div>
                 )}
+
+                {/* Compliance Disclaimer */}
+                <div className="mt-16">
+                    <ComplianceDisclaimer variant="compact" />
+                </div>
             </div>
         </div>
         </PageErrorBoundary>
