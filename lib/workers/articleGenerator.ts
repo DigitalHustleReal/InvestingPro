@@ -349,7 +349,6 @@ Return ONLY valid JSON.
             ai_metadata: generatedContent.ai_metadata,
             structured_content: structuredContent
         };
-
     } catch (error) {
         logger.error('Worker Article Generation Error', error as Error);
         throw error;

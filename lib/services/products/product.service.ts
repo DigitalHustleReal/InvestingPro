@@ -3,6 +3,7 @@
  * Business logic for products
  */
 import { SupabaseProductRepository, type ProductRepository, type ProductQuery } from './product.repository';
+import { CachedProductRepository } from './product.repository.cached';
 import { logger } from '@/lib/logger';
 
 export interface ProductService {
