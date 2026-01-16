@@ -14,7 +14,7 @@ interface SEOHeadProps {
 
 export default function SEOHead({
     title = "InvestingPro.in - Smart Investment Decisions Made Easy",
-    description = "Compare 5000+ mutual funds, stocks, credit cards & insurance in India. Free calculators, expert reviews & personalized recommendations.",
+    description = "Compare 1000+ Credit Cards & Mutual Funds in India. Make Smart Decisions. Get personalized recommendations based on your spending, lifestyle, and goals. Apply Instantly.",
     image: providedImage,
     url,
     type = "website",
