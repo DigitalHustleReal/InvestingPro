@@ -1,103 +1,170 @@
 "use client";
 
 import React from 'react';
-import { Shield, Award, CheckCircle2, TrendingUp, Users, Star } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { 
+    Shield, 
+    CheckCircle2, 
+    Star, 
+    Users, 
+    Award,
+    TrendingUp
+} from 'lucide-react';
 import { cn } from '@/lib/utils';
-
-interface TrustSignal {
-    icon: React.ComponentType<{ className?: string }>;
-    label: string;
-    value: string;
-    color?: string;
-}
 
 interface TrustSignalsProps {
     variant?: 'compact' | 'full';
+    showReviews?: boolean;
+    showRatings?: boolean;
+    showUserCount?: boolean;
+    showBadges?: boolean;
     className?: string;
-    showStats?: boolean;
+}
+
+export default function TrustSignals({
+    variant = 'full',
+    showReviews = true,
+    showRatings = true,
+    showUserCount = true,
+    showBadges = true,
+    className
+}: TrustSignalsProps) {
+    // In production, fetch from API
+    const stats = {
+        totalUsers: 125000,
+        totalReviews: 8500,
+        averageRating: 4.6,
+        verifiedProducts: 1200
+    };
+
+    return (
+        <div className={cn("flex flex-wrap items-center gap-4", className)}>
+            {showUserCount && (
+                <div className="flex items-center gap-2 text-sm">
+                    <Users className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+                    <span className="font-semibold text-slate-900 dark:text-white">
+                        {stats.totalUsers.toLocaleString()}+
+                    </span>
+                    <span className="text-slate-600 dark:text-slate-400">Users</span>
+                </div>
+            )}
+
+            {showRatings && (
+                <div className="flex items-center gap-2 text-sm">
+                    <div className="flex items-center gap-1">
+                        <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                        <span className="font-semibold text-slate-900 dark:text-white">
+                            {stats.averageRating}
+                        </span>
+                    </div>
+                    <span className="text-slate-600 dark:text-slate-400">
+                        ({stats.totalReviews.toLocaleString()} reviews)
+                    </span>
+                </div>
+            )}
+
+            {showReviews && variant === 'full' && (
+                <div className="flex items-center gap-2 text-sm">
+                    <CheckCircle2 className="w-4 h-4 text-success-600 dark:text-success-400" />
+                    <span className="text-slate-600 dark:text-slate-400">
+                        {stats.totalReviews.toLocaleString()} Verified Reviews
+                    </span>
+                </div>
+            )}
+
+            {showBadges && (
+                <>
+                    <Badge variant="outline" className="flex items-center gap-1">
+                        <Shield className="w-3 h-3 text-primary-600" />
+                        Verified
+                    </Badge>
+                    <Badge variant="outline" className="flex items-center gap-1">
+                        <Award className="w-3 h-3 text-success-600" />
+                        Trusted Platform
+                    </Badge>
+                    <Badge variant="outline" className="flex items-center gap-1">
+                        <TrendingUp className="w-3 h-3 text-primary-600" />
+                        {stats.verifiedProducts}+ Products
+                    </Badge>
+                </>
+            )}
+        </div>
+    );
 }
 
 /**
- * Trust Signals Component
- * Displays credibility indicators (stats, credentials, awards)
- * Builds trust and authority
+ * Trust Badge Component
+ * Displays a single trust badge
  */
-export default function TrustSignals({
-    variant = 'compact',
-    className,
-    showStats = true
-}: TrustSignalsProps) {
-    // Default trust signals (can be customized based on actual data)
-    const signals: TrustSignal[] = [
-        {
-            icon: Users,
-            label: "Users Helped",
-            value: "100K+",
-            color: "text-primary-600 dark:text-primary-400"
-        },
-        {
-            icon: TrendingUp,
-            label: "Products Compared",
-            value: "1000+",
-            color: "text-secondary-600 dark:text-secondary-400"
-        },
-        {
-            icon: CheckCircle2,
-            label: "Expert Reviewed",
-            value: "Yes",
-            color: "text-success-600 dark:text-success-400"
-        },
-        {
-            icon: Shield,
-            label: "100% Independent",
-            value: "Yes",
-            color: "text-warning-600 dark:text-warning-400"
-        }
-    ];
+export function TrustBadge({ 
+    type, 
+    label 
+}: { 
+    type: 'verified' | 'secure' | 'award' | 'rating';
+    label?: string;
+}) {
+    const icons = {
+        verified: CheckCircle2,
+        secure: Shield,
+        award: Award,
+        rating: Star
+    };
 
-    if (variant === 'compact') {
-        return (
-            <div className={cn("flex flex-wrap items-center gap-4", className)}>
-                {signals.slice(0, 3).map((signal, idx) => {
-                    const Icon = signal.icon;
-                    return (
-                        <div key={idx} className="flex items-center gap-2">
-                            <Icon className={cn("w-4 h-4", signal.color || "text-slate-600 dark:text-slate-400")} />
-                            <div className="flex flex-col">
-                                <span className="text-xs text-slate-500 dark:text-slate-400">{signal.label}</span>
-                                <span className="text-sm font-bold text-slate-900 dark:text-white">{signal.value}</span>
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
-        );
-    }
+    const colors = {
+        verified: 'text-success-600',
+        secure: 'text-primary-600',
+        award: 'text-yellow-600',
+        rating: 'text-yellow-400'
+    };
 
-    // Full variant
+    const Icon = icons[type];
+    const color = colors[type];
+
     return (
-        <div className={cn("grid grid-cols-2 md:grid-cols-4 gap-4", className)}>
-            {signals.map((signal, idx) => {
-                const Icon = signal.icon;
-                return (
-                    <div 
-                        key={idx} 
-                        className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-4 text-center"
-                    >
-                        <div className="flex justify-center mb-2">
-                            <div className={cn("p-2 rounded-lg bg-slate-50 dark:bg-slate-800", signal.color ? `bg-${signal.color.split('-')[1]}-50 dark:bg-${signal.color.split('-')[1]}-900/20` : "")}>
-                                <Icon className={cn("w-5 h-5", signal.color || "text-slate-600 dark:text-slate-400")} />
-                            </div>
-                        </div>
-                        <div className="text-2xl font-bold text-slate-900 dark:text-white mb-1">
-                            {signal.value}
-                        </div>
-                        <div className="text-xs text-slate-600 dark:text-slate-400">
-                            {signal.label}
-                        </div>
-                    </div>
-                );
-            })}
+        <div className="flex items-center gap-2 text-sm">
+            <Icon className={cn("w-4 h-4", color)} />
+            {label && (
+                <span className="text-slate-600 dark:text-slate-400">{label}</span>
+            )}
+        </div>
+    );
+}
+
+/**
+ * Social Proof Component
+ * Shows user count, reviews, ratings
+ */
+export function SocialProof({ 
+    users, 
+    reviews, 
+    rating 
+}: { 
+    users?: number;
+    reviews?: number;
+    rating?: number;
+}) {
+    return (
+        <div className="flex items-center gap-6 text-sm">
+            {users && (
+                <div className="flex items-center gap-2">
+                    <Users className="w-4 h-4 text-primary-600" />
+                    <span className="font-semibold">{users.toLocaleString()}+</span>
+                    <span className="text-slate-500">users</span>
+                </div>
+            )}
+            {reviews && (
+                <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-success-600" />
+                    <span className="font-semibold">{reviews.toLocaleString()}</span>
+                    <span className="text-slate-500">reviews</span>
+                </div>
+            )}
+            {rating && (
+                <div className="flex items-center gap-1">
+                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    <span className="font-semibold">{rating}</span>
+                </div>
+            )}
         </div>
     );
 }
