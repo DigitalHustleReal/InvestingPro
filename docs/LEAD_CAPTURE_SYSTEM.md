@@ -135,17 +135,23 @@ You have a **comprehensive lead capture system** with multiple popup types, emai
 
 ---
 
-## 🔌 API ENDPOINTS NEEDED
+## 🔌 API ENDPOINTS
 
-### ⚠️ **Missing: `/api/newsletter/subscribe`**
+### ✅ **Newsletter API: `/api/newsletter`**
 
-The `ExitIntentPopup` calls this endpoint, but it doesn't exist yet. Let's create it:
+**Status:** ✅ Already implemented  
+**File:** `app/api/newsletter/route.ts`
 
-**Required:**
-- `POST /api/newsletter/subscribe`
-- Accepts: `{ email: string, name?: string, source?: string }`
-- Saves to `newsletter_subscribers` table
-- Returns success/error
+**Endpoints:**
+- `POST /api/newsletter` - Subscribe to newsletter
+  - Body: `{ email: string, name?: string, source?: string, interests?: string[], frequency?: string }`
+  - Uses `newsletterService.subscribe()` with validation and sanitization
+  
+- `GET /api/newsletter?action=count` - Get subscriber count
+- `GET /api/newsletter?action=verify&token=...` - Verify subscription
+- `DELETE /api/newsletter?email=...` - Unsubscribe
+
+**All components use this endpoint correctly!** ✅
 
 ---
 
