@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createAPIWrapper } from '@/lib/middleware/api-wrapper';
 import { withValidation } from '@/lib/middleware/validation';
 import { productQuerySchema } from '@/lib/validation/schemas';
-import { productService } from '@/lib/services';
+import { productService } from '@/lib/services/products/product.service';
 import { logger } from '@/lib/logger';
 
 export const GET = createAPIWrapper('/api/products/public', {

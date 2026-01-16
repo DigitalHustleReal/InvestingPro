@@ -156,8 +156,16 @@ const CreditCardsPage = () => {
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
             <SEOHead
-                title="Find Your Perfect Credit Card - Compare & Apply Instantly | InvestingPro"
-                description="Compare 1000+ credit cards. Get personalized recommendations based on your spending, lifestyle, and eligibility. Make smart decisions and apply instantly."
+                title="Best Credit Cards in India (2025) - Compare & Apply Online | InvestingPro"
+                description="Compare 100+ top credit cards in India. Get instant approval, check eligibility, and find cards with best rewards, cashback, and travel benefits. Apply now!"
+                structuredData={{
+                    "@context": "https://schema.org",
+                    "@type": "CollectionPage",
+                    "name": "Best Credit Cards in India",
+                    "description": "Compare and apply for the best credit cards in India based on rewards, cashback, and fees.",
+                    "url": "https://investingpro.in/credit-cards",
+                    "numberOfItems": filteredAssets.length
+                }}
             />
 
 

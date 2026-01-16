@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { trendsService } from '@/lib/services';
+import { trendsService } from '@/lib/services/trends/trends.service';
 import { createAPIWrapper } from '@/lib/middleware/api-wrapper';
 import { withValidation } from '@/lib/middleware/validation';
 import { trendsQuerySchema } from '@/lib/validation/schemas';
