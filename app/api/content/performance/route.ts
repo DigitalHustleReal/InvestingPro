@@ -4,11 +4,8 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-import { env } from '@/lib/env';
+import { getContentPerformance, getTopPerformingContent, getContentGaps, getContentRecommendations } from '@/lib/analytics/content-performance';
 import { requireAdmin } from '@/lib/auth/admin-auth';
-
-const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
 
 export async function GET(request: NextRequest) {
     try {
@@ -49,72 +46,54 @@ export async function GET(request: NextRequest) {
             );
         }
 
-        // Get articles with views and revenue
-        const { data: articles, error: articlesError } = await supabase
-            .from('articles')
-            .select('id, title, slug, category, views, published_date')
-            .eq('status', 'published')
-            .gte('published_date', startDate)
-            .lte('published_date', endDate)
-            .order('views', { ascending: false })
-            .limit(limit);
+        const searchParams = request.nextUrl.searchParams;
+        const type = searchParams.get('type'); // 'performance' | 'top' | 'gaps' | 'recommendations'
+        const articleId = searchParams.get('articleId'); // For recommendations
 
-        if (articlesError) {
-            throw articlesError;
+        // Get content performance
+        const performance = await getContentPerformance(startDate, endDate, limit);
+
+        // Get additional data based on type
+        let topPerforming: any[] = [];
+        let contentGaps: any[] = [];
+        let recommendations: any[] = [];
+
+        if (type === 'top' || !type) {
+            topPerforming = await getTopPerformingContent(startDate, endDate, 10);
         }
 
-        // Get revenue for each article
-        const articleIds = articles?.map(a => a.id) || [];
-        
-        const { data: conversions } = await supabase
-            .from('affiliate_clicks')
-            .select('article_id, commission_earned')
-            .eq('converted', true)
-            .in('article_id', articleIds)
-            .gte('conversion_date', startDate)
-            .lte('conversion_date', endDate);
+        if (type === 'gaps') {
+            contentGaps = await getContentGaps();
+        }
 
-        // Calculate revenue per article
-        const articleRevenueMap = new Map<string, number>();
-        conversions?.forEach(conv => {
-            if (conv.article_id) {
-                const revenue = Number(conv.commission_earned) || 0;
-                articleRevenueMap.set(
-                    conv.article_id,
-                    (articleRevenueMap.get(conv.article_id) || 0) + revenue
-                );
-            }
-        });
+        if (type === 'recommendations' && articleId) {
+            recommendations = await getContentRecommendations(articleId);
+        }
 
-        // Combine data
-        const performanceData = articles?.map(article => ({
-            articleId: article.id,
-            articleTitle: article.title,
-            articleSlug: article.slug,
-            category: article.category,
-            views: article.views || 0,
-            revenue: articleRevenueMap.get(article.id) || 0,
-            revenuePerView: (article.views || 0) > 0 
-                ? ((articleRevenueMap.get(article.id) || 0) / (article.views || 1)).toFixed(4)
-                : '0.0000'
-        }))
-        .sort((a, b) => b.revenue - a.revenue) // Sort by revenue
-        || [];
+        // Calculate summary
+        const summary = {
+            totalArticles: performance.length,
+            totalViews: performance.reduce((sum, a) => sum + a.views, 0),
+            totalRevenue: performance.reduce((sum, a) => sum + a.revenue, 0),
+            totalConversions: performance.reduce((sum, a) => sum + a.conversions, 0),
+            avgRevenuePerArticle: performance.length > 0 
+                ? performance.reduce((sum, a) => sum + a.revenue, 0) / performance.length
+                : 0,
+            avgConversionRate: performance.length > 0
+                ? performance.reduce((sum, a) => sum + a.conversionRate, 0) / performance.length
+                : 0
+        };
 
         return NextResponse.json({
-            articles: performanceData,
+            performance,
+            topPerforming: topPerforming.length > 0 ? topPerforming : undefined,
+            contentGaps: contentGaps.length > 0 ? contentGaps : undefined,
+            recommendations: recommendations.length > 0 ? recommendations : undefined,
             period: {
                 startDate,
                 endDate
             },
-            summary: {
-                totalArticles: performanceData.length,
-                totalViews: performanceData.reduce((sum, a) => sum + a.views, 0),
-                totalRevenue: performanceData.reduce((sum, a) => sum + a.revenue, 0),
-                avgRevenuePerArticle: performanceData.length > 0 
-                    ? performanceData.reduce((sum, a) => sum + a.revenue, 0) / performanceData.length
-                    : 0
-            }
+            summary
         });
 
     } catch (error: any) {

@@ -37,11 +37,19 @@ export async function repurposeArticle(params: {
         // Generate single Twitter post (fallback if thread is too short)
         const twitterPost = generateTwitterPost(title, excerpt, url, category);
 
+        // Generate email newsletter format
+        const emailNewsletter = generateEmailNewsletter(title, excerpt, content, url, category);
+
+        // Generate YouTube script
+        const youtubeScript = generateYouTubeScript(title, content, category);
+
         return {
             twitterThread,
             linkedinPost,
             instagramCaption,
-            twitterPost
+            twitterPost,
+            emailNewsletter,
+            youtubeScript
         };
 
     } catch (error) {
@@ -248,4 +256,104 @@ function extractKeyInsights(content: string): string {
     }
     
     return text;
+}
+
+/**
+ * Generate email newsletter format
+ */
+function generateEmailNewsletter(
+    title: string,
+    excerpt: string,
+    content: string,
+    url: string,
+    category: string
+): string {
+    const categoryLabels: Record<string, string> = {
+        'credit-cards': 'Credit Cards',
+        'mutual-funds': 'Mutual Funds',
+        'insurance': 'Insurance',
+        'loans': 'Loans',
+        'tax-planning': 'Tax Planning',
+        'retirement': 'Retirement Planning',
+        'investing-basics': 'Investing Basics',
+        'stocks': 'Stock Market'
+    };
+
+    const categoryLabel = categoryLabels[category] || 'Finance';
+
+    // Extract key points for email
+    const keyPoints = extractKeyPoints(content).slice(0, 3);
+
+    return `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+    <div style="background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%); padding: 30px; text-align: center; border-radius: 8px 8px 0 0;">
+        <h1 style="color: white; margin: 0;">${title}</h1>
+        <p style="color: rgba(255,255,255,0.9); margin: 5px 0 0 0;">${categoryLabel}</p>
+    </div>
+    
+    <div style="background: white; padding: 30px; border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 8px 8px;">
+        ${excerpt ? `<p style="color: #64748b; font-size: 16px; margin-bottom: 20px;">${excerpt}</p>` : ''}
+        
+        ${keyPoints.length > 0 ? `
+        <h3 style="color: #0f172a; margin-top: 30px;">Key Takeaways:</h3>
+        <ul style="color: #64748b; padding-left: 20px;">
+            ${keyPoints.map(point => `<li style="margin-bottom: 10px;">${point}</li>`).join('')}
+        </ul>
+        ` : ''}
+        
+        <div style="margin: 30px 0;">
+            <a href="${url}" style="display: inline-block; background: #0d9488; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">
+                Read Full Article →
+            </a>
+        </div>
+        
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 30px 0;">
+        
+        <p style="color: #94a3b8; font-size: 12px; margin: 0;">
+            You're receiving this because you subscribed to InvestingPro newsletter.<br>
+            <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://investingpro.in'}/unsubscribe" style="color: #0d9488;">Unsubscribe</a>
+        </p>
+    </div>
+</body>
+</html>
+    `.trim();
+}
+
+/**
+ * Generate YouTube script
+ */
+function generateYouTubeScript(
+    title: string,
+    content: string,
+    category: string
+): string {
+    // Extract key sections from content
+    const sections = content.split(/\n\n+/).filter(s => s.trim().length > 50);
+    const intro = sections[0] || '';
+    const mainPoints = sections.slice(1, 5) || [];
+    const conclusion = sections[sections.length - 1] || '';
+
+    let script = `# ${title}\n\n`;
+    script += `## Introduction (0:00 - 0:30)\n\n`;
+    script += `${intro.substring(0, 300)}...\n\n`;
+    script += `## Main Content (0:30 - 5:00)\n\n`;
+
+    mainPoints.forEach((point, index) => {
+        script += `### Point ${index + 1}\n`;
+        script += `${point.substring(0, 200)}...\n\n`;
+    });
+
+    script += `## Conclusion (5:00 - 5:30)\n\n`;
+    script += `${conclusion.substring(0, 200)}...\n\n`;
+    script += `## Call to Action\n\n`;
+    script += `Visit InvestingPro.in for more financial insights and comparisons.\n`;
+    script += `Don't forget to like, subscribe, and hit the bell icon for notifications!\n`;
+
+    return script;
 }
