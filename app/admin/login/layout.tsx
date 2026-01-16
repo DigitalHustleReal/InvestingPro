@@ -1,4 +1,4 @@
-// Admin login page should not have Navbar/Footer
+we create and attached // Admin login page should not have Navbar/Footer
 export default function AdminLoginLayout({
     children,
 }: {

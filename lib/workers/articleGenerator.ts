@@ -220,6 +220,7 @@ Return ONLY valid JSON.
 `;
 
         // Invoke AI with dynamic prompts
+        // @ts-ignore - API types might be incomplete
         const generatedContent = await api.integrations.Core.InvokeLLM({
             prompt: userPrompt,
             systemPrompt: systemPrompt, // Pass system prompt if available
@@ -349,8 +350,8 @@ Return ONLY valid JSON.
             ai_metadata: generatedContent.ai_metadata,
             structured_content: structuredContent
         };
-    } catch (error) {
-        logger.error('Worker Article Generation Error', error as Error);
+    } catch (error: any) {
+        logger.error('Worker Article Generation Error', error);
         throw error;
     }
 }
