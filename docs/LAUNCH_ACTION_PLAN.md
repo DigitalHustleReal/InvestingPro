@@ -173,7 +173,12 @@ Add spending category filters to Credit Card FilterSidebar:
 #### ⚠️ TASK 2.2: Performance Audit Review - **4 HOURS**
 **Priority:** HIGH  
 **Owner:** Engineering / DevOps  
-**Time:** 4 hours  
+**Time:** 4 hours
+
+**Performance Audit Guide Created:**
+- 📋 See `docs/PERFORMANCE_AUDIT_GUIDE.md` for detailed steps
+- ✅ Configuration reviewed (Lighthouse CI, Next.js optimization, fonts)
+- ⚠️ Manual testing required (run Lighthouse audits, fix issues)  
 
 **What to Do:**
 Review Lighthouse CI audit results and fix critical performance issues.
