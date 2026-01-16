@@ -30,12 +30,16 @@ Automated data collection pipeline for financial products (Credit Cards, Loans, 
 
 ## Implementation Approach
 
-### Phase 1: Manual Curation (Current)
+### Phase 1: Manual Curation ✅ Complete
 - Manually curated data in `lib/data.ts`
 - Updated monthly by team
 
-### Phase 2: Semi-Automated (Next 2 months)
-- Python scripts to scrape bank websites
+### Phase 2: Semi-Automated ✅ **IN PROGRESS**
+- ✅ Scrapers built (credit cards, mutual funds)
+- ✅ Data pipeline (ETL, validation, cleaning)
+- ✅ Weekly cron job configured
+- ⚠️ Scraping implementation (requires Playwright/Puppeteer for JavaScript-heavy sites)
+- ⚠️ AMFI scraper working (mutual funds from official source)
 - Store in Supabase PostgreSQL
 - Cron job to update weekly
 
