@@ -8,6 +8,7 @@ import { env } from '@/lib/env';
 import { logger } from '@/lib/logger';
 import { postToSocialMedia } from './social-poster';
 import { sendNewArticleEmail } from './email-sender';
+import { sendMessagingNotification } from './messaging-notifier';
 
 const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
 
@@ -24,6 +25,20 @@ export interface ContentDistributionResult {
         sent: boolean;
         subscribers: number;
         error?: string;
+    };
+    messaging: {
+        telegram: {
+            sent: boolean;
+            successCount: number;
+            failedCount: number;
+            errors?: string[];
+        };
+        whatsapp: {
+            sent: boolean;
+            successCount: number;
+            failedCount: number;
+            errors?: string[];
+        };
     };
 }
 
@@ -117,13 +132,55 @@ export async function distributeContent(articleId: string): Promise<ContentDistr
             articleId,
             articleTitle: article.title,
             socialMedia: socialMediaResult,
-            email: emailResult
+            email: emailResult,
+            messaging: messagingResult
         };
 
     } catch (error: any) {
         logger.error('Error distributing content', error, { articleId });
         throw error;
     }
+}
+
+/**
+ * Format article post message for Telegram/WhatsApp
+ */
+function formatArticlePostMessage(params: {
+    title: string;
+    excerpt: string;
+    url: string;
+    category: string;
+}): string {
+    const { title, excerpt, url, category } = params;
+
+    const categoryEmoji: Record<string, string> = {
+        'credit-cards': '💳',
+        'mutual-funds': '📈',
+        'insurance': '🛡️',
+        'loans': '💰',
+        'tax-planning': '📊',
+        'retirement': '🎯',
+        'investing-basics': '📚',
+        'stocks': '📉'
+    };
+
+    const emoji = categoryEmoji[category] || '📝';
+
+    let message = `${emoji} *${title}*\n\n`;
+    
+    if (excerpt) {
+        // Truncate excerpt to fit in message (max ~400 chars for WhatsApp)
+        const maxExcerptLength = 250;
+        const truncatedExcerpt = excerpt.length > maxExcerptLength 
+            ? excerpt.substring(0, maxExcerptLength) + '...'
+            : excerpt;
+        message += `${truncatedExcerpt}\n\n`;
+    }
+    
+    message += `🔗 Read more: ${url}\n\n`;
+    message += `_Published by InvestingPro.in_`;
+
+    return message;
 }
 
 /**
@@ -180,7 +237,11 @@ export async function distributeNewArticles(): Promise<{
                     articleId: article.id,
                     articleTitle: 'Unknown',
                     socialMedia: { twitter: false, linkedin: false, success: false, error: error.message },
-                    email: { sent: false, subscribers: 0, error: error.message }
+                    email: { sent: false, subscribers: 0, error: error.message },
+                    messaging: {
+                        telegram: { sent: false, successCount: 0, failedCount: 0, errors: [error.message] },
+                        whatsapp: { sent: false, successCount: 0, failedCount: 0, errors: [error.message] }
+                    }
                 });
             }
         }
