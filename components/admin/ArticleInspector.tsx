@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -24,6 +25,8 @@ import SubCategorySelect from './SubCategorySelect';
 import FeaturedImageSelector from './FeaturedImageSelector';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ArticleVersionHistory from './ArticleVersionHistory';
+import ArticleScheduling from './ArticleScheduling';
+import BrokenLinkReport from './BrokenLinkReport';
 
 /**
  * ArticleInspector - Right-side inspector panel for article editing
@@ -68,6 +71,8 @@ export default function ArticleInspector({
     onPreview,
     saving = false
 }: ArticleInspectorProps) {
+    const queryClient = useQueryClient();
+    
     // Local state for form fields
     const [category, setCategory] = useState<ArticleCategory>(article.category || 'investing-basics');
     const [subCategory, setSubCategory] = useState(article.editorial_notes?.sub_category || '');
@@ -372,6 +377,21 @@ export default function ArticleInspector({
                     </div>
                 </div>
 
+                {/* Article Scheduling */}
+                {article.id && (
+                    <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
+                        <ArticleScheduling
+                            articleId={article.id}
+                            currentStatus={status}
+                            scheduledPublishAt={(article as any).scheduled_publish_at}
+                            onScheduled={() => {
+                                // Refresh article data after scheduling
+                                queryClient.invalidateQueries({ queryKey: ['article', article.id] });
+                            }}
+                        />
+                    </div>
+                )}
+
                 {/* AI Status */}
                 {article.ai_generated && (
                     <div className="space-y-2 p-3 bg-accent-50 border-accent-200 dark:bg-amber-950/30 dark:border-accent-900/50 border rounded-lg">
@@ -671,6 +691,13 @@ export default function ArticleInspector({
                 <div className="pt-4 border-t border-slate-800">
                     <SocialPostManager articleId={article.id || ''} />
                 </div>
+
+                {/* Broken Link Report */}
+                {article.id && (
+                    <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
+                        <BrokenLinkReport articleId={article.id} />
+                    </div>
+                )}
 
                 {/* SEO Score Calculator */}
                 {article.title && article.content && (
