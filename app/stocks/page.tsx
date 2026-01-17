@@ -36,17 +36,17 @@ const marketIndices = [
 ];
 
 const topGainers = [
-    { name: "Tata Motors", price: "â‚¹972.45", change: "+5.82%", sector: "Auto" },
-    { name: "Wipro", price: "â‚¹487.20", change: "+4.15%", sector: "IT" },
-    { name: "HDFC Life", price: "â‚¹612.35", change: "+3.92%", sector: "Insurance" },
-    { name: "Bajaj Finance", price: "â‚¹7,234.50", change: "+3.45%", sector: "NBFC" },
+    { name: "Tata Motors", price: "₹972.45", change: "+5.82%", sector: "Auto" },
+    { name: "Wipro", price: "₹487.20", change: "+4.15%", sector: "IT" },
+    { name: "HDFC Life", price: "₹612.35", change: "+3.92%", sector: "Insurance" },
+    { name: "Bajaj Finance", price: "₹7,234.50", change: "+3.45%", sector: "NBFC" },
 ];
 
 const topLosers = [
-    { name: "ITC", price: "â‚¹428.15", change: "-2.34%", sector: "FMCG" },
-    { name: "Coal India", price: "â‚¹445.80", change: "-1.98%", sector: "Mining" },
-    { name: "ONGC", price: "â‚¹278.45", change: "-1.56%", sector: "Oil & Gas" },
-    { name: "Power Grid", price: "â‚¹312.20", change: "-1.23%", sector: "Power" },
+    { name: "ITC", price: "₹428.15", change: "-2.34%", sector: "FMCG" },
+    { name: "Coal India", price: "₹445.80", change: "-1.98%", sector: "Mining" },
+    { name: "ONGC", price: "₹278.45", change: "-1.56%", sector: "Oil & Gas" },
+    { name: "Power Grid", price: "₹312.20", change: "-1.23%", sector: "Power" },
 ];
 
 export default function StocksPage() {
@@ -298,11 +298,11 @@ export default function StocksPage() {
                                 <div className="grid items-center grid-cols-2 gap-4 mb-10 p-6 bg-slate-50 rounded-[2.5rem] border border-white">
                                     <div>
                                         <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Equity Intraday</p>
-                                        <p className="font-extrabold text-slate-900">{broker.pricing?.intraday || 'â‚¹20'}</p>
+                                        <p className="font-extrabold text-slate-900">{broker.pricing?.intraday || '₹20'}</p>
                                     </div>
                                     <div>
                                         <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Equity Delivery</p>
-                                        <p className="font-bold text-primary-600">{broker.pricing?.equity || 'â‚¹0'}</p>
+                                        <p className="font-bold text-primary-600">{broker.pricing?.equity || '₹0'}</p>
                                     </div>
                                 </div>
 
@@ -336,8 +336,8 @@ export default function StocksPage() {
 
                         <div className="grid sm:grid-cols-3 gap-12">
                             {[
-                                { icon: Activity, label: "FII Flow", value: "â‚¹2,450 Cr Net" },
-                                { icon: Building2, label: "DII Flow", value: "â‚¹1,820 Cr Net" },
+                                { icon: Activity, label: "FII Flow", value: "₹2,450 Cr Net" },
+                                { icon: Building2, label: "DII Flow", value: "₹1,820 Cr Net" },
                                 { icon: PieChart, label: "NIFTY PE", value: "22.45 (Optimal)" }
                             ].map((stat, i) => (
                                 <div key={i} className="space-y-4">

@@ -88,7 +88,7 @@ export default function IPOPage() {
 
     const formatCurrency = (amount?: number): string => {
         if (!amount) return 'â€”';
-        return `â‚¹${amount.toLocaleString('en-IN')}`;
+        return `₹${amount.toLocaleString('en-IN')}`;
     };
 
     const getStatusColor = (status: string) => {
@@ -188,7 +188,7 @@ export default function IPOPage() {
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
                             {[
                                 { label: "Active IPOs", value: ipos.length.toString(), icon: Target, color: "emerald" },
-                                { label: "Avg GMP", value: `+â‚¹${Math.round(ipos.reduce((acc, ipo) => acc + (ipo.gmp || 0), 0) / (ipos.length || 1))}`, icon: TrendingUp, color: "teal" },
+                                { label: "Avg GMP", value: `+₹${Math.round(ipos.reduce((acc, ipo) => acc + (ipo.gmp || 0), 0) / (ipos.length || 1))}`, icon: TrendingUp, color: "teal" },
                                 { label: "This Month", value: ipos.filter(ipo => {
                                     const listingDate = ipo.listingDate ? new Date(ipo.listingDate) : null;
                                     return listingDate && listingDate.getMonth() === new Date().getMonth();
@@ -307,7 +307,7 @@ export default function IPOPage() {
                                                 </div>
                                                                 <div className={`flex items-center gap-2 text-4xl font-bold mb-2 ${getGMPColor(ipo.gmp)}`}>
                                                                     {ipo.gmp && ipo.gmp > 0 ? <ArrowUpRight size={28} /> : <ArrowDownRight size={28} />}
-                                                                    â‚¹{Math.abs(ipo.gmp || 0)}
+                                                                    ₹{Math.abs(ipo.gmp || 0)}
                                                 </div>
                                                                 <div className={`text-sm font-semibold ${getGMPColor(ipo.gmp)}`}>
                                                     {gmpPercent > 0 ? '+' : ''}{gmpPercent}% over issue price

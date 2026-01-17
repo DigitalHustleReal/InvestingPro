@@ -92,7 +92,7 @@ const TaxHeroCalculator = () => {
                         <div>
                             <div className="flex justify-between mb-4">
                                 <label className="text-sm font-medium text-slate-400">Annual Income (CTC)</label>
-                                <span className="text-lg font-bold text-white">â‚¹ {(income / 100000).toFixed(1)} Lakhs</span>
+                                <span className="text-lg font-bold text-white">₹ {(income / 100000).toFixed(1)} Lakhs</span>
                             </div>
                             <Slider 
                                 value={[income]} 
@@ -111,7 +111,7 @@ const TaxHeroCalculator = () => {
                         <div>
                             <div className="flex justify-between mb-4">
                                 <label className="text-sm font-medium text-slate-400">Investments & Deductions (Old Regime)</label>
-                                <span className="text-lg font-bold text-white">â‚¹ {(deductions / 1000).toFixed(0)}k</span>
+                                <span className="text-lg font-bold text-white">₹ {(deductions / 1000).toFixed(0)}k</span>
                             </div>
                             <Slider 
                                 value={[deductions]} 
@@ -122,7 +122,7 @@ const TaxHeroCalculator = () => {
                                 className="py-2"
                             />
                             <p className="mt-3 text-[11px] text-slate-500 leading-relaxed italic">
-                                *Includes 80C, 80D, HRA, etc. Standard deduction (â‚¹50k) is automatically handled.
+                                *Includes 80C, 80D, HRA, etc. Standard deduction (₹50k) is automatically handled.
                             </p>
                         </div>
                     </div>
@@ -130,7 +130,7 @@ const TaxHeroCalculator = () => {
                     <div className="mt-12 p-4 rounded-2xl bg-white/5 border border-white/5 flex items-start gap-3">
                         <Info className="w-5 h-5 text-primary-400 mt-0.5" />
                         <p className="text-xs text-slate-400 leading-relaxed">
-                            Calculations are based on FY 2025-26 rules. New regime now includes â‚¹75,000 standard deduction and Nil tax up to â‚¹7 Lakhs taxable income.
+                            Calculations are based on FY 2025-26 rules. New regime now includes ₹75,000 standard deduction and Nil tax up to ₹7 Lakhs taxable income.
                         </p>
                     </div>
                 </div>
@@ -151,7 +151,7 @@ const TaxHeroCalculator = () => {
                                     <Badge className="bg-primary-600 text-white border-0">Best Choice</Badge>
                                 )}
                             </div>
-                            <div className="text-3xl font-bold text-white">â‚¹ {oldTax.toLocaleString('en-IN')}</div>
+                            <div className="text-3xl font-bold text-white">₹ {oldTax.toLocaleString('en-IN')}</div>
                             <div className="text-xs text-slate-500 mt-1">Effective tax rate: {((oldTax / income) * 100).toFixed(1)}%</div>
                         </div>
 
@@ -166,7 +166,7 @@ const TaxHeroCalculator = () => {
                                     <Badge className="bg-primary-600 text-white border-0">Best Choice</Badge>
                                 )}
                             </div>
-                            <div className="text-3xl font-bold text-white">â‚¹ {newTax.toLocaleString('en-IN')}</div>
+                            <div className="text-3xl font-bold text-white">₹ {newTax.toLocaleString('en-IN')}</div>
                             <div className="text-xs text-slate-500 mt-1">Effective tax rate: {((newTax / income) * 100).toFixed(1)}%</div>
                         </div>
                     </div>
@@ -175,7 +175,7 @@ const TaxHeroCalculator = () => {
                     <div className="mt-8 pt-8 border-t border-white/10 text-center">
                         <p className="text-slate-400 text-sm mb-2">You save approximately</p>
                         <div className="text-4xl font-black text-white mb-2">
-                            â‚¹ {savings.toLocaleString('en-IN')}
+                            ₹ {savings.toLocaleString('en-IN')}
                         </div>
                         <p className="text-xs text-primary-400 font-bold uppercase tracking-wider">in the {recommended}</p>
                         
@@ -248,7 +248,7 @@ export default function TaxesPage() {
                             </div>
                             <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">Section 80C</h3>
                             <p className="text-slate-500 dark:text-slate-400 mb-6 line-clamp-2">
-                                Deductions up to â‚¹1.5 Lakhs through ELSS, PPF, Insurance premiums, and Home Loan principal.
+                                Deductions up to ₹1.5 Lakhs through ELSS, PPF, Insurance premiums, and Home Loan principal.
                             </p>
                             <div className="flex items-center gap-2 group/btn cursor-pointer">
                                 <span className="text-sm font-bold text-primary-600 dark:text-primary-400 uppercase tracking-widest">Explore Options</span>
@@ -263,7 +263,7 @@ export default function TaxesPage() {
                             </div>
                             <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">Health (80D)</h3>
                             <p className="text-slate-500 dark:text-slate-400 mb-6 line-clamp-2">
-                                Claim up to â‚¹1 Lakh for medical insurance premiums for you, your spouse, and senior citizen parents.
+                                Claim up to ₹1 Lakh for medical insurance premiums for you, your spouse, and senior citizen parents.
                             </p>
                             <div className="flex items-center gap-2 group/btn cursor-pointer">
                                 <span className="text-sm font-bold text-primary-600 dark:text-primary-400 uppercase tracking-widest">Calculators</span>
@@ -278,7 +278,7 @@ export default function TaxesPage() {
                             </div>
                             <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">NPS (80CCD)</h3>
                             <p className="text-slate-500 dark:text-slate-400 mb-6 line-clamp-2">
-                                Additional deduction of â‚¹50,000 above the 80C limit specifically for National Pension Scheme.
+                                Additional deduction of ₹50,000 above the 80C limit specifically for National Pension Scheme.
                             </p>
                             <div className="flex items-center gap-2 group/btn cursor-pointer">
                                 <span className="text-sm font-bold text-primary-600 dark:text-primary-400 uppercase tracking-widest">NPS Guide</span>
@@ -362,7 +362,7 @@ export default function TaxesPage() {
                                         "Which regime is better for 18L income with home loan?"
                                     </div>
                                     <div className="p-4 rounded-2xl bg-primary-500/20 border border-primary-500/20 text-sm text-primary-200 italic">
-                                        "For your profile, the Old Regime saves you â‚¹42,000 specifically due to Section 24(b)..."
+                                        "For your profile, the Old Regime saves you ₹42,000 specifically due to Section 24(b)..."
                                     </div>
                                     <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold h-12 rounded-xl mt-4">
                                         Start Live Consultation

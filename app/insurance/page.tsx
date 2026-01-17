@@ -471,7 +471,7 @@ export default function InsurancePage() {
                     {/* 1. Types of Insurance Grid */}
                     <div className="grid md:grid-cols-3 gap-8 mb-24">
                         {[
-                            { title: "Term Life", desc: "Pure protection for your family. High cover at low cost (â‚¹1Cr cover for â‚¹500/mo). No returns, just security.", icon: Shield },
+                            { title: "Term Life", desc: "Pure protection for your family. High cover at low cost (₹1Cr cover for ₹500/mo). No returns, just security.", icon: Shield },
                             { title: "Health Insurance", desc: "Covers hospitalization and medical bills. Cashless treatment at network hospitals. Save tax under Sec 80D.", icon: Heart },
                             { title: "Motor Insurance", desc: "Mandatory by law (Third Party). Comprehensive plans cover own damage and theft. No Claim Bonus saves up to 50%.", icon: Car }
                         ].map((item, i) => (

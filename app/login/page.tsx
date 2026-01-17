@@ -136,7 +136,7 @@ export default function LoginPage() {
             <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
               <TrendingUp className="w-6 h-6 text-white" />
             </div>
-            <span className="text-2xl font-bold text-white">InvestingPâ‚¹o</span>
+            <span className="text-2xl font-bold text-white">InvestingP₹o</span>
           </div>
 
           <h1 className="text-4xl font-bold text-white mb-6">
@@ -168,7 +168,7 @@ export default function LoginPage() {
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center">
                 <TrendingUp className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-slate-900 dark:text-white">InvestingPâ‚¹o</span>
+              <span className="text-xl font-bold text-slate-900 dark:text-white">InvestingP₹o</span>
             </div>
           </div>
 

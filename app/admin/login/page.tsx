@@ -155,7 +155,7 @@ export default function AdminLoginPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-600 shadow-lg shadow-primary-500/25 mb-4">
             <Zap className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-white">InvestingPâ‚¹o</h1>
+          <h1 className="text-2xl font-bold text-white">InvestingP₹o</h1>
           <p className="text-slate-400 text-sm mt-1">Authority CMS</p>
         </div>
 

@@ -82,10 +82,10 @@ export default function ComponentShowcasePage() {
           <div className="my-6 p-6 rounded-lg border-l-4 bg-secondary-50 border-secondary-500">
             <h4 className="font-bold text-lg mb-2 text-secondary-900">ðŸ“Š Example</h4>
             <p className="text-slate-700 mb-2">
-              <strong>Scenario:</strong> Rajesh invests â‚¹10,000 per month in a SIP for 20 years at 12% annual returns.
+              <strong>Scenario:</strong> Rajesh invests ₹10,000 per month in a SIP for 20 years at 12% annual returns.
             </p>
             <p className="text-slate-700">
-              <strong>Result:</strong> Total investment of â‚¹24 lakhs grows to approximately â‚¹1 crore through the power of compounding!
+              <strong>Result:</strong> Total investment of ₹24 lakhs grows to approximately ₹1 crore through the power of compounding!
             </p>
           </div>
 
@@ -103,12 +103,12 @@ export default function ComponentShowcasePage() {
             </div>
             <div className="bg-white border-2 border-primary-200 rounded-lg p-4 text-center">
               <p className="text-sm text-slate-600 mb-1">Min Investment</p>
-              <p className="text-3xl font-bold text-primary-600">â‚¹500</p>
+              <p className="text-3xl font-bold text-primary-600">₹500</p>
               <p className="text-xs mt-1 font-medium text-slate-600">Per month</p>
             </div>
             <div className="bg-white border-2 border-primary-200 rounded-lg p-4 text-center">
               <p className="text-sm text-slate-600 mb-1">Tax Benefit</p>
-              <p className="text-3xl font-bold text-primary-600">â‚¹1.5L</p>
+              <p className="text-3xl font-bold text-primary-600">₹1.5L</p>
               <p className="text-xs mt-1 font-medium text-slate-600">Section 80C</p>
             </div>
           </div>
@@ -126,7 +126,7 @@ export default function ComponentShowcasePage() {
             <dl className="space-y-2">
               <div className="flex justify-between items-center py-2 border-b border-slate-200">
                 <dt className="text-sm text-slate-600">Minimum Investment</dt>
-                <dd className="font-semibold text-slate-900">â‚¹500/month</dd>
+                <dd className="font-semibold text-slate-900">₹500/month</dd>
               </div>
               <div className="flex justify-between items-center py-2 border-b border-slate-200">
                 <dt className="text-sm text-slate-600">Lock-in Period</dt>
@@ -134,7 +134,7 @@ export default function ComponentShowcasePage() {
               </div>
               <div className="flex justify-between items-center py-2 border-b border-slate-200">
                 <dt className="text-sm text-slate-600">Tax Benefit</dt>
-                <dd className="font-semibold text-slate-900">Up to â‚¹1.5 Lakh (80C)</dd>
+                <dd className="font-semibold text-slate-900">Up to ₹1.5 Lakh (80C)</dd>
               </div>
               <div className="flex justify-between items-center py-2">
                 <dt className="text-sm text-slate-600">Risk Level</dt>
@@ -211,7 +211,7 @@ export default function ComponentShowcasePage() {
           <h2>Inline Text Highlighting</h2>
           <p>
             Highlight important numbers or terms inline: 
-            <span className="px-2 py-0.5 mx-1 rounded border font-semibold bg-primary-100 text-primary-900 border-primary-300">â‚¹10 lakh coverage</span>,
+            <span className="px-2 py-0.5 mx-1 rounded border font-semibold bg-primary-100 text-primary-900 border-primary-300">₹10 lakh coverage</span>,
             <span className="px-2 py-0.5 mx-1 rounded border font-semibold bg-secondary-100 text-secondary-900 border-secondary-300">12.5% returns</span>, or
             <span className="px-2 py-0.5 mx-1 rounded border font-semibold bg-accent-100 text-accent-900 border-accent-300">Section 80C benefit</span>.
           </p>
@@ -456,7 +456,7 @@ export default function ComponentShowcasePage() {
             <div className="bg-white border-2 border-primary-200 rounded-lg p-6 text-center shadow-sm">
               <div className="text-4xl mb-2">ðŸ’°</div>
               <p className="text-sm text-slate-600 mb-2">Min Investment</p>
-              <p className="text-3xl font-bold text-primary-600 mb-2">â‚¹500</p>
+              <p className="text-3xl font-bold text-primary-600 mb-2">₹500</p>
               <p className="text-xs font-medium text-slate-600">Per month via SIP</p>
             </div>
             <div className="bg-white border-2 border-primary-200 rounded-lg p-6 text-center shadow-sm">

@@ -493,8 +493,8 @@ export default function MutualFundsPage() {
                                 <Badge className="mb-6 bg-white/20 text-white border-white/30 backdrop-blur-sm">Power of Compounding</Badge>
                                 <h3 className="text-4xl font-bold mb-6">Start Early to Retire Rich</h3>
                                 <p className="text-white/90 text-lg mb-8 leading-relaxed">
-                                    Investing â‚¹5,000/month for 20 years can turn into â‚¹50 Lakhs. 
-                                    Delaying by just 5 years can cost you over â‚¹25 Lakhs in returns.
+                                    Investing ₹5,000/month for 20 years can turn into ₹50 Lakhs. 
+                                    Delaying by just 5 years can cost you over ₹25 Lakhs in returns.
                                 </p>
                                 <Button className="bg-white hover:bg-secondary-50 text-primary-600 font-bold h-12 px-8 rounded-xl shadow-lg transition-all">
                                     Start SIP Calculator

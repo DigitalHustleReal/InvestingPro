@@ -197,7 +197,7 @@ export default function TermsPage() {
               <li>We are not liable for losses resulting from your use of the Service</li>
               <li>We are not liable for inaccurate information or outdated product details</li>
               <li>We are not liable for actions taken by third-party providers</li>
-              <li>Our total liability to you shall not exceed â‚¹1,000 or the amount you paid us (if any), whichever is greater</li>
+              <li>Our total liability to you shall not exceed ₹1,000 or the amount you paid us (if any), whichever is greater</li>
             </ul>
           </section>
 

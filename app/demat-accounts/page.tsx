@@ -72,7 +72,7 @@ export default function DematAccountsPage() {
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                     {[
                         { icon: Users, label: "Active Investors", value: "3.5Cr+", color: "bg-primary-600", shadow: "shadow-secondary-500/20" },
-                        { icon: Zap, label: "Lowest Fees", value: "â‚¹0 Delivery", color: "bg-primary-600", shadow: "shadow-primary-500/20" },
+                        { icon: Zap, label: "Lowest Fees", value: "₹0 Delivery", color: "bg-primary-600", shadow: "shadow-primary-500/20" },
                         { icon: Shield, label: "SEBI Certified", value: "Fully Secure", color: "bg-secondary-600", shadow: "shadow-purple-500/20" },
                         { icon: Smartphone, label: "Digital KYC", value: "Paperless", color: "bg-accent-600", shadow: "shadow-accent-500/20" },
                     ].map((stat, index) => (
