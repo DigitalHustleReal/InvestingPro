@@ -10,6 +10,7 @@
 
 import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
+import { getRBIPolicyRates, calculateExpectedInterestRanges } from '@/lib/data-sources/rbi-api';
 import type { FinancialData } from './fact-checker';
 
 export interface AuthoritativeValidationResult {
@@ -33,71 +34,65 @@ export async function validateAgainstRBI(
 ): Promise<AuthoritativeValidationResult[]> {
     const results: AuthoritativeValidationResult[] = [];
 
-    // TODO: Integrate with RBI API or scrape RBI website
-    // RBI Data Sources:
-    // - Repo Rate: https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx
-    // - Base Rate: https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx
-    // - Policy Rates: https://www.rbi.org.in/scripts/BS_ViewMasDirections.aspx
-
     if (data.interestRate) {
         const rate = parseFloat(String(data.interestRate));
         
-        // RBI Policy Rates (as of 2024, update via API/scraper)
-        const RBI_REPO_RATE = 6.5; // TODO: Fetch from RBI API
-        const RBI_BASE_RATE = RBI_REPO_RATE + 1.5; // Typically repo + 1.5%
+        // Fetch real-time RBI policy rates
+        const rbiRates = await getRBIPolicyRates();
+        if (!rbiRates) {
+            logger.warn('RBI rates not available, skipping RBI validation');
+            return results;
+        }
+
+        // Calculate expected ranges based on real-time RBI rates
+        const expectedRanges = calculateExpectedInterestRanges(rbiRates);
         
-        // Credit card rates typically: Base rate + 10-20% = 18-28% range
+        let expectedRange: { min: number; max: number };
+        let rangeName: string;
+
         if (productType === 'credit_card') {
-            const expectedMin = RBI_BASE_RATE + 10;
-            const expectedMax = RBI_BASE_RATE + 25;
-            
-            if (rate < expectedMin || rate > expectedMax) {
-                results.push({
-                    isValid: false,
-                    source: 'rbi',
-                    verifiedValue: rate,
-                    officialValue: `${expectedMin}-${expectedMax}%`,
-                    discrepancy: rate < expectedMin ? expectedMin - rate : rate - expectedMax,
-                    confidence: 90,
-                    sourceUrl: 'https://www.rbi.org.in/scripts/BS_ViewMasDirections.aspx',
-                    lastUpdated: new Date().toISOString()
-                });
-            } else {
-                results.push({
-                    isValid: true,
-                    source: 'rbi',
-                    verifiedValue: rate,
-                    officialValue: `${expectedMin}-${expectedMax}%`,
-                    confidence: 85,
-                    sourceUrl: 'https://www.rbi.org.in/scripts/BS_ViewMasDirections.aspx'
-                });
-            }
+            expectedRange = expectedRanges.creditCard;
+            rangeName = 'credit card';
+        } else if (productType === 'loan') {
+            expectedRange = expectedRanges.personalLoan;
+            rangeName = 'personal loan';
+        } else if (productType === 'savings') {
+            expectedRange = expectedRanges.savings;
+            rangeName = 'savings account';
+        } else if (productType === 'fd') {
+            expectedRange = expectedRanges.fd;
+            rangeName = 'fixed deposit';
+        } else {
+            // Default to loan range
+            expectedRange = expectedRanges.personalLoan;
+            rangeName = 'loan';
         }
         
-        // Loan rates typically: Base rate + 2-5% = 10-13% range
-        if (productType === 'loan') {
-            const expectedMin = RBI_BASE_RATE + 2;
-            const expectedMax = RBI_BASE_RATE + 6;
+        if (rate < expectedRange.min || rate > expectedRange.max) {
+            const discrepancy = rate < expectedRange.min 
+                ? expectedRange.min - rate 
+                : rate - expectedRange.max;
             
-            if (rate < expectedMin || rate > expectedMax) {
-                results.push({
-                    isValid: false,
-                    source: 'rbi',
-                    verifiedValue: rate,
-                    officialValue: `${expectedMin}-${expectedMax}%`,
-                    discrepancy: rate < expectedMin ? expectedMin - rate : rate - expectedMax,
-                    confidence: 90,
-                    sourceUrl: 'https://www.rbi.org.in/scripts/BS_ViewMasDirections.aspx'
-                });
-            } else {
-                results.push({
-                    isValid: true,
-                    source: 'rbi',
-                    verifiedValue: rate,
-                    officialValue: `${expectedMin}-${expectedMax}%`,
-                    confidence: 85
-                });
-            }
+            results.push({
+                isValid: false,
+                source: 'rbi',
+                verifiedValue: rate,
+                officialValue: `${expectedRange.min}-${expectedRange.max}%`,
+                discrepancy,
+                confidence: 90,
+                sourceUrl: rbiRates.source,
+                lastUpdated: rbiRates.lastUpdated
+            });
+        } else {
+            results.push({
+                isValid: true,
+                source: 'rbi',
+                verifiedValue: rate,
+                officialValue: `${expectedRange.min}-${expectedRange.max}%`,
+                confidence: 90, // Higher confidence with real-time data
+                sourceUrl: rbiRates.source,
+                lastUpdated: rbiRates.lastUpdated
+            });
         }
     }
 

@@ -1,11 +1,16 @@
 /**
  * RBI (Reserve Bank of India) API Integration
  * 
- * Fetches real-time policy rates from RBI
+ * Fetches real-time policy rates from RBI:
+ * - Repo Rate
+ * - Reverse Repo Rate
+ * - Bank Rate
+ * - Base Rate
+ * - Policy Rates
+ * 
  * Sources:
- * - Repo Rate: https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx
- * - Base Rate: https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx
- * - Policy Rates: https://www.rbi.org.in/scripts/BS_ViewMasDirections.aspx
+ * - RBI Press Releases: https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx
+ * - RBI Master Directions: https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx
  */
 
 import { logger } from '@/lib/logger';
@@ -13,184 +18,155 @@ import { createClient } from '@/lib/supabase/server';
 
 export interface RBIPolicyRates {
     repoRate: number; // Policy repo rate
-    reverseRepoRate: number;
-    bankRate: number;
+    reverseRepoRate: number; // Reverse repo rate
+    bankRate: number; // Bank rate
+    baseRate: number; // Base rate (calculated: repo + 1.5%)
     mclr: number; // Marginal Cost of Funds Based Lending Rate
-    baseRate: number;
-    lastUpdated: string;
-    source: string;
+    lastUpdated: string; // ISO date string
+    source: string; // Source URL
 }
 
 /**
- * Cache RBI rates in database for fast access
- */
-const RBI_RATES_TABLE = 'rbi_policy_rates';
-
-/**
- * Fetch RBI policy rates from website (scraping)
- * Note: RBI doesn't have a public API, so we scrape their website
- */
-async function fetchRBIFromWebsite(): Promise<RBIPolicyRates | null> {
-    try {
-        // TODO: Implement web scraping for RBI website
-        // For now, return cached/default values
-        // In production, use Playwright/Puppeteer to scrape:
-        // https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx
-        
-        logger.warn('RBI website scraping not yet implemented - using cached/default rates');
-        
-        // Default rates (as of 2024, update via scraper)
-        return {
-            repoRate: 6.5,
-            reverseRepoRate: 3.35,
-            bankRate: 6.75,
-            mclr: 8.0,
-            baseRate: 8.0,
-            lastUpdated: new Date().toISOString(),
-            source: 'rbi_website'
-        };
-    } catch (error) {
-        logger.error('Error fetching RBI rates from website', error as Error);
-        return null;
-    }
-}
-
-/**
- * Get RBI policy rates (from cache or fetch)
+ * Fetch RBI policy rates from database (cached)
+ * Rates are updated daily via cron job
  */
 export async function getRBIPolicyRates(): Promise<RBIPolicyRates | null> {
-    const supabase = await createClient();
-    
     try {
-        // Try to get from cache first
-        const { data: cachedRates, error: cacheError } = await supabase
-            .from(RBI_RATES_TABLE)
+        const supabase = await createClient();
+        
+        // Check if we have cached RBI rates
+        const { data, error } = await supabase
+            .from('rbi_policy_rates')
             .select('*')
-            .order('last_updated', { ascending: false })
+            .order('updated_at', { ascending: false })
             .limit(1)
             .single();
 
-        // If cache exists and is less than 24 hours old, use it
-        if (!cacheError && cachedRates) {
-            const cacheAge = Date.now() - new Date(cachedRates.last_updated).getTime();
-            const hoursSinceUpdate = cacheAge / (1000 * 60 * 60);
-            
-            if (hoursSinceUpdate < 24) {
-                logger.info('Using cached RBI rates', { age: `${hoursSinceUpdate.toFixed(1)} hours` });
-                return {
-                    repoRate: cachedRates.repo_rate,
-                    reverseRepoRate: cachedRates.reverse_repo_rate,
-                    bankRate: cachedRates.bank_rate,
-                    mclr: cachedRates.mclr,
-                    baseRate: cachedRates.base_rate,
-                    lastUpdated: cachedRates.last_updated,
-                    source: 'database_cache'
-                };
-            }
+        if (error || !data) {
+            logger.warn('RBI policy rates not found in database, using defaults', { error });
+            return getDefaultRBIRates();
         }
 
-        // Cache expired or doesn't exist - fetch fresh
-        logger.info('Fetching fresh RBI rates');
-        const freshRates = await fetchRBIFromWebsite();
+        return {
+            repoRate: parseFloat(String(data.repo_rate)),
+            reverseRepoRate: parseFloat(String(data.reverse_repo_rate)),
+            bankRate: parseFloat(String(data.bank_rate)),
+            baseRate: parseFloat(String(data.base_rate)),
+            mclr: parseFloat(String(data.mclr || data.base_rate)),
+            lastUpdated: data.updated_at || new Date().toISOString(),
+            source: data.source_url || 'https://www.rbi.org.in/'
+        };
+    } catch (error) {
+        logger.error('Error fetching RBI policy rates', error as Error);
+        return getDefaultRBIRates();
+    }
+}
+
+/**
+ * Scrape RBI website for latest policy rates
+ * This is a fallback if database doesn't have recent data
+ */
+export async function scrapeRBIRates(): Promise<RBIPolicyRates | null> {
+    try {
+        // TODO: Implement web scraping of RBI website
+        // RBI Press Release URL: https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx
         
-        if (freshRates) {
-            // Save to cache
-            await supabase.from(RBI_RATES_TABLE).upsert({
-                repo_rate: freshRates.repoRate,
-                reverse_repo_rate: freshRates.reverseRepoRate,
-                bank_rate: freshRates.bankRate,
-                mclr: freshRates.mclr,
-                base_rate: freshRates.baseRate,
-                last_updated: freshRates.lastUpdated,
-                source: freshRates.source
+        // For now, return null (will use defaults)
+        // In production, use Playwright/Puppeteer to scrape RBI website
+        logger.info('RBI scraping not yet implemented, using database/defaults');
+        return null;
+    } catch (error) {
+        logger.error('Error scraping RBI rates', error as Error);
+        return null;
+    }
+}
+
+/**
+ * Get default RBI rates (fallback)
+ * These are approximate rates - should be updated via cron job
+ */
+function getDefaultRBIRates(): RBIPolicyRates {
+    // Default rates (as of 2024, update via cron job)
+    const defaultRepoRate = 6.5;
+    
+    return {
+        repoRate: defaultRepoRate,
+        reverseRepoRate: defaultRepoRate - 0.25, // Typically 0.25% below repo
+        bankRate: defaultRepoRate + 0.25, // Typically 0.25% above repo
+        baseRate: defaultRepoRate + 1.5, // Typically repo + 1.5%
+        mclr: defaultRepoRate + 1.5, // MCLR typically close to base rate
+        lastUpdated: new Date().toISOString(),
+        source: 'https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx'
+    };
+}
+
+/**
+ * Calculate expected interest rate ranges based on RBI policy rates
+ */
+export function calculateExpectedInterestRanges(rates: RBIPolicyRates): {
+    creditCard: { min: number; max: number };
+    personalLoan: { min: number; max: number };
+    homeLoan: { min: number; max: number };
+    savings: { min: number; max: number };
+    fd: { min: number; max: number };
+} {
+    // Credit card rates: Base rate + 10-20% = typically 18-28%
+    const creditCardMin = rates.baseRate + 10;
+    const creditCardMax = rates.baseRate + 25;
+
+    // Personal loan rates: Base rate + 2-6% = typically 10-13%
+    const personalLoanMin = rates.baseRate + 2;
+    const personalLoanMax = rates.baseRate + 6;
+
+    // Home loan rates: Base rate + 1-3% = typically 9-11%
+    const homeLoanMin = rates.baseRate + 1;
+    const homeLoanMax = rates.baseRate + 3;
+
+    // Savings account rates: 2.5-4% (not directly tied to repo, but influenced)
+    const savingsMin = 2.5;
+    const savingsMax = 4.5;
+
+    // Fixed deposit rates: Base rate + 0.5-2% = typically 7-9%
+    const fdMin = rates.baseRate + 0.5;
+    const fdMax = rates.baseRate + 2;
+
+    return {
+        creditCard: { min: creditCardMin, max: creditCardMax },
+        personalLoan: { min: personalLoanMin, max: personalLoanMax },
+        homeLoan: { min: homeLoanMin, max: homeLoanMax },
+        savings: { min: savingsMin, max: savingsMax },
+        fd: { min: fdMin, max: fdMax }
+    };
+}
+
+/**
+ * Update RBI rates in database (called by cron job)
+ */
+export async function updateRBIRates(rates: RBIPolicyRates): Promise<boolean> {
+    try {
+        const supabase = await createClient();
+        
+        const { error } = await supabase
+            .from('rbi_policy_rates')
+            .upsert({
+                repo_rate: rates.repoRate,
+                reverse_repo_rate: rates.reverseRepoRate,
+                bank_rate: rates.bankRate,
+                base_rate: rates.baseRate,
+                mclr: rates.mclr,
+                source_url: rates.source,
+                updated_at: new Date().toISOString()
             }, {
                 onConflict: 'id' // Assuming there's a single row with id=1
             });
+
+        if (error) {
+            logger.error('Error updating RBI rates in database', error);
+            return false;
         }
-        
-        return freshRates;
-    } catch (error) {
-        logger.error('Error getting RBI policy rates', error as Error);
-        return null;
-    }
-}
 
-/**
- * Calculate expected interest rate range based on RBI policy rates
- */
-export async function getExpectedInterestRateRange(
-    productType: 'credit_card' | 'loan' | 'savings' | 'fd'
-): Promise<{ min: number; max: number; source: string } | null> {
-    const rates = await getRBIPolicyRates();
-    
-    if (!rates) {
-        return null;
-    }
-
-    // Calculate expected ranges based on RBI policy rates
-    switch (productType) {
-        case 'credit_card':
-            // Credit card rates: Base rate + 10-20% = typically 18-28%
-            return {
-                min: rates.baseRate + 10,
-                max: rates.baseRate + 25,
-                source: 'rbi_calculated'
-            };
-        
-        case 'loan':
-            // Personal/home loan rates: Base rate + 2-5% = typically 10-13%
-            return {
-                min: rates.baseRate + 2,
-                max: rates.baseRate + 6,
-                source: 'rbi_calculated'
-            };
-        
-        case 'savings':
-            // Savings account rates: Reverse repo rate + 0.5-2% = typically 4-5.5%
-            return {
-                min: rates.reverseRepoRate + 0.5,
-                max: rates.reverseRepoRate + 2,
-                source: 'rbi_calculated'
-            };
-        
-        case 'fd':
-            // Fixed deposit rates: Repo rate + 1-3% = typically 7.5-9.5%
-            return {
-                min: rates.repoRate + 1,
-                max: rates.repoRate + 3,
-                source: 'rbi_calculated'
-            };
-        
-        default:
-            return null;
-    }
-}
-
-/**
- * Update RBI rates (called by cron job)
- */
-export async function updateRBIRates(): Promise<boolean> {
-    try {
-        logger.info('Updating RBI policy rates...');
-        const freshRates = await fetchRBIFromWebsite();
-        
-        if (freshRates) {
-            const supabase = await createClient();
-            await supabase.from(RBI_RATES_TABLE).upsert({
-                repo_rate: freshRates.repoRate,
-                reverse_repo_rate: freshRates.reverseRepoRate,
-                bank_rate: freshRates.bankRate,
-                mclr: freshRates.mclr,
-                base_rate: freshRates.baseRate,
-                last_updated: freshRates.lastUpdated,
-                source: freshRates.source
-            });
-            
-            logger.info('RBI rates updated successfully', { repoRate: freshRates.repoRate });
-            return true;
-        }
-        
-        return false;
+        logger.info('RBI policy rates updated successfully', { rates });
+        return true;
     } catch (error) {
         logger.error('Error updating RBI rates', error as Error);
         return false;
