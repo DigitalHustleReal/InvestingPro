@@ -1,87 +1,55 @@
 /**
- * Scheduled Publishing Cron Job
- * Auto-publishes articles at their scheduled time
- * Run this via cron: 0 * * * * (every hour) or *\/5 * * * * (every 5 min)
+ * Cron Job: Publish Scheduled Articles
+ * 
+ * Runs every 15 minutes to publish articles scheduled for that time
+ * Called by Vercel Cron: /api/cron/publish-scheduled
+ * 
+ * Schedule: Every 15 minutes
  */
 
-import { createClient } from '@supabase/supabase-js';
+import { NextRequest, NextResponse } from 'next/server';
+import { publishScheduledArticles } from '@/lib/automation/scheduler';
+import { logger } from '@/lib/logger';
 
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
-export async function GET() {
+/**
+ * GET /api/cron/publish-scheduled
+ * Publish scheduled articles that are due
+ */
+export async function GET(request: NextRequest) {
     try {
-        console.log('⏰ Running scheduled publishing check...');
-
-        const now = new Date().toISOString();
-
-        // Find articles scheduled to be published
-        const { data: scheduledArticles, error } = await supabase
-            .from('articles')
-            .select('id, title, scheduled_publish_at')
-            .eq('status', 'scheduled')
-            .lte('scheduled_publish_at', now)
-            .order('scheduled_publish_at', { ascending: true });
-
-        if (error) {
-            console.error('Error fetching scheduled articles:', error);
-            return Response.json({ error: error.message }, { status: 500 });
+        // Verify cron secret (if set)
+        const authHeader = request.headers.get('authorization');
+        const cronSecret = process.env.CRON_SECRET;
+        
+        if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
+            logger.warn('Unauthorized scheduled publish attempt');
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        if (!scheduledArticles || scheduledArticles.length === 0) {
-            console.log('✅ No articles to publish');
-            return Response.json({ 
-                message: 'No scheduled articles', 
-                count: 0 
-            });
+        logger.info('Starting scheduled articles publishing job...');
+
+        const result = await publishScheduledArticles();
+
+        if (result.errors.length > 0) {
+            logger.warn('Scheduled publishing completed with errors', result);
+        } else {
+            logger.info('Scheduled publishing completed successfully', result);
         }
 
-        console.log(`📝 Found ${scheduledArticles.length} article(s) to publish`);
-
-        // Publish each article
-        const published = [];
-        const failed = [];
-
-        for (const article of scheduledArticles) {
-            try {
-                const { error: updateError } = await supabase
-                    .from('articles')
-                    .update({
-                        status: 'published',
-                        published_at: now,
-                        scheduled_publish_at: null
-                    })
-                    .eq('id', article.id);
-
-                if (updateError) {
-                    failed.push({ id: article.id, error: updateError.message });
-                    console.error(`❌ Failed to publish: ${article.title}`, updateError);
-                } else {
-                    published.push(article);
-                    console.log(`✅ Published: ${article.title}`);
-                }
-            } catch (err: any) {
-                failed.push({ id: article.id, error: err.message });
-                console.error(`❌ Error publishing: ${article.title}`, err);
-            }
-        }
-
-        return Response.json({
-            message: `Published ${published.length} article(s)`,
-            published: published.length,
-            failed: failed.length,
-            details: {
-                published: published.map(a => ({ id: a.id, title: a.title })),
-                failed
-            }
+        return NextResponse.json({
+            success: true,
+            message: 'Scheduled articles publishing completed',
+            ...result,
+            timestamp: new Date().toISOString()
         });
-
-    } catch (error: any) {
-        console.error('Scheduled publishing cron error:', error);
-        return Response.json({ 
-            error: error.message 
-        }, { status: 500 });
+    } catch (error) {
+        logger.error('Error publishing scheduled articles', error as Error);
+        return NextResponse.json(
+            { error: 'Internal server error' },
+            { status: 500 }
+        );
     }
 }
