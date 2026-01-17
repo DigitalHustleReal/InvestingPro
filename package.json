@@ -23,6 +23,7 @@
     "test:phase1:validation": "tsx scripts/test-phase1-validation.ts",
     "test:phase1:keywords": "tsx scripts/test-phase1-keyword-api.ts",
     "test:phase1:publish": "tsx scripts/test-phase1-publish-validation.ts",
+    "test:authoritative": "tsx scripts/test-authoritative-validation.ts",
     "preview": "npm run build && npm run start",
     "prepare": "husky install",
     "generate:content": "tsx scripts/auto-generate-batch.ts",
