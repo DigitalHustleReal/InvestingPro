@@ -142,13 +142,20 @@ export async function getArticleVersionHistory(
 export async function getArticleVersionContent(
     articleId: string,
     versionNumber: number
-): Promise<any | null> {
+): Promise<{
+    title: string;
+    body_markdown: string;
+    excerpt?: string;
+    category?: string;
+    tags?: string[];
+    created_at: string;
+} | null> {
     try {
         const supabase = await createClient();
         
         const { data, error } = await supabase
             .from('article_versions')
-            .select('content')
+            .select('content, created_at')
             .eq('article_id', articleId)
             .eq('version_number', versionNumber)
             .single();
@@ -161,7 +168,16 @@ export async function getArticleVersionContent(
             return null;
         }
 
-        return data.content;
+        // Extract content from JSONB
+        const content = data.content as any;
+        return {
+            title: content.title || '',
+            body_markdown: content.body_markdown || content.content || '',
+            excerpt: content.excerpt,
+            category: content.category,
+            tags: content.tags,
+            created_at: data.created_at || new Date().toISOString()
+        };
     } catch (error) {
         logger.error('Error getting article version content', error as Error, {
             articleId,

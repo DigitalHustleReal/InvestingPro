@@ -16,12 +16,14 @@ import { Badge } from '@/components/ui/badge';
 import SEOScoreCalculator from '@/components/admin/SEOScoreCalculator';
 import { SocialPostManager } from '@/components/admin/SocialPostManager';
 import CategorySelect from '@/components/admin/CategorySelect';
-import { Loader2, Save, Eye, Send, Sparkles, Calendar, Search, Wand2, Languages } from 'lucide-react';
+import { Loader2, Save, Eye, Send, Sparkles, Calendar, Search, Wand2, Languages, Clock } from 'lucide-react';
 import { toast } from 'sonner';
 import type { ArticleCategory, ArticleLanguage, ArticleStatus, ContentType } from '@/types/article';
 import KeywordResearchQuickAccess from './KeywordResearchQuickAccess';
 import SubCategorySelect from './SubCategorySelect';
 import FeaturedImageSelector from './FeaturedImageSelector';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import ArticleVersionHistory from './ArticleVersionHistory';
 
 /**
  * ArticleInspector - Right-side inspector panel for article editing
@@ -281,7 +283,25 @@ export default function ArticleInspector({
             </div>
             
             {/* Scrollable Content */}
-            <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+            <div className="flex-1 overflow-y-auto">
+                <Tabs defaultValue="metadata" className="w-full">
+                    <TabsList className="w-full justify-start rounded-none border-b border-slate-200 dark:border-slate-700 bg-transparent h-auto p-0">
+                        <TabsTrigger 
+                            value="metadata" 
+                            className="px-6 py-3 rounded-none border-b-2 border-transparent data-[state=active]:border-primary-600 dark:data-[state=active]:border-primary-400"
+                        >
+                            Metadata
+                        </TabsTrigger>
+                        <TabsTrigger 
+                            value="versions" 
+                            className="px-6 py-3 rounded-none border-b-2 border-transparent data-[state=active]:border-primary-600 dark:data-[state=active]:border-primary-400"
+                        >
+                            <Clock className="w-4 h-4 mr-2" />
+                            Versions
+                        </TabsTrigger>
+                    </TabsList>
+
+                    <TabsContent value="metadata" className="px-6 py-6 space-y-6 mt-0">
                 {/* Publishing Controls */}
                 <div className="space-y-3">
                     <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
@@ -663,6 +683,25 @@ export default function ArticleInspector({
                         />
                     </div>
                 )}
+                    </TabsContent>
+
+                    <TabsContent value="versions" className="px-6 py-6 mt-0">
+                        {article.id ? (
+                            <ArticleVersionHistory 
+                                articleId={article.id}
+                                onVersionRestored={() => {
+                                    // Refresh article data after version restore
+                                    window.location.reload();
+                                }}
+                            />
+                        ) : (
+                            <div className="text-center text-slate-400 py-8">
+                                <Clock className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                                <p>Save the article to see version history</p>
+                            </div>
+                        )}
+                    </TabsContent>
+                </Tabs>
             </div>
         </div>
     );

@@ -15,6 +15,10 @@
     {
       "path": "/api/cron/sync-amfi-data",
       "schedule": "30 23 * * *"
+    },
+    {
+      "path": "/api/cron/scrape-credit-cards",
+      "schedule": "30 20 * * 6"
     }
   ]
 }
