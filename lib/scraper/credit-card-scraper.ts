@@ -48,24 +48,106 @@ async function scrapeHDFC(): Promise<ScrapeResult> {
     const errors: string[] = [];
 
     try {
-        // TODO: Implement Playwright/Puppeteer scraping
-        // HDFC URL: https://www.hdfcbank.com/personal/pay/cards/credit-cards
+        // Check if Playwright is available
+        const { isPlaywrightAvailable, launchBrowser, navigateWithRetry, extractText, extractElements, rateLimit } = await import('./playwright-scraper');
         
-        logger.info('HDFC scraper: Not yet implemented, using placeholder');
-        
-        // Placeholder: Return empty for now
-        // In production, use Playwright to:
-        // 1. Navigate to HDFC credit cards page
-        // 2. Wait for page load
-        // 3. Extract card data using selectors
-        // 4. Parse and validate data
-        
-        return {
-            success: true,
-            cards,
-            errors: ['HDFC scraper not yet implemented'],
-            bank
-        };
+        const hasPlaywright = await isPlaywrightAvailable();
+        if (!hasPlaywright) {
+            logger.warn('Playwright not available, skipping HDFC scraping');
+            return {
+                success: false,
+                cards: [],
+                errors: ['Playwright not installed. Install with: npm install playwright && npx playwright install'],
+                bank
+            };
+        }
+
+        const browser = await launchBrowser(true);
+        const page = await browser.newPage();
+
+        try {
+            const url = 'https://www.hdfcbank.com/personal/pay/cards/credit-cards';
+            
+            // Navigate with retries
+            const navResult = await navigateWithRetry(page, url, {
+                timeout: 30000,
+                waitUntil: 'networkidle',
+                retries: 3
+            });
+
+            if (!navResult.success) {
+                throw new Error(`Navigation failed: ${navResult.error}`);
+            }
+
+            // Extract card information using page.evaluate
+            // Note: HDFC website structure may change - adjust selectors as needed
+            const extractedCards = await page.evaluate(() => {
+                const cardElements = document.querySelectorAll('.card-item, .credit-card-item, [data-card], .product-card');
+                const cards: any[] = [];
+
+                cardElements.forEach((element) => {
+                    // Extract card name (try multiple selectors)
+                    const nameElement = element.querySelector('.card-name, h3, h4, .card-title, .product-name');
+                    const name = nameElement?.textContent?.trim() || '';
+
+                    // Extract annual fee
+                    const feeElement = element.querySelector('.annual-fee, [data-fee], .fee');
+                    const annualFeeText = feeElement?.textContent?.trim() || '';
+
+                    // Extract interest rate
+                    const rateElement = element.querySelector('.interest-rate, [data-rate], .rate');
+                    const interestRateText = rateElement?.textContent?.trim() || '';
+
+                    // Extract rewards/features
+                    const rewardElements = element.querySelectorAll('.reward-item, .feature-item, .benefit');
+                    const rewards = Array.from(rewardElements).map(el => el.textContent?.trim() || '').filter(Boolean);
+
+                    if (name && name !== 'Unknown Card') {
+                        cards.push({
+                            name,
+                            annualFeeText,
+                            interestRateText,
+                            rewards
+                        });
+                    }
+                });
+
+                return cards;
+            });
+
+            // Process extracted cards
+            for (const extractedCard of extractedCards) {
+                const annualFee = extractPrice(extractedCard.annualFeeText);
+                const type = detectCardType(extractedCard.name, extractedCard.rewards);
+
+                cards.push({
+                    name: extractedCard.name,
+                    bank,
+                    type,
+                    annual_fee: annualFee || 'Contact Bank',
+                    interest_rate: extractedCard.interestRateText || 'Contact Bank',
+                    rewards: extractedCard.rewards.length > 0 ? extractedCard.rewards : undefined
+                });
+            }
+
+            // If no cards found with standard selectors, log warning
+            if (cards.length === 0) {
+                errors.push('No cards found - website structure may have changed. Selectors need update.');
+                logger.warn('HDFC scraper: No cards extracted - website structure may have changed');
+            }
+
+            await browser.close();
+
+            return {
+                success: cards.length > 0,
+                cards,
+                errors,
+                bank
+            };
+        } catch (error) {
+            await browser.close();
+            throw error;
+        }
     } catch (error) {
         logger.error('Error scraping HDFC', error as Error);
         return {
@@ -78,6 +160,47 @@ async function scrapeHDFC(): Promise<ScrapeResult> {
 }
 
 /**
+ * Helper: Extract price from text
+ */
+function extractPrice(text: string): string | null {
+    if (!text) return null;
+    const lower = text.toLowerCase();
+    if (lower.includes('free') || lower.includes('nil') || lower.includes('zero')) {
+        return 'Free';
+    }
+    const match = text.match(/₹\s*([\d,]+)/);
+    if (match) {
+        return `₹${match[1]}`;
+    }
+    return text.trim() || null;
+}
+
+/**
+ * Helper: Detect card type from name and features
+ */
+function detectCardType(name: string, rewards: string[]): CreditCardData['type'] {
+    const nameLower = name.toLowerCase();
+    const rewardsText = rewards.join(' ').toLowerCase();
+
+    if (nameLower.includes('cashback') || rewardsText.includes('cashback')) {
+        return 'Cashback';
+    }
+    if (nameLower.includes('travel') || rewardsText.includes('miles') || rewardsText.includes('travel')) {
+        return 'Travel';
+    }
+    if (nameLower.includes('premium') || nameLower.includes('platinum') || nameLower.includes('signature')) {
+        return 'Premium';
+    }
+    if (nameLower.includes('shopping') || rewardsText.includes('shopping')) {
+        return 'Shopping';
+    }
+    if (nameLower.includes('fuel') || rewardsText.includes('fuel')) {
+        return 'Fuel';
+    }
+    return 'Rewards';
+}
+
+/**
  * Scrape credit cards from SBI Card
  */
 async function scrapeSBI(): Promise<ScrapeResult> {
@@ -86,17 +209,87 @@ async function scrapeSBI(): Promise<ScrapeResult> {
     const errors: string[] = [];
 
     try {
-        // TODO: Implement Playwright/Puppeteer scraping
-        // SBI URL: https://www.sbicard.com/
+        const { isPlaywrightAvailable, launchBrowser, navigateWithRetry, extractText, extractElements, rateLimit } = await import('./playwright-scraper');
         
-        logger.info('SBI scraper: Not yet implemented, using placeholder');
-        
-        return {
-            success: true,
-            cards,
-            errors: ['SBI scraper not yet implemented'],
-            bank
-        };
+        const hasPlaywright = await isPlaywrightAvailable();
+        if (!hasPlaywright) {
+            return {
+                success: false,
+                cards: [],
+                errors: ['Playwright not installed'],
+                bank
+            };
+        }
+
+        const browser = await launchBrowser(true);
+        const page = await browser.newPage();
+
+        try {
+            const url = 'https://www.sbicard.com/';
+            
+            const navResult = await navigateWithRetry(page, url, {
+                timeout: 30000,
+                waitUntil: 'networkidle',
+                retries: 3
+            });
+
+            if (!navResult.success) {
+                throw new Error(`Navigation failed: ${navResult.error}`);
+            }
+
+            // SBI Card scraping logic
+            const extractedCards = await page.evaluate(() => {
+                const cardElements = document.querySelectorAll('.card-item, .product-card, [data-product], .credit-card');
+                const cards: any[] = [];
+
+                cardElements.forEach((element) => {
+                    const nameElement = element.querySelector('.card-title, h3, .product-name, .card-name');
+                    const name = nameElement?.textContent?.trim() || '';
+
+                    const feeElement = element.querySelector('.annual-fee, .fee, .annual-charge');
+                    const annualFeeText = feeElement?.textContent?.trim() || '';
+
+                    const rewardElements = element.querySelectorAll('.benefit, .feature, .reward');
+                    const rewards = Array.from(rewardElements).map(el => el.textContent?.trim() || '').filter(Boolean);
+
+                    if (name && name !== 'Unknown Card') {
+                        cards.push({ name, annualFeeText, rewards });
+                    }
+                });
+
+                return cards;
+            });
+
+            for (const extractedCard of extractedCards) {
+                const annualFee = extractPrice(extractedCard.annualFeeText);
+                const type = detectCardType(extractedCard.name, extractedCard.rewards);
+
+                cards.push({
+                    name: extractedCard.name,
+                    bank,
+                    type,
+                    annual_fee: annualFee || 'Contact Bank',
+                    interest_rate: 'Contact Bank',
+                    rewards: extractedCard.rewards.length > 0 ? extractedCard.rewards : undefined
+                });
+            }
+
+            if (cards.length === 0) {
+                errors.push('No cards found - website structure may have changed');
+            }
+
+            await browser.close();
+
+            return {
+                success: cards.length > 0,
+                cards,
+                errors,
+                bank
+            };
+        } catch (error) {
+            await browser.close();
+            throw error;
+        }
     } catch (error) {
         logger.error('Error scraping SBI', error as Error);
         return {
@@ -117,17 +310,87 @@ async function scrapeICICI(): Promise<ScrapeResult> {
     const errors: string[] = [];
 
     try {
-        // TODO: Implement Playwright/Puppeteer scraping
-        // ICICI URL: https://www.icicibank.com/credit-card
+        const { isPlaywrightAvailable, launchBrowser, navigateWithRetry, extractText, extractElements } = await import('./playwright-scraper');
         
-        logger.info('ICICI scraper: Not yet implemented, using placeholder');
-        
-        return {
-            success: true,
-            cards,
-            errors: ['ICICI scraper not yet implemented'],
-            bank
-        };
+        const hasPlaywright = await isPlaywrightAvailable();
+        if (!hasPlaywright) {
+            return {
+                success: false,
+                cards: [],
+                errors: ['Playwright not installed'],
+                bank
+            };
+        }
+
+        const browser = await launchBrowser(true);
+        const page = await browser.newPage();
+
+        try {
+            const url = 'https://www.icicibank.com/credit-card';
+            
+            const navResult = await navigateWithRetry(page, url, {
+                timeout: 30000,
+                waitUntil: 'networkidle',
+                retries: 3
+            });
+
+            if (!navResult.success) {
+                throw new Error(`Navigation failed: ${navResult.error}`);
+            }
+
+            // ICICI Bank scraping logic
+            const extractedCards = await page.evaluate(() => {
+                const cardElements = document.querySelectorAll('.card-wrapper, .product-card, [data-card], .credit-card-item');
+                const cards: any[] = [];
+
+                cardElements.forEach((element) => {
+                    const nameElement = element.querySelector('.card-name, .product-title, h3, .card-title');
+                    const name = nameElement?.textContent?.trim() || '';
+
+                    const feeElement = element.querySelector('.fee-amount, .annual-fee, .fee');
+                    const annualFeeText = feeElement?.textContent?.trim() || '';
+
+                    const rewardElements = element.querySelectorAll('.benefit-item, .reward-point, .feature');
+                    const rewards = Array.from(rewardElements).map(el => el.textContent?.trim() || '').filter(Boolean);
+
+                    if (name && name !== 'Unknown Card') {
+                        cards.push({ name, annualFeeText, rewards });
+                    }
+                });
+
+                return cards;
+            });
+
+            for (const extractedCard of extractedCards) {
+                const annualFee = extractPrice(extractedCard.annualFeeText);
+                const type = detectCardType(extractedCard.name, extractedCard.rewards);
+
+                cards.push({
+                    name: extractedCard.name,
+                    bank,
+                    type,
+                    annual_fee: annualFee || 'Contact Bank',
+                    interest_rate: 'Contact Bank',
+                    rewards: extractedCard.rewards.length > 0 ? extractedCard.rewards : undefined
+                });
+            }
+
+            if (cards.length === 0) {
+                errors.push('No cards found - website structure may have changed');
+            }
+
+            await browser.close();
+
+            return {
+                success: cards.length > 0,
+                cards,
+                errors,
+                bank
+            };
+        } catch (error) {
+            await browser.close();
+            throw error;
+        }
     } catch (error) {
         logger.error('Error scraping ICICI', error as Error);
         return {
@@ -148,17 +411,87 @@ async function scrapeAxis(): Promise<ScrapeResult> {
     const errors: string[] = [];
 
     try {
-        // TODO: Implement Playwright/Puppeteer scraping
-        // Axis URL: https://www.axisbank.com/retail/cards/credit-card
+        const { isPlaywrightAvailable, launchBrowser, navigateWithRetry, extractText, extractElements } = await import('./playwright-scraper');
         
-        logger.info('Axis scraper: Not yet implemented, using placeholder');
-        
-        return {
-            success: true,
-            cards,
-            errors: ['Axis scraper not yet implemented'],
-            bank
-        };
+        const hasPlaywright = await isPlaywrightAvailable();
+        if (!hasPlaywright) {
+            return {
+                success: false,
+                cards: [],
+                errors: ['Playwright not installed'],
+                bank
+            };
+        }
+
+        const browser = await launchBrowser(true);
+        const page = await browser.newPage();
+
+        try {
+            const url = 'https://www.axisbank.com/retail/cards/credit-card';
+            
+            const navResult = await navigateWithRetry(page, url, {
+                timeout: 30000,
+                waitUntil: 'networkidle',
+                retries: 3
+            });
+
+            if (!navResult.success) {
+                throw new Error(`Navigation failed: ${navResult.error}`);
+            }
+
+            // Axis Bank scraping logic
+            const extractedCards = await page.evaluate(() => {
+                const cardElements = document.querySelectorAll('.card-product, .credit-card, [data-product], .product-wrapper');
+                const cards: any[] = [];
+
+                cardElements.forEach((element) => {
+                    const nameElement = element.querySelector('.card-title, .product-name, h3, .card-name');
+                    const name = nameElement?.textContent?.trim() || '';
+
+                    const feeElement = element.querySelector('.annual-charge, .fee, .annual-fee');
+                    const annualFeeText = feeElement?.textContent?.trim() || '';
+
+                    const rewardElements = element.querySelectorAll('.feature-list-item, .benefit, .reward-item');
+                    const rewards = Array.from(rewardElements).map(el => el.textContent?.trim() || '').filter(Boolean);
+
+                    if (name && name !== 'Unknown Card') {
+                        cards.push({ name, annualFeeText, rewards });
+                    }
+                });
+
+                return cards;
+            });
+
+            for (const extractedCard of extractedCards) {
+                const annualFee = extractPrice(extractedCard.annualFeeText);
+                const type = detectCardType(extractedCard.name, extractedCard.rewards);
+
+                cards.push({
+                    name: extractedCard.name,
+                    bank,
+                    type,
+                    annual_fee: annualFee || 'Contact Bank',
+                    interest_rate: 'Contact Bank',
+                    rewards: extractedCard.rewards.length > 0 ? extractedCard.rewards : undefined
+                });
+            }
+
+            if (cards.length === 0) {
+                errors.push('No cards found - website structure may have changed');
+            }
+
+            await browser.close();
+
+            return {
+                success: cards.length > 0,
+                cards,
+                errors,
+                bank
+            };
+        } catch (error) {
+            await browser.close();
+            throw error;
+        }
     } catch (error) {
         logger.error('Error scraping Axis', error as Error);
         return {

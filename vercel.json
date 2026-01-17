@@ -19,6 +19,14 @@
     {
       "path": "/api/cron/scrape-credit-cards",
       "schedule": "30 20 * * 6"
+    },
+    {
+      "path": "/api/cron/publish-scheduled",
+      "schedule": "*/15 * * * *"
+    },
+    {
+      "path": "/api/cron/check-links",
+      "schedule": "30 21 * * 6"
     }
   ]
 }
