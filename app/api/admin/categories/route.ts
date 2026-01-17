@@ -68,7 +68,8 @@ export const POST = withErrorHandler(
     withTracing(
         withZodValidation({
             body: createCategorySchema,
-        })(async (request: NextRequest, { body }) => {
+        })(async (request: NextRequest, context: any) => {
+            const body = context.body;
             const supabase = await createClient();
             
             // Check admin access

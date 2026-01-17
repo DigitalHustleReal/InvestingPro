@@ -203,10 +203,22 @@ export function withZodValidation<TBody = unknown, TQuery = unknown, TParams = u
     ) {
         return async (
             request: NextRequest,
-            routeParams?: Record<string, string | string[] | undefined>,
+            contextOrParams?: { params?: Promise<Record<string, string>> } | Record<string, string | string[] | undefined>,
             ...args: any[]
         ): Promise<NextResponse> => {
             const validationOpts = options?.validationOptions || {};
+            
+            // Handle Next.js 15 context format: { params: Promise<...> }
+            // Or legacy format: Record<string, string | string[] | undefined>
+            let routeParams: Record<string, string | string[] | undefined> | undefined;
+            if (contextOrParams && 'params' in contextOrParams && contextOrParams.params instanceof Promise) {
+                // Next.js 15: extract params from Promise
+                const contextParams = await contextOrParams.params;
+                routeParams = contextParams as Record<string, string | string[] | undefined>;
+            } else {
+                // Legacy format or no params
+                routeParams = contextOrParams as Record<string, string | string[] | undefined> | undefined;
+            }
             
             // Validate body
             let body: TBody | undefined = undefined;

@@ -16,6 +16,7 @@ import { normalizeArticleBody } from '@/lib/content/normalize';
 import { htmlToMarkdown } from '@/lib/editor/markdown';
 import { logger } from '@/lib/logger';
 import { TaxonomyService } from './taxonomy-service';
+import { injectAffiliateDisclosure } from '@/lib/compliance/affiliate-disclosure';
 // Lazy import workflow hooks to avoid server/client boundary issues
 // These are only used in specific methods, not at module level
 import { invalidateArticleCache } from '@/lib/cache/cache-invalidation';
@@ -275,13 +276,30 @@ export class ArticleService {
         const supabase = this.getClient();
 
         // Normalize content (single source of truth)
-        const normalizedHTML = content.body_html 
+        let normalizedHTML = content.body_html 
             ? normalizeArticleBody(content.body_html)
             : content.body_markdown 
                 ? normalizeArticleBody(content.body_markdown)
                 : content.content 
                     ? normalizeArticleBody(content.content)
                     : '';
+
+        // Auto-inject affiliate disclosure if affiliate links detected
+        try {
+            const markdownBeforeDisclosure = normalizedHTML ? htmlToMarkdown(normalizedHTML) : (content.body_markdown || content.content || '');
+            const markdownWithDisclosure = injectAffiliateDisclosure(markdownBeforeDisclosure, metadata.category);
+            
+            // If disclosure was injected, update HTML
+            if (markdownWithDisclosure !== markdownBeforeDisclosure) {
+                // Re-normalize HTML with disclosure
+                const htmlWithDisclosure = markdownWithDisclosure ? normalizeArticleBody(markdownWithDisclosure) : normalizedHTML;
+                normalizedHTML = htmlWithDisclosure;
+                logger.info('Affiliate disclosure injected during save', { articleId: id, category: metadata.category });
+            }
+        } catch (disclosureError) {
+            // Don't fail save if disclosure injection fails
+            logger.warn('Failed to inject affiliate disclosure', disclosureError instanceof Error ? disclosureError : new Error(String(disclosureError)), { articleId: id });
+        }
 
         const normalizedMarkdown = normalizedHTML ? htmlToMarkdown(normalizedHTML) : '';
 
