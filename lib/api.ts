@@ -440,17 +440,56 @@ The AI was unable to reach a provider, so we've generated this professional outl
             UploadFile: async ({ file }: { file: File }) => {
                 const supabase = getSupabaseClient();
                 
+                // Check if it's an image file
+                const isImage = file.type.startsWith('image/');
+                let fileToUpload = file;
+                let fileExt = file.name.split('.').pop() || 'jpg';
+                let mimeType = file.type;
+
+                // Auto-optimize images: Route through optimized upload API (server-side)
+                if (isImage) {
+                    try {
+                        const formData = new FormData();
+                        formData.append('file', file);
+                        
+                        const response = await fetch('/api/admin/images/upload', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        
+                        if (!response.ok) {
+                            const error = await response.json();
+                            throw new Error(error.error || error.message || 'Upload failed');
+                        }
+                        
+                        const data = await response.json();
+                        return {
+                            file_url: data.file_url,
+                            file_path: data.file_path,
+                            file_name: data.file_name,
+                            optimized: data.optimized,
+                            original_size: data.original_size,
+                            optimized_size: data.optimized_size,
+                            savings_percent: data.savings_percent
+                        };
+                    } catch (optimizeError) {
+                        // If optimized upload fails, fall back to direct upload (no optimization)
+                        logger.warn('Optimized upload failed, using direct upload', optimizeError as Error);
+                        // Continue with original file upload below
+                    }
+                }
+                
                 // 1. Generate unique file name
-                const fileExt = file.name.split('.').pop() || 'jpg';
                 const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 10)}.${fileExt}`;
                 const filePath = `uploads/${fileName}`;
 
                 // 2. Upload to Supabase Storage
                 const { data: uploadData, error: uploadError } = await supabase.storage
                     .from('media')
-                    .upload(filePath, file, {
-                        cacheControl: '3600',
-                        upsert: false
+                    .upload(filePath, fileToUpload, {
+                        cacheControl: '31536000', // 1 year
+                        upsert: false,
+                        contentType: mimeType
                     });
 
                 if (uploadError) {
@@ -473,8 +512,8 @@ The AI was unable to reach a provider, so we've generated this professional outl
                         original_filename: file.name,
                         file_path: filePath,
                         public_url: publicUrl,
-                        mime_type: file.type,
-                        file_size: file.size,
+                        mime_type: mimeType,
+                        file_size: fileToUpload.size,
                         folder: 'uploads',
                         uploaded_by: user?.id || null
                     });
@@ -485,7 +524,11 @@ The AI was unable to reach a provider, so we've generated this professional outl
 
                 return {
                     file_url: publicUrl,
-                    file_path: filePath
+                    file_path: filePath,
+                    file_name: fileName,
+                    optimized: isImage && fileToUpload !== file,
+                    original_size: file.size,
+                    optimized_size: fileToUpload.size
                 };
             },
 
