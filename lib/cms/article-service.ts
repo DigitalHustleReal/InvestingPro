@@ -436,6 +436,17 @@ export class ArticleService {
             logger.warn('Failed to create article version on publish', versionError instanceof Error ? versionError : new Error(String(versionError)), { articleId: id });
         }
 
+        // Auto-interlink article after publish (async, don't block)
+        try {
+            const { autoInterlinkArticle } = await import('@/lib/automation/auto-interlinking');
+            autoInterlinkArticle(id, { maxLinks: 5, minRelevance: 0.3 }).catch(err => {
+                logger.warn('Auto-interlinking failed after publish', err as Error, { articleId: id });
+            });
+        } catch (interlinkError) {
+            // Don't fail publish if interlinking fails
+            logger.warn('Auto-interlinking setup failed', interlinkError instanceof Error ? interlinkError : new Error(String(interlinkError)), { articleId: id });
+        }
+
         // Invalidate cache
         await invalidateArticleCache(id);
 
