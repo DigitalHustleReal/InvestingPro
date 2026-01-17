@@ -693,6 +693,18 @@ export default function ArticleInspector({
                     <SocialPostManager articleId={article.id || ''} />
                 </div>
 
+                {/* Validation Report */}
+                {article.id && (
+                    <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
+                        <ValidationReport
+                            articleId={article.id}
+                            title={article.title}
+                            content={article.content}
+                            category={category}
+                        />
+                    </div>
+                )}
+
                 {/* Broken Link Report */}
                 {article.id && (
                     <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
