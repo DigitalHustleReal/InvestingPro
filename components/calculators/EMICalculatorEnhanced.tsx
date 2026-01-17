@@ -72,9 +72,9 @@ export function EMICalculatorEnhanced() {
     const yearlyData = generateYearlyBreakdown();
 
     const formatCurrency = (num: number) => {
-        if (num >= 10000000) return `â‚¹${(num / 10000000).toFixed(2)} Cr`;
-        if (num >= 100000) return `â‚¹${(num / 100000).toFixed(2)} L`;
-        return `â‚¹${num.toLocaleString('en-IN')}`;
+        if (num >= 10000000) return `₹${(num / 10000000).toFixed(2)} Cr`;
+        if (num >= 100000) return `₹${(num / 100000).toFixed(2)} L`;
+        return `₹${num.toLocaleString('en-IN')}`;
     };
 
     const emiChartData = [
@@ -107,9 +107,9 @@ export function EMICalculatorEnhanced() {
                         <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
                             <span className="text-xs font-semibold text-slate-600 dark:text-slate-400 mr-1">Quick Examples:</span>
                             {[
-                                { label: "Home Loan â‚¹50L", loan: 5000000, years: 20, rate: 8.5 },
-                                { label: "Car Loan â‚¹10L", loan: 1000000, years: 5, rate: 9.5 },
-                                { label: "Personal Loan â‚¹5L", loan: 500000, years: 3, rate: 12 },
+                                { label: "Home Loan ₹50L", loan: 5000000, years: 20, rate: 8.5 },
+                                { label: "Car Loan ₹10L", loan: 1000000, years: 5, rate: 9.5 },
+                                { label: "Personal Loan ₹5L", loan: 500000, years: 3, rate: 12 },
                                 { label: "Business Loan", loan: 2000000, years: 5, rate: 11 },
                             ].map((preset, idx) => (
                                 <button

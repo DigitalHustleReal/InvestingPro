@@ -58,9 +58,9 @@ export function FDCalculator() {
     const result = calculateFD();
 
     const formatCurrency = (num: number) => {
-        if (num >= 10000000) return `â‚¹${(num / 10000000).toFixed(2)} Cr`;
-        if (num >= 100000) return `â‚¹${(num / 100000).toFixed(2)} L`;
-        return `â‚¹${num.toLocaleString('en-IN')}`;
+        if (num >= 10000000) return `₹${(num / 10000000).toFixed(2)} Cr`;
+        if (num >= 100000) return `₹${(num / 100000).toFixed(2)} L`;
+        return `₹${num.toLocaleString('en-IN')}`;
     };
 
     // Generate growth projection data
@@ -163,7 +163,7 @@ export function FDCalculator() {
                         <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
                             <span className="text-xs font-semibold text-slate-600 dark:text-slate-400 mr-1">Quick Examples:</span>
                             {[
-                                { label: "â‚¹10L FD", principal: 1000000, years: 5, rate: 7 },
+                                { label: "₹10L FD", principal: 1000000, years: 5, rate: 7 },
                                 { label: "Short Term", principal: 500000, years: 1, rate: 6.5 },
                                 { label: "Long Term", principal: 1000000, years: 10, rate: 7.5 },
                                 { label: "High Rate", principal: 500000, years: 3, rate: 8 },

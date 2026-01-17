@@ -96,9 +96,9 @@ export function SSYCalculator() {
     const yearlyData = generateYearlyData();
 
     const formatCurrency = (num: number) => {
-        if (num >= 10000000) return `â‚¹${(num / 10000000).toFixed(2)} Cr`;
-        if (num >= 100000) return `â‚¹${(num / 100000).toFixed(2)} L`;
-        return `â‚¹${Math.round(num).toLocaleString('en-IN')}`;
+        if (num >= 10000000) return `₹${(num / 10000000).toFixed(2)} Cr`;
+        if (num >= 100000) return `₹${(num / 100000).toFixed(2)} L`;
+        return `₹${Math.round(num).toLocaleString('en-IN')}`;
     };
 
     return (
@@ -134,7 +134,7 @@ export function SSYCalculator() {
                                 step={250}
                                 className="py-2"
                             />
-                            <p className="text-xs text-slate-500">Min: â‚¹250, Max: â‚¹1.5 Lakh</p>
+                            <p className="text-xs text-slate-500">Min: ₹250, Max: ₹1.5 Lakh</p>
                         </div>
 
                         {/* Girl's Age */}

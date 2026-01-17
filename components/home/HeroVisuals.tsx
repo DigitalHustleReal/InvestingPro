@@ -102,7 +102,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                                 <Landmark className="w-8 h-8" />
                             </div>
                             <div className="text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wide font-semibold mb-1">Loan Application</div>
-                            <div className="text-2xl font-bold text-slate-900 dark:text-white mb-2">â‚¹ 50,00,000</div>
+                            <div className="text-2xl font-bold text-slate-900 dark:text-white mb-2">₹ 50,00,000</div>
                             <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-4">
                                 <div className="h-full bg-primary-500 w-[90%]" />
                             </div>
@@ -191,7 +191,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                         <div className="flex justify-between items-center mb-6">
                             <div>
                                 <div className="text-xs text-slate-500 uppercase tracking-wide">Total Wealth</div>
-                                <div className="text-2xl font-bold text-slate-900 dark:text-white">â‚¹ 12,45,000</div>
+                                <div className="text-2xl font-bold text-slate-900 dark:text-white">₹ 12,45,000</div>
                             </div>
                             <div className="bg-success-100 dark:bg-success-900/30 text-success-700 dark:text-success-400 px-2 py-1 rounded-lg text-sm font-bold flex items-center gap-1">
                                 <TrendingUp className="w-4 h-4" /> +14.2%
@@ -214,11 +214,11 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                         <div className="grid grid-cols-2 gap-3">
                              <div className="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-lg">
                                  <div className="text-[10px] text-slate-500">SIP Active</div>
-                                 <div className="font-semibold text-slate-900 dark:text-white text-sm">â‚¹ 25k/mo</div>
+                                 <div className="font-semibold text-slate-900 dark:text-white text-sm">₹ 25k/mo</div>
                              </div>
                              <div className="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-lg">
                                  <div className="text-[10px] text-slate-500">Projected</div>
-                                 <div className="font-semibold text-slate-900 dark:text-white text-sm">â‚¹ 2.5 Cr</div>
+                                 <div className="font-semibold text-slate-900 dark:text-white text-sm">₹ 2.5 Cr</div>
                              </div>
                         </div>
                     </motion.div>
@@ -238,7 +238,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                         >
                             <div className="text-right mb-4">
                                 <div className="text-slate-400 text-xs mb-1">Monthly Investment</div>
-                                <div className="text-2xl font-mono text-primary-400">â‚¹ 10,000</div>
+                                <div className="text-2xl font-mono text-primary-400">₹ 10,000</div>
                             </div>
                             <div className="grid grid-cols-4 gap-2 mb-4">
                                 {['7', '8', '9', 'Ã·', '4', '5', '6', 'Ã—', '1', '2', '3', '-', '0', '.', '=', '+'].map((btn, i) => (
@@ -260,7 +260,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                                 <div className="bg-primary-100 p-2 rounded-full"><PieChart className="w-5 h-5 text-primary-600" /></div>
                                 <div>
                                     <div className="text-xs text-slate-500 font-medium">Future Value (20 yr)</div>
-                                    <div className="text-lg font-bold text-primary-600">â‚¹ 98.5 Lakhs</div>
+                                    <div className="text-lg font-bold text-primary-600">₹ 98.5 Lakhs</div>
                                 </div>
                             </div>
                         </motion.div>

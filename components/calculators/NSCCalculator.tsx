@@ -51,9 +51,9 @@ export function NSCCalculator() {
     const result = calculateNSC();
 
     const formatCurrency = (num: number) => {
-        if (num >= 10000000) return `â‚¹${(num / 10000000).toFixed(2)} Cr`;
-        if (num >= 100000) return `â‚¹${(num / 100000).toFixed(2)} L`;
-        return `â‚¹${Math.round(num).toLocaleString('en-IN')}`;
+        if (num >= 10000000) return `₹${(num / 10000000).toFixed(2)} Cr`;
+        if (num >= 100000) return `₹${(num / 100000).toFixed(2)} L`;
+        return `₹${Math.round(num).toLocaleString('en-IN')}`;
     };
 
     return (
@@ -93,7 +93,7 @@ export function NSCCalculator() {
                                 </div>
                             </div>
                             <Slider value={[investment]} onValueChange={(v) => setInvestment(v[0])} min={1000} max={500000} step={1000} className="py-2" />
-                            <p className="text-[10px] text-slate-500">Min Investment: â‚¹1,000 (No upper limit)</p>
+                            <p className="text-[10px] text-slate-500">Min Investment: ₹1,000 (No upper limit)</p>
                         </div>
 
                         {/* Rate */}
@@ -164,7 +164,7 @@ export function NSCCalculator() {
                             <BarChart data={result.yearlyData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                                 <XAxis dataKey="year" tick={{fontSize: 12}} stroke="#94a3b8" />
-                                <YAxis tick={{fontSize: 12}} stroke="#94a3b8" tickFormatter={(value) => `â‚¹${value/1000}k`} />
+                                <YAxis tick={{fontSize: 12}} stroke="#94a3b8" tickFormatter={(value) => `₹${value/1000}k`} />
                                 <Tooltip 
                                     cursor={{fill: 'transparent'}}
                                     content={({ active, payload }) => {

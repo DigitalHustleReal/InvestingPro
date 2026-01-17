@@ -34,7 +34,7 @@ export function SimpleInterestCalculator() {
     const result = calculateSI();
 
     const formatCurrency = (num: number) => {
-        return `â‚¹${num.toLocaleString('en-IN')}`;
+        return `₹${num.toLocaleString('en-IN')}`;
     };
 
     return (
@@ -69,7 +69,7 @@ export function SimpleInterestCalculator() {
                                 </div>
                             </div>
                             <Slider value={[principal]} onValueChange={(v) => setPrincipal(v[0])} min={100} max={1000000} step={100} className="py-2" />
-                            <p className="text-[10px] text-slate-500">Min: â‚¹100</p>
+                            <p className="text-[10px] text-slate-500">Min: ₹100</p>
                         </div>
 
                         {/* Rate */}

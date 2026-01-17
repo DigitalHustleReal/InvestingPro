@@ -57,7 +57,7 @@ export function CreditCardTable({ cards }: CreditCardTableProps) {
                 return (
                     <div className="text-center">
                         <p className={`font-bold ${feeNum === 0 ? 'text-primary-600' : 'text-slate-900 dark:text-white'}`}>
-                            {feeNum === 0 ? 'â‚¹0' : `â‚¹${feeNum.toLocaleString()}`}
+                            {feeNum === 0 ? '₹0' : `₹${feeNum.toLocaleString()}`}
                         </p>
                         {feeNum === 0 && (
                             <Badge className="text-[8px] bg-primary-100 text-primary-700 border-0 mt-1">

@@ -21,7 +21,7 @@ const MACRO_INDICATORS = [
     { name: "Repo Rate", value: "6.50%", change: "Unchanged", trend: "stable", data: generateSparkData('stable') },
     { name: "Inflation (CPI)", value: "4.85%", change: "-0.2% (MoM)", trend: "down", data: generateSparkData('down') },
     { name: "GDP Growth", value: "7.6%", change: "Q3 FY24", trend: "up", data: generateSparkData('up') },
-    { name: "USD / INR", value: "â‚¹83.45", change: "+0.05", trend: "up", data: generateSparkData('up') },
+    { name: "USD / INR", value: "₹83.45", change: "+0.05", trend: "up", data: generateSparkData('up') },
 ];
 
 const TRENDS = [

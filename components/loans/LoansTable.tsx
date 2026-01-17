@@ -74,7 +74,7 @@ export function LoansTable({ loans }: LoansTableProps) {
             key: 'max_amount',
             header: 'Max Amount',
             accessor: (row) => {
-                const amount = row.features?.max_loan_amount || row.features?.['Max Amount'] || 'â‚¹40L';
+                const amount = row.features?.max_loan_amount || row.features?.['Max Amount'] || '₹40L';
                 
                 return (
                     <div className="text-center">

@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const files = [
+    // App pages (already fixed)
     'app/terms/page.tsx',
     'app/taxes/page.tsx',
     'app/stocks/page.tsx',
@@ -18,6 +19,26 @@ const files = [
     'app/small-business/page.tsx',
     'app/admin/login/page.tsx',
     'app/admin/signup/page.tsx',
+    
+    // Components with corrupted Rupee symbols (NEW)
+    'components/rates/RatesWidget.tsx',
+    'components/mutual-funds/FundTable.tsx',
+    'components/market/MarketOverview.tsx',
+    'components/loans/LoansTable.tsx',
+    'components/insurance/InsuranceTable.tsx',
+    'components/home/SmartAdvisorWidget.tsx',
+    'components/home/HeroVisuals.tsx',
+    'components/credit-cards/CreditCardTable.tsx',
+    'components/calculators/CreditCardRewardsCalculator.tsx',
+    'components/calculators/FDCalculator.tsx',
+    'components/calculators/FinancialHealthCalculator.tsx',
+    'components/calculators/SimpleInterestCalculator.tsx',
+    'components/calculators/SSYCalculator.tsx',
+    'components/calculators/NSCCalculator.tsx',
+    'components/calculators/MISCalculator.tsx',
+    'components/calculators/KVPCalculator.tsx',
+    'components/calculators/EMICalculatorEnhanced.tsx',
+    'components/calculators/CompoundInterestCalculator.tsx',
 ];
 
 const ROOT = 'c:/Users/shivp/Desktop/InvestingPro_App';

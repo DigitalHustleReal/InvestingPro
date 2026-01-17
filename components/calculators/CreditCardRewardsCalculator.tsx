@@ -114,7 +114,7 @@ export default function CreditCardRewardsCalculator() {
   const totalMonthlySpending = Object.values(spending).reduce((a, b) => a + b, 0);
 
   const formatCurrency = (value: number) => {
-    return `â‚¹${value.toLocaleString('en-IN')}`;
+    return `₹${value.toLocaleString('en-IN')}`;
   };
 
   const categories: Array<{ key: keyof SpendingCategories; label: string; icon: any; color: string }> = [
@@ -161,7 +161,7 @@ export default function CreditCardRewardsCalculator() {
                     {cat.label}
                   </label>
                   <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold">â‚¹</span>
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold">₹</span>
                     <input
                       type="number"
                       value={spending[cat.key]}

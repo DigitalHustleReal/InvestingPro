@@ -119,7 +119,7 @@ export function FundTable({ funds }: FundTableProps) {
             header: 'AUM (Cr)',
             accessor: (row) => (
                 <span className="text-sm font-bold text-slate-600 dark:text-slate-400 tabular-nums">
-                    â‚¹{row.aum}
+                    ₹{row.aum}
                 </span>
             ),
             sortable: true,

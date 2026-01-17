@@ -56,7 +56,7 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
             key: 'premium',
             header: 'Premium',
             accessor: (row) => {
-                const premium = row.features?.premium || row.features?.['Premium'] || 'â‚¹500/mo';
+                const premium = row.features?.premium || row.features?.['Premium'] || '₹500/mo';
                 
                 return (
                     <div className="text-center">
@@ -75,7 +75,7 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
             key: 'coverage',
             header: 'Coverage',
             accessor: (row) => {
-                const coverage = row.features?.coverage || row.features?.['Coverage'] || 'â‚¹1Cr';
+                const coverage = row.features?.coverage || row.features?.['Coverage'] || '₹1Cr';
                 
                 return (
                     <div className="text-center">

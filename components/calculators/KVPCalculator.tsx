@@ -60,9 +60,9 @@ export function KVPCalculator() {
     const result = calculateKVP();
 
     const formatCurrency = (num: number) => {
-        if (num >= 10000000) return `â‚¹${(num / 10000000).toFixed(2)} Cr`;
-        if (num >= 100000) return `â‚¹${(num / 100000).toFixed(2)} L`;
-        return `â‚¹${Math.round(num).toLocaleString('en-IN')}`;
+        if (num >= 10000000) return `₹${(num / 10000000).toFixed(2)} Cr`;
+        if (num >= 100000) return `₹${(num / 100000).toFixed(2)} L`;
+        return `₹${Math.round(num).toLocaleString('en-IN')}`;
     };
 
     return (
@@ -99,7 +99,7 @@ export function KVPCalculator() {
                                 </div>
                             </div>
                             <Slider value={[investment]} onValueChange={(v) => setInvestment(v[0])} min={1000} max={1000000} step={1000} className="py-2" />
-                            <p className="text-[10px] text-slate-500">Min Investment: â‚¹1,000</p>
+                            <p className="text-[10px] text-slate-500">Min Investment: ₹1,000</p>
                         </div>
 
                         {/* Rate */}
@@ -176,7 +176,7 @@ export function KVPCalculator() {
                                 </defs>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                                 <XAxis dataKey="year" tick={{fontSize: 12}} stroke="#94a3b8" />
-                                <YAxis tick={{fontSize: 12}} stroke="#94a3b8" tickFormatter={(value) => `â‚¹${value/1000}k`} />
+                                <YAxis tick={{fontSize: 12}} stroke="#94a3b8" tickFormatter={(value) => `₹${value/1000}k`} />
                                 <Tooltip formatter={(value: number | undefined) => formatCurrency(value || 0)} />
                                 <Area type="step" dataKey="amount" stroke="#16a34a" fill="url(#colorKVP)" strokeWidth={2} name="Value" />
                             </AreaChart>

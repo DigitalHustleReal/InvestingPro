@@ -52,9 +52,9 @@ export function CompoundInterestCalculator() {
     const result = calculateCI();
 
     const formatCurrency = (num: number) => {
-        if (num >= 10000000) return `â‚¹${(num / 10000000).toFixed(2)} Cr`;
-        if (num >= 100000) return `â‚¹${(num / 100000).toFixed(2)} L`;
-        return `â‚¹${Math.round(num).toLocaleString('en-IN')}`;
+        if (num >= 10000000) return `₹${(num / 10000000).toFixed(2)} Cr`;
+        if (num >= 100000) return `₹${(num / 100000).toFixed(2)} L`;
+        return `₹${Math.round(num).toLocaleString('en-IN')}`;
     };
 
     return (
@@ -194,7 +194,7 @@ export function CompoundInterestCalculator() {
                                 </defs>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                                 <XAxis dataKey="year" tick={{fontSize: 12}} stroke="#94a3b8" />
-                                <YAxis tick={{fontSize: 12}} stroke="#94a3b8" tickFormatter={(value) => `â‚¹${value/1000}k`} />
+                                <YAxis tick={{fontSize: 12}} stroke="#94a3b8" tickFormatter={(value) => `₹${value/1000}k`} />
                                 <Tooltip formatter={(value: number | undefined) => formatCurrency(value || 0)} />
                                 <Legend />
                                 <Area type="monotone" dataKey="compound" stroke="#8b5cf6" fillOpacity={1} fill="url(#colorCompound)" name="Compound Interest" strokeWidth={2} />

@@ -26,8 +26,8 @@ const RATES_DATA: Record<string, RateItem[]> = {
         { label: "Car Loan", value: "8.85%", trend: "stable" }
     ],
     investing: [
-        { label: "Gold (24K)", value: "â‚¹72,450", trend: "up", subtext: "per 10g" },
-        { label: "Silver", value: "â‚¹83,100", trend: "up", subtext: "per kg" },
+        { label: "Gold (24K)", value: "₹72,450", trend: "up", subtext: "per 10g" },
+        { label: "Silver", value: "₹83,100", trend: "up", subtext: "per kg" },
         { label: "PPF Rate", value: "7.1%", trend: "stable", subtext: "govt backed" },
         { label: "Inflation", value: "4.85%", trend: "down" }
     ],

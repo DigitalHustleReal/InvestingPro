@@ -101,7 +101,7 @@ export default function SmartAdvisorWidget() {
             recs.push({
                 category: 'Insurance',
                 title: 'Term Life Insurance',
-                description: 'Comprehensive family protection starting at â‚¹399/month',
+                description: 'Comprehensive family protection starting at ₹399/month',
                 link: '/insurance',
                 icon: <Shield className="w-5 h-5 text-secondary-600" />,
                 priority: 'high'

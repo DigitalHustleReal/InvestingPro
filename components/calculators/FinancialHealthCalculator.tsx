@@ -54,7 +54,7 @@ export function FinancialHealthCalculator() {
         }
 
         if (emergencyMonths < 6) {
-             insights.push({ type: 'info', text: `Build emergency fund to cover 6 months expenses (â‚¹${(monthlyExpenses * 6).toLocaleString()}).` });
+             insights.push({ type: 'info', text: `Build emergency fund to cover 6 months expenses (₹${(monthlyExpenses * 6).toLocaleString()}).` });
         }
 
         // 3. Debt-to-Income Ratio (20 points) - using monthly payments
