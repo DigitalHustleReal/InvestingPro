@@ -27,6 +27,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ArticleVersionHistory from './ArticleVersionHistory';
 import ArticleScheduling from './ArticleScheduling';
 import BrokenLinkReport from './BrokenLinkReport';
+import ValidationReport from './ValidationReport';
 
 /**
  * ArticleInspector - Right-side inspector panel for article editing
