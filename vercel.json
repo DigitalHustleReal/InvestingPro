@@ -11,6 +11,10 @@
     {
       "path": "/api/cron/update-rbi-rates",
       "schedule": "30 0 * * *"
+    },
+    {
+      "path": "/api/cron/sync-amfi-data",
+      "schedule": "30 23 * * *"
     }
   ]
 }
