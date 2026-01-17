@@ -76,14 +76,54 @@ export async function factCheckArticle(
         const citationCheck = checkCitations(content, metadata?.sources || []);
         warnings.push(...citationCheck.warnings);
 
-        // 4. Validate against known data sources (if available)
+        // 4. Validate against authoritative sources (RBI, AMFI, SEBI, Product DB)
+        if (metadata?.category) {
+            // Import authoritative validation
+            const { validateAgainstAuthoritativeSources } = await import('./fact-checker-authoritative');
+            
+            // Extract product name from content or metadata if available
+            const productName = extractProductName(content, metadata.title);
+            
+            const authoritativeValidation = await validateAgainstAuthoritativeSources(
+                extractedData,
+                metadata.category,
+                productName,
+                undefined // schemeCode - can be extracted if needed
+            );
+            
+            // Convert authoritative errors to FactCheckError format
+            const authoritativeErrors: FactCheckError[] = authoritativeValidation.errors.map(err => ({
+                type: 'financial_data',
+                field: err.field,
+                message: err.message,
+                severity: 'critical', // Authoritative source discrepancies are critical
+                suggestedFix: `Verify against ${err.source.toUpperCase()} official source`
+            }));
+            
+            errors.push(...authoritativeErrors);
+            
+            // Add validated facts from authoritative sources
+            const authoritativeValidatedFacts: ValidatedFact[] = authoritativeValidation.validatedFacts.map(fact => ({
+                fact: fact.fact,
+                source: fact.source,
+                validatedAt: new Date().toISOString(),
+                confidence: fact.confidence
+            }));
+            
+            validatedFacts.push(...authoritativeValidatedFacts);
+        }
+        
+        // 5. Legacy: Validate against known data sources (fallback)
         if (metadata?.category) {
             const dataValidation = await validateAgainstDataSources(extractedData, metadata.category);
-            errors.push(...dataValidation.errors);
-            validatedFacts.push(...dataValidation.validatedFacts);
+            // Only add if no authoritative validation found
+            if (validatedFacts.length === 0) {
+                errors.push(...dataValidation.errors);
+                validatedFacts.push(...dataValidation.validatedFacts);
+            }
         }
 
-        // 5. Check for red flags (impossible numbers, suspicious claims)
+        // 6. Check for red flags (impossible numbers, suspicious claims)
         const redFlags = checkRedFlags(content, extractedData);
         errors.push(...redFlags.errors);
         warnings.push(...redFlags.warnings);
@@ -175,6 +215,29 @@ function extractFinancialData(content: string): FinancialData {
     }
 
     return data;
+}
+
+/**
+ * Extract product name from content or title
+ * Used to match against product database
+ */
+function extractProductName(content: string, title?: string): string | undefined {
+    // Try to extract from title first
+    if (title) {
+        // Common patterns: "HDFC Bank Credit Card", "SBI Mutual Fund", etc.
+        const titleMatch = title.match(/([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\s+(?:Credit Card|Mutual Fund|Loan|Insurance)/);
+        if (titleMatch) {
+            return titleMatch[1];
+        }
+    }
+    
+    // Try to extract from content
+    const contentMatch = content.match(/(?:HDFC|SBI|ICICI|Axis|Kotak|PNB|BOI|Canara|Union|IDFC|Yes Bank|IndusInd)\s+(?:Bank|Card|Mutual Fund|Loan)/i);
+    if (contentMatch) {
+        return contentMatch[0];
+    }
+    
+    return undefined;
 }
 
 /**
