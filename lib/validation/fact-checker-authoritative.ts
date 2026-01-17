@@ -11,6 +11,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
 import { getRBIPolicyRates, calculateExpectedInterestRanges } from '@/lib/data-sources/rbi-api';
+import { getAMFIFundData } from '@/lib/data-sources/amfi-api';
 import type { FinancialData } from './fact-checker';
 
 export interface AuthoritativeValidationResult {
@@ -111,23 +112,15 @@ export async function validateAgainstAMFI(
     const results: AuthoritativeValidationResult[] = [];
     const supabase = await createClient();
 
-    // Check product database first (scraped from AMFI)
+    // Get AMFI data (checks database first, then fetches directly from AMFI if needed)
     if (schemeName || schemeCode) {
-        let query = supabase.from('mutual_funds').select('*');
-        
-        if (schemeCode) {
-            query = query.eq('scheme_code', schemeCode);
-        } else if (schemeName) {
-            query = query.ilike('name', `%${schemeName}%`);
-        }
+        const amfiData = await getAMFIFundData(schemeCode, schemeName);
 
-        const { data: mfData, error } = await query.limit(1).single();
-
-        if (!error && mfData) {
+        if (amfiData) {
             // Validate returns
             if (data.return) {
                 const claimedReturn = parseFloat(String(data.return));
-                const officialReturn = mfData.returns_1y || mfData.returns_3y || mfData.returns_5y;
+                const officialReturn = amfiData.returns1Y || amfiData.returns3Y || amfiData.returns5Y;
                 
                 if (officialReturn) {
                     const discrepancy = Math.abs(claimedReturn - officialReturn);
@@ -140,16 +133,27 @@ export async function validateAgainstAMFI(
                         officialValue: officialReturn,
                         discrepancy,
                         confidence: isValid ? 95 : 70,
-                        sourceUrl: `https://www.amfiindia.com/nav-history-download`,
-                        lastUpdated: mfData.updated_at
+                        sourceUrl: amfiData.source,
+                        lastUpdated: amfiData.lastUpdated
+                    });
+                } else {
+                    // If returns not available, validate NAV (at least check if fund exists)
+                    results.push({
+                        isValid: true,
+                        source: 'amfi',
+                        verifiedValue: claimedReturn,
+                        officialValue: `Fund found (NAV: ${amfiData.nav}), returns data not available`,
+                        confidence: 80,
+                        sourceUrl: amfiData.source,
+                        lastUpdated: amfiData.lastUpdated
                     });
                 }
             }
 
             // Validate expense ratio
-            if (data.fee && mfData.expense_ratio) {
+            if (data.fee && amfiData.expenseRatio) {
                 const claimedExpense = parseFloat(String(data.fee));
-                const officialExpense = parseFloat(String(mfData.expense_ratio));
+                const officialExpense = amfiData.expenseRatio;
                 
                 const discrepancy = Math.abs(claimedExpense - officialExpense);
                 const isValid = discrepancy < 0.5; // Allow 0.5% variance
@@ -161,16 +165,44 @@ export async function validateAgainstAMFI(
                     officialValue: officialExpense,
                     discrepancy,
                     confidence: isValid ? 95 : 70,
-                    sourceUrl: `https://www.amfiindia.com/nav-history-download`,
-                    lastUpdated: mfData.updated_at
+                    sourceUrl: amfiData.source,
+                    lastUpdated: amfiData.lastUpdated
+                });
+            }
+
+            // Validate NAV if provided
+            if (data.price) {
+                const claimedNAV = parseFloat(String(data.price));
+                const officialNAV = amfiData.nav;
+                
+                const discrepancy = Math.abs(claimedNAV - officialNAV);
+                const isValid = discrepancy < 0.01; // Allow 0.01 variance for NAV
+                
+                results.push({
+                    isValid,
+                    source: 'amfi',
+                    verifiedValue: claimedNAV,
+                    officialValue: officialNAV,
+                    discrepancy,
+                    confidence: isValid ? 98 : 60, // NAV is very precise
+                    sourceUrl: amfiData.source,
+                    lastUpdated: amfiData.lastUpdated
+                });
+            }
+        } else {
+            // Fund not found in AMFI data
+            if (data.return || data.fee) {
+                results.push({
+                    isValid: false,
+                    source: 'amfi',
+                    verifiedValue: data.return || data.fee,
+                    officialValue: 'Fund not found in AMFI database',
+                    confidence: 0,
+                    sourceUrl: 'https://portal.amfiindia.com/spages/NAVAll.txt'
                 });
             }
         }
     }
-
-    // TODO: Direct AMFI API integration
-    // AMFI NAV API: https://www.amfiindia.com/nav-history-download
-    // Can scrape or use AMFI's official data files
 
     return results;
 }
