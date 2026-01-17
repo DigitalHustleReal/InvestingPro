@@ -2,13 +2,7 @@
  * Email Sequences Cron Job
  * Processes scheduled email sequences
  * 
- * Configure in vercel.json:
- * {
- *   "crons": [{
- *     "path": "/api/cron/email-sequences",
- *     "schedule": "0 */6 * * *" // Every 6 hours
- *   }]
- * }
+ * Configure in vercel.json or run manually
  */
 
 import { NextRequest, NextResponse } from 'next/server';

@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { api } from '@/lib/api';
+import { apiClient as api } from '@/lib/api-client';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/badge';

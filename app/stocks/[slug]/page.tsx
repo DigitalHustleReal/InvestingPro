@@ -174,7 +174,7 @@ export default async function StockDetailPage({ params }: { params: { slug: stri
                     <span className="text-slate-300">Analyst Rating</span>
                     <span className={`px-3 py-1 rounded-full text-sm font-bold ${
                       stock.analystRating === 'Buy' ? 'bg-success-500 text-white' :
-                      stock.analystRating === 'Hold' ? 'bg-accent-500 text-black' :
+                      stock.analystRating === 'Hold' ? 'bg-accent-500 text-black dark:text-white' :
                       'bg-danger-500 text-white'
                     }`}>
                       {stock.analystRating}

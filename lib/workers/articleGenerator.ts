@@ -216,8 +216,10 @@ CRITICAL: You MUST respond with ONLY valid JSON in this exact structure:
   "read_time": 5
 }
 
+
 Return ONLY valid JSON.
 `;
+        }
 
         // Invoke AI with dynamic prompts
         // @ts-ignore - API types might be incomplete
@@ -350,8 +352,8 @@ Return ONLY valid JSON.
             ai_metadata: generatedContent.ai_metadata,
             structured_content: structuredContent
         };
-    } catch (error: any) {
-        logger.error('Worker Article Generation Error', error);
+    } catch (error) {
+        logger.error('Worker Article Generation Error', error as Error);
         throw error;
     }
 }

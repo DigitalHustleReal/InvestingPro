@@ -106,8 +106,22 @@ export function formatLargeNumber(num: number): string {
 /**
  * Calculate dynamic stats based on time and user behavior
  * REALISTIC numbers - not flashy/exaggerated
+ * 
+ * NOTE: This function should only be called on client-side to avoid hydration mismatches
  */
 export function calculateDynamicStats() {
+    // Only calculate on client to avoid hydration issues
+    if (typeof window === 'undefined') {
+        // Return static values for SSR
+        return {
+            productsAnalyzed: 1000,
+            monthlyUsers: 10000,
+            moneySaved: 1000000,
+            averageRating: 4.7,
+            trustScore: 87
+        };
+    }
+
     const baseDate = new Date('2024-01-01');
     const now = new Date();
     const daysSinceLaunch = Math.floor((now.getTime() - baseDate.getTime()) / (1000 * 60 * 60 * 24));
@@ -116,7 +130,8 @@ export function calculateDynamicStats() {
     const productsAnalyzed = 500 + (daysSinceLaunch * 3); // +3 products/day (reasonable)
     const monthlyUsers = 5000 + (daysSinceLaunch * 50); // +50 users/day (conservative)
     const moneySaved = 500000 + (daysSinceLaunch * 15000); // +15K saved/day (achievable)
-    const averageRating = 4.5 + (Math.random() * 0.4); // 4.5-4.9 range (credible)
+    // Use deterministic calculation instead of Math.random() to avoid hydration mismatch
+    const averageRating = 4.5 + ((daysSinceLaunch % 10) * 0.04); // Deterministic: 4.5-4.86 range
     
     return {
         productsAnalyzed: Math.floor(productsAnalyzed),

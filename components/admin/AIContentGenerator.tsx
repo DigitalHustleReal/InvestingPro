@@ -13,7 +13,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { api } from "@/lib/api"; // Adjusted path
+import { apiClient as api } from "@/lib/api-client"; // Adjusted path
 import { Sparkles, Loader2, AlertTriangle, CheckCircle2, Info, Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { AIContentMetadata, AIDataSource } from "@/lib/ai/constraints";
@@ -166,28 +166,22 @@ export default function AIContentGenerator() {
                 .replace(/[^a-z0-9]+/g, '-')
                 .replace(/^-|-$/g, '');
 
-            // UNIFIED WORKFLOW: Use articleService (same as manual creation)
-            const { articleService } = await import('@/lib/cms/article-service');
-            
-            await articleService.createArticle(
-                {
-                    body_markdown: article.body_markdown || content,  // PRIMARY
-                    body_html: article.body_html || '',                // DERIVED
-                    content: article.content || content,               // Legacy fallback
-                },
-                {
-                    title: article.title,
-                    slug: slug,
-                    excerpt: article.excerpt || '',
-                    category: categoryStr,
-                    language: languageStr,
-                    read_time: article.read_time,
-                    tags: article.tags || [],
-                    seo_title: article.seo_title || article.title,
-                    seo_description: article.meta_description || article.seo_description || article.excerpt,
-                    featured_image: article.featured_image,
-                }
-            );
+            // UNIFIED WORKFLOW: Use api.entities.Article.create (client-safe, calls API route)
+            await api.entities.Article.create({
+                title: article.title,
+                slug: slug,
+                excerpt: article.excerpt || '',
+                category: categoryStr,
+                language: languageStr,
+                read_time: article.read_time,
+                body_markdown: article.body_markdown || content,  // PRIMARY
+                body_html: article.body_html || '',                // DERIVED
+                content: article.content || content,               // Legacy fallback
+                tags: article.tags || [],
+                seo_title: article.seo_title || article.title,
+                seo_description: article.meta_description || article.seo_description || article.excerpt,
+                featured_image: article.featured_image,
+            });
 
             alert('Article saved as draft successfully!');
             setGeneratedContent(null);

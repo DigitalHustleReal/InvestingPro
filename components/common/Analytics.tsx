@@ -1,8 +1,14 @@
 "use client";
 
-import { useEffect } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
-import WebVitalsTracker from '@/components/performance/WebVitalsTracker';
+
+// Lazy load WebVitalsTracker to avoid HMR issues
+const WebVitalsTracker = lazy(() => 
+    import('@/components/performance/WebVitalsTracker').catch(() => ({
+        default: () => null // Return null component if import fails
+    }))
+);
 
 declare global {
     interface Window {
@@ -28,6 +34,7 @@ export const trackEvent = (eventName: string, params = {}) => {
 export default function Analytics() {
     const pathname = usePathname();
     const searchParams = useSearchParams();
+    const [enableWebVitals, setEnableWebVitals] = useState(false);
 
     useEffect(() => {
         if (pathname) {
@@ -36,9 +43,22 @@ export default function Analytics() {
         }
     }, [pathname, searchParams]);
 
+    // Enable web vitals only after initial mount to avoid HMR issues
+    useEffect(() => {
+        // Small delay to ensure HMR is stable
+        const timer = setTimeout(() => {
+            setEnableWebVitals(true);
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <>
-            <WebVitalsTracker />
+            {enableWebVitals && (
+                <Suspense fallback={null}>
+                    <WebVitalsTracker />
+                </Suspense>
+            )}
         </>
     );
 }

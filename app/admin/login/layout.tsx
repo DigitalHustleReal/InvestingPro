@@ -1,4 +1,6 @@
-we create and attached // Admin login page should not have Navbar/Footer
+import React from 'react';
+
+// Admin login page should not have Navbar/Footer
 export default function AdminLoginLayout({
     children,
 }: {

@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import SEOHead from "@/components/common/SEOHead";
-import { api } from '@/lib/api';
+import { apiClient as api } from '@/lib/api-client';
 import Link from 'next/link';
 import { RichProductCard } from "@/components/products/RichProductCard";
 import { RichProduct } from "@/types/rich-product";
@@ -230,7 +230,7 @@ const CreditCardsPage = () => {
                                     <h3 className="font-bold text-lg mb-2">Find Your Perfect Card</h3>
                                     <p className="text-primary-100 text-sm mb-4">Get personalized recommendations based on your spending, lifestyle, and eligibility.</p>
                                     <Link href="/credit-cards/find-your-card">
-                                        <Button size="sm" className="w-full bg-white text-primary-700 font-bold hover:bg-primary-50">
+                                        <Button size="sm" className="w-full bg-white dark:bg-slate-800 text-primary-700 dark:text-primary-400 font-bold hover:bg-primary-50 dark:hover:bg-primary-900/30">
                                             Find My Card
                                         </Button>
                                     </Link>

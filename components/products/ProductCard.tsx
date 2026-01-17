@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/badge';
 import { Star, Check } from 'lucide-react';
 import Link from 'next/link';
+import { getProductUrl, getAffiliateUrl } from '@/lib/utils/product-urls';
 import VerificationBadge, { LastUpdated } from '../trust/VerificationBadge';
 import { getCategoryImageConfig, type ProductCategory } from '@/lib/images/category-image-config';
 
@@ -114,10 +115,10 @@ export default function ProductCard({ product }: { product: Product }) {
 
             <CardFooter className="p-6 md:p-8 pt-0 gap-3 flex-col">
                 <div className="flex gap-3 w-full">
-                    <Link href={`/${product.category.replace(/_/g, '-')}/${product.slug}`} className="flex-1">
+                    <Link href={getProductUrl(product)} className="flex-1">
                         <Button variant="outline" className="w-full">Details</Button>
                     </Link>
-                    <Link href={`/go/${product.slug}`} className="flex-1" target="_blank" rel="noopener noreferrer">
+                    <Link href={getAffiliateUrl(product)} className="flex-1" target="_blank" rel="noopener noreferrer">
                         <Button className="w-full bg-primary-600 hover:bg-primary-700">Apply Now</Button>
                     </Link>
                 </div>

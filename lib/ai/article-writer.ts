@@ -8,6 +8,7 @@ import {
     createChangeLog, 
     ALLOWED_AI_OPERATIONS 
 } from './constraints';
+import { logAICost, calculateCostFromTokens } from './cost-tracker';
 
 export interface GeneratedArticle {
     title: string;
@@ -17,6 +18,14 @@ export interface GeneratedArticle {
     seo_description: string;
     tags: string[];
     ai_metadata: AIContentMetadata;
+    // Cost tracking info (from AI provider)
+    provider?: string;
+    model?: string;
+    usage?: {
+        input_tokens: number;
+        output_tokens: number;
+        total_tokens: number;
+    };
 }
 
 /**
@@ -29,6 +38,7 @@ export interface GenerateArticleParams {
     targetAudience?: string;
     sourceContent?: string;
     sourceUrl?: string;
+    articleId?: string; // Optional: for cost attribution after article creation
 }
 
 /**
@@ -40,7 +50,8 @@ export async function generateArticle({
     tone = 'educational',
     targetAudience = 'Indian Investors',
     sourceContent,
-    sourceUrl
+    sourceUrl,
+    articleId
 }: GenerateArticleParams): Promise<GeneratedArticle> {
     
     const groundingContext = sourceContent
@@ -106,6 +117,9 @@ export async function generateArticle({
             throw new Error('LLM returned no result');
         }
 
+        // Store usage and provider info in result for cost tracking (will be logged after article creation)
+        // Usage info is already included in result from InvokeLLM
+
         // The Unified API (InvokeLLM) might have already parsed the JSON
         // If 'title' or 'excerpt' exist at the top level, it's already parsed
         if (result.title && result.content) {
@@ -116,6 +130,9 @@ export async function generateArticle({
                 seo_title: result.seo_title || result.title || topic,
                 seo_description: result.seo_description || result.excerpt || '',
                 tags: result.tags || [],
+                provider: result.provider,
+                model: result.model,
+                usage: result.usage,
                 ai_metadata: result.ai_metadata || {
                     data_sources: dataSources,
                     confidence: calculateConfidence(dataSources),
@@ -149,6 +166,9 @@ export async function generateArticle({
                     seo_title: parsed.seo_title || parsed.title || topic,
                     seo_description: parsed.seo_description || parsed.excerpt || '',
                     tags: parsed.tags || [],
+                    provider: result.provider,
+                    model: result.model,
+                    usage: result.usage,
                     ai_metadata: result.ai_metadata || {}
                 };
             }
@@ -164,6 +184,9 @@ export async function generateArticle({
                 seo_title: topic,
                 seo_description: topic,
                 tags: keywords,
+                provider: result.provider,
+                model: result.model,
+                usage: result.usage,
                 ai_metadata: result.ai_metadata || {}
             };
         }

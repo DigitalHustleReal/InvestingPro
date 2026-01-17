@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import SEOHead from "@/components/common/SEOHead";
 import Link from 'next/link';
-import { api } from '@/lib/api';
+import { apiClient as api } from '@/lib/api-client';
 
 interface GlossaryTerm {
     term: string;

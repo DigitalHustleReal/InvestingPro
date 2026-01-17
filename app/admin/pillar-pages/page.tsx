@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import AdminLayout from '@/components/admin/AdminLayout';
-import { api } from '@/lib/api';
+import { apiClient as api } from '@/lib/api-client';
 import { useQuery } from '@tanstack/react-query';
 import { Target, Plus, Calendar, Eye, FileText, Layers } from 'lucide-react';
 import { AdminPageHeader, ContentSection, StatCard, StatusBadge, ActionButton, EmptyState } from '@/components/admin/AdminUIKit';

@@ -30,7 +30,7 @@ export default async function AuthorProfilePage({ params }: PageProps) {
         .from('authors')
         .select('*')
         .eq('slug', slug)
-        .single();
+        .maybeSingle(); // Use maybeSingle() to handle 0 rows gracefully
 
     if (error || !author) {
         notFound();

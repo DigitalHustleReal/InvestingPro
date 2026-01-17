@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { articleService } from '@/lib/cms/article-service';
+import { apiClient as api } from '@/lib/api-client'; // Use client-safe API instead of articleService
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import DarkThemeCMS from '@/components/admin/DarkThemeCMS';
@@ -19,13 +19,13 @@ export default function AdminArticlesPage() {
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     );
     
-    // Fetch all articles
-    const { data: articles = [], isLoading
-    } = useQuery({
+    // Fetch all articles (including drafts, reviews, etc.)
+    const { data: articles = [], isLoading } = useQuery({
         queryKey: ['articles', 'admin'],
         queryFn: async () => {
             try {
-                return await articleService.listArticles(500);
+                // Pass true to include all statuses (not just published)
+                return await api.entities.Article.list(undefined, 500, true);
             } catch (error: any) {
                 console.error('Failed to load articles:', error);
                 toast.error('Failed to load articles');
@@ -42,7 +42,13 @@ export default function AdminArticlesPage() {
     
     const handleDelete = async (id: string) => {
         try {
-            await articleService.deleteArticle(id);
+            const { error } = await supabase
+                .from('articles')
+                .delete()
+                .eq('id', id);
+            
+            if (error) throw error;
+            
             queryClient.invalidateQueries({ queryKey: ['articles', 'admin'] });
             toast.success('Article deleted');
         } catch (error: any) {
@@ -52,18 +58,19 @@ export default function AdminArticlesPage() {
 
     const handlePublish = async (id: string) => {
         try {
-            const article = articles.find(a => a.id === id);
+            const article = articles.find((a) => a.id === id);
             if (!article) return;
 
-            await articleService.publishArticle(id, {
-                body_markdown: article.body_markdown || '',
-                body_html: article.body_html || '',
-                content: article.content || '',
-            }, {
+            // Use API route for publish operation
+            await api.entities.Article.update(id, {
+                status: 'published',
+                body_markdown: (article as any).body_markdown || '',
+                body_html: (article as any).body_html || '',
+                content: (article as any).content || '',
                 title: article.title,
                 slug: article.slug,
-                excerpt: article.excerpt || '',
-                category: article.category || 'investing-basics',
+                excerpt: (article as any).excerpt || '',
+                category: (article as any).category || 'investing-basics',
             });
 
             queryClient.invalidateQueries({ queryKey: ['articles'] });

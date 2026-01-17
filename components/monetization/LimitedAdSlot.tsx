@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
-import { api } from '@/lib/api';
+import { apiClient as api } from '@/lib/api-client';
 import { logger } from '@/lib/logger';
 import DisclosureBlock from './DisclosureBlock';
 

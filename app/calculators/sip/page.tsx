@@ -249,7 +249,7 @@ export default function SIPCalculatorPage() {
                 <Card className="border-0 shadow-lg rounded-2xl dark:bg-slate-900 dark:border dark:border-slate-800">
                     <CardHeader>
                         <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-6 md:p-8">
-                            <Info className="w-6 h-6 text-primary-600" />
+                            <Info className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                             SIP Calculator - Frequently Asked Questions (FAQs)
                         </CardTitle>
                         <p className="text-slate-600 dark:text-slate-400 mt-2">Find answers to the most common questions about SIP calculator and SIP investments</p>
@@ -354,8 +354,8 @@ export default function SIPCalculatorPage() {
                                     a: "If you miss a SIP payment due to insufficient funds or bank issues, most funds have a grace period (usually 1-3 months) before the SIP is cancelled. During this period, you can make good the missed payment. If the SIP is cancelled, you can restart it, but you may need to fill forms again. Some funds offer flexi-SIP where missed payments don't cancel the SIP. To avoid missing payments, ensure sufficient balance, set up auto-debit, and maintain a buffer in your account. Missing occasional payments won't significantly impact long-term returns, but consistency is key for SIP success."
                                 }
                             ].map((faq, idx) => (
-                                <div key={idx} className="border-b border-slate-200 pb-8 last:border-0">
-                                    <h3 className="font-bold text-slate-900 mb-3 text-xl flex items-start gap-3">
+                                <div key={idx} className="border-b border-slate-200 dark:border-slate-800 pb-8 last:border-0">
+                                    <h3 className="font-bold text-slate-900 dark:text-white mb-3 text-xl flex items-start gap-3">
                                         <span className="text-primary-600 font-bold text-lg">Q{idx + 1}.</span>
                                         <span>{faq.q}</span>
                                     </h3>
@@ -369,11 +369,11 @@ export default function SIPCalculatorPage() {
                 {/* External Authority Links */}
                 <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-secondary-50 to-secondary-100">
                     <CardHeader>
-                        <CardTitle className="text-xl font-bold text-slate-900 flex items-center gap-6 md:p-8">
-                            <Info className="w-6 h-6 text-primary-600" />
+                        <CardTitle className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-6 md:p-8">
+                            <Info className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                             Official Resources & Guidelines
                         </CardTitle>
-                        <p className="text-slate-600 mt-2">Refer to these authoritative sources for official information about SIP investments and mutual funds in India.</p>
+                        <p className="text-slate-600 dark:text-slate-400 mt-2">Refer to these authoritative sources for official information about SIP investments and mutual funds in India.</p>
                     </CardHeader>
                     <CardContent>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -381,21 +381,21 @@ export default function SIPCalculatorPage() {
                                 href="https://www.sebi.gov.in/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-3 p-4 bg-white rounded-xl border border-secondary-200 hover:border-secondary-300 hover:shadow-md transition-all group"
+                                className="flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border border-secondary-200 dark:border-secondary-800 hover:border-secondary-300 dark:hover:border-secondary-700 hover:shadow-md transition-all group"
                             >
                                 <div className="w-10 h-10 rounded-lg bg-secondary-100 flex items-center justify-center group-hover:bg-secondary-200 transition-colors">
                                     <ExternalLink className="w-5 h-5 text-primary-600" />
                                 </div>
                                 <div>
-                                    <p className="font-bold text-slate-900">SEBI</p>
-                                    <p className="text-xs text-slate-600">Securities and Exchange Board of India</p>
+                                    <p className="font-bold text-slate-900 dark:text-white">SEBI</p>
+                                    <p className="text-xs text-slate-600 dark:text-slate-400">Securities and Exchange Board of India</p>
                                 </div>
                             </a>
                             <a
                                 href="https://www.amfiindia.com/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-3 p-4 bg-white rounded-xl border border-secondary-200 hover:border-secondary-300 hover:shadow-md transition-all group"
+                                className="flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border border-secondary-200 dark:border-secondary-800 hover:border-secondary-300 dark:hover:border-secondary-700 hover:shadow-md transition-all group"
                             >
                                 <div className="w-10 h-10 rounded-lg bg-secondary-100 flex items-center justify-center group-hover:bg-secondary-200 transition-colors">
                                     <ExternalLink className="w-5 h-5 text-primary-600" />
@@ -409,14 +409,14 @@ export default function SIPCalculatorPage() {
                                 href="https://www.rbi.org.in/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-3 p-4 bg-white rounded-xl border border-secondary-200 hover:border-secondary-300 hover:shadow-md transition-all group"
+                                className="flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border border-secondary-200 dark:border-secondary-800 hover:border-secondary-300 dark:hover:border-secondary-700 hover:shadow-md transition-all group"
                             >
                                 <div className="w-10 h-10 rounded-lg bg-secondary-100 flex items-center justify-center group-hover:bg-secondary-200 transition-colors">
                                     <ExternalLink className="w-5 h-5 text-primary-600" />
                                 </div>
                                 <div>
-                                    <p className="font-bold text-slate-900">RBI</p>
-                                    <p className="text-xs text-slate-600">Reserve Bank of India</p>
+                                    <p className="font-bold text-slate-900 dark:text-white">RBI</p>
+                                    <p className="text-xs text-slate-600 dark:text-slate-400">Reserve Bank of India</p>
                                 </div>
                             </a>
                         </div>

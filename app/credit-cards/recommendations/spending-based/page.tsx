@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import SEOHead from '@/components/common/SEOHead';
-import { api } from '@/lib/api';
+import { apiClient as api } from '@/lib/api-client';
 import { CreditCardDecisionEngine, SpendingInput, CardRecommendation } from '@/lib/decision-engines/credit-card-engine';
 import { CreditCard } from '@/types/credit-card';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

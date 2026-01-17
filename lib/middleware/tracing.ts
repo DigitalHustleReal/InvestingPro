@@ -4,7 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { withSpan, setSpanAttribute, addSpanEvent } from '../tracing/opentelemetry';
+import { withSpan, setSpanAttribute, addSpanEvent, isTracingEnabled } from '../tracing/opentelemetry';
 import { getCorrelationId, getRequestId, setRequestContext } from './request-context';
 
 /**
@@ -16,7 +16,6 @@ export function withTracing<T extends any[]>(
 ) {
     return async (request: NextRequest, ...args: T): Promise<NextResponse> => {
         // Skip tracing if disabled
-        const { isTracingEnabled } = await import('../tracing/opentelemetry');
         if (!isTracingEnabled()) {
             return handler(request, ...args);
         }

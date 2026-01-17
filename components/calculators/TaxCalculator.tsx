@@ -105,8 +105,8 @@ export function TaxCalculator() {
                             </div>
                         </div>
                         {/* Preset Scenarios */}
-                        <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200">
-                            <span className="text-xs font-semibold text-slate-600 mr-1">Quick Examples:</span>
+                        <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                            <span className="text-xs font-semibold text-slate-600 dark:text-slate-400 mr-1">Quick Examples:</span>
                             {[
                                 { label: "₹10L Income", income: 1000000, deductions: 150000 },
                                 { label: "₹15L Income", income: 1500000, deductions: 200000 },
@@ -119,7 +119,7 @@ export function TaxCalculator() {
                                         setIncome(preset.income);
                                         setDeductions(preset.deductions);
                                     }}
-                                    className="text-xs px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-md font-medium transition-colors border border-slate-200"
+                                    className="text-xs px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-md font-medium transition-colors border border-slate-200 dark:border-slate-700"
                                 >
                                     {preset.label}
                                 </button>
@@ -132,7 +132,7 @@ export function TaxCalculator() {
                             {/* Annual Income */}
                             <div className="space-y-2">
                                 <div className="flex justify-between items-center">
-                                    <Label className="text-sm text-slate-700 font-semibold">Annual Income</Label>
+                                    <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Annual Income</Label>
                                     <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
                                         <IndianRupee className="w-3.5 h-3.5 text-slate-500" />
                                         <Input
@@ -174,7 +174,7 @@ export function TaxCalculator() {
                             {/* Deductions */}
                             <div className="space-y-2">
                                 <div className="flex justify-between items-center">
-                                    <Label className="text-sm text-slate-700 font-semibold">Deductions (80C, etc.)</Label>
+                                    <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Deductions (80C, etc.)</Label>
                                     <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
                                         <IndianRupee className="w-3.5 h-3.5 text-slate-500" />
                                         <Input
@@ -200,11 +200,11 @@ export function TaxCalculator() {
                 </Card>
 
                 {/* Right: Comparison Results Card */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 relative overflow-hidden">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 dark:from-slate-800 dark:to-slate-900 relative overflow-hidden">
                     {/* Decorative gradient overlay */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-secondary-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
-                        <div className="text-center p-6 md:p-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-secondary-100 mb-4">
+                        <div className="text-center p-6 md:p-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-secondary-100 dark:border-secondary-800 mb-4">
                             <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">
                                 {result.betterRegime} Regime is Better
                             </p>
@@ -215,7 +215,7 @@ export function TaxCalculator() {
                         </div>
 
                         <div className="grid grid-cols-2 gap-3 mb-4">
-                            <div className="text-center p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-secondary-100">
+                            <div className="text-center p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-secondary-100 dark:border-secondary-800">
                                 <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Old Tax</p>
                                 <p className="text-lg font-extrabold text-primary-600">{formatCurrency(result.oldTax)}</p>
                                 <p className="text-[10px] text-slate-500 mt-1">Net: {formatCurrency(result.oldNetIncome)}</p>
@@ -293,7 +293,7 @@ export function TaxCalculator() {
                         <div className="space-y-4">
                             <div className="p-6 md:p-8 bg-secondary-50 rounded-xl border border-secondary-100">
                                 <p className="text-xs font-bold text-secondary-900 mb-2">Old Tax Regime</p>
-                                <div className="space-y-1 text-xs text-slate-700">
+                                <div className="space-y-1 text-xs text-slate-700 dark:text-slate-300">
                                     <p>Up to ₹2.5L: 0%</p>
                                     <p>₹2.5L - ₹5L: 5%</p>
                                     <p>₹5L - ₹10L: 20%</p>
@@ -303,7 +303,7 @@ export function TaxCalculator() {
 
                             <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
                                 <p className="text-xs font-bold text-primary-900 mb-2">New Tax Regime</p>
-                                <div className="space-y-1 text-xs text-slate-700">
+                                <div className="space-y-1 text-xs text-slate-700 dark:text-slate-300">
                                     <p>Up to ₹3L: 0%</p>
                                     <p>₹3L - ₹7L: 5%</p>
                                     <p>₹7L - ₹10L: 10%</p>
@@ -345,7 +345,7 @@ function TaxSEOContentSection() {
                     <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">
                         Income Tax Calculator India 2024-25 - Compare Old vs New Tax Regime
                     </h2>
-                    <p className="text-lg text-slate-600 leading-relaxed mb-6">
+                    <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
                         Use our free income tax calculator to compare Old vs New tax regime and calculate your tax liability for FY 2024-25. 
                         Our tax calculator helps you determine which regime saves you more money based on your income, deductions, and age. 
                         Make an informed decision about which tax regime to choose for optimal tax savings.
@@ -362,7 +362,7 @@ function TaxSEOContentSection() {
                         ].map((benefit, idx) => (
                             <div key={idx} className="flex items-start gap-3">
                                 <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
-                                <p className="text-slate-700 font-medium">{benefit}</p>
+                                <p className="text-slate-700 dark:text-slate-300 font-medium">{benefit}</p>
                             </div>
                         ))}
                     </div>
@@ -450,7 +450,7 @@ function TaxSEOContentSection() {
                         ].map((faq, idx) => (
                             <div key={idx} className="border-b border-slate-200 dark:border-slate-700 pb-6 last:border-0">
                                 <h3 className="font-bold text-slate-900 dark:text-slate-100 mb-2 text-lg">{faq.q}</h3>
-                                <p className="text-slate-600 leading-relaxed">{faq.a}</p>
+                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{faq.a}</p>
                             </div>
                         ))}
                     </div>

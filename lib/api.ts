@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/client";
-import { articleService } from "@/lib/cms/article-service";
+// Lazy import articleService to avoid server/client boundary issues
+// It's only used in article methods, not at module level
 import OpenAI from "openai";
 import Groq from "groq-sdk";
 import { Mistral } from "@mistralai/mistralai";
@@ -250,7 +251,20 @@ export const api = {
                             const parsed = extractJSON(content);
                             reportSuccess('openai');
                             const validation = validateAIContent(parsed.content || '', operation);
-                            return { ...parsed, validation_warnings: validation.errors, is_draft: true, provider: 'openai' };
+                            const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
+                            const usage = response.usage || { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 };
+                            return { 
+                                ...parsed, 
+                                validation_warnings: validation.errors, 
+                                is_draft: true, 
+                                provider: 'openai',
+                                model,
+                                usage: {
+                                    input_tokens: usage.prompt_tokens || 0,
+                                    output_tokens: usage.completion_tokens || 0,
+                                    total_tokens: usage.total_tokens || 0
+                                }
+                            };
                         }
                     } catch (error: any) {
                         reportFailure('openai', error.message);
@@ -288,7 +302,22 @@ export const api = {
                                 const parsed = extractJSON(cleanText);
                                 reportSuccess('gemini');
                                 const validation = validateAIContent(parsed.content || '', operation);
-                                return { ...parsed, validation_warnings: validation.errors, is_draft: true, provider: 'gemini', content: parsed.content || cleanText };
+                                const modelName = process.env.GEMINI_MODEL || "gemini-1.5-flash";
+                                // Gemini usage is in data.usageMetadata
+                                const usageMetadata = data.usageMetadata || { promptTokenCount: 0, candidatesTokenCount: 0, totalTokenCount: 0 };
+                                return { 
+                                    ...parsed, 
+                                    validation_warnings: validation.errors, 
+                                    is_draft: true, 
+                                    provider: 'gemini',
+                                    model: modelName,
+                                    content: parsed.content || cleanText,
+                                    usage: {
+                                        input_tokens: usageMetadata.promptTokenCount || 0,
+                                        output_tokens: usageMetadata.candidatesTokenCount || 0,
+                                        total_tokens: usageMetadata.totalTokenCount || 0
+                                    }
+                                };
                             }
                         } else {
                             const errorData = await geminiResponse.json();
@@ -317,7 +346,18 @@ export const api = {
                         if (content) {
                             const parsed = extractJSON(content);
                             reportSuccess('groq');
-                            return { ...parsed, is_draft: true, provider: 'groq' };
+                            const usage = completion.usage || { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 };
+                            return { 
+                                ...parsed, 
+                                is_draft: true, 
+                                provider: 'groq',
+                                model: "llama-3.3-70b-versatile",
+                                usage: {
+                                    input_tokens: usage.prompt_tokens || 0,
+                                    output_tokens: usage.completion_tokens || 0,
+                                    total_tokens: usage.total_tokens || 0
+                                }
+                            };
                         }
                     } catch (error: any) {
                         reportFailure('groq', error.message);
@@ -340,7 +380,19 @@ export const api = {
                         if (typeof content === 'string') {
                             const parsed = extractJSON(content);
                             reportSuccess('mistral');
-                            return { ...parsed, is_draft: true, provider: 'mistral' };
+                            // Mistral usage is in response.usage or (response as any).usage
+                            const usage = (response as any).usage || { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 };
+                            return { 
+                                ...parsed, 
+                                is_draft: true, 
+                                provider: 'mistral',
+                                model: "mistral-small-latest",
+                                usage: {
+                                    input_tokens: usage.prompt_tokens || 0,
+                                    output_tokens: usage.completion_tokens || 0,
+                                    total_tokens: usage.total_tokens || 0
+                                }
+                            };
                         }
                     } catch (error: any) {
                         reportFailure('mistral', error.message);
@@ -460,57 +512,94 @@ The AI was unable to reach a provider, so we've generated this professional outl
             }
         },
         
-        // REFACTORED: Delegates to ArticleService
+        // REFACTORED: Uses Supabase client directly (client-safe) and API routes for writes
+        // This avoids importing server-only articleService in client components
         Article: {
             list: async (order?: string, limit?: number) => {
-                // Maps to service method
-                return await articleService.listArticles(limit);
+                // Use Supabase client directly - safe for client components
+                const supabase = getSupabaseClient();
+                let query = supabase
+                    .from('articles')
+                    .select('*')
+                    .eq('status', 'published');
+                
+                if (order) {
+                    const [field, direction] = order.startsWith('-') 
+                        ? [order.slice(1), 'desc'] 
+                        : [order, 'asc'];
+                    query = query.order(field, { ascending: direction === 'asc' });
+                } else {
+                    query = query.order('created_at', { ascending: false });
+                }
+                
+                if (limit) {
+                    query = query.limit(limit);
+                }
+                
+                const { data, error } = await query;
+                if (error) throw error;
+                return data || [];
             },
             getById: async (id: string) => {
-                return await articleService.getById(id);
+                // Use Supabase client directly - safe for client components
+                const supabase = getSupabaseClient();
+                const { data, error } = await supabase
+                    .from('articles')
+                    .select('*')
+                    .eq('id', id)
+                    .single();
+                if (error) throw error;
+                return data;
             },
             getBySlug: async (slug: string) => {
-                return await articleService.getBySlug(slug);
+                // Use Supabase client directly - safe for client components
+                const supabase = getSupabaseClient();
+                const { data, error } = await supabase
+                    .from('articles')
+                    .select('*')
+                    .eq('slug', slug)
+                    .single();
+                if (error) throw error;
+                return data;
             },
             filter: async (filters: any) => {
-                // Basic implementation wrapping the service or direct query if service lacks granular filter
-                // Ideally ArticleService should support filters. For now, we fallback to direct query ONLY for complex filters
-                // BUT we ensure we normalize the output
+                // Use direct Supabase query for client-side filtering (no server-only imports)
                 const supabase = getSupabaseClient();
                 let query = supabase.from('articles').select('*');
                 Object.entries(filters).forEach(([key, value]) => { 
                     if (value !== undefined && value !== null) query = query.eq(key, value);
                 });
-                const { data } = await query;
+                const { data, error } = await query;
+                if (error) throw error;
                 return data || [];
             },
-            // UNIFIED: Use Service for updates
+            // UNIFIED: Use API routes for writes (requires server-side processing)
             update: async (id: string, data: any) => {
-                // Separate metadata from content
-                const { body_markdown, body_html, content, ...metadata } = data;
-                
-                // If content is present, use it. Otherwise just metadata.
-                const articleContent = {
-                    body_markdown: body_markdown || content || '',
-                    body_html: body_html || '',
-                    content: content || ''
-                };
-
-                if (data.status === 'published') {
-                    return await articleService.publishArticle(id, articleContent, metadata);
-                } else {
-                    return await articleService.saveArticle(id, articleContent, metadata);
+                // Call API route for updates (server-side only operations)
+                const response = await fetch(`/api/articles/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (!response.ok) {
+                    const error = await response.json().catch(() => ({ message: 'Failed to update article' }));
+                    throw new Error(error.message || 'Failed to update article');
                 }
+                return await response.json();
             },
-            // UNIFIED: Use Service for creation
+            // UNIFIED: Use API routes for creation (requires server-side processing)
             create: async (data: any) => {
-                 const { body_markdown, body_html, content, ...metadata } = data;
-                 const articleContent = {
-                    body_markdown: body_markdown || content || '',
-                    body_html: body_html || '',
-                    content: content || ''
-                };
-                return await articleService.createArticle(articleContent, metadata);
+                // Call API route for creation (server-side only operations)
+                const response = await fetch('/api/articles', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (!response.ok) {
+                    const error = await response.json().catch(() => ({ message: 'Failed to create article' }));
+                    throw new Error(error.message || 'Failed to create article');
+                }
+                return await response.json();
             }
         },
 

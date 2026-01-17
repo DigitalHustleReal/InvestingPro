@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/Button";
-import { api } from "@/lib/api";
+import { apiClient as api } from '@/lib/api-client';
 import { useQuery } from "@tanstack/react-query";
 import { logger } from "@/lib/logger";
 import {

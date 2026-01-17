@@ -33,6 +33,7 @@
     "deploy:test": "tsx scripts/test-critical-flows.ts",
     "deploy:validate": "npm run deploy:check-env && npm run deploy:check-db && npm run build",
     "analyze": "ANALYZE=true next build",
+    "check:bundle-size": "node scripts/check-bundle-size.js",
     "lighthouse": "lhci autorun"
   },
   "dependencies": {
@@ -92,6 +93,7 @@
     "groq-sdk": "^0.37.0",
     "html2canvas": "^1.4.1",
     "inngest": "^3.49.1",
+    "isomorphic-dompurify": "^2.35.0",
     "jsdom": "^27.4.0",
     "jspdf": "^4.0.0",
     "lucide-react": "^0.556.0",
@@ -148,6 +150,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "cheerio": "^1.1.2",
+    "critters": "^0.0.23",
     "dotenv": "^17.2.3",
     "eslint": "^9",
     "eslint-config-next": "16.0.8",

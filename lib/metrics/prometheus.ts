@@ -3,7 +3,10 @@
  * Exposes metrics in Prometheus format for scraping
  * 
  * Free and self-hosted - no external service needed
+ * 
+ * SERVER-ONLY: Uses Node.js-only prom-client library
  */
+import 'server-only'; // Mark as server-only module
 
 import { Registry, Counter, Histogram, Gauge, collectDefaultMetrics } from 'prom-client';
 

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/Button";
 import { CheckCircle2, Star, ChevronRight, Info } from "lucide-react";
 import { FinancialProduct, CreditCard, Loan, MutualFund } from "@/types";
 import { formatCurrency, formatPercentage } from "@/lib/utils";
+import { getProductUrl, getAffiliateUrl } from "@/lib/utils/product-urls";
 import BestForBadge from "@/components/products/BestForBadge";
 import AffiliateDisclosure from '@/components/common/AffiliateDisclosure';
 import DecisionCTA from '@/components/common/DecisionCTA';
@@ -52,7 +53,7 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
                         <div>
                             <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">{product.provider}</p>
                             <h3 className="text-xl font-bold text-slate-900 group-hover:text-primary-600 transition-colors">
-                            <Link href={product.applyLink || '#'}>{product.name}</Link>
+                            <Link href={getProductUrl(product)}>{product.name}</Link>
                         </h3>
                             {/* Best For Badge */}
                             {product.bestFor && (
@@ -104,7 +105,7 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
                                   product.category === 'loan' ? "Check Eligibility" :
                                   product.category === 'insurance' ? "Get Protected" :
                                   "Apply Now"}
-                            href={product.applyLink || `/${(product.category || 'credit_card').replace('_', '-')}s/${product.id}`}
+                            href={getAffiliateUrl(product)}
                             productId={product.id}
                             variant="primary"
                             className="w-full"
@@ -119,7 +120,7 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
                     
                     <DecisionCTA
                         text="Compare Details"
-                        href={`/${(product.category || 'credit_card').replace('_', '-')}s/${product.id}`}
+                        href={getProductUrl(product)}
                         variant="outline"
                         size="sm"
                         className="w-full text-xs h-9"

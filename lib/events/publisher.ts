@@ -1,11 +1,15 @@
 /**
  * Event Publisher
  * Publishes events to the event bus
+ * 
+ * SERVER-ONLY: This module uses server-only APIs (next/headers)
+ * Do not import in client components
  */
+import 'server-only'; // Mark as server-only module
+
 import { randomUUID } from 'crypto';
 import { SystemEvent, EventType, type BaseEvent } from './types';
 import { logger } from '@/lib/logger';
-import { createClient } from '@/lib/supabase/server';
 
 export interface EventPublisher {
     publish<T extends BaseEvent>(event: Omit<T, 'id' | 'timestamp'>): Promise<T>;
@@ -113,6 +117,8 @@ class EventPublisherImpl implements EventPublisher {
      */
     private async persistEvent(event: BaseEvent): Promise<void> {
         try {
+            // Lazy import to avoid server/client boundary issues
+            const { createClient } = await import('@/lib/supabase/server');
             const supabase = await createClient();
             
             // Try to insert into events table if it exists
@@ -137,6 +143,12 @@ class EventPublisherImpl implements EventPublisher {
             }
         } catch (error) {
             // Don't fail event publishing if persistence fails
+            // Also catch server-only import errors gracefully
+            if (error instanceof Error && error.message.includes('next/headers')) {
+                // Running in client context - skip persistence
+                logger.debug('Event persistence skipped (client context)');
+                return;
+            }
             logger.warn('Event persistence error', error instanceof Error ? error : new Error(String(error)));
         }
     }

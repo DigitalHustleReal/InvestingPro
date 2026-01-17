@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { api } from "@/lib/api";
+import { apiClient as api } from '@/lib/api-client';
 import { logger } from "@/lib/logger";
 import SEOHead from "@/components/common/SEOHead";
 import LoadingSpinner from "@/components/common/LoadingSpinner";

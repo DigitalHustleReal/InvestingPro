@@ -12,7 +12,7 @@ import {
     DialogTitle,
     DialogFooter,
 } from '@/components/ui/dialog';
-import { api } from '@/lib/api';
+import { apiClient as api } from '@/lib/api-client';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { 
     Plus, 

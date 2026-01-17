@@ -1,3 +1,9 @@
+/**
+ * SERVER-ONLY: This module uses next/headers which is server-only
+ * Do not import in client components
+ */
+import 'server-only';
+
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 

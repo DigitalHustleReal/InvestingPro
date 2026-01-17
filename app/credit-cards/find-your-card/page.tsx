@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SEOHead from "@/components/common/SEOHead";
-import { api } from '@/lib/api';
+import { apiClient as api } from '@/lib/api-client';
 import { CreditCardDecisionEngine, SpendingInput, LifestyleInput, EligibilityInput } from '@/lib/decision-engines/credit-card-engine';
 import { CreditCard } from '@/types/credit-card';
 import { CardRecommendation } from '@/lib/decision-engines/credit-card-engine';

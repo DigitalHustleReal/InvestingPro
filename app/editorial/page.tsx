@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
-import { api } from "@/lib/api";
+import { apiClient as api } from '@/lib/api-client';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/Button";

@@ -7,7 +7,7 @@ import ArticleInspector from '@/components/admin/ArticleInspector';
 import ArticleEditor from '@/components/admin/ArticleEditor';
 import { PreviewModal } from '@/components/preview/PreviewModal';
 import { Input } from '@/components/ui/input';
-import { articleService } from '@/lib/cms/article-service';
+import type { ArticleData } from '@/lib/cms/article-service';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Save, Loader2 } from 'lucide-react';
 import { logger } from '@/lib/logger';
@@ -39,26 +39,37 @@ export default function NewArticlePage() {
 
     const createMutation = useMutation({
         mutationFn: async (data: any) => {
-            // Use articleService for unified workflow
-            return await articleService.createArticle(
-                {
-                    body_markdown: data.body_markdown || '',
-                    body_html: data.body_html || '',
-                    content: data.content || data.body_markdown || '',
-                },
-                {
-                    title: data.title,
-                    slug: data.slug,
-                    excerpt: data.excerpt || '',
-                    category: data.category || 'investing-basics',
-                    tags: data.tags || [],
-                    seo_title: data.seo_title || data.title,
-                    seo_description: data.meta_description || data.excerpt,
-                    featured_image: data.featured_image,
-                    read_time: data.read_time,
-                    language: data.language || 'en',
-                }
-            );
+            // Use API route instead of server-only service
+            const response = await fetch('/api/admin/articles', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    content: {
+                        body_markdown: data.body_markdown || '',
+                        body_html: data.body_html || '',
+                        content: data.content || data.body_markdown || '',
+                    },
+                    metadata: {
+                        title: data.title,
+                        slug: data.slug,
+                        excerpt: data.excerpt || '',
+                        category: data.category || 'investing-basics',
+                        tags: data.tags || [],
+                        seo_title: data.seo_title || data.title,
+                        seo_description: data.meta_description || data.excerpt,
+                        featured_image: data.featured_image,
+                        read_time: data.read_time,
+                        language: data.language || 'en',
+                    },
+                }),
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.error || 'Failed to create article');
+            }
+
+            return await response.json();
         },
         onSuccess: (result) => {
             setSaving(false);
@@ -106,27 +117,37 @@ export default function NewArticlePage() {
         mutationFn: async (data: any) => {
             if (!articleId) throw new Error('Article ID not found');
             
-            // Use articleService for unified workflow
-            return await articleService.saveArticle(
-                articleId,
-                {
-                    body_markdown: data.body_markdown || '',
-                    body_html: data.body_html || '',
-                    content: data.content || data.body_markdown || '',
-                },
-                {
-                    title: data.title,
-                    slug: data.slug,
-                    excerpt: data.excerpt || '',
-                    category: data.category || 'investing-basics',
-                    tags: data.tags || [],
-                    seo_title: data.seo_title || data.title,
-                    seo_description: data.meta_description || data.excerpt,
-                    featured_image: data.featured_image,
-                    read_time: data.read_time,
-                    language: data.language || 'en',
-                }
-            );
+            // Use API route instead of server-only service
+            const response = await fetch(`/api/admin/articles/${articleId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    content: {
+                        body_markdown: data.body_markdown || '',
+                        body_html: data.body_html || '',
+                        content: data.content || data.body_markdown || '',
+                    },
+                    metadata: {
+                        title: data.title,
+                        slug: data.slug,
+                        excerpt: data.excerpt || '',
+                        category: data.category || 'investing-basics',
+                        tags: data.tags || [],
+                        seo_title: data.seo_title || data.title,
+                        seo_description: data.meta_description || data.excerpt,
+                        featured_image: data.featured_image,
+                        read_time: data.read_time,
+                        language: data.language || 'en',
+                    },
+                }),
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.error || 'Failed to update article');
+            }
+
+            return await response.json();
         },
         onSuccess: (result) => {
             setSaving(false);

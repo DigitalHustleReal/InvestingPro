@@ -1,7 +1,10 @@
 /**
  * Article Workflow Hooks
  * Integrates workflows with article lifecycle events
+ * 
+ * SERVER-ONLY: This module uses server-only APIs
  */
+import 'server-only'; // Mark as server-only module
 
 import { workflowService } from '../workflow-service';
 import { ARTICLE_PUBLISHING_WORKFLOW } from '../definitions/article-publishing';

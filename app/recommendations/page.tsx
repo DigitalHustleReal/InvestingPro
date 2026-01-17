@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "@/lib/api";
+import { apiClient as api } from '@/lib/api-client';
 import { getRecommendations, UserPreferences, RecommendationResult } from "@/lib/ranking/recommendation-engine";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { Trophy, TrendingUp, DollarSign, Users, Sparkles, ChevronRight, CheckCircle2, ArrowLeft } from "lucide-react";

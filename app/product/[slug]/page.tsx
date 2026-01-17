@@ -15,7 +15,7 @@ export const dynamic = 'force-dynamic';
 
 async function getProduct(slug: string) {
     const supabase = createClient();
-    const { data } = await supabase.from('products').select('*').eq('slug', slug).single();
+    const { data } = await supabase.from('products').select('*').eq('slug', slug).maybeSingle(); // Use maybeSingle() to handle 0 rows gracefully
     if (!data) return null;
     return productService.normalizeProduct(data);
 }

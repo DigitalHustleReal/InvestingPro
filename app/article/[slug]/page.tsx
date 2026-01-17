@@ -67,7 +67,7 @@ export default function ArticleDetail() {
                 .eq('slug', slug)
                 .eq('status', 'published')
                 .not('published_at', 'is', null)
-                .single();
+                .maybeSingle(); // Use maybeSingle() to handle 0 rows gracefully
             
             if (error || !articleData) {
                 logger.error('Article not found or not published', error as Error, { slug });

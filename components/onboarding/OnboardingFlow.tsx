@@ -24,7 +24,7 @@ import {
     Heart,
     Landmark
 } from "lucide-react";
-import { api } from "@/lib/api";
+import { apiClient as api } from "@/lib/api-client";
 
 interface OnboardingFlowProps {
     open: boolean;

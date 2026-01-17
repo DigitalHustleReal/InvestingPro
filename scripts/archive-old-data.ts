@@ -12,8 +12,24 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { logger } from '../lib/logger';
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { randomUUID } from 'crypto';
+
+// Conditional import for AWS SDK (optional dependency)
+let S3Client: any;
+let PutObjectCommand: any;
+try {
+    // Optional dependency - only load if available
+    const awsSdk = require('@aws-sdk/client-s3');
+    S3Client = awsSdk.S3Client;
+    PutObjectCommand = awsSdk.PutObjectCommand;
+} catch (e: any) {
+    // AWS SDK not available - archive feature will be disabled
+    // This is expected in development environments where AWS SDK is not installed
+    // AWS SDK not installed - S3 features will be disabled
+    logger.warn('AWS SDK not installed - S3 archival will be disabled');
+    S3Client = null;
+    PutObjectCommand = null;
+}
 
 // Configuration
 const RETENTION_POLICIES = {
@@ -59,7 +75,12 @@ function getSupabaseClient() {
 /**
  * Initialize S3 client (optional - only if S3 is configured)
  */
-function getS3Client(): S3Client | null {
+function getS3Client(): any {
+    if (!S3Client) {
+        logger.warn('S3 client not available - AWS SDK not installed');
+        return null;
+    }
+
     const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
     const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
     const region = process.env.AWS_REGION || 'us-east-1';
@@ -84,7 +105,7 @@ function getS3Client(): S3Client | null {
  */
 async function archiveOldArticles(
     supabase: ReturnType<typeof createClient>,
-    s3Client: S3Client | null
+    s3Client: any
 ): Promise<ArchivalResult> {
     const result: ArchivalResult = {
         table: 'articles',
@@ -232,7 +253,7 @@ async function deleteOldAnalytics(
  */
 async function archiveOldWorkflows(
     supabase: ReturnType<typeof createClient>,
-    s3Client: S3Client | null
+    s3Client: any
 ): Promise<ArchivalResult> {
     const result: ArchivalResult = {
         table: 'workflow_instances',

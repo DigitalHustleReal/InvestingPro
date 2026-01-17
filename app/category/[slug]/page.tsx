@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { createClient } from '@/lib/supabase/client';
-import { articleService } from '@/lib/cms/article-service';
 import SEOHead from '@/components/common/SEOHead';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -34,23 +33,26 @@ export default function CategoryPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 12;
 
-    // Fetch published articles for this category only - use articleService
+    // Fetch published articles for this category - use API route (client-safe)
     const { data: articles = [], isLoading } = useQuery({
         queryKey: ['articles', 'category', categorySlug],
         queryFn: async () => {
-            const publishedArticles = await articleService.listPublishedArticles(500);
-            // Filter by category
-            const categoryArticles = publishedArticles.filter(a => a.category === categorySlug);
-            // Map to Article interface
-            return categoryArticles.map(a => ({
-                id: a.id!,
+            // Use API route to avoid server-only imports
+            const response = await fetch(`/api/articles/public?category=${categorySlug}&limit=500`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch articles');
+            }
+            const data = await response.json();
+            // Map API response to Article interface
+            return (data.articles || data || []).map((a: any) => ({
+                id: a.id || a.slug,
                 title: a.title,
                 slug: a.slug,
                 excerpt: a.excerpt || '',
-                category: a.category,
+                category: a.category || categorySlug,
                 read_time: a.read_time,
-                published_at: a.published_at || '',
-                published_date: a.published_date || '',
+                published_at: a.published_at || a.published_date || '',
+                published_date: a.published_date || a.published_at || '',
                 featured_image: a.featured_image,
                 author_name: a.author_name || 'Admin',
             })) as Article[];

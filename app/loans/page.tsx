@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import {
     ShieldCheck,
     TrendingDown,
@@ -22,7 +22,7 @@ import Link from 'next/link';
 
 
 
-import { api } from '@/lib/api';
+import { apiClient as api } from '@/lib/api-client';
 import { RichProductCard } from "@/components/products/RichProductCard";
 import { RichProduct } from "@/types/rich-product";
 
@@ -157,6 +157,7 @@ export default function LoansPage() {
     }));
 
     return (
+        <Fragment>
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300 font-sans">
             <SEOHead
                 title="Compare Best Loans in India 2026 | InvestingPro"
@@ -269,7 +270,6 @@ export default function LoansPage() {
                                     </Button>
                                 </CardContent>
                             </Card>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -472,8 +472,8 @@ export default function LoansPage() {
             <div className="container mx-auto px-4 pb-8">
                 <ComplianceDisclaimer variant="compact" />
             </div>
-
         </div>
+        </Fragment>
     );
 }
 

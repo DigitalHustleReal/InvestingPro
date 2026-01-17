@@ -95,7 +95,7 @@ export default function CalculatorsPage() {
                         </h1>
 
                         {/* Description */}
-                        <p className="text-lg text-slate-600 mb-8 leading-relaxed max-w-2xl mx-auto">
+                        <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed max-w-2xl mx-auto">
                             Plan your investments, calculate EMIs, taxes, and retirement with our comprehensive calculators. All tools include inflation-adjusted projections.
                         </p>
 
@@ -107,10 +107,10 @@ export default function CalculatorsPage() {
                                 { label: "Free Forever", value: "100%", icon: <CheckCircle2 className="w-5 h-5" /> },
                                 { label: "Updated Daily", value: "24/7", icon: <Clock className="w-5 h-5" /> }
                             ].map((stat, idx) => (
-                                <div key={idx} className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                                <div key={idx} className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800">
                                     <div className="text-primary-600 mb-2 flex justify-center">{stat.icon}</div>
-                                    <div className="text-2xl font-bold text-slate-900 mb-1">{stat.value}</div>
-                                    <div className="text-xs text-slate-600 fond-medium uppercase tracking-wider">
+                                    <div className="text-2xl font-bold text-slate-900 dark:text-white mb-1">{stat.value}</div>
+                                    <div className="text-xs text-slate-600 dark:text-slate-400 fond-medium uppercase tracking-wider">
                                         {stat.label}
                                     </div>
                                 </div>
@@ -261,7 +261,7 @@ export default function CalculatorsPage() {
                     <TabsContent value="sip">
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
-                                <p className="text-slate-600">Visit our dedicated SIP calculator page for comprehensive guides and FAQs.</p>
+                                <p className="text-slate-600 dark:text-slate-400">Visit our dedicated SIP calculator page for comprehensive guides and FAQs.</p>
                                 <Link href="/calculators/sip" className="text-primary-600 hover:text-primary-700 font-semibold">
                                     View Full Page →
                                 </Link>
@@ -273,7 +273,7 @@ export default function CalculatorsPage() {
                     <TabsContent value="swp">
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
-                                <p className="text-slate-600">Visit our dedicated SWP calculator page for comprehensive guides and FAQs.</p>
+                                <p className="text-slate-600 dark:text-slate-400">Visit our dedicated SWP calculator page for comprehensive guides and FAQs.</p>
                                 <Link href="/calculators/swp" className="text-primary-600 hover:text-primary-700 font-semibold">
                                     View Full Page →
                                 </Link>
@@ -285,7 +285,7 @@ export default function CalculatorsPage() {
                     <TabsContent value="health">
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
-                                <p className="text-slate-600">Get a comprehensive assessment of your financial health.</p>
+                                <p className="text-slate-600 dark:text-slate-400">Get a comprehensive assessment of your financial health.</p>
                                 <Link href="/calculators/financial-health-score" className="text-primary-600 hover:text-primary-700 font-semibold">
                                     View Full Page →
                                 </Link>
@@ -457,7 +457,7 @@ export default function CalculatorsPage() {
                     <TabsContent value="loan-vs-sip">
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
-                                <p className="text-slate-600">Compare the opportunity cost of loan prepayments against equity SIPs.</p>
+                                <p className="text-slate-600 dark:text-slate-400">Compare the opportunity cost of loan prepayments against equity SIPs.</p>
                                 <Link href="/calculators/home-loan-vs-sip" className="text-primary-600 hover:text-primary-700 font-semibold">
                                     View Full Page →
                                 </Link>
@@ -482,7 +482,7 @@ export default function CalculatorsPage() {
                                     Whether you're calculating SIP returns, planning loan EMIs, estimating tax liability, or planning for retirement, 
                                     our calculators provide accurate projections based on standard financial formulas.
                                 </p>
-                                <p className="text-lg text-slate-600 leading-relaxed mb-6">
+                                <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
                                     Our financial calculators are trusted by thousands of users across India for accurate calculations. 
                                     We use the same formulas used by banks, mutual fund companies, and financial institutions, ensuring 
                                     you get reliable results. All calculators are completely free, require no registration, and provide 
@@ -512,7 +512,7 @@ export default function CalculatorsPage() {
                                     ].map((feature, idx) => (
                                         <div key={idx} className="flex items-start gap-3">
                                             <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
-                                            <p className="text-slate-700 font-medium">{feature}</p>
+                                            <p className="text-slate-700 dark:text-slate-300 font-medium">{feature}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -611,9 +611,9 @@ export default function CalculatorsPage() {
                     </Card>
 
                     {/* Related Content */}
-                    <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-primary-50 to-secondary-50">
+                    <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-slate-900 dark:to-slate-800">
                         <CardHeader>
-                            <CardTitle className="text-2xl font-bold text-slate-900">Related Financial Tools & Resources</CardTitle>
+                            <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white">Related Financial Tools & Resources</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -626,13 +626,13 @@ export default function CalculatorsPage() {
                                     <Link
                                         key={idx}
                                         href={item.href}
-                                        className="p-4 bg-white rounded-xl hover:shadow-md transition-all group"
+                                        className="p-4 bg-white dark:bg-slate-800 rounded-xl hover:shadow-md transition-all group"
                                     >
                                         <div className="flex items-center gap-2 mb-2">
                                             <CalculatorIcon className="w-4 h-4 text-primary-600 group-hover:text-primary-700" />
-                                            <span className="font-semibold text-slate-900 group-hover:text-primary-600">{item.name}</span>
+                                            <span className="font-semibold text-slate-900 dark:text-white group-hover:text-primary-600">{item.name}</span>
                                         </div>
-                                        <p className="text-sm text-slate-600">{item.desc}</p>
+                                        <p className="text-sm text-slate-600 dark:text-slate-400">{item.desc}</p>
                                     </Link>
                                 ))}
                             </div>

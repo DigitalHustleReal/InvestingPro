@@ -17,7 +17,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { api } from "@/lib/api";
+import { apiClient as api } from '@/lib/api-client';
 import {
     Sparkles,
     Play,

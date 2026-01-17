@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { api } from "@/lib/api";
+import { apiClient as api } from '@/lib/api-client';
 import SEOHead from "@/components/common/SEOHead";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 import Pagination from "@/components/common/Pagination";
@@ -238,7 +238,7 @@ export default function MutualFundsPage() {
                         </div>
                         <Input
                             placeholder="Search funds (e.g. 'HDFC Equity', 'Large Cap')..."
-                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white border border-slate-200 text-slate-900 placeholder:text-slate-500 focus:border-primary- focus:ring-2 focus:ring-primary-/20 transition-all shadow-xl"
+                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-2 focus:ring-primary-500/20 dark:focus:ring-primary-400/20 transition-all shadow-xl"
                             value={searchTerm}
                             onChange={(e) => {
                                 setSearchTerm(e.target.value);
@@ -276,7 +276,7 @@ export default function MutualFundsPage() {
                                 <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg p-1">
                                     <button 
                                         onClick={() => setViewMode('grid')}
-                                        className={`p-2 rounded-md transition-all ${viewMode === 'grid' ? 'bg-white dark:bg-slate-700 shadow text-primary-600' : 'text-slate-400 hover:text-slate-600'}`}
+                                        className={`p-2 rounded-md transition-all ${viewMode === 'grid' ? 'bg-white dark:bg-slate-700 shadow text-primary-600 dark:text-primary-400' : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-400'}`}
                                     >
                                         <LayoutGrid className="w-4 h-4" />
                                     </button>
@@ -330,7 +330,7 @@ export default function MutualFundsPage() {
                                      {paginatedFunds.map((fund, index) => (
                                          <Card
                                             key={index}
-                                            className="rounded-[2.5rem] border-0 shadow-xl shadow-slate-200/50 bg-white overflow-hidden hover:shadow-2xl transition-all duration-300 group/card relative"
+                                            className="rounded-[2.5rem] border-0 shadow-xl shadow-slate-200/50 dark:shadow-slate-900/50 bg-white dark:bg-slate-800 overflow-hidden hover:shadow-2xl transition-all duration-300 group/card relative"
                                         >
                                              {/* Compare Checkbox for Grid is handled via RichProductCard logic usually, 
                                                 but here we are using a custom Card. 
@@ -358,7 +358,7 @@ export default function MutualFundsPage() {
                                                                 </div>
                                                             </div>
                                                             <Link href={`/mutual-funds/${fund.id}`}>
-                                                                <h3 className="text-xl font-bold text-slate-900 tracking-tight leading-tight group-hover/card:text-primary-600 transition-colors">
+                                                                <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight group-hover/card:text-primary-600 dark:group-hover/card:text-primary-400 transition-colors">
                                                                     {fund.name}
                                                                 </h3>
                                                             </Link>
@@ -390,7 +390,7 @@ export default function MutualFundsPage() {
                                                             <div key={i} className="space-y-1">
                                                                 <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-st">{ret.label}</p>
                                                                 <div className="flex items-center justify-center gap-1">
-                                                                    <p className={`text-xl font-bold ${ret.trend ? 'text-primary-600' : 'text-slate-900'}`}>{ret.value}%</p>
+                                                                    <p className={`text-xl font-bold ${ret.trend ? 'text-primary-600 dark:text-primary-400' : 'text-slate-900 dark:text-white'}`}>{ret.value}%</p>
                                                                     {ret.trend ? <TrendingUp className="w-4 h-4 text-primary-500" /> : <TrendingDown className="w-4 h-4 text-slate-400" />}
                                                                 </div>
                                                             </div>
@@ -401,7 +401,7 @@ export default function MutualFundsPage() {
                                                 {/* Action Hub */}
                                                 <div className="p-8 lg:w-48 flex flex-row lg:flex-col items-center justify-center gap-4">
                                                     <Link href={`/mutual-funds/${fund.id}`} className="w-full">
-                                                        <Button variant="outline" className="w-full h-12 rounded-2xl border-slate-200 hover:bg-white text-slate-900 font-extrabold text-[11px] uppercase tracking-[0.2em]">
+                                                        <Button variant="outline" className="w-full h-12 rounded-2xl border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 text-slate-900 dark:text-white font-extrabold text-[11px] uppercase tracking-[0.2em]">
                                                             Verify
                                                         </Button>
                                                     </Link>

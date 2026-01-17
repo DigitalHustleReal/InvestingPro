@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar, TrendingUp, PiggyBank, Shield, CreditCard, Calculator, Building2 } from "lucide-react";
-import { api } from "@/lib/api";
+import { apiClient as api } from "@/lib/api-client";
 import { logger } from "@/lib/logger";
 
 interface EditorialArticle {

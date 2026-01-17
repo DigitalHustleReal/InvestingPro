@@ -52,9 +52,6 @@ export async function GET(request: NextRequest) {
                 { status: 400 }
             );
         }
-        const searchParams = request.nextUrl.searchParams;
-        const startDate = searchParams.get('startDate') || new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
-        const endDate = searchParams.get('endDate') || new Date().toISOString();
 
         // Get current month revenue
         const currentMonthStart = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString();

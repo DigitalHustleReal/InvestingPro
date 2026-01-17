@@ -44,9 +44,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { NavigationProvider } from "@/contexts/NavigationContext";
 import { initializeEventSystem } from "@/lib/events/setup";
 import { initializeLogging } from "@/lib/logging/initialize";
-import { initializeTracing } from "@/lib/tracing/opentelemetry";
-
-// ... existing imports ...
+// Tracing is disabled - file exists as .disabled
+// import { initializeTracing } from "@/lib/tracing/opentelemetry";
 
 export default async function RootLayout({
   children,
@@ -57,7 +56,8 @@ export default async function RootLayout({
   initializeLogging();
   
   // Initialize tracing (runs once per server instance)
-  initializeTracing();
+  // Tracing is disabled - uncomment when needed
+  // initializeTracing();
   
   // Initialize event system (runs once per server instance)
   initializeEventSystem();

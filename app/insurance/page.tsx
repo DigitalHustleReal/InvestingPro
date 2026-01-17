@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import {
     Shield,
     Heart,
@@ -27,7 +27,7 @@ import { Input } from "@/components/ui/input";
 import SEOHead from "@/components/common/SEOHead";
 import Link from 'next/link';
 
-import { api } from '@/lib/api';
+import { apiClient as api } from '@/lib/api-client';
 import { RichProductCard } from "@/components/products/RichProductCard";
 import { RichProduct } from "@/types/rich-product";
 import { InsuranceFilterSidebar, InsuranceFilterState } from "@/components/insurance/FilterSidebar";
@@ -173,6 +173,7 @@ export default function InsurancePage() {
 
 
     return (
+        <Fragment>
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
             <SEOHead
                 title="Best Insurance Plans in India 2026 | Protection Score Analysis"
@@ -350,7 +351,6 @@ export default function InsurancePage() {
                                     )}
                                 </CardContent>
                             </Card>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -540,7 +540,7 @@ export default function InsurancePage() {
             <div className="container mx-auto px-4 pb-8">
                 <ComplianceDisclaimer variant="compact" />
             </div>
-
         </div>
+        </Fragment>
     );
 }

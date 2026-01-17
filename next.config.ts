@@ -183,6 +183,14 @@ const nextConfig: NextConfig = {
   
   // Webpack optimizations for better performance
   webpack: (config, { isServer }) => {
+    // Ensure isomorphic-dompurify resolves correctly for both server and client
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      // Force isomorphic-dompurify to use the main entry point
+      // This ensures proper resolution in both server and client builds
+      'isomorphic-dompurify': require.resolve('isomorphic-dompurify'),
+    };
+
     if (!isServer) {
       config.optimization = {
         ...config.optimization,

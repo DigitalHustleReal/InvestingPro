@@ -110,8 +110,8 @@ export function RetirementCalculator() {
                             </div>
                         </div>
                         {/* Preset Scenarios */}
-                        <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200">
-                            <span className="text-xs font-semibold text-slate-600 mr-1">Quick Examples:</span>
+                        <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                            <span className="text-xs font-semibold text-slate-600 dark:text-slate-400 mr-1">Quick Examples:</span>
                             {[
                                 { label: "Age 30 → 60", currentAge: 30, retirementAge: 60, sip: 20000, expenses: 50000 },
                                 { label: "Age 35 → 60", currentAge: 35, retirementAge: 60, sip: 30000, expenses: 60000 },
@@ -126,7 +126,7 @@ export function RetirementCalculator() {
                                         setMonthlySIP(preset.sip);
                                         setRetirementExpenses(preset.expenses);
                                     }}
-                                    className="text-xs px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-md font-medium transition-colors border border-slate-200"
+                                    className="text-xs px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-md font-medium transition-colors border border-slate-200 dark:border-slate-700"
                                 >
                                     {preset.label}
                                 </button>
@@ -137,7 +137,7 @@ export function RetirementCalculator() {
                         {/* Current Age */}
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm text-slate-700 font-semibold">Current Age</Label>
+                                <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Current Age</Label>
                                 <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
                                     <span className="text-sm font-bold text-slate-900 dark:text-slate-100">{currentAge} Y</span>
                                 </div>
@@ -222,9 +222,9 @@ export function RetirementCalculator() {
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
                                 <div className="flex items-center gap-1.5">
-                                    <Label className="text-sm text-slate-700 font-semibold">Expected Return (p.a.)</Label>
+                                    <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Expected Return (p.a.)</Label>
                                     <div className="group relative">
-                                        <HelpCircle className="w-3.5 h-3.5 text-slate-400 hover:text-slate-600 cursor-help" />
+                                        <HelpCircle className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-400 cursor-help" />
                                         <div className="absolute left-0 bottom-full mb-2 w-64 p-3 bg-slate-900 text-white text-xs rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 shadow-xl">
                                             <div className="font-semibold mb-1.5">Retirement Planning:</div>
                                             <div className="text-[10px] font-mono leading-relaxed">
@@ -257,7 +257,7 @@ export function RetirementCalculator() {
                         {/* Monthly Expenses */}
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm text-slate-700 font-semibold">Monthly Expenses (Current)</Label>
+                                    <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Monthly Expenses (Current)</Label>
                                 <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
                                     <IndianRupee className="w-3.5 h-3.5 text-slate-500" />
                                     <Input
@@ -279,7 +279,7 @@ export function RetirementCalculator() {
                         </div>
 
                         {/* Inflation Toggle */}
-                        <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200">
+                        <div className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
                             <div className="flex items-center gap-2">
                                 <TrendingDown className="w-4 h-4 text-secondary-600" />
                                 <div>
@@ -297,7 +297,7 @@ export function RetirementCalculator() {
                         {adjustForInflation && (
                             <div className="space-y-2">
                                 <div className="flex justify-between items-center">
-                                    <Label className="text-sm text-slate-700 font-semibold">Expected Inflation Rate (p.a.)</Label>
+                                    <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Expected Inflation Rate (p.a.)</Label>
                                     <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
                                         <Percent className="w-3.5 h-3.5 text-slate-500" />
                                         <span className="text-sm font-bold text-slate-900 dark:text-slate-100">{inflationRate}%</span>
@@ -322,15 +322,15 @@ export function RetirementCalculator() {
                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100 dark:border-primary-800">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Corpus at Retirement</p>
                                 <p className="text-base sm:text-lg font-extrabold text-primary-600">{formatCurrency(result.totalCorpus)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100 dark:border-primary-800">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Required Corpus</p>
                                 <p className="text-base sm:text-lg font-extrabold text-primary-600">{formatCurrency(result.corpusRequired)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100 dark:border-primary-800">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {result.shortfall > 0 ? 'Shortfall' : 'Surplus'}
                                 </p>

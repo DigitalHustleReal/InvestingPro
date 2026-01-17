@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/Button";
 import { Search, Loader2, Plus, CreditCard, Banknote, Shield } from "lucide-react";
-import { api } from "@/lib/api";
+import { apiClient as api } from "@/lib/api-client";
 import Image from "next/image";
 
 interface ProductSelectorProps {

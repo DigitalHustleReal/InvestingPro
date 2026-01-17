@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { api } from '@/lib/api';
+import { apiClient } from '@/lib/api-client';
 import RatingStars from './RatingStars';
 import { formatDistanceToNow } from 'date-fns';
 import { User, CheckCircle2 } from 'lucide-react';
@@ -32,7 +32,7 @@ export default function ReviewList({ productSlug, refreshTrigger }: ReviewListPr
     async function loadReviews() {
       setLoading(true);
       try {
-        const data = await api.entities.reviews.list(productSlug);
+        const data = await apiClient.reviews.list(productSlug);
         setReviews(data);
       } catch (error) {
         console.error('Failed to load reviews:', error);

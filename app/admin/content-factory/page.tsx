@@ -7,7 +7,7 @@ import AdminLayout from '@/components/admin/AdminLayout';
 import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
 
 /**
- * ðŸ¤– CONTENT FACTORY - ADMIN AUTOMATION PAGE
+ * CONTENT FACTORY - ADMIN AUTOMATION PAGE
  * 
  * Features:
  * - One-click bulk generation
@@ -94,7 +94,7 @@ export default function ContentFactoryPage() {
                     {/* Header */}
                     <div className="space-y-2">
                         <h1 className="text-4xl font-bold bg-gradient-to-r from-secondary-400 to-pink-400 bg-clip-text text-transparent">
-                            ðŸ¤– AI Content Factory
+                            Content Factory
                         </h1>
                         <p className="text-slate-400">
                             Automated bulk article generation with real-time progress tracking
@@ -224,7 +224,7 @@ export default function ContentFactoryPage() {
                                         )}
                                         {item.status === 'success' && (
                                             <div className="text-success-400">
-                                                âœ… [{item.current}/{item.total}] {item.topic}
+                                                ✓ [{item.current}/{item.total}] {item.topic}
                                             </div>
                                         )}
                                         {item.status === 'error' && (
@@ -234,7 +234,7 @@ export default function ContentFactoryPage() {
                                         )}
                                         {item.status === 'complete' && (
                                             <div className="text-success-400 font-bold">
-                                                ðŸŽ‰ Generation complete! {item.success}/{item.total} successful
+                                                ★ Generation complete! {item.success}/{item.total} successful
                                             </div>
                                         )}
                                         {item.status === 'fatal_error' && (

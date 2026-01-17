@@ -23,7 +23,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import SEOHead from "@/components/common/SEOHead";
 import Link from 'next/link';
-import { api } from '@/lib/api';
+import { apiClient as api } from '@/lib/api-client';
 import { SmartText } from "@/components/content/SmartText";
 import { InvestingFilterSidebar, InvestingFilterState } from '@/components/investing/FilterSidebar';
 import { ResponsiveFilterContainer } from '@/components/products/ResponsiveFilterContainer';

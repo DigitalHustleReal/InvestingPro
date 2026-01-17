@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { api } from "@/lib/api";
+import { apiClient as api } from "@/lib/api-client";
 import { User, Mail, FileText, Camera } from "lucide-react";
 
 interface EditProfileDialogProps {

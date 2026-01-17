@@ -75,7 +75,7 @@ async function getCreditCardData(slug: string, useServiceClient: boolean = false
     .from('credit_cards')
     .select('*')
     .eq('slug', slug)
-    .single();
+    .maybeSingle(); // Use maybeSingle() instead of single() to handle 0 rows gracefully
 
   if (error) {
     console.error(`[CardPage] Error fetching ${slug}:`, error);

@@ -6,7 +6,7 @@ import AdminLayout from '@/components/admin/AdminLayout';
 import ArticleInspector from '@/components/admin/ArticleInspector';
 import ArticleEditor from '@/components/admin/ArticleEditor';
 import { Input } from '@/components/ui/input';
-import { api } from '@/lib/api';
+import { apiClient as api } from '@/lib/api-client';
 import { useMutation } from '@tanstack/react-query';
 import { Save, Loader2, Target } from 'lucide-react';
 import { logger } from '@/lib/logger';

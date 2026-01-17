@@ -16,7 +16,7 @@ import AdminLayout from '@/components/admin/AdminLayout';
 import ArticleInspector from '@/components/admin/ArticleInspector';
 import ArticleEditor from '@/components/admin/ArticleEditor';
 import { Input } from '@/components/ui/input';
-import { articleService, type ArticleData } from '@/lib/cms/article-service';
+import type { ArticleData } from '@/lib/cms/article-service';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Save, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
@@ -38,11 +38,15 @@ export default function EditArticlePage() {
     const { data: article, isLoading, error } = useQuery({
         queryKey: ['article', id],
         queryFn: async () => {
-            const articleData = await articleService.getById(id);
-            if (!articleData) {
-                throw new Error('Article not found');
+            const response = await fetch(`/api/admin/articles/${id}`);
+            if (!response.ok) {
+                if (response.status === 404) {
+                    throw new Error('Article not found');
+                }
+                throw new Error('Failed to fetch article');
             }
-            return articleData;
+            const articleData = await response.json();
+            return articleData as ArticleData;
         },
         enabled: !!id,
         retry: 1,
@@ -64,20 +68,30 @@ export default function EditArticlePage() {
                 throw new Error('No content to save');
             }
             
-            return await articleService.saveArticle(
-                id,
-                {
-                    body_markdown: editorContent.markdown,
-                    body_html: editorContent.html,
-                    content: editorContent.markdown, // Legacy
-                },
-                {
-                    title,
-                    slug: article?.slug || '',
-                    excerpt,
-                    ...metadata,
-                }
-            );
+            const response = await fetch(`/api/admin/articles/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    content: {
+                        body_markdown: editorContent.markdown,
+                        body_html: editorContent.html,
+                        content: editorContent.markdown, // Legacy
+                    },
+                    metadata: {
+                        title,
+                        slug: article?.slug || '',
+                        excerpt,
+                        ...metadata,
+                    },
+                }),
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.error || 'Failed to save article');
+            }
+
+            return await response.json();
         },
         onMutate: async () => {
             // Optimistic update
@@ -123,20 +137,30 @@ export default function EditArticlePage() {
                 throw new Error('No content to publish');
             }
             
-            return await articleService.publishArticle(
-                id,
-                {
-                    body_markdown: editorContent.markdown,
-                    body_html: editorContent.html,
-                    content: editorContent.markdown,
-                },
-                {
-                    title,
-                    slug: article?.slug || '',
-                    excerpt,
-                    ...metadata,
-                }
-            );
+            const response = await fetch(`/api/admin/articles/${id}/publish`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    content: {
+                        body_markdown: editorContent.markdown,
+                        body_html: editorContent.html,
+                        content: editorContent.markdown,
+                    },
+                    metadata: {
+                        title,
+                        slug: article?.slug || '',
+                        excerpt,
+                        ...metadata,
+                    },
+                }),
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.error || 'Failed to publish article');
+            }
+
+            return await response.json();
         },
         onMutate: async () => {
             // Optimistic update

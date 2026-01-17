@@ -7,16 +7,10 @@ import DOMPurify from 'isomorphic-dompurify';
 
 /**
  * Sanitize HTML content
+ * isomorphic-dompurify handles server/client environment detection automatically
  */
 export function sanitizeHTML(html: string): string {
-    if (typeof window === 'undefined') {
-        // Server-side: Use DOMPurify with jsdom
-        const { JSDOM } = require('jsdom');
-        const window = new JSDOM('').window;
-        const purify = DOMPurify(window as any);
-        return purify.sanitize(html);
-    }
-    // Client-side: Use DOMPurify directly
+    // isomorphic-dompurify automatically handles both server and client environments
     return DOMPurify.sanitize(html);
 }
 

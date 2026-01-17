@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import { articleService } from '@/lib/cms/article-service';
+import type { ArticleData } from '@/lib/cms/article-service';
 import { logger } from "@/lib/logger";
 import SEOHead from "@/components/common/SEOHead";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
@@ -55,8 +55,15 @@ export default function PreviewArticlePage() {
     const loadArticle = async () => {
         try {
             // Preview route: fetch by ID (works for draft, review, published)
-            // Use articleService for unified workflow
-            const articleData = await articleService.getById(id);
+            // Use API route instead of server-only service
+            const response = await fetch(`/api/admin/articles/${id}`);
+            if (!response.ok) {
+                if (response.status === 404) {
+                    throw new Error('Article not found');
+                }
+                throw new Error('Failed to fetch article');
+            }
+            const articleData = await response.json() as ArticleData;
             if (articleData) {
                 console.log('📄 Preview: Article loaded', {
                     id: articleData.id,

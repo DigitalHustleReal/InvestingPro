@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Star, TrendingUp, Award, ChevronRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "@/lib/api";
+import { apiClient as api } from "@/lib/api-client";
 
 export default function TopPicks() {
     // Fetch top picks from database/ranking engine

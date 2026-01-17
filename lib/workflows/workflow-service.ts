@@ -1,7 +1,11 @@
 /**
  * Workflow Service
  * High-level service for managing workflows
+ * 
+ * SERVER-ONLY: This module uses server-only APIs
+ * Do not import in client components - use API routes instead
  */
+import 'server-only'; // Mark as server-only module
 
 import { 
   WorkflowDefinition, 

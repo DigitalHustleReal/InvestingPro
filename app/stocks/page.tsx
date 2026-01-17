@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { api } from "@/lib/api";
+import { apiClient as api } from '@/lib/api-client';
 import { useQuery } from "@tanstack/react-query";
 import SEOHead from "@/components/common/SEOHead";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
@@ -88,7 +88,7 @@ export default function StocksPage() {
                                 Professional-grade market tracking for retail power-traders. Monitor live IPO sentiments, breakouts, and benchmarking tools.
                             </p>
                             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                                <Button className="rounded-2xl bg-primary-500 hover:bg-primary-600 text-slate-900 font-bold h-16 px-10 shadow-2xl shadow-primary-500/20 text-lg">
+                                <Button className="rounded-2xl bg-primary-500 hover:bg-primary-600 text-slate-900 dark:text-white font-bold h-16 px-10 shadow-2xl shadow-primary-500/20 text-lg">
                                     Start Trading Now
                                     <ArrowUpRight className="ml-2 w-6 h-6" />
                                 </Button>
@@ -126,34 +126,34 @@ export default function StocksPage() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-20">
                 {/* Market Movers Section */}
                 <div className="grid lg:grid-cols-2 gap-8 mb-20">
-                    <Card className="rounded-[3rem] border-0 shadow-2xl bg-white p-6 md:p-8 group overflow-hidden">
+                    <Card className="rounded-[3rem] border-0 shadow-2xl bg-white dark:bg-slate-900 p-6 md:p-8 group overflow-hidden border border-slate-200 dark:border-slate-800">
                         <div className="flex items-center justify-between mb-8">
                             <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 rounded-2xl bg-primary-50 flex items-center justify-center text-primary-600">
+                                <div className="w-12 h-12 rounded-2xl bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400">
                                     <TrendingUp className="w-6 h-6" />
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-bold text-slate-900 tracking-tight">Top Gainers</h3>
-                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Intraday Powerhouses</p>
+                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Top Gainers</h3>
+                                    <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Intraday Powerhouses</p>
                                 </div>
                             </div>
-                            <Button variant="ghost" className="rounded-xl font-semibold text- uppercase text-primary-600 tracking-widest">View All</Button>
+                            <Button variant="ghost" className="rounded-xl font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-widest">View All</Button>
                         </div>
                         <div className="space-y-4">
                             {topGainers.map((stock, i) => (
-                                <div key={i} className="flex items-center justify-between p-5 bg-slate-50/50 rounded-2xl border border-transparent hover:border-primary-100 hover:bg-white transition-all group/item">
+                                <div key={i} className="flex items-center justify-between p-5 bg-slate-50/50 dark:bg-slate-800/50 rounded-2xl border border-transparent dark:border-slate-700 hover:border-primary-100 dark:hover:border-primary-800 hover:bg-white dark:hover:bg-slate-800 transition-all group/item">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center font-semibold text- text-slate-400 group-hover/item:bg-primary-600 group-hover/item:text-white transition-colors">
+                                        <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-700 border border-slate-100 dark:border-slate-600 flex items-center justify-center font-semibold text-slate-400 dark:text-slate-500 group-hover/item:bg-primary-600 group-hover/item:text-white transition-colors">
                                             {stock.name.substring(0, 1)}
                                         </div>
                                         <div>
-                                            <p className="font-bold text-slate-900">{stock.name}</p>
-                                            <p className="text-[10px] font-bold text-slate-400 uppercase">{stock.sector}</p>
+                                            <p className="font-bold text-slate-900 dark:text-white">{stock.name}</p>
+                                            <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase">{stock.sector}</p>
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <p className="font-bold text-slate-900">{stock.price}</p>
-                                        <p className="text-xs font-bold text-primary-600">{stock.change}</p>
+                                        <p className="font-bold text-slate-900 dark:text-white">{stock.price}</p>
+                                        <p className="text-xs font-bold text-primary-600 dark:text-primary-400">{stock.change}</p>
                                     </div>
                                 </div>
                             ))}
@@ -199,7 +199,7 @@ export default function StocksPage() {
                 <div className="mb-24">
                     <div className="flex items-center justify-between mb-12">
                         <div>
-                            <h2 className="text-4xl font-bold text-slate-900 tracking-tight">IPO Mainboard Pulse</h2>
+                            <h2 className="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">IPO Mainboard Pulse</h2>
                             <p className="text-slate-500 font-bold mt-1 text-sm uppercase tracking-widest opacity-60">Live GMP & Subscription Levels</p>
                         </div>
                         <Link href="/calculators">
@@ -209,11 +209,11 @@ export default function StocksPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {ipoLoading ? (
-                            <div className="col-span-full py-20 flex flex-col items-center justify-center bg-white rounded-[3rem] border-2 border-dashed border-slate-200">
+                            <div className="col-span-full py-20 flex flex-col items-center justify-center bg-white dark:bg-slate-900 rounded-[3rem] border-2 border-dashed border-slate-200 dark:border-slate-700">
                                 <LoadingSpinner text="Benchmarking Live IPO Data..." />
                             </div>
                         ) : ipoData.map((ipo: any, idx: number) => (
-                            <Card key={idx} className="rounded-[3rem] border-0 shadow-xl overflow-hidden group hover:shadow-2xl transition-all bg-white p-8">
+                            <Card key={idx} className="rounded-[3rem] border-0 shadow-xl overflow-hidden group hover:shadow-2xl transition-all bg-white dark:bg-slate-900 p-8 border border-slate-200 dark:border-slate-800">
                                 <div className="flex justify-between items-start mb-8">
                                     <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${ipo.color || 'from-slate-800 to-slate-900'} flex items-center justify-center text-white font-bold text-2xl shadow-lg`}>
                                         {ipo.name.substring(0, 1)}

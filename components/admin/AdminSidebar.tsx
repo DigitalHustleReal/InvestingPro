@@ -66,6 +66,8 @@ const navSections: NavSection[] = [
         items: [
             { label: 'Content Factory', href: '/admin/content-factory', icon: Factory },
             { label: 'Automation Hub', href: '/admin/automation', icon: Rss },
+            { label: 'AI Personas', href: '/admin/ai-personas', icon: Users },
+            { label: 'Pipeline Monitor', href: '/admin/pipeline-monitor', icon: Activity },
             { label: 'Review Queue', href: '/admin/review-queue', icon: CheckSquare },
         ],
     },
@@ -93,6 +95,7 @@ const navSections: NavSection[] = [
         items: [
             { label: 'Revenue Dashboard', href: '/admin/revenue', icon: DollarSign },
             { label: 'Product Catalog', href: '/admin/products', icon: Package },
+            { label: 'Product Analytics', href: '/admin/product-analytics', icon: BarChart3 },
             { label: 'Affiliates', href: '/admin/affiliates', icon: DollarSign },
             { label: 'Ads', href: '/admin/ads', icon: Megaphone },
         ],

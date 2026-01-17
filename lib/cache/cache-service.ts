@@ -7,12 +7,16 @@
  * - Database query caching
  * - Cache invalidation
  * - Cache monitoring
+ * 
+ * SERVER-ONLY: Uses server-only metrics and Redis
  */
+import 'server-only'; // Mark as server-only module
 
 import { Redis } from '@upstash/redis';
 import { logger } from '@/lib/logger';
 import { cacheMonitor } from './cache-monitor';
-import { recordCacheHit, recordCacheMiss } from '@/lib/metrics/prometheus';
+// Lazy import prometheus metrics to avoid server/client boundary issues
+// import { recordCacheHit, recordCacheMiss } from '@/lib/metrics/prometheus';
 
 // Initialize Redis client
 const redis = process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
@@ -65,7 +69,15 @@ export class CacheService {
         // Record Prometheus metric
         if (typeof window === 'undefined') {
           try {
-            recordCacheHit(category);
+            // Lazy import to avoid server/client boundary issues
+            try {
+                if (typeof window === 'undefined') {
+                    const { recordCacheHit } = await import('@/lib/metrics/prometheus');
+                    recordCacheHit(category);
+                }
+            } catch {
+                // Metrics not available - skip silently
+            }
           } catch (e) {
             // Ignore metrics errors
           }
@@ -75,7 +87,15 @@ export class CacheService {
         // Record Prometheus metric
         if (typeof window === 'undefined') {
           try {
-            recordCacheMiss(category);
+            // Lazy import to avoid server/client boundary issues
+            try {
+                if (typeof window === 'undefined') {
+                    const { recordCacheMiss } = await import('@/lib/metrics/prometheus');
+                    recordCacheMiss(category);
+                }
+            } catch {
+                // Metrics not available - skip silently
+            }
           } catch (e) {
             // Ignore metrics errors
           }

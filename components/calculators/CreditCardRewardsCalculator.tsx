@@ -130,7 +130,7 @@ export default function CreditCardRewardsCalculator() {
       {/* Header */}
       <div className="bg-gradient-to-r from-primary-600 to-secondary-600 dark:from-primary-500 dark:to-secondary-500 p-6 sm:p-8">
         <div className="flex items-center gap-3 mb-2">
-          <div className="p-2.5 bg-white/20 backdrop-blur-sm rounded-xl">
+          <div className="p-2.5 bg-white/20 dark:bg-slate-800/20 backdrop-blur-sm rounded-xl">
             <CreditCard className="w-6 h-6 text-white" />
           </div>
           <h2 className="text-2xl font-bold text-white">Credit Card Rewards Calculator</h2>
@@ -226,11 +226,11 @@ export default function CreditCardRewardsCalculator() {
 
                     {/* Rewards Breakdown */}
                     <div className="grid grid-cols-3 gap-3 mb-4">
-                      <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-3">
+                      <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-3 border border-slate-200 dark:border-slate-700">
                         <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase mb-1">Annual Rewards</p>
                         <p className="text-sm font-bold text-success-600 dark:text-success-400">{formatCurrency(Math.round(card.annualRewards))}</p>
                       </div>
-                      <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-3">
+                      <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-3 border border-slate-200 dark:border-slate-700">
                         <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase mb-1">Annual Fee</p>
                         <p className="text-sm font-bold text-slate-700 dark:text-slate-300">{formatCurrency(card.annualFee)}</p>
                       </div>

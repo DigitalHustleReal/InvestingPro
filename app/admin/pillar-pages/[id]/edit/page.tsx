@@ -146,7 +146,7 @@ export default function EditPillarPage() {
         return (
             <AdminLayout>
                 <div className="flex flex-col items-center justify-center h-full">
-                    <h1 className="text-2xl font-bold text-slate-900 mb-4">Pillar Page Not Found</h1>
+                    <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Pillar Page Not Found</h1>
                     <button
                         onClick={() => router.push('/admin/pillar-pages')}
                         className="text-teal-600 hover:text-teal-700"
@@ -175,9 +175,9 @@ export default function EditPillarPage() {
                 />
             }
         >
-            <div className="flex flex-col bg-white min-h-screen">
+            <div className="flex flex-col bg-white dark:bg-slate-900 min-h-screen">
                 {/* Header Bar */}
-                <div className="border-b border-slate-200 px-8 py-4 flex items-center justify-between bg-white">
+                <div className="border-b border-slate-200 dark:border-slate-800 px-8 py-4 flex items-center justify-between bg-white dark:bg-slate-900">
                     <div className="flex-1 flex items-center gap-3">
                         <Target className="w-6 h-6 text-teal-600" />
                         <div className="flex-1">

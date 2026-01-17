@@ -15,6 +15,7 @@ import AffiliateDisclosure from '@/components/common/AffiliateDisclosure';
 
 import { useCompare } from '@/contexts/CompareContext';
 import DecisionCTA from '@/components/common/DecisionCTA';
+import { getProductUrl, getAffiliateUrl } from '@/lib/utils/product-urls';
 import { getCategoryImageConfig, getCategoryImageSizes, type ProductCategory } from '@/lib/images/category-image-config';
 
 interface RichProductCardProps {
@@ -190,7 +191,7 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
                     <div className="flex gap-3">
                         <DecisionCTA
                             text="Compare Details"
-                            href={`/product/${product.slug}`}
+                            href={getProductUrl(product)}
                             variant="outline"
                             size="sm"
                             className="flex-1 text-xs h-9"
@@ -202,7 +203,7 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
                                   product.category === 'loan' ? "Check Eligibility" :
                                   product.category === 'insurance' ? "Get Protected" :
                                   "Apply Now"}
-                            href={product.affiliate_link || `/go/${product.slug}`}
+                            href={getAffiliateUrl(product)}
                             productId={product.id}
                             variant="primary"
                             size="sm"

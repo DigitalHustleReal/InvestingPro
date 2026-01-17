@@ -3,7 +3,11 @@
  * 
  * SINGLE SOURCE OF TRUTH for all article operations.
  * All article creation, updates, and queries go through this service.
+ * 
+ * NOTE: This service uses server-only APIs (workflows, Supabase server client)
+ * For client-side usage, use API routes that call this service
  */
+import 'server-only'; // Mark as server-only module
 
 import { createClient } from '@/lib/supabase/client';
 
@@ -12,7 +16,8 @@ import { normalizeArticleBody } from '@/lib/content/normalize';
 import { htmlToMarkdown } from '@/lib/editor/markdown';
 import { logger } from '@/lib/logger';
 import { TaxonomyService } from './taxonomy-service';
-import { triggerArticlePublishingWorkflow, transitionArticleState } from '@/lib/workflows/hooks/article-workflow-hooks';
+// Lazy import workflow hooks to avoid server/client boundary issues
+// These are only used in specific methods, not at module level
 import { invalidateArticleCache } from '@/lib/cache/cache-invalidation';
 import { cacheService } from '@/lib/cache/cache-service';
 import { cacheKeyGenerators, cacheStrategies } from '@/lib/cache/cache-strategies';
@@ -314,6 +319,8 @@ export class ArticleService {
         // Trigger state transition if status changed
         if (metadata.status && metadata.status !== previousStatus) {
             try {
+                // Lazy import to avoid server/client boundary issues
+                const { transitionArticleState } = await import('@/lib/workflows/hooks/article-workflow-hooks');
                 await transitionArticleState(
                     id,
                     previousStatus,
@@ -328,8 +335,23 @@ export class ArticleService {
                 });
             } catch (workflowError) {
                 // Don't fail save if workflow fails
-                logger.error('Failed to trigger state transition', workflowError instanceof Error ? workflowError : new Error(String(workflowError)), { articleId: id });
+                // Also catch server-only import errors gracefully
+                if (workflowError instanceof Error && workflowError.message.includes('server-only')) {
+                    logger.debug('State transition skipped (client context)');
+                } else {
+                    logger.error('Failed to trigger state transition', workflowError instanceof Error ? workflowError : new Error(String(workflowError)), { articleId: id });
+                }
             }
+        }
+
+        // Create version snapshot (if content actually changed)
+        // Note: Database trigger also creates versions, but we do it explicitly for control
+        try {
+            const { createArticleVersion } = await import('@/lib/cms/version-service');
+            await createArticleVersion(id, 'Article updated');
+        } catch (versionError) {
+            // Don't fail save if versioning fails
+            logger.warn('Failed to create article version', versionError instanceof Error ? versionError : new Error(String(versionError)), { articleId: id });
         }
 
         // Invalidate cache
@@ -404,6 +426,18 @@ export class ArticleService {
             logger.error('Failed to publish article', error);
             throw new Error(error.message || 'Failed to publish article');
         }
+
+        // Create version snapshot on publish
+        try {
+            const { createArticleVersion } = await import('@/lib/cms/version-service');
+            await createArticleVersion(id, 'Article published');
+        } catch (versionError) {
+            // Don't fail publish if versioning fails
+            logger.warn('Failed to create article version on publish', versionError instanceof Error ? versionError : new Error(String(versionError)), { articleId: id });
+        }
+
+        // Invalidate cache
+        await invalidateArticleCache(id);
 
         return {
             id: data.id,
@@ -603,6 +637,84 @@ export class ArticleService {
     }
 
     /**
+     * Get articles with pagination and filtering (for public API)
+     */
+    async getArticles(options: {
+        page?: number;
+        limit?: number;
+        category?: string;
+        status?: string;
+        search?: string;
+    }): Promise<{
+        articles: ArticleData[];
+        pagination: {
+            page: number;
+            limit: number;
+            total: number;
+            totalPages: number;
+        };
+    }> {
+        const supabase = this.getClient();
+        const page = options.page || 1;
+        const limit = options.limit || 10;
+        const offset = (page - 1) * limit;
+
+        let query = supabase
+            .from('articles')
+            .select('*', { count: 'exact' });
+
+        // Filter by status
+        if (options.status) {
+            query = query.eq('status', options.status);
+        }
+
+        // Filter by category
+        if (options.category) {
+            query = query.eq('category', options.category);
+        }
+
+        // Search in title, excerpt, or content
+        if (options.search) {
+            query = query.or(`title.ilike.%${options.search}%,excerpt.ilike.%${options.search}%,content.ilike.%${options.search}%`);
+        }
+
+        // Order by published date (most recent first)
+        query = query.order('published_at', { ascending: false, nullsFirst: false });
+
+        // Apply pagination
+        query = query.range(offset, offset + limit - 1);
+
+        const { data, error, count } = await query;
+
+        if (error) {
+            logger.error('Failed to get articles', error);
+            return {
+                articles: [],
+                pagination: {
+                    page,
+                    limit,
+                    total: 0,
+                    totalPages: 0,
+                },
+            };
+        }
+
+        const articles = (data || []).map((article: any) => this.normalizeArticle(article));
+        const total = count || 0;
+        const totalPages = Math.ceil(total / limit);
+
+        return {
+            articles,
+            pagination: {
+                page,
+                limit,
+                total,
+                totalPages,
+            },
+        };
+    }
+
+    /**
      * Delete article
      */
     async deleteArticle(id: string): Promise<void> {
@@ -713,6 +825,8 @@ export class ArticleService {
         // Trigger state transition if status changed
         if (updates.status && updates.status !== previousStatus) {
             try {
+                // Lazy import to avoid server/client boundary issues
+                const { transitionArticleState } = await import('@/lib/workflows/hooks/article-workflow-hooks');
                 await transitionArticleState(
                     id,
                     previousStatus || 'draft',
@@ -727,7 +841,12 @@ export class ArticleService {
                 });
             } catch (workflowError) {
                 // Don't fail update if workflow fails
-                logger.error('Failed to trigger state transition', workflowError instanceof Error ? workflowError : new Error(String(workflowError)), { articleId: id });
+                // Also catch server-only import errors gracefully
+                if (workflowError instanceof Error && workflowError.message.includes('server-only')) {
+                    logger.debug('State transition skipped (client context)');
+                } else {
+                    logger.error('Failed to trigger state transition', workflowError instanceof Error ? workflowError : new Error(String(workflowError)), { articleId: id });
+                }
             }
         }
 

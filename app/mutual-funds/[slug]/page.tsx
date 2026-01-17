@@ -86,7 +86,7 @@ async function getMutualFundData(slug: string): Promise<MutualFundDetail | null>
     .from('mutual_funds')
     .select('*')
     .eq('slug', slug)
-    .single();
+    .maybeSingle(); // Use maybeSingle() to handle 0 rows gracefully
 
   if (error || !fund) return null;
 

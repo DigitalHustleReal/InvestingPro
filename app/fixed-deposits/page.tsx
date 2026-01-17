@@ -1,7 +1,7 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from 'react';
-import { api } from "@/lib/api";
+import { apiClient as api } from '@/lib/api-client';
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/badge";
@@ -54,14 +54,14 @@ export default function FixedDepositsPage() {
 
     if (isLoading) {
         return (
-            <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
                 <LoadingSpinner text="Fetching latest FD rates..." />
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
             <SEOHead
                 title="Best Fixed Deposit Rates in India 2024 - Compare Banks & NBFCs | InvestingPro"
                 description="Compare FD interest rates from top Indian banks and NBFCs. Get the highest returns on your savings with 100% safety and DICGC insurance."
@@ -107,7 +107,7 @@ export default function FixedDepositsPage() {
                     {[
                         { label: "Bank Max Yield", value: "7.85%", sub: "For Senior Citizens", icon: Percent, color: "bg-primary-600" },
                         { label: "NBFC Max Yield", value: "8.65%", sub: "Aggressive Returns", icon: Zap, color: "bg-accent-600" },
-                        { label: "Insured Amount", value: "â‚¹5 Lakh", sub: "DICGC per Bank", icon: Shield, color: "bg-primary-600" },
+                        { label: "Insured Amount", value: "₹5 Lakh", sub: "DICGC per Bank", icon: Shield, color: "bg-primary-600" },
                         { label: "Minimum Lock-in", value: "7 Days", sub: "Maximum Liquidity", icon: Clock, color: "bg-secondary-600" },
                     ].map((stat, index) => (
                         <Card key={index} className="rounded-[2.5rem] border-0 shadow-2xl bg-white overflow-hidden group">
@@ -117,7 +117,7 @@ export default function FixedDepositsPage() {
                                 </div>
                                 <div>
                                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">{stat.label}</p>
-                                    <p className="text-lg font-extrabold text-slate-900 leading-none mb-1">{stat.value}</p>
+                                    <p className="text-lg font-extrabold text-slate-900 dark:text-white leading-none mb-1">{stat.value}</p>
                                     <p className="text-[10px] text-slate-400 font-medium">{stat.sub}</p>
                                 </div>
                             </CardContent>
@@ -136,7 +136,7 @@ export default function FixedDepositsPage() {
                                 Desired Tenure
                             </span>
                             <Select value={selectedTenure} onValueChange={setSelectedTenure}>
-                                <SelectTrigger className="w-48 bg-slate-50 border-0 rounded-xl h-12 font-bold focus:ring-accent-500">
+                                <SelectTrigger className="w-48 bg-slate-50 dark:bg-slate-800 border-0 rounded-xl h-12 font-bold focus:ring-accent-500 text-slate-900 dark:text-white">
                                     <SelectValue placeholder="Select Tenure" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -163,7 +163,7 @@ export default function FixedDepositsPage() {
                     <div className="flex flex-col items-end">
                         <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Refine List</span>
                         <Select value={sortBy} onValueChange={setSortBy}>
-                            <SelectTrigger className="w-52 bg-slate-50 border-0 rounded-xl h-12 font-bold">
+                            <SelectTrigger className="w-52 bg-slate-50 dark:bg-slate-800 border-0 rounded-xl h-12 font-bold text-slate-900 dark:text-white">
                                 <SelectValue placeholder="Sort By" />
                             </SelectTrigger>
                             <SelectContent>
@@ -190,7 +190,7 @@ export default function FixedDepositsPage() {
                                                 {fd.logo}
                                             </div>
                                             <div>
-                                                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">{fd.bank}</h3>
+                                                <h3 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">{fd.bank}</h3>
                                                 <div className="flex items-center gap-2 mt-1.5">
                                                     <Badge className="bg-slate-100 text-slate-500 border-0 text-[9px] font-bold uppercase tracking-widest px-2 py-1">
                                                         {fd.type}
@@ -231,7 +231,7 @@ export default function FixedDepositsPage() {
                                                 </div>
                                                 <div className="text-right">
                                                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.1em]">Min Deposit</span>
-                                                    <span className="text-sm font-extrabold text-slate-900">{fd.minDeposit}</span>
+                                                    <span className="text-sm font-extrabold text-slate-900 dark:text-white">{fd.minDeposit}</span>
                                                 </div>
                                             </div>
                                             <Button className="w-full rounded-2xl bg-slate-900 hover:bg-accent-500 text-white font-bold py-7 h-auto transition-all text-base shadow-xl active:scale-95 group/btn">
@@ -253,7 +253,7 @@ export default function FixedDepositsPage() {
                                             Instant Liquidity Available
                                         </div>
                                     </div>
-                                    <div className="flex items-center gap-2 cursor-pointer hover:text-slate-600 transition-colors">
+                                    <div className="flex items-center gap-2 cursor-pointer hover:text-slate-600 dark:hover:text-slate-400 transition-colors text-slate-900 dark:text-white">
                                         View Detailed T&C
                                         <ChevronRight className="w-3.5 h-3.5" />
                                     </div>
@@ -282,11 +282,11 @@ export default function FixedDepositsPage() {
                             <div className="pt-8 border-t border-white/5 grid grid-cols-2 gap-6">
                                 <div>
                                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-2">DICGC Scheme</p>
-                                    <p className="text-xs text-white font-bold leading-relaxed">Insurance cover up to â‚¹5L per bank including principal + interest.</p>
+                                    <p className="text-xs text-white font-bold leading-relaxed">Insurance cover up to ₹5L per bank including principal + interest.</p>
                                 </div>
                                 <div>
                                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-2">Section 80C</p>
-                                    <p className="text-xs text-white font-bold leading-relaxed">Tax Saver FDs offer deductions up to â‚¹1.5L yearly income.</p>
+                                    <p className="text-xs text-white font-bold leading-relaxed">Tax Saver FDs offer deductions up to ₹1.5L yearly income.</p>
                                 </div>
                             </div>
                         </CardContent>
@@ -317,7 +317,7 @@ export default function FixedDepositsPage() {
                             </CardContent>
                         </div>
                         <Link href="/calculators">
-                            <Button variant="outline" className="w-full rounded-2xl h-16 border-slate-200 text-slate-900 font-bold hover:bg-slate-50 transition-all border-2">
+                            <Button variant="outline" className="w-full rounded-2xl h-16 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all border-2">
                                 Start Laddering Strategy
                                 <ArrowRight className="w-5 h-5 ml-2" />
                             </Button>

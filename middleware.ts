@@ -21,6 +21,13 @@ export async function middleware(request: NextRequest) {
     const isAdminAPI = request.nextUrl.pathname.startsWith('/api/admin');
 
     if (isAdminUI || isAdminAPI) {
+        // DEVELOPMENT MODE: Bypass all authentication checks
+        if (process.env.NODE_ENV === 'development') {
+            console.warn('⚠️ Development mode: Bypassing admin authentication');
+            return response;
+        }
+
+        // PRODUCTION MODE: Enforce authentication
         // Allow login page without auth (only for UI)
         if (isAdminUI && request.nextUrl.pathname === '/admin/login') {
             return response;
@@ -31,21 +38,12 @@ export async function middleware(request: NextRequest) {
         const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
         if (!supabaseUrl || !supabaseAnonKey) {
-            // Development/Staging: Allow access with warning
-            if (process.env.NODE_ENV === 'development' || process.env.VERCEL_ENV === 'preview') {
-                console.warn('⚠️ Supabase not configured - allowing access in development/preview');
-                return response;
-            }
-
             // Production: Redirect to login with error
             const url = request.nextUrl.clone();
             url.pathname = '/admin/login';
             url.searchParams.set('error', 'supabase_not_configured');
             return NextResponse.redirect(url);
         }
-
-        // PRODUCTION ONLY: Enforce authentication when Supabase is fully configured
-        // All auth logic below only runs in production with valid Supabase config
 
         // Create Supabase client for middleware authentication
         const supabase = createServerClient(
@@ -101,14 +99,15 @@ export async function middleware(request: NextRequest) {
         }
 
         // Check if user has admin role
-        const { data: profile } = await supabase
+        const { data: profile, error: profileError } = await supabase
             .from('user_profiles')
             .select('role')
             .eq('id', user.id)
-            .single()
+            .maybeSingle() // Use maybeSingle() to handle missing profiles gracefully
 
-        if (profile?.role !== 'admin') {
-            // PRODUCTION ONLY: Redirect to home if user doesn't have admin role
+        // Production: Check admin role
+        if (!profile || profile?.role !== 'admin') {
+            // Redirect to home if user doesn't have admin role
             return NextResponse.redirect(new URL('/', request.url))
         }
     }

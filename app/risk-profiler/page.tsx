@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/badge";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { api } from "@/lib/api";
+import { apiClient as api } from '@/lib/api-client';
 import { logger } from "@/lib/logger";
 import {
     CheckCircle2,

@@ -20,7 +20,7 @@ import {
     Info,
     HelpCircle
 } from "lucide-react";
-import { api } from "@/lib/api";
+import { apiClient as api } from '@/lib/api-client';
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';

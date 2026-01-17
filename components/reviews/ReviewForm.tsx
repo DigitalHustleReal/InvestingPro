@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { api } from '@/lib/api';
+import { apiClient } from '@/lib/api-client';
 import RatingStars from './RatingStars';
 
 interface ReviewFormProps {
@@ -29,7 +29,7 @@ export default function ReviewForm({ productSlug, productType, userId, onSuccess
     setError(null);
 
     try {
-      await api.entities.reviews.create({
+      await apiClient.reviews.create({
         product_slug: productSlug,
         product_type: productType,
         rating,

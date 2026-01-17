@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
@@ -146,14 +146,14 @@ export default function BatchGeneratorPage() {
                         <Factory className="w-8 h-8" />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-bold text-slate-900">Content Factory</h1>
-                        <p className="text-slate-500">Generate hundreds of articles in bulk using AI.</p>
+                        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Content Factory</h1>
+                        <p className="text-slate-500 dark:text-slate-400">Generate hundreds of articles in bulk using AI.</p>
                     </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* INPUT FORM */}
-                    <div className="space-y-6 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div className="space-y-6 bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
                         <h2 className="font-semibold text-lg mb-4">1. Configure Batch</h2>
                         
                         <div className="space-y-4">
@@ -185,7 +185,7 @@ export default function BatchGeneratorPage() {
                                     <div className="mt-1">
                                         {/* Simple select fallback if component tricky, but we have it */}
                                         <select 
-                                            className="w-full h-10 rounded-md border border-slate-300 px-3 text-sm"
+                                            className="w-full h-10 rounded-md border border-slate-300 dark:border-slate-700 px-3 text-sm bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                                             value={category}
                                             onChange={e => setCategory(e.target.value)}
                                         >
@@ -214,7 +214,7 @@ export default function BatchGeneratorPage() {
                             <div>
                                 <Label>Author Persona (Optional)</Label>
                                 <select 
-                                    className="w-full h-10 rounded-md border border-slate-300 px-3 text-sm mt-1"
+                                    className="w-full h-10 rounded-md border border-slate-300 dark:border-slate-700 px-3 text-sm mt-1 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                                     value={selectedAuthorId}
                                     onChange={e => setSelectedAuthorId(e.target.value)}
                                 >
@@ -260,7 +260,7 @@ export default function BatchGeneratorPage() {
                         </div>
 
                         {!activeBatchId ? (
-                            <div className="h-64 flex flex-col items-center justify-center text-slate-400 border-2 border-dashed border-slate-200 rounded-lg">
+                            <div className="h-64 flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-lg">
                                 <Factory className="w-12 h-12 mb-2 opacity-20" />
                                 <p>Ready to build content</p>
                             </div>
@@ -268,17 +268,17 @@ export default function BatchGeneratorPage() {
                             <div className="space-y-6">
                                 {/* Stats Cards */}
                                 <div className="grid grid-cols-3 gap-4">
-                                    <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm text-center">
-                                        <div className="text-2xl font-bold text-slate-700">{batchProgress?.total || 0}</div>
-                                        <div className="text-xs text-slate-500 uppercase tracking-wider">Total</div>
+                                    <div className="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm text-center">
+                                        <div className="text-2xl font-bold text-slate-700 dark:text-white">{batchProgress?.total || 0}</div>
+                                        <div className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total</div>
                                     </div>
-                                    <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm text-center">
-                                        <div className="text-2xl font-bold text-success-600">{batchProgress?.completed || 0}</div>
-                                        <div className="text-xs text-slate-500 uppercase tracking-wider">Done</div>
+                                    <div className="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm text-center">
+                                        <div className="text-2xl font-bold text-success-600 dark:text-success-400">{batchProgress?.completed || 0}</div>
+                                        <div className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">Done</div>
                                     </div>
-                                    <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm text-center">
-                                        <div className="text-2xl font-bold text-danger-500">{batchProgress?.failed || 0}</div>
-                                        <div className="text-xs text-slate-500 uppercase tracking-wider">Failed</div>
+                                    <div className="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm text-center">
+                                        <div className="text-2xl font-bold text-danger-500 dark:text-danger-400">{batchProgress?.failed || 0}</div>
+                                        <div className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">Failed</div>
                                     </div>
                                 </div>
 

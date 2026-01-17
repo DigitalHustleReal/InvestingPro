@@ -6,6 +6,7 @@ import { ArticleService } from '@/lib/cms/article-service';
 import { WebExtractor } from '@/lib/scraper/web-extractor';
 import { generateSocialPosts } from '@/lib/ai/social/post-generator';
 import { logger } from '@/lib/logger';
+import { logAICost, calculateCostFromTokens } from '@/lib/ai/cost-tracker';
 
 export class ContentPipeline {
     static async run() {
@@ -107,6 +108,39 @@ export class ContentPipeline {
                      ai_metadata: enrichedMetadata
                  }
             );
+            
+            // Log AI cost after article creation (now we have articleId)
+            if (articleContent.usage && articleContent.provider && articleContent.model) {
+                const inputTokens = articleContent.usage.input_tokens || 0;
+                const outputTokens = articleContent.usage.output_tokens || 0;
+                const cost = calculateCostFromTokens(
+                    articleContent.provider, 
+                    articleContent.model, 
+                    inputTokens, 
+                    outputTokens
+                );
+                
+                // Log cost asynchronously (don't block pipeline)
+                logAICost({
+                    article_id: result.id,
+                    provider: articleContent.provider,
+                    model: articleContent.model,
+                    operation: 'generate',
+                    input_tokens: inputTokens,
+                    output_tokens: outputTokens,
+                    cost_usd: cost,
+                    metadata: {
+                        topic: bestTrend.topic,
+                        source: bestTrend.source,
+                        operation_type: 'pipeline_generate'
+                    }
+                }).catch((error) => {
+                    logger.warn('Failed to log AI cost after article creation', error as Error, { 
+                        articleId: result.id, 
+                        provider: articleContent.provider 
+                    });
+                });
+            }
             
             logger.info(`Pipeline: Article created: ${result.id} (${result.title})`);
             return { status: 'success', articleId: result.id, slug: result.slug, trend: bestTrend };

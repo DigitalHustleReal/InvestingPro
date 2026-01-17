@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { api } from '@/lib/api';
+import { apiClient } from '@/lib/api-client';
 import ReviewList from './ReviewList';
 import ReviewForm from './ReviewForm';
 import RatingStars from './RatingStars';
@@ -29,7 +29,7 @@ export default function ProductReviews({ productSlug, productType }: ProductRevi
 
   // Fetch stats initially and on refresh
   useEffect(() => {
-    api.entities.reviews.getStats(productSlug).then(setStats);
+    apiClient.reviews.getStats(productSlug).then(setStats);
   }, [productSlug, refreshKey]);
 
   const handleReviewSuccess = () => {

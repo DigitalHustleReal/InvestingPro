@@ -77,7 +77,7 @@ export function CompoundInterestCalculator() {
                         {/* Principal */}
                         <div className="space-y-3">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm font-semibold text-slate-700">Principal Amount</Label>
+                                <Label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Principal Amount</Label>
                                 <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
                                     <IndianRupee className="w-3.5 h-3.5 text-slate-500" />
                                     <Input 
@@ -94,7 +94,7 @@ export function CompoundInterestCalculator() {
                         {/* Rate */}
                         <div className="space-y-3">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm font-semibold text-slate-700">Rate of Interest (% p.a)</Label>
+                                <Label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Rate of Interest (% p.a)</Label>
                                 <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
                                     <Percent className="w-3.5 h-3.5 text-slate-500" />
                                     <Input 
@@ -111,7 +111,7 @@ export function CompoundInterestCalculator() {
                          {/* Time & Frequency */}
                          <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-3">
-                                <Label className="text-sm font-semibold text-slate-700">Time (Years)</Label>
+                                <Label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Time (Years)</Label>
                                 <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5 mb-2">
                                     <Clock className="w-3.5 h-3.5 text-slate-500" />
                                     <Input 
@@ -124,9 +124,9 @@ export function CompoundInterestCalculator() {
                                 <Slider value={[time]} onValueChange={(v) => setTime(v[0])} min={1} max={50} step={1} className="py-2" />
                             </div>
                             <div className="space-y-3">
-                                <Label className="text-sm font-semibold text-slate-700">Compounding Frequency</Label>
+                                <Label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Compounding Frequency</Label>
                                 <Select value={frequency} onValueChange={setFrequency}>
-                                    <SelectTrigger className="w-full bg-slate-100 border-0 font-medium">
+                                    <SelectTrigger className="w-full bg-slate-100 dark:bg-slate-800 border-0 font-medium text-slate-900 dark:text-white">
                                         <SelectValue />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -143,33 +143,33 @@ export function CompoundInterestCalculator() {
                 </Card>
 
                 {/* Results */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-purple-50 to-indigo-50 relative overflow-hidden">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-slate-800 dark:to-slate-900 relative overflow-hidden">
                      <div className="absolute top-0 right-0 w-64 h-64 bg-primary-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                      <CardContent className="pt-8 relative z-10 flex flex-col justify-between h-full">
                          <div className="text-center mb-6">
                              <p className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-2">Maturity Amount</p>
-                             <div className="text-5xl font-extrabold text-primary-700 mb-2">
+                             <div className="text-5xl font-extrabold text-primary-700 dark:text-primary-400 mb-2">
                                 {formatCurrency(result.totalAmount)}
                              </div>
                         </div>
 
-                        <div className="bg-white/60 backdrop-blur-sm rounded-xl border border-white/50 p-4 space-y-3">
+                        <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-xl border border-white/50 dark:border-slate-700/50 p-4 space-y-3">
                              <div className="flex justify-between items-center text-sm">
                                 <span className="text-slate-600">Principal</span>
                                 <span className="font-bold text-slate-900 dark:text-white">{formatCurrency(principal)}</span>
                              </div>
-                             <div className="flex justify-between items-center text-sm border-t border-dashed border-slate-300 pt-3">
-                                <span className="text-slate-600">Compound Interest</span>
-                                <span className="font-bold text-success-700">+{formatCurrency(result.totalInterest)}</span>
+                             <div className="flex justify-between items-center text-sm border-t border-dashed border-slate-300 dark:border-slate-600 pt-3">
+                                <span className="text-slate-600 dark:text-slate-400">Compound Interest</span>
+                                <span className="font-bold text-success-700 dark:text-success-400">+{formatCurrency(result.totalInterest)}</span>
                              </div>
                         </div>
                         
-                         <div className="p-4 bg-primary-100/50 rounded-xl mt-4 border border-primary-200/50">
+                         <div className="p-4 bg-primary-100/50 dark:bg-primary-900/30 rounded-xl mt-4 border border-primary-200/50 dark:border-primary-800/50">
                              <div className="flex items-center gap-2 mb-2">
-                                <Calculator className="w-4 h-4 text-primary-600" />
-                                <span className="text-xs font-bold text-primary-800">Formula</span>
+                                <Calculator className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+                                <span className="text-xs font-bold text-primary-800 dark:text-primary-300">Formula</span>
                              </div>
-                             <p className="text-[10px] text-primary-700 font-mono leading-relaxed">
+                             <p className="text-[10px] text-primary-700 dark:text-primary-300 font-mono leading-relaxed">
                                 A = P(1 + r/n)^(nt)
                              </p>
                         </div>
@@ -178,7 +178,7 @@ export function CompoundInterestCalculator() {
             </div>
              
              {/* Comparison Chart */}
-            <Card className="border-slate-200 shadow-sm rounded-2xl">
+            <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
                  <CardHeader>
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Growth: Compound vs Simple</CardTitle>
                 </CardHeader>

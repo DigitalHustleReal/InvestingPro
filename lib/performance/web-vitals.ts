@@ -4,10 +4,9 @@
  */
 
 import { logger } from '@/lib/logger';
-import { createClient } from '@supabase/supabase-js';
-import { env } from '@/lib/env';
 
-const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
+// Web vitals tracking is optional and doesn't require Supabase
+// It can be extended later to send data to analytics services if needed
 
 export interface WebVitals {
     lcp: number; // Largest Contentful Paint (ms)
@@ -26,26 +25,49 @@ export interface WebVitalsReport {
 
 /**
  * Track Web Vitals (call from client-side)
+ * 
+ * This is a no-op implementation that can be extended later to:
+ * - Send to analytics services (Google Analytics, PostHog, etc.)
+ * - Store in database via API route (not directly from client)
+ * - Send to monitoring services (Sentry, Datadog, etc.)
  */
 export async function trackWebVitals(vitals: WebVitals, url: string): Promise<void> {
+    // Use try-catch with explicit error handling to prevent any errors from bubbling up
     try {
-        // In production, store in web_vitals table
-        // await supabase.from('web_vitals').insert({
-        //     url,
-        //     lcp: vitals.lcp,
-        //     fid: vitals.fid,
-        //     cls: vitals.cls,
-        //     fcp: vitals.fcp,
-        //     ttfb: vitals.ttfb,
-        //     user_agent: typeof window !== 'undefined' ? window.navigator.userAgent : undefined,
-        //     recorded_at: new Date().toISOString()
-        // });
+        // Only run on client side
+        if (typeof window === 'undefined') {
+            return;
+        }
 
-        logger.info('Web Vitals tracked', { url, vitals });
+        // Log web vitals for debugging (only in development)
+        if (process.env.NODE_ENV === 'development') {
+            console.log('[Web Vitals]', { url, vitals });
+        }
 
-    } catch (error) {
-        logger.error('Error tracking Web Vitals', error);
-        // Don't throw - analytics failures shouldn't break the app
+        // In production, you can extend this to:
+        // 1. Send to analytics via API route: /api/analytics/web-vitals
+        // 2. Use PostHog, Google Analytics, or other analytics SDKs
+        // 3. Send to monitoring services
+        
+        // Example: Send to API route (uncomment when ready)
+        // if (process.env.NODE_ENV === 'production') {
+        //     await fetch('/api/analytics/web-vitals', {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: JSON.stringify({ url, vitals })
+        //     }).catch(() => {}); // Silently fail
+        // }
+
+    } catch (error: unknown) {
+        // Completely silent fail - web vitals tracking should never break the app
+        // Don't even log to avoid any potential issues with logger dependencies
+        // This is non-critical analytics that can fail silently
+        if (process.env.NODE_ENV === 'development') {
+            // Only use console.warn in dev, never logger (which might have dependencies)
+            console.warn('[Web Vitals] Tracking error (non-critical, safely ignored):', error);
+        }
+        // Explicitly return to ensure no error propagation
+        return;
     }
 }
 

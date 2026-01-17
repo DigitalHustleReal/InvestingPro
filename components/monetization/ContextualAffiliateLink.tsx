@@ -3,7 +3,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/Button';
 import { ExternalLink, Info } from 'lucide-react';
-import { api } from '@/lib/api';
+import { apiClient as api } from '@/lib/api-client';
 import { logger } from '@/lib/logger';
 import { ContextualAffiliateLink as ContextualLink } from '@/lib/monetization/contextual-links';
 import DisclosureBlock from './DisclosureBlock';

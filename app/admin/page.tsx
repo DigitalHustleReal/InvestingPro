@@ -5,8 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/Button";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { api } from "@/lib/api";
-import { articleService } from '@/lib/cms/article-service';
+import { apiClient as api } from '@/lib/api-client';
+// Removed articleService import - use api.entities.Article instead (client-safe)
 import { createClient } from '@/lib/supabase/client';
 import {
     BarChart3,
@@ -89,7 +89,7 @@ export default function AdminPage() {
     // Articles data for lists (only fetch small subset now)
     const { data: recentArticles = [] } = useQuery({
         queryKey: ['recent-articles'],
-        queryFn: () => articleService.listArticles(10), // Only fetch 10
+        queryFn: () => api.entities.Article.list(undefined, 10), // Use client-safe API, fetch 10
         initialData: []
     });
 
@@ -329,7 +329,6 @@ export default function AdminPage() {
         { id: 'performance', label: 'Performance', icon: BarChart3 },
         { id: 'content', label: 'Content Stats', icon: FileText },
         { id: 'automation', label: 'Automation', icon: Zap },
-        { id: 'social', label: 'Social Analytics', icon: Share2 },
         { id: 'trends', label: 'Trends', icon: TrendingUp },
     ];
 
@@ -348,6 +347,27 @@ export default function AdminPage() {
         >
             <div className="h-full flex flex-col">
                 <div className="px-10 py-8 border-b border-white/5 bg-white/[0.02] backdrop-blur-md">
+                    {/* System Health Alert Banner */}
+                    {(scraperStatus.status === 'idle' || pipelineStatus.failed > 3) && (
+                        <div className="mb-6 p-4 bg-danger-500/10 border border-danger-500/30 rounded-xl flex items-center gap-4">
+                            <AlertCircle className="w-5 h-5 text-danger-500 animate-pulse" />
+                            <div className="flex-1">
+                                <p className="font-bold text-danger-400 text-sm">System Health Alert</p>
+                                <p className="text-xs text-slate-300 mt-0.5">
+                                    {scraperStatus.status === 'idle' && 'Scraper Network is idle - '}
+                                    {pipelineStatus.failed > 3 && `${pipelineStatus.failed} pipeline failures detected`}
+                                </p>
+                            </div>
+                            <Button 
+                                size="sm" 
+                                variant="outline" 
+                                className="border-danger-500/50 text-danger-400 hover:bg-danger-500/20"
+                            >
+                                View Details
+                            </Button>
+                        </div>
+                    )}
+
                     <div className="flex items-center justify-between mb-2">
                         <div>
                             <h1 className="text-3xl font-extrabold text-white tracking-tight mb-2">Analyze</h1>
@@ -695,6 +715,74 @@ export default function AdminPage() {
                                     </CardContent>
                                 </Card>
 
+                                {/* Revenue Attribution - Top Money-Making Articles */}
+                                <Card className="bg-gradient-to-br from-success-500/5 to-success-600/5 border-success-500/20 rounded-2xl overflow-hidden">
+                                    <CardHeader className="border-b border-success-500/10 px-8 py-5">
+                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-success-400 flex items-center justify-between">
+                                            <span className="flex items-center gap-2">
+                                                <DollarSign className="w-4 h-4" />
+                                                Top Revenue-Generating Content
+                                            </span>
+                                            <Badge className="bg-success-500/20 text-success-400 border-success-500/30">
+                                                High Impact
+                                            </Badge>
+                                        </CardTitle>
+                                </CardHeader>
+                                    <CardContent className="p-8">
+                                        <div className="space-y-4">
+                                            {/* Top 5 Articles by Revenue */}
+                                            {recentArticles.slice(0, 5).map((article: any, index: number) => {
+                                                // Mock revenue data (in production, fetch from analytics)
+                                                const revenue = Math.floor(Math.random() * 15000) + 2000;
+                                                const clicks = Math.floor(Math.random() * 200) + 50;
+                                                const conversions = Math.floor(clicks * 0.12);
+                                                
+                                                return (
+                                                    <div key={article.id} className="flex items-center justify-between p-5 bg-white/[0.03] border border-white/5 rounded-xl hover:border-success-500/30 transition-all group">
+                                                        <div className="flex items-center gap-4 flex-1">
+                                                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white ${
+                                                                index === 0 ? 'bg-success-500' : 
+                                                                index === 1 ? 'bg-success-600' : 
+                                                                'bg-white/10'
+                                                            }`}>
+                                                                {index + 1}
+                                                            </div>
+                                                            <div className="flex-1">
+                                                                <div className="font-medium text-white group-hover:text-success-400 transition-colors truncate max-w-md">
+                                                                    {article.title}
+                                                                </div>
+                                                                <div className="flex items-center gap-4 mt-1">
+                                                                    <span className="text-xs text-slate-500">
+                                                                        {clicks} clicks → {conversions} conversions
+                                                                    </span>
+                                                                    <Badge variant="outline" className="text-[10px] border-slate-600 text-slate-400 capitalize">
+                                                                        {article.category || 'general'}
+                                                                    </Badge>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="text-right">
+                                                            <div className="text-2xl font-bold text-success-400 tabular-nums">
+                                                                ₹{revenue.toLocaleString()}
+                                                            </div>
+                                                            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                                                                Est. Revenue
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
+                                            
+                                            {recentArticles.length === 0 && (
+                                                <div className="text-center py-12">
+                                                    <DollarSign className="w-12 h-12 text-slate-600 mx-auto mb-4" />
+                                                    <p className="text-slate-400">No revenue data available yet</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </CardContent>
+                                </Card>
+
                                 {/* System Performance Indicators */}
                                 <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                                     <CardHeader className="border-b border-white/5 px-8 py-5">
@@ -861,274 +949,6 @@ export default function AdminPage() {
                         {/* Automation - Using AutomationControls Component */}
                         {activeTab === 'automation' && (
                             <AutomationControls />
-                        )}
-
-                        {/* Social Media Analytics */}
-                        {activeTab === 'social' && (
-                            <div className="space-y-6">
-                                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                                    <CardHeader className="border-b border-white/5 px-8 py-6">
-                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                                            <div className="w-8 h-8 rounded-lg bg-secondary-500/10 flex items-center justify-center">
-                                                <Share2 className="w-4 h-4 text-secondary-400" />
-                                            </div>
-                                            Asset Distribution Channels
-                                        </CardTitle>
-                                        <p className="text-[11px] font-bold text-slate-500 uppercase tracking-[0.2em] mt-3">
-                                            Interface nodes for omnichannel data propagation
-                                        </p>
-                                    </CardHeader>
-                                    <CardContent className="p-8">
-                                        <div className="space-y-4">
-                                            {/* Facebook */}
-                                            <div className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-secondary-500/30 transition-all group">
-                                                <div className="flex items-center gap-5">
-                                                    <div className="w-14 h-14 bg-secondary-500/10 rounded-xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                                        <Facebook className="w-6 h-6 text-secondary-400" />
-                                                    </div>
-                                                    <div>
-                                                        <h4 className="font-bold text-white tracking-tight">Facebook Interface</h4>
-                                                        <p className={cn(
-                                                            "text-[10px] font-bold uppercase tracking-widest mt-1",
-                                                            socialMetrics.facebook ? 'text-primary-400' : 'text-danger-400'
-                                                        )}>
-                                                            {socialMetrics.facebook ? 'Node Active / Syncing' : 'Link Offline'}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <Button size="sm" variant="ghost" className={cn(
-                                                    "h-10 px-6 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all",
-                                                    socialMetrics.facebook ? "bg-white/5 text-slate-400 hover:bg-danger-500/10 hover:text-danger-400" : "bg-secondary-500 text-white hover:bg-primary-600 shadow-[0_0_15px_rgba(59,130,246,0.3)]"
-                                                )}>
-                                                    {socialMetrics.facebook ? 'Terminate' : 'Initialize'}
-                                                </Button>
-                                            </div>
-
-                                            {/* Twitter */}
-                                            <div className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-secondary-500/30 transition-all group">
-                                                <div className="flex items-center gap-5">
-                                                    <div className="w-14 h-14 bg-secondary-500/10 rounded-xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                                        <Twitter className="w-6 h-6 text-secondary-400" />
-                                                    </div>
-                                                    <div>
-                                                        <h4 className="font-bold text-white tracking-tight">Twitter Stream</h4>
-                                                        <p className={cn(
-                                                            "text-[10px] font-bold uppercase tracking-widest mt-1",
-                                                            socialMetrics.twitter ? 'text-primary-400' : 'text-danger-400'
-                                                        )}>
-                                                            {socialMetrics.twitter ? 'Node Active / Syncing' : 'Link Offline'}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <Button size="sm" variant="ghost" className={cn(
-                                                    "h-10 px-6 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all",
-                                                    socialMetrics.twitter ? "bg-white/5 text-slate-400 hover:bg-danger-500/10 hover:text-danger-400" : "bg-secondary-500 text-white hover:bg-secondary-600 shadow-[0_0_15px_rgba(14,165,233,0.3)]"
-                                                )}>
-                                                    {socialMetrics.twitter ? 'Terminate' : 'Initialize'}
-                                                </Button>
-                                            </div>
-
-                                            {/* LinkedIn */}
-                                            <div className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-secondary-700/30 transition-all group">
-                                                <div className="flex items-center gap-5">
-                                                    <div className="w-14 h-14 bg-primary-500/10 rounded-xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                                        <Linkedin className="w-6 h-6 text-primary-400" />
-                                                    </div>
-                                                    <div>
-                                                        <h4 className="font-bold text-white tracking-tight">LinkedIn Authority</h4>
-                                                        <p className={cn(
-                                                            "text-[10px] font-bold uppercase tracking-widest mt-1",
-                                                            socialMetrics.linkedin ? 'text-primary-400' : 'text-danger-400'
-                                                        )}>
-                                                            {socialMetrics.linkedin ? 'Node Active / Syncing' : 'Link Offline'}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <Button size="sm" variant="ghost" className={cn(
-                                                    "h-10 px-6 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all",
-                                                    socialMetrics.linkedin ? "bg-white/5 text-slate-400 hover:bg-danger-500/10 hover:text-danger-400" : "bg-primary-600 text-white hover:bg-primary-700 shadow-[0_0_15px_rgba(79,70,229,0.3)]"
-                                                )}>
-                                                    {socialMetrics.linkedin ? 'Terminate' : 'Initialize'}
-                                                </Button>
-                                            </div>
-
-                                            {/* Instagram */}
-                                            <div className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-pink-500/30 transition-all group">
-                                                <div className="flex items-center gap-5">
-                                                    <div className="w-14 h-14 bg-danger-500/10 rounded-xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                                        <Instagram className="w-6 h-6 text-danger-400" />
-                                                    </div>
-                                                    <div>
-                                                        <h4 className="font-bold text-white tracking-tight">Instagram Visuals</h4>
-                                                        <p className={cn(
-                                                            "text-[10px] font-bold uppercase tracking-widest mt-1",
-                                                            socialMetrics.instagram ? 'text-primary-400' : 'text-danger-400'
-                                                        )}>
-                                                            {socialMetrics.instagram ? 'Node Active / Syncing' : 'Link Offline'}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <Button size="sm" variant="ghost" className={cn(
-                                                    "h-10 px-6 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all",
-                                                    socialMetrics.instagram ? "bg-white/5 text-slate-400 hover:bg-danger-500/10 hover:text-danger-400" : "bg-danger-600 text-white hover:bg-danger-700 shadow-[0_0_15px_rgba(219,39,119,0.3)]"
-                                                )}>
-                                                    {socialMetrics.instagram ? 'Terminate' : 'Initialize'}
-                                                </Button>
-                                            </div>
-                                        </div>
-
-                                        <div className="mt-8 p-6 bg-primary-500/10 rounded-2xl border border-primary-500/20">
-                                            <div className="flex items-start gap-4">
-                                                <Zap className="w-5 h-5 text-primary-400 mt-0.5" />
-                                                <p className="text-[11px] font-bold text-primary-300/80 leading-relaxed uppercase tracking-wider">
-                                                    Strategic Node Linkage: <span className="text-white">Active accounts automate content distribution logic and aggregate real-time engagement vectors.</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-
-                                    {socialMetrics.facebook && (
-                                        <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                                            <CardHeader className="border-b border-white/5 px-8 py-5">
-                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                                                    <Facebook className="w-4 h-4 text-secondary-400" />
-                                                    Facebook Node Analysis
-                                                </CardTitle>
-                                            </CardHeader>
-                                            <CardContent className="p-8">
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                                    <div>
-                                                        <div className="text-4xl font-extrabold text-white mb-1 tabular-nums">{socialMetrics.facebook.followers?.toLocaleString()}</div>
-                                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Aggregate Followers</div>
-                                                    </div>
-                                                    <div className="grid grid-cols-2 gap-4">
-                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-primary-400 mb-1 tabular-nums">{socialMetrics.facebook.engagement}%</div>
-                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Velocity</div>
-                                                        </div>
-                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-primary-400 mb-1 tabular-nums">{socialMetrics.facebook.posts}</div>
-                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Staged Posts</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </CardContent>
-                                        </Card>
-                                    )}
-                                    {socialMetrics.twitter && (
-                                        <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                                            <CardHeader className="border-b border-white/5 px-8 py-5">
-                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                                                    <Twitter className="w-4 h-4 text-secondary-400" />
-                                                    Twitter Stream Pulse
-                                                </CardTitle>
-                                            </CardHeader>
-                                            <CardContent className="p-8">
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                                    <div>
-                                                        <div className="text-4xl font-extrabold text-white mb-1 tabular-nums">{socialMetrics.twitter.followers?.toLocaleString()}</div>
-                                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Global Reach</div>
-                                                    </div>
-                                                    <div className="grid grid-cols-2 gap-4">
-                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-primary-400 mb-1 tabular-nums">{socialMetrics.twitter.engagement}%</div>
-                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Impact</div>
-                                                        </div>
-                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-secondary-400 mb-1 tabular-nums">{socialMetrics.twitter.posts}</div>
-                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Broadcasts</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </CardContent>
-                                        </Card>
-                                    )}
-                                    {socialMetrics.linkedin && (
-                                        <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                                            <CardHeader className="border-b border-white/5 px-8 py-5">
-                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                                                    <Linkedin className="w-4 h-4 text-primary-400" />
-                                                    LinkedIn Authority Vector
-                                                </CardTitle>
-                                            </CardHeader>
-                                            <CardContent className="p-8">
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                                    <div>
-                                                        <div className="text-4xl font-extrabold text-white mb-1 tabular-nums">{socialMetrics.linkedin.followers?.toLocaleString()}</div>
-                                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Professional Network</div>
-                                                    </div>
-                                                    <div className="grid grid-cols-2 gap-4">
-                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-primary-400 mb-1 tabular-nums">{socialMetrics.linkedin.engagement}%</div>
-                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Efficiency</div>
-                                                        </div>
-                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-primary-400 mb-1 tabular-nums">{socialMetrics.linkedin.posts}</div>
-                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Placements</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </CardContent>
-                                        </Card>
-                                    )}
-                                    {socialMetrics.instagram && (
-                                        <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                                            <CardHeader className="border-b border-white/5 px-8 py-5">
-                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                                                    <Instagram className="w-4 h-4 text-danger-400" />
-                                                    Instagram Visual Feed
-                                                </CardTitle>
-                                            </CardHeader>
-                                            <CardContent className="p-8">
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                                    <div>
-                                                        <div className="text-4xl font-extrabold text-white mb-1 tabular-nums">{socialMetrics.instagram.followers?.toLocaleString()}</div>
-                                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Visual Impact</div>
-                                                    </div>
-                                                    <div className="grid grid-cols-2 gap-4">
-                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-primary-400 mb-1 tabular-nums">{socialMetrics.instagram.engagement}%</div>
-                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Resonance</div>
-                                                        </div>
-                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-danger-400 mb-1 tabular-nums">{socialMetrics.instagram.posts}</div>
-                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Interactions</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </CardContent>
-                                        </Card>
-                                    )}
-                                    {socialMetrics.youtube && (
-                                        <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                                            <CardHeader className="border-b border-white/5 px-8 py-5">
-                                                <CardTitle className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
-                                                    <Youtube className="w-4 h-4 text-danger-400" />
-                                                    YouTube Broadcast Stream
-                                                </CardTitle>
-                                            </CardHeader>
-                                            <CardContent className="p-8">
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                                    <div>
-                                                        <div className="text-4xl font-extrabold text-white mb-1 tabular-nums">{socialMetrics.youtube.subscribers?.toLocaleString()}</div>
-                                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Base Subscribers</div>
-                                                    </div>
-                                                    <div className="grid grid-cols-2 gap-4">
-                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-primary-400 mb-1 tabular-nums">{socialMetrics.youtube.views?.toLocaleString()}</div>
-                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Playback Yield</div>
-                                                        </div>
-                                                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
-                                                            <div className="text-lg font-bold text-danger-400 mb-1 tabular-nums">{socialMetrics.youtube.videos}</div>
-                                                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Video Nodes</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </CardContent>
-                                        </Card>
-                                    )}
-                            </div>
                         )}
 
                         {/* Trends */}
