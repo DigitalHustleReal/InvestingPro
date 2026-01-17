@@ -11,9 +11,10 @@ import { logger } from '@/lib/logger';
 export const POST = withApiVersioning(async (
     request: NextRequest,
     version: string,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) => {
     try {
+        const { id } = await params;
         const { assignee_id } = await request.json();
         
         if (!assignee_id) {
@@ -32,7 +33,7 @@ export const POST = withApiVersioning(async (
         
         // Call the assign_workflow function
         const { data, error } = await supabase.rpc('assign_workflow', {
-            workflow_instance_id: params.id,
+            workflow_instance_id: id,
             assignee_id
         });
         
@@ -41,7 +42,7 @@ export const POST = withApiVersioning(async (
         return NextResponse.json({
             success: true,
             message: 'Workflow assigned successfully',
-            workflow_id: params.id,
+            workflow_id: id,
             assignee_id,
             timestamp: new Date().toISOString()
         });

@@ -100,7 +100,7 @@ export async function POST(
     // Log warnings but allow publish (warnings are non-blocking)
     if (factCheckResult.warnings.length > 0 || complianceResult.warnings.length > 0) {
       logger.warn('Publish: Validation warnings (non-blocking)', {
-        articleId: params.id,
+        articleId: id,
         factCheckWarnings: factCheckResult.warnings.length,
         complianceWarnings: complianceResult.warnings.length,
       });

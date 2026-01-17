@@ -1,7 +1,7 @@
 # Pending Actions - TODO List
 **Status:** 📋 **ACTIVE** - Consolidated from all audit reports  
 **Last Updated:** 2026-01-17  
-**Total Items:** 80+ actionable tasks
+**Total Items:** 105+ actionable tasks
 
 ---
 
@@ -63,6 +63,35 @@
    - Fix: Auto-inject disclosure text when affiliate links present
    - Status: ⏳ Pending
    - ETA: 1 day
+
+### Home Page (HOME_PAGE_AUDIT)
+9. **Add dark mode variant to main element** (HOME_PAGE_AUDIT)
+   - File: `app/page.tsx`
+   - Issue: `bg-white` without dark mode variant
+   - Fix: Add `dark:bg-slate-950` to main element
+   - Status: ⏳ Pending
+   - ETA: 5 minutes
+
+10. **Implement lazy loading for below-the-fold components** (HOME_PAGE_AUDIT)
+    - File: `app/page.tsx`
+    - Issue: All components loaded immediately, no code splitting
+    - Fix: Lazy load FeaturedProducts, CategoryDiscovery, LatestInsights, TrustSection
+    - Status: ⏳ Pending
+    - ETA: 2 hours
+
+11. **Fix structured data type** (HOME_PAGE_AUDIT)
+    - File: `app/page.tsx`
+    - Issue: Structured data type is "Organization" (should be "WebSite" for homepage)
+    - Fix: Change @type to "WebSite" and add WebSite schema with SearchAction
+    - Status: ⏳ Pending
+    - ETA: 1 hour
+
+12. **Add page-level loading state** (HOME_PAGE_AUDIT)
+    - File: `app/page.tsx`
+    - Issue: No coordinated page-level loading skeleton
+    - Fix: Add page-level skeleton loader, coordinate loading states
+    - Status: ⏳ Pending
+    - ETA: 2 hours
 
 ---
 
@@ -223,6 +252,42 @@
     - Fix: Track AI costs per article in database
     - Status: ⏳ Pending
     - ETA: 3 days
+
+### Home Page - High Priority
+33. **Convert home page to SSR/SSG** (HOME_PAGE_AUDIT)
+    - File: `app/page.tsx`
+    - Issue: Client-side rendering only, no SSR benefits
+    - Fix: Convert to Server Component where possible, use SSR/SSG for better performance
+    - Status: ⏳ Pending
+    - ETA: 1 day
+
+34. **Add keyboard navigation support for carousel** (HOME_PAGE_AUDIT)
+    - File: `components/home/HeroSection.tsx`
+    - Issue: Carousel may not be keyboard accessible
+    - Fix: Add arrow key navigation, tab support, pause/play controls
+    - Status: ⏳ Pending
+    - ETA: 3 hours
+
+35. **Add screen reader support to home page** (HOME_PAGE_AUDIT)
+    - Files: `app/page.tsx`, `components/home/*`
+    - Issue: Missing aria-labels, loading states not announced
+    - Fix: Add aria-labels to interactive elements, use aria-live regions for dynamic content
+    - Status: ⏳ Pending
+    - ETA: 4 hours
+
+36. **Verify mobile responsiveness and touch targets** (HOME_PAGE_AUDIT)
+    - File: `app/page.tsx`, `components/home/*`
+    - Issue: Need to verify mobile experience, touch targets
+    - Fix: Test on devices, ensure 44x44px touch targets, add swipe gestures for carousel
+    - Status: ⏳ Pending
+    - ETA: 1 day
+
+37. **Add comprehensive structured data to home page** (HOME_PAGE_AUDIT)
+    - File: `app/page.tsx`
+    - Issue: Missing WebSite schema, ItemList for products, BreadcrumbList
+    - Fix: Add WebSite schema with SearchAction, ItemList for featured products, BreadcrumbList
+    - Status: ⏳ Pending
+    - ETA: 2 hours
 
 ---
 
@@ -466,6 +531,42 @@
     - Status: ⏳ Pending
     - ETA: 2 days
 
+### Home Page - Medium Priority
+67. **Add page-level error boundary** (HOME_PAGE_AUDIT)
+    - File: `app/page.tsx`
+    - Issue: No page-level error boundary, only section-level
+    - Fix: Add page-level error boundary with user-friendly messages and retry
+    - Status: ⏳ Pending
+    - ETA: 2 hours
+
+68. **Coordinate loading states on home page** (HOME_PAGE_AUDIT)
+    - File: `app/page.tsx`
+    - Issue: Individual component loading states, no coordination
+    - Fix: Add page-level skeleton loader, prevent layout shift
+    - Status: ⏳ Pending
+    - ETA: 3 hours
+
+69. **Add analytics tracking to home page** (HOME_PAGE_AUDIT)
+    - File: `app/page.tsx`
+    - Issue: No explicit page view or section visibility tracking
+    - Fix: Add page view tracking, section visibility (Intersection Observer), user interactions
+    - Status: ⏳ Pending
+    - ETA: 4 hours
+
+70. **Optimize home page bundle size** (HOME_PAGE_AUDIT)
+    - Files: `app/page.tsx`, `components/home/HeroSection.tsx`
+    - Issue: Large bundle (framer-motion, all components loaded)
+    - Fix: Code split heavy dependencies, lazy load framer-motion, analyze bundle
+    - Status: ⏳ Pending
+    - ETA: 1 day
+
+71. **Add Web Vitals monitoring to home page** (HOME_PAGE_AUDIT)
+    - File: `app/page.tsx`
+    - Issue: No Web Vitals tracking on home page
+    - Fix: Add LCP, FID, CLS tracking, set up alerts
+    - Status: ⏳ Pending
+    - ETA: 2 hours
+
 ---
 
 ## 🟢 LOW PRIORITY (Nice to Have)
@@ -637,16 +738,59 @@
     - Status: ⏳ Pending
     - ETA: 1 week
 
+### Home Page - Low Priority
+91. **Add skip-to-content link** (HOME_PAGE_AUDIT)
+    - File: `app/page.tsx`
+    - Issue: No skip navigation link for accessibility
+    - Fix: Add skip-to-content link at top of page
+    - Status: ⏳ Pending
+    - ETA: 30 minutes
+
+92. **Add semantic HTML5 elements** (HOME_PAGE_AUDIT)
+    - File: `app/page.tsx`
+    - Issue: No semantic section/article elements
+    - Fix: Use `<section>`, `<article>` elements where appropriate
+    - Status: ⏳ Pending
+    - ETA: 1 hour
+
+93. **Verify CSP headers for home page** (HOME_PAGE_AUDIT)
+    - File: `app/page.tsx`
+    - Issue: Need to verify Content Security Policy headers
+    - Fix: Verify CSP headers, ensure XSS protection
+    - Status: ⏳ Pending
+    - ETA: 1 hour
+
+94. **Add hreflang tags** (HOME_PAGE_AUDIT)
+    - File: `app/page.tsx`
+    - Issue: No hreflang tags for multi-language support
+    - Fix: Add hreflang tags if multi-language (optional)
+    - Status: ⏳ Pending
+    - ETA: 1 hour
+
+95. **Add error states to FeaturedProducts component** (HOME_PAGE_AUDIT)
+    - File: `components/home/FeaturedProducts.tsx`
+    - Issue: No error state handling, no empty state
+    - Fix: Add error state with retry, add empty state
+    - Status: ⏳ Pending
+    - ETA: 2 hours
+
+96. **Optimize HeroSection carousel** (HOME_PAGE_AUDIT)
+    - File: `components/home/HeroSection.tsx`
+    - Issue: Uses framer-motion (large bundle), auto-rotation may be distracting
+    - Fix: Lazy load framer-motion, add pause/play controls, respect prefers-reduced-motion
+    - Status: ⏳ Pending
+    - ETA: 3 hours
+
 ---
 
 ## 📊 Summary by Priority
 
-**Critical (8 items):** Build fixes, fact-checking, keyword API, compliance, rankings, auto-refresh, disclosure  
-**High (24 items):** Data integrity, security, UI/UX critical, automation high-value, testing  
-**Medium (33 items):** Data sources, UI/UX medium, automation medium, SERP analysis, content quality  
-**Low (25 items):** Data sources deferred, UI/UX nice-to-have, monitoring, content/media, trend discovery  
+**Critical (12 items):** Build fixes, fact-checking, keyword API, compliance, rankings, auto-refresh, disclosure, home page dark mode, lazy loading, structured data, page loading  
+**High (28 items):** Data integrity, security, UI/UX critical, automation high-value, testing, home page SSR, keyboard nav, screen reader, mobile, structured data  
+**Medium (38 items):** Data sources, UI/UX medium, automation medium, SERP analysis, content quality, home page error boundary, loading coordination, analytics, bundle optimization, Web Vitals  
+**Low (27 items):** Data sources deferred, UI/UX nice-to-have, monitoring, content/media, trend discovery, home page semantic HTML, CSP, hreflang, component error states  
 
-**Total: 90 actionable items**
+**Total: 105 actionable items**
 
 ---
 
@@ -749,6 +893,23 @@
 - Sitemap auto-update
 - Email snippets
 - Video/carousel generation
+
+### Home Page (15 items)
+- Dark mode variant
+- Lazy loading
+- Structured data fixes
+- Page-level loading
+- SSR/SSG conversion
+- Keyboard navigation
+- Screen reader support
+- Mobile responsiveness
+- Comprehensive structured data
+- Error boundary
+- Loading coordination
+- Analytics tracking
+- Bundle optimization
+- Web Vitals monitoring
+- Semantic HTML
 
 ---
 

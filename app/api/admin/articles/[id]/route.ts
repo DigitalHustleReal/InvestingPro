@@ -9,18 +9,19 @@ import { logger } from '@/lib/logger';
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const supabase = await createClient();
     const { data: { user }, error: authError } = await supabase.auth.getUser();
     
     if (authError || !user) {
-      logger.warn('Unauthorized article fetch attempt', { articleId: params.id });
+      logger.warn('Unauthorized article fetch attempt', { articleId: id });
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const article = await articleService.getById(params.id);
+    const article = await articleService.getById(id);
     
     if (!article) {
       return NextResponse.json({ error: 'Article not found' }, { status: 404 });
@@ -28,7 +29,8 @@ export async function GET(
 
     return NextResponse.json(article);
   } catch (error) {
-    logger.error('Error fetching article', error as Error, { articleId: params.id });
+    const { id } = await params;
+    logger.error('Error fetching article', error as Error, { articleId: id });
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -43,14 +45,15 @@ export async function GET(
  */
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const supabase = await createClient();
     const { data: { user }, error: authError } = await supabase.auth.getUser();
     
     if (authError || !user) {
-      logger.warn('Unauthorized article update attempt', { articleId: params.id });
+      logger.warn('Unauthorized article update attempt', { articleId: id });
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -75,14 +78,15 @@ export async function PUT(
     const articleMetadata: Partial<ArticleMetadata> = metadata || {};
 
     const result = await articleService.saveArticle(
-      params.id,
+      id,
       articleContent,
       articleMetadata
     );
 
     return NextResponse.json(result);
   } catch (error) {
-    logger.error('Error updating article', error as Error, { articleId: params.id });
+    const { id } = await params;
+    logger.error('Error updating article', error as Error, { articleId: id });
     
     const errorMessage = error instanceof Error ? error.message : 'Internal server error';
     return NextResponse.json(
@@ -98,22 +102,24 @@ export async function PUT(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const supabase = await createClient();
     const { data: { user }, error: authError } = await supabase.auth.getUser();
     
     if (authError || !user) {
-      logger.warn('Unauthorized article delete attempt', { articleId: params.id });
+      logger.warn('Unauthorized article delete attempt', { articleId: id });
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    await articleService.deleteArticle(params.id);
+    await articleService.deleteArticle(id);
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    logger.error('Error deleting article', error as Error, { articleId: params.id });
+    const { id } = await params;
+    logger.error('Error deleting article', error as Error, { articleId: id });
     
     const errorMessage = error instanceof Error ? error.message : 'Internal server error';
     return NextResponse.json(

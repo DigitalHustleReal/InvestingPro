@@ -50,7 +50,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                                     <SignalIcon />
                                 </div>
                                 <div className="text-white/90 font-mono text-xl tracking-widest mt-8">
-                                    â€¢â€¢â€¢â€¢ â€¢â€¢â€¢â€¢ â€¢â€¢â€¢â€¢ 4289
+                                     •••• •••• •••• 4289
                                 </div>
                                 <div className="flex justify-between items-end">
                                     <div>
@@ -149,8 +149,8 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                             {/* Inner Protected Content */}
                             <div className="absolute inset-0 flex flex-col items-center justify-center pt-4">
                                 <div className="flex -space-x-4 mb-3">
-                                    <div className="w-12 h-12 bg-primary-100 rounded-full border-2 border-white flex items-center justify-center">ðŸ‘¨â€ðŸ‘©â€ðŸ‘§</div>
-                                    <div className="w-12 h-12 bg-danger-100 rounded-full border-2 border-white flex items-center justify-center">â¤ï¸</div>
+                                    <div className="w-12 h-12 bg-primary-100 rounded-full border-2 border-white flex items-center justify-center">👨‍👩‍👧</div>
+                                    <div className="w-12 h-12 bg-danger-100 rounded-full border-2 border-white flex items-center justify-center">❤️</div>
                                 </div>
                                 <div className="bg-white dark:bg-slate-800 px-3 py-1 rounded-full shadow-sm border border-primary-100 dark:border-primary-900/50">
                                     <span className="text-xs font-bold text-primary-700 dark:text-primary-300">100% Protected</span>

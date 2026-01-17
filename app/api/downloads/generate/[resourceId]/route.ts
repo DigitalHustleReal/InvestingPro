@@ -11,10 +11,11 @@ import { logger } from '@/lib/logger';
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: { resourceId: string } }
+    { params }: { params: Promise<{ resourceId: string }> }
 ) {
     try {
-        const resource = await getDownloadById(params.resourceId);
+        const { resourceId } = await params;
+        const resource = await getDownloadById(resourceId);
         
         if (!resource) {
             return NextResponse.json(
