@@ -2,6 +2,9 @@
  * Keyword Research Integration
  * Integrates keyword research into content generation pipeline
  * 
+ * UPDATED: Now uses real keyword API data (Ahrefs/Semrush/Ubersuggest)
+ * Falls back to placeholder if no API key configured
+ * 
  * FREE TIER OPTIONS:
  * - Google Trends API (free) - trend data only
  * - Ubersuggest (limited free tier)
@@ -11,6 +14,7 @@
 
 import { keywordResearchService } from '@/lib/keyword-research/KeywordResearchService';
 import { logger } from '@/lib/logger';
+import { getKeywordData, isKeywordAPIConfigured } from '@/lib/seo/keyword-api-client';
 
 export interface KeywordOpportunity {
     keyword: string;
@@ -178,14 +182,35 @@ export async function getCategoryKeywords(category: string): Promise<KeywordOppo
 
     const keywords = categoryKeywords[category] || [];
     
-    // Rank opportunities (using placeholder data - in production, use real API)
-    const ranked = rankKeywordOpportunities(
-        keywords.map(kw => ({
+    // Get real keyword data if API configured, otherwise use placeholder
+    const keywordDataPromises = keywords.map(async (kw) => {
+        if (isKeywordAPIConfigured()) {
+            try {
+                const data = await getKeywordData(kw);
+                return {
+                    keyword: kw,
+                    searchVolume: data.searchVolume,
+                    difficulty: data.difficulty
+                };
+            } catch (error) {
+                logger.warn('Failed to get keyword data, using placeholder', { keyword: kw, error });
+                // Fall back to placeholder
+            }
+        }
+        
+        // Placeholder data (will be flagged in logs)
+        logger.warn('Using placeholder keyword data - real API integration required', { keyword: kw });
+        return {
             keyword: kw,
-            searchVolume: 1000, // Placeholder
-            difficulty: 40 // Placeholder
-        }))
-    );
+            searchVolume: 0, // Flagged as placeholder
+            difficulty: 50 // Medium difficulty placeholder
+        };
+    });
+
+    const keywordData = await Promise.all(keywordDataPromises);
+    
+    // Rank opportunities using real or placeholder data
+    const ranked = rankKeywordOpportunities(keywordData);
 
     return ranked;
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import AdminLayout from '@/components/admin/AdminLayout';
 import ArticleInspector from '@/components/admin/ArticleInspector';
@@ -8,12 +8,30 @@ import ArticleEditor from '@/components/admin/ArticleEditor';
 import { Input } from '@/components/ui/input';
 import type { ArticleData } from '@/lib/cms/article-service';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Loader2, CheckCheck, Eye, ArrowLeft, Save, Globe } from 'lucide-react';
+import { Loader2, CheckCheck, Eye, ArrowLeft, Save, Globe, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { toast } from 'sonner';
 import { Badge } from '@/components/ui/badge';
 import { PreviewPane } from '@/components/admin/preview/PreviewPane';
 import Link from 'next/link';
+import { FormField } from '@/components/forms/FormField';
+import { validateForm, articleValidationRules, getCharacterCount } from '@/lib/forms/validation';
+import { useAutoSave } from '@/lib/hooks/useAutoSave';
+import { useUnsavedChanges } from '@/lib/hooks/useUnsavedChanges';
+import { formatErrorForUI } from '@/lib/errors/user-friendly-messages';
+import { ArticleCardSkeleton } from '@/components/loading/ArticleCardSkeleton';
+
+// Helper to format time ago
+function formatTimeAgo(date: Date): string {
+    const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+    if (seconds < 60) return 'just now';
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return `${minutes}m ago`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours}h ago`;
+    const days = Math.floor(hours / 24);
+    return `${days}d ago`;
+}
 
 export default function EditArticlePage() {
     const router = useRouter();
@@ -29,6 +47,7 @@ export default function EditArticlePage() {
     const [isProofreading, setIsProofreading] = useState(false);
     const [editorKey, setEditorKey] = useState(0);
     const [showPreview, setShowPreview] = useState(false);
+    const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
 
     const handleProofread = async () => {
         if (!editorContent?.markdown) return;
@@ -62,7 +81,7 @@ export default function EditArticlePage() {
             setEditorKey(prev => prev + 1);
             toast.success("Content Proofread & Polished!");
         } catch (e: any) {
-            toast.error("Proofreading failed: " + e.message);
+            toast.error(formatErrorForUI(e));
         } finally {
             setIsProofreading(false);
         }
@@ -94,6 +113,70 @@ export default function EditArticlePage() {
             // Editor will load content via initialContent prop
         }
     }, [article]);
+
+    // Validate form on change
+    useEffect(() => {
+        const errors = validateForm({ title, excerpt }, articleValidationRules);
+        setValidationErrors(errors);
+    }, [title, excerpt]);
+
+    // Auto-save hook
+    const formData = useMemo(() => ({
+        title,
+        excerpt,
+        content: editorContent,
+    }), [title, excerpt, editorContent]);
+
+    const { isSaving: isAutoSaving, lastSaved: autoSaveLastSaved, hasUnsavedChanges } = useAutoSave(formData, {
+        saveFn: async (data) => {
+            if (!data.content || !title.trim()) return;
+            await saveMutation.mutateAsync({});
+        },
+        enabled: !!article && !!editorContent && title.trim().length > 0,
+        interval: 30000, // 30 seconds
+        onSaveStart: () => {
+            // Silent auto-save
+        },
+        onSaveSuccess: () => {
+            // Silent success (don't show toast for auto-save)
+        },
+        onSaveError: (error) => {
+            // Log but don't show toast for auto-save errors
+            console.error('Auto-save failed:', error);
+        },
+    });
+
+    // Use the most recent save timestamp
+    const effectiveLastSaved = autoSaveLastSaved || lastSaved;
+
+    // Unsaved changes warning
+    useUnsavedChanges({
+        enabled: hasUnsavedChanges && !isAutoSaving,
+        message: 'You have unsaved changes. Are you sure you want to leave?',
+    });
+
+    // Keyboard shortcuts for save and publish
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            // Cmd+S or Ctrl+S - Save
+            if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+                e.preventDefault();
+                if (!saving && !isAutoSaving) {
+                    handleSave({});
+                }
+            }
+            // Cmd+P or Ctrl+P - Publish (prevent browser print)
+            if ((e.metaKey || e.ctrlKey) && e.key === 'p') {
+                e.preventDefault();
+                if (!publishMutation.isPending && !saving && article?.status !== 'published') {
+                    handlePublish({});
+                }
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [saving, isAutoSaving, publishMutation.isPending, article?.status]);
 
     // Save mutation (does NOT change status)
     const saveMutation = useMutation({
@@ -166,7 +249,7 @@ export default function EditArticlePage() {
             }
             
             setSaving(false);
-            toast.error(error instanceof Error ? error.message : 'Failed to save article');
+            toast.error(formatErrorForUI(error));
         },
     });
 
@@ -272,13 +355,16 @@ export default function EditArticlePage() {
             }
             
             setSaving(false);
-            toast.error(error instanceof Error ? error.message : 'Failed to publish article');
+            toast.error(formatErrorForUI(error));
         },
     });
 
     const handleSave = async (metadata: any) => {
-        if (!title.trim()) {
-            toast.error('Please enter a title');
+        // Validate before save
+        const errors = validateForm({ title, excerpt }, articleValidationRules);
+        if (Object.keys(errors).length > 0) {
+            setValidationErrors(errors);
+            toast.error('Please fix the form errors before saving');
             return;
         }
 
@@ -294,8 +380,11 @@ export default function EditArticlePage() {
     };
 
     const handlePublish = async (metadata: any = {}) => {
-        if (!title.trim()) {
-            toast.error('Please enter a title');
+        // Validate before publish
+        const errors = validateForm({ title, excerpt }, articleValidationRules);
+        if (Object.keys(errors).length > 0) {
+            setValidationErrors(errors);
+            toast.error('Please fix the form errors before publishing');
             return;
         }
 
@@ -303,6 +392,10 @@ export default function EditArticlePage() {
             toast.error('No content to publish');
             return;
         }
+
+        // Confirm publish
+        const confirmed = window.confirm('Are you sure you want to publish this article? It will be visible to all users.');
+        if (!confirmed) return;
 
         setSaving(true);
         // Ensure metadata is an object if called without args
@@ -323,8 +416,18 @@ export default function EditArticlePage() {
     if (isLoading) {
         return (
             <AdminLayout>
-                <div className="flex items-center justify-center min-h-screen">
-                    <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
+                <div className="flex flex-col items-center justify-center min-h-screen p-8">
+                    <div className="w-full max-w-4xl space-y-4">
+                        {/* Title Skeleton */}
+                        <div className="h-12 bg-slate-200 dark:bg-slate-800 rounded-lg animate-pulse" />
+                        {/* Editor Skeleton */}
+                        <div className="space-y-3">
+                            <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded animate-pulse w-3/4" />
+                            <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded animate-pulse w-full" />
+                            <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded animate-pulse w-5/6" />
+                            <div className="h-64 bg-slate-200 dark:bg-slate-800 rounded-lg animate-pulse mt-8" />
+                        </div>
+                    </div>
                 </div>
             </AdminLayout>
         );
@@ -333,15 +436,18 @@ export default function EditArticlePage() {
     if (error || !article) {
         return (
             <AdminLayout>
-                <div className="flex flex-col items-center justify-center min-h-screen">
-                    <h1 className="text-2xl font-bold text-slate-900 mb-4">Article Not Found</h1>
-                    <p className="text-slate-600 mb-6">The article you're looking for doesn't exist.</p>
-                    <button
+                <div className="flex flex-col items-center justify-center min-h-screen p-8">
+                    <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Article Not Found</h1>
+                    <p className="text-slate-600 dark:text-slate-400 mb-6">
+                        {formatErrorForUI(error || new Error('Article not found'))}
+                    </p>
+                    <Button
                         onClick={() => router.push('/admin/articles')}
-                        className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700"
+                        className="gap-2 bg-teal-600 hover:bg-teal-700 text-white"
                     >
+                        <ArrowLeft className="w-4 h-4" />
                         Back to Articles
-                    </button>
+                    </Button>
                 </div>
             </AdminLayout>
         );
@@ -355,17 +461,23 @@ export default function EditArticlePage() {
                     article={{
                         ...article,
                         title,
-                        excerpt,
+                        excerpt, // Sync excerpt from main editor
                         category: (article.category as any) || 'investing-basics',
                         language: (article.language as any) || 'en',
                         body_markdown: editorContent?.markdown || article.body_markdown,
                         body_html: editorContent?.html || article.body_html,
                         content: editorContent?.markdown || article.content,
                     }}
-                    onSave={handleSave}
+                    onSave={(metadata) => {
+                        // Update excerpt from inspector if changed
+                        if (metadata.excerpt !== undefined) {
+                            setExcerpt(metadata.excerpt);
+                        }
+                        handleSave(metadata);
+                    }}
                     onPublish={handlePublish}
                     onPreview={handlePreview}
-                    saving={saving}
+                    saving={saving || isAutoSaving}
                 />
             }
         >
@@ -385,14 +497,54 @@ export default function EditArticlePage() {
 
                         <div className="flex items-center justify-between gap-4">
                             <div className="flex-1">
-                                <Input
-                                    value={title}
-                                    onChange={(e) => setTitle(e.target.value)}
-                                    placeholder="Add title..."
-                                    className="text-3xl font-bold border-0 bg-transparent px-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-auto py-2 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 transition-colors"
-                                />
+                                <FormField
+                                    label=""
+                                    name="title"
+                                    error={validationErrors.title}
+                                    required
+                                    showCharCount
+                                    maxLength={100}
+                                    currentLength={getCharacterCount(title)}
+                                    className="mb-0"
+                                >
+                                    <Input
+                                        value={title}
+                                        onChange={(e) => {
+                                            setTitle(e.target.value);
+                                            // Clear error on change
+                                            if (validationErrors.title) {
+                                                setValidationErrors({ ...validationErrors, title: '' });
+                                            }
+                                        }}
+                                        placeholder="Add title..."
+                                        className="text-3xl font-bold border-0 bg-transparent px-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-auto py-2 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 transition-colors"
+                                        aria-invalid={!!validationErrors.title}
+                                        aria-describedby={validationErrors.title ? 'title-error' : undefined}
+                                    />
+                                </FormField>
                             </div>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-3">
+                                {/* Auto-save indicator */}
+                                {(isAutoSaving || hasUnsavedChanges) && (
+                                    <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                                        {isAutoSaving ? (
+                                            <>
+                                                <Loader2 className="w-3 h-3 animate-spin" />
+                                                <span>Saving...</span>
+                                            </>
+                                        ) : effectiveLastSaved ? (
+                                            <>
+                                                <Clock className="w-3 h-3" />
+                                                <span>Saved {formatTimeAgo(effectiveLastSaved)}</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <span className="w-2 h-2 rounded-full bg-warning-500" />
+                                                <span>Unsaved changes</span>
+                                            </>
+                                        )}
+                                    </div>
+                                )}
                                 <Button
                                     variant="outline"
                                     onClick={() => setShowPreview(true)}
@@ -403,10 +555,11 @@ export default function EditArticlePage() {
                                 </Button>
                                 <Button
                                     onClick={handleSave}
-                                    disabled={saving}
+                                    disabled={saving || isAutoSaving}
                                     className="gap-2 bg-teal-600 hover:bg-teal-700 text-white"
+                                    aria-label="Save article (⌘S)"
                                 >
-                                    {saving ? (
+                                    {saving || isAutoSaving ? (
                                         <>
                                             <Loader2 className="w-4 h-4 animate-spin" />
                                             Saving...
@@ -421,8 +574,9 @@ export default function EditArticlePage() {
                                 {article?.status !== 'published' && (
                                     <Button
                                         onClick={handlePublish}
-                                        disabled={publishMutation.isPending || saving}
+                                        disabled={publishMutation.isPending || saving || isAutoSaving}
                                         className="gap-2 bg-secondary-600 hover:bg-secondary-700 text-white"
+                                        aria-label="Publish article (⌘P)"
                                     >
                                         {publishMutation.isPending ? (
                                             <>

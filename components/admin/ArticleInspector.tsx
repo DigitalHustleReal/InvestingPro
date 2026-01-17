@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -72,6 +72,13 @@ export default function ArticleInspector({
     const [language, setLanguage] = useState<ArticleLanguage>(article.language || 'en');
     const [status, setStatus] = useState<ArticleStatus>(article.status || 'draft');
     const [excerpt, setExcerpt] = useState(article.excerpt || '');
+
+    // Sync excerpt when article prop changes
+    React.useEffect(() => {
+        if (article.excerpt !== undefined) {
+            setExcerpt(article.excerpt);
+        }
+    }, [article.excerpt]);
     const [seoTitle, setSeoTitle] = useState(article.seo_title || article.title || '');
     const [seoDescription, setSeoDescription] = useState(article.seo_description || article.excerpt || '');
     const [tags, setTags] = useState<string[]>(article.tags || []);
