@@ -15,20 +15,22 @@ import { logger } from '../lib/logger';
 import { randomUUID } from 'crypto';
 
 // Conditional import for AWS SDK (optional dependency)
-let S3Client: any;
-let PutObjectCommand: any;
-try {
-    // Optional dependency - only load if available
-    const awsSdk = require('@aws-sdk/client-s3');
-    S3Client = awsSdk.S3Client;
-    PutObjectCommand = awsSdk.PutObjectCommand;
-} catch (e: any) {
-    // AWS SDK not available - archive feature will be disabled
-    // This is expected in development environments where AWS SDK is not installed
-    // AWS SDK not installed - S3 features will be disabled
-    logger.warn('AWS SDK not installed - S3 archival will be disabled');
-    S3Client = null;
-    PutObjectCommand = null;
+let S3Client: any = null;
+let PutObjectCommand: any = null;
+
+// Dynamic import to avoid build errors when AWS SDK is not installed
+async function loadAWSSDK() {
+    if (S3Client) return { S3Client, PutObjectCommand };
+    
+    try {
+        const awsSdk = await import('@aws-sdk/client-s3');
+        S3Client = awsSdk.S3Client;
+        PutObjectCommand = awsSdk.PutObjectCommand;
+        return { S3Client, PutObjectCommand };
+    } catch (e: any) {
+        logger.warn('AWS SDK not installed - S3 archival will be disabled');
+        return { S3Client: null, PutObjectCommand: null };
+    }
 }
 
 // Configuration
@@ -75,8 +77,10 @@ function getSupabaseClient() {
 /**
  * Initialize S3 client (optional - only if S3 is configured)
  */
-function getS3Client(): any {
-    if (!S3Client) {
+async function getS3Client(): Promise<any> {
+    const { S3Client: S3, PutObjectCommand: PutCmd } = await loadAWSSDK();
+    
+    if (!S3) {
         logger.warn('S3 client not available - AWS SDK not installed');
         return null;
     }
@@ -91,7 +95,7 @@ function getS3Client(): any {
         return null;
     }
 
-    return new S3Client({
+    return new S3({
         region,
         credentials: {
             accessKeyId,
@@ -400,7 +404,7 @@ export async function runArchival(): Promise<{
     logger.info('Starting data archival process...');
 
     const supabase = getSupabaseClient();
-    const s3Client = getS3Client();
+    const s3Client = await getS3Client();
 
     const results: ArchivalResult[] = [];
 

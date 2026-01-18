@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import DarkThemeCMS from '@/components/admin/DarkThemeCMS';
 import { createClient } from '@supabase/supabase-js';
+import { ArticleListSkeleton } from '@/components/loading/ArticleCardSkeleton';
 
 export default function AdminArticlesPage() {
     const [searchTerm, setSearchTerm] = useState('');

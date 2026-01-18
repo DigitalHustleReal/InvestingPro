@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/badge';
@@ -74,9 +74,9 @@ export default function BudgetGovernorPanel() {
         }
     });
     
-    const [maxTokens, setMaxTokens] = useState(budgetData?.max_tokens || 1000000);
-    const [maxImages, setMaxImages] = useState(budgetData?.max_images || 100);
-    const [maxCost, setMaxCost] = useState(budgetData?.max_cost_usd || 50.00);
+    const [maxTokensInput, setMaxTokensInput] = useState(1000000);
+    const [maxImagesInput, setMaxImagesInput] = useState(100);
+    const [maxCostInput, setMaxCostInput] = useState(50.00);
     
     const budget = budgetData || {
         max_tokens: 1000000,
@@ -88,21 +88,49 @@ export default function BudgetGovernorPanel() {
         is_paused: false
     };
     
-    const tokensRemaining = budget.max_tokens - budget.tokens_used;
-    const imagesRemaining = budget.max_images - budget.images_used;
-    const costRemaining = budget.max_cost_usd - budget.cost_spent_usd;
+    // Ensure all values are numbers (handle undefined/null)
+    const tokensUsed = Number(budget?.tokens_used ?? 0);
+    const maxTokens = Number(budget?.max_tokens ?? 1000000);
+    const imagesUsed = Number(budget?.images_used ?? 0);
+    const maxImages = Number(budget?.max_images ?? 100);
+    const costSpent = Number(budget?.cost_spent_usd ?? 0);
+    const maxCost = Number(budget?.max_cost_usd ?? 50.00);
     
-    const tokensPercent = (budget.tokens_used / budget.max_tokens) * 100;
-    const imagesPercent = (budget.images_used / budget.max_images) * 100;
-    const costPercent = (budget.cost_spent_usd / budget.max_cost_usd) * 100;
+    // Update input state when budgetData loads
+    useEffect(() => {
+        if (budgetData) {
+            setMaxTokensInput(Number(budgetData.max_tokens) || 1000000);
+            setMaxImagesInput(Number(budgetData.max_images) || 100);
+            setMaxCostInput(Number(budgetData.max_cost_usd) || 50.00);
+        }
+    }, [budgetData]);
+    
+    const tokensRemaining = maxTokens - tokensUsed;
+    const imagesRemaining = maxImages - imagesUsed;
+    const costRemaining = maxCost - costSpent;
+    
+    const tokensPercent = maxTokens > 0 ? (tokensUsed / maxTokens) * 100 : 0;
+    const imagesPercent = maxImages > 0 ? (imagesUsed / maxImages) * 100 : 0;
+    const costPercent = maxCost > 0 ? (costSpent / maxCost) * 100 : 0;
     
     const handleSetBudget = () => {
         setBudget.mutate({
-            maxTokensPerDay: maxTokens,
-            maxImagesPerDay: maxImages,
-            maxCostPerDay: maxCost
+            maxTokensPerDay: maxTokensInput,
+            maxImagesPerDay: maxImagesInput,
+            maxCostPerDay: maxCostInput
         });
     };
+    
+    // Show loading state
+    if (isLoading) {
+        return (
+            <Card className="bg-white/[0.03] border-white/5 rounded-2xl">
+                <CardContent className="p-8">
+                    <div className="text-center text-slate-400">Loading budget data...</div>
+                </CardContent>
+            </Card>
+        );
+    }
     
     return (
         <Card className="bg-white/[0.03] border-white/5 rounded-2xl">
@@ -112,8 +140,8 @@ export default function BudgetGovernorPanel() {
                         <DollarSign className="w-5 h-5 text-primary-400" />
                         Budget Governor
                     </CardTitle>
-                    <Badge variant={budget.is_paused ? "destructive" : "default"}>
-                        {budget.is_paused ? (
+                    <Badge variant={budget?.is_paused ? "destructive" : "default"}>
+                        {budget?.is_paused ? (
                             <>
                                 <Pause className="w-3 h-3 mr-2" />
                                 Paused
@@ -135,7 +163,7 @@ export default function BudgetGovernorPanel() {
                             <div className="flex items-center justify-between mb-2">
                                 <span className="text-sm text-slate-400">Tokens</span>
                                 <span className="text-sm font-medium text-white">
-                                    {budget.tokens_used.toLocaleString()} / {budget.max_tokens.toLocaleString()}
+                                    {tokensUsed.toLocaleString()} / {maxTokens.toLocaleString()}
                                 </span>
                             </div>
                             <div className="w-full bg-slate-800 rounded-full h-2">
@@ -157,7 +185,7 @@ export default function BudgetGovernorPanel() {
                             <div className="flex items-center justify-between mb-2">
                                 <span className="text-sm text-slate-400">Images</span>
                                 <span className="text-sm font-medium text-white">
-                                    {budget.images_used} / {budget.max_images}
+                                    {imagesUsed} / {maxImages}
                                 </span>
                             </div>
                             <div className="w-full bg-slate-800 rounded-full h-2">
@@ -171,7 +199,7 @@ export default function BudgetGovernorPanel() {
                                 />
                             </div>
                             <p className="text-xs text-slate-500 mt-1">
-                                {imagesRemaining} remaining
+                                {imagesRemaining.toLocaleString()} remaining
                             </p>
                         </div>
                         
@@ -179,7 +207,7 @@ export default function BudgetGovernorPanel() {
                             <div className="flex items-center justify-between mb-2">
                                 <span className="text-sm text-slate-400">Cost (USD)</span>
                                 <span className="text-sm font-medium text-white">
-                                    ${budget.cost_spent_usd.toFixed(2)} / ${budget.max_cost_usd.toFixed(2)}
+                                    ${costSpent.toFixed(2)} / ${maxCost.toFixed(2)}
                                 </span>
                             </div>
                             <div className="w-full bg-slate-800 rounded-full h-2">
@@ -206,8 +234,8 @@ export default function BudgetGovernorPanel() {
                                 <label className="block text-sm text-slate-400 mb-2">Max Tokens</label>
                                 <input
                                     type="number"
-                                    value={maxTokens}
-                                    onChange={(e) => setMaxTokens(parseInt(e.target.value) || 0)}
+                                    value={maxTokensInput}
+                                    onChange={(e) => setMaxTokensInput(parseInt(e.target.value) || 0)}
                                     className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white"
                                 />
                             </div>
@@ -215,8 +243,8 @@ export default function BudgetGovernorPanel() {
                                 <label className="block text-sm text-slate-400 mb-2">Max Images</label>
                                 <input
                                     type="number"
-                                    value={maxImages}
-                                    onChange={(e) => setMaxImages(parseInt(e.target.value) || 0)}
+                                    value={maxImagesInput}
+                                    onChange={(e) => setMaxImagesInput(parseInt(e.target.value) || 0)}
                                     className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white"
                                 />
                             </div>
@@ -225,8 +253,8 @@ export default function BudgetGovernorPanel() {
                                 <input
                                     type="number"
                                     step="0.01"
-                                    value={maxCost}
-                                    onChange={(e) => setMaxCost(parseFloat(e.target.value) || 0)}
+                                    value={maxCostInput}
+                                    onChange={(e) => setMaxCostInput(parseFloat(e.target.value) || 0)}
                                     className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white"
                                 />
                             </div>

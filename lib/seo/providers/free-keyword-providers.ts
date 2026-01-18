@@ -8,6 +8,20 @@
 import { logger } from '@/lib/logger';
 import type { KeywordData, KeywordAPIProvider } from '@/lib/seo/keyword-api-client';
 
+// Lazy import google-trends-api to avoid issues if not installed
+let googleTrendsModule: any = null;
+async function getGoogleTrends() {
+    if (!googleTrendsModule) {
+        try {
+            googleTrendsModule = await import('google-trends-api');
+        } catch (error) {
+            logger.warn('google-trends-api not available, using fallback', { error });
+            return null;
+        }
+    }
+    return googleTrendsModule;
+}
+
 /**
  * Google Keyword Planner (Free via Google Ads API)
  * Limited but functional for basic keyword research
@@ -214,22 +228,120 @@ export class GoogleTrendsProvider implements KeywordAPIProvider {
 
     async getKeywordData(keyword: string): Promise<KeywordData | null> {
         try {
-            // Google Trends is free but rate-limited
-            // Can use pytrends library or similar for free access
-            // For now, estimate based on trends patterns
+            // Use google-trends-api package (already in package.json)
+            const googleTrends = await getGoogleTrends();
+            if (!googleTrends) {
+                // Package not available, use estimation
+                return this.estimateTrendData(keyword);
+            }
             
-            logger.info('Google Trends data not yet implemented, using estimation');
-            return this.estimateTrendData(keyword);
+            // Get interest over time (provides relative search volume)
+            const interestOverTime = await googleTrends.default.interestOverTime({
+                keyword: keyword,
+                geo: 'IN', // India
+                startTime: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000), // Last 90 days
+                granularTimeUnit: 'month'
+            }).catch(() => null);
+
+            let avgInterest = 0;
+            let relatedKeywords: string[] = [];
+
+            if (interestOverTime) {
+                try {
+                    const interestData = JSON.parse(interestOverTime);
+                    
+                    // Calculate average interest (0-100 scale)
+                    const values = interestData.default?.timelineData?.map((d: any) => d.value?.[0] || 0) || [];
+                    avgInterest = values.length > 0 
+                        ? Math.round(values.reduce((sum: number, val: number) => sum + val, 0) / values.length)
+                        : 0;
+
+                    // Get related queries
+                    const relatedQueries = await googleTrends.default.relatedQueries({
+                        keyword: keyword,
+                        geo: 'IN'
+                    }).catch(() => null);
+
+                    if (relatedQueries) {
+                        try {
+                            const relatedData = JSON.parse(relatedQueries);
+                            const topQueries = relatedData.default?.rankedList?.[0]?.rankedKeyword || [];
+                            relatedKeywords = topQueries.slice(0, 10).map((q: any) => q.query || '').filter(Boolean);
+                        } catch (e) {
+                            // Ignore parse errors
+                        }
+                    }
+                } catch (e) {
+                    // Ignore parse errors, use estimation
+                    logger.warn('Failed to parse Google Trends data', { error: e, keyword });
+                }
+            }
+
+            // Convert interest (0-100) to estimated search volume
+            const baseVolume = this.estimateSearchVolume(keyword) || 1000;
+            const estimatedVolume = avgInterest > 0
+                ? Math.round((avgInterest / 100) * baseVolume * 2) // Scale up for trending keywords
+                : baseVolume; // Use base estimate if no trend data
+
+            return {
+                keyword,
+                searchVolume: estimatedVolume,
+                difficulty: this.estimateDifficulty(keyword),
+                competition: avgInterest > 70 ? 'high' : avgInterest > 40 ? 'medium' : 'low',
+                intent: this.estimateIntent(keyword),
+                serpFeatures: [],
+                relatedKeywords
+            };
         } catch (error) {
-            logger.error('Google Trends error', error as Error, { keyword });
+            // Fall back to estimation if API fails
+            logger.warn('Google Trends API failed, using estimation', { error, keyword });
             return this.estimateTrendData(keyword);
         }
     }
 
     async getRelatedKeywords(keyword: string, limit = 10): Promise<KeywordData[]> {
-        // Google Trends provides related queries for free
-        // TODO: Implement pytrends or similar integration
-        return [];
+        try {
+            const googleTrends = await getGoogleTrends();
+            if (!googleTrends) {
+                return [];
+            }
+            
+            const relatedQueries = await googleTrends.default.relatedQueries({
+                keyword: keyword,
+                geo: 'IN'
+            }).catch(() => null);
+
+            if (!relatedQueries) {
+                return [];
+            }
+
+            const relatedData = JSON.parse(relatedQueries);
+            const topQueries = relatedData.default?.rankedList?.[0]?.rankedKeyword || [];
+            
+            const related: KeywordData[] = [];
+            for (const query of topQueries.slice(0, limit)) {
+                const queryText = query.query || '';
+                if (!queryText) continue;
+                
+                // Use estimation to avoid API rate limits
+                const baseVolume = this.estimateSearchVolume(queryText) || 1000;
+                const difficulty = this.estimateDifficulty(queryText);
+                
+                related.push({
+                    keyword: queryText,
+                    searchVolume: baseVolume,
+                    difficulty: difficulty,
+                    competition: difficulty > 70 ? 'high' : difficulty > 40 ? 'medium' : 'low',
+                    intent: this.estimateIntent(queryText),
+                    relatedKeywords: []
+                });
+            }
+
+            return related;
+        } catch (error) {
+            logger.warn('Google Trends related keywords failed', { error, keyword });
+            return [];
+        }
     }
 
     async getKeywordDifficulty(keyword: string): Promise<number | null> {

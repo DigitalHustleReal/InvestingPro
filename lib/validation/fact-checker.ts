@@ -128,10 +128,50 @@ export async function factCheckArticle(
         errors.push(...redFlags.errors);
         warnings.push(...redFlags.warnings);
 
+        // 7. Check for plagiarism (integrated into fact-checking)
+        try {
+            const { checkPlagiarism } = await import('@/lib/quality/plagiarism-checker');
+            const plagiarismResult = await checkPlagiarism(
+                content,
+                metadata?.title || '',
+                undefined, // excludeArticleId - would need articleId from context
+                undefined // supabaseClient - will use default
+            );
+
+            // Add plagiarism as critical error if threshold exceeded
+            if (plagiarismResult.isPlagiarized && plagiarismResult.similarityScore > 15) {
+                errors.push({
+                    type: 'citation',
+                    field: 'content',
+                    message: `Plagiarism detected: ${plagiarismResult.similarityScore}% similarity (threshold: 15%)`,
+                    severity: 'critical',
+                    suggestedFix: 'Rewrite content to reduce similarity or add proper citations'
+                });
+            } else if (plagiarismResult.similarityScore > 10) {
+                warnings.push({
+                    type: 'unsourced',
+                    message: `Moderate similarity detected: ${plagiarismResult.similarityScore}% - consider adding citations`,
+                    field: 'content'
+                });
+            }
+
+            // Add plagiarism matches as warnings
+            if (plagiarismResult.matches.length > 0) {
+                warnings.push({
+                    type: 'unsourced',
+                    message: `Found ${plagiarismResult.matches.length} similar article(s) - ensure proper citation`,
+                    field: 'content'
+                });
+            }
+        } catch (plagiarismError) {
+            logger.warn('Plagiarism check failed during fact-checking', plagiarismError as Error);
+            // Don't fail fact-checking if plagiarism check fails (non-blocking)
+        }
+
         // Calculate confidence score
         const confidence = calculateConfidence(errors, warnings, validatedFacts.length);
 
-        // Block if critical errors found
+        // Block if critical errors found (including plagiarism)
         const hasCriticalErrors = errors.some(e => e.severity === 'critical');
         const isValid = !hasCriticalErrors;
 

@@ -27,6 +27,18 @@
     {
       "path": "/api/cron/check-links",
       "schedule": "30 21 * * 6"
+    },
+    {
+      "path": "/api/seo/rankings/sync",
+      "schedule": "0 2 * * *"
+    },
+    {
+      "path": "/api/cron/check-rankings-drops",
+      "schedule": "0 3 * * *"
+    },
+    {
+      "path": "/api/cron/check-data-changes",
+      "schedule": "0 4 * * *"
     }
   ]
 }

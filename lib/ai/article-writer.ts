@@ -10,6 +10,8 @@ import {
 } from './constraints';
 import { logAICost, calculateCostFromTokens } from './cost-tracker';
 
+import { linkInjector } from '@/lib/services/link-injector';
+
 export interface GeneratedArticle {
     title: string;
     content: string; // Markdown
@@ -123,9 +125,12 @@ export async function generateArticle({
         // The Unified API (InvokeLLM) might have already parsed the JSON
         // If 'title' or 'excerpt' exist at the top level, it's already parsed
         if (result.title && result.content) {
+            // Inject affiliate links before returning
+            const contentWithLinks = await linkInjector.injectLinks(result.content || '');
+            
             return {
                 title: result.title || topic,
-                content: result.content || '',
+                content: contentWithLinks || '',
                 excerpt: result.excerpt || '',
                 seo_title: result.seo_title || result.title || topic,
                 seo_description: result.seo_description || result.excerpt || '',

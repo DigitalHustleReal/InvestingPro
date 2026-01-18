@@ -524,22 +524,27 @@ export default function EditArticlePage() {
                                 </FormField>
                             </div>
                             <div className="flex items-center gap-3">
-                                {/* Auto-save indicator */}
+                                {/* Auto-save indicator with aria-live for screen readers */}
                                 {(isAutoSaving || hasUnsavedChanges) && (
-                                    <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                                    <div 
+                                        className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400"
+                                        role="status"
+                                        aria-live="polite"
+                                        aria-atomic="true"
+                                    >
                                         {isAutoSaving ? (
                                             <>
-                                                <Loader2 className="w-3 h-3 animate-spin" />
+                                                <Loader2 className="w-3 h-3 animate-spin" aria-hidden="true" />
                                                 <span>Saving...</span>
                                             </>
                                         ) : effectiveLastSaved ? (
                                             <>
-                                                <Clock className="w-3 h-3" />
+                                                <Clock className="w-3 h-3" aria-hidden="true" />
                                                 <span>Saved {formatTimeAgo(effectiveLastSaved)}</span>
                                             </>
                                         ) : (
                                             <>
-                                                <span className="w-2 h-2 rounded-full bg-warning-500" />
+                                                <span className="w-2 h-2 rounded-full bg-warning-500" aria-hidden="true" />
                                                 <span>Unsaved changes</span>
                                             </>
                                         )}
@@ -549,8 +554,9 @@ export default function EditArticlePage() {
                                     variant="outline"
                                     onClick={() => setShowPreview(true)}
                                     className="gap-2 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                                    aria-label="Preview article"
                                 >
-                                    <Eye className="w-4 h-4" />
+                                    <Eye className="w-4 h-4" aria-hidden="true" />
                                     Preview
                                 </Button>
                                 <Button

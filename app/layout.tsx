@@ -14,9 +14,8 @@ import { getNavigation } from "@/lib/navigation/service";
 import { SearchProvider } from "@/components/search/SearchProvider";
 import { CompareProvider } from "@/contexts/CompareContext";
 import CompareBar from "@/components/compare/CompareBar";
-import { LeadCaptureProvider } from "@/components/engagement/LeadCaptureProvider";
 import PerformanceMonitor from "@/components/performance/PerformanceMonitor";
-import ExitIntentPopup from "@/components/common/ExitIntentPopup";
+import { ConditionalPublicElements } from "@/components/common/ConditionalPublicElements";
 
 
 // Font configurations with CSS variables
@@ -101,9 +100,9 @@ export default async function RootLayout({
                   <Navbar initialConfig={navConfig} />
                   <main id="main-content" className="flex-grow" tabIndex={-1}>
                     <PageErrorBoundary pageName="Root Layout">
-                      <LeadCaptureProvider>
+                      <ConditionalPublicElements>
                         {children}
-                      </LeadCaptureProvider>
+                      </ConditionalPublicElements>
                     </PageErrorBoundary>
                   </main>
                   <CompareBar />
@@ -113,11 +112,6 @@ export default async function RootLayout({
                      Uncomment and add your ID here to auto-monetize 1000s of links
                   */}
                   {/* <script async src="https://cuelinks.com/js/..." /> */}
-                  <PageErrorBoundary pageName="Footer">
-                    <Footer />
-                  </PageErrorBoundary>
-                  <CookieConsent />
-                  <ExitIntentPopup />
                   <Toaster />
                 </NavigationProvider>
               </CompareProvider>

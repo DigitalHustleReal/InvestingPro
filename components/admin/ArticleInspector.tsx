@@ -218,14 +218,36 @@ export default function ArticleInspector({
         return [...new Set(allKeywords)]; // Remove duplicates
     }, [primaryKeyword, secondaryKeywords, tags]);
 
-    // Handle tag input
+    // Handle tag input with validation
     const handleTagInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && tagInput.trim()) {
             e.preventDefault();
             const newTag = tagInput.trim().toLowerCase();
-            if (!tags.includes(newTag)) {
-                setTags([...tags, newTag]);
+            
+            // Validation: prevent duplicates
+            if (tags.includes(newTag)) {
+                toast.error(`Tag "${newTag}" already exists`);
+                return;
             }
+            
+            // Validation: max 10 tags
+            if (tags.length >= 10) {
+                toast.error('Maximum 10 tags allowed');
+                return;
+            }
+            
+            // Validation: tag format (alphanumeric and hyphens, max 30 chars)
+            if (!/^[a-z0-9-]+$/.test(newTag)) {
+                toast.error('Tags can only contain letters, numbers, and hyphens');
+                return;
+            }
+            
+            if (newTag.length > 30) {
+                toast.error('Tag must be 30 characters or less');
+                return;
+            }
+            
+            setTags([...tags, newTag]);
             setTagInput('');
         }
     };
@@ -521,8 +543,9 @@ export default function ArticleInspector({
                                             <button
                                                 onClick={() => removeSecondaryKeyword(kw)}
                                                 className="ml-1 hover:text-danger-400"
+                                                aria-label={`Remove keyword ${kw}`}
                                             >
-                                                Ã—
+                                                ×
                                             </button>
                                         </Badge>
                                     ))}
@@ -572,19 +595,25 @@ export default function ArticleInspector({
                             onKeyDown={handleTagInputKeyDown}
                             placeholder="Press Enter to add tag"
                             className="bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                            aria-label="Add tag"
+                            aria-describedby="tags-help"
                         />
+                        <p id="tags-help" className="text-xs text-slate-500 mt-1">
+                            Press Enter to add. Maximum 10 tags.
+                        </p>
                         {tags.length > 0 && (
                             <div className="flex flex-wrap gap-1 mt-2">
                                 {tags.map((tag) => (
-                                    <Badge key={tag} variant="outline" className="text-xs border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-surface-darker">
-                                        {tag}
-                                        <button
-                                            onClick={() => removeTag(tag)}
-                                            className="ml-1 hover:text-danger-600 dark:hover:text-danger-400"
-                                        >
-                                            Ã—
-                                        </button>
-                                    </Badge>
+                                        <Badge key={tag} variant="outline" className="text-xs border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-surface-darker">
+                                            {tag}
+                                            <button
+                                                onClick={() => removeTag(tag)}
+                                                className="ml-1 hover:text-danger-600 dark:hover:text-danger-400"
+                                                aria-label={`Remove tag ${tag}`}
+                                            >
+                                                ×
+                                            </button>
+                                        </Badge>
                                 ))}
                             </div>
                         )}
@@ -601,8 +630,23 @@ export default function ArticleInspector({
                         onChange={(e) => setExcerpt(e.target.value)}
                         placeholder="Brief summary of the article..."
                         rows={3}
-                        className="resize-none bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                        maxLength={300}
+                        className={`resize-none bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 ${
+                            excerpt.length > 300 ? 'border-warning-500 dark:border-warning-500' : ''
+                        }`}
+                        aria-label="Article excerpt"
+                        aria-describedby="excerpt-char-count"
                     />
+                    <div id="excerpt-char-count" className="flex items-center justify-between">
+                        <p className={`text-xs ${excerpt.length > 300 ? 'text-warning-600 dark:text-warning-400' : 'text-slate-500'}`}>
+                            {excerpt.length}/300 characters
+                        </p>
+                        {excerpt.length > 300 && (
+                            <span className="text-xs text-warning-600 dark:text-warning-400" role="alert">
+                                Exceeds recommended length
+                            </span>
+                        )}
+                    </div>
                 </div>
 
                 {/* SEO Metadata */}
@@ -630,11 +674,23 @@ export default function ArticleInspector({
                                 value={seoTitle}
                                 onChange={(e) => setSeoTitle(e.target.value)}
                                 placeholder={article.title || 'SEO title'}
-                                className="mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                                maxLength={70}
+                                className={`mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 ${
+                                    seoTitle.length > 60 ? 'border-warning-500 dark:border-warning-500' : ''
+                                }`}
+                                aria-label="SEO title"
+                                aria-describedby="seo-title-char-count"
                             />
-                            <p className="text-xs text-slate-500 mt-1">
-                                {seoTitle.length}/60 characters
-                            </p>
+                            <div className="flex items-center justify-between mt-1">
+                                <p className={`text-xs ${seoTitle.length > 60 ? 'text-warning-600 dark:text-warning-400' : 'text-slate-500'}`}>
+                                    {seoTitle.length}/60 characters
+                                </p>
+                                {seoTitle.length > 60 && (
+                                    <span className="text-xs text-warning-600 dark:text-warning-400" role="alert">
+                                        May be truncated in search results
+                                    </span>
+                                )}
+                            </div>
                         </div>
                         <div>
                             <Label htmlFor="seo-description" className="text-slate-700 dark:text-slate-300">Meta Description</Label>
@@ -644,11 +700,23 @@ export default function ArticleInspector({
                                 onChange={(e) => setSeoDescription(e.target.value)}
                                 placeholder="Meta description for search engines..."
                                 rows={3}
-                                className="resize-none mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                                maxLength={165}
+                                className={`resize-none mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 ${
+                                    seoDescription.length > 160 ? 'border-warning-500 dark:border-warning-500' : ''
+                                }`}
+                                aria-label="Meta description"
+                                aria-describedby="seo-description-char-count"
                             />
-                            <p className="text-xs text-slate-500 mt-1">
-                                {seoDescription.length}/160 characters
-                            </p>
+                            <div className="flex items-center justify-between mt-1">
+                                <p className={`text-xs ${seoDescription.length > 160 ? 'text-warning-600 dark:text-warning-400' : 'text-slate-500'}`}>
+                                    {seoDescription.length}/160 characters
+                                </p>
+                                {seoDescription.length > 160 && (
+                                    <span className="text-xs text-warning-600 dark:text-warning-400" role="alert">
+                                        May be truncated in search results
+                                    </span>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>

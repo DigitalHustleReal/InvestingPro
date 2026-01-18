@@ -243,24 +243,30 @@ export default function ArticleEditor({
                         size="sm"
                         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
                         className={editor.isActive('heading', { level: 1 }) ? 'bg-slate-200 text-primary-600 dark:bg-slate-800 dark:text-primary-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
+                        aria-label="Heading 1"
+                        aria-pressed={editor.isActive('heading', { level: 1 })}
                     >
-                        <Heading1 className="w-4 h-4" />
+                        <Heading1 className="w-4 h-4" aria-hidden="true" />
                     </Button>
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
                         className={editor.isActive('heading', { level: 2 }) ? 'bg-slate-200 text-primary-600 dark:bg-slate-800 dark:text-primary-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
+                        aria-label="Heading 2"
+                        aria-pressed={editor.isActive('heading', { level: 2 })}
                     >
-                        <Heading2 className="w-4 h-4" />
+                        <Heading2 className="w-4 h-4" aria-hidden="true" />
                     </Button>
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
                         className={editor.isActive('heading', { level: 3 }) ? 'bg-slate-200 text-primary-600 dark:bg-slate-800 dark:text-primary-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
+                        aria-label="Heading 3"
+                        aria-pressed={editor.isActive('heading', { level: 3 })}
                     >
-                        <Heading3 className="w-4 h-4" />
+                        <Heading3 className="w-4 h-4" aria-hidden="true" />
                     </Button>
                     <div className="w-px h-6 bg-slate-200 dark:bg-slate-800 mx-1" />
                     <Button
@@ -268,24 +274,30 @@ export default function ArticleEditor({
                         size="sm"
                         onClick={() => editor.chain().focus().toggleBold().run()}
                         className={editor.isActive('bold') ? 'bg-slate-200 text-primary-600 dark:bg-slate-800 dark:text-primary-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
+                        aria-label="Bold (Ctrl+B)"
+                        aria-pressed={editor.isActive('bold')}
                     >
-                        <Bold className="w-4 h-4" />
+                        <Bold className="w-4 h-4" aria-hidden="true" />
                     </Button>
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleItalic().run()}
                         className={editor.isActive('italic') ? 'bg-slate-200 text-primary-600 dark:bg-slate-800 dark:text-primary-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
+                        aria-label="Italic (Ctrl+I)"
+                        aria-pressed={editor.isActive('italic')}
                     >
-                        <Italic className="w-4 h-4" />
+                        <Italic className="w-4 h-4" aria-hidden="true" />
                     </Button>
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleCode().run()}
                         className={editor.isActive('code') ? 'bg-slate-200 text-primary-600 dark:bg-slate-800 dark:text-primary-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
+                        aria-label="Inline code"
+                        aria-pressed={editor.isActive('code')}
                     >
-                        <Code className="w-4 h-4" />
+                        <Code className="w-4 h-4" aria-hidden="true" />
                     </Button>
                     <div className="w-px h-6 bg-slate-200 dark:bg-slate-800 mx-1" />
                     <Button
@@ -293,24 +305,30 @@ export default function ArticleEditor({
                         size="sm"
                         onClick={() => editor.chain().focus().toggleBulletList().run()}
                         className={editor.isActive('bulletList') ? 'bg-slate-200 text-primary-600 dark:bg-slate-800 dark:text-primary-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
+                        aria-label="Bullet list"
+                        aria-pressed={editor.isActive('bulletList')}
                     >
-                        <List className="w-4 h-4" />
+                        <List className="w-4 h-4" aria-hidden="true" />
                     </Button>
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleOrderedList().run()}
                         className={editor.isActive('orderedList') ? 'bg-slate-200 text-primary-600 dark:bg-slate-800 dark:text-primary-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
+                        aria-label="Numbered list"
+                        aria-pressed={editor.isActive('orderedList')}
                     >
-                        <ListOrdered className="w-4 h-4" />
+                        <ListOrdered className="w-4 h-4" aria-hidden="true" />
                     </Button>
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleBlockquote().run()}
                         className={editor.isActive('blockquote') ? 'bg-slate-200 text-primary-600 dark:bg-slate-800 dark:text-primary-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
+                        aria-label="Quote"
+                        aria-pressed={editor.isActive('blockquote')}
                     >
-                        <Quote className="w-4 h-4" />
+                        <Quote className="w-4 h-4" aria-hidden="true" />
                     </Button>
                     <div className="w-px h-6 bg-slate-200 dark:bg-slate-800 mx-1" />
                     <Button
@@ -318,8 +336,10 @@ export default function ArticleEditor({
                         size="sm"
                         onClick={addLink}
                         className={editor.isActive('link') ? 'bg-slate-200 text-primary-600 dark:bg-slate-800 dark:text-primary-400' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'}
+                        aria-label="Add link"
+                        aria-pressed={editor.isActive('link')}
                     >
-                        <LinkIcon className="w-4 h-4" />
+                        <LinkIcon className="w-4 h-4" aria-hidden="true" />
                     </Button>
                     <ImagePickerButton editor={editor} />
                     <Button
@@ -327,31 +347,39 @@ export default function ArticleEditor({
                         size="sm"
                         onClick={addSemanticImage}
                         className="text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800"
+                        aria-label="Insert semantic image reference"
                         title="Insert semantic image reference"
                     >
-                        <ImageIcon className="w-4 h-4" />
+                        <ImageIcon className="w-4 h-4" aria-hidden="true" />
                     </Button>
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={insertTable}
                         className="text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800"
+                        aria-label="Insert table (3x3)"
                     >
-                        <Grid3x3 className="w-4 h-4" />
+                        <Grid3x3 className="w-4 h-4" aria-hidden="true" />
                     </Button>
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().setHorizontalRule().run()}
                         className="text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800"
+                        aria-label="Insert horizontal rule"
                     >
-                        <Minus className="w-4 h-4" />
+                        <Minus className="w-4 h-4" aria-hidden="true" />
                     </Button>
                 </div>
             )}
 
             {/* Editor Content */}
-            <div className="bg-white/30 dark:bg-surface-darker/30 transition-colors duration-300">
+            <div 
+                className="bg-white/30 dark:bg-surface-darker/30 transition-colors duration-300"
+                role="textbox"
+                aria-label="Article content editor"
+                aria-multiline="true"
+            >
                 <EditorContent editor={editor} />
             </div>
         </div>

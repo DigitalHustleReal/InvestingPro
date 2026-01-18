@@ -178,10 +178,24 @@ async function getRankingViaSerpApi(keyword: string, targetUrl: string): Promise
  * Note: This only works for your own domain and requires OAuth setup
  */
 async function getRankingViaGSC(keyword: string, targetUrl: string): Promise<number | null> {
-    // TODO: Implement Google Search Console API integration
-    // This requires OAuth 2.0 setup and is more complex
-    logger.warn('Google Search Console API not yet implemented');
-    return null;
+    try {
+        // Use GSC API integration
+        const { getGSCRankings } = await import('./gsc-api');
+        
+        const rankings = await getGSCRankings([keyword]);
+        
+        // Find matching ranking for this keyword and URL
+        const matchingRanking = rankings.find(r => 
+            r.keyword.toLowerCase() === keyword.toLowerCase() &&
+            (!targetUrl || r.page?.includes(new URL(targetUrl).hostname))
+        );
+
+        return matchingRanking?.position || null;
+
+    } catch (error) {
+        logger.warn('Google Search Console API failed', { error, keyword });
+        return null;
+    }
 }
 
 /**

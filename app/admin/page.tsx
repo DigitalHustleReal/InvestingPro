@@ -45,9 +45,12 @@ import {
 import ArticleModeration from "@/components/admin/ArticleModeration";
 import AdminLayout from "@/components/admin/AdminLayout";
 import ContextualSidebar from "@/components/admin/ContextualSidebar";
+import AdminTabNavigation from "@/components/admin/AdminTabNavigation";
+import AdminContextualSidebar from "@/components/admin/AdminContextualSidebar";
 import { toast } from "sonner";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
 import ContentPerformanceTracking from "@/components/admin/ContentPerformanceTracking";
+import AdvancedMetricsTable from "@/components/admin/AdvancedMetricsTable";
 import { cn } from "@/lib/utils";
 import AutomationControls from "@/components/admin/AutomationControls";
 
@@ -335,16 +338,16 @@ export default function AdminPage() {
     return (
         <AdminLayout
             contextualSidebar={
-                <ContextualSidebar
-                    items={contextualSidebarItems}
-                    activeItem={activeTab}
-                    onItemChange={setActiveTab}
-                    title="Analyze"
-                    collapsed={contextualSidebarCollapsed}
-                    onToggle={() => setContextualSidebarCollapsed(!contextualSidebarCollapsed)}
+                <AdminContextualSidebar
+                    activeTab={activeTab}
                 />
             }
         >
+            {/* Secondary Tab Navigation */}
+            <AdminTabNavigation 
+                activeTab={activeTab} 
+                onTabChange={setActiveTab}
+            />
             <div className="h-full flex flex-col">
                 <div className="px-10 py-8 border-b border-white/5 bg-white/[0.02] backdrop-blur-md">
                     {/* System Health Alert Banner */}
@@ -579,7 +582,7 @@ export default function AdminPage() {
                                 {socialMetrics.facebook && (
                                     <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
                                         <Facebook className="w-6 h-6 text-secondary-500 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{socialMetrics.facebook.followers?.toLocaleString()}</div>
+                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{(socialMetrics.facebook?.followers ?? 0).toLocaleString()}</div>
                                         <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
                                         <div className="text-[10px] font-bold text-primary-400 bg-primary-400/10 px-2 py-0.5 rounded-full inline-block">
                                             +{socialMetrics.facebook.engagement}% Engagement
@@ -589,7 +592,7 @@ export default function AdminPage() {
                                 {socialMetrics.twitter && (
                                     <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
                                         <Twitter className="w-6 h-6 text-secondary-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{socialMetrics.twitter.followers?.toLocaleString()}</div>
+                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{(socialMetrics.twitter?.followers ?? 0).toLocaleString()}</div>
                                         <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
                                         <div className="text-[10px] font-bold text-primary-400 bg-primary-400/10 px-2 py-0.5 rounded-full inline-block">
                                             +{socialMetrics.twitter.engagement}% Engagement
@@ -599,7 +602,7 @@ export default function AdminPage() {
                                 {socialMetrics.linkedin && (
                                     <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
                                         <Linkedin className="w-6 h-6 text-secondary-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{socialMetrics.linkedin.followers?.toLocaleString()}</div>
+                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{(socialMetrics.linkedin?.followers ?? 0).toLocaleString()}</div>
                                         <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
                                         <div className="text-[10px] font-bold text-primary-400 bg-primary-400/10 px-2 py-0.5 rounded-full inline-block">
                                             +{socialMetrics.linkedin.engagement}% Engagement
@@ -609,7 +612,7 @@ export default function AdminPage() {
                                 {socialMetrics.instagram && (
                                     <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
                                         <Instagram className="w-6 h-6 text-danger-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{socialMetrics.instagram.followers?.toLocaleString()}</div>
+                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{(socialMetrics.instagram?.followers ?? 0).toLocaleString()}</div>
                                         <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
                                         <div className="text-[10px] font-bold text-primary-400 bg-primary-400/10 px-2 py-0.5 rounded-full inline-block">
                                             +{socialMetrics.instagram.engagement}% Engagement
@@ -619,10 +622,10 @@ export default function AdminPage() {
                                 {socialMetrics.youtube && (
                                     <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
                                         <Youtube className="w-6 h-6 text-danger-500 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{socialMetrics.youtube.subscribers?.toLocaleString()}</div>
+                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{(socialMetrics.youtube?.subscribers ?? 0).toLocaleString()}</div>
                                         <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Subscribers</div>
                                         <div className="text-[10px] font-bold text-slate-300 bg-white/5 px-2 py-0.5 rounded-full inline-block">
-                                            {socialMetrics.youtube.views?.toLocaleString()} Views
+                                            {(socialMetrics.youtube?.views ?? 0).toLocaleString()} Views
                                         </div>
                                     </div>
                                 )}
@@ -646,7 +649,7 @@ export default function AdminPage() {
                                     <div key={index} className="flex items-center justify-between p-5 bg-white/[0.03] border border-white/5 rounded-2xl hover:border-primary-500/30 transition-all group">
                                         <div className="flex-1">
                                             <div className="font-bold text-white mb-1 group-hover:text-primary-400 transition-colors">{trend.keyword}</div>
-                                            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Velocity: {trend.volume?.toLocaleString()}</div>
+                                            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Velocity: {(trend.volume ?? 0).toLocaleString()}</div>
                                         </div>
                                         <div className="flex items-center gap-3">
                                             <div className={`text-sm font-bold tabular-nums ${
@@ -715,6 +718,9 @@ export default function AdminPage() {
                                     </CardContent>
                                 </Card>
 
+                                {/* Advanced Metrics Table - Research → Publish → Tracking → Income */}
+                                <AdvancedMetricsTable timeRange={timeRange as '7d' | '30d' | '90d'} />
+
                                 {/* Revenue Attribution - Top Money-Making Articles */}
                                 <Card className="bg-gradient-to-br from-success-500/5 to-success-600/5 border-success-500/20 rounded-2xl overflow-hidden">
                                     <CardHeader className="border-b border-success-500/10 px-8 py-5">
@@ -782,6 +788,9 @@ export default function AdminPage() {
                                         </div>
                                     </CardContent>
                                 </Card>
+
+                                {/* Advanced Metrics Table - Research → Publish → Tracking → Income */}
+                                <AdvancedMetricsTable timeRange={timeRange as '7d' | '30d' | '90d'} />
 
                                 {/* System Performance Indicators */}
                                 <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
@@ -963,7 +972,7 @@ export default function AdminPage() {
                                                 <div key={index} className="flex items-center justify-between p-6 bg-white/[0.02] border border-white/5 hover:border-primary-500/30 rounded-2xl transition-all group">
                                                     <div className="flex-1">
                                                         <div className="font-bold text-white text-lg tracking-tight mb-1 group-hover:text-primary-400 transition-colors">{trend.keyword}</div>
-                                                        <div className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Global Search Intensity: {trend.volume?.toLocaleString()}</div>
+                                                        <div className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Global Search Intensity: {(trend.volume ?? 0).toLocaleString()}</div>
                                                     </div>
                                                     <div className="flex items-center gap-8">
                                                         <div className="text-right">

@@ -325,6 +325,46 @@ export const apiClient = {
                // Alias for list/search
                return [];
             }
+        },
+
+        AffiliateProduct: {
+             list: async (orderBy: string = '-clicks', limit: number = 20) => {
+                 // Safe implementation using 'products' table for now
+                 let query = supabase.from('products').select('*');
+                 
+                 if (orderBy) {
+                     const [field, direction] = orderBy.startsWith('-') 
+                         ? [orderBy.slice(1), 'desc'] 
+                         : [orderBy, 'asc'];
+                     // Only order if column exists - for safety we might skip specific ordering if unsure, 
+                     // but 'created_at' is safe. 'clicks' might not exist on all products.
+                     if (['created_at', 'price'].includes(field)) {
+                        query = query.order(field, { ascending: direction === 'asc' });
+                     } else {
+                        query = query.order('created_at', { ascending: false });
+                     }
+                 }
+
+                 if (limit) {
+                     query = query.limit(limit);
+                 }
+
+                 const { data, error } = await query;
+                 
+                 if (error) {
+                     console.error('Error fetching affiliate products', error);
+                     return [];
+                 }
+
+                 return (data || []).map(p => ({
+                     id: p.id,
+                     name: p.name,
+                     clicks: p.clicks || 0, // Fallback if column missing
+                     conversions: p.conversions || 0,
+                     revenue: 0,
+                     ...p
+                 }));
+             }
         }
     }
 };

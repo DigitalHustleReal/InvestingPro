@@ -8,7 +8,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { X, Loader2, FileText, GitDiff } from 'lucide-react';
+import { X, Loader2, FileText, FileDiff } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { formatDistanceToNow } from 'date-fns';
 
@@ -99,7 +99,7 @@ export function VersionComparison({ articleId, version1, version2, onClose }: Ve
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
                 <div className="flex items-center gap-2">
-                    <GitDiff className="w-5 h-5 text-slate-600 dark:text-slate-400" />
+                    <FileDiff className="w-5 h-5 text-slate-600 dark:text-slate-400" />
                     <h3 className="font-semibold text-slate-900 dark:text-white">
                         Comparing Version {version1} vs Version {version2}
                     </h3>

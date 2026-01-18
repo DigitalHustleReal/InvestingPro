@@ -223,7 +223,7 @@ export function buildToneInstructions(
         instructions += `- Focus on understanding, not selling\n`;
     }
     
-    if (purpose === 'comparison' || contentType === 'comparison') {
+    if (purpose === 'comparison') {
         instructions += `\nCOMPARISON ELEMENTS:\n`;
         instructions += `- Present both sides fairly\n`;
         instructions += `- Use data and tables for clarity\n`;

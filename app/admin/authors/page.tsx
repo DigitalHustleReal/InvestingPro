@@ -136,8 +136,10 @@ export default function AuthorsPage() {
         });
     };
 
-    const filteredAuthors = authors.filter((a: any) => 
-        a.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    // Ensure authors is always an array
+    const authorsArray = Array.isArray(authors) ? authors : [];
+    const filteredAuthors = authorsArray.filter((a: any) => 
+        a.name?.toLowerCase().includes(searchQuery.toLowerCase()) || 
         a.role?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 

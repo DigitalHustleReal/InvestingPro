@@ -19,8 +19,11 @@ export interface ContentRefreshResult {
 
 /**
  * Refresh a single article with updated data
+ * 
+ * @param articleId - Article ID to refresh
+ * @param reason - Optional reason for refresh (for logging)
  */
-export async function refreshArticle(articleId: string): Promise<ContentRefreshResult> {
+export async function refreshArticle(articleId: string, reason?: string): Promise<ContentRefreshResult> {
     try {
         // Get article
         const { data: article, error: articleError } = await supabase
@@ -74,8 +77,11 @@ export async function refreshArticle(articleId: string): Promise<ContentRefreshR
 
         changes.push('Article timestamp updated');
         changes.push(`Published: ${publishedDate.toLocaleDateString()}, Refreshed: ${new Date().toLocaleDateString()}`);
+        if (reason) {
+            changes.push(`Trigger: ${reason}`);
+        }
 
-        logger.info('Article refreshed', { articleId, title: article.title, changes });
+        logger.info('Article refreshed', { articleId, title: article.title, changes, reason });
 
         return {
             articleId,
