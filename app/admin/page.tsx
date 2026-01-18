@@ -385,6 +385,7 @@ export default function AdminPage() {
                                     toast.success('Analyzing latest data vectors...');
                                 }}
                                 className="bg-white/5 border-white/10 hover:bg-white/10 text-slate-300 rounded-xl px-5"
+                                aria-label="Refresh and re-sync all dashboard metrics"
                             >
                                 <RefreshCw className="w-4 h-4 mr-2" />
                                 Re-sync Metrics
@@ -567,8 +568,28 @@ export default function AdminPage() {
                         </Card>
                     </div>
 
-                    {/* Social Media Metrics */}
-                    <Card className="mb-10 bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                    {/* Visual Separator */}
+                    <div className="relative mb-10">
+                        <div className="absolute inset-0 flex items-center">
+                            <div className="w-full border-t border-white/10"></div>
+                        </div>
+                        <div className="relative flex justify-center">
+                            <span className="bg-slate-950 px-4 text-xs font-bold uppercase tracking-widest text-slate-500">
+                                {activeTab === 'overview' ? 'Overview' : 
+                                 activeTab === 'content' ? 'Content' :
+                                 activeTab === 'analytics' ? 'Analytics' : 
+                                 activeTab === 'automation' ? 'Automation' : 'Trends'} Dashboard
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* Main Content - Controlled by ContextualSidebar */}
+                    <div className="space-y-6">
+                        {/* Overview Tab - Key Metrics */}
+                        {activeTab === 'overview' && (
+                            <div className="space-y-6">
+                                {/* Social Media Metrics */}
+                                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                         <CardHeader className="border-b border-white/5 px-8 py-6">
                             <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                                 <div className="w-8 h-8 rounded-lg bg-secondary-500/10 flex items-center justify-center">
@@ -634,7 +655,7 @@ export default function AdminPage() {
                     </Card>
 
                     {/* Trends */}
-                    <Card className="mb-10 bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                    <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                         <CardHeader className="border-b border-white/5 px-8 py-6">
                             <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
                                 <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
@@ -674,12 +695,7 @@ export default function AdminPage() {
                         </CardContent>
                     </Card>
 
-                    {/* Main Content - Controlled by ContextualSidebar */}
-                    <div className="space-y-6">
-                        {/* Overview Tab - Key Metrics */}
-                        {activeTab === 'overview' && (
-                            <div className="space-y-6">
-                                {/* Content Snapshot */}
+                    {/* Content Snapshot */}
                                 <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
                                     <CardHeader className="border-b border-white/5 px-8 py-5">
                                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Content Snapshot</CardTitle>
@@ -788,9 +804,6 @@ export default function AdminPage() {
                                         </div>
                                     </CardContent>
                                 </Card>
-
-                                {/* Advanced Metrics Table - Research → Publish → Tracking → Income */}
-                                <AdvancedMetricsTable timeRange={timeRange as '7d' | '30d' | '90d'} />
 
                                 {/* System Performance Indicators */}
                                 <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">

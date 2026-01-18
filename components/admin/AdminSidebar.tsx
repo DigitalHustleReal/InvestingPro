@@ -14,7 +14,6 @@ import {
     CheckSquare,
     DollarSign,
     Megaphone,
-    Search,
     Rss,
     File,
     BarChart3,
@@ -42,7 +41,7 @@ interface NavSection {
     items: NavItem[];
 }
 
-const navSections: NavSection[] = [
+const allNavSections: NavSection[] = [
     {
         title: 'CONTENT',
         items: [
@@ -109,56 +108,30 @@ const navSections: NavSection[] = [
     },
 ];
 
-export default function AdminSidebar() {
-    const pathname = usePathname();
+interface AdminSidebarProps {
+    /**
+     * Active category (deprecated - kept for backward compatibility)
+     * PHASE 1: Category filtering removed - all items always shown
+     */
+    activeCategory?: string;
+}
 
-    const [isCollapsed, setIsCollapsed] = React.useState(false);
+export default function AdminSidebar({ activeCategory }: AdminSidebarProps) {
+    const pathname = usePathname();
+    const [isCollapsed, setIsCollapsed] = React.useState(true); // Default to collapsed for thinner sidebar
+
+    // PHASE 1 FIX: Remove category-based filtering - always show all sidebar items
+    // This makes navigation predictable and allows users to see all features at once
+    const navSections = allNavSections;
 
     return (
         <div 
             className={cn(
-                "bg-slate-950 text-slate-100 h-screen flex flex-col border-r border-white/5 relative z-50 transition-all duration-300 ease-in-out",
-                isCollapsed ? "w-20" : "w-64"
+                "text-slate-100 h-full flex flex-col relative transition-all duration-300 ease-in-out w-full",
+                // Ensure width is explicit and respected by parent
+                isCollapsed ? "min-w-[64px] max-w-[64px]" : "min-w-[224px] max-w-[224px]" // Thinner sidebar: 64px collapsed, 224px expanded
             )}
         >
-            {/* Logo/Brand Area */}
-            <div className={cn("flex items-center gap-3 mb-2 transition-all duration-300", isCollapsed ? "p-4 justify-center" : "p-6")}>
-                <Link href="/admin" className="flex items-center gap-3 group">
-                    <div className="w-10 h-10 min-w-[40px] rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center shadow-lg shadow-primary-500/20 group-hover:scale-110 transition-transform duration-300">
-                        <Zap className="w-6 h-6 text-white fill-white/20" />
-                    </div>
-                    <div className={cn("transition-all duration-300 overflow-hidden whitespace-nowrap", isCollapsed ? "w-0 opacity-0" : "w-auto opacity-100")}>
-                        <h2 className="font-bold text-lg leading-tight tracking-tight">InvestingP₹o</h2>
-                        <p className="text-[10px] font-bold text-primary-400 uppercase tracking-widest opacity-80">Authority CMS</p>
-                    </div>
-                </Link>
-            </div>
-
-            {/* Search Bar - Glassmorphic */}
-            <div className={cn("mb-6 transition-all duration-300", isCollapsed ? "px-2" : "px-4")}>
-                <div className="relative group">
-                    <Search className={cn(
-                        "absolute top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-primary-400 transition-colors",
-                        isCollapsed ? "left-1/2 -translate-x-1/2" : "left-3"
-                    )} aria-hidden="true" />
-                    <input
-                        type="text"
-                        placeholder="Quick search..."
-                        aria-label="Quick search (Press ⌘K to open global search)"
-                        className={cn(
-                            "w-full py-2.5 bg-white/5 border border-white/10 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:bg-white/10 transition-all duration-300",
-                            isCollapsed ? "pl-2 pr-2 text-transparent placeholder-transparent pointer-events-none" : "pl-10 pr-4"
-                        )}
-                    />
-                    {!isCollapsed && (
-                        <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                            <kbd className="px-1.5 py-0.5 text-[10px] font-bold text-slate-500 bg-white/5 border border-white/10 rounded-md">
-                                ⌘K
-                            </kbd>
-                        </div>
-                    )}
-                </div>
-            </div>
 
             {/* Navigation Sections */}
             <nav className="flex-1 overflow-y-auto overflow-x-hidden px-2 pb-6 space-y-8 no-scrollbar" aria-label="Main navigation">
@@ -229,14 +202,17 @@ export default function AdminSidebar() {
             {/* Collapse Toggle Button */}
             <button 
                 onClick={() => setIsCollapsed(!isCollapsed)}
-                className="mx-4 mb-4 p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors flex items-center justify-center border border-white/5 shadow-sm"
+                className={cn(
+                    "mb-4 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors flex items-center justify-center border border-white/5 shadow-sm group",
+                    isCollapsed ? "mx-2 p-2" : "mx-4 p-2.5"
+                )}
                 aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
                {isCollapsed ? (
-                   <span className="text-xs font-bold">»</span> 
+                   <span className="text-sm font-bold group-hover:scale-110 transition-transform">»</span> 
                ) : (
                    <span className="flex items-center gap-2 text-xs font-medium w-full justify-center">
-                       « <span className="text-[10px] uppercase tracking-wider">Collapse Sidebar</span>
+                       « <span className="text-[10px] uppercase tracking-wider">Collapse</span>
                    </span>
                )}
             </button>

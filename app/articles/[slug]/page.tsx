@@ -11,7 +11,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
-import { articleService } from '@/lib/cms/article-service';
 import SEOHead from '@/components/common/SEOHead';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import { Badge } from '@/components/ui/badge';
@@ -68,10 +67,32 @@ export default function ArticleDetailPage() {
 
     const loadArticle = async () => {
         try {
-            // CRITICAL: Use article service (guaranteed slug resolution)
-            const articleData = await articleService.getBySlug(slug, previewToken || undefined);
+            // Use client-safe Supabase client (no server-only imports)
+            const { createClient } = await import('@/lib/supabase/client');
+            const supabase = createClient();
             
-            if (!articleData) {
+            let query = supabase
+                .from('articles')
+                .select('*')
+                .eq('slug', slug);
+
+            // Preview mode: fetch any status if user is authenticated
+            if (previewToken) {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (!user) {
+                    setNotFound(true);
+                    setLoading(false);
+                    return;
+                }
+                // In preview mode, fetch regardless of status
+            } else {
+                // Public mode: only fetch published articles
+                query = query.eq('status', 'published').not('published_at', 'is', null);
+            }
+
+            const { data: articleData, error } = await query.single();
+            
+            if (error || !articleData) {
                 setNotFound(true);
                 setLoading(false);
                 return;

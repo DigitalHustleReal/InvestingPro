@@ -8,7 +8,7 @@
 import { NodeSDK } from '@opentelemetry/sdk-node';
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-otlp-http';
-import { Resource } from '@opentelemetry/resources';
+import { resourceFromAttributes } from '@opentelemetry/resources';
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
 import { trace, context, Span, SpanStatusCode } from '@opentelemetry/api';
 import { logger } from '../logger';
@@ -59,7 +59,7 @@ export function initializeTracing(): void {
         });
 
         // Create resource with service information
-        const resource = new Resource({
+        const resource = resourceFromAttributes({
             [SemanticResourceAttributes.SERVICE_NAME]: process.env.SERVICE_NAME || 'investingpro-api',
             [SemanticResourceAttributes.SERVICE_VERSION]: process.env.SERVICE_VERSION || '1.0.0',
             [SemanticResourceAttributes.DEPLOYMENT_ENVIRONMENT]: process.env.NODE_ENV || 'development',

@@ -67,7 +67,7 @@ export default function AdminContextualSidebar({ activeTab, onNavigate }: Contex
     };
 
     return (
-        <div className="sticky top-[73px] h-[calc(100vh-73px)] overflow-y-auto bg-slate-950/50 border-r border-white/5 p-6">
+        <div className="sticky top-[120px] h-[calc(100vh-120px)] overflow-y-auto bg-slate-950/50 border-r border-white/5 p-6">
             <div className="space-y-2">
                 <div className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-4">
                     {activeTab} Sections

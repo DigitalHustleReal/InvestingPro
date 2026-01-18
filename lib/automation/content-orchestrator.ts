@@ -228,16 +228,60 @@ async function getDefaultKeywords(): Promise<string[]> {
 }
 
 /**
- * Get trending keywords (placeholder - would integrate with Google Trends API)
+ * Get trending keywords from RSS feeds and Google Trends
  */
 async function getTrendingKeywords(): Promise<string[]> {
-    // TODO: Integrate with Google Trends API
-    // For now, return finance-related trending topics
-    return [
-        'union budget 2026 tax changes',
-        'new income tax slabs 2026',
-        'latest RBI repo rate impact'
-    ];
+    try {
+        const allTrends: string[] = [];
+        
+        // 1. Get trending from RSS feeds (Economic Times, Moneycontrol, etc.)
+        try {
+            const { TrendsService } = await import('../trends/TrendsService');
+            const trendsService = new TrendsService();
+            const rssTrends = await trendsService.getTrendingTopics('personal-finance');
+            allTrends.push(...rssTrends.map(t => t.keyword));
+            logger.info('RSS trending topics fetched', { count: rssTrends.length });
+        } catch (error) {
+            logger.warn('Failed to fetch RSS trends', error as Error);
+        }
+        
+        // 2. Get trending from Google Trends (via GhostScraper)
+        try {
+            const { GhostScraper } = await import('../scraper/ghost_scraper');
+            const scraper = new GhostScraper();
+            const googleTrends = await scraper.scanTrendingTopics();
+            allTrends.push(...googleTrends);
+            logger.info('Google Trends fetched', { count: googleTrends.length });
+        } catch (error) {
+            logger.warn('Failed to fetch Google Trends', error as Error);
+        }
+        
+        // 3. Fallback to default trending topics if nothing found
+        if (allTrends.length === 0) {
+            logger.warn('No trending topics found, using fallback');
+            return [
+                'union budget 2026 tax changes',
+                'new income tax slabs 2026',
+                'latest RBI repo rate impact',
+                'best mutual funds 2026',
+                'tax saving investment options'
+            ];
+        }
+        
+        // 4. Deduplicate and return top 10
+        const uniqueTrends = Array.from(new Set(allTrends));
+        logger.info('Total unique trending topics', { count: uniqueTrends.length });
+        return uniqueTrends.slice(0, 10);
+        
+    } catch (error) {
+        logger.error('Failed to get trending keywords', error as Error);
+        // Return fallback topics
+        return [
+            'union budget 2026 tax changes',
+            'new income tax slabs 2026',
+            'latest RBI repo rate impact'
+        ];
+    }
 }
 
 /**

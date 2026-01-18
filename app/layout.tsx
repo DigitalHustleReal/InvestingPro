@@ -2,7 +2,6 @@ import { Inter, Source_Serif_4, JetBrains_Mono } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { cn } from "@/lib/utils";
 import Analytics from "@/components/common/Analytics";
 import CookieConsent from "@/components/legal/CookieConsent";

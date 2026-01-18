@@ -85,7 +85,7 @@ export async function scrapeRBIRates(): Promise<RBIPolicyRates | null> {
  * Get default RBI rates (fallback)
  * These are approximate rates - should be updated via cron job
  */
-function getDefaultRBIRates(): RBIPolicyRates {
+export function getDefaultRBIRates(): RBIPolicyRates {
     // Default rates (as of 2024, update via cron job)
     const defaultRepoRate = 6.5;
     

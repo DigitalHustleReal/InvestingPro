@@ -2,29 +2,38 @@
  * Automated Content Generation Cron Job
  * 
  * Runs continuously in the background to generate articles
- * Schedule: Every 2.4 hours (10 articles per day)
+ * Schedule: Every 2 hours (10 articles per day max)
  * 
  * This ensures you wake up to fresh content every morning!
  */
 
 import { inngest } from '../inngest-client';
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize Supabase client for cron jobs (not server-only)
+function getSupabaseClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  
+  if (!url || !key) {
+    throw new Error('Supabase credentials not found');
+  }
+  
+  return createClient(url, key);
+}
 
 export const autoContentGenerator = inngest.createFunction(
   {
     id: 'auto-content-generator',
     name: 'Automated Content Generator',
-    // Run every 2.4 hours (10 times per day)
-    // This gives you 10 articles per day automatically
-    cron: '0 */2 * * *', // Every 2 hours (12 times/day, but we'll limit to 10)
   },
-  { event: 'cron/auto.content.generate' },
+  { cron: '0 */2 * * *' }, // Every 2 hours
   async ({ event, step }) => {
     console.log('🤖 Auto Content Generator Started');
 
     // Step 1: Check how many articles generated today
     const articlesGeneratedToday = await step.run('check-daily-count', async () => {
-      const supabase = createClient();
+      const supabase = getSupabaseClient();
       const today = new Date();
       today.setHours(0, 0, 0, 0);
 
@@ -50,7 +59,7 @@ export const autoContentGenerator = inngest.createFunction(
 
     // Step 2: Determine what to generate
     const contentPlan = await step.run('plan-content', async () => {
-      const supabase = createClient();
+      const supabase = getSupabaseClient();
       
       // Get categories that need content
       const { data: categories } = await supabase
@@ -73,31 +82,36 @@ export const autoContentGenerator = inngest.createFunction(
 
     // Step 3: Generate the article
     const article = await step.run('generate-article', async () => {
-      const supabase = createClient();
-      
       // Import the article generator
-      const { generateArticle } = await import('@/lib/automation/article-generator');
+      const { generateArticleCore } = await import('@/lib/automation/article-generator');
 
       try {
-        const result = await generateArticle({
-          category: contentPlan.category,
-          contentType: contentPlan.articleType,
-          provider: 'openai', // Use OpenAI for quality
-          autoPublish: false, // Don't auto-publish, keep as draft for review
-        });
+        // Generate article using the comprehensive pipeline
+        const result = await generateArticleCore(
+          `Best ${contentPlan.categoryName} for 2026`, // Topic based on category
+          (msg: string) => console.log(msg), // Log function
+          { dryRun: false } // Options
+        );
 
-        console.log(`✅ Article generated: ${result.title}`);
-        
-        return {
-          success: true,
-          articleId: result.id,
-          title: result.title,
-          category: contentPlan.category,
-        };
+        if (result.success && result.article) {
+          console.log(`✅ Article generated: ${result.article.title}`);
+          
+          return {
+            success: true as const,
+            articleId: result.article.id || null,
+            title: result.article.title || 'Untitled',
+            category: contentPlan.category,
+          };
+        } else {
+          return {
+            success: false as const,
+            error: result.error || 'Article generation failed',
+          };
+        }
       } catch (error) {
         console.error('❌ Article generation failed:', error);
         return {
-          success: false,
+          success: false as const,
           error: error instanceof Error ? error.message : 'Unknown error',
         };
       }
@@ -105,16 +119,16 @@ export const autoContentGenerator = inngest.createFunction(
 
     // Step 4: Log the result
     await step.run('log-result', async () => {
-      const supabase = createClient();
+      const supabase = getSupabaseClient();
       
       await supabase.from('generation_logs').insert({
         job_type: 'auto_content_generator',
         status: article.success ? 'success' : 'failed',
         metadata: {
-          articleId: article.articleId,
-          title: article.title,
-          category: article.category,
-          error: article.error,
+          articleId: article.success ? article.articleId : null,
+          title: article.success ? article.title : null,
+          category: article.success ? article.category : null,
+          error: !article.success ? article.error : null,
           dailyCount: articlesGeneratedToday + 1,
         },
       });
@@ -131,7 +145,7 @@ export const autoContentGenerator = inngest.createFunction(
         title: article.title,
         category: article.category,
       } : null,
-      error: article.error,
+      error: !article.success ? article.error : undefined,
     };
   }
 );

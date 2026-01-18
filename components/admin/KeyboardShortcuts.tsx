@@ -34,10 +34,6 @@ export function KeyboardShortcuts({ shortcuts = [] }: KeyboardShortcutsProps) {
     // Default shortcuts
     const defaultShortcuts: KeyboardShortcut[] = [
         {
-            key: '⌘K or /',
-            description: 'Open global search',
-        },
-        {
             key: '⌘?',
             description: 'Show keyboard shortcuts',
         },
@@ -74,11 +70,6 @@ export function KeyboardShortcuts({ shortcuts = [] }: KeyboardShortcutsProps) {
                 setIsOpen(true);
             }
 
-            // Cmd/Ctrl + K or / - Global search (handled elsewhere)
-            if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
-                // Handled by global search
-                return;
-            }
 
             // Cmd/Ctrl + N - New article
             if ((e.metaKey || e.ctrlKey) && e.key === 'n' && !e.shiftKey) {

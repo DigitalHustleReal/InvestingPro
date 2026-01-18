@@ -2,8 +2,6 @@
 
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { createClient } from '@/lib/supabase/client';
-import { articleService } from '@/lib/cms/article-service';
 import SEOHead from '@/components/common/SEOHead';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -31,27 +29,19 @@ export default function ArticlesPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 12;
 
-    // Fetch published articles only - use articleService for unified workflow
-    const { data: articles = [], isLoading } = useQuery({
+    // Fetch published articles via API (client-safe)
+    const { data, isLoading } = useQuery({
         queryKey: ['articles', 'public'],
         queryFn: async () => {
-            const publishedArticles = await articleService.listPublishedArticles(500);
-            // Map to Article interface
-            return publishedArticles.map(a => ({
-                id: a.id!,
-                title: a.title,
-                slug: a.slug,
-                excerpt: a.excerpt || '',
-                category: a.category,
-                read_time: a.read_time,
-                published_at: a.published_at || '',
-                published_date: a.published_date || '',
-                featured_image: a.featured_image,
-                author_name: a.author_name || 'Admin',
-            })) as Article[];
+            const response = await fetch('/api/articles/public?limit=500');
+            if (!response.ok) throw new Error('Failed to fetch articles');
+            const result = await response.json();
+            return result.articles || [];
         },
         staleTime: 60 * 1000, // Cache for 1 minute
     });
+
+    const articles: Article[] = data || [];
 
     // Filter articles by search term
     const filteredArticles = (Array.isArray(articles) ? articles : []).filter((article) => {

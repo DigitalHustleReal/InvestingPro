@@ -275,7 +275,7 @@ export const api = {
                 const geminiKey = process.env.GOOGLE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
                 if (geminiKey && checkHealth('gemini')) {
                     try {
-                        const modelName = process.env.GEMINI_MODEL || "gemini-1.5-flash";
+                        const modelName = process.env.GEMINI_MODEL || "gemini-1.5-flash-latest";
                         const geminiResponse = await fetch(`https://generativelanguage.googleapis.com/v1/models/${modelName}:generateContent?key=${geminiKey}`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
