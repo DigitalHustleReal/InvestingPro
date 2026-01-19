@@ -154,7 +154,7 @@ export function Footer() {
                     
                     <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                         <div className="text-center md:text-left max-w-xl">
-                            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3">Master the Market</h3>
+                            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3">Master Your Money</h3>
                             <p className="text-slate-600 dark:text-slate-400 text-lg">Join 25,000+ investors getting the best IPO insights delivered weekly.</p>
                         </div>
                         <div className="w-full md:w-auto min-w-[340px] bg-white/10 p-1.5 rounded-xl backdrop-blur-sm border border-white/20">
@@ -295,7 +295,7 @@ export function Footer() {
                             <ul className="space-y-2">
                                 {footerLinks.legal.map((link, i) => (
                                     <li key={i}>
-                                        <Link href={getHref(link.page)} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>

@@ -148,9 +148,9 @@ export default function ArticleDetailPage() {
 
     if (notFound || !article) {
         return (
-            <div className="min-h-screen flex flex-col items-center justify-center px-4">
-                <h1 className="text-2xl font-bold text-slate-900 mb-4">Article Not Found</h1>
-                <p className="text-slate-600 mb-6">
+            <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-background">
+                <h1 className="text-2xl font-bold text-foreground mb-4">Article Not Found</h1>
+                <p className="text-muted-foreground mb-6">
                     The article you're looking for doesn't exist or hasn't been published yet.
                 </p>
                 <div className="flex gap-4">
@@ -203,7 +203,7 @@ export default function ArticleDetailPage() {
     const magnet = getLeadMagnet();
 
     return (
-        <div className="min-h-screen bg-white relative">
+        <div className="min-h-screen bg-background relative">
             {/* Reading Progress Bar (UI/UX Phase 3) */}
             <ReadingProgressBar targetId="article-content" height={2} />
 
@@ -216,18 +216,18 @@ export default function ArticleDetailPage() {
 
             {/* Preview Banner */}
             {previewToken && article.status !== 'published' && (
-                <div className="bg-accent-100 border-b border-accent-300 px-4 py-2 text-center relative z-50">
-                    <p className="text-sm text-accent-800 flex items-center justify-center gap-2">
+                <div className="bg-accent/10 border-b border-accent/20 px-4 py-2 text-center relative z-50">
+                    <p className="text-sm text-accent-foreground flex items-center justify-center gap-2">
                         <strong>PREVIEW MODE</strong> - This article is {article.status}. 
                         {article.id ? (
                             <a 
                                 href={`/admin/articles/${article.id}/edit`} 
-                                className="ml-2 underline font-bold hover:text-accent-900"
+                                className="ml-2 underline font-bold hover:text-accent"
                             >
                                 Edit Article ✏️
                             </a>
                         ) : (
-                            <span className="text-danger-500 text-xs ml-2">(ID Missing)</span>
+                            <span className="text-destructive text-xs ml-2">(ID Missing)</span>
                         )}
                     </p>
                 </div>
@@ -242,17 +242,17 @@ export default function ArticleDetailPage() {
                     <article className="lg:col-span-8">
                         {/* Header */}
                         <div className="mb-8">
-                            <Badge className="mb-4 bg-primary-50 text-primary-700 border-primary-100">
+                            <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
                                 {article.category?.replace(/-/g, ' ')}
                             </Badge>
-                            <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+                            <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-6 leading-tight">
                                 {article.title}
                             </h1>
-                            <p className="text-xl text-slate-500 mb-8 leading-relaxed">
+                            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
                                 {article.excerpt}
                             </p>
 
-                            <div className="flex flex-wrap items-center gap-y-4 gap-6 text-sm text-slate-500 mb-8 pb-8 border-b">
+                            <div className="flex flex-wrap items-center gap-y-4 gap-6 text-sm text-muted-foreground mb-8 pb-8 border-b border-border">
                                 <AuthorBadge 
                                     name={article.author_name || 'InvestingPro Team'} 
                                     role={article.author_role}
@@ -263,18 +263,18 @@ export default function ArticleDetailPage() {
 
                                 {article.published_date && (
                                     <span className="flex items-center gap-2">
-                                        <Calendar className="w-4 h-4 text-slate-400" />
+                                        <Calendar className="w-4 h-4 text-muted-foreground/70" />
                                         {new Date(article.published_date).toLocaleDateString('en-IN', {
                                             year: 'numeric', month: 'long', day: 'numeric'
                                         })}
                                     </span>
                                 )}
                                 <span className="flex items-center gap-2">
-                                    <Clock className="w-4 h-4 text-slate-400" />
+                                    <Clock className="w-4 h-4 text-muted-foreground/70" />
                                     {article.read_time || '5'} min read
                                 </span>
                                 <span className="flex items-center gap-2">
-                                    <Eye className="w-4 h-4 text-slate-400" />
+                                    <Eye className="w-4 h-4 text-muted-foreground/70" />
                                     {article.views || 0} views
                                 </span>
 
@@ -282,7 +282,7 @@ export default function ArticleDetailPage() {
                                     <BookmarkButton articleId={article.id} variant="icon" size="md" />
                                     <button 
                                         onClick={() => navigator.share?.({ title: article.title, url: window.location.href })}
-                                        className="w-10 h-10 rounded-xl bg-slate-100 text-slate-400 hover:text-teal-600 hover:bg-slate-200 flex items-center justify-center transition-colors"
+                                        className="w-10 h-10 rounded-xl bg-muted text-muted-foreground hover:text-primary hover:bg-muted/80 flex items-center justify-center transition-colors"
                                     >
                                         <Share2 className="w-5 h-5" />
                                     </button>
@@ -327,11 +327,11 @@ export default function ArticleDetailPage() {
 
                         {/* Tags */}
                         {article.tags && article.tags.length > 0 && (
-                            <div className="mt-16 pt-8 border-t">
-                                <p className="text-sm font-bold text-slate-900 mb-4 uppercase tracking-wider">Tags</p>
+                            <div className="mt-16 pt-8 border-t border-border">
+                                <p className="text-sm font-bold text-foreground mb-4 uppercase tracking-wider">Tags</p>
                                 <div className="flex flex-wrap gap-2">
                                     {article.tags.map((tag: string, idx: number) => (
-                                        <Badge key={idx} variant="secondary" className="bg-slate-100 text-slate-600 font-medium">
+                                        <Badge key={idx} variant="secondary" className="bg-muted text-muted-foreground font-medium">
                                             {tag}
                                         </Badge>
                                     ))}

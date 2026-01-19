@@ -30,18 +30,28 @@ export async function GET(request: NextRequest) {
     if (productsError) throw productsError;
 
     // Get affiliate clicks for products
-    const { data: clicks } = await supabase
-      .from('affiliate_clicks')
-      .select('product_id, converted, commission_earned')
-      .gte('created_at', startDate.toISOString())
-      .catch(() => ({ data: null }));
+    let clicks = null;
+    try {
+      const { data } = await supabase
+        .from('affiliate_clicks')
+        .select('product_id, converted, commission_earned')
+        .gte('created_at', startDate.toISOString());
+      clicks = data;
+    } catch (error) {
+      // Table might not exist, that's okay
+    }
 
     // Get product views
-    const { data: views } = await supabase
-      .from('product_views')
-      .select('product_id')
-      .gte('viewed_at', startDate.toISOString())
-      .catch(() => ({ data: null }));
+    let views = null;
+    try {
+      const { data } = await supabase
+        .from('product_views')
+        .select('product_id')
+        .gte('viewed_at', startDate.toISOString());
+      views = data;
+    } catch (error) {
+      // Table might not exist, that's okay
+    }
 
     // Aggregate by brand/company
     const brandStatsMap: Record<string, {

@@ -56,7 +56,7 @@ function getRateLimiter(type: 'public' | 'authenticated' | 'admin' | 'ai'): any 
         public: { limit: 100, window: '1 m' },
         authenticated: { limit: 1000, window: '1 m' },
         admin: { limit: 5000, window: '1 m' },
-        ai: { limit: 10, window: '1 m' },
+        ai: { limit: 100, window: '1 m' }, // Increased from 10 to 100 to prevent rapid failures
     };
 
     const config = limits[type];
@@ -137,11 +137,15 @@ export function withRateLimit(
         const rateLimitResult = await rateLimit(request, type);
 
         if (rateLimitResult && !rateLimitResult.success) {
+            const retryAfterSeconds = Math.ceil((rateLimitResult.reset - Date.now()) / 1000);
             return NextResponse.json(
                 {
                     success: false,
-                    error: 'Rate limit exceeded',
+                    error: 'Rate limit exceeded. Please try again later.',
+                    message: `Too many requests. Limit: ${rateLimitResult.limit} per minute. Retry after ${retryAfterSeconds} seconds.`,
                     retryAfter: rateLimitResult.reset,
+                    limit: rateLimitResult.limit,
+                    remaining: rateLimitResult.remaining,
                 },
                 {
                     status: 429,
@@ -149,7 +153,7 @@ export function withRateLimit(
                         'X-RateLimit-Limit': rateLimitResult.limit.toString(),
                         'X-RateLimit-Remaining': rateLimitResult.remaining.toString(),
                         'X-RateLimit-Reset': rateLimitResult.reset.toString(),
-                        'Retry-After': rateLimitResult.reset.toString(),
+                        'Retry-After': retryAfterSeconds.toString(),
                     },
                 }
             );

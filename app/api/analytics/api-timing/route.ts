@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
                 return NextResponse.json({ success: true, message: 'Metric received (table not found)' });
             }
 
-            logger.debug('Failed to store API timing metric', error as Error, { path, duration });
+            logger.debug('Failed to store API timing metric', { path, duration, error: error.message });
             // Don't fail the request - metrics are non-critical
             return NextResponse.json({ success: true, message: 'Metric received (storage failed)' });
         }

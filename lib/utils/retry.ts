@@ -33,6 +33,24 @@ export async function retry<T>(
         } catch (error) {
             lastError = error instanceof Error ? error : new Error(String(error));
             
+            // Don't retry on rate limit errors (429) - wait longer
+            if (lastError.message.includes('Rate limit') || lastError.message.includes('429')) {
+                logger.warn('Rate limit hit - skipping retry', { error: lastError.message });
+                throw lastError;
+            }
+            
+            // Don't retry on timeout errors immediately
+            if (lastError.message.includes('timeout') && attempt < maxRetries) {
+                // Wait longer for timeout errors
+                const waitTime = delay * Math.pow(2, attempt + 1); // Extra delay for timeouts
+                logger.info(`Timeout error - waiting ${waitTime}ms before retry`, {
+                    attempt: attempt + 1,
+                    maxRetries
+                });
+                await new Promise(resolve => setTimeout(resolve, waitTime));
+                continue;
+            }
+            
             if (attempt === maxRetries) {
                 logger.warn(`Retry exhausted after ${maxRetries} attempts`, { error: lastError.message });
                 throw lastError;
@@ -45,6 +63,9 @@ export async function retry<T>(
             } else if (backoff === 'linear') {
                 waitTime = delay * (attempt + 1);
             }
+            
+            // Cap maximum wait time at 30 seconds
+            waitTime = Math.min(waitTime, 30000);
             
             // Call onRetry callback
             if (onRetry) {

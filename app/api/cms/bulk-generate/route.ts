@@ -4,6 +4,7 @@ import { logger } from '@/lib/logger';
 import { createAPIWrapper } from '@/lib/middleware/api-wrapper';
 import { withValidation } from '@/lib/middleware/validation';
 import { bulkGenerateSchema } from '@/lib/validation/schemas';
+import { createClient } from '@/lib/supabase/server';
 
 /**
  * Bulk Content Generation API (Queue-based)
@@ -91,6 +92,7 @@ export const GET = createAPIWrapper('/api/cms/bulk-generate', {
     trackMetrics: true,
 })(async (request: NextRequest) => {
     try {
+        const supabase = await createClient();
         const { searchParams } = new URL(request.url);
         const cycleId = searchParams.get('cycleId');
         

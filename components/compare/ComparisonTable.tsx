@@ -104,34 +104,34 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
     return (
         <div className="w-full overflow-x-auto pb-4">
              {/* Min width to force horizontal layout on mobile */}
-            <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden min-w-[800px]">
+            <div className="bg-card rounded-2xl shadow-lg border border-border overflow-hidden min-w-[800px]">
                 {/* Header Row */}
-                <div className="grid grid-cols-4 bg-slate-50 border-b border-slate-200">
-                    <div className="p-6 font-bold text-slate-900 border-r border-slate-200">
+                <div className="grid grid-cols-4 bg-muted/50 border-b border-border">
+                    <div className="p-6 font-bold text-card-foreground border-r border-border">
                         Compare Features
                     </div>
                     {products.map((product) => (
-                        <div key={product.id} className="p-6 relative border-r border-slate-200 last:border-r-0">
+                        <div key={product.id} className="p-6 relative border-r border-border last:border-r-0">
                             {onRemove && (
                                 <button
                                     onClick={() => onRemove(product.id)}
-                                    className="absolute top-2 right-2 p-1 rounded-full bg-slate-200 hover:bg-danger-100 text-slate-600 hover:text-danger-600 transition-colors"
+                                    className="absolute top-2 right-2 p-1 rounded-full bg-muted hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors"
                                 >
                                     <X className="w-4 h-4" />
                                 </button>
                             )}
                             <div className="flex items-center gap-2 mb-2">
-                                <div className="flex items-center bg-accent-50 px-2 py-0.5 rounded text-accent-700 text-xs font-bold border border-accent-100">
-                                    {product.rating} <Star className="w-3 h-3 ml-0.5 fill-accent-500 text-accent-500" />
+                                <div className="flex items-center bg-accent/10 px-2 py-0.5 rounded text-accent-foreground text-xs font-bold border border-accent/20">
+                                    {product.rating} <Star className="w-3 h-3 ml-0.5 fill-accent text-accent" />
                                 </div>
                                 {product.isPopular && (
-                                    <span className="text-xs bg-success-100 text-success-700 px-2 py-0.5 rounded font-bold">
+                                    <span className="text-xs bg-success/10 text-success-foreground px-2 py-0.5 rounded font-bold">
                                         POPULAR
                                     </span>
                                 )}
                             </div>
-                            <h3 className="font-bold text-slate-900 mb-1">{product.name}</h3>
-                            <p className="text-xs text-slate-500">{product.provider}</p>
+                            <h3 className="font-bold text-card-foreground mb-1">{product.name}</h3>
+                            <p className="text-xs text-muted-foreground">{product.provider}</p>
                         </div>
                     ))}
                 </div>
@@ -143,10 +143,10 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
                      return (
                         <div
                             key={row.label}
-                            className={`grid grid-cols-4 border-b border-slate-100 last:border-b-0 ${row.highlight ? 'bg-success-50/30' : idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'
+                            className={`grid grid-cols-4 border-b border-border last:border-b-0 ${row.highlight ? 'bg-success/5' : idx % 2 === 0 ? 'bg-card' : 'bg-muted/30'
                                 }`}
                         >
-                            <div className="p-4 font-semibold text-slate-700 text-sm border-r border-slate-200 flex items-center">
+                            <div className="p-4 font-semibold text-muted-foreground text-sm border-r border-border flex items-center">
                                 {row.label}
                             </div>
                             {products.map((product) => {
@@ -156,7 +156,7 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
                                 if (row.key === 'score') {
                                     const score = calculateProductScore(product as FinancialProduct);
                                     value = score.overall;
-                                    displayValue = <span className="font-bold text-lg text-success-600 flex items-center gap-1"><Trophy className="w-4 h-4" /> {score.overall}/10</span>;
+                                    displayValue = <span className="font-bold text-lg text-success flex items-center gap-1"><Trophy className="w-4 h-4" /> {score.overall}/10</span>;
                                 }
 
                                 // Determine render value
@@ -167,14 +167,14 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
                                 const isWinner = winnerId === product.id;
 
                                 return (
-                                    <div key={product.id} className={`p-4 text-sm border-r border-slate-200 last:border-r-0 flex items-center ${isWinner ? 'bg-success-100/30 font-semibold' : 'text-slate-900'}`}>
+                                    <div key={product.id} className={`p-4 text-sm border-r border-border last:border-r-0 flex items-center ${isWinner ? 'bg-success/10 font-semibold' : 'text-card-foreground'}`}>
                                         {renderedValue !== undefined && renderedValue !== null ? (
                                             <div className="flex items-center gap-2">
                                                 <span>{renderedValue}</span>
-                                                {isWinner && <Check className="w-4 h-4 text-success-600" />}
+                                                {isWinner && <Check className="w-4 h-4 text-success" />}
                                             </div>
                                         ) : (
-                                            <span className="text-slate-400 italic">Not specified</span>
+                                            <span className="text-muted-foreground italic">Not specified</span>
                                         )}
                                     </div>
                                 );
@@ -186,16 +186,16 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
                 {/* Pros/Cons Section (for Credit Cards) */}
                 {productType === 'credit_card' && (
                     <>
-                        <div className="grid grid-cols-4 border-b border-slate-200 bg-success-50/30">
-                            <div className="p-4 font-semibold text-slate-700 text-sm border-r border-slate-200">
+                        <div className="grid grid-cols-4 border-b border-border bg-success/5">
+                            <div className="p-4 font-semibold text-muted-foreground text-sm border-r border-border">
                                 âœ… Pros
                             </div>
                             {products.map((product) => (
-                                <div key={product.id} className="p-4 text-xs text-slate-700 border-r border-slate-200 last:border-r-0">
+                                <div key={product.id} className="p-4 text-xs text-card-foreground border-r border-border last:border-r-0">
                                     <ul className="space-y-1">
                                         {(product as CreditCard).pros?.slice(0, 3).map((pro, i) => (
                                             <li key={i} className="flex items-start gap-1">
-                                                <Check className="w-3 h-3 text-success-600 flex-shrink-0 mt-0.5" />
+                                                <Check className="w-3 h-3 text-success flex-shrink-0 mt-0.5" />
                                                 <span>{pro}</span>
                                             </li>
                                         ))}
@@ -203,16 +203,16 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
                                 </div>
                             ))}
                         </div>
-                        <div className="grid grid-cols-4 bg-danger-50/30">
-                            <div className="p-4 font-semibold text-slate-700 text-sm border-r border-slate-200">
-                                âš ï¸ Cons
+                        <div className="grid grid-cols-4 bg-destructive/5">
+                            <div className="p-4 font-semibold text-muted-foreground text-sm border-r border-border">
+                                âš ï¸  Cons
                             </div>
                             {products.map((product) => (
-                                <div key={product.id} className="p-4 text-xs text-slate-700 border-r border-slate-200 last:border-r-0">
+                                <div key={product.id} className="p-4 text-xs text-card-foreground border-r border-border last:border-r-0">
                                     <ul className="space-y-1">
                                         {(product as CreditCard).cons?.slice(0, 2).map((con, i) => (
                                             <li key={i} className="flex items-start gap-1">
-                                                <Minus className="w-3 h-3 text-danger-600 flex-shrink-0 mt-0.5" />
+                                                <Minus className="w-3 h-3 text-destructive flex-shrink-0 mt-0.5" />
                                                 <span>{con}</span>
                                             </li>
                                         ))}
@@ -224,11 +224,11 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
                 )}
 
                 {/* Action Row */}
-                <div className="grid grid-cols-4 bg-slate-50">
-                    <div className="p-4 border-r border-slate-200"></div>
+                <div className="grid grid-cols-4 bg-muted/30">
+                    <div className="p-4 border-r border-border"></div>
                     {products.map((product) => (
-                        <div key={product.id} className="p-4 border-r border-slate-200 last:border-r-0">
-                            <Button className="w-full bg-secondary-600 hover:bg-secondary-700 text-white font-semibold">
+                        <div key={product.id} className="p-4 border-r border-border last:border-r-0">
+                            <Button className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold">
                                 Apply Now
                             </Button>
                         </div>

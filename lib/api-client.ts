@@ -79,6 +79,89 @@ export const apiClient = {
         // Alias reviews inside entities for compatibility with automated refactors
         get reviews() { return apiClient.reviews; },
 
+        IPO: {
+            list: async () => {
+                // Mock Data for now
+                return [
+                    {
+                        name: "Tata Technologies",
+                        status: "Open",
+                        price: "₹475 - ₹500",
+                        subscription: "12.5x",
+                        lot: "30 Shares",
+                        listing: "Dec 12",
+                        color: "from-blue-600 to-blue-800"
+                    },
+                    {
+                        name: "Gandhar Oil Ref",
+                        status: "Upcoming",
+                        price: "₹160 - ₹169",
+                        subscription: "0x",
+                        lot: "88 Shares",
+                        listing: "TBA",
+                        color: "from-amber-600 to-amber-800"
+                    },
+                    {
+                        name: "Flare Writing",
+                        status: "Closed",
+                        price: "₹288 - ₹304",
+                        subscription: "64.2x",
+                        lot: "49 Shares",
+                        listing: "Dec 05",
+                        color: "from-purple-600 to-purple-800"
+                    }
+                ];
+            }
+        },
+
+        Broker: {
+             list: async () => {
+                // Mock Data for now
+                return [
+                    {
+                        name: "Zerodha",
+                        logo: "Z",
+                        color: "from-blue-500 to-blue-600",
+                        rating: "4.9",
+                        users: "1.2Cr",
+                        bestFor: "Active Investors",
+                        pricing: { account_opening: "₹200", equity: "₹0" },
+                        pros: ["Zero Brokerage on Delivery", "Best-in-class UI", "Nudge & Kill Switch"]
+                    },
+                    {
+                        name: "Groww",
+                        logo: "G",
+                        color: "from-emerald-500 to-emerald-600",
+                        rating: "4.8",
+                        users: "1.5Cr",
+                        bestFor: "Beginners",
+                        pricing: { account_opening: "₹0", equity: "₹0" },
+                        pros: ["Free Account Opening", "Simple Interface", "Fastest Activation"]
+                    },
+                    {
+                        name: "Upstox",
+                        logo: "U",
+                        color: "from-purple-500 to-purple-600",
+                        rating: "4.7",
+                        users: "80L",
+                        bestFor: "Traders",
+                        pricing: { account_opening: "₹0", equity: "₹0" },
+                        pros: ["GTT Orders", "Deep Analytics", "Margin Trading Facility"]
+                    },
+                    {
+                        name: "Angel One",
+                        logo: "A",
+                        color: "from-orange-500 to-orange-600",
+                        rating: "4.5",
+                        users: "1.8Cr",
+                        bestFor: "Advisory",
+                        pricing: { account_opening: "₹0", equity: "₹0" },
+                        pros: ["Smart API", "ARQ Prime Advisory", "Offline Presence"]
+                    }
+                ];
+            }
+        },
+
         Insurance: {
              list: async () => {
                 const { data } = await supabase.from('insurance').select('*');
@@ -203,6 +286,27 @@ export const apiClient = {
                 const { data, error } = await query;
                 if (error) throw error;
                 return data || [];
+            },
+            filter: async (filters: any) => {
+                let query = supabase.from('articles').select('*');
+                Object.entries(filters).forEach(([key, value]) => { 
+                    if (value !== undefined && value !== null) query = query.eq(key, value);
+                });
+                const { data, error } = await query;
+                if (error) throw error;
+                return data || [];
+            },
+            create: async (data: any) => {
+                const response = await fetch('/api/articles', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (!response.ok) {
+                    const error = await response.json().catch(() => ({ message: 'Failed to create article' }));
+                    throw new Error(error.message || 'Failed to create article');
+                }
+                return await response.json();
             },
             update: async (id: string, updates: any) => {
                 const { data, error } = await supabase
@@ -365,6 +469,41 @@ export const apiClient = {
                      ...p
                  }));
              }
+        },
+        AdPlacement: {
+            list: async () => {
+                const { data, error } = await supabase
+                    .from('ad_placements')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+                if (error) {
+                    console.error('Error fetching ad placements', error);
+                    return [];
+                }
+                return data || [];
+            },
+            filter: async (filters: any) => {
+                let query = supabase.from('ad_placements').select('*');
+                Object.entries(filters).forEach(([key, value]) => { 
+                    if (value !== undefined && value !== null) query = query.eq(key, value);
+                });
+                const { data, error } = await query;
+                if (error) {
+                    console.error('Error filtering ad placements', error);
+                    return [];
+                }
+                return data || [];
+            },
+            update: async (id: string, updates: any) => {
+                const { data, error } = await supabase
+                    .from('ad_placements')
+                    .update(updates)
+                    .eq('id', id)
+                    .select()
+                    .single();
+                if (error) throw error;
+                return data;
+            }
         }
     }
 };

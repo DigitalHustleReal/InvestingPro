@@ -285,9 +285,12 @@ export const api = {
                 if (geminiKey && checkHealth('gemini')) {
                     try {
                         const modelName = process.env.GEMINI_MODEL || "gemini-1.5-flash-latest";
-                        const geminiResponse = await fetch(`https://generativelanguage.googleapis.com/v1/models/${modelName}:generateContent?key=${geminiKey}`, {
+                        // Use fetch with timeout to prevent hanging connections
+                        const { fetchWithTimeout } = await import('@/lib/utils/fetch-with-timeout');
+                        const geminiResponse = await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1/models/${modelName}:generateContent?key=${geminiKey}`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
+                            timeout: 60000, // 60s timeout for AI requests
                             body: JSON.stringify({
                                 contents: [{ 
                                     role: 'user', 
@@ -628,9 +631,11 @@ The AI was unable to reach a provider, so we've generated this professional outl
             // UNIFIED: Use API routes for writes (requires server-side processing)
             update: async (id: string, data: any) => {
                 // Call API route for updates (server-side only operations)
-                const response = await fetch(`/api/articles/${id}`, {
+                const { fetchWithTimeout } = await import('@/lib/utils/fetch-with-timeout');
+                const response = await fetchWithTimeout(`/api/articles/${id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
+                    timeout: 30000, // 30s timeout
                     body: JSON.stringify(data)
                 });
                 if (!response.ok) {
@@ -642,9 +647,11 @@ The AI was unable to reach a provider, so we've generated this professional outl
             // UNIFIED: Use API routes for creation (requires server-side processing)
             create: async (data: any) => {
                 // Call API route for creation (server-side only operations)
-                const response = await fetch('/api/articles', {
+                const { fetchWithTimeout } = await import('@/lib/utils/fetch-with-timeout');
+                const response = await fetchWithTimeout('/api/articles', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
+                    timeout: 30000, // 30s timeout
                     body: JSON.stringify(data)
                 });
                 if (!response.ok) {

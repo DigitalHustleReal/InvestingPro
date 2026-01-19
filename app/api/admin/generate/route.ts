@@ -8,7 +8,7 @@ export const POST = createAPIWrapper('/api/admin/generate', {
     trackMetrics: true,
 })(async (request: NextRequest) => {
     try {
-        const { topic } = await req.json();
+        const { topic } = await request.json();
 
         if (!topic) {
             return NextResponse.json({ error: 'Topic is required' }, { status: 400 });

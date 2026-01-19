@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
             continuousModeRunning = true;
             
             // Start continuous mode in background
-            cmsOrchestrator.startContinuousMode(context).catch((error) => {
+            cmsOrchestrator.instance.startContinuousMode(context).catch((error: any) => {
                 logger.error('Continuous mode error', error);
                 continuousModeRunning = false;
             });

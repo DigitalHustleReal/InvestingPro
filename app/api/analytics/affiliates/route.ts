@@ -39,10 +39,15 @@ export async function GET(request: NextRequest) {
     if (clicksError) throw clicksError;
 
     // Get affiliate links
-    const { data: links } = await supabase
-      .from('affiliate_links')
-      .select('id, partner_id, name, clicks, conversions, revenue')
-      .catch(() => ({ data: null }));
+    let links = null;
+    try {
+      const { data } = await supabase
+        .from('affiliate_links')
+        .select('id, partner_id, name, clicks, conversions, revenue');
+      links = data;
+    } catch (error) {
+      // Table might not exist, that's okay
+    }
 
     // Aggregate by partner
     const partnerStatsMap: Record<string, {

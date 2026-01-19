@@ -115,6 +115,7 @@ export const POST = withErrorHandler(
                 success: true,
                 data,
             }, { status: 201 });
-        }, 'categories-create')
+        }),
+        'categories-create'
     )
 );

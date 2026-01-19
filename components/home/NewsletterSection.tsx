@@ -34,7 +34,7 @@ export default function NewsletterSection() {
                     Stay Ahead with Weekly Insights
                 </h2>
                 <p className="text-lg text-slate-300 mb-10 max-w-xl mx-auto leading-relaxed">
-                    Get expert investment tips, market analysis, and exclusive offers delivered to your inbox every week.
+                    Get expert investment tips, investment strategies, and exclusive offers delivered to your inbox every week.
                 </p>
 
                 <div className="max-w-md mx-auto">

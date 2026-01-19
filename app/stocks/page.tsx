@@ -79,17 +79,17 @@ export default function StocksPage() {
                         <div className="max-w-2xl text-center lg:text-left">
                             <Badge className="bg-primary-500/10 text-primary-400 border-primary-500/20 px-4 py-2 mb-8 rounded-full">
                                 <Activity className="w-3.5 h-3.5 mr-2" />
-                                <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Real-time Market Delta</span>
+                                <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Real-time Market Insights</span>
                             </Badge>
                             <h1 className="text-5xl sm:text-7xl font-bold text-white mb-6 tracking-tight leading-tight">
-                                Precision <br /> <span className="text-primary-400">Equity Hub</span>
+                                Quality <br /> <span className="text-primary-400">Equity Hub</span>
                             </h1>
                             <p className="text-xl text-slate-400 mb-10 font-medium leading-relaxed">
-                                Professional-grade market tracking for retail power-traders. Monitor live IPO sentiments, breakouts, and benchmarking tools.
+                                Professional-grade market tracking for long-term investors. Monitor live IPO sentiments, fundamentals, and benchmarking tools.
                             </p>
                             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
                                 <Button className="rounded-2xl bg-primary-500 hover:bg-primary-600 text-slate-900 dark:text-white font-bold h-16 px-10 shadow-2xl shadow-primary-500/20 text-lg">
-                                    Start Trading Now
+                                    Start Investing
                                     <ArrowUpRight className="ml-2 w-6 h-6" />
                                 </Button>
                                 <Button variant="outline" className="rounded-2xl border-white/10 text-white hover:bg-white/5 font-bold h-16 px-10 text-lg">
@@ -134,7 +134,7 @@ export default function StocksPage() {
                                 </div>
                                 <div>
                                     <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Top Gainers</h3>
-                                    <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Intraday Powerhouses</p>
+                                    <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Investment Partners</p>
                                 </div>
                             </div>
                             <Button variant="ghost" className="rounded-xl font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-widest">View All</Button>
@@ -246,7 +246,7 @@ export default function StocksPage() {
                                 </div>
 
                                 <Button className="w-full h-14 rounded-2xl bg-primary-600 hover:bg-secondary-600 dark:bg-primary-500 dark:hover:bg-secondary-500 text-white font-bold shadow-xl group/btn transition-all">
-                                    Analyze GMP Analysis
+                                    View GMP Trends
                                     <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                                 </Button>
                             </Card>
@@ -295,10 +295,10 @@ export default function StocksPage() {
                                     </div>
                                 </div>
 
-                                <div className="grid items-center grid-cols-2 gap-4 mb-10 p-6 bg-slate-50 rounded-[2.5rem] border border-white">
+                                <div className="grid grid-cols-2 gap-4 mb-10 p-6 bg-slate-50 rounded-[2.5rem] border border-white">
                                     <div>
-                                        <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Equity Intraday</p>
-                                        <p className="font-extrabold text-slate-900">{broker.pricing?.intraday || '₹20'}</p>
+                                        <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Account Opening</p>
+                                        <p className="font-extrabold text-slate-900">{broker.pricing?.account_opening || '₹0'}</p>
                                     </div>
                                     <div>
                                         <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Equity Delivery</p>
@@ -328,10 +328,10 @@ export default function StocksPage() {
                 <div className="bg-gradient-to-br from-primary-600 to-secondary-600 dark:from-primary-500 dark:to-secondary-500 rounded-[4rem] p-16 lg:p-24 text-white overflow-hidden relative group shadow-2xl shadow-primary-500/20">
                     <Globe className="absolute -right-24 -bottom-24 w-96 h-96 text-white/5 group-hover:rotate-12 transition-transform duration-700" />
                     <div className="max-w-3xl relative z-10">
-                        <Badge className="bg-white/20 text-white border-white/30 backdrop-blur-sm px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] mb-10">Institutional View</Badge>
-                        <h2 className="text-4xl lg:text-6xl font-bold mb-10 tracking-tight leading-tight">Master the <br /> <span className="text-white/90">Macro Variables</span></h2>
+                        <Badge className="bg-white/20 text-white border-white/30 backdrop-blur-sm px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] mb-10">Fundamental Analysis</Badge>
+                        <h2 className="text-4xl lg:text-6xl font-bold mb-10 tracking-tight leading-tight">"Market is a <br /> <span className="text-white/90">Weighing Machine"</span></h2>
                         <p className="text-xl text-white/80 font-medium leading-relaxed mb-16">
-                            Retail traders look at prices. Professionals look at "Liquidity Clusters" and "Macro Correlations." Track NIFTY 500 sentiment deltas across all global gateways.
+                            "In the short run, the market is a voting machine but in the long run, it is a weighing machine." Focus on business quality, earnings growth, and competitive advantages over daily price action.
                         </p>
 
                         <div className="grid sm:grid-cols-3 gap-12">

@@ -136,20 +136,26 @@ async function handlePostback(request: NextRequest, method: string) {
         }
         
         // 7. Log to conversions table for analytics
-        await supabase.from('affiliate_conversions').insert({
-            click_id: payload.click_id,
-            transaction_id: payload.transaction_id,
-            product_id: payload.product_id,
-            partner_slug: payload.partner_slug,
-            amount: payload.amount,
-            commission: payload.commission,
-            status: payload.status,
-            conversion_type: payload.conversion_type,
-            raw_payload: payload,
-            received_at: new Date().toISOString()
-        }).catch(() => {
-            // Table might not exist yet, that's okay
-        });
+        try {
+            const { error: conversionError } = await supabase.from('affiliate_conversions').insert({
+                click_id: payload.click_id,
+                transaction_id: payload.transaction_id,
+                product_id: payload.product_id,
+                partner_slug: payload.partner_slug,
+                amount: payload.amount,
+                commission: payload.commission,
+                status: payload.status,
+                conversion_type: payload.conversion_type,
+                raw_payload: payload,
+                received_at: new Date().toISOString()
+            });
+            // Table might not exist yet, that's okay - ignore errors
+            if (conversionError) {
+                // Silently ignore - table might not exist
+            }
+        } catch (error) {
+            // Silently ignore - table might not exist
+        }
         
         const processingTime = Date.now() - startTime;
         console.log(`[Postback] Processed in ${processingTime}ms`);

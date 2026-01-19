@@ -187,11 +187,11 @@ export default async function StockDetailPage({ params }: { params: { slug: stri
                   
                   <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-6 text-lg mb-3">
-                      Trade Now <ExternalLink className="w-5 h-5 ml-2" />
+                      Invest Now <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
                   <p className="text-xs text-slate-400 text-center">
-                    Open demat account to start trading
+                    Open demat account to start investing
                   </p>
                 </CardContent>
               </Card>
@@ -355,8 +355,8 @@ export default async function StockDetailPage({ params }: { params: { slug: stri
       {/* Bottom CTA */}
       <div className="bg-slate-900 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Start Trading {stock.symbol} Today</h2>
-          <p className="text-slate-300 mb-8">Open a demat account and invest in top Indian stocks!</p>
+          <h2 className="text-3xl font-bold mb-4">Invest in {stock.symbol} Today</h2>
+          <p className="text-slate-300 mb-8">Open a demat account and build your long-term portfolio!</p>
           <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
             <Button className="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-12 py-6 text-lg">
               Open Demat Account <ExternalLink className="w-5 h-5 ml-2" />

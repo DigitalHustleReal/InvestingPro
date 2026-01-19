@@ -155,111 +155,13 @@ export default function EditArticlePage() {
         message: 'You have unsaved changes. Are you sure you want to leave?',
     });
 
-    // Keyboard shortcuts for save and publish
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            // Cmd+S or Ctrl+S - Save
-            if ((e.metaKey || e.ctrlKey) && e.key === 's') {
-                e.preventDefault();
-                if (!saving && !isAutoSaving) {
-                    handleSave({});
-                }
-            }
-            // Cmd+P or Ctrl+P - Publish (prevent browser print)
-            if ((e.metaKey || e.ctrlKey) && e.key === 'p') {
-                e.preventDefault();
-                if (!publishMutation.isPending && !saving && article?.status !== 'published') {
-                    handlePublish({});
-                }
-            }
-        };
-
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [saving, isAutoSaving, publishMutation.isPending, article?.status]);
-
-    // Save mutation (does NOT change status)
-    const saveMutation = useMutation({
-        mutationFn: async (metadata: Partial<ArticleData>) => {
-            if (!editorContent) {
-                throw new Error('No content to save');
-            }
-            
-            const response = await fetch(`/api/admin/articles/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    content: {
-                        body_markdown: editorContent.markdown,
-                        body_html: editorContent.html,
-                        content: editorContent.markdown, // Legacy
-                    },
-                    metadata: {
-                        title,
-                        slug: article?.slug || '',
-                        excerpt,
-                        ...metadata,
-                    },
-                }),
-            });
-
-            if (!response.ok) {
-                const error = await response.json();
-                throw new Error(error.error || 'Failed to save article');
-            }
-
-            return await response.json();
-        },
-        onMutate: async () => {
-            // Optimistic update
-            await queryClient.cancelQueries({ queryKey: ['article', id] });
-            await queryClient.cancelQueries({ queryKey: ['articles', 'admin'] });
-            
-            const previousArticle = queryClient.getQueryData(['article', id]);
-            const previousArticles = queryClient.getQueryData(['articles', 'admin']);
-            
-            return { previousArticle, previousArticles };
-        },
-        onSuccess: async (result) => {
-            setSaving(false);
-            setLastSaved(new Date());
-            
-            // Update local state with server response
-            if (article) {
-                // Refresh article data
-                await queryClient.invalidateQueries({ queryKey: ['article', id] });
-            }
-            
-            // Invalidate and refetch
-            await Promise.all([
-                queryClient.invalidateQueries({ queryKey: ['article', id] }),
-                queryClient.invalidateQueries({ queryKey: ['articles', 'admin'] }),
-            ]);
-            
-            router.refresh();
-            toast.success('Article saved successfully');
-        },
-        onError: (error, variables, context) => {
-            // Rollback
-            if (context?.previousArticle) {
-                queryClient.setQueryData(['article', id], context.previousArticle);
-            }
-            if (context?.previousArticles) {
-                queryClient.setQueryData(['articles', 'admin'], context.previousArticles);
-            }
-            
-            setSaving(false);
-            toast.error(formatErrorForUI(error));
-        },
-    });
-
-    // Publish mutation (atomic operation)
+    // Publish mutation (defined early for use in useEffect)
     const publishMutation = useMutation({
         mutationFn: async (metadata: Partial<ArticleData>) => {
             if (!editorContent) {
                 throw new Error('No content to publish');
             }
-            
+
             const response = await fetch(`/api/admin/articles/${id}/publish`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -358,6 +260,105 @@ export default function EditArticlePage() {
             toast.error(formatErrorForUI(error));
         },
     });
+
+    // Keyboard shortcuts for save and publish
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            // Cmd+S or Ctrl+S - Save
+            if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+                e.preventDefault();
+                if (!saving && !isAutoSaving) {
+                    handleSave({});
+                }
+            }
+            // Cmd+P or Ctrl+P - Publish (prevent browser print)
+            if ((e.metaKey || e.ctrlKey) && e.key === 'p') {
+                e.preventDefault();
+                if (!publishMutation.isPending && !saving && article?.status !== 'published') {
+                    handlePublish({});
+                }
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [saving, isAutoSaving, publishMutation.isPending, article?.status]);
+
+    // Save mutation (does NOT change status)
+    const saveMutation = useMutation({
+        mutationFn: async (metadata: Partial<ArticleData>) => {
+            if (!editorContent) {
+                throw new Error('No content to save');
+            }
+            
+            const response = await fetch(`/api/admin/articles/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    content: {
+                        body_markdown: editorContent.markdown,
+                        body_html: editorContent.html,
+                        content: editorContent.markdown, // Legacy
+                    },
+                    metadata: {
+                        title,
+                        slug: article?.slug || '',
+                        excerpt,
+                        ...metadata,
+                    },
+                }),
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.error || 'Failed to save article');
+            }
+
+            return await response.json();
+        },
+        onMutate: async () => {
+            // Optimistic update
+            await queryClient.cancelQueries({ queryKey: ['article', id] });
+            await queryClient.cancelQueries({ queryKey: ['articles', 'admin'] });
+            
+            const previousArticle = queryClient.getQueryData(['article', id]);
+            const previousArticles = queryClient.getQueryData(['articles', 'admin']);
+            
+            return { previousArticle, previousArticles };
+        },
+        onSuccess: async (result) => {
+            setSaving(false);
+            setLastSaved(new Date());
+            
+            // Update local state with server response
+            if (article) {
+                // Refresh article data
+                await queryClient.invalidateQueries({ queryKey: ['article', id] });
+            }
+            
+            // Invalidate and refetch
+            await Promise.all([
+                queryClient.invalidateQueries({ queryKey: ['article', id] }),
+                queryClient.invalidateQueries({ queryKey: ['articles', 'admin'] }),
+            ]);
+            
+            router.refresh();
+            toast.success('Article saved successfully');
+        },
+        onError: (error, variables, context) => {
+            // Rollback
+            if (context?.previousArticle) {
+                queryClient.setQueryData(['article', id], context.previousArticle);
+            }
+            if (context?.previousArticles) {
+                queryClient.setQueryData(['articles', 'admin'], context.previousArticles);
+            }
+            
+            setSaving(false);
+            toast.error(formatErrorForUI(error));
+        },
+    });
+
 
     const handleSave = async (metadata: any) => {
         // Validate before save
