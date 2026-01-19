@@ -96,7 +96,7 @@ export default function WordPressStylePages({
             case 'category-page':
                 return <File className="w-4 h-4 text-secondary-500" />;
             default:
-                return <FileText className="w-4 h-4 text-slate-400" />;
+                return <FileText className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />;
         }
     };
 
@@ -130,13 +130,13 @@ export default function WordPressStylePages({
             <div className="flex items-center justify-between border-b border-slate-200 pb-4">
                 <div>
                     <h1 className="text-3xl font-bold text-slate-900">Pages</h1>
-                    <p className="text-sm text-slate-500 mt-1">
+                    <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                         Manage your site pages
                     </p>
                 </div>
                 <Button
                     onClick={onNewPage}
-                    className="bg-primary-600 hover:bg-primary-700 text-white"
+                    className="bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground"
                 >
                     <Plus className="w-4 h-4 mr-2" />
                     Add New Page
@@ -149,10 +149,10 @@ export default function WordPressStylePages({
                     <CardContent className="p-6 md:p-8 md:p-6 md:p-8">
                         <div className="flex items-center justify-between">
                             <div className="min-w-0 flex-1">
-                                <p className="text-xs md:text-sm text-slate-500 truncate">Total</p>
+                                <p className="text-xs md:text-sm text-muted-foreground/70 dark:text-muted-foreground/70 truncate">Total</p>
                                 <p className="text-xl md:text-2xl font-bold text-slate-900">{statusCounts.all}</p>
                             </div>
-                            <FileText className="w-6 h-6 md:w-8 md:h-8 text-slate-400 flex-shrink-0 ml-2" />
+                            <FileText className="w-6 h-6 md:w-8 md:h-8 text-muted-foreground dark:text-muted-foreground flex-shrink-0 ml-2" />
                         </div>
                     </CardContent>
                 </Card>
@@ -160,7 +160,7 @@ export default function WordPressStylePages({
                     <CardContent className="p-6 md:p-8 md:p-6 md:p-8">
                         <div className="flex items-center justify-between">
                             <div className="min-w-0 flex-1">
-                                <p className="text-xs md:text-sm text-slate-500 truncate">Published</p>
+                                <p className="text-xs md:text-sm text-muted-foreground/70 dark:text-muted-foreground/70 truncate">Published</p>
                                 <p className="text-xl md:text-2xl font-bold text-success-600">{statusCounts.published}</p>
                             </div>
                             <TrendingUp className="w-6 h-6 md:w-8 md:h-8 text-success-400 flex-shrink-0 ml-2" />
@@ -171,10 +171,10 @@ export default function WordPressStylePages({
                     <CardContent className="p-6 md:p-8 md:p-6 md:p-8">
                         <div className="flex items-center justify-between">
                             <div className="min-w-0 flex-1">
-                                <p className="text-xs md:text-sm text-slate-500 truncate">Draft</p>
-                                <p className="text-xl md:text-2xl font-bold text-slate-600">{statusCounts.draft}</p>
+                                <p className="text-xs md:text-sm text-muted-foreground/70 dark:text-muted-foreground/70 truncate">Draft</p>
+                                <p className="text-xl md:text-2xl font-bold text-muted-foreground/50 dark:text-muted-foreground/50">{statusCounts.draft}</p>
                             </div>
-                            <FileText className="w-6 h-6 md:w-8 md:h-8 text-slate-400 flex-shrink-0 ml-2" />
+                            <FileText className="w-6 h-6 md:w-8 md:h-8 text-muted-foreground dark:text-muted-foreground flex-shrink-0 ml-2" />
                         </div>
                     </CardContent>
                 </Card>
@@ -182,7 +182,7 @@ export default function WordPressStylePages({
                     <CardContent className="p-6 md:p-8 md:p-6 md:p-8">
                         <div className="flex items-center justify-between">
                             <div className="min-w-0 flex-1">
-                                <p className="text-xs md:text-sm text-slate-500 truncate">Review</p>
+                                <p className="text-xs md:text-sm text-muted-foreground/70 dark:text-muted-foreground/70 truncate">Review</p>
                                 <p className="text-xl md:text-2xl font-bold text-accent-600">{statusCounts.review}</p>
                             </div>
                             <Eye className="w-6 h-6 md:w-8 md:h-8 text-accent-400 flex-shrink-0 ml-2" />
@@ -193,10 +193,10 @@ export default function WordPressStylePages({
                     <CardContent className="p-6 md:p-8 md:p-6 md:p-8">
                         <div className="flex items-center justify-between">
                             <div className="min-w-0 flex-1">
-                                <p className="text-xs md:text-sm text-slate-500 truncate">Archived</p>
-                                <p className="text-xl md:text-2xl font-bold text-slate-600">{statusCounts.archived}</p>
+                                <p className="text-xs md:text-sm text-muted-foreground/70 dark:text-muted-foreground/70 truncate">Archived</p>
+                                <p className="text-xl md:text-2xl font-bold text-muted-foreground/50 dark:text-muted-foreground/50">{statusCounts.archived}</p>
                             </div>
-                            <FileText className="w-6 h-6 md:w-8 md:h-8 text-slate-400 flex-shrink-0 ml-2" />
+                            <FileText className="w-6 h-6 md:w-8 md:h-8 text-muted-foreground dark:text-muted-foreground flex-shrink-0 ml-2" />
                         </div>
                     </CardContent>
                 </Card>
@@ -206,7 +206,7 @@ export default function WordPressStylePages({
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between bg-white p-6 md:p-8 rounded-lg border border-slate-200">
                 <div className="flex-1 w-full sm:w-auto">
                     <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
                         <input
                             type="text"
                             placeholder="Search pages..."
@@ -223,7 +223,7 @@ export default function WordPressStylePages({
                             onClick={() => onFilterChange?.(status)}
                             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                                 filterStatus === status
-                                    ? 'bg-primary-600 text-white'
+                                    ? 'bg-primary-600 text-foreground dark:text-foreground'
                                     : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                             }`}
                         >
@@ -246,9 +246,9 @@ export default function WordPressStylePages({
             ) : filteredPages.length === 0 ? (
                 <Card className="border-slate-200">
                     <CardContent className="p-6 md:p-8 text-center">
-                        <FileText className="w-12 h-12 text-slate-400 mx-auto mb-4" />
+                        <FileText className="w-12 h-12 text-muted-foreground dark:text-muted-foreground mx-auto mb-4" />
                         <h3 className="text-lg font-semibold text-slate-900 mb-2">No pages found</h3>
-                        <p className="text-slate-500 mb-4">
+                        <p className="text-muted-foreground/70 dark:text-muted-foreground/70 mb-4">
                             {searchTerm || filterStatus !== 'all'
                                 ? 'Try adjusting your search or filters'
                                 : 'Get started by creating your first page'}
@@ -267,22 +267,22 @@ export default function WordPressStylePages({
                         <table className="w-full min-w-[800px]">
                             <thead className="bg-slate-50 border-b border-slate-200">
                                 <tr>
-                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">
                                         Title
                                     </th>
-                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider hidden sm:table-cell">
+                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider hidden sm:table-cell">
                                         Author
                                     </th>
-                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider hidden md:table-cell">
+                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider hidden md:table-cell">
                                         Type
                                     </th>
-                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">
                                         Status
                                     </th>
-                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider hidden lg:table-cell">
+                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider hidden lg:table-cell">
                                         Date
                                     </th>
-                                    <th className="px-4 md:px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">
+                                    <th className="px-4 md:px-6 py-3 text-right text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">
                                         Actions
                                     </th>
                                 </tr>
@@ -314,13 +314,13 @@ export default function WordPressStylePages({
                                                         {page.title || 'Untitled'}
                                                     </Link>
                                                     {page.excerpt && (
-                                                        <p className="text-xs text-slate-500 mt-1 line-clamp-1 hidden sm:block">
+                                                        <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1 line-clamp-1 hidden sm:block">
                                                             {page.excerpt}
                                                         </p>
                                                     )}
                                                     {/* Mobile: Show author and type */}
                                                     <div className="sm:hidden mt-1 flex items-center gap-2 flex-wrap">
-                                                        <span className="text-xs text-slate-500">
+                                                        <span className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
                                                             {page.author_name || 'Admin'}
                                                         </span>
                                                         {page.content_type && (
@@ -334,7 +334,7 @@ export default function WordPressStylePages({
                                         </td>
                                         <td className="px-4 md:px-6 py-4 whitespace-nowrap hidden sm:table-cell">
                                             <div className="flex items-center gap-2">
-                                                <User className="w-4 h-4 text-slate-400" />
+                                                <User className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
                                                 <span className="text-sm text-slate-700">
                                                     {page.author_name || 'Admin'}
                                                 </span>
@@ -356,7 +356,7 @@ export default function WordPressStylePages({
                                             </Badge>
                                         </td>
                                         <td className="px-4 md:px-6 py-4 whitespace-nowrap hidden lg:table-cell">
-                                            <div className="text-sm text-slate-500">
+                                            <div className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70">
                                                 {page.updated_at && (
                                                     <div className="flex items-center gap-1">
                                                         <Calendar className="w-3 h-3" />
@@ -387,7 +387,7 @@ export default function WordPressStylePages({
                                                     <Button
                                                         size="sm"
                                                         variant="ghost"
-                                                        className="text-slate-600 hover:text-slate-900"
+                                                        className="text-muted-foreground/50 dark:text-muted-foreground/50 hover:text-slate-900"
                                                         title="Edit"
                                                     >
                                                         <Edit className="w-4 h-4" />
@@ -397,7 +397,7 @@ export default function WordPressStylePages({
                                                     <Button
                                                         size="sm"
                                                         variant="ghost"
-                                                        className="text-slate-600 hover:text-slate-900"
+                                                        className="text-muted-foreground/50 dark:text-muted-foreground/50 hover:text-slate-900"
                                                         title="View"
                                                     >
                                                         <Eye className="w-4 h-4" />

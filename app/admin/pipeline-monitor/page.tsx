@@ -84,8 +84,8 @@ export default function PipelineMonitorPage() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-white mb-2">Pipeline Intelligence Center</h1>
-                        <p className="text-slate-400">Real-time visibility into AI content generation</p>
+                        <h1 className="text-3xl font-bold text-foreground dark:text-foreground mb-2">Pipeline Intelligence Center</h1>
+                        <p className="text-muted-foreground dark:text-muted-foreground">Real-time visibility into AI content generation</p>
                     </div>
                     <div className="flex items-center gap-3">
                         <Badge className="bg-primary-500/20 text-primary-400 border-primary-500/30 px-4 py-2">
@@ -133,7 +133,7 @@ export default function PipelineMonitorPage() {
                 </div>
 
                 {/* Tab Navigation */}
-                <div className="flex items-center gap-2 border-b border-white/10">
+                <div className="flex items-center gap-2 border-b border-border dark:border-border">
                     {[
                         { key: 'live', label: 'Live Activity', icon: Activity },
                         { key: 'metrics', label: 'Quality Metrics', icon: BarChart3 },
@@ -145,7 +145,7 @@ export default function PipelineMonitorPage() {
                             className={`flex items-center gap-2 px-6 py-3 font-medium transition-all ${
                                 activeTab === tab.key
                                     ? 'text-primary-400 border-b-2 border-primary-500'
-                                    : 'text-slate-400 hover:text-white'
+                                    : 'text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground'
                             }`}
                         >
                             <tab.icon className="w-4 h-4" />
@@ -178,10 +178,10 @@ function StatCard({ label, value, suffix, icon: Icon, color, trend }: any) {
                     <Icon className={`w-5 h-5 text-${color}-400`} />
                     <Badge variant="outline" className="text-xs">{label}</Badge>
                 </div>
-                <div className="text-3xl font-bold text-white mb-1">
-                    {value}{suffix && <span className="text-lg text-slate-400">{suffix}</span>}
+                <div className="text-3xl font-bold text-foreground dark:text-foreground mb-1">
+                    {value}{suffix && <span className="text-lg text-muted-foreground dark:text-muted-foreground">{suffix}</span>}
                 </div>
-                <p className="text-xs text-slate-400">{trend}</p>
+                <p className="text-xs text-muted-foreground dark:text-muted-foreground">{trend}</p>
             </CardContent>
         </Card>
     );
@@ -191,9 +191,9 @@ function LiveActivityTab({ activities }: { activities: any[] }) {
     return (
         <div className="space-y-4">
             {activities.length === 0 ? (
-                <Card className="bg-white/5 border-white/10 rounded-2xl p-20 text-center">
-                    <Activity className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-                    <p className="text-slate-400">No pipeline activity yet. Trigger content generation to see live updates.</p>
+                <Card className="bg-white/5 border-border dark:border-border rounded-2xl p-20 text-center">
+                    <Activity className="w-12 h-12 text-muted-foreground/50 dark:text-muted-foreground/50 mx-auto mb-4" />
+                    <p className="text-muted-foreground dark:text-muted-foreground">No pipeline activity yet. Trigger content generation to see live updates.</p>
                 </Card>
             ) : (
                 activities.map((activity: any) => (
@@ -210,7 +210,7 @@ function ActivityCard({ activity }: { activity: any }) {
     const topic = activity.params?.topic || activity.result?.processed_trend || 'Unknown Topic';
 
     return (
-        <Card className="bg-white/5 border-white/10 rounded-2xl overflow-hidden hover:border-primary-500/30 transition-all">
+        <Card className="bg-white/5 border-border dark:border-border rounded-2xl overflow-hidden hover:border-primary-500/30 transition-all">
             <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-6">
                     <div className="flex-1">
@@ -223,12 +223,12 @@ function ActivityCard({ activity }: { activity: any }) {
                                 {isRunning && <Loader2 className="w-3 h-3 mr-1.5 animate-spin" />}
                                 {activity.status}
                             </Badge>
-                            <span className="text-xs text-slate-500 uppercase tracking-wider">
+                            <span className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">
                                 {activity.pipeline_type?.replace(/_/g, ' ')}
                             </span>
                         </div>
-                        <h3 className="text-lg font-bold text-white mb-1">{topic}</h3>
-                        <p className="text-sm text-slate-400">
+                        <h3 className="text-lg font-bold text-foreground dark:text-foreground mb-1">{topic}</h3>
+                        <p className="text-sm text-muted-foreground dark:text-muted-foreground">
                             Started {new Date(activity.started_at).toLocaleString()}
                         </p>
                     </div>
@@ -272,7 +272,7 @@ function ActivityCard({ activity }: { activity: any }) {
                 {activity.result?.keywords && (
                     <div className="flex items-center gap-2 flex-wrap">
                         <TrendingUp className="w-4 h-4 text-accent-400" />
-                        <span className="text-xs text-slate-500 uppercase tracking-wider">Keywords:</span>
+                        <span className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">Keywords:</span>
                         {activity.result.keywords.slice(0, 5).map((kw: string, i: number) => (
                             <Badge key={i} variant="outline" className="text-xs border-accent-500/30 text-accent-400">
                                 {kw}
@@ -284,11 +284,11 @@ function ActivityCard({ activity }: { activity: any }) {
                 {/* Progress Bar for Running Tasks */}
                 {isRunning && (
                     <div className="mt-4">
-                        <div className="flex justify-between text-xs text-slate-400 mb-2">
+                        <div className="flex justify-between text-xs text-muted-foreground dark:text-muted-foreground mb-2">
                             <span>Generating content...</span>
                             <span>~80% complete</span>
                         </div>
-                        <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                        <div className="w-full bg-muted dark:bg-muted rounded-full h-2 overflow-hidden">
                             <div className="bg-gradient-to-r from-primary-500 to-secondary-500 h-full w-4/5 animate-pulse" />
                         </div>
                     </div>
@@ -300,10 +300,10 @@ function ActivityCard({ activity }: { activity: any }) {
 
 function MetricTile({ icon: Icon, label, value, color = 'slate' }: any) {
     return (
-        <div className="bg-white/5 rounded-xl p-3 border border-white/5">
+        <div className="bg-white/5 rounded-xl p-3 border border-border/50 dark:border-border/50">
             <div className="flex items-center gap-2 mb-1">
                 <Icon className={`w-4 h-4 text-${color}-400`} />
-                <span className="text-xs text-slate-500 uppercase tracking-wider">{label}</span>
+                <span className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">{label}</span>
             </div>
             <div className={`text-lg font-bold text-${color === 'slate' ? 'white' : `${color}-400`}`}>{value}</div>
         </div>
@@ -323,9 +323,9 @@ function MetricsTab({ activities }: { activities: any[] }) {
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card className="bg-white/5 border-white/10 rounded-2xl">
+            <Card className="bg-white/5 border-border dark:border-border rounded-2xl">
                 <CardHeader>
-                    <CardTitle className="text-white flex items-center gap-2">
+                    <CardTitle className="text-foreground dark:text-foreground flex items-center gap-2">
                         <Target className="w-5 h-5 text-primary-400" />
                         SEO Performance
                     </CardTitle>
@@ -333,7 +333,7 @@ function MetricsTab({ activities }: { activities: any[] }) {
                 <CardContent>
                     <div className="text-center py-8">
                         <div className="text-6xl font-bold text-primary-400 mb-2">{avgSeoScore}</div>
-                        <p className="text-slate-400">Average SEO Score</p>
+                        <p className="text-muted-foreground dark:text-muted-foreground">Average SEO Score</p>
                     </div>
                     <div className="space-y-3">
                         <ScoreBar label="Meta Optimization" score={92} color="primary" />
@@ -343,9 +343,9 @@ function MetricsTab({ activities }: { activities: any[] }) {
                 </CardContent>
             </Card>
 
-            <Card className="bg-white/5 border-white/10 rounded-2xl">
+            <Card className="bg-white/5 border-border dark:border-border rounded-2xl">
                 <CardHeader>
-                    <CardTitle className="text-white flex items-center gap-2">
+                    <CardTitle className="text-foreground dark:text-foreground flex items-center gap-2">
                         <Brain className="w-5 h-5 text-secondary-400" />
                         Content Quality
                     </CardTitle>
@@ -353,7 +353,7 @@ function MetricsTab({ activities }: { activities: any[] }) {
                 <CardContent>
                     <div className="text-center py-8">
                         <div className="text-6xl font-bold text-secondary-400 mb-2">{avgQualityScore}</div>
-                        <p className="text-slate-400">Average Quality Score</p>
+                        <p className="text-muted-foreground dark:text-muted-foreground">Average Quality Score</p>
                     </div>
                     <div className="space-y-3">
                         <ScoreBar label="Readability" score={85} color="secondary" />
@@ -369,11 +369,11 @@ function MetricsTab({ activities }: { activities: any[] }) {
 function ScoreBar({ label, score, color }: { label: string; score: number; color: string }) {
     return (
         <div>
-            <div className="flex justify-between text-sm text-slate-400 mb-1">
+            <div className="flex justify-between text-sm text-muted-foreground dark:text-muted-foreground mb-1">
                 <span>{label}</span>
                 <span className={`font-bold text-${color}-400`}>{score}%</span>
             </div>
-            <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+            <div className="w-full bg-muted dark:bg-muted rounded-full h-2 overflow-hidden">
                 <div 
                     className={`bg-gradient-to-r from-${color}-500 to-${color}-600 h-full`}
                     style={{ width: `${score}%` }}
@@ -388,21 +388,21 @@ function ResearchTab({ activities }: { activities: any[] }) {
 
     return (
         <div className="space-y-6">
-            <Card className="bg-white/5 border-white/10 rounded-2xl">
+            <Card className="bg-white/5 border-border dark:border-border rounded-2xl">
                 <CardHeader>
-                    <CardTitle className="text-white flex items-center gap-2">
+                    <CardTitle className="text-foreground dark:text-foreground flex items-center gap-2">
                         <TrendingUp className="w-5 h-5 text-accent-400" />
                         Trending Keywords Analysis
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
                     {recentResearch.length === 0 ? (
-                        <p className="text-slate-400 text-center py-8">No research data available yet.</p>
+                        <p className="text-muted-foreground dark:text-muted-foreground text-center py-8">No research data available yet.</p>
                     ) : (
                         <div className="space-y-4">
                             {recentResearch.slice(0, 5).map((activity: any, i: number) => (
-                                <div key={i} className="border-b border-white/5 last:border-0 pb-4 last:pb-0">
-                                    <h4 className="font-bold text-white mb-2">{activity.params?.topic || 'Unknown'}</h4>
+                                <div key={i} className="border-b border-border/50 dark:border-border/50 last:border-0 pb-4 last:pb-0">
+                                    <h4 className="font-bold text-foreground dark:text-foreground mb-2">{activity.params?.topic || 'Unknown'}</h4>
                                     <div className="flex items-center gap-2 flex-wrap">
                                         {activity.result?.keywords?.map((kw: string, j: number) => (
                                             <Badge key={j} className="bg-accent-500/20 text-accent-400 border-accent-500/30">
@@ -417,9 +417,9 @@ function ResearchTab({ activities }: { activities: any[] }) {
                 </CardContent>
             </Card>
 
-            <Card className="bg-white/5 border-white/10 rounded-2xl">
+            <Card className="bg-white/5 border-border dark:border-border rounded-2xl">
                 <CardHeader>
-                    <CardTitle className="text-white flex items-center gap-2">
+                    <CardTitle className="text-foreground dark:text-foreground flex items-center gap-2">
                         <LinkIcon className="w-5 h-5 text-success-400" />
                         Affiliate Link Tracking
                     </CardTitle>
@@ -428,15 +428,15 @@ function ResearchTab({ activities }: { activities: any[] }) {
                     <div className="grid grid-cols-3 gap-4 text-center">
                         <div>
                             <div className="text-3xl font-bold text-success-400 mb-1">24</div>
-                            <p className="text-xs text-slate-400">Links Added Today</p>
+                            <p className="text-xs text-muted-foreground dark:text-muted-foreground">Links Added Today</p>
                         </div>
                         <div>
                             <div className="text-3xl font-bold text-accent-400 mb-1">₹8.4K</div>
-                            <p className="text-xs text-slate-400">Est. Revenue</p>
+                            <p className="text-xs text-muted-foreground dark:text-muted-foreground">Est. Revenue</p>
                         </div>
                         <div>
                             <div className="text-3xl font-bold text-primary-400 mb-1">2.8%</div>
-                            <p className="text-xs text-slate-400">Click Rate</p>
+                            <p className="text-xs text-muted-foreground dark:text-muted-foreground">Click Rate</p>
                         </div>
                     </div>
                 </CardContent>

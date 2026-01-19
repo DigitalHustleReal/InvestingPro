@@ -64,7 +64,7 @@ export function MediaUploader({ onUploadComplete, destinationFolder = 'uploads' 
                     border-2 border-dashed rounded-xl p-8 transition-all duration-200 cursor-pointer text-center
                     ${isDragActive 
                         ? 'border-brand-500 bg-brand-500/10' 
-                        : 'border-slate-700 hover:border-brand-400 bg-slate-900/50 hover:bg-slate-800/50'
+                        : 'border-border dark:border-border hover:border-brand-400 bg-surface-darker/50 dark:bg-surface-darker/50 hover:bg-muted/50 dark:bg-muted/50'
                     }
                 `}
             >
@@ -84,7 +84,7 @@ export function MediaUploader({ onUploadComplete, destinationFolder = 'uploads' 
                                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
                             </div>
-                            <div className="text-sm font-medium text-slate-300">
+                            <div className="text-sm font-medium text-foreground/80 dark:text-foreground/80">
                                 Uploading... {Math.round(progress)}%
                             </div>
                         </motion.div>
@@ -95,14 +95,14 @@ export function MediaUploader({ onUploadComplete, destinationFolder = 'uploads' 
                             exit={{ opacity: 0 }}
                             className="flex flex-col items-center justify-center space-y-4"
                         >
-                            <div className="p-4 bg-slate-800 rounded-full text-brand-400">
+                            <div className="p-4 bg-muted dark:bg-muted rounded-full text-brand-400">
                                 <Upload className="w-8 h-8" />
                             </div>
                             <div className="space-y-1">
-                                <p className="text-lg font-medium text-slate-200">
+                                <p className="text-lg font-medium text-foreground/90 dark:text-foreground/90">
                                     {isDragActive ? "Drop files here" : "Click or drag files to upload"}
                                 </p>
-                                <p className="text-sm text-slate-400">
+                                <p className="text-sm text-muted-foreground dark:text-muted-foreground">
                                     Supports PNG, JPG, WebP, PDF (Max 10MB)
                                 </p>
                             </div>

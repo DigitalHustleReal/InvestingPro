@@ -191,15 +191,13 @@ export function safeValidate<T>(schema: z.ZodSchema<T>, data: unknown): { succes
     return { success: false, error: result.error };
 }
 
-// Re-export from api-schemas for convenience
+// Re-export from api-schemas for convenience (non-conflicting only)
 export {
     createArticleSchema,
     updateArticleSchema,
-    articleQuerySchema,
     articleParamsSchema,
     createProductSchema,
     updateProductSchema,
-    productQuerySchema,
     productParamsSchema,
     createReviewSchema,
     updateReviewSchema,
@@ -210,12 +208,9 @@ export {
     portfolioQuerySchema,
     portfolioParamsSchema,
     generateArticleSchema,
-    bulkGenerateSchema,
     generateTitleSchema,
     trackEventSchema,
     affiliateClickSchema,
-    searchQuerySchema,
-    newsletterSubscribeSchema,
     type CreateArticleInput,
     type UpdateArticleInput,
     type ArticleQuery,

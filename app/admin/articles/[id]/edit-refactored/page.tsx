@@ -271,7 +271,7 @@ export default function EditArticlePage() {
         return (
             <AdminLayout>
                 <div className="flex items-center justify-center min-h-screen">
-                    <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
+                    <Loader2 className="w-8 h-8 animate-spin text-muted-foreground dark:text-muted-foreground" />
                 </div>
             </AdminLayout>
         );
@@ -282,10 +282,10 @@ export default function EditArticlePage() {
             <AdminLayout>
                 <div className="flex flex-col items-center justify-center min-h-screen">
                     <h1 className="text-2xl font-bold text-slate-900 mb-4">Article Not Found</h1>
-                    <p className="text-slate-600 mb-6">The article you're looking for doesn't exist.</p>
+                    <p className="text-muted-foreground/50 dark:text-muted-foreground/50 mb-6">The article you're looking for doesn't exist.</p>
                     <button
                         onClick={() => router.push('/admin/articles')}
-                        className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700"
+                        className="px-4 py-2 bg-teal-600 text-foreground dark:text-foreground rounded-lg hover:bg-teal-700"
                     >
                         Back to Articles
                     </button>
@@ -334,12 +334,12 @@ export default function EditArticlePage() {
                         </div>
                         <div className="flex items-center gap-4">
                             {lastSaved && (
-                                <span className="text-sm text-slate-500">
+                                <span className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70">
                                     Saved {lastSaved.toLocaleTimeString()}
                                 </span>
                             )}
                             {saving && (
-                                <Loader2 className="w-4 h-4 animate-spin text-slate-400" />
+                                <Loader2 className="w-4 h-4 animate-spin text-muted-foreground dark:text-muted-foreground" />
                             )}
                         </div>
                     </div>

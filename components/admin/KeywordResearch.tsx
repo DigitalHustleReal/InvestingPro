@@ -106,7 +106,7 @@ export default function KeywordResearch({
                 className={`p-3 border rounded-lg cursor-pointer transition-all ${
                     isSelected
                         ? 'border-secondary-500 bg-secondary-50 dark:bg-primary-950'
-                        : 'border-slate-200 dark:border-slate-700 hover:border-secondary-300 hover:bg-slate-50 dark:hover:bg-slate-800'
+                        : 'border-slate-200 dark:border-border dark:border-border hover:border-secondary-300 hover:bg-slate-50 dark:hover:bg-muted dark:bg-muted'
                 }`}
                 onClick={() => handleKeywordClick(keyword.keyword_text)}
             >
@@ -193,7 +193,7 @@ export default function KeywordResearch({
                                 className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
                                     activeTab === 'long-tail'
                                         ? 'border-secondary-500 text-primary-600'
-                                        : 'border-transparent text-slate-500 hover:text-slate-700'
+                                        : 'border-transparent text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-700'
                                 }`}
                                 onClick={() => setActiveTab('long-tail')}
                             >
@@ -203,7 +203,7 @@ export default function KeywordResearch({
                                 className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
                                     activeTab === 'semantic'
                                         ? 'border-secondary-500 text-primary-600'
-                                        : 'border-transparent text-slate-500 hover:text-slate-700'
+                                        : 'border-transparent text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-700'
                                 }`}
                                 onClick={() => setActiveTab('semantic')}
                             >
@@ -213,7 +213,7 @@ export default function KeywordResearch({
                                 className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
                                     activeTab === 'alternative'
                                         ? 'border-secondary-500 text-primary-600'
-                                        : 'border-transparent text-slate-500 hover:text-slate-700'
+                                        : 'border-transparent text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-700'
                                 }`}
                                 onClick={() => setActiveTab('alternative')}
                             >
@@ -223,7 +223,7 @@ export default function KeywordResearch({
                                 className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
                                     activeTab === 'lsi'
                                         ? 'border-secondary-500 text-primary-600'
-                                        : 'border-transparent text-slate-500 hover:text-slate-700'
+                                        : 'border-transparent text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-700'
                                 }`}
                                 onClick={() => setActiveTab('lsi')}
                             >
@@ -237,7 +237,7 @@ export default function KeywordResearch({
                                 <KeywordCard key={index} keyword={keyword} />
                             ))}
                             {getKeywordsForTab().length === 0 && (
-                                <p className="text-sm text-slate-500 text-center py-8">
+                                <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70 text-center py-8">
                                     No keywords found in this category
                                 </p>
                             )}

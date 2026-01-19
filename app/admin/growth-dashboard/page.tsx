@@ -67,7 +67,7 @@ export default function GrowthDashboard() {
     const getTrendColor = (value: number) => {
         if (value > 0) return 'text-green-600';
         if (value < 0) return 'text-red-600';
-        return 'text-slate-500';
+        return 'text-muted-foreground/70 dark:text-muted-foreground/70';
     };
 
     return (
@@ -76,8 +76,8 @@ export default function GrowthDashboard() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Growth Dashboard</h1>
-                        <p className="text-slate-600 dark:text-slate-400 mt-1">
+                        <h1 className="text-3xl font-bold text-slate-900 dark:text-foreground dark:text-foreground">Growth Dashboard</h1>
+                        <p className="text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mt-1">
                             Track acquisition, retention, and revenue metrics
                         </p>
                     </div>
@@ -108,7 +108,7 @@ export default function GrowthDashboard() {
                 {isLoading ? (
                     <div className="text-center py-12">
                         <RefreshCw className="w-8 h-8 animate-spin mx-auto text-primary-600" />
-                        <p className="mt-4 text-slate-600 dark:text-slate-400">Loading growth metrics...</p>
+                        <p className="mt-4 text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">Loading growth metrics...</p>
                     </div>
                 ) : metrics ? (
                     <>
@@ -121,7 +121,7 @@ export default function GrowthDashboard() {
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{metrics.acquisition.totalVisitors.toLocaleString()}</div>
-                                    <p className="text-xs text-slate-500 mt-1">
+                                    <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                         {metrics.acquisition.newVisitors} new, {metrics.acquisition.returningVisitors} returning
                                     </p>
                                 </CardContent>
@@ -134,7 +134,7 @@ export default function GrowthDashboard() {
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{metrics.retention.retentionRate.toFixed(1)}%</div>
-                                    <p className="text-xs text-slate-500 mt-1">
+                                    <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                         {metrics.retention.returningUsers} returning users
                                     </p>
                                 </CardContent>
@@ -147,7 +147,7 @@ export default function GrowthDashboard() {
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">₹{metrics.revenue.totalRevenue.toLocaleString()}</div>
-                                    <p className="text-xs text-slate-500 mt-1">
+                                    <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                         ₹{metrics.revenue.revenuePerUser.toFixed(2)} per user
                                     </p>
                                 </CardContent>
@@ -160,7 +160,7 @@ export default function GrowthDashboard() {
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{metrics.revenue.conversionRate.toFixed(2)}%</div>
-                                    <p className="text-xs text-slate-500 mt-1">
+                                    <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                         Avg order: ₹{metrics.revenue.averageOrderValue.toLocaleString()}
                                     </p>
                                 </CardContent>
@@ -190,7 +190,7 @@ export default function GrowthDashboard() {
                                                 <span className="font-medium capitalize">{source.source}</span>
                                             </div>
                                             <div className="flex items-center gap-4">
-                                                <span className="text-sm text-slate-600 dark:text-slate-400">
+                                                <span className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">
                                                     {source.count.toLocaleString()} ({source.percentage.toFixed(1)}%)
                                                 </span>
                                                 <div className="w-32 bg-slate-200 dark:bg-slate-700 rounded-full h-2">
@@ -225,7 +225,7 @@ export default function GrowthDashboard() {
                                     <div className="space-y-3">
                                         {metrics.trends.daily.slice(-7).map((day, idx) => (
                                             <div key={day.date} className="flex items-center justify-between">
-                                                <span className="text-sm text-slate-600 dark:text-slate-400">
+                                                <span className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">
                                                     {new Date(day.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                                                 </span>
                                                 <div className="flex items-center gap-4">
@@ -256,7 +256,7 @@ export default function GrowthDashboard() {
                                     <div className="space-y-3">
                                         {metrics.trends.daily.slice(-7).map((day, idx) => (
                                             <div key={day.date} className="flex items-center justify-between">
-                                                <span className="text-sm text-slate-600 dark:text-slate-400">
+                                                <span className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">
                                                     {new Date(day.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                                                 </span>
                                                 <div className="flex items-center gap-4">
@@ -280,7 +280,7 @@ export default function GrowthDashboard() {
                 ) : (
                     <div className="text-center py-12">
                         <BarChart3 className="w-12 h-12 mx-auto mb-3 opacity-40" />
-                        <p className="text-slate-500">No growth data available</p>
+                        <p className="text-muted-foreground/70 dark:text-muted-foreground/70">No growth data available</p>
                     </div>
                 )}
             </div>

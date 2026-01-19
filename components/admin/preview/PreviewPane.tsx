@@ -29,34 +29,34 @@ export function PreviewPane({ content, title, isOpen, onClose }: PreviewPaneProp
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8"
+                className="fixed inset-0 z-50 bg-surface-darkest dark:bg-surface-darkest/90 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8"
             >
-                <div className="w-full h-full flex flex-col bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
+                <div className="w-full h-full flex flex-col bg-surface-darker dark:bg-surface-darker border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
                     {/* Toolbar */}
-                    <div className="flex items-center justify-between p-4 border-b border-slate-800 bg-slate-900 z-10">
+                    <div className="flex items-center justify-between p-4 border-b border-slate-800 bg-surface-darker dark:bg-surface-darker z-10">
                         <div className="flex items-center gap-4">
-                            <h2 className="font-semibold text-slate-200">
+                            <h2 className="font-semibold text-foreground/90 dark:text-foreground/90">
                                 Preview: <span className="text-primary-400">{title || 'Untitled'}</span>
                             </h2>
-                            <div className="h-6 w-px bg-slate-800" />
-                            <div className="flex items-center p-1 bg-slate-800 rounded-lg border border-slate-700">
+                            <div className="h-6 w-px bg-muted dark:bg-muted" />
+                            <div className="flex items-center p-1 bg-muted dark:bg-muted rounded-lg border border-border dark:border-border">
                                 <button
                                     onClick={() => setDevice('mobile')}
-                                    className={`p-2 rounded-md transition-colors ${device === 'mobile' ? 'bg-primary-500/20 text-primary-400' : 'text-slate-400 hover:text-slate-200'}`}
+                                    className={`p-2 rounded-md transition-colors ${device === 'mobile' ? 'bg-primary-500/20 text-primary-400' : 'text-muted-foreground dark:text-muted-foreground hover:text-foreground/90 dark:text-foreground/90'}`}
                                     title="Mobile (375px)"
                                 >
                                     <Smartphone className="w-4 h-4" />
                                 </button>
                                 <button
                                     onClick={() => setDevice('tablet')}
-                                    className={`p-2 rounded-md transition-colors ${device === 'tablet' ? 'bg-primary-500/20 text-primary-400' : 'text-slate-400 hover:text-slate-200'}`}
+                                    className={`p-2 rounded-md transition-colors ${device === 'tablet' ? 'bg-primary-500/20 text-primary-400' : 'text-muted-foreground dark:text-muted-foreground hover:text-foreground/90 dark:text-foreground/90'}`}
                                     title="Tablet (768px)"
                                 >
                                     <Tablet className="w-4 h-4" />
                                 </button>
                                 <button
                                     onClick={() => setDevice('desktop')}
-                                    className={`p-2 rounded-md transition-colors ${device === 'desktop' ? 'bg-primary-500/20 text-primary-400' : 'text-slate-400 hover:text-slate-200'}`}
+                                    className={`p-2 rounded-md transition-colors ${device === 'desktop' ? 'bg-primary-500/20 text-primary-400' : 'text-muted-foreground dark:text-muted-foreground hover:text-foreground/90 dark:text-foreground/90'}`}
                                     title="Desktop (Full)"
                                 >
                                     <Monitor className="w-4 h-4" />
@@ -65,7 +65,7 @@ export function PreviewPane({ content, title, isOpen, onClose }: PreviewPaneProp
                         </div>
                         <button
                             onClick={onClose}
-                            className="p-2 hover:bg-danger-500/20 hover:text-danger-400 text-slate-400 rounded-lg transition-colors"
+                            className="p-2 hover:bg-danger-500/20 hover:text-danger-400 text-muted-foreground dark:text-muted-foreground rounded-lg transition-colors"
                         >
                             <X className="w-5 h-5" />
                         </button>
@@ -82,7 +82,7 @@ export function PreviewPane({ content, title, isOpen, onClose }: PreviewPaneProp
                             `}
                         >
                             <div className="p-8 md:p-12">
-                                <article className="prose prose-lg prose-slate max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-p:text-slate-700 prose-li:text-slate-700 prose-strong:text-slate-900 prose-h1:text-4xl prose-h1:tracking-tight prose-a:text-primary-600 hover:prose-a:text-primary-500 prose-img:rounded-xl prose-pre:bg-slate-900 prose-pre:text-slate-200">
+                                <article className="prose prose-lg prose-slate max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-p:text-slate-700 prose-li:text-slate-700 prose-strong:text-slate-900 prose-h1:text-4xl prose-h1:tracking-tight prose-a:text-primary-600 hover:prose-a:text-primary-500 prose-img:rounded-xl prose-pre:bg-surface-darker dark:bg-surface-darker prose-pre:text-foreground/90 dark:text-foreground/90">
                                     {title && <h1 className="!mt-0">{title}</h1>}
                                     <ReactMarkdown>{content}</ReactMarkdown>
                                 </article>
@@ -106,7 +106,7 @@ export function InlinePreview({ content, title, className = '' }: InlinePreviewP
     return (
         <div className={`bg-white text-slate-900 rounded-lg shadow-lg overflow-hidden ${className}`}>
             <div className="p-6 bg-gradient-to-r from-slate-100 to-slate-50 border-b border-slate-200">
-                <div className="flex items-center gap-2 text-sm text-slate-500">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground/70 dark:text-muted-foreground/70">
                     <Eye className="w-4 h-4" />
                     Live Preview
                 </div>
@@ -140,7 +140,7 @@ export function MiniPreview({ content, title, onClick }: MiniPreviewProps) {
             onClick={onClick}
         >
             {title && <h3 className="font-semibold text-sm mb-2 line-clamp-1">{title}</h3>}
-            <p className="text-xs text-slate-600 line-clamp-3">{truncatedContent}</p>
+            <p className="text-xs text-muted-foreground/50 dark:text-muted-foreground/50 line-clamp-3">{truncatedContent}</p>
         </div>
     );
 }

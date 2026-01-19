@@ -97,13 +97,13 @@ export function SocialPostManager({ articleId }: SocialPostManagerProps) {
             </div>
 
             {!articleId && (
-                <div className="text-center py-8 text-slate-500 text-sm border-2 border-dashed rounded-lg bg-slate-50">
+                <div className="text-center py-8 text-muted-foreground/70 dark:text-muted-foreground/70 text-sm border-2 border-dashed rounded-lg bg-slate-50">
                     Save article first
                 </div>
             )}
 
             {articleId && posts.length === 0 && !generating && (
-                <div className="text-center py-8 text-slate-500 text-sm border-2 border-dashed rounded-lg bg-slate-50">
+                <div className="text-center py-8 text-muted-foreground/70 dark:text-muted-foreground/70 text-sm border-2 border-dashed rounded-lg bg-slate-50">
                     <p>No social posts yet.</p>
                     <Button variant="link" onClick={generatePosts} className="mt-2 text-secondary-600">
                         Generate with AI

@@ -8,6 +8,7 @@ import KeyboardShortcuts from './KeyboardShortcuts';
 import { AdminBreadcrumb } from './AdminBreadcrumb';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { getActiveCategory } from '@/lib/admin/navigation-config';
 
 interface AdminLayoutProps {
     children: ReactNode;
@@ -35,7 +36,7 @@ export default function AdminLayout({
 }: AdminLayoutProps) {
     const pathname = usePathname();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const activeCategory = getCategoryFromPath(pathname);
+    const activeCategory = getActiveCategory(pathname);
 
     // Close mobile menu on window resize (desktop)
     useEffect(() => {
@@ -75,7 +76,7 @@ export default function AdminLayout({
                 {/* Mobile Menu Button */}
                 <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    className="md:hidden fixed top-20 left-4 z-50 p-2 bg-slate-900 border border-white/10 rounded-lg text-white hover:bg-slate-800 transition-colors"
+                    className="md:hidden fixed top-20 left-4 z-50 p-2 bg-surface-darker dark:bg-surface-darker border border-border dark:border-border rounded-lg text-foreground dark:text-foreground hover:bg-muted dark:bg-muted transition-colors"
                     aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
                     aria-expanded={isMobileMenuOpen}
                 >
@@ -93,9 +94,17 @@ export default function AdminLayout({
 
                 {/* Main Category Header Navigation - Top of admin area */}
                 {showCategoryNav && (
-                    <div className="sticky top-0 z-30 bg-slate-950/95 backdrop-blur-lg border-b border-white/10 relative">
-                        <AdminCategoryHeaderNav activeCategory={activeCategory} />
-                    </div>
+                    <>
+                        <div className="sticky top-0 z-30 bg-surface-darkest/95 dark:bg-surface-darkest/95 backdrop-blur-lg border-b border-border dark:border-border relative">
+                            <AdminCategoryHeaderNav activeCategory={activeCategory} />
+                        </div>
+                        {/* Breadcrumb Navigation */}
+                        <div className="sticky top-[64px] z-20 bg-surface-darkest dark:bg-surface-darkest/90 backdrop-blur-sm border-b border-border/50 dark:border-border/50">
+                            <div className="max-w-[1920px] mx-auto px-8 py-3">
+                                <AdminBreadcrumb />
+                            </div>
+                        </div>
+                    </>
                 )}
 
                 {/* Main Layout: Sidebar + Content - Using CSS Grid for predictable layout */}
@@ -103,7 +112,7 @@ export default function AdminLayout({
                     {/* CMS Navigation Sidebar (Left) - Starts below header nav - Thin & Collapsible */}
                     <aside
                         className={cn(
-                            'bg-slate-950 border-r border-white/5',
+                            'bg-surface-darkest dark:bg-surface-darkest border-r border-border/50 dark:border-border/50',
                             // Mobile: fixed overlay
                             'fixed md:relative z-40',
                             // Mobile transform
@@ -124,7 +133,7 @@ export default function AdminLayout({
                         <div className="flex-1 flex overflow-hidden">
                             {/* Contextual Sidebar (Middle - for Analyze dashboard) */}
                             {contextualSidebar && (
-                                <aside className="flex-shrink-0 border-r border-white/5">
+                                <aside className="flex-shrink-0 border-r border-border/50 dark:border-border/50">
                                     {contextualSidebar}
                                 </aside>
                             )}
@@ -138,7 +147,7 @@ export default function AdminLayout({
 
                             {/* Inspector Panel (Right - for entity editing) */}
                             {showInspector && inspectorContent && (
-                                <aside className="w-80 border-l border-white/5 bg-slate-900/50 backdrop-blur-xl flex-shrink-0 overflow-y-auto no-scrollbar">
+                                <aside className="w-80 border-l border-border/50 dark:border-border/50 bg-surface-darker/50 dark:bg-surface-darker/50 backdrop-blur-xl flex-shrink-0 overflow-y-auto no-scrollbar">
                                     {inspectorContent}
                                 </aside>
                             )}

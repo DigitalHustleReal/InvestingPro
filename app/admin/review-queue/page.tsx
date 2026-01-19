@@ -130,8 +130,8 @@ export default function ReviewQueuePage() {
                             <div className="w-20 h-20 rounded-2xl bg-primary-500/10 flex items-center justify-center mx-auto mb-4">
                                 <CheckCircle2 className="w-10 h-10 text-primary-400" />
                             </div>
-                            <h3 className="text-xl font-semibold text-white mb-2">All Caught Up!</h3>
-                            <p className="text-slate-400">No articles pending review.</p>
+                            <h3 className="text-xl font-semibold text-foreground dark:text-foreground mb-2">All Caught Up!</h3>
+                            <p className="text-muted-foreground dark:text-muted-foreground">No articles pending review.</p>
                         </div>
                     </ContentSection>
                 ) : (
@@ -145,31 +145,31 @@ export default function ReviewQueuePage() {
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-3 mb-2">
                                             {article.category && (
-                                                <span className="px-2.5 py-1 rounded-lg text-xs font-medium bg-white/5 text-slate-400 border border-white/10">
+                                                <span className="px-2.5 py-1 rounded-lg text-xs font-medium bg-white/5 text-muted-foreground dark:text-muted-foreground border border-border dark:border-border">
                                                     {article.category.replace(/-/g, ' ')}
                                                 </span>
                                             )}
-                                            <span className="text-xs text-slate-500 flex items-center gap-1">
+                                            <span className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 flex items-center gap-1">
                                                 <Clock className="w-3 h-3" />
                                                 {formatDistanceToNow(new Date(article.updated_at), { addSuffix: true })}
                                             </span>
                                         </div>
-                                        <h3 className="text-lg font-bold text-white mb-2 hover:text-secondary-400 transition-colors">
+                                        <h3 className="text-lg font-bold text-foreground dark:text-foreground mb-2 hover:text-secondary-400 transition-colors">
                                             {article.title}
                                         </h3>
-                                        <p className="text-slate-400 text-sm line-clamp-2 mb-4">
+                                        <p className="text-muted-foreground dark:text-muted-foreground text-sm line-clamp-2 mb-4">
                                             {article.excerpt || 'No excerpt provided...'}
                                         </p>
-                                        <div className="flex items-center gap-2 text-sm text-slate-500">
+                                        <div className="flex items-center gap-2 text-sm text-muted-foreground/70 dark:text-muted-foreground/70">
                                             <div className="w-6 h-6 rounded-full bg-gradient-to-br from-slate-600 to-slate-700 flex items-center justify-center">
-                                                <User className="w-3 h-3 text-slate-300" />
+                                                <User className="w-3 h-3 text-foreground/80 dark:text-foreground/80" />
                                             </div>
                                             <span className="text-xs">Author: {article.author_id?.slice(0, 8) || 'Unknown'}...</span>
                                         </div>
                                     </div>
                                     <div className="flex flex-row md:flex-col gap-2 w-full md:w-auto">
                                         <Link href={`/admin/articles/${article.id}/edit`} className="flex-1 md:flex-none">
-                                            <button className="w-full px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors">
+                                            <button className="w-full px-4 py-2 bg-white/10 hover:bg-white/20 text-foreground dark:text-foreground rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors">
                                                 <Eye className="w-4 h-4" /> Review
                                             </button>
                                         </Link>
@@ -194,9 +194,9 @@ export default function ReviewQueuePage() {
 
                 {/* Review Dialog */}
                 <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-                    <DialogContent className="bg-slate-900 border-slate-700 text-white">
+                    <DialogContent className="bg-surface-darker dark:bg-surface-darker border-border dark:border-border text-foreground dark:text-foreground">
                         <DialogHeader>
-                            <DialogTitle className="text-white">
+                            <DialogTitle className="text-foreground dark:text-foreground">
                                 {actionType === 'approve' ? 'Approve Article' : 'Request Changes'}
                             </DialogTitle>
                         </DialogHeader>
@@ -220,14 +220,14 @@ export default function ReviewQueuePage() {
                             )}
                             
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-slate-300">
+                                <label className="text-sm font-medium text-foreground/80 dark:text-foreground/80">
                                     Editorial Notes {actionType === 'reject' && <span className="text-danger-400">*</span>}
                                 </label>
                                 <Textarea 
                                     placeholder={actionType === 'approve' ? "Optional: Great work on..." : "Required: Please fix..."}
                                     value={reviewNotes}
                                     onChange={e => setReviewNotes(e.target.value)}
-                                    className="min-h-[100px] bg-slate-800/50 border-slate-600 text-white placeholder-slate-500"
+                                    className="min-h-[100px] bg-muted/50 dark:bg-muted/50 border-border/70 dark:border-border/70 text-foreground dark:text-foreground placeholder-slate-500"
                                 />
                             </div>
                         </div>
@@ -235,7 +235,7 @@ export default function ReviewQueuePage() {
                             <button 
                                 onClick={() => setDialogOpen(false)} 
                                 disabled={isSubmitting}
-                                className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm font-medium transition-colors"
+                                className="px-4 py-2 bg-white/10 hover:bg-white/20 text-foreground dark:text-foreground rounded-lg text-sm font-medium transition-colors"
                             >
                                 Cancel
                             </button>
@@ -244,8 +244,8 @@ export default function ReviewQueuePage() {
                                 disabled={isSubmitting || (actionType === 'reject' && !reviewNotes.trim())}
                                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 ${
                                     actionType === 'approve' 
-                                        ? 'bg-primary-500 hover:bg-primary-600 text-white' 
-                                        : 'bg-danger-500 hover:bg-danger-600 text-white'
+                                        ? 'bg-primary-500 hover:bg-primary-600 text-foreground dark:text-foreground' 
+                                        : 'bg-danger-500 hover:bg-danger-600 text-foreground dark:text-foreground'
                                 }`}
                             >
                                 {isSubmitting ? 'Processing...' : (actionType === 'approve' ? 'Confirm Approval' : 'Send Request')}

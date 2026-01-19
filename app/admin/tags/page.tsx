@@ -155,12 +155,12 @@ export default function TagsPage() {
                 {/* Search */}
                 <ContentSection>
                     <div className="relative max-w-md">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/70 dark:text-muted-foreground/70" />
                         <input
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder="Search tags..."
-                            className="w-full pl-10 pr-4 py-2.5 bg-slate-800/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-500/50"
+                            className="w-full pl-10 pr-4 py-2.5 bg-muted/50 dark:bg-muted/50 border border-border dark:border-border rounded-lg text-foreground dark:text-foreground placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-500/50"
                         />
                     </div>
                 </ContentSection>
@@ -184,12 +184,12 @@ export default function TagsPage() {
                         <div className="overflow-x-auto -mx-6">
                             <table className="w-full min-w-[600px]">
                                 <thead>
-                                    <tr className="border-b border-white/10">
-                                        <th className="px-6 py-4 text-left text-xs font-medium text-slate-500 uppercase">Name</th>
-                                        <th className="px-4 py-4 text-left text-xs font-medium text-slate-500 uppercase">Slug</th>
-                                        <th className="px-4 py-4 text-left text-xs font-medium text-slate-500 uppercase">Usage</th>
-                                        <th className="px-4 py-4 text-left text-xs font-medium text-slate-500 uppercase hidden sm:table-cell">Created</th>
-                                        <th className="px-4 py-4 text-right text-xs font-medium text-slate-500 uppercase">Actions</th>
+                                    <tr className="border-b border-border dark:border-border">
+                                        <th className="px-6 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Name</th>
+                                        <th className="px-4 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Slug</th>
+                                        <th className="px-4 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Usage</th>
+                                        <th className="px-4 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase hidden sm:table-cell">Created</th>
+                                        <th className="px-4 py-4 text-right text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-white/5">
@@ -202,11 +202,11 @@ export default function TagsPage() {
                                                         <div className="w-8 h-8 rounded-lg bg-accent-500/20 flex items-center justify-center">
                                                             <TagIcon className="w-4 h-4 text-accent-400" />
                                                         </div>
-                                                        <span className="font-medium text-white">{tag.name}</span>
+                                                        <span className="font-medium text-foreground dark:text-foreground">{tag.name}</span>
                                                     </div>
                                                 </td>
                                                 <td className="px-4 py-4">
-                                                    <code className="text-xs bg-white/5 px-2 py-1 rounded text-slate-400 border border-white/10">
+                                                    <code className="text-xs bg-white/5 px-2 py-1 rounded text-muted-foreground dark:text-muted-foreground border border-border dark:border-border">
                                                         {tag.slug}
                                                     </code>
                                                 </td>
@@ -217,12 +217,12 @@ export default function TagsPage() {
                                                             {usage} article{usage !== 1 ? 's' : ''}
                                                         </span>
                                                     ) : (
-                                                        <span className="text-slate-600 text-sm">Not used</span>
+                                                        <span className="text-muted-foreground/50 dark:text-muted-foreground/50 text-sm">Not used</span>
                                                     )}
                                                 </td>
                                                 <td className="px-4 py-4 hidden sm:table-cell">
                                                     {tag.created_at ? (
-                                                        <div className="flex items-center gap-2 text-xs text-slate-500">
+                                                        <div className="flex items-center gap-2 text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
                                                             <Calendar className="w-3 h-3" />
                                                             {new Date(tag.created_at).toLocaleDateString()}
                                                         </div>
@@ -230,10 +230,10 @@ export default function TagsPage() {
                                                 </td>
                                                 <td className="px-4 py-4">
                                                     <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                        <button onClick={() => { setSelectedTag(tag); setFormData({ name: tag.name, slug: tag.slug }); setIsEditDialogOpen(true); }} className="p-2 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition-colors">
+                                                        <button onClick={() => { setSelectedTag(tag); setFormData({ name: tag.name, slug: tag.slug }); setIsEditDialogOpen(true); }} className="p-2 hover:bg-white/10 rounded-lg text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground transition-colors">
                                                             <Edit className="w-4 h-4" />
                                                         </button>
-                                                        <button onClick={() => { setSelectedTag(tag); setIsDeleteDialogOpen(true); }} className="p-2 hover:bg-danger-500/20 rounded-lg text-slate-400 hover:text-danger-400 transition-colors">
+                                                        <button onClick={() => { setSelectedTag(tag); setIsDeleteDialogOpen(true); }} className="p-2 hover:bg-danger-500/20 rounded-lg text-muted-foreground dark:text-muted-foreground hover:text-danger-400 transition-colors">
                                                             <Trash2 className="w-4 h-4" />
                                                         </button>
                                                     </div>
@@ -249,60 +249,60 @@ export default function TagsPage() {
 
                 {/* Create Dialog */}
                 <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-                    <DialogContent className="bg-slate-900 border-slate-700 text-white">
+                    <DialogContent className="bg-surface-darker dark:bg-surface-darker border-border dark:border-border text-foreground dark:text-foreground">
                         <DialogHeader>
                             <DialogTitle>Create Tag</DialogTitle>
-                            <DialogDescription className="text-slate-400">Add a new tag to label articles.</DialogDescription>
+                            <DialogDescription className="text-muted-foreground dark:text-muted-foreground">Add a new tag to label articles.</DialogDescription>
                         </DialogHeader>
                         <div className="space-y-4 py-4">
                             <div>
-                                <Label className="text-slate-300">Name *</Label>
-                                <Input value={formData.name} onChange={(e) => setFormData({ name: e.target.value, slug: formData.slug || generateSlug(e.target.value) })} placeholder="e.g., Investment Tips" className="mt-1 bg-slate-800/50 border-slate-600 text-white" />
+                                <Label className="text-foreground/80 dark:text-foreground/80">Name *</Label>
+                                <Input value={formData.name} onChange={(e) => setFormData({ name: e.target.value, slug: formData.slug || generateSlug(e.target.value) })} placeholder="e.g., Investment Tips" className="mt-1 bg-muted/50 dark:bg-muted/50 border-border/70 dark:border-border/70 text-foreground dark:text-foreground" />
                             </div>
                             <div>
-                                <Label className="text-slate-300">Slug</Label>
-                                <Input value={formData.slug} onChange={(e) => setFormData({ ...formData, slug: e.target.value })} placeholder="Auto-generated" className="mt-1 bg-slate-800/50 border-slate-600 text-white font-mono text-sm" />
+                                <Label className="text-foreground/80 dark:text-foreground/80">Slug</Label>
+                                <Input value={formData.slug} onChange={(e) => setFormData({ ...formData, slug: e.target.value })} placeholder="Auto-generated" className="mt-1 bg-muted/50 dark:bg-muted/50 border-border/70 dark:border-border/70 text-foreground dark:text-foreground font-mono text-sm" />
                             </div>
                         </div>
                         <DialogFooter className="gap-2">
-                            <button onClick={() => setIsCreateDialogOpen(false)} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm">Cancel</button>
-                            <button onClick={handleCreate} className="px-4 py-2 bg-accent-500 hover:bg-accent-600 text-white rounded-lg text-sm">Create</button>
+                            <button onClick={() => setIsCreateDialogOpen(false)} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-foreground dark:text-foreground rounded-lg text-sm">Cancel</button>
+                            <button onClick={handleCreate} className="px-4 py-2 bg-accent-500 hover:bg-accent-600 text-foreground dark:text-foreground rounded-lg text-sm">Create</button>
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
 
                 {/* Edit Dialog */}
                 <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-                    <DialogContent className="bg-slate-900 border-slate-700 text-white">
+                    <DialogContent className="bg-surface-darker dark:bg-surface-darker border-border dark:border-border text-foreground dark:text-foreground">
                         <DialogHeader>
                             <DialogTitle>Edit Tag</DialogTitle>
                         </DialogHeader>
                         <div className="space-y-4 py-4">
                             <div>
-                                <Label className="text-slate-300">Name *</Label>
-                                <Input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="mt-1 bg-slate-800/50 border-slate-600 text-white" />
+                                <Label className="text-foreground/80 dark:text-foreground/80">Name *</Label>
+                                <Input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="mt-1 bg-muted/50 dark:bg-muted/50 border-border/70 dark:border-border/70 text-foreground dark:text-foreground" />
                             </div>
                             <div>
-                                <Label className="text-slate-300">Slug</Label>
-                                <Input value={formData.slug} onChange={(e) => setFormData({ ...formData, slug: e.target.value })} className="mt-1 bg-slate-800/50 border-slate-600 text-white font-mono text-sm" />
+                                <Label className="text-foreground/80 dark:text-foreground/80">Slug</Label>
+                                <Input value={formData.slug} onChange={(e) => setFormData({ ...formData, slug: e.target.value })} className="mt-1 bg-muted/50 dark:bg-muted/50 border-border/70 dark:border-border/70 text-foreground dark:text-foreground font-mono text-sm" />
                             </div>
                         </div>
                         <DialogFooter className="gap-2">
-                            <button onClick={() => setIsEditDialogOpen(false)} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm">Cancel</button>
-                            <button onClick={handleUpdate} className="px-4 py-2 bg-accent-500 hover:bg-accent-600 text-white rounded-lg text-sm">Update</button>
+                            <button onClick={() => setIsEditDialogOpen(false)} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-foreground dark:text-foreground rounded-lg text-sm">Cancel</button>
+                            <button onClick={handleUpdate} className="px-4 py-2 bg-accent-500 hover:bg-accent-600 text-foreground dark:text-foreground rounded-lg text-sm">Update</button>
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
 
                 {/* Delete Dialog */}
                 <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-                    <DialogContent className="bg-slate-900 border-slate-700 text-white">
+                    <DialogContent className="bg-surface-darker dark:bg-surface-darker border-border dark:border-border text-foreground dark:text-foreground">
                         <DialogHeader>
                             <DialogTitle className="flex items-center gap-2 text-rose-400">
                                 <AlertCircle className="w-5 h-5" />
                                 Delete Tag
                             </DialogTitle>
-                            <DialogDescription className="text-slate-400">
+                            <DialogDescription className="text-muted-foreground dark:text-muted-foreground">
                                 Delete "{selectedTag?.name}"? 
                                 {tagUsageCounts[selectedTag?.slug || ''] > 0 && (
                                     <span className="block mt-1 text-accent-400">
@@ -312,8 +312,8 @@ export default function TagsPage() {
                             </DialogDescription>
                         </DialogHeader>
                         <DialogFooter className="gap-2">
-                            <button onClick={() => setIsDeleteDialogOpen(false)} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm">Cancel</button>
-                            <button onClick={handleDelete} className="px-4 py-2 bg-danger-500 hover:bg-danger-600 text-white rounded-lg text-sm">Delete</button>
+                            <button onClick={() => setIsDeleteDialogOpen(false)} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-foreground dark:text-foreground rounded-lg text-sm">Cancel</button>
+                            <button onClick={handleDelete} className="px-4 py-2 bg-danger-500 hover:bg-danger-600 text-foreground dark:text-foreground rounded-lg text-sm">Delete</button>
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>

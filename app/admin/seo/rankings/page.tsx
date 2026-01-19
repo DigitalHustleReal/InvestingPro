@@ -89,7 +89,7 @@ export default function SEORankingsPage() {
             case 'lost':
                 return <AlertCircle className="w-4 h-4 text-orange-500" />;
             default:
-                return <Minus className="w-4 h-4 text-slate-500" />;
+                return <Minus className="w-4 h-4 text-muted-foreground/70 dark:text-muted-foreground/70" />;
         }
     };
 
@@ -104,7 +104,7 @@ export default function SEORankingsPage() {
             case 'lost':
                 return 'text-orange-500 bg-orange-500/10 border-orange-500/20';
             default:
-                return 'text-slate-500 bg-slate-500/10 border-slate-500/20';
+                return 'text-muted-foreground/70 dark:text-muted-foreground/70 bg-slate-500/10 border-slate-500/20';
         }
     };
 
@@ -114,8 +114,8 @@ export default function SEORankingsPage() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900 dark:text-white">SEO Rankings Dashboard</h1>
-                        <p className="text-slate-600 dark:text-slate-400 mt-1">
+                        <h1 className="text-3xl font-bold text-slate-900 dark:text-foreground dark:text-foreground">SEO Rankings Dashboard</h1>
+                        <p className="text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mt-1">
                             Track keyword rankings and monitor SEO performance
                         </p>
                     </div>
@@ -138,7 +138,7 @@ export default function SEORankingsPage() {
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">{keywords.length}</div>
-                            <p className="text-xs text-slate-500 mt-1">Keywords being tracked</p>
+                            <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">Keywords being tracked</p>
                         </CardContent>
                     </Card>
 
@@ -149,7 +149,7 @@ export default function SEORankingsPage() {
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold text-green-600">{upKeywords.length}</div>
-                            <p className="text-xs text-slate-500 mt-1">Improved positions</p>
+                            <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">Improved positions</p>
                         </CardContent>
                     </Card>
 
@@ -160,7 +160,7 @@ export default function SEORankingsPage() {
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold text-red-600">{downKeywords.length}</div>
-                            <p className="text-xs text-slate-500 mt-1">Dropped positions</p>
+                            <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">Dropped positions</p>
                         </CardContent>
                     </Card>
 
@@ -171,7 +171,7 @@ export default function SEORankingsPage() {
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold text-blue-600">{newKeywords.length}</div>
-                            <p className="text-xs text-slate-500 mt-1">Entered top 100</p>
+                            <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">Entered top 100</p>
                         </CardContent>
                     </Card>
                 </div>
@@ -201,7 +201,7 @@ export default function SEORankingsPage() {
                                 Add Keyword
                             </Button>
                         </form>
-                        <p className="text-xs text-slate-500 mt-2">
+                        <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-2">
                             Keywords are tracked daily. Rankings require SerpApi or Google Search Console API.
                         </p>
                     </CardContent>
@@ -219,13 +219,13 @@ export default function SEORankingsPage() {
                         {isLoading ? (
                             <div className="text-center py-12">
                                 <RefreshCw className="w-8 h-8 animate-spin mx-auto text-primary-600" />
-                                <p className="mt-4 text-slate-600 dark:text-slate-400">Loading rankings...</p>
+                                <p className="mt-4 text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">Loading rankings...</p>
                             </div>
                         ) : keywords.length === 0 ? (
                             <div className="text-center py-12">
                                 <Search className="w-12 h-12 mx-auto mb-3 opacity-40" />
-                                <p className="text-slate-500">No keywords tracked yet</p>
-                                <p className="text-xs text-slate-400 mt-2">
+                                <p className="text-muted-foreground/70 dark:text-muted-foreground/70">No keywords tracked yet</p>
+                                <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-2">
                                     Add keywords above to start tracking rankings
                                 </p>
                             </div>
@@ -234,21 +234,21 @@ export default function SEORankingsPage() {
                                 <table className="w-full">
                                     <thead>
                                         <tr className="border-b border-slate-200 dark:border-slate-800">
-                                            <th className="text-left py-3 px-4 text-sm font-semibold text-slate-700 dark:text-slate-300">Keyword</th>
-                                            <th className="text-center py-3 px-4 text-sm font-semibold text-slate-700 dark:text-slate-300">Position</th>
-                                            <th className="text-center py-3 px-4 text-sm font-semibold text-slate-700 dark:text-slate-300">Change</th>
-                                            <th className="text-center py-3 px-4 text-sm font-semibold text-slate-700 dark:text-slate-300">Trend</th>
-                                            <th className="text-right py-3 px-4 text-sm font-semibold text-slate-700 dark:text-slate-300">Last Tracked</th>
+                                            <th className="text-left py-3 px-4 text-sm font-semibold text-slate-700 dark:text-foreground/80 dark:text-foreground/80">Keyword</th>
+                                            <th className="text-center py-3 px-4 text-sm font-semibold text-slate-700 dark:text-foreground/80 dark:text-foreground/80">Position</th>
+                                            <th className="text-center py-3 px-4 text-sm font-semibold text-slate-700 dark:text-foreground/80 dark:text-foreground/80">Change</th>
+                                            <th className="text-center py-3 px-4 text-sm font-semibold text-slate-700 dark:text-foreground/80 dark:text-foreground/80">Trend</th>
+                                            <th className="text-right py-3 px-4 text-sm font-semibold text-slate-700 dark:text-foreground/80 dark:text-foreground/80">Last Tracked</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {keywords.map((kw, idx) => (
                                             <tr
                                                 key={kw.keyword}
-                                                className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors"
+                                                className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-surface-darker/50 dark:bg-surface-darker/50 transition-colors"
                                             >
                                                 <td className="py-4 px-4">
-                                                    <div className="font-medium text-slate-900 dark:text-white">
+                                                    <div className="font-medium text-slate-900 dark:text-foreground dark:text-foreground">
                                                         {kw.keyword}
                                                     </div>
                                                 </td>
@@ -258,19 +258,19 @@ export default function SEORankingsPage() {
                                                             #{kw.currentPosition}
                                                         </span>
                                                     ) : (
-                                                        <span className="text-slate-400 text-sm">Not in top 100</span>
+                                                        <span className="text-muted-foreground dark:text-muted-foreground text-sm">Not in top 100</span>
                                                     )}
                                                 </td>
                                                 <td className="py-4 px-4 text-center">
                                                     {kw.change !== null ? (
                                                         <span className={cn(
                                                             "font-semibold",
-                                                            kw.change > 0 ? "text-green-600" : kw.change < 0 ? "text-red-600" : "text-slate-500"
+                                                            kw.change > 0 ? "text-green-600" : kw.change < 0 ? "text-red-600" : "text-muted-foreground/70 dark:text-muted-foreground/70"
                                                         )}>
                                                             {kw.change > 0 ? '+' : ''}{kw.change}
                                                         </span>
                                                     ) : (
-                                                        <span className="text-slate-400 text-sm">—</span>
+                                                        <span className="text-muted-foreground dark:text-muted-foreground text-sm">—</span>
                                                     )}
                                                 </td>
                                                 <td className="py-4 px-4 text-center">
@@ -281,7 +281,7 @@ export default function SEORankingsPage() {
                                                         </span>
                                                     </Badge>
                                                 </td>
-                                                <td className="py-4 px-4 text-right text-sm text-slate-500">
+                                                <td className="py-4 px-4 text-right text-sm text-muted-foreground/70 dark:text-muted-foreground/70">
                                                     {new Date(kw.lastTracked).toLocaleDateString()}
                                                 </td>
                                             </tr>

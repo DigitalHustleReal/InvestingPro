@@ -305,7 +305,7 @@ export default function ArticleInspector({
         <div className="h-full flex flex-col bg-white dark:bg-surface-dark border-l border-slate-200 dark:border-slate-800 transition-colors duration-300">
             {/* Header */}
             <div className="border-b border-slate-200 dark:border-slate-800 px-6 py-4 bg-slate-50/50 dark:bg-surface-darker/50">
-                <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100 uppercase tracking-wider">
+                <h2 className="text-sm font-semibold text-slate-900 dark:text-foreground/95 dark:text-foreground/95 uppercase tracking-wider">
                     Inspector
                 </h2>
             </div>
@@ -313,7 +313,7 @@ export default function ArticleInspector({
             {/* Scrollable Content */}
             <div className="flex-1 overflow-y-auto">
                 <Tabs defaultValue="metadata" className="w-full">
-                    <TabsList className="w-full justify-start rounded-none border-b border-slate-200 dark:border-slate-700 bg-transparent h-auto p-0">
+                    <TabsList className="w-full justify-start rounded-none border-b border-slate-200 dark:border-border dark:border-border bg-transparent h-auto p-0">
                         <TabsTrigger 
                             value="metadata" 
                             className="px-6 py-3 rounded-none border-b-2 border-transparent data-[state=active]:border-primary-600 dark:data-[state=active]:border-primary-400"
@@ -332,17 +332,17 @@ export default function ArticleInspector({
                     <TabsContent value="metadata" className="px-6 py-6 space-y-6 mt-0">
                 {/* Publishing Controls */}
                 <div className="space-y-3">
-                    <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                    <h3 className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
                         Publishing
                     </h3>
                     <div className="space-y-2">
                         <div>
-                            <Label htmlFor="status" className="text-slate-700 dark:text-slate-300">Status</Label>
+                            <Label htmlFor="status" className="text-slate-700 dark:text-foreground/80 dark:text-foreground/80">Status</Label>
                             <Select value={status} onValueChange={(v: string) => setStatus(v as ArticleStatus)}>
-                                <SelectTrigger id="status" className="bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200">
+                                <SelectTrigger id="status" className="bg-white dark:bg-surface-darker border-slate-200 dark:border-border dark:border-border text-slate-900 dark:text-foreground/90 dark:text-foreground/90">
                                     <SelectValue />
                                 </SelectTrigger>
-                                <SelectContent className="bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200">
+                                <SelectContent className="bg-white dark:bg-surface-darker border-slate-200 dark:border-border dark:border-border text-slate-900 dark:text-foreground/90 dark:text-foreground/90">
                                     <SelectItem value="draft">Draft</SelectItem>
                                     <SelectItem value="published">Published</SelectItem>
                                     <SelectItem value="archived">Archived</SelectItem>
@@ -354,7 +354,7 @@ export default function ArticleInspector({
                             <Button
                                 onClick={handleSave}
                                 disabled={saving}
-                                className="flex-1 bg-secondary-600 hover:bg-secondary-700 text-white"
+                                className="flex-1 bg-secondary-600 hover:bg-secondary-700 text-foreground dark:text-foreground"
                                 size="sm"
                             >
                                 {saving ? (
@@ -376,7 +376,7 @@ export default function ArticleInspector({
                                     onClick={onPreview}
                                     variant="outline"
                                     size="sm"
-                                    className="flex-1 border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white"
+                                    className="flex-1 border-border dark:border-border text-foreground/80 dark:text-foreground/80 hover:bg-muted dark:bg-muted hover:text-foreground dark:text-foreground"
                                 >
                                     <Eye className="w-4 h-4 mr-2" />
                                     Preview
@@ -430,7 +430,7 @@ export default function ArticleInspector({
 
                 {/* Featured Image */}
                 <div className="space-y-3">
-                    <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                    <h3 className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
                         Featured Media
                     </h3>
                     <FeaturedImageSelector 
@@ -444,13 +444,13 @@ export default function ArticleInspector({
 
                 {/* Category & Language */}
                 <div className="space-y-3">
-                    <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                    <h3 className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
                         Classification
                     </h3>
                     <div className="space-y-3">
                         <div>
                             <div className="flex items-center justify-between mb-1">
-                                <Label htmlFor="category" className="text-slate-700 dark:text-slate-300">Category</Label>
+                                <Label htmlFor="category" className="text-slate-700 dark:text-foreground/80 dark:text-foreground/80">Category</Label>
                                 <Button
                                     variant="ghost"
                                     size="sm"
@@ -468,21 +468,21 @@ export default function ArticleInspector({
                             />
                         </div>
                         <div>
-                             <Label htmlFor="sub-category" className="text-slate-700 dark:text-slate-300">Topic / Sub-Category</Label>
+                             <Label htmlFor="sub-category" className="text-slate-700 dark:text-foreground/80 dark:text-foreground/80">Topic / Sub-Category</Label>
                              <SubCategorySelect
                                 categorySlug={category}
                                 value={subCategory}
                                 onValueChange={setSubCategory}
-                                className="mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200"
+                                className="mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-border dark:border-border text-slate-900 dark:text-foreground/90 dark:text-foreground/90"
                              />
                         </div>
                         <div>
-                            <Label htmlFor="language" className="text-slate-700 dark:text-slate-300">Language</Label>
+                            <Label htmlFor="language" className="text-slate-700 dark:text-foreground/80 dark:text-foreground/80">Language</Label>
                             <Select value={language} onValueChange={(v: string) => setLanguage(v as ArticleLanguage)}>
-                                <SelectTrigger id="language" className="bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200">
+                                <SelectTrigger id="language" className="bg-white dark:bg-surface-darker border-slate-200 dark:border-border dark:border-border text-slate-900 dark:text-foreground/90 dark:text-foreground/90">
                                     <SelectValue />
                                 </SelectTrigger>
-                                <SelectContent className="bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200">
+                                <SelectContent className="bg-white dark:bg-surface-darker border-slate-200 dark:border-border dark:border-border text-slate-900 dark:text-foreground/90 dark:text-foreground/90">
                                     <SelectItem value="en">English</SelectItem>
                                     <SelectItem value="hi">Hindi</SelectItem>
                                     <SelectItem value="ta">Tamil</SelectItem>
@@ -498,18 +498,18 @@ export default function ArticleInspector({
 
                 {/* Schema-Driven Fields: Keywords & Intent */}
                 <div className="space-y-3">
-                    <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                    <h3 className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
                         SEO Keywords & Intent
                     </h3>
                     <div className="space-y-3">
                         <div>
-                            <Label htmlFor="primary-keyword" className="text-slate-700 dark:text-slate-300">Primary Keyword</Label>
+                            <Label htmlFor="primary-keyword" className="text-slate-700 dark:text-foreground/80 dark:text-foreground/80">Primary Keyword</Label>
                             <Input
                                 id="primary-keyword"
                                 value={primaryKeyword}
                                 onChange={(e) => setPrimaryKeyword(e.target.value)}
                                 placeholder="e.g., mutual funds"
-                                className="mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                                className="mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-border dark:border-border text-slate-900 dark:text-foreground/90 dark:text-foreground/90 placeholder:text-muted-foreground dark:text-muted-foreground dark:placeholder:text-muted-foreground/50 dark:text-muted-foreground/50"
                             />
                             {primaryKeyword && (
                                 <div className="mt-2">
@@ -526,19 +526,19 @@ export default function ArticleInspector({
                             )}
                         </div>
                         <div>
-                            <Label htmlFor="secondary-keywords" className="text-slate-700 dark:text-slate-300">Secondary Keywords</Label>
+                            <Label htmlFor="secondary-keywords" className="text-slate-700 dark:text-foreground/80 dark:text-foreground/80">Secondary Keywords</Label>
                             <Input
                                 id="secondary-keywords"
                                 value={secondaryKeywordInput}
                                 onChange={(e) => setSecondaryKeywordInput(e.target.value)}
                                 onKeyDown={handleSecondaryKeywordKeyDown}
                                 placeholder="Press Enter to add"
-                                className="mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                                className="mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-border dark:border-border text-slate-900 dark:text-foreground/90 dark:text-foreground/90 placeholder:text-muted-foreground dark:text-muted-foreground dark:placeholder:text-muted-foreground/50 dark:text-muted-foreground/50"
                             />
                             {secondaryKeywords.length > 0 && (
                                 <div className="flex flex-wrap gap-1 mt-2">
                                     {secondaryKeywords.map((kw) => (
-                                        <Badge key={kw} variant="outline" className="text-xs border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-surface-darker">
+                                        <Badge key={kw} variant="outline" className="text-xs border-slate-200 dark:border-border dark:border-border text-slate-700 dark:text-foreground/80 dark:text-foreground/80 bg-slate-100 dark:bg-surface-darker">
                                             {kw}
                                             <button
                                                 onClick={() => removeSecondaryKeyword(kw)}
@@ -553,15 +553,15 @@ export default function ArticleInspector({
                             )}
                         </div>
                         <div>
-                            <Label htmlFor="search-intent" className="text-slate-700 dark:text-slate-300">Search Intent</Label>
+                            <Label htmlFor="search-intent" className="text-slate-700 dark:text-foreground/80 dark:text-foreground/80">Search Intent</Label>
                             <Select
                                 value={searchIntent}
                                 onValueChange={(v: string) => setSearchIntent(v as 'informational' | 'commercial' | 'transactional' | '')}
                             >
-                                <SelectTrigger id="search-intent" className="bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200">
+                                <SelectTrigger id="search-intent" className="bg-white dark:bg-surface-darker border-slate-200 dark:border-border dark:border-border text-slate-900 dark:text-foreground/90 dark:text-foreground/90">
                                     <SelectValue placeholder="Select intent" />
                                 </SelectTrigger>
-                                <SelectContent className="bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200">
+                                <SelectContent className="bg-white dark:bg-surface-darker border-slate-200 dark:border-border dark:border-border text-slate-900 dark:text-foreground/90 dark:text-foreground/90">
                                     <SelectItem value="informational">Informational</SelectItem>
                                     <SelectItem value="commercial">Commercial</SelectItem>
                                     <SelectItem value="transactional">Transactional</SelectItem>
@@ -574,7 +574,7 @@ export default function ArticleInspector({
                 {/* Tags */}
                 <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                        <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                        <h3 className="text-xs font-semibold text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
                             Tags
                         </h3>
                         <Button
@@ -594,17 +594,17 @@ export default function ArticleInspector({
                             onChange={(e) => setTagInput(e.target.value)}
                             onKeyDown={handleTagInputKeyDown}
                             placeholder="Press Enter to add tag"
-                            className="bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                            className="bg-white dark:bg-surface-darker border-slate-200 dark:border-border dark:border-border text-slate-900 dark:text-foreground/90 dark:text-foreground/90 placeholder:text-muted-foreground dark:text-muted-foreground dark:placeholder:text-muted-foreground/50 dark:text-muted-foreground/50"
                             aria-label="Add tag"
                             aria-describedby="tags-help"
                         />
-                        <p id="tags-help" className="text-xs text-slate-500 mt-1">
+                        <p id="tags-help" className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                             Press Enter to add. Maximum 10 tags.
                         </p>
                         {tags.length > 0 && (
                             <div className="flex flex-wrap gap-1 mt-2">
                                 {tags.map((tag) => (
-                                        <Badge key={tag} variant="outline" className="text-xs border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-surface-darker">
+                                        <Badge key={tag} variant="outline" className="text-xs border-slate-200 dark:border-border dark:border-border text-slate-700 dark:text-foreground/80 dark:text-foreground/80 bg-slate-100 dark:bg-surface-darker">
                                             {tag}
                                             <button
                                                 onClick={() => removeTag(tag)}
@@ -622,7 +622,7 @@ export default function ArticleInspector({
 
                 {/* Excerpt */}
                 <div className="space-y-3">
-                    <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                    <h3 className="text-xs font-semibold text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
                         Excerpt
                     </h3>
                     <Textarea
@@ -631,14 +631,14 @@ export default function ArticleInspector({
                         placeholder="Brief summary of the article..."
                         rows={3}
                         maxLength={300}
-                        className={`resize-none bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 ${
+                        className={`resize-none bg-white dark:bg-surface-darker border-slate-200 dark:border-border dark:border-border text-slate-900 dark:text-foreground/90 dark:text-foreground/90 placeholder:text-muted-foreground dark:text-muted-foreground dark:placeholder:text-muted-foreground/50 dark:text-muted-foreground/50 ${
                             excerpt.length > 300 ? 'border-warning-500 dark:border-warning-500' : ''
                         }`}
                         aria-label="Article excerpt"
                         aria-describedby="excerpt-char-count"
                     />
                     <div id="excerpt-char-count" className="flex items-center justify-between">
-                        <p className={`text-xs ${excerpt.length > 300 ? 'text-warning-600 dark:text-warning-400' : 'text-slate-500'}`}>
+                        <p className={`text-xs ${excerpt.length > 300 ? 'text-warning-600 dark:text-warning-400' : 'text-muted-foreground/70 dark:text-muted-foreground/70'}`}>
                             {excerpt.length}/300 characters
                         </p>
                         {excerpt.length > 300 && (
@@ -652,7 +652,7 @@ export default function ArticleInspector({
                 {/* SEO Metadata */}
                 <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                        <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                        <h3 className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
                             SEO Metadata
                         </h3>
                         <Button 
@@ -668,21 +668,21 @@ export default function ArticleInspector({
                     </div>
                     <div className="space-y-3">
                         <div>
-                            <Label htmlFor="seo-title" className="text-slate-700 dark:text-slate-300">SEO Title</Label>
+                            <Label htmlFor="seo-title" className="text-slate-700 dark:text-foreground/80 dark:text-foreground/80">SEO Title</Label>
                             <Input
                                 id="seo-title"
                                 value={seoTitle}
                                 onChange={(e) => setSeoTitle(e.target.value)}
                                 placeholder={article.title || 'SEO title'}
                                 maxLength={70}
-                                className={`mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 ${
+                                className={`mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-border dark:border-border text-slate-900 dark:text-foreground/90 dark:text-foreground/90 placeholder:text-muted-foreground dark:text-muted-foreground dark:placeholder:text-muted-foreground/50 dark:text-muted-foreground/50 ${
                                     seoTitle.length > 60 ? 'border-warning-500 dark:border-warning-500' : ''
                                 }`}
                                 aria-label="SEO title"
                                 aria-describedby="seo-title-char-count"
                             />
                             <div className="flex items-center justify-between mt-1">
-                                <p className={`text-xs ${seoTitle.length > 60 ? 'text-warning-600 dark:text-warning-400' : 'text-slate-500'}`}>
+                                <p className={`text-xs ${seoTitle.length > 60 ? 'text-warning-600 dark:text-warning-400' : 'text-muted-foreground/70 dark:text-muted-foreground/70'}`}>
                                     {seoTitle.length}/60 characters
                                 </p>
                                 {seoTitle.length > 60 && (
@@ -693,7 +693,7 @@ export default function ArticleInspector({
                             </div>
                         </div>
                         <div>
-                            <Label htmlFor="seo-description" className="text-slate-700 dark:text-slate-300">Meta Description</Label>
+                            <Label htmlFor="seo-description" className="text-slate-700 dark:text-foreground/80 dark:text-foreground/80">Meta Description</Label>
                             <Textarea
                                 id="seo-description"
                                 value={seoDescription}
@@ -701,14 +701,14 @@ export default function ArticleInspector({
                                 placeholder="Meta description for search engines..."
                                 rows={3}
                                 maxLength={165}
-                                className={`resize-none mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 ${
+                                className={`resize-none mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-border dark:border-border text-slate-900 dark:text-foreground/90 dark:text-foreground/90 placeholder:text-muted-foreground dark:text-muted-foreground dark:placeholder:text-muted-foreground/50 dark:text-muted-foreground/50 ${
                                     seoDescription.length > 160 ? 'border-warning-500 dark:border-warning-500' : ''
                                 }`}
                                 aria-label="Meta description"
                                 aria-describedby="seo-description-char-count"
                             />
                             <div className="flex items-center justify-between mt-1">
-                                <p className={`text-xs ${seoDescription.length > 160 ? 'text-warning-600 dark:text-warning-400' : 'text-slate-500'}`}>
+                                <p className={`text-xs ${seoDescription.length > 160 ? 'text-warning-600 dark:text-warning-400' : 'text-muted-foreground/70 dark:text-muted-foreground/70'}`}>
                                     {seoDescription.length}/160 characters
                                 </p>
                                 {seoDescription.length > 160 && (
@@ -723,16 +723,16 @@ export default function ArticleInspector({
 
                 {/* Translation Tool */}
                 <div className="space-y-3 pt-4 border-t border-slate-200 dark:border-slate-800">
-                    <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                    <h3 className="text-xs font-semibold text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground uppercase tracking-wider flex items-center gap-2">
                         <Languages className="w-4 h-4" />
                         Translate
                     </h3>
                     <div className="flex gap-2">
                          <Select value={targetLang} onValueChange={setTargetLang}>
-                            <SelectTrigger className="flex-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200">
+                            <SelectTrigger className="flex-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-border dark:border-border text-slate-900 dark:text-foreground/90 dark:text-foreground/90">
                                 <SelectValue />
                             </SelectTrigger>
-                            <SelectContent className="bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200">
+                            <SelectContent className="bg-white dark:bg-surface-darker border-slate-200 dark:border-border dark:border-border text-slate-900 dark:text-foreground/90 dark:text-foreground/90">
                                 <SelectItem value="hi">Hindi (à¤¹à¤¿à¤‚à¤¦à¥€)</SelectItem>
                                 <SelectItem value="te">Telugu (à°¤à±†à°²à±à°—à±)</SelectItem>
                                 <SelectItem value="mr">Marathi (à¤®à¤°à¤¾à¤ à¥€)</SelectItem>
@@ -746,12 +746,12 @@ export default function ArticleInspector({
                             variant="default"
                             onClick={handleTranslate}
                             disabled={isTranslating}
-                            className="bg-primary-600 hover:bg-primary-700 text-white"
+                            className="bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground"
                         >
                              {isTranslating ? <Loader2 className="w-4 h-4 animate-spin"/> : "Go"}
                         </Button>
                     </div>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
                         Creates a new draft article in the selected language.
                     </p>
                 </div>
@@ -803,7 +803,7 @@ export default function ArticleInspector({
                                 }}
                             />
                         ) : (
-                            <div className="text-center text-slate-400 py-8">
+                            <div className="text-center text-muted-foreground dark:text-muted-foreground py-8">
                                 <Clock className="w-8 h-8 mx-auto mb-2 opacity-50" />
                                 <p>Save the article to see version history</p>
                             </div>

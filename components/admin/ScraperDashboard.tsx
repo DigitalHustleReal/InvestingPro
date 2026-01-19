@@ -64,8 +64,8 @@ export default function ScraperDashboard() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold text-white">Scraper Management</h1>
-                    <p className="text-slate-400 mt-1">Monitor and manage all data scrapers</p>
+                    <h1 className="text-2xl font-bold text-foreground dark:text-foreground">Scraper Management</h1>
+                    <p className="text-muted-foreground dark:text-muted-foreground mt-1">Monitor and manage all data scrapers</p>
                 </div>
                 <Button
                     onClick={() => queryClient.invalidateQueries({ queryKey: ['scrapers'] })}
@@ -79,12 +79,12 @@ export default function ScraperDashboard() {
             {/* Scrapers List */}
             <div className="grid gap-6">
                 {isLoading ? (
-                    <div className="text-center py-12 text-slate-600">Loading scrapers...</div>
+                    <div className="text-center py-12 text-muted-foreground/50 dark:text-muted-foreground/50">Loading scrapers...</div>
                 ) : scrapers.length === 0 ? (
-                    <Card className="bg-white/[0.03] border-white/5 rounded-2xl">
+                    <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl">
                         <CardContent className="text-center py-12">
-                            <Database className="w-12 h-12 mx-auto mb-4 text-slate-600" />
-                            <p className="text-slate-400">No scrapers registered yet</p>
+                            <Database className="w-12 h-12 mx-auto mb-4 text-muted-foreground/50 dark:text-muted-foreground/50" />
+                            <p className="text-muted-foreground dark:text-muted-foreground">No scrapers registered yet</p>
                         </CardContent>
                     </Card>
                 ) : (
@@ -130,16 +130,16 @@ function ScraperCard({ scraper, onExecute, isExecuting }: any) {
     };
     
     return (
-        <Card className="bg-white/[0.03] border-white/5 rounded-2xl">
-            <CardHeader className="border-b border-white/5 px-8 py-6">
+        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl">
+            <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <div className={`w-3 h-3 rounded-full ${getStatusColor(lastRun?.status || 'unknown')}`} />
                         <div>
-                            <CardTitle className="text-lg font-bold text-white">
+                            <CardTitle className="text-lg font-bold text-foreground dark:text-foreground">
                                 {scraper.display_name || scraper.name}
                             </CardTitle>
-                            <p className="text-sm text-slate-500 mt-1">
+                            <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                 {scraper.category} â€¢ {scraper.source_type}
                             </p>
                         </div>
@@ -172,8 +172,8 @@ function ScraperCard({ scraper, onExecute, isExecuting }: any) {
             <CardContent className="p-8">
                 <div className="grid grid-cols-4 gap-6 mb-6">
                     <div>
-                        <p className="text-sm text-slate-500 mb-1">Last Run</p>
-                        <p className="text-white font-medium">
+                        <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70 mb-1">Last Run</p>
+                        <p className="text-foreground dark:text-foreground font-medium">
                             {lastRun?.started_at 
                                 ? new Date(lastRun.started_at).toLocaleString()
                                 : 'Never'
@@ -181,20 +181,20 @@ function ScraperCard({ scraper, onExecute, isExecuting }: any) {
                         </p>
                     </div>
                     <div>
-                        <p className="text-sm text-slate-500 mb-1">Items Scraped</p>
-                        <p className="text-white font-medium">
+                        <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70 mb-1">Items Scraped</p>
+                        <p className="text-foreground dark:text-foreground font-medium">
                             {lastRun?.items_scraped || 0}
                         </p>
                     </div>
                     <div>
-                        <p className="text-sm text-slate-500 mb-1">Items Updated</p>
-                        <p className="text-white font-medium">
+                        <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70 mb-1">Items Updated</p>
+                        <p className="text-foreground dark:text-foreground font-medium">
                             {lastRun?.items_updated || 0}
                         </p>
                     </div>
                     <div>
-                        <p className="text-sm text-slate-500 mb-1">Execution Time</p>
-                        <p className="text-white font-medium">
+                        <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70 mb-1">Execution Time</p>
+                        <p className="text-foreground dark:text-foreground font-medium">
                             {lastRun?.execution_time_ms 
                                 ? `${(lastRun.execution_time_ms / 1000).toFixed(1)}s`
                                 : '-'
@@ -212,7 +212,7 @@ function ScraperCard({ scraper, onExecute, isExecuting }: any) {
                         {showRuns ? 'Hide' : 'Show'} Runs
                     </Button>
                     {scraper.next_run_at && (
-                        <div className="flex items-center gap-2 text-sm text-slate-500">
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground/70 dark:text-muted-foreground/70">
                             <Clock className="w-4 h-4" />
                             Next run: {new Date(scraper.next_run_at).toLocaleString()}
                         </div>
@@ -221,19 +221,19 @@ function ScraperCard({ scraper, onExecute, isExecuting }: any) {
                 
                 {showRuns && (
                     <div className="mt-6 space-y-2">
-                        <h4 className="text-sm font-semibold text-white mb-3">Recent Runs</h4>
+                        <h4 className="text-sm font-semibold text-foreground dark:text-foreground mb-3">Recent Runs</h4>
                         {runs.length === 0 ? (
-                            <p className="text-sm text-slate-500">No runs yet</p>
+                            <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70">No runs yet</p>
                         ) : (
                             runs.slice(0, 5).map((run: any) => (
-                                <div key={run.id} className="flex items-center justify-between p-3 bg-white/[0.02] rounded-lg">
+                                <div key={run.id} className="flex items-center justify-between p-3 bg-card/50 dark:bg-card/50 rounded-lg">
                                     <div className="flex items-center gap-3">
                                         <div className={`w-2 h-2 rounded-full ${getStatusColor(run.status)}`} />
-                                        <span className="text-sm text-white">
+                                        <span className="text-sm text-foreground dark:text-foreground">
                                             {new Date(run.started_at).toLocaleString()}
                                         </span>
                                     </div>
-                                    <div className="flex items-center gap-4 text-sm text-slate-400">
+                                    <div className="flex items-center gap-4 text-sm text-muted-foreground dark:text-muted-foreground">
                                         <span>{run.items_scraped} scraped</span>
                                         <span>{run.items_updated} updated</span>
                                         {run.execution_time_ms && (

@@ -148,16 +148,16 @@ export default function EnhancedWordPressStyleCMS({
             <div className="flex items-center justify-between border-b border-slate-200 pb-4">
                 <div>
                     <h1 className="text-3xl font-bold text-slate-900">Articles</h1>
-                    <p className="text-sm text-slate-500 mt-1">Manage your content library</p>
+                    <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">Manage your content library</p>
                 </div>
                 <div className="flex gap-3">
                     {onGenerate && (
-                        <Button onClick={onGenerate} className="bg-secondary-600 hover:bg-secondary-700 text-white">
+                        <Button onClick={onGenerate} className="bg-secondary-600 hover:bg-secondary-700 text-foreground dark:text-foreground">
                             <Sparkles className="w-4 h-4 mr-2" />
                             Generate with AI
                         </Button>
                     )}
-                    <Button onClick={onNewArticle} className="bg-primary-600 hover:bg-primary-700 text-white">
+                    <Button onClick={onNewArticle} className="bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground">
                         <Plus className="w-4 h-4 mr-2" />
                         Add New Article
                     </Button>
@@ -167,17 +167,17 @@ export default function EnhancedWordPressStyleCMS({
             {/* Stats Bar */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-4">
                 {[
-                    { label: 'Total', count: statusCounts.all, icon: FileText, color: 'text-slate-400' },
+                    { label: 'Total', count: statusCounts.all, icon: FileText, color: 'text-muted-foreground dark:text-muted-foreground' },
                     { label: 'Published', count: statusCounts.published, icon: TrendingUp, color: 'text-success-400' },
-                    { label: 'Draft', count: statusCounts.draft, icon: FileText, color: 'text-slate-400' },
+                    { label: 'Draft', count: statusCounts.draft, icon: FileText, color: 'text-muted-foreground dark:text-muted-foreground' },
                     { label: 'Review', count: statusCounts.review, icon: Eye, color: 'text-accent-400' },
-                    { label: 'Archived', count: statusCounts.archived, icon: FileText, color: 'text-slate-400' },
+                    { label: 'Archived', count: statusCounts.archived, icon: FileText, color: 'text-muted-foreground dark:text-muted-foreground' },
                 ].map(stat => (
                     <Card key={stat.label} className="border-slate-200">
                         <CardContent className="p-6">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <p className="text-xs md:text-sm text-slate-500">{stat.label}</p>
+                                    <p className="text-xs md:text-sm text-muted-foreground/70 dark:text-muted-foreground/70">{stat.label}</p>
                                     <p className="text-xl md:text-2xl font-bold text-slate-900">{stat.count}</p>
                                 </div>
                                 <stat.icon className={`w-6 h-6 md:w-8 md:h-8 ${stat.color}`} />
@@ -191,7 +191,7 @@ export default function EnhancedWordPressStyleCMS({
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between bg-white p-6 rounded-lg border border-slate-200">
                 <div className="flex-1 w-full sm:w-auto">
                     <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
                         <input
                             type="text"
                             placeholder="Search articles..."
@@ -208,7 +208,7 @@ export default function EnhancedWordPressStyleCMS({
                             onClick={() => onFilterChange?.(status)}
                             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                                 filterStatus === status
-                                    ? 'bg-primary-600 text-white'
+                                    ? 'bg-primary-600 text-foreground dark:text-foreground'
                                     : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                             }`}
                         >
@@ -226,9 +226,9 @@ export default function EnhancedWordPressStyleCMS({
             ) : filteredArticles.length === 0 ? (
                 <Card className="border-slate-200">
                     <CardContent className="p-6 text-center">
-                        <FileText className="w-12 h-12 text-slate-400 mx-auto mb-4" />
+                        <FileText className="w-12 h-12 text-muted-foreground dark:text-muted-foreground mx-auto mb-4" />
                         <h3 className="text-lg font-semibold text-slate-900 mb-2">No articles found</h3>
-                        <p className="text-slate-500 mb-4">
+                        <p className="text-muted-foreground/70 dark:text-muted-foreground/70 mb-4">
                             {searchTerm || filterStatus !== 'all'
                                 ? 'Try adjusting your search or filters'
                                 : 'Get started by creating your first article'}
@@ -250,15 +250,15 @@ export default function EnhancedWordPressStyleCMS({
                                             }`}
                                             onClick={isAllSelected || isPartialSelected ? deselectAll : selectAll}
                                         >
-                                            {isAllSelected && <Check className="w-3 h-3 text-white" />}
-                                            {isPartialSelected && <Minus className="w-3 h-3 text-white" />}
+                                            {isAllSelected && <Check className="w-3 h-3 text-foreground dark:text-foreground" />}
+                                            {isPartialSelected && <Minus className="w-3 h-3 text-foreground dark:text-foreground" />}
                                         </div>
                                     </th>
-                                    <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase">Title</th>
-                                    <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase hidden sm:table-cell">Author</th>
-                                    <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase hidden md:table-cell">Category</th>
-                                    <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase">Status</th>
-                                    <th className="px-4 py-3 text-right text-xs font-medium text-slate-500 uppercase">Actions</th>
+                                    <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Title</th>
+                                    <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase hidden sm:table-cell">Author</th>
+                                    <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase hidden md:table-cell">Category</th>
+                                    <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Status</th>
+                                    <th className="px-4 py-3 text-right text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-200">
@@ -276,7 +276,7 @@ export default function EnhancedWordPressStyleCMS({
                                                     }`}
                                                     onClick={() => toggleSelection(article.id)}
                                                 >
-                                                    {isSelected && <Check className="w-3 h-3 text-white" />}
+                                                    {isSelected && <Check className="w-3 h-3 text-foreground dark:text-foreground" />}
                                                 </div>
                                             </td>
                                             <td className="px-4 py-4">
@@ -285,7 +285,7 @@ export default function EnhancedWordPressStyleCMS({
                                                         <img src={article.featured_image} alt="" className="w-10 h-10 rounded object-cover" />
                                                     ) : (
                                                         <div className="w-10 h-10 rounded bg-slate-100 flex items-center justify-center">
-                                                            <FileText className="w-5 h-5 text-slate-400" />
+                                                            <FileText className="w-5 h-5 text-muted-foreground dark:text-muted-foreground" />
                                                         </div>
                                                     )}
                                                     <div>
@@ -293,14 +293,14 @@ export default function EnhancedWordPressStyleCMS({
                                                             {article.title || 'Untitled'}
                                                         </Link>
                                                         {article.excerpt && (
-                                                            <p className="text-xs text-slate-500 mt-1 line-clamp-1 hidden sm:block">{article.excerpt}</p>
+                                                            <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1 line-clamp-1 hidden sm:block">{article.excerpt}</p>
                                                         )}
                                                     </div>
                                                 </div>
                                             </td>
                                             <td className="px-4 py-4 hidden sm:table-cell">
                                                 <div className="flex items-center gap-2">
-                                                    <User className="w-4 h-4 text-slate-400" />
+                                                    <User className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
                                                     <span className="text-sm text-slate-700">{article.author_name || 'Admin'}</span>
                                                 </div>
                                             </td>
@@ -324,12 +324,12 @@ export default function EnhancedWordPressStyleCMS({
                                                         </Button>
                                                     )}
                                                     <Link href={`/admin/articles/${article.id}/edit`}>
-                                                        <Button size="sm" variant="ghost" className="text-slate-600">
+                                                        <Button size="sm" variant="ghost" className="text-muted-foreground/50 dark:text-muted-foreground/50">
                                                             <Edit className="w-4 h-4" />
                                                         </Button>
                                                     </Link>
                                                     <Link href={`/articles/${article.slug}${article.status !== 'published' ? '?preview=true' : ''}`} target="_blank">
-                                                        <Button size="sm" variant="ghost" className="text-slate-600">
+                                                        <Button size="sm" variant="ghost" className="text-muted-foreground/50 dark:text-muted-foreground/50">
                                                             <Eye className="w-4 h-4" />
                                                         </Button>
                                                     </Link>
@@ -358,22 +358,22 @@ export default function EnhancedWordPressStyleCMS({
                         exit={{ y: 100, opacity: 0 }}
                         className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
                     >
-                        <div className="flex items-center gap-3 px-6 py-4 bg-slate-900 text-white rounded-2xl shadow-2xl border border-slate-700">
+                        <div className="flex items-center gap-3 px-6 py-4 bg-surface-darker dark:bg-surface-darker text-foreground dark:text-foreground rounded-2xl shadow-2xl border border-border dark:border-border">
                             <span className="text-sm font-medium">{selectedIds.length} selected</span>
                             <div className="w-px h-6 bg-slate-700" />
-                            <Button size="sm" onClick={() => handleBulkAction('publish')} disabled={!!bulkLoading} className="bg-success-600 hover:bg-success-700 text-white">
+                            <Button size="sm" onClick={() => handleBulkAction('publish')} disabled={!!bulkLoading} className="bg-success-600 hover:bg-success-700 text-foreground dark:text-foreground">
                                 {bulkLoading === 'publish' ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <Send className="w-4 h-4 mr-1" />}
                                 Publish
                             </Button>
-                            <Button size="sm" onClick={() => handleBulkAction('archive')} disabled={!!bulkLoading} className="bg-slate-600 hover:bg-slate-500 text-white">
+                            <Button size="sm" onClick={() => handleBulkAction('archive')} disabled={!!bulkLoading} className="bg-slate-600 hover:bg-slate-500 text-foreground dark:text-foreground">
                                 {bulkLoading === 'archive' ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <Archive className="w-4 h-4 mr-1" />}
                                 Archive
                             </Button>
-                            <Button size="sm" onClick={() => handleBulkAction('export')} className="bg-secondary-600 hover:bg-secondary-700 text-white">
+                            <Button size="sm" onClick={() => handleBulkAction('export')} className="bg-secondary-600 hover:bg-secondary-700 text-foreground dark:text-foreground">
                                 <Download className="w-4 h-4 mr-1" />
                                 Export
                             </Button>
-                            <Button size="sm" onClick={() => handleBulkAction('delete')} disabled={!!bulkLoading} className="bg-danger-600 hover:bg-danger-700 text-white">
+                            <Button size="sm" onClick={() => handleBulkAction('delete')} disabled={!!bulkLoading} className="bg-danger-600 hover:bg-danger-700 text-foreground dark:text-foreground">
                                 {bulkLoading === 'delete' ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <Trash2 className="w-4 h-4 mr-1" />}
                                 Delete
                             </Button>

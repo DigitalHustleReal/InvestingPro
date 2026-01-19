@@ -137,8 +137,8 @@ export default function RevenueDashboardPage() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Revenue Dashboard</h1>
-                        <p className="text-slate-600 dark:text-slate-400 mt-1">
+                        <h1 className="text-3xl font-bold text-slate-900 dark:text-foreground dark:text-foreground">Revenue Dashboard</h1>
+                        <p className="text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mt-1">
                             Real-time revenue tracking by category, article, and affiliate
                         </p>
                     </div>
@@ -146,7 +146,7 @@ export default function RevenueDashboardPage() {
                         <select
                             value={timeRange}
                             onChange={(e) => setTimeRange(e.target.value)}
-                            className="px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
+                            className="px-4 py-2 border border-slate-300 dark:border-border dark:border-border rounded-lg bg-white dark:bg-surface-darker dark:bg-surface-darker text-slate-900 dark:text-foreground dark:text-foreground"
                         >
                             <option value="7d">Last 7 days</option>
                             <option value="30d">Last 30 days</option>
@@ -166,7 +166,7 @@ export default function RevenueDashboardPage() {
                 {dashboardLoading ? (
                     <div className="text-center py-12">
                         <RefreshCw className="w-8 h-8 animate-spin mx-auto text-primary-600" />
-                        <p className="mt-4 text-slate-600 dark:text-slate-400">Loading revenue data...</p>
+                        <p className="mt-4 text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">Loading revenue data...</p>
                     </div>
                 ) : (
                     <>
@@ -190,7 +190,7 @@ export default function RevenueDashboardPage() {
                                             {Math.abs(growth).toFixed(1)}% from previous month
                                         </span>
                                     </div>
-                                    <p className="text-xs text-slate-500 mt-2">
+                                    <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-2">
                                         Previous: {formatCurrency(previousRevenue)}
                                     </p>
                                 </CardContent>
@@ -206,7 +206,7 @@ export default function RevenueDashboardPage() {
                                     <div className="text-2xl font-bold">
                                         {dashboardData?.conversionRates.overall.toFixed(2) || '0.00'}%
                                     </div>
-                                    <p className="text-xs text-slate-500 mt-2">
+                                    <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-2">
                                         Industry average: 1-2%
                                     </p>
                                 </CardContent>
@@ -222,7 +222,7 @@ export default function RevenueDashboardPage() {
                                     <div className="text-2xl font-bold">
                                         {categoryData?.conversions || dashboardData?.trends.daily.reduce((sum, day) => sum + (day.revenue > 0 ? 1 : 0), 0) || 0}
                                     </div>
-                                    <p className="text-xs text-slate-500 mt-2">
+                                    <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-2">
                                         {timeRange === '30d' ? 'Last 30 days' : `Last ${timeRange}`}
                                     </p>
                                 </CardContent>
@@ -252,12 +252,12 @@ export default function RevenueDashboardPage() {
                                             <span className="font-semibold">Credit Cards</span>
                                         </div>
                                         <div className="text-2xl font-bold">{formatCurrency(totalByCategory.creditCards)}</div>
-                                        <div className="text-xs text-slate-500 mt-1">
+                                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                             {totalCategoryRevenue > 0 
                                                 ? ((totalByCategory.creditCards / totalCategoryRevenue) * 100).toFixed(1) 
                                                 : 0}% of total
                                         </div>
-                                        <div className="text-xs text-slate-500 mt-1">
+                                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                             Conversion: {dashboardData?.conversionRates.creditCards.toFixed(2) || '0.00'}%
                                         </div>
                                     </button>
@@ -275,12 +275,12 @@ export default function RevenueDashboardPage() {
                                             <span className="font-semibold">Mutual Funds</span>
                                         </div>
                                         <div className="text-2xl font-bold">{formatCurrency(totalByCategory.mutualFunds)}</div>
-                                        <div className="text-xs text-slate-500 mt-1">
+                                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                             {totalCategoryRevenue > 0 
                                                 ? ((totalByCategory.mutualFunds / totalCategoryRevenue) * 100).toFixed(1) 
                                                 : 0}% of total
                                         </div>
-                                        <div className="text-xs text-slate-500 mt-1">
+                                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                             Conversion: {dashboardData?.conversionRates.mutualFunds.toFixed(2) || '0.00'}%
                                         </div>
                                     </button>
@@ -298,7 +298,7 @@ export default function RevenueDashboardPage() {
                                             <span className="font-semibold">Insurance</span>
                                         </div>
                                         <div className="text-2xl font-bold">{formatCurrency(totalByCategory.insurance)}</div>
-                                        <div className="text-xs text-slate-500 mt-1">
+                                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                             {totalCategoryRevenue > 0 
                                                 ? ((totalByCategory.insurance / totalCategoryRevenue) * 100).toFixed(1) 
                                                 : 0}% of total
@@ -314,11 +314,11 @@ export default function RevenueDashboardPage() {
                                         }`}
                                     >
                                         <div className="flex items-center gap-2 mb-2">
-                                            <BarChart3 className="w-5 h-5 text-slate-600" />
+                                            <BarChart3 className="w-5 h-5 text-muted-foreground/50 dark:text-muted-foreground/50" />
                                             <span className="font-semibold">Others</span>
                                         </div>
                                         <div className="text-2xl font-bold">{formatCurrency(totalByCategory.others)}</div>
-                                        <div className="text-xs text-slate-500 mt-1">
+                                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                             {totalCategoryRevenue > 0 
                                                 ? ((totalByCategory.others / totalCategoryRevenue) * 100).toFixed(1) 
                                                 : 0}% of total
@@ -336,22 +336,22 @@ export default function RevenueDashboardPage() {
                                             <div className="space-y-2">
                                                 {categoryData.topArticles.length > 0 ? (
                                                     categoryData.topArticles.map((article, idx) => (
-                                                        <div key={article.articleId} className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900 rounded-lg">
+                                                        <div key={article.articleId} className="flex items-center justify-between p-3 bg-slate-50 dark:bg-surface-darker dark:bg-surface-darker rounded-lg">
                                                             <div className="flex items-center gap-3">
-                                                                <span className="text-sm font-medium text-slate-500">#{idx + 1}</span>
-                                                                <FileText className="w-4 h-4 text-slate-400" />
+                                                                <span className="text-sm font-medium text-muted-foreground/70 dark:text-muted-foreground/70">#{idx + 1}</span>
+                                                                <FileText className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
                                                                 <span className="font-medium">{article.articleTitle}</span>
                                                             </div>
                                                             <div className="flex items-center gap-4">
                                                                 <div className="text-right">
                                                                     <div className="font-semibold">{formatCurrency(article.revenue)}</div>
-                                                                    <div className="text-xs text-slate-500">{article.conversions} conversions</div>
+                                                                    <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">{article.conversions} conversions</div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     ))
                                                 ) : (
-                                                    <p className="text-slate-500 text-sm">No articles found for this category</p>
+                                                    <p className="text-muted-foreground/70 dark:text-muted-foreground/70 text-sm">No articles found for this category</p>
                                                 )}
                                             </div>
                                         </div>
@@ -363,22 +363,22 @@ export default function RevenueDashboardPage() {
                                             <div className="space-y-2">
                                                 {categoryData.topAffiliates.length > 0 ? (
                                                     categoryData.topAffiliates.map((affiliate, idx) => (
-                                                        <div key={affiliate.affiliateId} className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900 rounded-lg">
+                                                        <div key={affiliate.affiliateId} className="flex items-center justify-between p-3 bg-slate-50 dark:bg-surface-darker dark:bg-surface-darker rounded-lg">
                                                             <div className="flex items-center gap-3">
-                                                                <span className="text-sm font-medium text-slate-500">#{idx + 1}</span>
-                                                                <Building2 className="w-4 h-4 text-slate-400" />
+                                                                <span className="text-sm font-medium text-muted-foreground/70 dark:text-muted-foreground/70">#{idx + 1}</span>
+                                                                <Building2 className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
                                                                 <span className="font-medium">{affiliate.affiliateName}</span>
                                                             </div>
                                                             <div className="flex items-center gap-4">
                                                                 <div className="text-right">
                                                                     <div className="font-semibold">{formatCurrency(affiliate.revenue)}</div>
-                                                                    <div className="text-xs text-slate-500">{affiliate.conversions} conversions</div>
+                                                                    <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">{affiliate.conversions} conversions</div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     ))
                                                 ) : (
-                                                    <p className="text-slate-500 text-sm">No affiliates found for this category</p>
+                                                    <p className="text-muted-foreground/70 dark:text-muted-foreground/70 text-sm">No affiliates found for this category</p>
                                                 )}
                                             </div>
                                         </div>
@@ -397,7 +397,7 @@ export default function RevenueDashboardPage() {
                             </CardHeader>
                             <CardContent>
                                 {topArticlesLoading ? (
-                                    <div className="text-center py-8 text-slate-500">Loading top articles...</div>
+                                    <div className="text-center py-8 text-muted-foreground/70 dark:text-muted-foreground/70">Loading top articles...</div>
                                 ) : topArticlesData?.articles && topArticlesData.articles.length > 0 ? (
                                     <div className="space-y-3">
                                         <div className="flex items-center justify-between mb-4 p-3 bg-primary-50 dark:bg-primary-900/20 rounded-lg">
@@ -410,8 +410,8 @@ export default function RevenueDashboardPage() {
                                                 </p>
                                             </div>
                                             <div className="text-right">
-                                                <p className="text-xs text-slate-500">Total Conversions</p>
-                                                <p className="text-lg font-bold text-slate-900 dark:text-white">
+                                                <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">Total Conversions</p>
+                                                <p className="text-lg font-bold text-slate-900 dark:text-foreground dark:text-foreground">
                                                     {topArticlesData.totalConversions}
                                                 </p>
                                             </div>
@@ -420,7 +420,7 @@ export default function RevenueDashboardPage() {
                                         {topArticlesData.articles.map((article: any, idx: number) => (
                                             <div
                                                 key={article.articleId}
-                                                className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-800"
+                                                className="flex items-center justify-between p-4 bg-slate-50 dark:bg-surface-darker dark:bg-surface-darker rounded-xl hover:bg-slate-100 dark:hover:bg-muted dark:bg-muted transition-colors border border-slate-200 dark:border-slate-800"
                                             >
                                                 <div className="flex items-center gap-4 flex-1">
                                                     <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center">
@@ -428,13 +428,13 @@ export default function RevenueDashboardPage() {
                                                             {idx + 1}
                                                         </span>
                                                     </div>
-                                                    <FileText className="w-5 h-5 text-slate-400 flex-shrink-0" />
+                                                    <FileText className="w-5 h-5 text-muted-foreground dark:text-muted-foreground flex-shrink-0" />
                                                     <div className="flex-1 min-w-0">
                                                         <a
                                                             href={`/article/${article.articleSlug}`}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            className="font-semibold text-slate-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 line-clamp-1 flex items-center gap-1"
+                                                            className="font-semibold text-slate-900 dark:text-foreground dark:text-foreground hover:text-primary-600 dark:hover:text-primary-400 line-clamp-1 flex items-center gap-1"
                                                         >
                                                             {article.articleTitle}
                                                             <ExternalLink className="w-3 h-3 opacity-60" />
@@ -443,7 +443,7 @@ export default function RevenueDashboardPage() {
                                                             <Badge variant="outline" className="text-xs">
                                                                 {article.category}
                                                             </Badge>
-                                                            <span className="text-xs text-slate-500">
+                                                            <span className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
                                                                 {article.views.toLocaleString()} views
                                                             </span>
                                                             {article.conversionRate > 0 && (
@@ -458,7 +458,7 @@ export default function RevenueDashboardPage() {
                                                     <div className="font-bold text-lg text-primary-600 dark:text-primary-400">
                                                         {formatCurrency(article.revenue)}
                                                     </div>
-                                                    <div className="text-xs text-slate-500 mt-1">
+                                                    <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                                         {article.conversions} {article.conversions === 1 ? 'conversion' : 'conversions'}
                                                     </div>
                                                 </div>
@@ -466,7 +466,7 @@ export default function RevenueDashboardPage() {
                                         ))}
                                     </div>
                                 ) : (
-                                    <div className="text-center py-8 text-slate-500">
+                                    <div className="text-center py-8 text-muted-foreground/70 dark:text-muted-foreground/70">
                                         <FileText className="w-12 h-12 mx-auto mb-3 opacity-40" />
                                         <p>No article conversions found for this period</p>
                                         <p className="text-xs mt-2">Articles with affiliate clicks that converted will appear here</p>

@@ -46,10 +46,10 @@ interface SEOHealthWidgetProps {
 export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetProps) {
     if (isLoading) {
         return (
-            <Card className="bg-white/[0.03] border-white/5 rounded-2xl">
+            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl">
                 <CardContent className="p-6">
                     <div className="h-40 flex items-center justify-center">
-                        <div className="animate-pulse text-slate-500">Analyzing SEO...</div>
+                        <div className="animate-pulse text-muted-foreground/70 dark:text-muted-foreground/70">Analyzing SEO...</div>
                     </div>
                 </CardContent>
             </Card>
@@ -58,9 +58,9 @@ export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetP
 
     if (!seoData) {
         return (
-            <Card className="bg-white/[0.03] border-white/5 rounded-2xl">
+            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl">
                 <CardContent className="p-6">
-                    <div className="h-40 flex items-center justify-center text-slate-500">
+                    <div className="h-40 flex items-center justify-center text-muted-foreground/70 dark:text-muted-foreground/70">
                         No SEO data available
                     </div>
                 </CardContent>
@@ -93,9 +93,9 @@ export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetP
     };
 
     return (
-        <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-            <CardHeader className="border-b border-white/5 px-6 py-4">
-                <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
+        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+            <CardHeader className="border-b border-border/50 dark:border-border/50 px-6 py-4">
+                <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                     <Search className="w-4 h-4 text-primary-400" />
                     SEO Health Score
                 </CardTitle>
@@ -138,7 +138,7 @@ export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetP
                             {seoData.overall >= 80 ? 'Excellent' : 
                              seoData.overall >= 50 ? 'Needs Work' : 'Poor'}
                         </div>
-                        <div className="text-sm text-slate-500">
+                        <div className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70">
                             {seoData.issues.length} issues • {seoData.recommendations.length} suggestions
                         </div>
                     </div>
@@ -148,8 +148,8 @@ export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetP
                 <div className="space-y-3">
                     {checks.map(check => (
                         <div key={check.key} className="flex items-center gap-3 text-sm">
-                            <check.icon className="w-4 h-4 text-slate-500" />
-                            <span className="text-slate-400 flex-1">{check.label}</span>
+                            <check.icon className="w-4 h-4 text-muted-foreground/70 dark:text-muted-foreground/70" />
+                            <span className="text-muted-foreground dark:text-muted-foreground flex-1">{check.label}</span>
                             <div className="w-24">
                                 <Progress 
                                     value={check.data.score} 
@@ -163,8 +163,8 @@ export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetP
 
                 {/* Issues */}
                 {seoData.issues.length > 0 && (
-                    <div className="pt-4 border-t border-white/5 space-y-2">
-                        <div className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">
+                    <div className="pt-4 border-t border-border/50 dark:border-border/50 space-y-2">
+                        <div className="text-xs font-bold uppercase tracking-widest text-muted-foreground/70 dark:text-muted-foreground/70 mb-3">
                             Issues
                         </div>
                         {seoData.issues.slice(0, 3).map((issue, idx) => (
@@ -174,7 +174,7 @@ export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetP
                                     "flex items-start gap-2 text-xs p-3 rounded-lg",
                                     issue.type === 'error' ? 'bg-danger-500/10 text-danger-400' :
                                     issue.type === 'warning' ? 'bg-accent-500/10 text-accent-400' :
-                                    'bg-white/5 text-slate-400'
+                                    'bg-white/5 text-muted-foreground dark:text-muted-foreground'
                                 )}
                             >
                                 {issue.type === 'error' ? <XCircle className="w-3 h-3 mt-0.5 flex-shrink-0" /> :
@@ -188,15 +188,15 @@ export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetP
 
                 {/* Recommendations */}
                 {seoData.recommendations.length > 0 && (
-                    <div className="pt-4 border-t border-white/5 space-y-2">
-                        <div className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3 flex items-center gap-2">
+                    <div className="pt-4 border-t border-border/50 dark:border-border/50 space-y-2">
+                        <div className="text-xs font-bold uppercase tracking-widest text-muted-foreground/70 dark:text-muted-foreground/70 mb-3 flex items-center gap-2">
                             <Lightbulb className="w-3 h-3" />
                             Recommendations
                         </div>
                         {seoData.recommendations.slice(0, 3).map((rec, idx) => (
                             <div 
                                 key={idx}
-                                className="text-xs text-slate-400 p-3 bg-primary-500/5 rounded-lg border border-primary-500/10"
+                                className="text-xs text-muted-foreground dark:text-muted-foreground p-3 bg-primary-500/5 rounded-lg border border-primary-500/10"
                             >
                                 {rec}
                             </div>

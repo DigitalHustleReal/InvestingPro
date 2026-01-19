@@ -50,7 +50,7 @@ export function BulkActionsBar({
     };
 
     const variantStyles = {
-        default: 'bg-slate-700 hover:bg-slate-600 text-white',
+        default: 'bg-slate-700 hover:bg-slate-600 text-foreground dark:text-foreground',
         danger: 'bg-danger-500/20 hover:bg-danger-500/30 text-danger-400 border border-danger-500/30',
         success: 'bg-primary-500/20 hover:bg-primary-500/30 text-primary-400 border border-primary-500/30'
     };
@@ -65,13 +65,13 @@ export function BulkActionsBar({
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                     className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
                 >
-                    <div className="flex items-center gap-3 px-6 py-4 bg-slate-900/95 backdrop-blur-xl border border-slate-700 rounded-2xl shadow-2xl shadow-black/50">
+                    <div className="flex items-center gap-3 px-6 py-4 bg-surface-darker dark:bg-surface-darker/95 backdrop-blur-xl border border-border dark:border-border rounded-2xl shadow-2xl shadow-black/50">
                         {/* Selection Count */}
-                        <div className="flex items-center gap-2 pr-4 border-r border-slate-700">
+                        <div className="flex items-center gap-2 pr-4 border-r border-border dark:border-border">
                             <div className="w-8 h-8 rounded-lg bg-brand-500/20 flex items-center justify-center">
                                 <CheckSquare className="w-4 h-4 text-brand-400" />
                             </div>
-                            <span className="text-sm font-medium text-white">
+                            <span className="text-sm font-medium text-foreground dark:text-foreground">
                                 {selectedIds.length} selected
                             </span>
                         </div>
@@ -107,7 +107,7 @@ export function BulkActionsBar({
                         {/* Clear Selection */}
                         <button
                             onClick={onClearSelection}
-                            className="ml-2 p-2 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-white transition-colors"
+                            className="ml-2 p-2 hover:bg-slate-700 rounded-lg text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground transition-colors"
                             title="Clear selection"
                         >
                             <X className="w-4 h-4" />

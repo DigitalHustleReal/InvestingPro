@@ -40,7 +40,7 @@ export default function AnalyticsDashboard() {
         return (
             <div className="space-y-6">
                 {[1, 2, 3].map(i => (
-                    <div key={i} className="h-32 bg-white/[0.02] rounded-2xl animate-pulse" />
+                    <div key={i} className="h-32 bg-card/50 dark:bg-card/50 rounded-2xl animate-pulse" />
                 ))}
             </div>
         );
@@ -75,7 +75,7 @@ export default function AnalyticsDashboard() {
             {/* Stats Grid */}
             <div className="grid grid-cols-3 gap-6">
                 {stats.map((stat, idx) => (
-                    <Card key={idx} className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                    <Card key={idx} className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
                         <CardContent className="p-6">
                             <div className="flex items-center justify-between mb-4">
                                 <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center", stat.bg)}>
@@ -86,10 +86,10 @@ export default function AnalyticsDashboard() {
                                     Live
                                 </Badge>
                             </div>
-                            <div className="text-3xl font-extrabold text-white tracking-tight">
+                            <div className="text-3xl font-extrabold text-foreground dark:text-foreground tracking-tight">
                                 {stat.value.toLocaleString()}
                             </div>
-                            <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1">
+                            <div className="text-xs font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest mt-1">
                                 {stat.label}
                             </div>
                         </CardContent>
@@ -98,9 +98,9 @@ export default function AnalyticsDashboard() {
             </div>
 
             {/* Top Performers */}
-            <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                <CardHeader className="border-b border-white/5 px-6 py-4">
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
+            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                <CardHeader className="border-b border-border/50 dark:border-border/50 px-6 py-4">
+                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                         <TrendingUp className="w-4 h-4 text-primary-400" />
                         Top Performing Content
                     </CardTitle>
@@ -109,29 +109,29 @@ export default function AnalyticsDashboard() {
                     {analytics?.topPerformers && analytics.topPerformers.length > 0 ? (
                         <div className="divide-y divide-white/5">
                             {analytics.topPerformers.map((article, idx) => (
-                                <div key={article.id} className="flex items-center justify-between px-6 py-4 hover:bg-white/[0.02] transition-colors">
+                                <div key={article.id} className="flex items-center justify-between px-6 py-4 hover:bg-card/50 dark:bg-card/50 transition-colors">
                                     <div className="flex items-center gap-4">
                                         <div className={cn(
                                             "w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm",
                                             idx === 0 ? "bg-accent-500/20 text-accent-400" :
-                                            idx === 1 ? "bg-slate-500/20 text-slate-400" :
+                                            idx === 1 ? "bg-slate-500/20 text-muted-foreground dark:text-muted-foreground" :
                                             idx === 2 ? "bg-accent-500/20 text-accent-400" :
-                                            "bg-white/5 text-slate-500"
+                                            "bg-white/5 text-muted-foreground/70 dark:text-muted-foreground/70"
                                         )}>
                                             {idx + 1}
                                         </div>
                                         <div>
-                                            <div className="text-sm font-semibold text-white line-clamp-1">
+                                            <div className="text-sm font-semibold text-foreground dark:text-foreground line-clamp-1">
                                                 {article.title}
                                             </div>
-                                            <div className="text-xs text-slate-500 capitalize">
+                                            <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 capitalize">
                                                 {article.category?.replace(/-/g, ' ')}
                                             </div>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <Eye className="w-4 h-4 text-slate-500" />
-                                        <span className="text-sm font-bold text-white">
+                                        <Eye className="w-4 h-4 text-muted-foreground/70 dark:text-muted-foreground/70" />
+                                        <span className="text-sm font-bold text-foreground dark:text-foreground">
                                             {article.views.toLocaleString()}
                                         </span>
                                     </div>
@@ -139,8 +139,8 @@ export default function AnalyticsDashboard() {
                             ))}
                         </div>
                     ) : (
-                        <div className="py-12 text-center text-slate-500">
-                            <Sparkles className="w-8 h-8 mx-auto mb-3 text-slate-600" />
+                        <div className="py-12 text-center text-muted-foreground/70 dark:text-muted-foreground/70">
+                            <Sparkles className="w-8 h-8 mx-auto mb-3 text-muted-foreground/50 dark:text-muted-foreground/50" />
                             <p className="text-sm font-medium">No published articles yet</p>
                         </div>
                     )}
@@ -148,9 +148,9 @@ export default function AnalyticsDashboard() {
             </Card>
 
             {/* Category Breakdown */}
-            <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                <CardHeader className="border-b border-white/5 px-6 py-4">
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
+            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                <CardHeader className="border-b border-border/50 dark:border-border/50 px-6 py-4">
+                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                         <BarChart3 className="w-4 h-4 text-primary-400" />
                         Category Performance
                     </CardTitle>
@@ -165,10 +165,10 @@ export default function AnalyticsDashboard() {
                                 return (
                                     <div key={cat.category} className="space-y-2">
                                         <div className="flex items-center justify-between text-sm">
-                                            <span className="text-slate-300 capitalize font-medium">
+                                            <span className="text-foreground/80 dark:text-foreground/80 capitalize font-medium">
                                                 {cat.category?.replace(/-/g, ' ') || 'Uncategorized'}
                                             </span>
-                                            <span className="text-slate-500">
+                                            <span className="text-muted-foreground/70 dark:text-muted-foreground/70">
                                                 {cat.articleCount} articles â€¢ {cat.totalViews.toLocaleString()} views
                                             </span>
                                         </div>
@@ -183,7 +183,7 @@ export default function AnalyticsDashboard() {
                             })}
                         </div>
                     ) : (
-                        <div className="text-center text-slate-500 py-8">
+                        <div className="text-center text-muted-foreground/70 dark:text-muted-foreground/70 py-8">
                             No category data available
                         </div>
                     )}

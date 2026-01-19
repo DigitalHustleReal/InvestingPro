@@ -165,7 +165,7 @@ export default function SEOScoreCalculator({
             <CardContent className="space-y-4">
                 <div>
                     <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm text-slate-600">Overall Score</span>
+                        <span className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">Overall Score</span>
                         <span className={`text-2xl font-bold ${getScoreColor(analysis.score)}`}>
                             {analysis.score}
                         </span>
@@ -175,19 +175,19 @@ export default function SEOScoreCalculator({
 
                 <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
-                        <span className="text-slate-600">Words:</span>
+                        <span className="text-muted-foreground/50 dark:text-muted-foreground/50">Words:</span>
                         <span className="ml-2 font-medium">{analysis.wordCount}</span>
                     </div>
                     <div>
-                        <span className="text-slate-600">Characters:</span>
+                        <span className="text-muted-foreground/50 dark:text-muted-foreground/50">Characters:</span>
                         <span className="ml-2 font-medium">{analysis.charCount.toLocaleString()}</span>
                     </div>
                     <div>
-                        <span className="text-slate-600">H2 Headings:</span>
+                        <span className="text-muted-foreground/50 dark:text-muted-foreground/50">H2 Headings:</span>
                         <span className="ml-2 font-medium">{analysis.h2Count}</span>
                     </div>
                     <div>
-                        <span className="text-slate-600">Links:</span>
+                        <span className="text-muted-foreground/50 dark:text-muted-foreground/50">Links:</span>
                         <span className="ml-2 font-medium">{analysis.linkCount}</span>
                     </div>
                 </div>
@@ -203,7 +203,7 @@ export default function SEOScoreCalculator({
                             )}
                             <div className="flex-1">
                                 <span className="font-medium">{check.label}:</span>
-                                <span className="ml-2 text-slate-600">{check.message}</span>
+                                <span className="ml-2 text-muted-foreground/50 dark:text-muted-foreground/50">{check.message}</span>
                             </div>
                         </div>
                     ))}

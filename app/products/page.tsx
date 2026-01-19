@@ -6,7 +6,7 @@ import SEOHead from '@/components/common/SEOHead';
 import ProductCategoryTabs from '@/components/products/ProductCategoryTabs';
 import SuggestedComparisons from '@/components/products/SuggestedComparisons';
 
-export const revalidate = 60; // Revalidate every minute
+export const revalidate = 3600; // Revalidate every hour (product data changes infrequently)
 
 export default async function ProductsPage({
     searchParams,

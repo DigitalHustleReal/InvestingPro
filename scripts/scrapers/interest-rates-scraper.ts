@@ -91,7 +91,7 @@ export async function scrapeFDRates(): Promise<FDRate[]> {
     logger.info(`Scraped ${allRates.length} FD rates`);
     return allRates;
   } catch (error) {
-    logger.error('Error scraping FD rates', error);
+    logger.error('Error scraping FD rates', error as Error);
     return [];
   }
 }
@@ -137,7 +137,7 @@ export async function scrapeSavingsRates(): Promise<SavingsRate[]> {
     logger.info(`Scraped ${rates.length} savings rates`);
     return rates;
   } catch (error) {
-    logger.error('Error scraping savings rates', error);
+    logger.error('Error scraping savings rates', error as Error);
     return [];
   }
 }

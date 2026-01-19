@@ -283,7 +283,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                             <CardContent>
                                 <div className="space-y-3">
                                     <div className="flex justify-between mb-2">
-                                        <p className="text-sm text-slate-500">Add key-value pairs for the feature grid (e.g. "Annual Fee": "₹500")</p>
+                                        <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70">Add key-value pairs for the feature grid (e.g. "Annual Fee": "₹500")</p>
                                         <Button type="button" size="sm" variant="outline" onClick={addFeature}><Plus className="w-3 h-3 mr-1"/> Add Feature</Button>
                                     </div>
                                     {featureList.map((feature, idx) => (
@@ -307,7 +307,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                             <div>
                                 <label className="block text-sm font-medium text-slate-700 mb-2">Affiliate Link (Tracking)</label>
                                 <Input value={formData.affiliate_link} onChange={(e) => setFormData(prev => ({ ...prev, affiliate_link: e.target.value }))} placeholder="https://..." />
-                                <p className="text-xs text-slate-500 mt-1">This is the monetization link users will click.</p>
+                                <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">This is the monetization link users will click.</p>
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-slate-700 mb-2">Official Page URL (Non-Affiliate)</label>
@@ -325,12 +325,12 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                             <div>
                                 <label className="block text-sm font-medium text-slate-700 mb-2">Meta Title</label>
                                 <Input value={formData.meta_title} onChange={(e) => setFormData(prev => ({ ...prev, meta_title: e.target.value }))} />
-                                <p className="text-xs text-slate-500 mt-1">{formData.meta_title.length}/60</p>
+                                <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">{formData.meta_title.length}/60</p>
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-slate-700 mb-2">Meta Description</label>
                                 <textarea value={formData.meta_description} onChange={(e) => setFormData(prev => ({ ...prev, meta_description: e.target.value }))} className="w-full px-3 py-2 border border-slate-200 rounded-lg" rows={3}/>
-                                <p className="text-xs text-slate-500 mt-1">{formData.meta_description.length}/160</p>
+                                <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">{formData.meta_description.length}/160</p>
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-slate-700 mb-2">Canonical URL</label>

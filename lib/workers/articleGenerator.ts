@@ -73,6 +73,10 @@ export interface GeneratedArticleResult {
     status: 'draft';
     ai_metadata: any;
     structured_content: any;
+    quality_score?: number;
+    quality_metrics?: any;
+    fact_check_result?: any;
+    readability_metrics?: any;
 }
 
 /**
@@ -107,7 +111,52 @@ export async function generateArticleContent(params: ArticleGenerationParams): P
             prompt 
         } = params;
 
-        const wordCount = explicitWordCount || (contentLength === 'comprehensive' ? 2000 : contentLength === 'detailed' ? 1500 : 1000);
+        // Initialize word count (mutable)
+        let wordCount = explicitWordCount || (contentLength === 'comprehensive' ? 2000 : contentLength === 'detailed' ? 1500 : 1000);
+
+        // --- PHASE 4: KEYWORD RESEARCH ---
+        let enrichedKeywords = [...targetKeywords];
+        try {
+            const { researchKeywords } = await import('@/lib/seo/keyword-researcher');
+            const keywordData = await researchKeywords(topic, category);
+            
+            // Enrich keywords with LSI and secondary
+            enrichedKeywords = [...new Set([
+                ...targetKeywords, 
+                keywordData.primary, 
+                ...keywordData.lsi.slice(0, 5),
+                ...keywordData.secondary.slice(0, 3)
+            ])];
+            
+            logger.info('Enriched keywords', { count: enrichedKeywords.length, added: enrichedKeywords.length - targetKeywords.length });
+        } catch (error) {
+            logger.warn('Keyword enrichment failed', error as Error);
+        }
+        // --- END PHASE 4 ---
+
+        // --- NEW: SERP ANALYSIS FOR WORD COUNT ---
+        // If word count wasn't explicitly set by the caller (e.g. strict requirement),
+        // calculate it based on SERP analysis + 20-30% competitive buffer.
+        if (!explicitWordCount) {
+             try {
+                 const { analyzeSerpForWordCount } = await import('@/lib/seo/serp-analyzer');
+                 const serpResult = await analyzeSerpForWordCount(topic, enrichedKeywords);
+                 
+                 // Apply the user's rule: "depend on SERP analysis and 20-30% more than them"
+                 // The analyzer already returns avg * 1.25 as targetWordCount
+                 wordCount = serpResult.targetWordCount;
+                 
+                 logger.info('Dynamic Word Count Calculation', {
+                     topic,
+                     serpAverage: serpResult.averageWordCount,
+                     target: wordCount,
+                     competitors: serpResult.topCompetitors?.length
+                 });
+             } catch (serpError) {
+                 logger.warn('SERP Analysis for word count failed, using defaults', serpError as Error);
+             }
+        }
+        // --- END SERP ANALYSIS ---
 
         // Build data sources
         const dataSources = [{
@@ -161,7 +210,7 @@ export async function generateArticleContent(params: ArticleGenerationParams): P
                 category: financeCategory,
                 subcategory,
                 topic,
-                keywords: targetKeywords,
+                keywords: enrichedKeywords,
                 targetAudience,
                 wordCount
             });
@@ -186,7 +235,7 @@ Category: ${category}
 Target Audience: ${targetAudience}
 Content Length: ${contentLength}
 Word Count Target: ${wordCount}
-Keywords: ${targetKeywords.join(', ') || ''}
+Keywords: ${enrichedKeywords.join(', ') || ''}
 
 CRITICAL: You MUST respond with ONLY valid JSON in this exact structure:
 {
@@ -231,7 +280,7 @@ Return ONLY valid JSON.
             contextData: {
                 topic,
                 category,
-                targetKeywords,
+                keywords: enrichedKeywords,
                 targetAudience,
                 usesDynamicPrompts: !!systemPrompt
             }
@@ -254,12 +303,13 @@ Return ONLY valid JSON.
             structuredContent = generatedContent;
         }
 
-        // Generate featured image with automated, precise, theme-related prompts
-        const { generateFeaturedImageQuick } = await import('@/lib/automation/image-pipeline');
-        const featuredImage = await generateFeaturedImageQuick({
-            articleTitle: structuredContent.title || topic,
+        // --- PHASE 1: FEATURED IMAGE ---
+        // Generate featured image with Flux.1
+        const { generateFeaturedImage } = await import('@/lib/visuals/featured-image-generator');
+        const featuredImage = await generateFeaturedImage({
+            title: structuredContent.title || topic,
             category: category,
-            keywords: targetKeywords
+            keywords: enrichedKeywords
         });
 
         // Normalize HTML
@@ -292,7 +342,7 @@ Return ONLY valid JSON.
             const affLinks = await generateContextualLinks({
                 contentType: 'article',
                 category: category,
-                keywords: targetKeywords,
+                keywords: enrichedKeywords,
                 position: 'cta'
             });
 
@@ -331,6 +381,54 @@ Return ONLY valid JSON.
 
         const markdownContent = htmlContent ? htmlToMarkdown(htmlContent) : '';
 
+        // --- PHASE 2, 3, 5: QUALITY CHECKS ---
+        let qualityScore;
+        let qualityMetrics;
+        let readabilityMetrics;
+        let factCheckResult;
+
+        try {
+            // Import quality modules
+            const { scoreArticleQuality } = await import('@/lib/content/quality-scorer');
+            const { calculateReadability } = await import('@/lib/content/readability-analyzer');
+            const { factCheckArticle } = await import('@/lib/content/fact-checker');
+
+            const articleData = {
+                title: structuredContent.title || generatedContent.title || topic,
+                content: htmlContent,
+                excerpt: structuredContent.excerpt || generatedContent.excerpt || '',
+                keywords: enrichedKeywords,
+                meta_title: structuredContent.seo_title || generatedContent.seo_title,
+                meta_description: structuredContent.seo_description || generatedContent.seo_description,
+                featured_image: featuredImage,
+                category: category
+            };
+
+            // Run checks relative independently
+            const qualityData = scoreArticleQuality(articleData);
+            const readabilityData = calculateReadability(htmlContent);
+            const factData = await factCheckArticle({
+                title: articleData.title,
+                content: htmlContent,
+                category: category
+            });
+
+            qualityScore = qualityData.overall;
+            qualityMetrics = qualityData;
+            readabilityMetrics = readabilityData;
+            factCheckResult = factData;
+
+            logger.info('Quality checks complete', { 
+                score: qualityScore, 
+                readability: readabilityData.fleschEase,
+                factCheck: factData.passed 
+            });
+
+        } catch (qualityError) {
+            logger.error('Quality checks failed', qualityError as Error);
+        }
+        // --- END QUALITY CHECKS ---
+
         return {
             title: structuredContent.title || generatedContent.title || topic,
             slug: (structuredContent.title || generatedContent.title || topic)
@@ -342,19 +440,26 @@ Return ONLY valid JSON.
             excerpt: structuredContent.excerpt || generatedContent.excerpt || '',
             featured_image: featuredImage || undefined,
             seo_title: structuredContent.seo_title || generatedContent.seo_title || structuredContent.title || topic,
-            meta_description: structuredContent.seo_description || generatedContent.seo_description || '',
-            keywords: targetKeywords,
+                meta_description: structuredContent.seo_description || generatedContent.seo_description || '',
+            keywords: enrichedKeywords,
             category: category,
             tags: structuredContent.tags || generatedContent.tags || [],
             read_time: structuredContent.read_time || generatedContent.read_time || 5,
             word_count: wordCount,
             status: 'draft',
-            ai_metadata: generatedContent.ai_metadata,
-            structured_content: structuredContent
+            ai_metadata: {
+                ...generatedContent.ai_metadata,
+                enriched_keywords: enrichedKeywords,
+                prompt_used: userPrompt ? 'dynamic' : 'static'
+            },
+            structured_content: structuredContent,
+            quality_score: qualityScore,
+            quality_metrics: qualityMetrics,
+            readability_metrics: readabilityMetrics,
+            fact_check_result: factCheckResult
         };
     } catch (error) {
         logger.error('Worker Article Generation Error', error as Error);
         throw error;
     }
 }
-

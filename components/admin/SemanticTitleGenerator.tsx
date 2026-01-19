@@ -91,12 +91,12 @@ export default function SemanticTitleGenerator({
             case 'power-word':
                 return 'bg-accent-100 text-accent-800 dark:bg-accent-900 dark:text-accent-200';
             default:
-                return 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200';
+                return 'bg-slate-100 text-slate-800 dark:bg-muted dark:bg-muted dark:text-foreground/90 dark:text-foreground/90';
         }
     };
 
     const getScoreColor = (score?: number) => {
-        if (!score) return 'text-slate-500';
+        if (!score) return 'text-muted-foreground/70 dark:text-muted-foreground/70';
         if (score >= 80) return 'text-success-600 dark:text-success-400';
         if (score >= 60) return 'text-accent-600 dark:text-accent-400';
         return 'text-danger-600 dark:text-danger-400';
@@ -119,8 +119,8 @@ export default function SemanticTitleGenerator({
             </CardHeader>
             <CardContent className="space-y-4">
                 {/* Original Title Display */}
-                <div className="p-6 md:p-8 bg-slate-50 dark:bg-slate-800 rounded-lg">
-                    <Label className="text-xs text-slate-500 mb-1">Original Title</Label>
+                <div className="p-6 md:p-8 bg-slate-50 dark:bg-muted dark:bg-muted rounded-lg">
+                    <Label className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mb-1">Original Title</Label>
                     <p className="font-medium">{originalTitle}</p>
                 </div>
 
@@ -158,7 +158,7 @@ export default function SemanticTitleGenerator({
                                         className={`p-4 border rounded-lg transition-all ${
                                             isSelected
                                                 ? 'border-secondary-500 bg-secondary-50 dark:bg-primary-950'
-                                                : 'border-slate-200 dark:border-slate-700 hover:border-secondary-300 hover:bg-slate-50 dark:hover:bg-slate-800'
+                                                : 'border-slate-200 dark:border-border dark:border-border hover:border-secondary-300 hover:bg-slate-50 dark:hover:bg-muted dark:bg-muted'
                                         }`}
                                     >
                                         <div className="flex items-start justify-between gap-3">
@@ -174,7 +174,7 @@ export default function SemanticTitleGenerator({
                                                         {variation.variation_type}
                                                     </Badge>
                                                 </div>
-                                                <div className="flex gap-4 text-xs text-slate-600 dark:text-slate-400">
+                                                <div className="flex gap-4 text-xs text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">
                                                     {variation.seo_score !== undefined && (
                                                         <div className="flex items-center gap-1">
                                                             <TrendingUp className="w-3 h-3" />

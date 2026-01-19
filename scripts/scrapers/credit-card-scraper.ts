@@ -41,7 +41,7 @@ export async function scrapeHDFC(): Promise<ScrapedCreditCard[]> {
         logger.warn('HDFC scraping not yet implemented - requires Playwright');
         return [];
     } catch (error) {
-        logger.error('Error scraping HDFC', error);
+        logger.error('Error scraping HDFC', error as Error);
         return [];
     }
 }
@@ -55,7 +55,7 @@ export async function scrapeSBI(): Promise<ScrapedCreditCard[]> {
         logger.warn('SBI scraping not yet implemented - requires Playwright');
         return [];
     } catch (error) {
-        logger.error('Error scraping SBI', error);
+        logger.error('Error scraping SBI', error as Error);
         return [];
     }
 }
@@ -69,7 +69,7 @@ export async function scrapeICICI(): Promise<ScrapedCreditCard[]> {
         logger.warn('ICICI scraping not yet implemented - requires Playwright');
         return [];
     } catch (error) {
-        logger.error('Error scraping ICICI', error);
+        logger.error('Error scraping ICICI', error as Error);
         return [];
     }
 }
@@ -83,7 +83,7 @@ export async function scrapeAxis(): Promise<ScrapedCreditCard[]> {
         logger.warn('Axis scraping not yet implemented - requires Playwright');
         return [];
     } catch (error) {
-        logger.error('Error scraping Axis', error);
+        logger.error('Error scraping Axis', error as Error);
         return [];
     }
 }
@@ -108,7 +108,7 @@ export async function scrapeBankBazaar(): Promise<ScrapedCreditCard[]> {
         logger.warn('BankBazaar scraping not yet implemented - requires HTML parser');
         return [];
     } catch (error) {
-        logger.error('Error scraping BankBazaar', error);
+        logger.error('Error scraping BankBazaar', error as Error);
         return [];
     }
 }
@@ -127,7 +127,7 @@ export async function scrapeAllCreditCards(): Promise<ScrapedCreditCard[]> {
         results.push(...hdfc);
         logger.info(`Scraped ${hdfc.length} cards from HDFC`);
     } catch (error) {
-        logger.error('Failed to scrape HDFC', error);
+        logger.error('Failed to scrape HDFC', error as Error);
     }
 
     try {
@@ -135,7 +135,7 @@ export async function scrapeAllCreditCards(): Promise<ScrapedCreditCard[]> {
         results.push(...sbi);
         logger.info(`Scraped ${sbi.length} cards from SBI`);
     } catch (error) {
-        logger.error('Failed to scrape SBI', error);
+        logger.error('Failed to scrape SBI', error as Error);
     }
 
     try {
@@ -143,7 +143,7 @@ export async function scrapeAllCreditCards(): Promise<ScrapedCreditCard[]> {
         results.push(...icici);
         logger.info(`Scraped ${icici.length} cards from ICICI`);
     } catch (error) {
-        logger.error('Failed to scrape ICICI', error);
+        logger.error('Failed to scrape ICICI', error as Error);
     }
 
     try {
@@ -151,7 +151,7 @@ export async function scrapeAllCreditCards(): Promise<ScrapedCreditCard[]> {
         results.push(...axis);
         logger.info(`Scraped ${axis.length} cards from Axis`);
     } catch (error) {
-        logger.error('Failed to scrape Axis', error);
+        logger.error('Failed to scrape Axis', error as Error);
     }
 
     // Scrape from aggregators
@@ -160,7 +160,7 @@ export async function scrapeAllCreditCards(): Promise<ScrapedCreditCard[]> {
         results.push(...bankBazaar);
         logger.info(`Scraped ${bankBazaar.length} cards from BankBazaar`);
     } catch (error) {
-        logger.error('Failed to scrape BankBazaar', error);
+        logger.error('Failed to scrape BankBazaar', error as Error);
     }
 
     logger.info(`Total credit cards scraped: ${results.length}`);

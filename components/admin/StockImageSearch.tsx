@@ -59,7 +59,7 @@ export default function StockImageSearch({ onSelect, onClose }: StockImageSearch
         try {
             // Show loading state
             const loadingToast = document.createElement('div');
-            loadingToast.className = 'fixed top-4 right-4 bg-primary-600 text-white px-4 py-2 rounded-lg shadow-lg z-50';
+            loadingToast.className = 'fixed top-4 right-4 bg-primary-600 text-foreground dark:text-foreground px-4 py-2 rounded-lg shadow-lg z-50';
             loadingToast.textContent = 'Downloading image...';
             document.body.appendChild(loadingToast);
 
@@ -92,7 +92,7 @@ export default function StockImageSearch({ onSelect, onClose }: StockImageSearch
 
             // Update loading message
             loadingToast.textContent = 'Image added successfully!';
-            loadingToast.className = 'fixed top-4 right-4 bg-success-600 text-white px-4 py-2 rounded-lg shadow-lg z-50';
+            loadingToast.className = 'fixed top-4 right-4 bg-success-600 text-foreground dark:text-foreground px-4 py-2 rounded-lg shadow-lg z-50';
             
             setTimeout(() => {
                 if (document.body.contains(loadingToast)) {
@@ -121,7 +121,7 @@ export default function StockImageSearch({ onSelect, onClose }: StockImageSearch
             {/* Search Bar */}
             <form onSubmit={handleSearch} className="flex gap-2">
                 <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
                     <Input
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
@@ -145,12 +145,12 @@ export default function StockImageSearch({ onSelect, onClose }: StockImageSearch
                 <TabsContent value="pexels" className="mt-4">
                     {pexelsLoading ? (
                         <div className="flex items-center justify-center py-12">
-                            <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
+                            <Loader2 className="w-8 h-8 animate-spin text-muted-foreground dark:text-muted-foreground" />
                         </div>
                     ) : pexelsImages.length === 0 ? (
                         <Card className="p-6 md:p-8 text-center">
-                            <ImageIcon className="w-12 h-12 text-slate-400 mx-auto mb-4" />
-                            <p className="text-slate-600">No images found. Try a different search term.</p>
+                            <ImageIcon className="w-12 h-12 text-muted-foreground dark:text-muted-foreground mx-auto mb-4" />
+                            <p className="text-muted-foreground/50 dark:text-muted-foreground/50">No images found. Try a different search term.</p>
                         </Card>
                     ) : (
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -167,14 +167,14 @@ export default function StockImageSearch({ onSelect, onClose }: StockImageSearch
                                             className="w-full h-full object-cover"
                                         />
                                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                                            <Download className="w-6 h-6 text-white" />
+                                            <Download className="w-6 h-6 text-foreground dark:text-foreground" />
                                         </div>
                                     </div>
                                     <div className="p-3">
                                         <p className="text-xs font-medium text-slate-900 truncate" title={image.name}>
                                             {image.name}
                                         </p>
-                                        <p className="text-xs text-slate-500 mt-1">
+                                        <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                             by {image.photographer}
                                         </p>
                                     </div>
@@ -188,12 +188,12 @@ export default function StockImageSearch({ onSelect, onClose }: StockImageSearch
                 <TabsContent value="unsplash" className="mt-4">
                     {unsplashLoading ? (
                         <div className="flex items-center justify-center py-12">
-                            <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
+                            <Loader2 className="w-8 h-8 animate-spin text-muted-foreground dark:text-muted-foreground" />
                         </div>
                     ) : unsplashImages.length === 0 ? (
                         <Card className="p-6 md:p-8 text-center">
-                            <ImageIcon className="w-12 h-12 text-slate-400 mx-auto mb-4" />
-                            <p className="text-slate-600">No images found. Try a different search term.</p>
+                            <ImageIcon className="w-12 h-12 text-muted-foreground dark:text-muted-foreground mx-auto mb-4" />
+                            <p className="text-muted-foreground/50 dark:text-muted-foreground/50">No images found. Try a different search term.</p>
                         </Card>
                     ) : (
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -210,14 +210,14 @@ export default function StockImageSearch({ onSelect, onClose }: StockImageSearch
                                             className="w-full h-full object-cover"
                                         />
                                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                                            <Download className="w-6 h-6 text-white" />
+                                            <Download className="w-6 h-6 text-foreground dark:text-foreground" />
                                         </div>
                                     </div>
                                     <div className="p-3">
                                         <p className="text-xs font-medium text-slate-900 truncate" title={image.name}>
                                             {image.name}
                                         </p>
-                                        <p className="text-xs text-slate-500 mt-1">
+                                        <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                             by {image.photographer}
                                         </p>
                                     </div>
@@ -229,7 +229,7 @@ export default function StockImageSearch({ onSelect, onClose }: StockImageSearch
             </Tabs>
 
             {/* Attribution Info */}
-            <div className="text-xs text-slate-500 p-4 bg-slate-50 rounded-lg">
+            <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 p-4 bg-slate-50 rounded-lg">
                 <p className="font-semibold mb-1">Image Licensing:</p>
                 <p>Pexels and Unsplash images are free to use. Attribution is automatically added to image metadata.</p>
             </div>

@@ -308,7 +308,7 @@ export default function AIContentGenerator() {
                             </div>
                         )}
                         {jobStatus === 'queued' || jobStatus === 'running' ? (
-                            <div className="text-xs text-slate-600 mt-1">
+                            <div className="text-xs text-muted-foreground/50 dark:text-muted-foreground/50 mt-1">
                                 Job ID: {jobId}
                             </div>
                         ) : null}
@@ -328,8 +328,8 @@ export default function AIContentGenerator() {
                                 {/* Structured Content Info */}
                                 {generatedContent.article.structured_content && (
                                     <div className="space-y-1">
-                                        <span className="text-xs font-semibold text-slate-600">Structured Content:</span>
-                                        <div className="text-xs text-slate-600 space-y-1">
+                                        <span className="text-xs font-semibold text-muted-foreground/50 dark:text-muted-foreground/50">Structured Content:</span>
+                                        <div className="text-xs text-muted-foreground/50 dark:text-muted-foreground/50 space-y-1">
                                             <div>• {generatedContent.article.structured_content.headings?.length || 0} headings</div>
                                             <div>• {generatedContent.article.structured_content.sections?.length || 0} sections</div>
                                             {generatedContent.article.structured_content.tables && generatedContent.article.structured_content.tables.length > 0 && (

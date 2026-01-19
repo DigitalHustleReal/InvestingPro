@@ -485,7 +485,7 @@ Include features, benefits, and value proposition`;
                                 }`}
                             >
                                 <div className="font-semibold text-slate-900 mb-1">{style.label}</div>
-                                <div className="text-sm text-slate-600">{style.description}</div>
+                                <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">{style.description}</div>
                             </button>
                         ))}
                     </div>
@@ -534,7 +534,7 @@ Include features, benefits, and value proposition`;
                                     title={type.description}
                                 >
                                     <Icon className={`w-6 h-6 mx-auto mb-2 ${
-                                        selectedContentType === type.id ? 'text-primary-600' : 'text-slate-500'
+                                        selectedContentType === type.id ? 'text-primary-600' : 'text-muted-foreground/70 dark:text-muted-foreground/70'
                                     }`} />
                                     <div className={`text-sm font-medium ${
                                         selectedContentType === type.id ? 'text-secondary-900' : 'text-slate-700'
@@ -763,7 +763,7 @@ Include features, benefits, and value proposition`;
                         <Info className="w-5 h-5 text-primary-600 mt-0.5" />
                         <div className="flex-1">
                             <div className="font-semibold text-slate-900 mb-1">AI Model Information</div>
-                            <div className="text-sm text-slate-600 space-y-1">
+                            <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 space-y-1">
                                 <p><strong>Model:</strong> GPT-4o-mini (Financial Expert Training)</p>
                                 <p><strong>Training:</strong> Specialized prompts for Indian financial content</p>
                                 <p><strong>Expertise:</strong> Mutual Funds, Stocks, Insurance, Loans, Tax Planning</p>

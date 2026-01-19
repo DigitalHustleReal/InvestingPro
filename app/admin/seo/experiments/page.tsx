@@ -53,7 +53,7 @@ export default function SEOExperimentsPage() {
                             <FlaskConical className="w-8 h-8 text-secondary-600" />
                             Title A/B Experiments
                         </h1>
-                        <p className="text-slate-500">Optimize headlines to maximize Click-Through Rate (CTR).</p>
+                        <p className="text-muted-foreground/70 dark:text-muted-foreground/70">Optimize headlines to maximize Click-Through Rate (CTR).</p>
                     </div>
                     <Button onClick={() => setNewTestOpen(true)} className="bg-secondary-600 hover:bg-secondary-700">
                         <Plus className="w-4 h-4 mr-2" />
@@ -70,15 +70,15 @@ export default function SEOExperimentsPage() {
                                     <Badge variant={exp.status === 'running' ? 'default' : 'secondary'} className={exp.status === 'running' ? 'bg-success-600' : ''}>
                                         {exp.status === 'running' ? 'Active' : 'Paused'}
                                     </Badge>
-                                    <span className="text-xs text-slate-500 ml-3">Running for {exp.daysRunning} days</span>
+                                    <span className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 ml-3">Running for {exp.daysRunning} days</span>
                                 </div>
                                 <div className="flex gap-2">
                                     {exp.status === 'running' ? (
-                                        <Button size="icon" variant="ghost" className="h-8 w-8 text-slate-400 hover:text-slate-600">
+                                        <Button size="icon" variant="ghost" className="h-8 w-8 text-muted-foreground dark:text-muted-foreground hover:text-muted-foreground/50 dark:text-muted-foreground/50">
                                             <Pause className="w-4 h-4" />
                                         </Button>
                                     ) : (
-                                        <Button size="icon" variant="ghost" className="h-8 w-8 text-slate-400 hover:text-success-600">
+                                        <Button size="icon" variant="ghost" className="h-8 w-8 text-muted-foreground dark:text-muted-foreground hover:text-success-600">
                                             <Play className="w-4 h-4" />
                                         </Button>
                                     )}
@@ -95,15 +95,15 @@ export default function SEOExperimentsPage() {
                                         return (
                                             <div key={variant.id} className={`relative p-3 rounded-lg border ${isWinner ? 'border-success-200 bg-success-50' : 'border-slate-100 bg-white'}`}>
                                                 {isWinner && (
-                                                    <div className="absolute -right-2 -top-2 bg-success-500 text-white p-1 rounded-full shadow-sm">
+                                                    <div className="absolute -right-2 -top-2 bg-success-500 text-foreground dark:text-foreground p-1 rounded-full shadow-sm">
                                                         <TrendingUp className="w-3 h-3" />
                                                     </div>
                                                 )}
                                                 <div className="flex justify-between items-start mb-2">
-                                                    <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                                                    <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                                                         {variant.isControl ? 'Control (A)' : `Variant (${String.fromCharCode(66 + idx - 1)})`}
                                                     </span>
-                                                    <span className={`text-sm font-bold ${isWinner ? 'text-success-700' : 'text-slate-600'}`}>
+                                                    <span className={`text-sm font-bold ${isWinner ? 'text-success-700' : 'text-muted-foreground/50 dark:text-muted-foreground/50'}`}>
                                                         {variant.ctr}% CTR
                                                     </span>
                                                 </div>
@@ -114,7 +114,7 @@ export default function SEOExperimentsPage() {
                                                         style={{ width: `${(variant.ctr / 5) * 100}%` }} // normalized to 5% max
                                                     />
                                                 </div>
-                                                <div className="mt-2 text-[10px] text-slate-400">
+                                                <div className="mt-2 text-[10px] text-muted-foreground dark:text-muted-foreground">
                                                     {variant.impressions.toLocaleString()} impressions
                                                 </div>
                                             </div>
@@ -138,7 +138,7 @@ export default function SEOExperimentsPage() {
                         <DialogHeader>
                             <DialogTitle>Start New A/B Test</DialogTitle>
                         </DialogHeader>
-                        <div className="py-8 text-center text-slate-500">
+                        <div className="py-8 text-center text-muted-foreground/70 dark:text-muted-foreground/70">
                             <FlaskConical className="w-12 h-12 mx-auto mb-4 opacity-20" />
                             <p>Select an article and add alternate titles to test.</p>
                             <p className="text-xs mt-2">(Functionality connected to DB in next step)</p>

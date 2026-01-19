@@ -419,13 +419,13 @@ export default function EditArticlePage() {
                 <div className="flex flex-col items-center justify-center min-h-screen p-8">
                     <div className="w-full max-w-4xl space-y-4">
                         {/* Title Skeleton */}
-                        <div className="h-12 bg-slate-200 dark:bg-slate-800 rounded-lg animate-pulse" />
+                        <div className="h-12 bg-slate-200 dark:bg-muted dark:bg-muted rounded-lg animate-pulse" />
                         {/* Editor Skeleton */}
                         <div className="space-y-3">
-                            <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded animate-pulse w-3/4" />
-                            <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded animate-pulse w-full" />
-                            <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded animate-pulse w-5/6" />
-                            <div className="h-64 bg-slate-200 dark:bg-slate-800 rounded-lg animate-pulse mt-8" />
+                            <div className="h-4 bg-slate-200 dark:bg-muted dark:bg-muted rounded animate-pulse w-3/4" />
+                            <div className="h-4 bg-slate-200 dark:bg-muted dark:bg-muted rounded animate-pulse w-full" />
+                            <div className="h-4 bg-slate-200 dark:bg-muted dark:bg-muted rounded animate-pulse w-5/6" />
+                            <div className="h-64 bg-slate-200 dark:bg-muted dark:bg-muted rounded-lg animate-pulse mt-8" />
                         </div>
                     </div>
                 </div>
@@ -437,13 +437,13 @@ export default function EditArticlePage() {
         return (
             <AdminLayout>
                 <div className="flex flex-col items-center justify-center min-h-screen p-8">
-                    <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Article Not Found</h1>
-                    <p className="text-slate-600 dark:text-slate-400 mb-6">
+                    <h1 className="text-2xl font-bold text-slate-900 dark:text-foreground dark:text-foreground mb-4">Article Not Found</h1>
+                    <p className="text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mb-6">
                         {formatErrorForUI(error || new Error('Article not found'))}
                     </p>
                     <Button
                         onClick={() => router.push('/admin/articles')}
-                        className="gap-2 bg-teal-600 hover:bg-teal-700 text-white"
+                        className="gap-2 bg-teal-600 hover:bg-teal-700 text-foreground dark:text-foreground"
                     >
                         <ArrowLeft className="w-4 h-4" />
                         Back to Articles
@@ -481,14 +481,14 @@ export default function EditArticlePage() {
                 />
             }
         >
-            <div className="flex flex-col h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+            <div className="flex flex-col h-screen bg-slate-50 dark:bg-surface-darkest dark:bg-surface-darkest transition-colors duration-300">
                 {/* Header */}
-                <div className="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/50 backdrop-blur-md px-8 py-4 transition-colors duration-300">
+                <div className="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-surface-darker/50 dark:bg-surface-darker/50 backdrop-blur-md px-8 py-4 transition-colors duration-300">
                     <div className="max-w-5xl mx-auto w-full">
                         <div className="flex items-center gap-2 mb-4">
                             <Link
                                 href="/admin/articles"
-                                className="flex items-center gap-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors text-sm"
+                                className="flex items-center gap-2 text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-900 dark:text-muted-foreground dark:text-muted-foreground dark:hover:text-foreground dark:text-foreground transition-colors text-sm"
                             >
                                 <ArrowLeft className="w-4 h-4" />
                                 Back to Articles
@@ -517,7 +517,7 @@ export default function EditArticlePage() {
                                             }
                                         }}
                                         placeholder="Add title..."
-                                        className="text-3xl font-bold border-0 bg-transparent px-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-auto py-2 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 transition-colors"
+                                        className="text-3xl font-bold border-0 bg-transparent px-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-auto py-2 text-slate-900 dark:text-foreground dark:text-foreground placeholder:text-muted-foreground dark:text-muted-foreground dark:placeholder:text-muted-foreground/50 dark:text-muted-foreground/50 transition-colors"
                                         aria-invalid={!!validationErrors.title}
                                         aria-describedby={validationErrors.title ? 'title-error' : undefined}
                                     />
@@ -527,7 +527,7 @@ export default function EditArticlePage() {
                                 {/* Auto-save indicator with aria-live for screen readers */}
                                 {(isAutoSaving || hasUnsavedChanges) && (
                                     <div 
-                                        className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400"
+                                        className="flex items-center gap-2 text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground"
                                         role="status"
                                         aria-live="polite"
                                         aria-atomic="true"
@@ -553,7 +553,7 @@ export default function EditArticlePage() {
                                 <Button
                                     variant="outline"
                                     onClick={() => setShowPreview(true)}
-                                    className="gap-2 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                                    className="gap-2 border-slate-200 dark:border-border dark:border-border text-slate-700 dark:text-foreground/80 dark:text-foreground/80 hover:text-slate-900 dark:hover:text-foreground dark:text-foreground hover:bg-slate-100 dark:hover:bg-muted dark:bg-muted transition-colors"
                                     aria-label="Preview article"
                                 >
                                     <Eye className="w-4 h-4" aria-hidden="true" />
@@ -562,7 +562,7 @@ export default function EditArticlePage() {
                                 <Button
                                     onClick={handleSave}
                                     disabled={saving || isAutoSaving}
-                                    className="gap-2 bg-teal-600 hover:bg-teal-700 text-white"
+                                    className="gap-2 bg-teal-600 hover:bg-teal-700 text-foreground dark:text-foreground"
                                     aria-label="Save article (⌘S)"
                                 >
                                     {saving || isAutoSaving ? (
@@ -581,7 +581,7 @@ export default function EditArticlePage() {
                                     <Button
                                         onClick={handlePublish}
                                         disabled={publishMutation.isPending || saving || isAutoSaving}
-                                        className="gap-2 bg-secondary-600 hover:bg-secondary-700 text-white"
+                                        className="gap-2 bg-secondary-600 hover:bg-secondary-700 text-foreground dark:text-foreground"
                                         aria-label="Publish article (⌘P)"
                                     >
                                         {publishMutation.isPending ? (
@@ -603,7 +603,7 @@ export default function EditArticlePage() {
                 </div>
 
                 {/* Editor Area */}
-                <div className="flex-1 overflow-auto bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+                <div className="flex-1 overflow-auto bg-slate-50 dark:bg-surface-darkest dark:bg-surface-darkest transition-colors duration-300">
                     <div className="max-w-5xl mx-auto px-8 py-8">
                         <ArticleEditor
                             key={editorKey}

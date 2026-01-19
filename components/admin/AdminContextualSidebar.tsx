@@ -67,9 +67,9 @@ export default function AdminContextualSidebar({ activeTab, onNavigate }: Contex
     };
 
     return (
-        <div className="sticky top-[120px] h-[calc(100vh-120px)] overflow-y-auto bg-slate-950/50 border-r border-white/5 p-6">
+        <div className="sticky top-[120px] h-[calc(100vh-120px)] overflow-y-auto bg-surface-darkest dark:bg-surface-darkest/50 border-r border-border/50 dark:border-border/50 p-6">
             <div className="space-y-2">
-                <div className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-4">
+                <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70 dark:text-muted-foreground/70 mb-4">
                     {activeTab} Sections
                 </div>
                 {sections.map((section) => {
@@ -84,7 +84,7 @@ export default function AdminContextualSidebar({ activeTab, onNavigate }: Contex
                                 "w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all",
                                 isActive
                                     ? "bg-primary-500/10 text-primary-400 border border-primary-500/20"
-                                    : "text-slate-400 hover:text-white hover:bg-white/5"
+                                    : "text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground hover:bg-white/5"
                             )}
                         >
                             <Icon className="w-4 h-4" />

@@ -54,7 +54,7 @@ interface AdminTabNavigationProps {
 
 export default function AdminTabNavigation({ activeTab, onTabChange }: AdminTabNavigationProps) {
     return (
-        <div className="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-lg border-b border-white/10">
+        <div className="sticky top-0 z-40 bg-surface-darkest/95 dark:bg-surface-darkest/95 backdrop-blur-lg border-b border-border dark:border-border">
             <div className="max-w-[1920px] mx-auto px-8">
                 <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
                     {ADMIN_TABS.map((tab) => {
@@ -70,7 +70,7 @@ export default function AdminTabNavigation({ activeTab, onTabChange }: AdminTabN
                                     "border-b-2 -mb-[2px]",
                                     isActive
                                         ? "text-primary-400 border-primary-500"
-                                        : "text-slate-400 border-transparent hover:text-white hover:border-white/20"
+                                        : "text-muted-foreground dark:text-muted-foreground border-transparent hover:text-foreground dark:text-foreground hover:border-border/80 dark:border-border/80"
                                 )}
                             >
                                 <Icon className={cn(
@@ -81,7 +81,7 @@ export default function AdminTabNavigation({ activeTab, onTabChange }: AdminTabN
                                     <span className="font-bold">{tab.label}</span>
                                     <span className={cn(
                                         "text-[10px] uppercase tracking-wider transition-opacity",
-                                        isActive ? "text-primary-400/70" : "text-slate-500 group-hover:text-slate-400"
+                                        isActive ? "text-primary-400/70" : "text-muted-foreground/70 dark:text-muted-foreground/70 group-hover:text-muted-foreground dark:text-muted-foreground"
                                     )}>
                                         {tab.description}
                                     </span>

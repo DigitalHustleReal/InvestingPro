@@ -8,6 +8,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiClient as api } from '@/lib/api-client';
 // Removed articleService import - use api.entities.Article instead (client-safe)
 import { createClient } from '@/lib/supabase/client';
+import { useSearchParams, useRouter } from 'next/navigation';
 import {
     BarChart3,
     FileText,
@@ -55,10 +56,20 @@ import { cn } from "@/lib/utils";
 import AutomationControls from "@/components/admin/AutomationControls";
 
 export default function AdminPage() {
+    const searchParams = useSearchParams();
+    const router = useRouter();
     const [timeRange, setTimeRange] = useState('30d');
     const [rejectDialogOpen, setRejectDialogOpen] = useState(false);
     const [reviewToReject, setReviewToReject] = useState<string | null>(null);
-    const [activeTab, setActiveTab] = useState('overview');
+    
+    // Use URL search params for tab state (enables bookmarking/sharing)
+    const activeTab = searchParams.get('tab') || 'overview';
+    const setActiveTab = (tab: string) => {
+        const params = new URLSearchParams(searchParams.toString());
+        params.set('tab', tab);
+        router.push(`/admin?${params.toString()}`);
+    };
+    
     const [contextualSidebarCollapsed, setContextualSidebarCollapsed] = useState(false);
     const queryClient = useQueryClient();
 
@@ -349,14 +360,14 @@ export default function AdminPage() {
                 onTabChange={setActiveTab}
             />
             <div className="h-full flex flex-col">
-                <div className="px-10 py-8 border-b border-white/5 bg-white/[0.02] backdrop-blur-md">
+                <div className="px-10 py-8 border-b border-border/50 dark:border-border/50 bg-card/50 dark:bg-card/50 backdrop-blur-md">
                     {/* System Health Alert Banner */}
                     {(scraperStatus.status === 'idle' || pipelineStatus.failed > 3) && (
                         <div className="mb-6 p-4 bg-danger-500/10 border border-danger-500/30 rounded-xl flex items-center gap-4">
                             <AlertCircle className="w-5 h-5 text-danger-500 animate-pulse" />
                             <div className="flex-1">
                                 <p className="font-bold text-danger-400 text-sm">System Health Alert</p>
-                                <p className="text-xs text-slate-300 mt-0.5">
+                                <p className="text-xs text-foreground/80 dark:text-foreground/80 mt-0.5">
                                     {scraperStatus.status === 'idle' && 'Scraper Network is idle - '}
                                     {pipelineStatus.failed > 3 && `${pipelineStatus.failed} pipeline failures detected`}
                                 </p>
@@ -373,8 +384,8 @@ export default function AdminPage() {
 
                     <div className="flex items-center justify-between mb-2">
                         <div>
-                            <h1 className="text-3xl font-extrabold text-white tracking-tight mb-2">Analyze</h1>
-                            <p className="text-sm text-slate-400 font-medium tracking-wide">Orchestrating growth through data-driven precision.</p>
+                            <h1 className="text-3xl font-extrabold text-foreground dark:text-foreground tracking-tight mb-2">Analyze</h1>
+                            <p className="text-sm text-muted-foreground dark:text-muted-foreground font-medium tracking-wide">Orchestrating growth through data-driven precision.</p>
                         </div>
                         <div className="flex gap-3">
                             <Button 
@@ -384,7 +395,7 @@ export default function AdminPage() {
                                     queryClient.invalidateQueries();
                                     toast.success('Analyzing latest data vectors...');
                                 }}
-                                className="bg-white/5 border-white/10 hover:bg-white/10 text-slate-300 rounded-xl px-5"
+                                className="bg-white/5 border-border dark:border-border hover:bg-white/10 text-foreground/80 dark:text-foreground/80 rounded-xl px-5"
                                 aria-label="Refresh and re-sync all dashboard metrics"
                             >
                                 <RefreshCw className="w-4 h-4 mr-2" />
@@ -399,12 +410,12 @@ export default function AdminPage() {
                     {/* Main Stats Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
                         {[...stats, ...alertStats].slice(0, 4).map((stat, index) => (
-                            <Card key={index} className="bg-white/[0.03] border-white/5 hover:border-primary-500/30 transition-all duration-500 group relative overflow-hidden overflow-hidden rounded-2xl">
+                            <Card key={index} className="bg-card dark:bg-card border-border/50 dark:border-border/50 hover:border-primary-500/30 transition-all duration-500 group relative overflow-hidden overflow-hidden rounded-2xl">
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 blur-3xl -mr-16 -mt-16 group-hover:bg-primary-500/10 transition-colors" />
                                 <CardContent className="p-7 relative z-10">
                                     <div className="flex items-center justify-between mb-6">
                                         <div className={`w-14 h-14 rounded-2xl ${stat.color} flex items-center justify-center shadow-2xl shadow-black/20 group-hover:scale-110 transition-transform duration-500`}>
-                                            <stat.icon className="w-7 h-7 text-white" />
+                                            <stat.icon className="w-7 h-7 text-foreground dark:text-foreground" />
                                         </div>
                                         {stat.trend && (
                                             <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold ${
@@ -419,9 +430,9 @@ export default function AdminPage() {
                                             </div>
                                         )}
                                     </div>
-                                    <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">{stat.label}</p>
-                                    <p className="text-4xl font-extrabold text-white mb-2 tabular-nums tracking-tight">{stat.value}</p>
-                                    <p className="text-[11px] text-slate-400 font-bold uppercase tracking-wider flex items-center gap-2">
+                                    <p className="text-xs font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest mb-1">{stat.label}</p>
+                                    <p className="text-4xl font-extrabold text-foreground dark:text-foreground mb-2 tabular-nums tracking-tight">{stat.value}</p>
+                                    <p className="text-[11px] text-muted-foreground dark:text-muted-foreground font-bold uppercase tracking-wider flex items-center gap-2">
                                         <span className="w-1.5 h-1.5 rounded-full bg-primary-500" />
                                         {stat.change}
                                     </p>
@@ -432,9 +443,9 @@ export default function AdminPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                         {/* Scraper Status */}
-                        <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                            <CardHeader className="pb-4 border-b border-white/5 px-7">
-                                <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
+                        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                            <CardHeader className="pb-4 border-b border-border/50 dark:border-border/50 px-7">
+                                <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                                     <div className="w-8 h-8 rounded-lg bg-secondary-500/10 flex items-center justify-center">
                                         <Database className="w-4 h-4 text-secondary-400" />
                                     </div>
@@ -444,7 +455,7 @@ export default function AdminPage() {
                             <CardContent className="p-7">
                                 <div className="space-y-5">
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium text-slate-400">Cluster Status</span>
+                                        <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">Cluster Status</span>
                                         <div className={cn(
                                             "flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider",
                                             scraperStatus.status === 'running' ? 'bg-primary-500/10 text-primary-400' : 'bg-accent-500/10 text-accent-400'
@@ -457,29 +468,29 @@ export default function AdminPage() {
                                         </div>
                                     </div>
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium text-slate-400">Accuracy</span>
-                                        <span className="text-sm font-bold text-white tabular-nums">{scraperStatus.successRate || 0}%</span>
+                                        <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">Accuracy</span>
+                                        <span className="text-sm font-bold text-foreground dark:text-foreground tabular-nums">{scraperStatus.successRate || 0}%</span>
                                     </div>
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium text-slate-400">Last Telemetry</span>
-                                        <span className="text-xs font-bold text-slate-300">
+                                        <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">Last Telemetry</span>
+                                        <span className="text-xs font-bold text-foreground/80 dark:text-foreground/80">
                                             {scraperStatus.lastRun ? new Date(scraperStatus.lastRun).toLocaleTimeString() : 'No Data'}
                                         </span>
                                     </div>
                                     {scraperStatus.productsScraped && (
-                                        <div className="pt-5 border-t border-white/5">
+                                        <div className="pt-5 border-t border-border/50 dark:border-border/50">
                                             <div className="grid grid-cols-3 gap-4 text-center">
-                                                <div className="bg-white/5 p-3 rounded-xl border border-white/5">
-                                                    <div className="text-[10px] font-bold text-slate-500 uppercase mb-1">Assets</div>
-                                                    <div className="text-sm font-bold text-white tabular-nums">{scraperStatus.productsScraped}</div>
+                                                <div className="bg-white/5 p-3 rounded-xl border border-border/50 dark:border-border/50">
+                                                    <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase mb-1">Assets</div>
+                                                    <div className="text-sm font-bold text-foreground dark:text-foreground tabular-nums">{scraperStatus.productsScraped}</div>
                                                 </div>
-                                                <div className="bg-white/5 p-3 rounded-xl border border-white/5">
-                                                    <div className="text-[10px] font-bold text-slate-500 uppercase mb-1">Feed</div>
-                                                    <div className="text-sm font-bold text-white tabular-nums">{scraperStatus.reviewsScraped}</div>
+                                                <div className="bg-white/5 p-3 rounded-xl border border-border/50 dark:border-border/50">
+                                                    <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase mb-1">Feed</div>
+                                                    <div className="text-sm font-bold text-foreground dark:text-foreground tabular-nums">{scraperStatus.reviewsScraped}</div>
                                                 </div>
-                                                <div className="bg-white/5 p-3 rounded-xl border border-white/5">
-                                                    <div className="text-[10px] font-bold text-slate-500 uppercase mb-1">Rates</div>
-                                                    <div className="text-sm font-bold text-white tabular-nums">{scraperStatus.ratesScraped}</div>
+                                                <div className="bg-white/5 p-3 rounded-xl border border-border/50 dark:border-border/50">
+                                                    <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase mb-1">Rates</div>
+                                                    <div className="text-sm font-bold text-foreground dark:text-foreground tabular-nums">{scraperStatus.ratesScraped}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -489,9 +500,9 @@ export default function AdminPage() {
                         </Card>
 
                         {/* Content Pipeline */}
-                        <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                            <CardHeader className="pb-4 border-b border-white/5 px-7">
-                                <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
+                        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                            <CardHeader className="pb-4 border-b border-border/50 dark:border-border/50 px-7">
+                                <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                                     <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
                                         <Zap className="w-4 h-4 text-primary-400" />
                                     </div>
@@ -501,27 +512,27 @@ export default function AdminPage() {
                             <CardContent className="p-7">
                                 <div className="space-y-5">
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium text-slate-400">Parallel Jobs</span>
+                                        <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">Parallel Jobs</span>
                                         <span className="px-3 py-1 bg-primary-500/10 text-primary-400 text-[10px] font-bold rounded-full border border-primary-500/20">
                                             {pipelineStatus.active || 0} ACTIVE
                                         </span>
                                     </div>
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium text-slate-400">Total Outputs</span>
-                                        <span className="text-sm font-bold text-white tabular-nums">{pipelineStatus.completed || 0}</span>
+                                        <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">Total Outputs</span>
+                                        <span className="text-sm font-bold text-foreground dark:text-foreground tabular-nums">{pipelineStatus.completed || 0}</span>
                                     </div>
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium text-slate-400">Drop Rate</span>
+                                        <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">Drop Rate</span>
                                         <span className="text-sm font-bold text-danger-400 tabular-nums">{pipelineStatus.failed || 0}</span>
                                     </div>
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium text-slate-400">Avg. Cycle</span>
-                                        <span className="text-xs font-bold text-slate-300 tabular-nums">{pipelineStatus.avgTime || 'N/A'}</span>
+                                        <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">Avg. Cycle</span>
+                                        <span className="text-xs font-bold text-foreground/80 dark:text-foreground/80 tabular-nums">{pipelineStatus.avgTime || 'N/A'}</span>
                                     </div>
                                     <div className="pt-2">
                                         <Button 
                                             size="sm" 
-                                            className="w-full bg-primary-600 hover:bg-primary-700 text-white rounded-xl h-10 font-bold shadow-lg shadow-primary-600/20 transition-all border-0"
+                                            className="w-full bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground rounded-xl h-10 font-bold shadow-lg shadow-primary-600/20 transition-all border-0"
                                         >
                                             <Play className="w-4 h-4 mr-2 fill-white" />
                                             Ignite Factory
@@ -532,9 +543,9 @@ export default function AdminPage() {
                         </Card>
 
                         {/* RSS Dynamics */}
-                        <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                            <CardHeader className="pb-4 border-b border-white/5 px-7">
-                                <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
+                        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                            <CardHeader className="pb-4 border-b border-border/50 dark:border-border/50 px-7">
+                                <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                                     <div className="w-8 h-8 rounded-lg bg-accent-500/10 flex items-center justify-center">
                                         <Rss className="w-4 h-4 text-accent-400" />
                                     </div>
@@ -544,21 +555,21 @@ export default function AdminPage() {
                             <CardContent className="p-7">
                                 <div className="space-y-4">
                                     <div className="flex items-center justify-between mb-4">
-                                        <span className="text-sm font-medium text-slate-400">Sync Channels</span>
+                                        <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">Sync Channels</span>
                                         <span className="text-sm font-bold text-primary-400">
                                             {Array.isArray(rssFeeds) ? rssFeeds.filter((f: any) => f?.status === 'active').length : 0} LIVE
                                         </span>
                                     </div>
                                     <div className="space-y-3">
                                         {Array.isArray(rssFeeds) && rssFeeds.slice(0, 3).map((feed: any) => (
-                                            <div key={feed.id} className="flex items-center justify-between p-2.5 bg-white/5 rounded-xl border border-white/5">
-                                                <span className="text-xs font-bold text-slate-300 truncate flex-1">{feed.name}</span>
-                                                <Badge className="bg-white/10 text-white border-0 text-[10px] ml-2 font-bold">{feed.itemsCount || 0}</Badge>
+                                            <div key={feed.id} className="flex items-center justify-between p-2.5 bg-white/5 rounded-xl border border-border/50 dark:border-border/50">
+                                                <span className="text-xs font-bold text-foreground/80 dark:text-foreground/80 truncate flex-1">{feed.name}</span>
+                                                <Badge className="bg-white/10 text-foreground dark:text-foreground border-0 text-[10px] ml-2 font-bold">{feed.itemsCount || 0}</Badge>
                                             </div>
                                         ))}
                                     </div>
                                     <div className="pt-2">
-                                        <Button size="sm" variant="outline" className="w-full bg-white/5 border-white/10 hover:bg-white/10 text-slate-300 rounded-xl h-10 font-bold">
+                                        <Button size="sm" variant="outline" className="w-full bg-white/5 border-border dark:border-border hover:bg-white/10 text-foreground/80 dark:text-foreground/80 rounded-xl h-10 font-bold">
                                             <RefreshCw className="w-4 h-4 mr-2" />
                                             Synchronize
                                         </Button>
@@ -571,10 +582,10 @@ export default function AdminPage() {
                     {/* Visual Separator */}
                     <div className="relative mb-10">
                         <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-white/10"></div>
+                            <div className="w-full border-t border-border dark:border-border"></div>
                         </div>
                         <div className="relative flex justify-center">
-                            <span className="bg-slate-950 px-4 text-xs font-bold uppercase tracking-widest text-slate-500">
+                            <span className="bg-surface-darkest dark:bg-surface-darkest px-4 text-xs font-bold uppercase tracking-widest text-muted-foreground/70 dark:text-muted-foreground/70">
                                 {activeTab === 'overview' ? 'Overview' : 
                                  activeTab === 'content' ? 'Content' :
                                  activeTab === 'analytics' ? 'Analytics' : 
@@ -589,9 +600,9 @@ export default function AdminPage() {
                         {activeTab === 'overview' && (
                             <div className="space-y-6">
                                 {/* Social Media Metrics */}
-                                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                        <CardHeader className="border-b border-white/5 px-8 py-6">
-                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
+                                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                        <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
+                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                                 <div className="w-8 h-8 rounded-lg bg-secondary-500/10 flex items-center justify-center">
                                     <Share2 className="w-4 h-4 text-secondary-400" />
                                 </div>
@@ -601,51 +612,51 @@ export default function AdminPage() {
                         <CardContent className="p-8">
                             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                                 {socialMetrics.facebook && (
-                                    <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
+                                    <div className="text-center p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-2xl hover:bg-accent/5 dark:bg-accent/5 transition-colors group">
                                         <Facebook className="w-6 h-6 text-secondary-500 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{(socialMetrics.facebook?.followers ?? 0).toLocaleString()}</div>
-                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
+                                        <div className="text-2xl font-bold text-foreground dark:text-foreground tabular-nums mb-1">{(socialMetrics.facebook?.followers ?? 0).toLocaleString()}</div>
+                                        <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider mb-2">Followers</div>
                                         <div className="text-[10px] font-bold text-primary-400 bg-primary-400/10 px-2 py-0.5 rounded-full inline-block">
                                             +{socialMetrics.facebook.engagement}% Engagement
                                         </div>
                                     </div>
                                 )}
                                 {socialMetrics.twitter && (
-                                    <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
+                                    <div className="text-center p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-2xl hover:bg-accent/5 dark:bg-accent/5 transition-colors group">
                                         <Twitter className="w-6 h-6 text-secondary-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{(socialMetrics.twitter?.followers ?? 0).toLocaleString()}</div>
-                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
+                                        <div className="text-2xl font-bold text-foreground dark:text-foreground tabular-nums mb-1">{(socialMetrics.twitter?.followers ?? 0).toLocaleString()}</div>
+                                        <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider mb-2">Followers</div>
                                         <div className="text-[10px] font-bold text-primary-400 bg-primary-400/10 px-2 py-0.5 rounded-full inline-block">
                                             +{socialMetrics.twitter.engagement}% Engagement
                                         </div>
                                     </div>
                                 )}
                                 {socialMetrics.linkedin && (
-                                    <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
+                                    <div className="text-center p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-2xl hover:bg-accent/5 dark:bg-accent/5 transition-colors group">
                                         <Linkedin className="w-6 h-6 text-secondary-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{(socialMetrics.linkedin?.followers ?? 0).toLocaleString()}</div>
-                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
+                                        <div className="text-2xl font-bold text-foreground dark:text-foreground tabular-nums mb-1">{(socialMetrics.linkedin?.followers ?? 0).toLocaleString()}</div>
+                                        <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider mb-2">Followers</div>
                                         <div className="text-[10px] font-bold text-primary-400 bg-primary-400/10 px-2 py-0.5 rounded-full inline-block">
                                             +{socialMetrics.linkedin.engagement}% Engagement
                                         </div>
                                     </div>
                                 )}
                                 {socialMetrics.instagram && (
-                                    <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
+                                    <div className="text-center p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-2xl hover:bg-accent/5 dark:bg-accent/5 transition-colors group">
                                         <Instagram className="w-6 h-6 text-danger-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{(socialMetrics.instagram?.followers ?? 0).toLocaleString()}</div>
-                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Followers</div>
+                                        <div className="text-2xl font-bold text-foreground dark:text-foreground tabular-nums mb-1">{(socialMetrics.instagram?.followers ?? 0).toLocaleString()}</div>
+                                        <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider mb-2">Followers</div>
                                         <div className="text-[10px] font-bold text-primary-400 bg-primary-400/10 px-2 py-0.5 rounded-full inline-block">
                                             +{socialMetrics.instagram.engagement}% Engagement
                                         </div>
                                     </div>
                                 )}
                                 {socialMetrics.youtube && (
-                                    <div className="text-center p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-colors group">
+                                    <div className="text-center p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-2xl hover:bg-accent/5 dark:bg-accent/5 transition-colors group">
                                         <Youtube className="w-6 h-6 text-danger-500 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                                        <div className="text-2xl font-bold text-white tabular-nums mb-1">{(socialMetrics.youtube?.subscribers ?? 0).toLocaleString()}</div>
-                                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Subscribers</div>
-                                        <div className="text-[10px] font-bold text-slate-300 bg-white/5 px-2 py-0.5 rounded-full inline-block">
+                                        <div className="text-2xl font-bold text-foreground dark:text-foreground tabular-nums mb-1">{(socialMetrics.youtube?.subscribers ?? 0).toLocaleString()}</div>
+                                        <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider mb-2">Subscribers</div>
+                                        <div className="text-[10px] font-bold text-foreground/80 dark:text-foreground/80 bg-white/5 px-2 py-0.5 rounded-full inline-block">
                                             {(socialMetrics.youtube?.views ?? 0).toLocaleString()} Views
                                         </div>
                                     </div>
@@ -655,9 +666,9 @@ export default function AdminPage() {
                     </Card>
 
                     {/* Trends */}
-                    <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                        <CardHeader className="border-b border-white/5 px-8 py-6">
-                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
+                    <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                        <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
+                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                                 <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
                                     <TrendingUp className="w-4 h-4 text-primary-400" />
                                 </div>
@@ -667,10 +678,10 @@ export default function AdminPage() {
                         <CardContent className="p-8">
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {Array.isArray(trends) && trends.map((trend: any, index: number) => (
-                                    <div key={index} className="flex items-center justify-between p-5 bg-white/[0.03] border border-white/5 rounded-2xl hover:border-primary-500/30 transition-all group">
+                                    <div key={index} className="flex items-center justify-between p-5 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-2xl hover:border-primary-500/30 transition-all group">
                                         <div className="flex-1">
-                                            <div className="font-bold text-white mb-1 group-hover:text-primary-400 transition-colors">{trend.keyword}</div>
-                                            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Velocity: {(trend.volume ?? 0).toLocaleString()}</div>
+                                            <div className="font-bold text-foreground dark:text-foreground mb-1 group-hover:text-primary-400 transition-colors">{trend.keyword}</div>
+                                            <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">Velocity: {(trend.volume ?? 0).toLocaleString()}</div>
                                         </div>
                                         <div className="flex items-center gap-3">
                                             <div className={`text-sm font-bold tabular-nums ${
@@ -696,36 +707,36 @@ export default function AdminPage() {
                     </Card>
 
                     {/* Content Snapshot */}
-                                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                                    <CardHeader className="border-b border-white/5 px-8 py-5">
-                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Content Snapshot</CardTitle>
+                                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                                    <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-5">
+                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground">Content Snapshot</CardTitle>
                                     </CardHeader>
                                     <CardContent className="p-8">
                                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 text-center">
-                                                <div className="text-3xl font-extrabold text-white mb-1">{statsData?.total_articles ?? 0}</div>
-                                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Grand Total</div>
+                                            <div className="p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50 text-center">
+                                                <div className="text-3xl font-extrabold text-foreground dark:text-foreground mb-1">{statsData?.total_articles ?? 0}</div>
+                                                <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">Grand Total</div>
                                                 <div className="mt-3 text-[10px] font-bold text-secondary-400">
                                                     {statsData?.published_articles ?? 0} Published
                                                 </div>
                                             </div>
-                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 text-center">
-                                                <div className="text-3xl font-extrabold text-white mb-1">{Number(totalViews ?? 0).toLocaleString()}</div>
-                                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Total Impact</div>
+                                            <div className="p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50 text-center">
+                                                <div className="text-3xl font-extrabold text-foreground dark:text-foreground mb-1">{Number(totalViews ?? 0).toLocaleString()}</div>
+                                                <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">Total Impact</div>
                                                 <div className="mt-3 text-[10px] font-bold text-primary-400">
                                                     Aggregate Views
                                                 </div>
                                             </div>
-                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 text-center">
-                                                <div className="text-3xl font-extrabold text-white mb-1">{statsData?.ai_generated_articles ?? 0}</div>
-                                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">AI Synthesis</div>
+                                            <div className="p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50 text-center">
+                                                <div className="text-3xl font-extrabold text-foreground dark:text-foreground mb-1">{statsData?.ai_generated_articles ?? 0}</div>
+                                                <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">AI Synthesis</div>
                                                 <div className="mt-3 text-[10px] font-bold text-primary-400">
                                                     Automated Drafts
                                                 </div>
                                             </div>
-                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 text-center">
+                                            <div className="p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50 text-center">
                                                 <div className="text-3xl font-extrabold text-accent-500 mb-1">{pendingArticlesCount ?? 0}</div>
-                                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Moderation</div>
+                                                <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">Moderation</div>
                                                 <div className="mt-3 text-[10px] font-bold text-accent-500/80">
                                                     Pending Review
                                                 </div>
@@ -760,9 +771,9 @@ export default function AdminPage() {
                                                 const conversions = Math.floor(clicks * 0.12);
                                                 
                                                 return (
-                                                    <div key={article.id} className="flex items-center justify-between p-5 bg-white/[0.03] border border-white/5 rounded-xl hover:border-success-500/30 transition-all group">
+                                                    <div key={article.id} className="flex items-center justify-between p-5 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-xl hover:border-success-500/30 transition-all group">
                                                         <div className="flex items-center gap-4 flex-1">
-                                                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white ${
+                                                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-foreground dark:text-foreground ${
                                                                 index === 0 ? 'bg-success-500' : 
                                                                 index === 1 ? 'bg-success-600' : 
                                                                 'bg-white/10'
@@ -770,14 +781,14 @@ export default function AdminPage() {
                                                                 {index + 1}
                                                             </div>
                                                             <div className="flex-1">
-                                                                <div className="font-medium text-white group-hover:text-success-400 transition-colors truncate max-w-md">
+                                                                <div className="font-medium text-foreground dark:text-foreground group-hover:text-success-400 transition-colors truncate max-w-md">
                                                                     {article.title}
                                                                 </div>
                                                                 <div className="flex items-center gap-4 mt-1">
-                                                                    <span className="text-xs text-slate-500">
+                                                                    <span className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
                                                                         {clicks} clicks → {conversions} conversions
                                                                     </span>
-                                                                    <Badge variant="outline" className="text-[10px] border-slate-600 text-slate-400 capitalize">
+                                                                    <Badge variant="outline" className="text-[10px] border-border/70 dark:border-border/70 text-muted-foreground dark:text-muted-foreground capitalize">
                                                                         {article.category || 'general'}
                                                                     </Badge>
                                                                 </div>
@@ -787,7 +798,7 @@ export default function AdminPage() {
                                                             <div className="text-2xl font-bold text-success-400 tabular-nums">
                                                                 ₹{revenue.toLocaleString()}
                                                             </div>
-                                                            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                                                            <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">
                                                                 Est. Revenue
                                                             </div>
                                                         </div>
@@ -797,8 +808,8 @@ export default function AdminPage() {
                                             
                                             {recentArticles.length === 0 && (
                                                 <div className="text-center py-12">
-                                                    <DollarSign className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-                                                    <p className="text-slate-400">No revenue data available yet</p>
+                                                    <DollarSign className="w-12 h-12 text-muted-foreground/50 dark:text-muted-foreground/50 mx-auto mb-4" />
+                                                    <p className="text-muted-foreground dark:text-muted-foreground">No revenue data available yet</p>
                                                 </div>
                                             )}
                                         </div>
@@ -806,44 +817,44 @@ export default function AdminPage() {
                                 </Card>
 
                                 {/* System Performance Indicators */}
-                                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                                    <CardHeader className="border-b border-white/5 px-8 py-5">
-                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">System Performance Indicators</CardTitle>
+                                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                                    <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-5">
+                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground">System Performance Indicators</CardTitle>
                                     </CardHeader>
                                     <CardContent className="p-8">
                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 group hover:border-primary-500/30 transition-all">
+                                            <div className="p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50 group hover:border-primary-500/30 transition-all">
                                                 <div className="flex items-center justify-between mb-4">
-                                                    <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Publication Rate</span>
+                                                    <span className="text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest">Publication Rate</span>
                                                     <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
                                                         <FileText className="w-4 h-4 text-primary-400" />
                                                     </div>
                                                 </div>
-                                                <div className="text-2xl font-extrabold text-white mb-1">
+                                                <div className="text-2xl font-extrabold text-foreground dark:text-foreground mb-1">
                                                     {statsData?.articles_this_month ?? 0}
                                                 </div>
-                                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Articles this cycle</div>
+                                                <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">Articles this cycle</div>
                                             </div>
-                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 group hover:border-primary-500/30 transition-all">
+                                            <div className="p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50 group hover:border-primary-500/30 transition-all">
                                                 <div className="flex items-center justify-between mb-4">
-                                                    <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Sentiment Stream</span>
+                                                    <span className="text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest">Sentiment Stream</span>
                                                     <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
                                                         <Star className="w-4 h-4 text-primary-400" />
                                                     </div>
                                                 </div>
-                                                <div className="text-2xl font-extrabold text-white mb-1">{reviews?.length ?? 0}</div>
+                                                <div className="text-2xl font-extrabold text-foreground dark:text-foreground mb-1">{reviews?.length ?? 0}</div>
                                                 <div className="text-[10px] font-bold text-primary-400 uppercase tracking-widest">
                                                     {pendingReviewsCount ?? 0} Pending Node Analysis
                                                 </div>
                                             </div>
-                                            <div className="p-6 bg-white/[0.03] rounded-2xl border border-white/5 group hover:border-primary-500/30 transition-all">
+                                            <div className="p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50 group hover:border-primary-500/30 transition-all">
                                                 <div className="flex items-center justify-between mb-4">
-                                                    <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Monetization Velocity</span>
+                                                    <span className="text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest">Monetization Velocity</span>
                                                     <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
                                                         <MousePointerClick className="w-4 h-4 text-primary-400" />
                                                     </div>
                                                 </div>
-                                                <div className="text-2xl font-extrabold text-white mb-1">{(totalClicks ?? 0).toLocaleString()}</div>
+                                                <div className="text-2xl font-extrabold text-foreground dark:text-foreground mb-1">{(totalClicks ?? 0).toLocaleString()}</div>
                                                 <div className="text-[10px] font-bold text-primary-400 uppercase tracking-widest">{conversionRate ?? 0}% Conversion Efficiency</div>
                                             </div>
                                         </div>
@@ -861,53 +872,53 @@ export default function AdminPage() {
                         {activeTab === 'content' && (
                             <div className="space-y-6">
                                 {/* Content Statistics */}
-                                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                                    <CardHeader className="border-b border-white/5 px-8 py-5">
-                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 font-bold uppercase tracking-widest text-slate-400">Content Statistics</CardTitle>
+                                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                                    <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-5">
+                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground">Content Statistics</CardTitle>
                                     </CardHeader>
                                     <CardContent className="p-8">
                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                                            <div className="text-center p-6 bg-white/[0.03] rounded-2xl border border-white/5">
+                                            <div className="text-center p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50">
                                                 <div className="text-3xl font-extrabold text-secondary-400 mb-2 tabular-nums">
                                                     {statsData.published_articles}
                                                 </div>
-                                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Live Articles</div>
-                                                <div className="text-[10px] text-slate-500 italic">
+                                                <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest mb-1">Live Articles</div>
+                                                <div className="text-[10px] text-muted-foreground/70 dark:text-muted-foreground/70 italic">
                                                     {statsData.draft_articles} Drafts staged
                                                 </div>
                                             </div>
-                                            <div className="text-center p-6 bg-white/[0.03] rounded-2xl border border-white/5">
+                                            <div className="text-center p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50">
                                                 <div className="text-3xl font-extrabold text-secondary-400 mb-2 tabular-nums">
                                                     {statsData.ai_generated_articles || 0}
                                                 </div>
-                                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">AI Synthesis</div>
-                                                <div className="text-[10px] text-slate-500 italic">Synthetic Content Yield</div>
+                                                <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest mb-1">AI Synthesis</div>
+                                                <div className="text-[10px] text-muted-foreground/70 dark:text-muted-foreground/70 italic">Synthetic Content Yield</div>
                                             </div>
-                                            <div className="text-center p-6 bg-white/[0.03] rounded-2xl border border-white/5">
+                                            <div className="text-center p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50">
                                                 <div className="text-3xl font-extrabold text-primary-400 mb-2 tabular-nums">
                                                     {Number(statsData.total_views).toLocaleString()}
                                                 </div>
-                                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Global Views</div>
-                                                <div className="text-[10px] text-slate-500 italic">Aggregate Impression Feed</div>
+                                                <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest mb-1">Global Views</div>
+                                                <div className="text-[10px] text-muted-foreground/70 dark:text-muted-foreground/70 italic">Aggregate Impression Feed</div>
                                             </div>
                                         </div>
 
                                         {/* Articles by Category */}
                                         <div className="mt-8">
-                                            <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">Distribution by Category</h4>
+                                            <h4 className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest mb-4">Distribution by Category</h4>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                                 {statsData.category_stats && Array.isArray(statsData.category_stats) && statsData.category_stats.length > 0 ? (
                                                     statsData.category_stats.map((cat: any) => (
-                                                        <div key={cat.category} className="flex items-center justify-between p-3.5 bg-white/[0.02] border border-white/5 rounded-xl">
+                                                        <div key={cat.category} className="flex items-center justify-between p-3.5 bg-card/50 dark:bg-card/50 border border-border/50 dark:border-border/50 rounded-xl">
                                                             <div className="flex items-center gap-3">
                                                                 <div className="w-2 h-2 rounded-full bg-primary-500 shadow-[0_0_8px_rgba(99,102,241,0.5)]"></div>
-                                                                <span className="capitalize text-sm font-medium text-slate-300">{cat.category?.replace(/-/g, ' ')}</span>
+                                                                <span className="capitalize text-sm font-medium text-foreground/80 dark:text-foreground/80">{cat.category?.replace(/-/g, ' ')}</span>
                                                             </div>
-                                                            <span className="text-sm font-bold text-white tabular-nums">{cat.count}</span>
+                                                            <span className="text-sm font-bold text-foreground dark:text-foreground tabular-nums">{cat.count}</span>
                                                         </div>
                                                     ))
                                                 ) : (
-                                                    <p className="text-sm text-slate-500 italic">Categorization feed empty...</p>
+                                                    <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70 italic">Categorization feed empty...</p>
                                                 )}
                                             </div>
                                         </div>
@@ -915,20 +926,20 @@ export default function AdminPage() {
                                 </Card>
 
                                 {/* Recent Articles - View Only */}
-                                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                                    <CardHeader className="border-b border-white/5 px-8 py-5">
-                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Ledger of Recent Assets</CardTitle>
+                                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                                    <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-5">
+                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground">Ledger of Recent Assets</CardTitle>
                                     </CardHeader>
                                     <CardContent className="p-8">
                                         <div className="space-y-3">
                                             {recentArticles.map((article: any) => (
                                                 <div
                                                     key={article.id}
-                                                    className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/5 hover:border-primary-500/30 rounded-2xl transition-all group"
+                                                    className="flex items-center justify-between p-5 bg-card/50 dark:bg-card/50 border border-border/50 dark:border-border/50 hover:border-primary-500/30 rounded-2xl transition-all group"
                                                 >
                                                     <div className="flex-1 min-w-0">
                                                         <div className="flex items-center gap-3 mb-1.5">
-                                                            <h4 className="font-bold text-white tracking-tight truncate group-hover:text-primary-400 transition-colors">{article.title}</h4>
+                                                            <h4 className="font-bold text-foreground dark:text-foreground tracking-tight truncate group-hover:text-primary-400 transition-colors">{article.title}</h4>
                                                             {article.ai_generated && (
                                                                 <Badge className="bg-primary-500/10 text-primary-400 border border-primary-500/20 text-[9px] font-bold uppercase tracking-wider px-2">
                                                                     <Sparkles className="w-3 h-3 mr-1" />
@@ -936,8 +947,8 @@ export default function AdminPage() {
                                                                 </Badge>
                                                             )}
                                                         </div>
-                                                        <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-[11px] font-bold text-slate-500 uppercase tracking-widest">
-                                                            <span className="text-slate-400">{article.category?.replace(/-/g, ' ')}</span>
+                                                        <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-[11px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">
+                                                            <span className="text-muted-foreground dark:text-muted-foreground">{article.category?.replace(/-/g, ' ')}</span>
                                                             <span className="flex items-center gap-1.5">
                                                                 <Eye className="w-3.5 h-3.5" />
                                                                 {article.views || 0}
@@ -946,7 +957,7 @@ export default function AdminPage() {
                                                                 "flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px]",
                                                                 article.status === 'published' ? 'bg-primary-500/10 text-primary-400' :
                                                                 article.status === 'draft' ? 'bg-accent-500/10 text-accent-400' :
-                                                                'bg-slate-500/10 text-slate-400'
+                                                                'bg-slate-500/10 text-muted-foreground dark:text-muted-foreground'
                                                             )}>
                                                                 <div className={cn("w-1 h-1 rounded-full",
                                                                     article.status === 'published' ? 'bg-primary-400' :
@@ -957,7 +968,7 @@ export default function AdminPage() {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <Button variant="ghost" size="icon" className="text-slate-500 hover:text-white hover:bg-white/5 ml-4">
+                                                    <Button variant="ghost" size="icon" className="text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-foreground dark:text-foreground hover:bg-white/5 ml-4">
                                                         <ArrowUpRight className="w-5 h-5" />
                                                     </Button>
                                                 </div>
@@ -975,17 +986,17 @@ export default function AdminPage() {
 
                         {/* Trends */}
                         {activeTab === 'trends' && (
-                                <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                                    <CardHeader className="border-b border-white/5 px-8 py-6">
-                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Keyword Analytics Ledger</CardTitle>
+                                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                                    <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
+                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground">Keyword Analytics Ledger</CardTitle>
                                     </CardHeader>
                                     <CardContent className="p-8">
                                         <div className="space-y-4">
                                             {Array.isArray(trends) && trends.map((trend: any, index: number) => (
-                                                <div key={index} className="flex items-center justify-between p-6 bg-white/[0.02] border border-white/5 hover:border-primary-500/30 rounded-2xl transition-all group">
+                                                <div key={index} className="flex items-center justify-between p-6 bg-card/50 dark:bg-card/50 border border-border/50 dark:border-border/50 hover:border-primary-500/30 rounded-2xl transition-all group">
                                                     <div className="flex-1">
-                                                        <div className="font-bold text-white text-lg tracking-tight mb-1 group-hover:text-primary-400 transition-colors">{trend.keyword}</div>
-                                                        <div className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Global Search Intensity: {(trend.volume ?? 0).toLocaleString()}</div>
+                                                        <div className="font-bold text-foreground dark:text-foreground text-lg tracking-tight mb-1 group-hover:text-primary-400 transition-colors">{trend.keyword}</div>
+                                                        <div className="text-[11px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">Global Search Intensity: {(trend.volume ?? 0).toLocaleString()}</div>
                                                     </div>
                                                     <div className="flex items-center gap-8">
                                                         <div className="text-right">
@@ -994,7 +1005,7 @@ export default function AdminPage() {
                                                             }`}>
                                                                 {trend.trend === 'up' ? '+' : ''}{trend.change}%
                                                             </div>
-                                                            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Momentum</div>
+                                                            <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">Momentum</div>
                                                         </div>
                                                         <div className={cn(
                                                             "w-12 h-12 rounded-xl flex items-center justify-center shadow-lg transition-transform group-hover:scale-110",

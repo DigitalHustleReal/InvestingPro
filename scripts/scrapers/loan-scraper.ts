@@ -56,7 +56,7 @@ export async function scrapeHDFCLoans(): Promise<ScrapedLoan[]> {
     logger.info(`Scraped ${loans.length} loans from HDFC`);
     return loans;
   } catch (error) {
-    logger.error('Error scraping HDFC loans', error);
+    logger.error('Error scraping HDFC loans', error as Error);
     return [];
   }
 }
@@ -89,7 +89,7 @@ export async function scrapeSBILoans(): Promise<ScrapedLoan[]> {
     logger.info(`Scraped ${loans.length} loans from SBI`);
     return loans;
   } catch (error) {
-    logger.error('Error scraping SBI loans', error);
+    logger.error('Error scraping SBI loans', error as Error);
     return [];
   }
 }
@@ -106,14 +106,14 @@ export async function scrapeAllLoans(): Promise<ScrapedLoan[]> {
     const hdfc = await scrapeHDFCLoans();
     results.push(...hdfc);
   } catch (error) {
-    logger.error('Failed to scrape HDFC loans', error);
+    logger.error('Failed to scrape HDFC loans', error as Error);
   }
 
   try {
     const sbi = await scrapeSBILoans();
     results.push(...sbi);
   } catch (error) {
-    logger.error('Failed to scrape SBI loans', error);
+    logger.error('Failed to scrape SBI loans', error as Error);
   }
 
   logger.info(`Total loans scraped: ${results.length}`);

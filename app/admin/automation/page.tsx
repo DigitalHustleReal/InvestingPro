@@ -35,7 +35,7 @@ export default function AutomationPage() {
                     iconColor="amber"
                     actions={
                         <Link href="/admin/content-factory">
-                            <button className="px-4 py-2.5 bg-gradient-to-r from-accent-500 to-orange-500 text-white rounded-xl text-sm font-medium flex items-center gap-2 shadow-lg shadow-accent-500/25 hover:shadow-accent-500/40 transition-shadow">
+                            <button className="px-4 py-2.5 bg-gradient-to-r from-accent-500 to-orange-500 text-foreground dark:text-foreground rounded-xl text-sm font-medium flex items-center gap-2 shadow-lg shadow-accent-500/25 hover:shadow-accent-500/40 transition-shadow">
                                 <Play className="w-4 h-4" /> Open Content Factory
                             </button>
                         </Link>
@@ -74,7 +74,7 @@ export default function AutomationPage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <ContentSection title="Content Factory" subtitle="AI-powered bulk generation">
                         <div className="space-y-4">
-                            <p className="text-sm text-slate-400">Generate multiple articles at once using AI with real-time progress tracking.</p>
+                            <p className="text-sm text-muted-foreground dark:text-muted-foreground">Generate multiple articles at once using AI with real-time progress tracking.</p>
                             <Link href="/admin/content-factory">
                                 <button className="w-full px-4 py-3 bg-gradient-to-r from-secondary-500/20 to-pink-500/20 hover:from-secondary-500/30 hover:to-pink-500/30 text-secondary-400 rounded-xl text-sm font-medium border border-secondary-500/30 transition-colors">
                                     Open Content Factory →
@@ -85,9 +85,9 @@ export default function AutomationPage() {
 
                     <ContentSection title="Scheduled Publishing" subtitle="Automate your content calendar">
                         <div className="space-y-4">
-                            <p className="text-sm text-slate-400">Schedule articles to publish automatically at optimal times.</p>
+                            <p className="text-sm text-muted-foreground dark:text-muted-foreground">Schedule articles to publish automatically at optimal times.</p>
                             <Link href="/admin/content-calendar">
-                                <button className="w-full px-4 py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl text-sm font-medium border border-white/10 transition-colors">
+                                <button className="w-full px-4 py-3 bg-white/10 hover:bg-white/20 text-foreground dark:text-foreground rounded-xl text-sm font-medium border border-border dark:border-border transition-colors">
                                     View Calendar →
                                 </button>
                             </Link>
@@ -96,9 +96,9 @@ export default function AutomationPage() {
 
                     <ContentSection title="Review Queue" subtitle="Pending editorial approval">
                         <div className="space-y-4">
-                            <p className="text-sm text-slate-400">Review and approve articles waiting for publication.</p>
+                            <p className="text-sm text-muted-foreground dark:text-muted-foreground">Review and approve articles waiting for publication.</p>
                             <Link href="/admin/review-queue">
-                                <button className="w-full px-4 py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl text-sm font-medium border border-white/10 transition-colors">
+                                <button className="w-full px-4 py-3 bg-white/10 hover:bg-white/20 text-foreground dark:text-foreground rounded-xl text-sm font-medium border border-border dark:border-border transition-colors">
                                     View Queue →
                                 </button>
                             </Link>

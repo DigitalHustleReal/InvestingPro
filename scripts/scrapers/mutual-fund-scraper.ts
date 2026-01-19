@@ -84,7 +84,7 @@ export async function scrapeAMFI(): Promise<ScrapedMutualFund[]> {
         return funds;
 
     } catch (error) {
-        logger.error('Error scraping AMFI', error);
+        logger.error('Error scraping AMFI', error as Error);
         return [];
     }
 }

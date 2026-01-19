@@ -127,7 +127,7 @@ export default function ArticleScheduling({
 
     return (
         <div className="space-y-3">
-            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+            <h3 className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
                 Schedule Publication
             </h3>
@@ -166,7 +166,7 @@ export default function ArticleScheduling({
             ) : (
                 <div className="space-y-3">
                     <div>
-                        <Label htmlFor="schedule-date" className="text-slate-700 dark:text-slate-300">
+                        <Label htmlFor="schedule-date" className="text-slate-700 dark:text-foreground/80 dark:text-foreground/80">
                             Publication Date
                         </Label>
                         <Input
@@ -175,11 +175,11 @@ export default function ArticleScheduling({
                             value={scheduledDate}
                             onChange={(e) => setScheduledDate(e.target.value)}
                             min={new Date().toISOString().split('T')[0]}
-                            className="mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200"
+                            className="mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-border dark:border-border text-slate-900 dark:text-foreground/90 dark:text-foreground/90"
                         />
                     </div>
                     <div>
-                        <Label htmlFor="schedule-time" className="text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                        <Label htmlFor="schedule-time" className="text-slate-700 dark:text-foreground/80 dark:text-foreground/80 flex items-center gap-2">
                             <Clock className="w-4 h-4" />
                             Publication Time (IST)
                         </Label>
@@ -188,12 +188,12 @@ export default function ArticleScheduling({
                             type="time"
                             value={scheduledTime}
                             onChange={(e) => setScheduledTime(e.target.value)}
-                            className="mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200"
+                            className="mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-border dark:border-border text-slate-900 dark:text-foreground/90 dark:text-foreground/90"
                         />
                     </div>
 
                     {scheduledDateTime && (
-                        <div className="text-xs text-slate-500 dark:text-slate-400">
+                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground">
                             Will publish on:{' '}
                             <span className="font-semibold">
                                 {scheduledDateTime.toLocaleString('en-IN', {
@@ -207,14 +207,14 @@ export default function ArticleScheduling({
                     <Button
                         onClick={handleSchedule}
                         disabled={scheduleMutation.isPending || !scheduledDate || !scheduledTime}
-                        className="w-full bg-primary-600 hover:bg-primary-700 text-white"
+                        className="w-full bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground"
                     >
                         {scheduleMutation.isPending ? 'Scheduling...' : 'Schedule Publication'}
                     </Button>
                 </div>
             )}
 
-            <p className="text-xs text-slate-500 dark:text-slate-400">
+            <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground">
                 Scheduled articles will be published automatically every 15 minutes by the cron job.
             </p>
         </div>

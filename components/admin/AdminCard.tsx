@@ -3,7 +3,7 @@
  * Ensures design consistency across all admin pages
  * 
  * Standard Pattern:
- * - Background: bg-slate-900/50
+ * - Background: bg-surface-darker/50 dark:bg-surface-darker/50
  * - Border: border-slate-800
  * - Hover: hover:border-primary-500/30
  * - Transition: transition-all duration-300
@@ -37,7 +37,7 @@ export function AdminCard({
     <Card
       className={cn(
         // Standard background and border
-        'bg-slate-900/50 border-slate-800',
+        'bg-surface-darker/50 dark:bg-surface-darker/50 border-slate-800',
         // Rounded corners
         'rounded-2xl',
         // Hover effects if enabled

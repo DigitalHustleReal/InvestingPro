@@ -5,6 +5,11 @@
  * - Slug always resolves if published
  * - Preview mode bypasses status check
  * - No conditional fetching
+ * 
+ * TODO: Migrate to Server Component with ISR
+ * - Add: export const revalidate = 3600
+ * - Add: generateStaticParams() for top 100 articles
+ * - Extract client components: BookmarkButton, Share, etc.
  */
 
 "use client";

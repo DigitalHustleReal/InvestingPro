@@ -34,7 +34,7 @@ export default function AdminInspector({ children, collapsed, onToggle }: AdminI
                         <h2 className="text-sm font-semibold text-slate-900">Settings</h2>
                         <button
                             onClick={onToggle}
-                            className="p-1.5 rounded-md hover:bg-slate-100 text-slate-600 hover:text-slate-900 transition-colors"
+                            className="p-1.5 rounded-md hover:bg-slate-100 text-muted-foreground/50 dark:text-muted-foreground/50 hover:text-slate-900 transition-colors"
                             aria-label="Collapse inspector"
                         >
                             <X className="w-4 h-4" />
@@ -55,7 +55,7 @@ export default function AdminInspector({ children, collapsed, onToggle }: AdminI
                     className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-full bg-white border border-slate-200 rounded-r-lg p-2 shadow-sm hover:bg-slate-50 transition-colors z-10"
                     aria-label="Expand inspector"
                 >
-                    <ChevronRight className="w-4 h-4 text-slate-600" />
+                    <ChevronRight className="w-4 h-4 text-muted-foreground/50 dark:text-muted-foreground/50" />
                 </button>
             )}
         </aside>

@@ -136,7 +136,7 @@ export default function CostDashboard() {
 
     if (!data) {
         return (
-            <div className="text-center py-8 text-slate-500">
+            <div className="text-center py-8 text-muted-foreground/70 dark:text-muted-foreground/70">
                 <p>No cost data available</p>
             </div>
         );
@@ -181,7 +181,7 @@ export default function CostDashboard() {
                                 <div className="space-y-4">
                                     <div>
                                         <div className="flex items-center justify-between mb-2">
-                                            <span className="text-sm text-slate-600">Cost</span>
+                                            <span className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">Cost</span>
                                             <span className="text-sm font-semibold">
                                                 ${data.dailyBudget.cost_spent_usd.toFixed(2)} / ${data.dailyBudget.max_cost_usd.toFixed(2)}
                                             </span>
@@ -192,20 +192,20 @@ export default function CostDashboard() {
                                                 style={{ width: `${Math.min(100, dailyPercent)}%` }}
                                             />
                                         </div>
-                                        <div className="text-xs text-slate-500 mt-1">
+                                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                             {dailyPercent.toFixed(1)}% used
                                         </div>
                                     </div>
 
                                     <div className="grid grid-cols-2 gap-4 text-sm">
                                         <div>
-                                            <div className="text-slate-600">Tokens</div>
+                                            <div className="text-muted-foreground/50 dark:text-muted-foreground/50">Tokens</div>
                                             <div className="font-semibold">
                                                 {data.dailyBudget.tokens_used.toLocaleString()} / {data.dailyBudget.max_tokens.toLocaleString()}
                                             </div>
                                         </div>
                                         <div>
-                                            <div className="text-slate-600">Images</div>
+                                            <div className="text-muted-foreground/50 dark:text-muted-foreground/50">Images</div>
                                             <div className="font-semibold">
                                                 {data.dailyBudget.images_used} / {data.dailyBudget.max_images}
                                             </div>
@@ -214,7 +214,7 @@ export default function CostDashboard() {
                                 </div>
                             </>
                         ) : (
-                            <p className="text-slate-500">No daily budget data</p>
+                            <p className="text-muted-foreground/70 dark:text-muted-foreground/70">No daily budget data</p>
                         )}
                     </CardContent>
                 </Card>
@@ -237,7 +237,7 @@ export default function CostDashboard() {
                                 <div className="space-y-4">
                                     <div>
                                         <div className="flex items-center justify-between mb-2">
-                                            <span className="text-sm text-slate-600">Cost</span>
+                                            <span className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">Cost</span>
                                             <span className="text-sm font-semibold">
                                                 ${data.monthlyBudget.cost_spent_usd.toFixed(2)} / ${data.monthlyBudget.max_cost_usd.toFixed(2)}
                                             </span>
@@ -248,14 +248,14 @@ export default function CostDashboard() {
                                                 style={{ width: `${Math.min(100, monthlyPercent)}%` }}
                                             />
                                         </div>
-                                        <div className="text-xs text-slate-500 mt-1">
+                                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                             {monthlyPercent.toFixed(1)}% used
                                         </div>
                                     </div>
 
                                     {data.projection && (
                                         <div className="mt-4 p-3 bg-slate-50 rounded-lg">
-                                            <div className="text-sm text-slate-600 mb-1">Projected Monthly Cost</div>
+                                            <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 mb-1">Projected Monthly Cost</div>
                                             <div className="flex items-center gap-2">
                                                 <span className="text-lg font-semibold">
                                                     ${data.projection.projected_monthly_cost.toFixed(2)}
@@ -272,7 +272,7 @@ export default function CostDashboard() {
                                                     </Badge>
                                                 )}
                                             </div>
-                                            <div className="text-xs text-slate-500 mt-1">
+                                            <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                                 Based on {data.projection.days_elapsed} of {data.projection.days_in_month} days
                                             </div>
                                         </div>
@@ -280,7 +280,7 @@ export default function CostDashboard() {
                                 </div>
                             </>
                         ) : (
-                            <p className="text-slate-500">No monthly budget data</p>
+                            <p className="text-muted-foreground/70 dark:text-muted-foreground/70">No monthly budget data</p>
                         )}
                     </CardContent>
                 </Card>
@@ -303,13 +303,13 @@ export default function CostDashboard() {
                                     <div key={provider.provider} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
                                         <div>
                                             <div className="font-semibold">{provider.provider}</div>
-                                            <div className="text-sm text-slate-600">
+                                            <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">
                                                 {provider.operation_count} operations
                                             </div>
                                         </div>
                                         <div className="text-right">
                                             <div className="font-semibold">${provider.total_cost.toFixed(2)}</div>
-                                            <div className="text-xs text-slate-500">
+                                            <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
                                                 {provider.total_tokens.toLocaleString()} tokens
                                             </div>
                                         </div>
@@ -317,7 +317,7 @@ export default function CostDashboard() {
                                 ))}
                             </div>
                         ) : (
-                            <p className="text-slate-500">No provider data available</p>
+                            <p className="text-muted-foreground/70 dark:text-muted-foreground/70">No provider data available</p>
                         )}
                     </CardContent>
                 </Card>
@@ -337,13 +337,13 @@ export default function CostDashboard() {
                                     <div key={op.operation_type} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
                                         <div>
                                             <div className="font-semibold capitalize">{op.operation_type.replace('_', ' ')}</div>
-                                            <div className="text-sm text-slate-600">
+                                            <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">
                                                 {op.operation_count} operations
                                             </div>
                                         </div>
                                         <div className="text-right">
                                             <div className="font-semibold">${op.total_cost.toFixed(2)}</div>
-                                            <div className="text-xs text-slate-500">
+                                            <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
                                                 Avg: ${op.avg_cost_per_operation.toFixed(4)}
                                             </div>
                                         </div>
@@ -351,7 +351,7 @@ export default function CostDashboard() {
                                 ))}
                             </div>
                         ) : (
-                            <p className="text-slate-500">No operation data available</p>
+                            <p className="text-muted-foreground/70 dark:text-muted-foreground/70">No operation data available</p>
                         )}
                     </CardContent>
                 </Card>
@@ -374,11 +374,11 @@ export default function CostDashboard() {
                                         <div className="font-semibold">
                                             {alert.budget_type === 'daily' ? 'Daily' : 'Monthly'} Budget - {alert.threshold_percent}%
                                         </div>
-                                        <div className="text-sm text-slate-600">
+                                        <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">
                                             ${alert.cost_spent.toFixed(2)} / ${alert.budget_limit.toFixed(2)} ({alert.cost_percent.toFixed(1)}%)
                                         </div>
                                     </div>
-                                    <div className="text-xs text-slate-500">
+                                    <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
                                         {format(new Date(alert.sent_at), 'MMM d, HH:mm')}
                                     </div>
                                 </div>

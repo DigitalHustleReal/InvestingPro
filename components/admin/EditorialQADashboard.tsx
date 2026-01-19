@@ -73,7 +73,7 @@ const statusColors: Record<string, string> = {
 };
 
 const priorityColors: Record<string, string> = {
-  low: 'bg-slate-500/10 text-slate-400',
+  low: 'bg-slate-500/10 text-muted-foreground dark:text-muted-foreground',
   medium: 'bg-primary-500/10 text-primary-400',
   high: 'bg-accent-500/10 text-accent-400',
   urgent: 'bg-danger-500/10 text-danger-400',
@@ -151,8 +151,8 @@ export default function EditorialQADashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100">Editorial QA Dashboard</h1>
-          <p className="text-slate-400 mt-1">Review and approve AI-generated content</p>
+          <h1 className="text-2xl font-bold text-foreground/95 dark:text-foreground/95">Editorial QA Dashboard</h1>
+          <p className="text-muted-foreground dark:text-muted-foreground mt-1">Review and approve AI-generated content</p>
         </div>
         <Button variant="outline" className="gap-2">
           <BarChart3 className="w-4 h-4" />
@@ -198,16 +198,16 @@ export default function EditorialQADashboard() {
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
           <Input
             placeholder="Search by title or category..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 bg-slate-900 border-slate-700"
+            className="pl-10 bg-surface-darker dark:bg-surface-darker border-border dark:border-border"
           />
         </div>
         <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-48 bg-slate-900 border-slate-700">
+          <SelectTrigger className="w-48 bg-surface-darker dark:bg-surface-darker border-border dark:border-border">
             <Filter className="w-4 h-4 mr-2" />
             <SelectValue placeholder="Filter by status" />
           </SelectTrigger>
@@ -222,11 +222,11 @@ export default function EditorialQADashboard() {
       </div>
 
       {/* Content List */}
-      <div className="bg-slate-900/50 border border-slate-700 rounded-xl overflow-hidden">
+      <div className="bg-surface-darker/50 dark:bg-surface-darker/50 border border-border dark:border-border rounded-xl overflow-hidden">
         {isLoading ? (
-          <div className="p-8 text-center text-slate-400">Loading assignments...</div>
+          <div className="p-8 text-center text-muted-foreground dark:text-muted-foreground">Loading assignments...</div>
         ) : filteredAssignments.length === 0 ? (
-          <div className="p-8 text-center text-slate-400">
+          <div className="p-8 text-center text-muted-foreground dark:text-muted-foreground">
             <FileText className="w-12 h-12 mx-auto mb-4 opacity-50" />
             <p>No content assignments found</p>
           </div>
@@ -262,12 +262,12 @@ function StatCard({
   isText?: boolean;
 }) {
   return (
-    <div className="bg-slate-900/50 border border-slate-700 rounded-xl p-4">
+    <div className="bg-surface-darker/50 dark:bg-surface-darker/50 border border-border dark:border-border rounded-xl p-4">
       <div className="flex items-center justify-between mb-2">
-        <span className="text-slate-400 text-sm">{label}</span>
+        <span className="text-muted-foreground dark:text-muted-foreground text-sm">{label}</span>
         {icon}
       </div>
-      <p className={`text-2xl font-bold ${isText ? 'text-lg' : ''} text-slate-100`}>
+      <p className={`text-2xl font-bold ${isText ? 'text-lg' : ''} text-foreground/95 dark:text-foreground/95`}>
         {value}
       </p>
     </div>
@@ -298,7 +298,7 @@ function ContentRow({
   };
 
   return (
-    <div className="p-4 hover:bg-slate-800/50 transition-colors">
+    <div className="p-4 hover:bg-muted/50 dark:bg-muted/50 transition-colors">
       <div className="flex items-center justify-between">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-3 mb-2">
@@ -308,12 +308,12 @@ function ContentRow({
             <Badge className={priorityColors[assignment.priority]}>
               {assignment.priority}
             </Badge>
-            <span className="text-slate-500 text-sm">{assignment.category}</span>
+            <span className="text-muted-foreground/70 dark:text-muted-foreground/70 text-sm">{assignment.category}</span>
           </div>
-          <h3 className="text-slate-100 font-medium truncate">
+          <h3 className="text-foreground/95 dark:text-foreground/95 font-medium truncate">
             {assignment.article_title}
           </h3>
-          <div className="flex items-center gap-4 mt-2 text-sm text-slate-400">
+          <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground dark:text-muted-foreground">
             <span className="flex items-center gap-1">
               <User className="w-3 h-3" />
               {assignment.author_name}
@@ -327,7 +327,7 @@ function ContentRow({
           <Button
             variant="ghost"
             size="sm"
-            className="text-slate-400 hover:text-slate-100"
+            className="text-muted-foreground dark:text-muted-foreground hover:text-foreground/95 dark:text-foreground/95"
             onClick={() => window.open(`/admin/articles/${assignment.article_id}/edit`, '_blank')}
           >
             <Edit className="w-4 h-4" />
@@ -335,7 +335,7 @@ function ContentRow({
           <Button
             variant="ghost"
             size="sm"
-            className="text-slate-400 hover:text-slate-100"
+            className="text-muted-foreground dark:text-muted-foreground hover:text-foreground/95 dark:text-foreground/95"
             onClick={() => window.open(`/articles/${assignment.article_slug}?preview=true`, '_blank')}
           >
             <Eye className="w-4 h-4" />
@@ -345,7 +345,7 @@ function ContentRow({
             <>
               <Button
                 size="sm"
-                className="bg-success-600 hover:bg-success-700 text-white"
+                className="bg-success-600 hover:bg-success-700 text-foreground dark:text-foreground"
                 onClick={onApprove}
               >
                 <CheckCircle className="w-4 h-4 mr-1" />
@@ -362,17 +362,17 @@ function ContentRow({
             </>
           )}
           
-          <ChevronRight className="w-4 h-4 text-slate-500" />
+          <ChevronRight className="w-4 h-4 text-muted-foreground/70 dark:text-muted-foreground/70" />
         </div>
       </div>
 
       {/* Reject Modal */}
       {showRejectModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-slate-900 border border-slate-700 rounded-xl p-6 w-full max-w-md">
-            <h3 className="text-lg font-semibold text-slate-100 mb-4">Reject Content</h3>
+          <div className="bg-surface-darker dark:bg-surface-darker border border-border dark:border-border rounded-xl p-6 w-full max-w-md">
+            <h3 className="text-lg font-semibold text-foreground/95 dark:text-foreground/95 mb-4">Reject Content</h3>
             <textarea
-              className="w-full p-3 bg-slate-800 border border-slate-600 rounded-lg text-slate-100 placeholder-slate-400"
+              className="w-full p-3 bg-muted dark:bg-muted border border-border/70 dark:border-border/70 rounded-lg text-foreground/95 dark:text-foreground/95 placeholder-slate-400"
               rows={4}
               placeholder="Provide feedback for the author..."
               value={rejectReason}

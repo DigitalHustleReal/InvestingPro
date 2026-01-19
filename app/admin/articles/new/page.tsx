@@ -227,7 +227,7 @@ export default function NewArticlePage() {
 
     // Auto-save indicator (mocked - could implement actual auto-save)
     const autosaveIndicator = lastSaved ? (
-        <div className="flex items-center gap-2 text-xs text-slate-500">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
             <Save className="w-3 h-3" />
             <span>Saved {lastSaved.toLocaleTimeString()}</span>
         </div>
@@ -251,21 +251,21 @@ export default function NewArticlePage() {
                 />
             }
         >
-            <div className="flex flex-col bg-slate-50 dark:bg-slate-950 min-h-screen transition-colors duration-300">
+            <div className="flex flex-col bg-slate-50 dark:bg-surface-darkest dark:bg-surface-darkest min-h-screen transition-colors duration-300">
                 {/* Header Bar */}
-                <div className="border-b border-slate-200 dark:border-slate-800 px-8 py-4 flex items-center justify-between bg-white dark:bg-slate-900/50 backdrop-blur-md transition-colors duration-300">
+                <div className="border-b border-slate-200 dark:border-slate-800 px-8 py-4 flex items-center justify-between bg-white dark:bg-surface-darker/50 dark:bg-surface-darker/50 backdrop-blur-md transition-colors duration-300">
                     <div className="flex-1">
                         <Input
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             placeholder="Article title..."
-                            className="text-3xl font-bold border-0 focus-visible:ring-0 focus-visible:ring-offset-0 p-0 h-auto bg-transparent text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                            className="text-3xl font-bold border-0 focus-visible:ring-0 focus-visible:ring-offset-0 p-0 h-auto bg-transparent text-slate-900 dark:text-foreground dark:text-foreground placeholder:text-muted-foreground dark:text-muted-foreground dark:placeholder:text-muted-foreground/50 dark:text-muted-foreground/50"
                         />
                     </div>
                     <div className="flex items-center gap-4">
                         {autosaveIndicator}
                         {saving && (
-                            <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">
                                 <Loader2 className="w-4 h-4 animate-spin" />
                                 <span>Saving...</span>
                             </div>

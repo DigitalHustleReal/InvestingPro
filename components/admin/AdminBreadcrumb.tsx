@@ -68,18 +68,18 @@ export function AdminBreadcrumb() {
         <nav className="flex items-center gap-1.5 text-sm mb-6" aria-label="Breadcrumb">
             <Link 
                 href="/admin" 
-                className="flex items-center gap-1 text-slate-500 hover:text-primary-600 transition-colors"
+                className="flex items-center gap-1 text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-primary-600 transition-colors"
             >
                 <Home className="w-4 h-4" />
             </Link>
             
             {items.slice(1).map((item, index) => (
                 <div key={index} className="flex items-center gap-1.5">
-                    <ChevronRight className="w-4 h-4 text-slate-400" />
+                    <ChevronRight className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
                     {item.href ? (
                         <Link 
                             href={item.href} 
-                            className="text-slate-500 hover:text-primary-600 transition-colors"
+                            className="text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-primary-600 transition-colors"
                         >
                             {item.label}
                         </Link>

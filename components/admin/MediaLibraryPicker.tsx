@@ -270,7 +270,7 @@ export default function MediaLibraryPicker({
                     {/* Search and Upload */}
                     <div className="flex items-center gap-4 mb-4">
                         <div className="relative flex-1">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
                             <Input
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -310,15 +310,15 @@ export default function MediaLibraryPicker({
                     <div className="flex-1 overflow-y-auto">
                         {isLoading || uploading ? (
                             <div className="flex items-center justify-center py-12">
-                                <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
+                                <Loader2 className="w-8 h-8 animate-spin text-muted-foreground dark:text-muted-foreground" />
                             </div>
                         ) : filteredMedia.length === 0 ? (
                             <Card className="p-6 md:p-8 text-center">
-                                <ImageIcon className="w-12 h-12 text-slate-400 mx-auto mb-4" />
+                                <ImageIcon className="w-12 h-12 text-muted-foreground dark:text-muted-foreground mx-auto mb-4" />
                                 <h3 className="text-lg font-semibold text-slate-900 mb-2">
                                     {searchQuery ? 'No images found' : 'No images yet'}
                                 </h3>
-                                <p className="text-sm text-slate-600 mb-4">
+                                <p className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 mb-4">
                                     {searchQuery
                                         ? 'Try adjusting your search'
                                         : 'Drag and drop an image here or click Upload to get started'}
@@ -356,7 +356,7 @@ export default function MediaLibraryPicker({
                                                 {isSelected && (
                                                     <div className="absolute inset-0 bg-primary-600/20 flex items-center justify-center">
                                                         <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center">
-                                                            <Check className="w-5 h-5 text-white" />
+                                                            <Check className="w-5 h-5 text-foreground dark:text-foreground" />
                                                         </div>
                                                     </div>
                                                 )}

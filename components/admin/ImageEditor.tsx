@@ -241,7 +241,7 @@ export default function ImageEditor({
                     {imageSrc && (
                         <>
                             {/* Crop Area */}
-                            <div className="relative w-full h-96 bg-slate-900 rounded-lg overflow-hidden">
+                            <div className="relative w-full h-96 bg-surface-darker dark:bg-surface-darker rounded-lg overflow-hidden">
                                 <Cropper
                                     image={imageSrc}
                                     crop={crop}
@@ -265,7 +265,7 @@ export default function ImageEditor({
                                         Zoom: {Math.round(zoom * 100)}%
                                     </Label>
                                     <div className="flex items-center gap-2">
-                                        <ZoomOut className="w-4 h-4 text-slate-500" />
+                                        <ZoomOut className="w-4 h-4 text-muted-foreground/70 dark:text-muted-foreground/70" />
                                         <Slider
                                             value={[zoom]}
                                             onValueChange={(value) => setZoom(value[0])}
@@ -274,7 +274,7 @@ export default function ImageEditor({
                                             step={0.1}
                                             className="flex-1"
                                         />
-                                        <ZoomIn className="w-4 h-4 text-slate-500" />
+                                        <ZoomIn className="w-4 h-4 text-muted-foreground/70 dark:text-muted-foreground/70" />
                                     </div>
                                 </div>
 

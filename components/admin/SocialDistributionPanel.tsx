@@ -59,14 +59,14 @@ export default function SocialDistributionPanel({
     const hasPosts = posts && (posts.twitter?.length || posts.linkedin || posts.instagram);
 
     return (
-        <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-            <CardHeader className="border-b border-white/5 px-6 py-4 flex flex-row items-center justify-between">
-                <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
+        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+            <CardHeader className="border-b border-border/50 dark:border-border/50 px-6 py-4 flex flex-row items-center justify-between">
+                <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                     <Sparkles className="w-4 h-4 text-danger-400" />
                     Social Distribution Assets
                 </CardTitle>
                 {hasPosts && posts?.generated_at && (
-                    <Badge className="bg-slate-800 text-slate-400 text-[10px] font-mono">
+                    <Badge className="bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground text-[10px] font-mono">
                         Generated: {new Date(posts.generated_at).toLocaleDateString()}
                     </Badge>
                 )}
@@ -74,12 +74,12 @@ export default function SocialDistributionPanel({
             <CardContent className="p-6 space-y-6">
                 {!hasPosts ? (
                     <div className="text-center py-8">
-                        <p className="text-slate-500 text-sm mb-4">No social posts generated yet.</p>
+                        <p className="text-muted-foreground/70 dark:text-muted-foreground/70 text-sm mb-4">No social posts generated yet.</p>
                         {onRegenerate && (
                             <Button 
                                 onClick={handleRegenerate}
                                 disabled={isRegenerating}
-                                className="bg-danger-600 hover:bg-danger-700 text-white"
+                                className="bg-danger-600 hover:bg-danger-700 text-foreground dark:text-foreground"
                             >
                                 {isRegenerating ? (
                                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -98,14 +98,14 @@ export default function SocialDistributionPanel({
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
                                         <Twitter className="w-4 h-4 text-secondary-400" />
-                                        <span className="text-xs font-bold uppercase tracking-widest text-slate-400">
+                                        <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground">
                                             Twitter Thread ({posts.twitter.length} tweets)
                                         </span>
                                     </div>
                                     <Button
                                         size="sm"
                                         variant="ghost"
-                                        className="text-slate-400 hover:text-white h-8"
+                                        className="text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground h-8"
                                         onClick={() => copyToClipboard(posts.twitter!.join('\n\n---\n\n'), 'twitter-all')}
                                     >
                                         {copiedId === 'twitter-all' ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
@@ -115,20 +115,20 @@ export default function SocialDistributionPanel({
                                     {posts.twitter.map((tweet, idx) => (
                                         <div 
                                             key={idx}
-                                            className="p-4 bg-black/30 rounded-xl border border-white/5 group relative"
+                                            className="p-4 bg-black/30 rounded-xl border border-border/50 dark:border-border/50 group relative"
                                         >
                                             <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
                                                 <Badge className="bg-secondary-500/20 text-secondary-400 text-[10px]">{idx + 1}/{posts.twitter!.length}</Badge>
                                                 <Button
                                                     size="sm"
                                                     variant="ghost"
-                                                    className="h-6 w-6 p-0 text-slate-400 hover:text-white"
+                                                    className="h-6 w-6 p-0 text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground"
                                                     onClick={() => copyToClipboard(tweet, `tweet-${idx}`)}
                                                 >
                                                     {copiedId === `tweet-${idx}` ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                                                 </Button>
                                             </div>
-                                            <p className="text-slate-300 text-sm leading-relaxed pr-12">{tweet}</p>
+                                            <p className="text-foreground/80 dark:text-foreground/80 text-sm leading-relaxed pr-12">{tweet}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -141,21 +141,21 @@ export default function SocialDistributionPanel({
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
                                         <Linkedin className="w-4 h-4 text-secondary-400" />
-                                        <span className="text-xs font-bold uppercase tracking-widest text-slate-400">
+                                        <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground">
                                             LinkedIn Post
                                         </span>
                                     </div>
                                     <Button
                                         size="sm"
                                         variant="ghost"
-                                        className="text-slate-400 hover:text-white h-8"
+                                        className="text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground h-8"
                                         onClick={() => copyToClipboard(posts.linkedin!, 'linkedin')}
                                     >
                                         {copiedId === 'linkedin' ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                                     </Button>
                                 </div>
-                                <div className="p-4 bg-black/30 rounded-xl border border-white/5">
-                                    <p className="text-slate-300 text-sm leading-relaxed whitespace-pre-wrap">{posts.linkedin}</p>
+                                <div className="p-4 bg-black/30 rounded-xl border border-border/50 dark:border-border/50">
+                                    <p className="text-foreground/80 dark:text-foreground/80 text-sm leading-relaxed whitespace-pre-wrap">{posts.linkedin}</p>
                                 </div>
                             </div>
                         )}
@@ -166,32 +166,32 @@ export default function SocialDistributionPanel({
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
                                         <Instagram className="w-4 h-4 text-danger-400" />
-                                        <span className="text-xs font-bold uppercase tracking-widest text-slate-400">
+                                        <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground">
                                             Instagram Caption
                                         </span>
                                     </div>
                                     <Button
                                         size="sm"
                                         variant="ghost"
-                                        className="text-slate-400 hover:text-white h-8"
+                                        className="text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground h-8"
                                         onClick={() => copyToClipboard(posts.instagram!, 'instagram')}
                                     >
                                         {copiedId === 'instagram' ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                                     </Button>
                                 </div>
-                                <div className="p-4 bg-black/30 rounded-xl border border-white/5">
-                                    <p className="text-slate-300 text-sm leading-relaxed whitespace-pre-wrap">{posts.instagram}</p>
+                                <div className="p-4 bg-black/30 rounded-xl border border-border/50 dark:border-border/50">
+                                    <p className="text-foreground/80 dark:text-foreground/80 text-sm leading-relaxed whitespace-pre-wrap">{posts.instagram}</p>
                                 </div>
                             </div>
                         )}
 
                         {/* Actions */}
                         {onRegenerate && (
-                            <div className="pt-4 border-t border-white/5 flex justify-end">
+                            <div className="pt-4 border-t border-border/50 dark:border-border/50 flex justify-end">
                                 <Button
                                     size="sm"
                                     variant="ghost"
-                                    className="text-slate-400 hover:text-white"
+                                    className="text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground"
                                     onClick={handleRegenerate}
                                     disabled={isRegenerating}
                                 >

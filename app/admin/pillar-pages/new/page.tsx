@@ -90,7 +90,7 @@ export default function NewPillarPage() {
 
     // Auto-save indicator (mocked - could implement actual auto-save)
     const autosaveIndicator = lastSaved ? (
-        <div className="flex items-center gap-2 text-xs text-slate-500">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
             <Save className="w-3 h-3" />
             <span>Saved {lastSaved.toLocaleTimeString()}</span>
         </div>
@@ -129,7 +129,7 @@ export default function NewPillarPage() {
                     <div className="flex items-center gap-4">
                         {autosaveIndicator}
                         {saving && (
-                            <div className="flex items-center gap-2 text-sm text-slate-600">
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground/50 dark:text-muted-foreground/50">
                                 <Loader2 className="w-4 h-4 animate-spin" />
                                 <span>Saving...</span>
                             </div>

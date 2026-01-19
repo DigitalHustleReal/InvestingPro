@@ -35,7 +35,7 @@ export default function EditProductPage() {
                 <div className="p-8">
                     <div className="text-center py-16">
                         <h2 className="text-2xl font-bold text-slate-900 mb-2">Product Not Found</h2>
-                        <p className="text-slate-500 mb-6">The product you're looking for doesn't exist.</p>
+                        <p className="text-muted-foreground/70 dark:text-muted-foreground/70 mb-6">The product you're looking for doesn't exist.</p>
                         <Link href="/admin/products" className="text-teal-600 hover:text-teal-700 font-medium">
                             ← Back to Products
                         </Link>
@@ -51,17 +51,17 @@ export default function EditProductPage() {
                 <div className="mb-8">
                     <Link 
                         href="/admin/products" 
-                        className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700 mb-4"
+                        className="inline-flex items-center gap-2 text-sm text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-700 mb-4"
                     >
                         <ArrowLeft className="w-4 h-4" /> Back to Products
                     </Link>
                     <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary-500 to-secondary-600 flex items-center justify-center shadow-lg shadow-secondary-500/25">
-                            <Edit className="w-6 h-6 text-white" />
+                            <Edit className="w-6 h-6 text-foreground dark:text-foreground" />
                         </div>
                         <div>
                             <h1 className="text-3xl font-bold text-slate-900">Edit Product</h1>
-                            <p className="text-slate-500">{product.name}</p>
+                            <p className="text-muted-foreground/70 dark:text-muted-foreground/70">{product.name}</p>
                         </div>
                     </div>
                 </div>

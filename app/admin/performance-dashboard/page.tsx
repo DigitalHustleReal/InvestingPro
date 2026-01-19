@@ -83,8 +83,8 @@ export default function PerformanceDashboard() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Performance Dashboard</h1>
-                        <p className="text-slate-600 dark:text-slate-400 mt-1">
+                        <h1 className="text-3xl font-bold text-slate-900 dark:text-foreground dark:text-foreground">Performance Dashboard</h1>
+                        <p className="text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mt-1">
                             Monitor Core Web Vitals, bundle size, and Lighthouse scores
                         </p>
                     </div>
@@ -115,7 +115,7 @@ export default function PerformanceDashboard() {
                 {isLoading ? (
                     <div className="text-center py-12">
                         <RefreshCw className="w-8 h-8 animate-spin mx-auto text-primary-600" />
-                        <p className="mt-4 text-slate-600 dark:text-slate-400">Loading performance metrics...</p>
+                        <p className="mt-4 text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">Loading performance metrics...</p>
                     </div>
                 ) : metrics ? (
                     <>
@@ -185,37 +185,37 @@ export default function PerformanceDashboard() {
                             <CardContent>
                                 <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                                     <div>
-                                        <div className="text-sm text-slate-600 dark:text-slate-400 mb-1">LCP (avg)</div>
+                                        <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mb-1">LCP (avg)</div>
                                         <div className="text-2xl font-bold">{metrics.webVitals.average.lcp}ms</div>
-                                        <div className="text-xs text-slate-500 mt-1">
+                                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                             P75: {metrics.webVitals.p75.lcp}ms
                                         </div>
                                     </div>
                                     <div>
-                                        <div className="text-sm text-slate-600 dark:text-slate-400 mb-1">FID (avg)</div>
+                                        <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mb-1">FID (avg)</div>
                                         <div className="text-2xl font-bold">{metrics.webVitals.average.fid}ms</div>
-                                        <div className="text-xs text-slate-500 mt-1">
+                                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                             P75: {metrics.webVitals.p75.fid}ms
                                         </div>
                                     </div>
                                     <div>
-                                        <div className="text-sm text-slate-600 dark:text-slate-400 mb-1">CLS (avg)</div>
+                                        <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mb-1">CLS (avg)</div>
                                         <div className="text-2xl font-bold">{metrics.webVitals.average.cls.toFixed(3)}</div>
-                                        <div className="text-xs text-slate-500 mt-1">
+                                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                             P75: {metrics.webVitals.p75.cls.toFixed(3)}
                                         </div>
                                     </div>
                                     <div>
-                                        <div className="text-sm text-slate-600 dark:text-slate-400 mb-1">FCP (avg)</div>
+                                        <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mb-1">FCP (avg)</div>
                                         <div className="text-2xl font-bold">{metrics.webVitals.average.fcp}ms</div>
-                                        <div className="text-xs text-slate-500 mt-1">
+                                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                             P75: {metrics.webVitals.p75.fcp}ms
                                         </div>
                                     </div>
                                     <div>
-                                        <div className="text-sm text-slate-600 dark:text-slate-400 mb-1">TTFB (avg)</div>
+                                        <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mb-1">TTFB (avg)</div>
                                         <div className="text-2xl font-bold">{metrics.webVitals.average.ttfb}ms</div>
-                                        <div className="text-xs text-slate-500 mt-1">
+                                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                             P75: {metrics.webVitals.p75.ttfb}ms
                                         </div>
                                     </div>
@@ -277,15 +277,15 @@ export default function PerformanceDashboard() {
                             <CardContent>
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div>
-                                        <div className="text-sm text-slate-600 dark:text-slate-400 mb-1">Total Size</div>
+                                        <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mb-1">Total Size</div>
                                         <div className="text-2xl font-bold">{formatBytes(metrics.bundle.totalSize)}</div>
                                     </div>
                                     <div>
-                                        <div className="text-sm text-slate-600 dark:text-slate-400 mb-1">Gzipped Size</div>
+                                        <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mb-1">Gzipped Size</div>
                                         <div className="text-2xl font-bold">{formatBytes(metrics.bundle.gzippedSize)}</div>
                                     </div>
                                     <div>
-                                        <div className="text-sm text-slate-600 dark:text-slate-400 mb-1">Budget Status</div>
+                                        <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mb-1">Budget Status</div>
                                         <div className="mt-2">
                                             {metrics.bundle.meetsBudget ? (
                                                 <Badge className="bg-green-500">
@@ -307,7 +307,7 @@ export default function PerformanceDashboard() {
                 ) : (
                     <div className="text-center py-12">
                         <Gauge className="w-12 h-12 mx-auto mb-3 opacity-40" />
-                        <p className="text-slate-500">No performance data available</p>
+                        <p className="text-muted-foreground/70 dark:text-muted-foreground/70">No performance data available</p>
                     </div>
                 )}
             </div>

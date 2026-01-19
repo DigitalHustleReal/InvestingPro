@@ -175,7 +175,7 @@ export default function ScraperMonitor({
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-white">Scraper Monitor</h2>
+          <h2 className="text-2xl font-bold text-foreground dark:text-foreground">Scraper Monitor</h2>
           <p className="text-sm text-gray-400 mt-1">
             {activeScrapers} of {scrapers.length} scrapers running
           </p>
@@ -210,13 +210,13 @@ export default function ScraperMonitor({
       {/* Scrapers Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {scrapers.map((scraper) => (
-          <Card key={scraper.id} className="p-6 bg-slate-900/50 border-slate-800">
+          <Card key={scraper.id} className="p-6 bg-surface-darker/50 dark:bg-surface-darker/50 border-slate-800">
             {/* Header */}
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-start gap-3">
                 {getStatusIcon(scraper.status)}
                 <div>
-                  <h3 className="font-semibold text-white">{scraper.name}</h3>
+                  <h3 className="font-semibold text-foreground dark:text-foreground">{scraper.name}</h3>
                   <p className="text-sm text-gray-400 mt-1">{scraper.description}</p>
                 </div>
               </div>
@@ -248,21 +248,21 @@ export default function ScraperMonitor({
             <div className="grid grid-cols-3 gap-4 mb-4">
               <div>
                 <p className="text-xs text-gray-400">Items Scraped</p>
-                <p className="text-lg font-semibold text-white mt-1">
+                <p className="text-lg font-semibold text-foreground dark:text-foreground mt-1">
                   {scraper.itemsScraped.toLocaleString()}
                 </p>
               </div>
               
               <div>
                 <p className="text-xs text-gray-400">Last Run</p>
-                <p className="text-sm font-medium text-white mt-1">
+                <p className="text-sm font-medium text-foreground dark:text-foreground mt-1">
                   {formatDate(scraper.lastRun)}
                 </p>
               </div>
               
               <div>
                 <p className="text-xs text-gray-400">Duration</p>
-                <p className="text-sm font-medium text-white mt-1">
+                <p className="text-sm font-medium text-foreground dark:text-foreground mt-1">
                   {formatDuration(scraper.duration)}
                 </p>
               </div>
@@ -275,7 +275,7 @@ export default function ScraperMonitor({
                 {scraper.sources.map((source) => (
                   <span
                     key={source}
-                    className="px-2 py-1 bg-slate-800 text-xs text-gray-300 rounded"
+                    className="px-2 py-1 bg-muted dark:bg-muted text-xs text-gray-300 rounded"
                   >
                     {source}
                   </span>

@@ -393,34 +393,34 @@ export default function AdminGuidePage() {
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8">
                     <div>
-                        <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
+                        <h1 className="text-3xl font-bold text-foreground dark:text-foreground mb-2 flex items-center gap-3">
                             <BookOpen className="w-8 h-8 text-primary-400" />
                             User Guide
                         </h1>
-                        <p className="text-slate-400">Complete reference for Admin Dashboard and CMS system</p>
+                        <p className="text-muted-foreground dark:text-muted-foreground">Complete reference for Admin Dashboard and CMS system</p>
                     </div>
                 </div>
 
                 {/* Search Bar */}
-                <Card className="bg-white/[0.03] border-white/5">
+                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50">
                     <CardContent className="p-6">
                         <div className="relative">
-                            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+                            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground dark:text-muted-foreground" />
                             <Input
                                 type="text"
                                 placeholder="Search guide..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="pl-12 bg-white/5 border-white/10 text-white placeholder:text-slate-500 focus:border-primary-500/50"
+                                className="pl-12 bg-white/5 border-border dark:border-border text-foreground dark:text-foreground placeholder:text-muted-foreground/70 dark:text-muted-foreground/70 focus:border-primary-500/50"
                             />
                         </div>
                     </CardContent>
                 </Card>
 
                 {/* Table of Contents */}
-                <Card className="bg-white/[0.03] border-white/5">
-                    <CardHeader className="border-b border-white/5">
-                        <CardTitle className="text-lg font-bold text-white flex items-center gap-3">
+                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50">
+                    <CardHeader className="border-b border-border/50 dark:border-border/50">
+                        <CardTitle className="text-lg font-bold text-foreground dark:text-foreground flex items-center gap-3">
                             <FileText className="w-5 h-5 text-primary-400" />
                             Table of Contents
                         </CardTitle>
@@ -436,8 +436,8 @@ export default function AdminGuidePage() {
                                         className={cn(
                                             "flex items-center gap-3 p-4 rounded-xl border transition-all text-left",
                                             activeSection === section.id
-                                                ? "bg-primary-500/10 border-primary-500/30 text-white"
-                                                : "bg-white/5 border-white/5 hover:border-primary-500/30 hover:bg-white/10 text-slate-300"
+                                                ? "bg-primary-500/10 border-primary-500/30 text-foreground dark:text-foreground"
+                                                : "bg-white/5 border-border/50 dark:border-border/50 hover:border-primary-500/30 hover:bg-white/10 text-foreground/80 dark:text-foreground/80"
                                         )}
                                     >
                                         <Icon className="w-5 h-5 flex-shrink-0" />
@@ -454,9 +454,9 @@ export default function AdminGuidePage() {
                 </Card>
 
                 {/* Guide Content */}
-                <Card className="bg-white/[0.03] border-white/5">
-                    <CardHeader className="border-b border-white/5">
-                        <CardTitle className="text-lg font-bold text-white flex items-center gap-3">
+                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50">
+                    <CardHeader className="border-b border-border/50 dark:border-border/50">
+                        <CardTitle className="text-lg font-bold text-foreground dark:text-foreground flex items-center gap-3">
                             <BookOpen className="w-5 h-5 text-primary-400" />
                             Complete Guide
                         </CardTitle>
@@ -466,42 +466,42 @@ export default function AdminGuidePage() {
                             <ReactMarkdown
                                 components={{
                                     h1: ({ children }) => (
-                                        <h1 className="text-3xl font-bold text-white mt-8 mb-4 first:mt-0 flex items-center gap-2">
+                                        <h1 className="text-3xl font-bold text-foreground dark:text-foreground mt-8 mb-4 first:mt-0 flex items-center gap-2">
                                             {children}
                                         </h1>
                                     ),
                                     h2: ({ children }) => (
-                                        <h2 className="text-2xl font-bold text-white mt-8 mb-4 border-b border-white/5 pb-3 flex items-center gap-2">
+                                        <h2 className="text-2xl font-bold text-foreground dark:text-foreground mt-8 mb-4 border-b border-border/50 dark:border-border/50 pb-3 flex items-center gap-2">
                                             {children}
                                         </h2>
                                     ),
                                     h3: ({ children }) => (
-                                        <h3 className="text-xl font-bold text-slate-200 mt-6 mb-3 flex items-center gap-2">
+                                        <h3 className="text-xl font-bold text-foreground/90 dark:text-foreground/90 mt-6 mb-3 flex items-center gap-2">
                                             {children}
                                         </h3>
                                     ),
                                     h4: ({ children }) => (
-                                        <h4 className="text-lg font-bold text-slate-300 mt-4 mb-2 flex items-center gap-2">
+                                        <h4 className="text-lg font-bold text-foreground/80 dark:text-foreground/80 mt-4 mb-2 flex items-center gap-2">
                                             {children}
                                         </h4>
                                     ),
                                     p: ({ children }) => (
-                                        <p className="text-slate-300 mb-4 leading-relaxed">
+                                        <p className="text-foreground/80 dark:text-foreground/80 mb-4 leading-relaxed">
                                             {children}
                                         </p>
                                     ),
                                     ul: ({ children }) => (
-                                        <ul className="list-disc list-inside text-slate-300 mb-4 space-y-2 ml-4">
+                                        <ul className="list-disc list-inside text-foreground/80 dark:text-foreground/80 mb-4 space-y-2 ml-4">
                                             {children}
                                         </ul>
                                     ),
                                     ol: ({ children }) => (
-                                        <ol className="list-decimal list-inside text-slate-300 mb-4 space-y-2 ml-4">
+                                        <ol className="list-decimal list-inside text-foreground/80 dark:text-foreground/80 mb-4 space-y-2 ml-4">
                                             {children}
                                         </ol>
                                     ),
                                     li: ({ children }) => (
-                                        <li className="text-slate-300 leading-relaxed">
+                                        <li className="text-foreground/80 dark:text-foreground/80 leading-relaxed">
                                             {children}
                                         </li>
                                     ),
@@ -512,13 +512,13 @@ export default function AdminGuidePage() {
                                                 {children}
                                             </code>
                                         ) : (
-                                            <code className="block bg-slate-900/50 text-slate-300 p-4 rounded-xl border border-white/5 my-4 overflow-x-auto text-sm font-mono">
+                                            <code className="block bg-surface-darker/50 dark:bg-surface-darker/50 text-foreground/80 dark:text-foreground/80 p-4 rounded-xl border border-border/50 dark:border-border/50 my-4 overflow-x-auto text-sm font-mono">
                                                 <pre className="whitespace-pre-wrap">{children}</pre>
                                             </code>
                                         );
                                     },
                                     table: ({ children }) => (
-                                        <div className="overflow-x-auto my-6 rounded-xl border border-white/5">
+                                        <div className="overflow-x-auto my-6 rounded-xl border border-border/50 dark:border-border/50">
                                             <table className="min-w-full border-collapse">
                                                 {children}
                                             </table>
@@ -530,17 +530,17 @@ export default function AdminGuidePage() {
                                         </thead>
                                     ),
                                     th: ({ children }) => (
-                                        <th className="border border-white/10 px-4 py-3 text-left text-sm font-bold text-white bg-white/5">
+                                        <th className="border border-border dark:border-border px-4 py-3 text-left text-sm font-bold text-foreground dark:text-foreground bg-white/5">
                                             {children}
                                         </th>
                                     ),
                                     td: ({ children }) => (
-                                        <td className="border border-white/10 px-4 py-3 text-sm text-slate-300 bg-white/[0.02]">
+                                        <td className="border border-border dark:border-border px-4 py-3 text-sm text-foreground/80 dark:text-foreground/80 bg-card/50 dark:bg-card/50">
                                             {children}
                                         </td>
                                     ),
                                     blockquote: ({ children }) => (
-                                        <blockquote className="border-l-4 border-primary-500/50 pl-4 my-4 italic text-slate-400 bg-primary-500/5 py-2 rounded-r-xl">
+                                        <blockquote className="border-l-4 border-primary-500/50 pl-4 my-4 italic text-muted-foreground dark:text-muted-foreground bg-primary-500/5 py-2 rounded-r-xl">
                                             {children}
                                         </blockquote>
                                     ),
@@ -550,15 +550,15 @@ export default function AdminGuidePage() {
                                         </a>
                                     ),
                                     hr: () => (
-                                        <hr className="border-white/10 my-8" />
+                                        <hr className="border-border dark:border-border my-8" />
                                     ),
                                     strong: ({ children }) => (
-                                        <strong className="font-bold text-white">
+                                        <strong className="font-bold text-foreground dark:text-foreground">
                                             {children}
                                         </strong>
                                     ),
                                     em: ({ children }) => (
-                                        <em className="italic text-slate-300">
+                                        <em className="italic text-foreground/80 dark:text-foreground/80">
                                             {children}
                                         </em>
                                     ),

@@ -50,7 +50,7 @@ export async function scrapeLIC(): Promise<ScrapedInsurance[]> {
     logger.info(`Scraped ${products.length} products from LIC`);
     return products;
   } catch (error) {
-    logger.error('Error scraping LIC', error);
+    logger.error('Error scraping LIC', error as Error);
     return [];
   }
 }
@@ -80,7 +80,7 @@ export async function scrapeStarHealth(): Promise<ScrapedInsurance[]> {
     logger.info(`Scraped ${products.length} products from Star Health`);
     return products;
   } catch (error) {
-    logger.error('Error scraping Star Health', error);
+    logger.error('Error scraping Star Health', error as Error);
     return [];
   }
 }
@@ -97,14 +97,14 @@ export async function scrapeAllInsurance(): Promise<ScrapedInsurance[]> {
     const lic = await scrapeLIC();
     results.push(...lic);
   } catch (error) {
-    logger.error('Failed to scrape LIC', error);
+    logger.error('Failed to scrape LIC', error as Error);
   }
 
   try {
     const starHealth = await scrapeStarHealth();
     results.push(...starHealth);
   } catch (error) {
-    logger.error('Failed to scrape Star Health', error);
+    logger.error('Failed to scrape Star Health', error as Error);
   }
 
   logger.info(`Total insurance products scraped: ${results.length}`);

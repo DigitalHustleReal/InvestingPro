@@ -146,14 +146,14 @@ export default function BatchGeneratorPage() {
                         <Factory className="w-8 h-8" />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Content Factory</h1>
-                        <p className="text-slate-500 dark:text-slate-400">Generate hundreds of articles in bulk using AI.</p>
+                        <h1 className="text-2xl font-bold text-slate-900 dark:text-foreground dark:text-foreground">Content Factory</h1>
+                        <p className="text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground">Generate hundreds of articles in bulk using AI.</p>
                     </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* INPUT FORM */}
-                    <div className="space-y-6 bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <div className="space-y-6 bg-white dark:bg-surface-darker dark:bg-surface-darker p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
                         <h2 className="font-semibold text-lg mb-4">1. Configure Batch</h2>
                         
                         <div className="space-y-4">
@@ -174,7 +174,7 @@ export default function BatchGeneratorPage() {
                                     value={keywords}
                                     onChange={e => setKeywords(e.target.value)}
                                 />
-                                <p className="text-xs text-slate-400 mt-1">
+                                <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
                                     {keywords.split('\n').filter(k => k.trim()).length} articles will be generated.
                                 </p>
                             </div>
@@ -185,7 +185,7 @@ export default function BatchGeneratorPage() {
                                     <div className="mt-1">
                                         {/* Simple select fallback if component tricky, but we have it */}
                                         <select 
-                                            className="w-full h-10 rounded-md border border-slate-300 dark:border-slate-700 px-3 text-sm bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+                                            className="w-full h-10 rounded-md border border-slate-300 dark:border-border dark:border-border px-3 text-sm bg-white dark:bg-muted dark:bg-muted text-slate-900 dark:text-foreground dark:text-foreground"
                                             value={category}
                                             onChange={e => setCategory(e.target.value)}
                                         >
@@ -214,7 +214,7 @@ export default function BatchGeneratorPage() {
                             <div>
                                 <Label>Author Persona (Optional)</Label>
                                 <select 
-                                    className="w-full h-10 rounded-md border border-slate-300 dark:border-slate-700 px-3 text-sm mt-1 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+                                    className="w-full h-10 rounded-md border border-slate-300 dark:border-border dark:border-border px-3 text-sm mt-1 bg-white dark:bg-muted dark:bg-muted text-slate-900 dark:text-foreground dark:text-foreground"
                                     value={selectedAuthorId}
                                     onChange={e => setSelectedAuthorId(e.target.value)}
                                 >
@@ -260,7 +260,7 @@ export default function BatchGeneratorPage() {
                         </div>
 
                         {!activeBatchId ? (
-                            <div className="h-64 flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-lg">
+                            <div className="h-64 flex flex-col items-center justify-center text-muted-foreground dark:text-muted-foreground dark:text-muted-foreground/70 dark:text-muted-foreground/70 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-lg">
                                 <Factory className="w-12 h-12 mb-2 opacity-20" />
                                 <p>Ready to build content</p>
                             </div>
@@ -268,17 +268,17 @@ export default function BatchGeneratorPage() {
                             <div className="space-y-6">
                                 {/* Stats Cards */}
                                 <div className="grid grid-cols-3 gap-4">
-                                    <div className="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm text-center">
-                                        <div className="text-2xl font-bold text-slate-700 dark:text-white">{batchProgress?.total || 0}</div>
-                                        <div className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total</div>
+                                    <div className="bg-white dark:bg-muted dark:bg-muted p-3 rounded-lg border border-slate-200 dark:border-border dark:border-border shadow-sm text-center">
+                                        <div className="text-2xl font-bold text-slate-700 dark:text-foreground dark:text-foreground">{batchProgress?.total || 0}</div>
+                                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">Total</div>
                                     </div>
-                                    <div className="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm text-center">
+                                    <div className="bg-white dark:bg-muted dark:bg-muted p-3 rounded-lg border border-slate-200 dark:border-border dark:border-border shadow-sm text-center">
                                         <div className="text-2xl font-bold text-success-600 dark:text-success-400">{batchProgress?.completed || 0}</div>
-                                        <div className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">Done</div>
+                                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">Done</div>
                                     </div>
-                                    <div className="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm text-center">
+                                    <div className="bg-white dark:bg-muted dark:bg-muted p-3 rounded-lg border border-slate-200 dark:border-border dark:border-border shadow-sm text-center">
                                         <div className="text-2xl font-bold text-danger-500 dark:text-danger-400">{batchProgress?.failed || 0}</div>
-                                        <div className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">Failed</div>
+                                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">Failed</div>
                                     </div>
                                 </div>
 
@@ -297,9 +297,9 @@ export default function BatchGeneratorPage() {
                                 </div>
 
                                 {/* Log Feed */}
-                                <div className="bg-slate-900 rounded-xl p-4 h-64 overflow-y-auto font-mono text-xs space-y-2">
+                                <div className="bg-surface-darker dark:bg-surface-darker rounded-xl p-4 h-64 overflow-y-auto font-mono text-xs space-y-2">
                                     {batchProgress?.items?.length === 0 && (
-                                        <div className="text-slate-500 italic">Waiting for logs...</div>
+                                        <div className="text-muted-foreground/70 dark:text-muted-foreground/70 italic">Waiting for logs...</div>
                                     )}
                                     {batchProgress?.items?.map((item: string, i: number) => (
                                         <div key={i} className="flex items-center text-success-400 animate-in fade-in slide-in-from-left-2">

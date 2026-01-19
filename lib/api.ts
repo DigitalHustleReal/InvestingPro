@@ -106,14 +106,19 @@ async function reportFailure(name: string, error: string) {
 
     // Persist to DB
     if (typeof window === 'undefined') {
-        await supabase.from('ai_provider_health').upsert({
-            provider_name: name,
-            status: health.status,
-            last_error: error,
-            last_failure_time: new Date(health.lastFailureTime).toISOString(),
-            failure_count: health.failureCount,
-            updated_at: new Date().toISOString()
-        });
+        try {
+            await supabase.from('ai_provider_health').upsert({
+                provider_name: name,
+                status: health.status,
+                last_error: error,
+                last_failure_time: new Date(health.lastFailureTime).toISOString(),
+                failure_count: health.failureCount,
+                updated_at: new Date().toISOString()
+            });
+        } catch (dbError) {
+             // Ignore DB errors (table might be missing), rely on in-memory health
+             console.warn('Failed to persist AI health to DB', dbError);
+        }
     }
 }
 
@@ -125,12 +130,16 @@ async function reportSuccess(name: string) {
 
     // Persist to DB if state changed
     if (wasDegraded && typeof window === 'undefined') {
-        await supabase.from('ai_provider_health').upsert({
-            provider_name: name,
-            status: 'healthy',
-            failure_count: 0,
-            updated_at: new Date().toISOString()
-        });
+        try {
+            await supabase.from('ai_provider_health').upsert({
+                provider_name: name,
+                status: 'healthy',
+                failure_count: 0,
+                updated_at: new Date().toISOString()
+            });
+        } catch (dbError) {
+             console.warn('Failed to persist AI health to DB', dbError);
+        }
     }
 }
 

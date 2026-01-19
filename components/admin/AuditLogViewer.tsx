@@ -296,14 +296,14 @@ export default function AuditLogViewer({ initialFilters }: AuditLogViewerProps) 
                 <CardHeader>
                     <CardTitle className="flex items-center justify-between">
                         <span>Audit Log</span>
-                        <span className="text-sm font-normal text-slate-500">
+                        <span className="text-sm font-normal text-muted-foreground/70 dark:text-muted-foreground/70">
                             {pagination.total} total entries
                         </span>
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
                     {logs.length === 0 ? (
-                        <div className="text-center py-8 text-slate-500">
+                        <div className="text-center py-8 text-muted-foreground/70 dark:text-muted-foreground/70">
                             <FileText className="w-12 h-12 mx-auto mb-4 opacity-50" />
                             <p>No audit log entries found</p>
                         </div>
@@ -327,14 +327,14 @@ export default function AuditLogViewer({ initialFilters }: AuditLogViewerProps) 
                                             <TableRow key={entry.id}>
                                                 <TableCell className="whitespace-nowrap">
                                                     <div className="flex items-center gap-2">
-                                                        <Clock className="w-4 h-4 text-slate-400" />
+                                                        <Clock className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
                                                         <div>
                                                             <div className="text-sm">
                                                                 {formatDistanceToNow(new Date(entry.created_at), {
                                                                     addSuffix: true,
                                                                 })}
                                                             </div>
-                                                            <div className="text-xs text-slate-500">
+                                                            <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
                                                                 {format(new Date(entry.created_at), 'MMM d, yyyy HH:mm')}
                                                             </div>
                                                         </div>
@@ -342,13 +342,13 @@ export default function AuditLogViewer({ initialFilters }: AuditLogViewerProps) 
                                                 </TableCell>
                                                 <TableCell>
                                                     <div className="flex items-center gap-2">
-                                                        <User className="w-4 h-4 text-slate-400" />
+                                                        <User className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
                                                         <div>
                                                             <div className="text-sm font-medium">
                                                                 {entry.user_name || entry.user_email || 'Unknown'}
                                                             </div>
                                                             {entry.user_email && entry.user_name && (
-                                                                <div className="text-xs text-slate-500">
+                                                                <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
                                                                     {entry.user_email}
                                                                 </div>
                                                             )}
@@ -359,7 +359,7 @@ export default function AuditLogViewer({ initialFilters }: AuditLogViewerProps) 
                                                     <div>
                                                         <Badge variant="outline">{entry.entity_type}</Badge>
                                                         {entry.entity_id && (
-                                                            <div className="text-xs text-slate-500 mt-1">
+                                                            <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                                                 {entry.entity_id.substring(0, 8)}...
                                                             </div>
                                                         )}
@@ -370,7 +370,7 @@ export default function AuditLogViewer({ initialFilters }: AuditLogViewerProps) 
                                                         {entry.action}
                                                     </Badge>
                                                     {entry.request_method && (
-                                                        <div className="text-xs text-slate-500 mt-1">
+                                                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                                             {entry.request_method}
                                                         </div>
                                                     )}
@@ -380,7 +380,7 @@ export default function AuditLogViewer({ initialFilters }: AuditLogViewerProps) 
                                                         {entry.action_details || 'No details'}
                                                     </div>
                                                     {entry.request_path && (
-                                                        <div className="text-xs text-slate-500 mt-1 truncate">
+                                                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1 truncate">
                                                             {entry.request_path}
                                                         </div>
                                                     )}
@@ -390,7 +390,7 @@ export default function AuditLogViewer({ initialFilters }: AuditLogViewerProps) 
                                                         {entry.severity}
                                                     </Badge>
                                                 </TableCell>
-                                                <TableCell className="text-xs text-slate-500">
+                                                <TableCell className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
                                                     {entry.ip_address || 'N/A'}
                                                 </TableCell>
                                             </TableRow>
@@ -402,7 +402,7 @@ export default function AuditLogViewer({ initialFilters }: AuditLogViewerProps) 
                             {/* Pagination */}
                             {pagination.total > pagination.limit && (
                                 <div className="flex items-center justify-between mt-4">
-                                    <div className="text-sm text-slate-500">
+                                    <div className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70">
                                         Showing {pagination.offset + 1} to{' '}
                                         {Math.min(pagination.offset + pagination.limit, pagination.total)} of{' '}
                                         {pagination.total} entries

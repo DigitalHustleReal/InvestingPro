@@ -78,8 +78,8 @@ export function VersionComparison({ articleId, version1, version2, onClose }: Ve
     if (isLoading) {
         return (
             <div className="p-8 text-center">
-                <Loader2 className="w-6 h-6 animate-spin text-slate-400 mx-auto mb-2" />
-                <p className="text-slate-400">Loading versions...</p>
+                <Loader2 className="w-6 h-6 animate-spin text-muted-foreground dark:text-muted-foreground mx-auto mb-2" />
+                <p className="text-muted-foreground dark:text-muted-foreground">Loading versions...</p>
             </div>
         );
     }
@@ -95,12 +95,12 @@ export function VersionComparison({ articleId, version1, version2, onClose }: Ve
     const contentDiff = getDiff(version1Data.body_markdown || '', version2Data.body_markdown || '');
 
     return (
-        <div className="border rounded-lg bg-white dark:bg-slate-800">
+        <div className="border rounded-lg bg-white dark:bg-muted dark:bg-muted">
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
+            <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-border dark:border-border">
                 <div className="flex items-center gap-2">
-                    <FileDiff className="w-5 h-5 text-slate-600 dark:text-slate-400" />
-                    <h3 className="font-semibold text-slate-900 dark:text-white">
+                    <FileDiff className="w-5 h-5 text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground" />
+                    <h3 className="font-semibold text-slate-900 dark:text-foreground dark:text-foreground">
                         Comparing Version {version1} vs Version {version2}
                     </h3>
                 </div>
@@ -116,13 +116,13 @@ export function VersionComparison({ articleId, version1, version2, onClose }: Ve
             </div>
 
             {/* Tabs */}
-            <div className="flex border-b border-slate-200 dark:border-slate-700">
+            <div className="flex border-b border-slate-200 dark:border-border dark:border-border">
                 <button
                     onClick={() => setActiveTab('content')}
                     className={`px-4 py-2 text-sm font-medium transition-colors ${
                         activeTab === 'content'
                             ? 'text-primary-600 dark:text-primary-400 border-b-2 border-primary-600 dark:border-primary-400'
-                            : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
+                            : 'text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground hover:text-slate-700 dark:hover:text-foreground/80 dark:text-foreground/80'
                     }`}
                 >
                     <FileText className="w-4 h-4 inline mr-1" />
@@ -133,7 +133,7 @@ export function VersionComparison({ articleId, version1, version2, onClose }: Ve
                     className={`px-4 py-2 text-sm font-medium transition-colors ${
                         activeTab === 'metadata'
                             ? 'text-primary-600 dark:text-primary-400 border-b-2 border-primary-600 dark:border-primary-400'
-                            : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
+                            : 'text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground hover:text-slate-700 dark:hover:text-foreground/80 dark:text-foreground/80'
                     }`}
                 >
                     Metadata
@@ -147,16 +147,16 @@ export function VersionComparison({ articleId, version1, version2, onClose }: Ve
                         {/* Version 1 */}
                         <div className="space-y-2">
                             <div className="flex items-center justify-between mb-2">
-                                <h4 className="font-medium text-slate-900 dark:text-white">
+                                <h4 className="font-medium text-slate-900 dark:text-foreground dark:text-foreground">
                                     Version {version1} (Older)
                                 </h4>
-                                <span className="text-xs text-slate-500">
+                                <span className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
                                     {formatDistanceToNow(new Date(version1Data.created_at), { addSuffix: true })}
                                 </span>
                             </div>
                             <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded text-sm">
                                 <div className="font-semibold text-red-700 dark:text-red-400 mb-2">Title:</div>
-                                <div className="text-slate-900 dark:text-white mb-4">{version1Data.title}</div>
+                                <div className="text-slate-900 dark:text-foreground dark:text-foreground mb-4">{version1Data.title}</div>
                                 
                                 {contentDiff.removed.length > 0 && (
                                     <>
@@ -171,8 +171,8 @@ export function VersionComparison({ articleId, version1, version2, onClose }: Ve
                                     </>
                                 )}
                                 
-                                <div className="font-semibold text-slate-700 dark:text-slate-300 mb-2 mt-4">Content:</div>
-                                <div className="text-slate-600 dark:text-slate-400 whitespace-pre-wrap">
+                                <div className="font-semibold text-slate-700 dark:text-foreground/80 dark:text-foreground/80 mb-2 mt-4">Content:</div>
+                                <div className="text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground whitespace-pre-wrap">
                                     {version1Data.body_markdown}
                                 </div>
                             </div>
@@ -181,16 +181,16 @@ export function VersionComparison({ articleId, version1, version2, onClose }: Ve
                         {/* Version 2 */}
                         <div className="space-y-2">
                             <div className="flex items-center justify-between mb-2">
-                                <h4 className="font-medium text-slate-900 dark:text-white">
+                                <h4 className="font-medium text-slate-900 dark:text-foreground dark:text-foreground">
                                     Version {version2} (Newer)
                                 </h4>
-                                <span className="text-xs text-slate-500">
+                                <span className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
                                     {formatDistanceToNow(new Date(version2Data.created_at), { addSuffix: true })}
                                 </span>
                             </div>
                             <div className="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded text-sm">
                                 <div className="font-semibold text-green-700 dark:text-green-400 mb-2">Title:</div>
-                                <div className="text-slate-900 dark:text-white mb-4">{version2Data.title}</div>
+                                <div className="text-slate-900 dark:text-foreground dark:text-foreground mb-4">{version2Data.title}</div>
                                 
                                 {contentDiff.added.length > 0 && (
                                     <>
@@ -205,8 +205,8 @@ export function VersionComparison({ articleId, version1, version2, onClose }: Ve
                                     </>
                                 )}
                                 
-                                <div className="font-semibold text-slate-700 dark:text-slate-300 mb-2 mt-4">Content:</div>
-                                <div className="text-slate-600 dark:text-slate-400 whitespace-pre-wrap">
+                                <div className="font-semibold text-slate-700 dark:text-foreground/80 dark:text-foreground/80 mb-2 mt-4">Content:</div>
+                                <div className="text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground whitespace-pre-wrap">
                                     {version2Data.body_markdown}
                                 </div>
                             </div>
@@ -216,42 +216,42 @@ export function VersionComparison({ articleId, version1, version2, onClose }: Ve
                     <div className="grid grid-cols-2 gap-4">
                         {/* Version 1 Metadata */}
                         <div>
-                            <h4 className="font-medium text-slate-900 dark:text-white mb-3">Version {version1} Metadata</h4>
+                            <h4 className="font-medium text-slate-900 dark:text-foreground dark:text-foreground mb-3">Version {version1} Metadata</h4>
                             <div className="space-y-2 text-sm">
                                 <div>
-                                    <span className="font-medium text-slate-600 dark:text-slate-400">Category:</span>
-                                    <span className="ml-2 text-slate-900 dark:text-white">{version1Data.category || 'N/A'}</span>
+                                    <span className="font-medium text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">Category:</span>
+                                    <span className="ml-2 text-slate-900 dark:text-foreground dark:text-foreground">{version1Data.category || 'N/A'}</span>
                                 </div>
                                 <div>
-                                    <span className="font-medium text-slate-600 dark:text-slate-400">Tags:</span>
-                                    <span className="ml-2 text-slate-900 dark:text-white">
+                                    <span className="font-medium text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">Tags:</span>
+                                    <span className="ml-2 text-slate-900 dark:text-foreground dark:text-foreground">
                                         {version1Data.tags?.join(', ') || 'None'}
                                     </span>
                                 </div>
                                 <div>
-                                    <span className="font-medium text-slate-600 dark:text-slate-400">Excerpt:</span>
-                                    <p className="mt-1 text-slate-900 dark:text-white">{version1Data.excerpt || 'No excerpt'}</p>
+                                    <span className="font-medium text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">Excerpt:</span>
+                                    <p className="mt-1 text-slate-900 dark:text-foreground dark:text-foreground">{version1Data.excerpt || 'No excerpt'}</p>
                                 </div>
                             </div>
                         </div>
 
                         {/* Version 2 Metadata */}
                         <div>
-                            <h4 className="font-medium text-slate-900 dark:text-white mb-3">Version {version2} Metadata</h4>
+                            <h4 className="font-medium text-slate-900 dark:text-foreground dark:text-foreground mb-3">Version {version2} Metadata</h4>
                             <div className="space-y-2 text-sm">
                                 <div>
-                                    <span className="font-medium text-slate-600 dark:text-slate-400">Category:</span>
-                                    <span className="ml-2 text-slate-900 dark:text-white">{version2Data.category || 'N/A'}</span>
+                                    <span className="font-medium text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">Category:</span>
+                                    <span className="ml-2 text-slate-900 dark:text-foreground dark:text-foreground">{version2Data.category || 'N/A'}</span>
                                 </div>
                                 <div>
-                                    <span className="font-medium text-slate-600 dark:text-slate-400">Tags:</span>
-                                    <span className="ml-2 text-slate-900 dark:text-white">
+                                    <span className="font-medium text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">Tags:</span>
+                                    <span className="ml-2 text-slate-900 dark:text-foreground dark:text-foreground">
                                         {version2Data.tags?.join(', ') || 'None'}
                                     </span>
                                 </div>
                                 <div>
-                                    <span className="font-medium text-slate-600 dark:text-slate-400">Excerpt:</span>
-                                    <p className="mt-1 text-slate-900 dark:text-white">{version2Data.excerpt || 'No excerpt'}</p>
+                                    <span className="font-medium text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">Excerpt:</span>
+                                    <p className="mt-1 text-slate-900 dark:text-foreground dark:text-foreground">{version2Data.excerpt || 'No excerpt'}</p>
                                 </div>
                             </div>
                         </div>

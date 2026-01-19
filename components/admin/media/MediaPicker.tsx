@@ -24,7 +24,7 @@ export function MediaPicker({ open, onOpenChange, onSelect }: MediaPickerProps) 
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="max-w-5xl h-[80vh] flex flex-col bg-slate-900 border-slate-800 text-slate-200">
+            <DialogContent className="max-w-5xl h-[80vh] flex flex-col bg-surface-darker dark:bg-surface-darker border-slate-800 text-foreground/90 dark:text-foreground/90">
                 <DialogHeader>
                     <DialogTitle className="text-xl font-bold bg-gradient-to-r from-brand-400 to-secondary-500 bg-clip-text text-transparent">
                         Select Media

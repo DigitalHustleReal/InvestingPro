@@ -190,9 +190,9 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
 
     return (
         <div className="space-y-6">
-            <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                <CardHeader className="border-b border-white/5 px-8 py-6">
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center justify-between">
+            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
+                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <BarChart3 className="w-5 h-5 text-primary-400" />
                             <span>Advanced Metrics - Content Lifecycle Sequence</span>
@@ -218,7 +218,7 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
                                             <stage.icon className={cn("w-5 h-5", stage.color)} />
                                         </div>
                                         <div>
-                                            <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400">
+                                            <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground">
                                                 STAGE {index + 1}
                                             </h3>
                                             <h4 className={cn("text-lg font-extrabold", stage.color)}>
@@ -239,7 +239,7 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
 
                                             return (
                                                 <div key={key} className="flex items-center justify-between">
-                                                    <span className="text-xs font-medium text-slate-400">
+                                                    <span className="text-xs font-medium text-muted-foreground dark:text-muted-foreground">
                                                         {label}
                                                     </span>
                                                     <span className={cn("text-sm font-bold tabular-nums", stage.color)}>
@@ -254,8 +254,8 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
                                     </div>
 
                                     {/* Progress Indicator */}
-                                    <div className="mt-6 pt-6 border-t border-white/5">
-                                        <div className="flex items-center justify-between text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                                    <div className="mt-6 pt-6 border-t border-border/50 dark:border-border/50">
+                                        <div className="flex items-center justify-between text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">
                                             <span>Status</span>
                                             <Badge className={cn(
                                                 "bg-white/10 border-0 text-xs",
@@ -276,7 +276,7 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
                                 {/* Arrow between stages */}
                                 {index < stages.length - 1 && (
                                     <div className="hidden lg:flex items-center justify-center">
-                                        <ArrowRight className="w-6 h-6 text-slate-600" />
+                                        <ArrowRight className="w-6 h-6 text-muted-foreground/50 dark:text-muted-foreground/50" />
                                     </div>
                                 )}
                             </React.Fragment>
@@ -284,36 +284,36 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
                     </div>
 
                     {/* Summary Row - All Stages Combined */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-white/5">
-                        <div className="text-center p-4 bg-white/[0.02] rounded-xl border border-white/5">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-border/50 dark:border-border/50">
+                        <div className="text-center p-4 bg-card/50 dark:bg-card/50 rounded-xl border border-border/50 dark:border-border/50">
                             <div className="text-2xl font-extrabold text-primary-400 mb-1">
                                 {researchMetrics.keywordsResearched}
                             </div>
-                            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                            <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">
                                 Keywords Found
                             </div>
                         </div>
-                        <div className="text-center p-4 bg-white/[0.02] rounded-xl border border-white/5">
+                        <div className="text-center p-4 bg-card/50 dark:bg-card/50 rounded-xl border border-border/50 dark:border-border/50">
                             <div className="text-2xl font-extrabold text-secondary-400 mb-1">
                                 {publishMetrics.publishedThisPeriod}
                             </div>
-                            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                            <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">
                                 Published ({timeRange})
                             </div>
                         </div>
-                        <div className="text-center p-4 bg-white/[0.02] rounded-xl border border-white/5">
+                        <div className="text-center p-4 bg-card/50 dark:bg-card/50 rounded-xl border border-border/50 dark:border-border/50">
                             <div className="text-2xl font-extrabold text-accent-400 mb-1">
                                 {trackingMetrics.totalViews.toLocaleString()}
                             </div>
-                            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                            <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">
                                 Total Views
                             </div>
                         </div>
-                        <div className="text-center p-4 bg-white/[0.02] rounded-xl border border-white/5">
+                        <div className="text-center p-4 bg-card/50 dark:bg-card/50 rounded-xl border border-border/50 dark:border-border/50">
                             <div className="text-2xl font-extrabold text-success-400 mb-1">
                                 ₹{Math.round(incomeMetrics.estimatedRevenue).toLocaleString()}
                             </div>
-                            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                            <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">
                                 Est. Revenue
                             </div>
                         </div>

@@ -40,15 +40,15 @@ export function AdminPageHeader({
                             w-14 h-14 rounded-2xl bg-gradient-to-br ${iconColorClasses[iconColor]}
                             flex items-center justify-center shadow-lg
                         `}>
-                            <Icon className="w-7 h-7 text-white" />
+                            <Icon className="w-7 h-7 text-foreground dark:text-foreground" />
                         </div>
                     )}
                     <div>
-                        <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
+                        <h1 className="text-2xl md:text-3xl font-bold text-foreground dark:text-foreground tracking-tight">
                             {title}
                         </h1>
                         {subtitle && (
-                            <p className="text-slate-400 mt-1 text-sm md:text-base">
+                            <p className="text-muted-foreground dark:text-muted-foreground mt-1 text-sm md:text-base">
                                 {subtitle}
                             </p>
                         )}
@@ -87,25 +87,25 @@ export function StatCard({ label, value, change, changeType = 'neutral', icon: I
     const changeColors = {
         positive: 'text-primary-400',
         negative: 'text-danger-400',
-        neutral: 'text-slate-400',
+        neutral: 'text-muted-foreground dark:text-muted-foreground',
     };
 
     return (
         <div className={`
-            bg-slate-900/50 backdrop-blur-xl rounded-xl border ${borderColors[color]}
-            p-5 transition-all duration-300 hover:bg-slate-900/70
+            bg-surface-darker/50 dark:bg-surface-darker/50 backdrop-blur-xl rounded-xl border ${borderColors[color]}
+            p-5 transition-all duration-300 hover:bg-surface-darker dark:bg-surface-darker/70
         `}>
             <div className="flex items-start justify-between">
                 <div>
-                    <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">{label}</p>
-                    <p className="text-2xl font-bold text-white mt-1">{value}</p>
+                    <p className="text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">{label}</p>
+                    <p className="text-2xl font-bold text-foreground dark:text-foreground mt-1">{value}</p>
                     {change && (
                         <p className={`text-xs mt-1 ${changeColors[changeType]}`}>{change}</p>
                     )}
                 </div>
                 {Icon && (
                     <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center">
-                        <Icon className="w-5 h-5 text-slate-400" />
+                        <Icon className="w-5 h-5 text-muted-foreground dark:text-muted-foreground" />
                     </div>
                 )}
             </div>
@@ -123,12 +123,12 @@ interface ContentSectionProps {
 
 export function ContentSection({ title, subtitle, actions, children }: ContentSectionProps) {
     return (
-        <section className="bg-slate-900/30 backdrop-blur-xl rounded-2xl border border-white/5 overflow-hidden">
+        <section className="bg-surface-darker dark:bg-surface-darker/30 backdrop-blur-xl rounded-2xl border border-border/50 dark:border-border/50 overflow-hidden">
             {(title || actions) && (
-                <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between">
+                <div className="px-6 py-4 border-b border-border/50 dark:border-border/50 flex items-center justify-between">
                     <div>
-                        {title && <h2 className="text-lg font-semibold text-white">{title}</h2>}
-                        {subtitle && <p className="text-sm text-slate-400 mt-0.5">{subtitle}</p>}
+                        {title && <h2 className="text-lg font-semibold text-foreground dark:text-foreground">{title}</h2>}
+                        {subtitle && <p className="text-sm text-muted-foreground dark:text-muted-foreground mt-0.5">{subtitle}</p>}
                     </div>
                     {actions}
                 </div>
@@ -159,9 +159,9 @@ export function ActionButton({
     icon: Icon 
 }: ActionButtonProps) {
     const variants = {
-        primary: 'bg-gradient-to-r from-primary-500 to-success-500 text-white shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40',
-        secondary: 'bg-white/10 text-white border border-white/10 hover:bg-white/20',
-        ghost: 'text-slate-400 hover:text-white hover:bg-white/10',
+        primary: 'bg-gradient-to-r from-primary-500 to-success-500 text-foreground dark:text-foreground shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40',
+        secondary: 'bg-white/10 text-foreground dark:text-foreground border border-border dark:border-border hover:bg-white/20',
+        ghost: 'text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground hover:bg-white/10',
         danger: 'bg-danger-500/20 text-danger-400 border border-danger-500/30 hover:bg-danger-500/30',
     };
 
@@ -204,8 +204,8 @@ export function DataTable({ children }: DataTableProps) {
 
 export function TableHeader({ children }: { children: ReactNode }) {
     return (
-        <thead className="bg-slate-800/50">
-            <tr className="border-b border-white/5">
+        <thead className="bg-muted/50 dark:bg-muted/50">
+            <tr className="border-b border-border/50 dark:border-border/50">
                 {children}
             </tr>
         </thead>
@@ -214,7 +214,7 @@ export function TableHeader({ children }: { children: ReactNode }) {
 
 export function TableHeaderCell({ children, className = '' }: { children?: ReactNode; className?: string }) {
     return (
-        <th className={`px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider ${className}`}>
+        <th className={`px-4 py-3 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider ${className}`}>
             {children}
         </th>
     );
@@ -241,7 +241,7 @@ export function TableRow({ children, onClick, className = '' }: { children: Reac
 
 export function TableCell({ children, className = '' }: { children?: ReactNode; className?: string }) {
     return (
-        <td className={`px-4 py-4 text-sm text-slate-300 ${className}`}>
+        <td className={`px-4 py-4 text-sm text-foreground/80 dark:text-foreground/80 ${className}`}>
             {children}
         </td>
     );
@@ -255,7 +255,7 @@ interface BadgeProps {
 
 export function StatusBadge({ children, variant = 'default' }: BadgeProps) {
     const variants = {
-        default: 'bg-slate-700 text-slate-300',
+        default: 'bg-slate-700 text-foreground/80 dark:text-foreground/80',
         success: 'bg-primary-500/20 text-primary-400 border border-primary-500/30',
         warning: 'bg-accent-500/20 text-accent-400 border border-accent-500/30',
         danger: 'bg-danger-500/20 text-danger-400 border border-danger-500/30',
@@ -285,11 +285,11 @@ export function EmptyState({ icon: Icon, title, description, action }: EmptyStat
         <div className="text-center py-12">
             {Icon && (
                 <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mx-auto mb-4">
-                    <Icon className="w-8 h-8 text-slate-500" />
+                    <Icon className="w-8 h-8 text-muted-foreground/70 dark:text-muted-foreground/70" />
                 </div>
             )}
-            <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
-            {description && <p className="text-slate-400 mb-6 max-w-md mx-auto">{description}</p>}
+            <h3 className="text-lg font-semibold text-foreground dark:text-foreground mb-2">{title}</h3>
+            {description && <p className="text-muted-foreground dark:text-muted-foreground mb-6 max-w-md mx-auto">{description}</p>}
             {action}
         </div>
     );

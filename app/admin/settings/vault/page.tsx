@@ -29,18 +29,18 @@ export default function CredentialVaultPage() {
         <AdminLayout>
             <div className="p-6 max-w-4xl mx-auto">
                 <div className="flex items-center gap-3 mb-8">
-                    <div className="p-3 bg-slate-900 rounded-lg text-accent-500">
+                    <div className="p-3 bg-surface-darker dark:bg-surface-darker rounded-lg text-accent-500">
                         <Shield className="w-8 h-8" />
                     </div>
                     <div>
                         <h1 className="text-2xl font-bold text-slate-900">Secure Vault</h1>
-                        <p className="text-slate-500">Private notepad for API keys and credentials. (Stored Locally)</p>
+                        <p className="text-muted-foreground/70 dark:text-muted-foreground/70">Private notepad for API keys and credentials. (Stored Locally)</p>
                     </div>
                 </div>
 
-                <div className="bg-slate-950 rounded-xl overflow-hidden shadow-2xl border border-slate-800">
-                    <div className="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/50">
-                        <div className="flex items-center gap-2 text-slate-400">
+                <div className="bg-surface-darkest dark:bg-surface-darkest rounded-xl overflow-hidden shadow-2xl border border-slate-800">
+                    <div className="p-4 border-b border-slate-800 flex items-center justify-between bg-surface-darker/50 dark:bg-surface-darker/50">
+                        <div className="flex items-center gap-2 text-muted-foreground dark:text-muted-foreground">
                             <Key className="w-4 h-4" />
                             <span className="text-sm font-mono tracking-wider">CREDENTIAL_STORE.txt</span>
                         </div>
@@ -48,13 +48,13 @@ export default function CredentialVaultPage() {
                             <Button 
                                 variant="ghost" 
                                 size="sm" 
-                                className="text-slate-400 hover:text-white"
+                                className="text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground"
                                 onClick={() => setIsVisible(!isVisible)}
                             >
                                 {isVisible ? <EyeOff className="w-4 h-4 mr-2" /> : <Eye className="w-4 h-4 mr-2" />}
                                 {isVisible ? 'Hide Text' : 'Show Text'}
                             </Button>
-                            <Button size="sm" onClick={handleSave} className="bg-accent-600 hover:bg-accent-700 text-white border-none">
+                            <Button size="sm" onClick={handleSave} className="bg-accent-600 hover:bg-accent-700 text-foreground dark:text-foreground border-none">
                                 <Save className="w-4 h-4 mr-2" />
                                 Save Updates
                             </Button>
@@ -63,7 +63,7 @@ export default function CredentialVaultPage() {
 
                     <div className="relative">
                         {!isVisible && (
-                            <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-sm z-10 flex flex-col items-center justify-center text-slate-500">
+                            <div className="absolute inset-0 bg-surface-darkest dark:bg-surface-darkest/90 backdrop-blur-sm z-10 flex flex-col items-center justify-center text-muted-foreground/70 dark:text-muted-foreground/70">
                                 <Lock className="w-12 h-12 mb-4 opacity-20" />
                                 <p>Content Hidden</p>
                                 <Button variant="link" onClick={() => setIsVisible(true)}>Click to Reveal</Button>
@@ -72,7 +72,7 @@ export default function CredentialVaultPage() {
                         <Textarea
                             value={notes}
                             onChange={(e) => setNotes(e.target.value)}
-                            className="min-h-[500px] w-full bg-slate-950 text-success-400 font-mono text-sm p-6 border-none focus:ring-0 resize-none leading-relaxed"
+                            className="min-h-[500px] w-full bg-surface-darkest dark:bg-surface-darkest text-success-400 font-mono text-sm p-6 border-none focus:ring-0 resize-none leading-relaxed"
                             placeholder={"// Paste your keys here\nOPENAI_API_KEY=sk-...\nSUPABASE_KEY=ey...\n\n// Note: This is stored in your browser's LocalStorage only."}
                             spellCheck={false}
                         />

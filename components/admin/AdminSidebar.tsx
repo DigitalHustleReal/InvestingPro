@@ -4,114 +4,16 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import {
-    FileText,
-    Tag,
-    Image as ImageIcon,
-    LayoutDashboard,
-    Calendar,
-    Zap,
-    CheckSquare,
-    DollarSign,
-    Megaphone,
-    Rss,
-    File,
-    BarChart3,
-    Activity,
-    Package,
-    Factory, // Added Factory icon
-    FlaskConical,
-    Shield,
-    Users,
-    Sparkles,
-    Wallet,
-    PlayCircle,
-    HeartPulse
-} from 'lucide-react';
-
-interface NavItem {
-    label: string;
-    href: string;
-    icon: React.ComponentType<{ className?: string }>;
-    badge?: number;
-}
-
-interface NavSection {
-    title: string;
-    items: NavItem[];
-}
-
-const allNavSections: NavSection[] = [
-    {
-        title: 'CONTENT',
-        items: [
-            { label: 'Articles', href: '/admin/articles', icon: FileText },
-            { label: 'Pillar Pages', href: '/admin/pillar-pages', icon: File },
-            { label: 'Authors', href: '/admin/authors', icon: Users },
-            { label: 'Categories', href: '/admin/categories', icon: Tag },
-            { label: 'Tags', href: '/admin/tags', icon: Tag },
-            { label: 'Media Library', href: '/admin/media', icon: ImageIcon },
-        ],
-    },
-    {
-        title: 'PLANNING',
-        items: [
-            { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-            { label: 'Content Calendar', href: '/admin/content-calendar', icon: Calendar },
-        ],
-    },
-    {
-        title: 'AUTOMATION',
-        items: [
-            { label: 'Content Factory', href: '/admin/content-factory', icon: Factory },
-            { label: 'Automation Hub', href: '/admin/automation', icon: Rss },
-            { label: 'AI Personas', href: '/admin/ai-personas', icon: Users },
-            { label: 'Pipeline Monitor', href: '/admin/pipeline-monitor', icon: Activity },
-            { label: 'Review Queue', href: '/admin/review-queue', icon: CheckSquare },
-        ],
-    },
-    {
-        title: 'CMS',
-        items: [
-            { label: 'CMS Dashboard', href: '/admin/cms', icon: Sparkles },
-            { label: 'Budget', href: '/admin/cms/budget', icon: Wallet },
-            { label: 'Generation', href: '/admin/cms/generation', icon: PlayCircle },
-            { label: 'Health', href: '/admin/cms/health', icon: HeartPulse },
-            { label: 'Scrapers', href: '/admin/cms/scrapers', icon: Rss },
-        ],
-    },
-    {
-        title: 'INSIGHTS',
-        items: [
-            { label: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
-            { label: 'Metrics', href: '/admin/metrics', icon: Activity },
-            { label: 'SEO Health', href: '/admin/seo', icon: Activity },
-            { label: 'Experiments', href: '/admin/seo/experiments', icon: FlaskConical },
-        ],
-    },
-    {
-        title: 'MONETIZATION',
-        items: [
-            { label: 'Revenue Dashboard', href: '/admin/revenue', icon: DollarSign },
-            { label: 'Product Catalog', href: '/admin/products', icon: Package },
-            { label: 'Product Analytics', href: '/admin/product-analytics', icon: BarChart3 },
-            { label: 'Affiliates', href: '/admin/affiliates', icon: DollarSign },
-            { label: 'Ads', href: '/admin/ads', icon: Megaphone },
-        ],
-    },
-    {
-        title: 'SETTINGS',
-        items: [
-            { label: 'Secure Vault', href: '/admin/settings/vault', icon: Shield },
-            { label: 'User Guide', href: '/admin/guide', icon: FileText },
-        ],
-    },
-];
+import { 
+    getCategorySections, 
+    getActiveCategory,
+    type NavSection 
+} from '@/lib/admin/navigation-config';
 
 interface AdminSidebarProps {
     /**
-     * Active category (deprecated - kept for backward compatibility)
-     * PHASE 1: Category filtering removed - all items always shown
+     * Active category - filters sidebar sections
+     * If not provided, auto-detects from pathname
      */
     activeCategory?: string;
 }
@@ -120,14 +22,16 @@ export default function AdminSidebar({ activeCategory }: AdminSidebarProps) {
     const pathname = usePathname();
     const [isCollapsed, setIsCollapsed] = React.useState(true); // Default to collapsed for thinner sidebar
 
-    // PHASE 1 FIX: Remove category-based filtering - always show all sidebar items
-    // This makes navigation predictable and allows users to see all features at once
-    const navSections = allNavSections;
+    // Auto-detect category from pathname if not provided
+    const currentCategory = activeCategory || getActiveCategory(pathname);
+    
+    // Get contextual sections based on active category
+    const navSections = getCategorySections(currentCategory);
 
     return (
         <div 
             className={cn(
-                "text-slate-100 h-full flex flex-col relative transition-all duration-300 ease-in-out w-full",
+                "text-foreground/95 dark:text-foreground/95 h-full flex flex-col relative transition-all duration-300 ease-in-out w-full",
                 // Ensure width is explicit and respected by parent
                 isCollapsed ? "min-w-[64px] max-w-[64px]" : "min-w-[224px] max-w-[224px]" // Thinner sidebar: 64px collapsed, 224px expanded
             )}
@@ -138,7 +42,7 @@ export default function AdminSidebar({ activeCategory }: AdminSidebarProps) {
                 {navSections.map((section) => (
                     <div key={section.title} className="animate-in fade-in slide-in-from-left-2 duration-500">
                         {!isCollapsed && (
-                             <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-4 px-3 whitespace-nowrap">
+                             <h3 className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-[0.2em] mb-4 px-3 whitespace-nowrap">
                                 {section.title}
                             </h3>
                         )}
@@ -158,8 +62,8 @@ export default function AdminSidebar({ activeCategory }: AdminSidebarProps) {
                                                 "group flex items-center gap-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-primary-500/50",
                                                 isCollapsed ? "justify-center px-2" : "px-3",
                                                 isActive
-                                                    ? "bg-primary-600/10 text-white shadow-[inset_0_0_20px_rgba(16,185,129,0.1)] border border-primary-500/20"
-                                                    : "text-slate-400 hover:text-white hover:bg-white/5"
+                                                    ? "bg-primary-600/10 text-foreground dark:text-foreground shadow-[inset_0_0_20px_rgba(16,185,129,0.1)] border border-primary-500/20"
+                                                    : "text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground hover:bg-white/5"
                                             )}
                                             aria-label={item.label}
                                             aria-current={isActive ? 'page' : undefined}
@@ -171,7 +75,7 @@ export default function AdminSidebar({ activeCategory }: AdminSidebarProps) {
                                             
                                             <Icon className={cn(
                                                 "w-5 h-5 transition-transform duration-300 group-hover:scale-110 flex-shrink-0",
-                                                isActive ? "text-primary-400" : "text-slate-500 group-hover:text-slate-300"
+                                                isActive ? "text-primary-400" : "text-muted-foreground/70 dark:text-muted-foreground/70 group-hover:text-foreground/80 dark:text-foreground/80"
                                             )} />
                                             
                                             <span className={cn("transition-all duration-300 overflow-hidden whitespace-nowrap", isCollapsed ? "w-0 opacity-0 hidden" : "w-auto opacity-100 flex-1")}>
@@ -179,14 +83,14 @@ export default function AdminSidebar({ activeCategory }: AdminSidebarProps) {
                                             </span>
                                             
                                             {!isCollapsed && item.badge !== undefined && item.badge > 0 && (
-                                                <span className="px-2 py-0.5 text-[10px] font-bold bg-primary-500 text-white rounded-full shadow-lg shadow-primary-500/30 animate-pulse">
+                                                <span className="px-2 py-0.5 text-[10px] font-bold bg-primary-500 text-foreground dark:text-foreground rounded-full shadow-lg shadow-primary-500/30 animate-pulse">
                                                     {item.badge}
                                                 </span>
                                             )}
 
                                             {/* Tooltip for Collapsed State */}
                                             {isCollapsed && (
-                                                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 px-2 py-1 bg-slate-800 text-white text-xs rounded opacity-0 group-hover/item:opacity-100 pointer-events-none transition-opacity duration-200 whitespace-nowrap z-[60] shadow-xl border border-white/10">
+                                                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 px-2 py-1 bg-muted dark:bg-muted text-foreground dark:text-foreground text-xs rounded opacity-0 group-hover/item:opacity-100 pointer-events-none transition-opacity duration-200 whitespace-nowrap z-[60] shadow-xl border border-border dark:border-border">
                                                     {item.label}
                                                 </div>
                                             )}
@@ -203,7 +107,7 @@ export default function AdminSidebar({ activeCategory }: AdminSidebarProps) {
             <button 
                 onClick={() => setIsCollapsed(!isCollapsed)}
                 className={cn(
-                    "mb-4 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors flex items-center justify-center border border-white/5 shadow-sm group",
+                    "mb-4 rounded-lg bg-white/5 hover:bg-white/10 text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground transition-colors flex items-center justify-center border border-border/50 dark:border-border/50 shadow-sm group",
                     isCollapsed ? "mx-2 p-2" : "mx-4 p-2.5"
                 )}
                 aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
@@ -219,14 +123,14 @@ export default function AdminSidebar({ activeCategory }: AdminSidebarProps) {
 
 
             {/* Bottom Profile Area */}
-            <div className={cn("border-t border-white/5 bg-slate-900/50 backdrop-blur-md transition-all duration-300", isCollapsed ? "p-2" : "p-4")}>
+            <div className={cn("border-t border-border/50 dark:border-border/50 bg-surface-darker/50 dark:bg-surface-darker/50 backdrop-blur-md transition-all duration-300", isCollapsed ? "p-2" : "p-4")}>
                 <div className={cn("flex items-center gap-3 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group", isCollapsed ? "justify-center p-1" : "p-2")}>
-                    <div className="w-10 h-10 min-w-[40px] rounded-xl bg-gradient-to-tr from-slate-800 to-slate-700 border border-white/10 flex items-center justify-center text-slate-300 text-sm font-bold shadow-inner group-hover:border-primary-500/50 transition-colors">
+                    <div className="w-10 h-10 min-w-[40px] rounded-xl bg-gradient-to-tr from-slate-800 to-slate-700 border border-border dark:border-border flex items-center justify-center text-foreground/80 dark:text-foreground/80 text-sm font-bold shadow-inner group-hover:border-primary-500/50 transition-colors">
                         DH
                     </div>
                     <div className={cn("transition-all duration-300 overflow-hidden whitespace-nowrap", isCollapsed ? "w-0 opacity-0 hidden" : "w-auto opacity-100 flex-1")}>
-                        <p className="text-sm font-bold text-white truncate">Digital Hustle</p>
-                        <p className="text-[10px] text-slate-500 truncate font-medium uppercase tracking-wider">Super Admin</p>
+                        <p className="text-sm font-bold text-foreground dark:text-foreground truncate">Digital Hustle</p>
+                        <p className="text-[10px] text-muted-foreground/70 dark:text-muted-foreground/70 truncate font-medium uppercase tracking-wider">Super Admin</p>
                     </div>
                     {!isCollapsed && <div className="w-2 h-2 rounded-full bg-primary-500 shadow-[0_0_8px_#10b981]" />}
                 </div>

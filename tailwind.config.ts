@@ -10,36 +10,130 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
-                // Primary - Trust Teal (Growth + Stability)
+                // ============================================================
+                // SEMANTIC COLORS - CSS Variable Based (Theme-Aware)
+                // ============================================================
+                border: 'hsl(var(--border))',
+                input: 'hsl(var(--input))',
+                ring: 'hsl(var(--ring))',
+                background: 'hsl(var(--background))',
+                foreground: 'hsl(var(--foreground))',
                 primary: {
+                    DEFAULT: 'hsl(var(--primary))',
+                    foreground: 'hsl(var(--primary-foreground))',
+                    // Keep existing scale for compatibility
                     50: '#f0fdfa',
                     100: '#ccfbf1',
                     200: '#99f6e4',
-                    300: '#5eead4', // Soft
+                    300: '#5eead4',
                     400: '#2dd4bf',
-                    500: '#14b8a6', // Brand Base (Matches brand-theme.ts)
+                    500: '#14b8a6',
                     600: '#0d9488',
-                    700: '#0f766e', // Strong
+                    700: '#0f766e',
                     800: '#115e59',
                     900: '#134e4a',
                     950: '#042f2e',
-                    DEFAULT: '#14b8a6', // ✅ Aligned to brand-theme primary
                 },
-                // Secondary - Info Sky (Trust & Authority - Matches brand-theme info)
                 secondary: {
+                    DEFAULT: 'hsl(var(--secondary))',
+                    foreground: 'hsl(var(--secondary-foreground))',
+                    // Keep existing scale for compatibility
                     50: '#f0f9ff',
                     100: '#e0f2fe',
                     200: '#bae6fd',
                     300: '#7dd3fc',
                     400: '#38bdf8',
-                    500: '#0ea5e9', // Brand Info Base
+                    500: '#0ea5e9',
                     600: '#0284c7',
-                    700: '#0369a1', // Info Strong
+                    700: '#0369a1',
                     800: '#075985',
                     900: '#0c4a6e',
                     950: '#082f49',
-                    DEFAULT: '#0ea5e9',
                 },
+                muted: {
+                    DEFAULT: 'hsl(var(--muted))',
+                    foreground: 'hsl(var(--muted-foreground))',
+                },
+                accent: {
+                    DEFAULT: 'hsl(var(--accent))',
+                    foreground: 'hsl(var(--accent-foreground))',
+                    // Keep existing scale for compatibility
+                    50: '#fffbeb',
+                    100: '#fef3c7',
+                    200: '#fde68a',
+                    300: '#fcd34d',
+                    400: '#fbbf24',
+                    500: '#f59e0b',
+                    600: '#d97706',
+                    700: '#b45309',
+                    800: '#92400e',
+                    900: '#78350f',
+                },
+                success: {
+                    DEFAULT: 'hsl(var(--success))',
+                    foreground: 'hsl(var(--success-foreground))',
+                    // Keep existing scale for compatibility
+                    50: '#ecfdf5',
+                    100: '#d1fae5',
+                    200: '#a7f3d0',
+                    300: '#6ee7b7',
+                    400: '#34d399',
+                    500: '#10b981',
+                    600: '#059669',
+                    700: '#047857',
+                    800: '#065f46',
+                    900: '#064e3b',
+                },
+                warning: {
+                    DEFAULT: 'hsl(var(--warning))',
+                    foreground: 'hsl(var(--warning-foreground))',
+                    // Keep existing scale for compatibility
+                    50: '#fffbeb',
+                    100: '#fef3c7',
+                    200: '#fde68a',
+                    300: '#fcd34d',
+                    400: '#fbbf24',
+                    500: '#f59e0b',
+                    600: '#d97706',
+                    700: '#b45309',
+                    800: '#92400e',
+                    900: '#78350f',
+                },
+                error: {
+                    DEFAULT: 'hsl(var(--error))',
+                    foreground: 'hsl(var(--error-foreground))',
+                },
+                info: {
+                    DEFAULT: 'hsl(var(--info))',
+                    foreground: 'hsl(var(--info-foreground))',
+                    // Keep existing scale for compatibility
+                    50: '#f0f9ff',
+                    100: '#e0f2fe',
+                    200: '#bae6fd',
+                    300: '#7dd3fc',
+                    400: '#38bdf8',
+                    500: '#0ea5e9',
+                    600: '#0284c7',
+                    700: '#0369a1',
+                    800: '#075985',
+                    900: '#0c4a6e',
+                },
+                destructive: {
+                    DEFAULT: 'hsl(var(--destructive))',
+                    foreground: 'hsl(var(--destructive-foreground))',
+                },
+                popover: {
+                    DEFAULT: 'hsl(var(--popover))',
+                    foreground: 'hsl(var(--popover-foreground))',
+                },
+                card: {
+                    DEFAULT: 'hsl(var(--card))',
+                    foreground: 'hsl(var(--card-foreground))',
+                },
+                
+                // ============================================================
+                // LEGACY COLORS - Keep for backward compatibility
+                // ============================================================
                 // Stone - Warm Neutrals (Professional)
                 stone: {
                     50: '#FAFAF9',
@@ -53,72 +147,19 @@ const config: Config = {
                     800: '#292524',
                     900: '#1C1917',
                 },
-                // Accent - Amber Gold (Secondary CTAs)
-                accent: {
-                    50: '#fffbeb',
-                    100: '#fef3c7',
-                    200: '#fde68a',
-                    300: '#fcd34d',
-                    400: '#fbbf24',
-                    500: '#f59e0b', // Brand Accent Base
-                    600: '#d97706', // Accent Strong
-                    700: '#b45309',
-                    800: '#92400e',
-                    900: '#78350f',
-                    DEFAULT: '#f59e0b',
-                },
-                // Semantic Colors - Full scales for migrated tokens
-                success: {
-                    50: '#ecfdf5',
-                    100: '#d1fae5',
-                    200: '#a7f3d0',
-                    300: '#6ee7b7',
-                    400: '#34d399',
-                    500: '#10b981', // Emerald - Gains, positive trends
-                    600: '#059669',
-                    700: '#047857',
-                    800: '#065f46',
-                    900: '#064e3b',
-                    DEFAULT: '#10b981',
-                },
-                warning: {
-                    50: '#fffbeb',
-                    100: '#fef3c7',
-                    200: '#fde68a',
-                    300: '#fcd34d',
-                    400: '#fbbf24',
-                    500: '#f59e0b', // Amber
-                    600: '#d97706',
-                    700: '#b45309',
-                    800: '#92400e',
-                    900: '#78350f',
-                    DEFAULT: '#f59e0b',
-                },
+                // Danger - Keep for backward compatibility
                 danger: {
                     50: '#fef2f2',
                     100: '#fee2e2',
                     200: '#fecaca',
                     300: '#fca5a5',
                     400: '#f87171',
-                    500: '#ef4444', // Red - Losses, warnings
+                    500: '#ef4444',
                     600: '#dc2626',
                     700: '#b91c1c',
                     800: '#991b1b',
                     900: '#7f1d1d',
                     DEFAULT: '#ef4444',
-                },
-                info: {
-                    50: '#f0f9ff',
-                    100: '#e0f2fe',
-                    200: '#bae6fd',
-                    300: '#7dd3fc',
-                    400: '#38bdf8',
-                    500: '#0ea5e9', // Sky - Matches Secondary
-                    600: '#0284c7',
-                    700: '#0369a1',
-                    800: '#075985',
-                    900: '#0c4a6e',
-                    DEFAULT: '#0ea5e9',
                 },
                 // Surface Tokens (Replaces Hardcoded Hex Values)
                 surface: {

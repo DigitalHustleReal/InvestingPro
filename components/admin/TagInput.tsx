@@ -234,7 +234,7 @@ export default function TagInput({
             )}
 
             {/* Helper text */}
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                 Press Enter to add tag, Backspace to remove
             </p>
         </div>

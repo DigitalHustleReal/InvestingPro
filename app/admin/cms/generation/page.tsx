@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
+import CMSSubNavigation from '@/components/admin/CMSSubNavigation';
 import BulkGenerationPanel from '@/components/admin/BulkGenerationPanel';
 import { Zap, Play, Sparkles } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -60,22 +61,23 @@ export default function CMSGenerationPage() {
 
     return (
         <AdminLayout>
+            <CMSSubNavigation />
             <div className="p-8 space-y-8">
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
+                        <h1 className="text-3xl font-bold text-foreground dark:text-foreground mb-2 flex items-center gap-3">
                             <Zap className="w-8 h-8 text-primary-400" />
                             Content Generation
                         </h1>
-                        <p className="text-slate-400">Generate articles using the CMS orchestrator</p>
+                        <p className="text-muted-foreground dark:text-muted-foreground">Generate articles using the CMS orchestrator</p>
                     </div>
                     <div className="flex gap-3">
                         <Button
                             onClick={() => canaryTest.mutate()}
                             disabled={canaryTest.isPending}
                             variant="outline"
-                            className="bg-white/5 border-white/10 hover:bg-white/10"
+                            className="bg-white/5 border-border dark:border-border hover:bg-white/10"
                         >
                             <Sparkles className="w-4 h-4 mr-2" />
                             {canaryTest.isPending ? 'Testing...' : 'Canary Test'}
@@ -94,9 +96,9 @@ export default function CMSGenerationPage() {
                 </div>
 
                 {/* Bulk Generation Panel */}
-                <Card className="bg-white/[0.03] border-white/5">
-                    <CardHeader className="border-b border-white/5">
-                        <CardTitle className="text-lg font-bold text-white flex items-center gap-3">
+                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50">
+                    <CardHeader className="border-b border-border/50 dark:border-border/50">
+                        <CardTitle className="text-lg font-bold text-foreground dark:text-foreground flex items-center gap-3">
                             <Zap className="w-5 h-5 text-primary-400" />
                             Bulk Content Generation
                         </CardTitle>

@@ -93,11 +93,11 @@ export default function SocialRepurposeView({ articleId }: SocialRepurposeViewPr
                     <div className="space-y-4">
                         {!postContent ? (
                             <div className="flex flex-col items-center justify-center py-12 border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50">
-                                <p className="text-slate-500 text-sm mb-4">No content generated for {platform} yet.</p>
+                                <p className="text-muted-foreground/70 dark:text-muted-foreground/70 text-sm mb-4">No content generated for {platform} yet.</p>
                                 <Button 
                                     onClick={handleRepurpose}
                                     disabled={generating}
-                                    className="bg-primary-600 hover:bg-primary-700 text-white rounded-xl px-6"
+                                    className="bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground rounded-xl px-6"
                                 >
                                     {generating ? 'Processing with AI...' : `Generate ${platform} Post`}
                                 </Button>
@@ -109,7 +109,7 @@ export default function SocialRepurposeView({ articleId }: SocialRepurposeViewPr
                                         <Badge variant="outline" className="bg-white text-primary-600 border-indigo-100">
                                             {platform.toUpperCase()} DRAFT
                                         </Badge>
-                                        <span className="text-xs text-slate-400">Word count: {postContent.content_text.length} chars</span>
+                                        <span className="text-xs text-muted-foreground dark:text-muted-foreground">Word count: {postContent.content_text.length} chars</span>
                                     </div>
                                     <p className="text-slate-700 text-sm whitespace-pre-wrap leading-relaxed">
                                         {postContent.content_text}
@@ -139,7 +139,7 @@ export default function SocialRepurposeView({ articleId }: SocialRepurposeViewPr
                                         Copy
                                     </Button>
                                     <Button 
-                                        className="flex-1 bg-primary-600 hover:bg-primary-700 text-white rounded-xl"
+                                        className="flex-1 bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground rounded-xl"
                                         onClick={() => toast.success('Sent to Social Scheduler!')}
                                     >
                                         <Send className="w-4 h-4 mr-2" />

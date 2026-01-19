@@ -100,10 +100,10 @@ export default function MetricsDashboard() {
             <div className="space-y-6 p-6">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
+                        <h1 className="text-3xl font-bold text-slate-900 dark:text-foreground dark:text-foreground">
                             API Metrics Dashboard
                         </h1>
-                        <p className="text-slate-600 dark:text-slate-400 mt-1">
+                        <p className="text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mt-1">
                             Real-time API performance and health metrics
                         </p>
                     </div>
@@ -127,7 +127,7 @@ export default function MetricsDashboard() {
                     {stats.map((stat, index) => (
                         <Card key={index}>
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                <CardTitle className="text-sm font-medium text-slate-600 dark:text-slate-400">
+                                <CardTitle className="text-sm font-medium text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">
                                     {stat.label}
                                 </CardTitle>
                                 <stat.icon className={`h-4 w-4 ${stat.color.replace('bg-', 'text-')}`} />
@@ -135,7 +135,7 @@ export default function MetricsDashboard() {
                             <CardContent>
                                 <div className="text-2xl font-bold">{stat.value}</div>
                                 {stat.trend && (
-                                    <div className="flex items-center text-xs text-slate-500 mt-1">
+                                    <div className="flex items-center text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                         {stat.trend === 'up' ? (
                                             <TrendingUp className="w-3 h-3 mr-1 text-red-500" />
                                         ) : (
@@ -161,7 +161,7 @@ export default function MetricsDashboard() {
                                     <div className={`text-2xl font-bold ${stat.color}`}>
                                         {stat.value}
                                     </div>
-                                    <div className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                                    <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mt-1">
                                         {stat.label}
                                     </div>
                                 </div>
@@ -194,7 +194,7 @@ export default function MetricsDashboard() {
                                                 >
                                                     {status}
                                                 </Badge>
-                                                <span className="text-sm text-slate-600 dark:text-slate-400">
+                                                <span className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">
                                                     {parseInt(status) >= 500
                                                         ? 'Server Error'
                                                         : parseInt(status) >= 400
@@ -223,7 +223,7 @@ export default function MetricsDashboard() {
                                     .slice(0, 10)
                                     .map(([path, count]) => (
                                         <div key={path} className="flex items-center justify-between">
-                                            <code className="text-sm bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
+                                            <code className="text-sm bg-slate-100 dark:bg-muted dark:bg-muted px-2 py-1 rounded">
                                                 {path}
                                             </code>
                                             <span className="font-semibold">{count as number}</span>
@@ -245,7 +245,7 @@ export default function MetricsDashboard() {
                                 {recent.slice(-20).reverse().map((metric: any, index: number) => (
                                     <div
                                         key={index}
-                                        className="flex items-center justify-between text-sm py-1 border-b border-slate-200 dark:border-slate-700 last:border-0"
+                                        className="flex items-center justify-between text-sm py-1 border-b border-slate-200 dark:border-border dark:border-border last:border-0"
                                     >
                                         <div className="flex items-center gap-3">
                                             <Badge
@@ -261,15 +261,15 @@ export default function MetricsDashboard() {
                                                 {metric.statusCode}
                                             </Badge>
                                             <code className="text-xs">{metric.method}</code>
-                                            <span className="text-slate-600 dark:text-slate-400">
+                                            <span className="text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">
                                                 {metric.path}
                                             </span>
                                         </div>
                                         <div className="flex items-center gap-3">
-                                            <span className="text-slate-500">
+                                            <span className="text-muted-foreground/70 dark:text-muted-foreground/70">
                                                 {metric.duration}ms
                                             </span>
-                                            <span className="text-xs text-slate-400">
+                                            <span className="text-xs text-muted-foreground dark:text-muted-foreground">
                                                 {new Date(metric.timestamp).toLocaleTimeString()}
                                             </span>
                                         </div>
@@ -284,15 +284,15 @@ export default function MetricsDashboard() {
                 {isLoading && (
                     <Card>
                         <CardContent className="py-8 text-center">
-                            <RefreshCw className="w-8 h-8 animate-spin mx-auto text-slate-400" />
-                            <p className="text-slate-600 dark:text-slate-400 mt-2">Loading metrics...</p>
+                            <RefreshCw className="w-8 h-8 animate-spin mx-auto text-muted-foreground dark:text-muted-foreground" />
+                            <p className="text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mt-2">Loading metrics...</p>
                         </CardContent>
                     </Card>
                 )}
 
                 {/* Last Updated */}
                 {metricsData?.lastUpdated && (
-                    <div className="text-xs text-slate-500 text-center">
+                    <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 text-center">
                         Last updated: {new Date(metricsData.lastUpdated).toLocaleString()}
                     </div>
                 )}

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
+import CMSSubNavigation from '@/components/admin/CMSSubNavigation';
 import { Activity, CheckCircle, XCircle, AlertCircle, RefreshCw } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -31,7 +32,7 @@ export default function CMSHealthPage() {
             case 'healthy': return 'bg-primary-500/10 text-primary-400 border-primary-500/20';
             case 'degraded': return 'bg-accent-500/10 text-accent-400 border-accent-500/20';
             case 'unhealthy': return 'bg-danger-500/10 text-danger-400 border-danger-500/20';
-            default: return 'bg-slate-500/10 text-slate-400 border-slate-500/20';
+            default: return 'bg-slate-500/10 text-muted-foreground dark:text-muted-foreground border-slate-500/20';
         }
     };
 
@@ -48,20 +49,21 @@ export default function CMSHealthPage() {
 
     return (
         <AdminLayout>
+            <CMSSubNavigation />
             <div className="p-8 space-y-8">
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
+                        <h1 className="text-3xl font-bold text-foreground dark:text-foreground mb-2 flex items-center gap-3">
                             <Activity className="w-8 h-8 text-primary-400" />
                             System Health Monitor
                         </h1>
-                        <p className="text-slate-400">Monitor CMS system health and diagnostics</p>
+                        <p className="text-muted-foreground dark:text-muted-foreground">Monitor CMS system health and diagnostics</p>
                     </div>
                     <Button
                         onClick={() => queryClient.invalidateQueries({ queryKey: ['cms-health'] })}
                         variant="outline"
-                        className="bg-white/5 border-white/10 hover:bg-white/10"
+                        className="bg-white/5 border-border dark:border-border hover:bg-white/10"
                     >
                         <RefreshCw className="w-4 h-4 mr-2" />
                         Refresh
@@ -69,15 +71,15 @@ export default function CMSHealthPage() {
                 </div>
 
                 {/* Overall Status */}
-                <Card className="bg-white/[0.03] border-white/5">
-                    <CardHeader className="border-b border-white/5">
-                        <CardTitle className="text-lg font-bold text-white flex items-center gap-3">
+                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50">
+                    <CardHeader className="border-b border-border/50 dark:border-border/50">
+                        <CardTitle className="text-lg font-bold text-foreground dark:text-foreground flex items-center gap-3">
                             <HealthIcon className={cn(
                                 "w-5 h-5",
                                 health.overall === 'healthy' ? 'text-primary-400' :
                                 health.overall === 'degraded' ? 'text-accent-400' :
                                 health.overall === 'unhealthy' ? 'text-danger-400' :
-                                'text-slate-400'
+                                'text-muted-foreground dark:text-muted-foreground'
                             )} />
                             Overall System Health
                         </CardTitle>
@@ -89,11 +91,11 @@ export default function CMSHealthPage() {
                                     {health.overall?.toUpperCase() || 'UNKNOWN'}
                                 </Badge>
                                 {health.message && (
-                                    <p className="text-sm text-slate-400 mt-2">{health.message}</p>
+                                    <p className="text-sm text-muted-foreground dark:text-muted-foreground mt-2">{health.message}</p>
                                 )}
                             </div>
                             {isLoading && (
-                                <RefreshCw className="w-5 h-5 text-slate-400 animate-spin" />
+                                <RefreshCw className="w-5 h-5 text-muted-foreground dark:text-muted-foreground animate-spin" />
                             )}
                         </div>
                     </CardContent>
@@ -101,22 +103,22 @@ export default function CMSHealthPage() {
 
                 {/* Health Details */}
                 {health.agents && (
-                    <Card className="bg-white/[0.03] border-white/5">
-                        <CardHeader className="border-b border-white/5">
-                            <CardTitle className="text-lg font-bold text-white">Agent Health</CardTitle>
+                    <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50">
+                        <CardHeader className="border-b border-border/50 dark:border-border/50">
+                            <CardTitle className="text-lg font-bold text-foreground dark:text-foreground">Agent Health</CardTitle>
                         </CardHeader>
                         <CardContent className="p-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {Object.entries(health.agents || {}).map(([agent, status]: [string, any]) => (
-                                    <div key={agent} className="p-4 bg-white/5 rounded-xl border border-white/5">
+                                    <div key={agent} className="p-4 bg-white/5 rounded-xl border border-border/50 dark:border-border/50">
                                         <div className="flex items-center justify-between mb-2">
-                                            <span className="text-sm font-medium text-white">{agent}</span>
+                                            <span className="text-sm font-medium text-foreground dark:text-foreground">{agent}</span>
                                             <Badge className={getHealthColor(status.status || 'unknown')}>
                                                 {status.status || 'unknown'}
                                             </Badge>
                                         </div>
                                         {status.message && (
-                                            <p className="text-xs text-slate-400 mt-1">{status.message}</p>
+                                            <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">{status.message}</p>
                                         )}
                                     </div>
                                 ))}
@@ -127,16 +129,16 @@ export default function CMSHealthPage() {
 
                 {/* System Metrics */}
                 {health.metrics && (
-                    <Card className="bg-white/[0.03] border-white/5">
-                        <CardHeader className="border-b border-white/5">
-                            <CardTitle className="text-lg font-bold text-white">System Metrics</CardTitle>
+                    <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50">
+                        <CardHeader className="border-b border-border/50 dark:border-border/50">
+                            <CardTitle className="text-lg font-bold text-foreground dark:text-foreground">System Metrics</CardTitle>
                         </CardHeader>
                         <CardContent className="p-6">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 {Object.entries(health.metrics || {}).map(([metric, value]: [string, any]) => (
-                                    <div key={metric} className="p-4 bg-white/5 rounded-xl border border-white/5">
-                                        <p className="text-sm font-medium text-slate-400 mb-1">{metric}</p>
-                                        <p className="text-2xl font-bold text-white">{value}</p>
+                                    <div key={metric} className="p-4 bg-white/5 rounded-xl border border-border/50 dark:border-border/50">
+                                        <p className="text-sm font-medium text-muted-foreground dark:text-muted-foreground mb-1">{metric}</p>
+                                        <p className="text-2xl font-bold text-foreground dark:text-foreground">{value}</p>
                                     </div>
                                 ))}
                             </div>

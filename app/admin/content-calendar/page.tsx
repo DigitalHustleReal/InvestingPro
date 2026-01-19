@@ -127,7 +127,7 @@ export default function ContentCalendarPage() {
         return {
             label: 'Planned',
             icon: Circle,
-            color: 'bg-slate-500/10 text-slate-400 border-slate-500/30'
+            color: 'bg-slate-500/10 text-muted-foreground dark:text-muted-foreground border-slate-500/30'
         };
     };
 
@@ -138,22 +138,22 @@ export default function ContentCalendarPage() {
                 <AdminBreadcrumb />
                 
                 {/* Header */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 border-b border-white/5 pb-8 mt-4">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 border-b border-border/50 dark:border-border/50 pb-8 mt-4">
                     <div>
-                        <h1 className="text-3xl font-extrabold text-white tracking-tight mb-2 flex items-center gap-3">
+                        <h1 className="text-3xl font-extrabold text-foreground dark:text-foreground tracking-tight mb-2 flex items-center gap-3">
                             <FileText className="w-8 h-8 text-primary-500" />
                             Content Planning
                         </h1>
-                        <p className="text-sm text-slate-400 font-medium tracking-wide">
+                        <p className="text-sm text-muted-foreground dark:text-muted-foreground font-medium tracking-wide">
                             Track your editorial calendar with date-based planning
                         </p>
                     </div>
                     <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-2 bg-white/5 p-1 rounded-xl border border-white/10">
+                        <div className="flex items-center gap-2 bg-white/5 p-1 rounded-xl border border-border dark:border-border">
                             <input 
                                 type="text" 
                                 placeholder="Topic (e.g. Budget 2026)"
-                                className="bg-transparent border-none text-sm px-3 text-white focus:ring-0 w-48 placeholder:text-slate-500"
+                                className="bg-transparent border-none text-sm px-3 text-foreground dark:text-foreground focus:ring-0 w-48 placeholder:text-muted-foreground/70 dark:text-muted-foreground/70"
                                 value={planningTopic}
                                 onChange={(e) => setPlanningTopic(e.target.value)}
                             />
@@ -161,7 +161,7 @@ export default function ContentCalendarPage() {
                                 size="sm" 
                                 onClick={handleAutoPlan}
                                 disabled={isPlanning || !planningTopic}
-                                className="bg-secondary-600 hover:bg-secondary-700 text-white rounded-lg"
+                                className="bg-secondary-600 hover:bg-secondary-700 text-foreground dark:text-foreground rounded-lg"
                             >
                                 {isPlanning ? <Clock className="w-3 h-3 animate-spin mr-1" /> : <Sparkles className="w-3 h-3 mr-1" />}
                                 Auto-Plan
@@ -179,32 +179,32 @@ export default function ContentCalendarPage() {
                         { label: 'Planned', val: stats.planned, color: 'bg-slate-500', icon: Circle },
                         { label: 'Scheduled', val: stats.scheduled, color: 'bg-primary-500', icon: Clock },
                     ].map((stat, i) => (
-                        <Card key={i} className="bg-white/[0.03] border-white/5 hover:border-primary-500/30 transition-all">
+                        <Card key={i} className="bg-card dark:bg-card border-border/50 dark:border-border/50 hover:border-primary-500/30 transition-all">
                             <CardContent className="p-6">
                                 <div className="flex items-center justify-between mb-4">
                                     <div className={`w-12 h-12 rounded-xl ${stat.color} flex items-center justify-center`}>
-                                        <stat.icon className="w-6 h-6 text-white" />
+                                        <stat.icon className="w-6 h-6 text-foreground dark:text-foreground" />
                                     </div>
                                 </div>
-                                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">{stat.label}</p>
-                                <p className="text-3xl font-extrabold text-white">{stat.val}</p>
+                                <p className="text-xs font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest mb-1">{stat.label}</p>
+                                <p className="text-3xl font-extrabold text-foreground dark:text-foreground">{stat.val}</p>
                             </CardContent>
                         </Card>
                     ))}
                 </div>
 
                 {/* Filters & Search */}
-                <Card className="bg-white/5 border-white/10 rounded-2xl mb-6">
+                <Card className="bg-white/5 border-border dark:border-border rounded-2xl mb-6">
                     <CardContent className="p-6">
                         <div className="flex flex-col md:flex-row gap-4">
                             {/* Search */}
                             <div className="flex-1 relative">
-                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
                                 <Input
                                     placeholder="Search by title or category..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="pl-10 bg-white/5 border-white/10 text-white h-11"
+                                    className="pl-10 bg-white/5 border-border dark:border-border text-foreground dark:text-foreground h-11"
                                 />
                             </div>
 
@@ -212,21 +212,21 @@ export default function ContentCalendarPage() {
                             <select
                                 value={filterStatus}
                                 onChange={(e) => setFilterStatus(e.target.value)}
-                                className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white text-sm h-11 min-w-[180px]"
+                                className="px-4 py-2 bg-white/5 border border-border dark:border-border rounded-xl text-foreground dark:text-foreground text-sm h-11 min-w-[180px]"
                             >
-                                <option value="all" className="bg-slate-900">All Status</option>
-                                <option value="done" className="bg-slate-900">Done</option>
-                                <option value="in-progress" className="bg-slate-900">In Progress</option>
-                                <option value="planned" className="bg-slate-900">Planned</option>
+                                <option value="all" className="bg-surface-darker dark:bg-surface-darker">All Status</option>
+                                <option value="done" className="bg-surface-darker dark:bg-surface-darker">Done</option>
+                                <option value="in-progress" className="bg-surface-darker dark:bg-surface-darker">In Progress</option>
+                                <option value="planned" className="bg-surface-darker dark:bg-surface-darker">Planned</option>
                             </select>
                         </div>
                     </CardContent>
                 </Card>
 
                 {/* Planning Table */}
-                <Card className="flex-1 bg-white/[0.02] border-white/5 flex flex-col overflow-hidden">
-                    <CardHeader className="border-b border-white/5 px-6 py-4">
-                        <CardTitle className="text-sm font-bold text-slate-400 uppercase tracking-widest flex items-center justify-between">
+                <Card className="flex-1 bg-card/50 dark:bg-card/50 border-border/50 dark:border-border/50 flex flex-col overflow-hidden">
+                    <CardHeader className="border-b border-border/50 dark:border-border/50 px-6 py-4">
+                        <CardTitle className="text-sm font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest flex items-center justify-between">
                             <span>Production Schedule ({filteredArticles.length} items)</span>
                             <Button size="sm" className="bg-primary-500 hover:bg-primary-600">
                                 <Plus className="w-4 h-4 mr-2" />
@@ -248,7 +248,7 @@ export default function ContentCalendarPage() {
                                         <CheckCircle2 className="w-4 h-4 mr-1" />
                                         Publish
                                     </Button>
-                                    <Button size="sm" variant="outline" className="border-slate-500/50 text-slate-400 hover:bg-slate-500/20">
+                                    <Button size="sm" variant="outline" className="border-slate-500/50 text-muted-foreground dark:text-muted-foreground hover:bg-slate-500/20">
                                         <Circle className="w-4 h-4 mr-1" />
                                         Archive
                                     </Button>
@@ -262,7 +262,7 @@ export default function ContentCalendarPage() {
                                 size="sm" 
                                 variant="ghost" 
                                 onClick={() => setSelectedArticles([])}
-                                className="text-slate-400 hover:text-white"
+                                className="text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground"
                             >
                                 <XCircle className="w-4 h-4 mr-1" />
                                 Clear
@@ -272,16 +272,16 @@ export default function ContentCalendarPage() {
                     
                     <div className="flex-1 overflow-auto">
                         {isLoading ? (
-                            <div className="p-20 text-center text-slate-400">Loading content...</div>
+                            <div className="p-20 text-center text-muted-foreground dark:text-muted-foreground">Loading content...</div>
                         ) : filteredArticles.length === 0 ? (
                             <div className="p-20 text-center">
-                                <FileText className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-                                <p className="text-slate-400">No content matches your filters</p>
+                                <FileText className="w-12 h-12 text-muted-foreground/50 dark:text-muted-foreground/50 mx-auto mb-4" />
+                                <p className="text-muted-foreground dark:text-muted-foreground">No content matches your filters</p>
                             </div>
                         ) : (
                             <table className="w-full text-left border-collapse">
-                                <thead className="bg-white/[0.02] sticky top-0 z-10 backdrop-blur-md">
-                                    <tr className="border-b border-white/5">
+                                <thead className="bg-card/50 dark:bg-card/50 sticky top-0 z-10 backdrop-blur-md">
+                                    <tr className="border-b border-border/50 dark:border-border/50">
                                         <th className="p-4 w-12">
                                             <input 
                                                 type="checkbox"
@@ -293,15 +293,15 @@ export default function ContentCalendarPage() {
                                                         setSelectedArticles([]);
                                                     }
                                                 }}
-                                                className="w-4 h-4 rounded bg-white/5 border-white/20 text-primary-500 focus:ring-primary-500"
+                                                className="w-4 h-4 rounded bg-white/5 border-border/80 dark:border-border/80 text-primary-500 focus:ring-primary-500"
                                             />
                                         </th>
-                                        <th className="p-4 text-xs font-bold text-slate-500 uppercase">Planned Date</th>
-                                        <th className="p-4 text-xs font-bold text-slate-500 uppercase">Title</th>
-                                        <th className="p-4 text-xs font-bold text-slate-500 uppercase">Category</th>
-                                        <th className="p-4 text-xs font-bold text-slate-500 uppercase text-center">Status</th>
-                                        <th className="p-4 text-xs font-bold text-slate-500 uppercase">Author</th>
-                                        <th className="p-4 text-xs font-bold text-slate-500 uppercase text-right">Actions</th>
+                                        <th className="p-4 text-xs font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Planned Date</th>
+                                        <th className="p-4 text-xs font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Title</th>
+                                        <th className="p-4 text-xs font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Category</th>
+                                        <th className="p-4 text-xs font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase text-center">Status</th>
+                                        <th className="p-4 text-xs font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Author</th>
+                                        <th className="p-4 text-xs font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase text-right">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-white/5">
@@ -311,7 +311,7 @@ export default function ContentCalendarPage() {
                                         const plannedDate = article.published_date || article.created_at;
 
                                         return (
-                                            <tr key={article.id} className="hover:bg-white/[0.02] group transition-colors">
+                                            <tr key={article.id} className="hover:bg-card/50 dark:bg-card/50 group transition-colors">
                                                 <td className="p-4">
                                                     <input 
                                                         type="checkbox"
@@ -323,13 +323,13 @@ export default function ContentCalendarPage() {
                                                                 setSelectedArticles(selectedArticles.filter(id => id !== article.id));
                                                             }
                                                         }}
-                                                        className="w-4 h-4 rounded bg-white/5 border-white/20 text-primary-500 focus:ring-primary-500"
+                                                        className="w-4 h-4 rounded bg-white/5 border-border/80 dark:border-border/80 text-primary-500 focus:ring-primary-500"
                                                     />
                                                 </td>
                                                 <td className="p-4">
                                                     <div className="flex items-center gap-2">
-                                                        <Calendar className="w-4 h-4 text-slate-500" />
-                                                        <span className="font-mono text-sm text-slate-300">
+                                                        <Calendar className="w-4 h-4 text-muted-foreground/70 dark:text-muted-foreground/70" />
+                                                        <span className="font-mono text-sm text-foreground/80 dark:text-foreground/80">
                                                             {new Date(plannedDate).toLocaleDateString('en-IN', { 
                                                                 day: '2-digit',
                                                                 month: 'short',
@@ -339,17 +339,17 @@ export default function ContentCalendarPage() {
                                                     </div>
                                                 </td>
                                                 <td className="p-4">
-                                                    <div className="font-medium text-slate-300 group-hover:text-white max-w-md">
+                                                    <div className="font-medium text-foreground/80 dark:text-foreground/80 group-hover:text-foreground dark:text-foreground max-w-md">
                                                         {article.title}
                                                     </div>
                                                     {article.slug && (
-                                                        <div className="text-xs text-slate-600 truncate max-w-md mt-1">
+                                                        <div className="text-xs text-muted-foreground/50 dark:text-muted-foreground/50 truncate max-w-md mt-1">
                                                             /{article.slug}
                                                         </div>
                                                     )}
                                                 </td>
                                                 <td className="p-4">
-                                                    <Badge variant="outline" className="text-xs capitalize border-slate-600 text-slate-300">
+                                                    <Badge variant="outline" className="text-xs capitalize border-border/70 dark:border-border/70 text-foreground/80 dark:text-foreground/80">
                                                         {article.category || 'General'}
                                                     </Badge>
                                                 </td>
@@ -361,7 +361,7 @@ export default function ContentCalendarPage() {
                                                         </Badge>
                                                     </div>
                                                 </td>
-                                                <td className="p-4 text-sm text-slate-400">
+                                                <td className="p-4 text-sm text-muted-foreground dark:text-muted-foreground">
                                                     {article.author_name || 'Admin'}
                                                 </td>
                                                 <td className="p-4">

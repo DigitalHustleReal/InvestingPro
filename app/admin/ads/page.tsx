@@ -68,14 +68,14 @@ export default function AdsPage() {
                         <div className="overflow-x-auto -mx-6">
                             <table className="w-full min-w-[800px]">
                                 <thead>
-                                    <tr className="border-b border-white/10">
-                                        <th className="px-6 py-4 text-left text-xs font-medium text-slate-500 uppercase">Name</th>
-                                        <th className="px-4 py-4 text-left text-xs font-medium text-slate-500 uppercase">Position</th>
-                                        <th className="px-4 py-4 text-left text-xs font-medium text-slate-500 uppercase">Status</th>
-                                        <th className="px-4 py-4 text-left text-xs font-medium text-slate-500 uppercase">Impressions</th>
-                                        <th className="px-4 py-4 text-left text-xs font-medium text-slate-500 uppercase">Clicks</th>
-                                        <th className="px-4 py-4 text-left text-xs font-medium text-slate-500 uppercase">CTR</th>
-                                        <th className="px-4 py-4 text-right text-xs font-medium text-slate-500 uppercase">Actions</th>
+                                    <tr className="border-b border-border dark:border-border">
+                                        <th className="px-6 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Name</th>
+                                        <th className="px-4 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Position</th>
+                                        <th className="px-4 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Status</th>
+                                        <th className="px-4 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Impressions</th>
+                                        <th className="px-4 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Clicks</th>
+                                        <th className="px-4 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">CTR</th>
+                                        <th className="px-4 py-4 text-right text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-white/5">
@@ -89,13 +89,13 @@ export default function AdsPage() {
                                                             <Megaphone className="w-5 h-5 text-secondary-400" />
                                                         </div>
                                                         <div>
-                                                            <div className="font-medium text-white">{ad.name}</div>
-                                                            <div className="text-xs text-slate-500 capitalize">{ad.ad_type}</div>
+                                                            <div className="font-medium text-foreground dark:text-foreground">{ad.name}</div>
+                                                            <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 capitalize">{ad.ad_type}</div>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td className="px-4 py-4">
-                                                    <code className="text-xs bg-white/5 px-2 py-1 rounded text-slate-400 border border-white/10">
+                                                    <code className="text-xs bg-white/5 px-2 py-1 rounded text-muted-foreground dark:text-muted-foreground border border-border dark:border-border">
                                                         {ad.position}
                                                     </code>
                                                 </td>
@@ -105,38 +105,38 @@ export default function AdsPage() {
                                                     </StatusBadge>
                                                 </td>
                                                 <td className="px-4 py-4">
-                                                    <div className="flex items-center gap-2 text-white">
-                                                        <Eye className="w-4 h-4 text-slate-500" />
+                                                    <div className="flex items-center gap-2 text-foreground dark:text-foreground">
+                                                        <Eye className="w-4 h-4 text-muted-foreground/70 dark:text-muted-foreground/70" />
                                                         {(ad.impressions || 0).toLocaleString()}
                                                     </div>
                                                 </td>
                                                 <td className="px-4 py-4">
-                                                    <div className="flex items-center gap-2 text-white">
-                                                        <MousePointerClick className="w-4 h-4 text-slate-500" />
+                                                    <div className="flex items-center gap-2 text-foreground dark:text-foreground">
+                                                        <MousePointerClick className="w-4 h-4 text-muted-foreground/70 dark:text-muted-foreground/70" />
                                                         {(ad.clicks || 0).toLocaleString()}
                                                     </div>
                                                 </td>
                                                 <td className="px-4 py-4">
                                                     <span className={`text-sm font-medium ${
                                                         parseFloat(ctr) > 2 ? 'text-primary-400' : 
-                                                        parseFloat(ctr) > 1 ? 'text-accent-400' : 'text-slate-400'
+                                                        parseFloat(ctr) > 1 ? 'text-accent-400' : 'text-muted-foreground dark:text-muted-foreground'
                                                     }`}>
                                                         {ctr}%
                                                     </span>
                                                 </td>
                                                 <td className="px-4 py-4">
                                                     <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                        <button className="p-2 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition-colors">
+                                                        <button className="p-2 hover:bg-white/10 rounded-lg text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground transition-colors">
                                                             {ad.status === 'active' ? (
                                                                 <Pause className="w-4 h-4" />
                                                             ) : (
                                                                 <Play className="w-4 h-4" />
                                                             )}
                                                         </button>
-                                                        <button className="p-2 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition-colors">
+                                                        <button className="p-2 hover:bg-white/10 rounded-lg text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground transition-colors">
                                                             <Edit className="w-4 h-4" />
                                                         </button>
-                                                        <button className="p-2 hover:bg-danger-500/20 rounded-lg text-slate-400 hover:text-danger-400 transition-colors">
+                                                        <button className="p-2 hover:bg-danger-500/20 rounded-lg text-muted-foreground dark:text-muted-foreground hover:text-danger-400 transition-colors">
                                                             <Trash2 className="w-4 h-4" />
                                                         </button>
                                                     </div>
@@ -158,8 +158,8 @@ export default function AdsPage() {
                                 <Megaphone className="w-6 h-6 text-secondary-400" />
                             </div>
                             <div>
-                                <h4 className="font-bold text-white mb-1">Create Banner Ad</h4>
-                                <p className="text-sm text-slate-400 mb-3">Display banners on articles</p>
+                                <h4 className="font-bold text-foreground dark:text-foreground mb-1">Create Banner Ad</h4>
+                                <p className="text-sm text-muted-foreground dark:text-muted-foreground mb-3">Display banners on articles</p>
                                 <button className="text-sm text-secondary-400 hover:text-secondary-300 font-medium">Create →</button>
                             </div>
                         </div>
@@ -170,8 +170,8 @@ export default function AdsPage() {
                                 <Eye className="w-6 h-6 text-primary-400" />
                             </div>
                             <div>
-                                <h4 className="font-bold text-white mb-1">Native Ad Units</h4>
-                                <p className="text-sm text-slate-400 mb-3">Seamless in-content ads</p>
+                                <h4 className="font-bold text-foreground dark:text-foreground mb-1">Native Ad Units</h4>
+                                <p className="text-sm text-muted-foreground dark:text-muted-foreground mb-3">Seamless in-content ads</p>
                                 <button className="text-sm text-primary-400 hover:text-primary-300 font-medium">Configure →</button>
                             </div>
                         </div>
@@ -182,8 +182,8 @@ export default function AdsPage() {
                                 <MousePointerClick className="w-6 h-6 text-accent-400" />
                             </div>
                             <div>
-                                <h4 className="font-bold text-white mb-1">View Analytics</h4>
-                                <p className="text-sm text-slate-400 mb-3">Performance insights</p>
+                                <h4 className="font-bold text-foreground dark:text-foreground mb-1">View Analytics</h4>
+                                <p className="text-sm text-muted-foreground dark:text-muted-foreground mb-3">Performance insights</p>
                                 <button className="text-sm text-accent-400 hover:text-accent-300 font-medium">View →</button>
                             </div>
                         </div>

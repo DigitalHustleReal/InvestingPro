@@ -141,7 +141,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-surface-darkest dark:bg-surface-darkest flex items-center justify-center p-4 relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary-500/10 blur-[150px]" />
@@ -153,17 +153,17 @@ export default function AdminLoginPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-600 shadow-lg shadow-primary-500/25 mb-4">
-            <Zap className="w-8 h-8 text-white" />
+            <Zap className="w-8 h-8 text-foreground dark:text-foreground" />
           </div>
-          <h1 className="text-2xl font-bold text-white">InvestingP₹o</h1>
-          <p className="text-slate-400 text-sm mt-1">Authority CMS</p>
+          <h1 className="text-2xl font-bold text-foreground dark:text-foreground">InvestingP₹o</h1>
+          <p className="text-muted-foreground dark:text-muted-foreground text-sm mt-1">Authority CMS</p>
         </div>
 
         {/* Card */}
-        <div className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
+        <div className="bg-surface-darker/50 dark:bg-surface-darker/50 backdrop-blur-xl border border-border dark:border-border rounded-2xl p-8 shadow-2xl">
           <div className="text-center mb-6">
-            <h2 className="text-xl font-semibold text-white">Welcome back</h2>
-            <p className="text-slate-400 text-sm mt-1">Sign in to access your dashboard</p>
+            <h2 className="text-xl font-semibold text-foreground dark:text-foreground">Welcome back</h2>
+            <p className="text-muted-foreground dark:text-muted-foreground text-sm mt-1">Sign in to access your dashboard</p>
           </div>
 
           {/* Error/Message Display */}
@@ -185,7 +185,7 @@ export default function AdminLoginPage() {
           <button
             onClick={handleGoogleLogin}
             disabled={googleLoading}
-            className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-medium rounded-xl transition-all duration-200 mb-4 disabled:opacity-50"
+            className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white dark:bg-muted dark:bg-muted hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-800 dark:text-foreground dark:text-foreground font-medium rounded-xl transition-all duration-200 mb-4 disabled:opacity-50"
           >
             {googleLoading ? (
               <Loader2 className="w-5 h-5 animate-spin" />
@@ -203,18 +203,18 @@ export default function AdminLoginPage() {
           {/* Divider */}
           <div className="flex items-center gap-4 my-6">
             <div className="flex-1 h-px bg-white/10" />
-            <span className="text-slate-500 text-sm">or</span>
+            <span className="text-muted-foreground/70 dark:text-muted-foreground/70 text-sm">or</span>
             <div className="flex-1 h-px bg-white/10" />
           </div>
 
           {/* Email/Password Form */}
           <form onSubmit={handleEmailLogin} className="space-y-4">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-foreground/80 dark:text-foreground/80 mb-2">
                 Email
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground/70 dark:text-muted-foreground/70" />
                 <input
                   id="email"
                   type="email"
@@ -223,17 +223,17 @@ export default function AdminLoginPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   disabled={loading}
-                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/50 transition-all"
+                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-border dark:border-border rounded-xl text-foreground dark:text-foreground placeholder:text-muted-foreground/70 dark:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/50 transition-all"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-slate-300 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-foreground/80 dark:text-foreground/80 mb-2">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground/70 dark:text-muted-foreground/70" />
                 <input
                   id="password"
                   type="password"
@@ -242,7 +242,7 @@ export default function AdminLoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   disabled={loading}
-                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/50 transition-all"
+                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-border dark:border-border rounded-xl text-foreground dark:text-foreground placeholder:text-muted-foreground/70 dark:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/50 transition-all"
                 />
               </div>
             </div>
@@ -250,7 +250,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-primary-500/25 disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-foreground dark:text-foreground font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-primary-500/25 disabled:opacity-50"
             >
               {loading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -275,8 +275,8 @@ export default function AdminLoginPage() {
           </div>
 
           {/* Sign Up Link */}
-          <div className="mt-6 pt-6 border-t border-white/10 text-center">
-            <p className="text-slate-400 text-sm">
+          <div className="mt-6 pt-6 border-t border-border dark:border-border text-center">
+            <p className="text-muted-foreground dark:text-muted-foreground text-sm">
               Don't have an account?{' '}
               <Link href="/admin/signup" className="text-primary-400 hover:text-primary-300 font-medium">
                 Sign up
@@ -286,7 +286,7 @@ export default function AdminLoginPage() {
         </div>
 
         {/* Footer */}
-        <p className="text-center text-slate-500 text-xs mt-6">
+        <p className="text-center text-muted-foreground/70 dark:text-muted-foreground/70 text-xs mt-6">
           Protected by Supabase Auth â€¢ Secure & Encrypted
         </p>
       </div>

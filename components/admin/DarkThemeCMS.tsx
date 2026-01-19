@@ -150,7 +150,7 @@ export default function DarkThemeCMS({
 
     // Helper to get score color
     const getScoreColor = (score: number | undefined): string => {
-        if (!score) return 'text-slate-500';
+        if (!score) return 'text-muted-foreground/70 dark:text-muted-foreground/70';
         if (score >= 80) return 'text-green-400';
         if (score >= 60) return 'text-yellow-400';
         return 'text-red-400';
@@ -214,45 +214,45 @@ export default function DarkThemeCMS({
             {articlesArray.length > 0 && (
                 <ContentSection>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div className="p-4 bg-white/5 rounded-lg border border-white/10">
+                        <div className="p-4 bg-white/5 rounded-lg border border-border dark:border-border">
                             <div className="flex items-center gap-2 mb-2">
                                 <Star className="w-4 h-4 text-yellow-400" />
-                                <span className="text-xs text-slate-400 uppercase tracking-wider">Avg Quality</span>
+                                <span className="text-xs text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">Avg Quality</span>
                             </div>
-                            <div className="text-2xl font-bold text-white">
+                            <div className="text-2xl font-bold text-foreground dark:text-foreground">
                                 {(() => {
                                     const scores = articlesArray.map(a => a.quality_score).filter((s): s is number => s !== undefined && s !== null);
                                     return scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : '—';
                                 })()}
                             </div>
                         </div>
-                        <div className="p-4 bg-white/5 rounded-lg border border-white/10">
+                        <div className="p-4 bg-white/5 rounded-lg border border-border dark:border-border">
                             <div className="flex items-center gap-2 mb-2">
                                 <SearchIcon className="w-4 h-4 text-blue-400" />
-                                <span className="text-xs text-slate-400 uppercase tracking-wider">Avg SEO</span>
+                                <span className="text-xs text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">Avg SEO</span>
                             </div>
-                            <div className="text-2xl font-bold text-white">
+                            <div className="text-2xl font-bold text-foreground dark:text-foreground">
                                 {(() => {
                                     const scores = articlesArray.map(a => a.seo_score).filter((s): s is number => s !== undefined && s !== null);
                                     return scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : '—';
                                 })()}
                             </div>
                         </div>
-                        <div className="p-4 bg-white/5 rounded-lg border border-white/10">
+                        <div className="p-4 bg-white/5 rounded-lg border border-border dark:border-border">
                             <div className="flex items-center gap-2 mb-2">
                                 <BarChart3 className="w-4 h-4 text-green-400" />
-                                <span className="text-xs text-slate-400 uppercase tracking-wider">With Research</span>
+                                <span className="text-xs text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">With Research</span>
                             </div>
-                            <div className="text-2xl font-bold text-white">
+                            <div className="text-2xl font-bold text-foreground dark:text-foreground">
                                 {articlesArray.filter(hasResearch).length}
                             </div>
                         </div>
-                        <div className="p-4 bg-white/5 rounded-lg border border-white/10">
+                        <div className="p-4 bg-white/5 rounded-lg border border-border dark:border-border">
                             <div className="flex items-center gap-2 mb-2">
                                 <Flame className="w-4 h-4 text-orange-400" />
-                                <span className="text-xs text-slate-400 uppercase tracking-wider">Trending</span>
+                                <span className="text-xs text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">Trending</span>
                             </div>
-                            <div className="text-2xl font-bold text-white">
+                            <div className="text-2xl font-bold text-foreground dark:text-foreground">
                                 {articlesArray.filter(isTrending).length}
                             </div>
                         </div>
@@ -264,13 +264,13 @@ export default function DarkThemeCMS({
             <ContentSection>
                 <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
                     <div className="relative flex-1 max-w-md">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/70 dark:text-muted-foreground/70" />
                         <input
                             type="text"
                             placeholder="Search articles..."
                             value={searchTerm}
                             onChange={(e) => onSearchChange?.(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2.5 bg-slate-800/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500"
+                            className="w-full pl-10 pr-4 py-2.5 bg-muted/50 dark:bg-muted/50 border border-border dark:border-border rounded-lg text-foreground dark:text-foreground placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500"
                         />
                     </div>
                     <div className="flex gap-2 flex-wrap">
@@ -280,8 +280,8 @@ export default function DarkThemeCMS({
                                 onClick={() => onFilterChange?.(status)}
                                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                                     filterStatus === status
-                                        ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/25'
-                                        : 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
+                                        ? 'bg-primary-500 text-foreground dark:text-foreground shadow-lg shadow-primary-500/25'
+                                        : 'bg-white/5 text-muted-foreground dark:text-muted-foreground hover:bg-white/10 hover:text-foreground dark:text-foreground'
                                 }`}
                             >
                                 {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -301,10 +301,10 @@ export default function DarkThemeCMS({
                 <ContentSection>
                     <div className="text-center py-16">
                         <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mx-auto mb-4">
-                            <FileText className="w-8 h-8 text-slate-500" />
+                            <FileText className="w-8 h-8 text-muted-foreground/70 dark:text-muted-foreground/70" />
                         </div>
-                        <h3 className="text-lg font-semibold text-white mb-2">No articles found</h3>
-                        <p className="text-slate-400 mb-6">
+                        <h3 className="text-lg font-semibold text-foreground dark:text-foreground mb-2">No articles found</h3>
+                        <p className="text-muted-foreground dark:text-muted-foreground mb-6">
                             {searchTerm || filterStatus !== 'all'
                                 ? 'Try adjusting your search or filters'
                                 : 'Get started by creating your first article'}
@@ -317,55 +317,55 @@ export default function DarkThemeCMS({
                     <div className="overflow-x-auto -mx-6">
                         <table className="w-full min-w-[1400px]">
                             <thead>
-                                <tr className="border-b border-white/10">
+                                <tr className="border-b border-border dark:border-border">
                                     <th className="px-6 py-4 w-12">
                                         <div 
                                             className={`w-5 h-5 rounded border-2 flex items-center justify-center cursor-pointer transition-all ${
                                                 isAllSelected ? 'bg-primary-500 border-primary-500' : 
                                                 isPartialSelected ? 'bg-primary-500/50 border-primary-500' : 
-                                                'border-slate-600 hover:border-primary-500'
+                                                'border-border/70 dark:border-border/70 hover:border-primary-500'
                                             }`}
                                             onClick={isAllSelected || isPartialSelected ? deselectAll : selectAll}
                                         >
-                                            {isAllSelected && <Check className="w-3 h-3 text-white" />}
-                                            {isPartialSelected && <Minus className="w-3 h-3 text-white" />}
+                                            {isAllSelected && <Check className="w-3 h-3 text-foreground dark:text-foreground" />}
+                                            {isPartialSelected && <Minus className="w-3 h-3 text-foreground dark:text-foreground" />}
                                         </div>
                                     </th>
-                                    <th className="px-4 py-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Title</th>
-                                    <th className="px-4 py-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider hidden md:table-cell">Author</th>
-                                    <th className="px-4 py-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider hidden lg:table-cell">Category</th>
-                                    <th className="px-4 py-4 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
-                                    <th className="px-4 py-4 text-center text-xs font-medium text-slate-500 uppercase tracking-wider">
+                                    <th className="px-4 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">Title</th>
+                                    <th className="px-4 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider hidden md:table-cell">Author</th>
+                                    <th className="px-4 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider hidden lg:table-cell">Category</th>
+                                    <th className="px-4 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">Status</th>
+                                    <th className="px-4 py-4 text-center text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">
                                         <div className="flex items-center justify-center gap-1">
                                             <Eye className="w-3 h-3" />
                                             Views
                                         </div>
                                     </th>
-                                    <th className="px-4 py-4 text-center text-xs font-medium text-slate-500 uppercase tracking-wider">
+                                    <th className="px-4 py-4 text-center text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">
                                         <div className="flex items-center justify-center gap-1">
                                             <Star className="w-3 h-3" />
                                             Quality
                                         </div>
                                     </th>
-                                    <th className="px-4 py-4 text-center text-xs font-medium text-slate-500 uppercase tracking-wider">
+                                    <th className="px-4 py-4 text-center text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">
                                         <div className="flex items-center justify-center gap-1">
                                             <SearchIcon className="w-3 h-3" />
                                             SEO
                                         </div>
                                     </th>
-                                    <th className="px-4 py-4 text-center text-xs font-medium text-slate-500 uppercase tracking-wider">
+                                    <th className="px-4 py-4 text-center text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">
                                         <div className="flex items-center justify-center gap-1">
                                             <BarChart3 className="w-3 h-3" />
                                             Research
                                         </div>
                                     </th>
-                                    <th className="px-4 py-4 text-center text-xs font-medium text-slate-500 uppercase tracking-wider">
+                                    <th className="px-4 py-4 text-center text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">
                                         <div className="flex items-center justify-center gap-1">
                                             <Flame className="w-3 h-3" />
                                             Trending
                                         </div>
                                     </th>
-                                    <th className="px-4 py-4 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Actions</th>
+                                    <th className="px-4 py-4 text-right text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-white/5">
@@ -379,11 +379,11 @@ export default function DarkThemeCMS({
                                             <td className="px-6 py-4">
                                                 <div 
                                                     className={`w-5 h-5 rounded border-2 flex items-center justify-center cursor-pointer transition-all ${
-                                                        isSelected ? 'bg-primary-500 border-primary-500' : 'border-slate-600 group-hover:border-primary-500'
+                                                        isSelected ? 'bg-primary-500 border-primary-500' : 'border-border/70 dark:border-border/70 group-hover:border-primary-500'
                                                     }`}
                                                     onClick={() => toggleSelection(article.id)}
                                                 >
-                                                    {isSelected && <Check className="w-3 h-3 text-white" />}
+                                                    {isSelected && <Check className="w-3 h-3 text-foreground dark:text-foreground" />}
                                                 </div>
                                             </td>
                                             <td className="px-4 py-4">
@@ -392,18 +392,18 @@ export default function DarkThemeCMS({
                                                         <img src={article.featured_image} alt="" className="w-12 h-12 rounded-lg object-cover ring-1 ring-white/10" />
                                                     ) : (
                                                         <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center ring-1 ring-white/10">
-                                                            <FileText className="w-5 h-5 text-slate-500" />
+                                                            <FileText className="w-5 h-5 text-muted-foreground/70 dark:text-muted-foreground/70" />
                                                         </div>
                                                     )}
                                                     <div className="min-w-0">
-                                                        <Link href={`/admin/articles/${article.id}/edit`} className="text-sm font-medium text-white hover:text-primary-400 transition-colors block truncate max-w-[300px]">
+                                                        <Link href={`/admin/articles/${article.id}/edit`} className="text-sm font-medium text-foreground dark:text-foreground hover:text-primary-400 transition-colors block truncate max-w-[300px]">
                                                             {article.title || 'Untitled'}
                                                         </Link>
                                                         {article.excerpt && (
-                                                            <p className="text-xs text-slate-500 mt-0.5 truncate max-w-[300px] hidden sm:block">{article.excerpt}</p>
+                                                            <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-0.5 truncate max-w-[300px] hidden sm:block">{article.excerpt}</p>
                                                         )}
                                                         {(article.published_at || article.published_date) && (
-                                                            <div className="flex items-center gap-1 mt-1 text-xs text-slate-600">
+                                                            <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground/50 dark:text-muted-foreground/50">
                                                                 <Calendar className="w-3 h-3" />
                                                                 {new Date(article.published_at || article.published_date || '').toLocaleDateString()}
                                                             </div>
@@ -413,15 +413,15 @@ export default function DarkThemeCMS({
                                             </td>
                                             <td className="px-4 py-4 hidden md:table-cell">
                                                 <div className="flex items-center gap-2">
-                                                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white text-xs font-medium">
+                                                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-foreground dark:text-foreground text-xs font-medium">
                                                         {(article.author_name || 'A')[0].toUpperCase()}
                                                     </div>
-                                                    <span className="text-sm text-slate-300">{article.author_name || 'Admin'}</span>
+                                                    <span className="text-sm text-foreground/80 dark:text-foreground/80">{article.author_name || 'Admin'}</span>
                                                 </div>
                                             </td>
                                             <td className="px-4 py-4 hidden lg:table-cell">
                                                 {article.category && (
-                                                    <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-white/5 text-slate-400 border border-white/10">
+                                                    <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-white/5 text-muted-foreground dark:text-muted-foreground border border-border dark:border-border">
                                                         {article.category.replace(/-/g, ' ')}
                                                     </span>
                                                 )}
@@ -433,7 +433,7 @@ export default function DarkThemeCMS({
                                             </td>
                                             <td className="px-4 py-4 text-center">
                                                 <div className="flex items-center justify-center">
-                                                    <span className="text-sm font-medium text-slate-300">
+                                                    <span className="text-sm font-medium text-foreground/80 dark:text-foreground/80">
                                                         {article.views?.toLocaleString() || '0'}
                                                     </span>
                                                 </div>
@@ -452,7 +452,7 @@ export default function DarkThemeCMS({
                                                         </div>
                                                     </div>
                                                 ) : (
-                                                    <span className="text-xs text-slate-600">—</span>
+                                                    <span className="text-xs text-muted-foreground/50 dark:text-muted-foreground/50">—</span>
                                                 )}
                                             </td>
                                             <td className="px-4 py-4 text-center">
@@ -469,7 +469,7 @@ export default function DarkThemeCMS({
                                                         </div>
                                                     </div>
                                                 ) : (
-                                                    <span className="text-xs text-slate-600">—</span>
+                                                    <span className="text-xs text-muted-foreground/50 dark:text-muted-foreground/50">—</span>
                                                 )}
                                             </td>
                                             <td className="px-4 py-4 text-center">
@@ -480,7 +480,7 @@ export default function DarkThemeCMS({
                                                         </div>
                                                     </div>
                                                 ) : (
-                                                    <span className="text-xs text-slate-600">—</span>
+                                                    <span className="text-xs text-muted-foreground/50 dark:text-muted-foreground/50">—</span>
                                                 )}
                                             </td>
                                             <td className="px-4 py-4 text-center">
@@ -491,7 +491,7 @@ export default function DarkThemeCMS({
                                                         </div>
                                                     </div>
                                                 ) : (
-                                                    <span className="text-xs text-slate-600">—</span>
+                                                    <span className="text-xs text-muted-foreground/50 dark:text-muted-foreground/50">—</span>
                                                 )}
                                             </td>
                                             <td className="px-4 py-4">
@@ -502,17 +502,17 @@ export default function DarkThemeCMS({
                                                         </button>
                                                     )}
                                                     <Link href={`/admin/articles/${article.id}/edit`}>
-                                                        <button className="p-2 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition-colors" title="Edit">
+                                                        <button className="p-2 hover:bg-white/10 rounded-lg text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground transition-colors" title="Edit">
                                                             <Edit className="w-4 h-4" />
                                                         </button>
                                                     </Link>
                                                     <Link href={`/articles/${article.slug}${article.status !== 'published' ? '?preview=true' : ''}`} target="_blank">
-                                                        <button className="p-2 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition-colors" title="View">
+                                                        <button className="p-2 hover:bg-white/10 rounded-lg text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground transition-colors" title="View">
                                                             <Eye className="w-4 h-4" />
                                                         </button>
                                                     </Link>
                                                     {onDelete && (
-                                                        <button onClick={() => { if (confirm('Delete this article?')) onDelete(article.id); }} className="p-2 hover:bg-danger-500/20 rounded-lg text-slate-400 hover:text-danger-400 transition-colors" title="Delete">
+                                                        <button onClick={() => { if (confirm('Delete this article?')) onDelete(article.id); }} className="p-2 hover:bg-danger-500/20 rounded-lg text-muted-foreground dark:text-muted-foreground hover:text-danger-400 transition-colors" title="Delete">
                                                             <Trash2 className="w-4 h-4" />
                                                         </button>
                                                     )}
@@ -536,19 +536,19 @@ export default function DarkThemeCMS({
                         exit={{ y: 100, opacity: 0 }}
                         className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
                     >
-                        <div className="flex items-center gap-4 px-6 py-4 bg-slate-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10">
+                        <div className="flex items-center gap-4 px-6 py-4 bg-surface-darker dark:bg-surface-darker/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-border dark:border-border">
                             <div className="flex items-center gap-2">
                                 <div className="w-8 h-8 rounded-lg bg-primary-500/20 flex items-center justify-center">
                                     <Check className="w-4 h-4 text-primary-400" />
                                 </div>
-                                <span className="text-sm font-medium text-white">{selectedIds.length} selected</span>
+                                <span className="text-sm font-medium text-foreground dark:text-foreground">{selectedIds.length} selected</span>
                             </div>
                             <div className="w-px h-6 bg-white/10" />
                             <div className="flex items-center gap-2">
                                 <button onClick={() => handleBulkAction('publish')} disabled={!!bulkLoading} className="px-4 py-2 bg-primary-500/20 hover:bg-primary-500/30 text-primary-400 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors disabled:opacity-50">
                                     <Send className="w-4 h-4" /> Publish
                                 </button>
-                                <button onClick={() => handleBulkAction('archive')} disabled={!!bulkLoading} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm font-medium flex items-center gap-2 transition-colors disabled:opacity-50">
+                                <button onClick={() => handleBulkAction('archive')} disabled={!!bulkLoading} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-foreground dark:text-foreground rounded-lg text-sm font-medium flex items-center gap-2 transition-colors disabled:opacity-50">
                                     <Archive className="w-4 h-4" /> Archive
                                 </button>
                                 <button onClick={() => handleBulkAction('export')} className="px-4 py-2 bg-secondary-500/20 hover:bg-secondary-500/30 text-secondary-400 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors">
@@ -558,7 +558,7 @@ export default function DarkThemeCMS({
                                     <Trash2 className="w-4 h-4" /> Delete
                                 </button>
                             </div>
-                            <button onClick={deselectAll} className="p-2 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition-colors">
+                            <button onClick={deselectAll} className="p-2 hover:bg-white/10 rounded-lg text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground transition-colors">
                                 <X className="w-4 h-4" />
                             </button>
                         </div>

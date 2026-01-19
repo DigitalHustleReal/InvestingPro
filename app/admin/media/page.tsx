@@ -44,15 +44,15 @@ export default function MediaPage() {
                         
                         <ContentSection title="Storage Info">
                             <div className="space-y-3 text-sm">
-                                <div className="flex justify-between text-slate-400">
+                                <div className="flex justify-between text-muted-foreground dark:text-muted-foreground">
                                     <span>Max file size</span>
-                                    <span className="text-white font-medium">10MB</span>
+                                    <span className="text-foreground dark:text-foreground font-medium">10MB</span>
                                 </div>
-                                <div className="flex justify-between text-slate-400">
+                                <div className="flex justify-between text-muted-foreground dark:text-muted-foreground">
                                     <span>Formats</span>
-                                    <span className="text-white font-medium">JPG, PNG, WebP, PDF</span>
+                                    <span className="text-foreground dark:text-foreground font-medium">JPG, PNG, WebP, PDF</span>
                                 </div>
-                                <div className="flex justify-between text-slate-400">
+                                <div className="flex justify-between text-muted-foreground dark:text-muted-foreground">
                                     <span>CDN</span>
                                     <span className="text-primary-400 font-medium">Enabled</span>
                                 </div>

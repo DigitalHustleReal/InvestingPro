@@ -97,10 +97,10 @@ export default function AffiliatesPage() {
                 <AdminBreadcrumb />
                 
                 {/* Header */}
-                <div className="mb-10 border-b border-white/5 pb-8 mt-4">
+                <div className="mb-10 border-b border-border/50 dark:border-border/50 pb-8 mt-4">
                     <div className="flex items-center justify-between">
                         <div>
-                            <h1 className="text-3xl font-extrabold text-white tracking-tight flex items-center gap-4">
+                            <h1 className="text-3xl font-extrabold text-foreground dark:text-foreground tracking-tight flex items-center gap-4">
                                 <div className="w-12 h-12 rounded-xl bg-accent-500/10 flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.15)]">
                                     <DollarSign className="w-6 h-6 text-accent-400" />
                                 </div>
@@ -109,11 +109,11 @@ export default function AffiliatesPage() {
                                     LIVE
                                 </Badge>
                             </h1>
-                            <p className="text-slate-400 mt-3 ml-16 font-medium tracking-wide max-w-2xl">
+                            <p className="text-muted-foreground dark:text-muted-foreground mt-3 ml-16 font-medium tracking-wide max-w-2xl">
                                 Track affiliate performance, clicks, conversions, and revenue.
                             </p>
                         </div>
-                        <Button className="bg-primary-600 hover:bg-primary-700 text-white">
+                        <Button className="bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground">
                             <Plus className="w-4 h-4 mr-2" />
                             New Link
                         </Button>
@@ -123,7 +123,7 @@ export default function AffiliatesPage() {
                 {/* Metrics Grid */}
                 <div className="grid grid-cols-4 gap-6 mb-8">
                     {metrics.map((metric, idx) => (
-                        <Card key={idx} className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
+                        <Card key={idx} className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
                             <CardContent className="p-6">
                                 <div className="flex items-center justify-between mb-4">
                                     <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center", metric.bg)}>
@@ -140,10 +140,10 @@ export default function AffiliatesPage() {
                                         {metric.change}
                                     </div>
                                 </div>
-                                <div className="text-3xl font-extrabold text-white tracking-tight">
+                                <div className="text-3xl font-extrabold text-foreground dark:text-foreground tracking-tight">
                                     {typeof metric.value === 'number' ? metric.value.toLocaleString() : metric.value}
                                 </div>
-                                <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1">
+                                <div className="text-xs font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest mt-1">
                                     {metric.label}
                                 </div>
                             </CardContent>
@@ -153,9 +153,9 @@ export default function AffiliatesPage() {
 
                 <div className="grid lg:grid-cols-2 gap-8">
                     {/* Top Partners */}
-                    <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                        <CardHeader className="border-b border-white/5 px-6 py-4">
-                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
+                    <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                        <CardHeader className="border-b border-border/50 dark:border-border/50 px-6 py-4">
+                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                                 <TrendingUp className="w-4 h-4 text-primary-400" />
                                 Top Partners
                             </CardTitle>
@@ -169,16 +169,16 @@ export default function AffiliatesPage() {
                                                 <div className={cn(
                                                     "w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm",
                                                     idx === 0 ? "bg-accent-500/20 text-accent-400" :
-                                                    idx === 1 ? "bg-slate-500/20 text-slate-400" :
+                                                    idx === 1 ? "bg-slate-500/20 text-muted-foreground dark:text-muted-foreground" :
                                                     "bg-accent-500/20 text-accent-400"
                                                 )}>
                                                     {idx + 1}
                                                 </div>
-                                                <span className="font-semibold text-white">{partner.partner}</span>
+                                                <span className="font-semibold text-foreground dark:text-foreground">{partner.partner}</span>
                                             </div>
                                             <div className="flex items-center gap-6 text-sm">
                                                 <div className="text-right">
-                                                    <div className="text-slate-400">{partner.clicks} clicks</div>
+                                                    <div className="text-muted-foreground dark:text-muted-foreground">{partner.clicks} clicks</div>
                                                 </div>
                                                 <div className="text-right min-w-[80px]">
                                                     <div className="font-bold text-primary-400">â‚¹{partner.revenue}</div>
@@ -188,7 +188,7 @@ export default function AffiliatesPage() {
                                     ))}
                                 </div>
                             ) : (
-                                <div className="py-12 text-center text-slate-500">
+                                <div className="py-12 text-center text-muted-foreground/70 dark:text-muted-foreground/70">
                                     No partner data yet
                                 </div>
                             )}
@@ -196,9 +196,9 @@ export default function AffiliatesPage() {
                     </Card>
 
                     {/* Top Links */}
-                    <Card className="bg-white/[0.03] border-white/5 rounded-2xl overflow-hidden">
-                        <CardHeader className="border-b border-white/5 px-6 py-4">
-                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 flex items-center gap-6 md:p-8">
+                    <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                        <CardHeader className="border-b border-border/50 dark:border-border/50 px-6 py-4">
+                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                                 <Link2 className="w-4 h-4 text-primary-400" />
                                 Top Performing Links
                             </CardTitle>
@@ -207,12 +207,12 @@ export default function AffiliatesPage() {
                             {stats?.topLinks && stats.topLinks.length > 0 ? (
                                 <div className="divide-y divide-white/5">
                                     {stats.topLinks.slice(0, 5).map((link, idx) => (
-                                        <div key={idx} className="flex items-center justify-between px-6 py-4 hover:bg-white/[0.02] transition-colors">
+                                        <div key={idx} className="flex items-center justify-between px-6 py-4 hover:bg-card/50 dark:bg-card/50 transition-colors">
                                             <div className="flex items-center gap-4">
                                                 <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
-                                                    <ExternalLink className="w-4 h-4 text-slate-400" />
+                                                    <ExternalLink className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
                                                 </div>
-                                                <span className="text-sm font-medium text-white line-clamp-1">{link.name}</span>
+                                                <span className="text-sm font-medium text-foreground dark:text-foreground line-clamp-1">{link.name}</span>
                                             </div>
                                             <div className="flex items-center gap-4 text-sm">
                                                 <Badge className="bg-secondary-500/10 text-secondary-400 border-0">
@@ -226,7 +226,7 @@ export default function AffiliatesPage() {
                                     ))}
                                 </div>
                             ) : (
-                                <div className="py-12 text-center text-slate-500">
+                                <div className="py-12 text-center text-muted-foreground/70 dark:text-muted-foreground/70">
                                     No link data yet
                                 </div>
                             )}
@@ -237,22 +237,22 @@ export default function AffiliatesPage() {
                 {/* Quick Actions */}
                 <div className="mt-8 grid grid-cols-3 gap-6">
                     <Card className="bg-gradient-to-br from-primary-500/10 to-secondary-500/10 border-primary-500/20 rounded-2xl p-6">
-                        <h4 className="font-bold text-white mb-2">Create Short Link</h4>
-                        <p className="text-sm text-slate-400 mb-4">Generate trackable affiliate links</p>
+                        <h4 className="font-bold text-foreground dark:text-foreground mb-2">Create Short Link</h4>
+                        <p className="text-sm text-muted-foreground dark:text-muted-foreground mb-4">Generate trackable affiliate links</p>
                         <Button variant="ghost" className="text-primary-400 hover:text-primary-300 p-0 h-auto">
                             Create Link â†’
                         </Button>
                     </Card>
                     <Card className="bg-gradient-to-br from-success-500/10 to-primary-500/10 border-primary-500/20 rounded-2xl p-6">
-                        <h4 className="font-bold text-white mb-2">Add Partner</h4>
-                        <p className="text-sm text-slate-400 mb-4">Register new affiliate partners</p>
+                        <h4 className="font-bold text-foreground dark:text-foreground mb-2">Add Partner</h4>
+                        <p className="text-sm text-muted-foreground dark:text-muted-foreground mb-4">Register new affiliate partners</p>
                         <Button variant="ghost" className="text-primary-400 hover:text-primary-300 p-0 h-auto">
                             Add Partner â†’
                         </Button>
                     </Card>
                     <Card className="bg-gradient-to-br from-accent-500/10 to-orange-500/10 border-accent-500/20 rounded-2xl p-6">
-                        <h4 className="font-bold text-white mb-2">Export Report</h4>
-                        <p className="text-sm text-slate-400 mb-4">Download performance data</p>
+                        <h4 className="font-bold text-foreground dark:text-foreground mb-2">Export Report</h4>
+                        <p className="text-sm text-muted-foreground dark:text-muted-foreground mb-4">Download performance data</p>
                         <Button variant="ghost" className="text-accent-400 hover:text-accent-300 p-0 h-auto">
                             Export CSV â†’
                         </Button>

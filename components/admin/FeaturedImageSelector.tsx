@@ -82,7 +82,7 @@ export default function FeaturedImageSelector({
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center">
                             <button
                                 onClick={handleRemove}
-                                className="opacity-0 group-hover:opacity-100 transition-opacity bg-danger-600 text-white p-2 rounded-full hover:bg-danger-700"
+                                className="opacity-0 group-hover:opacity-100 transition-opacity bg-danger-600 text-foreground dark:text-foreground p-2 rounded-full hover:bg-danger-700"
                                 title="Remove image"
                             >
                                 <X className="w-5 h-5" />
@@ -90,7 +90,7 @@ export default function FeaturedImageSelector({
                         </div>
                     </>
                 ) : (
-                    <div className="flex flex-col items-center justify-center h-full text-slate-400">
+                    <div className="flex flex-col items-center justify-center h-full text-muted-foreground dark:text-muted-foreground">
                         <ImageIcon className="w-12 h-12 mb-2 opacity-50" />
                         <span className="text-sm">No image selected</span>
                     </div>
@@ -104,7 +104,7 @@ export default function FeaturedImageSelector({
                     disabled={autoSelecting || !articleTitle}
                     variant="default"
                     size="sm"
-                    className="flex-1 bg-secondary-600 hover:bg-secondary-700 text-white"
+                    className="flex-1 bg-secondary-600 hover:bg-secondary-700 text-foreground dark:text-foreground"
                     title="Automatically select image based on article title"
                 >
                     {autoSelecting ? (
@@ -148,7 +148,7 @@ export default function FeaturedImageSelector({
                                 onClick={() => setShowMediaLibrary(false)}
                                 className="p-2 hover:bg-slate-100 rounded-md transition-colors"
                             >
-                                <X className="w-5 h-5 text-slate-600" />
+                                <X className="w-5 h-5 text-muted-foreground/50 dark:text-muted-foreground/50" />
                             </button>
                         </div>
 

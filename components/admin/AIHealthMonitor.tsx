@@ -39,8 +39,8 @@ export default function AIHealthMonitor() {
     if (loading) return null;
 
     return (
-        <div className="flex items-center gap-4 bg-white/[0.03] border border-white/5 px-4 py-2 rounded-xl">
-            <span className="text-[10px] uppercase font-bold text-slate-500 tracking-widest flex items-center gap-2">
+        <div className="flex items-center gap-4 bg-card dark:bg-card border border-border/50 dark:border-border/50 px-4 py-2 rounded-xl">
+            <span className="text-[10px] uppercase font-bold text-muted-foreground/70 dark:text-muted-foreground/70 tracking-widest flex items-center gap-2">
                 <Activity className="w-3 h-3 text-primary-400" />
                 Provider Status:
             </span>
@@ -50,8 +50,8 @@ export default function AIHealthMonitor() {
                     const isDegraded = data.status === 'degraded';
                     
                     return (
-                        <div key={name} className="flex items-center gap-1.5 px-2 py-1 rounded bg-black/20 border border-white/5">
-                            <span className="text-[10px] font-mono uppercase text-slate-400">{name}</span>
+                        <div key={name} className="flex items-center gap-1.5 px-2 py-1 rounded bg-black/20 border border-border/50 dark:border-border/50">
+                            <span className="text-[10px] font-mono uppercase text-muted-foreground dark:text-muted-foreground">{name}</span>
                             {isHealthy ? (
                                 <CheckCircle2 className="w-2.5 h-2.5 text-primary-500" />
                             ) : isDegraded ? (

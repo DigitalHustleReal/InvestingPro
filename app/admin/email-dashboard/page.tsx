@@ -72,8 +72,8 @@ export default function EmailDashboard() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Email Marketing Dashboard</h1>
-                        <p className="text-slate-600 dark:text-slate-400 mt-1">
+                        <h1 className="text-3xl font-bold text-slate-900 dark:text-foreground dark:text-foreground">Email Marketing Dashboard</h1>
+                        <p className="text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mt-1">
                             Track email performance, open rates, and conversions
                         </p>
                     </div>
@@ -104,7 +104,7 @@ export default function EmailDashboard() {
                 {metricsLoading ? (
                     <div className="text-center py-12">
                         <RefreshCw className="w-8 h-8 animate-spin mx-auto text-primary-600" />
-                        <p className="mt-4 text-slate-600 dark:text-slate-400">Loading email metrics...</p>
+                        <p className="mt-4 text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">Loading email metrics...</p>
                     </div>
                 ) : metrics ? (
                     <>
@@ -117,7 +117,7 @@ export default function EmailDashboard() {
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{metrics.sent.toLocaleString()}</div>
-                                    <p className="text-xs text-slate-500 mt-1">
+                                    <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                         {metrics.delivered} delivered
                                     </p>
                                 </CardContent>
@@ -130,7 +130,7 @@ export default function EmailDashboard() {
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{metrics.openRate.toFixed(1)}%</div>
-                                    <p className="text-xs text-slate-500 mt-1">
+                                    <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                         {metrics.opened} opened
                                     </p>
                                 </CardContent>
@@ -143,7 +143,7 @@ export default function EmailDashboard() {
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{metrics.clickRate.toFixed(1)}%</div>
-                                    <p className="text-xs text-slate-500 mt-1">
+                                    <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                         {metrics.clicked} clicked
                                     </p>
                                 </CardContent>
@@ -156,7 +156,7 @@ export default function EmailDashboard() {
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{metrics.conversionRate.toFixed(2)}%</div>
-                                    <p className="text-xs text-slate-500 mt-1">
+                                    <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                         {metrics.converted} converted
                                     </p>
                                 </CardContent>
@@ -192,7 +192,7 @@ export default function EmailDashboard() {
                                                 {campaigns.map((campaign) => (
                                                     <tr
                                                         key={campaign.id}
-                                                        className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900/50"
+                                                        className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-surface-darker/50 dark:bg-surface-darker/50"
                                                     >
                                                         <td className="py-4 px-4">
                                                             <div className="font-medium">{campaign.name}</div>
@@ -202,16 +202,16 @@ export default function EmailDashboard() {
                                                         </td>
                                                         <td className="py-4 px-4 text-center">{campaign.sent}</td>
                                                         <td className="py-4 px-4 text-center">
-                                                            <span className={campaign.openRate >= 20 ? 'text-green-600' : 'text-slate-600'}>
+                                                            <span className={campaign.openRate >= 20 ? 'text-green-600' : 'text-muted-foreground/50 dark:text-muted-foreground/50'}>
                                                                 {campaign.openRate.toFixed(1)}%
                                                             </span>
                                                         </td>
                                                         <td className="py-4 px-4 text-center">
-                                                            <span className={campaign.clickRate >= 3 ? 'text-green-600' : 'text-slate-600'}>
+                                                            <span className={campaign.clickRate >= 3 ? 'text-green-600' : 'text-muted-foreground/50 dark:text-muted-foreground/50'}>
                                                                 {campaign.clickRate.toFixed(1)}%
                                                             </span>
                                                         </td>
-                                                        <td className="py-4 px-4 text-center text-sm text-slate-500">
+                                                        <td className="py-4 px-4 text-center text-sm text-muted-foreground/70 dark:text-muted-foreground/70">
                                                             {new Date(campaign.date).toLocaleDateString()}
                                                         </td>
                                                     </tr>
@@ -220,7 +220,7 @@ export default function EmailDashboard() {
                                         </table>
                                     </div>
                                 ) : (
-                                    <div className="text-center py-8 text-slate-500">
+                                    <div className="text-center py-8 text-muted-foreground/70 dark:text-muted-foreground/70">
                                         No campaigns found
                                     </div>
                                 )}
@@ -230,7 +230,7 @@ export default function EmailDashboard() {
                 ) : (
                     <div className="text-center py-12">
                         <Mail className="w-12 h-12 mx-auto mb-3 opacity-40" />
-                        <p className="text-slate-500">No email data available</p>
+                        <p className="text-muted-foreground/70 dark:text-muted-foreground/70">No email data available</p>
                     </div>
                 )}
             </div>

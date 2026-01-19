@@ -78,8 +78,8 @@ export default function SocialDashboard() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Social Media Dashboard</h1>
-                        <p className="text-slate-600 dark:text-slate-400 mt-1">
+                        <h1 className="text-3xl font-bold text-slate-900 dark:text-foreground dark:text-foreground">Social Media Dashboard</h1>
+                        <p className="text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mt-1">
                             Track social media performance and engagement
                         </p>
                     </div>
@@ -110,7 +110,7 @@ export default function SocialDashboard() {
                 {isLoading ? (
                     <div className="text-center py-12">
                         <RefreshCw className="w-8 h-8 animate-spin mx-auto text-primary-600" />
-                        <p className="mt-4 text-slate-600 dark:text-slate-400">Loading social metrics...</p>
+                        <p className="mt-4 text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">Loading social metrics...</p>
                     </div>
                 ) : metrics && metrics.length > 0 ? (
                     <>
@@ -123,7 +123,7 @@ export default function SocialDashboard() {
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{totalPosts}</div>
-                                    <p className="text-xs text-slate-500 mt-1">
+                                    <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                         Across all platforms
                                     </p>
                                 </CardContent>
@@ -136,7 +136,7 @@ export default function SocialDashboard() {
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{totalImpressions.toLocaleString()}</div>
-                                    <p className="text-xs text-slate-500 mt-1">
+                                    <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                         {totalEngagement.toLocaleString()} total engagement
                                     </p>
                                 </CardContent>
@@ -149,7 +149,7 @@ export default function SocialDashboard() {
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{avgEngagementRate.toFixed(2)}%</div>
-                                    <p className="text-xs text-slate-500 mt-1">
+                                    <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                         Average across platforms
                                     </p>
                                 </CardContent>
@@ -162,7 +162,7 @@ export default function SocialDashboard() {
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{totalClicks.toLocaleString()}</div>
-                                    <p className="text-xs text-slate-500 mt-1">
+                                    <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                                         To website
                                     </p>
                                 </CardContent>
@@ -182,23 +182,23 @@ export default function SocialDashboard() {
                                     <CardContent>
                                         <div className="space-y-4">
                                             <div className="flex justify-between">
-                                                <span className="text-sm text-slate-600 dark:text-slate-400">Posts</span>
+                                                <span className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">Posts</span>
                                                 <span className="font-semibold">{platformMetrics.posts}</span>
                                             </div>
                                             <div className="flex justify-between">
-                                                <span className="text-sm text-slate-600 dark:text-slate-400">Impressions</span>
+                                                <span className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">Impressions</span>
                                                 <span className="font-semibold">{platformMetrics.impressions.toLocaleString()}</span>
                                             </div>
                                             <div className="flex justify-between">
-                                                <span className="text-sm text-slate-600 dark:text-slate-400">Engagement Rate</span>
+                                                <span className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">Engagement Rate</span>
                                                 <span className="font-semibold">{platformMetrics.engagementRate.toFixed(2)}%</span>
                                             </div>
                                             <div className="flex justify-between">
-                                                <span className="text-sm text-slate-600 dark:text-slate-400">Clicks</span>
+                                                <span className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">Clicks</span>
                                                 <span className="font-semibold">{platformMetrics.engagement.clicks.toLocaleString()}</span>
                                             </div>
                                             <div className="flex justify-between">
-                                                <span className="text-sm text-slate-600 dark:text-slate-400">CTR</span>
+                                                <span className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">CTR</span>
                                                 <span className="font-semibold">{platformMetrics.clickThroughRate.toFixed(2)}%</span>
                                             </div>
                                         </div>
@@ -210,7 +210,7 @@ export default function SocialDashboard() {
                 ) : (
                     <div className="text-center py-12">
                         <Share2 className="w-12 h-12 mx-auto mb-3 opacity-40" />
-                        <p className="text-slate-500">No social media data available</p>
+                        <p className="text-muted-foreground/70 dark:text-muted-foreground/70">No social media data available</p>
                     </div>
                 )}
             </div>

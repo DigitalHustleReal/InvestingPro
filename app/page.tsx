@@ -1,5 +1,8 @@
 'use client';
 
+// ISR: Revalidate every 5 minutes (homepage has frequently changing content)
+export const revalidate = 300;
+
 import React from 'react';
 import HeroSection from "@/components/home/HeroSection";
 import SmartAdvisorWidget from "@/components/home/SmartAdvisorWidget";

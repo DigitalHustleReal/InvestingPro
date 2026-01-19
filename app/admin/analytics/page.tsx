@@ -15,10 +15,10 @@ export default function AnalyticsPage() {
                 <AdminBreadcrumb />
                 
                 {/* Header */}
-                <div className="mb-10 border-b border-white/5 pb-8">
+                <div className="mb-10 border-b border-border/50 dark:border-border/50 pb-8">
                     <div className="flex items-center justify-between">
                         <div>
-                            <h1 className="text-3xl font-extrabold text-white tracking-tight flex items-center gap-4">
+                            <h1 className="text-3xl font-extrabold text-foreground dark:text-foreground tracking-tight flex items-center gap-4">
                                 <div className="w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.15)]">
                                     <BarChart3 className="w-6 h-6 text-primary-400" />
                                 </div>
@@ -27,11 +27,11 @@ export default function AnalyticsPage() {
                                     LIVE
                                 </Badge>
                             </h1>
-                            <p className="text-slate-400 mt-3 ml-16 font-medium tracking-wide max-w-2xl">
+                            <p className="text-muted-foreground dark:text-muted-foreground mt-3 ml-16 font-medium tracking-wide max-w-2xl">
                                 Real-time performance insights and content intelligence.
                             </p>
                         </div>
-                        <div className="flex items-center gap-2 text-xs text-slate-500">
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
                             <TrendingUp className="w-4 h-4 text-primary-400" />
                             Auto-refreshes every minute
                         </div>

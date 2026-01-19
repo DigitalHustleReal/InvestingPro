@@ -88,7 +88,7 @@ export default function PillarPagesPage() {
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <div className="flex flex-wrap items-center gap-2 mb-2">
-                                                <h3 className="text-lg font-semibold text-white">
+                                                <h3 className="text-lg font-semibold text-foreground dark:text-foreground">
                                                     {article.title || 'Untitled'}
                                                 </h3>
                                                 <StatusBadge variant={getStatusVariant(article.status || 'draft')}>
@@ -103,19 +103,19 @@ export default function PillarPagesPage() {
                                                 </span>
                                             </div>
                                             {article.excerpt && (
-                                                <p className="text-sm text-slate-400 line-clamp-2 mb-3">
+                                                <p className="text-sm text-muted-foreground dark:text-muted-foreground line-clamp-2 mb-3">
                                                     {article.excerpt}
                                                 </p>
                                             )}
                                             {article.pillar_primary_topic && (
                                                 <div className="mb-2">
-                                                    <span className="text-xs text-slate-500">Primary Topic: </span>
-                                                    <span className="text-xs font-medium text-slate-300">
+                                                    <span className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">Primary Topic: </span>
+                                                    <span className="text-xs font-medium text-foreground/80 dark:text-foreground/80">
                                                         {article.pillar_primary_topic}
                                                     </span>
                                                 </div>
                                             )}
-                                            <div className="flex items-center gap-4 text-xs text-slate-500">
+                                            <div className="flex items-center gap-4 text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
                                                 {article.created_at && (
                                                     <div className="flex items-center gap-1.5">
                                                         <Calendar className="w-3.5 h-3.5" />

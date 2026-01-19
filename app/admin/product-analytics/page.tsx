@@ -122,8 +122,8 @@ export default function ProductAnalyticsPage() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-white mb-2">Product Performance Analytics</h1>
-                        <p className="text-slate-400">Track clicks, revenue, and affiliate performance per product</p>
+                        <h1 className="text-3xl font-bold text-foreground dark:text-foreground mb-2">Product Performance Analytics</h1>
+                        <p className="text-muted-foreground dark:text-muted-foreground">Track clicks, revenue, and affiliate performance per product</p>
                     </div>
                     <Button className="bg-primary-500 hover:bg-primary-600">
                         <Download className="w-4 h-4 mr-2" />
@@ -164,17 +164,17 @@ export default function ProductAnalyticsPage() {
                 </div>
 
                 {/* Filters & Search */}
-                <Card className="bg-white/5 border-white/10 rounded-2xl">
+                <Card className="bg-white/5 border-border dark:border-border rounded-2xl">
                     <CardContent className="p-6">
                         <div className="flex flex-col md:flex-row gap-4">
                             {/* Search */}
                             <div className="flex-1 relative">
-                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
                                 <Input
                                     placeholder="Search products or providers..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="pl-10 bg-white/5 border-white/10 text-white h-11"
+                                    className="pl-10 bg-white/5 border-border dark:border-border text-foreground dark:text-foreground h-11"
                                 />
                             </div>
 
@@ -182,10 +182,10 @@ export default function ProductAnalyticsPage() {
                             <select
                                 value={selectedCategory}
                                 onChange={(e) => setSelectedCategory(e.target.value)}
-                                className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white text-sm h-11"
+                                className="px-4 py-2 bg-white/5 border border-border dark:border-border rounded-xl text-foreground dark:text-foreground text-sm h-11"
                             >
                                 {categories.map((cat) => (
-                                    <option key={cat} value={cat} className="bg-slate-900">
+                                    <option key={cat} value={cat} className="bg-surface-darker dark:bg-surface-darker">
                                         {cat === 'all' ? 'All Categories' : cat}
                                     </option>
                                 ))}
@@ -195,11 +195,11 @@ export default function ProductAnalyticsPage() {
                             <select
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value as any)}
-                                className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white text-sm h-11"
+                                className="px-4 py-2 bg-white/5 border border-border dark:border-border rounded-xl text-foreground dark:text-foreground text-sm h-11"
                             >
-                                <option value="revenue" className="bg-slate-900">Highest Revenue</option>
-                                <option value="clicks" className="bg-slate-900">Most Clicks</option>
-                                <option value="name" className="bg-slate-900">Name (A-Z)</option>
+                                <option value="revenue" className="bg-surface-darker dark:bg-surface-darker">Highest Revenue</option>
+                                <option value="clicks" className="bg-surface-darker dark:bg-surface-darker">Most Clicks</option>
+                                <option value="name" className="bg-surface-darker dark:bg-surface-darker">Name (A-Z)</option>
                             </select>
                         </div>
                     </CardContent>
@@ -207,24 +207,24 @@ export default function ProductAnalyticsPage() {
 
                 {/* Category Breakdown Cards */}
                 <div>
-                    <h2 className="text-xl font-bold text-white mb-4">Performance by Category</h2>
+                    <h2 className="text-xl font-bold text-foreground dark:text-foreground mb-4">Performance by Category</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         {categoryStats.slice(0, 6).map((cat) => (
-                            <Card key={cat.category} className="bg-white/5 border-white/10 rounded-xl hover:border-primary-500/30 transition-all">
+                            <Card key={cat.category} className="bg-white/5 border-border dark:border-border rounded-xl hover:border-primary-500/30 transition-all">
                                 <CardContent className="p-4">
                                     <div className="flex items-center justify-between mb-3">
-                                        <h3 className="font-bold text-white capitalize">{cat.category}</h3>
+                                        <h3 className="font-bold text-foreground dark:text-foreground capitalize">{cat.category}</h3>
                                         <Badge className="bg-primary-500/20 text-primary-400 border-primary-500/30">
                                             {cat.count} products
                                         </Badge>
                                     </div>
                                     <div className="grid grid-cols-2 gap-4 text-sm">
                                         <div>
-                                            <p className="text-slate-500 text-xs uppercase tracking-wider mb-1">Revenue</p>
+                                            <p className="text-muted-foreground/70 dark:text-muted-foreground/70 text-xs uppercase tracking-wider mb-1">Revenue</p>
                                             <p className="text-success-400 font-bold">₹{cat.revenue.toLocaleString()}</p>
                                         </div>
                                         <div>
-                                            <p className="text-slate-500 text-xs uppercase tracking-wider mb-1">Clicks</p>
+                                            <p className="text-muted-foreground/70 dark:text-muted-foreground/70 text-xs uppercase tracking-wider mb-1">Clicks</p>
                                             <p className="text-secondary-400 font-bold">{cat.clicks.toLocaleString()}</p>
                                         </div>
                                     </div>
@@ -235,26 +235,26 @@ export default function ProductAnalyticsPage() {
                 </div>
 
                 {/* Products Table */}
-                <Card className="bg-white/5 border-white/10 rounded-2xl">
-                    <CardHeader className="border-b border-white/10">
-                        <CardTitle className="text-white flex items-center gap-2">
+                <Card className="bg-white/5 border-border dark:border-border rounded-2xl">
+                    <CardHeader className="border-b border-border dark:border-border">
+                        <CardTitle className="text-foreground dark:text-foreground flex items-center gap-2">
                             <BarChart3 className="w-5 h-5 text-primary-400" />
                             All Products ({filteredProducts.length})
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-0">
                         {isLoading ? (
-                            <div className="p-20 text-center text-slate-400">Loading products...</div>
+                            <div className="p-20 text-center text-muted-foreground dark:text-muted-foreground">Loading products...</div>
                         ) : filteredProducts.length === 0 ? (
                             <div className="p-20 text-center">
-                                <Package className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-                                <p className="text-slate-400">No products match your filters</p>
+                                <Package className="w-12 h-12 text-muted-foreground/50 dark:text-muted-foreground/50 mx-auto mb-4" />
+                                <p className="text-muted-foreground dark:text-muted-foreground">No products match your filters</p>
                             </div>
                         ) : (
                             <div className="overflow-x-auto">
                                 <table className="w-full">
                                     <thead className="bg-white/5">
-                                        <tr className="text-left text-xs text-slate-400 uppercase tracking-wider">
+                                        <tr className="text-left text-xs text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
                                             <th className="p-4">Product</th>
                                             <th className="p-4">Category</th>
                                             <th className="p-4 text-center">Affiliate Link</th>
@@ -293,10 +293,10 @@ function StatCard({ label, value, icon: Icon, color, trend }: any) {
             <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
                     <Icon className={`w-5 h-5 text-${color}-400`} />
-                    <span className="text-xs text-slate-400 uppercase tracking-wider">{label}</span>
+                    <span className="text-xs text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">{label}</span>
                 </div>
-                <div className="text-3xl font-bold text-white mb-1">{value}</div>
-                <p className="text-xs text-slate-400">{trend}</p>
+                <div className="text-3xl font-bold text-foreground dark:text-foreground mb-1">{value}</div>
+                <p className="text-xs text-muted-foreground dark:text-muted-foreground">{trend}</p>
             </CardContent>
         </Card>
     );
@@ -310,12 +310,12 @@ function ProductRow({ product }: { product: ProductAnalytics }) {
         <tr className="hover:bg-white/5 transition-colors">
             <td className="p-4">
                 <div>
-                    <p className="font-medium text-white">{product.name}</p>
-                    <p className="text-xs text-slate-400">{product.provider}</p>
+                    <p className="font-medium text-foreground dark:text-foreground">{product.name}</p>
+                    <p className="text-xs text-muted-foreground dark:text-muted-foreground">{product.provider}</p>
                 </div>
             </td>
             <td className="p-4">
-                <Badge variant="outline" className="text-xs capitalize border-slate-600 text-slate-300">
+                <Badge variant="outline" className="text-xs capitalize border-border/70 dark:border-border/70 text-foreground/80 dark:text-foreground/80">
                     {product.category}
                 </Badge>
             </td>
@@ -323,15 +323,15 @@ function ProductRow({ product }: { product: ProductAnalytics }) {
                 {product.hasAffiliateLink ? (
                     <CheckCircle2 className="w-5 h-5 text-success-500 mx-auto" />
                 ) : (
-                    <XCircle className="w-5 h-5 text-slate-600 mx-auto" />
+                    <XCircle className="w-5 h-5 text-muted-foreground/50 dark:text-muted-foreground/50 mx-auto" />
                 )}
             </td>
-            <td className="p-4 text-right text-slate-300">{product.views?.toLocaleString() || '0'}</td>
+            <td className="p-4 text-right text-foreground/80 dark:text-foreground/80">{product.views?.toLocaleString() || '0'}</td>
             <td className="p-4 text-right">
                 <span className="text-secondary-400 font-semibold">{product.clicks?.toLocaleString() || '0'}</span>
             </td>
             <td className="p-4 text-right">
-                <span className={`font-semibold ${parseFloat(ctr) > 2 ? 'text-success-400' : 'text-slate-400'}`}>
+                <span className={`font-semibold ${parseFloat(ctr) > 2 ? 'text-success-400' : 'text-muted-foreground dark:text-muted-foreground'}`}>
                     {ctr}%
                 </span>
             </td>
@@ -339,7 +339,7 @@ function ProductRow({ product }: { product: ProductAnalytics }) {
                 {hasRevenue ? (
                     <span className="text-success-400 font-bold">₹{product.affiliateIncome.toLocaleString()}</span>
                 ) : (
-                    <span className="text-slate-600">₹0</span>
+                    <span className="text-muted-foreground/50 dark:text-muted-foreground/50">₹0</span>
                 )}
             </td>
             <td className="p-4">

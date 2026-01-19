@@ -18,14 +18,6 @@ interface AdminPageContentProps {
  * 
  * Provides consistent spacing and layout for all admin page content.
  * This ensures all pages have the same visual hierarchy and spacing.
- * 
- * Usage:
- * ```tsx
- * <AdminPageContent>
- *   <h1>Page Title</h1>
- *   {/* Your content */}
- * </AdminPageContent>
- * ```
  */
 export default function AdminPageContent({ 
     children, 

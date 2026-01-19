@@ -129,23 +129,23 @@ export default function ArticleModeration({ article }: { article: Article }) {
                         <div className="flex-1">
                             <h3 className="text-xl font-bold text-slate-900 mb-2">{article.title}</h3>
 
-                            <div className="flex flex-wrap gap-4 mb-3 text-sm text-slate-600">
+                            <div className="flex flex-wrap gap-4 mb-3 text-sm text-muted-foreground/50 dark:text-muted-foreground/50">
                                 <span className="flex items-center gap-1.5">
-                                    <User className="w-4 h-4 text-slate-400" />
+                                    <User className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
                                     {article.author_name}
                                 </span>
                                 <span className="flex items-center gap-1.5">
-                                    <Calendar className="w-4 h-4 text-slate-400" />
+                                    <Calendar className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
                                     {new Date(displayDate).toLocaleDateString()}
                                 </span>
                                 <span className="flex items-center gap-1.5">
-                                    <FileText className="w-4 h-4 text-slate-400" />
+                                    <FileText className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
                                     {article.read_time} min read
                                 </span>
                             </div>
 
                             <div className="flex flex-wrap gap-2 mb-3">
-                                <Badge className="bg-slate-700 text-white border-0">
+                                <Badge className="bg-slate-700 text-foreground dark:text-foreground border-0">
                                     {article.category?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                                 </Badge>
                                 <Badge variant="outline" className="bg-white">
@@ -158,9 +158,9 @@ export default function ArticleModeration({ article }: { article: Article }) {
                                 ))}
                             </div>
 
-                            <p className="text-slate-600 mb-4 line-clamp-2">{article.excerpt}</p>
+                            <p className="text-muted-foreground/50 dark:text-muted-foreground/50 mb-4 line-clamp-2">{article.excerpt}</p>
 
-                            <div className="flex items-center gap-2 text-xs text-slate-400 italic">
+                            <div className="flex items-center gap-2 text-xs text-muted-foreground dark:text-muted-foreground italic">
                                 <span>Author email: {article.author_email}</span>
                             </div>
                         </div>
@@ -181,7 +181,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
                             <Button
                                 onClick={handleApprove}
                                 disabled={approveMutation.isPending}
-                                className="w-full bg-primary-600 hover:bg-primary-700 text-white"
+                                className="w-full bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground"
                             >
                                 <CheckCircle2 className="w-4 h-4 mr-2" />
                                 Approve & Publish
@@ -237,7 +237,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
                             {article.content ? (
                                 <ReactMarkdown>{article.content}</ReactMarkdown>
                             ) : (
-                                <p className="text-slate-500 italic">No content available</p>
+                                <p className="text-muted-foreground/70 dark:text-muted-foreground/70 italic">No content available</p>
                             )}
                         </TabsContent>
 
@@ -275,7 +275,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
                         <Button
                             onClick={handleReject}
                             disabled={rejectMutation.isPending}
-                            className="bg-danger-600 hover:bg-danger-700 text-white"
+                            className="bg-danger-600 hover:bg-danger-700 text-foreground dark:text-foreground"
                         >
                             Reject Article
                         </Button>
@@ -310,7 +310,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
                         <Button
                             onClick={handleRevision}
                             disabled={revisionMutation.isPending}
-                            className="bg-primary-600 hover:bg-primary-700 text-white"
+                            className="bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground"
                         >
                             Request Revision
                         </Button>

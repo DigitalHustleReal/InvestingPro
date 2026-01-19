@@ -26,6 +26,10 @@ const FEEDS = {
     ],
     'technology': [
         'https://economictimes.indiatimes.com/tech/rssfeeds/13357270.cms'
+    ],
+    'economy': [
+        'https://economictimes.indiatimes.com/news/economy/rssfeeds/1373380680.cms',
+        'https://www.moneycontrol.com/rss/economy.xml'
     ]
 };
 
@@ -44,7 +48,7 @@ export class TrendsService {
      * Get trending topics from RSS feeds
      * Uses simple frequency analysis on titles to find "hot" keywords
      */
-    async getTrendingTopics(category: 'markets' | 'personal-finance' | 'technology' = 'markets'): Promise<TrendingTopic[]> {
+    async getTrendingTopics(category: 'markets' | 'personal-finance' | 'technology' | 'economy' = 'markets'): Promise<TrendingTopic[]> {
         const feeds = FEEDS[category];
         let allItems: TrendItem[] = [];
 
@@ -69,7 +73,7 @@ export class TrendsService {
             const results = await Promise.all(feedPromises);
             allItems = results.flat();
         } catch (error) {
-            logger.error('Error fetching trends', error);
+            logger.error('Error fetching trends', error as Error);
             // Fallback is handled below if allItems is empty
         }
 
@@ -114,7 +118,8 @@ export class TrendsService {
         const fallbacks: Record<string, string[]> = {
             'markets': ['Nifty 50 Analysis', 'HDFC Bank Share Price', 'IPO Alert', 'Gold Price Trend', 'Sensex Update'],
             'personal-finance': ['Best Mutual Funds 2025', 'Tax Saving Schemes', 'PPF vs EPF', 'Home Loan Rates', 'Credit Card Offers'],
-            'technology': ['AI in Finance', 'Fintech Trends', 'UPI Updates', 'Cybersecurity Banking', 'Crypto Regulations']
+            'technology': ['AI in Finance', 'Fintech Trends', 'UPI Updates', 'Cybersecurity Banking', 'Crypto Regulations'],
+            'economy': ['RBI Repo Rate Update', 'India GDP Growth', 'Inflation Data', 'Union Budget Analysis', 'Rupee vs Dollar']
         };
 
         const topics = fallbacks[category] || fallbacks['markets'];

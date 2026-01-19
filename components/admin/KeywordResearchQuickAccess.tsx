@@ -45,7 +45,7 @@ export default function KeywordResearchQuickAccess({
             </Button>
             
             {expanded && (
-                <div className="border rounded-lg p-3 bg-slate-50 dark:bg-slate-800">
+                <div className="border rounded-lg p-3 bg-slate-50 dark:bg-muted dark:bg-muted">
                     <KeywordResearch
                         articleId={articleId}
                         primaryKeyword={primaryKeyword}

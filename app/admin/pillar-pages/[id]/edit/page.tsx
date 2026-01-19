@@ -126,7 +126,7 @@ export default function EditPillarPage() {
 
     // Auto-save indicator
     const autosaveIndicator = lastSaved ? (
-        <div className="flex items-center gap-2 text-xs text-slate-500">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
             <Save className="w-3 h-3" />
             <span>Saved {lastSaved.toLocaleTimeString()}</span>
         </div>
@@ -136,7 +136,7 @@ export default function EditPillarPage() {
         return (
             <AdminLayout>
                 <div className="flex items-center justify-center h-full">
-                    <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
+                    <Loader2 className="w-8 h-8 animate-spin text-muted-foreground dark:text-muted-foreground" />
                 </div>
             </AdminLayout>
         );
@@ -146,7 +146,7 @@ export default function EditPillarPage() {
         return (
             <AdminLayout>
                 <div className="flex flex-col items-center justify-center h-full">
-                    <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Pillar Page Not Found</h1>
+                    <h1 className="text-2xl font-bold text-slate-900 dark:text-foreground dark:text-foreground mb-4">Pillar Page Not Found</h1>
                     <button
                         onClick={() => router.push('/admin/pillar-pages')}
                         className="text-teal-600 hover:text-teal-700"
@@ -175,9 +175,9 @@ export default function EditPillarPage() {
                 />
             }
         >
-            <div className="flex flex-col bg-white dark:bg-slate-900 min-h-screen">
+            <div className="flex flex-col bg-white dark:bg-surface-darker dark:bg-surface-darker min-h-screen">
                 {/* Header Bar */}
-                <div className="border-b border-slate-200 dark:border-slate-800 px-8 py-4 flex items-center justify-between bg-white dark:bg-slate-900">
+                <div className="border-b border-slate-200 dark:border-slate-800 px-8 py-4 flex items-center justify-between bg-white dark:bg-surface-darker dark:bg-surface-darker">
                     <div className="flex-1 flex items-center gap-3">
                         <Target className="w-6 h-6 text-teal-600" />
                         <div className="flex-1">
@@ -192,7 +192,7 @@ export default function EditPillarPage() {
                     <div className="flex items-center gap-4">
                         {autosaveIndicator}
                         {saving && (
-                            <div className="flex items-center gap-2 text-sm text-slate-600">
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground/50 dark:text-muted-foreground/50">
                                 <Loader2 className="w-4 h-4 animate-spin" />
                                 <span>Saving...</span>
                             </div>
