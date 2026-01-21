@@ -92,9 +92,9 @@ export default function AnimatedHero() {
                 <div className="max-w-3xl mx-auto mb-16">
                     <form onSubmit={handleSearch} className="relative group">
                         {/* Glow effect */}
-                        <div className="absolute -inset-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-secondary-500 rounded-2xl opacity-20 dark:opacity-30 group-hover:opacity-40 dark:group-hover:opacity-50 blur-xl transition duration-500" />
+                        <div className="absolute -inset-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-secondary-500 rounded-xl opacity-20 dark:opacity-30 group-hover:opacity-40 dark:group-hover:opacity-50 blur-xl transition duration-500" />
                         
-                        <div className="relative bg-white dark:bg-slate-900 rounded-2xl border-2 border-slate-200 dark:border-slate-800 shadow-2xl">
+                        <div className="relative bg-white dark:bg-slate-900 rounded-xl border-2 border-slate-200 dark:border-slate-800 shadow-2xl">
                             <div className="flex items-center p-2">
                                 <div className="pl-4 pr-3">
                                     <Search className="w-6 h-6 text-slate-400" />
@@ -165,11 +165,11 @@ export default function AnimatedHero() {
                                                 {/* Animated glow on hover */}
                                                 <div className={`
                                                     absolute inset-0 bg-gradient-to-br from-${category.color}-400 to-${category.color}-600 
-                                                    rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300
+                                                    rounded-xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300
                                                 `} />
                                                 
                                                 <div className={`
-                                                    relative w-14 h-14 mx-auto rounded-2xl 
+                                                    relative w-14 h-14 mx-auto rounded-xl 
                                                     bg-slate-100 dark:bg-slate-800 
                                                     group-hover:bg-gradient-to-br group-hover:from-${category.color}-500 group-hover:to-${category.color}-600
                                                     flex items-center justify-center
@@ -224,7 +224,7 @@ export default function AnimatedHero() {
                                 return (
                                     <div 
                                         key={i} 
-                                        className="p-6 rounded-2xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800"
+                                        className="p-6 rounded-xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800"
                                     >
                                         <Icon className="w-6 h-6 text-primary-500 mx-auto mb-2" />
                                         <div className="text-3xl font-bold text-slate-900 dark:text-white mb-1">

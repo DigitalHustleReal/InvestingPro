@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
                 })),
             });
         } else {
-            logger.error('Archival job completed with errors', {
+            logger.error('Archival job completed with errors', undefined, {
                 summary: result.summary,
                 errors: result.results.flatMap(r => r.errors),
             });

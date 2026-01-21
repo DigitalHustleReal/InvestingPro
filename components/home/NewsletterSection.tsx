@@ -26,7 +26,7 @@ export default function NewsletterSection() {
             </div>
 
             <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 mb-8 shadow-lg shadow-primary-500/25">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 mb-8 shadow-lg shadow-primary-500/25">
                     <Mail className="w-8 h-8 text-white" />
                 </div>
 
@@ -58,7 +58,7 @@ export default function NewsletterSection() {
                             </Button>
                         </form>
                     ) : (
-                        <div className="flex items-center justify-center gap-3 text-primary-400 bg-primary-500/10 p-4 rounded-2xl border border-primary-500/20 animate-in fade-in zoom-in duration-300">
+                        <div className="flex items-center justify-center gap-3 text-primary-400 bg-primary-500/10 dark:bg-primary-500/20 p-4 rounded-xl border border-primary-500/20 dark:border-primary-500/30 animate-in fade-in zoom-in duration-300">
                             <CheckCircle2 className="w-6 h-6" />
                             <span className="text-lg font-medium">Thanks for subscribing!</span>
                         </div>

@@ -22,12 +22,12 @@ export default function RiskAnalysis({ holdings = [], user }: RiskAnalysisProps)
     };
 
     return (
-        <Card className="rounded-[3rem] border-0 shadow-2xl bg-slate-900 text-white overflow-hidden p-6 md:p-8 relative group">
+        <Card className="rounded-xl border-0 shadow-2xl bg-slate-900 text-white overflow-hidden p-6 md:p-8 relative group">
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2" />
 
             <CardHeader className="p-0 mb-8 relative z-10">
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-primary-400">
+                    <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-primary-400">
                         <ShieldCheck className="w-6 h-6" />
                     </div>
                     <div>
@@ -46,7 +46,7 @@ export default function RiskAnalysis({ holdings = [], user }: RiskAnalysisProps)
                     <Progress value={portfolioRiskScore} className="h-3 rounded-full bg-white/5" />
                 </div>
 
-                <div className="p-6 bg-white/5 rounded-3xl border border-white/5 space-y-4">
+                <div className="p-6 bg-white/5 rounded-xl border border-white/5 space-y-4">
                     <div className="flex items-start gap-3">
                         <Zap className="w-5 h-5 text-accent-500 shrink-0 mt-1" />
                         <p className="text-sm text-slate-300 font-medium leading-relaxed">

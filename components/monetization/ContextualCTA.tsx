@@ -134,7 +134,7 @@ export default function ContextualCTA({
     // Inline placement (default)
     return (
         <div className={cn(
-            "my-8 p-6 rounded-2xl bg-gradient-to-r from-primary-500/5 to-primary-600/5 border border-primary-500/10",
+            "my-8 p-6 rounded-xl bg-gradient-to-r from-primary-500/5 dark:from-primary-500/10 to-primary-600/5 dark:to-primary-600/10 border border-primary-500/10 dark:border-primary-500/20",
             className
         )}>
             <div className="flex flex-col md:flex-row md:items-center gap-4">

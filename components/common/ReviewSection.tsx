@@ -101,7 +101,7 @@ export default function ReviewSection({ productId }: { productId: string }) {
                 <CardContent>
                     <div className="grid md:grid-cols-2 gap-8">
                         <div className="text-center">
-                            <div className="text-5xl font-bold text-slate-900 mb-2">{avgRating}</div>
+                            <div className="text-5xl font-bold text-slate-900 dark:text-white mb-2">{avgRating}</div>
                             <div className="flex justify-center gap-1 mb-2">
                                 {[1, 2, 3, 4, 5].map((star) => (
                                     <Star
@@ -249,10 +249,10 @@ export default function ReviewSection({ productId }: { productId: string }) {
                             </div>
 
                             {review.title && (
-                                <h4 className="font-semibold text-slate-900 mb-2">{review.title}</h4>
+                                <h4 className="font-semibold text-slate-900 dark:text-white mb-2">{review.title}</h4>
                             )}
 
-                            <p className="text-slate-600 mb-4">{review.review_text}</p>
+                            <p className="text-slate-600 dark:text-slate-400 mb-4">{review.review_text}</p>
 
                             {((review.pros && review.pros.length > 0) || (review.cons && review.cons.length > 0)) && (
                                 <div className="grid md:grid-cols-2 gap-4 mb-4">
@@ -263,19 +263,19 @@ export default function ReviewSection({ productId }: { productId: string }) {
                                             </p>
                                             <ul className="space-y-1 text-sm">
                                                 {review.pros.map((pro, idx) => (
-                                                    <li key={idx} className="text-slate-600">• {pro}</li>
+                                                    <li key={idx} className="text-slate-600 dark:text-slate-400">• {pro}</li>
                                                 ))}
                                             </ul>
                                         </div>
                                     )}
                                     {review.cons && review.cons.length > 0 && (
                                         <div>
-                                            <p className="font-medium text-danger-600 mb-2 flex items-center gap-1">
+                                            <p className="font-medium text-danger-600 dark:text-danger-400 mb-2 flex items-center gap-1">
                                                 <X className="w-4 h-4" /> Cons
                                             </p>
                                             <ul className="space-y-1 text-sm">
                                                 {review.cons.map((con, idx) => (
-                                                    <li key={idx} className="text-slate-600">• {con}</li>
+                                                    <li key={idx} className="text-slate-600 dark:text-slate-400">• {con}</li>
                                                 ))}
                                             </ul>
                                         </div>

@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
 
     // Count by category
     const categoryCounts: Record<string, number> = {};
-    stats?.forEach((a) => {
+    stats?.forEach((a: any) => {
       categoryCounts[a.category] = (categoryCounts[a.category] || 0) + 1;
     });
 

@@ -106,7 +106,7 @@ export async function GET(request: NextRequest) {
           quality: 'standard'
         });
         
-        const imageUrl = response.data[0]?.url;
+        const imageUrl = response.data?.[0]?.url;
         if (!imageUrl) throw new Error('No URL returned');
         
         const localPath = await downloadImage(imageUrl, product);

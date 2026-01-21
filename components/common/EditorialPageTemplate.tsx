@@ -70,7 +70,7 @@ export default function EditorialPageTemplate({
             {/* Related Links Section */}
             {relatedLinks.length > 0 && (
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    <Card className="border-slate-200 shadow-sm rounded-2xl">
+                    <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-xl">
                         <CardHeader>
                             <CardTitle className="text-xl font-bold text-slate-900">Related Reading</CardTitle>
                         </CardHeader>
@@ -100,7 +100,7 @@ export default function EditorialPageTemplate({
             {/* Glossary Terms */}
             {glossaryTerms.length > 0 && (
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                    <Card className="border-slate-200 shadow-sm rounded-2xl bg-secondary-50">
+                    <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-xl bg-secondary-50 dark:bg-secondary-900/20">
                         <CardHeader>
                             <CardTitle className="text-lg font-bold text-slate-900 flex items-center gap-6 md:p-8">
                                 <Info className="w-5 h-5 text-primary-600" />

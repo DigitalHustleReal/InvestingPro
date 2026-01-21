@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -124,7 +124,7 @@ export default function BudgetGovernorPanel() {
     // Show loading state
     if (isLoading) {
         return (
-            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl">
+            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl">
                 <CardContent className="p-8">
                     <div className="text-center text-muted-foreground dark:text-muted-foreground">Loading budget data...</div>
                 </CardContent>
@@ -133,7 +133,7 @@ export default function BudgetGovernorPanel() {
     }
     
     return (
-        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl">
+        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl">
             <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
                 <div className="flex items-center justify-between">
                     <CardTitle className="text-lg font-bold text-foreground dark:text-foreground flex items-center gap-3">

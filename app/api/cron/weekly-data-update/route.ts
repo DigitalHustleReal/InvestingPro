@@ -151,7 +151,7 @@ export async function GET(request: NextRequest) {
                     }
                 });
             } catch (notifError) {
-                logger.warn('Failed to send data update notification', notifError);
+                logger.warn('Failed to send data update notification', { error: notifError instanceof Error ? notifError.message : String(notifError) });
             }
         }
 

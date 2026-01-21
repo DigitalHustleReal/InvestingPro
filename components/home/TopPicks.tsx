@@ -76,7 +76,7 @@ export default function TopPicks() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Mutual Funds */}
-                    <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
+                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
                         <div className="bg-gradient-to-r from-secondary-600 to-secondary-500 px-6 py-5">
                             <div className="flex items-center gap-3">
                                 <TrendingUp className="w-6 h-6 text-white/90" />
@@ -118,7 +118,7 @@ export default function TopPicks() {
                     </div>
 
                     {/* Brokers */}
-                    <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
+                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
                         <div className="bg-gradient-to-r from-success-600 to-primary-600 px-6 py-5">
                             <div className="flex items-center gap-3">
                                 <Award className="w-6 h-6 text-white/90" />
@@ -153,7 +153,7 @@ export default function TopPicks() {
                     </div>
 
                     {/* Credit Cards */}
-                    <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
+                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
                         <div className="bg-gradient-to-r from-secondary-600 to-secondary-500 px-6 py-5">
                             <div className="flex items-center gap-3">
                                 <Star className="w-6 h-6 text-white/90" />

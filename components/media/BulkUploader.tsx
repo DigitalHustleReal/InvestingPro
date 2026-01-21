@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useRef } from 'react';
 import { mediaService, UploadProgress } from '@/lib/media/media-service';
@@ -163,10 +163,10 @@ export function BulkUploader() {
                                     d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                                 />
                             </svg>
-                            <p className="text-slate-500 text-lg font-medium mb-2">
+                            <p className="text-slate-500 dark:text-slate-400 text-lg font-medium mb-2">
                                 No files selected
                             </p>
-                            <p className="text-slate-400 text-sm mb-4">
+                            <p className="text-slate-400 dark:text-slate-500 text-sm mb-4">
                                 Click "Select Files" to choose multiple images
                             </p>
                         </div>
@@ -178,12 +178,12 @@ export function BulkUploader() {
                                 key={item.id}
                                 className={`border rounded-lg p-3 ${
                                     item.status === 'complete'
-                                        ? 'bg-success-50 border-success-200'
+                                        ? 'bg-success-50 dark:bg-success-900/20 border-success-200 dark:border-success-800'
                                         : item.status === 'error'
-                                        ? 'bg-danger-50 border-danger-200'
+                                        ? 'bg-danger-50 dark:bg-danger-900/20 border-danger-200 dark:border-danger-800'
                                         : item.status === 'uploading'
-                                        ? 'bg-secondary-50 border-secondary-200'
-                                        : 'bg-slate-50 border-slate-200'
+                                        ? 'bg-secondary-50 dark:bg-secondary-900/20 border-secondary-200 dark:border-secondary-800'
+                                        : 'bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700'
                                 }`}
                             >
                                 <div className="flex items-center gap-3">
@@ -196,10 +196,10 @@ export function BulkUploader() {
 
                                     {/* Info */}
                                     <div className="flex-1 min-w-0">
-                                        <p className="font-medium text-slate-900 truncate">
+                                        <p className="font-medium text-slate-900 dark:text-white truncate">
                                             {item.file.name}
                                         </p>
-                                        <p className="text-sm text-slate-600">
+                                        <p className="text-sm text-slate-600 dark:text-slate-400">
                                             {(item.file.size / 1024 / 1024).toFixed(2)} MB
                                         </p>
 
@@ -257,10 +257,10 @@ export function BulkUploader() {
                         ðŸ’¡ Bulk Upload Tips:
                     </h4>
                     <ul className="text-sm text-secondary-700 space-y-1">
-                        <li>â€¢ Select multiple files at once (Ctrl/Cmd + Click)</li>
-                        <li>â€¢ All images will be automatically optimized to WebP</li>
-                        <li>â€¢ Typical savings: 50-80% per image</li>
-                        <li>â€¢ Upload up to 50 images at a time</li>
+                        <li>• Select multiple files at once (Ctrl/Cmd + Click)</li>
+                        <li>• All images will be automatically optimized to WebP</li>
+                        <li>• Typical savings: 50-80% per image</li>
+                        <li>• Upload up to 50 images at a time</li>
                     </ul>
                 </div>
             )}

@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import { Button } from '@/components/ui/Button'
+import { cn } from '@/lib/utils'
 
 interface CTAButtonProps {
   text: string
@@ -7,21 +9,27 @@ interface CTAButtonProps {
   className?: string
 }
 
+/**
+ * CTAButton - Consolidated to use main Button component
+ * Maintains backward compatibility while using unified button system
+ */
 export function CTAButton({ text, href, variant = 'primary', className = '' }: CTAButtonProps) {
-  const baseStyles = 'inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold transition-all duration-200'
-  
-  const variantStyles = {
-    primary: 'bg-primary-600 text-white hover:bg-primary-700 shadow-lg hover:shadow-xl',
-    secondary: 'bg-white text-primary-600 border-2 border-primary-600 hover:bg-primary-50'
-  }
+  // Map CTAButton variants to Button component variants
+  const buttonVariant = variant === 'primary' ? 'default' : 'outline'
   
   return (
-    <Link 
-      href={href}
-      className={`${baseStyles} ${variantStyles[variant]} ${className}`}
+    <Button 
+      asChild
+      variant={buttonVariant}
+      className={cn(
+        variant === 'primary' && 'shadow-lg hover:shadow-xl',
+        className
+      )}
     >
-      {text}
-    </Link>
+      <Link href={href}>
+        {text}
+      </Link>
+    </Button>
   )
 }
 
@@ -33,11 +41,11 @@ interface CategoryCTAProps {
 
 export function CategoryCTA({ categoryName, description, href }: CategoryCTAProps) {
   return (
-    <div className="bg-gradient-to-r from-success-50 to-primary-50 rounded-2xl p-8 text-center">
-      <h3 className="text-2xl font-bold text-slate-900 mb-3">
+    <div className="bg-gradient-to-r from-success-50 to-primary-50 dark:from-success-900/20 dark:to-primary-900/20 rounded-xl p-8 text-center">
+      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
         Explore {categoryName}
       </h3>
-      <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
+      <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl mx-auto">
         {description}
       </p>
       <CTAButton 

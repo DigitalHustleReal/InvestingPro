@@ -133,15 +133,15 @@ export function StatBox({ label, value, trend, trendDirection }: {
   trendDirection?: 'up' | 'down' | 'neutral'
 }) {
   return (
-    <div className="bg-white border-2 border-primary-200 rounded-lg p-4 text-center">
-      <p className="text-sm text-slate-600 mb-1">{label}</p>
-      <p className="text-3xl font-bold text-primary-600">{value}</p>
+    <div className="bg-white dark:bg-slate-800 border-2 border-primary-200 dark:border-primary-700 rounded-lg p-4 text-center">
+      <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">{label}</p>
+      <p className="text-3xl font-bold text-primary-600 dark:text-primary-400">{value}</p>
       {trend && (
         <p className={cn(
           'text-xs mt-1 font-medium',
-          trendDirection === 'up' && 'text-success-600',
-          trendDirection === 'down' && 'text-danger-600',
-          trendDirection === 'neutral' && 'text-slate-600'
+          trendDirection === 'up' && 'text-success-600 dark:text-success-400',
+          trendDirection === 'down' && 'text-danger-600 dark:text-danger-400',
+          trendDirection === 'neutral' && 'text-slate-600 dark:text-slate-400'
         )}>
           {trend}
         </p>
@@ -190,18 +190,18 @@ export function ComparisonBox({ title, items }: {
  */
 export function KeyTakeaways({ items }: { items: string[] }) {
   return (
-    <div className="my-8 bg-gradient-to-br from-success-50 to-success-100 border-2 border-primary-500 rounded-lg p-6">
+    <div className="my-8 bg-gradient-to-br from-success-50 to-success-100 dark:from-success-900/20 dark:to-success-800/20 border-2 border-primary-500 dark:border-primary-600 rounded-lg p-6">
       <div className="flex items-center gap-2 mb-4">
-        <CheckCircle2 className="w-6 h-6 text-primary-600" />
-        <h3 className="text-xl font-bold text-primary-900">Key Takeaways</h3>
+        <CheckCircle2 className="w-6 h-6 text-primary-600 dark:text-primary-400" />
+        <h3 className="text-xl font-bold text-primary-900 dark:text-primary-100">Key Takeaways</h3>
       </div>
       <ul className="space-y-3">
         {items.map((item, index) => (
           <li key={index} className="flex items-start gap-3">
-            <span className="flex-shrink-0 w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+            <span className="flex-shrink-0 w-6 h-6 bg-primary-600 dark:bg-primary-500 text-white rounded-full flex items-center justify-center text-sm font-bold">
               {index + 1}
             </span>
-            <span className="text-slate-800 flex-1">{item}</span>
+            <span className="text-slate-800 dark:text-slate-200 flex-1">{item}</span>
           </li>
         ))}
       </ul>
@@ -218,16 +218,16 @@ export function FormulaBox({ title, formula, explanation }: {
   explanation?: string
 }) {
   return (
-    <div className="my-6 bg-primary-50 border-2 border-indigo-400 rounded-lg p-6">
+    <div className="my-6 bg-primary-50 dark:bg-primary-900/20 border-2 border-primary-400 dark:border-primary-700 rounded-lg p-6">
       <div className="flex items-center gap-2 mb-3">
         <Calculator className="w-5 h-5 text-primary-600" />
         <h4 className="font-bold text-primary-900">{title}</h4>
       </div>
-      <div className="bg-white rounded p-4 font-mono text-center text-lg font-semibold text-slate-900 mb-3">
+      <div className="bg-white dark:bg-slate-800 rounded p-4 font-mono text-center text-lg font-semibold text-slate-900 dark:text-white mb-3">
         {formula}
       </div>
       {explanation && (
-        <p className="text-sm text-primary-800">{explanation}</p>
+        <p className="text-sm text-primary-800 dark:text-primary-300">{explanation}</p>
       )}
     </div>
   )
@@ -238,16 +238,16 @@ export function FormulaBox({ title, formula, explanation }: {
  */
 export function QuickFacts({ facts }: { facts: Array<{ label: string; value: string }> }) {
   return (
-    <div className="my-6 bg-slate-50 border border-slate-300 rounded-lg p-5">
-      <h4 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
-        <Info className="w-5 h-5" />
+    <div className="my-6 bg-slate-50 dark:bg-slate-800/50 border border-slate-300 dark:border-slate-700 rounded-lg p-5">
+      <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+        <Info className="w-5 h-5 text-slate-600 dark:text-slate-400" />
         Quick Facts
       </h4>
       <dl className="space-y-2">
         {facts.map((fact, index) => (
-          <div key={index} className="flex justify-between items-center py-2 border-b border-slate-200 last:border-0">
-            <dt className="text-sm text-slate-600">{fact.label}</dt>
-            <dd className="font-semibold text-slate-900">{fact.value}</dd>
+          <div key={index} className="flex justify-between items-center py-2 border-b border-slate-200 dark:border-slate-700 last:border-0">
+            <dt className="text-sm text-slate-600 dark:text-slate-400">{fact.label}</dt>
+            <dd className="font-semibold text-slate-900 dark:text-white">{fact.value}</dd>
           </div>
         ))}
       </dl>

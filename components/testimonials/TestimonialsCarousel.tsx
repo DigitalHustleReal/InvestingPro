@@ -96,7 +96,7 @@ export default function TestimonialsCarousel({
       </div>
 
       {/* Testimonial Card */}
-      <div className="relative bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 md:p-12">
+      <div className="relative bg-white dark:bg-slate-800 rounded-xl shadow-xl p-8 md:p-12">
         {/* Quote Icon */}
         <div className="absolute top-6 left-6 text-primary-200 dark:text-primary-900 opacity-20">
           <svg className="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">

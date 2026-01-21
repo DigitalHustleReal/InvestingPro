@@ -23,10 +23,10 @@ function StatItem({ icon: Icon, value, label, iconColor }: StatItemProps) {
       )}>
         <Icon className="w-6 h-6 text-white" />
       </div>
-      <p className="text-3xl md:text-4xl font-bold font-mono text-stone-900 mb-1">
+      <p className="text-3xl md:text-4xl font-bold font-mono text-slate-900 dark:text-white mb-1">
         {value}
       </p>
-      <p className="text-sm text-stone-600">
+      <p className="text-sm text-slate-600 dark:text-slate-400">
         {label}
       </p>
     </div>
@@ -35,7 +35,7 @@ function StatItem({ icon: Icon, value, label, iconColor }: StatItemProps) {
 
 export function StatsBar() {
   return (
-    <div className="py-12 md:py-16 bg-stone-50 border-y border-stone-200">
+    <div className="py-12 md:py-16 bg-slate-50 dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           <StatItem

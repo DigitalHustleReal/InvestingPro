@@ -249,12 +249,12 @@ export default function BestForBadge({
 
   return (
     <div className={className}>
-      <div className={`inline-flex items-center ${sizeClasses[size]} ${badge.bgColor} ${badge.borderColor} border-2 rounded-full font-bold ${badge.color} shadow-sm hover:shadow-md transition-shadow`}>
+      <div className={`inline-flex items-center ${sizeClasses[size]} ${badge.bgColor} ${badge.borderColor} dark:bg-slate-900/90 dark:border-white/20 border-2 rounded-full font-bold ${badge.color} dark:text-white shadow-sm hover:shadow-md transition-shadow backdrop-blur-sm`}>
         <Icon className={iconSizes[size]} />
         <span>{badge.label}</span>
       </div>
       {showDescription && (
-        <p className="text-xs text-slate-600 mt-2">{badge.description}</p>
+        <p className="text-xs text-slate-600 dark:text-slate-400 mt-2">{badge.description}</p>
       )}
     </div>
   );

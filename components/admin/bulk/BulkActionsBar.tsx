@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState } from 'react';
 import { Trash2, Archive, Send, Tag, FolderOpen, Download, CheckSquare, X } from 'lucide-react';
@@ -65,7 +65,7 @@ export function BulkActionsBar({
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                     className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
                 >
-                    <div className="flex items-center gap-3 px-6 py-4 bg-surface-darker dark:bg-surface-darker/95 backdrop-blur-xl border border-border dark:border-border rounded-2xl shadow-2xl shadow-black/50">
+                    <div className="flex items-center gap-3 px-6 py-4 bg-surface-darker dark:bg-surface-darker/95 backdrop-blur-xl border border-border dark:border-border rounded-xl shadow-2xl shadow-black/50">
                         {/* Selection Count */}
                         <div className="flex items-center gap-2 pr-4 border-r border-border dark:border-border">
                             <div className="w-8 h-8 rounded-lg bg-brand-500/20 flex items-center justify-center">

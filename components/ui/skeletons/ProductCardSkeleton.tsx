@@ -14,7 +14,7 @@ export function ProductCardSkeleton({ className, variant = 'default' }: ProductC
   if (variant === 'horizontal') {
     return (
       <div className={cn(
-        "animate-pulse bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4",
+        "animate-pulse bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-4",
         "flex items-center gap-4",
         className
       )}>
@@ -65,7 +65,7 @@ export function ProductCardSkeleton({ className, variant = 'default' }: ProductC
   // Default variant
   return (
     <div className={cn(
-      "animate-pulse bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6",
+      "animate-pulse bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6",
       "min-h-[320px] flex flex-col",
       className
     )}>

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { CreditCard, Loan, MutualFund } from "@/types";
 import { Button } from "@/components/ui/Button";
@@ -104,7 +104,7 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
     return (
         <div className="w-full overflow-x-auto pb-4">
              {/* Min width to force horizontal layout on mobile */}
-            <div className="bg-card rounded-2xl shadow-lg border border-border overflow-hidden min-w-[800px]">
+            <div className="bg-card dark:bg-slate-900 rounded-xl shadow-lg border border-border dark:border-slate-800 overflow-hidden min-w-[800px]">
                 {/* Header Row */}
                 <div className="grid grid-cols-4 bg-muted/50 border-b border-border">
                     <div className="p-6 font-bold text-card-foreground border-r border-border">

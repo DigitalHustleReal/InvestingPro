@@ -13,11 +13,11 @@ interface HoldingsListProps {
 
 export default function HoldingsList({ holdings = [], onDelete }: HoldingsListProps) {
     return (
-        <Card className="rounded-[3rem] border-0 shadow-2xl bg-white overflow-hidden p-6 md:p-8">
+        <Card className="rounded-xl border-0 shadow-2xl bg-white dark:bg-slate-900 overflow-hidden p-6 md:p-8">
             <CardHeader className="p-0 mb-10">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-primary-50 flex items-center justify-center text-primary-600">
+                        <div className="w-12 h-12 rounded-xl bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400">
                             <BarChart3 className="w-6 h-6" />
                         </div>
                         <div>

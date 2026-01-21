@@ -75,7 +75,7 @@ export default function LeadMagnet({ title, description, downloadUrl, type }: Le
             </div>
             
             <div className="flex flex-col md:flex-row items-center p-8 gap-8">
-                <div className="w-24 h-24 bg-white rounded-2xl shadow-sm border border-slate-100 flex items-center justify-center shrink-0">
+                <div className="w-24 h-24 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-center shrink-0">
                     {typeIcons[type]}
                 </div>
                 

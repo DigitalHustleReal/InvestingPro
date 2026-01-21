@@ -300,7 +300,7 @@ export default function DarkThemeCMS({
             ) : filteredArticles.length === 0 ? (
                 <ContentSection>
                     <div className="text-center py-16">
-                        <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mx-auto mb-4">
+                        <div className="w-16 h-16 rounded-xl bg-white/5 dark:bg-slate-800/50 flex items-center justify-center mx-auto mb-4">
                             <FileText className="w-8 h-8 text-muted-foreground/70 dark:text-muted-foreground/70" />
                         </div>
                         <h3 className="text-lg font-semibold text-foreground dark:text-foreground mb-2">No articles found</h3>
@@ -536,7 +536,7 @@ export default function DarkThemeCMS({
                         exit={{ y: 100, opacity: 0 }}
                         className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
                     >
-                        <div className="flex items-center gap-4 px-6 py-4 bg-surface-darker dark:bg-surface-darker/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-border dark:border-border">
+                        <div className="flex items-center gap-4 px-6 py-4 bg-surface-darker dark:bg-surface-darker/95 backdrop-blur-xl rounded-xl shadow-2xl border border-border dark:border-border">
                             <div className="flex items-center gap-2">
                                 <div className="w-8 h-8 rounded-lg bg-primary-500/20 flex items-center justify-center">
                                     <Check className="w-4 h-4 text-primary-400" />

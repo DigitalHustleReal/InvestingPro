@@ -135,7 +135,7 @@ export default function HeroSection() {
                                 </div>
 
                                 {/* Headline */}
-                                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-stone-900 dark:text-white leading-[1.1] mb-8 tracking-tight">
+                                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white leading-[1.1] mb-8 tracking-tight">
                                     {slide.headline} <br />
                                     <span className={`bg-gradient-to-r ${slide.gradient} bg-clip-text text-transparent`}>
                                         {slide.highlight}
@@ -143,7 +143,7 @@ export default function HeroSection() {
                                 </h1>
 
                                 {/* Description */}
-                                <p className="text-xl text-stone-600 dark:text-slate-400 mb-10 max-w-2xl leading-relaxed">
+                                <p className="text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl leading-relaxed">
                                     {slide.desc}
                                 </p>
 
@@ -184,7 +184,7 @@ export default function HeroSection() {
                             <input
                                 type="text"
                                 placeholder="What are you looking for? (Cards, Loans, Investments...)"
-                                className="w-full h-16 pl-14 pr-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-stone-200 dark:border-slate-800 text-stone-900 dark:text-white placeholder:text-stone-400 dark:placeholder:text-slate-500 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-4 focus:ring-primary-500/10 dark:focus:ring-primary-400/10 transition-all font-medium text-lg shadow-sm hover:shadow-md"
+                                className="w-full h-16 pl-14 pr-6 rounded-xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-4 focus:ring-primary-500/10 dark:focus:ring-primary-400/10 transition-all font-medium text-lg shadow-sm hover:shadow-md"
                             />
                         </div>
 

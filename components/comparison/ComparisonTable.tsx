@@ -57,7 +57,7 @@ export function ComparisonTable({
     type: ComparisonTableRow['type']
   ): React.ReactNode => {
     if (value === null || value === undefined) {
-      return <span className="text-stone-400">—</span>;
+      return <span className="text-slate-400 dark:text-slate-500">—</span>;
     }
 
     switch (type) {
@@ -79,7 +79,7 @@ export function ComparisonTable({
         return value ? (
           <Check className="w-5 h-5 text-success-600 mx-auto" />
         ) : (
-          <X className="w-5 h-5 text-stone-300 mx-auto" />
+          <X className="w-5 h-5 text-slate-300 dark:text-slate-600 mx-auto" />
         );
       
       case 'rating':
@@ -90,7 +90,7 @@ export function ComparisonTable({
                 key={i}
                 className={cn(
                   "text-base",
-                  i < (value as number) ? "text-accent-500" : "text-stone-300"
+                  i < (value as number) ? "text-accent-500" : "text-slate-300 dark:text-slate-600"
                 )}
               >
                 ★
@@ -179,9 +179,9 @@ export function ComparisonTable({
                   <tr key={`category-${rowIndex}`}>
                     <td
                       colSpan={columns.length + 1}
-                      className="px-4 py-3 bg-stone-100 border-t-2 border-stone-300"
+                      className="px-4 py-3 bg-slate-100 dark:bg-slate-800 border-t-2 border-slate-300 dark:border-slate-700"
                     >
-                      <h3 className="text-sm font-bold text-stone-900 uppercase tracking-wide">
+                      <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wide">
                         {row.category}
                       </h3>
                     </td>
@@ -209,7 +209,7 @@ export function ComparisonTable({
                       </span>
                       {row.tooltip && (
                         <AlertCircle
-                          className="w-4 h-4 text-stone-400"
+                          className="w-4 h-4 text-slate-400 dark:text-slate-500"
                           title={row.tooltip}
                         />
                       )}
@@ -246,9 +246,9 @@ export function ComparisonTable({
           </tbody>
 
           {/* Footer with CTA buttons */}
-          <tfoot className="bg-stone-100">
+          <tfoot className="bg-slate-100 dark:bg-slate-800">
             <tr>
-              <td className="px-4 py-4 text-sm font-semibold text-stone-900">
+              <td className="px-4 py-4 text-sm font-semibold text-slate-900 dark:text-white">
                 Ready to apply?
               </td>
               {columns.map((col) => (
@@ -281,7 +281,7 @@ export function ComparisonTable({
       </div>
 
       {/* Mobile Notice */}
-      <div className="mt-4 text-xs text-stone-600 text-center md:hidden">
+      <div className="mt-4 text-xs text-slate-600 dark:text-slate-400 text-center md:hidden">
         💡 Swipe horizontally to see all products
       </div>
     </div>

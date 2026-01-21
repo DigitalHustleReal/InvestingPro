@@ -93,7 +93,7 @@ export function RetirementCalculator() {
             {/* Top Row: Inputs on Left, Results on Right */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Input Card */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
+                <Card className="border-border shadow-sm rounded-xl">
                     <CardHeader>
                         <div className="flex items-start justify-between gap-4 mb-2">
                             <div className="flex-1">
@@ -101,17 +101,17 @@ export function RetirementCalculator() {
                                 <CardDescription>Plan your retirement corpus with inflation-adjusted expenses</CardDescription>
                             </div>
                             <div className="flex flex-col gap-1.5 items-end">
-                                <Badge variant="secondary" className="bg-primary-50 text-primary-700 border-primary-200 hover:bg-primary-100">
+                                <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20">
                                     <CheckCircle2 className="w-3 h-3 mr-1" /> Free
                                 </Badge>
-                                <Badge variant="secondary" className="bg-secondary-50 text-secondary-700 border-secondary-200 hover:bg-secondary-100 text-[10px]">
+                                <Badge variant="secondary" className="bg-secondary/10 text-secondary-foreground border-secondary/20 hover:bg-secondary/20 text-[10px]">
                                     No Registration
                                 </Badge>
                             </div>
                         </div>
                         {/* Preset Scenarios */}
-                        <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
-                            <span className="text-xs font-semibold text-slate-600 dark:text-slate-400 mr-1">Quick Examples:</span>
+                        <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-border">
+                            <span className="text-xs font-semibold text-muted-foreground mr-1">Quick Examples:</span>
                             {[
                                 { label: "Age 30 → 60", currentAge: 30, retirementAge: 60, sip: 20000, expenses: 50000 },
                                 { label: "Age 35 → 60", currentAge: 35, retirementAge: 60, sip: 30000, expenses: 60000 },
@@ -126,7 +126,7 @@ export function RetirementCalculator() {
                                         setMonthlySIP(preset.sip);
                                         setRetirementExpenses(preset.expenses);
                                     }}
-                                    className="text-xs px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-md font-medium transition-colors border border-slate-200 dark:border-slate-700"
+                                    className="text-xs px-2.5 py-1 bg-muted hover:bg-muted/80 text-muted-foreground rounded-md font-medium transition-colors border border-border"
                                 >
                                     {preset.label}
                                 </button>
@@ -137,9 +137,9 @@ export function RetirementCalculator() {
                         {/* Current Age */}
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Current Age</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <span className="text-sm font-bold text-slate-900 dark:text-slate-100">{currentAge} Y</span>
+                                <Label className="text-sm font-semibold">Current Age</Label>
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <span className="text-sm font-bold text-foreground">{currentAge} Y</span>
                                 </div>
                             </div>
                             <Slider
@@ -155,9 +155,9 @@ export function RetirementCalculator() {
                         {/* Retirement Age */}
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm text-slate-700 font-semibold">Retirement Age</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <span className="text-sm font-bold text-slate-900 dark:text-slate-100">{retirementAge} Y</span>
+                                <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Retirement Age</Label>
+                                <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-1.5">
+                                    <span className="text-sm font-bold text-slate-900 dark:text-white">{retirementAge} Y</span>
                                 </div>
                             </div>
                             <Slider
@@ -173,14 +173,14 @@ export function RetirementCalculator() {
                         {/* Current Savings */}
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm text-slate-700 font-semibold">Current Savings</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <IndianRupee className="w-3.5 h-3.5 text-slate-500" />
+                                <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Current Savings</Label>
+                                <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-1.5">
+                                    <IndianRupee className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                                     <Input
                                         type="number"
                                         value={currentSavings}
                                         onChange={(e) => setCurrentSavings(Number(e.target.value))}
-                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-slate-100"
+                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-white"
                                     />
                                 </div>
                             </div>
@@ -197,14 +197,14 @@ export function RetirementCalculator() {
                         {/* Monthly SIP */}
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm text-slate-700 font-semibold">Monthly SIP</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <IndianRupee className="w-3.5 h-3.5 text-slate-500" />
+                                <Label className="text-sm font-semibold">Monthly SIP</Label>
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
                                     <Input
                                         type="number"
                                         value={monthlySIP}
                                         onChange={(e) => setMonthlySIP(Number(e.target.value))}
-                                        className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-slate-100"
+                                        className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0"
                                     />
                                 </div>
                             </div>
@@ -222,26 +222,26 @@ export function RetirementCalculator() {
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
                                 <div className="flex items-center gap-1.5">
-                                    <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Expected Return (p.a.)</Label>
+                                    <Label className="text-sm font-semibold">Expected Return (p.a.)</Label>
                                     <div className="group relative">
-                                        <HelpCircle className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-400 cursor-help" />
-                                        <div className="absolute left-0 bottom-full mb-2 w-64 p-3 bg-slate-900 text-white text-xs rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 shadow-xl">
+                                        <HelpCircle className="w-3.5 h-3.5 text-muted-foreground hover:text-foreground cursor-help" />
+                                        <div className="absolute left-0 bottom-full mb-2 w-64 p-3 bg-card border border-border text-foreground text-xs rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 shadow-xl">
                                             <div className="font-semibold mb-1.5">Retirement Planning:</div>
                                             <div className="text-[10px] font-mono leading-relaxed">
                                                 Corpus = Current Savings × (1+r)^n + SIP × [((1+r)^n - 1)/r] × (1+r)<br />
                                                 Required Corpus = Annual Expenses × 25-30<br />
                                                 Where r = Annual Return, n = Years to Retirement
-                                                <div className="mt-2 pt-2 border-t border-slate-700 text-slate-300">
+                                                <div className="mt-2 pt-2 border-t border-border text-muted-foreground">
                                                     Higher returns = Larger corpus = Better retirement
                                                 </div>
                                             </div>
-                                            <div className="absolute left-4 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-900"></div>
+                                            <div className="absolute left-4 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-card"></div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <Percent className="w-3.5 h-3.5 text-slate-500" />
-                                    <span className="text-sm font-bold text-slate-900 dark:text-slate-100">{expectedReturn}%</span>
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <Percent className="w-3.5 h-3.5 text-muted-foreground" />
+                                    <span className="text-sm font-bold text-foreground">{expectedReturn}%</span>
                                 </div>
                             </div>
                             <Slider
@@ -279,12 +279,12 @@ export function RetirementCalculator() {
                         </div>
 
                         {/* Inflation Toggle */}
-                        <div className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <div className="flex items-center justify-between p-3 bg-muted/50 rounded-xl border border-border">
                             <div className="flex items-center gap-2">
-                                <TrendingDown className="w-4 h-4 text-secondary-600" />
+                                <TrendingDown className="w-4 h-4 text-primary" />
                                 <div>
-                                    <Label className="text-sm text-slate-700 font-semibold">Adjust Expenses for Inflation</Label>
-                                    <p className="text-xs text-slate-500">Project future expenses with inflation</p>
+                                    <Label className="text-sm font-semibold">Adjust Expenses for Inflation</Label>
+                                    <p className="text-xs text-muted-foreground">Project future expenses with inflation</p>
                                 </div>
                             </div>
                             <Switch
@@ -317,24 +317,24 @@ export function RetirementCalculator() {
                 </Card>
 
                 {/* Right: Results Card with Stats */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-primary-50 to-success-50 dark:from-slate-900 dark:to-slate-800 relative overflow-hidden">
+                <Card className="border-border shadow-sm rounded-xl bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden">
                     {/* Decorative gradient overlay */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-primary-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100 dark:border-primary-800">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Corpus at Retirement</p>
-                                <p className="text-base sm:text-lg font-extrabold text-primary-600">{formatCurrency(result.totalCorpus)}</p>
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-card rounded-xl shadow-sm border border-border">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">Corpus at Retirement</p>
+                                <p className="text-base sm:text-lg font-extrabold text-primary">{formatCurrency(result.totalCorpus)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100 dark:border-primary-800">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Required Corpus</p>
-                                <p className="text-base sm:text-lg font-extrabold text-primary-600">{formatCurrency(result.corpusRequired)}</p>
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-card rounded-xl shadow-sm border border-border">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">Required Corpus</p>
+                                <p className="text-base sm:text-lg font-extrabold text-primary">{formatCurrency(result.corpusRequired)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100 dark:border-primary-800">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-card rounded-xl shadow-sm border border-border">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {result.shortfall > 0 ? 'Shortfall' : 'Surplus'}
                                 </p>
-                                <p className={`text-base sm:text-lg font-extrabold ${result.shortfall > 0 ? 'text-accent-600' : 'text-primary-600'}`}>
+                                <p className={`text-base sm:text-lg font-extrabold ${result.shortfall > 0 ? 'text-destructive' : 'text-primary'}`}>
                                     {formatCurrency(result.shortfall > 0 ? result.shortfall : result.surplus)}
                                 </p>
                             </div>
@@ -342,14 +342,14 @@ export function RetirementCalculator() {
 
 
                         {result.shortfall > 0 ? (
-                            <div className="p-4 bg-accent-50 border border-accent-200 rounded-xl mb-4">
-                                <p className="text-xs font-bold text-accent-700 uppercase tracking-widest mb-1">Action Required</p>
-                                <p className="text-sm text-accent-700">Increase SIP to meet retirement goals</p>
+                            <div className="p-4 bg-destructive/10 border border-destructive/20 rounded-xl mb-4">
+                                <p className="text-xs font-bold text-destructive uppercase tracking-widest mb-1">Action Required</p>
+                                <p className="text-sm text-destructive">Increase SIP to meet retirement goals</p>
                             </div>
                         ) : (
-                            <div className="p-4 bg-primary-50 border border-primary-200 rounded-xl mb-4">
-                                <p className="text-xs font-bold text-primary-700 uppercase tracking-widest mb-1">On Track</p>
-                                <p className="text-sm text-primary-700">You're on track for retirement!</p>
+                            <div className="p-4 bg-primary/10 border border-primary/20 rounded-xl mb-4">
+                                <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">On Track</p>
+                                <p className="text-sm text-primary">You're on track for retirement!</p>
                             </div>
                         )}
                     </CardContent>
@@ -357,7 +357,7 @@ export function RetirementCalculator() {
             </div>
 
             {/* Bottom Row: Projection Chart */}
-            <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
+            <Card className="border-border shadow-sm rounded-xl">
                 <CardHeader className="pb-2">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Retirement Projection</CardTitle>
                 </CardHeader>

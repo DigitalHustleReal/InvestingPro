@@ -59,7 +59,7 @@ export default function SocialDistributionPanel({
     const hasPosts = posts && (posts.twitter?.length || posts.linkedin || posts.instagram);
 
     return (
-        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
             <CardHeader className="border-b border-border/50 dark:border-border/50 px-6 py-4 flex flex-row items-center justify-between">
                 <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                     <Sparkles className="w-4 h-4 text-danger-400" />

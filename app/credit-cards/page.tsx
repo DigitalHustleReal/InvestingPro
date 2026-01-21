@@ -306,6 +306,7 @@ const CreditCardsPage = () => {
                             </>
                         )}
                     </div>
+                </div>
              
             {/* --- DECISION ENGINE CTA SECTION --- */}
             <div className="container mx-auto px-4 pb-16">
@@ -332,7 +333,6 @@ const CreditCardsPage = () => {
                     </div>
                 </div>
             </div>
-                </div>
             </div>
 
             {/* Compliance Disclaimer */}

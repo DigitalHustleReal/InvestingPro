@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
             const filePath = `uploads/${fileName}`;
 
             // Convert optimized buffer to Blob for upload
-            const optimizedBlob = new Blob([optimized.buffer], { type: 'image/webp' });
+            const optimizedBlob = new Blob([new Uint8Array(optimized.buffer)], { type: 'image/webp' });
             const optimizedFile = new File([optimizedBlob], fileName, { type: 'image/webp' });
 
             const { data: uploadData, error: uploadError } = await supabase.storage

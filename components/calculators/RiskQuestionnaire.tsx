@@ -51,7 +51,7 @@ export default function RiskQuestionnaire() {
             </div>
 
             {/* Question Card */}
-            <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-black/20 border border-slate-200 dark:border-slate-800 p-8 min-h-[400px] flex flex-col justify-center animate-slide-up">
+            <div className="bg-white dark:bg-slate-900 rounded-xl shadow-xl shadow-slate-200/50 dark:shadow-black/20 border border-slate-200 dark:border-slate-800 p-8 min-h-[400px] flex flex-col justify-center animate-slide-up">
                 
                 <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 text-center leading-tight">
                     {currentQuestion.question}

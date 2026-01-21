@@ -246,16 +246,16 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
     return (
         <div className="space-y-8 mt-12">
             {/* SEO-Optimized Introduction */}
-            <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-slate-50 to-white">
+            <Card className="border-0 shadow-lg rounded-xl bg-gradient-to-br from-slate-50 dark:from-slate-900 to-white dark:to-slate-800">
                 <CardContent className="p-8">
                     <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">{content.h1}</h2>
-                    <p className="text-lg text-slate-600 leading-relaxed mb-6">{content.intro}</p>
+                    <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-6">{content.intro}</p>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {content.benefits.map((benefit, idx) => (
                             <div key={idx} className="flex items-start gap-3">
                                 <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
-                                <p className="text-slate-700 font-medium">{benefit}</p>
+                                <p className="text-slate-700 dark:text-slate-300 font-medium">{benefit}</p>
                             </div>
                         ))}
                     </div>
@@ -264,7 +264,7 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
 
             {/* How It Works Section */}
             {'howItWorks' in content && content.howItWorks && (
-                <Card className="border-0 shadow-lg rounded-2xl">
+                <Card className="border-0 shadow-lg rounded-xl">
                     <CardHeader>
                         <CardTitle className="text-2xl font-bold text-slate-900 dark:text-slate-100">How to Use {content.title.split(' - ')[0]}</CardTitle>
                     </CardHeader>
@@ -277,7 +277,7 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
                                     </div>
                                     <div className="pl-6">
                                         <h3 className="font-bold text-slate-900 dark:text-slate-100 mb-2">{step.title}</h3>
-                                        <p className="text-sm text-slate-600 leading-relaxed">{step.description}</p>
+                                        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{step.description}</p>
                                     </div>
                                 </div>
                             ))}
@@ -288,7 +288,7 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
 
             {/* FAQ Section */}
             {'faqs' in content && content.faqs && (
-                <Card className="border-0 shadow-lg rounded-2xl">
+                <Card className="border-0 shadow-lg rounded-xl">
                     <CardHeader>
                         <CardTitle className="text-2xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-6 md:p-8">
                             <Info className="w-6 h-6 text-primary-600" />
@@ -298,11 +298,11 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
                     <CardContent>
                         <Accordion type="single" collapsible className="w-full">
                             {content.faqs.map((faq, idx) => (
-                                <AccordionItem key={idx} value={`item-${idx}`} className="border-b border-slate-200">
+                                <AccordionItem key={idx} value={`item-${idx}`} className="border-b border-slate-200 dark:border-slate-700">
                                     <AccordionTrigger className="text-left font-semibold text-slate-900 dark:text-slate-100 hover:text-primary-600">
                                         {faq.q}
                                     </AccordionTrigger>
-                                    <AccordionContent className="text-slate-600 leading-relaxed pt-2">
+                                    <AccordionContent className="text-slate-600 dark:text-slate-400 leading-relaxed pt-2">
                                         {faq.a}
                                     </AccordionContent>
                                 </AccordionItem>
@@ -313,7 +313,7 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
             )}
 
             {/* Related Calculators */}
-            <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-primary-50 to-success-50">
+            <Card className="border-0 shadow-lg rounded-xl bg-gradient-to-br from-primary-50 dark:from-primary-900/20 to-success-50 dark:to-success-900/20">
                 <CardHeader>
                     <CardTitle className="text-2xl font-bold text-slate-900 dark:text-slate-100">Related Calculators</CardTitle>
                 </CardHeader>

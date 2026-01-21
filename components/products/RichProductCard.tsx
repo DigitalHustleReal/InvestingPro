@@ -156,7 +156,7 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
                     {/* Key Features Grid */}
                     <div className="grid grid-cols-2 gap-3 mb-4">
                         {product.key_features.slice(0, 4).map((feat, i) => (
-                            <div key={i} className="bg-slate-50 rounded-lg p-2.5 border border-slate-100">
+                            <div key={i} className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-3 border border-slate-100 dark:border-slate-700">
                                 <p className="text-[10px] text-slate-500 mb-0.5">{feat.label}</p>
                                 <p className="font-semibold text-slate-900 text-sm truncate">{feat.value}</p>
                             </div>

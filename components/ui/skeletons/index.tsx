@@ -18,7 +18,7 @@ export function Skeleton({ className }: { className?: string }) {
 export function ArticleCardSkeleton({ className }: { className?: string }) {
   return (
     <div className={cn(
-      "animate-pulse bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden",
+      "animate-pulse bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden",
       className
     )}>
       {/* Image */}
@@ -45,7 +45,7 @@ export function ArticleCardSkeleton({ className }: { className?: string }) {
 export function CalculatorResultSkeleton({ className }: { className?: string }) {
   return (
     <div className={cn(
-      "animate-pulse bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6",
+      "animate-pulse bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6",
       className
     )}>
       <div className="h-5 bg-slate-200 dark:bg-slate-700 rounded w-1/3 mb-6" />

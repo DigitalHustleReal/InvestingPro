@@ -36,7 +36,7 @@ export default function CompareBar() {
           isCollapsed ? "h-16" : "h-auto"
         )}
       >
-        <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl border-t-2 sm:border-2 border-primary-500 sm:rounded-3xl shadow-2xl shadow-primary-900/20 ring-1 ring-white/20">
+        <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl border-t-2 sm:border-2 border-primary-500 sm:rounded-xl shadow-2xl shadow-primary-900/20 ring-1 ring-white/20">
             {/* Collapse/Expand Button (Mobile) */}
             <button
             onClick={() => setIsCollapsed(!isCollapsed)}

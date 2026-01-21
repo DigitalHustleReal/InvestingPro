@@ -104,7 +104,7 @@ export function Footer() {
         <footer className="bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400 border-t border-slate-200 dark:border-slate-900">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 {/* PROMINENT Trust & Transparency Banner - FTC Compliance */}
-                <div className="mb-16 p-8 rounded-2xl border-2 border-primary-600/30 bg-gradient-to-r from-primary-100/30 via-slate-100/50 to-slate-100/30 dark:from-primary-950/30 dark:via-slate-900/50 dark:to-slate-900/30 relative overflow-hidden">
+                <div className="mb-16 p-8 rounded-xl border-2 border-primary-600/30 bg-gradient-to-r from-primary-100/30 via-slate-100/50 to-slate-100/30 dark:from-primary-950/30 dark:via-slate-900/50 dark:to-slate-900/30 relative overflow-hidden">
                     {/* Decorative Element */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/5 blur-[100px] rounded-full" />
                     
@@ -148,7 +148,7 @@ export function Footer() {
                 </div>
                 {/* Newsletter - Pre-Footer */}
                 {/* Newsletter - Theme-Aligned Card */}
-                <div className="relative mb-20 p-8 md:p-12 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 shadow-xl">
+                <div className="relative mb-20 p-8 md:p-12 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 shadow-xl">
                     <div className="absolute inset-0 bg-gradient-to-br from-secondary-100/10 dark:from-secondary-900/10 via-slate-100/0 dark:via-slate-900/0 to-slate-100/0 dark:to-slate-900/0" />
                     <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-secondary-500/5 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2" />
                     

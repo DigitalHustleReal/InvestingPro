@@ -112,8 +112,8 @@ export function HomeLoanVsSIPCalculator() {
             <div className="lg:col-span-4 space-y-6">
                 <Card>
                     <CardContent className="p-6 space-y-6">
-                        <div className="flex items-center gap-2 font-bold text-slate-900 border-b pb-4">
-                            <Home className="w-5 h-5 text-slate-400" /> Loan Details
+                        <div className="flex items-center gap-2 font-bold text-slate-900 dark:text-white border-b dark:border-slate-700 pb-4">
+                            <Home className="w-5 h-5 text-slate-400 dark:text-slate-500" /> Loan Details
                         </div>
                         <div>
                             <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">Loan Amount (₹)</label>
@@ -152,8 +152,8 @@ export function HomeLoanVsSIPCalculator() {
 
                 <Card>
                     <CardContent className="p-6 space-y-6">
-                        <div className="flex items-center gap-2 font-bold text-slate-900 border-b pb-4">
-                            <TrendingUp className="w-5 h-5 text-primary-600" /> SIP Alternative
+                        <div className="flex items-center gap-2 font-bold text-slate-900 dark:text-white border-b dark:border-slate-700 pb-4">
+                            <TrendingUp className="w-5 h-5 text-primary-600 dark:text-primary-400" /> SIP Alternative
                         </div>
                         <div>
                             <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">Monthly SIP Amount (₹)</label>
@@ -180,8 +180,8 @@ export function HomeLoanVsSIPCalculator() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <Card className="bg-white dark:bg-slate-800 border-none shadow-sm">
                         <CardContent className="pt-6">
-                            <div className="text-2xl font-bold text-slate-900 mb-1">₹{results.emi.toLocaleString()}</div>
-                            <div className="text-xs text-slate-400">Monthly EMI</div>
+                            <div className="text-2xl font-bold text-slate-900 dark:text-white mb-1">₹{results.emi.toLocaleString()}</div>
+                            <div className="text-xs text-slate-400 dark:text-slate-500">Monthly EMI</div>
                         </CardContent>
                     </Card>
                     <Card className="bg-danger-50 border-none shadow-sm">
@@ -200,7 +200,7 @@ export function HomeLoanVsSIPCalculator() {
 
                 <Card>
                     <CardContent className="p-6">
-                        <h3 className="text-lg font-bold mb-6">Wealth Projection Over {tenor} Years</h3>
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-6">Wealth Projection Over {tenor} Years</h3>
                         <div className="h-[300px]">
                             <Line 
                                 data={chartData} 
@@ -219,7 +219,7 @@ export function HomeLoanVsSIPCalculator() {
                 </Card>
 
                 {/* Verdict Box */}
-                <div className="bg-slate-900 rounded-2xl p-6 text-white relative overflow-hidden">
+                <div className="bg-slate-900 dark:bg-slate-950 rounded-xl p-6 text-white relative overflow-hidden">
                     <div className="relative z-10 space-y-4">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-primary-500 rounded-lg">

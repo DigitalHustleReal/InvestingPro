@@ -163,16 +163,35 @@ export default function PipelineMonitorPage() {
     );
 }
 
-function StatCard({ label, value, suffix, icon: Icon, color, trend }: any) {
-    const colors = {
-        primary: 'from-primary-500/20 to-primary-600/10 border-primary-500/30',
-        success: 'from-success-500/20 to-success-600/10 border-success-500/30',
-        secondary: 'from-secondary-500/20 to-secondary-600/10 border-secondary-500/30',
-        accent: 'from-accent-500/20 to-accent-600/10 border-accent-500/30'
-    };
+const statCardColors = {
+    primary: 'from-primary-500/20 to-primary-600/10 border-primary-500/30',
+    success: 'from-success-500/20 to-success-600/10 border-success-500/30',
+    secondary: 'from-secondary-500/20 to-secondary-600/10 border-secondary-500/30',
+    accent: 'from-accent-500/20 to-accent-600/10 border-accent-500/30'
+} as const;
+
+type StatCardColor = keyof typeof statCardColors;
+
+function StatCard(
+    {
+        label,
+        value,
+        suffix,
+        icon: Icon,
+        color = 'primary',
+        trend
+    }: {
+        label: string;
+        value: string | number;
+        suffix?: string;
+        icon: React.ComponentType<{ className?: string }>;
+        color?: StatCardColor;
+        trend?: string;
+    }
+) {
 
     return (
-        <Card className={`bg-gradient-to-br ${colors[color]} border rounded-2xl`}>
+        <Card className={`bg-gradient-to-br ${statCardColors[color]} border rounded-2xl`}>
             <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
                     <Icon className={`w-5 h-5 text-${color}-400`} />

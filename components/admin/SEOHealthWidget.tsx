@@ -46,7 +46,7 @@ interface SEOHealthWidgetProps {
 export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetProps) {
     if (isLoading) {
         return (
-            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl">
+            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl">
                 <CardContent className="p-6">
                     <div className="h-40 flex items-center justify-center">
                         <div className="animate-pulse text-muted-foreground/70 dark:text-muted-foreground/70">Analyzing SEO...</div>
@@ -58,7 +58,7 @@ export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetP
 
     if (!seoData) {
         return (
-            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl">
+            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl">
                 <CardContent className="p-6">
                     <div className="h-40 flex items-center justify-center text-muted-foreground/70 dark:text-muted-foreground/70">
                         No SEO data available
@@ -93,7 +93,7 @@ export default function SEOHealthWidget({ seoData, isLoading }: SEOHealthWidgetP
     };
 
     return (
-        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
             <CardHeader className="border-b border-border/50 dark:border-border/50 px-6 py-4">
                 <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                     <Search className="w-4 h-4 text-primary-400" />

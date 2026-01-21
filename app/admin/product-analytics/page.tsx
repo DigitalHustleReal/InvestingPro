@@ -45,7 +45,7 @@ export default function ProductAnalyticsPage() {
     const [sortBy, setSortBy] = useState<'revenue' | 'clicks' | 'name'>('revenue');
 
     // Fetch all products with analytics
-    const { data: products = [], isLoading } = useQuery({
+    const { data: products = [], isLoading } = useQuery<ProductAnalytics[]>({
         queryKey: ['product-analytics'],
         queryFn: async () => {
             const response = await fetch('/api/admin/products/analytics');
@@ -280,16 +280,32 @@ export default function ProductAnalyticsPage() {
     );
 }
 
-function StatCard({ label, value, icon: Icon, color, trend }: any) {
-    const colors = {
-        primary: 'from-primary-500/20 to-primary-600/10 border-primary-500/30',
-        success: 'from-success-500/20 to-success-600/10 border-success-500/30',
-        secondary: 'from-secondary-500/20 to-secondary-600/10 border-secondary-500/30',
-        accent: 'from-accent-500/20 to-accent-600/10 border-accent-500/30'
-    };
+const statColors = {
+    primary: 'from-primary-500/20 to-primary-600/10 border-primary-500/30',
+    success: 'from-success-500/20 to-success-600/10 border-success-500/30',
+    secondary: 'from-secondary-500/20 to-secondary-600/10 border-secondary-500/30',
+    accent: 'from-accent-500/20 to-accent-600/10 border-accent-500/30'
+} as const;
 
+type StatColor = keyof typeof statColors;
+
+function StatCard(
+    {
+        label,
+        value,
+        icon: Icon,
+        color = 'primary',
+        trend
+    }: {
+        label: string;
+        value: string | number;
+        icon: React.ComponentType<{ className?: string }>;
+        color?: StatColor;
+        trend?: string;
+    }
+) {
     return (
-        <Card className={`bg-gradient-to-br ${colors[color]} border rounded-2xl`}>
+        <Card className={`bg-gradient-to-br ${statColors[color]} border rounded-2xl`}>
             <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
                     <Icon className={`w-5 h-5 text-${color}-400`} />

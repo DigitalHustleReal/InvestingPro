@@ -46,7 +46,7 @@ export default function FeaturedProducts() {
                     <div className="h-8 w-64 bg-slate-200 dark:bg-slate-800 rounded mb-12" />
                     <div className="grid md:grid-cols-3 gap-8">
                         {[1, 2, 3].map(i => (
-                            <div key={i} className="h-64 bg-slate-200 dark:bg-slate-800 rounded-2xl animate-pulse" />
+                            <div key={i} className="h-64 bg-slate-200 dark:bg-slate-800 rounded-xl animate-pulse" />
                         ))}
                     </div>
                 </div>

@@ -124,7 +124,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
     return (
         <div className={cn("space-y-8", className)}>
             {/* Scraper Triggers */}
-            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
                 <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                         <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
@@ -135,7 +135,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                 </CardHeader>
                 <CardContent className="p-8">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div className="p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-2xl hover:border-primary-500/30 transition-all group">
+                        <div className="p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-xl hover:border-primary-500/30 transition-all group">
                             <div className="flex items-center justify-between mb-4">
                                 <span className="text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest">Asset Crawler</span>
                                 <Badge className="bg-primary-500/10 text-primary-400 border border-primary-500/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
@@ -161,7 +161,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                             </Button>
                         </div>
 
-                        <div className="p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-2xl hover:border-secondary-500/30 transition-all group">
+                        <div className="p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-xl hover:border-secondary-500/30 transition-all group">
                             <div className="flex items-center justify-between mb-4">
                                 <span className="text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest">Sentiment Crawler</span>
                                 <Badge className="bg-primary-500/10 text-primary-400 border border-primary-500/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
@@ -187,7 +187,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                             </Button>
                         </div>
 
-                        <div className="p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-2xl hover:border-primary-500/30 transition-all group">
+                        <div className="p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-xl hover:border-primary-500/30 transition-all group">
                             <div className="flex items-center justify-between mb-4">
                                 <span className="text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest">Market Feed Crawler</span>
                                 <Badge className="bg-primary-500/10 text-primary-400 border border-primary-500/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
@@ -217,7 +217,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
             </Card>
 
             {/* Pipeline Controls */}
-            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
                 <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                         <div className="w-8 h-8 rounded-lg bg-secondary-500/10 flex items-center justify-center">
@@ -227,7 +227,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="p-8">
-                    <div className="flex flex-col md:flex-row items-center justify-between p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-2xl group hover:border-primary-500/30 transition-all">
+                    <div className="flex flex-col md:flex-row items-center justify-between p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-xl group hover:border-primary-500/30 transition-all">
                         <div className="mb-4 md:mb-0">
                             <h4 className="font-bold text-foreground dark:text-foreground tracking-tight text-lg mb-1">Content Factory Pipeline</h4>
                             <p className="text-[11px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">
@@ -257,7 +257,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
             </Card>
 
            {/* Manual Content Factory */}
-            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
                 <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                         <div className="w-8 h-8 rounded-lg bg-danger-500/10 flex items-center justify-center">
@@ -267,7 +267,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="p-8">
-                    <div className="flex flex-col md:flex-row items-center justify-between p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-2xl group hover:border-pink-500/30 transition-all">
+                    <div className="flex flex-col md:flex-row items-center justify-between p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-xl group hover:border-pink-500/30 transition-all">
                         <div className="mb-4 md:mb-0">
                             <h4 className="font-bold text-foreground dark:text-foreground tracking-tight text-lg mb-1">Writer Workspace</h4>
                             <p className="text-[11px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">
@@ -287,7 +287,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
             </Card>
 
             {/* Recent Pipeline Runs */}
-            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
                 <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6 bg-white/[0.01]">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                         <div className="w-8 h-8 rounded-lg bg-slate-500/10 flex items-center justify-center">
@@ -373,7 +373,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
             </Card>
 
             {/* Content Refresh Controls */}
-            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
                 <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                         <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
@@ -384,7 +384,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                 </CardHeader>
                 <CardContent className="p-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="flex items-center justify-between p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-2xl group hover:border-primary-500/30 transition-all">
+                        <div className="flex items-center justify-between p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-xl group hover:border-primary-500/30 transition-all">
                             <div>
                                 <h4 className="font-bold text-foreground dark:text-foreground mb-1">Articles Buffer</h4>
                                 <p className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">
@@ -405,7 +405,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                                 )}
                             </Button>
                         </div>
-                        <div className="flex items-center justify-between p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-2xl group hover:border-primary-500/30 transition-all">
+                        <div className="flex items-center justify-between p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-xl group hover:border-primary-500/30 transition-all">
                             <div>
                                 <h4 className="font-bold text-foreground dark:text-foreground mb-1">Pillar Page Index</h4>
                                 <p className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">

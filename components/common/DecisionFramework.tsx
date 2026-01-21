@@ -116,7 +116,7 @@ export default function DecisionFramework({
 
     if (variant === 'compact') {
         return (
-            <Card className={cn("bg-primary-50 dark:bg-primary-900/20 border-primary-200 dark:border-primary-800", className)}>
+            <Card className={cn("bg-primary-50 dark:bg-slate-900 border-primary-200 dark:border-slate-800 shadow-lg dark:shadow-slate-900/50", className)}>
                 <CardContent className="p-4">
                     <div className="flex items-center justify-between gap-4">
                         <div className="flex items-center gap-2">

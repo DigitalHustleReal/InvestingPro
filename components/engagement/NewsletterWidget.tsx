@@ -89,7 +89,7 @@ export default function NewsletterWidget({
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
             
             <CardContent className="p-8 relative z-10 flex flex-col items-center text-center">
-                <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center mb-6 backdrop-blur-sm">
+                <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-6 backdrop-blur-sm">
                     <Mail className="w-6 h-6 text-primary-400" />
                 </div>
                 

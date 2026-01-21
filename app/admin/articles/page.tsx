@@ -59,7 +59,7 @@ export default function AdminArticlesPage() {
 
     const handlePublish = async (id: string) => {
         try {
-            const article = articles.find((a) => a.id === id);
+            const article = articles.find((a: any) => a.id === id);
             if (!article) return;
 
             // Use API route for publish operation

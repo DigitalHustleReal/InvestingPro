@@ -94,7 +94,7 @@ export function GoalPlanningCalculator() {
             {/* Top Row: Inputs on Left, Results on Right */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Input Card */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
+                <Card className="border-border shadow-sm rounded-xl">
                     <CardHeader>
                         <CardTitle className="text-xl">Goal Planning Calculator</CardTitle>
                         <CardDescription>Calculate required SIP to achieve your financial goals</CardDescription>
@@ -103,14 +103,14 @@ export function GoalPlanningCalculator() {
                         {/* Goal Amount */}
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm text-slate-700 font-semibold">Goal Amount</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <Target className="w-3.5 h-3.5 text-slate-500" />
+                                <Label className="text-sm text-foreground font-semibold">Goal Amount</Label>
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <Target className="w-3.5 h-3.5 text-muted-foreground" />
                                     <Input
                                         type="number"
                                         value={goalAmount}
                                         onChange={(e) => setGoalAmount(Number(e.target.value))}
-                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-white"
+                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground"
                                     />
                                 </div>
                             </div>
@@ -127,10 +127,10 @@ export function GoalPlanningCalculator() {
                         {/* Time to Goal */}
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm text-slate-700 font-semibold">Time to Goal</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <Calendar className="w-3.5 h-3.5 text-slate-500" />
-                                    <span className="text-sm font-bold text-slate-900 dark:text-white">{years} Y</span>
+                                <Label className="text-sm text-foreground font-semibold">Time to Goal</Label>
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <Calendar className="w-3.5 h-3.5 text-muted-foreground" />
+                                    <span className="text-sm font-bold text-foreground">{years} Y</span>
                                 </div>
                             </div>
                             <Slider
@@ -146,14 +146,14 @@ export function GoalPlanningCalculator() {
                         {/* Current Savings */}
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm text-slate-700 font-semibold">Current Savings</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <IndianRupee className="w-3.5 h-3.5 text-slate-500" />
+                                <Label className="text-sm text-foreground font-semibold">Current Savings</Label>
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
                                     <Input
                                         type="number"
                                         value={currentSavings}
                                         onChange={(e) => setCurrentSavings(Number(e.target.value))}
-                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-white"
+                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground"
                                     />
                                 </div>
                             </div>
@@ -170,10 +170,10 @@ export function GoalPlanningCalculator() {
                         {/* Expected Return */}
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm text-slate-700 font-semibold">Expected Return (p.a.)</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <Percent className="w-3.5 h-3.5 text-slate-500" />
-                                    <span className="text-sm font-bold text-slate-900 dark:text-white">{expectedReturn}%</span>
+                                <Label className="text-sm text-foreground font-semibold">Expected Return (p.a.)</Label>
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <Percent className="w-3.5 h-3.5 text-muted-foreground" />
+                                    <span className="text-sm font-bold text-foreground">{expectedReturn}%</span>
                                 </div>
                             </div>
                             <Slider
@@ -187,12 +187,12 @@ export function GoalPlanningCalculator() {
                         </div>
 
                         {/* Inflation Toggle */}
-                        <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200">
+                        <div className="flex items-center justify-between p-3 bg-muted/50 rounded-xl border border-border">
                             <div className="flex items-center gap-2">
                                 <TrendingDown className="w-4 h-4 text-secondary-600" />
                                 <div>
-                                    <Label className="text-sm text-slate-700 font-semibold">Adjust Goal for Inflation</Label>
-                                    <p className="text-xs text-slate-500">Project future goal amount with inflation</p>
+                                    <Label className="text-sm text-foreground font-semibold">Adjust Goal for Inflation</Label>
+                                    <p className="text-xs text-muted-foreground">Project future goal amount with inflation</p>
                                 </div>
                             </div>
                             <Switch
@@ -205,10 +205,10 @@ export function GoalPlanningCalculator() {
                         {adjustForInflation && (
                             <div className="space-y-2">
                                 <div className="flex justify-between items-center">
-                                    <Label className="text-sm text-slate-700 font-semibold">Expected Inflation Rate (p.a.)</Label>
-                                    <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                        <Percent className="w-3.5 h-3.5 text-slate-500" />
-                                        <span className="text-sm font-bold text-slate-900 dark:text-white">{inflationRate}%</span>
+                                    <Label className="text-sm text-foreground font-semibold">Expected Inflation Rate (p.a.)</Label>
+                                    <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                        <Percent className="w-3.5 h-3.5 text-muted-foreground" />
+                                        <span className="text-sm font-bold text-foreground">{inflationRate}%</span>
                                     </div>
                                 </div>
                                 <Slider
@@ -225,36 +225,36 @@ export function GoalPlanningCalculator() {
                 </Card>
 
                 {/* Right: Results Card with Stats */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-primary-50 to-success-50">
+                <Card className="border-border shadow-sm rounded-xl bg-gradient-to-br from-primary/5 to-secondary/5">
                     <CardContent className="pt-4 sm:pt-6">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Required SIP</p>
-                                <p className="text-base sm:text-lg font-extrabold text-primary-600">{formatCurrency(result.requiredSIP)}</p>
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-card rounded-xl shadow-sm border border-border">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">Required SIP</p>
+                                <p className="text-base sm:text-lg font-extrabold text-primary">{formatCurrency(result.requiredSIP)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Future Goal</p>
-                                <p className="text-base sm:text-lg font-extrabold text-primary-600">{formatCurrency(result.futureGoal)}</p>
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-card rounded-xl shadow-sm border border-border">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">Future Goal</p>
+                                <p className="text-base sm:text-lg font-extrabold text-primary">{formatCurrency(result.futureGoal)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Required Corpus</p>
-                                <p className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">{formatCurrency(result.requiredCorpus)}</p>
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-card rounded-xl shadow-sm border border-border">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">Required Corpus</p>
+                                <p className="text-base sm:text-lg font-extrabold text-foreground">{formatCurrency(result.requiredCorpus)}</p>
                             </div>
                         </div>
 
 
-                        <div className="p-4 bg-white dark:bg-slate-800 rounded-xl border border-primary-100 mb-4">
-                            <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Current Savings (Future Value)</p>
-                            <p className="text-sm font-bold text-slate-600">{formatCurrency(result.currentSavingsFuture)}</p>
+                        <div className="p-4 bg-card rounded-xl border border-secondary/20 mb-4">
+                            <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2">Current Savings (Future Value)</p>
+                            <p className="text-sm font-bold text-muted-foreground">{formatCurrency(result.currentSavingsFuture)}</p>
                         </div>
                     </CardContent>
                 </Card>
             </div>
 
             {/* Bottom Row: Goal Progress Chart */}
-            <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
+            <Card className="border-border shadow-sm rounded-xl">
                 <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Goal Progress Projection</CardTitle>
+                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Goal Progress Projection</CardTitle>
                 </CardHeader>
                     <CardContent>
                         <div className="h-80">
@@ -272,8 +272,8 @@ export function GoalPlanningCalculator() {
                                         contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
                                     />
                                     <Legend />
-                                    <Line type="monotone" dataKey="corpus" stroke="#14b8a6" strokeWidth={2} name="Your Corpus" />
-                                    <Line type="monotone" dataKey="goal" stroke="#0ea5e9" strokeWidth={2} strokeDasharray="5 5" name="Goal Amount" /> {/* secondary-500 */}
+                                    <Line type="monotone" dataKey="corpus" stroke="#17a697" strokeWidth={2} name="Your Corpus" />
+                                    <Line type="monotone" dataKey="goal" stroke="#0088cc" strokeWidth={2} strokeDasharray="5 5" name="Goal Amount" />
                                 </LineChart>
                             </ResponsiveContainer>
                         </div>

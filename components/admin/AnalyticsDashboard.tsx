@@ -40,7 +40,7 @@ export default function AnalyticsDashboard() {
         return (
             <div className="space-y-6">
                 {[1, 2, 3].map(i => (
-                    <div key={i} className="h-32 bg-card/50 dark:bg-card/50 rounded-2xl animate-pulse" />
+                    <div key={i} className="h-32 bg-card/50 dark:bg-card/50 rounded-xl animate-pulse" />
                 ))}
             </div>
         );
@@ -75,7 +75,7 @@ export default function AnalyticsDashboard() {
             {/* Stats Grid */}
             <div className="grid grid-cols-3 gap-6">
                 {stats.map((stat, idx) => (
-                    <Card key={idx} className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                    <Card key={idx} className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
                         <CardContent className="p-6">
                             <div className="flex items-center justify-between mb-4">
                                 <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center", stat.bg)}>
@@ -98,7 +98,7 @@ export default function AnalyticsDashboard() {
             </div>
 
             {/* Top Performers */}
-            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
                 <CardHeader className="border-b border-border/50 dark:border-border/50 px-6 py-4">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                         <TrendingUp className="w-4 h-4 text-primary-400" />
@@ -148,7 +148,7 @@ export default function AnalyticsDashboard() {
             </Card>
 
             {/* Category Breakdown */}
-            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
                 <CardHeader className="border-b border-border/50 dark:border-border/50 px-6 py-4">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                         <BarChart3 className="w-4 h-4 text-primary-400" />

@@ -24,7 +24,7 @@ export default function CategoryDiscovery() {
                                 <CardContent className="p-6 flex flex-col items-center text-center h-full relative z-10">
                                     {/* Premium Icon Container with Alternating Colors */}
                                     <div className={`
-                                        w-14 h-14 rounded-2xl flex items-center justify-center mb-5 
+                                        w-14 h-14 rounded-xl flex items-center justify-center mb-5 
                                         transition-all duration-300 group-hover:scale-110 shadow-inner
                                         
                                         /* Light Mode: Blue (Default) -> Teal (Hover) */

@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { IndianRupee, Calendar, Percent, TrendingDown } from "lucide-react";
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, PieChart, Pie, Cell } from 'recharts';
 
 export function PPFCalculator() {
     const [annualContribution, setAnnualContribution] = useState(150000);
@@ -74,12 +74,17 @@ export function PPFCalculator() {
         return `₹${num.toLocaleString('en-IN')}`;
     };
 
+    const ppfChartData = [
+        { name: 'Invested', value: result.totalContributed, color: '#0088cc' },
+        { name: 'Returns', value: adjustForInflation ? result.realReturns : result.returns, color: '#17a697' },
+    ];
+
     return (
         <div className="space-y-6">
             {/* Top Row: Inputs on Left, Results on Right */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Input Card */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
+                <Card className="border-border shadow-sm rounded-xl">
                     <CardHeader>
                         <CardTitle className="text-xl">PPF Calculator</CardTitle>
                         <CardDescription>Calculate Public Provident Fund maturity with tax benefits</CardDescription>
@@ -88,14 +93,14 @@ export function PPFCalculator() {
                         {/* Annual Contribution */}
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm text-slate-700 font-semibold">Annual Contribution</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <IndianRupee className="w-3.5 h-3.5 text-slate-500" />
+                                <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Annual Contribution</Label>
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
                                     <Input
                                         type="number"
                                         value={annualContribution}
                                         onChange={(e) => setAnnualContribution(Number(e.target.value))}
-                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-white"
+                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0"
                                     />
                                 </div>
                             </div>
@@ -107,16 +112,16 @@ export function PPFCalculator() {
                                 step={500}
                                 className="py-2"
                             />
-                            <p className="text-xs text-slate-500">Min: ₹500, Max: ₹1.5 Lakh (80C limit)</p>
+                            <p className="text-xs text-slate-500 dark:text-slate-400">Min: ₹500, Max: ₹1.5 Lakh (80C limit)</p>
                         </div>
 
                         {/* Investment Period */}
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm text-slate-700 font-semibold">Investment Period</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <Calendar className="w-3.5 h-3.5 text-slate-500" />
-                                    <span className="text-sm font-bold text-slate-900 dark:text-white">{years} Y</span>
+                                <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Investment Period</Label>
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <Calendar className="w-3.5 h-3.5 text-muted-foreground" />
+                                    <span className="text-sm font-bold text-foreground">{years} Y</span>
                                 </div>
                             </div>
                             <Slider
@@ -134,9 +139,9 @@ export function PPFCalculator() {
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
                                 <Label className="text-sm text-slate-700 font-semibold">Interest Rate (p.a.)</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <Percent className="w-3.5 h-3.5 text-slate-500" />
-                                    <span className="text-sm font-bold text-slate-900 dark:text-white">{interestRate}%</span>
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <Percent className="w-3.5 h-3.5 text-muted-foreground" />
+                                    <span className="text-sm font-bold text-foreground">{interestRate}%</span>
                                 </div>
                             </div>
                             <Slider
@@ -147,16 +152,16 @@ export function PPFCalculator() {
                                 step={0.1}
                                 className="py-2"
                             />
-                            <p className="text-xs text-slate-500">Current PPF rate: 7.1% (updated quarterly by government)</p>
+                            <p className="text-xs text-slate-500 dark:text-slate-400">Current PPF rate: 7.1% (updated quarterly by government)</p>
                         </div>
 
                         {/* Inflation Toggle */}
-                        <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200">
+                        <div className="flex items-center justify-between p-3 bg-muted/50 rounded-xl border border-border">
                             <div className="flex items-center gap-2">
                                 <TrendingDown className="w-4 h-4 text-secondary-600" />
                                 <div>
-                                    <Label className="text-sm text-slate-700 font-semibold">Adjust for Inflation</Label>
-                                    <p className="text-xs text-slate-500">Show real returns after inflation</p>
+                                    <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Adjust for Inflation</Label>
+                                    <p className="text-xs text-slate-500 dark:text-slate-400">Show real returns after inflation</p>
                                 </div>
                             </div>
                             <Switch
@@ -170,9 +175,9 @@ export function PPFCalculator() {
                             <div className="space-y-2">
                                 <div className="flex justify-between items-center">
                                     <Label className="text-sm text-slate-700 font-semibold">Expected Inflation Rate (p.a.)</Label>
-                                    <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                        <Percent className="w-3.5 h-3.5 text-slate-500" />
-                                        <span className="text-sm font-bold text-slate-900 dark:text-white">{inflationRate}%</span>
+                                    <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                        <Percent className="w-3.5 h-3.5 text-muted-foreground" />
+                                        <span className="text-sm font-bold text-foreground">{inflationRate}%</span>
                                     </div>
                                 </div>
                                 <Slider
@@ -187,9 +192,9 @@ export function PPFCalculator() {
                         )}
 
                         {/* Tax Benefits Info */}
-                        <div className="p-3 bg-primary-50 border border-primary-200 rounded-xl">
-                            <p className="text-xs font-bold text-primary-700 uppercase tracking-widest mb-1">Tax Benefits</p>
-                            <p className="text-xs text-primary-800">
+                        <div className="p-3 bg-primary/10 border border-primary/20 rounded-xl">
+                            <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Tax Benefits</p>
+                            <p className="text-xs text-primary">
                                 ✓ 80C deduction (up to ₹1.5L) • Interest & maturity tax-free
                             </p>
                         </div>
@@ -197,44 +202,68 @@ export function PPFCalculator() {
                 </Card>
 
                 {/* Right: Results Card with Stats */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-primary-50 to-success-50 dark:from-slate-900 dark:to-slate-800">
+                <Card className="border-border shadow-sm rounded-xl bg-gradient-to-br from-primary/5 to-secondary/5">
                     <CardContent className="pt-4 sm:pt-6">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Contributed</p>
-                                <p className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">{formatCurrency(result.totalContributed)}</p>
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-card rounded-xl shadow-sm border border-border">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">Contributed</p>
+                                <p className="text-base sm:text-lg font-extrabold text-foreground">{formatCurrency(result.totalContributed)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-card rounded-xl shadow-sm border border-border">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Returns' : 'Returns'}
                                 </p>
-                                <p className="text-base sm:text-lg font-extrabold text-primary-600">
+                                <p className="text-base sm:text-lg font-extrabold text-primary">
                                     {formatCurrency(adjustForInflation ? result.realReturns : result.returns)}
                                 </p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-card rounded-xl shadow-sm border border-border">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Value' : 'Maturity'}
                                 </p>
-                                <p className="text-base sm:text-lg font-extrabold text-primary-600">
+                                <p className="text-base sm:text-lg font-extrabold text-primary">
                                     {formatCurrency(adjustForInflation ? result.realValue : result.maturityAmount)}
                                 </p>
                             </div>
                         </div>
 
                         {adjustForInflation && (
-                            <div className="p-3 bg-white dark:bg-slate-800 rounded-xl border border-secondary-100 mb-4">
-                                <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Nominal Value</p>
-                                <p className="text-sm font-bold text-slate-600">{formatCurrency(result.maturityAmount)}</p>
-                                <p className="text-xs text-slate-500 mt-1">Before inflation adjustment</p>
+                            <div className="p-3 bg-card rounded-xl border border-secondary/20 mb-4">
+                                <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Nominal Value</p>
+                                <p className="text-sm font-bold text-foreground">{formatCurrency(result.maturityAmount)}</p>
+                                <p className="text-xs text-muted-foreground mt-1">Before inflation adjustment</p>
                             </div>
                         )}
+
+                        <div className="flex items-center justify-center">
+                            <div className="w-full max-w-[280px] h-[280px]">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <PieChart>
+                                        <Pie
+                                            data={ppfChartData}
+                                            cx="50%"
+                                            cy="50%"
+                                            innerRadius={55}
+                                            outerRadius={75}
+                                            dataKey="value"
+                                            strokeWidth={0}
+                                            paddingAngle={5}
+                                        >
+                                            {ppfChartData.map((entry, index) => (
+                                                <Cell key={`cell-${index}`} fill={entry.color} />
+                                            ))}
+                                        </Pie>
+                                        <Tooltip formatter={(value: number | undefined) => value !== undefined ? formatCurrency(value) : ''} />
+                                    </PieChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </div>
                     </CardContent>
                 </Card>
             </div>
 
             {/* Bottom Row: Growth Chart */}
-            <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
+            <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-xl">
                 <CardHeader className="pb-2">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">PPF Growth Projection</CardTitle>
                 </CardHeader>

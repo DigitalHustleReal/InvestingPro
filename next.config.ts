@@ -40,6 +40,26 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: '**.cloudinary.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.bankbazaar.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.paisabazaar.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.wishfin.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'static.wishfin.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.cloudfront.net',
+      },
     ],
   },
   

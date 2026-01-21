@@ -29,7 +29,7 @@ export default function ContextualProducts({ category }: { category: string }) {
 
     if (isLoading) {
         return (
-            <div className="my-16 p-8 bg-slate-900 rounded-[2.5rem] text-white border border-slate-700 shadow-2xl relative overflow-hidden">
+            <div className="my-16 p-8 bg-slate-900 rounded-xl text-white border border-slate-700 shadow-2xl relative overflow-hidden">
                 <div className="relative z-10 flex items-center justify-center py-12">
                     <div className="text-slate-400">Loading recommendations...</div>
                 </div>
@@ -40,7 +40,7 @@ export default function ContextualProducts({ category }: { category: string }) {
     if (!products || products.length === 0) return null;
 
     return (
-        <div className="my-16 p-8 bg-slate-900 rounded-[2.5rem] text-white border border-slate-700 shadow-2xl relative overflow-hidden">
+        <div className="my-16 p-8 bg-slate-900 rounded-xl text-white border border-slate-700 shadow-2xl relative overflow-hidden">
             {/* Ambient Background */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl -mr-32 -mt-32" />
             

@@ -47,7 +47,7 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-yellow-50 via-white to-orange-50 dark:from-yellow-900/10 dark:via-slate-900 dark:to-orange-900/10 p-8 mb-8 border-2 border-accent-200 dark:border-accent-800/50 shadow-xl"
+            className="relative overflow-hidden rounded-xl bg-gradient-to-br from-yellow-50 via-white to-orange-50 dark:from-yellow-900/10 dark:via-slate-900 dark:to-orange-900/10 p-8 mb-8 border-2 border-accent-200 dark:border-accent-800/50 shadow-xl"
         >
             {/* Animated Background Blobs */}
             <div className="absolute inset-0 opacity-20 pointer-events-none">
@@ -79,13 +79,13 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
                 </div>
 
                 {/* Winner Card */}
-                <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-2xl border-2 border-accent-200 dark:border-accent-800/50">
+                <div className="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-2xl border-2 border-accent-200 dark:border-accent-800/50">
                     <div className="flex flex-col sm:flex-row items-center gap-6">
                         {/* Product Image */}
                         {winner.image_url && (
                             <div className="relative">
-                                <div className="absolute inset-0 bg-accent-500/30 rounded-2xl blur-xl" />
-                                <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-white shadow-xl ring-4 ring-yellow-200">
+                                <div className="absolute inset-0 bg-accent-500/30 rounded-xl blur-xl" />
+                                <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-white dark:bg-slate-800 shadow-xl ring-4 ring-yellow-200 dark:ring-yellow-800">
                                     <Image
                                         src={winner.image_url}
                                         alt={winner.name}

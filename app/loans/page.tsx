@@ -62,6 +62,10 @@ export default function LoansPage() {
     
     // View Mode State
     const [viewMode, setViewMode] = useState<'grid' | 'table'>('table');
+    
+    // Pagination State
+    const [visibleCount, setVisibleCount] = useState(12);
+    const LOAD_INCREMENT = 12;
 
     useEffect(() => {
         // EMI Calculation: P * r * (1+r)^n / ((1+r)^n - 1)
@@ -120,6 +124,15 @@ export default function LoansPage() {
         return searchMatch && bankMatch && typeMatch;
     });
 
+    // Reset visible count when filters change
+    useEffect(() => {
+        setVisibleCount(LOAD_INCREMENT);
+    }, [searchTerm, filters]);
+
+    // Pagination Logic
+    const visibleAssets = filteredAssets.slice(0, visibleCount);
+    const hasMore = visibleCount < filteredAssets.length;
+
     // Count active filters for mobile badge
     const activeFiltersCount = 
         (filters.loanTypes.length > 0 ? 1 : 0) + 
@@ -127,7 +140,7 @@ export default function LoansPage() {
         (filters.maxRate < 15 ? 1 : 0);
 
     // Transform to RichProduct
-    const richProducts: RichProduct[] = filteredAssets.map(a => ({
+    const richProducts: RichProduct[] = visibleAssets.map(a => ({
         id: a.id,
         name: a.name,
         slug: a.slug,
@@ -359,12 +372,26 @@ export default function LoansPage() {
                         ) : (
                             <>
                                 {viewMode === 'table' ? (
-                                    <LoansTable loans={filteredAssets} />
+                                    <LoansTable loans={visibleAssets} />
                                 ) : (
                                     <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
                                         {richProducts.map((product) => (
                                             <RichProductCard key={product.id} product={product} onCompare={handleCompareToggle} />
                                         ))}
+                                    </div>
+                                )}
+                                
+                                {/* Load More Button */}
+                                {hasMore && (
+                                    <div className="relative z-50 py-12 flex justify-center w-full">
+                                        <Button
+                                            onClick={() => setVisibleCount(prev => prev + LOAD_INCREMENT)}
+                                            variant="outline"
+                                            className="min-w-[200px] h-12 rounded-full border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold gap-2 shadow-sm hover:shadow-md transition-all"
+                                        >
+                                            Show More Loans
+                                            <ChevronDown className="w-4 h-4" />
+                                        </Button>
                                     </div>
                                 )}
                             </>

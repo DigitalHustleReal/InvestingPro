@@ -54,8 +54,8 @@ export function RDCalculator() {
     };
 
     const chartData = [
-        { name: 'Invested', value: result.totalInvested, color: '#0d9488' },
-        { name: 'Interest', value: result.totalInterest, color: '#10b981' },
+        { name: 'Invested', value: result.totalInvested, color: '#0088cc' },
+        { name: 'Interest', value: result.totalInterest, color: '#17a697' },
     ];
 
     const generateGrowthData = () => {
@@ -93,7 +93,7 @@ export function RDCalculator() {
             {/* Top Row: Inputs & Quick Results */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Inputs */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
+                <Card className="border-border shadow-sm rounded-xl">
                     <CardHeader>
                         <div className="flex items-start justify-between gap-4 mb-2">
                             <div className="flex-1">
@@ -101,21 +101,21 @@ export function RDCalculator() {
                                 <CardDescription>Calculate maturity amount for Recurring Deposits</CardDescription>
                             </div>
                             <div className="flex flex-col gap-1.5 items-end">
-                                <Badge variant="secondary" className="bg-primary-50 text-primary-700 border-primary-200">
+                                <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
                                     <CheckCircle2 className="w-3 h-3 mr-1" /> Quarterly Compounding
                                 </Badge>
                             </div>
                         </div>
                         {/* Presets */}
-                        <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200">
-                             <span className="text-xs font-semibold text-slate-600 mr-1">Quick Scenarios:</span>
+                        <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-border">
+                             <span className="text-xs font-semibold text-muted-foreground mr-1">Quick Scenarios:</span>
                              {[
                                 { label: "1 Year", deposit: 10000, y: 1, r: 6.5 },
                                 { label: "3 Years", deposit: 5000, y: 3, r: 7.0 },
                                 { label: "5 Years", deposit: 10000, y: 5, r: 7.2 },
                              ].map((p, i) => (
                                  <button key={i} onClick={() => { setMonthlyDeposit(p.deposit); setYears(p.y); setInterestRate(p.r); }}
-                                    className="text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md font-medium transition-colors border border-slate-200">
+                                    className="text-xs px-2.5 py-1 bg-muted hover:bg-muted/80 text-muted-foreground rounded-md font-medium transition-colors border border-border">
                                     {p.label}
                                  </button>
                              ))}
@@ -125,14 +125,14 @@ export function RDCalculator() {
                         {/* Monthly Deposit */}
                         <div className="space-y-3">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm font-semibold text-slate-700">Monthly Deposit</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <IndianRupee className="w-3.5 h-3.5 text-slate-500" />
+                                <Label className="text-sm font-semibold text-foreground">Monthly Deposit</Label>
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
                                     <Input 
                                         type="number" 
                                         value={monthlyDeposit} 
                                         onChange={(e) => setMonthlyDeposit(Number(e.target.value))}
-                                        className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-white" 
+                                        className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground" 
                                     />
                                 </div>
                             </div>
@@ -142,10 +142,10 @@ export function RDCalculator() {
                         {/* Tenure */}
                          <div className="space-y-3">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm font-semibold text-slate-700">Time Period (Years)</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <Calendar className="w-3.5 h-3.5 text-slate-500" />
-                                    <span className="text-sm font-bold text-slate-900 dark:text-white">{years} Yr</span>
+                                <Label className="text-sm font-semibold text-foreground">Time Period (Years)</Label>
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <Calendar className="w-3.5 h-3.5 text-muted-foreground" />
+                                    <span className="text-sm font-bold text-foreground">{years} Yr</span>
                                 </div>
                             </div>
                             <Slider value={[years]} onValueChange={(v) => setYears(v[0])} min={1} max={10} step={1} className="py-2" />
@@ -154,10 +154,10 @@ export function RDCalculator() {
                         {/* Interest Rate */}
                         <div className="space-y-3">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm font-semibold text-slate-700">Interest Rate (p.a)</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <Percent className="w-3.5 h-3.5 text-slate-500" />
-                                    <span className="text-sm font-bold text-slate-900 dark:text-white">{interestRate}%</span>
+                                <Label className="text-sm font-semibold text-foreground">Interest Rate (p.a)</Label>
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <Percent className="w-3.5 h-3.5 text-muted-foreground" />
+                                    <span className="text-sm font-bold text-foreground">{interestRate}%</span>
                                 </div>
                             </div>
                             <Slider value={[interestRate]} onValueChange={(v) => setInterestRate(v[0])} min={3} max={12} step={0.1} className="py-2" />
@@ -166,18 +166,18 @@ export function RDCalculator() {
                 </Card>
 
                 {/* Results */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-primary-50 to-success-50 relative overflow-hidden">
-                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                <Card className="border-border shadow-sm rounded-xl bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden">
+                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                      <CardContent className="pt-6 relative z-10">
                         {/* Main Numbers */}
                         <div className="grid grid-cols-2 gap-4 mb-6">
-                            <div className="p-4 bg-white/60 backdrop-blur-sm rounded-xl border border-white/50 text-center">
-                                <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Maturity Amount</p>
-                                <p className="text-2xl font-extrabold text-slate-900 dark:text-white">{formatCurrency(result.maturityAmount)}</p>
+                            <div className="p-4 bg-card rounded-xl border border-border text-center">
+                                <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Maturity Amount</p>
+                                <p className="text-2xl font-extrabold text-foreground">{formatCurrency(result.maturityAmount)}</p>
                             </div>
-                             <div className="p-4 bg-white/60 backdrop-blur-sm rounded-xl border border-white/50 text-center">
-                                <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Total Interest</p>
-                                <p className="text-xl font-bold text-success-600">+{formatCurrency(result.totalInterest)}</p>
+                             <div className="p-4 bg-card rounded-xl border border-border text-center">
+                                <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Total Interest</p>
+                                <p className="text-xl font-bold text-primary">+{formatCurrency(result.totalInterest)}</p>
                             </div>
                         </div>
 
@@ -198,12 +198,12 @@ export function RDCalculator() {
                         {/* Legend */}
                         <div className="flex justify-center gap-6">
                             <div className="flex items-center gap-2">
-                                <div className="w-3 h-3 rounded-full bg-primary-600" />
-                                <span className="text-sm font-medium text-slate-600">Invested: {formatCurrency(result.totalInvested)}</span>
+                                <div className="w-3 h-3 rounded-full bg-secondary" />
+                                <span className="text-sm font-medium text-muted-foreground">Invested: {formatCurrency(result.totalInvested)}</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <div className="w-3 h-3 rounded-full bg-success-500" />
-                                <span className="text-sm font-medium text-slate-600">Returns: {formatCurrency(result.totalInterest)}</span>
+                                <div className="w-3 h-3 rounded-full bg-primary" />
+                                <span className="text-sm font-medium text-muted-foreground">Returns: {formatCurrency(result.totalInterest)}</span>
                             </div>
                         </div>
                      </CardContent>
@@ -211,9 +211,9 @@ export function RDCalculator() {
             </div>
 
             {/* Growth Chart */}
-            <Card className="border-slate-200 shadow-sm rounded-2xl">
+            <Card className="border-border shadow-sm rounded-xl">
                 <CardHeader>
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Growth Projection</CardTitle>
+                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Growth Projection</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="h-[300px]">
@@ -221,20 +221,23 @@ export function RDCalculator() {
                             <AreaChart data={growthData}>
                                 <defs>
                                     <linearGradient id="colorInvested" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#0d9488" stopOpacity={0.1}/>
-                                        <stop offset="95%" stopColor="#0d9488" stopOpacity={0}/>
+                                        <stop offset="5%" stopColor="#0088cc" stopOpacity={0.1}/>
+                                        <stop offset="95%" stopColor="#0088cc" stopOpacity={0}/>
                                     </linearGradient>
                                     <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.1}/>
-                                        <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                                        <stop offset="5%" stopColor="#17a697" stopOpacity={0.1}/>
+                                        <stop offset="95%" stopColor="#17a697" stopOpacity={0}/>
                                     </linearGradient>
                                 </defs>
-                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#cbd5e1" strokeOpacity={0.5} />
                                 <XAxis dataKey="year" tick={{fontSize: 12}} stroke="#94a3b8" />
                                 <YAxis tick={{fontSize: 12}} stroke="#94a3b8" tickFormatter={(value) => `₹${value/1000}k`} />
-                                <Tooltip formatter={(value: number) => formatCurrency(value)} />
-                                <Area type="monotone" dataKey="invested" stackId="1" stroke="#0d9488" fill="url(#colorInvested)" name="Total Invested" />
-                                <Area type="monotone" dataKey="value" stackId="2" stroke="#10b981" fill="url(#colorValue)" name="Maturity Value" />
+                                <Tooltip
+                                    formatter={(value: number) => formatCurrency(value)}
+                                    contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))', borderRadius: '8px' }}
+                                />
+                                <Area type="monotone" dataKey="invested" stackId="1" stroke="#0088cc" fill="url(#colorInvested)" name="Total Invested" />
+                                <Area type="monotone" dataKey="value" stackId="2" stroke="#17a697" fill="url(#colorValue)" name="Maturity Value" />
                             </AreaChart>
                         </ResponsiveContainer>
                     </div>

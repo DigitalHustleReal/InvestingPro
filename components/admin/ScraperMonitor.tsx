@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import { Play, RefreshCw, CheckCircle, XCircle, Clock, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 

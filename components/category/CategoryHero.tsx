@@ -234,10 +234,10 @@ export default function CategoryHero({
                             <div className="absolute -bottom-8 -left-8 w-48 h-48 bg-white/5 rounded-full blur-2xl"></div>
                             
                             {/* Main Visual */}
-                            <div className="relative bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-2xl">
+                            <div className="relative bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20 shadow-2xl">
                                 <div className="space-y-6">
                                     {/* Icon */}
-                                    <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center">
+                                    <div className="w-20 h-20 bg-white/20 rounded-xl flex items-center justify-center">
                                         <Icon className="w-10 h-10" />
                                     </div>
                                     

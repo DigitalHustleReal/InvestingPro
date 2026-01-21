@@ -59,11 +59,11 @@ export default function InsuranceCoverageCalculator() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-900 dark:to-slate-950 rounded-3xl border-2 border-primary-500/20 dark:border-primary-500/30 shadow-2xl shadow-primary-900/10 overflow-hidden">
+    <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-900 dark:to-slate-950 rounded-xl border-2 border-primary-500/20 dark:border-primary-500/30 shadow-2xl shadow-primary-900/10 overflow-hidden">
       {/* Header */}
       <div className="bg-gradient-to-r from-primary-600 to-secondary-600 dark:from-primary-500 dark:to-secondary-500 p-6 sm:p-8">
         <div className="flex items-center gap-3 mb-2">
-          <div className="p-2.5 bg-white/20 backdrop-blur-sm rounded-xl">
+          <div className="p-3 bg-white/20 dark:bg-white/10 backdrop-blur-sm rounded-xl">
             <Shield className="w-6 h-6 text-white" />
           </div>
           <h2 className="text-2xl font-bold text-white">Insurance Coverage Calculator</h2>
@@ -206,7 +206,7 @@ export default function InsuranceCoverageCalculator() {
             </h3>
 
             {/* Recommended Coverage - Hero Card */}
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-primary-600 to-secondary-600 dark:from-primary-500 dark:to-secondary-500 text-white shadow-xl shadow-primary-500/30">
+            <div className="p-6 rounded-xl bg-gradient-to-br from-primary-600 to-secondary-600 dark:from-primary-500 dark:to-secondary-500 text-white shadow-xl shadow-primary-500/30">
               <div className="flex items-center gap-2 mb-2">
                 <Shield className="w-5 h-5" />
                 <p className="text-xs font-bold uppercase tracking-wider opacity-90">Recommended Coverage</p>

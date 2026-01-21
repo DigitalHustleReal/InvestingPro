@@ -78,9 +78,9 @@ export default function AssetAllocation({ holdings }: AssetAllocationProps) {
                         <div key={item.name} className="flex items-center justify-between text-sm">
                             <div className="flex items-center gap-2">
                                 <div className="w-3 h-3 rounded" style={{ backgroundColor: COLORS[item.name] || '#94a3b8' }} />
-                                <span className="text-slate-700">{item.name}</span>
+                                <span className="text-slate-700 dark:text-slate-300">{item.name}</span>
                             </div>
-                            <span className="font-semibold text-slate-900">
+                            <span className="font-semibold text-slate-900 dark:text-white">
                                 ₹{item.value.toLocaleString('en-IN')} ({totalValue > 0 ? ((item.value / totalValue) * 100).toFixed(1) : 0}%)
                             </span>
                         </div>

@@ -56,10 +56,10 @@ export default function TerminalOverview() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {wealthOpportunities.map((item, i) => (
-                                <Card key={i} className="bg-white border-slate-200 hover:border-primary-300 hover:shadow-xl transition-all group rounded-2xl overflow-hidden">
+                                <Card key={i} className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-primary-300 dark:hover:border-primary-500 hover:shadow-xl transition-all group rounded-xl overflow-hidden">
                                     <CardContent className="p-8">
                                         <div className="flex justify-between items-start mb-6">
-                                            <div className="w-12 h-12 rounded-2xl bg-primary-50 flex items-center justify-center text-xl font-bold text-primary-600">
+                                            <div className="w-12 h-12 rounded-xl bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center text-xl font-bold text-primary-600 dark:text-primary-400">
                                                 {item.category[0]}
                                             </div>
                                             <Badge className={`px-3 py-1 border-0 rounded-full text-[10px] font-bold uppercase ${item.type === 'growth' ? 'bg-success-100 text-success-700' : 'bg-primary-100 text-primary-700'
@@ -78,7 +78,7 @@ export default function TerminalOverview() {
                                                 <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Performance</span>
                                                 <span className="text-lg font-bold text-primary-600">{item.performance}</span>
                                             </div>
-                                            <Link href="/mutual-funds" className="p-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-600 group-hover:bg-primary-500 group-hover:text-white group-hover:border-primary-500 transition-all">
+                                            <Link href="/mutual-funds" className="p-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-600 dark:text-slate-300 group-hover:bg-primary-500 group-hover:text-white group-hover:border-primary-500 transition-all">
                                                 <ArrowRight size={20} />
                                             </Link>
                                         </div>
@@ -86,7 +86,7 @@ export default function TerminalOverview() {
                                 </Card>
                             ))}
 
-                            <Card className="bg-gradient-to-br from-primary-600 to-primary-800 border-0 rounded-2xl overflow-hidden group cursor-pointer relative">
+                            <Card className="bg-gradient-to-br from-primary-600 to-primary-800 border-0 rounded-xl overflow-hidden group cursor-pointer relative">
                                 <BarChart3 className="absolute -right-8 -bottom-8 w-48 h-48 text-white/10 group-hover:scale-110 transition-transform duration-700" />
                                 <CardContent className="p-8 h-full flex flex-col justify-between relative z-10">
                                     <div>

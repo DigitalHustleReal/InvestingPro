@@ -86,7 +86,7 @@ const UserSegmentation = () => {
                             href={item.link}
                             className={`group p-8 rounded-[2rem] bg-slate-900/40 border ${item.border} hover:bg-slate-900 transition-all duration-300 flex flex-col h-full`}
                         >
-                            <div className={`w-14 h-14 rounded-2xl ${item.bg} flex items-center justify-center ${item.color} mb-6 group-hover:scale-110 transition-transform`}>
+                            <div className={`w-14 h-14 rounded-xl ${item.bg} flex items-center justify-center ${item.color} mb-6 group-hover:scale-110 transition-transform`}>
                                 <item.icon size={28} />
                             </div>
 

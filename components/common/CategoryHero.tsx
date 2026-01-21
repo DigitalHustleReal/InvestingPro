@@ -72,7 +72,7 @@ export default function CategoryHero({
     const style = variantStyles[variant];
 
     return (
-        <div className={cn("relative overflow-hidden rounded-2xl border-2", style.border, className)}>
+        <div className={cn("relative overflow-hidden rounded-xl border-2", style.border, className)}>
             {/* Premium Background with Subtle Gradient */}
             <div className={cn("absolute inset-0 bg-gradient-to-br", style.gradient, "opacity-5 dark:opacity-10")} />
             

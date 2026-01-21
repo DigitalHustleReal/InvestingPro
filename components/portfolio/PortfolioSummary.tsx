@@ -42,10 +42,10 @@ export default function PortfolioSummary({ holdings = [] }: PortfolioSummaryProp
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {stats.map((stat, index) => (
-                <Card key={index} className="rounded-[2.5rem] border-0 shadow-xl overflow-hidden group hover:-translate-y-1 transition-all">
+                <Card key={index} className="rounded-xl border-0 shadow-xl overflow-hidden group hover:-translate-y-1 transition-all">
                     <CardContent className="p-8">
                         <div className="flex items-center justify-between mb-4">
-                            <div className={`w-14 h-14 rounded-2xl ${stat.bg} ${stat.color} flex items-center justify-center group-hover:rotate-6 transition-transform`}>
+                            <div className={`w-14 h-14 rounded-xl ${stat.bg} ${stat.color} flex items-center justify-center group-hover:rotate-6 transition-transform`}>
                                 <stat.icon className="w-7 h-7" />
                             </div>
                             {stat.subValue && (

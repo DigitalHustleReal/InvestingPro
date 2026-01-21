@@ -3,6 +3,7 @@
 import { ReactNode } from 'react';
 import { AdminBreadcrumb } from './AdminBreadcrumb';
 import { LucideIcon } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
 
 interface AdminPageHeaderProps {
     title: string;
@@ -37,7 +38,7 @@ export function AdminPageHeader({
                 <div className="flex items-center gap-4">
                     {Icon && (
                         <div className={`
-                            w-14 h-14 rounded-2xl bg-gradient-to-br ${iconColorClasses[iconColor]}
+                            w-14 h-14 rounded-xl bg-gradient-to-br ${iconColorClasses[iconColor]}
                             flex items-center justify-center shadow-lg
                         `}>
                             <Icon className="w-7 h-7 text-foreground dark:text-foreground" />
@@ -123,7 +124,7 @@ interface ContentSectionProps {
 
 export function ContentSection({ title, subtitle, actions, children }: ContentSectionProps) {
     return (
-        <section className="bg-surface-darker dark:bg-surface-darker/30 backdrop-blur-xl rounded-2xl border border-border/50 dark:border-border/50 overflow-hidden">
+        <section className="bg-surface-darker dark:bg-surface-darker/30 backdrop-blur-xl rounded-xl border border-border/50 dark:border-border/50 overflow-hidden">
             {(title || actions) && (
                 <div className="px-6 py-4 border-b border-border/50 dark:border-border/50 flex items-center justify-between">
                     <div>
@@ -150,6 +151,11 @@ interface ActionButtonProps {
     icon?: LucideIcon;
 }
 
+/**
+ * ActionButton - Consolidated to use main Button component
+ * Maintains backward compatibility while using unified button system
+ * Admin-specific styling preserved through className overrides
+ */
 export function ActionButton({ 
     onClick, 
     children, 
@@ -158,32 +164,38 @@ export function ActionButton({
     disabled = false,
     icon: Icon 
 }: ActionButtonProps) {
-    const variants = {
-        primary: 'bg-gradient-to-r from-primary-500 to-success-500 text-foreground dark:text-foreground shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40',
-        secondary: 'bg-white/10 text-foreground dark:text-foreground border border-border dark:border-border hover:bg-white/20',
-        ghost: 'text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground hover:bg-white/10',
+    // Map ActionButton variants to Button component variants
+    const buttonVariantMap: Record<typeof variant, 'default' | 'secondary' | 'ghost' | 'destructive'> = {
+        primary: 'default',
+        secondary: 'secondary',
+        ghost: 'ghost',
+        danger: 'destructive',
+    };
+
+    const buttonSizeMap: Record<typeof size, 'sm' | 'default'> = {
+        sm: 'sm',
+        md: 'default',
+    };
+
+    // Admin-specific styling overrides
+    const adminStyles = {
+        primary: 'bg-gradient-to-r from-primary-500 to-success-500 shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40',
+        secondary: 'bg-white/10 border border-border dark:border-border hover:bg-white/20',
+        ghost: 'hover:bg-white/10',
         danger: 'bg-danger-500/20 text-danger-400 border border-danger-500/30 hover:bg-danger-500/30',
     };
 
-    const sizes = {
-        sm: 'px-3 py-1.5 text-sm',
-        md: 'px-4 py-2 text-sm',
-    };
-
     return (
-        <button
+        <Button
             onClick={onClick}
             disabled={disabled}
-            className={`
-                ${variants[variant]} ${sizes[size]}
-                rounded-lg font-medium transition-all duration-200
-                disabled:opacity-50 disabled:cursor-not-allowed
-                flex items-center gap-2
-            `}
+            variant={buttonVariantMap[variant]}
+            size={buttonSizeMap[size]}
+            className={adminStyles[variant]}
         >
             {Icon && <Icon className="w-4 h-4" />}
             {children}
-        </button>
+        </Button>
     );
 }
 
@@ -284,7 +296,7 @@ export function EmptyState({ icon: Icon, title, description, action }: EmptyStat
     return (
         <div className="text-center py-12">
             {Icon && (
-                <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 rounded-xl bg-white/5 flex items-center justify-center mx-auto mb-4">
                     <Icon className="w-8 h-8 text-muted-foreground/70 dark:text-muted-foreground/70" />
                 </div>
             )}

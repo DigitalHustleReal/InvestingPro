@@ -87,7 +87,7 @@ export default function TopPicksSidebar({ category }: { category: string }) {
                 ))
             )}
 
-            <div className="p-6 bg-gradient-to-br from-primary-600 to-primary-800 rounded-2xl text-white shadow-lg shadow-primary-500/20">
+            <div className="p-6 bg-gradient-to-br from-primary-600 to-primary-800 rounded-xl text-white shadow-lg shadow-primary-500/20">
                 <h4 className="font-bold mb-2">Not sure?</h4>
                 <p className="text-xs text-primary-100 mb-4 leading-relaxed">Try our comparison engine to see products side-by-side.</p>
                 <Link href="/products">

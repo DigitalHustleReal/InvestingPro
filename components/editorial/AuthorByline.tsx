@@ -42,15 +42,15 @@ export function AuthorByline({
                 </div>
                 <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                        <span className="text-sm font-semibold text-stone-900 dark:text-white">
+                        <span className="text-sm font-semibold text-slate-900 dark:text-white">
                             {author.name}
                         </span>
                     </div>
-                    <p className="text-xs text-stone-600 dark:text-slate-400">
+                    <p className="text-xs text-slate-600 dark:text-slate-400">
                         {author.title}
                     </p>
                     {author.credentials && (
-                        <p className="text-xs text-stone-500 dark:text-slate-500 mt-1">
+                        <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">
                             {author.credentials}
                         </p>
                     )}
@@ -69,7 +69,7 @@ export function AuthorByline({
                 )}
                 
                 {lastUpdated && (
-                    <div className="flex items-center gap-1.5 text-stone-600 dark:text-slate-400">
+                    <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
                         <Clock className="w-4 h-4" />
                         <span>
                             Updated {lastUpdated}

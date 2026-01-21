@@ -190,7 +190,7 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
 
     return (
         <div className="space-y-6">
-            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
                 <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center justify-between">
                         <div className="flex items-center gap-3">
@@ -208,7 +208,7 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
                         {stages.map((stage, index) => (
                             <React.Fragment key={stage.id}>
                                 <div className={cn(
-                                    "p-6 rounded-2xl border-2 transition-all hover:scale-105",
+                                    "p-6 rounded-xl border-2 transition-all hover:scale-105",
                                     stage.bgColor,
                                     stage.borderColor
                                 )}>

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { AlertCircle, CheckCircle } from 'lucide-react';
 
@@ -126,7 +126,7 @@ export function SEOPreview({ title, metaDescription, slug, featuredImage }: SEOP
             {/* Twitter Card Preview */}
             <div>
                 <h3 className="text-sm font-semibold text-slate-700 mb-3">Twitter Card Preview</h3>
-                <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
                     {featuredImage && (
                         <div className="aspect-[2/1] relative bg-slate-100">
                             <img

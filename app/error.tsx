@@ -60,7 +60,7 @@ export default function GlobalError({
           >
             <Link href="/">
               <Home className="w-4 h-4" />
-              Return to Command Center
+              Return to Home
             </Link>
           </Button>
 

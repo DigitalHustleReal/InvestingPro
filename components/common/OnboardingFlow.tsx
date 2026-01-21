@@ -226,14 +226,14 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                     </div>
 
                     {/* Icon */}
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center mb-6 mx-auto">
+                    <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center mb-6 mx-auto">
                         <StepIcon className="w-8 h-8 text-white" />
                     </div>
 
                     {/* Content */}
                     <div className="text-center mb-6">
-                        <h2 className="text-2xl font-bold text-slate-900 mb-2">{step.title}</h2>
-                        <p className="text-slate-600">{step.description}</p>
+                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{step.title}</h2>
+                        <p className="text-slate-600 dark:text-slate-400">{step.description}</p>
                     </div>
 
                     <div className="mb-8">

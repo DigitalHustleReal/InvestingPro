@@ -20,8 +20,8 @@ export function SimpleInterestCalculator() {
         const totalAmount = principal + simpleInterest;
         
         const chartData = [
-            { name: "Principal", value: principal, color: "#cbd5e1" }, // slate-300
-            { name: "Interest Earned", value: Math.round(simpleInterest), color: "#0ea5e9" } // secondary-500
+            { name: "Principal", value: principal, color: "#0088cc" }, // secondary
+            { name: "Interest Earned", value: Math.round(simpleInterest), color: "#17a697" } // primary
         ];
 
         return {
@@ -41,7 +41,7 @@ export function SimpleInterestCalculator() {
         <div className="space-y-6">
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Inputs */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
+                <Card className="border-border shadow-sm rounded-xl">
                     <CardHeader>
                         <div className="flex items-start justify-between gap-4 mb-2">
                             <div>
@@ -57,32 +57,32 @@ export function SimpleInterestCalculator() {
                         {/* Principal */}
                         <div className="space-y-3">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm font-semibold text-slate-700">Principal Amount</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <IndianRupee className="w-3.5 h-3.5 text-slate-500" />
+                                <Label className="text-sm font-semibold text-foreground">Principal Amount</Label>
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
                                     <Input 
                                         type="number" 
                                         value={principal} 
                                         onChange={(e) => setPrincipal(Number(e.target.value))}
-                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-white" 
+                                        className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground" 
                                     />
                                 </div>
                             </div>
                             <Slider value={[principal]} onValueChange={(v) => setPrincipal(v[0])} min={100} max={1000000} step={100} className="py-2" />
-                            <p className="text-[10px] text-slate-500">Min: ₹100</p>
+                            <p className="text-[10px] text-muted-foreground">Min: ₹100</p>
                         </div>
 
                         {/* Rate */}
                         <div className="space-y-3">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm font-semibold text-slate-700">Rate of Interest (% p.a)</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <Percent className="w-3.5 h-3.5 text-slate-500" />
+                                <Label className="text-sm font-semibold text-foreground">Rate of Interest (% p.a)</Label>
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <Percent className="w-3.5 h-3.5 text-muted-foreground" />
                                     <Input 
                                         type="number" 
                                         value={rate} 
                                         onChange={(e) => setRate(Number(e.target.value))}
-                                        className="w-20 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-white" 
+                                        className="w-20 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground" 
                                     />
                                 </div>
                             </div>
@@ -92,14 +92,14 @@ export function SimpleInterestCalculator() {
                          {/* Time */}
                          <div className="space-y-3">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm font-semibold text-slate-700">Time Period (Years)</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <Clock className="w-3.5 h-3.5 text-slate-500" />
+                                <Label className="text-sm font-semibold text-foreground">Time Period (Years)</Label>
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <Clock className="w-3.5 h-3.5 text-muted-foreground" />
                                     <Input 
                                         type="number" 
                                         value={time} 
                                         onChange={(e) => setTime(Number(e.target.value))}
-                                        className="w-20 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-white" 
+                                        className="w-20 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground" 
                                     />
                                 </div>
                             </div>
@@ -109,24 +109,24 @@ export function SimpleInterestCalculator() {
                 </Card>
 
                 {/* Results */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-secondary-50 to-secondary-100 relative overflow-hidden dark:from-secondary-950 dark:to-secondary-900">
-                     <div className="absolute top-0 right-0 w-64 h-64 bg-secondary-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                <Card className="border-border shadow-sm rounded-xl bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden">
+                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                      <CardContent className="pt-8 relative z-10 flex flex-col justify-between h-full">
                          <div className="text-center mb-6">
-                             <p className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-2">Total Interest</p>
-                             <div className="text-5xl font-extrabold text-secondary-700 mb-2">
+                             <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-2">Total Interest</p>
+                             <div className="text-5xl font-extrabold text-primary mb-2">
                                 {formatCurrency(result.simpleInterest)}
                              </div>
                         </div>
 
-                        <div className="bg-white/60 backdrop-blur-sm rounded-xl border border-white/50 p-4 space-y-3">
+                        <div className="bg-card/60 backdrop-blur-sm rounded-xl border border-border p-4 space-y-3">
                              <div className="flex justify-between items-center text-sm">
-                                <span className="text-slate-600">Principal Amount</span>
-                                <span className="font-bold text-slate-900 dark:text-white">{formatCurrency(principal)}</span>
+                                <span className="text-muted-foreground">Principal Amount</span>
+                                <span className="font-bold text-foreground">{formatCurrency(principal)}</span>
                              </div>
-                             <div className="flex justify-between items-center text-sm border-t border-dashed border-slate-300 pt-3">
-                                <span className="text-slate-600 font-bold">Total Amount</span>
-                                <span className="font-bold text-success-700 text-lg">{formatCurrency(result.totalAmount)}</span>
+                             <div className="flex justify-between items-center text-sm border-t border-dashed border-border pt-3">
+                                <span className="text-muted-foreground font-bold">Total Amount</span>
+                                <span className="font-bold text-primary text-lg">{formatCurrency(result.totalAmount)}</span>
                              </div>
                         </div>
                         
@@ -146,24 +146,27 @@ export function SimpleInterestCalculator() {
                                             <Cell key={`cell-${index}`} fill={entry.color} />
                                         ))}
                                     </Pie>
-                                    <RechartsTooltip formatter={(value: number | undefined) => formatCurrency(value || 0)} />
-                                    <Legend verticalAlign="bottom" height={36} />
-                                </PieChart>
-                            </ResponsiveContainer>
-                        </div>
-                     </CardContent>
-                </Card>
-            </div>
-            
-             <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl flex items-start gap-3">
-                <Calculator className="w-5 h-5 text-slate-500 flex-shrink-0 mt-0.5" />
-                <div>
-                    <p className="text-sm font-bold text-slate-700 mb-1">Formula Used</p>
-                    <p className="text-xs text-slate-600 font-mono">
-                        Simple Interest (SI) = (P Ã— R Ã— T) / 100
-                    </p>
-                </div>
-            </div>
+                                     <RechartsTooltip 
+                                        formatter={(value: number | undefined) => formatCurrency(value || 0)} 
+                                        contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))', borderRadius: '8px' }}
+                                    />
+                                     <Legend verticalAlign="bottom" height={36} />
+                                 </PieChart>
+                             </ResponsiveContainer>
+                         </div>
+                      </CardContent>
+                 </Card>
+             </div>
+             
+              <div className="p-4 bg-muted border border-border rounded-xl flex items-start gap-3">
+                 <Calculator className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
+                 <div>
+                     <p className="text-sm font-bold text-foreground mb-1">Formula Used</p>
+                     <p className="text-xs text-muted-foreground font-mono">
+                         Simple Interest (SI) = (P × R × T) / 100
+                     </p>
+                 </div>
+             </div>
         </div>
     );
 }

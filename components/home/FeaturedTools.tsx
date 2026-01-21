@@ -62,7 +62,7 @@ export default function FeaturedTools() {
                         </p>
                     </div>
                     <Link href="/calculators">
-                        <Button variant="outline" className="h-14 px-8 rounded-2xl border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-900 hover:text-white dark:hover:bg-primary-600 hover:border-slate-900 dark:hover:border-primary-600 font-bold transition-all group">
+                        <Button variant="outline" className="h-14 px-8 rounded-xl border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-900 hover:text-white dark:hover:bg-primary-600 hover:border-slate-900 dark:hover:border-primary-600 font-bold transition-all group">
                             Full Tool Inventory
                             <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </Button>
@@ -76,9 +76,9 @@ export default function FeaturedTools() {
                             href={tool.href}
                             className="group"
                         >
-                            <div className="h-full bg-slate-50/50 dark:bg-slate-900/50 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800 hover:bg-white dark:hover:bg-slate-900 hover:shadow-2xl hover:shadow-primary-500/5 hover:border-primary-500/20 transition-all duration-500 flex flex-col justify-between">
+                            <div className="h-full bg-slate-50/50 dark:bg-slate-900/50 rounded-xl p-8 border border-slate-100 dark:border-slate-800 hover:bg-white dark:hover:bg-slate-900 hover:shadow-2xl hover:shadow-primary-500/5 hover:border-primary-500/20 transition-all duration-500 flex flex-col justify-between">
                                 <div>
-                                    <div className={`w-14 h-14 rounded-2xl ${tool.bg} ${tool.color} flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500`}>
+                                    <div className={`w-14 h-14 rounded-xl ${tool.bg} ${tool.color} flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500`}>
                                         <tool.icon className="w-7 h-7" />
                                     </div>
                                     <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors tracking-tight">

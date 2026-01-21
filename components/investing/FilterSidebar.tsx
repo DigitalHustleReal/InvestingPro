@@ -52,7 +52,7 @@ export function InvestingFilterSidebar({ filters, setFilters }: InvestingFilterS
     };
 
     return (
-        <div className="w-full bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden flex flex-col h-full max-h-[calc(100vh-120px)] sticky top-28">
+        <div className="w-full bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden flex flex-col h-full max-h-[calc(100vh-120px)] sticky top-28">
             {/* Header */}
             <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900 z-10">
                 <h3 className="font-bold text-slate-800 dark:text-white flex items-center gap-2">

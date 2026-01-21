@@ -125,7 +125,7 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
         <div className="space-y-10">
             {/* High-Impact Performance Metrics */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden hover:border-primary-500/30 transition-all group">
+                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden hover:border-primary-500/30 transition-all group">
                     <CardContent className="p-8">
                         <div className="flex items-center justify-between mb-4">
                             <span className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-[0.2em]">Product Views</span>
@@ -145,7 +145,7 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden hover:border-secondary-500/30 transition-all group">
+                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden hover:border-secondary-500/30 transition-all group">
                     <CardContent className="p-8">
                         <div className="flex items-center justify-between mb-4">
                             <span className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-[0.2em]">Affiliate Clicks</span>
@@ -165,7 +165,7 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden hover:border-primary-500/30 transition-all group">
+                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden hover:border-primary-500/30 transition-all group">
                     <CardContent className="p-8">
                         <div className="flex items-center justify-between mb-4">
                             <span className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-[0.2em]">Total Revenue</span>
@@ -185,7 +185,7 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden hover:border-slate-500/30 transition-all group">
+                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden hover:border-slate-500/30 transition-all group">
                     <CardContent className="p-8">
                         <div className="flex items-center justify-between mb-4">
                             <span className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-[0.2em]">Active Products</span>
@@ -205,7 +205,7 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
 
             {/* Visual Intelligence Charts */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
                     <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
                         <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                             <BarChart3 className="w-4 h-4 text-primary-400" />
@@ -264,7 +264,7 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
                     <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
                         <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
                             <TrendingUp className="w-4 h-4 text-primary-400" />
@@ -299,7 +299,7 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
             </div>
 
             {/* Top Products by Revenue */}
-            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
                 <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-5">
                     <CardTitle className="text-xs font-bold uppercase tracking-widest text-primary-400 flex items-center gap-6 md:p-8">
                         <TrendingUp className="w-4 h-4" />
@@ -352,7 +352,7 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
 
             {/* Top Affiliates/Brands */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
                     <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-5">
                         <CardTitle className="text-xs font-bold uppercase tracking-widest text-primary-400 flex items-center gap-6 md:p-8">
                             <Building2 className="w-4 h-4" />
@@ -394,7 +394,7 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
                     <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-5">
                         <CardTitle className="text-xs font-bold uppercase tracking-widest text-primary-400 flex items-center gap-6 md:p-8">
                             <Target className="w-4 h-4" />
@@ -439,7 +439,7 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
 
             {/* Key Metrics Summary */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
                     <CardContent className="p-6">
                         <div className="flex items-center justify-between mb-4">
                             <Percent className="w-5 h-5 text-primary-400" />
@@ -454,7 +454,7 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
                     <CardContent className="p-6">
                         <div className="flex items-center justify-between mb-4">
                             <DollarSign className="w-5 h-5 text-primary-400" />
@@ -469,7 +469,7 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
                     <CardContent className="p-6">
                         <div className="flex items-center justify-between mb-4">
                             <Users className="w-5 h-5 text-primary-400" />

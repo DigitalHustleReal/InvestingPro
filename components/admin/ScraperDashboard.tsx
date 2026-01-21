@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -81,7 +81,7 @@ export default function ScraperDashboard() {
                 {isLoading ? (
                     <div className="text-center py-12 text-muted-foreground/50 dark:text-muted-foreground/50">Loading scrapers...</div>
                 ) : scrapers.length === 0 ? (
-                    <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl">
+                    <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl">
                         <CardContent className="text-center py-12">
                             <Database className="w-12 h-12 mx-auto mb-4 text-muted-foreground/50 dark:text-muted-foreground/50" />
                             <p className="text-muted-foreground dark:text-muted-foreground">No scrapers registered yet</p>
@@ -130,7 +130,7 @@ function ScraperCard({ scraper, onExecute, isExecuting }: any) {
     };
     
     return (
-        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl">
+        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl">
             <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">

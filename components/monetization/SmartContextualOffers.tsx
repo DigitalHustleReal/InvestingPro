@@ -53,7 +53,7 @@ export default function SmartContextualOffers({
         .slice(0, limit);
 
     return (
-        <div className="my-12 p-8 bg-slate-900 rounded-3xl border border-slate-700 shadow-2xl relative overflow-hidden">
+        <div className="my-12 p-8 bg-slate-900 rounded-xl border border-slate-700 shadow-2xl relative overflow-hidden">
             {/* Background elements */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl -mr-32 -mt-32" />
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary-500/10 rounded-full blur-3xl -ml-32 -mb-32" />
@@ -105,7 +105,7 @@ export default function SmartContextualOffers({
                     ))}
                 </div>
 
-                <div className="mt-8 flex items-center justify-center gap-2 text-slate-500 text-[10px] uppercase font-bold tracking-widest bg-slate-900/50 py-3 rounded-2xl border border-slate-800">
+                <div className="mt-8 flex items-center justify-center gap-2 text-slate-500 text-[10px] uppercase font-bold tracking-widest bg-slate-900/50 py-3 rounded-xl border border-slate-800">
                     <ShieldCheck className="w-4 h-4" />
                     <span>Editorial Disclosure: We may receive a commission for referrals</span>
                 </div>

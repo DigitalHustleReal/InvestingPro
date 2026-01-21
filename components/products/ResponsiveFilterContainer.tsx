@@ -42,7 +42,7 @@ export function ResponsiveFilterContainer({
                 <Sheet open={isOpen} onOpenChange={setIsOpen}>
                     <SheetTrigger asChild>
                         <Button 
-                            className="h-14 px-6 rounded-2xl bg-slate-900 border border-white/10 text-white shadow-2xl flex items-center gap-3 animate-in slide-in-from-bottom-5"
+                            className="h-14 px-6 rounded-xl bg-slate-900 border border-white/10 text-white shadow-2xl flex items-center gap-3 animate-in slide-in-from-bottom-5"
                         >
                             <SlidersHorizontal className="w-5 h-5" />
                             <span className="font-bold">Filters</span>
@@ -69,7 +69,7 @@ export function ResponsiveFilterContainer({
                         {/* Mobile Footer for Applying Filters */}
                         <div className="absolute bottom-0 inset-x-0 p-6 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-t border-slate-100 dark:border-slate-800 flex gap-4">
                             <Button 
-                                className="flex-1 h-14 rounded-2xl bg-primary-600 hover:bg-primary-700 text-white font-bold"
+                                className="flex-1 h-14 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-bold"
                                 onClick={() => setIsOpen(false)}
                             >
                                 Apply Filters

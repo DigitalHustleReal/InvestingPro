@@ -39,7 +39,7 @@ export function AdminCard({
         // Standard background and border
         'bg-surface-darker/50 dark:bg-surface-darker/50 border-slate-800',
         // Rounded corners
-        'rounded-2xl',
+        'rounded-xl',
         // Hover effects if enabled
         hoverable && 'hover:border-primary-500/30 hover:shadow-xl hover:-translate-y-0.5',
         // Transitions

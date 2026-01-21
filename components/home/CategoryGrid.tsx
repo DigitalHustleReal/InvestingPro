@@ -95,7 +95,7 @@ export default function CategoryGrid() {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-slate-100 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] overflow-hidden shadow-2xl shadow-slate-200/50 dark:shadow-none">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-slate-100 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 rounded-xl overflow-hidden shadow-2xl shadow-slate-200/50 dark:shadow-none">
                     {categories.map((category, index) => (
                         <Link
                             key={index}
@@ -103,7 +103,7 @@ export default function CategoryGrid() {
                             className="group bg-white dark:bg-slate-900/50 p-8 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all duration-300 relative"
                         >
                             <div className="flex justify-between items-start mb-10">
-                                <div className={`w-12 h-12 rounded-2xl ${category.bg} ${category.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                                <div className={`w-12 h-12 rounded-xl ${category.bg} ${category.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
                                     <category.icon className="w-6 h-6" />
                                 </div>
                                 <Badge className="bg-slate-900/5 dark:bg-white/5 text-slate-500 dark:text-slate-400 border-0 text-[9px] font-semibold uppercase tracking-st px-2 py-0.5 group-hover:bg-primary-600 group-hover:text-white transition-colors">

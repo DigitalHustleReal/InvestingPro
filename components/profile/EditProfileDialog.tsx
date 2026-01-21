@@ -54,7 +54,7 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-[500px] rounded-[2.5rem] p-8 border-0 shadow-2xl">
+            <DialogContent className="sm:max-w-[500px] rounded-xl p-8 border-0 shadow-2xl">
                 <DialogHeader>
                     <DialogTitle className="text-2xl font-bold text-slate-900 tracking-tight">Refine Authority Profile</DialogTitle>
                     <DialogDescription className="text-slate-500 font-medium pt-1">
@@ -71,7 +71,7 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
                                 id="full_name"
                                 value={formData.full_name}
                                 onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
-                                className="pl-12 h-14 rounded-2xl border-slate-100 bg-slate-50/50 focus:bg-white transition-all font-bold"
+                                className="pl-12 h-14 rounded-xl border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 focus:bg-white dark:focus:bg-slate-800 transition-all font-bold"
                                 placeholder="Real Name"
                             />
                         </div>
@@ -85,7 +85,7 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
                                 id="bio"
                                 value={formData.bio}
                                 onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                                className="pl-12 min-h-[100px] rounded-3xl border-slate-100 bg-slate-50/50 focus:bg-white transition-all font-bold pt-3.5"
+                                className="pl-12 min-h-[100px] rounded-xl border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 focus:bg-white dark:focus:bg-slate-800 transition-all font-bold pt-3.5"
                                 placeholder="Expert in Equity Derivatives and Micro-cap analysis..."
                             />
                         </div>
@@ -98,7 +98,7 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
                                 id="expertise"
                                 value={formData.expertise}
                                 onChange={(e) => setFormData({ ...formData, expertise: e.target.value })}
-                                className="h-14 rounded-2xl border-slate-100 bg-slate-50/50 focus:bg-white transition-all font-bold"
+                                className="h-14 rounded-xl border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 focus:bg-white dark:focus:bg-slate-800 transition-all font-bold"
                                 placeholder="Mutual Funds, SIPs, IPOs"
                             />
                         </div>
@@ -112,7 +112,7 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
                                 id="profile_picture"
                                 value={formData.profile_picture}
                                 onChange={(e) => setFormData({ ...formData, profile_picture: e.target.value })}
-                                className="pl-12 h-14 rounded-2xl border-slate-100 bg-slate-50/50 focus:bg-white transition-all font-bold"
+                                className="pl-12 h-14 rounded-xl border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 focus:bg-white dark:focus:bg-slate-800 transition-all font-bold"
                                 placeholder="https://..."
                             />
                         </div>
@@ -123,14 +123,14 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
                             type="button"
                             variant="ghost"
                             onClick={() => onOpenChange(false)}
-                            className="rounded-2xl h-14 font-semibold uppercase tracking-widest text- text-slate-400 hover:text-slate-900"
+                            className="rounded-xl h-14 font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-200"
                         >
                             Discard Changes
                         </Button>
                         <Button
                             type="submit"
                             disabled={saving}
-                            className="rounded-2xl h-14 bg-slate-900 hover:bg-secondary-600 font-semibold uppercase tracking-widest text- text-white transition-all px-8 shadow-xl shadow-purple-500/10"
+                            className="rounded-xl h-14 bg-slate-900 hover:bg-secondary-600 font-semibold uppercase tracking-widest text-white transition-all px-8 shadow-xl shadow-purple-500/10"
                         >
                             {saving ? 'Synchronizing...' : 'Save DNA Profile'}
                         </Button>

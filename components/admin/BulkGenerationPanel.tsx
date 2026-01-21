@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -58,7 +58,7 @@ export default function BulkGenerationPanel() {
     };
     
     return (
-        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl">
+        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl">
             <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
                 <CardTitle className="text-lg font-bold text-foreground dark:text-foreground flex items-center gap-3">
                     <Zap className="w-5 h-5 text-primary-400" />

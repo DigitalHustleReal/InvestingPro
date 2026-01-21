@@ -76,7 +76,7 @@ export function GSTCalculator() {
         <div className="space-y-6">
             {/* Input Section */}
             <div className="grid lg:grid-cols-2 gap-6">
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-xl">
                     <CardHeader>
                         <div className="flex items-start justify-between gap-4 mb-2">
                             <div className="flex-1">
@@ -94,7 +94,7 @@ export function GSTCalculator() {
                     <CardContent className="space-y-6">
                         {/* Calculation Type */}
                         <div className="space-y-2">
-                            <Label className="text-sm font-semibold text-slate-700">Calculation Type</Label>
+                            <Label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Calculation Type</Label>
                             <Select value={calculationType} onValueChange={(value: 'exclusive' | 'inclusive') => setCalculationType(value)}>
                                 <SelectTrigger className="h-12">
                                     <SelectValue />
@@ -104,7 +104,7 @@ export function GSTCalculator() {
                                     <SelectItem value="inclusive">GST Inclusive (Extract GST from amount)</SelectItem>
                                 </SelectContent>
                             </Select>
-                            <p className="text-xs text-slate-500">
+                            <p className="text-xs text-slate-500 dark:text-slate-400">
                                 {calculationType === 'exclusive' 
                                     ? 'Enter the base amount, GST will be added'
                                     : 'Enter the total amount including GST, base amount will be calculated'}
@@ -129,7 +129,7 @@ export function GSTCalculator() {
 
                         {/* GST Rate */}
                         <div className="space-y-2">
-                            <Label className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                            <Label className="text-sm font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-2">
                                 <Percent className="w-4 h-4" />
                                 GST Rate
                             </Label>
@@ -165,10 +165,10 @@ export function GSTCalculator() {
                 </Card>
 
                 {/* Results Card */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-primary-50 to-success-50">
+                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-xl bg-gradient-to-br from-primary-50 dark:from-primary-900/20 to-success-50 dark:to-success-900/20">
                     <CardHeader>
-                        <CardTitle className="text-xl flex items-center gap-6 md:p-8">
-                            <Receipt className="w-5 h-5 text-primary-600" />
+                        <CardTitle className="text-xl dark:text-white flex items-center gap-6 md:p-8">
+                            <Receipt className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                             GST Calculation Results
                         </CardTitle>
                     </CardHeader>
@@ -226,7 +226,7 @@ export function GSTCalculator() {
             </div>
 
             {/* Chart */}
-            <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
+            <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-xl">
                 <CardHeader>
                     <CardTitle className="text-lg">Amount Breakdown</CardTitle>
                 </CardHeader>

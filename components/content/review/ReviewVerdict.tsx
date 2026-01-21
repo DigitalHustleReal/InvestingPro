@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { cn } from '@/lib/utils';
 import { Check, X, Star } from 'lucide-react';
 
@@ -28,7 +28,7 @@ export default function ReviewVerdict({
             : { color: 'text-danger-700', bg: 'bg-danger-50', border: 'border-danger-200', fill: 'bg-danger-500' };
 
     return (
-        <div className="my-8 rounded-2xl border bg-white shadow-sm overflow-hidden border-slate-200">
+        <div className="my-8 rounded-xl border bg-white dark:bg-slate-900 shadow-sm overflow-hidden border-slate-200 dark:border-slate-800">
             {/* Header / Score Strip */}
             <div className="bg-slate-900 text-white p-6 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="flex-1">

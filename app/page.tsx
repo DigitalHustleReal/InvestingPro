@@ -1,4 +1,4 @@
-'use client';
+// Server Component for ISR support
 
 // ISR: Revalidate every 5 minutes (homepage has frequently changing content)
 export const revalidate = 300;

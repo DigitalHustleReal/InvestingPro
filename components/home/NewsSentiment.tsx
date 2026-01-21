@@ -53,7 +53,7 @@ export default function NewsSentiment() {
 
             <div className="grid grid-cols-1 gap-3">
                 {newsItems.map((news) => (
-                    <Card key={news.id} className="bg-white border-slate-200 hover:border-primary-300 hover:shadow-lg transition-all group cursor-pointer overflow-hidden rounded-2xl">
+                    <Card key={news.id} className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-primary-300 dark:hover:border-primary-500 hover:shadow-lg transition-all group cursor-pointer overflow-hidden rounded-xl">
                         <CardContent className="p-6">
                             <div className="flex justify-between items-start mb-2">
                                 <div className="flex items-center gap-2">

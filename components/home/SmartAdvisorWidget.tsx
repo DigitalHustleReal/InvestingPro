@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
@@ -170,7 +170,7 @@ export default function SmartAdvisorWidget() {
         <section className="py-16 bg-slate-50 dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800 transition-colors">
             <div className="container mx-auto px-4">
                 <div className="max-w-5xl mx-auto">
-                    <Card className="rounded-[2.5rem] bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden">
+                    <Card className="rounded-xl bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden">
                         {/* Top Accent Bar */}
                         <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-primary-400 via-secondary-500 to-secondary-500" />
 
@@ -189,7 +189,7 @@ export default function SmartAdvisorWidget() {
                                     </p>
                                     <Button 
                                         onClick={() => setStep('questions')}
-                                        className="h-14 px-10 bg-gradient-to-r from-primary-500 to-secondary-600 hover:from-primary-600 hover:to-primary-700 text-white rounded-2xl font-bold text-lg shadow-xl shadow-primary-500/30"
+                                        className="h-14 px-10 bg-gradient-to-r from-primary-500 to-secondary-600 hover:from-primary-600 hover:to-primary-700 text-white rounded-xl font-bold text-lg shadow-xl shadow-primary-500/30"
                                     >
                                         Start Smart Advisor
                                         <ArrowRight className="w-5 h-5 ml-2" />
@@ -221,7 +221,7 @@ export default function SmartAdvisorWidget() {
                                                 <button
                                                     key={goal.id}
                                                     onClick={() => setPrimaryGoal(goal.id)}
-                                                    className={`p-5 rounded-2xl border-2 transition-all ${
+                                                    className={`p-5 rounded-xl border-2 transition-all ${
                                                         primaryGoal === goal.id
                                                             ? 'border-primary-500 bg-primary-50 dark:bg-primary-500/10'
                                                             : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
@@ -251,7 +251,7 @@ export default function SmartAdvisorWidget() {
                                                 <button
                                                     key={stage.id}
                                                     onClick={() => setLifeStage(stage.id)}
-                                                    className={`p-5 rounded-2xl border-2 transition-all ${
+                                                    className={`p-5 rounded-xl border-2 transition-all ${
                                                         lifeStage === stage.id
                                                             ? 'border-secondary-500 bg-secondary-50 dark:bg-secondary-500/10'
                                                             : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
@@ -275,7 +275,7 @@ export default function SmartAdvisorWidget() {
                                         <Button 
                                             onClick={handleGetRecommendations}
                                             disabled={!primaryGoal || !lifeStage}
-                                            className={`w-full h-14 rounded-2xl font-bold text-lg ${
+                                            className={`w-full h-14 rounded-xl font-bold text-lg ${
                                                 primaryGoal && lifeStage
                                                     ? 'bg-gradient-to-r from-primary-500 to-secondary-600 hover:from-primary-600 hover:to-primary-700 text-white shadow-xl shadow-primary-500/30'
                                                     : 'bg-slate-200 dark:bg-slate-800 text-slate-400 cursor-not-allowed'
@@ -306,7 +306,7 @@ export default function SmartAdvisorWidget() {
                                     <div className="space-y-4 mb-8">
                                         {recommendations.map((rec, idx) => (
                                             <Link key={idx} href={rec.link}>
-                                                <div className={`p-6 rounded-2xl border-2 transition-all hover:shadow-lg hover:-translate-y-1 ${
+                                                <div className={`p-6 rounded-xl border-2 transition-all hover:shadow-lg hover:-translate-y-1 ${
                                                     rec.priority === 'high'
                                                         ? 'border-primary-200 dark:border-primary-800 bg-gradient-to-br from-primary-50 to-primary-50 dark:from-primary-900/20 dark:to-primary-900/20'
                                                         : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800'

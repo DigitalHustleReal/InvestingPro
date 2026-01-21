@@ -27,7 +27,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                         <motion.div 
                             animate={{ y: [0, -10, 0], rotate: [-6, -8, -6] }}
                             transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                            className="absolute top-0 right-0 w-full h-full rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 shadow-2xl skew-x-1"
+                            className="absolute top-0 right-0 w-full h-full rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 shadow-2xl skew-x-1"
                         >
                             <div className="absolute top-6 right-6 text-slate-500 italic font-serif opacity-50 text-xl">Platinum</div>
                             <div className="absolute bottom-6 left-6 flex gap-2">
@@ -40,7 +40,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                         <motion.div 
                             animate={{ y: [0, -15, 0], rotate: [3, 5, 3] }}
                             transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 0.2 }}
-                            className="absolute top-4 -left-4 w-full h-full rounded-2xl bg-gradient-to-br from-secondary-600 to-primary-600 shadow-[0_20px_50px_-12px_rgba(13,148,136,0.5)] border-t border-white/20"
+                            className="absolute top-4 -left-4 w-full h-full rounded-xl bg-gradient-to-br from-secondary-600 to-primary-600 shadow-[0_20px_50px_-12px_rgba(13,148,136,0.5)] border-t border-white/20"
                         >
                             <div className="p-6 h-full flex flex-col justify-between relative overflow-hidden">
                                 <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10" />
@@ -55,7 +55,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                                 <div className="flex justify-between items-end">
                                     <div>
                                         <div className="text-[10px] text-white/60 uppercase tracking-wider mb-1">Card Holder</div>
-                                        <div className="text-sm text-white font-medium">SHIVP PRATAP</div>
+                                        <div className="text-sm text-white font-medium">PREMIUM MEMBER</div>
                                     </div>
                                     <div className="flex flex-col items-end">
                                         <span className="text-xs bg-white/20 px-2 py-0.5 rounded text-white font-bold mb-1">CASHBACK</span>
@@ -96,9 +96,9 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                         <motion.div
                             animate={{ scale: [1, 1.02, 1] }}
                             transition={{ repeat: Infinity, duration: 4 }}
-                            className="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-800 w-72 mx-auto relative z-10"
+                            className="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-2xl border border-slate-100 dark:border-slate-800 w-72 mx-auto relative z-10"
                         >
-                            <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-2xl flex items-center justify-center mb-4 text-primary-600 dark:text-primary-400">
+                            <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center mb-4 text-primary-600 dark:text-primary-400">
                                 <Landmark className="w-8 h-8" />
                             </div>
                             <div className="text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wide font-semibold mb-1">Loan Application</div>
@@ -186,7 +186,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                 {currentSlide === 'invest' && (
                     <motion.div
                         key="invest"
-                        className="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-800 w-80 relative"
+                        className="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-2xl border border-slate-100 dark:border-slate-800 w-80 relative"
                     >
                         <div className="flex justify-between items-center mb-6">
                             <div>
@@ -234,15 +234,15 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                         <motion.div
                             initial={{ rotateX: 20, opacity: 0 }}
                             animate={{ rotateX: 0, opacity: 1 }}
-                            className="bg-slate-900 p-5 rounded-3xl shadow-2xl w-64 mx-auto text-white border border-slate-700"
+                            className="bg-slate-900 p-5 rounded-xl shadow-2xl w-64 mx-auto text-white border border-slate-700"
                         >
                             <div className="text-right mb-4">
                                 <div className="text-slate-400 text-xs mb-1">Monthly Investment</div>
                                 <div className="text-2xl font-mono text-primary-400">₹ 10,000</div>
                             </div>
                             <div className="grid grid-cols-4 gap-2 mb-4">
-                                {['7', '8', '9', 'Ã·', '4', '5', '6', 'Ã—', '1', '2', '3', '-', '0', '.', '=', '+'].map((btn, i) => (
-                                    <div key={i} className={`h-10 rounded-lg flex items-center justify-center text-sm font-medium ${['Ã·', 'Ã—', '-', '+', '='].includes(btn) ? 'bg-primary-600' : 'bg-slate-700'}`}>
+                                {['7', '8', '9', '÷', '4', '5', '6', '×', '1', '2', '3', '-', '0', '.', '=', '+'].map((btn, i) => (
+                                    <div key={i} className={`h-10 rounded-lg flex items-center justify-center text-sm font-medium ${['÷', '×', '-', '+', '='].includes(btn) ? 'bg-primary-600' : 'bg-slate-700'}`}>
                                         {btn}
                                     </div>
                                 ))}
@@ -276,13 +276,13 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                         exit={{ opacity: 0 }}
                         className="w-full relative"
                     >
-                         <div className="bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 rounded-3xl p-8 shadow-lg relative max-w-sm mx-auto">
+                         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-8 shadow-lg relative max-w-sm mx-auto">
                             <motion.div 
                                 className="absolute -top-6 -right-6 p-4"
                                 animate={{ y: [0, -5, 0] }}
                                 transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
                             >
-                                <div className="bg-primary-50 dark:bg-slate-800 border-2 border-primary-200 dark:border-primary-900/50 rounded-2xl p-4 shadow-xl">
+                                <div className="bg-primary-50 dark:bg-slate-800 border-2 border-primary-200 dark:border-primary-900/50 rounded-xl p-4 shadow-xl">
                                     <div className="text-3xl font-bold text-primary-900 dark:text-primary-100">{PLATFORM_STATS.usersHelped}</div>
                                     <div className="text-[10px] font-bold text-primary-600 dark:text-primary-400 uppercase tracking-widest text-center">Indians Helped</div>
                                 </div>

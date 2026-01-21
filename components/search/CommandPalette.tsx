@@ -146,7 +146,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
 
             {/* Palette */}
             <div className="fixed left-1/2 top-[12%] -translate-x-1/2 w-[95%] max-w-2xl z-[101] animate-in zoom-in-95 slide-in-from-top-8 fade-in duration-300">
-                <div className="bg-slate-900/90 border border-white/10 rounded-2xl shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] backdrop-blur-xl overflow-hidden ring-1 ring-white/5">
+                <div className="bg-slate-900/90 border border-white/10 rounded-xl shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] backdrop-blur-xl overflow-hidden ring-1 ring-white/5">
                     
                     {/* Search Input */}
                     <div className="relative flex items-center gap-4 px-6 py-5 border-b border-white/10 group">

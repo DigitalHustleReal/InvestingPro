@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Enhanced WordPress-Style CMS with Bulk Operations
  */
 
@@ -358,7 +358,7 @@ export default function EnhancedWordPressStyleCMS({
                         exit={{ y: 100, opacity: 0 }}
                         className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
                     >
-                        <div className="flex items-center gap-3 px-6 py-4 bg-surface-darker dark:bg-surface-darker text-foreground dark:text-foreground rounded-2xl shadow-2xl border border-border dark:border-border">
+                        <div className="flex items-center gap-3 px-6 py-4 bg-surface-darker dark:bg-surface-darker text-foreground dark:text-foreground rounded-xl shadow-2xl border border-border dark:border-border">
                             <span className="text-sm font-medium">{selectedIds.length} selected</span>
                             <div className="w-px h-6 bg-slate-700" />
                             <Button size="sm" onClick={() => handleBulkAction('publish')} disabled={!!bulkLoading} className="bg-success-600 hover:bg-success-700 text-foreground dark:text-foreground">

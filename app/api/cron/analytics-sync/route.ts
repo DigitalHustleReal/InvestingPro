@@ -47,7 +47,7 @@ export async function GET(request: NextRequest) {
     const analytics = {
       totalPublished: totalPublished || 0,
       totalDrafts: totalDrafts || 0,
-      topPerformers: topArticles?.slice(0, 5).map(a => ({
+      topPerformers: topArticles?.slice(0, 5).map((a: any) => ({
         title: a.title,
         views: a.views,
         category: a.category,

@@ -126,11 +126,11 @@ export default function CreditCardRewardsCalculator() {
   ];
 
   return (
-    <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-900 dark:to-slate-950 rounded-3xl border-2 border-primary-500/20 dark:border-primary-500/30 shadow-2xl shadow-primary-900/10 overflow-hidden">
+    <div className="bg-card rounded-xl border border-border shadow-2xl shadow-primary-900/10 overflow-hidden">
       {/* Header */}
-      <div className="bg-gradient-to-r from-primary-600 to-secondary-600 dark:from-primary-500 dark:to-secondary-500 p-6 sm:p-8">
+      <div className="bg-gradient-to-r from-primary-600 to-secondary-600 p-6 sm:p-8">
         <div className="flex items-center gap-3 mb-2">
-          <div className="p-2.5 bg-white/20 dark:bg-slate-800/20 backdrop-blur-sm rounded-xl">
+          <div className="p-3 bg-white/20 dark:bg-white/10 backdrop-blur-sm rounded-xl">
             <CreditCard className="w-6 h-6 text-white" />
           </div>
           <h2 className="text-2xl font-bold text-white">Credit Card Rewards Calculator</h2>
@@ -143,30 +143,30 @@ export default function CreditCardRewardsCalculator() {
           {/* Left: Spending Inputs */}
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-4">
+              <h3 className="text-lg font-bold text-foreground flex items-center gap-2 mb-4">
                 <Calculator className="w-5 h-5 text-primary-600" />
                 Monthly Spending by Category
               </h3>
-              <div className="p-4 bg-slate-100 dark:bg-slate-800/50 rounded-xl mb-4">
-                <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">Total Monthly Spending</p>
-                <p className="text-3xl font-bold text-slate-900 dark:text-white">{formatCurrency(totalMonthlySpending)}</p>
+              <div className="p-4 bg-muted rounded-xl mb-4">
+                <p className="text-sm text-muted-foreground mb-1">Total Monthly Spending</p>
+                <p className="text-3xl font-bold text-foreground">{formatCurrency(totalMonthlySpending)}</p>
               </div>
             </div>
 
             <div className="space-y-4">
               {categories.map(cat => (
                 <div key={cat.key}>
-                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                  <label className="block text-sm font-semibold text-foreground mb-2">
                     <span className="mr-2">{cat.icon}</span>
                     {cat.label}
                   </label>
                   <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold">₹</span>
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground font-bold">₹</span>
                     <input
                       type="number"
                       value={spending[cat.key]}
                       onChange={(e) => updateSpending(cat.key, Number(e.target.value))}
-                      className="w-full pl-8 pr-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-semibold focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all"
+                      className="w-full pl-8 pr-4 py-3 rounded-xl border border-border bg-input text-foreground font-semibold focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all"
                       min="0"
                       step="100"
                     />
@@ -178,16 +178,15 @@ export default function CreditCardRewardsCalculator() {
                     min="0"
                     max="50000"
                     step="500"
-                    className="w-full mt-2 h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-primary-600"
+                    className="w-full mt-2 h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary-600"
                   />
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Right: Card Recommendations */}
           <div className="space-y-6">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
               <Award className="w-5 h-5 text-primary-600" />
               Top Recommended Cards
             </h3>
@@ -215,24 +214,24 @@ export default function CreditCardRewardsCalculator() {
                     <div className="mb-4">
                       <div className="flex items-start justify-between mb-1">
                         <div>
-                          <h4 className="font-bold text-slate-900 dark:text-white">{card.cardName}</h4>
-                          <p className="text-xs text-slate-500">{card.provider}</p>
+                          <h4 className="font-bold text-foreground">{card.cardName}</h4>
+                          <p className="text-xs text-muted-foreground">{card.provider}</p>
                         </div>
                         {index === 0 && (
-                          <div className="text-2xl">ðŸ†</div>
+                          <div className="text-2xl">🏆</div>
                         )}
                       </div>
                     </div>
 
                     {/* Rewards Breakdown */}
                     <div className="grid grid-cols-3 gap-3 mb-4">
-                      <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-3 border border-slate-200 dark:border-slate-700">
-                        <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase mb-1">Annual Rewards</p>
-                        <p className="text-sm font-bold text-success-600 dark:text-success-400">{formatCurrency(Math.round(card.annualRewards))}</p>
+                      <div className="bg-card rounded-lg p-3 border border-border">
+                        <p className="text-[10px] text-muted-foreground uppercase mb-1">Annual Rewards</p>
+                        <p className="text-sm font-bold text-success-600">{formatCurrency(Math.round(card.annualRewards))}</p>
                       </div>
-                      <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-3 border border-slate-200 dark:border-slate-700">
-                        <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase mb-1">Annual Fee</p>
-                        <p className="text-sm font-bold text-slate-700 dark:text-slate-300">{formatCurrency(card.annualFee)}</p>
+                      <div className="bg-card rounded-lg p-3 border border-border">
+                        <p className="text-[10px] text-muted-foreground uppercase mb-1">Annual Fee</p>
+                        <p className="text-sm font-bold text-foreground">{formatCurrency(card.annualFee)}</p>
                       </div>
                       <div className={cn(
                         "rounded-lg p-3",
@@ -240,7 +239,7 @@ export default function CreditCardRewardsCalculator() {
                           ? "bg-success-50 dark:bg-success-900/20" 
                           : "bg-danger-50 dark:bg-danger-900/20"
                       )}>
-                        <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase mb-1">Net Benefit</p>
+                        <p className="text-[10px] text-muted-foreground uppercase mb-1">Net Benefit</p>
                         <p className={cn(
                           "text-sm font-bold",
                           card.netBenefit > 0 
@@ -259,7 +258,7 @@ export default function CreditCardRewardsCalculator() {
                         "w-full",
                         index === 0 
                           ? "bg-primary-600 hover:bg-secondary-600 text-white" 
-                          : "bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-white"
+                          : "bg-muted hover:bg-muted/80 text-foreground"
                       )}
                     >
                       {index === 0 ? 'Apply Now' : 'View Details'}
@@ -270,8 +269,8 @@ export default function CreditCardRewardsCalculator() {
             </div>
 
             {/* Disclaimer */}
-            <div className="p-4 bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 rounded-xl">
-              <p className="text-xs text-accent-900 dark:text-accent-200">
+            <div className="p-4 bg-muted border border-border rounded-xl">
+              <p className="text-xs text-muted-foreground">
                 <strong className="font-semibold">Note:</strong> Calculations are based on standard reward rates. Actual rewards may vary based on offer periods, exclusions, and redemption value.
               </p>
             </div>

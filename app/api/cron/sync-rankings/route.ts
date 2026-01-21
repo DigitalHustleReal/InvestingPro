@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
         const keywords = Array.from(
             new Set(
                 (articles || [])
-                    .map(a => a.primary_keyword)
+                    .map((a: any) => a.primary_keyword)
                     .filter(Boolean) as string[]
             )
         );

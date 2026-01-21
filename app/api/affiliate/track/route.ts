@@ -10,7 +10,7 @@ import { trackAffiliateClick } from '@/lib/analytics/posthog-service';
 import { createAPIWrapper } from '@/lib/middleware/api-wrapper';
 import { withValidation } from '@/lib/middleware/validation';
 import { affiliateTrackSchema } from '@/lib/validation/schemas';
-import { affiliateService } from '@/lib/services';
+import { affiliateService } from '@/lib/services/affiliate/affiliate.service';
 import { logger } from '@/lib/logger';
 
 export const POST = createAPIWrapper('/api/affiliate/track', {

@@ -199,10 +199,10 @@ export function MediaUploader({
                         ðŸ’¡ Upload Tips:
                     </h4>
                     <ul className="text-sm text-secondary-700 space-y-1">
-                        <li>â€¢ Use descriptive filenames for better SEO</li>
-                        <li>â€¢ Optimize images before upload (recommended: under 500KB)</li>
-                        <li>â€¢ Landscape images work best for featured images (16:9 ratio)</li>
-                        <li>â€¢ Add alt text after upload for accessibility</li>
+                        <li>• Use descriptive filenames for better SEO</li>
+                        <li>• Optimize images before upload (recommended: under 500KB)</li>
+                        <li>• Landscape images work best for featured images (16:9 ratio)</li>
+                        <li>• Add alt text after upload for accessibility</li>
                     </ul>
                 </div>
             )}

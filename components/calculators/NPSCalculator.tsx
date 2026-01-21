@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { IndianRupee, Calendar, Percent, TrendingDown } from "lucide-react";
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, PieChart, Pie, Cell } from 'recharts';
 
 export function NPSCalculator() {
     const [monthlyContribution, setMonthlyContribution] = useState(5000);
@@ -81,12 +81,17 @@ export function NPSCalculator() {
         return `₹${num.toLocaleString('en-IN')}`;
     };
 
+    const npsChartData = [
+        { name: 'Invested', value: result.totalContributed, color: '#0088cc' },
+        { name: 'Returns', value: adjustForInflation ? result.realReturns : result.returns, color: '#17a697' },
+    ];
+
     return (
         <div className="space-y-6">
             {/* Top Row: Inputs on Left, Results on Right */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Input Card */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
+                <Card className="border-border shadow-sm rounded-xl">
                     <CardHeader>
                         <CardTitle className="text-xl">NPS Calculator</CardTitle>
                         <CardDescription>Calculate National Pension System corpus with tax benefits</CardDescription>
@@ -95,9 +100,9 @@ export function NPSCalculator() {
                         {/* Current Age */}
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm text-slate-700 font-semibold">Current Age</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <span className="text-sm font-bold text-slate-900 dark:text-white">{currentAge} Y</span>
+                                <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Current Age</Label>
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <span className="text-sm font-bold text-foreground">{currentAge} Y</span>
                                 </div>
                             </div>
                             <Slider
@@ -113,9 +118,9 @@ export function NPSCalculator() {
                         {/* Retirement Age */}
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm text-slate-700 font-semibold">Retirement Age</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <span className="text-sm font-bold text-slate-900 dark:text-white">{retirementAge} Y</span>
+                                <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Retirement Age</Label>
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <span className="text-sm font-bold text-foreground">{retirementAge} Y</span>
                                 </div>
                             </div>
                             <Slider
@@ -132,13 +137,13 @@ export function NPSCalculator() {
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
                                 <Label className="text-sm text-slate-700 font-semibold">Monthly Contribution</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <IndianRupee className="w-3.5 h-3.5 text-slate-500" />
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
                                     <Input
                                         type="number"
                                         value={monthlyContribution}
                                         onChange={(e) => setMonthlyContribution(Number(e.target.value))}
-                                        className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-slate-900 dark:text-white"
+                                        className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0"
                                     />
                                 </div>
                             </div>
@@ -155,10 +160,10 @@ export function NPSCalculator() {
                         {/* Expected Return */}
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
-                                <Label className="text-sm text-slate-700 font-semibold">Expected Return (p.a.)</Label>
-                                <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                    <Percent className="w-3.5 h-3.5 text-slate-500" />
-                                    <span className="text-sm font-bold text-slate-900 dark:text-white">{expectedReturn}%</span>
+                                <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Expected Return (p.a.)</Label>
+                                <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                    <Percent className="w-3.5 h-3.5 text-muted-foreground" />
+                                    <span className="text-sm font-bold text-foreground">{expectedReturn}%</span>
                                 </div>
                             </div>
                             <Slider
@@ -169,11 +174,11 @@ export function NPSCalculator() {
                                 step={0.5}
                                 className="py-2"
                             />
-                            <p className="text-xs text-slate-500">NPS typically returns 8-12% based on asset allocation</p>
+                            <p className="text-xs text-slate-500 dark:text-slate-400">NPS typically returns 8-12% based on asset allocation</p>
                         </div>
 
                         {/* Inflation Toggle */}
-                        <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200">
+                        <div className="flex items-center justify-between p-3 bg-muted/50 rounded-xl border border-border">
                             <div className="flex items-center gap-2">
                                 <TrendingDown className="w-4 h-4 text-secondary-600" />
                                 <div>
@@ -192,9 +197,9 @@ export function NPSCalculator() {
                             <div className="space-y-2">
                                 <div className="flex justify-between items-center">
                                     <Label className="text-sm text-slate-700 font-semibold">Expected Inflation Rate (p.a.)</Label>
-                                    <div className="flex items-center gap-1.5 bg-slate-100 rounded-lg px-3 py-1.5">
-                                        <Percent className="w-3.5 h-3.5 text-slate-500" />
-                                        <span className="text-sm font-bold text-slate-900 dark:text-white">{inflationRate}%</span>
+                                    <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
+                                        <Percent className="w-3.5 h-3.5 text-muted-foreground" />
+                                        <span className="text-sm font-bold text-foreground">{inflationRate}%</span>
                                     </div>
                                 </div>
                                 <Slider
@@ -209,9 +214,9 @@ export function NPSCalculator() {
                         )}
 
                         {/* Tax Benefits Info */}
-                        <div className="p-3 bg-primary-50 border border-primary-200 rounded-xl">
-                            <p className="text-xs font-bold text-primary-700 uppercase tracking-widest mb-1">Tax Benefits</p>
-                            <p className="text-xs text-primary-800">
+                        <div className="p-3 bg-primary/10 border border-primary/20 rounded-xl">
+                            <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Tax Benefits</p>
+                            <p className="text-xs text-primary">
                                 ✓ 80CCD(1B): ₹50K • Employer: ₹7.5L • 60% tax-free withdrawal
                             </p>
                         </div>
@@ -219,47 +224,71 @@ export function NPSCalculator() {
                 </Card>
 
                 {/* Right: Results Card with Stats */}
-                <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl bg-gradient-to-br from-primary-50 to-success-50 dark:from-slate-900 dark:to-slate-800">
+                <Card className="border-border shadow-sm rounded-xl bg-gradient-to-br from-primary/5 to-secondary/5">
                     <CardContent className="pt-4 sm:pt-6">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">Contributed</p>
-                                <p className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">{formatCurrency(result.totalContributed)}</p>
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-card rounded-xl shadow-sm border border-border">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">Contributed</p>
+                                <p className="text-base sm:text-lg font-extrabold text-foreground">{formatCurrency(result.totalContributed)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-card rounded-xl shadow-sm border border-border">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Returns' : 'Returns'}
                                 </p>
-                                <p className="text-base sm:text-lg font-extrabold text-primary-600">
+                                <p className="text-base sm:text-lg font-extrabold text-primary">
                                     {formatCurrency(adjustForInflation ? result.realReturns : result.returns)}
                                 </p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-5 bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl shadow-sm border border-primary-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 sm:mb-2">
+                            <div className="text-center p-6 md:p-8 sm:p-5 bg-card rounded-xl shadow-sm border border-border">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Corpus' : 'Total Corpus'}
                                 </p>
-                                <p className="text-base sm:text-lg font-extrabold text-primary-600">
+                                <p className="text-base sm:text-lg font-extrabold text-primary">
                                     {formatCurrency(adjustForInflation ? result.realValue : result.maturityAmount)}
                                 </p>
                             </div>
                         </div>
 
                         {adjustForInflation && (
-                            <div className="p-3 bg-white dark:bg-slate-800 rounded-xl border border-secondary-100 mb-4">
-                                <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Nominal Corpus</p>
-                                <p className="text-sm font-bold text-slate-600">{formatCurrency(result.maturityAmount)}</p>
-                                <p className="text-xs text-slate-500 mt-1">Before inflation adjustment</p>
+                            <div className="p-3 bg-card rounded-xl border border-secondary/20 mb-4">
+                                <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Nominal Corpus</p>
+                                <p className="text-sm font-bold text-foreground">{formatCurrency(result.maturityAmount)}</p>
+                                <p className="text-xs text-muted-foreground mt-1">Before inflation adjustment</p>
                             </div>
                         )}
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-                            <div className="text-center p-3 sm:p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-primary-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Withdrawable (60%)</p>
-                                <p className="text-sm sm:text-base font-extrabold text-primary-600">{formatCurrency(result.withdrawableAmount)}</p>
+                        <div className="flex items-center justify-center mb-6">
+                            <div className="w-full max-w-[280px] h-[280px]">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <PieChart>
+                                        <Pie
+                                            data={npsChartData}
+                                            cx="50%"
+                                            cy="50%"
+                                            innerRadius={55}
+                                            outerRadius={75}
+                                            dataKey="value"
+                                            strokeWidth={0}
+                                            paddingAngle={5}
+                                        >
+                                            {npsChartData.map((entry, index) => (
+                                                <Cell key={`cell-${index}`} fill={entry.color} />
+                                            ))}
+                                        </Pie>
+                                        <Tooltip formatter={(value: number | undefined) => value !== undefined ? formatCurrency(value) : ''} />
+                                    </PieChart>
+                                </ResponsiveContainer>
                             </div>
-                            <div className="text-center p-3 sm:p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-primary-100">
-                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Annuitized (40%)</p>
-                                <p className="text-sm sm:text-base font-extrabold text-slate-600">{formatCurrency(result.annuitizedAmount)}</p>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+                            <div className="text-center p-3 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Withdrawable (60%)</p>
+                                <p className="text-sm sm:text-base font-extrabold text-primary">{formatCurrency(result.withdrawableAmount)}</p>
+                            </div>
+                            <div className="text-center p-3 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Annuitized (40%)</p>
+                                <p className="text-sm sm:text-base font-extrabold text-muted-foreground">{formatCurrency(result.annuitizedAmount)}</p>
                             </div>
                         </div>
                     </CardContent>
@@ -267,7 +296,7 @@ export function NPSCalculator() {
             </div>
 
             {/* Bottom Row: Growth Chart */}
-            <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl">
+            <Card className="border-border shadow-sm rounded-xl">
                 <CardHeader className="pb-2">
                     <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">NPS Growth Projection</CardTitle>
                 </CardHeader>
