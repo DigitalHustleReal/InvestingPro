@@ -308,31 +308,7 @@ const CreditCardsPage = () => {
                     </div>
                 </div>
              
-            {/* --- DECISION ENGINE CTA SECTION --- */}
-            <div className="container mx-auto px-4 pb-16">
-                <div className="bg-gradient-to-r from-primary-50 to-primary-100 dark:from-primary-900/20 dark:to-primary-800/20 rounded-2xl p-12 text-center border-2 border-primary-200 dark:border-primary-800">
-                    <div className="max-w-3xl mx-auto">
-                        <div className="flex items-center justify-center gap-2 mb-4">
-                            <Sparkles className="w-6 h-6 text-primary-600" />
-                            <Badge className="bg-primary-600 text-white border-0">Decision Engine</Badge>
-                        </div>
-                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-                            Still Not Sure Which Card to Choose?
-                        </h2>
-                        <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto">
-                            Get personalized recommendations based on your spending pattern, lifestyle, and eligibility. Our decision engine will help you find the perfect card.
-                        </p>
-                        <DecisionCTA
-                            text="Find My Perfect Card"
-                            href="/credit-cards/find-your-card"
-                            variant="primary"
-                            size="lg"
-                            className="bg-primary-600 hover:bg-primary-700 text-white font-bold h-14 px-8 text-lg"
-                            showIcon={true}
-                        />
-                    </div>
-                </div>
-            </div>
+            {/* --- DECISION ENGINE CTA SECTION REMOVED --- */}
             </div>
 
             {/* Compliance Disclaimer */}
