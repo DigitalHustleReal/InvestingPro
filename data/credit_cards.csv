@@ -1,0 +1,6 @@
+slug,name,bank,type,annual_fee,joining_fee,reward_rate,min_income_month,affiliate_link,image_url,best_for,pros,cons
+hdfc-millennia,Millennia Credit Card,HDFC Bank,Cashback,1000,1000,5% Cashback,25000,https://vcommission.com/link/example1,https://assets.hdfcbank.com/millennia.png,"Online Shopping","5% Cashback on Amazon/Flipkart|1% on offline spends","Capped cashback per month"
+sbi-cashback,Cashback SBI Card,SBI Card,Cashback,999,999,5% Cashback,20000,https://cuelinks.com/link/example2,https://www.sbicard.com/sbi-cashback.png,"All Online Spends","5% on any online merchant|No merchant restrictions","No lounge access"
+axis-ace,Ace Credit Card,Axis Bank,Cashback,499,499,2% Flat,25000,https://inrdeals.com/link/example3,https://axisbank.com/ace.png,"Offline Spends","2% flat on all spends|Unlimited cashback","Invite only for some users"
+icici-amazon,Amazon Pay ICICI,ICICI Bank,Shopping,0,0,5% Reward,0,https://amazon.in/link/example4,https://icicibank.com/amazon-pay.png,"Amazon Prime Users","Lifetime Free|5% for Prime users","Rewards only usable on Amazon"
+amex-platinum-travel,Platinum Travel,American Express,Travel,3500,3500,8% Reward,50000,https://amex.com/link/example5,https://amex.com/plat-travel.png,"Travel Milestones","Best for 4L annual spend|Free Taj Vouchers","High annual fee"

@@ -1,0 +1,6 @@
+slug,name,bank,type,interest_rate,processing_fee,loan_amount,tenure,affiliate_link,image_url,pros,cons
+hdfc-personal-loan,Personal Loan,HDFC Bank,Personal,10.50%,Up to 4999,40 Lakhs,5 Years,https://vcommission.com/link/loan1,https://hdfcbank.com/logo.png,"Fast Approval|Pre-approved offers","High penal interest"
+sbi-personal-loan,Xpress Credit,SBI,Personal,11.00%,1%,20 Lakhs,6 Years,https://cuelinks.com/link/loan2,https://sbi.co.in/logo.png,"Low interest rate|Govt employees special","Slow processing"
+icici-pl,Personal Loan,ICICI Bank,Personal,10.80%,2%,50 Lakhs,6 Years,https://inrdeals.com/link/loan3,https://icicibank.com/logo.png,"Digital Process|10 min disbursal","High processing fee"
+axis-pl,Axis Personal Loan,Axis Bank,Personal,12.00%,1.5%,15 Lakhs,5 Years,https://vcommission.com/link/loan4,https://axisbank.com/logo.png,"Flexible tenure|Part payment allowed","Strict eligibility"
+bajaj-finserv,Insta Personal Loan,Bajaj Finserv,NBFC,13.00%,2-3%,25 Lakhs,5 Years,https://cuelinks.com/link/loan5,https://bajajfinserv.in/logo.png,"Instant approval|Minimal documentation","High interest rate"
