@@ -63,7 +63,7 @@ const steps = [
                     Become a contributor and share your investment insights!
                 </p>
                 <div className="grid gap-4">
-                    <Card className="bg-gradient-to-br from-primary-50 to-indigo-50 border-secondary-200">
+                    <Card className="bg-gradient-to-br from-primary-50 to-primary-100 border-secondary-200">
                         <CardContent className="p-6 md:p-8">
                             <div className="flex items-start gap-3">
                                 <FileText className="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" />

@@ -149,19 +149,19 @@ export function CreditScoreGauge({
       {showDetails && (
         <div className="mt-6 w-full max-w-sm space-y-2">
           {/* Range Labels */}
-          <div className="flex justify-between text-xs text-stone-600 px-2">
+          <div className="flex justify-between text-xs text-slate-600 dark:text-slate-400 px-2">
             <span>300</span>
             <span>900</span>
           </div>
 
           {/* Score Breakdown */}
           <div className="grid grid-cols-2 gap-3 mt-4">
-            <div className="p-3 bg-stone-50 rounded-lg border border-stone-200">
-              <p className="text-xs text-stone-600 mb-1">Range</p>
-              <p className="text-sm font-semibold text-stone-900">300 - 900</p>
+            <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+              <p className="text-xs text-slate-600 dark:text-slate-400 mb-1">Range</p>
+              <p className="text-sm font-semibold text-slate-900 dark:text-white">300 - 900</p>
             </div>
-            <div className="p-3 bg-stone-50 rounded-lg border border-stone-200">
-              <p className="text-xs text-stone-600 mb-1">Your Score</p>
+            <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+              <p className="text-xs text-slate-600 dark:text-slate-400 mb-1">Your Score</p>
               <p className={cn("text-sm font-semibold", color)}>{score}</p>
             </div>
           </div>

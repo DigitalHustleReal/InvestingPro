@@ -1,6 +1,8 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, Target, Users, Zap, Shield, TrendingUp, Heart } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowRight, Target, Users, Zap, Shield, TrendingUp, Heart, Award, AlertTriangle, CheckCircle2, Linkedin, Twitter } from 'lucide-react';
+import { createServerClient } from '@/lib/supabase/server';
 
 export const metadata: Metadata = {
   title: 'About InvestingPro - India\'s Decision-Making Platform for Smart Financial Choices',
@@ -11,7 +13,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  // Fetch team members from database
+  const supabase = await createServerClient();
+  const { data: teamMembers } = await supabase
+    .from('authors')
+    .select('*')
+    .eq('is_active', true)
+    .order('name', { ascending: true })
+    .limit(8);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
       {/* Hero Section */}
@@ -244,6 +255,168 @@ export default function AboutPage() {
               <div>
                 <div className="text-4xl font-bold mb-2">24/7</div>
                 <div className="text-primary-100">Decision Support</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Editorial Team Section */}
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 dark:bg-primary-900/30 rounded-full text-primary-700 dark:text-primary-300 text-sm font-medium mb-4">
+                <Users className="w-4 h-4" />
+                Meet the Experts
+              </div>
+              <h2 className="text-3xl font-bold mb-4 text-slate-900 dark:text-white">
+                Our Editorial Team
+              </h2>
+              <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                Our content is written and reviewed by certified financial experts with years of industry experience.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {teamMembers && teamMembers.length > 0 ? (
+                teamMembers.map((member: any) => (
+                  <Link
+                    key={member.id}
+                    href={`/authors/${member.slug}`}
+                    className="group"
+                  >
+                    <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:border-primary-500/50 hover:shadow-lg transition-all text-center">
+                      <div className="w-20 h-20 rounded-full border-4 border-slate-100 dark:border-slate-700 overflow-hidden mx-auto mb-4 bg-slate-100 dark:bg-slate-700">
+                        {member.photo_url ? (
+                          <Image
+                            src={member.photo_url}
+                            alt={member.name}
+                            width={80}
+                            height={80}
+                            className="object-cover w-full h-full"
+                          />
+                        ) : (
+                          <Image
+                            src={`https://api.dicebear.com/7.x/personas/svg?seed=${member.slug}`}
+                            alt={member.name}
+                            width={80}
+                            height={80}
+                            className="object-cover w-full h-full"
+                          />
+                        )}
+                      </div>
+                      <h3 className="font-bold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                        {member.name}
+                      </h3>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                        {member.role || 'Financial Expert'}
+                      </p>
+                      {member.credentials && member.credentials.length > 0 && (
+                        <div className="flex flex-wrap gap-1 justify-center">
+                          {member.credentials.slice(0, 2).map((cred: string, idx: number) => (
+                            <span
+                              key={idx}
+                              className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs rounded-full"
+                            >
+                              <Award className="w-3 h-3" />
+                              {cred}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      <div className="flex gap-2 justify-center mt-4">
+                        {member.social_links?.linkedin && (
+                          <span className="p-1.5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400">
+                            <Linkedin className="w-3.5 h-3.5" />
+                          </span>
+                        )}
+                        {member.social_links?.twitter && (
+                          <span className="p-1.5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400">
+                            <Twitter className="w-3.5 h-3.5" />
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
+                ))
+              ) : (
+                <div className="col-span-full text-center py-8 text-slate-500 dark:text-slate-400">
+                  Our editorial team information is being updated.
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Signals */}
+      <section className="py-12 bg-slate-50 dark:bg-slate-900/50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-8 text-center">
+              <div className="flex flex-col items-center">
+                <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mb-3">
+                  <CheckCircle2 className="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                </div>
+                <h4 className="font-bold text-slate-900 dark:text-white mb-1">Fact-Checked Content</h4>
+                <p className="text-sm text-slate-600 dark:text-slate-400">All information verified by experts</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mb-3">
+                  <Shield className="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                </div>
+                <h4 className="font-bold text-slate-900 dark:text-white mb-1">Independent Reviews</h4>
+                <p className="text-sm text-slate-600 dark:text-slate-400">No paid promotions or sponsored rankings</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mb-3">
+                  <Award className="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                </div>
+                <h4 className="font-bold text-slate-900 dark:text-white mb-1">Expert Authors</h4>
+                <p className="text-sm text-slate-600 dark:text-slate-400">Content by certified professionals</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SEBI Disclaimer */}
+      <section className="py-12 bg-slate-100 dark:bg-slate-800/50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 bg-warning-100 dark:bg-warning-900/30 rounded-full flex items-center justify-center shrink-0">
+                  <AlertTriangle className="w-5 h-5 text-warning-600 dark:text-warning-400" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 dark:text-white mb-2">
+                    Important Disclaimer
+                  </h3>
+                  <div className="text-sm text-slate-600 dark:text-slate-400 space-y-2">
+                    <p>
+                      <strong>SEBI Compliance:</strong> InvestingPro is an educational and informational platform. We are NOT a SEBI-registered investment advisor, research analyst, or portfolio manager. The content provided on this website is for general informational purposes only and should not be considered as financial advice.
+                    </p>
+                    <p>
+                      <strong>Investment Risk:</strong> Mutual funds and other financial instruments are subject to market risks. Please read all scheme-related documents carefully before investing. Past performance is not indicative of future returns.
+                    </p>
+                    <p>
+                      <strong>Affiliate Disclosure:</strong> Some links on this website are affiliate links. We may earn a commission if you apply through these links, at no additional cost to you. This does not influence our editorial recommendations.
+                    </p>
+                    <p className="pt-2 border-t border-slate-200 dark:border-slate-700">
+                      For personalized investment advice, please consult a SEBI-registered investment advisor. You can verify advisor credentials at{' '}
+                      <a 
+                        href="https://www.sebi.gov.in/sebiweb/other/OtherAction.do?doRecognisedFpi=yes&intmId=13" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-primary-600 dark:text-primary-400 hover:underline"
+                      >
+                        SEBI's official website
+                      </a>.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

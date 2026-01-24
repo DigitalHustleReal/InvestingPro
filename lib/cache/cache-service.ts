@@ -30,7 +30,11 @@ export interface CacheOptions {
   ttl?: number; // Time to live in seconds
   tags?: string[]; // Cache tags for invalidation
   force?: boolean; // Force cache refresh
+  staleWhileRevalidate?: number; // Serve stale content while revalidating (seconds)
 }
+
+// In-memory mutex for stampede protection
+const inFlightRequests: Map<string, Promise<any>> = new Map();
 
 export class CacheService {
   private static instance: CacheService;
@@ -195,28 +199,113 @@ export class CacheService {
   }
 
   /**
-   * Get or set with cache
+   * Get or set with cache (with stampede protection)
+   * 
+   * Features:
+   * - Mutex lock to prevent cache stampede
+   * - Stale-while-revalidate support
+   * - Only one request fetches data, others wait
    */
   async getOrSet<T>(
     key: string,
     fetcher: () => Promise<T>,
     options?: CacheOptions
   ): Promise<T> {
+    const category = options?.tags?.[0] || 'default';
+    
     // Check cache first (unless force refresh)
     if (!options?.force) {
-      const cached = await this.get<T>(key);
+      const cached = await this.get<T>(key, category);
       if (cached !== null) {
+        // If stale-while-revalidate is enabled, check if we should refresh in background
+        if (options?.staleWhileRevalidate) {
+          this.maybeRevalidateInBackground(key, fetcher, options);
+        }
         return cached;
       }
     }
 
-    // Fetch fresh data
-    const value = await fetcher();
+    // Stampede protection: Check if another request is already fetching
+    const inFlight = inFlightRequests.get(key);
+    if (inFlight) {
+      logger.debug('Cache stampede prevented - waiting for in-flight request', { key });
+      return inFlight;
+    }
+
+    // Create the fetch promise with mutex
+    const fetchPromise = this.fetchWithMutex(key, fetcher, options);
     
-    // Cache the result
-    await this.set(key, value, options);
+    // Store in-flight request
+    inFlightRequests.set(key, fetchPromise);
     
-    return value;
+    try {
+      const value = await fetchPromise;
+      return value;
+    } finally {
+      // Clean up in-flight request
+      inFlightRequests.delete(key);
+    }
+  }
+
+  /**
+   * Fetch with mutex lock (for stampede protection)
+   */
+  private async fetchWithMutex<T>(
+    key: string,
+    fetcher: () => Promise<T>,
+    options?: CacheOptions
+  ): Promise<T> {
+    try {
+      // Fetch fresh data
+      const value = await fetcher();
+      
+      // Cache the result
+      await this.set(key, value, options);
+      
+      // If stale-while-revalidate, also store the timestamp
+      if (options?.staleWhileRevalidate && this.redis) {
+        await this.redis.set(`${key}:fetched_at`, Date.now(), { ex: (options.ttl || 3600) + options.staleWhileRevalidate });
+      }
+      
+      return value;
+    } catch (error) {
+      logger.error('Cache fetch error', error instanceof Error ? error : new Error(String(error)), { key });
+      throw error;
+    }
+  }
+
+  /**
+   * Maybe revalidate in background (stale-while-revalidate)
+   */
+  private async maybeRevalidateInBackground<T>(
+    key: string,
+    fetcher: () => Promise<T>,
+    options: CacheOptions
+  ): Promise<void> {
+    if (!this.redis || !options.staleWhileRevalidate) return;
+    
+    try {
+      const fetchedAt = await this.redis.get<number>(`${key}:fetched_at`);
+      if (!fetchedAt) return;
+      
+      const age = Date.now() - fetchedAt;
+      const ttlMs = (options.ttl || 3600) * 1000;
+      
+      // If past TTL but within stale window, revalidate in background
+      if (age > ttlMs) {
+        // Check if already revalidating
+        if (inFlightRequests.has(key)) return;
+        
+        logger.debug('Stale-while-revalidate: refreshing in background', { key, age, ttl: ttlMs });
+        
+        // Fire and forget - don't await
+        this.fetchWithMutex(key, fetcher, options).catch(err => {
+          logger.warn('Background revalidation failed', err instanceof Error ? err : new Error(String(err)));
+        });
+      }
+    } catch (error) {
+      // Ignore errors in background revalidation check
+    }
   }
 
   /**
@@ -234,6 +323,13 @@ export class CacheService {
       logger.error('Cache clear error', error instanceof Error ? error : new Error(String(error)));
       return false;
     }
+  }
+
+  /**
+   * Alias for clear() - for compatibility
+   */
+  async clearAll(): Promise<boolean> {
+    return this.clear();
   }
 
   /**

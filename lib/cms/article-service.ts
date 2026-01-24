@@ -58,6 +58,7 @@ export interface ArticleMetadata {
     excerpt?: string;
     category: string;
     tags?: string[];
+    status?: ArticleStatus; // Optional status change request
     seo_title?: string;
     seo_description?: string;
     featured_image?: string;
@@ -621,10 +622,10 @@ export class ArticleService {
                 if (!altRpcError && altRpcData && altRpcData.length > 0) {
                     articles = (altRpcData as any[]).map(item => this.normalizeArticle(item));
                 }
-            }
-            
-            if (altRpcError) {
-                logger.error('All RPC fallbacks failed', altRpcError);
+
+                if (altRpcError) {
+                    logger.error('All RPC fallbacks failed', altRpcError);
+                }
             }
         }
 

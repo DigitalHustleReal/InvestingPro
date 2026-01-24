@@ -1,0 +1,135 @@
+﻿
+> investing_pro_temp@0.1.0 test
+> jest __tests__/integration/api.test.ts
+
+  console.error
+    Error: Cross origin http://localhost forbidden
+        at ignore-listed frames {
+      type: 'XMLHttpRequest'
+    }
+
+      at VirtualConsole.<anonymous> (node_modules/@jest/environment-jsdom-abstract/build/index.js:87:23)
+
+  console.error
+    Error: Cross origin http://localhost forbidden
+        at ignore-listed frames {
+      type: 'XMLHttpRequest'
+    }
+
+      at VirtualConsole.<anonymous> (node_modules/@jest/environment-jsdom-abstract/build/index.js:87:23)
+
+  console.error
+    Error: Cross origin http://localhost forbidden
+        at ignore-listed frames {
+      type: 'XMLHttpRequest'
+    }
+
+      at VirtualConsole.<anonymous> (node_modules/@jest/environment-jsdom-abstract/build/index.js:87:23)
+
+  console.log
+    MockSupabase: insert called with Object
+
+      at SupabaseQueryBuilder.log [as insert] (__mocks__/@supabase/supabase-js.js:20:13)
+
+  console.log
+    MockSupabase: select called
+
+      at Object.log [as select] (__mocks__/@supabase/supabase-js.js:32:19)
+
+  console.log
+    MockSupabase: single called
+
+      at Object.log [as single] (__mocks__/@supabase/supabase-js.js:35:25)
+
+  console.error
+    Error: Cross origin http://localhost forbidden
+        at ignore-listed frames {
+      type: 'XMLHttpRequest'
+    }
+
+      at VirtualConsole.<anonymous> (node_modules/@jest/environment-jsdom-abstract/build/index.js:87:23)
+
+  console.log
+    MockSupabase: insert called with Object
+
+      at SupabaseQueryBuilder.log [as insert] (__mocks__/@supabase/supabase-js.js:20:13)
+
+  console.log
+    MockSupabase: select called
+
+      at Object.log [as select] (__mocks__/@supabase/supabase-js.js:32:19)
+
+  console.log
+    MockSupabase: single called
+
+      at Object.log [as single] (__mocks__/@supabase/supabase-js.js:35:25)
+
+  console.log
+    MockSupabase: _execute on table articles, initial count: 2
+
+      at SupabaseQueryBuilder.log [as _execute] (__mocks__/@supabase/supabase-js.js:98:13)
+
+  console.log
+    MockSupabase: after filters, count: 1
+
+      at SupabaseQueryBuilder.log [as _execute] (__mocks__/@supabase/supabase-js.js:104:13)
+
+  console.log
+    MockSupabase: applying updates { title: 'Updated Title' }
+
+      at SupabaseQueryBuilder.log [as _execute] (__mocks__/@supabase/supabase-js.js:108:17)
+
+  console.log
+    MockSupabase: updated row id-1769264444600 draft
+
+      at log (__mocks__/@supabase/supabase-js.js:111:21)
+          at Array.forEach (<anonymous>)
+
+  console.error
+    Error: Cross origin http://localhost forbidden
+        at ignore-listed frames {
+      type: 'XMLHttpRequest'
+    }
+
+      at VirtualConsole.<anonymous> (node_modules/@jest/environment-jsdom-abstract/build/index.js:87:23)
+
+  console.error
+    Error: Cross origin http://localhost forbidden
+        at ignore-listed frames {
+      type: 'XMLHttpRequest'
+    }
+
+      at VirtualConsole.<anonymous> (node_modules/@jest/environment-jsdom-abstract/build/index.js:87:23)
+
+  console.error
+    Error: Cross origin http://localhost forbidden
+        at ignore-listed frames {
+      type: 'XMLHttpRequest'
+    }
+
+      at VirtualConsole.<anonymous> (node_modules/@jest/environment-jsdom-abstract/build/index.js:87:23)
+
+  console.error
+    Error: Cross origin http://localhost forbidden
+        at ignore-listed frames {
+      type: 'XMLHttpRequest'
+    }
+
+      at VirtualConsole.<anonymous> (node_modules/@jest/environment-jsdom-abstract/build/index.js:87:23)
+
+  console.error
+    Error: Cross origin http://localhost forbidden
+        at ignore-listed frames {
+      type: 'XMLHttpRequest'
+    }
+
+      at VirtualConsole.<anonymous> (node_modules/@jest/environment-jsdom-abstract/build/index.js:87:23)
+
+  console.error
+    Error: Error: Response for preflight has invalid HTTP status code 400
+        at ignore-listed frames {
+      type: 'XMLHttpRequest'
+    }
+
+      at VirtualConsole.<anonymous> (node_modules/@jest/environment-jsdom-abstract/build/index.js:87:23)
+

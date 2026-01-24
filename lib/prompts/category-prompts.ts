@@ -160,7 +160,8 @@ TONE:
 - Educational and analytical
 - Data-driven and objective
 - Risk-aware and balanced
-- Encouraging for long-term investing`,
+- Encouraging for long-term investing
+- Focus on actionable advice and specific product categories over generic definitions`,
 
         keywords: [
             'mutual fund',
@@ -185,13 +186,12 @@ TONE:
         ],
 
         required_sections: [
-            'What is a Mutual Fund?',
-            'Types of Mutual Funds',
-            'SIP vs Lumpsum',
-            'Tax Implications',
-            'How to Invest',
-            'Risk Factors',
-            'Expense Ratio Explained'
+            'Top Performing Funds [Year]',
+            'SIP vs Lumpsum: Which is Better?',
+            'Tax Saving Options (ELSS)',
+            'How to Choose a Fund',
+            'Risk Factors & Disclaimers',
+            'Expense Ratio & Charges'
         ],
 
         examples: {
@@ -365,13 +365,12 @@ TONE:
         ],
 
         required_sections: [
-            'What is Insurance?',
-            'Types of Insurance',
-            'Coverage & Benefits',
-            'Exclusions & Limitations',
-            'Claim Process',
-            'Tax Benefits',
-            'How to Choose'
+            'Top Insurance Plans Comparison',
+            'Coverage Benefits Checklist',
+            'Exclusions You Must Know',
+            'Claim Settlement Ratio Analysis',
+            'Tax Benefits (Sec 80C/80D)',
+            'Buying Guide: Checklist'
         ],
 
         examples: {
@@ -539,13 +538,12 @@ TONE:
         ],
 
         required_sections: [
-            'What are Stocks?',
-            'How to Invest in Stocks',
-            'Stock Selection Criteria',
-            'Risk Factors',
-            'Tax Implications',
-            'Demat & Trading Account',
-            'Long-term vs Short-term'
+            'Top Sectors to Watch [Year]',
+            'Stock Selection Strategy',
+            'Risk Management Rules',
+            'Tax on Gains (LTCG/STCG)',
+            'Demat Account Comparison',
+            'Long-term Portfolio Building'
         ],
 
         examples: {
@@ -703,13 +701,12 @@ TONE:
         ],
 
         required_sections: [
-            'What is a Fixed Deposit?',
-            'Interest Rates',
-            'Tenure Options',
-            'Tax Implications',
-            'Premature Withdrawal',
-            'Senior Citizen Benefits',
-            'How to Invest'
+            'Highest Interest Rate Banks [Current Month]',
+            'Tenure Wise Returns',
+            'Tax Saving FDs',
+            'Premature Withdrawal Rules',
+            'Senior Citizen Special Rates',
+            'FD vs Other Options'
         ],
 
         examples: {
@@ -781,13 +778,12 @@ TONE:
         ],
 
         required_sections: [
-            'What is NPS/PPF?',
-            'Contribution Limits',
-            'Tax Benefits',
-            'Lock-in Period',
-            'Withdrawal Rules',
-            'NPS vs PPF Comparison',
-            'How to Invest'
+            'NPS vs PPF: Return Comparison',
+            'Tax Benefits (Sec 80C/80CCD)',
+            'Withdrawal & Maturity Rules',
+            'Historical Returns Data',
+            'Which One Should You Choose?',
+            'Account Opening Process'
         ],
 
         examples: {

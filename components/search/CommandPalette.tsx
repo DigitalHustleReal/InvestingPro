@@ -150,7 +150,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                     
                     {/* Search Input */}
                     <div className="relative flex items-center gap-4 px-6 py-5 border-b border-white/10 group">
-                        <div className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent opacity-0 group-focus-within:opacity-100 transition-opacity" />
+                        <div className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-primary-500/50 to-transparent opacity-0 group-focus-within:opacity-100 transition-opacity" />
                         
                         <Search className="w-6 h-6 text-slate-400 group-focus-within:text-primary-400 transition-colors" />
                         <input
@@ -207,7 +207,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                                         className={cn(
                                             "w-full text-left px-4 py-3 rounded-xl flex items-start gap-4 transition-all duration-200 group/item",
                                             selectedIndex === index 
-                                                ? "bg-primary-500/10 ring-1 ring-indigo-500/20" 
+                                                ? "bg-primary-500/10 ring-1 ring-primary-500/20" 
                                                 : "hover:bg-white/5"
                                         )}
                                     >

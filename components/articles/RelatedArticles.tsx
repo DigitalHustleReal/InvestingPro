@@ -69,7 +69,7 @@ export default function RelatedArticles({ articleId, className }: RelatedArticle
                         href={`/articles/${article.slug}`}
                         className="group"
                     >
-                        <Card className="h-full bg-white dark:bg-white/[0.03] border-slate-200 dark:border-white/5 hover:border-primary-500/30 dark:hover:border-primary-500/30 transition-all duration-300 overflow-hidden hover:shadow-lg hover:shadow-indigo-500/5">
+                        <Card className="h-full bg-white dark:bg-white/[0.03] border-slate-200 dark:border-white/5 hover:border-primary-500/30 dark:hover:border-primary-500/30 transition-all duration-300 overflow-hidden hover:shadow-lg hover:shadow-primary-500/5">
                             <div className="p-5">
                                 <div className="flex items-start gap-4">
                                     {article.featured_image ? (

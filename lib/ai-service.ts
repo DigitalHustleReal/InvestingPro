@@ -2,6 +2,11 @@
  * AI Service with Multi-Provider Fallback
  * Supports: Gemini, OpenAI, Anthropic (Claude)
  * NO MOCK DATA - Real AI only
+ * 
+ * Features:
+ * - Circuit breaker per provider (prevents cascade failures)
+ * - Retry with exponential backoff
+ * - Cost tracking and budget enforcement
  */
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
@@ -10,10 +15,23 @@ import Anthropic from '@anthropic-ai/sdk';
 import { Mistral } from '@mistralai/mistralai';
 import Groq from 'groq-sdk';
 import { logger } from './logger';
+import { CircuitBreaker, retry } from './utils/retry';
+import { calculateCostFromTokens, logAICost } from './ai/cost-tracker';
+import { BudgetGovernorAgent, BudgetStatus } from './agents/budget-governor-agent';
+
+// Enhanced response with token tracking
+interface AIResponse {
+    content: string;
+    inputTokens: number;
+    outputTokens: number;
+    provider: string;
+    model: string;
+}
 
 interface AIProvider {
     name: string;
-    generate: (prompt: string) => Promise<string>;
+    model: string;
+    generate: (prompt: string) => Promise<AIResponse>;
     isAvailable: () => boolean;
 }
 
@@ -21,9 +39,19 @@ class AIService {
     private providers: AIProvider[] = [];
     private currentProviderIndex = 0;
     private initialized = false;
+    
+    // Circuit breakers per provider (prevents cascade failures)
+    private circuitBreakers: Map<string, CircuitBreaker> = new Map();
+    
+    // Budget governor for cost enforcement
+    private budgetGovernor: BudgetGovernorAgent;
+    
+    // Track if budget checking is enabled
+    private budgetCheckEnabled = true;
 
     constructor() {
         // Initialization moved to lazy load
+        this.budgetGovernor = new BudgetGovernorAgent();
     }
 
     private ensureInitialized() {
@@ -31,9 +59,21 @@ class AIService {
         this.initializeProviders();
         this.initialized = true;
     }
+    
+    /**
+     * Get or create circuit breaker for a provider
+     */
+    private getCircuitBreaker(providerName: string): CircuitBreaker {
+        if (!this.circuitBreakers.has(providerName)) {
+            // 5 failures opens circuit, 60 second timeout
+            this.circuitBreakers.set(providerName, new CircuitBreaker(5, 60000));
+        }
+        return this.circuitBreakers.get(providerName)!;
+    }
 
     /**
      * Initialize all available AI providers
+     * Each provider returns AIResponse with token tracking
      */
     private initializeProviders() {
         // Provider 1: Google Gemini - TEMPORARILY DISABLED (404 errors)
@@ -43,11 +83,19 @@ class AIService {
             const gemini = new GoogleGenerativeAI(process.env.GOOGLE_GEMINI_API_KEY);
             this.providers.push({
                 name: 'Gemini',
+                model: 'gemini-pro',
                 isAvailable: () => !!process.env.GOOGLE_GEMINI_API_KEY,
                 generate: async (prompt: string) => {
                     const model = gemini.getGenerativeModel({ model: 'gemini-pro' });
                     const result = await model.generateContent(prompt);
-                    return result.response.text();
+                    const response = result.response;
+                    return {
+                        content: response.text(),
+                        inputTokens: response.usageMetadata?.promptTokenCount || 0,
+                        outputTokens: response.usageMetadata?.candidatesTokenCount || 0,
+                        provider: 'google',
+                        model: 'gemini-pro'
+                    };
                 }
             });
         }
@@ -56,16 +104,24 @@ class AIService {
         // Provider 2: Groq (Ultra Fast - Llama3/Mixtral)
         if (process.env.GROQ_API_KEY) {
             const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+            const modelName = 'llama-3.1-8b-instant';
             this.providers.push({
                 name: 'Groq',
+                model: modelName,
                 isAvailable: () => !!process.env.GROQ_API_KEY,
-                generate: async (prompt: string) => {
+                generate: async (prompt: string): Promise<AIResponse> => {
                     const completion = await groq.chat.completions.create({
                         messages: [{ role: 'user', content: prompt }],
-                        model: 'llama-3.1-8b-instant',
+                        model: modelName,
                         temperature: 0.7,
                     });
-                    return completion.choices[0]?.message?.content || '';
+                    return {
+                        content: completion.choices[0]?.message?.content || '',
+                        inputTokens: completion.usage?.prompt_tokens || 0,
+                        outputTokens: completion.usage?.completion_tokens || 0,
+                        provider: 'groq',
+                        model: modelName
+                    };
                 }
             });
         }
@@ -73,15 +129,23 @@ class AIService {
         // Provider 3: Mistral (Stable European Provider)
         if (process.env.MISTRAL_API_KEY) {
             const mistral = new Mistral({ apiKey: process.env.MISTRAL_API_KEY });
+            const modelName = process.env.MISTRAL_MODEL || 'mistral-small-latest';
             this.providers.push({
                 name: 'Mistral',
+                model: modelName,
                 isAvailable: () => !!process.env.MISTRAL_API_KEY,
-                generate: async (prompt: string) => {
+                generate: async (prompt: string): Promise<AIResponse> => {
                     const result = await mistral.chat.complete({
-                        model: process.env.MISTRAL_MODEL || 'mistral-small-latest',
+                        model: modelName,
                         messages: [{ role: 'user', content: prompt }],
                     });
-                    return (result.choices?.[0]?.message?.content as string) || '';
+                    return {
+                        content: (result.choices?.[0]?.message?.content as string) || '',
+                        inputTokens: result.usage?.promptTokens || 0,
+                        outputTokens: result.usage?.completionTokens || 0,
+                        provider: 'mistral',
+                        model: modelName
+                    };
                 }
             });
         }
@@ -89,17 +153,25 @@ class AIService {
         // Provider 4: OpenAI (Industry Standard)
         if (process.env.OPENAI_API_KEY) {
             const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+            const modelName = 'gpt-4o-mini';
             this.providers.push({
                 name: 'OpenAI',
+                model: modelName,
                 isAvailable: () => !!process.env.OPENAI_API_KEY,
-                generate: async (prompt: string) => {
+                generate: async (prompt: string): Promise<AIResponse> => {
                     const completion = await openai.chat.completions.create({
-                        model: 'gpt-4o-mini',
+                        model: modelName,
                         messages: [{ role: 'user', content: prompt }],
                         temperature: 0.7,
                         max_tokens: 2000
                     });
-                    return completion.choices[0]?.message?.content || '';
+                    return {
+                        content: completion.choices[0]?.message?.content || '',
+                        inputTokens: completion.usage?.prompt_tokens || 0,
+                        outputTokens: completion.usage?.completion_tokens || 0,
+                        provider: 'openai',
+                        model: modelName
+                    };
                 }
             });
         }
@@ -107,18 +179,26 @@ class AIService {
         // Provider 5: Anthropic (Claude-3)
         if (process.env.ANTHROPIC_API_KEY) {
             const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+            const modelName = 'claude-3-haiku-20240307';
             this.providers.push({
                 name: 'Claude',
+                model: modelName,
                 isAvailable: () => !!process.env.ANTHROPIC_API_KEY,
-                generate: async (prompt: string) => {
+                generate: async (prompt: string): Promise<AIResponse> => {
                     const message = await anthropic.messages.create({
-                        model: 'claude-3-haiku-20240307',
+                        model: modelName,
                         max_tokens: 2000,
                         messages: [{ role: 'user', content: prompt }]
                     });
                     
                     const content = message.content[0];
-                    return content.type === 'text' ? content.text : '';
+                    return {
+                        content: content.type === 'text' ? content.text : '',
+                        inputTokens: message.usage?.input_tokens || 0,
+                        outputTokens: message.usage?.output_tokens || 0,
+                        provider: 'anthropic',
+                        model: modelName
+                    };
                 }
             });
         }
@@ -128,19 +208,50 @@ class AIService {
             throw new Error('AI Service requires at least one provider. Check your .env.local file.');
         }
 
+        // Initialize circuit breakers for each provider
+        this.providers.forEach(p => this.getCircuitBreaker(p.name));
+
         logger.info(`AI Service initialized with ${this.providers.length} provider(s): ${this.providers.map(p => p.name).join(', ')}`);
     }
 
 
     /**
-     * Generate content with automatic fallback
+     * Generate content with automatic fallback, circuit breaker, and retry
      */
     async generate(prompt: string, options?: {
         format?: 'text' | 'json';
         maxRetries?: number;
+        articleId?: string;
+        operation?: 'generate' | 'proofread' | 'translate' | 'summarize' | 'analyze' | 'other';
+        skipBudgetCheck?: boolean;
     }): Promise<string> {
         this.ensureInitialized();
-        const { format = 'text', maxRetries = 3 } = options || {};
+        const { 
+            format = 'text', 
+            maxRetries = 3, 
+            articleId,
+            operation = 'generate',
+            skipBudgetCheck = false
+        } = options || {};
+        
+        // Check budget before generation (unless skipped)
+        if (this.budgetCheckEnabled && !skipBudgetCheck) {
+            try {
+                const budgetStatus = await this.budgetGovernor.checkBudget();
+                if (!budgetStatus.canGenerate) {
+                    const errorMsg = `Budget exceeded: ${budgetStatus.reason || 'Daily limit reached'}`;
+                    logger.warn(errorMsg);
+                    throw new Error(errorMsg);
+                }
+            } catch (error: any) {
+                // Only throw if it's a budget error, not a connection error
+                if (error.message?.includes('Budget exceeded')) {
+                    throw error;
+                }
+                // Log but continue if budget check fails (fail open)
+                logger.warn('Budget check failed, continuing with generation', error);
+            }
+        }
         
         // Enforce JSON structure in prompt if requested
         let finalPrompt = prompt;
@@ -150,12 +261,21 @@ class AIService {
         
         let lastError: Error | null = null;
         const attemptedProviders: string[] = [];
+        const startTime = Date.now();
 
-        // Try each provider in sequence
+        // Try each provider in sequence with circuit breaker and retry
         for (let i = 0; i < this.providers.length; i++) {
             const provider = this.providers[this.currentProviderIndex];
+            const circuitBreaker = this.getCircuitBreaker(provider.name);
             
             if (!provider.isAvailable()) {
+                this.moveToNextProvider();
+                continue;
+            }
+            
+            // Skip if circuit breaker is open
+            if (circuitBreaker.getState() === 'open') {
+                logger.info(`⏭️ Skipping ${provider.name} - circuit breaker open`);
                 this.moveToNextProvider();
                 continue;
             }
@@ -164,19 +284,45 @@ class AIService {
                 logger.info(`Attempting generation with ${provider.name}...`);
                 attemptedProviders.push(provider.name);
                 
-                const result = await provider.generate(finalPrompt);
+                // Use circuit breaker with retry logic
+                const response = await circuitBreaker.execute(async () => {
+                    return retry(
+                        () => provider.generate(finalPrompt),
+                        {
+                            maxRetries,
+                            delay: 1000,
+                            backoff: 'exponential',
+                            onRetry: (attempt, error) => {
+                                logger.info(`Retry ${attempt}/${maxRetries} for ${provider.name}: ${error.message}`);
+                            }
+                        }
+                    );
+                });
                 
                 // Validate JSON if required
                 if (format === 'json') {
-                    JSON.parse(result); // Will throw if invalid
+                    JSON.parse(response.content); // Will throw if invalid
                 }
                 
-                logger.info(`✅ Successfully generated with ${provider.name}`);
-                return result;
+                const duration = Date.now() - startTime;
+                logger.info(`✅ Successfully generated with ${provider.name} in ${duration}ms`);
+                
+                // Track cost asynchronously (don't block response)
+                this.trackCost(response, articleId, operation, duration).catch(err => {
+                    logger.warn('Failed to track AI cost', err);
+                });
+                
+                return response.content;
                 
             } catch (error: any) {
                 lastError = error;
-                logger.warn(`❌ ${provider.name} failed:`, error.message);
+                
+                // Check if circuit breaker opened
+                if (error.message === 'Circuit breaker is open') {
+                    logger.info(`⏭️ ${provider.name} circuit breaker is open, moving to next provider`);
+                } else {
+                    logger.warn(`❌ ${provider.name} failed:`, error.message);
+                }
                 
                 // Move to next provider
                 this.moveToNextProvider();
@@ -187,6 +333,80 @@ class AIService {
         const errorMsg = `All AI providers failed. Attempted: ${attemptedProviders.join(', ')}. Last error: ${lastError?.message}`;
         logger.error(errorMsg);
         throw new Error(errorMsg);
+    }
+    
+    /**
+     * Track AI cost asynchronously
+     */
+    private async trackCost(
+        response: AIResponse,
+        articleId?: string,
+        operation: 'generate' | 'proofread' | 'translate' | 'summarize' | 'analyze' | 'other' = 'generate',
+        durationMs?: number
+    ): Promise<void> {
+        try {
+            const cost = calculateCostFromTokens(
+                response.provider,
+                response.model,
+                response.inputTokens,
+                response.outputTokens
+            );
+            
+            await logAICost({
+                article_id: articleId,
+                provider: response.provider,
+                model: response.model,
+                operation,
+                input_tokens: response.inputTokens,
+                output_tokens: response.outputTokens,
+                cost_usd: cost,
+                duration_ms: durationMs
+            });
+            
+            // Also record to budget governor for daily tracking
+            if (articleId) {
+                await this.budgetGovernor.recordCost(
+                    articleId,
+                    response.inputTokens + response.outputTokens,
+                    cost,
+                    response.provider,
+                    response.model
+                );
+            }
+            
+            logger.debug('AI cost tracked', {
+                provider: response.provider,
+                tokens: response.inputTokens + response.outputTokens,
+                cost: cost.toFixed(6)
+            });
+        } catch (error) {
+            logger.warn('Failed to track AI cost', error as Error);
+        }
+    }
+    
+    /**
+     * Enable/disable budget checking (useful for tests)
+     */
+    setBudgetCheckEnabled(enabled: boolean): void {
+        this.budgetCheckEnabled = enabled;
+    }
+    
+    /**
+     * Get circuit breaker states for monitoring
+     */
+    getCircuitBreakerStates(): Record<string, 'closed' | 'open' | 'half-open'> {
+        const states: Record<string, 'closed' | 'open' | 'half-open'> = {};
+        this.circuitBreakers.forEach((cb, name) => {
+            states[name] = cb.getState();
+        });
+        return states;
+    }
+    
+    /**
+     * Check budget status
+     */
+    async checkBudget(): Promise<BudgetStatus> {
+        return this.budgetGovernor.checkBudget();
     }
 
     /**
@@ -336,14 +556,16 @@ Return ONLY valid JSON:
     }
 
     /**
-     * Get service status
+     * Get service status including circuit breaker states
      */
     getStatus() {
         this.ensureInitialized();
         return {
             totalProviders: this.providers.length,
             activeProviders: this.providers.filter(p => p.isAvailable()).map(p => p.name),
-            currentProvider: this.providers[this.currentProviderIndex]?.name
+            currentProvider: this.providers[this.currentProviderIndex]?.name,
+            circuitBreakers: this.getCircuitBreakerStates(),
+            budgetCheckEnabled: this.budgetCheckEnabled
         };
     }
 }

@@ -11,10 +11,10 @@ const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.en
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 
 const TOPICS = [
-    { title: "Best Credit Cards for Airport Lounge Access in India 2026", category: "credit-cards", keywords: ["lounge access", "travel credit cards", "airport lounge list"] },
-    { title: "SIP vs Lumpsum: Which is Better for Volatile Markets?", category: "mutual-funds", keywords: ["sip calculator", "lumpsum investment", "market volatility"] },
-    { title: "Term Insurance Checklist: 10 Things to Check Before Buying", category: "insurance", keywords: ["term plan", "claim settlement ratio", "riders"] },
-    { title: "How to Save Tax on Salary Above 20 Lakhs", category: "tax", keywords: ["section 80c", "tax saving", "high income tax"] } // Changed "tax-planning" to "tax" to match simpler slug if needed, or stick to standard.
+    { title: "Best Credit Cards for Airport Lounge Access 2026 [List]", category: "credit-cards", keywords: ["lounge access", "compare credit cards", "airport lounge list india"] },
+    { title: "Best Mutual Funds for 5-Year Goals: A Comparisons", category: "mutual-funds", keywords: ["best mutual funds", "compare funds", "high return funds"] },
+    { title: "Top 10 Term Insurance Plans with Highest Claim Ratio 2026", category: "insurance", keywords: ["best term insurance", "claim settlement ratio", "compare term plans"] },
+    { title: "How to Save Tax for Salary >20 Lakhs: Actionable Guide", category: "tax", keywords: ["section 80c", "tax saving investments", "high income tax planning"] }
 ];
 
 async function seedQueue() {

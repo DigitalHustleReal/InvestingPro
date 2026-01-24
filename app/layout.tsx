@@ -42,14 +42,57 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { NavigationProvider } from "@/contexts/NavigationContext";
 import { initializeEventSystem } from "@/lib/events/setup";
 import { initializeLogging } from "@/lib/logging/initialize";
+import { validateEnvOnStartup } from "@/lib/env";
+import type { Metadata } from 'next';
 // Tracing is disabled - file exists as .disabled
 // import { initializeTracing } from "@/lib/tracing/opentelemetry";
+
+// Global metadata for the application
+export const metadata: Metadata = {
+  metadataBase: new URL('https://investingpro.in'),
+  title: {
+    default: 'InvestingPro - Smart Financial Decisions Made Simple',
+    template: '%s | InvestingPro'
+  },
+  description: 'Compare credit cards, loans, mutual funds, and government schemes. Get AI-powered recommendations and expert reviews to make smarter financial decisions.',
+  keywords: ['personal finance', 'credit cards', 'loans', 'mutual funds', 'investment', 'India', 'financial planning', 'government schemes'],
+  authors: [{ name: 'InvestingPro Team' }],
+  creator: 'InvestingPro',
+  publisher: 'InvestingPro',
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    url: 'https://investingpro.in',
+    siteName: 'InvestingPro',
+    title: 'InvestingPro - Smart Financial Decisions Made Simple',
+    description: 'Compare credit cards, loans, mutual funds, and more. Get AI-powered recommendations and expert reviews.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'InvestingPro - Smart Financial Decisions Made Simple',
+    description: 'Compare credit cards, loans, mutual funds, and more. Get AI-powered recommendations and expert reviews.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+};
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Validate environment variables first (fails fast on missing required vars)
+  validateEnvOnStartup();
+  
   // Initialize logging (runs once per server instance)
   initializeLogging();
   

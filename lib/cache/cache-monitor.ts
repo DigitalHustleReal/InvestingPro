@@ -123,6 +123,42 @@ class CacheMonitor {
     this.totalHits = 0;
     this.totalMisses = 0;
   }
+
+  /**
+   * Get cache statistics summary
+   * Returns hits, misses, and ratio in a simple format
+   */
+  getCacheStats(): { hits: number; misses: number; ratio: number } {
+    const total = this.totalHits + this.totalMisses;
+    return {
+      hits: this.totalHits,
+      misses: this.totalMisses,
+      ratio: total > 0 ? Math.round((this.totalHits / total) * 10000) / 100 : 0, // Percentage with 2 decimals
+    };
+  }
+
+  /**
+   * Get cache stats with detailed breakdown
+   */
+  getDetailedStats(): {
+    summary: { hits: number; misses: number; ratio: number };
+    byCategory: Record<string, CacheMetrics>;
+    totalOperations: number;
+  } {
+    const stats = this.getCacheStats();
+    const byCategory = this.getMetricsByCategory();
+    
+    let totalOps = 0;
+    Object.values(byCategory).forEach(m => {
+      totalOps += m.hits + m.misses + m.sets + m.deletes;
+    });
+
+    return {
+      summary: stats,
+      byCategory,
+      totalOperations: totalOps,
+    };
+  }
 }
 
 // Export singleton instance

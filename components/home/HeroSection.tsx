@@ -15,10 +15,10 @@ import DecisionCTA from '@/components/common/DecisionCTA';
 const HERO_SLIDES = [
     {
         id: "all",
-        badge: "Helps You Decide • Expert-Reviewed • Instant Apply",
-        headline: "Compare 1000+ Credit Cards",
-        highlight: "& Mutual Funds",
-        desc: `Compare. Decide. Apply. India's Smartest Financial Choices. Make smart financial decisions with real-time comparisons and instant application links.`,
+        badge: "Expert-Reviewed • AI-Powered • Instant Apply",
+        headline: "Smart Financial Decisions",
+        highlight: "Made Simple",
+        desc: `Compare credit cards, loans, mutual funds, and more. Get personalized recommendations and expert reviews to make confident financial choices.`,
         gradient: "from-primary-600 via-primary-500 to-secondary-500",
         primaryCta: { text: "Find Your Perfect Card", href: "/credit-cards", icon: CreditCard },
         secondaryCta: { text: "Start Investing", href: "/mutual-funds", icon: Calculator }

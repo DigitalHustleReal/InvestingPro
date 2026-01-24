@@ -30,18 +30,25 @@ function CommandCenterSection({ children, name }: { children: React.ReactNode, n
 export default function Home() {
     const structuredData = {
         "@context": "https://schema.org",
-        "@type": "Organization", // Changed from FinancialService
-        "name": "InvestingPro.in",
-        "description": "Compare. Decide. Apply. India's Smartest Financial Choices.",
+        "@type": "FinancialService",
+        "name": "InvestingPro - Smart Financial Decisions Made Simple",
+        "alternateName": "InvestingPro.in",
+        "description": "Compare credit cards, loans, mutual funds, and government schemes. Get expert reviews and AI-powered recommendations to make smarter financial decisions.",
         "url": "https://investingpro.in",
-        "aggregateRating": STRUCTURED_DATA_STATS.aggregateRating // Using imported constant
+        "slogan": "Compare. Decide. Apply. India's Smartest Financial Choices.",
+        "aggregateRating": STRUCTURED_DATA_STATS.aggregateRating,
+        "areaServed": {
+            "@type": "Country",
+            "name": "India"
+        },
+        "knowsAbout": ["Personal Finance", "Credit Cards", "Loans", "Mutual Funds", "Investment", "Government Schemes"]
     };
 
     return (
         <main className="flex flex-col min-h-screen bg-white">
             <SEOHead
-                title="InvestingPro - Compare 1000+ Credit Cards & Mutual Funds. Make Smart Decisions. Apply Instantly."
-                description="Compare. Decide. Apply. India's Smartest Financial Choices. Make smart financial decisions with real-time comparisons, expert reviews, and instant application links."
+                title="InvestingPro - Compare Credit Cards, Loans & Mutual Funds | Make Smart Decisions"
+                description="Compare credit cards, loans, mutual funds, and government schemes. Get AI-powered recommendations, expert reviews, and instant applications. Make smarter financial decisions."
                 structuredData={structuredData}
             />
 

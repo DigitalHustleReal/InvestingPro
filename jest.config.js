@@ -9,8 +9,16 @@ const createJestConfig = nextJest({
 const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testEnvironment: 'jest-environment-jsdom',
+  testEnvironmentOptions: {
+    url: 'http://localhost:3000/',
+  },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
+    'server-only': '<rootDir>/__mocks__/server-only.js',
+    '@upstash/redis': '<rootDir>/__mocks__/@upstash/redis.js',
+    '@supabase/supabase-js': '<rootDir>/__mocks__/@supabase/supabase-js.js',
+    '@supabase/ssr': '<rootDir>/__mocks__/@supabase/ssr.js',
+    '@/lib/workflows/hooks/article-workflow-hooks': '<rootDir>/__mocks__/article-workflow-hooks.js',
   },
   testMatch: [
     '**/__tests__/**/*.test.[jt]s?(x)',
@@ -39,5 +47,13 @@ const customJestConfig = {
 }
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-module.exports = createJestConfig(customJestConfig)
+module.exports = async () => {
+  const config = await createJestConfig(customJestConfig)()
+  // Custom transformIgnorePatterns to allow transforming ESM modules
+  config.transformIgnorePatterns = [
+    // Transform specifically these packages that are ESM only
+    '/node_modules/(?!(marked|uuid|nanoid|@anthropic-ai|@google|@mdx-js|remark|rehype|unist|vfile)/)',
+  ]
+  return config
+}
 

@@ -531,7 +531,7 @@ export function SWPCalculator() {
                             </div>
 
                             {/* Key Insight */}
-                            <div className="p-4 bg-gradient-to-br from-primary/5 to-indigo-50/5 rounded-xl border border-border">
+                            <div className="p-4 bg-gradient-to-br from-primary/5 to-primary-50/5 rounded-xl border border-border">
                                 <div className="flex items-start gap-3">
                                     <Info className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                                     <div>

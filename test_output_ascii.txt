@@ -1,0 +1,29 @@
+  console.error
+    Error: Error: getaddrinfo ENOTFOUND mock.supabase.co
+        at ignore-listed frames {
+      type: 'XMLHttpRequest'
+    }
+
+      at VirtualConsole.<anonymous> (node_modules/@jest/environment-jsdom-abstract/build/index.js:87:23)
+
+  console.error
+    TypeError: Network request failed
+        at C:\Users\shivp\Desktop\InvestingPro_App\node_modules\whatwg-fetch\dist\fetch.umd.js:567:18
+        at Timeout.task [as _onTimeout] (C:\Users\shivp\Desktop\InvestingPro_App\node_modules\jest-environment-jsdom\node_modules\jsdom\lib\jsdom\browser\Window.js:579:19)
+        at listOnTimeout (node:internal/timers:588:17)
+        at processTimers (node:internal/timers:523:7)
+
+    [0m [90m 59 |[39m   email [33m=[39m [32m`test-${Date.now()}@example.com`[39m
+     [90m 60 |[39m ) {
+    [31m[1m>[22m[39m[90m 61 |[39m   [36mconst[39m { data[33m,[39m error } [33m=[39m [36mawait[39m supabase[33m.[39mauth[33m.[39madmin[33m.[39mcreateUser({
+     [90m    |[39m                           [31m[1m^[22m[39m
+     [90m 62 |[39m     email[33m,[39m
+     [90m 63 |[39m     password[33m:[39m [32m'test-password-123'[39m[33m,[39m
+     [90m 64 |[39m     email_confirm[33m:[39m [36mtrue[39m[33m,[39m[0m
+
+      at _handleRequest (node_modules/@supabase/auth-js/src/lib/fetch.ts:188:13)
+      at _request (node_modules/@supabase/auth-js/src/lib/fetch.ts:157:16)
+      at GoTrueAdminApi.createUser (node_modules/@supabase/auth-js/src/GoTrueAdminApi.ts:194:14)
+      at createTestUser (__tests__/setup/test-helpers.ts:61:27)
+      at Object.<anonymous> (__tests__/integration/api.test.ts:19:18)
+

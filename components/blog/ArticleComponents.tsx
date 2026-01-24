@@ -22,58 +22,58 @@ export function Callout({ type, title, children, className }: CalloutProps) {
   const config = {
     'key-takeaway': {
       icon: CheckCircle2,
-      bgColor: 'bg-primary-50',
-      borderColor: 'border-primary-500',
-      iconColor: 'text-primary-600',
-      titleColor: 'text-primary-900',
+      bgColor: 'bg-primary-50 dark:bg-primary-950',
+      borderColor: 'border-primary-500 dark:border-primary-400',
+      iconColor: 'text-primary-600 dark:text-primary-400',
+      titleColor: 'text-primary-900 dark:text-primary-100',
       defaultTitle: 'Key Takeaway'
     },
     'important': {
       icon: AlertCircle,
-      bgColor: 'bg-secondary-50',
-      borderColor: 'border-secondary-500',
-      iconColor: 'text-primary-600',
-      titleColor: 'text-secondary-900',
+      bgColor: 'bg-secondary-50 dark:bg-secondary-950',
+      borderColor: 'border-secondary-500 dark:border-secondary-400',
+      iconColor: 'text-primary-600 dark:text-primary-400',
+      titleColor: 'text-secondary-900 dark:text-secondary-100',
       defaultTitle: 'Important'
     },
     'tip': {
       icon: Lightbulb,
-      bgColor: 'bg-accent-50',
-      borderColor: 'border-accent-500',
-      iconColor: 'text-accent-600',
-      titleColor: 'text-accent-900',
+      bgColor: 'bg-accent-50 dark:bg-accent-950',
+      borderColor: 'border-accent-500 dark:border-accent-400',
+      iconColor: 'text-accent-600 dark:text-accent-400',
+      titleColor: 'text-accent-900 dark:text-accent-100',
       defaultTitle: 'Pro Tip'
     },
     'warning': {
       icon: AlertTriangle,
-      bgColor: 'bg-danger-50',
-      borderColor: 'border-danger-500',
-      iconColor: 'text-danger-600',
-      titleColor: 'text-danger-900',
+      bgColor: 'bg-danger-50 dark:bg-danger-950',
+      borderColor: 'border-danger-500 dark:border-danger-400',
+      iconColor: 'text-danger-600 dark:text-danger-400',
+      titleColor: 'text-danger-900 dark:text-danger-100',
       defaultTitle: 'Warning'
     },
     'example': {
       icon: TrendingUp,
-      bgColor: 'bg-secondary-50',
-      borderColor: 'border-secondary-500',
-      iconColor: 'text-secondary-600',
-      titleColor: 'text-secondary-900',
+      bgColor: 'bg-secondary-50 dark:bg-secondary-950',
+      borderColor: 'border-secondary-500 dark:border-secondary-400',
+      iconColor: 'text-secondary-600 dark:text-secondary-400',
+      titleColor: 'text-secondary-900 dark:text-secondary-100',
       defaultTitle: 'Example'
     },
     'definition': {
       icon: Info,
-      bgColor: 'bg-slate-50',
-      borderColor: 'border-slate-400',
-      iconColor: 'text-slate-600',
-      titleColor: 'text-slate-900',
+      bgColor: 'bg-slate-50 dark:bg-slate-900',
+      borderColor: 'border-slate-400 dark:border-slate-600',
+      iconColor: 'text-slate-600 dark:text-slate-400',
+      titleColor: 'text-slate-900 dark:text-slate-100',
       defaultTitle: 'Definition'
     },
     'calculation': {
       icon: Calculator,
-      bgColor: 'bg-primary-50',
-      borderColor: 'border-primary-500',
-      iconColor: 'text-primary-600',
-      titleColor: 'text-primary-900',
+      bgColor: 'bg-primary-50 dark:bg-primary-950',
+      borderColor: 'border-primary-500 dark:border-primary-400',
+      iconColor: 'text-primary-600 dark:text-primary-400',
+      titleColor: 'text-primary-900 dark:text-primary-100',
       defaultTitle: 'Calculation'
     }
   }
@@ -93,7 +93,7 @@ export function Callout({ type, title, children, className }: CalloutProps) {
           <h4 className={cn('font-bold text-lg mb-2', titleColor)}>
             {title || defaultTitle}
           </h4>
-          <div className="text-slate-700 prose prose-sm max-w-none">
+          <div className="text-slate-700 dark:text-slate-300 prose prose-sm dark:prose-invert max-w-none">
             {children}
           </div>
         </div>
@@ -107,10 +107,10 @@ export function Callout({ type, title, children, className }: CalloutProps) {
  */
 export function Highlight({ children, color = 'emerald' }: { children: React.ReactNode, color?: 'emerald' | 'blue' | 'amber' | 'purple' }) {
   const colors = {
-    emerald: 'bg-primary-100 text-primary-900 border-primary-300',
-    blue: 'bg-secondary-100 text-secondary-900 border-secondary-300',
-    amber: 'bg-accent-100 text-accent-900 border-accent-300',
-    purple: 'bg-secondary-100 text-secondary-900 border-secondary-300'
+    emerald: 'bg-primary-100 dark:bg-primary-900/50 text-primary-900 dark:text-primary-100 border-primary-300 dark:border-primary-700',
+    blue: 'bg-secondary-100 dark:bg-secondary-900/50 text-secondary-900 dark:text-secondary-100 border-secondary-300 dark:border-secondary-700',
+    amber: 'bg-accent-100 dark:bg-accent-900/50 text-accent-900 dark:text-accent-100 border-accent-300 dark:border-accent-700',
+    purple: 'bg-secondary-100 dark:bg-secondary-900/50 text-secondary-900 dark:text-secondary-100 border-secondary-300 dark:border-secondary-700'
   }
 
   return (
@@ -158,22 +158,22 @@ export function ComparisonBox({ title, items }: {
   items: Array<{ label: string; good?: string; bad?: string }>
 }) {
   return (
-    <div className="my-8 border-2 border-slate-200 rounded-lg overflow-hidden">
-      <div className="bg-primary-600 text-white px-6 py-3">
+    <div className="my-8 border-2 border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+      <div className="bg-primary-600 dark:bg-primary-700 text-white px-6 py-3">
         <h3 className="font-bold text-lg">{title}</h3>
       </div>
-      <div className="divide-y divide-slate-200">
+      <div className="divide-y divide-slate-200 dark:divide-slate-700">
         {items.map((item, index) => (
-          <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-            <div className="font-semibold text-slate-900">{item.label}</div>
+          <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-white dark:bg-slate-800">
+            <div className="font-semibold text-slate-900 dark:text-white">{item.label}</div>
             {item.good && (
-              <div className="flex items-center gap-2 text-success-700">
+              <div className="flex items-center gap-2 text-success-700 dark:text-success-400">
                 <CheckCircle2 className="w-4 h-4" />
                 <span>{item.good}</span>
               </div>
             )}
             {item.bad && (
-              <div className="flex items-center gap-2 text-danger-700">
+              <div className="flex items-center gap-2 text-danger-700 dark:text-danger-400">
                 <AlertCircle className="w-4 h-4" />
                 <span>{item.bad}</span>
               </div>

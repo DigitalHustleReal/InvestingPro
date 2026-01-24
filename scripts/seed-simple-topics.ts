@@ -13,14 +13,14 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 // Simple topic seeds - system will auto-generate SEO titles
 // Using only existing categories to avoid constraint errors
 const SIMPLE_TOPICS = [
-    { topic: "tax saving for freelancers", category: "tax-planning" },
-    { topic: "mutual fund portfolio diversification", category: "mutual-funds" },
-    { topic: "credit card reward maximization", category: "credit-cards" },
-    { topic: "term insurance vs whole life insurance", category: "insurance" },
-    { topic: "SIP investment strategies", category: "mutual-funds" },
-    { topic: "personal loan eligibility criteria", category: "personal-loans" },
-    { topic: "retirement planning strategies", category: "retirement" },
-    { topic: "stock market investing for beginners", category: "investing-basics" }
+    { topic: "tax saving ELSS funds comparison 2026", category: "tax-planning" },
+    { topic: "best mutual funds for 5 year goals", category: "mutual-funds" },
+    { topic: "credit card for airport lounge access list", category: "credit-cards" },
+    { topic: "term insurance claim settlement ratio 2026", category: "insurance" },
+    { topic: "best SIP plans for high returns", category: "mutual-funds" },
+    { topic: "personal loan low interest rate comparison", category: "personal-loans" },
+    { topic: "NPS vs PPF vs EPF calculator guide", category: "retirement" },
+    { topic: "how to open demat account step by step", category: "investing-basics" }
 ];
 
 async function seedSimpleTopics() {

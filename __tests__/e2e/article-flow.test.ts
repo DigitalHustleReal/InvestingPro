@@ -23,15 +23,18 @@ describe('Article Creation and Publishing Flow (E2E)', () => {
   describe('Complete Article Lifecycle', () => {
     it('should create, review, and publish an article', async () => {
       // Step 1: Create draft article
-      const draft = await articleService.createArticle({
-        title: 'E2E Test Article',
-        slug: `e2e-test-${Date.now()}`,
-        body_markdown: '# E2E Test Content\n\nThis is a test article.',
-        body_html: '<h1>E2E Test Content</h1><p>This is a test article.</p>',
-        status: 'draft',
-        category: 'test',
-        excerpt: 'Test excerpt',
-      }, testUserId);
+      const draft = await articleService.createArticle(
+        {
+          body_markdown: '# E2E Test Content\n\nThis is a test article.',
+          body_html: '<h1>E2E Test Content</h1><p>This is a test article.</p>',
+        },
+        {
+          title: 'E2E Test Article',
+          slug: `e2e-test-${Date.now()}`,
+          category: 'test',
+          excerpt: 'Test excerpt',
+        }
+      );
 
       expect(draft.status).toBe('draft');
       expect(draft.id).toBeDefined();
@@ -61,15 +64,17 @@ describe('Article Creation and Publishing Flow (E2E)', () => {
 
     it('should handle article versioning during edits', async () => {
       // Create article
-      const article = await articleService.createArticle({
-        title: 'Version Test Article',
-        slug: `version-test-${Date.now()}`,
-        body_markdown: '# Original Content',
-        body_html: '<h1>Original Content</h1>',
-        status: 'published',
-        category: 'test',
-        published_at: new Date().toISOString(),
-      }, testUserId);
+      const article = await articleService.createArticle(
+        {
+          body_markdown: '# Original Content',
+          body_html: '<h1>Original Content</h1>',
+        },
+        {
+          title: 'Version Test Article',
+          slug: `version-test-${Date.now()}`,
+          category: 'test',
+        }
+      );
 
       articleIds.push(article.id);
 
@@ -109,15 +114,17 @@ describe('Article Creation and Publishing Flow (E2E)', () => {
 
     it('should rollback article to previous version', async () => {
       // Create article
-      const article = await articleService.createArticle({
-        title: 'Rollback Test',
-        slug: `rollback-test-${Date.now()}`,
-        body_markdown: '# Original',
-        body_html: '<h1>Original</h1>',
-        status: 'published',
-        category: 'test',
-        published_at: new Date().toISOString(),
-      }, testUserId);
+      const article = await articleService.createArticle(
+        {
+          body_markdown: '# Original',
+          body_html: '<h1>Original</h1>',
+        },
+        {
+          title: 'Rollback Test',
+          slug: `rollback-test-${Date.now()}`,
+          category: 'test',
+        }
+      );
 
       articleIds.push(article.id);
 
@@ -167,14 +174,17 @@ describe('Article Creation and Publishing Flow (E2E)', () => {
 
   describe('Article Publishing Workflow', () => {
     it('should trigger publishing workflow on publish', async () => {
-      const article = await articleService.createArticle({
-        title: 'Workflow Test',
-        slug: `workflow-test-${Date.now()}`,
-        body_markdown: '# Test',
-        body_html: '<h1>Test</h1>',
-        status: 'draft',
-        category: 'test',
-      }, testUserId);
+      const article = await articleService.createArticle(
+        {
+          body_markdown: '# Test',
+          body_html: '<h1>Test</h1>',
+        },
+        {
+          title: 'Workflow Test',
+          slug: `workflow-test-${Date.now()}`,
+          category: 'test',
+        }
+      );
 
       articleIds.push(article.id);
 

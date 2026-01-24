@@ -3,6 +3,72 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { setRequestContext, clearRequestContext } from '@/lib/middleware/request-context';
 import { nanoid } from 'nanoid';
 
+// =============================================================================
+// TENANT DETECTION HELPERS
+// =============================================================================
+
+interface TenantIdentification {
+    identifier: string | null;
+    source: 'header' | 'subdomain' | 'domain' | 'default';
+}
+
+/**
+ * Extract tenant identifier from request
+ * Priority: Header > Subdomain > Custom Domain > Default
+ */
+function extractTenantIdentifier(request: NextRequest): TenantIdentification {
+    const url = request.nextUrl;
+    const hostname = url.hostname;
+
+    // 1. Check for explicit tenant header (useful for API calls)
+    const tenantHeader = request.headers.get('x-tenant-id') 
+        || request.headers.get('x-tenant-slug');
+    
+    if (tenantHeader) {
+        return { identifier: tenantHeader, source: 'header' };
+    }
+
+    // 2. Check for subdomain (e.g., acme.investingpro.in)
+    const baseDomains = [
+        'investingpro.in',
+        'investingpro.com',
+        'localhost',
+        '127.0.0.1',
+    ];
+
+    // Handle localhost with port
+    const hostnameWithoutPort = hostname.split(':')[0];
+
+    for (const baseDomain of baseDomains) {
+        if (hostnameWithoutPort.endsWith(baseDomain) && hostnameWithoutPort !== baseDomain) {
+            // Extract subdomain
+            const subdomain = hostnameWithoutPort.replace(`.${baseDomain}`, '').split('.')[0];
+            
+            // Skip common subdomains that aren't tenants
+            const reservedSubdomains = ['www', 'api', 'admin', 'app', 'staging', 'dev', 'test'];
+            if (!reservedSubdomains.includes(subdomain)) {
+                return { identifier: subdomain, source: 'subdomain' };
+            }
+        }
+    }
+
+    // 3. Check if it's a custom domain (not our base domains)
+    const isBaseDomain = baseDomains.some(d => 
+        hostnameWithoutPort === d || hostnameWithoutPort.endsWith(`.${d}`)
+    );
+    
+    if (!isBaseDomain) {
+        return { identifier: hostnameWithoutPort, source: 'domain' };
+    }
+
+    // 4. Default to main tenant
+    return { identifier: 'main', source: 'default' };
+}
+
+// =============================================================================
+// MAIN MIDDLEWARE
+// =============================================================================
+
 export async function middleware(request: NextRequest) {
     // Generate correlation ID for request tracking
     const correlationId = nanoid();
@@ -15,6 +81,28 @@ export async function middleware(request: NextRequest) {
     const response = NextResponse.next();
     response.headers.set('x-correlation-id', correlationId);
     response.headers.set('x-request-id', requestId);
+
+    // =============================================================================
+    // TENANT DETECTION (Optional - doesn't block requests)
+    // =============================================================================
+    
+    try {
+        const { identifier, source } = extractTenantIdentifier(request);
+        
+        if (identifier) {
+            // Add tenant info to response headers for downstream use
+            response.headers.set('x-tenant-slug', identifier);
+            response.headers.set('x-tenant-source', source);
+            
+            // Log tenant detection (only in development for debugging)
+            if (process.env.NODE_ENV === 'development') {
+                console.log(`🏢 Tenant: ${identifier} (via ${source})`);
+            }
+        }
+    } catch (error) {
+        // Tenant detection is optional - don't fail the request
+        console.warn('Tenant detection error:', error);
+    }
 
     // Protect admin routes (UI and API)
     const isAdminUI = request.nextUrl.pathname.startsWith('/admin');

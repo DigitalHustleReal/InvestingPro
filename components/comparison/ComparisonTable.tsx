@@ -194,13 +194,13 @@ export function ComparisonTable({
                 <tr
                   key={`row-${rowIndex}`}
                   className={cn(
-                    "border-b border-stone-200",
-                    rowIndex % 2 === 0 ? "bg-white" : "bg-stone-50",
-                    row.highlight && "bg-accent-50"
+                    "border-b border-slate-200 dark:border-slate-700",
+                    rowIndex % 2 === 0 ? "bg-white dark:bg-slate-900" : "bg-slate-50 dark:bg-slate-800",
+                    row.highlight && "bg-accent-50 dark:bg-accent-950"
                   )}
                 >
                   {/* Feature name */}
-                  <td className="px-4 py-3 text-sm text-stone-900">
+                  <td className="px-4 py-3 text-sm text-slate-900 dark:text-white">
                     <div className="flex items-center gap-2">
                       <span className={cn(
                         row.highlight && "font-semibold"

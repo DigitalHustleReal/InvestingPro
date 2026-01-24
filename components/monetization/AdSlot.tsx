@@ -147,13 +147,13 @@ export function PromotionCard({
 }) {
     const themeStyles = {
         teal: "from-primary-500/10 to-primary-600/10 border-primary-500/20",
-        indigo: "from-primary-500/10 to-indigo-600/10 border-primary-500/20",
+        indigo: "from-primary-500/10 to-secondary-600/10 border-primary-500/20",
         amber: "from-accent-500/10 to-accent-600/10 border-accent-500/20"
     };
 
     const iconStyles = {
         teal: "text-primary-500",
-        indigo: "text-primary-500",
+        indigo: "text-secondary-500",
         amber: "text-accent-500"
     };
 
@@ -212,7 +212,7 @@ export function ComparisonWidget({
                         className={cn(
                             "flex items-center justify-between p-4 rounded-xl border transition-all hover:shadow-md",
                             product.featured 
-                                ? "bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-primary-500/10 dark:to-secondary-500/10 border-primary-200 dark:border-primary-500/20" 
+                                ? "bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-500/10 dark:to-secondary-500/10 border-primary-200 dark:border-primary-500/20" 
                                 : "bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-white/5"
                         )}
                     >

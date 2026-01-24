@@ -93,7 +93,7 @@ function getContextualActions(category: string) {
                 icon: ArrowRightLeft,
                 href: "/investing/compare",
                 cta: "Compare Now",
-                color: "indigo",
+                color: "secondary",
                 trustBadge: "Direct vs Regular"
             },
             {
@@ -134,7 +134,7 @@ function getContextualActions(category: string) {
                 icon: ShieldCheck,
                 href: "/products?category=credit_card",
                 cta: "Find My Card",
-                color: "indigo",
+                color: "secondary",
                 trustBadge: "Soft Check Only"
             }
         ];
@@ -180,7 +180,7 @@ function getContextualActions(category: string) {
             icon: ShieldCheck,
             href: "/reviews",
             cta: "Read Reviews",
-            color: "indigo",
+            color: "secondary",
             trustBadge: "100% Independent"
         }
     ];
