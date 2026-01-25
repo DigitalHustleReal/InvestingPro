@@ -164,6 +164,13 @@ const nextConfig: NextConfig = {
     // const legacyRedirects = getLegacySubcategoryRedirects();
     
     return [
+      // Standardize SEO Routes: /article/ -> /articles/ (Audit Fix)
+      {
+        source: '/article/:slug',
+        destination: '/articles/:slug',
+        permanent: true,
+      },
+
       // Alpha terminal → terminal (canonical route)
       {
         source: '/alpha-terminal',

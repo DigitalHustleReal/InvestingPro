@@ -27,6 +27,15 @@ interface AuthorBioProps {
     className?: string;
 }
 
+// Helper to normalize credentials (handles string, array, or undefined)
+function normalizeCredentials(credentials: string[] | string | undefined): string[] {
+    if (Array.isArray(credentials)) return credentials;
+    if (typeof credentials === 'string' && credentials.trim()) {
+        return credentials.split(',').map(c => c.trim()).filter(Boolean);
+    }
+    return [];
+}
+
 /**
  * AuthorBio Component
  * 
@@ -40,6 +49,7 @@ export default function AuthorBio({
     className
 }: AuthorBioProps) {
     const isFull = variant === 'full';
+    const credentialsArray = normalizeCredentials(author.credentials);
 
     if (variant === 'compact') {
         return (
@@ -76,9 +86,9 @@ export default function AuthorBio({
                                 {author.name}
                             </span>
                         )}
-                        {showCredentials && author.credentials && author.credentials.length > 0 && (
+                        {showCredentials && credentialsArray.length > 0 && (
                             <div className="flex gap-1">
-                                {author.credentials.map((cred, idx) => (
+                                {credentialsArray.map((cred, idx) => (
                                     <Badge
                                         key={idx}
                                         variant="secondary"
@@ -151,9 +161,9 @@ export default function AuthorBio({
                     </div>
 
                     {/* Credentials */}
-                    {showCredentials && author.credentials && author.credentials.length > 0 && (
+                    {showCredentials && credentialsArray.length > 0 && (
                         <div className="flex flex-wrap gap-2 mb-3">
-                            {author.credentials.map((cred, idx) => (
+                            {credentialsArray.map((cred, idx) => (
                                 <Badge
                                     key={idx}
                                     variant="secondary"

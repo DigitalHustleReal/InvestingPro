@@ -149,10 +149,25 @@ function calculateReadingTime(html: string): number {
     return Math.ceil(words / 200);
 }
 
+
 // Main Process
 async function main() {
     console.log('🚀 Starting Batch Article Generation...');
     
+    // START PIPELINE LOG
+    // We import dynamically or use direct DB insert if outside Next.js context issues arise
+    // But since this is a script, direct DB is safer and faster than importing the class if it relies on Next.js headers
+    const runId = crypto.randomUUID();
+    try {
+        await supabase.from('pipeline_runs').insert({
+            id: runId,
+            pipeline_type: 'article_generator',
+            status: 'running',
+            params: { mode: 'batch' },
+            started_at: new Date().toISOString()
+        });
+    } catch (e) { console.error("Failed to start log", e); }
+
     const topicsPath = path.join(process.cwd(), 'scripts/data/topics.json');
     if (!fs.existsSync(topicsPath)) {
         console.error('❌ Topic list not found');
@@ -162,9 +177,14 @@ async function main() {
     const topics: Topic[] = JSON.parse(fs.readFileSync(topicsPath, 'utf-8'));
     console.log(`📋 Found ${topics.length} topics`);
     
+    // LIMIT TO 3 FOR TEST RUN
+    const limitedTopics = topics.slice(0, 3);
+    console.log(`⚠️ Limit: Processing first ${limitedTopics.length} topics for Test Run`);
+
     let generated = 0;
+    let errors = 0;
     
-    for (const topic of topics) {
+    for (const topic of limitedTopics) {
         try {
             // Check existence
             const slug = createSlug(topic.title);
@@ -193,6 +213,7 @@ async function main() {
                         try { content = await tryOpenAI(topic); provider = 'OpenAI'; }
                         catch (e) {
                             console.error(`❌ All providers failed for "${topic.title}"`);
+                            errors++;
                             continue;
                         }
                     }
@@ -202,10 +223,30 @@ async function main() {
             // Clean up content (sometimes models output markdown blocks)
             content = content.replace(/^```html/, '').replace(/```$/, '').trim();
             
+
             // Generate Metadata
             const metaDesc = await generateMeta(topic, content);
             const readTime = calculateReadingTime(content);
             
+
+            // --- IMAGE GENERATION START ---
+            let featuredImage: string | null = null;
+            try {
+                // Dynamic Import for the new Manager
+                const { ImageManager } = await import('@/lib/media/image-manager');
+                
+                const result = await ImageManager.selectImage(topic.title, topic.category);
+                if (result) {
+                    featuredImage = result.url;
+                    // We could also store result.credit if we had a column for it
+                }
+            } catch (imgErr) {
+                console.error("   ⚠️ Image Manager failed:", imgErr);
+                // Last ditch fallback
+                featuredImage = "https://images.unsplash.com/photo-1611974765270-ca1258634369?auto=format&fit=crop&w=1200&q=80";
+            }
+            // --- IMAGE GENERATION END ---
+
             // Save to DB
              const articleData = {
                 title: topic.title,
@@ -215,13 +256,14 @@ async function main() {
                 body_html: content,
                 meta_title: `${topic.title} | InvestingPro`,
                 meta_description: metaDesc,
+                featured_image: featuredImage, 
                 status: 'published',
                 published_at: new Date().toISOString(),
                 published_date: new Date().toISOString().split('T')[0],
                 content_type: 'article',
                 read_time: readTime,
-                 // Add word_count if column exists, otherwise it might error if strict. 
-                 // Previous scripts suggested it doesn't exist, so omitting.
+                 // Link to Validated Truth Source
+                pipeline_run_id: runId
             };
             
             const { error: insertError } = await supabase.from('articles').insert([articleData]);
@@ -236,9 +278,19 @@ async function main() {
             
         } catch (err: any) {
             console.error(`❌ Error processing "${topic.title}":`, err.message);
+            errors++;
         }
     }
     
+    // COMPLETE PIPELINE LOG
+    try {
+        await supabase.from('pipeline_runs').update({
+             status: errors > 0 ? 'completed_with_errors' : 'completed',
+             completed_at: new Date().toISOString(),
+             result: { generated, errors }
+        }).eq('id', runId);
+    } catch (e) { console.error("Failed to complete log", e); }
+
     console.log(`\n🎉 Batch Complete! Generated ${generated} new articles.`);
 }
 

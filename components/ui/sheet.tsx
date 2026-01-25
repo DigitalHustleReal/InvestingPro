@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { createPortal } from "react-dom"
+import { Slot } from "@radix-ui/react-slot"
 import { cn } from "@/lib/utils"
 import { X } from "lucide-react"
 
@@ -26,27 +27,26 @@ const Sheet = ({
     )
 }
 
-const SheetTrigger = ({
-    asChild,
-    children,
-    className,
-    ...props
-}: React.HTMLAttributes<HTMLDivElement> & { asChild?: boolean }) => {
+const SheetTrigger = React.forwardRef<
+    HTMLButtonElement,
+    React.ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean }
+>(({ asChild, children, onClick, ...props }, ref) => {
     const { onOpenChange, open } = React.useContext(SheetContext)
-
-    if (asChild && React.isValidElement(children)) {
-        return React.cloneElement(children as React.ReactElement, {
-            onClick: () => onOpenChange?.(!open),
-            ...(children.props as any),
-        })
+    
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        onClick?.(e)
+        onOpenChange?.(!open)
     }
 
+    const Comp = asChild ? Slot : "button"
+    
     return (
-        <button className={className} onClick={() => onOpenChange?.(!open)} {...(props as any)}>
+        <Comp ref={ref} onClick={handleClick} {...props}>
             {children}
-        </button>
+        </Comp>
     )
-}
+})
+SheetTrigger.displayName = "SheetTrigger"
 
 const SheetContent = ({
     children,

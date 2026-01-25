@@ -1,0 +1,125 @@
+
+import { createClient } from '@/lib/supabase/client';
+import { generateFeaturedImage, downloadAndSaveImage } from '@/lib/ai/image-generator';
+import axios from 'axios';
+
+/**
+ * Image Manager
+ * 
+ * Implements the "Waterfall" selection strategy:
+ * 1. Media Library (Existing Stock)
+ * 2. Free API (Unsplash)
+ * 3. AI Generation (DALL-E 3)
+ */
+
+interface ImageSelectionResult {
+    url: string;
+    source: 'library' | 'unsplash' | 'ai';
+    credit?: string;
+}
+
+export class ImageManager {
+    
+    /**
+     * Main entry point: Get best image for an article
+     */
+    static async selectImage(topic: string, category: string): Promise<ImageSelectionResult | null> {
+        console.log(`🖼️ Image Manager: Finding image for "${topic}"...`);
+
+        // 1. Check Media Library
+        const libraryImage = await this.checkMediaLibrary(topic, category);
+        if (libraryImage) {
+            console.log("   ✅ Found in Media Library");
+            return { url: libraryImage, source: 'library' };
+        }
+
+        // 2. Check Free API (Unsplash)
+        const unsplashImage = await this.searchUnsplash(topic, category);
+        if (unsplashImage) {
+            console.log("   ✅ Found on Unsplash");
+            return { url: unsplashImage, source: 'unsplash', credit: 'Photo by Unsplash' };
+        }
+
+        // 3. Generate with AI (Last Resort)
+        if (process.env.GENERATE_IMAGES === 'true' && process.env.OPENAI_API_KEY) {
+            console.log("   🎨 Generating with AI...");
+            const aiUrl = await generateFeaturedImage(topic, category);
+            if (aiUrl) {
+                // Save AI image to our storage to persist it
+                const fileName = `ai-${Date.now()}.png`;
+                const savedUrl = await downloadAndSaveImage(aiUrl, fileName);
+                return { 
+                    url: savedUrl || aiUrl, 
+                    source: 'ai' 
+                };
+            }
+        }
+
+        console.log("   ⚠️ No image found in any source.");
+        return null;
+    }
+
+    /**
+     * 1. Media Library Check
+     * Checks Supabase Storage for pre-uploaded stock images.
+     * (Mock implementation: Checks a hardcoded map for now, but designed to query DB)
+     */
+    private static async checkMediaLibrary(topic: string, category: string): Promise<string | null> {
+        // TODO: Query a 'media_library' table for tags.
+        // For now, we use a curated list of High-Quality assets we "own"
+        const stockLibrary: Record<string, string> = {
+            "sip settings": "https://images.unsplash.com/photo-1579532537598-459ecdaf39cc", // Just an example of a "Library" asset
+        };
+
+        // Simple substring match
+        const key = Object.keys(stockLibrary).find(k => topic.toLowerCase().includes(k));
+        return key ? stockLibrary[key] : null;
+    }
+
+    /**
+     * 2. Free API (Unsplash Search)
+     */
+    private static async searchUnsplash(topic: string, category: string): Promise<string | null> {
+        try {
+            // Strategy A: Use API Key if available
+            if (process.env.UNSPLASH_ACCESS_KEY) {
+                const response = await axios.get('https://api.unsplash.com/search/photos', {
+                    params: { query: `${category} ${topic}`, per_page: 1, orientation: 'landscape' },
+                    headers: { Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}` }
+                });
+                return response.data.results[0]?.urls?.regular || null;
+            }
+
+            // Strategy B: Use Keyword Source URL (No Search, just Keyword)
+            // Note: Unsplash Source API is deprecated/unreliable, but good fallback for prototypes
+            // We'll use a curated Keyword Map to get relevant images
+            const categoryKeywords: Record<string, string> = {
+                "credit_cards": "credit card, banking",
+                "investing": "stock market, finance graph",
+                "loans": "money, handshake",
+                "insurance": "umbrella, shield, family",
+                "tax": "tax form, calculator"
+            };
+            
+            const keyword = categoryKeywords[category] || "finance";
+            // Return a scoped search URL (client-side this redirects, but for DB we want a direct URL)
+            // Since we can't get the direct URL without API, we skip this step if no API key
+            // and fall back to the "Placeholders" we have in the map below.
+            
+            // Hardcoded High-Quality Fallbacks (Acting as "Free Tier")
+             const placeholders: Record<string, string> = {
+                "investing": "https://images.unsplash.com/photo-1611974765270-ca1258634369?auto=format&fit=crop&w=1200&q=80",
+                "credit_cards": "https://images.unsplash.com/photo-1563013544-e54f581f5c63?auto=format&fit=crop&w=1200&q=80",
+                "loans": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+                "insurance": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+                "tax": "https://images.unsplash.com/photo-1586486855514-8c633cc6fd38?auto=format&fit=crop&w=1200&q=80"
+            };
+            
+            return placeholders[category];
+
+        } catch (e) {
+            console.error("Unsplash search failed", e);
+            return null;
+        }
+    }
+}

@@ -168,9 +168,9 @@ export default function ReviewQueuePage() {
                                         </div>
                                     </div>
                                     <div className="flex flex-row md:flex-col gap-2 w-full md:w-auto">
-                                        <Link href={`/admin/articles/${article.id}/edit`} className="flex-1 md:flex-none">
-                                            <button className="w-full px-4 py-2 bg-white/10 hover:bg-white/20 text-foreground dark:text-foreground rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors">
-                                                <Eye className="w-4 h-4" /> Review
+                                        <Link href={`/admin/review-queue/${article.id}`} className="flex-1 md:flex-none">
+                                            <button className="w-full px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white rounded-lg text-sm font-bold flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20 transition-all">
+                                                <Eye className="w-4 h-4" /> Fact Check
                                             </button>
                                         </Link>
                                         <button 

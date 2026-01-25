@@ -132,7 +132,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             if (articles) {
                 for (const article of articles) {
                     sitemap.push({
-                        url: `${baseUrl}/article/${article.slug}`,
+                        url: `${baseUrl}/articles/${article.slug}`,
                         lastModified: article.updated_at 
                             ? new Date(article.updated_at) 
                             : article.published_date 
@@ -145,6 +145,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             }
         } catch (error) {
             logger.error('Error fetching articles for sitemap', error as Error);
+        }
+
+        // Versus Comparison Pages (Programmatic SEO)
+        try {
+            const { data: versusPages } = await supabase
+                .from('versus_pages')
+                .select('slug, updated_at')
+                .limit(10000);
+
+            if (versusPages) {
+                for (const page of versusPages) {
+                    sitemap.push({
+                        url: `${baseUrl}/compare/${page.slug}`,
+                        lastModified: page.updated_at ? new Date(page.updated_at) : new Date(),
+                        changeFrequency: 'weekly',
+                        priority: 0.8,
+                    });
+                }
+            }
+        } catch (error) {
+            logger.error('Error fetching versus pages for sitemap', error as Error);
         }
 
         // Product pages (if products table exists)

@@ -78,7 +78,7 @@ export default function ArticleDetailPage() {
             
             let query = supabase
                 .from('articles')
-                .select('*')
+                .select('*, author:authors!author_id(*)') // specific inner/left join hint if needed, or just authors(*)
                 .eq('slug', slug);
 
             // Preview mode: fetch any status if user is authenticated
@@ -98,6 +98,38 @@ export default function ArticleDetailPage() {
             const { data: articleData, error } = await query.single();
             
             if (error || !articleData) {
+                // Try fallback fetch without join if join failed (e.g. FK matching issue)
+                 if (error && error.code === 'PGRST200') {
+                    // Start over without join
+                     const { data: simpleData, error: simpleError } = await supabase
+                        .from('articles')
+                        .select('*')
+                        .eq('slug', slug)
+                        .single();
+                        
+                     if (!simpleError && simpleData) {
+                         // Fetch author separately
+                         if (simpleData.author_id) {
+                             const { data: authorData } = await supabase
+                                .from('authors')
+                                .select('*')
+                                .eq('id', simpleData.author_id)
+                                .single();
+                             simpleData.author = authorData;
+                         } else if (simpleData.author_name) {
+                              const { data: authorData } = await supabase
+                                .from('authors')
+                                .select('*')
+                                .eq('name', simpleData.author_name)
+                                .single();
+                             simpleData.author = authorData;
+                         }
+                         setArticle(simpleData);
+                         setLoading(false);
+                         return;
+                     }
+                 }
+                 
                 setNotFound(true);
                 setLoading(false);
                 return;
@@ -254,9 +286,12 @@ export default function ArticleDetailPage() {
 
                             <div className="flex flex-wrap items-center gap-y-4 gap-6 text-sm text-muted-foreground mb-8 pb-8 border-b border-border">
                                 <AuthorBadge 
-                                    name={article.author_name || 'InvestingPro Team'} 
-                                    role={article.author_role}
-                                    avatarUrl={article.author_avatar}
+                                    name={article.author?.name || article.author_name || 'InvestingPro Team'} 
+                                    role={article.author?.role || article.author_role}
+                                    avatarUrl={article.author?.photo_url || article.author_avatar}
+                                    slug={article.author?.slug}
+                                    bio={article.author?.bio}
+                                    credentials={article.author?.credentials}
                                     size="md"
                                     showRole={true}
                                 />

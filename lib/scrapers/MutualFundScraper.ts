@@ -93,4 +93,45 @@ export class MutualFundScraper extends BaseScraper<MutualFundData> {
         return new Date().toISOString().split('T')[0]; // Fallback to today
     }
   }
+
+  /**
+   * Save mutual funds to database
+   */
+  async save(data: MutualFundData[], runId?: string): Promise<void> {
+    
+    // Batch upsert (Supabase handles batching better than loop)
+    // Map data to DB columns
+    const records = data.map(fund => ({
+        scheme_code: parseInt(fund.scheme_code),
+        slug: `${fund.scheme_code}-${this.slugify(fund.name)}`,
+        name: fund.name,
+        nav: fund.nav,
+        fund_house: fund.fund_house || 'Unknown',
+        category: 'Mutual Fund', // Simplification, ideally map properly
+        updated_at: new Date().toISOString(),
+        pipeline_run_id: runId // Link to Truth Console
+    }));
+
+    // Process in chunks of 100 to avoid request size limits
+    const chunkSize = 100;
+    for (let i = 0; i < records.length; i += chunkSize) {
+        const chunk = records.slice(i, i + chunkSize);
+        
+        const { error } = await this.supabase
+            .from('mutual_funds')
+            .upsert(chunk, {
+                onConflict: 'scheme_code'
+            });
+
+        if (error) {
+            console.error(`Error saving chunk ${i}-${i+chunkSize}:`, error);
+            // Don't throw, just log, so partially successful run continues
+            // Or tracked by invalid count
+        }
+    }
+  }
+
+  private slugify(text: string): string {
+    return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
 }

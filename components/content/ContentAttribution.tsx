@@ -1,6 +1,15 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
+// Helper to normalize credentials (handles string, array, or undefined)
+function normalizeCredentials(credentials: string[] | string | undefined): string[] {
+    if (Array.isArray(credentials)) return credentials;
+    if (typeof credentials === 'string' && credentials.trim()) {
+        return credentials.split(',').map(c => c.trim()).filter(Boolean);
+    }
+    return [];
+}
+
 interface Author {
     id: string;
     name: string;
@@ -53,9 +62,10 @@ export function ContentAttribution({
                             <div className="reviewer-label">Reviewed for Accuracy</div>
                             <div className="reviewer-name">
                                 <strong>{reviewer.name}</strong>
-                                {reviewer.credentials && reviewer.credentials.length > 0 && (
-                                    <span className="credentials">, {reviewer.credentials[0]}</span>
-                                )}
+                                {(() => {
+                                    const creds = normalizeCredentials(reviewer.credentials);
+                                    return creds.length > 0 ? <span className="credentials">, {creds[0]}</span> : null;
+                                })()}
                             </div>
                             {lastReviewedAt && (
                                 <div className="review-date">
@@ -109,11 +119,14 @@ export function ContentAttribution({
                             <div className="reviewer-name font-medium">
                                 {reviewer.name}
                             </div>
-                            {reviewer.credentials && reviewer.credentials.length > 0 && (
-                                <div className="reviewer-credentials text-sm text-slate-600">
-                                    {reviewer.title} | {reviewer.credentials[0]}
-                                </div>
-                            )}
+                            {(() => {
+                                const creds = normalizeCredentials(reviewer.credentials);
+                                return creds.length > 0 ? (
+                                    <div className="reviewer-credentials text-sm text-slate-600">
+                                        {reviewer.title} | {creds[0]}
+                                    </div>
+                                ) : null;
+                            })()}
                         </div>
                     )}
                     
@@ -181,6 +194,8 @@ export function ContentAttribution({
  * Author Bio Card - For article footers
  */
 export function AuthorBioCard({ author }: { author: Author }) {
+    const credentialsArray = normalizeCredentials(author.credentials);
+    
     return (
         <div className="author-bio-card border rounded-lg p-6 bg-slate-50">
             <div className="flex gap-4">
@@ -202,9 +217,9 @@ export function AuthorBioCard({ author }: { author: Author }) {
                     {author.title && (
                         <p className="text-sm text-slate-600 mb-2">{author.title}</p>
                     )}
-                    {author.credentials && author.credentials.length > 0 && (
+                    {credentialsArray.length > 0 && (
                         <div className="flex flex-wrap gap-2 mb-3">
-                            {author.credentials.map((cred, idx) => (
+                            {credentialsArray.map((cred, idx) => (
                                 <span key={idx} className="badge badge-sm">
                                     {cred}
                                 </span>

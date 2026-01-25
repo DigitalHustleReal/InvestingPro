@@ -17,20 +17,22 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+// Interface matching ACTUAL DB schema
 interface AuthorRecord {
   slug: string;
   name: string;
-  title: string;
+  // title: string; // Missing in DB
   bio: string;
-  credentials: string;
+  credentials: string[];
   photo_url: string;
   role: string;
-  categories: string[];
+  assigned_categories: string[];
+  categories: string[]; // Populate both for safety
   is_ai_persona: boolean;
   ai_system_prompt: string;
   years_experience: number;
   location: string;
-  is_active: boolean;
+  is_active: boolean; // Renamed from active
 }
 
 async function syncAuthors() {
@@ -43,11 +45,12 @@ async function syncAuthors() {
     records.push({
       slug: persona.slug,
       name: persona.name,
-      title: persona.title,
-      bio: persona.shortBio,
-      credentials: persona.credentials.join(', '),
+      // title: persona.title, // Column missing in DB
+      bio: persona.bio || persona.shortBio,
+      credentials: persona.credentials,
       photo_url: persona.photoUrl,
       role: persona.role,
+      assigned_categories: persona.categories,
       categories: persona.categories,
       is_ai_persona: true,
       ai_system_prompt: persona.systemPrompt,

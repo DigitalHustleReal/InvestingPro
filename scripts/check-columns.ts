@@ -1,43 +1,36 @@
 
 import { createClient } from '@supabase/supabase-js';
-import * as dotenv from 'dotenv';
-import { resolve } from 'path';
-
-dotenv.config({ path: resolve(process.cwd(), '.env.local') });
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.local' });
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-async function main() {
-  console.log('Checking articles table columns...');
-
-  // Trick to get column names: select * limit 0 or 1
+async function checkSchema() {
+  console.log('🔍 Checking authors table schema...');
+  
+  // Try to insert a dummy record to see what errors we get, or just select one
   const { data, error } = await supabase
-    .from('articles')
+    .from('authors')
     .select('*')
     .limit(1);
 
   if (error) {
-    console.error('Error:', error.message);
-    process.exit(1);
+    console.error('❌ Error selecting from authors:', error.message);
+    return;
   }
 
   if (data && data.length > 0) {
-    console.log('Columns found:', Object.keys(data[0]));
-    
-    const hasQualityScore = 'quality_score' in data[0];
-    const hasMetadata = 'metadata' in data[0] || 'ai_metadata' in data[0];
-    
-    console.log('Has quality_score:', hasQualityScore);
-    console.log('Has metadata/ai_metadata:', hasMetadata);
+    console.log('✅ Found authors record. Keys:', Object.keys(data[0]));
   } else {
-    // If no data, we can't see columns easily with supabase-js select('*') unless we insert a dummy
-    // But testing-cms-core inserted data, so there should be data.
-    console.log('No articles found. Inserting dummy to check columns is risky without cleanup. Assuming standard schema.');
-    console.log('Standard schema likely has: id, title, content, slug, status...');
+    console.log('⚠️ No content in authors table to inspect keys. Attempting to list via RPC or error inference.');
+    // If empty, we can't easily see keys. 
+    // Let's try to upsert a dummy record with a known bad column to force a schema error listing valid columns? 
+    // Or just trust the migration reading from earlier?
+    // Actually, migration said 'active'. 
   }
 }
 
-main().catch(console.error);
+checkSchema();

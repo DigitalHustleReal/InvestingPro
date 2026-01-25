@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/Button";
 import {
     Sheet,
     SheetContent,
-    SheetTrigger,
 } from "@/components/ui/sheet";
 import {
     NavigationMenu,
@@ -441,17 +440,16 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                             <Search className="w-5 h-5" />
                         </Button>
 
+                        <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="text-primary-600 hover:bg-primary-50 hover:text-primary-700 dark:text-primary-500"
+                            aria-label="Open menu"
+                            onClick={() => setIsOpen(true)}
+                        >
+                            <Menu className="w-6 h-6" />
+                        </Button>
                         <Sheet open={isOpen} onOpenChange={setIsOpen}>
-                            <SheetTrigger asChild>
-                                <Button 
-                                    variant="ghost" 
-                                    size="icon" 
-                                    className="text-primary-600 hover:bg-primary-50 hover:text-primary-700 dark:text-primary-500"
-                                    aria-label="Open menu"
-                                >
-                                    <Menu className="w-6 h-6" />
-                                </Button>
-                            </SheetTrigger>
                             <SheetContent side="right" className="w-full sm:w-96 p-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl flex flex-col h-full border-l border-slate-200/60 dark:border-slate-800/60 shadow-2xl">
                                 <div className="flex flex-col h-full overflow-hidden">
                                     {/* Mobile Menu Header */}

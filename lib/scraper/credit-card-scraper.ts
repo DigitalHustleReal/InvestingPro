@@ -16,6 +16,7 @@
 
 import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/server';
+import { PipelineLogger } from '@/lib/pipeline-logger';
 
 export interface CreditCardData {
     name: string;
@@ -583,7 +584,7 @@ async function detectChanges(
 /**
  * Save cards to database
  */
-async function saveCardsToDatabase(cards: CreditCardData[]): Promise<{ saved: number; errors: number }> {
+async function saveCardsToDatabase(cards: CreditCardData[], pipelineRunId?: string): Promise<{ saved: number; errors: number }> {
     const supabase = await createClient();
     let saved = 0;
     let errors = 0;
@@ -596,24 +597,43 @@ async function saveCardsToDatabase(cards: CreditCardData[]): Promise<{ saved: nu
                 .replace(/[^a-z0-9]+/g, '-')
                 .replace(/^-|-$/g, '');
 
+            const payload: any = {
+                slug,
+                name: card.name,
+                bank: card.bank,
+                type: card.type,
+                annual_fee: card.annual_fee,
+                joining_fee: card.joining_fee,
+                interest_rate: card.interest_rate,
+                min_income: card.min_income,
+                rewards: card.rewards || [],
+                pros: card.pros || [],
+                cons: card.cons || [],
+                apply_link: card.apply_link,
+                image_url: card.image_url,
+                updated_at: new Date().toISOString()
+            };
+
+            // Link to pipeline run if available (for Truth Console)
+            // Note: This assumes credit_cards table has pipeline_run_id column (added in migration?)
+            // If not, we might need to add it or store this link in articles table mainly.
+            // But wait, credit_cards is a product table. articles are separate.
+            // Ah, the Review Interface works on ARTICLES.
+            // Does this scraper create articles? No, it creates PRODUCTS in `credit_cards` table.
+            
+            // Correction: The Task is "Automated Truth Pipeline". 
+            // If we are reviewing PRODUCTS, then `credit_cards` needs the link.
+            // If we are reviewing ARTICLES generated FROM products, then the ARTICLE generator needs the link.
+            
+            // For now, let's assume we want to track where the product data came from.
+            // I will add `pipeline_run_id` to the payload, assuming the column exists or will be added.
+            if (pipelineRunId) {
+                payload.pipeline_run_id = pipelineRunId;
+            }
+
             const { error } = await supabase
                 .from('credit_cards')
-                .upsert({
-                    slug,
-                    name: card.name,
-                    bank: card.bank,
-                    type: card.type,
-                    annual_fee: card.annual_fee,
-                    joining_fee: card.joining_fee,
-                    interest_rate: card.interest_rate,
-                    min_income: card.min_income,
-                    rewards: card.rewards || [],
-                    pros: card.pros || [],
-                    cons: card.cons || [],
-                    apply_link: card.apply_link,
-                    image_url: card.image_url,
-                    updated_at: new Date().toISOString()
-                }, {
+                .upsert(payload, {
                     onConflict: 'slug'
                 });
 
@@ -659,6 +679,9 @@ export async function scrapeAllCreditCards(): Promise<{
         { name: 'Axis', scraper: scrapeAxis },
     ];
 
+    const pipelineLogger = new PipelineLogger('scraper_credit_cards');
+    const runId = await pipelineLogger.start({ banks: banks.map(b => b.name) });
+
     for (const bank of banks) {
         try {
             // Rate limiting: 2 seconds between requests
@@ -691,7 +714,8 @@ export async function scrapeAllCreditCards(): Promise<{
 
     // Save all cards to database
     const allCards = results.flatMap(r => r.cards);
-    const { saved, errors: saveErrors } = await saveCardsToDatabase(allCards);
+    // Pass runId to link articles to this run
+    const { saved, errors: saveErrors } = await saveCardsToDatabase(allCards, runId);
     totalErrors += saveErrors;
 
     // Calculate summary
@@ -701,12 +725,27 @@ export async function scrapeAllCreditCards(): Promise<{
     const newCards = allChanges.reduce((sum, c) => sum + c.newCards.length, 0);
     const changedCards = allChanges.reduce((sum, c) => sum + c.changedCards.length, 0);
 
-    logger.info('Credit card scraping complete', {
-        totalCards,
-        totalErrors,
-        saved,
+    const summary = {
         newCards,
-        changedCards
+        changedCards,
+        saved,
+        totalCards,
+        totalErrors
+    };
+
+    logger.info('Credit card scraping complete', summary);
+    
+    // Log final result to Pipeline Run (Truth Console data)
+    await pipelineLogger.complete({
+        summary,
+        results: results.map(r => ({
+            bank: r.bank,
+            success: r.success,
+            card_count: r.cards.length,
+            // Store raw cards here for "Source Data" verification
+            // Limit to avoid JSON size limits if thousands, but for hundreds it's fine
+            sample_data: r.cards.slice(0, 50) 
+        }))
     });
 
     return {

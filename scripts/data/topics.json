@@ -1,6 +1,12 @@
 [
   {
     "category": "investing",
+    "title": "Waterfall Test Article: Checking Image Priority",
+    "keywords": "test, waterfall, image check",
+    "target_audience": "Developers"
+  },
+  {
+    "category": "investing",
     "title": "SIP vs SWP: Complete Guide to Systematic Plans",
     "keywords": "SIP, SWP, systematic investment plan, mutual funds",
     "target_audience": "Investors planning for wealth creation"

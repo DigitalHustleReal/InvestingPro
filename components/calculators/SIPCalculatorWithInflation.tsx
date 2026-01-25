@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/Button";
-import { IndianRupee, Calendar, Percent, TrendingDown, Info, CheckCircle2, HelpCircle, ChevronDown, ChevronUp, Calculator, Trophy, Sparkles, Home, Car, Plane, Smartphone, GraduationCap, FileText, Lock } from "lucide-react";
+import { IndianRupee, Calendar, Percent, TrendingDown, TrendingUp, Info, CheckCircle2, HelpCircle, ChevronDown, ChevronUp, Calculator, Trophy, Sparkles, Home, Car, Plane, Smartphone, GraduationCap, FileText, Lock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, PieChart, Pie, Cell } from 'recharts';
 import { cn } from "@/lib/utils";
