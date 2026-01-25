@@ -23,8 +23,8 @@ import { CreditCardTable } from '@/components/credit-cards/CreditCardTable';
 import { LayoutGrid, Table as TableIcon } from 'lucide-react';
 
 import CategoryHero from '@/components/common/CategoryHero';
-import ContextualNewsWidget from '@/components/news/ContextualNewsWidget';
-import RatesWidget from '@/components/rates/RatesWidget';
+import UniversalSidebar from '@/components/common/UniversalSidebar';
+import MobileEngagementBar from '@/components/common/MobileEngagementBar';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
 import DecisionCTA from '@/components/common/DecisionCTA';
@@ -237,9 +237,9 @@ const CreditCardsPage = () => {
                                 </div>
                             </div>
                             
-                            {/* NEW: Contextual Widgets */}
-                            <ContextualNewsWidget category="credit_card" title="Card News" />
-                            {/* <RatesWidget category="banking" title="Current Rates" /> */} 
+                            
+                            {/* NEW: Contextual Widgets (Universal Sidebar) */}
+                            <UniversalSidebar category="credit_card" />
                          </div>
                     </ResponsiveFilterContainer>
 
@@ -316,6 +316,8 @@ const CreditCardsPage = () => {
                 <ComplianceDisclaimer variant="compact" />
             </div>
 
+            {/* Mobile Engagement Bar - Shows contextual widgets on mobile */}
+            <MobileEngagementBar category="credit_card" />
 
         </div>
     );

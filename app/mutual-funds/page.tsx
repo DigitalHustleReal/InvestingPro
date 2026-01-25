@@ -53,8 +53,8 @@ const riskColors: Record<string, string> = {
 };
 
 import CategoryHero from '@/components/common/CategoryHero';
-import ContextualNewsWidget from '@/components/news/ContextualNewsWidget';
-import RatesWidget from '@/components/rates/RatesWidget';
+import UniversalSidebar from '@/components/common/UniversalSidebar';
+import MobileEngagementBar from '@/components/common/MobileEngagementBar';
 import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
 import DecisionCTA from '@/components/common/DecisionCTA';
 
@@ -257,10 +257,9 @@ export default function MutualFundsPage() {
                     <ResponsiveFilterContainer activeFiltersCount={activeFiltersCount}>
                          <FilterSidebar filters={filters} setFilters={setFilters} />
                          
-                         {/* Marketing Widgets in Sidebar */}
-                         <div className="mt-8 space-y-6">
-                            <RatesWidget category="investing" title="Market Rates" />
-                            <ContextualNewsWidget category="investing" title="Market News" />
+                         {/* Marketing Widgets in Sidebar (Desktop only - Mobile uses MobileEngagementBar) */}
+                         <div className="mt-8">
+                            <UniversalSidebar category="mutual_fund" />
                          </div>
                     </ResponsiveFilterContainer>
 
@@ -539,6 +538,9 @@ export default function MutualFundsPage() {
             <div className="container mx-auto px-4 pb-8">
                 <ComplianceDisclaimer variant="compact" />
             </div>
+
+            {/* Mobile Engagement Bar - Shows contextual widgets on mobile */}
+            <MobileEngagementBar category="mutual_fund" />
 
         </div>
         </PageErrorBoundary>

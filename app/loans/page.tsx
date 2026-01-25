@@ -32,11 +32,12 @@ import { ResponsiveFilterContainer } from "@/components/products/ResponsiveFilte
 import { LoansTable } from "@/components/loans/LoansTable";
 import { LayoutGrid, Table as TableIcon } from 'lucide-react';
 import { EMICalculatorEnhanced } from '@/components/calculators/EMICalculatorEnhanced';
-import ContextualNewsWidget from '@/components/news/ContextualNewsWidget';
-import RatesWidget from '@/components/rates/RatesWidget';
 import CategoryHero from '@/components/common/CategoryHero';
+import UniversalSidebar from '@/components/common/UniversalSidebar';
+import MobileEngagementBar from '@/components/common/MobileEngagementBar';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
+import { ChevronDown } from 'lucide-react';
 
 export default function LoansPage() {
     // Calculator State
@@ -295,13 +296,10 @@ export default function LoansPage() {
                     <ResponsiveFilterContainer activeFiltersCount={activeFiltersCount}>
                          <LoanFilterSidebar filters={filters} setFilters={setFilters} />
                          
-                         {/* Marketing Widgets in Sidebar - Hidden on Mobile Drawer for better UX */}
-                         <div className="hidden lg:block mt-8 space-y-6">
-                            {/* Rates Widget */}
-                            <RatesWidget category="loans" title="Live Interest Rates" />
-
+                         {/* Marketing Widgets in Sidebar (Desktop only - Mobile uses MobileEngagementBar) */}
+                         <div className="mt-8 space-y-6">
                             {/* Documents Checklist Widget */}
-                            <Card className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem]">
+                            <Card className="hidden lg:block bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem]">
                                 <CardContent className="p-6">
                                     <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4">Required Documents</h3>
                                     <ul className="space-y-3">
@@ -317,8 +315,8 @@ export default function LoansPage() {
                                 </CardContent>
                             </Card>
 
-                            {/* News Widget */}
-                            <ContextualNewsWidget category="loans" title="Banking News" />
+                            {/* Universal Sidebar with lazy-loaded widgets */}
+                            <UniversalSidebar category="loans" />
                          </div>
                     </ResponsiveFilterContainer>
 
@@ -499,6 +497,9 @@ export default function LoansPage() {
             <div className="container mx-auto px-4 pb-8">
                 <ComplianceDisclaimer variant="compact" />
             </div>
+
+            {/* Mobile Engagement Bar - Shows contextual widgets on mobile */}
+            <MobileEngagementBar category="loans" />
         </div>
         </Fragment>
     );
