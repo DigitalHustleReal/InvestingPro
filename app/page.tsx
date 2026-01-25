@@ -4,7 +4,8 @@
 export const revalidate = 300;
 
 import React from 'react';
-import HeroSection from "@/components/home/HeroSection";
+import HeroSplit from "@/components/home/HeroSplit";
+import TrustBar from "@/components/common/TrustBar";
 import SmartAdvisorWidget from "@/components/home/SmartAdvisorWidget";
 import QuickToolsSection from "@/components/home/QuickToolsSection";
 import LatestInsights from "@/components/home/LatestInsights";
@@ -52,9 +53,14 @@ export default function Home() {
                 structuredData={structuredData}
             />
 
-            {/* Hero Tier: Mission Critical - UPDATED TO NEW DESIGN */}
+            {/* Hero Tier: Mission Critical - HERO 2.0 SPLIT DECISION ENGINE */}
             <CommandCenterSection name="Hero">
-                <HeroSection />
+                <HeroSplit />
+            </CommandCenterSection>
+
+            {/* Trust Tier: Immediate Authority Signal */}
+            <CommandCenterSection name="Trust Bar">
+                <TrustBar />
             </CommandCenterSection>
 
             {/* Intelligence Tier: Lead Generation */}

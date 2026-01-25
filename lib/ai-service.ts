@@ -35,6 +35,17 @@ interface AIProvider {
     isAvailable: () => boolean;
 }
 
+// Provider metrics tracking
+interface ProviderMetrics {
+    totalCalls: number;
+    successCount: number;
+    errorCount: number;
+    totalLatencyMs: number;
+    lastCallAt: string | null;
+    lastErrorAt: string | null;
+    lastError: string | null;
+}
+
 class AIService {
     private providers: AIProvider[] = [];
     private currentProviderIndex = 0;
@@ -48,10 +59,54 @@ class AIService {
     
     // Track if budget checking is enabled
     private budgetCheckEnabled = true;
+    
+    // Provider metrics for monitoring
+    private providerMetrics: Map<string, ProviderMetrics> = new Map();
 
     constructor() {
         // Initialization moved to lazy load
         this.budgetGovernor = new BudgetGovernorAgent();
+    }
+    
+    /**
+     * Initialize metrics for a provider
+     */
+    private initializeProviderMetrics(providerName: string): void {
+        if (!this.providerMetrics.has(providerName)) {
+            this.providerMetrics.set(providerName, {
+                totalCalls: 0,
+                successCount: 0,
+                errorCount: 0,
+                totalLatencyMs: 0,
+                lastCallAt: null,
+                lastErrorAt: null,
+                lastError: null,
+            });
+        }
+    }
+    
+    /**
+     * Record a successful provider call
+     */
+    private recordSuccess(providerName: string, latencyMs: number): void {
+        this.initializeProviderMetrics(providerName);
+        const metrics = this.providerMetrics.get(providerName)!;
+        metrics.totalCalls++;
+        metrics.successCount++;
+        metrics.totalLatencyMs += latencyMs;
+        metrics.lastCallAt = new Date().toISOString();
+    }
+    
+    /**
+     * Record a failed provider call
+     */
+    private recordError(providerName: string, error: string): void {
+        this.initializeProviderMetrics(providerName);
+        const metrics = this.providerMetrics.get(providerName)!;
+        metrics.totalCalls++;
+        metrics.errorCount++;
+        metrics.lastErrorAt = new Date().toISOString();
+        metrics.lastError = error;
     }
 
     private ensureInitialized() {
@@ -280,6 +335,7 @@ class AIService {
                 continue;
             }
 
+            const providerStartTime = Date.now();
             try {
                 logger.info(`Attempting generation with ${provider.name}...`);
                 attemptedProviders.push(provider.name);
@@ -305,6 +361,11 @@ class AIService {
                 }
                 
                 const duration = Date.now() - startTime;
+                const providerLatency = Date.now() - providerStartTime;
+                
+                // Record success metrics
+                this.recordSuccess(provider.name, providerLatency);
+                
                 logger.info(`✅ Successfully generated with ${provider.name} in ${duration}ms`);
                 
                 // Track cost asynchronously (don't block response)
@@ -316,6 +377,9 @@ class AIService {
                 
             } catch (error: any) {
                 lastError = error;
+                
+                // Record error metrics
+                this.recordError(provider.name, error.message);
                 
                 // Check if circuit breaker opened
                 if (error.message === 'Circuit breaker is open') {
@@ -567,6 +631,105 @@ Return ONLY valid JSON:
             circuitBreakers: this.getCircuitBreakerStates(),
             budgetCheckEnabled: this.budgetCheckEnabled
         };
+    }
+    
+    /**
+     * Get detailed provider metrics for monitoring
+     * Returns latency stats, error counts, and success rates per provider
+     */
+    getProviderMetrics(): Record<string, {
+        totalCalls: number;
+        successCount: number;
+        errorCount: number;
+        successRate: number;
+        avgLatencyMs: number;
+        lastCallAt: string | null;
+        lastErrorAt: string | null;
+        lastError: string | null;
+        circuitBreakerState: 'closed' | 'open' | 'half-open';
+    }> {
+        this.ensureInitialized();
+        
+        const result: Record<string, any> = {};
+        
+        // Initialize metrics for all providers
+        this.providers.forEach(p => this.initializeProviderMetrics(p.name));
+        
+        this.providerMetrics.forEach((metrics, providerName) => {
+            const circuitBreaker = this.circuitBreakers.get(providerName);
+            
+            result[providerName] = {
+                totalCalls: metrics.totalCalls,
+                successCount: metrics.successCount,
+                errorCount: metrics.errorCount,
+                successRate: metrics.totalCalls > 0 
+                    ? Math.round((metrics.successCount / metrics.totalCalls) * 100 * 100) / 100 
+                    : 100,
+                avgLatencyMs: metrics.successCount > 0 
+                    ? Math.round(metrics.totalLatencyMs / metrics.successCount) 
+                    : 0,
+                lastCallAt: metrics.lastCallAt,
+                lastErrorAt: metrics.lastErrorAt,
+                lastError: metrics.lastError,
+                circuitBreakerState: circuitBreaker?.getState() || 'closed',
+            };
+        });
+        
+        return result;
+    }
+    
+    /**
+     * Get aggregated metrics summary
+     */
+    getMetricsSummary(): {
+        totalCalls: number;
+        overallSuccessRate: number;
+        avgLatencyMs: number;
+        healthyProviders: number;
+        degradedProviders: string[];
+    } {
+        const metrics = this.getProviderMetrics();
+        const providers = Object.entries(metrics);
+        
+        let totalCalls = 0;
+        let totalSuccesses = 0;
+        let totalLatency = 0;
+        let successCount = 0;
+        const degradedProviders: string[] = [];
+        
+        providers.forEach(([name, m]) => {
+            totalCalls += m.totalCalls;
+            totalSuccesses += m.successCount;
+            
+            if (m.successCount > 0) {
+                totalLatency += m.avgLatencyMs * m.successCount;
+                successCount += m.successCount;
+            }
+            
+            // Mark as degraded if success rate < 90% or circuit breaker is open
+            if (m.successRate < 90 || m.circuitBreakerState === 'open') {
+                degradedProviders.push(name);
+            }
+        });
+        
+        return {
+            totalCalls,
+            overallSuccessRate: totalCalls > 0 
+                ? Math.round((totalSuccesses / totalCalls) * 100 * 100) / 100 
+                : 100,
+            avgLatencyMs: successCount > 0 
+                ? Math.round(totalLatency / successCount) 
+                : 0,
+            healthyProviders: providers.length - degradedProviders.length,
+            degradedProviders,
+        };
+    }
+    
+    /**
+     * Reset metrics (useful for testing)
+     */
+    resetMetrics(): void {
+        this.providerMetrics.clear();
     }
 }
 

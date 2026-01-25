@@ -4,10 +4,11 @@ import React from 'react';
 import Link from 'next/link';
 import { DataTable, ColumnDef } from '@/components/data-table';
 import { Badge } from "@/components/ui/badge";
+import { GaugeMeter } from "@/components/ui/GaugeMeter";
 import { Button } from "@/components/ui/Button";
 import { Star, TrendingUp, CheckCircle2 } from "lucide-react";
 import { useCompare } from '@/contexts/CompareContext';
-import { cn } from '@/lib/utils';
+import { cn, formatCompactNumber } from '@/lib/utils';
 
 interface FundTableProps {
     funds: any[];
@@ -62,23 +63,35 @@ export function FundTable({ funds }: FundTableProps) {
             sortable: true,
             align: 'center',
             width: '12%',
-            mobileHidden: true
+            // mobileHidden: true - showing on mobile now
         },
         {
             key: 'risk',
             header: 'Risk',
-            accessor: (row) => (
-                <span 
-                    className={cn(
-                        "text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter", 
-                        row.risk === "Very High" ? "text-danger-600 bg-danger-50 dark:bg-danger-900/20" :
-                        row.risk === "High" ? "text-accent-600 bg-accent-50 dark:bg-accent-900/20" :
-                        "text-primary-600 bg-primary-50 dark:bg-primary-900/20"
-                    )}
-                >
-                    {row.risk || "Moderate"}
-                </span>
-            ),
+
+            accessor: (row) => {
+                const riskMap: Record<string, number> = {
+                    "Very High": 90,
+                    "High": 75,
+                    "Moderate": 50,
+                    "Low to Moderate": 35,
+                    "Low": 20,
+                    "Very Low": 10
+                };
+                const riskValue = riskMap[row.risk] || 50;
+
+                return (
+                    <div className="flex flex-col items-center">
+                        <GaugeMeter 
+                            value={riskValue} 
+                            size={55} 
+                            showValue={false} 
+                            colors={{ low: '#10b981', medium: '#f59e0b', high: '#ef4444' }} // Green low risk, Red high risk
+                        />
+                        <span className="text-[9px] font-bold text-slate-500 uppercase -mt-2">{row.risk}</span>
+                    </div>
+                );
+            },
             sortable: false,
             align: 'center',
             width: '12%'
@@ -97,7 +110,7 @@ export function FundTable({ funds }: FundTableProps) {
             sortable: true,
             align: 'right',
             width: '10%',
-            mobileHidden: true
+            // mobileHidden: true - showing on mobile now
         },
         {
             key: 'returns_3y',
@@ -119,13 +132,13 @@ export function FundTable({ funds }: FundTableProps) {
             header: 'AUM (Cr)',
             accessor: (row) => (
                 <span className="text-sm font-bold text-slate-600 dark:text-slate-400 tabular-nums">
-                    ₹{row.aum}
+                    ₹{formatCompactNumber(row.aum)}
                 </span>
             ),
             sortable: true,
             align: 'right',
             width: '11%',
-            mobileHidden: true
+            // mobileHidden: true - showing on mobile now
         },
         {
             key: 'actions',

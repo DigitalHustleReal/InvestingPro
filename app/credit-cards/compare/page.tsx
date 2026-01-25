@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 // Removed mock data import - using Supabase API
 import ComparisonTable from "@/components/compare/ComparisonTable";
+import ComparisonOutcomeWidget from "@/components/compare/ComparisonOutcomeWidget";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import { ArrowLeft, Plus } from "lucide-react";
@@ -133,6 +134,9 @@ function CreditCardCompareContent() {
                         </div>
                     </div>
                 )}
+
+                {/* Comparison Outcome (Audit Requirement) */}
+                <ComparisonOutcomeWidget products={selectedCards} />
 
                 {/* Comparison Table */}
                 <ComparisonTable products={selectedCards} onRemoveProduct={handleRemove} />

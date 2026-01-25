@@ -52,14 +52,16 @@ export async function validateBody<T>(
             body = {};
         }
         
-        const data = schema.parse(body);
-        return { success: true, data };
-    } catch (error) {
-        if (error instanceof ZodError) {
+        const result = schema.safeParse(body);
+        
+        if (result.success) {
+             return { success: true, data: result.data };
+        } else {
+            const error = result.error;
             if (options.logErrors !== false) {
                 logger.warn('Request body validation failed', {
                     errors: error.errors,
-                    path: request.nextUrl.pathname,
+                    path: request.nextUrl?.pathname || 'unknown',
                 });
             }
             
@@ -77,6 +79,8 @@ export async function validateBody<T>(
                 response: handleError(validationError, request),
             };
         }
+    } catch (error) {
+         // Fallback for non-Zod errors
         throw error;
     }
 }

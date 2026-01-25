@@ -68,7 +68,7 @@ export const apiClient = {
             
             if (error || !data || data.length === 0) return { average: 0, count: 0 };
             
-            const sum = data.reduce((acc, curr) => acc + curr.rating, 0);
+            const sum = data.reduce((acc: number, curr: any) => acc + curr.rating, 0);
             return {
                 average: parseFloat((sum / data.length).toFixed(1)),
                 count: data.length
@@ -80,85 +80,38 @@ export const apiClient = {
         get reviews() { return apiClient.reviews; },
 
         IPO: {
-            list: async () => {
-                // Mock Data for now
-                return [
-                    {
-                        name: "Tata Technologies",
-                        status: "Open",
-                        price: "₹475 - ₹500",
-                        subscription: "12.5x",
-                        lot: "30 Shares",
-                        listing: "Dec 12",
-                        color: "from-blue-600 to-blue-800"
-                    },
-                    {
-                        name: "Gandhar Oil Ref",
-                        status: "Upcoming",
-                        price: "₹160 - ₹169",
-                        subscription: "0x",
-                        lot: "88 Shares",
-                        listing: "TBA",
-                        color: "from-amber-600 to-amber-800"
-                    },
-                    {
-                        name: "Flare Writing",
-                        status: "Closed",
-                        price: "₹288 - ₹304",
-                        subscription: "64.2x",
-                        lot: "49 Shares",
-                        listing: "Dec 05",
-                        color: "from-purple-600 to-purple-800"
-                    }
-                ];
+            list: async (status?: string) => {
+                let query = supabase.from('ipos').select('*').order('close_date', { ascending: false });
+                if (status) {
+                    query = query.eq('status', status);
+                }
+                const { data, error } = await query;
+                if (error) {
+                    console.error("Error fetching IPOs", error);
+                    return [];
+                }
+                return data;
+            },
+            get: async (id: string) => {
+                 const { data, error } = await supabase.from('ipos').select('*').eq('id', id).single();
+                 if (error) throw error;
+                 return data;
             }
         },
 
         Broker: {
-             list: async () => {
-                // Mock Data for now
-                return [
-                    {
-                        name: "Zerodha",
-                        logo: "Z",
-                        color: "from-blue-500 to-blue-600",
-                        rating: "4.9",
-                        users: "1.2Cr",
-                        bestFor: "Active Investors",
-                        pricing: { account_opening: "₹200", equity: "₹0" },
-                        pros: ["Zero Brokerage on Delivery", "Best-in-class UI", "Nudge & Kill Switch"]
-                    },
-                    {
-                        name: "Groww",
-                        logo: "G",
-                        color: "from-emerald-500 to-emerald-600",
-                        rating: "4.8",
-                        users: "1.5Cr",
-                        bestFor: "Beginners",
-                        pricing: { account_opening: "₹0", equity: "₹0" },
-                        pros: ["Free Account Opening", "Simple Interface", "Fastest Activation"]
-                    },
-                    {
-                        name: "Upstox",
-                        logo: "U",
-                        color: "from-purple-500 to-purple-600",
-                        rating: "4.7",
-                        users: "80L",
-                        bestFor: "Traders",
-                        pricing: { account_opening: "₹0", equity: "₹0" },
-                        pros: ["GTT Orders", "Deep Analytics", "Margin Trading Facility"]
-                    },
-                    {
-                        name: "Angel One",
-                        logo: "A",
-                        color: "from-orange-500 to-orange-600",
-                        rating: "4.5",
-                        users: "1.8Cr",
-                        bestFor: "Advisory",
-                        pricing: { account_opening: "₹0", equity: "₹0" },
-                        pros: ["Smart API", "ARQ Prime Advisory", "Offline Presence"]
-                    }
-                ];
+            list: async () => {
+                const { data, error } = await supabase.from('brokers').select('*').eq('is_active', true);
+                if (error) {
+                    console.error("Error fetching brokers", error);
+                    return [];
+                }
+                return data;
+            },
+            get: async (slug: string) => {
+                const { data, error } = await supabase.from('brokers').select('*').eq('slug', slug).single();
+                if (error) throw error;
+                return data;
             }
         },
 
@@ -166,7 +119,7 @@ export const apiClient = {
              list: async () => {
                 const { data } = await supabase.from('insurance').select('*');
                 
-                return (data || []).map(i => ({
+                return (data || []).map((i: any) => ({
                     id: i.id,
                     slug: i.slug,
                     name: i.name,
@@ -460,7 +413,7 @@ export const apiClient = {
                      return [];
                  }
 
-                 return (data || []).map(p => ({
+                 return (data || []).map((p: any) => ({
                      id: p.id,
                      name: p.name,
                      clicks: p.clicks || 0, // Fallback if column missing
@@ -503,6 +456,20 @@ export const apiClient = {
                     .single();
                 if (error) throw error;
                 return data;
+            }
+        },
+        Rates: {
+            list: async (category?: string) => {
+                let query = supabase.from('rates').select('*');
+                if (category) {
+                    query = query.eq('category', category);
+                }
+                const { data, error } = await query;
+                if (error) {
+                    console.error('Error fetching rates', error);
+                    return [];
+                }
+                return data || [];
             }
         }
     }

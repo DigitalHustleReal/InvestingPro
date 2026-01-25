@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/Button";
-import { IndianRupee, Calendar, Percent, TrendingDown, Info, CheckCircle2, HelpCircle, ChevronDown, ChevronUp, Calculator } from "lucide-react";
+import { IndianRupee, Calendar, Percent, TrendingDown, Info, CheckCircle2, HelpCircle, ChevronDown, ChevronUp, Calculator, Trophy, Sparkles, Home, Car, Plane, Smartphone, GraduationCap, FileText, Lock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, PieChart, Pie, Cell } from 'recharts';
 import { cn } from "@/lib/utils";
@@ -680,17 +680,73 @@ export function SIPCalculatorWithInflation() {
                                 </div>
                             </div>
 
-                            {/* Key Insight */}
-                            <div className="p-4 bg-gradient-to-br from-primary-50 to-primary-100 rounded-xl border border-secondary-100">
-                                <div className="flex items-start gap-3">
-                                    <Info className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
-                                    <div>
-                                        <p className="text-sm font-semibold text-slate-900 dark:text-white mb-1">Compound Growth</p>
-                                        <p className="text-xs text-slate-600 leading-relaxed">
-                                            monthlyInvestment investments benefit from compound interest where returns are reinvested. Higher returns and longer periods significantly increase wealth.
-                                        </p>
+                            {/* Dynamic Interpretation (Audit Requirement: Results Interpretation) */}
+                            <div className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 rounded-xl p-5 border border-emerald-100 dark:border-emerald-900/50 relative overflow-hidden">
+                                <div className="absolute top-0 right-0 p-4 opacity-10">
+                                   <Trophy className="w-24 h-24 text-emerald-600" />
+                                </div>
+                                <h3 className="text-sm font-bold text-emerald-800 dark:text-emerald-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+                                    <Sparkles className="w-4 h-4" /> What This Means
+                                </h3>
+                                <p className="text-lg font-medium text-emerald-900 dark:text-emerald-100 mb-3">
+                                    Your investment of <span className="font-bold">{formatCurrency(sipResult.invested)}</span> could grow to <span className="font-bold text-2xl underline decoration-emerald-400 decoration-2 underline-offset-2">{formatCurrency(adjustForInflation ? sipResult.realValue : sipResult.futureValue)}</span>!
+                                </p>
+                                <div className="space-y-2">
+                                    <p className="text-sm text-emerald-800 dark:text-emerald-300 font-medium">This amount could fund:</p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {(adjustForInflation ? sipResult.realValue : sipResult.futureValue) > 10000000 && (
+                                            <Badge variant="outline" className="bg-white/50 border-emerald-200 text-emerald-800 flex items-center gap-1">
+                                                <TrendingUp className="w-3 h-3" /> Financial Freedom
+                                            </Badge>
+                                        )}
+                                        {(adjustForInflation ? sipResult.realValue : sipResult.futureValue) > 5000000 ? (
+                                             <>
+                                                <Badge variant="outline" className="bg-white/50 border-emerald-200 text-emerald-800 flex items-center gap-1">
+                                                    <Home className="w-3 h-3" /> Dream Home
+                                                </Badge>
+                                                <Badge variant="outline" className="bg-white/50 border-emerald-200 text-emerald-800 flex items-center gap-1">
+                                                    <GraduationCap className="w-3 h-3" /> Child's Education
+                                                </Badge>
+                                             </>
+                                        ) : (adjustForInflation ? sipResult.realValue : sipResult.futureValue) > 500000 ? (
+                                            <>
+                                                <Badge variant="outline" className="bg-white/50 border-emerald-200 text-emerald-800 flex items-center gap-1">
+                                                    <Car className="w-3 h-3" /> New Car
+                                                </Badge>
+                                                <Badge variant="outline" className="bg-white/50 border-emerald-200 text-emerald-800 flex items-center gap-1">
+                                                    <Plane className="w-3 h-3" /> World Tour
+                                                </Badge>
+                                            </>
+                                        ) : (
+                                            <Badge variant="outline" className="bg-white/50 border-emerald-200 text-emerald-800 flex items-center gap-1">
+                                                <Smartphone className="w-3 h-3" /> Gadgets & Lifestyle
+                                            </Badge>
+                                        )}
                                     </div>
                                 </div>
+                            </div>
+
+                            {/* Lead Capture (Audit Requirement: Lead Capture) */}
+                            <div className="p-5 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm mt-4">
+                                <div className="flex items-center justify-between mb-3">
+                                    <h3 className="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                        <FileText className="w-4 h-4 text-primary-600" />
+                                        Get Detailed Report (Free)
+                                    </h3>
+                                    <Badge className="bg-success-100 text-success-700 hover:bg-success-200 border-0 text-[10px]">PDF</Badge>
+                                </div>
+                                <p className="text-xs text-slate-500 mb-4">
+                                    Receive a personalized investment plan with top fund recommendations for your goal of {formatCurrency(adjustForInflation ? sipResult.realValue : sipResult.futureValue)}.
+                                </p>
+                                <div className="flex gap-2">
+                                    <Input placeholder="Enter your email" className="h-9 text-sm" />
+                                    <Button size="sm" className="h-9 bg-primary-600 hover:bg-primary-700 text-white">
+                                        Send
+                                    </Button>
+                                </div>
+                                <p className="text-[10px] text-slate-400 mt-2 text-center">
+                                    <Lock className="w-3 h-3 inline mr-1" /> No spam. Unsubscribe anytime.
+                                </p>
                             </div>
                         </div>
                     </CardContent>

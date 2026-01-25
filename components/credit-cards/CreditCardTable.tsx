@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/Button';
 import { Star, ArrowUpRight, CreditCard as CardIcon } from 'lucide-react';
 import { useCompare } from '@/contexts/CompareContext';
+import { formatCompactNumber } from '@/lib/utils';
 
 interface CreditCardTableProps {
     cards: any[];
@@ -57,7 +58,7 @@ export function CreditCardTable({ cards }: CreditCardTableProps) {
                 return (
                     <div className="text-center">
                         <p className={`font-bold ${feeNum === 0 ? 'text-primary-600' : 'text-slate-900 dark:text-white'}`}>
-                            {feeNum === 0 ? '₹0' : `₹${feeNum.toLocaleString()}`}
+                            {feeNum === 0 ? '₹0' : `₹${formatCompactNumber(feeNum)}`}
                         </p>
                         {feeNum === 0 && (
                             <Badge className="text-[8px] bg-primary-100 text-primary-700 border-0 mt-1">
@@ -79,7 +80,6 @@ export function CreditCardTable({ cards }: CreditCardTableProps) {
                 return (
                     <div className="text-center">
                         <p className="font-bold text-primary-600">{rate}</p>
-                        <p className="text-[9px] text-slate-400 uppercase font-semibold">Cashback</p>
                     </div>
                 );
             },

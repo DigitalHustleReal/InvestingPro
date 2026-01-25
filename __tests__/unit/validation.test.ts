@@ -67,21 +67,28 @@ describe('Validation Unit Tests', () => {
         title: z.string().min(1),
       });
 
-      const handler = withZodValidation(schema, async (req, data) => {
-        return Response.json({ success: true, data });
-      });
+      const mockHandler = async (req: any, context: { body: any }) => {
+        return new Response(JSON.stringify({ success: true, data: context.body }), {
+           headers: { 'Content-Type': 'application/json' }
+        });
+      };
+
+      const handler = withZodValidation({ body: schema })(mockHandler);
 
       const request = new Request('http://localhost', {
         method: 'POST',
         body: JSON.stringify({ title: 'Test Title' }),
         headers: { 'Content-Type': 'application/json' },
-      });
+      }) as any;
+
+      request.nextUrl = new URL('http://localhost');
 
       const response = await handler(request, {});
       const data = await response.json();
 
       expect(response.status).toBe(200);
       expect(data.success).toBe(true);
+      expect(data.data.title).toBe('Test Title');
     });
 
     it('should reject invalid request data', async () => {
@@ -89,15 +96,21 @@ describe('Validation Unit Tests', () => {
         title: z.string().min(1),
       });
 
-      const handler = withZodValidation(schema, async (req, data) => {
-        return Response.json({ success: true });
-      });
+      const mockHandler = async () => {
+        return new Response(JSON.stringify({ success: true }), {
+           headers: { 'Content-Type': 'application/json' }
+        });
+      };
+
+      const handler = withZodValidation({ body: schema })(mockHandler);
 
       const request = new Request('http://localhost', {
         method: 'POST',
         body: JSON.stringify({ title: '' }), // Invalid: empty string
         headers: { 'Content-Type': 'application/json' },
-      });
+      }) as any;
+
+      request.nextUrl = new URL('http://localhost');
 
       const response = await handler(request, {});
       

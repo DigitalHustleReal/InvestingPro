@@ -9,9 +9,10 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/Button';
-import { Search, Clock, Calendar, ArrowRight } from 'lucide-react';
+import { Search, Clock, Calendar, ArrowRight, Package, TrendingUp, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import EmptyState from '@/components/common/EmptyState';
+import DecisionHelper from '@/components/widgets/DecisionHelper';
 
 interface Article {
     id: string;
@@ -219,8 +220,148 @@ export default function CategoryPage() {
                         )}
                     </>
                 )}
+
+                {/* Related Products Section */}
+                <RelatedProductsSection category={categorySlug} />
+
+                {/* Decision Helper */}
+                {getDecisionHelperCategory(categorySlug) && (
+                    <div className="mt-12">
+                        <DecisionHelper 
+                            category={getDecisionHelperCategory(categorySlug) as any} 
+                            variant="full" 
+                        />
+                    </div>
+                )}
             </div>
         </div>
     );
+}
+
+// Map category slugs to product categories
+function getDecisionHelperCategory(slug: string): string | null {
+    const mapping: Record<string, string> = {
+        'credit-cards': 'credit_card',
+        'loans': 'loan',
+        'mutual-funds': 'mutual_fund',
+        'investing': 'mutual_fund',
+        'banking': 'loan',
+    };
+    return mapping[slug] || null;
+}
+
+// Related Products Component
+function RelatedProductsSection({ category }: { category: string }) {
+    const { data: products, isLoading } = useQuery({
+        queryKey: ['products', 'category', category],
+        queryFn: async () => {
+            // Map article category to product category
+            const productCategory = mapToProductCategory(category);
+            if (!productCategory) return [];
+            
+            const response = await fetch(`/api/products?category=${productCategory}&limit=4`);
+            if (!response.ok) return [];
+            const data = await response.json();
+            return data.products || data || [];
+        },
+        enabled: !!category,
+    });
+
+    if (isLoading || !products || products.length === 0) return null;
+
+    return (
+        <div className="mt-16 pt-12 border-t border-slate-200 dark:border-slate-800">
+            <div className="flex items-center justify-between mb-8">
+                <div>
+                    <div className="flex items-center gap-2 mb-2">
+                        <Package className="w-5 h-5 text-primary-500" />
+                        <Badge className="bg-primary-50 text-primary-700 border-0">
+                            Explore Products
+                        </Badge>
+                    </div>
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                        Top {category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())} Products
+                    </h2>
+                </div>
+                <Link href={getProductsLink(category)}>
+                    <Button variant="outline" className="gap-2">
+                        View All
+                        <ArrowRight className="w-4 h-4" />
+                    </Button>
+                </Link>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {products.slice(0, 4).map((product: any) => (
+                    <Link key={product.id || product.slug} href={getProductUrl(product)}>
+                        <Card className="h-full hover:shadow-lg transition-shadow group">
+                            {product.image_url && (
+                                <div className="aspect-[16/10] w-full overflow-hidden rounded-t-lg bg-slate-100">
+                                    <img
+                                        src={product.image_url}
+                                        alt={product.name}
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                                    />
+                                </div>
+                            )}
+                            <CardContent className="p-4">
+                                <p className="text-xs font-semibold text-slate-500 uppercase mb-1">
+                                    {product.provider_name || product.provider || 'Provider'}
+                                </p>
+                                <h3 className="font-bold text-slate-900 dark:text-white group-hover:text-primary-600 line-clamp-2 mb-2">
+                                    {product.name}
+                                </h3>
+                                {product.rating && (
+                                    <div className="flex items-center gap-1 text-sm">
+                                        <TrendingUp className="w-4 h-4 text-amber-500" />
+                                        <span className="font-semibold">{product.rating}</span>
+                                        <span className="text-slate-400">/5</span>
+                                    </div>
+                                )}
+                            </CardContent>
+                        </Card>
+                    </Link>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+function mapToProductCategory(articleCategory: string): string | null {
+    const mapping: Record<string, string> = {
+        'credit-cards': 'credit_card',
+        'loans': 'loan',
+        'mutual-funds': 'mutual_fund',
+        'insurance': 'insurance',
+        'banking': 'loan',
+        'investing': 'mutual_fund',
+    };
+    return mapping[articleCategory] || null;
+}
+
+function getProductsLink(category: string): string {
+    const links: Record<string, string> = {
+        'credit-cards': '/credit-cards',
+        'loans': '/loans',
+        'mutual-funds': '/mutual-funds',
+        'insurance': '/insurance',
+        'banking': '/loans',
+        'investing': '/mutual-funds',
+    };
+    return links[category] || '/products';
+}
+
+function getProductUrl(product: any): string {
+    const category = product.category || 'product';
+    const slug = product.slug || product.id;
+    
+    const routes: Record<string, string> = {
+        'credit_card': `/credit-cards/${slug}`,
+        'loan': `/loans/${slug}`,
+        'mutual_fund': `/mutual-funds/${slug}`,
+        'insurance': `/insurance/${slug}`,
+    };
+    
+    return routes[category] || `/products/${slug}`;
 }
 

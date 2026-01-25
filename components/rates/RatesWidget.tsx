@@ -1,11 +1,13 @@
 ﻿"use client";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { TrendingUp, TrendingDown, Minus, ArrowRight } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { apiClient as api } from '@/lib/api-client';
 
 interface RateItem {
+    key?: string;
     label: string;
     value: string;
     trend?: 'up' | 'down' | 'stable';
@@ -18,30 +20,45 @@ interface RatesWidgetProps {
     className?: string;
 }
 
-const RATES_DATA: Record<string, RateItem[]> = {
-    loans: [
-        { label: "Home Loan (SBI)", value: "8.40%", trend: "stable", subtext: "min" },
-        { label: "HDFC Home Loan", value: "8.35%", trend: "down", subtext: "special offer" },
-        { label: "Personal Loan (Avg)", value: "10.50%", trend: "up", subtext: "starts from" },
-        { label: "Car Loan", value: "8.85%", trend: "stable" }
-    ],
-    investing: [
-        { label: "Gold (24K)", value: "₹72,450", trend: "up", subtext: "per 10g" },
-        { label: "Silver", value: "₹83,100", trend: "up", subtext: "per kg" },
-        { label: "PPF Rate", value: "7.1%", trend: "stable", subtext: "govt backed" },
-        { label: "Inflation", value: "4.85%", trend: "down" }
-    ],
-    banking: [
-        { label: "SBI FD (1Y)", value: "6.80%", trend: "stable" },
-        { label: "HDFC FD (1Y)", value: "6.60%", trend: "stable" },
-        { label: "Small Bank FD", value: "8.25%", trend: "up", subtext: "Senior Citizen" },
-        { label: "Savings Acc", value: "3.50%", trend: "stable" }
-    ]
-};
-
 export default function RatesWidget({ category, title, className }: RatesWidgetProps) {
-    const rates = RATES_DATA[category] || RATES_DATA['banking'];
+    const [rates, setRates] = useState<RateItem[]>([]);
+    const [loading, setLoading] = useState(true);
     const displayTitle = title || "Current Rates";
+
+    useEffect(() => {
+        const fetchRates = async () => {
+            try {
+                const data = await api.entities.Rates.list(category);
+                if (data && data.length > 0) {
+                    setRates(data);
+                } else {
+                    // Fallback or empty state
+                    // console.warn("No rates found for category:", category);
+                    // Optionally set empty or keep loading false to show "No Data"
+                }
+            } catch (error) {
+                console.error("Failed to load rates", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchRates();
+    }, [category]);
+
+    if (loading) {
+         return (
+             <Card className={cn("bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800", className)}>
+                <CardContent className="p-6 flex justify-center items-center h-40">
+                    <Loader2 className="w-6 h-6 animate-spin text-slate-400" />
+                </CardContent>
+             </Card>
+         );
+    }
+
+    if (rates.length === 0) {
+        return null; // Don't show empty widget
+    }
 
     return (
         <Card className={cn("bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800", className)}>

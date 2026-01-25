@@ -92,6 +92,14 @@ const CibilGauge = dynamic(
     }
 );
 
+const DecisionHelper = dynamic(
+    () => import('@/components/widgets/DecisionHelper'),
+    { 
+        loading: () => <WidgetSkeleton height="h-64" />,
+        ssr: false 
+    }
+);
+
 interface UniversalSidebarProps {
     className?: string;
     category?: 'credit_card' | 'loans' | 'mutual_fund' | 'investing' | 'general';
@@ -161,6 +169,11 @@ export default function UniversalSidebar({
     return (
         // Desktop only - mobile uses MobileEngagementBar
         <aside className={cn("hidden lg:block space-y-6", className)}>
+            {/* 0. Decision Helper (Key Differentiator) - Always show first */}
+            {showTools && category !== 'general' && (
+                <DecisionHelper category={category === 'loans' ? 'loan' : category as any} variant="compact" />
+            )}
+
             {/* 1. Value/Tool Widget (High Engagement) - Always load immediately */}
             {showTools && renderToolWidget()}
 

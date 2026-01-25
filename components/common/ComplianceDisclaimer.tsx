@@ -47,6 +47,12 @@ export default function ComplianceDisclaimer({
                             We provide decision support and educational content only. All financial decisions are made at your own risk.
                         </p>
                         <p className={cn(baseStyles)}>
+                            <strong>Fair Use:</strong> Brand names/logos are property of their owners, used here for comparison under Fair Use.
+                        </p>
+                        <p className={cn(baseStyles)}>
+                            <strong>AI Logic:</strong> "Smart Advisor" recommendations are simulated algorithmic suggestions, not personalized advice.
+                        </p>
+                        <p className={cn(baseStyles)}>
                             Please consult a SEBI-registered investment advisor before making any financial decisions.
                         </p>
                         <Link 

@@ -1,16 +1,18 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Newspaper, ChevronRight, ExternalLink, Calendar } from "lucide-react";
+import { Newspaper, ChevronRight, Calendar, Loader2 } from "lucide-react";
 import Link from 'next/link';
+import { apiClient as api } from '@/lib/api-client';
+import { createClient } from '@/lib/supabase/client';
 
 interface NewsItem {
     id: string;
     title: string;
     source: string;
-    date: string;
+    timestamp: string;
     tags: string[];
     url: string;
 }
@@ -20,30 +22,64 @@ interface ContextualNewsWidgetProps {
     title?: string;
 }
 
-// Mock News Data - In real app, this would come from API based on category
-const MOCK_NEWS: Record<string, NewsItem[]> = {
-    credit_card: [
-        { id: '1', title: "HDFC Bank Devalues Regalia Gold Rewards: Here's What Changed", source: "CardExpert", date: "2h ago", tags: ["HDFC", "Devaluation"], url: "#" },
-        { id: '2', title: "SBI Card Launches New 'Sprint' Application Process for Instant Approvals", source: "LiveMint", date: "5h ago", tags: ["SBI", "Launch"], url: "#" },
-        { id: '3', title: "Best Lifetime Free Credit Cards for Airport Lounge Access in 2024", source: "InvestingPro", date: "1d ago", tags: ["Guide", "Travel"], url: "#" },
-    ],
-    loans: [
-        { id: '4', title: "RBI Keeps Repo Rate Unchanged at 6.5%: What It Means for Home Loans", source: "Economic Times", date: "3h ago", tags: ["RBI", "Home Loan"], url: "#" },
-        { id: '5', title: "Top 5 Banks Offering Lowest Personal Loan Interest Rates This Month", source: "MoneyControl", date: "6h ago", tags: ["Personal Loan", "Rates"], url: "#" },
-    ],
-    investing: [
-        { id: '6', title: "Gold Prices Hit All-Time High Amid Geopolitical Tensions", source: "CNBC", date: "1h ago", tags: ["Commodities", "Gold"], url: "#" },
-        { id: '7', title: "Small Cap Funds See Record Inflows in March: AMFI Data", source: "ValueResearch", date: "4h ago", tags: ["Mutual Funds", "Market"], url: "#" },
-    ],
-    general: [
-        { id: '8', title: "Sensex Crosses 75,000 Mark for the First Time History", source: "BSE", date: "Just Now", tags: ["Market", "Sensex"], url: "#" },
-        { id: '9', title: "Income Tax Filing Deadline Extended? Fact Check", source: "TaxGuru", date: "2d ago", tags: ["Tax", "Regulatory"], url: "#" },
-    ]
-};
-
 export default function ContextualNewsWidget({ category, title }: ContextualNewsWidgetProps) {
-    const news = MOCK_NEWS[category] || MOCK_NEWS['general'];
+    const [news, setNews] = useState<NewsItem[]>([]);
+    const [loading, setLoading] = useState(true);
     const displayTitle = title || "Latest Updates";
+
+    useEffect(() => {
+        const fetchNews = async () => {
+             try {
+                 // Fetch real articles from Supabase
+                 const articles = await api.entities.Article.list('-created_at', 5);
+                 
+                 // Map to UI format
+                 if (articles && articles.length > 0) {
+                     const newsItems = articles.map((a: any) => ({
+                         id: a.id,
+                         title: a.title,
+                         url: `/news/${a.slug}`,
+                         timestamp: new Date(a.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }),
+                         source: a.author || 'InvestingPro',
+                         tags: a.tags || ['Market']
+                     }));
+                     setNews(newsItems);
+                 } else {
+                     // Fallback to static mock if DB is empty (graceful degradation)
+                     setNews(MOCK_FALLBACK[category] || MOCK_FALLBACK['general']);
+                 }
+                 
+             } catch (error) {
+                 console.error("Failed to fetch news", error);
+                 setNews(MOCK_FALLBACK[category] || MOCK_FALLBACK['general']);
+             } finally {
+                 setLoading(false);
+             }
+        };
+        
+        fetchNews();
+
+        // Realtime subscription for fresh news
+        const supabase = createClient();
+        const channel = supabase
+            .channel('public:articles')
+            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'articles' }, (payload) => {
+                const newArticle = payload.new as any;
+                setNews(prev => [{
+                    id: newArticle.id,
+                    title: newArticle.title,
+                    url: `/news/${newArticle.slug}`,
+                    timestamp: 'Just Now',
+                    source: newArticle.author || 'InvestingPro',
+                    tags: newArticle.tags || ['News']
+                }, ...prev.slice(0, 4)]);
+            })
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
+    }, [category]);
 
     return (
         <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
@@ -57,36 +93,60 @@ export default function ContextualNewsWidget({ category, title }: ContextualNews
                 </Link>
             </CardHeader>
             <CardContent className="p-0">
-                <div className="divide-y divide-slate-100 dark:divide-slate-800">
-                    {news.map((item) => (
-                        <div key={item.id} className="p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
-                            <Link href={item.url} className="block">
-                                <div className="flex gap-2 mb-2">
-                                    {item.tags.map(tag => (
-                                        <Badge key={tag} variant="secondary" className="text-[10px] px-1.5 py-0 h-5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium">
-                                            {tag}
-                                        </Badge>
-                                    ))}
-                                </div>
-                                <h4 className="font-semibold text-slate-900 dark:text-white leading-snug mb-2 group-hover:text-primary-600 transition-colors">
-                                    {item.title}
-                                </h4>
-                                <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-                                    <span className="font-medium text-slate-700 dark:text-slate-300">{item.source}</span>
-                                    <span className="flex items-center gap-1">
-                                        <Calendar className="w-3 h-3" /> {item.date}
-                                    </span>
-                                </div>
-                            </Link>
-                        </div>
-                    ))}
-                </div>
+                {loading ? (
+                    <div className="p-8 flex justify-center">
+                        <Loader2 className="w-6 h-6 text-primary-500 animate-spin" />
+                    </div>
+                ) : (
+                    <div className="divide-y divide-slate-100 dark:divide-slate-800">
+                        {news.map((item) => (
+                            <div key={item.id} className="p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+                                <Link href={item.url} className="block">
+                                    <div className="flex gap-2 mb-2">
+                                        {item.tags?.slice(0, 2).map(tag => (
+                                            <Badge key={tag} variant="secondary" className="text-[10px] px-1.5 py-0 h-5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium">
+                                                {tag}
+                                            </Badge>
+                                        ))}
+                                    </div>
+                                    <h4 className="font-semibold text-slate-900 dark:text-white leading-snug mb-2 group-hover:text-primary-600 transition-colors line-clamp-2">
+                                        {item.title}
+                                    </h4>
+                                    <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                                        <span className="font-medium text-slate-700 dark:text-slate-300">{item.source}</span>
+                                        <span className="flex items-center gap-1">
+                                            <Calendar className="w-3 h-3" /> {item.timestamp}
+                                        </span>
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+                )}
                 <div className="p-3 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                     <p className="text-xs text-center text-slate-500">
-                        Curated for {category.replace('_', ' ')} enthusiasts
+                        Real-time updates via Supabase
                     </p>
                 </div>
             </CardContent>
         </Card>
     );
 }
+
+// Fallback Data
+const MOCK_FALLBACK: Record<string, NewsItem[]> = {
+    general: [
+        { id: '1', title: "Sensex Crosses 75,000 Mark for the First Time History", source: "BSE", timestamp: "Just Now", tags: ["Market"], url: "#" },
+        { id: '2', title: "Income Tax Filing Deadline Extended? Fact Check", source: "TaxGuru", timestamp: "2d ago", tags: ["Tax"], url: "#" },
+    ],
+    credit_card: [
+        { id: '1', title: "HDFC Bank Devalues Regalia Gold Rewards", source: "CardExpert", timestamp: "2h ago", tags: ["HDFC"], url: "#" },
+        { id: '2', title: "SBI Card Launches New 'Sprint' Application", source: "LiveMint", timestamp: "5h ago", tags: ["SBI"], url: "#" },
+    ],
+    loans: [
+        { id: '4', title: "RBI Keeps Repo Rate Unchanged at 6.5%", source: "Economic Times", timestamp: "3h ago", tags: ["RBI"], url: "#" },
+    ],
+    investing: [
+        { id: '6', title: "Gold Prices Hit All-Time High", source: "CNBC", timestamp: "1h ago", tags: ["Commodities"], url: "#" },
+    ]
+};

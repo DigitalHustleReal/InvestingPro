@@ -27,3 +27,9 @@ export function slugifyTerm(term: string): string {
         .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric chars with hyphens
         .replace(/^-+|-+$/g, '');     // Remove leading/trailing hyphens
 }
+export function formatCompactNumber(number: number): string {
+    return Intl.NumberFormat('en-US', {
+        notation: "compact",
+        maximumFractionDigits: 1
+    }).format(number);
+}

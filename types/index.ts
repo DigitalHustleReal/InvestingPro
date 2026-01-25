@@ -111,3 +111,8 @@ export interface MutualFund extends Product {
 
 // Union Type for Helper Functions
 export type FinancialProduct = CreditCard | Loan | Insurance | MutualFund;
+
+// ------------------------------------------
+// INTELLIGENCE TYPES (Re-export)
+// ------------------------------------------
+export * from './intelligence';

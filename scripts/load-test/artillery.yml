@@ -1,0 +1,107 @@
+# Artillery Load Test Configuration
+# Run with: npx artillery run scripts/load-test/artillery.yml --target http://localhost:3000
+# Or for staging: npx artillery run scripts/load-test/artillery.yml --target https://staging.investingpro.in
+
+config:
+  target: "{{ $processEnvironment.BASE_URL || 'http://localhost:3000' }}"
+  phases:
+    # Warm-up phase
+    - duration: 30
+      arrivalRate: 5
+      name: "Warm up"
+    
+    # Ramp up to target load
+    - duration: 60
+      arrivalRate: 10
+      rampTo: 50
+      name: "Ramp up"
+    
+    # Sustained load at target
+    - duration: 120
+      arrivalRate: 50
+      name: "Sustained load"
+    
+    # Spike test
+    - duration: 30
+      arrivalRate: 100
+      name: "Spike test"
+    
+    # Cool down
+    - duration: 30
+      arrivalRate: 10
+      name: "Cool down"
+
+  defaults:
+    headers:
+      User-Agent: "Artillery/Load-Test"
+      Accept: "application/json"
+
+  plugins:
+    expect: {}
+
+  ensure:
+    p95: 500          # 95th percentile < 500ms
+    p99: 1000         # 99th percentile < 1000ms
+    maxErrorRate: 1   # Max 1% error rate
+
+scenarios:
+  # Health check endpoint (lightest)
+  - name: "Health Check"
+    weight: 10
+    flow:
+      - get:
+          url: "/api/health"
+          expect:
+            - statusCode: 200
+            - contentType: application/json
+
+  # Articles listing API
+  - name: "Articles API"
+    weight: 25
+    flow:
+      - get:
+          url: "/api/articles"
+          qs:
+            limit: 10
+            status: published
+          expect:
+            - statusCode: 200
+            - contentType: application/json
+
+  # Homepage load
+  - name: "Homepage"
+    weight: 20
+    flow:
+      - get:
+          url: "/"
+          expect:
+            - statusCode: 200
+
+  # Article page (simulated)
+  - name: "Article Page"
+    weight: 20
+    flow:
+      - get:
+          url: "/articles"
+          expect:
+            - statusCode: 200
+
+  # Credit cards listing
+  - name: "Credit Cards Page"
+    weight: 15
+    flow:
+      - get:
+          url: "/credit-cards"
+          expect:
+            - statusCode: 200
+
+  # Products API
+  - name: "Products API"
+    weight: 10
+    flow:
+      - get:
+          url: "/api/entities/CreditCard/list"
+          expect:
+            - statusCode:
+                - 200
+                - 404  # May not exist in all envs

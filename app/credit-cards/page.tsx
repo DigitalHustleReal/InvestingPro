@@ -21,6 +21,7 @@ import { FilterSidebar, CCFilterState } from '@/components/credit-cards/FilterSi
 import { ResponsiveFilterContainer } from '@/components/products/ResponsiveFilterContainer';
 import { CreditCardTable } from '@/components/credit-cards/CreditCardTable';
 import { LayoutGrid, Table as TableIcon } from 'lucide-react';
+import TopPicksRow from '@/components/credit-cards/TopPicksRow';
 
 import CategoryHero from '@/components/common/CategoryHero';
 import UniversalSidebar from '@/components/common/UniversalSidebar';
@@ -213,6 +214,10 @@ const CreditCardsPage = () => {
             </div>
 
             <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pb-20">
+                
+                {/* Winners Podium - Guidance Layer */}
+                <TopPicksRow />
+
                 <div className="flex flex-col lg:flex-row gap-8 items-start">
                     
                     {/* Filter Sidebar */}

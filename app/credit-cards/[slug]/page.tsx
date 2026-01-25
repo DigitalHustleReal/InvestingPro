@@ -26,6 +26,7 @@ import { CreditCard as CreditCardType } from '@/types'
 import DecisionFramework from '@/components/common/DecisionFramework'
 import DecisionCTA from '@/components/common/DecisionCTA'
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs'
+import CreditCardValueCalculator from '@/components/products/CreditCardValueCalculator'
 
 interface CreditCardDetail {
   id: string
@@ -275,26 +276,36 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
                         </p>
                     </div>
 
+
+
                     {/* Trust Strip & Real Math */}
                     <div className="grid grid-cols-3 gap-4 border-y border-slate-100 dark:border-slate-800 py-6">
                         <div>
                            <p className="text-xs text-slate-500 uppercase font-bold mb-1">Annual Fee</p>
                            <p className="text-xl font-bold text-slate-900 dark:text-white">₹{card.annualFee}</p>
-                           <p className="text-[10px] text-slate-400">+ GST</p>
+                           <p className="text-xs text-slate-400">+ GST</p>
                         </div>
                         <div>
                            <p className="text-xs text-slate-500 uppercase font-bold mb-1">Reward Value</p>
                            <p className="text-xl font-bold text-emerald-600 dark:text-emerald-400">~1.5% - 3.3%</p>
-                           <p className="text-[10px] text-slate-400">Real Return</p>
+                           <p className="text-xs text-slate-400">Real Return</p>
                         </div>
                         <div>
                            <p className="text-xs text-slate-500 uppercase font-bold mb-1">Rating</p>
                            <div className="flex items-center gap-1">
                                 <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
                                 <span className="text-xl font-bold text-slate-900 dark:text-white">{card.rating}</span>
-                                <span className="text-slate-400 text-sm">/5</span>
+                                <span className="text-sm text-slate-400">/5</span>
                            </div>
                         </div>
+                    </div>
+
+                    {/* Quick Math Value Calculator (New Audit Feature) */}
+                    <div className="mb-6">
+                        <CreditCardValueCalculator 
+                            annualFee={card.annualFee} 
+                            cashbackRate={card.type === 'Premium' || card.type === 'Travel' ? 2.5 : 1.5} 
+                        />
                     </div>
 
                     {/* CTA Area */}

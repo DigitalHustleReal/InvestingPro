@@ -11,6 +11,7 @@ import { RichProduct } from '@/types/rich-product';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import BestForBadge from './BestForBadge';
+import ProductScoreBadges, { calculateProductTags } from './ProductScoreBadges';
 import AffiliateDisclosure from '@/components/common/AffiliateDisclosure';
 
 import { useCompare } from '@/contexts/CompareContext';
@@ -137,8 +138,16 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
                             <h3 className="text-lg font-bold text-slate-900 leading-tight group-hover:text-primary-700 transition-colors mb-2">
                                 {product.name}
                             </h3>
-                            {/* Best For Badge */}
-                            {product.bestFor && (
+                            {/* Scoring Badges - Auto-calculated */}
+                            <ProductScoreBadges 
+                                category={product.category || 'credit_card'}
+                                tags={calculateProductTags(product, product.category || 'credit_card')}
+                                size="sm"
+                                maxBadges={2}
+                                className="mt-1"
+                            />
+                            {/* Best For Badge (if no auto tags) */}
+                            {product.bestFor && calculateProductTags(product, product.category || 'credit_card').length === 0 && (
                                 <BestForBadge category={product.bestFor} size="sm" />
                             )}
                         </div>
