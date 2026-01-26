@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/badge';
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from '@/lib/supabase/static';
 import SEOHead from '@/components/common/SEOHead';
 
 interface PageProps {
@@ -23,7 +23,7 @@ interface PageProps {
 
 export default async function AuthorProfilePage({ params }: PageProps) {
     const { slug } = await params;
-    const supabase = await createClient();
+    const supabase = createClient();
     
     // Fetch author
     const { data: author, error } = await supabase

@@ -1,4 +1,4 @@
-import { createBrowserClient } from '@supabase/ssr'
+import { createBrowserClient as supabaseCreateBrowserClient } from '@supabase/ssr'
 
 export function createClient() {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -35,5 +35,8 @@ export function createClient() {
         } as any;
     }
 
-    return createBrowserClient(supabaseUrl, supabaseAnonKey);
+    return supabaseCreateBrowserClient(supabaseUrl, supabaseAnonKey);
 }
+
+// Alias for compatibility with common patterns
+export const createBrowserClient = createClient;

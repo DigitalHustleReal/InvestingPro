@@ -6,7 +6,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from '@/lib/supabase/static';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://investingpro.in';
 const SITE_NAME = 'InvestingPro';
@@ -75,7 +75,7 @@ function generateRssFeed(articles: FeedArticle[]): string {
 
 export async function GET() {
     try {
-        const supabase = await createClient();
+        const supabase = createClient();
 
         // Get latest published articles
         const { data: articles, error } = await supabase

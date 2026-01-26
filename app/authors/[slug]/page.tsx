@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { createServerClient } from '@/lib/supabase/server';
+import { createClient } from '@/lib/supabase/static';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
@@ -23,7 +23,7 @@ interface PageProps {
 // Generate metadata for SEO
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { slug } = await params;
-    const supabase = await createServerClient();
+    const supabase = createClient();
     
     const { data: author } = await supabase
         .from('authors')
@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function AuthorPage({ params }: PageProps) {
     const { slug } = await params;
-    const supabase = await createServerClient();
+    const supabase = createClient();
 
     // Fetch author details
     const { data: author, error } = await supabase

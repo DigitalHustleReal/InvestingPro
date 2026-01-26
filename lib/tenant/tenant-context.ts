@@ -273,7 +273,13 @@ export async function getTenantContext(request: Request): Promise<TenantContext>
  */
 export async function getCurrentTenant(): Promise<Tenant | null> {
   try {
-    const headersList = await getHeaders();
+    let headersList;
+    try {
+      headersList = await getHeaders();
+    } catch (e) {
+      // Outside of request context (e.g., build time)
+      return resolveTenant('main', 'default');
+    }
     
     // Check for tenant header set by middleware
     const tenantId = headersList.get('x-tenant-id');

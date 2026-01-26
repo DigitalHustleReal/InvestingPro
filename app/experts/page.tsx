@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from '@/lib/supabase/static';
 import ExpertTeam from '@/components/experts/ExpertTeam';
 import SEOHead from '@/components/common/SEOHead';
 import CategoryHero from '@/components/common/CategoryHero';
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ExpertsPage() {
-    const supabase = await createClient();
+    const supabase = createClient();
     
     const { data: experts, error } = await supabase
         .from('authors')

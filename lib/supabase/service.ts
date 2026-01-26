@@ -1,4 +1,4 @@
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient as supabaseCreateClient, SupabaseClient } from '@supabase/supabase-js';
 
 /**
  * Supabase Service Client
@@ -23,7 +23,7 @@ export function createServiceClient(): SupabaseClient {
         throw new Error('Supabase service role configuration missing. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.');
     }
 
-    _serviceClient = createClient(supabaseUrl, supabaseServiceKey, {
+    _serviceClient = supabaseCreateClient(supabaseUrl, supabaseServiceKey, {
         auth: {
             autoRefreshToken: false,
             persistSession: false,
@@ -43,3 +43,6 @@ export function createServiceClient(): SupabaseClient {
 
     return _serviceClient;
 }
+
+// Alias for compatibility with internal tools/generators
+export const createClient = createServiceClient;
