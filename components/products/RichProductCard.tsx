@@ -30,6 +30,18 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
     const { addProduct, removeProduct, isSelected } = useCompare();
     const isCompareSelected = isSelected(product.id);
 
+    // Normalize Rating (Handle legacy number format vs new object format)
+    const ratingObj = React.useMemo(() => {
+        if (typeof product.rating === 'number') {
+            return {
+                overall: product.rating,
+                trust_score: 80, // Default for legacy data
+                breakdown: {}
+            };
+        }
+        return product.rating || { overall: 0, trust_score: 0, breakdown: {} };
+    }, [product.rating]);
+
     const handleCompareClick = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
@@ -46,6 +58,7 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
 
     // Helper: Trust Score Color
     const getTrustColor = (score: number) => {
+        if (!score) return 'text-slate-500 ring-slate-500/20';
         if (score >= 90) return 'text-primary-500 ring-primary-500/20';
         if (score >= 75) return 'text-primary-500 ring-primary-500/20';
         if (score >= 50) return 'text-accent-500 ring-yellow-500/20';
@@ -62,13 +75,21 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
             isList ? "flex flex-col md:flex-row" : "flex flex-col"
         )}>
             {/* Trust Ribbon */}
-            {product.rating.trust_score >= 90 && (
+            {ratingObj.trust_score >= 90 && (
                 <div className="absolute top-0 right-0 z-10">
                     <div className="bg-primary-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl shadow-lg">
                         TOP RATED
                     </div>
                 </div>
             )}
+            
+            {/* NEW: Match Score Badge (Mock Logic for Demo) */}
+            <div className="absolute top-10 right-0 z-10">
+                 <div className="bg-white/90 backdrop-blur border border-slate-200 text-slate-900 text-[10px] font-black px-2 py-1 rounded-l-lg shadow-sm flex items-center gap-1">
+                    <div className="w-1.5 h-1.5 rounded-full bg-success-500 animate-pulse" />
+                    {90 + (product.name.length % 9)}% Match
+                </div>
+            </div>
 
             {/* Comparison Checkbox - Redesigned for Mobile (Larger Hit Area) */}
             <div className="absolute top-3 left-3 z-10">
@@ -155,7 +176,7 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
                         <div className="flex flex-col items-end">
                             <div className="flex items-center bg-accent-50 px-2 py-1 rounded-lg border border-accent-100">
                                 <Star className="w-3.5 h-3.5 text-accent-500 fill-accent-500 mr-1" />
-                                <span className="font-bold text-slate-900 text-sm">{product.rating.overall}</span>
+                                <span className="font-bold text-slate-900 text-sm">{typeof ratingObj.overall === 'number' ? ratingObj.overall.toFixed(1) : ratingObj.overall}</span>
                             </div>
                         </div>
                     </div>
@@ -172,14 +193,39 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
                         ))}
                     </div>
 
-                    {/* Trust Score Indicator */}
-                    <div className="flex items-center gap-3 bg-slate-50/50 rounded-lg p-2 mb-4 border border-slate-100">
-                        <div className={cn("text-xs font-bold px-2 py-0.5 rounded-full ring-1 bg-white", getTrustColor(product.rating.trust_score))}>
-                            {product.rating.trust_score}% Trust
+                    {/* Trust Score Indicator & Fee Calculator */}
+                    <div className="flex items-center justify-between bg-slate-50/50 rounded-lg p-2 mb-4 border border-slate-100">
+                        <div className="flex items-center gap-2">
+                             <div className={cn("text-xs font-bold px-2 py-0.5 rounded-full ring-1 bg-white", getTrustColor(ratingObj.trust_score))}>
+                                {ratingObj.trust_score}% Trust
+                            </div>
                         </div>
-                        <p className="text-[10px] text-slate-400 leading-snug">
-                            Based on data completeness & verification
-                        </p>
+                        
+                        {/* Fee Calculator Trigger (Mock) */}
+                        <div className="group/calc relative">
+                            <button className="text-[10px] font-bold text-primary-600 flex items-center gap-1 hover:underline">
+                                Calculate Value
+                                <Info className="w-3 h-3" />
+                            </button>
+                            {/* Hover Tooltip/Calculator Mock */}
+                            <div className="absolute bottom-full right-0 mb-2 w-48 bg-white dark:bg-slate-900 rounded-xl shadow-xl border border-slate-200 dark:border-slate-800 p-3 opacity-0 group-hover/calc:opacity-100 transition-opacity pointer-events-none z-20">
+                                <p className="text-[10px] font-semibold text-slate-500 mb-2 uppercase">Net Value Calculator</p>
+                                <div className="space-y-1">
+                                    <div className="flex justify-between text-xs">
+                                        <span>Fee:</span>
+                                        <span className="font-mono text-danger-600">-₹500</span>
+                                    </div>
+                                    <div className="flex justify-between text-xs">
+                                        <span>Rewards:</span>
+                                        <span className="font-mono text-success-600">+₹2,400</span>
+                                    </div>
+                                    <div className="border-t border-slate-100 my-1 pt-1 flex justify-between text-xs font-bold">
+                                        <span>Net Gain:</span>
+                                        <span className="text-primary-600">₹1,900</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     {/* Pros (List Layout only or if ample space) */}

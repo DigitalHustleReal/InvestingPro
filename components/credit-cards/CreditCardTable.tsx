@@ -113,8 +113,25 @@ export function CreditCardTable({ cards }: CreditCardTableProps) {
             key: 'rating',
             header: 'Rating',
             accessor: (row) => {
-                const rating = row.rating || 4.0;
-                const stars = Math.round(rating);
+                // Handle both simple number rating and object rating from RichProduct
+                let ratingVal = 4.0;
+                
+                if (typeof row.rating === 'number' && !isNaN(row.rating)) {
+                    ratingVal = row.rating;
+                } else if (typeof row.rating === 'object' && row.rating !== null) {
+                    const overall = row.rating.overall;
+                    ratingVal = (typeof overall === 'number' && !isNaN(overall)) ? overall : 4.0;
+                } else if (typeof row.rating === 'string') {
+                    const parsed = parseFloat(row.rating);
+                    ratingVal = (!isNaN(parsed)) ? parsed : 4.0;
+                }
+
+                // Ensure ratingVal is a valid number
+                if (typeof ratingVal !== 'number' || isNaN(ratingVal)) {
+                    ratingVal = 4.0;
+                }
+
+                const stars = Math.round(ratingVal);
                 
                 return (
                     <div className="flex flex-col items-center gap-1">
@@ -131,7 +148,7 @@ export function CreditCardTable({ cards }: CreditCardTableProps) {
                             ))}
                         </div>
                         <span className="text-xs font-bold text-slate-600 dark:text-slate-400">
-                            {rating.toFixed(1)}
+                            {ratingVal.toFixed(1)}
                         </span>
                     </div>
                 );

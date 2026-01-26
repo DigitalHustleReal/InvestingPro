@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { 
     CreditCard, 
     Landmark, 
@@ -21,6 +22,27 @@ import {
     BarChart3
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+
+// Animation variants
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1,
+            delayChildren: 0.2
+        }
+    }
+};
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5, ease: "easeOut" }
+    }
+};
 
 // Enhanced category data with gradients, stats, and quick links
 const categories = [
@@ -224,35 +246,72 @@ function CategoryCard({ category, isHovered, onHover }: {
                 </div>
             </Link>
 
-            {/* Hover Dropdown - Quick Links */}
-            <div className={cn(
-                "absolute left-0 right-0 top-full mt-2 z-20 transition-all duration-200",
-                "opacity-0 invisible translate-y-2",
-                isHovered && "opacity-100 visible translate-y-0"
-            )}>
-                <div className="bg-white dark:bg-slate-900 rounded-xl shadow-2xl border border-slate-100 dark:border-slate-800 p-3 space-y-1">
+            {/* Hover Dropdown - Quick Links with Animation */}
+            <motion.div 
+                className="absolute left-0 right-0 top-full mt-2 z-20"
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={isHovered ? { 
+                    opacity: 1, 
+                    y: 0, 
+                    scale: 1,
+                    transition: { 
+                        type: "spring", 
+                        stiffness: 300, 
+                        damping: 25,
+                        staggerChildren: 0.05
+                    }
+                } : { 
+                    opacity: 0, 
+                    y: 10, 
+                    scale: 0.95,
+                    transition: { duration: 0.15 }
+                }}
+                style={{ 
+                    pointerEvents: isHovered ? 'auto' : 'none',
+                    visibility: isHovered ? 'visible' : 'hidden'
+                }}
+            >
+                <div className="bg-white dark:bg-slate-900 rounded-xl shadow-2xl border border-slate-100 dark:border-slate-800 p-3 space-y-1 backdrop-blur-lg bg-opacity-95 dark:bg-opacity-95">
                     <p className="text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-500 font-semibold px-2 mb-2">
                         Quick Links
                     </p>
                     {category.quickLinks.map((link, i) => (
-                        <Link 
+                        <motion.div
                             key={i}
-                            href={link.href}
-                            className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={isHovered ? { 
+                                opacity: 1, 
+                                x: 0,
+                                transition: { delay: i * 0.05 }
+                            } : { opacity: 0, x: -10 }}
                         >
-                            <span className={cn("w-1.5 h-1.5 rounded-full bg-gradient-to-r", category.gradient)} />
-                            {link.name}
-                        </Link>
+                            <Link 
+                                href={link.href}
+                                className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                            >
+                                <span className={cn("w-1.5 h-1.5 rounded-full bg-gradient-to-r", category.gradient)} />
+                                {link.name}
+                            </Link>
+                        </motion.div>
                     ))}
-                    <Link 
-                        href={category.href}
-                        className="flex items-center justify-between px-3 py-2 mt-2 rounded-lg text-sm font-semibold text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors"
+                    <motion.div
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={isHovered ? { 
+                            opacity: 1, 
+                            x: 0,
+                            transition: { delay: category.quickLinks.length * 0.05 }
+                        } : { opacity: 0, x: -10 }}
                     >
-                        View All
-                        <ArrowRight className="w-4 h-4" />
-                    </Link>
+                        <Link 
+                            href={category.href}
+                            className="flex items-center justify-between px-3 py-2 mt-2 rounded-lg text-sm font-semibold text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors"
+                        >
+                            View All
+                            <ArrowRight className="w-4 h-4" />
+                        </Link>
+                    </motion.div>
                 </div>
-            </div>
+            </motion.div>
         </div>
     );
 }
@@ -270,7 +329,13 @@ export default function CategoryDiscovery() {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
                 {/* Header */}
-                <div className="text-center mb-12 lg:mb-16">
+                <motion.div 
+                    className="text-center mb-12 lg:mb-16"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.6 }}
+                >
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 dark:bg-primary-500/10 border border-primary-100 dark:border-primary-500/20 rounded-full mb-6">
                         <Sparkles className="w-4 h-4 text-primary-600 dark:text-primary-400" />
                         <span className="text-sm font-semibold text-primary-700 dark:text-primary-400">Browse Topics</span>
@@ -281,19 +346,26 @@ export default function CategoryDiscovery() {
                     <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                         Everything you need to manage your wealth — guides, calculators, and comparisons
                     </p>
-                </div>
+                </motion.div>
 
                 {/* Category Grid - 4 columns on large, 2 on mobile */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-12">
+                <motion.div 
+                    className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-12"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-50px" }}
+                >
                     {categories.slice(0, 8).map((category) => (
-                        <CategoryCard 
-                            key={category.slug}
-                            category={category}
-                            isHovered={hoveredCategory === category.slug}
-                            onHover={setHoveredCategory}
-                        />
+                        <motion.div key={category.slug} variants={itemVariants}>
+                            <CategoryCard 
+                                category={category}
+                                isHovered={hoveredCategory === category.slug}
+                                onHover={setHoveredCategory}
+                            />
+                        </motion.div>
                     ))}
-                </div>
+                </motion.div>
 
                 {/* Bottom CTA */}
                 <div className="text-center">

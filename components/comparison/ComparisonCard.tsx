@@ -154,12 +154,14 @@ export function ComparisonCard({
         </div>
 
         {/* Rating */}
-        {product.rating !== undefined && (
+        {product.rating !== undefined && product.rating !== null && (
           <div className="flex flex-col items-end ml-2">
             <div className="flex items-center gap-1">
               <Star className="w-5 h-5 fill-accent-500 text-accent-500" />
               <span className="text-lg font-bold text-slate-900 dark:text-white">
-                {product.rating.toFixed(1)}
+                {typeof product.rating === 'number' && !isNaN(product.rating) 
+                  ? product.rating.toFixed(1) 
+                  : '4.0'}
               </span>
             </div>
             {product.reviewCount && (

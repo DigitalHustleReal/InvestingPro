@@ -46,7 +46,7 @@ export default function SmallBusinessPage() {
 
                 <div className="container mx-auto px-4 text-center relative z-10">
                     <Badge className="mb-6 bg-primary-50 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400 border-primary-100 dark:border-primary-500/20 px-4 py-1.5 rounded-full font-bold uppercase tracking-widest text-[10px]">
-                        The MSME Command Center
+                        Small Business Hub
                     </Badge>
                     <h1 className="text-5xl sm:text-7xl font-black text-slate-900 dark:text-white mb-8 tracking-tighter leading-[1.1]">
                         Finance Your <br />

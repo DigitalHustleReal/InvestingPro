@@ -1,36 +1,93 @@
 "use client";
 
-import React from 'react';
-import { motion } from "framer-motion";
+import React, { useEffect, useState, useRef } from 'react';
+import { motion, useInView, useSpring, useTransform } from "framer-motion";
 import { Shield, Users, TrendingUp, Award } from 'lucide-react';
-import { GaugeMeter } from "@/components/ui/GaugeMeter";
+
+// Animated counter component
+function AnimatedCounter({ 
+    value, 
+    suffix = "", 
+    prefix = "",
+    duration = 2000 
+}: { 
+    value: number; 
+    suffix?: string; 
+    prefix?: string;
+    duration?: number;
+}) {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "-100px" });
+    const [displayValue, setDisplayValue] = useState(0);
+
+    useEffect(() => {
+        if (!isInView) return;
+
+        let startTime: number;
+        let animationFrame: number;
+
+        const animate = (timestamp: number) => {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            
+            // Easing function for smooth animation
+            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+            setDisplayValue(Math.floor(easeOutQuart * value));
+
+            if (progress < 1) {
+                animationFrame = requestAnimationFrame(animate);
+            }
+        };
+
+        animationFrame = requestAnimationFrame(animate);
+        return () => cancelAnimationFrame(animationFrame);
+    }, [isInView, value, duration]);
+
+    return (
+        <span ref={ref}>
+            {prefix}{displayValue.toLocaleString('en-IN')}{suffix}
+        </span>
+    );
+}
 
 export default function TrustBar() {
     const stats = [
         {
             label: "Community Members",
-            value: "50k+",
+            value: 50000,
+            displaySuffix: "+",
+            displayPrefix: "",
+            formattedValue: "50k+",
             icon: Users,
             color: "text-primary-600",
             bg: "bg-primary-50 dark:bg-primary-900/10"
         },
         {
             label: "Credit Value Tracked",
-            value: "₹500Cr+",
+            value: 500,
+            displaySuffix: "Cr+",
+            displayPrefix: "₹",
+            formattedValue: "₹500Cr+",
             icon: TrendingUp,
             color: "text-success-600",
             bg: "bg-success-50 dark:bg-success-900/10"
         },
         {
             label: "Partner Banks",
-            value: "50+",
+            value: 50,
+            displaySuffix: "+",
+            displayPrefix: "",
+            formattedValue: "50+",
             icon: Shield,
             color: "text-accent-600",
             bg: "bg-accent-50 dark:bg-accent-900/10"
         },
         {
             label: "Expert Reviews",
-            value: "1000+",
+            value: 1000,
+            displaySuffix: "+",
+            displayPrefix: "",
+            formattedValue: "1000+",
             icon: Award,
             color: "text-secondary-600",
             bg: "bg-secondary-50 dark:bg-secondary-900/10"
@@ -55,7 +112,11 @@ export default function TrustBar() {
                             </div>
                             <div>
                                 <h4 className="text-2xl font-black text-slate-900 dark:text-white leading-none mb-1">
-                                    {stat.value}
+                                    <AnimatedCounter 
+                                        value={stat.value} 
+                                        prefix={stat.displayPrefix}
+                                        suffix={stat.displaySuffix}
+                                    />
                                 </h4>
                                 <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
                                     {stat.label}
@@ -65,18 +126,23 @@ export default function TrustBar() {
                     ))}
                 </div>
 
-                {/* Media Mentions (Audit Section 6: Social Proof) */}
-                <div className="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800">
-                    <p className="text-center text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">
-                        As Seen In
-                    </p>
-                    <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-                        {/* Featured Logos (Text placeholders for now) */}
-                        <span className="text-lg font-black text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 pointer-events-none select-none">Economic Times</span>
-                        <span className="text-lg font-black text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 pointer-events-none select-none">LiveMint</span>
-                        <span className="text-lg font-black text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 pointer-events-none select-none">MoneyControl</span>
-                        <span className="text-lg font-black text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 pointer-events-none select-none">CNBC TV18</span>
-                        <span className="text-lg font-black text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 pointer-events-none select-none">Business Standard</span>
+                {/* Data Source Attribution - Builds trust through transparency */}
+                <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
+                    <div className="flex flex-wrap justify-center items-center gap-6 text-xs text-slate-500 dark:text-slate-400">
+                        <span className="flex items-center gap-2">
+                            <Shield className="w-4 h-4 text-emerald-500" />
+                            Data from AMFI & RBI
+                        </span>
+                        <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600" />
+                        <span className="flex items-center gap-2">
+                            <Award className="w-4 h-4 text-amber-500" />
+                            Independent Research
+                        </span>
+                        <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600" />
+                        <span className="flex items-center gap-2">
+                            <TrendingUp className="w-4 h-4 text-blue-500" />
+                            Updated Daily
+                        </span>
                     </div>
                 </div>
             </div>

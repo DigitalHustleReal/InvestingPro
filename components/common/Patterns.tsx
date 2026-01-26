@@ -1,6 +1,7 @@
 import React from 'react';
 
 export function DotPattern({ className = "", width = 16, height = 16, cx = 1, cy = 1, cr = 1 }: { className?: string, width?: number, height?: number, cx?: number, cy?: number, cr?: number }) {
+    const id = React.useId();
     return (
         <svg
             className={`absolute inset-0 h-full w-full pointer-events-none ${className}`}
@@ -8,7 +9,7 @@ export function DotPattern({ className = "", width = 16, height = 16, cx = 1, cy
         >
             <defs>
                 <pattern
-                    id="dot-pattern"
+                    id={id}
                     width={width}
                     height={height}
                     patternUnits="userSpaceOnUse"
@@ -19,12 +20,13 @@ export function DotPattern({ className = "", width = 16, height = 16, cx = 1, cy
                     <circle id="pattern-circle" cx={cx} cy={cy} r={cr} className="fill-current" />
                 </pattern>
             </defs>
-            <rect width="100%" height="100%" strokeWidth="0" fill="url(#dot-pattern)" />
+            <rect width="100%" height="100%" strokeWidth="0" fill={`url(#${id})`} />
         </svg>
     );
 }
 
 export function GridPattern({ className = "", width = 40, height = 40 }: { className?: string, width?: number, height?: number }) {
+    const id = React.useId();
     return (
         <svg
             className={`absolute inset-0 h-full w-full pointer-events-none ${className}`}
@@ -32,7 +34,7 @@ export function GridPattern({ className = "", width = 40, height = 40 }: { class
         >
             <defs>
                 <pattern
-                    id="grid-pattern"
+                    id={id}
                     width={width}
                     height={height}
                     patternUnits="userSpaceOnUse"
@@ -47,7 +49,7 @@ export function GridPattern({ className = "", width = 40, height = 40 }: { class
                     />
                 </pattern>
             </defs>
-            <rect width="100%" height="100%" strokeWidth="0" fill="url(#grid-pattern)" />
+            <rect width="100%" height="100%" strokeWidth="0" fill={`url(#${id})`} />
         </svg>
     );
 }

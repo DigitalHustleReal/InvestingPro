@@ -11,6 +11,7 @@ import { FilterSidebar, CCFilterState } from '@/components/credit-cards/FilterSi
 import { ResponsiveFilterContainer } from '@/components/products/ResponsiveFilterContainer';
 import { CreditCardTable } from '@/components/credit-cards/CreditCardTable';
 import UniversalSidebar from '@/components/common/UniversalSidebar';
+import { CompareTray } from "@/components/compare/CompareTray";
 
 interface CreditCardsClientProps {
     initialAssets: RichProduct[];
@@ -29,12 +30,15 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
     
     // Filter State
     const [filters, setFilters] = useState<CCFilterState>({
-        maxFee: 10000,
+        maxFee: 50000,
         minRewardRate: 0,
         networks: [],
         issuers: [],
         features: [],
-        spendingCategories: []
+        spendingCategories: [],
+        creditScore: [],
+        rewardsType: [],
+        cardType: []
     });
     
     // View Mode State
@@ -53,7 +57,7 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
         // Network Filter - look in specs or description
         const featuresStr = JSON.stringify(asset.features || {}).toLowerCase() + (asset.description || "").toLowerCase();
         const networkMatch = filters.networks.length === 0 || 
-            filters.networks.some(n => featuresStr.includes(n.toLowerCase())); // Loose match
+            filters.networks.some(n => featuresStr.includes(n.toLowerCase()));
 
         // Features Filter
         const featureMatch = filters.features.length === 0 || 
@@ -65,21 +69,42 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                 const term = category.toLowerCase().replace(/([a-z])([A-Z])/g, '$1$2');
                 return featuresStr.includes(term) || name.includes(term) || (asset.bestFor?.toLowerCase() || "").includes(term);
             });
+            
+        // NEW: Card Type Filter (Rewards, Travel, etc.)
+        const cardTypeMatch = filters.cardType.length === 0 ||
+            filters.cardType.some(type => {
+                const t = type.toLowerCase();
+                 return featuresStr.includes(t) || name.includes(t) || (asset.category || "").toLowerCase().includes(t);
+            });
 
-        // Fee logic (approximate since RichProduct fee is string/number complex)
-        // Assuming user just checks "Free" or similar. We skip numeric Fee filter for now unless we parse 'annualFee'.
-        // Let's implement basic fee filter if parsing possible.
-        // const feeVal = typeof asset.specs?.annualFee === 'number' ? asset.specs.annualFee : 0;
-        // const feeMatch = feeVal <= filters.maxFee;
+        // NEW: Rewards Type Filter (Cashback, Miles, etc.)
+        const rewardsTypeMatch = filters.rewardsType.length === 0 ||
+            filters.rewardsType.some(type => {
+                const t = type.toLowerCase();
+                 return featuresStr.includes(t) || (asset.specs?.rewardsType || "").toLowerCase().includes(t);
+            });
+
+        // NEW: Credit Score Filter (Mocked Logic - assuming all are 'good' if not specified)
+        // In real app, we check asset.creditScoreRequirement
+        const scoreMatch = filters.creditScore.length === 0 || true; // Placeholder for now until data has scores
+
+        // Fee logic
+        // We need to parse specs.annualFee which might be "₹500" or "Free"
+        // For now, simple check if we can parse it
+        const annualFeeStr = asset.specs?.annualFee || "0";
+        const annualFee = parseInt(annualFeeStr.replace(/[^0-9]/g, "")) || 0;
+        const feeMatch = annualFee <= filters.maxFee;
         
-        return searchMatch && issuerMatch && networkMatch && featureMatch && spendingMatch;
+        return searchMatch && issuerMatch && networkMatch && featureMatch && spendingMatch && cardTypeMatch && feeMatch && rewardsTypeMatch;
     });
 
     const activeFiltersCount = 
         (filters.issuers.length > 0 ? 1 : 0) + 
         (filters.networks.length > 0 ? 1 : 0) +
         (filters.features.length > 0 ? 1 : 0) +
-        (filters.spendingCategories.length > 0 ? 1 : 0);
+        (filters.spendingCategories.length > 0 ? 1 : 0) +
+        (filters.cardType.length > 0 ? 1 : 0) + 
+        (filters.rewardsType.length > 0 ? 1 : 0);
 
     return (
         <div className="flex flex-col lg:flex-row gap-8 items-start">
@@ -123,6 +148,24 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                        />
+                </div>
+
+                {/* NEW: Trending Social Proof Section */}
+                <div className="mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {[
+                        { label: "Trending This Week", value: "HDFC Regalia Gold", sub: "5.2k Views", icon: "🔥", color: "bg-orange-50 text-orange-600 dashed border-orange-200" },
+                        { label: "Top Rated", value: "SBI Cashback", sub: "4.9/5 Rating", icon: "⭐", color: "bg-yellow-50 text-yellow-600 dashed border-yellow-200" },
+                        { label: "Most Applied", value: "Axis Ace", sub: "1.2k Applications", icon: "🚀", color: "bg-blue-50 text-blue-600 dashed border-blue-200" }
+                    ].map((stat, i) => (
+                        <div key={i} className={`rounded-2xl p-4 border ${stat.color} flex items-center gap-4`}>
+                            <div className="text-2xl">{stat.icon}</div>
+                            <div>
+                                <div className="text-xs font-bold uppercase tracking-wider opacity-70">{stat.label}</div>
+                                <div className="font-bold text-slate-900 leading-tight">{stat.value}</div>
+                                <div className="text-xs opacity-80">{stat.sub}</div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
 
                 {/* Status Bar with View Toggle */}
@@ -178,6 +221,8 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                     </>
                 )}
             </div>
+            
+            <CompareTray />
         </div>
     );
 }

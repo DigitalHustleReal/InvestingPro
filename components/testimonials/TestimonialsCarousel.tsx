@@ -81,7 +81,14 @@ export default function TestimonialsCarousel({
     return null;
   }
 
-  const currentTestimonial = testimonials[currentIndex];
+  // Ensure currentIndex is within bounds
+  const safeIndex = Math.min(currentIndex, testimonials.length - 1);
+  const currentTestimonial = testimonials[safeIndex];
+
+  // Safety check - if testimonial doesn't exist, don't render
+  if (!currentTestimonial) {
+    return null;
+  }
 
   return (
     <div className="w-full max-w-4xl mx-auto py-12 px-4">
@@ -112,7 +119,7 @@ export default function TestimonialsCarousel({
               <Star
                 key={i}
                 className={`w-6 h-6 ${
-                  i < currentTestimonial.rating
+                  i < (currentTestimonial?.rating ?? 0)
                     ? 'fill-yellow-400 text-yellow-400'
                     : 'fill-slate-200 text-slate-200 dark:fill-slate-700 dark:text-slate-700'
                 }`}
@@ -122,16 +129,16 @@ export default function TestimonialsCarousel({
 
           {/* Testimonial Text */}
           <p className="text-xl md:text-2xl text-slate-700 dark:text-slate-300 text-center mb-8 leading-relaxed">
-            "{currentTestimonial.content}"
+            "{currentTestimonial?.content}"
           </p>
 
           {/* Author */}
           <div className="flex items-center justify-center gap-4">
-            {currentTestimonial.avatar_url && (
+            {currentTestimonial?.avatar_url && (
               <div className="relative w-16 h-16 rounded-full overflow-hidden ring-4 ring-primary-100 dark:ring-primary-900">
                 <Image
                   src={currentTestimonial.avatar_url}
-                  alt={currentTestimonial.name}
+                  alt={currentTestimonial?.name || 'User'}
                   fill
                   className="object-cover"
                 />
@@ -139,12 +146,12 @@ export default function TestimonialsCarousel({
             )}
             <div className="text-left">
               <p className="font-bold text-lg text-slate-900 dark:text-white">
-                {currentTestimonial.name}
+                {currentTestimonial?.name}
               </p>
-              {currentTestimonial.role && (
+              {currentTestimonial?.role && (
                 <p className="text-sm text-slate-600 dark:text-slate-400">
                   {currentTestimonial.role}
-                  {currentTestimonial.company && ` at ${currentTestimonial.company}`}
+                  {currentTestimonial?.company && ` at ${currentTestimonial.company}`}
                 </p>
               )}
             </div>
@@ -180,7 +187,7 @@ export default function TestimonialsCarousel({
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={`w-3 h-3 rounded-full transition-all ${
-                index === currentIndex
+                index === safeIndex
                   ? 'bg-primary-600 w-8'
                   : 'bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500'
               }`}

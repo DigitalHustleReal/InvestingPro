@@ -8,23 +8,16 @@
  * Calculate current realistic stats based on platform age
  */
 export function getPlatformStats() {
-    const launchDate = new Date('2024-01-01');
-    const today = new Date();
-    const daysSinceLaunch = Math.floor((today.getTime() - launchDate.getTime()) / (1000 * 60 * 60 * 24));
-    
-    // CONSERVATIVE, REALISTIC growth rates
-    const productsAnalyzed = Math.floor(500 + (daysSinceLaunch * 2)); // +2 products/day
-    const monthlyUsers = Math.floor(3000 + (daysSinceLaunch * 25)); // +25 users/day
-    const moneySaved = Math.floor(100000 + (daysSinceLaunch * 5000)); // +5K saved/day (in rupees)
-    const averageRating = 4.6; // Fixed realistic rating
+    // MARKETING-APPROVED NUMBERS (Source: master_audit_checklist.md)
+    // Dynamic calculation removed to ensure consistency with marketing copy
     
     return {
-        productsAnalyzed,
-        monthlyUsers,
-        moneySaved,
-        averageRating,
-        moneySavedCr: (moneySaved / 10000000).toFixed(1), // Convert to Crores
-        moneySavedLakh: (moneySaved / 100000).toFixed(1), // Convert to Lakhs
+        productsAnalyzed: 2000,       // "2,000+ Products"
+        monthlyUsers: 2100000,        // "2.1M+ Users"
+        moneySaved: 5000000000,       // "₹500Cr+" (500 Crores)
+        averageRating: 4.8,           // "4.8/5 Rating"
+        moneySavedCr: "500.0",        // Display purposes
+        moneySavedLakh: "50000.0",    // Display purposes
     };
 }
 

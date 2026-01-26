@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { DataTable } from '@/components/data-table/DataTable';
 import { ColumnDef } from '@/components/data-table/types';
@@ -134,7 +134,23 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
             key: 'rating',
             header: 'Rating',
             accessor: (row) => {
-                const rating = row.rating || 4.0;
+                // Safely extract and validate rating
+                let rating = 4.0;
+                
+                if (typeof row.rating === 'number' && !isNaN(row.rating)) {
+                    rating = row.rating;
+                } else if (typeof row.rating === 'string') {
+                    const parsed = parseFloat(row.rating);
+                    rating = (!isNaN(parsed)) ? parsed : 4.0;
+                } else if (row.rating === null || row.rating === undefined) {
+                    rating = 4.0;
+                }
+
+                // Final validation
+                if (typeof rating !== 'number' || isNaN(rating)) {
+                    rating = 4.0;
+                }
+
                 const stars = Math.round(rating);
                 
                 return (

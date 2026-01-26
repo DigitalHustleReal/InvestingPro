@@ -190,8 +190,8 @@ export function Footer() {
                             <ul className="space-y-2">
                                 {[
                                     { name: "Best Credit Cards", href: "/credit-cards" },
-                                    { name: "Lifetime Free Cards", href: "/credit-cards" },
-                                    { name: "Travel Cards", href: "/credit-cards" },
+                                    { name: "Rewards Cards", href: "/credit-cards?filter=rewards" },
+                                    { name: "Travel Cards", href: "/credit-cards?filter=travel" },
                                 ].map((link, i) => (
                                     <li key={i}>
                                         <Link href={link.href} className="text-sm md:text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
@@ -203,9 +203,9 @@ export function Footer() {
                             <h4 className="text-slate-900 dark:text-white font-bold tracking-wide mb-4">Loans</h4>
                             <ul className="space-y-2">
                                 {[
-                                    { name: "Personal Loans", href: "/loans" },
-                                    { name: "Home Loans", href: "/loans" },
-                                    { name: "Check Eligibility", href: "/loans" },
+                                    { name: "Personal Loans", href: "/loans?type=personal" },
+                                    { name: "Home Loans", href: "/loans?type=home" },
+                                    { name: "Check Eligibility", href: "/loans/calculators/eligibility" },
                                 ].map((link, i) => (
                                     <li key={i}>
                                         <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>

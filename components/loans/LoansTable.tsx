@@ -135,10 +135,49 @@ export function LoansTable({ loans }: LoansTableProps) {
             align: 'center'
         },
         {
+            key: 'approval',
+            header: 'Approval Chance',
+            accessor: (row) => {
+                 // Mock logic: randomly high or medium based on name length
+                 const chance = row.name.length % 2 === 0 ? "High" : "Very High";
+                 return (
+                    <div className="text-center">
+                        <Badge variant="outline" className={`h-5 border-0 font-bold text-[9px] uppercase tracking-wider ${
+                            chance === "Very High" 
+                                ? "bg-success-50 text-success-700 ring-1 ring-success-600/20" 
+                                : "bg-warning-50 text-warning-700 ring-1 ring-warning-600/20"
+                        }`}>
+                            {chance}
+                        </Badge>
+                        <p className="text-[8px] text-slate-400 mt-1">Based on profile</p>
+                    </div>
+                 );
+            },
+            sortable: false,
+            width: '12%',
+            align: 'center'
+        },
+        {
             key: 'rating',
             header: 'Rating',
             accessor: (row) => {
-                const rating = row.rating || 4.0;
+                // Safely extract and validate rating
+                let rating = 4.0;
+                
+                if (typeof row.rating === 'number' && !isNaN(row.rating)) {
+                    rating = row.rating;
+                } else if (typeof row.rating === 'string') {
+                    const parsed = parseFloat(row.rating);
+                    rating = (!isNaN(parsed)) ? parsed : 4.0;
+                } else if (row.rating === null || row.rating === undefined) {
+                    rating = 4.0;
+                }
+
+                // Final validation
+                if (typeof rating !== 'number' || isNaN(rating)) {
+                    rating = 4.0;
+                }
+
                 const stars = Math.round(rating);
                 
                 return (

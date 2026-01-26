@@ -91,12 +91,21 @@ export default function FeaturedProducts() {
                                             <div className="p-3 bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 rounded-xl group-hover:bg-primary-50 dark:group-hover:bg-primary-900/30 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                                                 {CATEGORY_ICONS[product.category] || <Star className="w-5 h-5" />}
                                             </div>
-                                            {product.trust_score && product.trust_score >= 80 && (
-                                                <Badge className="bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-400 border-0 flex items-center gap-1">
-                                                    <Star className="w-3 h-3 fill-accent-700 dark:fill-accent-400" />
-                                                    Top Rated
-                                                </Badge>
-                                            )}
+                                            <div className="flex flex-col items-end gap-2">
+                                                {/* Hot Deal Badge - Show for top products */}
+                                                {product.trust_score && product.trust_score >= 90 && (
+                                                    <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white border-0 flex items-center gap-1 animate-pulse">
+                                                        <TrendingUp className="w-3 h-3" />
+                                                        Hot Deal
+                                                    </Badge>
+                                                )}
+                                                {product.trust_score && product.trust_score >= 80 && (
+                                                    <Badge className="bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-400 border-0 flex items-center gap-1">
+                                                        <Star className="w-3 h-3 fill-accent-700 dark:fill-accent-400" />
+                                                        Top Rated
+                                                    </Badge>
+                                                )}
+                                            </div>
                                         </div>
 
                                         {/* Content */}

@@ -13,10 +13,10 @@ export default function NotFound() {
              <span className="text-4xl font-black text-white italic">404</span>
           </div>
           <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">
-            Asset Not Found
+            Page Not Found
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400 max-w-md mx-auto">
-            The resource you're looking for has been moved, archived, or never existed in our directory.
+            Sorry, we couldn't find the page you're looking for. It may have been moved or no longer exists.
           </p>
         </div>
 
@@ -51,7 +51,7 @@ export default function NotFound() {
             <Button asChild className="w-full sm:w-auto px-8 h-12 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-bold gap-2">
                 <Link href="/">
                     <Home className="w-4 h-4" />
-                    Back to Command Center
+                    Back to Home
                 </Link>
             </Button>
             <Button variant="ghost" asChild className="w-full sm:w-auto h-12 rounded-xl text-slate-500">

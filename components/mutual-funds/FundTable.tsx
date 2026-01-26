@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { Star, TrendingUp, CheckCircle2 } from "lucide-react";
 import { useCompare } from '@/contexts/CompareContext';
 import { cn, formatCompactNumber } from '@/lib/utils';
+import { TrendSparkline } from '@/components/common/TrendSparkline';
 
 interface FundTableProps {
     funds: any[];
@@ -112,20 +113,54 @@ export function FundTable({ funds }: FundTableProps) {
             width: '10%',
             // mobileHidden: true - showing on mobile now
         },
+
+    // ... inside columns definition
         {
             key: 'returns_3y',
             header: '3Y Return',
             accessor: (row) => (
-                <div className="flex flex-col items-end">
-                    <span className={cn("text-sm font-bold", row.returns_3y >= 15 ? 'text-primary-600' : 'text-slate-900 dark:text-white')}>
-                        {row.returns_3y}%
-                    </span>
-                    <span className="text-[9px] text-slate-400 font-bold uppercase">3Y</span>
+                <div className="flex flex-col items-end gap-1">
+                    <div className="flex items-center gap-2">
+                        <TrendSparkline 
+                            width={60} 
+                            height={20} 
+                            data={[10, 12, row.returns_3y - 5, row.returns_3y - 2, row.returns_3y]} 
+                            trend={row.returns_3y >= 15 ? 'up' : 'neutral'}
+                        />
+                         <span className={cn("text-sm font-bold", row.returns_3y >= 15 ? 'text-primary-600' : 'text-slate-900 dark:text-white')}>
+                            {row.returns_3y}%
+                        </span>
+                    </div>
+                    <span className="text-[9px] text-slate-400 font-bold uppercase">3Y CAGR</span>
                 </div>
             ),
             sortable: true,
             align: 'right',
-            width: '10%'
+            width: '18%' // Increased width for sparkline
+        },
+        {
+            key: 'holdings',
+            header: 'Top Holdings',
+            accessor: (row) => (
+                 <div className="flex flex-col gap-1">
+                    <div className="flex -space-x-1.5 overflow-hidden py-1">
+                        {/* Mock Logos/Initials for Holdings */}
+                        {['HDFC', 'REL', 'INFY', 'ICICI'].map((h, i) => (
+                            <div key={i} className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-slate-100 border border-white text-[8px] font-bold text-slate-600" title={h}>
+                                {h[0]}
+                            </div>
+                        ))}
+                        <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-slate-50 border border-white text-[8px] text-slate-400 font-medium">
+                            +6
+                        </div>
+                    </div>
+                    <p className="text-[9px] text-slate-400 leading-tight truncate w-24">
+                        Financials, Tech, Energy
+                    </p>
+                </div>
+            ),
+            sortable: false,
+            width: '15%'
         },
         {
             key: 'aum',

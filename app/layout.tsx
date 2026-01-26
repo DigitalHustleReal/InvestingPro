@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import { cn } from "@/lib/utils";
 import Analytics from "@/components/common/Analytics";
+import GoogleAnalytics from "@/components/analytics/GoogleAnalytics"; // Import GA
 import CookieConsent from "@/components/legal/CookieConsent";
 import QueryProvider from "@/components/providers/QueryProvider";
 import ErrorBoundaryProvider from "@/components/providers/ErrorBoundaryProvider";
@@ -118,6 +119,7 @@ export default async function RootLayout({
         inter.className,
         "min-h-screen flex flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-300"
       )}>
+        <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />
         <ThemeProvider
             attribute="class"
             defaultTheme="light"

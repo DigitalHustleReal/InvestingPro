@@ -182,28 +182,40 @@ export default function LoansPage() {
                 <div className="container mx-auto px-4">
                     <AutoBreadcrumbs />
                     
-                    {/* Premium Authoritative Hero */}
-                    <CategoryHero
-                        title="Compare Best Loans in India"
-                        subtitle="Lowest Interest Rates. Instant Approval."
-                        description="Compare 30+ lenders for Personal, Home, and Car loans. Get digital approval in 5 minutes with lowest interest rates starting from 8.50%."
-                        primaryCta={{
-                            text: "Compare Loans",
-                            href: "#compare"
-                        }}
-                        secondaryCta={{
-                            text: "Calculate EMI",
-                            href: "#emi-calculator"
-                        }}
-                        stats={[
-                            { label: "Lenders", value: "30+" },
-                            { label: "Starting ROI", value: "8.50%" },
-                            { label: "Disbursal", value: "24hrs" }
-                        ]}
-                        badge="Lowest Interest Rates • Instant Approval • Digital Process"
-                        variant="primary"
-                        className="mb-12"
-                    />
+import { InlineEligibilityWidget } from '@/components/loans/InlineEligibilityWidget';
+
+    // ... scroll down to CategoryHero implementation
+                    
+                    {/* Split Hero Section */}
+                    <div className="flex flex-col lg:flex-row gap-8 items-center mb-12">
+                        <div className="flex-1">
+                            <CategoryHero
+                                title="Compare Best Loans in India"
+                                subtitle="Lowest Interest Rates. Instant Approval."
+                                description="Compare 30+ lenders for Personal, Home, and Car loans. Get digital approval in 5 minutes with lowest interest rates starting from 8.50%."
+                                primaryCta={{
+                                    text: "Compare Loans",
+                                    href: "#compare"
+                                }}
+                                secondaryCta={{
+                                    text: "Calculate EMI",
+                                    href: "#emi-calculator"
+                                }}
+                                stats={[
+                                    { label: "Lenders", value: "30+" },
+                                    { label: "Starting ROI", value: "8.50%" },
+                                    { label: "Disbursal", value: "24hrs" }
+                                ]}
+                                badge="Lowest Interest Rates • Instant Approval • Digital Process"
+                                variant="primary"
+                                className="mb-0 w-full" 
+                            />
+                        </div>
+                        {/* WIDGET HERE */}
+                        <div className="shrink-0 w-full lg:w-auto flex justify-center lg:block">
+                            <InlineEligibilityWidget />
+                        </div>
+                    </div>
 
                     {/* Search Bar */}
                     <div className="max-w-xl mx-auto mb-12 relative group z-20">
