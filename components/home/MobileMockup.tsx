@@ -10,9 +10,16 @@ import { Search, TrendingUp, Calculator, BookOpen, Star, ArrowRight } from 'luci
  */
 export default function MobileMockup() {
     return (
-        <div className="relative w-full max-w-[320px] mx-auto">
+        <motion.div 
+            className="relative w-full max-w-[320px] mx-auto"
+            initial={{ rotateY: 0, rotateX: 0 }}
+            whileInView={{ rotateY: -15, rotateX: 10 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            style={{ perspective: 1000 }}
+        >
             {/* Phone Frame */}
-            <div className="relative bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800 rounded-[3rem] p-3 shadow-2xl">
+            <div className="relative bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800 rounded-[3rem] p-3 shadow-2xl ring-1 ring-white/10">
                 {/* Phone Bezel */}
                 <div className="bg-white dark:bg-slate-800 rounded-[2.5rem] overflow-hidden shadow-inner">
                     {/* Notch */}
@@ -42,7 +49,7 @@ export default function MobileMockup() {
                         <div className="bg-gradient-to-br from-primary-500 to-secondary-500 px-4 pt-6 pb-8 text-white">
                             <h1 className="text-xl font-bold mb-2">Find Your Perfect Financial Product</h1>
                             <div className="relative mt-4">
-                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-primary-700 dark:text-primary-500" />
                                 <input 
                                     type="text" 
                                     placeholder="Search cards, funds..."
@@ -150,6 +157,6 @@ export default function MobileMockup() {
                 <div className="absolute -top-2 -right-2 w-24 h-24 bg-primary-500/20 rounded-full blur-2xl -z-10" />
                 <div className="absolute -bottom-2 -left-2 w-32 h-32 bg-secondary-500/20 rounded-full blur-2xl -z-10" />
             </div>
-        </div>
+        </motion.div>
     );
 }

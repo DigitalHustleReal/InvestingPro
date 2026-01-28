@@ -17,7 +17,13 @@ export function enrichContent(html: string): string {
     // Replace [sip-calculator] with Hydration Placeholder
     enriched = enriched.replace(
         /\[sip-calculator\]/gi, 
-        '<div data-widget="sip-calculator" class="my-8 p-4 bg-slate-50 rounded-lg border border-slate-200 text-center text-slate-500">Loading Calculator...</div>'
+        '<div data-widget="sip-calculator" class="my-8 p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 text-center text-slate-500">Loading Calculator...</div>'
+    );
+
+    // Replace [auto-calculator] with category-aware placeholder
+    enriched = enriched.replace(
+        /\[auto-calculator\]/gi, 
+        '<div data-widget="auto-calculator" class="my-8 p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 text-center text-slate-500">Loading Suggested Tool...</div>'
     );
 
     // 2. Affiliate & Internal Links

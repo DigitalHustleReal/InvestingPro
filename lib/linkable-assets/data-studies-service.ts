@@ -8,7 +8,7 @@
  * - Comparison shoppers
  */
 
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from '@/lib/supabase/client';
 import { getRBIPolicyRates } from '@/lib/data-sources/rbi-api';
 import { fetchAMFINAVData, type AMFIFundData } from '@/lib/data-sources/amfi-api';
 import { logger } from '@/lib/logger';

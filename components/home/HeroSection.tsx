@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/Button";
-import { ArrowRight, TrendingUp, Shield, Calculator, CreditCard, Landmark, BookOpen, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, TrendingUp, Shield, Calculator, CreditCard, Landmark, BookOpen, ChevronLeft, ChevronRight, Search } from "lucide-react";
 import Link from "next/link";
 import { STAT_STRINGS } from "@/lib/constants/platform-stats";
 import { motion, AnimatePresence } from "framer-motion";
@@ -179,7 +179,7 @@ export default function HeroSection() {
                         {/* Search Input - Static (Always available to not annoy users) */}
                         <div className="relative group max-w-xl mb-8">
                             <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-                                <ArrowRight className="h-5 w-5 text-primary-500" />
+                                <Search className="h-5 w-5 text-primary-700 dark:text-primary-500" />
                             </div>
                             <input
                                 type="text"

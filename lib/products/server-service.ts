@@ -1,5 +1,5 @@
 
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from '@/lib/supabase/client';
 import { Product, ProductCategory } from './product-service';
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {

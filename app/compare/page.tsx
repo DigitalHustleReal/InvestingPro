@@ -154,12 +154,67 @@ export default function ComparisonPage() {
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-                <div className="overflow-x-auto pb-12">
+                
+                {/* 1. Mobile/Tablet "Card-Flipped" View (Stacked logic for small screens) */}
+                <div className="lg:hidden space-y-8">
+                    {/* Sticky Product Cards for reference */}
+                    <div className="sticky top-[132px] z-20 flex gap-2 overflow-x-auto pb-4 pt-2 -mx-4 px-4 bg-slate-50 dark:bg-slate-950 shadow-sm scrollbar-hide">
+                        {products.map(product => (
+                            <div key={product.id} className="min-w-[140px] p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col items-center">
+                                <div className="h-10 w-full relative mb-2">
+                                    <Image 
+                                        src={product.image_url || '/images/placeholder.png'} 
+                                        alt={product.name} 
+                                        fill
+                                        className="object-contain"
+                                    />
+                                </div>
+                                <h4 className="text-[10px] font-bold text-slate-900 dark:text-white line-clamp-1 text-center">{product.name}</h4>
+                            </div>
+                        ))}
+                    </div>
+
+                    {config.sections.map((section) => (
+                        <div key={section.title} className="space-y-6">
+                            <h3 className="text-xs font-black uppercase tracking-widest text-primary-600 bg-primary-50 dark:bg-primary-950/30 px-3 py-1 rounded-full inline-block">{section.title}</h3>
+                            <div className="space-y-4">
+                                {section.fields.map(field => {
+                                    const values = products.map(p => getFieldValue(p, field.key));
+                                    const isIdentical = values.length > 1 && values.every(v => v === values[0]);
+                                    if (hideIdentical && isIdentical) return null;
+
+                                    return (
+                                        <div key={field.key} className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
+                                            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 dark:border-slate-800 pb-2">{field.label}</p>
+                                            <div className="grid grid-cols-2 gap-4">
+                                                {products.map((product, pIdx) => {
+                                                    const value = getFieldValue(product, field.key);
+                                                    return (
+                                                        <div key={product.id} className="flex flex-col gap-1">
+                                                            <span className="text-[10px] font-bold text-slate-500 uppercase">{product.provider_name}</span>
+                                                            <div className="text-sm font-semibold text-slate-900 dark:text-white">
+                                                                {renderCell(value, field.type, false)}
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* 2. Desktop Standard Comparison Table */}
+                <div className="hidden lg:block overflow-x-auto pb-12">
                     <table className="w-full min-w-[800px] border-collapse">
+                        {/* thead remains as updated previously */}
                         {/* 1. Product Headers (Sticky) */}
-                        <thead>
+                        <thead className="sticky top-[132px] z-30 bg-slate-50 dark:bg-slate-950 shadow-sm">
                             <tr>
-                                <th className="w-[200px] p-4 text-left align-bottom bg-slate-50 dark:bg-slate-950 sticky left-0 z-20 border-b border-slate-200 dark:border-slate-800">
+                                <th className="w-[200px] p-4 text-left align-bottom bg-slate-50 dark:bg-slate-950 sticky left-0 z-40 border-b border-slate-200 dark:border-slate-800">
                                     <span className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Features</span>
                                 </th>
                                 {products.map(product => (

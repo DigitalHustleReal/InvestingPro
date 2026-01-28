@@ -33,7 +33,7 @@ export default function ProductCard({ product }: { product: Product }) {
                     id={`compare-${product.id}`}
                     checked={selected}
                     onCheckedChange={(c) => c ? addProduct(product) : removeProduct(product.id)}
-                    className="data-[state=checked]:bg-primary-600 data-[state=checked]:border-primary-600"
+                    className="data-[state=checked]:bg-primary-700 data-[state=checked]:border-primary-700"
                 />
                 <label htmlFor={`compare-${product.id}`} className="text-xs font-medium text-slate-700 cursor-pointer select-none">
                     Compare
@@ -106,7 +106,7 @@ export default function ProductCard({ product }: { product: Product }) {
                 <div className="space-y-1 mb-2">
                     {product.pros.slice(0, 2).map((pro, i) => (
                         <div key={i} className="flex items-start gap-1.5 text-xs text-slate-600">
-                            <Check className="w-3 h-3 text-primary-600 mt-0.5 shrink-0" />
+                            <Check className="w-3 h-3 text-emerald-600 mt-0.5 shrink-0" />
                             <span className="line-clamp-1">{pro}</span>
                         </div>
                     ))}
@@ -119,7 +119,9 @@ export default function ProductCard({ product }: { product: Product }) {
                         <Button variant="outline" className="w-full">Details</Button>
                     </Link>
                     <Link href={getAffiliateUrl(product)} className="flex-1" target="_blank" rel="noopener noreferrer">
-                        <Button className="w-full bg-primary-600 hover:bg-primary-700">Apply Now</Button>
+                        <Button className="w-full bg-primary-dark hover:bg-primary-800 text-white font-semibold shadow-md hover:shadow-lg transition-all h-10">
+                            Apply Now
+                        </Button>
                     </Link>
                 </div>
                 

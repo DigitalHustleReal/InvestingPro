@@ -1,0 +1,48 @@
+name: Credit Card Scraper - Weekly Update
+
+on:
+  schedule:
+    # Run every Monday at 2:00 AM IST (8:30 PM UTC Sunday)
+    - cron: '30 20 * * 0'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  scrape-credit-cards:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Credit Card Scraper
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          npx tsx --tsconfig tsconfig.scripts.json scripts/scrapers/credit-card-scraper.ts
+
+      - name: Notify on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '⚠️ Credit Card Scraper Failed',
+              body: `The weekly credit card scraper failed on ${new Date().toISOString()}.
+              
+              **Workflow Run**: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}
+              
+              Please investigate and resolve the issue.`,
+              labels: ['scraper', 'automation', 'bug']
+            })

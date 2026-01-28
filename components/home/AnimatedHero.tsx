@@ -97,7 +97,7 @@ export default function AnimatedHero() {
                         <div className="relative bg-white dark:bg-slate-900 rounded-xl border-2 border-slate-200 dark:border-slate-800 shadow-2xl">
                             <div className="flex items-center p-2">
                                 <div className="pl-4 pr-3">
-                                    <Search className="w-6 h-6 text-slate-400" />
+                                    <Search className="w-5 h-5 text-primary-700 dark:text-primary-500" />
                                 </div>
                                 <Input
                                     type="text"
@@ -108,7 +108,7 @@ export default function AnimatedHero() {
                                 />
                                 <Button
                                     type="submit"
-                                    className="h-14 px-10 bg-gradient-to-r from-primary-600 to-success-600 hover:from-primary-700 hover:to-success-700 text-white font-bold rounded-xl shadow-lg shadow-primary-500/30 transition-all mr-1"
+                                    className="h-14 px-10 bg-gradient-to-r from-primary-700 to-success-700 hover:from-primary-800 hover:to-success-800 text-white font-bold rounded-xl shadow-lg shadow-primary-500/30 transition-all mr-1"
                                 >
                                     Search
                                     <ArrowRight className="w-5 h-5 ml-2" />

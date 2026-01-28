@@ -14,7 +14,7 @@
  */
 
 import { logger } from '@/lib/logger';
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from '@/lib/supabase/client';
 
 export interface RBIPolicyRates {
     repoRate: number; // Policy repo rate

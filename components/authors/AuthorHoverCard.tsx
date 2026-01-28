@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import TrustBadge from '@/components/common/TrustBadge';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
@@ -82,12 +83,14 @@ export function AuthorHoverCard({ author, children, className, showAvatar = fals
                     <span className="font-medium text-slate-900 dark:text-slate-100 group-hover:text-primary-600">{children || author.name}</span>
                 </Link>
             </HoverCardTrigger>
-            <HoverCardContent className="w-80 md:w-96 p-0 overflow-hidden border-slate-200 dark:border-slate-800 shadow-xl" sideOffset={10}>
+            <HoverCardContent className="w-80 md:w-96 p-0 overflow-hidden border-slate-200 dark:border-slate-800 shadow-2xl rounded-2xl" sideOffset={10}>
                 
                 {/* Header with Photo */}
-                <div className="flex p-5 gap-4 bg-white dark:bg-slate-950">
-                    <div className="shrink-0">
-                         <div className="w-16 h-16 rounded-full overflow-hidden bg-slate-100 border-2 border-slate-100 dark:border-slate-800 relative shadow-sm">
+                <div className="flex p-6 gap-5 bg-gradient-to-br from-white to-slate-50 dark:from-slate-950 dark:to-slate-900">
+                    <div className="shrink-0 relative">
+                         {/* Avatar Glow */}
+                         <div className="absolute -inset-1 bg-primary-500/10 rounded-full blur-md" />
+                         <div className="w-20 h-20 rounded-full overflow-hidden bg-white dark:bg-slate-900 border-2 border-white dark:border-slate-800 relative shadow-md">
                             {author.photo_url ? (
                                 <Image
                                     src={author.photo_url}
@@ -96,25 +99,28 @@ export function AuthorHoverCard({ author, children, className, showAvatar = fals
                                     className="object-cover"
                                 />
                             ) : (
-                                <div className="w-full h-full flex items-center justify-center text-xl font-bold text-slate-400 bg-slate-100">
+                                <div className="w-full h-full flex items-center justify-center text-2xl font-black text-slate-300 dark:text-slate-700 bg-slate-50 dark:bg-slate-900 font-heading">
                                     {getInitials(author.name)}
                                 </div>
                             )}
                         </div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                        <h4 className="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-1">
+                    <div className="flex-1 min-w-0 pt-1">
+                        <h4 className="text-xl font-black text-slate-900 dark:text-white leading-tight mb-1 font-heading tracking-tight">
                             {author.name}
                         </h4>
-                        <p className="text-xs uppercase tracking-wider font-semibold text-primary-600 dark:text-primary-400 mb-2">
-                             {author.role?.replace('_', ' ') || 'Contributor'}
-                        </p>
+                        <div className="flex items-center gap-2 mb-3">
+                            <span className="text-[10px] uppercase tracking-widest font-black text-primary-600 dark:text-primary-400">
+                                {author.role?.replace('_', ' ') || 'Contributor'}
+                            </span>
+                            <TrustBadge type="verified" className="px-1.5 py-0" showIcon={false} />
+                        </div>
                         
-                        {/* Compact Credentials - using pre-normalized safeCredentials */}
+                        {/* Compact Credentials */}
                         {safeCredentials.length > 0 && (
-                            <div className="flex flex-wrap gap-1.5 mb-2">
+                            <div className="flex flex-wrap gap-1.5">
                                 {safeCredentials.slice(0, 2).map((cred, i) => (
-                                    <span key={i} className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                                    <span key={i} className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 shadow-sm">
                                         {cred}
                                     </span>
                                 ))}
@@ -124,32 +130,32 @@ export function AuthorHoverCard({ author, children, className, showAvatar = fals
                 </div>
 
                 {/* Bio Section */}
-                <div className="px-5 pb-5 pt-0 bg-white dark:bg-slate-950">
-                    <p className="text-sm text-slate-600 dark:text-slate-300 line-clamp-3 leading-relaxed">
-                        {author.bio || author.short_bio || `Read articles by ${author.name} on InvestingPro.`}
+                <div className="px-6 pb-6 pt-0 bg-gradient-to-b from-slate-50/50 to-white dark:from-slate-900/50 dark:to-slate-950">
+                    <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed">
+                        {author.bio || author.short_bio || `Expert personal finance researcher and editor at InvestingPro.`}
                     </p>
                 </div>
 
                 {/* Footer Actions */}
-                <div className="bg-slate-50 dark:bg-slate-900 p-3 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
-                    <div className="flex gap-2">
+                <div className="bg-slate-100/50 dark:bg-slate-900/50 px-5 py-4 flex items-center justify-between border-t border-slate-200/50 dark:border-slate-800/50 backdrop-blur-sm">
+                    <div className="flex gap-1">
                          {author.social_links?.twitter && (
-                            <a href={author.social_links.twitter} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-blue-400 transition-colors p-1">
+                            <a href={author.social_links.twitter} target="_blank" rel="noreferrer" className="w-8 h-8 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 text-slate-400 hover:text-sky-500 hover:shadow-md transition-all">
                                 <Twitter className="w-4 h-4" />
                             </a>
                         )}
                         {author.social_links?.linkedin && (
-                            <a href={author.social_links.linkedin} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-blue-700 transition-colors p-1">
+                            <a href={author.social_links.linkedin} target="_blank" rel="noreferrer" className="w-8 h-8 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 text-slate-400 hover:text-blue-600 hover:shadow-md transition-all">
                                 <Linkedin className="w-4 h-4" />
                             </a>
                         )}
                     </div>
                     <Link 
                         href={`/author/${author.slug}`} 
-                        className="text-xs font-semibold text-primary-600 hover:text-primary-700 flex items-center gap-1 group"
+                        className="h-9 px-4 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-bold flex items-center gap-2 hover:bg-slate-800 dark:hover:bg-slate-100 transition-all shadow-lg"
                     >
-                        View Full Profile
-                        <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
+                        View Profile
+                        <ArrowRight className="w-3 h-3" />
                     </Link>
                 </div>
             </HoverCardContent>

@@ -1,43 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { ArrowRight, CreditCard, TrendingUp, Calculator, Shield, Search, CheckCircle2, Sparkles, BadgeCheck, Clock, Star, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { AvatarStack } from "@/components/common/AvatarStack";
-
-// Typing animation for search placeholder
-function useTypingAnimation(phrases: string[], typingSpeed = 100, deletingSpeed = 50, pauseDuration = 2000) {
-    const [displayText, setDisplayText] = useState('');
-    const [phraseIndex, setPhraseIndex] = useState(0);
-    const [isDeleting, setIsDeleting] = useState(false);
-
-    useEffect(() => {
-        const currentPhrase = phrases[phraseIndex];
-        
-        const timeout = setTimeout(() => {
-            if (!isDeleting) {
-                if (displayText.length < currentPhrase.length) {
-                    setDisplayText(currentPhrase.slice(0, displayText.length + 1));
-                } else {
-                    setTimeout(() => setIsDeleting(true), pauseDuration);
-                }
-            } else {
-                if (displayText.length > 0) {
-                    setDisplayText(displayText.slice(0, -1));
-                } else {
-                    setIsDeleting(false);
-                    setPhraseIndex((prev) => (prev + 1) % phrases.length);
-                }
-            }
-        }, isDeleting ? deletingSpeed : typingSpeed);
-
-        return () => clearTimeout(timeout);
-    }, [displayText, isDeleting, phraseIndex, phrases, typingSpeed, deletingSpeed, pauseDuration]);
-
-    return displayText;
-}
 
 // Animated counter for stats
 function AnimatedStat({ value, suffix = "" }: { value: number; suffix?: string }) {
@@ -66,13 +34,6 @@ function AnimatedStat({ value, suffix = "" }: { value: number; suffix?: string }
 }
 
 export default function HeroSplit() {
-    const typingPlaceholder = useTypingAnimation([
-        "HDFC Regalia Gold...",
-        "Best SIP for beginners...",
-        "Credit card for travel...",
-        "EMI calculator...",
-        "Tax saving funds...",
-    ], 80, 40, 1500);
 
     return (
         <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-white dark:from-slate-950 dark:via-slate-950 dark:to-slate-900 pt-28 pb-16 lg:pt-36 lg:pb-24">
@@ -185,12 +146,12 @@ export default function HeroSplit() {
                             {/* Search Bar with Clean Design */}
                             <div className="relative max-w-lg mt-8 mx-auto lg:mx-0">
                                 <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-                                    <Search className="h-5 w-5 text-slate-400" />
+                                    <Search className="h-5 w-5 text-primary-700 dark:text-primary-500" />
                                 </div>
                                 <input
                                     type="text"
-                                    placeholder={typingPlaceholder || "Search cards, funds, calculators..."}
-                                    className="w-full h-14 sm:h-16 pl-12 pr-32 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 focus:border-primary-500/50 focus:ring-4 focus:ring-primary-500/10 transition-all font-medium shadow-lg shadow-slate-200/20 dark:shadow-slate-900/20 text-base"
+                                    placeholder="Search cards, funds, calculators..."
+                                    className="w-full h-14 sm:h-16 pl-12 pr-28 sm:pr-32 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 focus:border-primary-500/50 focus:ring-4 focus:ring-primary-500/10 transition-all font-medium shadow-lg shadow-slate-200/20 dark:shadow-slate-900/20 text-base"
                                     onKeyDown={(e) => {
                                         if (e.key === 'Enter') {
                                             window.location.href = `/search?q=${(e.target as HTMLInputElement).value}`;
@@ -198,7 +159,7 @@ export default function HeroSplit() {
                                     }}
                                 />
                                 <div className="absolute inset-y-0 right-2 flex items-center">
-                                    <Button className="h-10 sm:h-12 px-4 sm:px-6 bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white font-semibold rounded-xl text-sm">
+                                    <Button variant="default" className="bg-primary-700 hover:bg-primary-800 text-white font-semibold rounded-xl text-xs shadow-lg hover:shadow-primary-900/40 transition-all active:scale-95 whitespace-nowrap h-8 sm:h-9 px-3 sm:px-4">
                                         Search
                                     </Button>
                                 </div>
@@ -278,7 +239,7 @@ export default function HeroSplit() {
                                             
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-2 mb-2">
-                                                    <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded-full">Most Popular</span>
+                                                    <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-amber-400 text-slate-900 rounded-full shadow-sm">Most Popular</span>
                                                 </div>
                                                 <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                                                     Find Your Perfect Credit Card

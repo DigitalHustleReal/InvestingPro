@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { Button } from "@/components/ui/Button";
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Target, Users, Zap, Shield, TrendingUp, Heart, Award, AlertTriangle, CheckCircle2, Linkedin, Twitter } from 'lucide-react';

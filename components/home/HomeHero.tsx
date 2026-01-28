@@ -67,7 +67,7 @@ export default function HomeHero({ selectedCategory: propSelectedCategory, onCat
                 {/* Search Bar */}
                 <div className="max-w-3xl mx-auto mb-8">
                     <form onSubmit={handleSearch} className="relative">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-6 h-6 text-slate-400" />
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary-700 dark:text-primary-500" />
                         <Input
                             type="text"
                             placeholder="Search products, calculators, guides..."

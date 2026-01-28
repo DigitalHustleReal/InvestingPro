@@ -1,4 +1,4 @@
-import { Inter, Source_Serif_4, JetBrains_Mono } from "next/font/google";
+import { Inter, Outfit, Source_Serif_4, JetBrains_Mono } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
@@ -22,6 +22,12 @@ import { ConditionalPublicElements } from "@/components/common/ConditionalPublic
 const inter = Inter({ 
   subsets: ["latin"],
   variable: '--font-inter',
+  display: 'swap',
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: '--font-outfit',
   display: 'swap',
 });
 
@@ -73,6 +79,13 @@ export const metadata: Metadata = {
     title: 'InvestingPro - Smart Financial Decisions Made Simple',
     description: 'Compare credit cards, loans, mutual funds, and more. Get AI-powered recommendations and expert reviews.',
   },
+  manifest: '/manifest.json',
+  themeColor: '#0f172a',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'InvestingPro',
+  },
   robots: {
     index: true,
     follow: true,
@@ -114,6 +127,7 @@ export default async function RootLayout({
       </head>
       <body className={cn(
         inter.variable,
+        outfit.variable,
         serif.variable,
         mono.variable,
         inter.className,

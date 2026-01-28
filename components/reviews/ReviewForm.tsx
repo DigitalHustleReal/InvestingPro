@@ -106,7 +106,7 @@ export default function ReviewForm({ productSlug, productType, userId, onSuccess
       <button
         type="submit"
         disabled={submitting}
-        className="w-full py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className="w-full py-2.5 bg-primary-700 hover:bg-primary-800 text-white font-medium rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
         {submitting ? 'Submitting...' : 'Submit Review'}
       </button>

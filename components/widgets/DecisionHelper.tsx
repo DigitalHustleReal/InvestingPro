@@ -220,7 +220,7 @@ export default function DecisionHelper({ category, variant = 'full', className }
                             <Link href={category === 'credit_card' ? '/credit-cards/smart-compare' : 
                                         category === 'loan' ? '/loans/eligibility-checker' : 
                                         '/mutual-funds/goal-planner'}>
-                                <Button className="w-full h-11 rounded-xl bg-primary-600 hover:bg-primary-700">
+                                <Button className="w-full h-11 rounded-xl bg-primary-700 hover:bg-primary-800">
                                     Get Personalized Recommendation
                                     <ChevronRight className="w-4 h-4 ml-1" />
                                 </Button>

@@ -10,21 +10,20 @@
 
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { useRouter, useParams, useSearchParams } from 'next/navigation';
+import React, { useState, useEffect, startTransition } from 'react';
+import { useRouter, useParams } from 'next/navigation';
 import AdminLayout from '@/components/admin/AdminLayout';
 import ArticleInspector from '@/components/admin/ArticleInspector';
 import ArticleEditor from '@/components/admin/ArticleEditor';
 import { Input } from '@/components/ui/input';
 import type { ArticleData } from '@/lib/cms/article-service';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Save, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function EditArticlePage() {
     const router = useRouter();
     const params = useParams();
-    const searchParams = useSearchParams();
     const queryClient = useQueryClient();
     const id = params?.id as string;
 
@@ -52,11 +51,13 @@ export default function EditArticlePage() {
         retry: 1,
     });
 
-    // Initialize form when article loads
+    // Initialize form when article loads (deferred to avoid cascading renders)
     useEffect(() => {
         if (article) {
-            setTitle(article.title || '');
-            setExcerpt(article.excerpt || '');
+            startTransition(() => {
+                setTitle(article.title || '');
+                setExcerpt(article.excerpt || '');
+            });
             // Editor will load content via initialContent prop
         }
     }, [article]);

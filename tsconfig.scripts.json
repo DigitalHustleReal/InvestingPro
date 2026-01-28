@@ -6,7 +6,11 @@
     "jsx": "react",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "noEmit": true
+    "noEmit": true,
+    "paths": {
+      "server-only": ["./scripts/mocks/server-only.js"],
+      "@/*": ["./*"]
+    }
   },
   "include": ["scripts/**/*", "lib/**/*", "types/**/*"],
   "exclude": ["node_modules"]

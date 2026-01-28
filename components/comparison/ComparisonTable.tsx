@@ -132,7 +132,7 @@ export function ComparisonTable({
       <div className="inline-block min-w-full align-middle">
         <table className="min-w-full border-collapse">
           {/* Header */}
-          <thead className="bg-primary-600 text-white sticky top-0 z-10">
+          <thead className="bg-primary-700 text-white sticky top-0 z-10">
             <tr>
               {/* Feature column header */}
               <th
@@ -256,7 +256,7 @@ export function ComparisonTable({
                   {col.applyUrl ? (
                     <Button
                       size="sm"
-                      className="w-full"
+                      className="w-full bg-primary-700 hover:bg-primary-800"
                       asChild
                     >
                       <a href={col.applyUrl} target="_blank" rel="noopener noreferrer">
@@ -281,8 +281,9 @@ export function ComparisonTable({
       </div>
 
       {/* Mobile Notice */}
-      <div className="mt-4 text-xs text-slate-600 dark:text-slate-400 text-center md:hidden">
-        💡 Swipe horizontally to see all products
+      <div className="mt-4 flex items-center justify-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 md:hidden">
+        <Info className="w-3.5 h-3.5 text-primary-500" />
+        <span>Swipe horizontally to see all products</span>
       </div>
     </div>
   );

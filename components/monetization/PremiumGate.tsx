@@ -11,7 +11,7 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Lock, Crown, Check, Sparkles, ArrowRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 
 interface PremiumGateProps {

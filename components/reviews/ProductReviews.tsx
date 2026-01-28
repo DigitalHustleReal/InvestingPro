@@ -51,7 +51,7 @@ export default function ProductReviews({ productSlug, productType }: ProductRevi
             <div>
                <RatingStars rating={stats.average} size={18} />
                <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
-                 Based on {stats.count} reviews
+                 {stats.count > 0 ? `Based on ${stats.count} reviews` : 'Be the first to review this product'}
                </p>
             </div>
           </div>
@@ -60,7 +60,7 @@ export default function ProductReviews({ productSlug, productType }: ProductRevi
         {userId ? (
           <button
             onClick={() => setShowForm(!showForm)}
-            className="flex items-center gap-2 px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors"
+            className="flex items-center gap-2 px-5 py-2.5 bg-primary-700 hover:bg-primary-800 text-white font-medium rounded-lg transition-colors"
           >
             <MessageSquarePlus size={18} />
             {showForm ? 'Cancel Review' : 'Write a Review'}

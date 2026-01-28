@@ -26,17 +26,18 @@
     --muted-foreground: 215.4 16.3% 46.9%;      /* Medium Gray */
     
     /* Brand Colors */
-    --primary: 174 72% 56%;                     /* Teal #17a697 */
+    --primary: 174 71% 41%;                     /* Brand Teal #1CB7A8 */
     --primary-foreground: 0 0% 100%;            /* White */
+    --primary-dark: 174 84% 31%;                /* Accessible Teal #0D9488 */
     
-    --secondary: 210 100% 56%;                  /* Blue #0088cc */
+    --secondary: 210 100% 56%;                  /* Blue #0088cc (Zoom-ish but fintech) */
     --secondary-foreground: 0 0% 100%;          /* White */
     
     --accent: 45 93% 47%;                       /* Gold #fbb614 */
     --accent-foreground: 222.2 47.4% 11.2%;     /* Dark */
     
     /* Semantic Status Colors */
-    --success: 168 76% 42%;                     /* Teal #17a697 */
+    --success: 161 84% 39%;                     /* Standard Green #10B981 */
     --success-foreground: 0 0% 100%;            /* White */
     
     --warning: 38 92% 50%;                      /* Orange #f39c12 */
@@ -54,29 +55,30 @@
     /* UI Elements */
     --border: 214.3 31.8% 91.4%;                /* Light Border */
     --input: 214.3 31.8% 91.4%;                 /* Light Input */
-    --ring: 174 72% 56%;                        /* Teal Ring */
+    --ring: 174 71% 41%;                        /* Teal Ring */
     
     --radius: 0.5rem;                           /* Border Radius */
   }
   
   .dark {
     /* Base Colors - Dark Mode */
-    --background: 230 35% 7%;                   /* #0a0e27 - Dark Navy */
+    --background: 218 32% 10%;                   /* Deep Navy #0F172A */
     --foreground: 0 0% 98%;                     /* Near White */
     
     /* Card/Surface Colors */
-    --card: 230 25% 12%;                        /* #1a2744 - Dark Card */
+    --card: 218 32% 15%;                        /* #1A2332 - Dark Card */
     --card-foreground: 0 0% 98%;                /* Near White */
     
-    --popover: 230 35% 7%;                      /* Dark Navy */
+    --popover: 218 32% 10%;                      /* Deep Navy */
     --popover-foreground: 0 0% 98%;             /* Near White */
     
-    --muted: 230 25% 18%;                       /* #2a3f5f - Muted Dark */
+    --muted: 218 32% 18%;                       /* Muted Navy */
     --muted-foreground: 215 20.2% 65.1%;        /* Light Gray */
     
-    /* Brand Colors (same in dark mode) */
-    --primary: 174 72% 56%;                     /* Teal #17a697 */
+    /* Brand Colors (synchronized) */
+    --primary: 174 71% 41%;                     /* Brand Teal #1CB7A8 */
     --primary-foreground: 0 0% 100%;            /* White */
+    --primary-dark: 174 84% 31%;                /* Accessible Teal #0D9488 */
     
     --secondary: 210 100% 56%;                  /* Blue #0088cc */
     --secondary-foreground: 0 0% 100%;          /* White */
@@ -84,8 +86,8 @@
     --accent: 45 93% 47%;                       /* Gold #fbb614 */
     --accent-foreground: 0 0% 100%;             /* White in dark mode */
     
-    /* Semantic Status Colors (same in dark mode) */
-    --success: 168 76% 42%;                     /* Teal #17a697 */
+    /* Semantic Status Colors */
+    --success: 161 84% 39%;                     /* Standard Green #10B981 */
     --success-foreground: 0 0% 100%;            /* White */
     
     --warning: 38 92% 50%;                      /* Orange #f39c12 */
@@ -101,9 +103,9 @@
     --destructive-foreground: 0 0% 98%;         /* Near White */
     
     /* UI Elements */
-    --border: 230 25% 18%;                      /* Dark Border */
-    --input: 230 25% 18%;                       /* Dark Input */
-    --ring: 174 72% 56%;                        /* Teal Ring */
+    --border: 218 32% 18%;                      /* Dark Border */
+    --input: 218 32% 18%;                       /* Dark Input */
+    --ring: 174 71% 41%;                        /* Teal Ring */
   }
 }
 
@@ -115,7 +117,11 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Focus Indicators - WCAG 2.1 AA Compliance (UI/UX Quick Win #4) */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight;
+  }
+
+  /* Simplified Focus Indicators */
   *:focus-visible {
     @apply outline-2 outline-offset-2 outline-primary-500;
     outline-style: solid;
@@ -138,7 +144,7 @@
   /* Skip to content link for screen readers */
   .skip-to-content {
     @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 
-           focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary-600 focus:text-white 
+           focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary-700 focus:text-white 
            focus:rounded-lg focus:font-semibold focus:shadow-lg;
   }
 
@@ -208,29 +214,29 @@
 
   /* GLOBAL CONTENT THEME (Prose Overrides) */
   .prose table {
-     @apply w-full border-collapse border border-border rounded-xl overflow-hidden my-8 shadow-sm;
+     @apply w-full border-collapse border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden my-8 shadow-sm;
   }
   
   .prose thead {
-      @apply bg-muted/50 border-b border-border;
+      @apply bg-slate-900 border-b border-primary-500;
   }
 
   /* Theme-aware headers using primary color */
   .prose th {
-     @apply text-foreground font-bold p-4 text-left;
+     @apply text-white font-bold p-4 text-left;
   }
 
   .prose td {
-     @apply p-4 border-b border-border text-muted-foreground;
+     @apply p-4 border-b border-slate-100 dark:border-slate-800 text-slate-600 dark:text-slate-400;
   }
   
   .prose tr:hover td {
       @apply bg-muted/30 transition-colors;
   }
 
-  /* Use secondary blue for links (NerdWallet pattern) */
+  /* Use Brand Teal for links (Fix #8) */
   .prose a {
-      @apply text-secondary no-underline border-b border-secondary/30 hover:border-secondary transition-colors hover:text-secondary-foreground;
+      @apply text-primary-700 no-underline border-b-2 border-primary-500/30 hover:border-primary-500 transition-all font-medium;
   }
 
   .prose h2 {
@@ -343,4 +349,3 @@
     animation: float 3s ease-in-out infinite;
   }
 }
-

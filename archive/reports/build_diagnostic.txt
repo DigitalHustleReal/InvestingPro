@@ -1,0 +1,1036 @@
+﻿
+> investing_pro_temp@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.1 (Turbopack)
+- Environments: .env.local
+- Experiments (use with caution):
+  Γ£ô optimizeCss
+  ┬╖ optimizePackageImports
+
+node.exe : ΓÜá The "middleware" file convention is 
+deprecated. Please use "proxy" instead. Learn more: 
+https://nextjs.org/docs/messages/middleware-to-proxy
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (ΓÜá Th 
+   e "middle...leware-to-proxy:String) [], RemoteE  
+  xception
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 16 errors:
+./app/globals.css:8165:24
+Parsing CSS source code failed
+[0m [90m 8163 |[39m [90m   =====================
+====================================================
+= */[39m
+ [90m 8164 |[39m
+[31m[1m>[22m[39m[90m 8165 |[39m [33m.[39mhov
+er[37m[41m[1m\[22m[49m[39m[33m:[39mbg[33m-
+[39mprimary[33m-[39m[35m500[39m[33m:[39mhoverb
+utton {
+ [90m      |[39m                        
+[31m[1m^[22m[39m
+ [90m 8166 |[39m     color[33m:[39m 
+[33m#[39m[33mFFFFFF[39m 
+[33m![39mimportant[33m;[39m
+ [90m 8167 |[39m     
+background[33m-[39mcolor[33m:[39m 
+inherit[33m;[39m [90m/* Ensure background is 
+respected */[39m
+ [90m 8168 |[39m   }[0m
+
+'hoverbutton' is not recognized as a valid 
+pseudo-class. Did you mean '::hoverbutton' 
+(pseudo-element) or is this a typo?
+
+Import trace:
+  Client Component Browser:
+    ./app/globals.css [Client Component Browser]
+    ./app/layout.tsx [Server Component]
+
+
+./lib/supabase/server.ts:9:1
+Ecmascript file had an error
+[0m [90m  7 |[39m [36mimport[39m { 
+createServerClient [36mas[39m 
+supabaseCreateServerClient[33m,[39m type 
+[33mCookieOptions[39m } [36mfrom[39m 
+[32m'@supabase/ssr'[39m
+ [90m  8 |[39m [36mimport[39m { createClient 
+[36mas[39m createSupabaseClient } [36mfrom[39m 
+[32m'@supabase/supabase-js'[39m
+[31m[1m>[22m[39m[90m  9 |[39m 
+[36mimport[39m { cookies } [36mfrom[39m 
+[32m'next/headers'[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 10 |[39m
+ [90m 11 |[39m [90m/**[39m
+ [90m 12 |[39m [90m * Mock client for when 
+Supabase is not configured or during specific build 
+phases[39m[0m
+
+You're importing a component that needs 
+"next/headers". That only works in a Server 
+Component which is not supported in the pages/ 
+directory. Read more: https://nextjs.org/docs/app/bu
+ilding-your-application/rendering/server-components
+
+
+
+Import traces:
+  App Route:
+    ./lib/supabase/server.ts
+    ./app/api/analytics/gsc-trends/route.ts
+
+  Server Component:
+    ./lib/supabase/server.ts
+    ./lib/products/server-service.ts
+    ./app/insurance/[slug]/page.tsx
+
+  Client Component Browser:
+    ./lib/supabase/server.ts [Client Component 
+Browser]
+    ./lib/linkable-assets/data-studies-service.ts 
+[Client Component Browser]
+    ./app/data-studies/page.tsx [Client Component 
+Browser]
+    ./app/data-studies/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/supabase/server.ts [Client Component SSR]
+    ./lib/linkable-assets/data-studies-service.ts 
+[Client Component SSR]
+    ./app/data-studies/page.tsx [Client Component 
+SSR]
+    ./app/data-studies/page.tsx [Server Component]
+
+
+./lib/supabase/server.ts:5:1
+Ecmascript file had an error
+[0m [90m 3 |[39m [90m * Do not import in client 
+components[39m
+ [90m 4 |[39m [90m */[39m
+[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m 
+[32m'server-only'[39m[33m;[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m
+ [90m 6 |[39m
+ [90m 7 |[39m [36mimport[39m { 
+createServerClient [36mas[39m 
+supabaseCreateServerClient[33m,[39m type 
+[33mCookieOptions[39m } [36mfrom[39m 
+[32m'@supabase/ssr'[39m
+ [90m 8 |[39m [36mimport[39m { createClient 
+[36mas[39m createSupabaseClient } [36mfrom[39m 
+[32m'@supabase/supabase-js'[39m[0m
+
+You're importing a component that needs 
+"server-only". That only works in a Server 
+Component which is not supported in the pages/ 
+directory. Read more: https://nextjs.org/docs/app/bu
+ilding-your-application/rendering/server-components
+
+
+
+Import traces:
+  App Route:
+    ./lib/supabase/server.ts
+    ./app/api/analytics/gsc-trends/route.ts
+
+  Server Component:
+    ./lib/supabase/server.ts
+    ./lib/products/server-service.ts
+    ./app/insurance/[slug]/page.tsx
+
+  Client Component Browser:
+    ./lib/supabase/server.ts [Client Component 
+Browser]
+    ./lib/linkable-assets/data-studies-service.ts 
+[Client Component Browser]
+    ./app/data-studies/page.tsx [Client Component 
+Browser]
+    ./app/data-studies/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/supabase/server.ts [Client Component SSR]
+    ./lib/linkable-assets/data-studies-service.ts 
+[Client Component SSR]
+    ./app/data-studies/page.tsx [Client Component 
+SSR]
+    ./app/data-studies/page.tsx [Server Component]
+
+
+./app/credit-cards/smart-compare/page.tsx:7:1
+Module not found: Can't resolve 
+'@/components/ui/button'
+[0m [90m  5 |[39m [36mimport[39m { 
+[33mTabs[39m[33m,[39m 
+[33mTabsContent[39m[33m,[39m 
+[33mTabsList[39m[33m,[39m [33mTabsTrigger[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/tabs'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mBadge[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/badge'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m 
+[36mimport[39m { [33mButton[39m } 
+[36mfrom[39m 
+[32m'@/components/ui/button'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { 
+[33mSeparator[39m } [36mfrom[39m 
+[32m'@/components/ui/separator'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m {
+ [90m 10 |[39m   
+[33mCalculator[39m[33m,[39m[0m
+
+Import map: aliased to relative 
+'./components/ui/button' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component Browser]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+  Client Component SSR:
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component SSR]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./components/smart-comparison/ApprovalProbability.ts
+x:5:1
+Module not found: Can't resolve 
+'@/components/ui/button'
+[0m [90m 3 |[39m [36mimport[39m { useState } 
+[36mfrom[39m [32m'react'[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { 
+[33mCard[39m[33m,[39m 
+[33mCardContent[39m[33m,[39m 
+[33mCardDescription[39m[33m,[39m 
+[33mCardHeader[39m[33m,[39m [33mCardTitle[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m 
+{ [33mButton[39m } [36mfrom[39m 
+[32m'@/components/ui/button'[39m[33m;[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 6 |[39m [36mimport[39m { [33mInput[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/input'[39m[33m;[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/label'[39m[33m;[39m
+ [90m 8 |[39m [36mimport[39m { [33mBadge[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/badge'[39m[33m;[39m[0m
+
+Import map: aliased to relative 
+'./components/ui/button' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./components/smart-comparison/ApprovalProbabilit
+y.tsx [Client Component Browser]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component Browser]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+  Client Component SSR:
+    ./components/smart-comparison/ApprovalProbabilit
+y.tsx [Client Component SSR]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component SSR]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./components/smart-comparison/BreakEvenCalculator.ts
+x:5:1
+Module not found: Can't resolve 
+'@/components/ui/button'
+[0m [90m 3 |[39m [36mimport[39m { useState } 
+[36mfrom[39m [32m'react'[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { 
+[33mCard[39m[33m,[39m 
+[33mCardContent[39m[33m,[39m 
+[33mCardDescription[39m[33m,[39m 
+[33mCardHeader[39m[33m,[39m [33mCardTitle[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m 
+{ [33mButton[39m } [36mfrom[39m 
+[32m'@/components/ui/button'[39m[33m;[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 6 |[39m [36mimport[39m { [33mInput[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/input'[39m[33m;[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/label'[39m[33m;[39m
+ [90m 8 |[39m [36mimport[39m { [33mBadge[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/badge'[39m[33m;[39m[0m
+
+Import map: aliased to relative 
+'./components/ui/button' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./components/smart-comparison/BreakEvenCalculato
+r.tsx [Client Component Browser]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component Browser]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+  Client Component SSR:
+    ./components/smart-comparison/BreakEvenCalculato
+r.tsx [Client Component SSR]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component SSR]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./components/smart-comparison/CardComboOptimizer.tsx
+:5:1
+Module not found: Can't resolve 
+'@/components/ui/button'
+[0m [90m 3 |[39m [36mimport[39m { 
+useState[33m,[39m useMemo } [36mfrom[39m 
+[32m'react'[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { 
+[33mCard[39m[33m,[39m 
+[33mCardContent[39m[33m,[39m 
+[33mCardDescription[39m[33m,[39m 
+[33mCardHeader[39m[33m,[39m [33mCardTitle[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m 
+{ [33mButton[39m } [36mfrom[39m 
+[32m'@/components/ui/button'[39m[33m;[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 6 |[39m [36mimport[39m { [33mInput[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/input'[39m[33m;[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/label'[39m[33m;[39m
+ [90m 8 |[39m [36mimport[39m { [33mBadge[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/badge'[39m[33m;[39m[0m
+
+Import map: aliased to relative 
+'./components/ui/button' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./components/smart-comparison/CardComboOptimizer
+.tsx [Client Component Browser]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component Browser]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+  Client Component SSR:
+    ./components/smart-comparison/CardComboOptimizer
+.tsx [Client Component SSR]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component SSR]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./components/smart-comparison/DecisionMatrix.tsx:6:1
+Module not found: Can't resolve 
+'@/components/ui/button'
+[0m [90m 4 |[39m [36mimport[39m { 
+[33mCard[39m[33m,[39m 
+[33mCardContent[39m[33m,[39m 
+[33mCardDescription[39m[33m,[39m 
+[33mCardHeader[39m[33m,[39m [33mCardTitle[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/card'[39m[33m;[39m
+ [90m 5 |[39m [36mimport[39m { [33mBadge[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/badge'[39m[33m;[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m 
+{ [33mButton[39m } [36mfrom[39m 
+[32m'@/components/ui/button'[39m[33m;[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { 
+ [90m 8 |[39m   [33mGrid3X3[39m[33m,[39m
+ [90m 9 |[39m   [33mTrophy[39m[33m,[39m[0m
+
+Import map: aliased to relative 
+'./components/ui/button' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    
+./components/smart-comparison/DecisionMatrix.tsx 
+[Client Component Browser]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component Browser]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+  Client Component SSR:
+    
+./components/smart-comparison/DecisionMatrix.tsx 
+[Client Component SSR]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component SSR]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./components/smart-comparison/WhatIfSimulator.tsx:5:
+1
+Module not found: Can't resolve 
+'@/components/ui/button'
+[0m [90m 3 |[39m [36mimport[39m { useState } 
+[36mfrom[39m [32m'react'[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { 
+[33mCard[39m[33m,[39m 
+[33mCardContent[39m[33m,[39m 
+[33mCardDescription[39m[33m,[39m 
+[33mCardHeader[39m[33m,[39m [33mCardTitle[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m 
+{ [33mButton[39m } [36mfrom[39m 
+[32m'@/components/ui/button'[39m[33m;[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 6 |[39m [36mimport[39m { [33mInput[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/input'[39m[33m;[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/label'[39m[33m;[39m
+ [90m 8 |[39m [36mimport[39m { [33mBadge[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/badge'[39m[33m;[39m[0m
+
+Import map: aliased to relative 
+'./components/ui/button' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    
+./components/smart-comparison/WhatIfSimulator.tsx 
+[Client Component Browser]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component Browser]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+  Client Component SSR:
+    
+./components/smart-comparison/WhatIfSimulator.tsx 
+[Client Component SSR]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component SSR]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./components/admin/ReviewInterface.tsx:8:1
+Module not found: Can't resolve 
+'@/components/ui/scroll-area'
+[0m [90m  6 |[39m [36mimport[39m { 
+[33mCard[39m } [36mfrom[39m 
+[32m'@/components/ui/card'[39m[33m;[39m
+ [90m  7 |[39m [36mimport[39m { 
+[33mTabs[39m[33m,[39m 
+[33mTabsContent[39m[33m,[39m 
+[33mTabsList[39m[33m,[39m [33mTabsTrigger[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/tabs'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  8 |[39m 
+[36mimport[39m { [33mScrollArea[39m } 
+[36mfrom[39m 
+[32m'@/components/ui/scroll-area'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m
+ [90m  9 |[39m [36mimport[39m { 
+ [90m 10 |[39m     
+[33mCheckCircle2[39m[33m,[39m 
+ [90m 11 |[39m     [33mXCircle[39m[33m,[39m 
+[0m
+
+Import map: aliased to relative 
+'./components/ui/scroll-area' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./components/admin/ReviewInterface.tsx [Client 
+Component Browser]
+    ./app/admin/review-queue/[id]/page.tsx [Client 
+Component Browser]
+    ./app/admin/review-queue/[id]/page.tsx [Server 
+Component]
+
+  Client Component SSR:
+    ./components/admin/ReviewInterface.tsx [Client 
+Component SSR]
+    ./app/admin/review-queue/[id]/page.tsx [Client 
+Component SSR]
+    ./app/admin/review-queue/[id]/page.tsx [Server 
+Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/about/editorial-team/page.tsx:4:1
+Module not found: Can't resolve 
+'@/components/ui/separator'
+[0m [90m 2 |[39m [36mimport[39m { 
+[33mCard[39m[33m,[39m 
+[33mCardContent[39m[33m,[39m 
+[33mCardDescription[39m[33m,[39m 
+[33mCardHeader[39m[33m,[39m [33mCardTitle[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/card'[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m { [33mBadge[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/badge'[39m[33m;[39m
+[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m 
+{ [33mSeparator[39m } [36mfrom[39m 
+[32m'@/components/ui/separator'[39m[33m;[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m
+ [90m 5 |[39m [36mimport[39m { 
+[33mTwitter[39m[33m,[39m 
+[33mLinkedin[39m[33m,[39m 
+[33mCheckCircle2[39m[33m,[39m 
+[33mShieldCheck[39m[33m,[39m 
+[33mNewspaper[39m } [36mfrom[39m 
+[32m'lucide-react'[39m[33m;[39m
+ [90m 6 |[39m
+ [90m 7 |[39m [36mexport[39m [36mconst[39m 
+metadata [33m=[39m {[0m
+
+Import map: aliased to relative 
+'./components/ui/separator' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/credit-cards/smart-compare/page.tsx:8:1
+Module not found: Can't resolve 
+'@/components/ui/separator'
+[0m [90m  6 |[39m [36mimport[39m { 
+[33mBadge[39m } [36mfrom[39m 
+[32m'@/components/ui/badge'[39m[33m;[39m
+ [90m  7 |[39m [36mimport[39m { 
+[33mButton[39m } [36mfrom[39m 
+[32m'@/components/ui/button'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  8 |[39m 
+[36mimport[39m { [33mSeparator[39m } 
+[36mfrom[39m 
+[32m'@/components/ui/separator'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m
+ [90m  9 |[39m [36mimport[39m {
+ [90m 10 |[39m   [33mCalculator[39m[33m,[39m
+ [90m 11 |[39m   
+[33mShieldCheck[39m[33m,[39m[0m
+
+Import map: aliased to relative 
+'./components/ui/separator' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component Browser]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+  Client Component SSR:
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component SSR]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./components/smart-comparison/ApprovalProbability.ts
+x:10:1
+Module not found: Can't resolve 
+'@/components/ui/separator'
+[0m [90m  8 |[39m [36mimport[39m { 
+[33mBadge[39m } [36mfrom[39m 
+[32m'@/components/ui/badge'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { 
+[33mProgress[39m } [36mfrom[39m 
+[32m'@/components/ui/progress'[39m[33m;[39m
+[31m[1m>[22m[39m[90m 10 |[39m 
+[36mimport[39m { [33mSeparator[39m } 
+[36mfrom[39m 
+[32m'@/components/ui/separator'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m
+ [90m 11 |[39m [36mimport[39m {
+ [90m 12 |[39m   [33mSelect[39m[33m,[39m
+ [90m 13 |[39m   
+[33mSelectContent[39m[33m,[39m[0m
+
+Import map: aliased to relative 
+'./components/ui/separator' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./components/smart-comparison/ApprovalProbabilit
+y.tsx [Client Component Browser]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component Browser]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+  Client Component SSR:
+    ./components/smart-comparison/ApprovalProbabilit
+y.tsx [Client Component SSR]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component SSR]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./components/smart-comparison/BreakEvenCalculator.ts
+x:10:1
+Module not found: Can't resolve 
+'@/components/ui/separator'
+[0m [90m  8 |[39m [36mimport[39m { 
+[33mBadge[39m } [36mfrom[39m 
+[32m'@/components/ui/badge'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { 
+[33mProgress[39m } [36mfrom[39m 
+[32m'@/components/ui/progress'[39m[33m;[39m
+[31m[1m>[22m[39m[90m 10 |[39m 
+[36mimport[39m { [33mSeparator[39m } 
+[36mfrom[39m 
+[32m'@/components/ui/separator'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m
+ [90m 11 |[39m [36mimport[39m { 
+ [90m 12 |[39m   [33mCheckCircle[39m[33m,[39m 
+ [90m 13 |[39m   [33mXCircle[39m[33m,[39m [0m
+
+Import map: aliased to relative 
+'./components/ui/separator' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./components/smart-comparison/BreakEvenCalculato
+r.tsx [Client Component Browser]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component Browser]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+  Client Component SSR:
+    ./components/smart-comparison/BreakEvenCalculato
+r.tsx [Client Component SSR]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component SSR]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./components/smart-comparison/CardComboOptimizer.tsx
+:9:1
+Module not found: Can't resolve 
+'@/components/ui/separator'
+[0m [90m  7 |[39m [36mimport[39m { 
+[33mLabel[39m } [36mfrom[39m 
+[32m'@/components/ui/label'[39m[33m;[39m
+ [90m  8 |[39m [36mimport[39m { [33mBadge[39m 
+} [36mfrom[39m 
+[32m'@/components/ui/badge'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  9 |[39m 
+[36mimport[39m { [33mSeparator[39m } 
+[36mfrom[39m 
+[32m'@/components/ui/separator'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m
+ [90m 10 |[39m [36mimport[39m { 
+[33mSlider[39m } [36mfrom[39m 
+[32m'@/components/ui/slider'[39m[33m;[39m
+ [90m 11 |[39m [36mimport[39m { 
+ [90m 12 |[39m   [33mLayers[39m[33m,[39m[0m
+
+Import map: aliased to relative 
+'./components/ui/separator' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./components/smart-comparison/CardComboOptimizer
+.tsx [Client Component Browser]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component Browser]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+  Client Component SSR:
+    ./components/smart-comparison/CardComboOptimizer
+.tsx [Client Component SSR]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Client Component SSR]
+    ./app/credit-cards/smart-compare/page.tsx 
+[Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./lib/supabase
+Invalid import
+'server-only' cannot be imported from a Client 
+Component module. It should only be used from a 
+Server Component.
+The error was caused by importing 'lib/supabase'
+
+
+
+    at <unknown> (./app/globals.css:8165:24)
+    at <unknown> (./lib/supabase/server.ts:9:1)
+    at <unknown> (./lib/supabase/server.ts:5:1)
+    at <unknown> 
+(./app/credit-cards/smart-compare/page.tsx:7:1)
+    at <unknown> 
+(https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./components/smart-comparison/Appr
+ovalProbability.tsx:5:1)
+    at <unknown> 
+(https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./components/smart-comparison/Brea
+kEvenCalculator.tsx:5:1)
+    at <unknown> 
+(https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./components/smart-comparison/Card
+ComboOptimizer.tsx:5:1)
+    at <unknown> 
+(https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./components/smart-comparison/Deci
+sionMatrix.tsx:6:1)
+    at <unknown> 
+(https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./components/smart-comparison/What
+IfSimulator.tsx:5:1)
+    at <unknown> 
+(https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> 
+(./components/admin/ReviewInterface.tsx:8:1)
+    at <unknown> 
+(https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> 
+(./app/about/editorial-team/page.tsx:4:1)
+    at <unknown> 
+(https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> 
+(./app/credit-cards/smart-compare/page.tsx:8:1)
+    at <unknown> 
+(https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./components/smart-comparison/Appr
+ovalProbability.tsx:10:1)
+    at <unknown> 
+(https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./components/smart-comparison/Brea
+kEvenCalculator.tsx:10:1)
+    at <unknown> 
+(https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./components/smart-comparison/Card
+ComboOptimizer.tsx:9:1)
+    at <unknown> 
+(https://nextjs.org/docs/messages/module-not-found)

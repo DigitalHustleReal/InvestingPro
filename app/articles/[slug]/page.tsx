@@ -39,6 +39,8 @@ import TopPicksSidebar from '@/components/products/TopPicksSidebar';
 import LeadMagnet from '@/components/monetization/LeadMagnet';
 import SeamlessCTA from '@/components/articles/SeamlessCTA';
 import { ReadingProgressBar } from '@/components/articles/ReadingProgressBar';
+import TrustBadge from '@/components/common/TrustBadge';
+import DifficultyBadge from '@/components/common/DifficultyBadge';
 
 export default function ArticleDetailPage() {
     const params = useParams();
@@ -273,14 +275,20 @@ export default function ArticleDetailPage() {
                     {/* Main Content Column */}
                     <article className="lg:col-span-8">
                         {/* Header */}
-                        <div className="mb-8">
-                            <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
-                                {article.category?.replace(/-/g, ' ')}
-                            </Badge>
-                            <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-6 leading-tight">
+                        <div className="mb-10">
+                            <div className="flex flex-wrap items-center gap-3 mb-6">
+                                <Badge className="bg-primary/10 text-primary border-primary/20 font-black uppercase tracking-widest text-[10px]">
+                                    {article.category?.replace(/-/g, ' ')}
+                                </Badge>
+                                <DifficultyBadge level={article.difficulty || 'beginner'} />
+                                <TrustBadge type="fact-checked" />
+                            </div>
+
+                            <h1 className="text-4xl sm:text-6xl font-black text-slate-900 dark:text-white mb-6 leading-[1.1] font-heading tracking-tight">
                                 {article.title}
                             </h1>
-                            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+                            
+                            <p className="text-xl text-slate-600 dark:text-slate-400 mb-8 leading-relaxed font-medium">
                                 {article.excerpt}
                             </p>
 

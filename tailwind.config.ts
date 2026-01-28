@@ -19,36 +19,30 @@ const config: Config = {
                 background: 'hsl(var(--background))',
                 foreground: 'hsl(var(--foreground))',
                 primary: {
-                    DEFAULT: 'hsl(var(--primary))',
-                    foreground: 'hsl(var(--primary-foreground))',
-                    // Keep existing scale for compatibility
-                    50: '#f0fdfa',
-                    100: '#ccfbf1',
-                    200: '#99f6e4',
-                    300: '#5eead4',
-                    400: '#2dd4bf',
-                    500: '#14b8a6',
-                    600: '#0d9488',
-                    700: '#0f766e',
-                    800: '#115e59',
-                    900: '#134e4a',
-                    950: '#042f2e',
+                    50: '#F0FDFB',
+                    100: '#CCFBF1',
+                    200: '#99F6E4',
+                    300: '#5EEAD4',
+                    400: '#2DD4BF',
+                    500: '#1CB7A8', // Brand Teal Primary
+                    600: '#14B8A6',
+                    700: '#0D9488', // Accessible Teal (Primary Dark)
+                    800: '#0F766E',
+                    900: '#134E4A',
+                    950: '#0A2F2B',
                 },
                 secondary: {
-                    DEFAULT: 'hsl(var(--secondary))',
-                    foreground: 'hsl(var(--secondary-foreground))',
-                    // Keep existing scale for compatibility
-                    50: '#f0f9ff',
-                    100: '#e0f2fe',
-                    200: '#bae6fd',
-                    300: '#7dd3fc',
-                    400: '#38bdf8',
-                    500: '#0ea5e9',
-                    600: '#0284c7',
-                    700: '#0369a1',
-                    800: '#075985',
-                    900: '#0c4a6e',
-                    950: '#082f49',
+                    50: '#F8FAFC',
+                    100: '#F1F5F9',
+                    200: '#E2E8F0',
+                    300: '#CBD5E1',
+                    400: '#94A3B8',
+                    500: '#1B5E99', // Fintech Blue
+                    600: '#0F66CC',
+                    700: '#1E40AF',
+                    800: '#1E3A8A',
+                    900: '#1E3A5F',
+                    950: '#1A2332', // Brand Navy
                 },
                 muted: {
                     DEFAULT: 'hsl(var(--muted))',
@@ -57,7 +51,6 @@ const config: Config = {
                 accent: {
                     DEFAULT: 'hsl(var(--accent))',
                     foreground: 'hsl(var(--accent-foreground))',
-                    // Keep existing scale for compatibility
                     50: '#fffbeb',
                     100: '#fef3c7',
                     200: '#fde68a',
@@ -72,51 +65,23 @@ const config: Config = {
                 success: {
                     DEFAULT: 'hsl(var(--success))',
                     foreground: 'hsl(var(--success-foreground))',
-                    // Keep existing scale for compatibility
-                    50: '#ecfdf5',
-                    100: '#d1fae5',
-                    200: '#a7f3d0',
-                    300: '#6ee7b7',
-                    400: '#34d399',
-                    500: '#10b981',
-                    600: '#059669',
-                    700: '#047857',
-                    800: '#065f46',
-                    900: '#064e3b',
+                    500: '#10B981',
                 },
+                // ... same as before for warning, error, info ...
                 warning: {
                     DEFAULT: 'hsl(var(--warning))',
                     foreground: 'hsl(var(--warning-foreground))',
-                    // Keep existing scale for compatibility
-                    50: '#fffbeb',
-                    100: '#fef3c7',
-                    200: '#fde68a',
-                    300: '#fcd34d',
-                    400: '#fbbf24',
-                    500: '#f59e0b',
-                    600: '#d97706',
-                    700: '#b45309',
-                    800: '#92400e',
-                    900: '#78350f',
+                    500: '#F59E0B',
                 },
                 error: {
                     DEFAULT: 'hsl(var(--error))',
                     foreground: 'hsl(var(--error-foreground))',
+                    500: '#EF4444',
                 },
                 info: {
                     DEFAULT: 'hsl(var(--info))',
                     foreground: 'hsl(var(--info-foreground))',
-                    // Keep existing scale for compatibility
-                    50: '#f0f9ff',
-                    100: '#e0f2fe',
-                    200: '#bae6fd',
-                    300: '#7dd3fc',
-                    400: '#38bdf8',
-                    500: '#0ea5e9',
-                    600: '#0284c7',
-                    700: '#0369a1',
-                    800: '#075985',
-                    900: '#0c4a6e',
+                    500: '#3B82F6',
                 },
                 destructive: {
                     DEFAULT: 'hsl(var(--destructive))',
@@ -132,20 +97,33 @@ const config: Config = {
                 },
                 
                 // ============================================================
-                // LEGACY COLORS - Keep for backward compatibility
+                // NEUTRAL STANDARDIZATION
                 // ============================================================
-                // Stone - Warm Neutrals (Professional)
+                slate: {
+                    50: '#F8FAFC',   /* Light background */
+                    100: '#F1F5F9',
+                    200: '#E2E8F0',  /* Light borders */
+                    300: '#CBD5E1',  /* Disabled state */
+                    400: '#94A3B8',  /* Deactivated text */
+                    500: '#64748B',  /* Secondary text (NEW - STANDARDIZED) */
+                    600: '#475569',
+                    700: '#334155',  /* Body text */
+                    800: '#1E293B',
+                    900: '#0F172A',
+                    950: '#1A2332',  /* PRIMARY DARK */
+                },
+                // stone - Keeping alias for backward compatibility
                 stone: {
-                    50: '#FAFAF9',
-                    100: '#F5F5F4',
-                    200: '#E7E5E4',
-                    300: '#D6D3D1',
-                    400: '#A8A29E',
-                    500: '#78716C',
-                    600: '#57534E',
-                    700: '#44403C',
-                    800: '#292524',
-                    900: '#1C1917',
+                    50: '#F9FAFB',
+                    100: '#F3F4F6',
+                    200: '#E5E7EB',
+                    300: '#D1D5DB',
+                    400: '#9CA3AF',
+                    500: '#6B7280',
+                    600: '#4B5563',
+                    700: '#374151',
+                    800: '#1F2937',
+                    900: '#111827',
                 },
                 // Danger - Keep for backward compatibility
                 danger: {
@@ -202,9 +180,10 @@ const config: Config = {
                 }
             },
             fontFamily: {
-                sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-                serif: ['Source Serif 4', 'Georgia', 'serif'],
-                mono: ['JetBrains Mono', 'Courier New', 'monospace'],
+                sans: ['var(--font-inter)', 'system-ui', '-apple-system', 'sans-serif'],
+                heading: ['var(--font-outfit)', 'system-ui', 'sans-serif'],
+                serif: ['var(--font-serif)', 'Georgia', 'serif'],
+                mono: ['var(--font-mono)', 'Courier New', 'monospace'],
             },
             fontSize: {
                 'xs': '0.75rem',

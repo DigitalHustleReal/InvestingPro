@@ -112,7 +112,7 @@ export default function SEOExperimentsPage() {
             // Calculate stats per variant
             const stats: Record<string, { impressions: number; conversions: number }> = {};
             
-            data.forEach(event => {
+            data.forEach((event: { variant_id: string; event_type: string }) => {
                 if (!stats[event.variant_id]) {
                     stats[event.variant_id] = { impressions: 0, conversions: 0 };
                 }
@@ -492,7 +492,7 @@ export default function SEOExperimentsPage() {
                                     <Label>Element Type</Label>
                                     <Select
                                         value={formData.element}
-                                        onValueChange={(v) => setFormData(f => ({ ...f, element: v as ABTest['element'] }))}
+                                        onValueChange={(v: string) => setFormData(f => ({ ...f, element: v as ABTest['element'] }))}
                                     >
                                         <SelectTrigger>
                                             <SelectValue />

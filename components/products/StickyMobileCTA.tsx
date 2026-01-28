@@ -40,29 +40,29 @@ export default function StickyMobileCTA({
 
   return (
     <div className={cn(
-      "fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] md:hidden transition-transform duration-300",
-      isVisible ? "translate-y-0" : "translate-y-full"
+      "fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-t border-slate-200/50 dark:border-slate-800/50 p-4 shadow-[0_-8px_30px_rgb(0,0,0,0.12)] md:hidden transition-all duration-500 ease-in-out",
+      isVisible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
     )}>
-      <div className="flex items-center gap-3">
-        {/* Tiny Image */}
-        <div className="w-12 h-8 rounded bg-slate-100 flex-shrink-0 overflow-hidden relative border border-slate-200 dark:border-slate-700">
+      <div className="max-w-md mx-auto flex items-center gap-3">
+        {/* Visual Anchor */}
+        <div className="w-14 h-9 rounded-lg bg-slate-100 dark:bg-slate-800 flex-shrink-0 overflow-hidden relative border border-slate-200/50 dark:border-slate-700/50 shadow-sm">
            {image ? (
                <img src={image} alt={productName} className="w-full h-full object-cover" />
            ) : (
-               <div className="w-full h-full bg-slate-800 text-[8px] text-white flex items-center justify-center">CARD</div>
+               <div className="w-full h-full bg-slate-900 text-[8px] text-white flex items-center justify-center font-bold">CARD</div>
            )}
         </div>
 
-        {/* Info */}
+        {/* Info Stack */}
         <div className="flex-1 min-w-0">
-          <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{providerName}</p>
-          <p className="text-sm font-bold text-slate-900 dark:text-white truncate">{productName}</p>
+          <p className="text-[10px] font-bold text-primary-600 dark:text-primary-400 uppercase tracking-wider truncate mb-0.5">{providerName}</p>
+          <p className="text-sm font-bold text-slate-900 dark:text-white truncate font-heading leading-none">{productName}</p>
         </div>
 
-        {/* CTA */}
-        <a href={applyLink || "#"} target="_blank" rel="noopener noreferrer">
-            <Button size="sm" className="bg-primary-600 hover:bg-primary-700 text-white shadow-lg whitespace-nowrap">
-              Apply <ArrowRight className="w-3 h-3 ml-1" />
+        {/* Action button - High Contrast */}
+        <a href={applyLink || "#"} target="_blank" rel="noopener noreferrer" className="shrink-0">
+            <Button size="lg" className="h-11 bg-primary-700 hover:bg-primary-800 text-white shadow-lg shadow-primary-700/20 px-6 rounded-xl font-bold text-sm">
+              Apply <ArrowRight className="w-4 h-4 ml-1.5" />
             </Button>
         </a>
       </div>

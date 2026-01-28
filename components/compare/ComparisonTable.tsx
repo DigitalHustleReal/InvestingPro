@@ -143,8 +143,9 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
                      return (
                         <div
                             key={row.label}
-                            className={`grid grid-cols-4 border-b border-border last:border-b-0 ${row.highlight ? 'bg-success/5' : idx % 2 === 0 ? 'bg-card' : 'bg-muted/30'
-                                }`}
+                            className={`grid grid-cols-4 border-b border-slate-100 dark:border-slate-800 last:border-b-0 ${
+                                row.highlight ? 'bg-primary-50/50 dark:bg-primary-900/10' : idx % 2 === 0 ? 'bg-white dark:bg-slate-900' : 'bg-slate-50 dark:bg-slate-800/40'
+                            }`}
                         >
                             <div className="p-4 font-semibold text-muted-foreground text-sm border-r border-border flex items-center">
                                 {row.label}
@@ -186,9 +187,9 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
                 {/* Pros/Cons Section (for Credit Cards) */}
                 {productType === 'credit_card' && (
                     <>
-                        <div className="grid grid-cols-4 border-b border-border bg-success/5">
-                            <div className="p-4 font-semibold text-muted-foreground text-sm border-r border-border">
-                                âœ… Pros
+                        <div className="grid grid-cols-4 border-b border-slate-100 dark:border-slate-800 bg-emerald-50/30 dark:bg-emerald-900/10">
+                            <div className="p-4 font-semibold text-slate-900 dark:text-slate-100 text-sm border-r border-slate-100 dark:border-slate-800 flex items-center gap-2">
+                                <Check className="w-4 h-4 text-emerald-600" /> Pros
                             </div>
                             {products.map((product) => (
                                 <div key={product.id} className="p-4 text-xs text-card-foreground border-r border-border last:border-r-0">
@@ -203,9 +204,9 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
                                 </div>
                             ))}
                         </div>
-                        <div className="grid grid-cols-4 bg-destructive/5">
-                            <div className="p-4 font-semibold text-muted-foreground text-sm border-r border-border">
-                                âš ï¸  Cons
+                        <div className="grid grid-cols-4 bg-red-50/30 dark:bg-red-900/10">
+                            <div className="p-4 font-semibold text-slate-900 dark:text-slate-100 text-sm border-r border-slate-100 dark:border-slate-800 flex items-center gap-2">
+                                <Minus className="w-4 h-4 text-red-600" /> Cons
                             </div>
                             {products.map((product) => (
                                 <div key={product.id} className="p-4 text-xs text-card-foreground border-r border-border last:border-r-0">
@@ -227,8 +228,8 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
                 <div className="grid grid-cols-4 bg-muted/30">
                     <div className="p-4 border-r border-border"></div>
                     {products.map((product) => (
-                        <div key={product.id} className="p-4 border-r border-border last:border-r-0">
-                            <Button className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold">
+                        <div key={product.id} className="p-4 border-r border-slate-100 dark:border-slate-800 last:border-r-0">
+                            <Button className="w-full bg-primary-700 hover:bg-primary-800 text-white font-bold shadow-md hover:shadow-lg transition-all h-10">
                                 Apply Now
                             </Button>
                         </div>

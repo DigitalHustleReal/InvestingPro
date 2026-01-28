@@ -62,9 +62,9 @@ export const GOOGLE_PLAGIARISM_STANDARDS = {
 // ============================================================================
 
 export const GOOGLE_CONTENT_STANDARDS = {
-    // Word count (realistic, not aspirational)
-    MIN_WORD_COUNT: 800,            // Minimum for ranking (not 1500!)
-    TARGET_WORD_COUNT: 1500,        // Sweet spot for most topics
+    // Word count (aligned with content depth standards)
+    MIN_WORD_COUNT: 1500,           // Minimum for comprehensive articles
+    TARGET_WORD_COUNT: 2500,        // Sweet spot for most topics
     MAX_WORD_COUNT: 5000,           // Too long can hurt engagement
     
     // Readability (Flesch Reading Ease)
@@ -83,9 +83,9 @@ export const GOOGLE_CONTENT_STANDARDS = {
     MIN_EXTERNAL_LINKS: 2,          // To authoritative sources
     
     // E-E-A-T signals
-    MIN_CITATIONS: 3,               // RBI, SEBI, AMFI, etc.
-    MIN_DATA_POINTS: 5,             // Specific numbers, stats
-    MIN_EXAMPLES: 3,                // Real-world examples
+    MIN_CITATIONS: 5,               // RBI, SEBI, AMFI, etc.
+    MIN_DATA_POINTS: 10,            // Specific numbers, stats
+    MIN_EXAMPLES: 5,                // Real-world examples
     
     // Technical SEO
     MIN_TITLE_LENGTH: 50,

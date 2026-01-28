@@ -3,6 +3,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import { Button } from "@/components/ui/Button";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
@@ -86,43 +87,50 @@ function HeroSIPCalculator() {
         };
     }, [monthlyInvestment, returnRate, years]);
 
+    const chartData = [
+        { name: 'Invested', value: result.invested },
+        { name: 'Gains', value: result.gains }
+    ];
+
+    const COLORS = ['#94a3b8', '#10b981']; // Slate-400 and Emerald-500
+
     return (
-        <div className="relative overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl p-6 lg:p-8 h-full flex flex-col">
+        <div className="relative overflow-hidden rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl p-6 lg:p-8 h-full flex flex-col group/sip">
             {/* Background Gradients */}
-            <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+            <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/5 dark:bg-emerald-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
             
             <div className="flex items-start justify-between mb-8 relative z-10">
                 <div>
                     <div className="flex items-center gap-2 mb-1">
-                        <Badge variant="outline" className="border-emerald-500/30 text-emerald-400 bg-emerald-500/10">
+                        <Badge variant="outline" className="border-emerald-500/30 text-emerald-600 dark:text-emerald-400 bg-emerald-500/10">
                             Most Popular
                         </Badge>
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger>
-                                    <HelpCircle className="w-4 h-4 text-slate-500 hover:text-slate-300 transition-colors" />
+                                    <HelpCircle className="w-4 h-4 text-slate-400 hover:text-slate-600 transition-colors" />
                                 </TooltipTrigger>
                                 <TooltipContent className="bg-slate-800 border-slate-700 text-slate-200">
-                                    <p className="w-48 text-xs">SIP (Systematic Investment Plan) lets you invest small amounts regularly in mutual funds.</p>
+                                    <p className="w-48 text-xs font-medium">SIP (Systematic Investment Plan) lets you invest small amounts regularly in mutual funds.</p>
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
                     </div>
-                    <h3 className="text-2xl font-bold text-white">SIP Calculator</h3>
-                    <p className="text-slate-400 text-sm">See how small investments grow huge.</p>
+                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover/sip:text-emerald-600 dark:group-hover/sip:text-emerald-400 transition-colors">SIP Calculator</h3>
+                    <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">See how small investments grow huge.</p>
                 </div>
-                <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover/sip:scale-110 transition-transform">
                     <TrendingUp className="w-6 h-6 text-white" />
                 </div>
             </div>
 
             <div className="space-y-6 flex-1 relative z-10">
                 {/* Inputs */}
-                <div className="space-y-4">
-                    <div className="space-y-2">
+                <div className="space-y-6">
+                    <div className="space-y-3">
                         <div className="flex justify-between text-sm">
-                            <span className="text-slate-300">Monthly Investment</span>
-                            <span className="font-bold text-emerald-400">₹{monthlyInvestment.toLocaleString()}</span>
+                            <span className="text-slate-600 dark:text-slate-300 font-medium">Monthly Investment</span>
+                            <span className="font-bold text-emerald-600 dark:text-emerald-400">₹{monthlyInvestment.toLocaleString('en-IN')}</span>
                         </div>
                         <Slider 
                             value={[monthlyInvestment]} 
@@ -131,10 +139,10 @@ function HeroSIPCalculator() {
                             className="py-1"
                         />
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                         <div className="flex justify-between text-sm">
-                            <span className="text-slate-300">Expected Return</span>
-                            <span className="font-bold text-emerald-400">{returnRate}%</span>
+                            <span className="text-slate-600 dark:text-slate-300 font-medium">Expected Return</span>
+                            <span className="font-bold text-emerald-600 dark:text-emerald-400">{returnRate}%</span>
                         </div>
                         <Slider 
                             value={[returnRate]} 
@@ -145,36 +153,59 @@ function HeroSIPCalculator() {
                     </div>
                 </div>
 
-                {/* Big Result */}
-                <div className="bg-slate-800/50 rounded-2xl p-4 border border-slate-700/50 mt-auto">
-                    <div className="text-xs text-slate-400 mb-1">Projected Value in {years} Years</div>
-                    <div className="text-3xl lg:text-4xl font-bold text-white tracking-tight">
-                        <AnimatedNumber value={result.total} format={(n) => `₹${(n/100000).toFixed(2)} Lakh`} />
-                    </div>
-                    <div className="flex gap-4 mt-2 text-xs">
-                        <div className="flex items-center gap-1.5">
-                            <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                            <span className="text-emerald-400">Gain: ₹{(result.gains/100000).toFixed(1)}L</span>
+                {/* Big Result Area with Chart */}
+                <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 mt-auto">
+                    <div className="flex flex-col md:flex-row items-center gap-6">
+                        <div className="flex-1 text-center md:text-left">
+                            <div className="text-xs text-slate-500 dark:text-slate-400 mb-1 font-bold uppercase tracking-wider">Projected Value ({years}y)</div>
+                            <div className="text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
+                                <AnimatedNumber value={result.total} format={(n) => `₹${(n/100000).toFixed(2)} Lakh`} />
+                            </div>
+                            <div className="mt-4 space-y-2">
+                                <div className="flex items-center gap-2 text-xs font-bold">
+                                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                                    <span className="text-slate-600 dark:text-slate-400">Wealth Gain:</span>
+                                    <span className="text-emerald-600 dark:text-emerald-400">₹{(result.gains/100000).toFixed(1)}L</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-xs font-bold">
+                                    <div className="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-600" />
+                                    <span className="text-slate-600 dark:text-slate-400">Total Invested:</span>
+                                    <span className="text-slate-900 dark:text-white">₹{(result.invested/100000).toFixed(1)}L</span>
+                                </div>
+                            </div>
                         </div>
-                        <div className="flex items-center gap-1.5">
-                            <div className="w-2 h-2 rounded-full bg-slate-500" />
-                            <span className="text-slate-400">Invested: ₹{(result.invested/100000).toFixed(1)}L</span>
+
+                        {/* Pie Chart Visual */}
+                        <div className="w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <PieChart>
+                                    <Pie
+                                        data={chartData}
+                                        cx="50%"
+                                        cy="50%"
+                                        innerRadius={25}
+                                        outerRadius={40}
+                                        paddingAngle={5}
+                                        dataKey="value"
+                                        stroke="none"
+                                    >
+                                        {chartData.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                        ))}
+                                    </Pie>
+                                </PieChart>
+                            </ResponsiveContainer>
                         </div>
                     </div>
                 </div>
 
                 {/* CTA */}
                 <Link href="/calculators/sip" className="block">
-                    <Button className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold h-12 rounded-xl shadow-lg shadow-emerald-900/20 group relative overflow-hidden">
+                    <Button className="w-full bg-primary-700 hover:bg-primary-800 text-white font-bold h-12 rounded-xl shadow-lg hover:shadow-primary-900/30 group relative overflow-hidden transition-all">
                         <span className="relative z-10 flex items-center justify-center gap-2">
                             Start Your Wealth Plan <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </span>
-                        <motion.div 
-                            className="absolute inset-0 bg-white/20"
-                            initial={{ x: "-100%" }}
-                            whileHover={{ x: "100%" }}
-                            transition={{ duration: 0.5 }}
-                        />
+                        <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                     </Button>
                 </Link>
             </div>
@@ -261,52 +292,55 @@ export default function QuickToolsSection() {
                     </div>
                 </div>
 
-                {/* Quick Links - Horizontal Scroll */}
-                <div className="mt-8">
-                   <div className="flex flex-col md:flex-row items-center justify-between mb-6 px-2">
-                       <h3 className="font-bold text-slate-900 dark:text-white text-lg">More Calculators</h3>
-                       <Link href="/calculators" className="text-sm font-medium text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 flex items-center">
-                            View All 15+ Tools <ChevronRight className="w-4 h-4 ml-1" />
-                       </Link>
-                   </div>
+                {/* Quick Links Header */}
+                <div className="mt-12 flex flex-col md:flex-row items-center justify-between mb-8 px-2 gap-4">
+                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
+                            <Calculator className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                        </div>
+                        Explore More Calculators
+                    </h3>
+                    <Link href="/calculators" className="px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-500/50 shadow-sm transition-all flex items-center">
+                        View All 15+ Tools <ChevronRight className="w-4 h-4 ml-1" />
+                    </Link>
+                </div>
                    
-                   <div className="flex gap-4 overflow-x-auto pb-6 snap-x px-2 scrollbar-hide">
-                       {calculators.slice(3).concat(quickLinks.map((link, i) => ({
-                           id: `quick-${i}`,
-                           icon: link.icon,
-                           title: link.name,
-                           shortTitle: link.name,
-                           description: '',
-                           href: link.href,
-                           color: 'slate'
-                       }))).map((calc) => {
-                           const colorMap: Record<string, string> = {
-                               blue: 'bg-blue-500',
-                               orange: 'bg-orange-500',
-                               violet: 'bg-violet-500',
-                               rose: 'bg-rose-500',
-                               sky: 'bg-sky-500',
-                               indigo: 'bg-indigo-500',
-                               slate: 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
-                           };
-                           const iconBgClass = calc.color === 'slate' 
-                               ? colorMap.slate 
-                               : `${colorMap[calc.color] || 'bg-slate-500'} text-white`;
-                           
-                           return (
-                               <Link 
+                <div className="flex gap-4 overflow-x-auto pb-6 snap-x px-2 scrollbar-hide">
+                    {calculators.slice(3).concat(quickLinks.map((link, i) => ({
+                        id: `quick-${i}`,
+                        icon: link.icon,
+                        title: link.name,
+                        shortTitle: link.name,
+                        description: '',
+                        href: link.href,
+                        color: 'slate'
+                    }))).map((calc) => {
+                        const colorMap: Record<string, string> = {
+                            blue: 'bg-blue-500',
+                            orange: 'bg-orange-500',
+                            violet: 'bg-violet-500',
+                            rose: 'bg-rose-500',
+                            sky: 'bg-sky-500',
+                            indigo: 'bg-indigo-500',
+                            slate: 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
+                        };
+                        const iconBgClass = calc.color === 'slate' 
+                            ? colorMap.slate 
+                            : `${colorMap[calc.color] || 'bg-slate-500'} text-white`;
+                        
+                        return (
+                            <Link 
                                     key={calc.id} 
                                     href={calc.href}
                                     className="min-w-[140px] snap-start flex flex-col items-center justify-center p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-500/50 hover:shadow-lg transition-all"
-                               >
+                            >
                                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 shadow-md ${iconBgClass}`}>
                                          <calc.icon className="w-5 h-5" />
                                     </div>
                                     <span className="font-medium text-slate-900 dark:text-white text-sm text-center">{calc.shortTitle}</span>
-                               </Link>
-                           );
-                       })}
-                   </div>
+                            </Link>
+                        );
+                    })}
                 </div>
 
                 {/* Trust Footer */}

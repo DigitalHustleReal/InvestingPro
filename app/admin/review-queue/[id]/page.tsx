@@ -112,12 +112,7 @@ export default function ReviewArticlePage() {
         <AdminLayout>
             <div className="h-[calc(100vh-64px)] overflow-hidden flex flex-col p-6">
                 <div className="mb-4">
-                    <AdminBreadcrumb 
-                        items={[
-                            { label: 'Review Queue', href: '/admin/review-queue' },
-                            { label: article.title || 'Untitled', href: '#' }
-                        ]} 
-                    />
+                    <AdminBreadcrumb />
                 </div>
                 
                 <ReviewInterface 

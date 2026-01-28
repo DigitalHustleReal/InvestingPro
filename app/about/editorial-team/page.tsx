@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,6 +12,7 @@ export const metadata = {
 
 const TEAM_MEMBERS = [
   {
+    id: 'rahul-kapoor',
     name: 'Rahul Kapoor',
     role: 'Editor-in-Chief',
     image: '/images/team/rahul-kapoor.png',
@@ -19,6 +21,7 @@ const TEAM_MEMBERS = [
     social: { twitter: '#', linkedin: '#' }
   },
   {
+    id: 'priya-subramaniam',
     name: 'Priya Subramaniam',
     role: 'Lead Investment Analyst',
     image: '/images/team/priya-subramaniam.png',
@@ -27,6 +30,7 @@ const TEAM_MEMBERS = [
     social: { twitter: '#', linkedin: '#' }
   },
   {
+    id: 'aditya-gokhale',
     name: 'Aditya Gokhale',
     role: 'Senior Credit Strategist',
     image: '/images/team/aditya-gokhale.png',
@@ -35,6 +39,7 @@ const TEAM_MEMBERS = [
     social: { twitter: '#', linkedin: '#' }
   },
   {
+    id: 'zoya-khan',
     name: 'Zoya Khan',
     role: 'Consumer Finance Lead',
     image: '/images/team/zoya-khan.png',
@@ -43,6 +48,7 @@ const TEAM_MEMBERS = [
     social: { twitter: '#', linkedin: '#' }
   },
   {
+    id: 'vikram-singh',
     name: 'Vikram Singh',
     role: 'Head of Banking & Loans',
     image: '/images/team/vikram-singh.png',
@@ -51,6 +57,7 @@ const TEAM_MEMBERS = [
     social: { twitter: '#', linkedin: '#' }
   },
   {
+    id: 'anjali-das',
     name: 'CA Anjali Das',
     role: 'Tax & Insurance Expert',
     image: '/images/team/anjali-das.png',
@@ -59,6 +66,7 @@ const TEAM_MEMBERS = [
     social: { twitter: '#', linkedin: '#' }
   },
   {
+    id: 'david-sangma',
     name: 'David Sangma',
     role: 'Fintech & Tech Lead',
     image: '/images/team/david-sangma.png',

@@ -5,7 +5,7 @@ import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/Button";
-import { RotateCcw, Filter, Search, ChevronDown, ChevronUp } from "lucide-react";
+import { RotateCcw, Filter, Search, ChevronDown, ChevronUp, ShoppingCart, Plane, Fuel as FuelIcon, Utensils, Clapperboard, ShoppingBag } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 
@@ -39,12 +39,12 @@ const CREDIT_SCORES = [
 ];
 
 const SPENDING_CATEGORIES = [
-    { value: "groceries", label: "Groceries", icon: "🛒" },
-    { value: "travel", label: "Travel", icon: "✈️" },
-    { value: "fuel", label: "Fuel", icon: "⛽" },
-    { value: "dining", label: "Dining", icon: "🍽️" },
-    { value: "entertainment", label: "Movies", icon: "🎬" },
-    { value: "shopping", label: "Shopping", icon: "🛍️" }
+    { value: "groceries", label: "Groceries", icon: ShoppingCart },
+    { value: "travel", label: "Travel", icon: Plane },
+    { value: "fuel", label: "Fuel", icon: FuelIcon },
+    { value: "dining", label: "Dining", icon: Utensils },
+    { value: "entertainment", label: "Movies", icon: Clapperboard },
+    { value: "shopping", label: "Shopping", icon: ShoppingBag }
 ];
 
 export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
@@ -211,7 +211,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                                      onCheckedChange={() => toggleArrayItem('spendingCategories', category.value)}
                                  />
                                  <Label htmlFor={`spending-${category.value}`} className="text-sm font-medium text-slate-600 dark:text-slate-300 cursor-pointer flex items-center gap-2">
-                                     <span>{category.icon}</span>
+                                     <category.icon className="w-4 h-4 text-primary-500" />
                                      {category.label}
                                  </Label>
                              </div>

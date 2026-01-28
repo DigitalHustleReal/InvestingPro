@@ -6,6 +6,7 @@ export const revalidate = 300;
 // Rebuild trigger 1
 import React, { Suspense } from 'react';
 import HeroSplit from "@/components/home/HeroSplit";
+import DiscoveryWizard from "@/components/home/DiscoveryWizard";
 import SmartAdvisorWidget from "@/components/home/SmartAdvisorWidget";
 import QuickToolsSection from "@/components/home/QuickToolsSection";
 import LatestInsights from "@/components/home/LatestInsights";
@@ -14,7 +15,6 @@ import SEOHead from "@/components/common/SEOHead";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
 import CategoryDiscovery from "@/components/home/CategoryDiscovery";
 import PageErrorBoundary from "@/components/common/PageErrorBoundary";
-import AppDownloadSection from "@/components/home/AppDownloadSection";
 import TrendingSection from "@/components/home/TrendingSection";
 import ScrollProgressBar from "@/components/common/ScrollProgressBar";
 import HomepageOptimizations from "@/components/home/HomepageOptimizations";
@@ -94,11 +94,9 @@ export default function Home() {
                 </section>
             </CommandCenterSection>
 
-            {/* Intelligence Tier: Lead Generation - MOVED UP for better conversion */}
+            {/* Intelligence Tier: Lead Generation - Advanced Smart Advisor */}
             <CommandCenterSection name="Smart Advisor">
-                <section data-section-name="Smart Advisor" aria-label="Smart Advisor widget">
-                    <SmartAdvisorWidget />
-                </section>
+                <SmartAdvisorWidget />
             </CommandCenterSection>
 
             {/* Product Tier: High-intent Selection (Resilient with fallbacks) */}
@@ -140,13 +138,6 @@ export default function Home() {
             <CommandCenterSection name="Trust">
                 <section data-section-name="Trust" aria-label="Trust signals and testimonials">
                     <TrustSection />
-                </section>
-            </CommandCenterSection>
-
-            {/* App Download Tier: Mobile Retention */}
-            <CommandCenterSection name="App Download">
-                <section data-section-name="App Download" aria-label="Download mobile app">
-                    <AppDownloadSection />
                 </section>
             </CommandCenterSection>
 

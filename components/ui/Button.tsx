@@ -8,9 +8,9 @@ const buttonVariants = cva(
     {
         variants: {
             variant: {
-                default: "bg-primary text-primary-foreground hover:bg-primary/90 active:scale-95",
-                secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 active:scale-95",
-                gradient: "bg-gradient-to-r from-primary-600 to-primary-800 text-white hover:from-primary-700 hover:to-primary-900",
+                default: "bg-primary-500 text-white hover:bg-primary-600 active:scale-95 shadow-sm",
+                secondary: "bg-secondary-500 text-white hover:bg-secondary-600 active:scale-95 shadow-sm",
+                gradient: "bg-gradient-to-r from-primary-600 to-primary-800 text-white hover:from-primary-700 hover:to-primary-900 shadow-md",
                 destructive: "bg-danger-500 text-white hover:bg-danger-700",
                 outline: "border-2 border-primary-600 bg-white dark:bg-slate-800 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30",
                 success: "bg-success-600 text-white hover:bg-success-700",
@@ -18,10 +18,10 @@ const buttonVariants = cva(
                 link: "text-secondary-600 underline-offset-4 hover:underline dark:text-secondary-400",
             },
             size: {
-                default: "h-11 px-6 py-2",      // 44px (minimum tap target)
-                sm: "h-10 px-4 py-2",           // 40px (secondary actions)
-                lg: "h-14 px-8 py-3",           // 56px (hero CTAs)
-                icon: "h-11 w-11",              // 44px square (icons only)
+                default: "h-10 px-6 py-2",      // 40px (balanced)
+                sm: "h-11 px-4 py-2",           // 44px (meets mobile tap target minimum)
+                lg: "h-12 px-8 py-3",           // 48px (hero CTAs)
+                icon: "h-10 w-10",              // 40px square
             },
         },
         defaultVariants: {

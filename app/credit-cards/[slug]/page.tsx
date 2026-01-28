@@ -1,3 +1,4 @@
+import TrustBadge from '@/components/common/TrustBadge'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Button } from '@/components/ui/Button'
@@ -255,12 +256,14 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
                 <div className="flex-1 space-y-6">
                     {/* Header */}
                     <div>
-                        <div className="flex items-center gap-2 mb-2">
-                            <span className="text-primary-600 dark:text-primary-400 font-bold tracking-tight text-sm uppercase">{card.provider} Bank</span>
-                            <span className="text-slate-300">•</span>
-                            <span className="text-slate-500 dark:text-slate-400 text-sm">Verified Review</span>
+                        <div className="flex flex-wrap items-center gap-3 mb-4">
+                            <span className="text-secondary-600 dark:text-secondary-400 font-bold tracking-tight text-xs uppercase">{card.provider} Bank</span>
+                            <div className="flex items-center gap-2">
+                                <TrustBadge type="verified" />
+                                <TrustBadge type="fact-checked" />
+                            </div>
                         </div>
-                        <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+                        <h1 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4 font-heading">
                             {card.name}
                         </h1>
                         <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
@@ -268,12 +271,19 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
                         </p>
                     </div>
 
-                    {/* The "Verdict" Box - Editor's Take */}
-                    <div className="bg-primary-50 dark:bg-primary-900/10 border-l-4 border-primary-500 p-4 rounded-r-lg">
-                        <p className="text-primary-900 dark:text-primary-100 font-medium text-sm leading-relaxed">
-                            <span className="font-bold block mb-1">💡 The Verdict</span>
-                            Excellent choice for {card.type.toLowerCase()} users. The reward rate of {card.rewardRate} justifies the fee if you spend over ₹20k monthly.
-                        </p>
+                    {/* The "Verdict" Box - Editor's Take (Enhanced Aesthetics) */}
+                    <div className="relative group overflow-hidden rounded-2xl border border-primary-200/50 dark:border-primary-800/30 bg-gradient-to-br from-primary-50/80 to-white dark:from-primary-950/20 dark:to-slate-900/50 backdrop-blur-sm p-5 shadow-lg shadow-primary-500/5">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2" />
+                        
+                        <div className="relative z-10">
+                            <div className="flex items-center gap-2 mb-2">
+                                <Sparkles className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+                                <span className="text-[10px] font-black uppercase tracking-widest text-primary-600 dark:text-primary-400">The Verdict</span>
+                            </div>
+                            <p className="text-slate-800 dark:text-slate-200 font-bold text-base leading-relaxed font-heading italic">
+                                "{card.name} is an excellent choice for {card.type.toLowerCase()} users. The reward rate of {card.rewardRate} justifies the fee if you spend over ₹20k monthly."
+                            </p>
+                        </div>
                     </div>
 
 
