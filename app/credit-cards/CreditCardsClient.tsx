@@ -22,14 +22,6 @@ interface CreditCardsClientProps {
 }
 
 export default function CreditCardsClient({ initialAssets }: CreditCardsClientProps) {
-    // We initialise state with the Server Data
-    // Note: In the original logic, 'assets' filters used raw DB shape, but here we passed RichProduct.
-    // We will adapt the filter logic to simple RichProduct if needed, or re-map.
-    // The previous 'assets' were raw from 'api.entities.CreditCard.list()' which mapped to 'generic asset-ish'.
-    // Here initialAssets is ALREADY mapped to RichProduct.
-    // So we just need to make sure filter logic works on RichProduct fields.
-    
-    // For simplicity, let's treat initialAssets as the source of truth
     const [searchTerm, setSearchTerm] = useState("");
     
     // Filter State
@@ -53,10 +45,6 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
 
     // Filter Logic
     const filteredAssets = initialAssets.filter(asset => {
-        // ... (existing logic kept intact by tool, so I just return the filtered list here conceptually, but I need to make sure I don't break existing code)
-        // Since I'm replacing the whole component body effectively to insert logic in the middle, I have to be careful.
-        // Actually, I can just insert the logic AFTER filteredAssets is defined.
-        
         const name = (asset.name || "").toLowerCase();
         const provider = (asset.provider_name || "").toLowerCase();
         const searchMatch = name.includes(searchTerm.toLowerCase()) || provider.includes(searchTerm.toLowerCase());
@@ -77,7 +65,7 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
         // Spending Categories
         const spendingMatch = filters.spendingCategories.length === 0 || 
             filters.spendingCategories.some(category => {
-                const term = category.toLowerCase().replace(/([a-z])([A-Z])/g, '$1$2');
+                const term = category.toLowerCase().replace(/([a-z])([A-Z])/g, '$1 $2');
                 return featuresStr.includes(term) || name.includes(term) || (asset.bestFor?.toLowerCase() || "").includes(term);
             });
             
@@ -95,13 +83,10 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                  return featuresStr.includes(t) || (asset.specs?.rewardsType || "").toLowerCase().includes(t);
             });
 
-        // NEW: Credit Score Filter (Mocked Logic - assuming all are 'good' if not specified)
-        // In real app, we check asset.creditScoreRequirement
-        const scoreMatch = filters.creditScore.length === 0 || true; // Placeholder for now until data has scores
+        // NEW: Credit Score Filter
+        const scoreMatch = filters.creditScore.length === 0 || true; // Placeholder
 
         // Fee logic
-        // We need to parse specs.annualFee which might be "₹500" or "Free"
-        // For now, simple check if we can parse it
         const annualFeeStr = asset.specs?.annualFee || "0";
         const annualFee = parseInt(annualFeeStr.replace(/[^0-9]/g, "")) || 0;
         const feeMatch = annualFee <= filters.maxFee;
@@ -114,14 +99,10 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
     // ---------------------------------------------------------
     const [weights, setWeights] = useState<ScoringWeights>({ rewards: 0.35, fees: 0.30, travel: 0.35 });
     
-    // Calculate scores and sort
     const scoredAssets = React.useMemo(() => {
         return filteredAssets.map(asset => {
-            // Map RichProduct to basic CreditCard shape for scoring
-            // This is a rough mapping as RichProduct is unstructured
             const rawFee = asset.features?.['annual_fee'] || asset.specs?.annualFee || "500";
             const feeVal = typeof rawFee === 'number' ? rawFee : parseInt(String(rawFee).replace(/[^0-9]/g, '')) || 0;
-            
             const rawRate = asset.features?.['reward_rate'] || asset.specs?.rewardRate || "1%";
             
             const type = (asset.category === 'credit_card' ? (asset.bestFor || 'standard') : 'standard').toLowerCase();
@@ -137,23 +118,19 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
             };
 
             const scoreResult = scoreCreditCard(dummyCard, weights);
-            // Dynamic Match Score (0-100)
             const matchScore = Math.round(scoreResult.overall * 10); 
-            
-            // Mock popularity data (replace with real analytics later)
-            const popularity = Math.floor(Math.random() * 10000) + 1000; // 1000-11000
-            const trending = Math.random() > 0.7; // 30% chance of trending
+            const popularity = Math.floor(Math.random() * 10000) + 1000; 
+            const trending = Math.random() > 0.7; 
             
             return { 
                 ...asset, 
                 matchScore, 
                 scoreBreakdown: scoreResult.breakdown,
                 rawScore: scoreResult.overall,
-                popularity, // NEW
-                trending // NEW
+                popularity,
+                trending
             };
         })
-        // Apply sorting based on sortBy state
         .sort((a, b) => {
             switch (sortBy) {
                 case 'popularity':
@@ -161,7 +138,7 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                 case 'trending':
                     return (b.trending ? 1000 : 0) - (a.trending ? 1000 : 0) + ((b.popularity || 0) - (a.popularity || 0));
                 case 'rating':
-                    return (b.rating || 0) - (a.rating || 0);
+                    return (b.rating?.overall || 0) - (a.rating?.overall || 0);
                 case 'match':
                 default:
                     return b.matchScore - a.matchScore;
@@ -179,57 +156,41 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
         (filters.cardType.length > 0 ? 1 : 0) + 
         (filters.rewardsType.length > 0 ? 1 : 0);
 
-    // Pagination State (Client-Side for snappy UX)
     const [visibleCount, setVisibleCount] = useState(12);
-    
-    // Slice assets for display
     const displayedAssets = scoredAssets.slice(0, visibleCount);
     const hasMore = visibleCount < scoredAssets.length;
     
-    // Reset pagination when filters change
     React.useEffect(() => {
         setVisibleCount(12);
     }, [filters, searchTerm, weights]);
 
     return (
         <div className="flex flex-col lg:flex-row gap-8 items-start">
-                    
             {/* Filter Sidebar */}
             <ResponsiveFilterContainer activeFiltersCount={activeFiltersCount}>
                 <FilterSidebar filters={filters} setFilters={setFilters} />
-                    
-                    {/* Marketing Widgets in Sidebar */}
                     <div className="mt-8 space-y-6">
-                    
-                    {/* Qualification Checker */}
-                    <EligibilityPreChecker />
-
-                    {/* Card Matcher Teaser */}
-                    <div className="bg-gradient-to-br from-primary-600 to-success-700 rounded-[2rem] p-6 text-white relative overflow-hidden shadow-xl shadow-primary-500/20">
-                        <div className="relative z-10">
-                            <div className="h-10 w-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center mb-4">
-                                <Zap className="w-6 h-6 text-accent-300" />
+                        <EligibilityPreChecker />
+                        <div className="bg-gradient-to-br from-primary-600 to-success-700 rounded-[2rem] p-6 text-white relative overflow-hidden shadow-xl shadow-primary-500/20">
+                            <div className="relative z-10">
+                                <div className="h-10 w-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center mb-4">
+                                    <Zap className="w-6 h-6 text-accent-300" />
+                                </div>
+                                <h3 className="font-bold text-lg mb-2">Find Your Perfect Card</h3>
+                                <p className="text-primary-100 text-sm mb-4">Get personalized recommendations based on your spending, lifestyle, and eligibility.</p>
+                                <Link href="/credit-cards/find-your-card">
+                                    <Button size="sm" className="w-full bg-white dark:bg-slate-800 text-primary-700 dark:text-primary-400 font-bold hover:bg-primary-50 dark:hover:bg-primary-900/30">
+                                        Find My Card
+                                    </Button>
+                                </Link>
                             </div>
-                            <h3 className="font-bold text-lg mb-2">Find Your Perfect Card</h3>
-                            <p className="text-primary-100 text-sm mb-4">Get personalized recommendations based on your spending, lifestyle, and eligibility.</p>
-                            <Link href="/credit-cards/find-your-card">
-                                <Button size="sm" className="w-full bg-white dark:bg-slate-800 text-primary-700 dark:text-primary-400 font-bold hover:bg-primary-50 dark:hover:bg-primary-900/30">
-                                    Find My Card
-                                </Button>
-                            </Link>
                         </div>
-                    </div>
-                    
-                    
-                    {/* NEW: Contextual Widgets (Universal Sidebar) */}
-                    <UniversalSidebar category="credit_card" />
+                        <UniversalSidebar category="credit_card" />
                     </div>
             </ResponsiveFilterContainer>
 
             {/* Results Grid */}
             <div className="flex-1 w-full">
-                
-                {/* Search Bar (Mobile only here, desktop is in Hero usually, but let's keep it here for functional parity) */}
                 <div className="mb-6 lg:hidden">
                        <Input
                             placeholder="Search cards..."
@@ -239,13 +200,11 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                        />
                 </div>
 
-                {/* Score Preference Toggle (Tier 3 Feature) */}
                 <ScorePreferenceToggle 
                     currentWeights={weights} 
                     onWeightChange={setWeights} 
                 />
 
-                {/* NEW: Trending Social Proof Section */}
                 <div className="mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {[
                         { label: "Trending This Week", value: "HDFC Regalia Gold", sub: "5.2k Views", icon: "🔥", color: "bg-orange-50 text-orange-600 dashed border-orange-200" },
@@ -263,7 +222,6 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                     ))}
                 </div>
 
-                {/* Filter Presets - NEW */}
                 <FilterPresets 
                     onPresetClick={(presetFilters) => {
                         setFilters(prev => ({
@@ -274,14 +232,12 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                     className="mb-6"
                 />
 
-                {/* Status Bar with View Toggle and Sort */}
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                     <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                         Compare Cards <span className="text-slate-400 font-medium text-sm ml-2">({filteredAssets.length} found)</span>
                     </h2>
                     
                     <div className="flex items-center gap-3">
-                        {/* Sort Dropdown - NEW */}
                         <select
                             value={sortBy}
                             onChange={(e) => setSortBy(e.target.value as any)}
@@ -293,30 +249,30 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                             <option value="rating">Top Rated</option>
                         </select>
                         
-                        {/* View Toggle */}
                         <div className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-1">
-                        <button
-                            onClick={() => setViewMode('table')}
-                            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
-                                viewMode === 'table'
-                                    ? 'bg-primary-600 text-white'
-                                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                            }`}
-                        >
-                            <TableIcon className="w-4 h-4" />
-                            <span className="hidden sm:inline">Table</span>
-                        </button>
-                        <button
-                            onClick={() => setViewMode('grid')}
-                            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
-                                viewMode === 'grid'
-                                    ? 'bg-primary-600 text-white'
-                                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                            }`}
-                        >
-                            <LayoutGrid className="w-4 h-4" />
-                            <span className="hidden sm:inline">Cards</span>
-                        </button>
+                            <button
+                                onClick={() => setViewMode('table')}
+                                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                                    viewMode === 'table'
+                                        ? 'bg-primary-600 text-white'
+                                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                }`}
+                            >
+                                <TableIcon className="w-4 h-4" />
+                                <span className="hidden sm:inline">Table</span>
+                            </button>
+                            <button
+                                onClick={() => setViewMode('grid')}
+                                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                                    viewMode === 'grid'
+                                        ? 'bg-primary-600 text-white'
+                                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                }`}
+                            >
+                                <LayoutGrid className="w-4 h-4" />
+                                <span className="hidden sm:inline">Cards</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -343,7 +299,6 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                             </div>
                         )}
 
-                        {/* Load More Button */}
                         {hasMore && (
                             <div className="mt-12 text-center">
                                 <Button 
