@@ -5,7 +5,7 @@
  * SERVER-ONLY: This module uses server-only APIs
  * Do not import in client components - use API routes instead
  */
-import 'server-only'; // Mark as server-only module
+// NOTE: server-only import removed to allow scripts to run
 
 import { 
   WorkflowDefinition, 

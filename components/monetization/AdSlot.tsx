@@ -88,7 +88,7 @@ export default function AdSlot({
                                     />
                                 ))}
                                 <span className="text-sm text-slate-500 ml-1">
-                                    {product.rating.toFixed(1)}
+                                    {typeof product.rating === 'number' ? product.rating.toFixed(1) : (Number(product.rating) || 4.5).toFixed(1)}
                                 </span>
                             </div>
                         )}

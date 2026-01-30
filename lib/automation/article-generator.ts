@@ -11,9 +11,10 @@ import { checkPlagiarism, generatePlagiarismReport } from '@/lib/quality/plagiar
 import { generateImageAltText } from '@/lib/quality/image-alt-generator';
 import { generateArticleSchema, extractFAQsFromContent } from '@/lib/seo/schema-generator';
 import { imageService } from '@/lib/images/stock-image-service';
-import { eventPublisher, EventType } from '@/lib/events';
+// NOTE: eventPublisher and workflow imports made lazy to avoid server-only chain in scripts
+// import { eventPublisher, EventType } from '@/lib/events';
+// import { triggerArticlePublishingWorkflow } from '@/lib/workflows/hooks/article-workflow-hooks';
 import { sanitizeHTML } from '@/lib/middleware/input-sanitization';
-import { triggerArticlePublishingWorkflow } from '@/lib/workflows/hooks/article-workflow-hooks';
 
 /**
  * CORE ARTICLE GENERATION LOGIC
@@ -281,6 +282,7 @@ async function generateWithAI(
         });
 
         if (!result || !result.content) {
+            console.error('🔴 GEN FAILURE DEBUG: Result is ' + (result ? JSON.stringify(result).substring(0, 200) : 'null'));
             throw new Error("AI engine failed to produce content");
         }
 
@@ -297,10 +299,16 @@ async function generateWithAI(
                 operation: 'generate_article',
                 contextData: { topic, category }
             });
-            return result?.content || '';
+            
+            // CRITICAL FIX: Don't return empty string silently
+            if (!result?.content || result.content.trim().length < 100) {
+                throw new Error(`Fallback returned insufficient content (${result?.content?.length || 0} chars)`);
+            }
+            
+            return result.content;
         } catch (fallbackError: any) {
             logFn(`❌ Fallback also failed: ${fallbackError.message}`);
-            throw error; // Throw original error
+            throw new Error(`All AI providers failed. Original: ${error.message}. Fallback: ${fallbackError.message}`);
         }
     }
 }
@@ -564,7 +572,65 @@ export async function generateArticleCore(
              logFn('   ⚠️ AI returned raw HTML/Text instead of JSON. Proceeding with raw content.');
         }
 
-        logFn(`   ✅ Generated ${html.length} characters`);
+        // SERP DOMINATION STRATEGY: Word count validation
+        // Target = SERP competitor average + 20% (to outrank them)
+        // Minimum = 90% of target (quality gate)
+        
+        // Fallback minimums per content type (from content-templates.ts)
+        const WORD_COUNT_FLOORS: Record<string, number> = {
+            'ultimate': 3000,
+            'comparison': 2000,
+            'listicle': 1800,
+            'howto': 1500,
+            'default': 1500
+        };
+        
+        // Get actual word count
+        const actualWordCount = html.split(/\s+/).filter(Boolean).length;
+        
+        // SERP Domination: Use competitor word count + 20%
+        const serpCompetitorAvg = enhancedBrief?.recommended_word_count || brief?.recommended_word_count || brief?.avg_word_count;
+        const serpDominationTarget = serpCompetitorAvg ? Math.ceil(serpCompetitorAvg * 1.20) : 0;
+        
+        // Fallback floor based on content type
+        const contentFloor = WORD_COUNT_FLOORS[contentType] || WORD_COUNT_FLOORS['default'];
+        
+        // Final target: Higher of SERP domination target or content type floor
+        const targetWordCount = Math.max(serpDominationTarget, contentFloor);
+        
+        // Calculate minimum acceptable (90% of target)
+        const minimumAcceptable = Math.floor(targetWordCount * 0.90);
+        
+        logFn(`   📊 SERP Domination Word Count Analysis:`);
+        if (serpCompetitorAvg) {
+            logFn(`      - Competitor Avg: ${serpCompetitorAvg} words`);
+            logFn(`      - Domination Target (+20%): ${serpDominationTarget} words`);
+        } else {
+            logFn(`      - SERP data unavailable, using content type floor`);
+        }
+        logFn(`      - Final Target: ${targetWordCount} words`);
+        logFn(`      - Minimum (90%): ${minimumAcceptable} words`);
+        logFn(`      - Actual: ${actualWordCount} words`);
+        
+        if (actualWordCount < minimumAcceptable) {
+            const shortfall = minimumAcceptable - actualWordCount;
+            const percentAchieved = Math.round((actualWordCount / targetWordCount) * 100);
+            
+            logFn(`   ❌ CRITICAL: Content is ${shortfall} words short!`);
+            logFn(`   📈 Only achieved ${percentAchieved}% of domination target.`);
+            logFn(`   🔄 This article will NOT be saved. Content generation failed.`);
+            
+            throw new Error(
+                `AI content generation failed: Insufficient word count for SERP domination. ` +
+                `Got ${actualWordCount} words (${percentAchieved}%), ` +
+                `need ${minimumAcceptable}+ words (90% of ${targetWordCount} domination target). ` +
+                `Content type: "${contentType}", Topic: "${topic}"`
+            );
+        }
+        
+        logFn(`   ✅ Word count validation passed (${Math.round((actualWordCount / targetWordCount) * 100)}% of target)`);
+
+        logFn(`   ✅ Generated ${html.length} characters, ${actualWordCount} words`);
 
         // 2. Extract Metadata
         logFn('2️⃣ Extracting SEO metadata...');

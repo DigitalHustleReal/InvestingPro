@@ -1,0 +1,66 @@
+import React from 'react';
+import { ArrowRight, BookOpen, TrendingUp, CreditCard } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Link from 'next/link';
+
+export default function RelatedArticles() {
+  // Mock Data
+  const articles = [
+    {
+      title: "HDFC Regalia Gold vs HDFC Diners Club Privilege: Full Comparison",
+      category: "Comparison",
+      readTime: "5 min read",
+      icon: <CreditCard className="w-4 h-4 text-blue-500" />
+    },
+    {
+      title: "How to maximize reward points on fuel spends in 2026",
+      category: "Guides",
+      readTime: "4 min read",
+      icon: <TrendingUp className="w-4 h-4 text-green-500" />
+    },
+    {
+      title: "7 Best Lifetime Free Credit Cards for Beginners",
+      category: "Top Picks",
+      readTime: "6 min read",
+      icon: <BookOpen className="w-4 h-4 text-purple-500" />
+    }
+  ];
+
+  return (
+    <Card className="border-slate-200 dark:border-slate-800 shadow-sm mt-8">
+        <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-800">
+            <CardTitle className="text-lg font-bold flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-primary-600" />
+                Related Guides & Comparisons
+            </CardTitle>
+        </CardHeader>
+        <CardContent className="p-0">
+            <div className="divide-y divide-slate-100 dark:divide-slate-800">
+                {articles.map((article, i) => (
+                    <Link key={i} href="#" className="flex items-center gap-4 p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+                        <div className="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg group-hover:bg-white dark:group-hover:bg-slate-700 transition-colors">
+                            {article.icon}
+                        </div>
+                        <div className="flex-1">
+                            <h4 className="font-semibold text-slate-900 dark:text-slate-200 text-sm group-hover:text-primary-600 transition-colors">{article.title}</h4>
+                            <div className="flex items-center gap-2 mt-1">
+                                <span className="text-xs font-medium text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">{article.category}</span>
+                                <span className="text-[10px] text-slate-400">•</span>
+                                <span className="text-xs text-slate-400">{article.readTime}</span>
+                            </div>
+                        </div>
+                        <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-primary-500 -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    </Link>
+                ))}
+            </div>
+            <div className="p-3 bg-slate-50 dark:bg-slate-900/50 text-center">
+                <Button variant="link" className="text-primary-600 h-auto p-0 text-sm font-semibold">
+                    View All Articles
+                </Button>
+            </div>
+        </CardContent>
+    </Card>
+  );
+}
+
+import { Button } from '@/components/ui/Button';

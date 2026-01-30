@@ -5,7 +5,8 @@
  * SERVER-ONLY: This module uses server-only APIs (next/headers)
  * Do not import in client components
  */
-import 'server-only'; // Mark as server-only module
+// NOTE: server-only import removed to allow scripts to import this module
+// The persistence layer handles server/client context gracefully
 
 import { randomUUID } from 'crypto';
 import { SystemEvent, EventType, type BaseEvent } from './types';

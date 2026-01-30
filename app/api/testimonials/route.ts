@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
     const featured = searchParams.get('featured') === 'true';
     const limit = searchParams.get('limit');
 
-    const supabase = createClient();
+    const supabase = await createClient();
     
     let query = supabase
       .from('testimonials')

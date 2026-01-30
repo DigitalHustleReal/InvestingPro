@@ -12,28 +12,37 @@
 
 import { Redis } from '@upstash/redis';
 
-// Initialize Redis client (works in Edge, Serverless, and Node.js)
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL || '',
-  token: process.env.UPSTASH_REDIS_REST_TOKEN || '',
-});
-
 const isConfigured = !!process.env.UPSTASH_REDIS_REST_URL && !!process.env.UPSTASH_REDIS_REST_TOKEN;
+
+// Lazy initialization - prevents errors during module load when env vars are missing
+let _redis: Redis | null = null;
+
+function getRedisClient(): Redis | null {
+  if (!isConfigured) return null;
+  if (!_redis) {
+    _redis = new Redis({
+      url: process.env.UPSTASH_REDIS_REST_URL!,
+      token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+    });
+  }
+  return _redis;
+}
 
 /**
  * Cache a value with optional TTL
  */
 export async function cacheSet<T>(key: string, value: T, ttlSeconds?: number): Promise<boolean> {
-  if (!isConfigured) {
-    console.warn('[REDIS] Not configured, skipping cache set');
+  const client = getRedisClient();
+  if (!client) {
+    // Silently skip when not configured
     return false;
   }
 
   try {
     if (ttlSeconds) {
-      await redis.setex(key, ttlSeconds, JSON.stringify(value));
+      await client.setex(key, ttlSeconds, JSON.stringify(value));
     } else {
-      await redis.set(key, JSON.stringify(value));
+      await client.set(key, JSON.stringify(value));
     }
     return true;
   } catch (error) {
@@ -46,12 +55,13 @@ export async function cacheSet<T>(key: string, value: T, ttlSeconds?: number): P
  * Get a cached value
  */
 export async function cacheGet<T>(key: string): Promise<T | null> {
-  if (!isConfigured) {
+  const client = getRedisClient();
+  if (!client) {
     return null;
   }
 
   try {
-    const data = await redis.get(key);
+    const data = await client.get(key);
     if (data === null) return null;
     return typeof data === 'string' ? JSON.parse(data) : data as T;
   } catch (error) {
@@ -64,10 +74,11 @@ export async function cacheGet<T>(key: string): Promise<T | null> {
  * Delete a cached value
  */
 export async function cacheDelete(key: string): Promise<boolean> {
-  if (!isConfigured) return false;
+  const client = getRedisClient();
+  if (!client) return false;
 
   try {
-    await redis.del(key);
+    await client.del(key);
     return true;
   } catch (error) {
     console.error('[REDIS] Cache delete error:', error);
@@ -83,21 +94,22 @@ export async function rateLimit(
   limit: number = 10,
   windowSeconds: number = 60
 ): Promise<{ allowed: boolean; remaining: number; reset: number }> {
-  if (!isConfigured) {
+  const client = getRedisClient();
+  if (!client) {
     return { allowed: true, remaining: limit, reset: 0 };
   }
 
   const key = `ratelimit:${identifier}`;
   
   try {
-    const current = await redis.incr(key);
+    const current = await client.incr(key);
     
     if (current === 1) {
       // First request in window, set expiry
-      await redis.expire(key, windowSeconds);
+      await client.expire(key, windowSeconds);
     }
 
-    const ttl = await redis.ttl(key);
+    const ttl = await client.ttl(key);
     
     return {
       allowed: current <= limit,
@@ -137,13 +149,14 @@ export async function cachedFetch<T>(
  * Invalidate cache by pattern (e.g., all article caches)
  */
 export async function invalidatePattern(pattern: string): Promise<number> {
-  if (!isConfigured) return 0;
+  const client = getRedisClient();
+  if (!client) return 0;
 
   try {
-    const keys = await redis.keys(pattern);
+    const keys = await client.keys(pattern);
     if (keys.length === 0) return 0;
     
-    await redis.del(...keys);
+    await client.del(...keys);
     return keys.length;
   } catch (error) {
     console.error('[REDIS] Invalidate pattern error:', error);
@@ -158,6 +171,6 @@ export default {
   rateLimit,
   cachedFetch,
   invalidatePattern,
-  client: redis,
+  get client() { return getRedisClient(); },
   isConfigured,
 };

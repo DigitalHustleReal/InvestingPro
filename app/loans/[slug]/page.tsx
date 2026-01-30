@@ -2,6 +2,10 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import FAQAccordion from '@/components/common/FAQAccordion'
+import AuthorByline from '@/components/common/AuthorByline'
+import RelatedArticles from '@/components/content/RelatedArticles'
+import { CREDIT_CARD_GENERAL_FAQS } from '@/lib/content/seo-content'
 import {
   Star,
   Percent,
@@ -128,8 +132,12 @@ async function getLoanData(slug: string): Promise<LoanDetail | null> {
   };
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const loan = await getLoanData(params.slug)
+// Enable dynamic rendering for routes not pre-generated
+export const dynamicParams = true;
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const loan = await getLoanData(slug)
   
   if (!loan) {
     return {
@@ -141,11 +149,21 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     title: `${loan.name} - Interest Rate ${loan.interestRateMin}%, Apply Online | InvestingPro`,
     description: `${loan.description} Interest: ${loan.interestRateMin}-${loan.interestRateMax}%. Loan amount: ₹${(loan.maxLoanAmount / 100000).toFixed(0)} Lakh. Rating: ${loan.rating}/5.`,
     keywords: `${loan.name}, ${loan.provider} loan, personal loan, loan interest rate, ${loan.provider.toLowerCase()} loan apply online`,
+    openGraph: {
+      title: `${loan.name} Review | InvestingPro`,
+      description: loan.description,
+      type: 'article',
+      images: [], // Add loan image if available in future
+    },
+    alternates: {
+      canonical: `/loans/${slug}`,
+    }
   }
 }
 
-export default async function LoanDetailPage({ params }: { params: { slug: string } }) {
-  const loan = await getLoanData(params.slug)
+export default async function LoanDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const loan = await getLoanData(slug)
   
   if (!loan) {
     notFound()
@@ -165,6 +183,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
               </div>
               <h1 className="text-4xl font-bold mb-4">{loan.name}</h1>
               <p className="text-lg text-primary-100 mb-6">{loan.description}</p>
+              <AuthorByline className="text-primary-100 border-primary-100/20 mb-6" />
               
               {/* Rating */}
               <div className="flex items-center gap-4 mb-6">
@@ -201,7 +220,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
               <Card className="bg-white/10 backdrop-blur-sm border-white/20">
                 <CardContent className="p-6">
                   <p className="text-sm text-primary-100 mb-4">Get instant approval</p>
-                  <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-white text-primary-700 hover:bg-gray-100 font-semibold py-6 text-lg mb-3">
                       Apply Now <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
@@ -375,7 +394,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
             <DifferentiationCard 
                 score={scoreLoan({
                     id: loan.id,
-                    slug: params.slug,
+                    slug: slug,
                     name: loan.name,
                     category: 'loan',
                     provider: loan.provider,
@@ -403,7 +422,7 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Get Instant Loan</h3>
                   <p className="text-sm text-primary-100 mb-4">Approval in 10 seconds</p>
-                  <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-white text-primary-700 hover:bg-gray-100 font-semibold py-6 mb-3">
                       Check Eligibility <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
@@ -475,12 +494,21 @@ export default async function LoanDetailPage({ params }: { params: { slug: strin
         </div>
       </div>
       
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+         <RelatedArticles />
+         <FAQAccordion 
+            items={CREDIT_CARD_GENERAL_FAQS} 
+            title="Personally Loan FAQs"
+            className="mb-12"
+         />
+      </div>
+
       {/* Bottom CTA */}
       <div className="bg-primary-900 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Apply for {loan.name} in Minutes</h2>
           <p className="text-primary-200 mb-8">100% digital process • Quick approval • Instant disbursal</p>
-          <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+          <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
             <Button className="bg-white text-primary-700 hover:bg-gray-100 font-semibold px-12 py-6 text-lg">
               Check Eligibility Now <ExternalLink className="w-5 h-5 ml-2" />
             </Button>

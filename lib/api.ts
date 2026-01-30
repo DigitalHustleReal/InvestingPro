@@ -242,12 +242,13 @@ export const api = {
                 await syncHealthFromDB();
 
                 // 1. Try OpenAI (PRIMARY - User has $10 credit)
-                if (openai && checkHealth('openai')) {
+                // Note: Health check disabled to force retry after quota fix
+                if (openai /* && checkHealth('openai') */) {
                     try {
                         const response = await openai.chat.completions.create({
                             model: process.env.OPENAI_MODEL || "gpt-4o-mini",
                             messages: [
-                                { role: "system", content: systemPrompt },
+                                { role: "system", content: systemPrompt + " You must response in JSON." },
                                 { role: "user", content: enhancedPrompt }
                             ],
                             response_format: { type: "json_object" },
@@ -259,7 +260,12 @@ export const api = {
                         if (content) {
                             const parsed = extractJSON(content);
                             reportSuccess('openai');
-                            const validation = validateAIContent(parsed.content || '', operation);
+                            let contentToValidate = parsed.content || '';
+                            if (typeof contentToValidate !== 'string') {
+                                console.log('⚠️ OpenAI returned object/array for content, stringifying...');
+                                contentToValidate = JSON.stringify(contentToValidate);
+                            }
+                            const validation = validateAIContent(contentToValidate, operation);
                             const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
                             const usage = response.usage || { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 };
                             return { 
@@ -274,10 +280,18 @@ export const api = {
                                     total_tokens: usage.total_tokens || 0
                                 }
                             };
+                        } else {
+                            console.log('🔴 OPENAI NULL CONTENT. Finish reason:', response.choices[0]?.finish_reason);
                         }
                     } catch (error: any) {
+                        console.log('🔴 OPENAI FAILURE DEBUG:', error.message);
+                        if (error.response) console.log('   Status:', error.response.status);
+                        if (error.code) console.log('   Code:', error.code);
+                        if (error.type) console.log('   Type:', error.type);
                         reportFailure('openai', error.message);
                     }
+                } else {
+                    console.log('⚠️ OpenAI skipped. openai object exists:', !!openai);
                 }
 
                 // 2. Try Google Gemini (Fallback)

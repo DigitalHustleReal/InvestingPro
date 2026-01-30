@@ -21,7 +21,7 @@
  * - Rate limit management
  */
 
-import axios from 'axios';
+import { fetchJson } from '../api/external-client';
 import { createClient } from '@supabase/supabase-js';
 
 // ============================================================================
@@ -189,17 +189,20 @@ async function searchPexels(options: SearchOptions): Promise<ImageResult[]> {
     console.log(`🔍 Searching Pexels for: "${options.query}"`);
     
     try {
-        const response = await axios.get('https://api.pexels.com/v1/search', {
-            headers: { 'Authorization': PEXELS_API_KEY },
-            params: {
-                query: options.query,
-                per_page: options.max_results || 10,
-                orientation: options.orientation || DEFAULT_ORIENTATION,
-                size: 'large'
-            }
+        const params = new URLSearchParams({
+            query: options.query,
+            per_page: (options.max_results || 10).toString(),
+            orientation: options.orientation || DEFAULT_ORIENTATION,
+            size: 'large'
         });
 
-        const photos = response.data.photos || [];
+        const data = await fetchJson<any>(`https://api.pexels.com/v1/search?${params}`, {
+            headers: { 'Authorization': PEXELS_API_KEY },
+            circuitBreakerKey: 'pexels-api',
+            timeout: 5000
+        });
+
+        const photos = data.photos || [];
         
         return photos.map((photo: any) => ({
             url: photo.src.large2x || photo.src.large,
@@ -232,16 +235,19 @@ async function searchUnsplash(options: SearchOptions): Promise<ImageResult[]> {
     console.log(`🔍 Searching Unsplash for: "${options.query}"`);
     
     try {
-        const response = await axios.get('https://api.unsplash.com/search/photos', {
-            headers: { 'Authorization': `Client-ID ${UNSPLASH_ACCESS_KEY}` },
-            params: {
-                query: options.query,
-                per_page: options.max_results || 10,
-                orientation: options.orientation || DEFAULT_ORIENTATION
-            }
+        const params = new URLSearchParams({
+            query: options.query,
+            per_page: (options.max_results || 10).toString(),
+            orientation: options.orientation || DEFAULT_ORIENTATION
         });
 
-        const results = response.data.results || [];
+        const data = await fetchJson<any>(`https://api.unsplash.com/search/photos?${params}`, {
+            headers: { 'Authorization': `Client-ID ${UNSPLASH_ACCESS_KEY}` },
+            circuitBreakerKey: 'unsplash-api',
+            timeout: 5000
+        });
+
+        const results = data.results || [];
         
         return results.map((photo: any) => ({
             url: photo.urls.full,
@@ -274,19 +280,22 @@ async function searchPixabay(options: SearchOptions): Promise<ImageResult[]> {
     console.log(`🔍 Searching Pixabay for: "${options.query}"`);
     
     try {
-        const response = await axios.get('https://pixabay.com/api/', {
-            params: {
-                key: PIXABAY_API_KEY,
-                q: options.query,
-                per_page: options.max_results || 10,
-                image_type: 'photo',
-                orientation: options.orientation || DEFAULT_ORIENTATION,
-                min_width: options.min_width || DEFAULT_MIN_WIDTH,
-                min_height: options.min_height || DEFAULT_MIN_HEIGHT
-            }
+        const params = new URLSearchParams({
+            key: PIXABAY_API_KEY,
+            q: options.query,
+            per_page: (options.max_results || 10).toString(),
+            image_type: 'photo',
+            orientation: options.orientation || DEFAULT_ORIENTATION,
+            min_width: (options.min_width || DEFAULT_MIN_WIDTH).toString(),
+            min_height: (options.min_height || DEFAULT_MIN_HEIGHT).toString()
         });
 
-        const hits = response.data.hits || [];
+        const data = await fetchJson<any>(`https://pixabay.com/api/?${params}`, {
+            circuitBreakerKey: 'pixabay-api',
+            timeout: 5000
+        });
+
+        const hits = data.hits || [];
         
         return hits.map((image: any) => ({
             url: image.largeImageURL,

@@ -3,7 +3,9 @@
  * Calculates and tracks data completeness metrics
  */
 
-import { createClient } from '@/lib/supabase/client';
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.local' });
+import { createServiceClient } from '@/lib/supabase/service';
 
 export interface CompletenessMetrics {
   category: string;
@@ -22,7 +24,7 @@ const REQUIRED_FIELDS: Record<string, string[]> = {
 };
 
 export class CompletenessTracker {
-  private supabase = createClient();
+  private supabase = createServiceClient();
 
   /**
    * Calculate completeness for a specific category

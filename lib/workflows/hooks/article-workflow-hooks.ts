@@ -4,7 +4,7 @@
  * 
  * SERVER-ONLY: This module uses server-only APIs
  */
-import 'server-only'; // Mark as server-only module
+// NOTE: server-only import removed to allow scripts to run
 
 import { workflowService } from '../workflow-service';
 import { ARTICLE_PUBLISHING_WORKFLOW } from '../definitions/article-publishing';

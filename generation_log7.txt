@@ -1,0 +1,129 @@
+﻿[dotenv@17.2.3] injecting env (26) from .env.local -- tip: ΓÜÖ∩╕Å  write to custom object with { processEnv: myObject }
+≡ƒÜÇ Starting Category Guide Generation...
+
+≡ƒôé Processing Category: Credit Cards
+   ≡ƒôä Topic: The Ultimate Evergreen Guide to Credit Cards
+     ΓÜá∩╕Å Failed to publish generation started event
+     
+≡ƒöì Checking for duplicate content...
+     Γ£à Content is unique - proceeding with generation
+     0∩╕ÅΓâú Performing Deep Research (SERP Analysis)...
+
+≡ƒöì Starting SERP Analysis for: "The Ultimate Evergreen Guide to Credit Cards"
+Γ£à SERP Cache HIT for "The Ultimate Evergreen Guide to Credit Cards"
+        Γ£à Identified 5 Content Gaps
+        ≡ƒôè Competitor Avg: 1500 words
+        ≡ƒÄ» Target Word Count: 1800+ words
+node.exe : [2026-01-28T14:36:14.284Z] [WARN] SERP API unavailable, using 
+heuristic { keyword: 'The Ultimate Evergreen Guide to Credit Cards' }
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([2026-01-28T14:...Credit Ca 
+   rds' }:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+        ≡ƒÄ» Keyword Difficulty: medium (34/100)
+        ≡ƒÆí ΓÜá∩╕Å Challenging but achievable. Create high-quality content with strong backlinks. (Gap: 19 points)
+     1∩╕ÅΓâú Generating article with AI...
+     ≡ƒö╡ Initializing Foolproof Generation Relay with Dynamic Prompts...
+     ≡ƒô¥ Using dynamic prompts - Writer: credit-cards, Category: credit-cards, Subcategory: none, Content-Type: howto
+     Γ¥î Generation failed: AI engine failed to produce content
+     ≡ƒöä Falling back to simple prompt...
+     Γ¥î Fallback also failed: Fallback returned insufficient content (0 chars)
+        Γ¥î Generation failed (attempt 1/3): All AI providers failed. Original: AI engine failed to produce content. Fallback: Fallback returned insufficient content (0 chars)
+        ≡ƒöä Retrying...
+     
+≡ƒöä RETRY ATTEMPT 2/3 - Regenerating for better quality/uniqueness...
+     0∩╕ÅΓâú Performing Deep Research (SERP Analysis)...
+
+≡ƒöì Starting SERP Analysis for: "The Ultimate Evergreen Guide to Credit Cards"
+Γ£à SERP Cache HIT for "The Ultimate Evergreen Guide to Credit Cards"
+        Γ£à Identified 5 Content Gaps
+        ≡ƒôè Competitor Avg: 1500 words
+        ≡ƒÄ» Target Word Count: 1800+ words
+[2026-01-28T14:37:06.896Z] [WARN] SERP API unavailable, using heuristic 
+{ keyword: 'The Ultimate Evergreen Guide to Credit Cards' }
+        ≡ƒÄ» Keyword Difficulty: medium (34/100)
+        ≡ƒÆí ΓÜá∩╕Å Challenging but achievable. Create high-quality content with strong backlinks. (Gap: 19 points)
+     1∩╕ÅΓâú Generating article with AI...
+     ≡ƒö╡ Initializing Foolproof Generation Relay with Dynamic Prompts...
+     ≡ƒô¥ Using dynamic prompts - Writer: credit-cards, Category: credit-cards, Subcategory: none, Content-Type: howto
+     Γ¥î Generation failed: AI engine failed to produce content
+     ≡ƒöä Falling back to simple prompt...
+     Γ¥î Fallback also failed: Fallback returned insufficient content (0 chars)
+        Γ¥î Generation failed (attempt 2/3): All AI providers failed. Original: AI engine failed to produce content. Fallback: Fallback returned insufficient content (0 chars)
+        ≡ƒöä Retrying...
+     
+≡ƒöä RETRY ATTEMPT 3/3 - Regenerating for better quality/uniqueness...
+     0∩╕ÅΓâú Performing Deep Research (SERP Analysis)...
+
+≡ƒöì Starting SERP Analysis for: "The Ultimate Evergreen Guide to Credit Cards"
+Γ£à SERP Cache HIT for "The Ultimate Evergreen Guide to Credit Cards"
+        Γ£à Identified 5 Content Gaps
+        ≡ƒôè Competitor Avg: 1500 words
+        ≡ƒÄ» Target Word Count: 1800+ words
+[2026-01-28T14:37:44.481Z] [WARN] SERP API unavailable, using heuristic 
+{ keyword: 'The Ultimate Evergreen Guide to Credit Cards' }
+        ≡ƒÄ» Keyword Difficulty: medium (34/100)
+        ≡ƒÆí ΓÜá∩╕Å Challenging but achievable. Create high-quality content with strong backlinks. (Gap: 19 points)
+     1∩╕ÅΓâú Generating article with AI...
+     ≡ƒö╡ Initializing Foolproof Generation Relay with Dynamic Prompts...
+     ≡ƒô¥ Using dynamic prompts - Writer: credit-cards, Category: credit-cards, Subcategory: none, Content-Type: howto
+[2026-01-28T14:37:45.362Z] [ERROR] CIRCUIT BREAKER: Provider gemini 
+marked as DEGRADED due to repeated failures.  {
+  name: 'Error',
+  message: 'You exceeded your current quota, please check your plan and 
+billing details. For more information on this error, head to: 
+https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your 
+current usage, head to: https://ai.dev/rate-limit. \n' +
+    '* Quota exceeded for metric: 
+generativelanguage.googleapis.com/generate_content_free_tier_requests, 
+limit: 0, model: gemini-2.0-flash\n' +
+    '* Quota exceeded for metric: 
+generativelanguage.googleapis.com/generate_content_free_tier_requests, 
+limit: 0, model: gemini-2.0-flash\n' +
+    '* Quota exceeded for metric: generativelanguage.googleapis.com/gener
+ate_content_free_tier_input_token_count, limit: 0, model: 
+gemini-2.0-flash\n' +
+    'Please retry in 14.793932752s.',
+  stack: undefined,
+  code: undefined
+}
+[2026-01-28T14:37:45.544Z] [ERROR] CIRCUIT BREAKER: Provider groq marked 
+as DEGRADED due to repeated failures.  {
+  name: 'Error',
+  message: '401 {"error":{"message":"Invalid API 
+Key","type":"invalid_request_error","code":"invalid_api_key"}}',
+  stack: undefined,
+  code: undefined
+}
+     Γ¥î Generation failed: AI engine failed to produce content
+     ≡ƒöä Falling back to simple prompt...
+     Γ¥î Fallback also failed: Fallback returned insufficient content (0 chars)
+        Γ¥î Generation failed (attempt 3/3): All AI providers failed. Original: AI engine failed to produce content. Fallback: Fallback returned insufficient content (0 chars)
+   ≡ƒæë Subcategory: Rewards Cards
+      ≡ƒôä Topic: The Complete Guide to Rewards Cards: Everything You Need to Know
+     ΓÜá∩╕Å Failed to publish generation started event
+     
+≡ƒöì Checking for duplicate content...
+     Γ£à Content is unique - proceeding with generation
+     0∩╕ÅΓâú Performing Deep Research (SERP Analysis)...
+
+≡ƒöì Starting SERP Analysis for: "The Complete Guide to Rewards Cards: Everything You Need to Know"
+Γ£à SERP Cache HIT for "The Complete Guide to Rewards Cards: Everything You Need to Know"
+        Γ£à Identified 5 Content Gaps
+        ≡ƒôè Competitor Avg: 1500 words
+        ≡ƒÄ» Target Word Count: 1800+ words
+[2026-01-28T14:38:44.990Z] [WARN] SERP API unavailable, using heuristic {
+  keyword: 'The Complete Guide to Rewards Cards: Everything You Need to 
+Know'
+}
+        ≡ƒÄ» Keyword Difficulty: medium (34/100)
+        ≡ƒÆí ΓÜá∩╕Å Challenging but achievable. Create high-quality content with strong backlinks. (Gap: 19 points)
+     1∩╕ÅΓâú Generating article with AI...
+     ≡ƒö╡ Initializing Foolproof Generation Relay with Dynamic Prompts...
+     ≡ƒô¥ Using dynamic prompts - Writer: credit-cards, Category: credit-cards, Subcategory: rewards, Content-Type: howto
+     Γ¥î Generation failed: AI engine failed to produce content
+     ≡ƒöä Falling back to simple prompt...

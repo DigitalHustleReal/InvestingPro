@@ -42,6 +42,13 @@ const serverSchema = z.object({
     NEXT_PUBLIC_BASE_URL: z.string().optional(),
     NODE_ENV: z.enum(['development', 'production', 'test']).optional(),
     
+    // Email
+    RESEND_API_KEY: z.string().optional(),
+    SUPPORT_EMAIL: z.string().email().optional(),
+
+    // Monitoring
+    NEXT_PUBLIC_SENTRY_DSN: z.string().optional(),
+
     // Cache (Optional)
     UPSTASH_REDIS_REST_URL: z.string().optional(),
     UPSTASH_REDIS_REST_TOKEN: z.string().optional(),
@@ -99,6 +106,8 @@ export function validateEnvOnStartup(): void {
         'INNGEST_EVENT_KEY',
         'INNGEST_SIGNING_KEY',
         'CRON_SECRET',
+        'RESEND_API_KEY',
+        'NEXT_PUBLIC_SENTRY_DSN',
     ];
     
     // AI providers - at least one required

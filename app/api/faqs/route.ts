@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get('category');
     const limit = searchParams.get('limit');
 
-    const supabase = createClient();
+    const supabase = await createClient();
     
     let query = supabase
       .from('faqs')

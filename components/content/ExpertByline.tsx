@@ -187,7 +187,7 @@ export function ExpertReviewByline(
                   </span>
                 ))}
                 <span className="text-sm font-bold text-slate-900 dark:text-white ml-1">
-                  {rating.toFixed(1)}
+                  {(typeof rating === 'number' ? rating : Number(rating) || 4.5).toFixed(1)}
                 </span>
               </div>
             </div>

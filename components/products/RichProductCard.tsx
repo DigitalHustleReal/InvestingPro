@@ -19,13 +19,19 @@ import DecisionCTA from '@/components/common/DecisionCTA';
 import { getProductUrl, getAffiliateUrl } from '@/lib/utils/product-urls';
 import { getCategoryImageConfig, getCategoryImageSizes, type ProductCategory } from '@/lib/images/category-image-config';
 
+import ScoreExplanation, { ScoreBreakdownItem } from './ScoreExplanation';
+
 interface RichProductCardProps {
     product: RichProduct;
     layout?: 'grid' | 'list';
-    onCompare?: (id: string) => void; // Keep for backward compatibility if needed, but we'll use context
+    onCompare?: (id: string) => void;
+    matchScore?: number; // 0-100
+    isScored?: boolean; // If true, shows the dynamic AI badge
+    scoreBreakdown?: ScoreBreakdownItem[];
+    rawScore?: number; // 0-10
 }
 
-export function RichProductCard({ product, layout = 'grid', onCompare }: RichProductCardProps) {
+export function RichProductCard({ product, layout = 'grid', onCompare, matchScore, isScored, scoreBreakdown, rawScore }: RichProductCardProps) {
     const isList = layout === 'list';
     const { addProduct, removeProduct, isSelected } = useCompare();
     const isCompareSelected = isSelected(product.id);
@@ -83,13 +89,23 @@ export function RichProductCard({ product, layout = 'grid', onCompare }: RichPro
                 </div>
             )}
             
-            {/* NEW: Match Score Badge (Mock Logic for Demo) */}
-            <div className="absolute top-10 right-0 z-10">
-                 <div className="bg-white/90 backdrop-blur border border-slate-200 text-slate-900 text-[10px] font-black px-2 py-1 rounded-l-lg shadow-sm flex items-center gap-1">
-                    <div className="w-1.5 h-1.5 rounded-full bg-success-500 animate-pulse" />
-                    {90 + (product.name.length % 9)}% Match
+            {/* NEW: Match Score Badge (Dynamic) */}
+            {(isScored && matchScore !== undefined) && (
+                <div className="absolute top-10 right-0 z-10 animate-in slide-in-from-right-4 duration-500">
+                     <ScoreExplanation overall={rawScore || (matchScore / 10)} breakdown={scoreBreakdown || []}>
+                        <div className={cn(
+                            "bg-white/90 backdrop-blur border border-slate-200 text-slate-900 text-[10px] font-black px-2 py-1 rounded-l-lg shadow-sm flex items-center gap-1 cursor-help group/badge",
+                            matchScore > 80 ? "border-success-200" : "border-slate-200"
+                        )}>
+                            <div className={cn(
+                                "w-1.5 h-1.5 rounded-full animate-pulse", 
+                                matchScore > 80 ? "bg-success-500" : (matchScore > 60 ? "bg-amber-500" : "bg-slate-400")
+                            )} />
+                            {matchScore}% Match
+                        </div>
+                     </ScoreExplanation>
                 </div>
-            </div>
+            )}
 
             {/* Comparison Checkbox - Redesigned for Mobile (Larger Hit Area) */}
             <div className="absolute top-3 left-3 z-10">

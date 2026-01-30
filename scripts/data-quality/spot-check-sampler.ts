@@ -3,7 +3,9 @@
  * Generates stratified random sample of products for manual accuracy verification
  */
 
-import { createClient } from '@/lib/supabase/client';
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.local' });
+import { createServiceClient } from '@/lib/supabase/service';
 import { writeFileSync } from 'fs';
 import path from 'path';
 
@@ -19,7 +21,7 @@ const SAMPLE_SIZE_PER_CATEGORY = 25;
 const CATEGORIES = ['credit_cards', 'mutual_funds', 'loans', 'insurance'];
 
 async function generateSample() {
-  const supabase = createClient();
+  const supabase = createServiceClient();
   const samples: ProductSample[] = [];
 
   console.log('🎯 Generating stratified sample for accuracy validation...\n');
@@ -137,9 +139,9 @@ function generateCSV(samples: ProductSample[]): string {
   const rows = samples.map(s => [
     s.id,
     s.category,
-    `"${s.name}"`,
+    `"${s.name.replace(/"/g, '""')}"`,
     s.source_url,
-    `"${JSON.stringify(s.key_fields)}"`,
+    `"${JSON.stringify(s.key_fields).replace(/"/g, '""')}"`,
     '', // To be filled manually
     '', // To be filled manually
   ]);

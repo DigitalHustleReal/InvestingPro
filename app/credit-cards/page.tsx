@@ -12,6 +12,8 @@ import MobileEngagementBar from '@/components/common/MobileEngagementBar';
 
 import { getCreditCardsServer } from '@/lib/products/get-credit-cards-server';
 import CreditCardsClient from './CreditCardsClient';
+import SEOContentBlock from '@/components/common/SEOContentBlock';
+import { CREDIT_CARD_SEO_CONTENT } from '@/lib/content/seo-content';
 
 export const revalidate = 3600; // ISR: Revalidate every hour
 
@@ -80,7 +82,12 @@ export default async function CreditCardsPage() {
             </div>
 
             {/* Compliance Disclaimer */}
-            <div className="container mx-auto px-4 pb-8">
+            <div className="container mx-auto px-4 pb-8 space-y-12">
+                <SEOContentBlock 
+                    title={CREDIT_CARD_SEO_CONTENT.title}
+                    content={CREDIT_CARD_SEO_CONTENT.content}
+                />
+                
                 <ComplianceDisclaimer variant="compact" />
             </div>
 

@@ -116,7 +116,7 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
                             <div className="flex items-center justify-center sm:justify-start gap-4 mb-3">
                                 <div className="flex items-center gap-1">
                                     <Star className="w-5 h-5 fill-yellow-400 text-accent-400" />
-                                    <span className="font-bold text-lg">{winner.rating.overall.toFixed(1)}</span>
+                                    <span className="font-bold text-lg">{typeof winner.rating?.overall === 'number' ? winner.rating.overall.toFixed(1) : '4.5'}</span>
                                 </div>
                                 <div className="flex items-center gap-1">
                                     <ShieldCheck className="w-5 h-5 text-primary-600" />

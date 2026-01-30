@@ -1,5 +1,6 @@
 import { Inter, Outfit, Source_Serif_4, JetBrains_Mono } from "next/font/google";
 import { Suspense } from "react";
+import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import { cn } from "@/lib/utils";
@@ -16,6 +17,9 @@ import { CompareProvider } from "@/contexts/CompareContext";
 import CompareBar from "@/components/compare/CompareBar";
 import PerformanceMonitor from "@/components/performance/PerformanceMonitor";
 import { ConditionalPublicElements } from "@/components/common/ConditionalPublicElements";
+import ExitIntentPopup from "@/components/common/ExitIntentPopup";
+import WhatsAppButton from "@/components/common/WhatsAppButton";
+import OnboardingTrigger from "@/components/profile/OnboardingTrigger";
 
 
 // Font configurations with CSS variables
@@ -80,12 +84,6 @@ export const metadata: Metadata = {
     description: 'Compare credit cards, loans, mutual funds, and more. Get AI-powered recommendations and expert reviews.',
   },
   manifest: '/manifest.json',
-  themeColor: '#0f172a',
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-    title: 'InvestingPro',
-  },
   robots: {
     index: true,
     follow: true,
@@ -97,6 +95,10 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+};
+
+export const viewport = {
+  themeColor: '#0f172a',
 };
 
 export default async function RootLayout({
@@ -174,12 +176,30 @@ export default async function RootLayout({
                   */}
                   {/* <script async src="https://cuelinks.com/js/..." /> */}
                   <Toaster />
+                  <ExitIntentPopup variant="wizard" />
+                  <WhatsAppButton />
+                  <OnboardingTrigger />
                 </NavigationProvider>
               </CompareProvider>
             </SearchProvider>
           </QueryProvider>
         </ErrorBoundaryProvider>
         </ThemeProvider>
+        <CookieConsent />
+        {/* Tawk.to Live Chat - NEW */}
+        <Script id="tawk-to" strategy="afterInteractive">
+          {`
+            var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+            (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/679b3891825083258e0a3013/1iiqnndun';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+            })();
+          `}
+        </Script>
       </body>
     </html>
   );

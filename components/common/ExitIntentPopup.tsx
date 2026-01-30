@@ -4,11 +4,12 @@ import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/input';
-import { X, Mail, Gift, TrendingUp } from 'lucide-react';
+import { X, Mail, Gift, TrendingUp, Sparkles, ArrowRight } from 'lucide-react';
 import { toast } from 'sonner';
+import Link from 'next/link';
 
 interface ExitIntentPopupProps {
-    variant?: 'newsletter' | 'offer' | 'product';
+    variant?: 'newsletter' | 'offer' | 'product' | 'wizard';
     onSubscribe?: (email: string) => Promise<void>;
     onClose?: () => void;
 }
@@ -213,6 +214,37 @@ export default function ExitIntentPopup({
                                     {submitting ? 'Getting Recommendations...' : 'Get Recommendations'}
                                 </Button>
                             </form>
+                        </div>
+                    )}
+                    {variant === 'wizard' && (
+                        <div className="md:grid md:grid-cols-5 h-full">
+                             {/* Visual Side */}
+                              <div className="hidden md:flex md:col-span-2 bg-gradient-to-br from-indigo-600 to-purple-700 items-center justify-center p-6 text-white text-center">
+                                 <div>
+                                    <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-md">
+                                       <Sparkles className="w-8 h-8 text-yellow-300" />
+                                    </div>
+                                    <h3 className="font-bold text-lg leading-tight">Expert Advice</h3>
+                                 </div>
+                              </div>
+                    
+                              {/* Content Side */}
+                              <div className="md:col-span-3 p-8">
+                                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Wait! Not sure which card to pick?</h2>
+                                <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
+                                  Get a personalized recommendation based on your spending. It only takes 30 seconds.
+                                </p>
+                    
+                                <Link href="/credit-cards/find-your-card" onClick={handleClose}>
+                                  <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-6 text-lg shadow-lg shadow-primary-500/20">
+                                    Find My Perfect Card <ArrowRight className="w-5 h-5 ml-2" />
+                                  </Button>
+                                </Link>
+                                
+                                <p className="text-center mt-4 text-xs text-slate-400 hover:text-slate-500 cursor-pointer" onClick={handleClose}>
+                                  No thanks, I'll browse manually.
+                                </p>
+                              </div>
                         </div>
                     )}
                 </div>

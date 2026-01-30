@@ -160,7 +160,7 @@ export function ComparisonCard({
               <Star className="w-5 h-5 fill-accent-500 text-accent-500" />
               <span className="text-lg font-bold text-slate-900 dark:text-white">
                 {typeof product.rating === 'number' && !isNaN(product.rating) 
-                  ? product.rating.toFixed(1) 
+                  ? (typeof product.rating === 'number' ? product.rating : Number(product.rating) || 4.5).toFixed(1) 
                   : '4.0'}
               </span>
             </div>

@@ -26,6 +26,20 @@ export const apiClient = {
         },
         signOut: async () => {
             return await supabase.auth.signOut();
+        },
+        updateMe: async (updates: any) => {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) throw new Error("Not authenticated");
+
+            const { data, error } = await supabase
+                .from('users')
+                .update(updates)
+                .eq('id', user.id)
+                .select()
+                .single();
+            
+            if (error) throw error;
+            return data;
         }
     },
     // Top-level alias for compatibility with manual refactors

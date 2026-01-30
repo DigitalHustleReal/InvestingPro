@@ -3,7 +3,7 @@
  * Official source for mutual fund NAV data
  */
 
-import axios from 'axios';
+import { fetchText } from './api/external-client';
 import { z } from 'zod';
 
 // Schema for AMFI fund data
@@ -18,19 +18,20 @@ const AMFIFundSchema = z.object({
 
 type AMFIFund = z.infer<typeof AMFIFundSchema>;
 
-/**
- * Fetch all mutual fund NAV data from AMFI
- */
 export async function getAllMutualFunds(): Promise<AMFIFund[]> {
   try {
     const url = 'https://www.amfiindia.com/spages/NAVAll.txt';
-    const response = await axios.get(url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0'
-      }
+    // Use resilient fetch with 3 retries and 30s timeout (large file)
+    const data = await fetchText(url, {
+        circuitBreakerKey: 'amfi-api',
+        timeout: 30000, 
+        retries: 3,
+        headers: {
+            'User-Agent': 'Mozilla/5.0'
+        }
     });
     
-    const lines = response.data.split('\n');
+    const lines = data.split('\n');
     const funds: AMFIFund[] = [];
     
     for (const line of lines) {

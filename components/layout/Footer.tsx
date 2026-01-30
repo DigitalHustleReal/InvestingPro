@@ -69,6 +69,7 @@ const footerLinks = {
     ],
     company: [
         { name: "About Us", page: "About" },
+        { name: "Contact Support", href: "/contact-us" },
         { name: "How We Make Money", page: "Disclosure" },
         { name: "Methodology", page: "Methodology" },
         { name: "Editorial Policy", page: "EditorialPolicy" },

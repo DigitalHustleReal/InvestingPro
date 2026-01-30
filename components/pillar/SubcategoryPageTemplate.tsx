@@ -145,8 +145,13 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                                         >
                                             <Card className="border-0 shadow-lg hover:shadow-xl transition-all h-full">
                                                 <CardContent className="p-6">
-                                                    <h3 className="text-xl font-bold text-slate-900 mb-2">
+                                                    <h3 className="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
                                                         {product.name}
+                                                        {product.verification_status === 'verified' && (
+                                                            <Badge className="bg-green-100 text-green-700 hover:bg-green-100 border-green-200 h-5 px-1.5 text-[10px]">
+                                                                Verified
+                                                            </Badge>
+                                                        )}
                                                     </h3>
                                                     <p className="text-sm text-slate-600 mb-4">
                                                         {product.provider || 'Provider'}

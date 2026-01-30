@@ -127,11 +127,10 @@ export function CreditCardTable({ cards }: CreditCardTableProps) {
                 }
 
                 // Ensure ratingVal is a valid number
-                if (typeof ratingVal !== 'number' || isNaN(ratingVal)) {
-                    ratingVal = 4.0;
-                }
+                const safeRating = Number(ratingVal);
+                const finalRating = isNaN(safeRating) ? 4.0 : safeRating;
 
-                const stars = Math.round(ratingVal);
+                const stars = Math.round(finalRating);
                 
                 return (
                     <div className="flex flex-col items-center gap-1">
@@ -148,7 +147,7 @@ export function CreditCardTable({ cards }: CreditCardTableProps) {
                             ))}
                         </div>
                         <span className="text-xs font-bold text-slate-600 dark:text-slate-400">
-                            {ratingVal.toFixed(1)}
+                            {finalRating.toFixed(1)}
                         </span>
                     </div>
                 );

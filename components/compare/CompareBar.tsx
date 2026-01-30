@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
+import SaveComparisonButton from '@/components/common/SaveComparisonButton';
 
 export default function CompareBar() {
   const { selectedProducts, removeProduct, clearAll } = useCompare();
@@ -114,6 +115,8 @@ export default function CompareBar() {
 
                 {/* Actions */}
                 <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                <SaveComparisonButton />
+                
                 <Button
                     variant="ghost"
                     size="sm"

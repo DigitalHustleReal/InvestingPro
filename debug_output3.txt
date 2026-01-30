@@ -1,0 +1,46 @@
+﻿[dotenv@17.2.3] injecting env (26) from .env.local -- tip: ≡ƒöÉ prevent committing .env to code: https://dotenvx.com/precommit
+====================================================
+≡ƒö¼ DEBUG: Article Generation Pipeline Trace
+====================================================
+≡ƒô¥ Topic: "Best Credit Cards for First-Time Users in India 2025"
+≡ƒòÉ Started: 2026-01-28T13:01:16.123Z
+====================================================
+
+≡ƒôï STEP 1: Checking Environment Variables...
+   Environment Check: {
+  SUPABASE_URL: true,
+  SUPABASE_KEY: true,
+  GOOGLE_AI_KEY: false,
+  OPENAI_KEY: true,
+  ANTHROPIC_KEY: false,
+  GROQ_KEY: true
+}
+
+≡ƒôï STEP 2: Skipping AI simple test (constraint blocks debug_test operation)...
+   Γ£à AI providers detected: OpenAI, Groq
+   ≡ƒÄ» Proceeding directly to article generation test...
+
+≡ƒôï STEP 3: Testing Article Generation...
+node.exe : 
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteExceptio 
+   n
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Γ¥î Generation Error: This module cannot be imported from a Client 
+Component module. It should only be used from a Server Component.
+   Stack: Error: This module cannot be imported from a Client Component 
+module. It should only be used from a Server Component.
+    at Object.<anonymous> (C:\Users\shivp\Desktop\InvestingPro_App\node_m
+odules\server-only\index.js:1:7)
+    at Module._compile (node:internal/modules/cjs/loader:1706:14)
+    at Object.transformer (C:\Users\shivp\AppData\Local\npm-cache\_npx\fd
+45a72a545557e9\node_modules\tsx\dist\register-D46fvsV_.cjs:3:1104)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+
+====================================================
+≡ƒö¼ DEBUG COMPLETE
+====================================================

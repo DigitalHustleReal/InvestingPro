@@ -1,15 +1,21 @@
+
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { NAVIGATION_CONFIG, EDITORIAL_INTENTS } from '@/lib/navigation/config';
+import { NAVIGATION_CONFIG } from '@/lib/navigation/config';
+import { getCategoryBySlug, getSubcategoryBySlug } from '@/lib/navigation/categories';
+import { fetchSubcategoryPageData } from '@/lib/pillar/subcategory-data-fetcher';
+import SubcategoryPageTemplate from '@/components/pillar/SubcategoryPageTemplate';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import SEOHead from '@/components/common/SEOHead';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 
-interface IntentPageProps {
-    params: Promise<{ category: string; intent: string }>;
+// Type definitions
+interface PageProps {
+    params: Promise<{ category: string; slug: string }>;
 }
 
+// Intent Page Content Component
 async function IntentPageContent({ 
     categorySlug, 
     intentSlug 
@@ -19,14 +25,10 @@ async function IntentPageContent({
 }) {
     // Find category and intent
     const category = NAVIGATION_CONFIG.find(cat => cat.slug === categorySlug);
-    if (!category) {
-        notFound();
-    }
+    if (!category) return null;
 
     const intent = category.intents.find(int => int.slug === intentSlug);
-    if (!intent) {
-        notFound();
-    }
+    if (!intent) return null;
 
     const title = `${intent.name} ${category.name} | InvestingPro`;
     const description = intent.description || `Find the ${intent.name.toLowerCase()} ${category.name.toLowerCase()} on InvestingPro.`;
@@ -88,29 +90,113 @@ async function IntentPageContent({
     );
 }
 
-export default async function IntentPage({ params }: IntentPageProps) {
-    const { category, intent } = await params;
+// Subcategory Page Content Component
+async function SubcategoryPageContent({ 
+    categorySlug, 
+    subcategorySlug 
+}: { 
+    categorySlug: string; 
+    subcategorySlug: string;
+}) {
+    // Verify category and subcategory exist
+    const category = getCategoryBySlug(categorySlug);
+    if (!category) return null;
+
+    const subcategory = getSubcategoryBySlug(categorySlug, subcategorySlug);
+    if (!subcategory) return null;
+
+    // Fetch data
+    const data = await fetchSubcategoryPageData(categorySlug, subcategorySlug);
+    
+    if (!data) {
+        // Return basic page even if data fetch fails
+        return (
+            <div className="min-h-screen bg-white dark:bg-slate-950">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                    <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                        {subcategory.name}
+                    </h1>
+                    <p className="text-xl text-slate-600 dark:text-slate-400">
+                        {subcategory.description}
+                    </p>
+                    <p className="mt-8 text-slate-500">
+                        Content is being generated. Please check back soon.
+                    </p>
+                </div>
+            </div>
+        );
+    }
+
+    return <SubcategoryPageTemplate data={data} />;
+}
+
+// Main Page Component
+async function CombinedSlugPageContent({ 
+    categorySlug, 
+    slug 
+}: { 
+    categorySlug: string; 
+    slug: string;
+}) {
+    // 1. Check if it's an Intent
+    const categoryConfig = NAVIGATION_CONFIG.find(cat => cat.slug === categorySlug);
+    const intent = categoryConfig?.intents.find(int => int.slug === slug);
+
+    if (intent) {
+        return <IntentPageContent categorySlug={categorySlug} intentSlug={slug} />;
+    }
+
+    // 2. Check if it's a Subcategory
+    const subcategory = getSubcategoryBySlug(categorySlug, slug);
+    if (subcategory) {
+        return <SubcategoryPageContent categorySlug={categorySlug} subcategorySlug={slug} />;
+    }
+
+    // 3. Not found
+    notFound();
+}
+
+export default async function Page({ params }: PageProps) {
+    const { category, slug } = await params;
     
     return (
         <Suspense fallback={<LoadingSpinner text="Loading page..." />}>
-            <IntentPageContent 
+            <CombinedSlugPageContent 
                 categorySlug={category} 
-                intentSlug={intent} 
+                slug={slug} 
             />
         </Suspense>
     );
 }
 
-// Generate static params for all intents
+// Generate static params for both intents and subcategories
 export async function generateStaticParams() {
-    const params: Array<{ category: string; intent: string }> = [];
+    const params: Array<{ category: string; slug: string }> = [];
     
+    // Add Intent params
     for (const category of NAVIGATION_CONFIG) {
         for (const intent of category.intents) {
             params.push({
                 category: category.slug,
-                intent: intent.slug,
+                slug: intent.slug,
             });
+        }
+    }
+
+    // Add Subcategory params
+    // Note: We need to import NAVIGATION_CATEGORIES dynamically if it's not available in NAVIGATION_CONFIG
+    // Assuming NAVIGATION_CATEGORIES structure matches what was in subcategory/page.tsx
+    const { NAVIGATION_CATEGORIES } = await import('@/lib/navigation/categories');
+    
+    for (const category of NAVIGATION_CATEGORIES) {
+        for (const subcategory of category.subcategories) {
+            // Avoid duplicates if an intent and subcategory have the same slug (shouldn't happen ideally)
+            if (!params.some(p => p.category === category.slug && p.slug === subcategory.slug)) {
+                params.push({
+                    category: category.slug,
+                    slug: subcategory.slug,
+                });
+            }
         }
     }
     
@@ -120,4 +206,3 @@ export async function generateStaticParams() {
 // Force static generation
 export const dynamic = 'force-static';
 export const revalidate = 3600; // Revalidate every hour
-

@@ -20,6 +20,9 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { getComparisonProducts } from '@/app/actions/get-comparison-data';
+import { toast } from 'sonner';
+
 export default function ComparisonPage() {
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -42,19 +45,25 @@ export default function ComparisonPage() {
             
             // If URL has slugs, fetch them (shareable link scenario)
             if (slugs.length > 0) {
-                try {
-                    // Fallback: If context has products, use them to avoid refetching
-                    if (selectedProducts.length > 0 && selectedProducts.every(p => slugs.includes(p.slug))) {
-                         setProducts(selectedProducts);
-                    } else {
-                         if (selectedProducts.length === 0) {
-                             // Placeholder for empty context but URL params present
-                         } else {
-                             setProducts(selectedProducts);
-                         }
+                // Check if context already has them (client navigation)
+                const inContext = selectedProducts.filter(p => slugs.includes(p.slug));
+                
+                if (inContext.length === slugs.length) {
+                    setProducts(inContext);
+                } else {
+                    // Need to fetch missing or all products
+                    // We use the Server Action
+                    try {
+                        const fetched = await getComparisonProducts(slugs);
+                        if (fetched.length > 0) {
+                           setProducts(fetched);
+                        } else {
+                           // Fallback or error
+                           toast.error("Could not find the shared products.");
+                        }
+                    } catch (err) {
+                        console.error(err);
                     }
-                } catch (error) {
-                    console.error("Failed to load products", error);
                 }
             } else if (selectedProducts.length > 0) {
                 // If no URL params but context has products, update URL
@@ -67,6 +76,16 @@ export default function ComparisonPage() {
 
         loadProducts();
     }, [searchParams, selectedProducts, router]);
+
+    const handleShare = async () => {
+        try {
+            await navigator.clipboard.writeText(window.location.href);
+            toast.success("Comparison link copied to clipboard!");
+        } catch (err) {
+            toast.error("Failed to copy link");
+        }
+    };
+
 
     if (loading) {
         return (
@@ -146,7 +165,7 @@ export default function ComparisonPage() {
                         <Button variant="outline" size="sm" onClick={clearAll} className="h-9 text-xs">
                              <X className="w-3.5 h-3.5 mr-1.5" /> Clear
                         </Button>
-                        <Button className="h-9 text-xs bg-primary-600 hover:bg-secondary-600 text-white">
+                        <Button onClick={handleShare} className="h-9 text-xs bg-primary-600 hover:bg-secondary-600 text-white">
                              <Share2 className="w-3.5 h-3.5 mr-1.5" /> Share
                         </Button>
                     </div>

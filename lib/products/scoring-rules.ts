@@ -44,39 +44,67 @@ const getLoungeScore = (access: string): number => {
     return Math.min(count * 1.5, 10); // 8 visits = 10+ points
 };
 
-export const scoreCreditCard = (card: CreditCard): ProductScore => {
-    // 1. Travel Score (Weights: Rewards 40%, Lounge 40%, Fee 20%)
+// Scoring Weights Interface
+export interface ScoringWeights {
+    rewards?: number; // 0-1
+    fees?: number;    // 0-1
+    travel?: number;  // 0-1
+    shopping?: number;// 0-1
+}
+
+export const scoreCreditCard = (card: CreditCard, weights: ScoringWeights = { rewards: 0.35, fees: 0.30, travel: 0.35 }): ProductScore => {
+    // defaults
+    const wRewards = weights.rewards ?? 0.35;
+    const wFees = weights.fees ?? 0.30;
+    const wTravel = weights.travel ?? 0.35;
+    // Normalize if needed, but for now assuming caller provides reasonable weights or we use direct multipliers
+
+    // 1. Travel Score 
     const travelScore = 
         (getRewardRateScore(card.rewardRate) * 0.4) +
         (getLoungeScore(card.loungeAccess || '') * 0.4) +
-        (card.type === 'travel' || card.type === 'premium' ? 2 : 0); // Bonus
+        (card.type === 'travel' || card.type === 'premium' ? 2 : 0);
 
-    // 2. Shopping Score (Weights: Rewards 70%, Fee 30%)
+    // 2. Shopping Score 
     const shoppingScore = 
         (getRewardRateScore(card.rewardRate) * 0.7) +
         (card.type === 'shopping' ? 3 : 0);
 
-    // 3. Low Cost Score (Weights: Low Fee 80%, Ease 20%)
-    const feeScore = card.annualFee === 0 ? 10 : Math.max(0, 10 - (card.annualFee / 500)); // 0 fee = 10, 5000 fee = 0
+    // 3. Low Cost Score 
+    const feeScore = card.annualFee === 0 ? 10 : Math.max(0, 10 - (card.annualFee / 500));
     
-    // Determine Best Fit
+    // Determine Best Fit Tags (Static based on inherent strength)
     const tags: string[] = [];
     if (travelScore > 7) tags.push('Best for Travel');
     if (shoppingScore > 7) tags.push('Top for Shopping');
     if (feeScore > 8) tags.push('Low Cost Gem');
     if (card.type === 'lifetime_free') tags.push('Lifetime Free');
 
-    // Overall Score Calculation (Weighted average of features)
-    const overall = (travelScore + shoppingScore + feeScore) / 3;
+    // Overall Score Calculation (Dynamic based on user weights)
+    // We mix the calculated feature scores with the user weights
+    // If user cares about Travel, we weight travelScore higher.
+    
+    // Feature mapping to weights:
+    // Travel -> travelScore
+    // Rewards -> shoppingScore (proxy for general rewards)
+    // Fees -> feeScore
+    
+    // Normalizing weights to sum to 1 roughly
+    const totalWeight = wRewards + wFees + wTravel;
+    const nRewards = wRewards / totalWeight;
+    const nFees = wFees / totalWeight;
+    const nTravel = wTravel / totalWeight;
+
+    const overall = (travelScore * nTravel) + (shoppingScore * nRewards) + (feeScore * nFees);
 
     return {
-        overall: Number(overall.toFixed(1)),
+        overall: Number(overall.toFixed(1)), // 0-10
         breakdown: [
-            { label: 'Travel Benefits', score: Number(travelScore.toFixed(1)), weight: 0.35 },
-            { label: 'Rewards Power', score: Number(shoppingScore.toFixed(1)), weight: 0.35 },
-            { label: 'Cost Efficiency', score: Number(feeScore.toFixed(1)), weight: 0.30 }
+            { label: 'Travel Benefits', score: Number(travelScore.toFixed(1)), weight: nTravel },
+            { label: 'Rewards Power', score: Number(shoppingScore.toFixed(1)), weight: nRewards },
+            { label: 'Cost Efficiency', score: Number(feeScore.toFixed(1)), weight: nFees }
         ],
-        tags: tags.slice(0, 3) // Top 3 tags
+        tags: tags.slice(0, 3)
     };
 };
 

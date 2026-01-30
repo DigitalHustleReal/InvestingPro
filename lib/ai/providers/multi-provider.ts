@@ -18,7 +18,7 @@
 
 import OpenAI from 'openai';
 import { Groq } from 'groq-sdk';
-import axios from 'axios';
+import { fetchJson } from '../../api/external-client';
 
 export type AIProvider = 
     | 'openai'
@@ -35,6 +35,8 @@ export interface GenerationOptions {
     maxTokens?: number;
     provider?: AIProvider; // Auto-select if not specified
     priority?: 'cost' | 'speed' | 'quality';
+    isHighValue?: boolean;
+    isFinalDraft?: boolean;
 }
 
 export interface GenerationResult {
@@ -45,6 +47,27 @@ export interface GenerationResult {
     cost: number;
     latency: number;
 }
+
+interface DeepSeekResponse {
+    choices: Array<{ message: { content: string } }>;
+    usage: { total_tokens: number };
+}
+
+interface OllamaResponse {
+    response: string;
+    eval_count: number;
+}
+
+interface TogetherResponse {
+    choices: Array<{ message: { content: string } }>;
+    usage: { total_tokens: number };
+}
+
+interface HFResponse {
+    generated_text: string;
+}
+
+type HuggingFaceResponse = HFResponse | HFResponse[];
 
 /**
  * Multi-Provider AI Client
@@ -141,8 +164,8 @@ export class MultiProviderAI {
         if (priority === 'quality') {
             // Only use expensive models for final drafts or high-value content
             // Check if this is a final draft or high-value content
-            const isHighValue = (options as any).isHighValue || false;
-            const isFinalDraft = (options as any).isFinalDraft || false;
+            const isHighValue = options.isHighValue || false;
+            const isFinalDraft = options.isFinalDraft || false;
             
             if (isHighValue || isFinalDraft) {
                 // Use best available
@@ -211,25 +234,28 @@ export class MultiProviderAI {
         const startTime = Date.now();
         const model = options.model || 'deepseek-chat';
         
-        const response = await axios.post(
+        const data = await fetchJson<DeepSeekResponse>(
             'https://api.deepseek.com/v1/chat/completions',
             {
-                model,
-                messages: [{ role: 'user', content: options.prompt }],
-                temperature: options.temperature || 0.7,
-                max_tokens: options.maxTokens || 2000
-            },
-            {
+                method: 'POST',
+                body: JSON.stringify({
+                    model,
+                    messages: [{ role: 'user', content: options.prompt }],
+                    temperature: options.temperature || 0.7,
+                    max_tokens: options.maxTokens || 2000
+                }),
                 headers: {
                     'Authorization': `Bearer ${apiKey}`,
                     'Content-Type': 'application/json'
-                }
+                },
+                circuitBreakerKey: 'deepseek-api',
+                timeout: 30000 // DeepSeek might generate long texts
             }
         );
         
         const latency = Date.now() - startTime;
-        const content = response.data.choices[0]?.message?.content || '';
-        const tokensUsed = response.data.usage?.total_tokens || 0;
+        const content = data.choices[0]?.message?.content || '';
+        const tokensUsed = data.usage?.total_tokens || 0;
         
         // DeepSeek is free/low-cost
         const cost = tokensUsed * 0.0001; // Very low cost
@@ -253,22 +279,27 @@ export class MultiProviderAI {
         
         const startTime = Date.now();
         
-        const response = await axios.post(
+        const data = await fetchJson<OllamaResponse>(
             `${ollamaUrl}/api/generate`,
             {
-                model,
-                prompt: options.prompt,
-                stream: false,
-                options: {
-                    temperature: options.temperature || 0.7,
-                    num_predict: options.maxTokens || 2000
-                }
+                method: 'POST',
+                body: JSON.stringify({
+                    model,
+                    prompt: options.prompt,
+                    stream: false,
+                    options: {
+                        temperature: options.temperature || 0.7,
+                        num_predict: options.maxTokens || 2000
+                    }
+                }),
+                circuitBreakerKey: 'ollama-api',
+                timeout: 60000 // Local inference can be slow
             }
         );
         
         const latency = Date.now() - startTime;
-        const content = response.data.response || '';
-        const tokensUsed = response.data.eval_count || 0;
+        const content = data.response || '';
+        const tokensUsed = data.eval_count || 0;
         
         // Ollama is free (local)
         const cost = 0;
@@ -330,25 +361,28 @@ export class MultiProviderAI {
         const startTime = Date.now();
         const model = options.model || 'mistralai/Mixtral-8x7B-Instruct-v0.1';
         
-        const response = await axios.post(
+        const data = await fetchJson<TogetherResponse>(
             'https://api.together.xyz/v1/chat/completions',
             {
-                model,
-                messages: [{ role: 'user', content: options.prompt }],
-                temperature: options.temperature || 0.7,
-                max_tokens: options.maxTokens || 2000
-            },
-            {
+                method: 'POST',
+                body: JSON.stringify({
+                    model,
+                    messages: [{ role: 'user', content: options.prompt }],
+                    temperature: options.temperature || 0.7,
+                    max_tokens: options.maxTokens || 2000
+                }),
                 headers: {
                     'Authorization': `Bearer ${apiKey}`,
                     'Content-Type': 'application/json'
-                }
+                },
+                circuitBreakerKey: 'together-api',
+                timeout: 30000
             }
         );
         
         const latency = Date.now() - startTime;
-        const content = response.data.choices[0]?.message?.content || '';
-        const tokensUsed = response.data.usage?.total_tokens || 0;
+        const content = data.choices[0]?.message?.content || '';
+        const tokensUsed = data.usage?.total_tokens || 0;
         
         // Together AI pricing varies by model
         const cost = tokensUsed * 0.0002; // Approximate
@@ -375,27 +409,30 @@ export class MultiProviderAI {
         const startTime = Date.now();
         const model = options.model || 'mistralai/Mistral-7B-Instruct-v0.2';
         
-        const response = await axios.post(
+        const data = await fetchJson<HuggingFaceResponse>(
             `https://api-inference.huggingface.co/models/${model}`,
             {
-                inputs: options.prompt,
-                parameters: {
-                    temperature: options.temperature || 0.7,
-                    max_new_tokens: options.maxTokens || 2000
-                }
-            },
-            {
+                method: 'POST',
+                body: JSON.stringify({
+                    inputs: options.prompt,
+                    parameters: {
+                        temperature: options.temperature || 0.7,
+                        max_new_tokens: options.maxTokens || 2000
+                    }
+                }),
                 headers: {
                     'Authorization': `Bearer ${apiKey}`,
                     'Content-Type': 'application/json'
-                }
+                },
+                circuitBreakerKey: 'huggingface-api',
+                timeout: 30000
             }
         );
         
         const latency = Date.now() - startTime;
-        const content = Array.isArray(response.data) 
-            ? response.data[0]?.generated_text || ''
-            : response.data.generated_text || '';
+        const content = Array.isArray(data) 
+            ? data[0]?.generated_text || ''
+            : data.generated_text || '';
         const tokensUsed = content.split(' ').length; // Approximate
         
         // Hugging Face has free tier

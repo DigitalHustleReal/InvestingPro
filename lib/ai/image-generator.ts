@@ -10,6 +10,7 @@
  */
 
 import OpenAI from 'openai'
+import { externalInfoFetch } from '../api/external-client'
 
 // Lazy initialization - only create when needed
 let openaiClient: OpenAI | null = null;
@@ -155,7 +156,11 @@ The illustration should complement financial article content and match Investing
 export async function downloadAndSaveImage(imageUrl: string, fileName: string): Promise<string | null> {
   try {
     // Download image
-    const response = await fetch(imageUrl)
+    const response = await externalInfoFetch(imageUrl, {
+      circuitBreakerKey: 'image-download',
+      timeout: 30000,
+      retries: 3
+    })
     const blob = await response.blob()
     
     // Convert to base64 for Supabase

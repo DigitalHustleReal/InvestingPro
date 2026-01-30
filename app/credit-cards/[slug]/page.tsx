@@ -17,17 +17,36 @@ import {
   ExternalLink,
   ArrowRight,
   UtensilsCrossed,
-  ShoppingCart
+  ShoppingCart,
+  Sparkles,
+  MessageCircle
 } from 'lucide-react'
 import ProductReviews from '@/components/reviews/ProductReviews'
 import DifferentiationCard from '@/components/products/DifferentiationCard'
 import StickyMobileCTA from '@/components/products/StickyMobileCTA'
+import ApplicationStats from '@/components/products/ApplicationStats'
+import FAQAccordion from '@/components/common/FAQAccordion'
+import { CREDIT_CARD_GENERAL_FAQS } from '@/lib/content/seo-content'
 import { scoreCreditCard } from '@/lib/products/scoring-rules'
 import { CreditCard as CreditCardType } from '@/types'
 import DecisionFramework from '@/components/common/DecisionFramework'
 import DecisionCTA from '@/components/common/DecisionCTA'
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs'
+import AuthorByline from '@/components/common/AuthorByline'
+import RatingBreakdown from '@/components/reviews/RatingBreakdown'
+import RelatedArticles from '@/components/content/RelatedArticles'
 import CreditCardValueCalculator from '@/components/products/CreditCardValueCalculator'
+import { getReviewStats } from '@/lib/content/review-data'
+import ExpertOpinion from '@/components/products/ExpertOpinion'
+import ComparisonCTA from '@/components/products/ComparisonCTA'
+import DocumentChecklist, { CREDIT_CARD_DOCUMENTS } from '@/components/products/DocumentChecklist'
+import { getExpertOpinion } from '@/lib/content/expert-opinions'
+import InlineChecker from '@/components/eligibility/InlineChecker'
+import MiniRewardsCalculator from '@/components/calculators/MiniRewardsCalculator'
+import AlternativesCarousel from '@/components/products/AlternativesCarousel'
+import RelatedCalculators from '@/components/calculators/RelatedCalculators'
+import { getSimilarProducts } from '@/lib/utils/product-similarity'
+import WhatsAppAlerts from '@/components/common/WhatsAppAlerts'
 
 interface CreditCardDetail {
   id: string
@@ -203,6 +222,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: `${card.name} Review - Features, Benefits & Apply Online | InvestingPro`,
     description: `${card.description} Rating: ${card.rating}/5. Annual fee: ₹${card.annualFee}. Compare benefits, eligibility, and apply online.`,
     keywords: `${card.name}, ${card.provider} credit card, credit card review, ${card.provider.toLowerCase()} card benefits, apply credit card online`,
+    openGraph: {
+      title: `${card.name} Review | InvestingPro`,
+      description: card.description,
+      type: 'article',
+      images: card.image ? [card.image] : [],
+    },
+    alternates: {
+      canonical: `/credit-cards/${slug}`,
+    }
   }
 }
 
@@ -269,22 +297,20 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
                         <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
                             {card.description}
                         </p>
+                        <AuthorByline />
                     </div>
 
-                    {/* The "Verdict" Box - Editor's Take (Enhanced Aesthetics) */}
-                    <div className="relative group overflow-hidden rounded-2xl border border-primary-200/50 dark:border-primary-800/30 bg-gradient-to-br from-primary-50/80 to-white dark:from-primary-950/20 dark:to-slate-900/50 backdrop-blur-sm p-5 shadow-lg shadow-primary-500/5">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2" />
-                        
-                        <div className="relative z-10">
-                            <div className="flex items-center gap-2 mb-2">
-                                <Sparkles className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                                <span className="text-[10px] font-black uppercase tracking-widest text-primary-600 dark:text-primary-400">The Verdict</span>
-                            </div>
-                            <p className="text-slate-800 dark:text-slate-200 font-bold text-base leading-relaxed font-heading italic">
-                                "{card.name} is an excellent choice for {card.type.toLowerCase()} users. The reward rate of {card.rewardRate} justifies the fee if you spend over ₹20k monthly."
-                            </p>
-                        </div>
-                    </div>
+                    {/* Expert Opinion Box - NEW */}
+                    <ExpertOpinion 
+                        productName={card.name}
+                        opinion={getExpertOpinion(params.slug, 'credit_card')}
+                    />
+
+                    {/* Application Statistics - NEW */}
+                    <ApplicationStats 
+                        productName={card.name}
+                        className="mt-6"
+                    />
 
 
 
@@ -341,13 +367,46 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
       
       {/* Decision Framework */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
-        <DecisionFramework
-          productId={card.id}
-          productName={card.name}
-          category="credit-cards"
-          affiliateLink={card.applyLink}
-          variant="compact"
-        />
+        <div className="grid lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+                <DecisionFramework
+                    productId={card.id}
+                    productName={card.name}
+                    category="credit-cards"
+                    affiliateLink={card.applyLink}
+                    variant="compact"
+                />
+            </div>
+            <div className="lg:col-span-1 space-y-8">
+                <InlineChecker 
+                    productType="credit_card"
+                    cardType={card.annualFee > 5000 ? 'premium' : card.annualFee > 0 ? 'standard' : 'entry'}
+                />
+
+                {/* WhatsApp Alerts - NEW */}
+                <Card className="border-none bg-success-50 dark:bg-success-900/10 overflow-hidden group">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-2 bg-success-600 text-white rounded-lg group-hover:scale-110 transition-transform">
+                        <MessageCircle size={18} />
+                      </div>
+                      <h4 className="font-bold text-slate-900 dark:text-white">Rate Alerts</h4>
+                    </div>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                      Get updates on WhatsApp about <span className="font-bold">{card.name}</span> rates and offers.
+                    </p>
+                    <WhatsAppAlerts 
+                      productName={card.name} 
+                      trigger={
+                        <Button className="w-full bg-success-600 hover:bg-success-700 text-white font-black rounded-xl h-12 shadow-lg shadow-success-500/20">
+                          Activate via WhatsApp
+                        </Button>
+                      }
+                    />
+                  </CardContent>
+                </Card>
+            </div>
+        </div>
       </div>
 
       {/* Main Content (Single Column "One Big Page") */}
@@ -378,6 +437,18 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
 
               <hr className="border-slate-100 dark:border-slate-800" />
 
+              <hr className="border-slate-100 dark:border-slate-800" />
+
+              <div className="p-8 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
+                <h3 className="text-xl font-bold mb-6 text-slate-900 dark:text-white">Rating Overview</h3>
+                <RatingBreakdown 
+                  distribution={getReviewStats(params.slug).distribution}
+                  totalReviews={getReviewStats(params.slug).count}
+                />
+              </div>
+              
+              <hr className="border-slate-100 dark:border-slate-800" />
+
               {/* Eligibility Section (Moved from Sidebar) */}
               <section>
                  <h2 className="text-2xl font-bold flex items-center gap-3 mb-6 text-slate-900 dark:text-white">
@@ -391,7 +462,7 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
                     </div>
                     <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl border border-slate-100 dark:border-slate-800">
                         <p className="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-wider mb-2">Income</p>
-                        <p className="text-xl font-bold text-slate-900 dark:text-white">₹{(card.eligibility.minIncome / 100000).toFixed(1)}L <span className="text-xs font-normal text-slate-500">/ year</span></p>
+                        <p className="text-xl font-bold text-slate-900 dark:text-white">₹{(typeof card.eligibility.minIncome === 'number' ? card.eligibility.minIncome / 100000 : 0.25).toFixed(1)}L <span className="text-xs font-normal text-slate-500">/ year</span></p>
                     </div>
                     <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl border border-slate-100 dark:border-slate-800">
                         <p className="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-wider mb-2">Documents</p>
@@ -433,6 +504,14 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
                       <span className="text-primary-700 dark:text-primary-400 font-bold text-lg">{cat.rate}</span>
                     </div>
                   ))}
+                </div>
+
+                {/* Mini Rewards Calculator - NEW */}
+                <div className="mt-8">
+                    <MiniRewardsCalculator 
+                        annualFee={card.annualFee}
+                        rewardRate={card.rewardProgram.pointsPerRupee || 1.5}
+                    />
                 </div>
               </section>
 
@@ -503,6 +582,27 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
 
               <hr className="border-slate-100 dark:border-slate-800" />
 
+              {/* Comparison CTA - NEW */}
+              <ComparisonCTA 
+                currentProductSlug={params.slug}
+                currentProductName={card.name}
+                similarProducts={[
+                  // TODO: Fetch similar products dynamically
+                  { slug: 'hdfc-regalia', name: 'HDFC Regalia' },
+                  { slug: 'sbi-simplysave', name: 'SBI SimplySAVE' }
+                ]}
+              />
+
+              <hr className="border-slate-100 dark:border-slate-800" />
+
+              {/* Document Checklist - NEW */}
+              <DocumentChecklist 
+                documents={CREDIT_CARD_DOCUMENTS}
+                productName={card.name}
+              />
+
+              <hr className="border-slate-100 dark:border-slate-800" />
+
               {/* Fees Section */}
               <section>
                 <h2 className="text-2xl font-bold flex items-center gap-3 mb-6 text-slate-900 dark:text-white">
@@ -534,8 +634,30 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
 
             </Card>
 
+            {/* Related Articles */}
+            <RelatedArticles />
+
+            {/* FAQ Section */}
+            <FAQAccordion 
+                items={CREDIT_CARD_GENERAL_FAQS} 
+                className="my-12"
+            />
+
             {/* User Reviews */}
             <ProductReviews productSlug={params.slug} productType="credit_card" />
+
+            {/* Alternatives Carousel - NEW */}
+            <AlternativesCarousel 
+                products={getSimilarProducts(card as any, [], 4)} // Passing empty array for now, will need actual products list
+                currentProductSlug={params.slug}
+                className="mt-12"
+            />
+
+            {/* Related Calculators - NEW */}
+            <RelatedCalculators 
+                category="credit_card"
+                className="mt-12"
+            />
           </div>
           
       </div>

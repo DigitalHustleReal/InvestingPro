@@ -175,10 +175,9 @@ function HeroSIPCalculator() {
                             </div>
                         </div>
 
-                        {/* Pie Chart Visual */}
-                        <div className="w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <PieChart>
+                        {/* Pie Chart Visual - Fixed size to avoid ResponsiveContainer resize errors */}
+                        <div className="w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 flex items-center justify-center">
+                                <PieChart width={100} height={100}>
                                     <Pie
                                         data={chartData}
                                         cx="50%"
@@ -194,7 +193,6 @@ function HeroSIPCalculator() {
                                         ))}
                                     </Pie>
                                 </PieChart>
-                            </ResponsiveContainer>
                         </div>
                     </div>
                 </div>

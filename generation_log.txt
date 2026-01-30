@@ -1,0 +1,24 @@
+﻿[dotenv@17.2.3] injecting env (26) from .env.local -- tip: ≡ƒöä add secrets lifecycle management: https://dotenvx.com/ops
+node.exe : Fatal Error: Error: This module cannot be imported from a 
+Client Component module. It should only be used from a Server Component.
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Fatal Error: Er...rver 
+Compon    ent.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    at Object.<anonymous> (C:\Users\shivp\Desktop\InvestingPro_App\node_m
+odules\server-only\index.js:1:7)
+    at Module._compile (node:internal/modules/cjs/loader:1706:14)
+    at Object.transformer (C:\Users\shivp\AppData\Local\npm-cache\_npx\fd
+45a72a545557e9\node_modules\tsx\dist\register-D46fvsV_.cjs:3:1104)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Module.require (node:internal/modules/cjs/loader:1463:12)
+    at require (node:internal/modules/helpers:147:16)
+    at <anonymous> 
+(C:\Users\shivp\Desktop\InvestingPro_App\lib\events\publisher.ts:8:8)

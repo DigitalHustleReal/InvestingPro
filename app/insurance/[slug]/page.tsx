@@ -80,8 +80,12 @@ async function getInsuranceData(slug: string): Promise<InsuranceDetail | null> {
   };
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const insurance = await getInsuranceData(params.slug)
+// Enable dynamic rendering for routes not pre-generated
+export const dynamicParams = true;
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const insurance = await getInsuranceData(slug)
   
   if (!insurance) {
     return { title: 'Insurance Not Found - InvestingPro' }
@@ -91,11 +95,21 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     title: `${insurance.name} Review - Coverage, Premium & Buy Online | InvestingPro`,
     description: `${insurance.description} Rating: ${insurance.rating}/5. Claim Ratio: ${insurance.claimSettlementRatio}. Compare and buy online.`,
     keywords: `${insurance.name}, ${insurance.provider} insurance, ${insurance.insuranceType}, buy insurance online`,
+    openGraph: {
+      title: `${insurance.name} Review | InvestingPro`,
+      description: insurance.description,
+      type: 'article',
+      images: insurance.image ? [insurance.image] : [],
+    },
+    alternates: {
+      canonical: `/insurance/${slug}`,
+    }
   }
 }
 
-export default async function InsuranceDetailPage({ params }: { params: { slug: string } }) {
-  const insurance = await getInsuranceData(params.slug)
+export default async function InsuranceDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const insurance = await getInsuranceData(slug)
   
   if (!insurance) {
     notFound()
@@ -160,7 +174,7 @@ export default async function InsuranceDetailPage({ params }: { params: { slug: 
               <Card className="bg-white/10 backdrop-blur-sm border-white/20">
                 <CardContent className="p-6">
                   <p className="text-sm text-primary-200 mb-4">Get covered in minutes</p>
-                  <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-6 text-lg mb-3">
                       Get Quote <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
@@ -290,7 +304,7 @@ export default async function InsuranceDetailPage({ params }: { params: { slug: 
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Protect Your Family</h3>
                   <p className="text-sm text-primary-100 mb-4">Get instant quotes now</p>
-                  <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-white text-primary-600 hover:bg-gray-100 font-semibold py-6 mb-3">
                       Get Quote <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
@@ -347,7 +361,7 @@ export default async function InsuranceDetailPage({ params }: { params: { slug: 
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Secure Your Future with {insurance.name}</h2>
           <p className="text-slate-300 mb-8">Get comprehensive coverage at the best rates!</p>
-          <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+          <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
             <Button className="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-12 py-6 text-lg">
               Get Free Quote <ExternalLink className="w-5 h-5 ml-2" />
             </Button>
