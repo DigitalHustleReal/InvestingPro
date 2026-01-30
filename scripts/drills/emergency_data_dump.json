@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1066227a-65ae-4187-9b1c-5dd27f86f226",
+    "name": "Stocks & IPOs",
+    "slug": "stocks-ipos",
+    "description": "Articles about equity investing, IPO analysis, and stock market guidance.",
+    "created_at": "2025-12-30T10:49:01.588185+00:00",
+    "parent_id": null,
+    "level": 0,
+    "order_index": 0,
+    "metadata": {},
+    "updated_at": "2026-01-29T12:50:08.849968+00:00"
+  },
+  {
+    "id": "ae0a50d9-7450-43c2-8e6b-978863853e34",
+    "name": "Credit Cards",
+    "slug": "credit-cards",
+    "description": "Compare credit cards with rewards, cashback, and travel benefits from top Indian banks.",
+    "created_at": "2026-01-01T09:01:33.633371+00:00",
+    "parent_id": null,
+    "level": 0,
+    "order_index": 0,
+    "metadata": {},
+    "updated_at": "2026-01-29T12:50:08.849968+00:00"
+  },
+  {
+    "id": "8765840b-ae56-48d0-bfd0-a8e63de93ac1",
+    "name": "Loans",
+    "slug": "loans",
+    "description": "Personal, home, car, education, gold, and business loans with lowest interest rates.",
+    "created_at": "2026-01-01T09:01:33.633371+00:00",
+    "parent_id": null,
+    "level": 0,
+    "order_index": 0,
+    "metadata": {},
+    "updated_at": "2026-01-29T12:50:08.849968+00:00"
+  },
+  {
+    "id": "d9627092-1591-43ea-8830-6522f486ca08",
+    "name": "Banking",
+    "slug": "banking",
+    "description": "Savings accounts, fixed deposits, recurring deposits with best interest rates.",
+    "created_at": "2026-01-01T09:01:33.633371+00:00",
+    "parent_id": null,
+    "level": 0,
+    "order_index": 0,
+    "metadata": {},
+    "updated_at": "2026-01-29T12:50:08.849968+00:00"
+  },
+  {
+    "id": "630c1118-9376-472f-a1c5-2f97daa06e68",
+    "name": "Investing",
+    "slug": "investing",
+    "description": "Mutual funds, stocks, PPF/NPS, ELSS, gold, and demat accounts compared.",
+    "created_at": "2026-01-01T09:01:33.633371+00:00",
+    "parent_id": null,
+    "level": 0,
+    "order_index": 0,
+    "metadata": {},
+    "updated_at": "2026-01-29T12:50:08.849968+00:00"
+  }
+]

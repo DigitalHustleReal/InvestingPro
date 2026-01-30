@@ -112,11 +112,11 @@ async function generateImageAsync(productId: string) {
     } catch (error) {
         // Fail silently - cron will catch missed images
     }
-}
+const SKIP_IMAGES = process.argv.includes('--skip-images');
 
 async function populateWithAI() {
-    console.log('🚀 Starting AI-powered population (NO MOCK DATA)\\n');
-    console.log(`AI Status: ${JSON.stringify(aiService.getStatus())}\\n`);
+    console.log(`🚀 Starting AI-powered population (NO MOCK DATA)${SKIP_IMAGES ? ' [SKIP_IMAGES=ENABLED]' : ''}\n`);
+    console.log(`AI Status: ${JSON.stringify(aiService.getStatus())}\n`);
     
     let success = 0;
     let failed = 0;
@@ -143,7 +143,7 @@ async function populateWithAI() {
                 features: data.features,
                 pros: data.pros,
                 cons: data.cons,
-                image_url: null, // Will be auto-generated
+                image_url: null, // Will be auto-generated later
                 is_active: true,
                 last_verified_at: new Date().toISOString(),
                 verification_status: 'verified',
@@ -157,8 +157,8 @@ async function populateWithAI() {
                 console.log('✅');
                 success++;
                 
-                // 🎨 AUTO-GENERATE IMAGE (non-blocking)
-                if (productData?.id) {
+                // 🎨 AUTO-GENERATE IMAGE (conditional)
+                if (productData?.id && !SKIP_IMAGES) {
                     generateImageAsync(productData.id).catch(() => {
                         // Fails silently - cron will catch it
                     });

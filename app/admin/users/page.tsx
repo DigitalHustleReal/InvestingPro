@@ -2,6 +2,7 @@
 
 import React from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
+import AdminPageContainer from '@/components/admin/AdminPageContainer';
 import { Users, Search, Shield, UserCheck, Mail } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { AdminPageHeader, ContentSection, StatCard, EmptyState, StatusBadge } from '@/components/admin/AdminUIKit';
@@ -31,7 +32,7 @@ export default function UsersPage() {
 
     return (
         <AdminLayout>
-            <div className="p-8 space-y-8">
+            <AdminPageContainer>
                 <AdminPageHeader
                     title="Users"
                     subtitle="Manage user accounts and permissions"
@@ -100,7 +101,7 @@ export default function UsersPage() {
                         ))}
                     </div>
                 )}
-            </div>
+            </AdminPageContainer>
         </AdminLayout>
     );
 }

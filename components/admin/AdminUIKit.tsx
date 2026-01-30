@@ -15,11 +15,11 @@ interface AdminPageHeaderProps {
 }
 
 const iconColorClasses = {
-    teal: 'from-primary-500 to-success-500 shadow-primary-500/25',
-    purple: 'from-secondary-500 to-pink-500 shadow-purple-500/25',
-    blue: 'from-secondary-500 to-cyan-500 shadow-primary-500/25',
-    amber: 'from-accent-500 to-orange-500 shadow-accent-500/25',
-    rose: 'from-danger-500 to-danger-600 shadow-danger-500/25',
+    teal: 'bg-admin-pro-accent-subtle text-admin-pro-accent',
+    purple: 'bg-admin-pro-accent-subtle text-admin-pro-accent',
+    blue: 'bg-admin-pro-accent-subtle text-admin-pro-accent',
+    amber: 'bg-admin-pro-accent-subtle text-admin-pro-accent',
+    rose: 'bg-admin-pro-danger-subtle text-admin-pro-danger',
 };
 
 export function AdminPageHeader({
@@ -45,11 +45,11 @@ export function AdminPageHeader({
                         </div>
                     )}
                     <div>
-                        <h1 className="text-2xl md:text-3xl font-bold text-foreground dark:text-foreground tracking-tight">
+                        <h1 className="text-2xl md:text-3xl font-bold text-admin-pro-text tracking-tight">
                             {title}
                         </h1>
                         {subtitle && (
-                            <p className="text-muted-foreground dark:text-muted-foreground mt-1 text-sm md:text-base">
+                            <p className="text-admin-pro-text-muted mt-1 text-sm md:text-base">
                                 {subtitle}
                             </p>
                         )}
@@ -77,36 +77,25 @@ interface StatCardProps {
 }
 
 export function StatCard({ label, value, change, changeType = 'neutral', icon: Icon, color = 'teal' }: StatCardProps) {
-    const borderColors = {
-        teal: 'border-primary-500/20 hover:border-primary-500/40',
-        purple: 'border-secondary-500/20 hover:border-secondary-500/40',
-        blue: 'border-secondary-500/20 hover:border-secondary-500/40',
-        amber: 'border-accent-500/20 hover:border-accent-500/40',
-        rose: 'border-danger-500/20 hover:border-danger-500/40',
-    };
-
     const changeColors = {
-        positive: 'text-primary-400',
-        negative: 'text-danger-400',
-        neutral: 'text-muted-foreground dark:text-muted-foreground',
+        positive: 'text-admin-pro-accent',
+        negative: 'text-admin-pro-danger',
+        neutral: 'text-admin-pro-text-muted',
     };
 
     return (
-        <div className={`
-            bg-surface-darker/50 dark:bg-surface-darker/50 backdrop-blur-xl rounded-xl border ${borderColors[color]}
-            p-5 transition-all duration-300 hover:bg-surface-darker dark:bg-surface-darker/70
-        `}>
+        <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface p-5 transition-colors hover:border-admin-pro-border-light hover:bg-admin-pro-surface-hover/50">
             <div className="flex items-start justify-between">
                 <div>
-                    <p className="text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">{label}</p>
-                    <p className="text-2xl font-bold text-foreground dark:text-foreground mt-1">{value}</p>
+                    <p className="text-[11px] font-medium text-admin-pro-text-muted uppercase tracking-wider">{label}</p>
+                    <p className="text-2xl font-semibold text-admin-pro-text mt-1 tabular-nums">{value}</p>
                     {change && (
                         <p className={`text-xs mt-1 ${changeColors[changeType]}`}>{change}</p>
                     )}
                 </div>
                 {Icon && (
-                    <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center">
-                        <Icon className="w-5 h-5 text-muted-foreground dark:text-muted-foreground" />
+                    <div className="w-10 h-10 rounded-lg bg-admin-pro-border flex items-center justify-center shrink-0">
+                        <Icon className="w-5 h-5 text-admin-pro-text-muted" />
                     </div>
                 )}
             </div>
@@ -124,17 +113,17 @@ interface ContentSectionProps {
 
 export function ContentSection({ title, subtitle, actions, children }: ContentSectionProps) {
     return (
-        <section className="bg-surface-darker dark:bg-surface-darker/30 backdrop-blur-xl rounded-xl border border-border/50 dark:border-border/50 overflow-hidden">
+        <section className="rounded-xl border border-admin-pro-border bg-admin-pro-surface overflow-hidden">
             {(title || actions) && (
-                <div className="px-6 py-4 border-b border-border/50 dark:border-border/50 flex items-center justify-between">
+                <div className="px-5 py-4 border-b border-admin-pro-border flex items-center justify-between gap-4">
                     <div>
-                        {title && <h2 className="text-lg font-semibold text-foreground dark:text-foreground">{title}</h2>}
-                        {subtitle && <p className="text-sm text-muted-foreground dark:text-muted-foreground mt-0.5">{subtitle}</p>}
+                        {title && <h2 className="text-sm font-semibold text-admin-pro-text">{title}</h2>}
+                        {subtitle && <p className="text-xs text-admin-pro-text-muted mt-0.5">{subtitle}</p>}
                     </div>
                     {actions}
                 </div>
             )}
-            <div className="p-6">
+            <div className="p-5">
                 {children}
             </div>
         </section>
@@ -177,12 +166,11 @@ export function ActionButton({
         md: 'default',
     };
 
-    // Admin-specific styling overrides
     const adminStyles = {
-        primary: 'bg-gradient-to-r from-primary-500 to-success-500 shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40',
-        secondary: 'bg-white/10 border border-border dark:border-border hover:bg-white/20',
-        ghost: 'hover:bg-white/10',
-        danger: 'bg-danger-500/20 text-danger-400 border border-danger-500/30 hover:bg-danger-500/30',
+        primary: 'bg-admin-pro-accent hover:bg-admin-pro-accent-hover text-white border-0 shadow-admin-pro-accent/20',
+        secondary: 'bg-admin-pro-surface border border-admin-pro-border hover:bg-admin-pro-surface-hover text-admin-pro-text',
+        ghost: 'hover:bg-admin-pro-surface text-admin-pro-text-muted hover:text-admin-pro-text',
+        danger: 'bg-admin-pro-danger-subtle text-admin-pro-danger border border-admin-pro-danger/30 hover:bg-admin-pro-danger/20',
     };
 
     return (
@@ -206,7 +194,7 @@ interface DataTableProps {
 
 export function DataTable({ children }: DataTableProps) {
     return (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto rounded-xl border border-admin-pro-border bg-admin-pro-surface">
             <table className="w-full">
                 {children}
             </table>
@@ -216,8 +204,8 @@ export function DataTable({ children }: DataTableProps) {
 
 export function TableHeader({ children }: { children: ReactNode }) {
     return (
-        <thead className="bg-muted/50 dark:bg-muted/50">
-            <tr className="border-b border-border/50 dark:border-border/50">
+        <thead className="bg-admin-pro-surface">
+            <tr className="border-b border-admin-pro-border">
                 {children}
             </tr>
         </thead>
@@ -226,25 +214,21 @@ export function TableHeader({ children }: { children: ReactNode }) {
 
 export function TableHeaderCell({ children, className = '' }: { children?: ReactNode; className?: string }) {
     return (
-        <th className={`px-4 py-3 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider ${className}`}>
+        <th className={`px-4 py-3 text-left text-[11px] font-medium text-admin-pro-text-muted uppercase tracking-wider ${className}`}>
             {children}
         </th>
     );
 }
 
 export function TableBody({ children }: { children: ReactNode }) {
-    return <tbody className="divide-y divide-white/5">{children}</tbody>;
+    return <tbody className="divide-y divide-admin-pro-border">{children}</tbody>;
 }
 
 export function TableRow({ children, onClick, className = '' }: { children: ReactNode; onClick?: () => void; className?: string }) {
     return (
-        <tr 
+        <tr
             onClick={onClick}
-            className={`
-                hover:bg-white/5 transition-colors
-                ${onClick ? 'cursor-pointer' : ''}
-                ${className}
-            `}
+            className={`hover:bg-admin-pro-surface-hover transition-colors ${onClick ? 'cursor-pointer' : ''} ${className}`}
         >
             {children}
         </tr>
@@ -253,7 +237,7 @@ export function TableRow({ children, onClick, className = '' }: { children: Reac
 
 export function TableCell({ children, className = '' }: { children?: ReactNode; className?: string }) {
     return (
-        <td className={`px-4 py-4 text-sm text-foreground/80 dark:text-foreground/80 ${className}`}>
+        <td className={`px-4 py-3 text-sm text-admin-pro-text ${className}`}>
             {children}
         </td>
     );
@@ -267,18 +251,15 @@ interface BadgeProps {
 
 export function StatusBadge({ children, variant = 'default' }: BadgeProps) {
     const variants = {
-        default: 'bg-slate-700 text-foreground/80 dark:text-foreground/80',
-        success: 'bg-primary-500/20 text-primary-400 border border-primary-500/30',
-        warning: 'bg-accent-500/20 text-accent-400 border border-accent-500/30',
-        danger: 'bg-danger-500/20 text-danger-400 border border-danger-500/30',
-        info: 'bg-secondary-500/20 text-secondary-400 border border-secondary-500/30',
+        default: 'bg-admin-pro-surface text-admin-pro-text border border-admin-pro-border',
+        success: 'bg-admin-pro-accent-subtle text-admin-pro-accent border border-admin-pro-accent/30',
+        warning: 'bg-admin-pro-accent-subtle text-admin-pro-accent border border-admin-pro-accent/30',
+        danger: 'bg-admin-pro-danger-subtle text-admin-pro-danger border border-admin-pro-danger/30',
+        info: 'bg-admin-pro-accent-subtle text-admin-pro-accent border border-admin-pro-accent/30',
     };
 
     return (
-        <span className={`
-            inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-            ${variants[variant]}
-        `}>
+        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-medium ${variants[variant]}`}>
             {children}
         </span>
     );
@@ -296,12 +277,12 @@ export function EmptyState({ icon: Icon, title, description, action }: EmptyStat
     return (
         <div className="text-center py-12">
             {Icon && (
-                <div className="w-16 h-16 rounded-xl bg-white/5 flex items-center justify-center mx-auto mb-4">
-                    <Icon className="w-8 h-8 text-muted-foreground/70 dark:text-muted-foreground/70" />
+                <div className="w-16 h-16 rounded-xl bg-admin-pro-surface border border-admin-pro-border flex items-center justify-center mx-auto mb-4">
+                    <Icon className="w-8 h-8 text-admin-pro-text-muted" />
                 </div>
             )}
-            <h3 className="text-lg font-semibold text-foreground dark:text-foreground mb-2">{title}</h3>
-            {description && <p className="text-muted-foreground dark:text-muted-foreground mb-6 max-w-md mx-auto">{description}</p>}
+            <h3 className="text-base font-semibold text-admin-pro-text mb-2">{title}</h3>
+            {description && <p className="text-sm text-admin-pro-text-muted mb-6 max-w-md mx-auto">{description}</p>}
             {action}
         </div>
     );

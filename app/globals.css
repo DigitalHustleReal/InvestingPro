@@ -212,6 +212,156 @@
            border border-transparent hover:border-admin-border;
   }
 
+  /* Admin Pro – theme overrides (plain CSS to avoid @apply circular deps) */
+  .admin-pro-app [data-slot="card"],
+  .admin-pro-app .bg-card {
+    background-color: #18181b;
+    border: 1px solid #27272a;
+    border-radius: 0.75rem;
+  }
+  .admin-pro-app .border-border {
+    border-color: #27272a;
+  }
+  .admin-pro-app .text-muted-foreground {
+    color: #a1a1aa;
+  }
+  .admin-pro-app .text-foreground {
+    color: #fafafa;
+  }
+  .admin-pro-app thead {
+    background-color: #18181b;
+    border-bottom: 1px solid #27272a;
+  }
+  .admin-pro-app th {
+    color: #a1a1aa;
+    font-weight: 500;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.75rem 1rem;
+  }
+  .admin-pro-app tbody tr {
+    border-bottom: 1px solid #27272a;
+    transition: background-color 0.15s;
+  }
+  .admin-pro-app tbody tr:hover {
+    background-color: #27272a;
+  }
+  .admin-pro-app td {
+    padding: 0.75rem 1rem;
+    color: #fafafa;
+    font-size: 0.875rem;
+  }
+
+  .admin-pro-app .admin-page-content {
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    padding: 1.5rem 1rem;
+  }
+  @media (min-width: 640px) {
+    .admin-pro-app .admin-page-content {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .admin-pro-app .admin-page-content {
+      padding: 2rem 2rem;
+    }
+  }
+
+  .admin-pro-app .bg-surface-darker,
+  .admin-pro-app [class*="bg-surface-darker"] {
+    background-color: #18181b;
+  }
+  .admin-pro-app section.rounded-xl.border {
+    border: 1px solid #27272a;
+    background-color: #18181b;
+  }
+  .admin-pro-app section.rounded-xl.border h2 {
+    color: #fafafa;
+  }
+  .admin-pro-app section.rounded-xl.border p.text-muted-foreground {
+    color: #a1a1aa;
+  }
+
+  .admin-pro-app [data-slot="card"] > div,
+  .admin-pro-app .bg-card > div {
+    border-color: #27272a;
+  }
+
+  .admin-pro-app .text-primary-400,
+  .admin-pro-app .text-primary-500,
+  .admin-pro-app .text-secondary-400,
+  .admin-pro-app .text-accent-400,
+  .admin-pro-app .text-accent-500 {
+    color: #10b981;
+  }
+  .admin-pro-app .bg-primary-500\/10,
+  .admin-pro-app .bg-secondary-500\/10,
+  .admin-pro-app .bg-primary-500\/20,
+  .admin-pro-app .bg-accent-500\/10,
+  .admin-pro-app .bg-accent-500\/20 {
+    background-color: rgba(16, 185, 129, 0.12);
+  }
+  .admin-pro-app .border-primary-500\/20,
+  .admin-pro-app .border-primary-500\/30,
+  .admin-pro-app .border-accent-500\/20,
+  .admin-pro-app .border-accent-500\/30 {
+    border-color: rgba(16, 185, 129, 0.3);
+  }
+  .admin-pro-app .text-danger-400,
+  .admin-pro-app .text-danger-500 {
+    color: #ef4444;
+  }
+  .admin-pro-app .bg-danger-500\/10,
+  .admin-pro-app .bg-danger-500\/20 {
+    background-color: rgba(239, 68, 68, 0.12);
+  }
+  .admin-pro-app .border-danger-500\/20,
+  .admin-pro-app .border-danger-500\/30 {
+    border-color: rgba(239, 68, 68, 0.3);
+  }
+
+  .admin-pro-app thead.bg-muted\/50 {
+    background-color: #18181b;
+  }
+  .admin-pro-app table {
+    border-color: #27272a;
+  }
+  .admin-pro-app .divide-white\/5 {
+    border-color: #27272a;
+  }
+  .admin-pro-app tr.hover\:bg-white\/5:hover {
+    background-color: #27272a;
+  }
+  .admin-pro-app .text-foreground\/80 {
+    color: #fafafa;
+  }
+
+  .admin-pro-app .bg-white\/5 {
+    background-color: #18181b;
+  }
+  .admin-pro-app .hover\:bg-white\/20:hover,
+  .admin-pro-app .hover\:bg-surface-darker:hover {
+    background-color: #27272a;
+  }
+
+  .admin-pro-app input,
+  .admin-pro-app textarea,
+  .admin-pro-app select {
+    border: 1px solid #27272a;
+    background-color: #18181b;
+  }
+  .admin-pro-app input:focus,
+  .admin-pro-app textarea:focus {
+    outline: none;
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+  }
+
   /* GLOBAL CONTENT THEME (Prose Overrides) */
   .prose table {
      @apply w-full border-collapse border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden my-8 shadow-sm;

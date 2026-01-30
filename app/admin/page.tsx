@@ -8,7 +8,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiClient as api } from '@/lib/api-client';
 // Removed articleService import - use api.entities.Article instead (client-safe)
 import { createClient } from '@/lib/supabase/client';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import {
     BarChart3,
     FileText,
@@ -43,33 +43,19 @@ import {
     Youtube,
     LayoutDashboard
 } from "lucide-react";
-import ArticleModeration from "@/components/admin/ArticleModeration";
 import AdminLayout from "@/components/admin/AdminLayout";
-import ContextualSidebar from "@/components/admin/ContextualSidebar";
-import AdminTabNavigation from "@/components/admin/AdminTabNavigation";
+import AdminPageContainer from "@/components/admin/AdminPageContainer";
 import AdminContextualSidebar from "@/components/admin/AdminContextualSidebar";
 import { toast } from "sonner";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
-import ContentPerformanceTracking from "@/components/admin/ContentPerformanceTracking";
 import AdvancedMetricsTable from "@/components/admin/AdvancedMetricsTable";
 import { cn } from "@/lib/utils";
-import AutomationControls from "@/components/admin/AutomationControls";
 
 export default function AdminPage() {
-    const searchParams = useSearchParams();
     const router = useRouter();
     const [timeRange, setTimeRange] = useState('30d');
     const [rejectDialogOpen, setRejectDialogOpen] = useState(false);
     const [reviewToReject, setReviewToReject] = useState<string | null>(null);
-    
-    // Use URL search params for tab state (enables bookmarking/sharing)
-    const activeTab = searchParams.get('tab') || 'overview';
-    const setActiveTab = (tab: string) => {
-        const params = new URLSearchParams(searchParams.toString());
-        params.set('tab', tab);
-        router.push(`/admin?${params.toString()}`);
-    };
-    
     const [contextualSidebarCollapsed, setContextualSidebarCollapsed] = useState(false);
     const queryClient = useQueryClient();
 
@@ -290,14 +276,15 @@ export default function AdminPage() {
     const pendingReviewsCount = pendingReviews.length;
     const pendingArticlesCount = pendingArticles.length;
 
+    const articlesThisMonth = statsData?.articles_this_month ?? 0;
     const stats = [
         {
             label: 'Total Articles',
             value: statsData?.total_articles ?? 0,
             icon: FileText,
             color: 'bg-secondary-600',
-            change: `+${statsData?.articles_this_month ?? 0} this month`,
-            trend: 'up'
+            change: `${articlesThisMonth >= 0 ? '+' : ''}${articlesThisMonth} this month`,
+            trend: articlesThisMonth > 0 ? 'up' : null
         },
         {
             label: 'Total Views',
@@ -305,7 +292,7 @@ export default function AdminPage() {
             icon: Eye,
             color: 'bg-secondary-500',
             change: 'Lifetime views',
-            trend: 'up'
+            trend: null
         },
         {
             label: 'Affiliate Clicks',
@@ -313,7 +300,7 @@ export default function AdminPage() {
             icon: MousePointerClick,
             color: 'bg-primary-500',
             change: `${conversionRate ?? 0}% conversion`,
-            trend: 'up'
+            trend: null
         },
         {
             label: 'Pending Reviews',
@@ -321,7 +308,7 @@ export default function AdminPage() {
             icon: Star,
             color: 'bg-accent-500',
             change: 'Needs moderation',
-            trend: (pendingReviewsCount ?? 0) > 0 ? 'down' : 'up'
+            trend: (pendingReviewsCount ?? 0) > 0 ? 'down' : null
         },
     ];
 
@@ -349,256 +336,171 @@ export default function AdminPage() {
     return (
         <AdminLayout
             contextualSidebar={
-                <AdminContextualSidebar
-                    activeTab={activeTab}
-                />
+                <AdminContextualSidebar activeTab="overview" />
             }
         >
-            {/* Secondary Tab Navigation */}
-            <AdminTabNavigation 
-                activeTab={activeTab} 
-                onTabChange={setActiveTab}
-            />
-            <div className="h-full flex flex-col">
-                <div className="px-10 py-8 border-b border-border/50 dark:border-border/50 bg-card/50 dark:bg-card/50 backdrop-blur-md">
-                    {/* System Health Alert Banner */}
+            <AdminPageContainer noPaddingY className="h-full flex flex-col">
+                <div className="pb-6 border-b border-admin-pro-border">
                     {(scraperStatus.status === 'idle' || pipelineStatus.failed > 3) && (
-                        <div className="mb-6 p-4 bg-danger-500/10 border border-danger-500/30 rounded-xl flex items-center gap-4">
-                            <AlertCircle className="w-5 h-5 text-danger-500 animate-pulse" />
-                            <div className="flex-1">
-                                <p className="font-bold text-danger-400 text-sm">System Health Alert</p>
-                                <p className="text-xs text-foreground/80 dark:text-foreground/80 mt-0.5">
-                                    {scraperStatus.status === 'idle' && 'Scraper Network is idle - '}
-                                    {pipelineStatus.failed > 3 && `${pipelineStatus.failed} pipeline failures detected`}
+                        <div id="alerts" className="mb-6 p-4 bg-admin-pro-danger-subtle border border-admin-pro-danger/30 rounded-lg flex items-center gap-4">
+                            <AlertCircle className="w-5 h-5 text-admin-pro-danger shrink-0" />
+                            <div className="flex-1 min-w-0">
+                                <p className="font-semibold text-admin-pro-text text-sm">System health alert</p>
+                                <p className="text-xs text-admin-pro-text-muted mt-0.5">
+                                    {scraperStatus.status === 'idle' && 'Data sources idle. '}
+                                    {pipelineStatus.failed > 3 && `${pipelineStatus.failed} pipeline failures detected.`}
                                 </p>
                             </div>
-                            <Button 
-                                size="sm" 
-                                variant="outline" 
-                                className="border-danger-500/50 text-danger-400 hover:bg-danger-500/20"
-                            >
-                                View Details
+                            <Button size="sm" variant="outline" className="border-admin-pro-danger/50 text-admin-pro-danger hover:bg-admin-pro-danger-subtle shrink-0 rounded-md" onClick={() => router.push(pipelineStatus.failed > 3 ? '/admin/pipeline-monitor' : '/admin/cms/health')}>
+                                View details
                             </Button>
                         </div>
                     )}
 
-                    <div className="flex items-center justify-between mb-2">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div>
-                            <h1 className="text-3xl font-extrabold text-foreground dark:text-foreground tracking-tight mb-2">Analyze</h1>
-                            <p className="text-sm text-muted-foreground dark:text-muted-foreground font-medium tracking-wide">Orchestrating growth through data-driven precision.</p>
+                            <h1 className="text-2xl font-semibold text-admin-pro-text tracking-tight">Dashboard</h1>
+                            <p className="text-sm text-admin-pro-text-muted mt-0.5">Key metrics and system status.</p>
                         </div>
-                        <div className="flex gap-3">
-                            <Button 
-                                variant="outline" 
-                                size="sm" 
-                                onClick={() => {
-                                    queryClient.invalidateQueries();
-                                    toast.success('Analyzing latest data vectors...');
-                                }}
-                                className="bg-white/5 border-border dark:border-border hover:bg-white/10 text-foreground/80 dark:text-foreground/80 rounded-xl px-5"
-                                aria-label="Refresh and re-sync all dashboard metrics"
-                            >
-                                <RefreshCw className="w-4 h-4 mr-2" />
-                                Re-sync Metrics
-                            </Button>
-                        </div>
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => { queryClient.invalidateQueries(); toast.success('Metrics refreshed.'); }}
+                            className="border-admin-pro-border text-admin-pro-text-muted hover:bg-admin-pro-surface hover:text-admin-pro-text rounded-md"
+                            aria-label="Refresh metrics"
+                        >
+                            <RefreshCw className="w-4 h-4 mr-2" />
+                            Refresh metrics
+                        </Button>
                     </div>
                 </div>
-                
-                <div className="flex-1 overflow-y-auto px-10 py-10 max-w-[1600px] mx-auto w-full no-scrollbar">
 
-                    {/* Main Stats Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                <div className="flex-1 overflow-y-auto pt-8">
+                    <div id="quick-stats" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                         {[...stats, ...alertStats].slice(0, 4).map((stat, index) => (
-                            <Card key={index} className="bg-card dark:bg-card border-border/50 dark:border-border/50 hover:border-primary-500/30 transition-all duration-500 group relative overflow-hidden overflow-hidden rounded-2xl">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 blur-3xl -mr-16 -mt-16 group-hover:bg-primary-500/10 transition-colors" />
-                                <CardContent className="p-7 relative z-10">
-                                    <div className="flex items-center justify-between mb-6">
-                                        <div className={`w-14 h-14 rounded-2xl ${stat.color} flex items-center justify-center shadow-2xl shadow-black/20 group-hover:scale-110 transition-transform duration-500`}>
-                                            <stat.icon className="w-7 h-7 text-foreground dark:text-foreground" />
-                                        </div>
-                                        {stat.trend && (
-                                            <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold ${
-                                                stat.trend === 'up' ? 'bg-primary-500/10 text-primary-400' : 'bg-danger-500/10 text-danger-400'
-                                            }`}>
-                                                {stat.trend === 'up' ? (
-                                                    <ArrowUpRight className="w-4 h-4" />
-                                                ) : (
-                                                    <ArrowDownRight className="w-4 h-4" />
-                                                )}
-                                                {stat.trend === 'up' ? 'Growth' : 'Alert'}
-                                            </div>
-                                        )}
+                            <div key={index} className="rounded-xl border border-admin-pro-border bg-admin-pro-surface p-5 transition-colors hover:border-admin-pro-border-light">
+                                <div className="flex items-start justify-between gap-3">
+                                    <div className="w-10 h-10 rounded-lg bg-admin-pro-border flex items-center justify-center shrink-0">
+                                        <stat.icon className="w-5 h-5 text-admin-pro-text-muted" />
                                     </div>
-                                    <p className="text-xs font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest mb-1">{stat.label}</p>
-                                    <p className="text-4xl font-extrabold text-foreground dark:text-foreground mb-2 tabular-nums tracking-tight">{stat.value}</p>
-                                    <p className="text-[11px] text-muted-foreground dark:text-muted-foreground font-bold uppercase tracking-wider flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-primary-500" />
-                                        {stat.change}
-                                    </p>
-                                </CardContent>
-                            </Card>
+                                    {stat.trend != null && (
+                                        <span className={cn(
+                                            "inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium",
+                                            stat.trend === 'up' ? "bg-admin-pro-accent-subtle text-admin-pro-accent" : "bg-admin-pro-danger-subtle text-admin-pro-danger"
+                                        )}>
+                                            {stat.trend === 'up' ? <ArrowUpRight className="w-3.5 h-3.5" /> : <ArrowDownRight className="w-3.5 h-3.5" />}
+                                            {stat.trend === 'up' ? 'Growth' : 'Alert'}
+                                        </span>
+                                    )}
+                                </div>
+                                <p className="text-[11px] font-medium text-admin-pro-text-muted uppercase tracking-wider mt-4 mb-1">{stat.label}</p>
+                                <p className="text-2xl font-semibold text-admin-pro-text tabular-nums">{stat.value}</p>
+                                <p className="text-xs text-admin-pro-text-muted mt-1">{stat.change}</p>
+                            </div>
                         ))}
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                        {/* Scraper Status */}
-                        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
-                            <CardHeader className="pb-4 border-b border-border/50 dark:border-border/50 px-7">
-                                <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
-                                    <div className="w-8 h-8 rounded-lg bg-secondary-500/10 flex items-center justify-center">
-                                        <Database className="w-4 h-4 text-secondary-400" />
-                                    </div>
-                                    Scraper Network
-                                </CardTitle>
-                            </CardHeader>
-                            <CardContent className="p-7">
-                                <div className="space-y-5">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">Cluster Status</span>
-                                        <div className={cn(
-                                            "flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider",
-                                            scraperStatus.status === 'running' ? 'bg-primary-500/10 text-primary-400' : 'bg-accent-500/10 text-accent-400'
+                    <div id="system-health" className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                        <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface overflow-hidden">
+                            <div className="px-5 py-4 border-b border-admin-pro-border flex items-center gap-3">
+                                <div className="w-9 h-9 rounded-lg bg-admin-pro-border flex items-center justify-center">
+                                    <Database className="w-4 h-4 text-admin-pro-text-muted" />
+                                </div>
+                                <span className="text-sm font-medium text-admin-pro-text">Data sources</span>
+                            </div>
+                            <div className="p-5">
+                                <div className="space-y-4">
+                                    <div className="flex items-center justify-between text-sm">
+                                        <span className="text-admin-pro-text-muted">Status</span>
+                                        <span className={cn(
+                                            "inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium",
+                                            scraperStatus.status === 'running' ? "bg-admin-pro-accent-subtle text-admin-pro-accent" : "bg-admin-pro-border text-admin-pro-text-muted"
                                         )}>
-                                            <div className={cn(
-                                                "w-1.5 h-1.5 rounded-full animate-pulse",
-                                                scraperStatus.status === 'running' ? 'bg-primary-500' : 'bg-accent-500'
-                                            )} />
-                                            {scraperStatus.status === 'running' ? 'Operational' : 'Idle'}
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">Accuracy</span>
-                                        <span className="text-sm font-bold text-foreground dark:text-foreground tabular-nums">{scraperStatus.successRate || 0}%</span>
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">Last Telemetry</span>
-                                        <span className="text-xs font-bold text-foreground/80 dark:text-foreground/80">
-                                            {scraperStatus.lastRun ? new Date(scraperStatus.lastRun).toLocaleTimeString() : 'No Data'}
+                                            <span className={cn("w-1.5 h-1.5 rounded-full", scraperStatus.status === 'running' ? "bg-admin-pro-accent animate-pulse" : "bg-admin-pro-text-dim")} />
+                                            {scraperStatus.status === 'running' ? 'Running' : 'Idle'}
                                         </span>
                                     </div>
-                                    {scraperStatus.productsScraped && (
-                                        <div className="pt-5 border-t border-border/50 dark:border-border/50">
-                                            <div className="grid grid-cols-3 gap-4 text-center">
-                                                <div className="bg-white/5 p-3 rounded-xl border border-border/50 dark:border-border/50">
-                                                    <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase mb-1">Assets</div>
-                                                    <div className="text-sm font-bold text-foreground dark:text-foreground tabular-nums">{scraperStatus.productsScraped}</div>
-                                                </div>
-                                                <div className="bg-white/5 p-3 rounded-xl border border-border/50 dark:border-border/50">
-                                                    <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase mb-1">Feed</div>
-                                                    <div className="text-sm font-bold text-foreground dark:text-foreground tabular-nums">{scraperStatus.reviewsScraped}</div>
-                                                </div>
-                                                <div className="bg-white/5 p-3 rounded-xl border border-border/50 dark:border-border/50">
-                                                    <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase mb-1">Rates</div>
-                                                    <div className="text-sm font-bold text-foreground dark:text-foreground tabular-nums">{scraperStatus.ratesScraped}</div>
-                                                </div>
-                                            </div>
+                                    <div className="flex items-center justify-between text-sm">
+                                        <span className="text-admin-pro-text-muted">Accuracy</span>
+                                        <span className="font-medium text-admin-pro-text tabular-nums">{scraperStatus.successRate || 0}%</span>
+                                    </div>
+                                    <div className="flex items-center justify-between text-sm">
+                                        <span className="text-admin-pro-text-muted">Last run</span>
+                                        <span className="text-admin-pro-text text-xs tabular-nums">{scraperStatus.lastRun ? new Date(scraperStatus.lastRun).toLocaleTimeString() : 'No data'}</span>
+                                    </div>
+                                    {scraperStatus.productsScraped != null && (
+                                        <div className="pt-4 border-t border-admin-pro-border grid grid-cols-3 gap-2 text-center">
+                                            <div className="p-2 rounded-lg bg-admin-pro-bg"><span className="text-[10px] text-admin-pro-text-muted block">Assets</span><span className="text-sm font-medium text-admin-pro-text tabular-nums">{scraperStatus.productsScraped}</span></div>
+                                            <div className="p-2 rounded-lg bg-admin-pro-bg"><span className="text-[10px] text-admin-pro-text-muted block">Feed</span><span className="text-sm font-medium text-admin-pro-text tabular-nums">{scraperStatus.reviewsScraped}</span></div>
+                                            <div className="p-2 rounded-lg bg-admin-pro-bg"><span className="text-[10px] text-admin-pro-text-muted block">Rates</span><span className="text-sm font-medium text-admin-pro-text tabular-nums">{scraperStatus.ratesScraped}</span></div>
                                         </div>
                                     )}
                                 </div>
-                            </CardContent>
-                        </Card>
-
-                        {/* Content Pipeline */}
-                        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
-                            <CardHeader className="pb-4 border-b border-border/50 dark:border-border/50 px-7">
-                                <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
-                                    <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
-                                        <Zap className="w-4 h-4 text-primary-400" />
-                                    </div>
-                                    AI Content Factory
-                                </CardTitle>
-                            </CardHeader>
-                            <CardContent className="p-7">
-                                <div className="space-y-5">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">Parallel Jobs</span>
-                                        <span className="px-3 py-1 bg-primary-500/10 text-primary-400 text-[10px] font-bold rounded-full border border-primary-500/20">
-                                            {pipelineStatus.active || 0} ACTIVE
-                                        </span>
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">Total Outputs</span>
-                                        <span className="text-sm font-bold text-foreground dark:text-foreground tabular-nums">{pipelineStatus.completed || 0}</span>
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">Drop Rate</span>
-                                        <span className="text-sm font-bold text-danger-400 tabular-nums">{pipelineStatus.failed || 0}</span>
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">Avg. Cycle</span>
-                                        <span className="text-xs font-bold text-foreground/80 dark:text-foreground/80 tabular-nums">{pipelineStatus.avgTime || 'N/A'}</span>
-                                    </div>
-                                    <div className="pt-2">
-                                        <Button 
-                                            size="sm" 
-                                            className="w-full bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground rounded-xl h-10 font-bold shadow-lg shadow-primary-600/20 transition-all border-0"
-                                        >
-                                            <Play className="w-4 h-4 mr-2 fill-white" />
-                                            Ignite Factory
-                                        </Button>
-                                    </div>
-                                </div>
-                            </CardContent>
-                        </Card>
-
-                        {/* RSS Dynamics */}
-                        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
-                            <CardHeader className="pb-4 border-b border-border/50 dark:border-border/50 px-7">
-                                <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
-                                    <div className="w-8 h-8 rounded-lg bg-accent-500/10 flex items-center justify-center">
-                                        <Rss className="w-4 h-4 text-accent-400" />
-                                    </div>
-                                    RSS Dynamics
-                                </CardTitle>
-                            </CardHeader>
-                            <CardContent className="p-7">
-                                <div className="space-y-4">
-                                    <div className="flex items-center justify-between mb-4">
-                                        <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">Sync Channels</span>
-                                        <span className="text-sm font-bold text-primary-400">
-                                            {Array.isArray(rssFeeds) ? rssFeeds.filter((f: any) => f?.status === 'active').length : 0} LIVE
-                                        </span>
-                                    </div>
-                                    <div className="space-y-3">
-                                        {Array.isArray(rssFeeds) && rssFeeds.slice(0, 3).map((feed: any) => (
-                                            <div key={feed.id} className="flex items-center justify-between p-2.5 bg-white/5 rounded-xl border border-border/50 dark:border-border/50">
-                                                <span className="text-xs font-bold text-foreground/80 dark:text-foreground/80 truncate flex-1">{feed.name}</span>
-                                                <Badge className="bg-white/10 text-foreground dark:text-foreground border-0 text-[10px] ml-2 font-bold">{feed.itemsCount || 0}</Badge>
-                                            </div>
-                                        ))}
-                                    </div>
-                                    <div className="pt-2">
-                                        <Button size="sm" variant="outline" className="w-full bg-white/5 border-border dark:border-border hover:bg-white/10 text-foreground/80 dark:text-foreground/80 rounded-xl h-10 font-bold">
-                                            <RefreshCw className="w-4 h-4 mr-2" />
-                                            Synchronize
-                                        </Button>
-                                    </div>
-                                </div>
-                            </CardContent>
-                        </Card>
-                    </div>
-
-                    {/* Visual Separator */}
-                    <div className="relative mb-10">
-                        <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-border dark:border-border"></div>
+                            </div>
                         </div>
-                        <div className="relative flex justify-center">
-                            <span className="bg-surface-darkest dark:bg-surface-darkest px-4 text-xs font-bold uppercase tracking-widest text-muted-foreground/70 dark:text-muted-foreground/70">
-                                {activeTab === 'overview' ? 'Overview' : 
-                                 activeTab === 'content' ? 'Content' :
-                                 activeTab === 'analytics' ? 'Analytics' : 
-                                 activeTab === 'automation' ? 'Automation' : 'Trends'} Dashboard
-                            </span>
+
+                        <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface overflow-hidden">
+                            <div className="px-5 py-4 border-b border-admin-pro-border flex items-center gap-3">
+                                <div className="w-9 h-9 rounded-lg bg-admin-pro-accent-subtle flex items-center justify-center">
+                                    <Zap className="w-4 h-4 text-admin-pro-accent" />
+                                </div>
+                                <span className="text-sm font-medium text-admin-pro-text">Content pipeline</span>
+                            </div>
+                            <div className="p-5 space-y-4">
+                                <div className="flex items-center justify-between text-sm">
+                                    <span className="text-admin-pro-text-muted">Active jobs</span>
+                                    <span className="font-medium text-admin-pro-text tabular-nums">{pipelineStatus.active || 0}</span>
+                                </div>
+                                <div className="flex items-center justify-between text-sm">
+                                    <span className="text-admin-pro-text-muted">Completed</span>
+                                    <span className="font-medium text-admin-pro-text tabular-nums">{pipelineStatus.completed || 0}</span>
+                                </div>
+                                <div className="flex items-center justify-between text-sm">
+                                    <span className="text-admin-pro-text-muted">Failed</span>
+                                    <span className="font-medium text-admin-pro-danger tabular-nums">{pipelineStatus.failed || 0}</span>
+                                </div>
+                                <div className="flex items-center justify-between text-sm">
+                                    <span className="text-admin-pro-text-muted">Avg. run time</span>
+                                    <span className="text-admin-pro-text text-xs tabular-nums">{pipelineStatus.avgTime || '—'}</span>
+                                </div>
+                                <Button size="sm" className="w-full bg-admin-pro-accent hover:bg-admin-pro-accent-hover text-white rounded-md h-9 font-medium" onClick={() => router.push('/admin/content-factory')}>
+                                    <Play className="w-4 h-4 mr-2 fill-white" />
+                                    Start content run
+                                </Button>
+                            </div>
+                        </div>
+
+                        <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface overflow-hidden">
+                            <div className="px-5 py-4 border-b border-admin-pro-border flex items-center gap-3">
+                                <div className="w-9 h-9 rounded-lg bg-admin-pro-border flex items-center justify-center">
+                                    <Rss className="w-4 h-4 text-admin-pro-text-muted" />
+                                </div>
+                                <span className="text-sm font-medium text-admin-pro-text">RSS feeds</span>
+                            </div>
+                            <div className="p-5 space-y-4">
+                                <div className="flex items-center justify-between text-sm">
+                                    <span className="text-admin-pro-text-muted">Feeds connected</span>
+                                    <span className="font-medium text-admin-pro-text tabular-nums">{Array.isArray(rssFeeds) ? rssFeeds.filter((f: any) => f?.status === 'active').length : 0}</span>
+                                </div>
+                                <div className="space-y-2">
+                                    {Array.isArray(rssFeeds) && rssFeeds.slice(0, 3).map((feed: any) => (
+                                        <div key={feed.id} className="flex items-center justify-between py-2 px-3 rounded-md bg-admin-pro-bg text-sm">
+                                            <span className="text-admin-pro-text truncate flex-1">{feed.name}</span>
+                                            <span className="text-admin-pro-text-muted text-xs tabular-nums ml-2">{feed.itemsCount || 0}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                                <Button size="sm" variant="outline" className="w-full border-admin-pro-border text-admin-pro-text-muted hover:bg-admin-pro-surface-hover hover:text-admin-pro-text rounded-md h-9 font-medium">
+                                    <RefreshCw className="w-4 h-4 mr-2" />
+                                    Sync feeds
+                                </Button>
+                            </div>
                         </div>
                     </div>
 
-                    {/* Main Content - Controlled by ContextualSidebar */}
+                    {/* Main Content - Dashboard overview */}
                     <div className="space-y-6">
-                        {/* Overview Tab - Key Metrics */}
-                        {activeTab === 'overview' && (
-                            <div className="space-y-6">
+                        <div className="space-y-6">
                                 {/* Social Media Metrics */}
                                 <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
                         <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
@@ -707,7 +609,7 @@ export default function AdminPage() {
                     </Card>
 
                     {/* Content Snapshot */}
-                                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                                <Card id="recent-activity" className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
                                     <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-5">
                                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground">Content Snapshot</CardTitle>
                                     </CardHeader>
@@ -764,47 +666,40 @@ export default function AdminPage() {
                                     <CardContent className="p-8">
                                         <div className="space-y-4">
                                             {/* Top 5 Articles by Revenue */}
-                                            {recentArticles.slice(0, 5).map((article: any, index: number) => {
-                                                // Mock revenue data (in production, fetch from analytics)
-                                                const revenue = Math.floor(Math.random() * 15000) + 2000;
-                                                const clicks = Math.floor(Math.random() * 200) + 50;
-                                                const conversions = Math.floor(clicks * 0.12);
-                                                
-                                                return (
-                                                    <div key={article.id} className="flex items-center justify-between p-5 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-xl hover:border-success-500/30 transition-all group">
-                                                        <div className="flex items-center gap-4 flex-1">
-                                                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-foreground dark:text-foreground ${
-                                                                index === 0 ? 'bg-success-500' : 
-                                                                index === 1 ? 'bg-success-600' : 
-                                                                'bg-white/10'
-                                                            }`}>
-                                                                {index + 1}
-                                                            </div>
-                                                            <div className="flex-1">
-                                                                <div className="font-medium text-foreground dark:text-foreground group-hover:text-success-400 transition-colors truncate max-w-md">
-                                                                    {article.title}
-                                                                </div>
-                                                                <div className="flex items-center gap-4 mt-1">
-                                                                    <span className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
-                                                                        {clicks} clicks → {conversions} conversions
-                                                                    </span>
-                                                                    <Badge variant="outline" className="text-[10px] border-border/70 dark:border-border/70 text-muted-foreground dark:text-muted-foreground capitalize">
-                                                                        {article.category || 'general'}
-                                                                    </Badge>
-                                                                </div>
-                                                            </div>
+                                            {recentArticles.slice(0, 5).map((article: any, index: number) => (
+                                                <div key={article.id} className="flex items-center justify-between p-5 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-xl hover:border-success-500/30 transition-all group">
+                                                    <div className="flex items-center gap-4 flex-1">
+                                                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-foreground dark:text-foreground ${
+                                                            index === 0 ? 'bg-success-500' : 
+                                                            index === 1 ? 'bg-success-600' : 
+                                                            'bg-white/10'
+                                                        }`}>
+                                                            {index + 1}
                                                         </div>
-                                                        <div className="text-right">
-                                                            <div className="text-2xl font-bold text-success-400 tabular-nums">
-                                                                ₹{revenue.toLocaleString()}
+                                                        <div className="flex-1">
+                                                            <div className="font-medium text-foreground dark:text-foreground group-hover:text-success-400 transition-colors truncate max-w-md">
+                                                                {article.title}
                                                             </div>
-                                                            <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">
-                                                                Est. Revenue
+                                                            <div className="flex items-center gap-4 mt-1">
+                                                                <span className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
+                                                                    {(article.views ?? 0).toLocaleString()} views
+                                                                </span>
+                                                                <Badge variant="outline" className="text-[10px] border-border/70 dark:border-border/70 text-muted-foreground dark:text-muted-foreground capitalize">
+                                                                    {article.category || 'general'}
+                                                                </Badge>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                );
-                                            })}
+                                                    <div className="text-right">
+                                                        <div className="text-2xl font-bold text-success-400 tabular-nums">
+                                                            —
+                                                        </div>
+                                                        <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">
+                                                            Revenue (connect analytics)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
                                             
                                             {recentArticles.length === 0 && (
                                                 <div className="text-center py-12">
@@ -861,172 +756,9 @@ export default function AdminPage() {
                                     </CardContent>
                                 </Card>
                             </div>
-                        )}
-
-                        {/* Performance Tracking */}
-                        {activeTab === 'performance' && (
-                            <ContentPerformanceTracking timeRange={timeRange as '7d' | '30d' | '90d'} />
-                        )}
-
-                        {/* Content Stats - Tracking Only */}
-                        {activeTab === 'content' && (
-                            <div className="space-y-6">
-                                {/* Content Statistics */}
-                                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
-                                    <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-5">
-                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground">Content Statistics</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="p-8">
-                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                                            <div className="text-center p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50">
-                                                <div className="text-3xl font-extrabold text-secondary-400 mb-2 tabular-nums">
-                                                    {statsData.published_articles}
-                                                </div>
-                                                <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest mb-1">Live Articles</div>
-                                                <div className="text-[10px] text-muted-foreground/70 dark:text-muted-foreground/70 italic">
-                                                    {statsData.draft_articles} Drafts staged
-                                                </div>
-                                            </div>
-                                            <div className="text-center p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50">
-                                                <div className="text-3xl font-extrabold text-secondary-400 mb-2 tabular-nums">
-                                                    {statsData.ai_generated_articles || 0}
-                                                </div>
-                                                <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest mb-1">AI Synthesis</div>
-                                                <div className="text-[10px] text-muted-foreground/70 dark:text-muted-foreground/70 italic">Synthetic Content Yield</div>
-                                            </div>
-                                            <div className="text-center p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50">
-                                                <div className="text-3xl font-extrabold text-primary-400 mb-2 tabular-nums">
-                                                    {Number(statsData.total_views).toLocaleString()}
-                                                </div>
-                                                <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest mb-1">Global Views</div>
-                                                <div className="text-[10px] text-muted-foreground/70 dark:text-muted-foreground/70 italic">Aggregate Impression Feed</div>
-                                            </div>
-                                        </div>
-
-                                        {/* Articles by Category */}
-                                        <div className="mt-8">
-                                            <h4 className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest mb-4">Distribution by Category</h4>
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                                {statsData.category_stats && Array.isArray(statsData.category_stats) && statsData.category_stats.length > 0 ? (
-                                                    statsData.category_stats.map((cat: any) => (
-                                                        <div key={cat.category} className="flex items-center justify-between p-3.5 bg-card/50 dark:bg-card/50 border border-border/50 dark:border-border/50 rounded-xl">
-                                                            <div className="flex items-center gap-3">
-                                                                <div className="w-2 h-2 rounded-full bg-primary-500 shadow-[0_0_8px_rgba(99,102,241,0.5)]"></div>
-                                                                <span className="capitalize text-sm font-medium text-foreground/80 dark:text-foreground/80">{cat.category?.replace(/-/g, ' ')}</span>
-                                                            </div>
-                                                            <span className="text-sm font-bold text-foreground dark:text-foreground tabular-nums">{cat.count}</span>
-                                                        </div>
-                                                    ))
-                                                ) : (
-                                                    <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70 italic">Categorization feed empty...</p>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-
-                                {/* Recent Articles - View Only */}
-                                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
-                                    <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-5">
-                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground">Ledger of Recent Assets</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="p-8">
-                                        <div className="space-y-3">
-                                            {recentArticles.map((article: any) => (
-                                                <div
-                                                    key={article.id}
-                                                    className="flex items-center justify-between p-5 bg-card/50 dark:bg-card/50 border border-border/50 dark:border-border/50 hover:border-primary-500/30 rounded-2xl transition-all group"
-                                                >
-                                                    <div className="flex-1 min-w-0">
-                                                        <div className="flex items-center gap-3 mb-1.5">
-                                                            <h4 className="font-bold text-foreground dark:text-foreground tracking-tight truncate group-hover:text-primary-400 transition-colors">{article.title}</h4>
-                                                            {article.ai_generated && (
-                                                                <Badge className="bg-primary-500/10 text-primary-400 border border-primary-500/20 text-[9px] font-bold uppercase tracking-wider px-2">
-                                                                    <Sparkles className="w-3 h-3 mr-1" />
-                                                                    AI
-                                                                </Badge>
-                                                            )}
-                                                        </div>
-                                                        <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-[11px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">
-                                                            <span className="text-muted-foreground dark:text-muted-foreground">{article.category?.replace(/-/g, ' ')}</span>
-                                                            <span className="flex items-center gap-1.5">
-                                                                <Eye className="w-3.5 h-3.5" />
-                                                                {article.views || 0}
-                                                            </span>
-                                                            <div className={cn(
-                                                                "flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px]",
-                                                                article.status === 'published' ? 'bg-primary-500/10 text-primary-400' :
-                                                                article.status === 'draft' ? 'bg-accent-500/10 text-accent-400' :
-                                                                'bg-slate-500/10 text-muted-foreground dark:text-muted-foreground'
-                                                            )}>
-                                                                <div className={cn("w-1 h-1 rounded-full",
-                                                                    article.status === 'published' ? 'bg-primary-400' :
-                                                                    article.status === 'draft' ? 'bg-accent-400' :
-                                                                    'bg-slate-400'
-                                                                )} />
-                                                                {article.status}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <Button variant="ghost" size="icon" className="text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-foreground dark:text-foreground hover:bg-white/5 ml-4">
-                                                        <ArrowUpRight className="w-5 h-5" />
-                                                    </Button>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            </div>
-                        )}
-
-                        {/* Automation - Using AutomationControls Component */}
-                        {activeTab === 'automation' && (
-                            <AutomationControls />
-                        )}
-
-                        {/* Trends */}
-                        {activeTab === 'trends' && (
-                                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
-                                    <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
-                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground">Keyword Analytics Ledger</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="p-8">
-                                        <div className="space-y-4">
-                                            {Array.isArray(trends) && trends.map((trend: any, index: number) => (
-                                                <div key={index} className="flex items-center justify-between p-6 bg-card/50 dark:bg-card/50 border border-border/50 dark:border-border/50 hover:border-primary-500/30 rounded-2xl transition-all group">
-                                                    <div className="flex-1">
-                                                        <div className="font-bold text-foreground dark:text-foreground text-lg tracking-tight mb-1 group-hover:text-primary-400 transition-colors">{trend.keyword}</div>
-                                                        <div className="text-[11px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">Global Search Intensity: {(trend.volume ?? 0).toLocaleString()}</div>
-                                                    </div>
-                                                    <div className="flex items-center gap-8">
-                                                        <div className="text-right">
-                                                            <div className={`text-xl font-extrabold tabular-nums ${
-                                                                trend.trend === 'up' ? 'text-primary-400' : 'text-danger-400'
-                                                            }`}>
-                                                                {trend.trend === 'up' ? '+' : ''}{trend.change}%
-                                                            </div>
-                                                            <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">Momentum</div>
-                                                        </div>
-                                                        <div className={cn(
-                                                            "w-12 h-12 rounded-xl flex items-center justify-center shadow-lg transition-transform group-hover:scale-110",
-                                                            trend.trend === 'up' ? 'bg-primary-500/10' : 'bg-danger-500/10'
-                                                        )}>
-                                                            {trend.trend === 'up' ? (
-                                                                <ArrowUpRight className="w-6 h-6 text-primary-400" />
-                                                            ) : (
-                                                                <ArrowDownRight className="w-6 h-6 text-danger-400" />
-                                                            )}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                        )}
                     </div>
                 </div>
-            </div>
+            </AdminPageContainer>
             
             {/* Confirm Dialog for Rejecting Reviews */}
             <ConfirmDialog

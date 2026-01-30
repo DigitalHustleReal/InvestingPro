@@ -273,12 +273,17 @@ class AIService {
     /**
      * Generate content with automatic fallback, circuit breaker, and retry
      */
+    /**
+     * Generate content with automatic fallback, circuit breaker, and retry
+     * Enhanced with "Draft & Polish" tiering to save costs
+     */
     async generate(prompt: string, options?: {
         format?: 'text' | 'json';
         maxRetries?: number;
         articleId?: string;
         operation?: 'generate' | 'proofread' | 'translate' | 'summarize' | 'analyze' | 'other';
         skipBudgetCheck?: boolean;
+        tier?: 'draft' | 'precision';
     }): Promise<string> {
         this.ensureInitialized();
         const { 
@@ -286,117 +291,85 @@ class AIService {
             maxRetries = 3, 
             articleId,
             operation = 'generate',
-            skipBudgetCheck = false
+            skipBudgetCheck = false,
+            tier = 'precision'
         } = options || {};
         
-        // Check budget before generation (unless skipped)
+        // 1. Check budget before generation (unless skipped)
         if (this.budgetCheckEnabled && !skipBudgetCheck) {
             try {
                 const budgetStatus = await this.budgetGovernor.checkBudget();
                 if (!budgetStatus.canGenerate) {
-                    const errorMsg = `Budget exceeded: ${budgetStatus.reason || 'Daily limit reached'}`;
+                    const errorMsg = `Daily budget ($1.00) reached. Action: ${operation}. Reason: ${budgetStatus.reason || 'Limit exceeded'}`;
                     logger.warn(errorMsg);
                     throw new Error(errorMsg);
                 }
             } catch (error: any) {
-                // Only throw if it's a budget error, not a connection error
-                if (error.message?.includes('Budget exceeded')) {
-                    throw error;
-                }
-                // Log but continue if budget check fails (fail open)
-                logger.warn('Budget check failed, continuing with generation', error);
+                if (error.message?.includes('Daily budget')) throw error;
+                // FAIL-CLOSED: Stop if budget check fails radically
+                throw new Error("Budget verification failed. Circuit closed for safety.");
             }
         }
         
-        // Enforce JSON structure in prompt if requested
+        // 2. Tier Selection (Smart Model Routing)
+        // If 'draft' tier, we prefer Groq/Gemini. If 'precision', we use OpenAI.
+        let preferredProviders = [...this.providers];
+        if (tier === 'draft') {
+            // Sort to put cheapest first (Groq/Gemini)
+            preferredProviders.sort((a, b) => {
+                const cheapOnes = ['Groq', 'Gemini'];
+                if (cheapOnes.includes(a.name) && !cheapOnes.includes(b.name)) return -1;
+                if (!cheapOnes.includes(a.name) && cheapOnes.includes(b.name)) return 1;
+                return 0;
+            });
+        }
+        
+        // 3. Prompt Compression
+        // Remove known high-token roleplay blocks if the prompt is already long
         let finalPrompt = prompt;
+        if (finalPrompt.length > 5000) {
+            finalPrompt = finalPrompt.replace(/ROLE: You are "Vikram Mehta"[\s\S]*?(?=GOAL:)/, "ROLE: Senior Wealth Advisor (Vikram Mehta). Style: Authoritative, conversational, Indian context. ");
+        }
+
         if (format === 'json') {
-            finalPrompt += `\n\nCRITICAL INSTRUCTION: Return ONLY valid JSON. Do not use Markdown code blocks (no \`\`\`json). Do not add any conversational text. Start with { and end with }.`;
+            finalPrompt += `\n\nReturn Valid JSON only. No markdown.`;
         }
         
         let lastError: Error | null = null;
         const attemptedProviders: string[] = [];
         const startTime = Date.now();
 
-        // Try each provider in sequence with circuit breaker and retry
-        for (let i = 0; i < this.providers.length; i++) {
-            const provider = this.providers[this.currentProviderIndex];
+        // 4. Provider execution
+        for (const provider of preferredProviders) {
             const circuitBreaker = this.getCircuitBreaker(provider.name);
             
-            if (!provider.isAvailable()) {
-                this.moveToNextProvider();
-                continue;
-            }
-            
-            // Skip if circuit breaker is open
-            if (circuitBreaker.getState() === 'open') {
-                logger.info(`⏭️ Skipping ${provider.name} - circuit breaker open`);
-                this.moveToNextProvider();
-                continue;
-            }
+            if (!provider.isAvailable() || circuitBreaker.getState() === 'open') continue;
 
             const providerStartTime = Date.now();
             try {
-                logger.info(`Attempting generation with ${provider.name}...`);
+                logger.info(`Attempting ${tier} generation with ${provider.name}...`);
                 attemptedProviders.push(provider.name);
                 
-                // Use circuit breaker with retry logic
                 const response = await circuitBreaker.execute(async () => {
-                    return retry(
-                        () => provider.generate(finalPrompt),
-                        {
-                            maxRetries,
-                            delay: 1000,
-                            backoff: 'exponential',
-                            onRetry: (attempt, error) => {
-                                logger.info(`Retry ${attempt}/${maxRetries} for ${provider.name}: ${error.message}`);
-                            }
-                        }
-                    );
+                    return retry(() => provider.generate(finalPrompt), { maxRetries });
                 });
                 
-                // Validate JSON if required
-                if (format === 'json') {
-                    JSON.parse(response.content); // Will throw if invalid
-                }
+                if (format === 'json') JSON.parse(response.content);
                 
                 const duration = Date.now() - startTime;
-                const providerLatency = Date.now() - providerStartTime;
+                this.recordSuccess(provider.name, Date.now() - providerStartTime);
                 
-                // Record success metrics
-                this.recordSuccess(provider.name, providerLatency);
-                
-                logger.info(`✅ Successfully generated with ${provider.name} in ${duration}ms`);
-                
-                // Track cost asynchronously (don't block response)
-                this.trackCost(response, articleId, operation, duration).catch(err => {
-                    logger.warn('Failed to track AI cost', err);
-                });
+                this.trackCost(response, articleId, operation, duration).catch(e => logger.warn('Cost log fail', e));
                 
                 return response.content;
-                
             } catch (error: any) {
                 lastError = error;
-                
-                // Record error metrics
                 this.recordError(provider.name, error.message);
-                
-                // Check if circuit breaker opened
-                if (error.message === 'Circuit breaker is open') {
-                    logger.info(`⏭️ ${provider.name} circuit breaker is open, moving to next provider`);
-                } else {
-                    logger.warn(`❌ ${provider.name} failed:`, error.message);
-                }
-                
-                // Move to next provider
                 this.moveToNextProvider();
             }
         }
 
-        // All providers failed
-        const errorMsg = `All AI providers failed. Attempted: ${attemptedProviders.join(', ')}. Last error: ${lastError?.message}`;
-        logger.error(errorMsg);
-        throw new Error(errorMsg);
+        throw new Error(`All providers failed. Last: ${lastError?.message}`);
     }
     
     /**

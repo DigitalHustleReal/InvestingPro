@@ -125,6 +125,21 @@ export async function POST(request: NextRequest) {
     const localPath = await downloadAndSaveImage(imageUrl, product);
     console.log(`✅ Saved to: ${localPath}`);
     
+    // Log cost for dashboard visibility
+    try {
+      const { logAICost } = await import('@/lib/ai/cost-tracker');
+      await logAICost({
+        article_id: productId, // Using productId here for tracking
+        provider: 'openai',
+        model: 'dall-e-3',
+        operation: 'image',
+        cost_usd: 0.04,
+        metadata: { productName: product.name }
+      });
+    } catch (costErr) {
+      console.warn('⚠️ Failed to log image cost:', costErr);
+    }
+    
     // Update product in database
     const { error: updateError } = await supabase
       .from('products')

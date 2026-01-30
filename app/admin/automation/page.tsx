@@ -2,6 +2,7 @@
 
 import React from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
+import AdminPageContainer from '@/components/admin/AdminPageContainer';
 import AutomationControls from '@/components/admin/AutomationControls';
 import { CheckCircle2, XCircle, Clock, Zap, Rss, Play } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
@@ -104,13 +105,24 @@ export default function AutomationPage() {
                             </Link>
                         </div>
                     </ContentSection>
+
+                    <ContentSection title="Workflows" subtitle="Configure automation workflows">
+                        <div className="space-y-4">
+                            <p className="text-sm text-muted-foreground dark:text-muted-foreground">Create and manage workflow triggers, actions, and schedules.</p>
+                            <Link href="/admin/workflows">
+                                <button className="w-full px-4 py-3 bg-white/10 hover:bg-white/20 text-foreground dark:text-foreground rounded-xl text-sm font-medium border border-border dark:border-border transition-colors">
+                                    Open Workflows →
+                                </button>
+                            </Link>
+                        </div>
+                    </ContentSection>
                 </div>
 
                 {/* Automation Controls */}
                 <ContentSection title="Pipeline Controls" subtitle="Manage automation triggers and schedules">
                     <AutomationControls />
                 </ContentSection>
-            </div>
+            </AdminPageContainer>
         </AdminLayout>
     );
 }

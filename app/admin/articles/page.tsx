@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
+import AdminPageContainer from '@/components/admin/AdminPageContainer';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { apiClient as api } from '@/lib/api-client'; // Use client-safe API instead of articleService
 import { toast } from 'sonner';
@@ -111,7 +112,7 @@ export default function AdminArticlesPage() {
 
     return (
         <AdminLayout>
-            <div className="p-8">
+            <AdminPageContainer>
                 <DarkThemeCMS
                     articles={Array.isArray(articles) ? (articles as any[]) : []}
                     isLoading={isLoading}
@@ -128,7 +129,7 @@ export default function AdminArticlesPage() {
                     filterStatus={statusFilter}
                     onFilterChange={setStatusFilter}
                 />
-            </div>
+            </AdminPageContainer>
         </AdminLayout>
     );
 }

@@ -36,7 +36,11 @@ import {
     Mail,
     TrendingUp,
     Palette,
-    UserCheck
+    UserCheck,
+    Workflow,
+    Bot,
+    Database,
+    LineChart
 } from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
 
@@ -99,15 +103,16 @@ export const NAV_SECTIONS: Record<string, NavSection> = {
         items: [
             { label: 'Content Factory', href: '/admin/content-factory', icon: Factory },
             { label: 'Automation Hub', href: '/admin/automation', icon: Rss },
+            { label: 'Workflows', href: '/admin/workflows', icon: Workflow },
             { label: 'AI Personas', href: '/admin/ai-personas', icon: Users },
             { label: 'Pipeline Monitor', href: '/admin/pipeline-monitor', icon: Activity },
             { label: 'Review Queue', href: '/admin/review-queue', icon: CheckSquare },
         ],
     },
-    CMS: {
-        title: 'CMS',
+    PIPELINE: {
+        title: 'PIPELINE',
         items: [
-            { label: 'CMS Dashboard', href: '/admin/cms', icon: Sparkles },
+            { label: 'Pipeline Dashboard', href: '/admin/cms', icon: Sparkles },
             { label: 'Budget', href: '/admin/cms/budget', icon: Wallet },
             { label: 'Generation', href: '/admin/cms/generation', icon: PlayCircle },
             { label: 'Health', href: '/admin/cms/health', icon: HeartPulse },
@@ -120,6 +125,7 @@ export const NAV_SECTIONS: Record<string, NavSection> = {
             { label: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
             { label: 'Metrics', href: '/admin/metrics', icon: Activity },
             { label: 'SEO Health', href: '/admin/seo', icon: Activity },
+            { label: 'SEO Rankings', href: '/admin/seo/rankings', icon: BarChart3 },
             { label: 'Experiments', href: '/admin/seo/experiments', icon: FlaskConical },
         ],
     },
@@ -127,6 +133,7 @@ export const NAV_SECTIONS: Record<string, NavSection> = {
         title: 'MONETIZATION',
         items: [
             { label: 'Revenue Dashboard', href: '/admin/revenue', icon: DollarSign },
+            { label: 'Revenue Intelligence', href: '/admin/revenue/intelligence', icon: TrendingUp },
             { label: 'Product Catalog', href: '/admin/products', icon: Package },
             { label: 'Product Analytics', href: '/admin/product-analytics', icon: BarChart3 },
             { label: 'Affiliates', href: '/admin/affiliates', icon: DollarSign },
@@ -136,18 +143,24 @@ export const NAV_SECTIONS: Record<string, NavSection> = {
     SYSTEM: {
         title: 'SYSTEM',
         items: [
+            { label: 'Users', href: '/admin/users', icon: Users },
+            { label: 'Autonomy', href: '/admin/autonomy', icon: Bot },
             { label: 'Design System', href: '/admin/design-system', icon: Palette },
             { label: 'Editorial QA', href: '/admin/editorial-qa', icon: UserCheck },
             { label: 'Email Dashboard', href: '/admin/email-dashboard', icon: Mail },
             { label: 'Growth Dashboard', href: '/admin/growth-dashboard', icon: TrendingUp },
             { label: 'Performance', href: '/admin/performance-dashboard', icon: Activity },
             { label: 'Social Dashboard', href: '/admin/social-dashboard', icon: Users },
+            { label: 'Pipeline Health', href: '/admin/pipeline', icon: LineChart },
+            { label: 'Data Accuracy', href: '/admin/data-accuracy', icon: Database },
+            { label: 'Ops Health', href: '/admin/ops-health', icon: HeartPulse },
             { label: 'Scrapers', href: '/admin/scrapers', icon: Rss },
         ],
     },
     SETTINGS: {
         title: 'SETTINGS',
         items: [
+            { label: 'General', href: '/admin/settings', icon: Settings },
             { label: 'Secure Vault', href: '/admin/settings/vault', icon: Shield },
             { label: 'User Guide', href: '/admin/guide', icon: FileText },
         ],
@@ -184,6 +197,8 @@ export const CATEGORIES: Category[] = [
         paths: [
             '/admin/content-factory',
             '/admin/automation',
+            '/admin/automation/batch',
+            '/admin/workflows',
             '/admin/ai-personas',
             '/admin/pipeline-monitor',
             '/admin/review-queue',
@@ -191,10 +206,10 @@ export const CATEGORIES: Category[] = [
     },
     {
         id: 'cms',
-        label: 'CMS',
+        label: 'Pipeline',
         icon: Sparkles,
         defaultPath: '/admin/cms',
-        sections: ['CMS'],
+        sections: ['PIPELINE'],
         paths: [
             '/admin/cms',
             '/admin/cms/budget',
@@ -225,6 +240,7 @@ export const CATEGORIES: Category[] = [
         sections: ['MONETIZATION'],
         paths: [
             '/admin/revenue',
+            '/admin/revenue/intelligence',
             '/admin/products',
             '/admin/product-analytics',
             '/admin/affiliates',
@@ -238,12 +254,18 @@ export const CATEGORIES: Category[] = [
         defaultPath: '/admin/design-system',
         sections: ['SYSTEM'],
         paths: [
+            '/admin/users',
+            '/admin/autonomy',
+            '/admin/autonomy/settings',
             '/admin/design-system',
             '/admin/editorial-qa',
             '/admin/email-dashboard',
             '/admin/growth-dashboard',
             '/admin/performance-dashboard',
             '/admin/social-dashboard',
+            '/admin/pipeline',
+            '/admin/data-accuracy',
+            '/admin/ops-health',
             '/admin/scrapers',
         ],
     },
@@ -251,7 +273,7 @@ export const CATEGORIES: Category[] = [
         id: 'settings',
         label: 'Settings',
         icon: Settings,
-        defaultPath: '/admin/settings/vault',
+        defaultPath: '/admin/settings',
         sections: ['SETTINGS'],
         paths: [
             '/admin/settings',

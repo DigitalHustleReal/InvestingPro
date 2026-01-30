@@ -9,7 +9,7 @@ interface BreadcrumbItem {
     href?: string;
 }
 
-// Route to label mapping
+// Route to label mapping (full admin route coverage for breadcrumbs)
 const routeLabels: Record<string, string> = {
     'admin': 'Dashboard',
     'articles': 'Articles',
@@ -25,15 +25,40 @@ const routeLabels: Record<string, string> = {
     'review-queue': 'Review Queue',
     'content-calendar': 'Content Calendar',
     'analytics': 'Analytics',
-    'seo': 'SEO Health',
+    'metrics': 'Metrics',
+    'seo': 'SEO',
     'experiments': 'Experiments',
+    'rankings': 'Rankings',
     'products': 'Products',
     'affiliates': 'Affiliates',
     'ads': 'Ads',
+    'revenue': 'Revenue',
+    'intelligence': 'Intelligence',
     'settings': 'Settings',
     'vault': 'Secure Vault',
+    'guide': 'User Guide',
     'design-system': 'Design System',
     'users': 'Users',
+    'cms': 'CMS',
+    'budget': 'Budget',
+    'generation': 'Generation',
+    'health': 'Health',
+    'scrapers': 'Scrapers',
+    'workflows': 'Workflows',
+    'pipeline-monitor': 'Pipeline Monitor',
+    'ai-personas': 'AI Personas',
+    'ops-health': 'Ops Health',
+    'performance-dashboard': 'Performance',
+    'growth-dashboard': 'Growth',
+    'social-dashboard': 'Social',
+    'editorial-qa': 'Editorial QA',
+    'email-dashboard': 'Email',
+    'product-analytics': 'Product Analytics',
+    'autonomy': 'Autonomy',
+    'data-accuracy': 'Data Accuracy',
+    'pipeline': 'Pipeline Health',
+    'batch': 'Batch',
+    'intelligence': 'Intelligence',
 };
 
 export function AdminBreadcrumb() {
@@ -65,26 +90,19 @@ export function AdminBreadcrumb() {
     if (items.length <= 1) return null;
 
     return (
-        <nav className="flex items-center gap-1.5 text-sm mb-6" aria-label="Breadcrumb">
-            <Link 
-                href="/admin" 
-                className="flex items-center gap-1 text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-primary-600 transition-colors"
-            >
+        <nav className="flex items-center gap-1.5 text-sm text-admin-pro-text-muted" aria-label="Breadcrumb">
+            <Link href="/admin" className="hover:text-admin-pro-accent transition-colors">
                 <Home className="w-4 h-4" />
             </Link>
-            
             {items.slice(1).map((item, index) => (
                 <div key={index} className="flex items-center gap-1.5">
-                    <ChevronRight className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
+                    <ChevronRight className="w-3.5 h-3.5 text-admin-pro-text-dim" />
                     {item.href ? (
-                        <Link 
-                            href={item.href} 
-                            className="text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-primary-600 transition-colors"
-                        >
+                        <Link href={item.href} className="hover:text-admin-pro-accent transition-colors">
                             {item.label}
                         </Link>
                     ) : (
-                        <span className="text-slate-900 font-medium">{item.label}</span>
+                        <span className="text-admin-pro-text font-medium">{item.label}</span>
                     )}
                 </div>
             ))}

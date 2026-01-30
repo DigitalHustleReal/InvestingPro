@@ -2,6 +2,7 @@
 
 import React from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
+import AdminPageContainer from '@/components/admin/AdminPageContainer';
 import CMSSubNavigation from '@/components/admin/CMSSubNavigation';
 import BudgetGovernorPanel from '@/components/admin/BudgetGovernorPanel';
 import { Sparkles, DollarSign, Zap, Activity, Rss } from 'lucide-react';
@@ -51,15 +52,15 @@ export default function CMSDashboardPage() {
     return (
         <AdminLayout>
             <CMSSubNavigation />
-            <div className="p-8 space-y-8">
+            <AdminPageContainer>
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
                         <h1 className="text-3xl font-bold text-foreground dark:text-foreground mb-2 flex items-center gap-3">
                             <Sparkles className="w-8 h-8 text-primary-400" />
-                            CMS Dashboard
+                            Pipeline Dashboard
                         </h1>
-                        <p className="text-muted-foreground dark:text-muted-foreground">Monitor and manage the AI-powered content management system</p>
+                        <p className="text-muted-foreground dark:text-muted-foreground">Monitor and manage the AI-powered content pipeline</p>
                     </div>
                 </div>
 
@@ -201,7 +202,7 @@ export default function CMSDashboardPage() {
                         </Card>
                     </Link>
                 </div>
-            </div>
+            </AdminPageContainer>
         </AdminLayout>
     );
 }

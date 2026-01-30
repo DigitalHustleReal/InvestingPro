@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 
 interface ContextualSidebarProps {
-    activeTab: string;
+    activeTab?: string;
     onNavigate?: (section: string) => void;
 }
 
@@ -51,8 +51,8 @@ const SIDEBAR_SECTIONS = {
     ]
 };
 
-export default function AdminContextualSidebar({ activeTab, onNavigate }: ContextualSidebarProps) {
-    const sections = SIDEBAR_SECTIONS[activeTab as keyof typeof SIDEBAR_SECTIONS] || [];
+export default function AdminContextualSidebar({ activeTab = 'overview', onNavigate }: ContextualSidebarProps) {
+    const sections = SIDEBAR_SECTIONS[activeTab as keyof typeof SIDEBAR_SECTIONS] || SIDEBAR_SECTIONS.overview;
     const [activeSection, setActiveSection] = React.useState(sections[0]?.id);
 
     const handleNavigate = (sectionId: string) => {
@@ -67,27 +67,24 @@ export default function AdminContextualSidebar({ activeTab, onNavigate }: Contex
     };
 
     return (
-        <div className="sticky top-[120px] h-[calc(100vh-120px)] overflow-y-auto bg-surface-darkest dark:bg-surface-darkest/50 border-r border-border/50 dark:border-border/50 p-6">
-            <div className="space-y-2">
-                <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70 dark:text-muted-foreground/70 mb-4">
-                    {activeTab} Sections
-                </div>
+        <div className="h-full overflow-y-auto py-4 px-3 border-r border-admin-pro-border bg-admin-pro-sidebar/50">
+            <p className="text-[11px] font-medium text-admin-pro-text-muted uppercase tracking-wider mb-3 px-2">
+                On this page
+            </p>
+            <div className="space-y-0.5">
                 {sections.map((section) => {
                     const Icon = section.icon;
                     const isActive = activeSection === section.id;
-                    
                     return (
                         <button
                             key={section.id}
                             onClick={() => handleNavigate(section.id)}
                             className={cn(
-                                "w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all",
-                                isActive
-                                    ? "bg-primary-500/10 text-primary-400 border border-primary-500/20"
-                                    : "text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground hover:bg-white/5"
+                                "w-full flex items-center gap-2.5 px-3 py-2 rounded-md text-sm font-medium transition-colors text-left",
+                                isActive ? "bg-admin-pro-accent-subtle text-admin-pro-accent" : "text-admin-pro-text-muted hover:text-admin-pro-text hover:bg-admin-pro-surface"
                             )}
                         >
-                            <Icon className="w-4 h-4" />
+                            <Icon className="w-4 h-4 shrink-0" />
                             <span>{section.label}</span>
                         </button>
                     );

@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-01-30T15:59:16.585Z",
+  "tableCounts": {
+    "products": 460,
+    "articles": 154,
+    "categories": 19,
+    "newsletter_subscribers": 0,
+    "users": null
+  },
+  "extractionTest": "success",
+  "rto_ms": 4240,
+  "status": "passed"
+}

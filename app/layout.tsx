@@ -2,7 +2,7 @@ import { Inter, Outfit, Source_Serif_4, JetBrains_Mono } from "next/font/google"
 import { Suspense } from "react";
 import Script from "next/script";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
+import ConditionalTopBar from "@/components/layout/ConditionalTopBar";
 import { cn } from "@/lib/utils";
 import Analytics from "@/components/common/Analytics";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics"; // Import GA
@@ -160,7 +160,7 @@ export default async function RootLayout({
                     Skip to main content
                   </a>
 
-                  <Navbar initialConfig={navConfig} />
+                  <ConditionalTopBar initialConfig={navConfig} />
                   <main id="main-content" className="flex-grow" tabIndex={-1}>
                     <PageErrorBoundary pageName="Root Layout">
                       <ConditionalPublicElements>

@@ -31,40 +31,31 @@ export default function AdminCategoryHeaderNav({
     };
 
     return (
-        <div className="sticky top-0 z-30 bg-surface-darkest/95 dark:bg-surface-darkest/95 backdrop-blur-lg border-b border-border dark:border-border">
-            <div className="max-w-[1920px] mx-auto px-6">
-                <div className="flex items-center justify-end md:justify-center gap-1 overflow-x-auto scrollbar-hide py-3">
+        <div className="border-b border-admin-pro-border bg-admin-pro-bg">
+            <div className="max-w-[1600px] mx-auto px-4">
+                <nav className="flex items-center gap-0.5 overflow-x-auto scrollbar-hide py-2" aria-label="Sections">
                     {CATEGORIES.map((category) => {
                         const Icon = category.icon;
                         const isActive = currentCategory === category.id;
-                        
                         return (
                             <button
                                 key={category.id}
                                 onClick={() => handleCategoryClick(category.id)}
                                 className={cn(
-                                    "group relative flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
+                                    "flex items-center gap-2 px-4 py-2.5 rounded-md text-sm font-medium transition-colors whitespace-nowrap",
                                     isActive
-                                        ? "bg-primary-500/10 text-primary-400 border border-primary-500/20"
-                                        : "text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground hover:bg-white/5"
+                                        ? "bg-admin-pro-accent-subtle text-admin-pro-accent"
+                                        : "text-admin-pro-text-muted hover:text-admin-pro-text hover:bg-admin-pro-surface"
                                 )}
                                 aria-label={category.label}
                                 aria-current={isActive ? 'page' : undefined}
                             >
-                                <Icon className={cn(
-                                    "w-4 h-4 transition-transform",
-                                    isActive && "scale-110"
-                                )} />
-                                <span className="font-semibold">{category.label}</span>
-                                
-                                {/* Active indicator */}
-                                {isActive && (
-                                    <div className="absolute -bottom-[13px] left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary-500 shadow-[0_0_8px_#10b981]" />
-                                )}
+                                <Icon className="w-4 h-4 shrink-0" />
+                                <span>{category.label}</span>
                             </button>
                         );
                     })}
-                </div>
+                </nav>
             </div>
         </div>
     );

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
+import AdminPageContainer from '@/components/admin/AdminPageContainer';
 import { useQuery } from '@tanstack/react-query';
 import { createClient } from '@supabase/supabase-js';
 import { 
@@ -99,7 +100,7 @@ export default function ReviewQueuePage() {
 
     return (
         <AdminLayout>
-            <div className="p-8 space-y-8">
+            <AdminPageContainer>
                 <AdminPageHeader
                     title="Review Queue"
                     subtitle="Approve or request changes for pending articles"
@@ -253,7 +254,7 @@ export default function ReviewQueuePage() {
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
-            </div>
+            </AdminPageContainer>
         </AdminLayout>
     );
 }

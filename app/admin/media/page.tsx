@@ -5,6 +5,7 @@ import { MediaUploader } from '@/components/admin/media/MediaUploader';
 import { MediaLibrary } from '@/components/admin/media/MediaLibrary';
 import { AdminPageHeader, ContentSection, StatCard } from '@/components/admin/AdminUIKit';
 import AdminLayout from '@/components/admin/AdminLayout';
+import AdminPageContainer from '@/components/admin/AdminPageContainer';
 import { Toaster } from 'sonner';
 import { Image, Upload, HardDrive, FileImage } from 'lucide-react';
 
@@ -17,7 +18,7 @@ export default function MediaPage() {
 
     return (
         <AdminLayout>
-            <div className="p-8 space-y-8">
+            <AdminPageContainer>
                 <Toaster position="top-right" theme="dark" />
                 
                 <AdminPageHeader
@@ -67,7 +68,7 @@ export default function MediaPage() {
                         </ContentSection>
                     </div>
                 </div>
-            </div>
+            </AdminPageContainer>
         </AdminLayout>
     );
 }

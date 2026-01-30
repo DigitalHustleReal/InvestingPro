@@ -41,26 +41,27 @@ export class BudgetGovernorAgent extends BaseAgent {
             const { data: budgetData, error } = await this.supabase.rpc('check_daily_budget');
             
             if (error) {
-                logger.warn('BudgetGovernor: Failed to check budget', error);
-                // Default to allowing if check fails (fail open)
+                logger.error('BudgetGovernor: DB Error during budget check. TRIGGERING FAIL-CLOSED.', error);
+                // FAIL-CLOSED: Stop generation if we can't verify budget
                 return {
-                    canGenerate: true,
-                    tokensRemaining: 1000000,
-                    imagesRemaining: 100,
-                    costRemaining: 50,
-                    isPaused: false
+                    canGenerate: false,
+                    tokensRemaining: 0,
+                    imagesRemaining: 0,
+                    costRemaining: 0,
+                    isPaused: true,
+                    reason: 'CRITICAL: Budget verification system unavailable (Fail-Closed triggered)'
                 };
             }
             
             const budget = budgetData?.[0] || {
                 has_budget: true,
-                tokens_remaining: 1000000,
-                images_remaining: 100,
-                cost_remaining: 50,
+                tokens_remaining: 100000,
+                images_remaining: 20,
+                cost_remaining: 1.00,
                 is_paused: false
             };
             
-            // Check if we can generate (SQL returns has_budget, not can_generate)
+            // Check if we can generate
             let canGenerate = budget.has_budget as boolean;
             let reason: string | undefined;
             
@@ -78,6 +79,12 @@ export class BudgetGovernorAgent extends BaseAgent {
                 reason = `Insufficient budget. Need $${estimatedCost}, have $${budget.cost_remaining}`;
             }
             
+            // HARD CAP: If cost spent is > $1, prevent generation
+            if ((budget.max_cost_usd - budget.cost_remaining) >= 1.00) {
+                canGenerate = false;
+                reason = 'HARD LIMIT: Daily spend limit reached ($1.00/day)';
+            }
+            
             return {
                 canGenerate,
                 tokensRemaining: budget.tokens_remaining as number,
@@ -88,14 +95,14 @@ export class BudgetGovernorAgent extends BaseAgent {
             };
             
         } catch (error) {
-            logger.error('BudgetGovernor: Budget check failed', error as Error);
-            // Fail open - allow generation if check fails
+            logger.error('BudgetGovernor: Radical failure during budget check. FAIL-CLOSED.', error as Error);
             return {
-                canGenerate: true,
-                tokensRemaining: 1000000,
-                imagesRemaining: 100,
-                costRemaining: 50,
-                isPaused: false
+                canGenerate: false,
+                tokensRemaining: 0,
+                imagesRemaining: 0,
+                costRemaining: 0,
+                isPaused: true,
+                reason: 'CRITICAL: Budget governor failed radically (Fail-Closed triggered)'
             };
         }
     }
@@ -246,11 +253,11 @@ export class BudgetGovernorAgent extends BaseAgent {
                 };
             } else if (context.action === 'record') {
                 await this.recordCost(
-                    context.articleId,
-                    context.tokens,
-                    context.cost,
-                    context.provider,
-                    context.model,
+                    context.articleId || 'unknown',
+                    context.tokens || 0,
+                    context.cost || 0,
+                    context.provider || 'unknown',
+                    context.model || 'unknown',
                     context.images,
                     context.imageCost
                 );

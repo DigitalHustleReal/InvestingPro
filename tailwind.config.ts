@@ -148,35 +148,43 @@ const config: Config = {
                     darker: '#0f172a',    // Replaces bg-[#0f172a] 
                     darkest: '#0a0c10',   // Replaces bg-[#0a0c10]
                 },
-                // Admin Glassmorphism Theme (Replaces hardcoded hex values)
+                // Admin Glassmorphism Theme (legacy - kept for compatibility)
                 admin: {
-                    // Base surfaces
-                    'bg': '#0A0118',           // Main admin background (replaces #0A0118)
-                    'surface': '#1A1128',      // Card backgrounds (replaces #1A1128)
-                    'surface-hover': '#2D1B4E', // Hover state (replaces #2D1B4E)
-                    
-                    // Glass effects (use with backdrop-blur)
+                    'bg': '#0A0118',
+                    'surface': '#1A1128',
+                    'surface-hover': '#2D1B4E',
                     'glass': 'rgba(26, 17, 40, 0.8)',
                     'glass-border': 'rgba(139, 92, 246, 0.2)',
                     'glass-hover': 'rgba(45, 27, 78, 0.9)',
-                    
-                    // Text variants
                     'text': '#F8FAFC',
                     'text-muted': '#A78BFA',
                     'text-dim': '#6D5D8F',
-                    
-                    // Accent colors
-                    'accent': '#8B5CF6',        // Primary violet
-                    'accent-glow': '#A78BFA',   // Glow effect
-                    'accent-strong': '#7C3AED', // Darker accent
-                    
-                    // Borders
+                    'accent': '#8B5CF6',
+                    'accent-glow': '#A78BFA',
+                    'accent-strong': '#7C3AED',
                     'border': 'rgba(139, 92, 246, 0.3)',
                     'border-strong': 'rgba(139, 92, 246, 0.5)',
-                    
-                    // Input fields
                     'input': '#0F0A1A',
                     'input-focus': '#1A1128',
+                },
+                // Admin Pro - Clean SaaS dark theme (single accent, neutral base)
+                'admin-pro': {
+                    bg: '#09090b',
+                    sidebar: '#0f0f11',
+                    surface: '#18181b',
+                    'surface-hover': '#27272a',
+                    border: '#27272a',
+                    'border-light': '#3f3f46',
+                    text: '#fafafa',
+                    'text-muted': '#a1a1aa',
+                    'text-dim': '#71717a',
+                    accent: '#10b981',
+                    'accent-hover': '#059669',
+                    'accent-subtle': 'rgba(16, 185, 129, 0.12)',
+                    danger: '#ef4444',
+                    'danger-subtle': 'rgba(239, 68, 68, 0.12)',
+                    warning: '#f59e0b',
+                    'warning-subtle': 'rgba(245, 158, 11, 0.12)',
                 }
             },
             fontFamily: {
