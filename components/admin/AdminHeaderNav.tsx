@@ -16,10 +16,10 @@ export default function AdminHeaderNav() {
 
     return (
         <nav
-            className="sticky top-14 z-30 flex w-full border-b border-admin-pro-border bg-admin-pro-bg/95 backdrop-blur supports-[backdrop-filter]:bg-admin-pro-bg/80"
+            className="sticky top-14 z-30 flex w-full border-b border-admin-pro-border bg-admin-pro-bg"
             aria-label="Main navigation"
         >
-            <div className="mx-auto flex w-full max-w-[1600px] items-center gap-0.5 px-4 py-2.5 sm:px-6 lg:px-8">
+            <div className="mx-auto flex w-full max-w-[1600px] items-center gap-1 px-4 py-3 sm:px-6 lg:px-8">
                 {CATEGORIES.map((category) => {
                     const Icon = category.icon;
                     const isActive = activeCategory === category.id;
@@ -28,9 +28,9 @@ export default function AdminHeaderNav() {
                             key={category.id}
                             href={category.defaultPath}
                             className={cn(
-                                "flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors whitespace-nowrap",
+                                "flex items-center gap-2.5 rounded-lg px-3.5 py-2 text-sm font-medium transition-colors whitespace-nowrap",
                                 isActive
-                                    ? "bg-admin-pro-accent-subtle text-admin-pro-accent"
+                                    ? "bg-admin-pro-accent-subtle text-admin-pro-accent shadow-sm"
                                     : "text-admin-pro-text-muted hover:text-admin-pro-text hover:bg-admin-pro-surface"
                             )}
                             aria-current={isActive ? 'page' : undefined}

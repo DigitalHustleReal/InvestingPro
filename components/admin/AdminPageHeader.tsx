@@ -14,8 +14,8 @@ interface AdminPageHeaderProps {
      */
     actions?: ReactNode;
     /**
-     * Whether to show breadcrumbs
-     * @default true
+     * Whether to show breadcrumbs (layout already shows one; set true only if no layout breadcrumb)
+     * @default false
      */
     showBreadcrumbs?: boolean;
     /**
@@ -42,7 +42,7 @@ interface AdminPageHeaderProps {
 export default function AdminPageHeader({
     title,
     actions,
-    showBreadcrumbs = true,
+    showBreadcrumbs = false,
     children,
     className
 }: AdminPageHeaderProps) {

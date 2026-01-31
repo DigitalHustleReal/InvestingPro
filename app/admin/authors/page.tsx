@@ -33,7 +33,6 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from 'sonner';
-import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
 
 export default function AuthorsPage() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -146,9 +145,6 @@ export default function AuthorsPage() {
     return (
         <AdminLayout>
             <div className="min-h-screen text-foreground/95 dark:text-foreground/95 p-8 font-sans">
-                {/* Breadcrumb */}
-                <AdminBreadcrumb />
-                
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
                     <div className="flex items-center gap-4">

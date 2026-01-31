@@ -22,7 +22,6 @@ import {
     History,
     Settings
 } from 'lucide-react';
-import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
 import { WorkflowBuilder, WorkflowCondition, WorkflowAction } from '@/components/admin/WorkflowBuilder';
 import { TriggerType } from '@/lib/automation/workflow-triggers';
 import Link from 'next/link';
@@ -249,8 +248,6 @@ export default function WorkflowDetailPage() {
     return (
         <AdminLayout>
             <div className="min-h-screen p-8 font-sans">
-                <AdminBreadcrumb />
-                
                 {/* Header */}
                 <div className="flex items-center justify-between mb-10">
                     <div className="flex items-center gap-4">

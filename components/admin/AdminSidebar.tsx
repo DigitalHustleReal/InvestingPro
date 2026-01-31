@@ -15,11 +15,14 @@ export default function AdminSidebar() {
     const navSections = getCategorySections(activeCategory);
 
     return (
-        <div className="h-full flex flex-col py-4">
-            <nav className="flex-1 overflow-y-auto px-3 space-y-6" aria-label="Main navigation">
-                {navSections.map((section) => (
+        <div className="h-full flex flex-col py-5">
+            <nav className="flex-1 overflow-y-auto px-3 space-y-7" aria-label="Main navigation">
+                {navSections.map((section, sectionIndex) => (
                     <div key={section.title}>
-                        <h3 className="text-[11px] font-medium text-admin-pro-text-muted uppercase tracking-wider mb-2 px-3">
+                        {sectionIndex > 0 && (
+                            <div className="mb-3 mt-1 border-t border-admin-pro-border" aria-hidden="true" />
+                        )}
+                        <h3 className="text-[11px] font-semibold text-admin-pro-text-muted uppercase tracking-wider mb-2.5 px-3">
                             {section.title}
                         </h3>
                         <ul className="space-y-0.5">
@@ -31,7 +34,7 @@ export default function AdminSidebar() {
                                         <Link
                                             href={item.href}
                                             className={cn(
-                                                "flex items-center gap-3 py-2 px-3 rounded-md text-sm font-medium transition-colors",
+                                                "flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors",
                                                 isActive
                                                     ? "bg-admin-pro-accent-subtle text-admin-pro-accent border-l-2 border-admin-pro-accent -ml-px pl-[11px]"
                                                     : "text-admin-pro-text-muted hover:text-admin-pro-text hover:bg-admin-pro-surface"
@@ -52,9 +55,9 @@ export default function AdminSidebar() {
                     </div>
                 ))}
             </nav>
-            <div className="mt-auto border-t border-admin-pro-border pt-4 px-3">
-                <div className="flex items-center gap-3 py-2 px-3 rounded-md bg-admin-pro-surface">
-                    <div className="w-9 h-9 rounded-lg bg-admin-pro-border flex items-center justify-center text-admin-pro-text-muted text-xs font-semibold">
+            <div className="mt-auto border-t border-admin-pro-border pt-4 px-3 pb-2">
+                <div className="flex items-center gap-3 py-2.5 px-3 rounded-lg bg-admin-pro-surface border border-admin-pro-border/50">
+                    <div className="w-9 h-9 rounded-lg bg-admin-pro-border flex items-center justify-center text-admin-pro-text-muted text-xs font-semibold shrink-0">
                         DH
                     </div>
                     <div className="min-w-0 flex-1">

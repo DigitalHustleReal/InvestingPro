@@ -17,8 +17,6 @@ import {
     BarChart3,
     Activity
 } from 'lucide-react';
-import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
-
 interface ArticleStats {
     draft: number;
     review: number;
@@ -128,8 +126,6 @@ export default function PipelineHealthPage() {
     return (
         <AdminLayout>
             <div className="min-h-screen p-8 font-sans">
-                <AdminBreadcrumb />
-                
                 {/* Header */}
                 <div className="flex items-center gap-4 mb-10">
                     <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 shadow-lg shadow-primary-500/25 flex items-center justify-center">

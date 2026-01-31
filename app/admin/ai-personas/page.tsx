@@ -20,8 +20,6 @@ import {
     BookOpen,
     BarChart3
 } from 'lucide-react';
-import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
-
 interface AIPersona {
     id: string;
     author: {
@@ -113,9 +111,6 @@ export default function AIPersonaDashboard() {
     return (
         <AdminLayout>
             <div className="h-full flex flex-col px-10 py-8">
-                {/* Breadcrumb */}
-                <AdminBreadcrumb />
-                
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 border-b border-border/50 dark:border-border/50 pb-8 mt-4">
                     <div>

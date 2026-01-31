@@ -20,8 +20,6 @@ import {
     TrendingUp,
     Gauge
 } from 'lucide-react';
-import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
-
 interface ProviderMetric {
     totalCalls: number;
     successCount: number;
@@ -122,8 +120,6 @@ export default function OpsHealthPage() {
     return (
         <AdminLayout>
             <div className="min-h-screen p-8 font-sans">
-                <AdminBreadcrumb />
-                
                 {/* Header */}
                 <div className="flex items-center justify-between mb-10">
                     <div className="flex items-center gap-4">

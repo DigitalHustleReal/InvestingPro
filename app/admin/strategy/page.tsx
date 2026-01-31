@@ -22,8 +22,6 @@ import {
     FileText,
     Lightbulb
 } from 'lucide-react';
-import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
-
 interface ContentGap {
     id: string;
     topic: string;
@@ -143,8 +141,6 @@ export default function ContentStrategyPage() {
     return (
         <AdminLayout>
             <div className="min-h-screen p-8 font-sans">
-                <AdminBreadcrumb />
-                
                 {/* Header */}
                 <div className="flex items-center justify-between mb-10">
                     <div className="flex items-center gap-4">

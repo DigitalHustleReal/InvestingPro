@@ -23,7 +23,6 @@ import {
     Zap,
     BarChart3
 } from 'lucide-react';
-import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
 import { ConfidenceIndicator, AutoPublishIndicator } from '@/components/admin/ConfidenceIndicator';
 import { AnomalySummary, RiskIndicator } from '@/components/admin/AnomalyBadge';
 import Link from 'next/link';
@@ -155,8 +154,6 @@ export default function AutonomyDashboardPage() {
     return (
         <AdminLayout>
             <div className="min-h-screen p-8 font-sans">
-                <AdminBreadcrumb />
-                
                 {/* Header */}
                 <div className="flex items-center justify-between mb-10">
                     <div className="flex items-center gap-4">

@@ -19,8 +19,6 @@ import {
     Calendar,
     BarChart3
 } from 'lucide-react';
-import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
-
 interface ScraperRun {
     id: string;
     scraper_id: string;
@@ -169,8 +167,6 @@ export default function DataAccuracyPage() {
     return (
         <AdminLayout>
             <div className="min-h-screen p-8 font-sans">
-                <AdminBreadcrumb />
-                
                 {/* Header */}
                 <div className="flex items-center justify-between mb-10">
                     <div className="flex items-center gap-4">

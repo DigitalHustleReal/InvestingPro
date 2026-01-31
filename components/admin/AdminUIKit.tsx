@@ -28,7 +28,7 @@ export function AdminPageHeader({
     icon: Icon,
     iconColor = 'teal',
     actions,
-    showBreadcrumb = true,
+    showBreadcrumb = false,
 }: AdminPageHeaderProps) {
     return (
         <div className="mb-8">

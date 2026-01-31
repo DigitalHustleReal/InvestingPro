@@ -8,6 +8,8 @@ interface LogoProps {
     size?: 'sm' | 'md' | 'lg';
     showText?: boolean;
     className?: string;
+    /** Override link href (e.g. "/admin" for admin header) */
+    href?: string;
 }
 
 /**
@@ -19,7 +21,8 @@ export default function Logo({
     variant = 'default', 
     size = 'md',
     showText = true,
-    className = '' 
+    className = '',
+    href = '/'
 }: LogoProps) {
     // Size variants
     const sizeClasses = {
@@ -55,9 +58,9 @@ export default function Logo({
 
     return (
         <Link 
-            href="/" 
+            href={href} 
             className={`flex items-center gap-2.5 group ${className}`}
-            aria-label="InvestingPro Home"
+            aria-label={href === '/admin' ? 'InvestingPro Admin – Dashboard' : 'InvestingPro Home'}
         >
             {/* Logo Icon - Abstract Growth Symbol (3 Ascending Bars) */}
             <div className={`relative flex items-center justify-center ${currentSize.logo} rounded-lg ${currentVariant.logoBg} shadow-sm transition-transform group-hover:scale-105 duration-300`}>

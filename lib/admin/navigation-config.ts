@@ -80,6 +80,13 @@ export interface BreadcrumbItem {
 // ============================================================================
 
 export const NAV_SECTIONS: Record<string, NavSection> = {
+    OVERVIEW: {
+        title: 'OVERVIEW',
+        items: [
+            { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+            { label: 'Content Calendar', href: '/admin/content-calendar', icon: Calendar },
+        ],
+    },
     CONTENT: {
         title: 'CONTENT',
         items: [
@@ -94,7 +101,6 @@ export const NAV_SECTIONS: Record<string, NavSection> = {
     PLANNING: {
         title: 'PLANNING',
         items: [
-            { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
             { label: 'Content Calendar', href: '/admin/content-calendar', icon: Calendar },
         ],
     },
@@ -154,7 +160,6 @@ export const NAV_SECTIONS: Record<string, NavSection> = {
             { label: 'Pipeline Health', href: '/admin/pipeline', icon: LineChart },
             { label: 'Data Accuracy', href: '/admin/data-accuracy', icon: Database },
             { label: 'Ops Health', href: '/admin/ops-health', icon: HeartPulse },
-            { label: 'Scrapers', href: '/admin/scrapers', icon: Rss },
         ],
     },
     SETTINGS: {
@@ -172,6 +177,14 @@ export const NAV_SECTIONS: Record<string, NavSection> = {
 // ============================================================================
 
 export const CATEGORIES: Category[] = [
+    {
+        id: 'overview',
+        label: 'Overview',
+        icon: LayoutDashboard,
+        defaultPath: '/admin',
+        sections: ['OVERVIEW'],
+        paths: ['/admin', '/admin/content-calendar'],
+    },
     {
         id: 'content',
         label: 'Content',
@@ -206,7 +219,7 @@ export const CATEGORIES: Category[] = [
     },
     {
         id: 'cms',
-        label: 'Pipeline',
+        label: 'CMS Pipeline',
         icon: Sparkles,
         defaultPath: '/admin/cms',
         sections: ['PIPELINE'],
@@ -266,7 +279,6 @@ export const CATEGORIES: Category[] = [
             '/admin/pipeline',
             '/admin/data-accuracy',
             '/admin/ops-health',
-            '/admin/scrapers',
         ],
     },
     {
@@ -288,25 +300,30 @@ export const CATEGORIES: Category[] = [
 // ============================================================================
 
 /**
- * Get the active category based on current pathname
+ * Get the active category based on current pathname.
+ * Uses most-specific match: /admin/articles -> content, not overview.
  */
 export function getActiveCategory(pathname: string | null): string {
-    if (!pathname) return 'content';
+    if (!pathname) return 'overview';
     
-    // Dashboard (root) defaults to 'content'
-    if (pathname === '/admin' || pathname === '/admin/') {
-        return 'content';
-    }
+    const normalized = pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
+    if (normalized === '/admin') return 'overview';
     
-    // Check each category's paths
+    let bestMatch: { categoryId: string; pathLength: number } | null = null;
+    
     for (const category of CATEGORIES) {
-        if (category.paths.some(path => pathname.startsWith(path))) {
-            return category.id;
+        for (const path of category.paths) {
+            if (path === '/admin') continue; // avoid matching /admin for everything
+            if (normalized === path || normalized.startsWith(path + '/')) {
+                const len = path.length;
+                if (!bestMatch || len > bestMatch.pathLength) {
+                    bestMatch = { categoryId: category.id, pathLength: len };
+                }
+            }
         }
     }
     
-    // Default to content if no match
-    return 'content';
+    return bestMatch?.categoryId ?? 'overview';
 }
 
 /**

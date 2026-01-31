@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/Button";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiClient as api } from '@/lib/api-client';
@@ -10,42 +8,31 @@ import { apiClient as api } from '@/lib/api-client';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
 import {
-    BarChart3,
     FileText,
     DollarSign,
-    Users,
-    TrendingUp,
     Eye,
     MousePointerClick,
     Star,
-    Sparkles,
-    CheckCircle2,
-    XCircle,
     Rss,
     Share2,
     Activity,
     Database,
     Zap,
+    TrendingUp,
     TrendingDown,
     ArrowUpRight,
     ArrowDownRight,
     RefreshCw,
     Play,
-    Pause,
     AlertCircle,
-    CheckCircle,
-    Clock,
-    Globe,
     Facebook,
     Twitter,
     Instagram,
     Linkedin,
-    Youtube,
-    LayoutDashboard
+    Youtube
 } from "lucide-react";
 import AdminLayout from "@/components/admin/AdminLayout";
 import AdminPageContainer from "@/components/admin/AdminPageContainer";
-import AdminContextualSidebar from "@/components/admin/AdminContextualSidebar";
 import { toast } from "sonner";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
 import AdvancedMetricsTable from "@/components/admin/AdvancedMetricsTable";
@@ -56,7 +43,6 @@ export default function AdminPage() {
     const [timeRange, setTimeRange] = useState('30d');
     const [rejectDialogOpen, setRejectDialogOpen] = useState(false);
     const [reviewToReject, setReviewToReject] = useState<string | null>(null);
-    const [contextualSidebarCollapsed, setContextualSidebarCollapsed] = useState(false);
     const queryClient = useQueryClient();
 
     // Optimized: Fetch aggregated stats via RPC
@@ -324,21 +310,8 @@ export default function AdminPage() {
         });
     }
 
-    // Contextual sidebar items for Analyze page
-    const contextualSidebarItems = [
-        { id: 'overview', label: 'Overview', icon: LayoutDashboard },
-        { id: 'performance', label: 'Performance', icon: BarChart3 },
-        { id: 'content', label: 'Content Stats', icon: FileText },
-        { id: 'automation', label: 'Automation', icon: Zap },
-        { id: 'trends', label: 'Trends', icon: TrendingUp },
-    ];
-
     return (
-        <AdminLayout
-            contextualSidebar={
-                <AdminContextualSidebar activeTab="overview" />
-            }
-        >
+        <AdminLayout>
             <AdminPageContainer noPaddingY className="h-full flex flex-col">
                 <div className="pb-6 border-b border-admin-pro-border">
                     {(scraperStatus.status === 'idle' || pipelineStatus.failed > 3) && (
@@ -351,7 +324,7 @@ export default function AdminPage() {
                                     {pipelineStatus.failed > 3 && `${pipelineStatus.failed} pipeline failures detected.`}
                                 </p>
                             </div>
-                            <Button size="sm" variant="outline" className="border-admin-pro-danger/50 text-admin-pro-danger hover:bg-admin-pro-danger-subtle shrink-0 rounded-md" onClick={() => router.push(pipelineStatus.failed > 3 ? '/admin/pipeline-monitor' : '/admin/cms/health')}>
+                            <Button size="sm" className="shrink-0 rounded-md bg-admin-pro-accent hover:bg-admin-pro-accent-hover text-white font-medium border-0" onClick={() => router.push(pipelineStatus.failed > 3 ? '/admin/pipeline-monitor' : '/admin/cms/health')}>
                                 View details
                             </Button>
                         </div>
@@ -363,10 +336,9 @@ export default function AdminPage() {
                             <p className="text-sm text-admin-pro-text-muted mt-0.5">Key metrics and system status.</p>
                         </div>
                         <Button
-                            variant="outline"
                             size="sm"
                             onClick={() => { queryClient.invalidateQueries(); toast.success('Metrics refreshed.'); }}
-                            className="border-admin-pro-border text-admin-pro-text-muted hover:bg-admin-pro-surface hover:text-admin-pro-text rounded-md"
+                            className="rounded-md border border-admin-pro-border bg-admin-pro-surface text-admin-pro-text hover:bg-admin-pro-surface-hover font-medium"
                             aria-label="Refresh metrics"
                         >
                             <RefreshCw className="w-4 h-4 mr-2" />
@@ -490,7 +462,7 @@ export default function AdminPage() {
                                         </div>
                                     ))}
                                 </div>
-                                <Button size="sm" variant="outline" className="w-full border-admin-pro-border text-admin-pro-text-muted hover:bg-admin-pro-surface-hover hover:text-admin-pro-text rounded-md h-9 font-medium">
+                                <Button size="sm" className="w-full rounded-md h-9 font-medium border border-admin-pro-border bg-admin-pro-surface text-admin-pro-text hover:bg-admin-pro-surface-hover">
                                     <RefreshCw className="w-4 h-4 mr-2" />
                                     Sync feeds
                                 </Button>
@@ -499,263 +471,179 @@ export default function AdminPage() {
                     </div>
 
                     {/* Main Content - Dashboard overview */}
-                    <div className="space-y-6">
+                    <div className="space-y-8">
+                        {/* Section: Omnichannel & Intelligence */}
                         <div className="space-y-6">
-                                {/* Social Media Metrics */}
-                                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
-                        <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
-                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
-                                <div className="w-8 h-8 rounded-lg bg-secondary-500/10 flex items-center justify-center">
-                                    <Share2 className="w-4 h-4 text-secondary-400" />
-                                </div>
-                                Omnichannel Presence
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent className="p-8">
-                            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                                {socialMetrics.facebook && (
-                                    <div className="text-center p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-2xl hover:bg-accent/5 dark:bg-accent/5 transition-colors group">
-                                        <Facebook className="w-6 h-6 text-secondary-500 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                                        <div className="text-2xl font-bold text-foreground dark:text-foreground tabular-nums mb-1">{(socialMetrics.facebook?.followers ?? 0).toLocaleString()}</div>
-                                        <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider mb-2">Followers</div>
-                                        <div className="text-[10px] font-bold text-primary-400 bg-primary-400/10 px-2 py-0.5 rounded-full inline-block">
-                                            +{socialMetrics.facebook.engagement}% Engagement
+                            <h2 className="text-xs font-semibold text-admin-pro-text-muted uppercase tracking-wider">Channels & intelligence</h2>
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                {/* Social / Omnichannel */}
+                                <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface overflow-hidden">
+                                    <div className="px-5 py-4 border-b border-admin-pro-border flex items-center gap-3">
+                                        <div className="w-9 h-9 rounded-lg bg-admin-pro-border flex items-center justify-center">
+                                            <Share2 className="w-4 h-4 text-admin-pro-text-muted" />
                                         </div>
+                                        <span className="text-sm font-medium text-admin-pro-text">Omnichannel presence</span>
                                     </div>
-                                )}
-                                {socialMetrics.twitter && (
-                                    <div className="text-center p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-2xl hover:bg-accent/5 dark:bg-accent/5 transition-colors group">
-                                        <Twitter className="w-6 h-6 text-secondary-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                                        <div className="text-2xl font-bold text-foreground dark:text-foreground tabular-nums mb-1">{(socialMetrics.twitter?.followers ?? 0).toLocaleString()}</div>
-                                        <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider mb-2">Followers</div>
-                                        <div className="text-[10px] font-bold text-primary-400 bg-primary-400/10 px-2 py-0.5 rounded-full inline-block">
-                                            +{socialMetrics.twitter.engagement}% Engagement
-                                        </div>
-                                    </div>
-                                )}
-                                {socialMetrics.linkedin && (
-                                    <div className="text-center p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-2xl hover:bg-accent/5 dark:bg-accent/5 transition-colors group">
-                                        <Linkedin className="w-6 h-6 text-secondary-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                                        <div className="text-2xl font-bold text-foreground dark:text-foreground tabular-nums mb-1">{(socialMetrics.linkedin?.followers ?? 0).toLocaleString()}</div>
-                                        <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider mb-2">Followers</div>
-                                        <div className="text-[10px] font-bold text-primary-400 bg-primary-400/10 px-2 py-0.5 rounded-full inline-block">
-                                            +{socialMetrics.linkedin.engagement}% Engagement
-                                        </div>
-                                    </div>
-                                )}
-                                {socialMetrics.instagram && (
-                                    <div className="text-center p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-2xl hover:bg-accent/5 dark:bg-accent/5 transition-colors group">
-                                        <Instagram className="w-6 h-6 text-danger-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                                        <div className="text-2xl font-bold text-foreground dark:text-foreground tabular-nums mb-1">{(socialMetrics.instagram?.followers ?? 0).toLocaleString()}</div>
-                                        <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider mb-2">Followers</div>
-                                        <div className="text-[10px] font-bold text-primary-400 bg-primary-400/10 px-2 py-0.5 rounded-full inline-block">
-                                            +{socialMetrics.instagram.engagement}% Engagement
-                                        </div>
-                                    </div>
-                                )}
-                                {socialMetrics.youtube && (
-                                    <div className="text-center p-6 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-2xl hover:bg-accent/5 dark:bg-accent/5 transition-colors group">
-                                        <Youtube className="w-6 h-6 text-danger-500 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                                        <div className="text-2xl font-bold text-foreground dark:text-foreground tabular-nums mb-1">{(socialMetrics.youtube?.subscribers ?? 0).toLocaleString()}</div>
-                                        <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider mb-2">Subscribers</div>
-                                        <div className="text-[10px] font-bold text-foreground/80 dark:text-foreground/80 bg-white/5 px-2 py-0.5 rounded-full inline-block">
-                                            {(socialMetrics.youtube?.views ?? 0).toLocaleString()} Views
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </CardContent>
-                    </Card>
-
-                    {/* Trends */}
-                    <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
-                        <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
-                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
-                                <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
-                                    <TrendingUp className="w-4 h-4 text-primary-400" />
-                                </div>
-                                Intelligence Vectors
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent className="p-8">
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                {Array.isArray(trends) && trends.map((trend: any, index: number) => (
-                                    <div key={index} className="flex items-center justify-between p-5 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-2xl hover:border-primary-500/30 transition-all group">
-                                        <div className="flex-1">
-                                            <div className="font-bold text-foreground dark:text-foreground mb-1 group-hover:text-primary-400 transition-colors">{trend.keyword}</div>
-                                            <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">Velocity: {(trend.volume ?? 0).toLocaleString()}</div>
-                                        </div>
-                                        <div className="flex items-center gap-3">
-                                            <div className={`text-sm font-bold tabular-nums ${
-                                                trend.trend === 'up' ? 'text-primary-400' : 'text-danger-400'
-                                            }`}>
-                                                {trend.trend === 'up' ? '+' : ''}{trend.change}%
-                                            </div>
-                                            <div className={cn(
-                                                "w-8 h-8 rounded-lg flex items-center justify-center",
-                                                trend.trend === 'up' ? 'bg-primary-500/10' : 'bg-danger-500/10'
-                                            )}>
-                                                {trend.trend === 'up' ? (
-                                                    <ArrowUpRight className="w-4 h-4 text-primary-400" />
-                                                ) : (
-                                                    <ArrowDownRight className="w-4 h-4 text-danger-400" />
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </CardContent>
-                    </Card>
-
-                    {/* Content Snapshot */}
-                                <Card id="recent-activity" className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
-                                    <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-5">
-                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground">Content Snapshot</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="p-8">
-                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                                            <div className="p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50 text-center">
-                                                <div className="text-3xl font-extrabold text-foreground dark:text-foreground mb-1">{statsData?.total_articles ?? 0}</div>
-                                                <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">Grand Total</div>
-                                                <div className="mt-3 text-[10px] font-bold text-secondary-400">
-                                                    {statsData?.published_articles ?? 0} Published
-                                                </div>
-                                            </div>
-                                            <div className="p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50 text-center">
-                                                <div className="text-3xl font-extrabold text-foreground dark:text-foreground mb-1">{Number(totalViews ?? 0).toLocaleString()}</div>
-                                                <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">Total Impact</div>
-                                                <div className="mt-3 text-[10px] font-bold text-primary-400">
-                                                    Aggregate Views
-                                                </div>
-                                            </div>
-                                            <div className="p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50 text-center">
-                                                <div className="text-3xl font-extrabold text-foreground dark:text-foreground mb-1">{statsData?.ai_generated_articles ?? 0}</div>
-                                                <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">AI Synthesis</div>
-                                                <div className="mt-3 text-[10px] font-bold text-primary-400">
-                                                    Automated Drafts
-                                                </div>
-                                            </div>
-                                            <div className="p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50 text-center">
-                                                <div className="text-3xl font-extrabold text-accent-500 mb-1">{pendingArticlesCount ?? 0}</div>
-                                                <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">Moderation</div>
-                                                <div className="mt-3 text-[10px] font-bold text-accent-500/80">
-                                                    Pending Review
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-
-                                {/* Advanced Metrics Table - Research → Publish → Tracking → Income */}
-                                <AdvancedMetricsTable timeRange={timeRange as '7d' | '30d' | '90d'} />
-
-                                {/* Revenue Attribution - Top Money-Making Articles */}
-                                <Card className="bg-gradient-to-br from-success-500/5 to-success-600/5 border-success-500/20 rounded-2xl overflow-hidden">
-                                    <CardHeader className="border-b border-success-500/10 px-8 py-5">
-                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-success-400 flex items-center justify-between">
-                                            <span className="flex items-center gap-2">
-                                                <DollarSign className="w-4 h-4" />
-                                                Top Revenue-Generating Content
-                                            </span>
-                                            <Badge className="bg-success-500/20 text-success-400 border-success-500/30">
-                                                High Impact
-                                            </Badge>
-                                        </CardTitle>
-                                </CardHeader>
-                                    <CardContent className="p-8">
-                                        <div className="space-y-4">
-                                            {/* Top 5 Articles by Revenue */}
-                                            {recentArticles.slice(0, 5).map((article: any, index: number) => (
-                                                <div key={article.id} className="flex items-center justify-between p-5 bg-card dark:bg-card border border-border/50 dark:border-border/50 rounded-xl hover:border-success-500/30 transition-all group">
-                                                    <div className="flex items-center gap-4 flex-1">
-                                                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-foreground dark:text-foreground ${
-                                                            index === 0 ? 'bg-success-500' : 
-                                                            index === 1 ? 'bg-success-600' : 
-                                                            'bg-white/10'
-                                                        }`}>
-                                                            {index + 1}
-                                                        </div>
-                                                        <div className="flex-1">
-                                                            <div className="font-medium text-foreground dark:text-foreground group-hover:text-success-400 transition-colors truncate max-w-md">
-                                                                {article.title}
-                                                            </div>
-                                                            <div className="flex items-center gap-4 mt-1">
-                                                                <span className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
-                                                                    {(article.views ?? 0).toLocaleString()} views
-                                                                </span>
-                                                                <Badge variant="outline" className="text-[10px] border-border/70 dark:border-border/70 text-muted-foreground dark:text-muted-foreground capitalize">
-                                                                    {article.category || 'general'}
-                                                                </Badge>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="text-right">
-                                                        <div className="text-2xl font-bold text-success-400 tabular-nums">
-                                                            —
-                                                        </div>
-                                                        <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">
-                                                            Revenue (connect analytics)
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                            
-                                            {recentArticles.length === 0 && (
-                                                <div className="text-center py-12">
-                                                    <DollarSign className="w-12 h-12 text-muted-foreground/50 dark:text-muted-foreground/50 mx-auto mb-4" />
-                                                    <p className="text-muted-foreground dark:text-muted-foreground">No revenue data available yet</p>
+                                    <div className="p-5">
+                                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                            {socialMetrics.facebook && (
+                                                <div className="text-center p-4 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50">
+                                                    <Facebook className="w-5 h-5 text-admin-pro-text-muted mx-auto mb-2" />
+                                                    <div className="text-lg font-semibold text-admin-pro-text tabular-nums">{(socialMetrics.facebook?.followers ?? 0).toLocaleString()}</div>
+                                                    <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider">Followers</div>
                                                 </div>
                                             )}
+                                            {socialMetrics.twitter && (
+                                                <div className="text-center p-4 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50">
+                                                    <Twitter className="w-5 h-5 text-admin-pro-text-muted mx-auto mb-2" />
+                                                    <div className="text-lg font-semibold text-admin-pro-text tabular-nums">{(socialMetrics.twitter?.followers ?? 0).toLocaleString()}</div>
+                                                    <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider">Followers</div>
+                                                </div>
+                                            )}
+                                            {socialMetrics.linkedin && (
+                                                <div className="text-center p-4 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50">
+                                                    <Linkedin className="w-5 h-5 text-admin-pro-text-muted mx-auto mb-2" />
+                                                    <div className="text-lg font-semibold text-admin-pro-text tabular-nums">{(socialMetrics.linkedin?.followers ?? 0).toLocaleString()}</div>
+                                                    <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider">Followers</div>
+                                                </div>
+                                            )}
+                                            {socialMetrics.instagram && (
+                                                <div className="text-center p-4 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50">
+                                                    <Instagram className="w-5 h-5 text-admin-pro-text-muted mx-auto mb-2" />
+                                                    <div className="text-lg font-semibold text-admin-pro-text tabular-nums">{(socialMetrics.instagram?.followers ?? 0).toLocaleString()}</div>
+                                                    <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider">Followers</div>
+                                                </div>
+                                            )}
+                                            {socialMetrics.youtube && (
+                                                <div className="text-center p-4 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50">
+                                                    <Youtube className="w-5 h-5 text-admin-pro-text-muted mx-auto mb-2" />
+                                                    <div className="text-lg font-semibold text-admin-pro-text tabular-nums">{(socialMetrics.youtube?.subscribers ?? 0).toLocaleString()}</div>
+                                                    <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider">Subscribers</div>
+                                                </div>
+                                            )}
+                                            {!socialMetrics.facebook && !socialMetrics.twitter && !socialMetrics.linkedin && !socialMetrics.instagram && !socialMetrics.youtube && (
+                                                <div className="col-span-2 sm:col-span-3 text-center py-6 text-sm text-admin-pro-text-muted">Connect channels in Settings</div>
+                                            )}
                                         </div>
-                                    </CardContent>
-                                </Card>
-
-                                {/* System Performance Indicators */}
-                                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
-                                    <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-5">
-                                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground">System Performance Indicators</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="p-8">
-                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                            <div className="p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50 group hover:border-primary-500/30 transition-all">
-                                                <div className="flex items-center justify-between mb-4">
-                                                    <span className="text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest">Publication Rate</span>
-                                                    <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
-                                                        <FileText className="w-4 h-4 text-primary-400" />
-                                                    </div>
-                                                </div>
-                                                <div className="text-2xl font-extrabold text-foreground dark:text-foreground mb-1">
-                                                    {statsData?.articles_this_month ?? 0}
-                                                </div>
-                                                <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">Articles this cycle</div>
-                                            </div>
-                                            <div className="p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50 group hover:border-primary-500/30 transition-all">
-                                                <div className="flex items-center justify-between mb-4">
-                                                    <span className="text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest">Sentiment Stream</span>
-                                                    <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
-                                                        <Star className="w-4 h-4 text-primary-400" />
-                                                    </div>
-                                                </div>
-                                                <div className="text-2xl font-extrabold text-foreground dark:text-foreground mb-1">{reviews?.length ?? 0}</div>
-                                                <div className="text-[10px] font-bold text-primary-400 uppercase tracking-widest">
-                                                    {pendingReviewsCount ?? 0} Pending Node Analysis
-                                                </div>
-                                            </div>
-                                            <div className="p-6 bg-card dark:bg-card rounded-2xl border border-border/50 dark:border-border/50 group hover:border-primary-500/30 transition-all">
-                                                <div className="flex items-center justify-between mb-4">
-                                                    <span className="text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest">Monetization Velocity</span>
-                                                    <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center">
-                                                        <MousePointerClick className="w-4 h-4 text-primary-400" />
-                                                    </div>
-                                                </div>
-                                                <div className="text-2xl font-extrabold text-foreground dark:text-foreground mb-1">{(totalClicks ?? 0).toLocaleString()}</div>
-                                                <div className="text-[10px] font-bold text-primary-400 uppercase tracking-widest">{conversionRate ?? 0}% Conversion Efficiency</div>
-                                            </div>
+                                    </div>
+                                </div>
+                                {/* Trends / Intelligence Vectors */}
+                                <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface overflow-hidden">
+                                    <div className="px-5 py-4 border-b border-admin-pro-border flex items-center gap-3">
+                                        <div className="w-9 h-9 rounded-lg bg-admin-pro-accent-subtle flex items-center justify-center">
+                                            <TrendingUp className="w-4 h-4 text-admin-pro-accent" />
                                         </div>
-                                    </CardContent>
-                                </Card>
+                                        <span className="text-sm font-medium text-admin-pro-text">Intelligence vectors</span>
+                                    </div>
+                                    <div className="p-5">
+                                        <div className="space-y-2 max-h-[200px] overflow-y-auto">
+                                            {Array.isArray(trends) && trends.length > 0 ? trends.slice(0, 6).map((trend: any, index: number) => (
+                                                <div key={index} className="flex items-center justify-between py-2.5 px-3 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50">
+                                                    <span className="font-medium text-admin-pro-text truncate">{trend.keyword}</span>
+                                                    <span className={cn(
+                                                        "text-sm font-medium tabular-nums shrink-0 ml-2",
+                                                        trend.trend === 'up' ? 'text-admin-pro-accent' : 'text-admin-pro-danger'
+                                                    )}>
+                                                        {trend.trend === 'up' ? '+' : ''}{trend.change}%
+                                                    </span>
+                                                </div>
+                                            )) : (
+                                                <div className="text-center py-8 text-sm text-admin-pro-text-muted">No trend data yet</div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+
+                        {/* Section: Content snapshot */}
+                        <div className="space-y-4">
+                            <h2 className="text-xs font-semibold text-admin-pro-text-muted uppercase tracking-wider">Content snapshot</h2>
+                            <div id="recent-activity" className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface p-5 text-center">
+                                    <div className="text-2xl font-semibold text-admin-pro-text tabular-nums">{statsData?.total_articles ?? 0}</div>
+                                    <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider mt-1">Total articles</div>
+                                    <div className="text-xs text-admin-pro-text-muted mt-1">{statsData?.published_articles ?? 0} published</div>
+                                </div>
+                                <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface p-5 text-center">
+                                    <div className="text-2xl font-semibold text-admin-pro-text tabular-nums">{Number(totalViews ?? 0).toLocaleString()}</div>
+                                    <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider mt-1">Total views</div>
+                                </div>
+                                <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface p-5 text-center">
+                                    <div className="text-2xl font-semibold text-admin-pro-text tabular-nums">{statsData?.ai_generated_articles ?? 0}</div>
+                                    <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider mt-1">AI drafts</div>
+                                </div>
+                                <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface p-5 text-center">
+                                    <div className="text-2xl font-semibold text-admin-pro-accent tabular-nums">{pendingArticlesCount ?? 0}</div>
+                                    <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider mt-1">Pending review</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Section: Metrics & pipeline */}
+                        <div className="space-y-4">
+                            <h2 className="text-xs font-semibold text-admin-pro-text-muted uppercase tracking-wider">Metrics & pipeline</h2>
+                            <AdvancedMetricsTable timeRange={timeRange as '7d' | '30d' | '90d'} />
+                        </div>
+
+                        {/* Section: Revenue & performance */}
+                        <div className="space-y-6">
+                            <h2 className="text-xs font-semibold text-admin-pro-text-muted uppercase tracking-wider">Revenue & performance</h2>
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                {/* Top content by revenue */}
+                                <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface overflow-hidden">
+                                    <div className="px-5 py-4 border-b border-admin-pro-border flex items-center gap-3">
+                                        <div className="w-9 h-9 rounded-lg bg-admin-pro-accent-subtle flex items-center justify-center">
+                                            <DollarSign className="w-4 h-4 text-admin-pro-accent" />
+                                        </div>
+                                        <span className="text-sm font-medium text-admin-pro-text">Top revenue content</span>
+                                    </div>
+                                    <div className="p-5">
+                                        <div className="space-y-2">
+                                            {recentArticles.slice(0, 5).map((article: any, index: number) => (
+                                                <div key={article.id} className="flex items-center justify-between py-2.5 px-3 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50">
+                                                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                                                        <span className="w-6 h-6 rounded flex items-center justify-center text-xs font-medium bg-admin-pro-border text-admin-pro-text-muted shrink-0">
+                                                            {index + 1}
+                                                        </span>
+                                                        <span className="font-medium text-admin-pro-text truncate">{article.title}</span>
+                                                    </div>
+                                                    <span className="text-xs text-admin-pro-text-muted shrink-0 ml-2">{(article.views ?? 0).toLocaleString()} views</span>
+                                                </div>
+                                            ))}
+                                            {recentArticles.length === 0 && (
+                                                <div className="text-center py-8 text-sm text-admin-pro-text-muted">Connect analytics for revenue data</div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* Performance indicators */}
+                                <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface overflow-hidden">
+                                    <div className="px-5 py-4 border-b border-admin-pro-border flex items-center gap-3">
+                                        <div className="w-9 h-9 rounded-lg bg-admin-pro-border flex items-center justify-center">
+                                            <Activity className="w-4 h-4 text-admin-pro-text-muted" />
+                                        </div>
+                                        <span className="text-sm font-medium text-admin-pro-text">Performance</span>
+                                    </div>
+                                    <div className="p-5">
+                                        <div className="grid grid-cols-3 gap-3">
+                                            <div className="p-4 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50 text-center">
+                                                <div className="text-xl font-semibold text-admin-pro-text tabular-nums">{statsData?.articles_this_month ?? 0}</div>
+                                                <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider mt-1">This month</div>
+                                            </div>
+                                            <div className="p-4 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50 text-center">
+                                                <div className="text-xl font-semibold text-admin-pro-text tabular-nums">{pendingReviewsCount ?? 0}</div>
+                                                <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider mt-1">Pending reviews</div>
+                                            </div>
+                                            <div className="p-4 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50 text-center">
+                                                <div className="text-xl font-semibold text-admin-pro-text tabular-nums">{(totalClicks ?? 0).toLocaleString()}</div>
+                                                <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider mt-1">{conversionRate ?? 0}% conv.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </AdminPageContainer>

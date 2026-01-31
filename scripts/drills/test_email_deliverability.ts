@@ -8,8 +8,23 @@ dotenv.config({ path: path.join(process.cwd(), '.env.local') });
 async function testDeliverability() {
     console.log('📧 Starting Email Deliverability Test (Audit 16)...');
     
+    // Manual fallback: Read .env.local directly if env var is missing
     if (!process.env.RESEND_API_KEY) {
-        console.error('❌ Error: RESEND_API_KEY is missing from .env.local');
+        console.log('⚠️  RESEND_API_KEY not in process.env, attempting manual read...');
+        try {
+            const envContent = fs.readFileSync(path.join(process.cwd(), '.env.local'), 'utf-8');
+            const match = envContent.match(/RESEND_API_KEY=(.+)/);
+            if (match && match[1]) {
+                process.env.RESEND_API_KEY = match[1].trim();
+                console.log('✅ Found RESEND_API_KEY manually in .env.local');
+            }
+        } catch (e) {
+            console.warn('   Could not read .env.local manually');
+        }
+    }
+
+    if (!process.env.RESEND_API_KEY) {
+        console.error('❌ Error: RESEND_API_KEY is definitely missing.');
         process.exit(1);
     }
 

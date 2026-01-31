@@ -58,22 +58,22 @@ interface ContentCalendarData {
 const urgencyConfig = {
     publish_now: { 
         label: 'Publish Now', 
-        color: 'bg-red-100 text-red-700 border-red-200',
+        color: 'bg-admin-pro-danger-subtle text-admin-pro-danger border-admin-pro-danger/30',
         icon: AlertTriangle 
     },
     prepare: { 
         label: 'Prepare', 
-        color: 'bg-amber-100 text-amber-700 border-amber-200',
+        color: 'bg-admin-pro-warning-subtle text-admin-pro-warning border-admin-pro-warning/30',
         icon: Clock 
     },
     upcoming: { 
         label: 'Upcoming', 
-        color: 'bg-blue-100 text-blue-700 border-blue-200',
+        color: 'bg-admin-pro-accent-subtle text-admin-pro-accent border-admin-pro-accent/30',
         icon: Calendar 
     },
     future: { 
         label: 'Future', 
-        color: 'bg-slate-100 text-slate-700 border-slate-200',
+        color: 'bg-admin-pro-surface text-admin-pro-text-muted border-admin-pro-border',
         icon: Target 
     },
 };
@@ -119,14 +119,14 @@ export default function ContentCalendarWidget({
 
     if (loading) {
         return (
-            <Card className="animate-pulse">
+            <Card className="animate-pulse border-admin-pro-border bg-admin-pro-surface">
                 <CardHeader>
-                    <div className="h-6 bg-slate-200 rounded w-1/3" />
+                    <div className="h-6 bg-admin-pro-border rounded w-1/3" />
                 </CardHeader>
                 <CardContent>
                     <div className="space-y-3">
                         {[1, 2, 3].map(i => (
-                            <div key={i} className="h-20 bg-slate-100 rounded" />
+                            <div key={i} className="h-20 bg-admin-pro-border/50 rounded-xl" />
                         ))}
                     </div>
                 </CardContent>
@@ -179,30 +179,30 @@ export default function ContentCalendarWidget({
         );
     }
 
-    // Full variant
+    // Full variant – theme-aware (admin-pro)
     return (
         <div className="space-y-6">
             {/* Header with Theme */}
-            <Card className="bg-gradient-to-r from-slate-900 to-slate-800 text-white border-0">
-                <CardContent className="p-6">
+            <Card className="border-admin-pro-border bg-admin-pro-surface overflow-hidden">
+                <CardContent className="p-6 bg-gradient-to-br from-admin-pro-surface to-admin-pro-sidebar border-b border-admin-pro-border">
                     <div className="flex items-start justify-between">
                         <div>
-                            <Badge className="bg-white/20 text-white border-white/30 mb-3">
+                            <Badge className="bg-admin-pro-accent-subtle text-admin-pro-accent border-admin-pro-accent/30 mb-3">
                                 <Calendar className="w-3 h-3 mr-1" />
                                 Event-Aware CMS
                             </Badge>
-                            <h2 className="text-2xl font-bold mb-2">{data.currentTheme.theme}</h2>
+                            <h2 className="text-2xl font-bold text-admin-pro-text mb-2">{data.currentTheme.theme}</h2>
                             <div className="flex flex-wrap gap-2 mt-3">
                                 {data.currentTheme.suggestedFocus.map((focus, i) => (
-                                    <Badge key={i} variant="outline" className="border-white/30 text-white/80">
+                                    <Badge key={i} variant="outline" className="border-admin-pro-border text-admin-pro-text-muted">
                                         {focus.replace(/-/g, ' ')}
                                     </Badge>
                                 ))}
                             </div>
                         </div>
                         <div className="text-right">
-                            <p className="text-white/60 text-sm">Upcoming Events</p>
-                            <p className="text-3xl font-bold">{data.upcomingEvents.length}</p>
+                            <p className="text-admin-pro-text-muted text-sm">Upcoming Events</p>
+                            <p className="text-3xl font-bold text-admin-pro-text tabular-nums">{data.upcomingEvents.length}</p>
                         </div>
                     </div>
                 </CardContent>
@@ -210,9 +210,9 @@ export default function ContentCalendarWidget({
 
             {/* Critical Deadlines */}
             {data.criticalDeadlines.length > 0 && (
-                <Card className="border-red-200 bg-red-50">
+                <Card className="border-admin-pro-danger/30 bg-admin-pro-danger-subtle">
                     <CardHeader className="pb-2">
-                        <CardTitle className="text-lg flex items-center gap-2 text-red-700">
+                        <CardTitle className="text-lg flex items-center gap-2 text-admin-pro-danger">
                             <AlertTriangle className="w-5 h-5" />
                             Critical: Publish Now ({data.criticalDeadlines.length})
                         </CardTitle>
@@ -222,24 +222,24 @@ export default function ContentCalendarWidget({
                             {data.criticalDeadlines.map((item, i) => (
                                 <div 
                                     key={i} 
-                                    className="p-4 bg-white rounded-xl border border-red-200 hover:shadow-md transition-shadow"
+                                    className="p-4 bg-admin-pro-bg rounded-xl border border-admin-pro-border hover:border-admin-pro-danger/30 transition-colors"
                                 >
                                     <div className="flex items-start justify-between mb-2">
                                         <Badge className={urgencyConfig[item.urgency].color}>
                                             {urgencyConfig[item.urgency].label}
                                         </Badge>
-                                        <span className="text-xs text-red-600 font-medium">
+                                        <span className="text-xs text-admin-pro-danger font-medium tabular-nums">
                                             {item.daysUntilEvent}d to event
                                         </span>
                                     </div>
-                                    <h4 className="font-bold text-slate-900 mb-1">{item.suggestedTitle}</h4>
-                                    <p className="text-sm text-slate-500 mb-3">{item.event.name}</p>
+                                    <h4 className="font-semibold text-admin-pro-text mb-1">{item.suggestedTitle}</h4>
+                                    <p className="text-sm text-admin-pro-text-muted mb-3">{item.event.name}</p>
                                     <div className="flex items-center justify-between">
-                                        <Badge variant="outline" className="text-xs">
+                                        <Badge variant="outline" className="text-xs border-admin-pro-border text-admin-pro-text-muted">
                                             {item.articleCategory.replace(/-/g, ' ')}
                                         </Badge>
                                         <Link href={`/admin/articles/new?title=${encodeURIComponent(item.suggestedTitle)}&category=${item.articleCategory}`}>
-                                            <Button size="sm" className="h-7 bg-red-600 hover:bg-red-700">
+                                            <Button size="sm" className="h-7 bg-admin-pro-danger hover:bg-admin-pro-danger/90 text-white border-0">
                                                 <FileText className="w-3 h-3 mr-1" />
                                                 Create
                                             </Button>
@@ -253,10 +253,10 @@ export default function ContentCalendarWidget({
             )}
 
             {/* Weekly Plan */}
-            <Card>
+            <Card className="border-admin-pro-border bg-admin-pro-surface">
                 <CardHeader>
-                    <CardTitle className="text-lg flex items-center gap-2">
-                        <Calendar className="w-5 h-5 text-primary-500" />
+                    <CardTitle className="text-lg flex items-center gap-2 text-admin-pro-text">
+                        <Calendar className="w-5 h-5 text-admin-pro-accent" />
                         This Week's Content Plan
                     </CardTitle>
                 </CardHeader>
@@ -268,13 +268,13 @@ export default function ContentCalendarWidget({
                                 className={cn(
                                     "p-3 rounded-xl text-center border",
                                     day.suggestionsCount > 0 
-                                        ? "bg-primary-50 border-primary-200" 
-                                        : "bg-slate-50 border-slate-200"
+                                        ? "bg-admin-pro-accent-subtle border-admin-pro-accent/30" 
+                                        : "bg-admin-pro-surface border-admin-pro-border"
                                 )}
                             >
-                                <p className="text-xs font-semibold text-slate-500">{day.dayName}</p>
-                                <p className="text-lg font-bold text-slate-900">{day.suggestionsCount}</p>
-                                <p className="text-[10px] text-slate-400">articles</p>
+                                <p className="text-xs font-semibold text-admin-pro-text-muted">{day.dayName}</p>
+                                <p className="text-lg font-bold text-admin-pro-text tabular-nums">{day.suggestionsCount}</p>
+                                <p className="text-[10px] text-admin-pro-text-dim">articles</p>
                             </div>
                         ))}
                     </div>
@@ -287,6 +287,7 @@ export default function ContentCalendarWidget({
                     variant={selectedCategory === null ? "default" : "outline"}
                     size="sm"
                     onClick={() => setSelectedCategory(null)}
+                    className={selectedCategory === null ? 'bg-admin-pro-accent hover:bg-admin-pro-accent-hover text-white border-0' : 'border-admin-pro-border text-admin-pro-text-muted hover:bg-admin-pro-surface hover:text-admin-pro-text'}
                 >
                     All Categories
                 </Button>
@@ -296,6 +297,7 @@ export default function ContentCalendarWidget({
                         variant={selectedCategory === cat ? "default" : "outline"}
                         size="sm"
                         onClick={() => setSelectedCategory(cat)}
+                        className={selectedCategory === cat ? 'bg-admin-pro-accent hover:bg-admin-pro-accent-hover text-white border-0' : 'border-admin-pro-border text-admin-pro-text-muted hover:bg-admin-pro-surface hover:text-admin-pro-text'}
                     >
                         {cat.replace(/-/g, ' ')}
                     </Button>
@@ -303,10 +305,10 @@ export default function ContentCalendarWidget({
             </div>
 
             {/* All Suggestions */}
-            <Card>
+            <Card className="border-admin-pro-border bg-admin-pro-surface">
                 <CardHeader>
-                    <CardTitle className="text-lg flex items-center gap-2">
-                        <Sparkles className="w-5 h-5 text-primary-500" />
+                    <CardTitle className="text-lg flex items-center gap-2 text-admin-pro-text">
+                        <Sparkles className="w-5 h-5 text-admin-pro-accent" />
                         Content Suggestions
                     </CardTitle>
                 </CardHeader>
@@ -319,11 +321,11 @@ export default function ContentCalendarWidget({
                             return (
                                 <div 
                                     key={i}
-                                    className="flex items-center gap-4 p-4 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors"
+                                    className="flex items-center gap-4 p-4 bg-admin-pro-bg rounded-xl border border-admin-pro-border hover:border-admin-pro-border-light transition-colors"
                                 >
                                     <div className={cn(
                                         "w-10 h-10 rounded-xl flex items-center justify-center",
-                                        categoryColors[item.event.category] || 'bg-slate-500'
+                                        categoryColors[item.event.category] || 'bg-admin-pro-border'
                                     )}>
                                         <Icon className="w-5 h-5 text-white" />
                                     </div>
@@ -332,17 +334,17 @@ export default function ContentCalendarWidget({
                                             <Badge className={cn("text-[10px]", config.color)}>
                                                 {config.label}
                                             </Badge>
-                                            <Badge variant="outline" className="text-[10px]">
+                                            <Badge variant="outline" className="text-[10px] border-admin-pro-border text-admin-pro-text-muted">
                                                 {item.searchIntent}
                                             </Badge>
                                         </div>
-                                        <h4 className="font-semibold text-slate-900 truncate">{item.suggestedTitle}</h4>
-                                        <p className="text-xs text-slate-500">
+                                        <h4 className="font-semibold text-admin-pro-text truncate">{item.suggestedTitle}</h4>
+                                        <p className="text-xs text-admin-pro-text-muted">
                                             {item.event.name} • {item.daysUntilEvent}d until event
                                         </p>
                                     </div>
                                     <Link href={`/admin/articles/new?title=${encodeURIComponent(item.suggestedTitle)}&category=${item.articleCategory}`}>
-                                        <Button size="sm" variant="outline">
+                                        <Button size="sm" variant="outline" className="border-admin-pro-border text-admin-pro-text hover:bg-admin-pro-surface-hover">
                                             <Zap className="w-3 h-3 mr-1" />
                                             Create
                                         </Button>
@@ -355,34 +357,34 @@ export default function ContentCalendarWidget({
             </Card>
 
             {/* Upcoming Events Timeline */}
-            <Card>
+            <Card className="border-admin-pro-border bg-admin-pro-surface">
                 <CardHeader>
-                    <CardTitle className="text-lg flex items-center gap-2">
-                        <TrendingUp className="w-5 h-5 text-primary-500" />
+                    <CardTitle className="text-lg flex items-center gap-2 text-admin-pro-text">
+                        <TrendingUp className="w-5 h-5 text-admin-pro-accent" />
                         Upcoming Events (60 days)
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="space-y-3">
                         {data.upcomingEvents.slice(0, 8).map((event, i) => (
-                            <div key={i} className="flex items-center gap-4 p-3 border-l-4 border-primary-500 bg-slate-50 rounded-r-lg">
+                            <div key={i} className="flex items-center gap-4 p-3 rounded-r-xl border border-admin-pro-border border-l-4 border-l-admin-pro-accent bg-admin-pro-bg">
                                 <div className="text-center min-w-[60px]">
-                                    <p className="text-lg font-bold text-slate-900">
+                                    <p className="text-lg font-bold text-admin-pro-text tabular-nums">
                                         {new Date(event.date).getDate()}
                                     </p>
-                                    <p className="text-xs text-slate-500">
+                                    <p className="text-xs text-admin-pro-text-muted">
                                         {new Date(event.date).toLocaleDateString('en-IN', { month: 'short' })}
                                     </p>
                                 </div>
                                 <div className="flex-1">
-                                    <h4 className="font-semibold text-slate-900">{event.name}</h4>
+                                    <h4 className="font-semibold text-admin-pro-text">{event.name}</h4>
                                     <div className="flex items-center gap-2 mt-1">
-                                        <Badge variant="outline" className="text-[10px]">{event.category}</Badge>
+                                        <Badge variant="outline" className="text-[10px] border-admin-pro-border text-admin-pro-text-muted">{event.category}</Badge>
                                         <Badge className={cn(
                                             "text-[10px]",
-                                            event.priority === 'critical' ? 'bg-red-100 text-red-700' :
-                                            event.priority === 'high' ? 'bg-amber-100 text-amber-700' :
-                                            'bg-slate-100 text-slate-700'
+                                            event.priority === 'critical' ? 'bg-admin-pro-danger-subtle text-admin-pro-danger' :
+                                            event.priority === 'high' ? 'bg-admin-pro-warning-subtle text-admin-pro-warning' :
+                                            'bg-admin-pro-surface text-admin-pro-text-muted border-admin-pro-border'
                                         )}>
                                             {event.priority}
                                         </Badge>

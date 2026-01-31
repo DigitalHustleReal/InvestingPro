@@ -5,7 +5,6 @@ import { useParams, useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { createClient } from '@/lib/supabase/client';
 import AdminLayout from '@/components/admin/AdminLayout';
-import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
 import ReviewInterface from '@/components/admin/ReviewInterface';
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
@@ -111,10 +110,6 @@ export default function ReviewArticlePage() {
     return (
         <AdminLayout>
             <div className="h-[calc(100vh-64px)] overflow-hidden flex flex-col p-6">
-                <div className="mb-4">
-                    <AdminBreadcrumb />
-                </div>
-                
                 <ReviewInterface 
                     article={article} 
                     sourceData={pipelineData?.result || { note: "No connected pipeline data found." }}

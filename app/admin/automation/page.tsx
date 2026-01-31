@@ -28,6 +28,7 @@ export default function AutomationPage() {
 
     return (
         <AdminLayout>
+            <AdminPageContainer>
             <div className="p-8 space-y-8">
                 <AdminPageHeader
                     title="Automation Hub"
@@ -122,6 +123,7 @@ export default function AutomationPage() {
                 <ContentSection title="Pipeline Controls" subtitle="Manage automation triggers and schedules">
                     <AutomationControls />
                 </ContentSection>
+            </div>
             </AdminPageContainer>
         </AdminLayout>
     );

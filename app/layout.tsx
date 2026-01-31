@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import Script from "next/script";
 import "./globals.css";
 import ConditionalTopBar from "@/components/layout/ConditionalTopBar";
+import AdminShell from "@/components/layout/AdminShell";
 import { cn } from "@/lib/utils";
 import Analytics from "@/components/common/Analytics";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics"; // Import GA
@@ -17,6 +18,7 @@ import { CompareProvider } from "@/contexts/CompareContext";
 import CompareBar from "@/components/compare/CompareBar";
 import PerformanceMonitor from "@/components/performance/PerformanceMonitor";
 import { ConditionalPublicElements } from "@/components/common/ConditionalPublicElements";
+import { ConditionalPublicFloating } from "@/components/common/ConditionalPublicFloating";
 import ExitIntentPopup from "@/components/common/ExitIntentPopup";
 import WhatsAppButton from "@/components/common/WhatsAppButton";
 import OnboardingTrigger from "@/components/profile/OnboardingTrigger";
@@ -160,16 +162,20 @@ export default async function RootLayout({
                     Skip to main content
                   </a>
 
-                  <ConditionalTopBar initialConfig={navConfig} />
-                  <main id="main-content" className="flex-grow" tabIndex={-1}>
-                    <PageErrorBoundary pageName="Root Layout">
-                      <ConditionalPublicElements>
-                        {children}
-                      </ConditionalPublicElements>
-                    </PageErrorBoundary>
-                  </main>
-                  <CompareBar />
-                  
+                  <AdminShell>
+                    <ConditionalTopBar initialConfig={navConfig} />
+                    <main id="main-content" className="flex-grow" tabIndex={-1}>
+                      <PageErrorBoundary pageName="Root Layout">
+                        <ConditionalPublicElements>
+                          {children}
+                        </ConditionalPublicElements>
+                      </PageErrorBoundary>
+                    </main>
+                  </AdminShell>
+                  <ConditionalPublicFloating>
+                    <CompareBar />
+                    <WhatsAppButton />
+                  </ConditionalPublicFloating>
                   {/* 
                      AUTOMATED AFFILIATE SCRIPT (Cuelinks / Skimlinks)
                      Uncomment and add your ID here to auto-monetize 1000s of links
@@ -177,7 +183,6 @@ export default async function RootLayout({
                   {/* <script async src="https://cuelinks.com/js/..." /> */}
                   <Toaster />
                   <ExitIntentPopup variant="wizard" />
-                  <WhatsAppButton />
                   <OnboardingTrigger />
                 </NavigationProvider>
               </CompareProvider>

@@ -276,14 +276,14 @@
   .admin-pro-app [class*="bg-surface-darker"] {
     background-color: #18181b;
   }
-  .admin-pro-app section.rounded-xl.border {
+  .admin-pro-app [data-admin-section] {
     border: 1px solid #27272a;
     background-color: #18181b;
   }
-  .admin-pro-app section.rounded-xl.border h2 {
+  .admin-pro-app [data-admin-section] h2 {
     color: #fafafa;
   }
-  .admin-pro-app section.rounded-xl.border p.text-muted-foreground {
+  .admin-pro-app [data-admin-section] .text-muted-foreground {
     color: #a1a1aa;
   }
 
@@ -325,9 +325,7 @@
     border-color: rgba(239, 68, 68, 0.3);
   }
 
-  .admin-pro-app thead.bg-muted\/50 {
-    background-color: #18181b;
-  }
+  /* thead.bg-muted/50: same as .admin-pro-app thead above; avoid selector that could be mis-parsed as .hover\:bg-muted\/50:hoverthead */
   .admin-pro-app table {
     border-color: #27272a;
   }

@@ -2,7 +2,6 @@
 
 import React, { ReactNode, useState, useEffect } from 'react';
 import AdminSidebar from './AdminSidebar';
-import AdminHeaderNav from './AdminHeaderNav';
 import KeyboardShortcuts from './KeyboardShortcuts';
 import { AdminBreadcrumb } from './AdminBreadcrumb';
 import { Menu, X } from 'lucide-react';
@@ -59,7 +58,7 @@ export default function AdminLayout({
                 {/* Mobile menu button */}
                 <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    className="md:hidden fixed top-24 left-4 z-50 p-2.5 bg-admin-pro-surface border border-admin-pro-border rounded-lg text-admin-pro-text hover:bg-admin-pro-surface-hover transition-colors"
+                    className="md:hidden fixed top-[3.25rem] left-4 z-50 p-2.5 bg-admin-pro-surface border border-admin-pro-border rounded-lg text-admin-pro-text hover:bg-admin-pro-surface-hover transition-colors"
                     aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
                     aria-expanded={isMobileMenuOpen}
                 >
@@ -69,16 +68,7 @@ export default function AdminLayout({
                     <div className="md:hidden fixed inset-0 bg-black/60 z-40" onClick={() => setIsMobileMenuOpen(false)} aria-hidden="true" />
                 )}
 
-                {/* Layer 1: Header Nav – main groups */}
-                <AdminHeaderNav />
-
-                {/* Breadcrumb bar below header nav */}
-                <div className="sticky top-24 z-20 border-b border-admin-pro-border bg-admin-pro-bg shrink-0">
-                    <div className="max-w-[1600px] mx-auto px-4 py-2.5 sm:px-6 lg:px-8">
-                        <AdminBreadcrumb />
-                    </div>
-                </div>
-
+                {/* Main nav is now part of AdminTopBar (single header) */}
                 <div className="grid grid-cols-[auto_1fr] flex-1 overflow-hidden relative z-10">
                     <aside
                         className={cn(
@@ -94,6 +84,12 @@ export default function AdminLayout({
                     </aside>
 
                     <div className="col-span-1 flex flex-col overflow-hidden min-w-0">
+                        {/* Breadcrumb only in main content area – avoids overlap with sidebar */}
+                        <div className="sticky top-14 z-20 shrink-0 border-b border-admin-pro-border bg-admin-pro-bg">
+                            <div className="max-w-[1600px] mx-auto px-4 py-3 sm:px-6 lg:px-8">
+                                <AdminBreadcrumb />
+                            </div>
+                        </div>
                         <div className="flex-1 flex overflow-hidden">
                             {contextualSidebar && (
                                 <aside className="flex-shrink-0 w-[200px] border-r border-admin-pro-border bg-admin-pro-sidebar/50 overflow-y-auto">

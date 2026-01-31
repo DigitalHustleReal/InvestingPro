@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import Navbar from '@/components/layout/Navbar';
 import AdminTopBar from '@/components/admin/AdminTopBar';
@@ -12,16 +12,25 @@ interface ConditionalTopBarProps {
 
 /**
  * Renders public Navbar or admin AdminTopBar based on route.
- * Keeps CMS integrated (same app) but with a dedicated shell when in /admin
- * so it can later be standalone (e.g. different domain / white-label).
+ * Uses pathname + window fallback so admin always gets AdminTopBar (Logo, center text nav).
  */
 export default function ConditionalTopBar({ initialConfig }: ConditionalTopBarProps) {
   const pathname = usePathname();
-  const isAdmin = pathname?.startsWith('/admin') ?? false;
+  const lastAdminRef = useRef<boolean | null>(null);
+
+  const pathIsAdmin = pathname ? pathname.startsWith('/admin') : null;
+  if (pathIsAdmin !== null) lastAdminRef.current = pathIsAdmin;
+
+  const isAdmin =
+    pathIsAdmin === true ||
+    pathIsAdmin === false
+      ? pathIsAdmin
+      : lastAdminRef.current ??
+        (typeof window !== 'undefined' && window.location.pathname.startsWith('/admin'));
 
   if (isAdmin) {
-    return <AdminTopBar />;
+    return <AdminTopBar key="admin-top-bar" />;
   }
 
-  return <Navbar initialConfig={initialConfig} />;
+  return <Navbar key="navbar" initialConfig={initialConfig} />;
 }

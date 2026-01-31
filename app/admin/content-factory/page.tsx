@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/Button';
 import AdminLayout from '@/components/admin/AdminLayout';
-import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
 
 /**
  * CONTENT FACTORY - ADMIN AUTOMATION PAGE
@@ -88,9 +87,6 @@ export default function ContentFactoryPage() {
         <AdminLayout>
             <div className="min-h-screen text-foreground dark:text-foreground p-8">
                 <div className="max-w-6xl mx-auto space-y-8">
-                    {/* Breadcrumb */}
-                    <AdminBreadcrumb />
-                    
                     {/* Header */}
                     <div className="space-y-2">
                         <h1 className="text-4xl font-bold bg-gradient-to-r from-secondary-400 to-pink-400 bg-clip-text text-transparent">

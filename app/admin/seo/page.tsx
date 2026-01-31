@@ -9,8 +9,6 @@ import { Button } from '@/components/ui/Button';
 import { Activity, Search, CheckCircle2, AlertTriangle, XCircle, FileText, Loader2, RefreshCw } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
-import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
-
 interface ArticleSEOSummary {
     id: string;
     title: string;
@@ -62,9 +60,6 @@ export default function SEOHealthPage() {
     return (
         <AdminLayout>
             <div className="p-8 max-w-[1600px] mx-auto w-full">
-                {/* Breadcrumb */}
-                <AdminBreadcrumb />
-                
                 {/* Header */}
                 <div className="mb-10 border-b border-border/50 dark:border-border/50 pb-8">
                     <div className="flex items-center justify-between">

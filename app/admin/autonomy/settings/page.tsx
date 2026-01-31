@@ -19,7 +19,6 @@ import {
     ToggleRight,
     ChevronLeft
 } from 'lucide-react';
-import { AdminBreadcrumb } from '@/components/admin/AdminBreadcrumb';
 import Link from 'next/link';
 
 interface ThresholdSettings {
@@ -128,8 +127,6 @@ export default function AutonomySettingsPage() {
     return (
         <AdminLayout>
             <div className="min-h-screen p-8 font-sans">
-                <AdminBreadcrumb />
-                
                 {/* Header */}
                 <div className="flex items-center justify-between mb-10">
                     <div className="flex items-center gap-4">

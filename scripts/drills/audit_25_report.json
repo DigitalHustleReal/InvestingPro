@@ -1,0 +1,57 @@
+[
+  {
+    "check": "Homepage Availability",
+    "status": "FAIL",
+    "details": "Status: ERROR"
+  },
+  {
+    "check": "Protected File: .env",
+    "status": "PASS",
+    "details": "Status: ERROR"
+  },
+  {
+    "check": "Protected File: .env.local",
+    "status": "PASS",
+    "details": "Status: ERROR"
+  },
+  {
+    "check": "Protected File: .git/HEAD",
+    "status": "PASS",
+    "details": "Status: ERROR"
+  },
+  {
+    "check": "Protected File: .vscode/settings.json",
+    "status": "PASS",
+    "details": "Status: ERROR"
+  },
+  {
+    "check": "Protected File: package.json",
+    "status": "PASS",
+    "details": "Status: ERROR"
+  },
+  {
+    "check": "Protected File: backup.sql",
+    "status": "PASS",
+    "details": "Status: ERROR"
+  },
+  {
+    "check": "Protected File: scripts/drills/audit_17_report.json",
+    "status": "PASS",
+    "details": "Status: ERROR"
+  },
+  {
+    "check": "Admin Path: /admin",
+    "status": "PASS",
+    "details": "Protected (Status: ERROR)"
+  },
+  {
+    "check": "Admin Path: /dashboard",
+    "status": "PASS",
+    "details": "Protected (Status: ERROR)"
+  },
+  {
+    "check": "Admin Path: /cms",
+    "status": "PASS",
+    "details": "Protected (Status: 500)"
+  }
+]
