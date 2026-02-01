@@ -127,8 +127,7 @@ async function SubcategoryPageContent({
         );
     }
 
-    return <SubcategoryPageTemplate data={data} />;
-}
+    return <SubcategoryPageTemplate data={data!} />;}
 
 // Main Page Component
 async function CombinedSlugPageContent({ 
