@@ -85,21 +85,21 @@ export default function SemanticTitleGenerator({
             case 'question':
                 return 'bg-secondary-100 text-secondary-800 dark:bg-secondary-900 dark:text-secondary-200';
             case 'number':
-                return 'bg-success-100 text-success-800 dark:bg-success-900 dark:text-success-200';
+                return 'bg-wt-green-subtle text-wt-green bg-wt-green-subtle text-wt-green';
             case 'emotional':
-                return 'bg-secondary-100 text-secondary-800 dark:bg-primary-900 dark:text-secondary-200';
+                return 'bg-secondary-100 text-secondary-800 bg-wt-gold-subtle text-wt-gold';
             case 'power-word':
                 return 'bg-accent-100 text-accent-800 dark:bg-accent-900 dark:text-accent-200';
             default:
-                return 'bg-slate-100 text-slate-800 dark:bg-muted dark:bg-muted dark:text-foreground/90 dark:text-foreground/90';
+                return 'bg-wt-card text-slate-800 bg-wt-card text-wt-text';
         }
     };
 
     const getScoreColor = (score?: number) => {
-        if (!score) return 'text-muted-foreground/70 dark:text-muted-foreground/70';
-        if (score >= 80) return 'text-success-600 dark:text-success-400';
-        if (score >= 60) return 'text-accent-600 dark:text-accent-400';
-        return 'text-danger-600 dark:text-danger-400';
+        if (!score) return 'text-wt-text-muted/70 dark:text-wt-text-muted/70';
+        if (score >= 80) return 'text-wt-green dark:text-wt-green';
+        if (score >= 60) return 'text-wt-gold dark:text-accent-400';
+        return 'text-danger-600 dark:text-wt-danger';
     };
 
     // Sort variations by combined score (SEO + CTR)
@@ -119,8 +119,8 @@ export default function SemanticTitleGenerator({
             </CardHeader>
             <CardContent className="space-y-4">
                 {/* Original Title Display */}
-                <div className="p-6 md:p-8 bg-slate-50 dark:bg-muted dark:bg-muted rounded-lg">
-                    <Label className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mb-1">Original Title</Label>
+                <div className="p-6 md:p-8 bg-wt-surface-hover dark:bg-muted dark:bg-muted rounded-lg">
+                    <Label className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 mb-1">Original Title</Label>
                     <p className="font-medium">{originalTitle}</p>
                 </div>
 
@@ -157,15 +157,15 @@ export default function SemanticTitleGenerator({
                                         key={index}
                                         className={`p-4 border rounded-lg transition-all ${
                                             isSelected
-                                                ? 'border-secondary-500 bg-secondary-50 dark:bg-primary-950'
-                                                : 'border-slate-200 dark:border-border dark:border-border hover:border-secondary-300 hover:bg-slate-50 dark:hover:bg-muted dark:bg-muted'
+                                                ? 'border-wt-gold bg-wt-gold-subtle bg-wt-gold-subtle'
+                                                : 'border-wt-border dark:border-wt-border dark:border-wt-border hover:border-secondary-300 hover:bg-wt-surface-hover dark:hover:bg-muted dark:bg-muted'
                                         }`}
                                     >
                                         <div className="flex items-start justify-between gap-3">
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-2 mb-2">
                                                     <p
-                                                        className="font-medium cursor-pointer hover:text-primary-600 dark:hover:text-secondary-400"
+                                                        className="font-medium cursor-pointer hover:text-wt-gold dark:hover:text-wt-gold"
                                                         onClick={() => handleTitleClick(variation.title_text)}
                                                     >
                                                         {variation.title_text}
@@ -174,7 +174,7 @@ export default function SemanticTitleGenerator({
                                                         {variation.variation_type}
                                                     </Badge>
                                                 </div>
-                                                <div className="flex gap-4 text-xs text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">
+                                                <div className="flex gap-4 text-xs text-wt-text-muted/50 dark:text-wt-text-muted/50 dark:text-wt-text-muted dark:text-wt-text-muted">
                                                     {variation.seo_score !== undefined && (
                                                         <div className="flex items-center gap-1">
                                                             <TrendingUp className="w-3 h-3" />
@@ -207,7 +207,7 @@ export default function SemanticTitleGenerator({
                                                 className="shrink-0"
                                             >
                                                 {isCopied ? (
-                                                    <Check className="w-4 h-4 text-success-600" />
+                                                    <Check className="w-4 h-4 text-wt-green" />
                                                 ) : (
                                                     <Copy className="w-4 h-4" />
                                                 )}
@@ -222,7 +222,7 @@ export default function SemanticTitleGenerator({
                         {selectedTitle && (
                             <div className="pt-4 border-t">
                                 <Label>Selected Title</Label>
-                                <div className="p-3 bg-secondary-50 dark:bg-primary-950 rounded-lg mt-2">
+                                <div className="p-3 bg-wt-gold-subtle bg-wt-gold-subtle rounded-lg mt-2">
                                     <p className="font-medium">{selectedTitle}</p>
                                 </div>
                             </div>

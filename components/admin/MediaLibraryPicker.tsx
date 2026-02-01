@@ -253,7 +253,7 @@ export default function MediaLibraryPicker({
                 {...getRootProps()}
                 className={cn(
                     "max-w-4xl max-h-[80vh] flex flex-col",
-                    isDragActive && "bg-primary-50 border-primary-500"
+                    isDragActive && "bg-wt-gold-subtle border-wt-gold"
                 )}
             >
                 <input {...getInputProps()} />
@@ -270,7 +270,7 @@ export default function MediaLibraryPicker({
                     {/* Search and Upload */}
                     <div className="flex items-center gap-4 mb-4">
                         <div className="relative flex-1">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-wt-text-muted dark:text-wt-text-muted" />
                             <Input
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -310,15 +310,15 @@ export default function MediaLibraryPicker({
                     <div className="flex-1 overflow-y-auto">
                         {isLoading || uploading ? (
                             <div className="flex items-center justify-center py-12">
-                                <Loader2 className="w-8 h-8 animate-spin text-muted-foreground dark:text-muted-foreground" />
+                                <Loader2 className="w-8 h-8 animate-spin text-wt-text-muted dark:text-wt-text-muted" />
                             </div>
                         ) : filteredMedia.length === 0 ? (
                             <Card className="p-6 md:p-8 text-center">
-                                <ImageIcon className="w-12 h-12 text-muted-foreground dark:text-muted-foreground mx-auto mb-4" />
-                                <h3 className="text-lg font-semibold text-slate-900 mb-2">
+                                <ImageIcon className="w-12 h-12 text-wt-text-muted dark:text-wt-text-muted mx-auto mb-4" />
+                                <h3 className="text-lg font-semibold text-wt-text mb-2">
                                     {searchQuery ? 'No images found' : 'No images yet'}
                                 </h3>
-                                <p className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 mb-4">
+                                <p className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50 mb-4">
                                     {searchQuery
                                         ? 'Try adjusting your search'
                                         : 'Drag and drop an image here or click Upload to get started'}
@@ -347,23 +347,23 @@ export default function MediaLibraryPicker({
                                             )}
                                             onClick={() => handleSelect(item.url)}
                                         >
-                                            <div className="aspect-square bg-slate-100 relative overflow-hidden rounded-t-lg">
+                                            <div className="aspect-square bg-wt-card relative overflow-hidden rounded-t-lg">
                                                 <img
                                                     src={item.url}
                                                     alt={item.name}
                                                     className="w-full h-full object-cover"
                                                 />
                                                 {isSelected && (
-                                                    <div className="absolute inset-0 bg-primary-600/20 flex items-center justify-center">
-                                                        <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center">
-                                                            <Check className="w-5 h-5 text-foreground dark:text-foreground" />
+                                                    <div className="absolute inset-0 bg-wt-gold/20 flex items-center justify-center">
+                                                        <div className="w-8 h-8 bg-wt-gold rounded-full flex items-center justify-center">
+                                                            <Check className="w-5 h-5 text-wt-text dark:text-wt-text" />
                                                         </div>
                                                     </div>
                                                 )}
                                                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
                                             </div>
                                             <div className="p-2">
-                                                <p className="text-xs font-medium text-slate-900 truncate" title={item.name}>
+                                                <p className="text-xs font-medium text-wt-text truncate" title={item.name}>
                                                     {item.name}
                                                 </p>
                                             </div>

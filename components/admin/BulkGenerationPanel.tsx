@@ -58,10 +58,10 @@ export default function BulkGenerationPanel() {
     };
     
     return (
-        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl">
-            <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
-                <CardTitle className="text-lg font-bold text-foreground dark:text-foreground flex items-center gap-3">
-                    <Zap className="w-5 h-5 text-primary-400" />
+        <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl">
+            <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-6">
+                <CardTitle className="text-lg font-bold text-wt-text dark:text-wt-text flex items-center gap-3">
+                    <Zap className="w-5 h-5 text-wt-gold" />
                     Bulk Content Generation
                 </CardTitle>
             </CardHeader>
@@ -70,7 +70,7 @@ export default function BulkGenerationPanel() {
                     {/* Configuration */}
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-sm font-medium text-muted-foreground dark:text-muted-foreground mb-2">
+                            <label className="block text-sm font-medium text-wt-text-muted dark:text-wt-text-muted mb-2">
                                 Total Articles
                             </label>
                             <input
@@ -79,12 +79,12 @@ export default function BulkGenerationPanel() {
                                 max="1000"
                                 value={totalArticles}
                                 onChange={(e) => setTotalArticles(parseInt(e.target.value) || 1)}
-                                className="w-full px-4 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-foreground dark:text-foreground"
+                                className="w-full px-4 py-2 bg-muted dark:bg-muted border border-wt-border dark:border-wt-border rounded-lg text-wt-text dark:text-wt-text"
                             />
                         </div>
                         
                         <div>
-                            <label className="block text-sm font-medium text-muted-foreground dark:text-muted-foreground mb-2">
+                            <label className="block text-sm font-medium text-wt-text-muted dark:text-wt-text-muted mb-2">
                                 Batch Size
                             </label>
                             <input
@@ -93,12 +93,12 @@ export default function BulkGenerationPanel() {
                                 max="20"
                                 value={batchSize}
                                 onChange={(e) => setBatchSize(parseInt(e.target.value) || 1)}
-                                className="w-full px-4 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-foreground dark:text-foreground"
+                                className="w-full px-4 py-2 bg-muted dark:bg-muted border border-wt-border dark:border-wt-border rounded-lg text-wt-text dark:text-wt-text"
                             />
                         </div>
                         
                         <div>
-                            <label className="block text-sm font-medium text-muted-foreground dark:text-muted-foreground mb-2">
+                            <label className="block text-sm font-medium text-wt-text-muted dark:text-wt-text-muted mb-2">
                                 Parallel Batches
                             </label>
                             <input
@@ -107,12 +107,12 @@ export default function BulkGenerationPanel() {
                                 max="5"
                                 value={parallelBatches}
                                 onChange={(e) => setParallelBatches(parseInt(e.target.value) || 1)}
-                                className="w-full px-4 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-foreground dark:text-foreground"
+                                className="w-full px-4 py-2 bg-muted dark:bg-muted border border-wt-border dark:border-wt-border rounded-lg text-wt-text dark:text-wt-text"
                             />
                         </div>
                         
                         <div>
-                            <label className="block text-sm font-medium text-muted-foreground dark:text-muted-foreground mb-2">
+                            <label className="block text-sm font-medium text-wt-text-muted dark:text-wt-text-muted mb-2">
                                 Quality Threshold
                             </label>
                             <input
@@ -121,7 +121,7 @@ export default function BulkGenerationPanel() {
                                 max="100"
                                 value={qualityThreshold}
                                 onChange={(e) => setQualityThreshold(parseInt(e.target.value) || 80)}
-                                className="w-full px-4 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-foreground dark:text-foreground"
+                                className="w-full px-4 py-2 bg-muted dark:bg-muted border border-wt-border dark:border-wt-border rounded-lg text-wt-text dark:text-wt-text"
                             />
                         </div>
                     </div>
@@ -135,22 +135,22 @@ export default function BulkGenerationPanel() {
                             onChange={(e) => setUseParallel(e.target.checked)}
                             className="w-4 h-4"
                         />
-                        <label htmlFor="parallel" className="text-sm text-muted-foreground dark:text-muted-foreground">
+                        <label htmlFor="parallel" className="text-sm text-wt-text-muted dark:text-wt-text-muted">
                             Use parallel processing (faster but uses more resources)
                         </label>
                     </div>
                     
                     {/* Info */}
-                    <div className="bg-muted/50 dark:bg-muted/50 rounded-lg p-4 text-sm text-muted-foreground dark:text-muted-foreground">
+                    <div className="bg-wt-card dark:bg-wt-card rounded-lg p-4 text-sm text-wt-text-muted dark:text-wt-text-muted">
                         <p className="mb-2">
-                            <strong className="text-foreground dark:text-foreground">Estimated Time:</strong>{' '}
+                            <strong className="text-wt-text dark:text-wt-text">Estimated Time:</strong>{' '}
                             {useParallel 
                                 ? `${Math.ceil(totalArticles / (batchSize * parallelBatches)) * 2} minutes`
                                 : `${Math.ceil(totalArticles / batchSize) * 5} minutes`
                             }
                         </p>
                         <p>
-                            <strong className="text-foreground dark:text-foreground">Batches:</strong>{' '}
+                            <strong className="text-wt-text dark:text-wt-text">Batches:</strong>{' '}
                             {Math.ceil(totalArticles / batchSize)} batches
                             {useParallel && ` (${parallelBatches} in parallel)`}
                         </p>
@@ -160,7 +160,7 @@ export default function BulkGenerationPanel() {
                     <Button
                         onClick={handleGenerate}
                         disabled={bulkGenerate.isPending}
-                        className="w-full bg-primary-600 hover:bg-primary-700"
+                        className="w-full bg-wt-gold hover:bg-wt-gold-hover"
                         size="lg"
                     >
                         {bulkGenerate.isPending ? (
@@ -178,24 +178,24 @@ export default function BulkGenerationPanel() {
                     
                     {/* Results */}
                     {bulkGenerate.data && (
-                        <div className="mt-6 p-4 bg-muted/50 dark:bg-muted/50 rounded-lg">
-                            <h4 className="text-sm font-semibold text-foreground dark:text-foreground mb-3">Generation Results</h4>
+                        <div className="mt-6 p-4 bg-wt-card dark:bg-wt-card rounded-lg">
+                            <h4 className="text-sm font-semibold text-wt-text dark:text-wt-text mb-3">Generation Results</h4>
                             <div className="grid grid-cols-3 gap-4 text-sm">
                                 <div>
-                                    <p className="text-muted-foreground dark:text-muted-foreground">Generated</p>
-                                    <p className="text-foreground dark:text-foreground font-bold text-lg">
+                                    <p className="text-wt-text-muted dark:text-wt-text-muted">Generated</p>
+                                    <p className="text-wt-text dark:text-wt-text font-bold text-lg">
                                         {bulkGenerate.data.result?.totalGenerated || 0}
                                     </p>
                                 </div>
                                 <div>
-                                    <p className="text-muted-foreground dark:text-muted-foreground">Published</p>
-                                    <p className="text-success-400 font-bold text-lg">
+                                    <p className="text-wt-text-muted dark:text-wt-text-muted">Published</p>
+                                    <p className="text-wt-green font-bold text-lg">
                                         {bulkGenerate.data.result?.totalPublished || 0}
                                     </p>
                                 </div>
                                 <div>
-                                    <p className="text-muted-foreground dark:text-muted-foreground">Avg Quality</p>
-                                    <p className="text-foreground dark:text-foreground font-bold text-lg">
+                                    <p className="text-wt-text-muted dark:text-wt-text-muted">Avg Quality</p>
+                                    <p className="text-wt-text dark:text-wt-text font-bold text-lg">
                                         {bulkGenerate.data.result?.averageQualityScore?.toFixed(0) || 0}
                                     </p>
                                 </div>

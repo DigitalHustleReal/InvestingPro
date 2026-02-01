@@ -1,4 +1,4 @@
-﻿/**
+/**
  * WordPress-Style Pages UI Component
  * 
  * Provides a polished, professional Pages management experience matching WordPress
@@ -73,15 +73,15 @@ export default function WordPressStylePages({
     const getStatusColor = (status: string) => {
         switch (status) {
             case 'published':
-                return 'bg-success-100 text-success-800 border-success-200';
+                return 'bg-wt-green-subtle text-wt-green border-wt-border-light';
             case 'draft':
-                return 'bg-slate-100 text-slate-800 border-slate-200';
+                return 'bg-wt-card text-wt-text border-wt-border';
             case 'review':
                 return 'bg-accent-100 text-accent-800 border-accent-200';
             case 'archived':
-                return 'bg-slate-100 text-slate-800 border-slate-200';
+                return 'bg-wt-card text-wt-text border-wt-border';
             default:
-                return 'bg-slate-100 text-slate-800 border-slate-200';
+                return 'bg-wt-card text-wt-text border-wt-border';
         }
     };
 
@@ -96,7 +96,7 @@ export default function WordPressStylePages({
             case 'category-page':
                 return <File className="w-4 h-4 text-secondary-500" />;
             default:
-                return <FileText className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />;
+                return <FileText className="w-4 h-4 text-wt-text-muted dark:text-wt-text-muted" />;
         }
     };
 
@@ -127,16 +127,16 @@ export default function WordPressStylePages({
     return (
         <div className="space-y-6">
             {/* Header Bar - WordPress Style */}
-            <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+            <div className="flex items-center justify-between border-b border-wt-border pb-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-slate-900">Pages</h1>
-                    <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
+                    <h1 className="text-3xl font-bold text-wt-text">Pages</h1>
+                    <p className="text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 mt-1">
                         Manage your site pages
                     </p>
                 </div>
                 <Button
                     onClick={onNewPage}
-                    className="bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground"
+                    className="bg-wt-gold hover:bg-wt-gold-hover text-wt-text dark:text-wt-text"
                 >
                     <Plus className="w-4 h-4 mr-2" />
                     Add New Page
@@ -145,74 +145,74 @@ export default function WordPressStylePages({
 
             {/* Stats Bar - Responsive */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-4">
-                <Card className="border-slate-200">
+                <Card className="border-wt-border">
                     <CardContent className="p-6 md:p-8 md:p-6 md:p-8">
                         <div className="flex items-center justify-between">
                             <div className="min-w-0 flex-1">
-                                <p className="text-xs md:text-sm text-muted-foreground/70 dark:text-muted-foreground/70 truncate">Total</p>
-                                <p className="text-xl md:text-2xl font-bold text-slate-900">{statusCounts.all}</p>
+                                <p className="text-xs md:text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 truncate">Total</p>
+                                <p className="text-xl md:text-2xl font-bold text-wt-text">{statusCounts.all}</p>
                             </div>
-                            <FileText className="w-6 h-6 md:w-8 md:h-8 text-muted-foreground dark:text-muted-foreground flex-shrink-0 ml-2" />
+                            <FileText className="w-6 h-6 md:w-8 md:h-8 text-wt-text-muted dark:text-wt-text-muted flex-shrink-0 ml-2" />
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="border-slate-200">
+                <Card className="border-wt-border">
                     <CardContent className="p-6 md:p-8 md:p-6 md:p-8">
                         <div className="flex items-center justify-between">
                             <div className="min-w-0 flex-1">
-                                <p className="text-xs md:text-sm text-muted-foreground/70 dark:text-muted-foreground/70 truncate">Published</p>
-                                <p className="text-xl md:text-2xl font-bold text-success-600">{statusCounts.published}</p>
+                                <p className="text-xs md:text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 truncate">Published</p>
+                                <p className="text-xl md:text-2xl font-bold text-wt-green">{statusCounts.published}</p>
                             </div>
-                            <TrendingUp className="w-6 h-6 md:w-8 md:h-8 text-success-400 flex-shrink-0 ml-2" />
+                            <TrendingUp className="w-6 h-6 md:w-8 md:h-8 text-wt-green flex-shrink-0 ml-2" />
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="border-slate-200">
+                <Card className="border-wt-border">
                     <CardContent className="p-6 md:p-8 md:p-6 md:p-8">
                         <div className="flex items-center justify-between">
                             <div className="min-w-0 flex-1">
-                                <p className="text-xs md:text-sm text-muted-foreground/70 dark:text-muted-foreground/70 truncate">Draft</p>
-                                <p className="text-xl md:text-2xl font-bold text-muted-foreground/50 dark:text-muted-foreground/50">{statusCounts.draft}</p>
+                                <p className="text-xs md:text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 truncate">Draft</p>
+                                <p className="text-xl md:text-2xl font-bold text-wt-text-muted/50 dark:text-wt-text-muted/50">{statusCounts.draft}</p>
                             </div>
-                            <FileText className="w-6 h-6 md:w-8 md:h-8 text-muted-foreground dark:text-muted-foreground flex-shrink-0 ml-2" />
+                            <FileText className="w-6 h-6 md:w-8 md:h-8 text-wt-text-muted dark:text-wt-text-muted flex-shrink-0 ml-2" />
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="border-slate-200">
+                <Card className="border-wt-border">
                     <CardContent className="p-6 md:p-8 md:p-6 md:p-8">
                         <div className="flex items-center justify-between">
                             <div className="min-w-0 flex-1">
-                                <p className="text-xs md:text-sm text-muted-foreground/70 dark:text-muted-foreground/70 truncate">Review</p>
-                                <p className="text-xl md:text-2xl font-bold text-accent-600">{statusCounts.review}</p>
+                                <p className="text-xs md:text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 truncate">Review</p>
+                                <p className="text-xl md:text-2xl font-bold text-wt-gold">{statusCounts.review}</p>
                             </div>
                             <Eye className="w-6 h-6 md:w-8 md:h-8 text-accent-400 flex-shrink-0 ml-2" />
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="border-slate-200">
+                <Card className="border-wt-border">
                     <CardContent className="p-6 md:p-8 md:p-6 md:p-8">
                         <div className="flex items-center justify-between">
                             <div className="min-w-0 flex-1">
-                                <p className="text-xs md:text-sm text-muted-foreground/70 dark:text-muted-foreground/70 truncate">Archived</p>
-                                <p className="text-xl md:text-2xl font-bold text-muted-foreground/50 dark:text-muted-foreground/50">{statusCounts.archived}</p>
+                                <p className="text-xs md:text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 truncate">Archived</p>
+                                <p className="text-xl md:text-2xl font-bold text-wt-text-muted/50 dark:text-wt-text-muted/50">{statusCounts.archived}</p>
                             </div>
-                            <FileText className="w-6 h-6 md:w-8 md:h-8 text-muted-foreground dark:text-muted-foreground flex-shrink-0 ml-2" />
+                            <FileText className="w-6 h-6 md:w-8 md:h-8 text-wt-text-muted dark:text-wt-text-muted flex-shrink-0 ml-2" />
                         </div>
                     </CardContent>
                 </Card>
             </div>
 
             {/* Filters and Search - WordPress Style */}
-            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between bg-white p-6 md:p-8 rounded-lg border border-slate-200">
+            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between bg-white p-6 md:p-8 rounded-lg border border-wt-border">
                 <div className="flex-1 w-full sm:w-auto">
                     <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-wt-text-muted dark:text-wt-text-muted" />
                         <input
                             type="text"
                             placeholder="Search pages..."
                             value={searchTerm}
                             onChange={(e) => onSearchChange?.(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                            className="w-full pl-10 pr-4 py-2 border border-wt-border rounded-lg focus:ring-2 focus:ring-wt-gold focus:border-wt-gold"
                         />
                     </div>
                 </div>
@@ -223,8 +223,8 @@ export default function WordPressStylePages({
                             onClick={() => onFilterChange?.(status)}
                             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                                 filterStatus === status
-                                    ? 'bg-primary-600 text-foreground dark:text-foreground'
-                                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                                    ? 'bg-wt-gold text-wt-text dark:text-wt-text'
+                                    : 'bg-wt-card text-wt-text hover:bg-slate-200'
                             }`}
                         >
                             {(status ?? 'All').charAt(0).toUpperCase() + (status ?? 'All').slice(1)}
@@ -241,20 +241,20 @@ export default function WordPressStylePages({
             {/* Pages List - WordPress Table Style */}
             {isLoading ? (
                 <div className="flex items-center justify-center py-12">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-wt-gold"></div>
                 </div>
             ) : filteredPages.length === 0 ? (
-                <Card className="border-slate-200">
+                <Card className="border-wt-border">
                     <CardContent className="p-6 md:p-8 text-center">
-                        <FileText className="w-12 h-12 text-muted-foreground dark:text-muted-foreground mx-auto mb-4" />
-                        <h3 className="text-lg font-semibold text-slate-900 mb-2">No pages found</h3>
-                        <p className="text-muted-foreground/70 dark:text-muted-foreground/70 mb-4">
+                        <FileText className="w-12 h-12 text-wt-text-muted dark:text-wt-text-muted mx-auto mb-4" />
+                        <h3 className="text-lg font-semibold text-wt-text mb-2">No pages found</h3>
+                        <p className="text-wt-text-muted/70 dark:text-wt-text-muted/70 mb-4">
                             {searchTerm || filterStatus !== 'all'
                                 ? 'Try adjusting your search or filters'
                                 : 'Get started by creating your first page'}
                         </p>
                         {!searchTerm && filterStatus === 'all' && (
-                            <Button onClick={onNewPage} className="bg-primary-600 hover:bg-primary-700">
+                            <Button onClick={onNewPage} className="bg-wt-gold hover:bg-wt-gold-hover">
                                 <Plus className="w-4 h-4 mr-2" />
                                 Create Page
                             </Button>
@@ -262,36 +262,36 @@ export default function WordPressStylePages({
                     </CardContent>
                 </Card>
             ) : (
-                <div className="bg-white rounded-lg border border-slate-200 overflow-hidden">
+                <div className="bg-white rounded-lg border border-wt-border overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full min-w-[800px]">
-                            <thead className="bg-slate-50 border-b border-slate-200">
+                            <thead className="bg-wt-surface-hover border-b border-wt-border">
                                 <tr>
-                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">
+                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-wider">
                                         Title
                                     </th>
-                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider hidden sm:table-cell">
+                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-wider hidden sm:table-cell">
                                         Author
                                     </th>
-                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider hidden md:table-cell">
+                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-wider hidden md:table-cell">
                                         Type
                                     </th>
-                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">
+                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-wider">
                                         Status
                                     </th>
-                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider hidden lg:table-cell">
+                                    <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-wider hidden lg:table-cell">
                                         Date
                                     </th>
-                                    <th className="px-4 md:px-6 py-3 text-right text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-wider">
+                                    <th className="px-4 md:px-6 py-3 text-right text-xs font-medium text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-wider">
                                         Actions
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody className="bg-white divide-y divide-slate-200">
+                            <tbody className="bg-white divide-y divide-wt-border">
                                 {filteredPages.map((page) => (
                                     <tr
                                         key={page.id}
-                                        className="hover:bg-slate-50 transition-colors"
+                                        className="hover:bg-wt-surface-hover transition-colors"
                                     >
                                         <td className="px-4 md:px-6 py-4">
                                             <div className="flex items-center gap-2 md:gap-3">
@@ -302,29 +302,29 @@ export default function WordPressStylePages({
                                                         className="w-10 h-10 md:w-12 md:h-12 rounded object-cover flex-shrink-0"
                                                     />
                                                 ) : (
-                                                    <div className="w-10 h-10 md:w-12 md:h-12 rounded bg-slate-100 flex items-center justify-center flex-shrink-0">
+                                                    <div className="w-10 h-10 md:w-12 md:h-12 rounded bg-wt-card flex items-center justify-center flex-shrink-0">
                                                         {getPageTypeIcon(page.content_type)}
                                                     </div>
                                                 )}
                                                 <div className="min-w-0 flex-1">
                                                     <Link
                                                         href={`/admin/pillar-pages/${page.id}/edit`}
-                                                        className="text-sm font-medium text-slate-900 hover:text-primary-600 block truncate"
+                                                        className="text-sm font-medium text-wt-text hover:text-wt-gold block truncate"
                                                     >
                                                         {page.title || 'Untitled'}
                                                     </Link>
                                                     {page.excerpt && (
-                                                        <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1 line-clamp-1 hidden sm:block">
+                                                        <p className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 mt-1 line-clamp-1 hidden sm:block">
                                                             {page.excerpt}
                                                         </p>
                                                     )}
                                                     {/* Mobile: Show author and type */}
                                                     <div className="sm:hidden mt-1 flex items-center gap-2 flex-wrap">
-                                                        <span className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
+                                                        <span className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70">
                                                             {page.author_name || 'Admin'}
                                                         </span>
                                                         {page.content_type && (
-                                                            <Badge variant="secondary" className="bg-slate-100 text-slate-700 text-xs">
+                                                            <Badge variant="secondary" className="bg-wt-card text-wt-text text-xs">
                                                                 {page.content_type}
                                                             </Badge>
                                                         )}
@@ -334,8 +334,8 @@ export default function WordPressStylePages({
                                         </td>
                                         <td className="px-4 md:px-6 py-4 whitespace-nowrap hidden sm:table-cell">
                                             <div className="flex items-center gap-2">
-                                                <User className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
-                                                <span className="text-sm text-slate-700">
+                                                <User className="w-4 h-4 text-wt-text-muted dark:text-wt-text-muted" />
+                                                <span className="text-sm text-wt-text">
                                                     {page.author_name || 'Admin'}
                                                 </span>
                                             </div>
@@ -344,7 +344,7 @@ export default function WordPressStylePages({
                                             {page.content_type && (
                                                 <div className="flex items-center gap-2">
                                                     {getPageTypeIcon(page.content_type)}
-                                                    <Badge variant="secondary" className="bg-slate-100 text-slate-700">
+                                                    <Badge variant="secondary" className="bg-wt-card text-wt-text">
                                                         {page.content_type.replace(/-/g, ' ')}
                                                     </Badge>
                                                 </div>
@@ -356,7 +356,7 @@ export default function WordPressStylePages({
                                             </Badge>
                                         </td>
                                         <td className="px-4 md:px-6 py-4 whitespace-nowrap hidden lg:table-cell">
-                                            <div className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70">
+                                            <div className="text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70">
                                                 {page.updated_at && (
                                                     <div className="flex items-center gap-1">
                                                         <Calendar className="w-3 h-3" />
@@ -377,7 +377,7 @@ export default function WordPressStylePages({
                                                         size="sm"
                                                         variant="ghost"
                                                         onClick={() => onPublish(page.id)}
-                                                        className="text-success-600 hover:text-success-700 hover:bg-success-50 text-xs md:text-sm"
+                                                        className="text-wt-green hover:text-wt-green hover:bg-wt-green-subtle text-xs md:text-sm"
                                                     >
                                                         <span className="hidden md:inline">Publish</span>
                                                         <span className="md:hidden">Pub</span>
@@ -387,7 +387,7 @@ export default function WordPressStylePages({
                                                     <Button
                                                         size="sm"
                                                         variant="ghost"
-                                                        className="text-muted-foreground/50 dark:text-muted-foreground/50 hover:text-slate-900"
+                                                        className="text-wt-text-muted/50 dark:text-wt-text-muted/50 hover:text-wt-text"
                                                         title="Edit"
                                                     >
                                                         <Edit className="w-4 h-4" />
@@ -397,7 +397,7 @@ export default function WordPressStylePages({
                                                     <Button
                                                         size="sm"
                                                         variant="ghost"
-                                                        className="text-muted-foreground/50 dark:text-muted-foreground/50 hover:text-slate-900"
+                                                        className="text-wt-text-muted/50 dark:text-wt-text-muted/50 hover:text-wt-text"
                                                         title="View"
                                                     >
                                                         <Eye className="w-4 h-4" />

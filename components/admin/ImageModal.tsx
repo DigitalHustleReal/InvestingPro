@@ -99,7 +99,7 @@ export default function ImageModal({
                                 }
                             }}
                         />
-                        <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
+                        <p className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 mt-1">
                             Alt text helps with accessibility and SEO
                         </p>
                     </div>

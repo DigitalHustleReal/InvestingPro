@@ -23,7 +23,7 @@ export default function EditProductPage() {
         return (
             <AdminLayout>
                 <div className="p-8 flex items-center justify-center min-h-[400px]">
-                    <Loader2 className="w-8 h-8 animate-spin text-teal-600" />
+                    <Loader2 className="w-8 h-8 animate-spin text-wt-gold" />
                 </div>
             </AdminLayout>
         );
@@ -36,7 +36,7 @@ export default function EditProductPage() {
                     <div className="text-center py-16">
                         <h2 className="text-2xl font-bold text-slate-900 mb-2">Product Not Found</h2>
                         <p className="text-muted-foreground/70 dark:text-muted-foreground/70 mb-6">The product you're looking for doesn't exist.</p>
-                        <Link href="/admin/products" className="text-teal-600 hover:text-teal-700 font-medium">
+                        <Link href="/admin/products" className="text-wt-gold hover:text-wt-gold-hover font-medium">
                             ← Back to Products
                         </Link>
                     </div>

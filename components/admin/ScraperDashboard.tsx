@@ -64,8 +64,8 @@ export default function ScraperDashboard() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold text-foreground dark:text-foreground">Scraper Management</h1>
-                    <p className="text-muted-foreground dark:text-muted-foreground mt-1">Monitor and manage all data scrapers</p>
+                    <h1 className="text-2xl font-bold text-wt-text dark:text-wt-text">Scraper Management</h1>
+                    <p className="text-wt-text-muted dark:text-wt-text-muted mt-1">Monitor and manage all data scrapers</p>
                 </div>
                 <Button
                     onClick={() => queryClient.invalidateQueries({ queryKey: ['scrapers'] })}
@@ -79,12 +79,12 @@ export default function ScraperDashboard() {
             {/* Scrapers List */}
             <div className="grid gap-6">
                 {isLoading ? (
-                    <div className="text-center py-12 text-muted-foreground/50 dark:text-muted-foreground/50">Loading scrapers...</div>
+                    <div className="text-center py-12 text-wt-text-muted/50 dark:text-wt-text-muted/50">Loading scrapers...</div>
                 ) : scrapers.length === 0 ? (
-                    <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl">
+                    <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl">
                         <CardContent className="text-center py-12">
-                            <Database className="w-12 h-12 mx-auto mb-4 text-muted-foreground/50 dark:text-muted-foreground/50" />
-                            <p className="text-muted-foreground dark:text-muted-foreground">No scrapers registered yet</p>
+                            <Database className="w-12 h-12 mx-auto mb-4 text-wt-text-muted/50 dark:text-wt-text-muted/50" />
+                            <p className="text-wt-text-muted dark:text-wt-text-muted">No scrapers registered yet</p>
                         </CardContent>
                     </Card>
                 ) : (
@@ -122,24 +122,24 @@ function ScraperCard({ scraper, onExecute, isExecuting }: any) {
     
     const getStatusColor = (status: string) => {
         switch (status) {
-            case 'completed': return 'bg-success-500';
-            case 'failed': return 'bg-danger-500';
+            case 'completed': return 'bg-wt-green';
+            case 'failed': return 'bg-wt-danger';
             case 'running': return 'bg-accent-500 animate-pulse';
-            default: return 'bg-slate-500';
+            default: return 'bg-wt-text-dim';
         }
     };
     
     return (
-        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl">
-            <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
+        <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl">
+            <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-6">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <div className={`w-3 h-3 rounded-full ${getStatusColor(lastRun?.status || 'unknown')}`} />
                         <div>
-                            <CardTitle className="text-lg font-bold text-foreground dark:text-foreground">
+                            <CardTitle className="text-lg font-bold text-wt-text dark:text-wt-text">
                                 {scraper.display_name || scraper.name}
                             </CardTitle>
-                            <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
+                            <p className="text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 mt-1">
                                 {scraper.category} â€¢ {scraper.source_type}
                             </p>
                         </div>
@@ -152,7 +152,7 @@ function ScraperCard({ scraper, onExecute, isExecuting }: any) {
                             onClick={onExecute}
                             disabled={isExecuting || !scraper.is_active}
                             size="sm"
-                            className="bg-primary-600 hover:bg-primary-700"
+                            className="bg-wt-gold hover:bg-wt-gold-hover"
                         >
                             {isExecuting ? (
                                 <>
@@ -172,8 +172,8 @@ function ScraperCard({ scraper, onExecute, isExecuting }: any) {
             <CardContent className="p-8">
                 <div className="grid grid-cols-4 gap-6 mb-6">
                     <div>
-                        <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70 mb-1">Last Run</p>
-                        <p className="text-foreground dark:text-foreground font-medium">
+                        <p className="text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 mb-1">Last Run</p>
+                        <p className="text-wt-text dark:text-wt-text font-medium">
                             {lastRun?.started_at 
                                 ? new Date(lastRun.started_at).toLocaleString()
                                 : 'Never'
@@ -181,20 +181,20 @@ function ScraperCard({ scraper, onExecute, isExecuting }: any) {
                         </p>
                     </div>
                     <div>
-                        <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70 mb-1">Items Scraped</p>
-                        <p className="text-foreground dark:text-foreground font-medium">
+                        <p className="text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 mb-1">Items Scraped</p>
+                        <p className="text-wt-text dark:text-wt-text font-medium">
                             {lastRun?.items_scraped || 0}
                         </p>
                     </div>
                     <div>
-                        <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70 mb-1">Items Updated</p>
-                        <p className="text-foreground dark:text-foreground font-medium">
+                        <p className="text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 mb-1">Items Updated</p>
+                        <p className="text-wt-text dark:text-wt-text font-medium">
                             {lastRun?.items_updated || 0}
                         </p>
                     </div>
                     <div>
-                        <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70 mb-1">Execution Time</p>
-                        <p className="text-foreground dark:text-foreground font-medium">
+                        <p className="text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 mb-1">Execution Time</p>
+                        <p className="text-wt-text dark:text-wt-text font-medium">
                             {lastRun?.execution_time_ms 
                                 ? `${(lastRun.execution_time_ms / 1000).toFixed(1)}s`
                                 : '-'
@@ -212,7 +212,7 @@ function ScraperCard({ scraper, onExecute, isExecuting }: any) {
                         {showRuns ? 'Hide' : 'Show'} Runs
                     </Button>
                     {scraper.next_run_at && (
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground/70 dark:text-muted-foreground/70">
+                        <div className="flex items-center gap-2 text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70">
                             <Clock className="w-4 h-4" />
                             Next run: {new Date(scraper.next_run_at).toLocaleString()}
                         </div>
@@ -221,19 +221,19 @@ function ScraperCard({ scraper, onExecute, isExecuting }: any) {
                 
                 {showRuns && (
                     <div className="mt-6 space-y-2">
-                        <h4 className="text-sm font-semibold text-foreground dark:text-foreground mb-3">Recent Runs</h4>
+                        <h4 className="text-sm font-semibold text-wt-text dark:text-wt-text mb-3">Recent Runs</h4>
                         {runs.length === 0 ? (
-                            <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70">No runs yet</p>
+                            <p className="text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70">No runs yet</p>
                         ) : (
                             runs.slice(0, 5).map((run: any) => (
-                                <div key={run.id} className="flex items-center justify-between p-3 bg-card/50 dark:bg-card/50 rounded-lg">
+                                <div key={run.id} className="flex items-center justify-between p-3 bg-wt-surface/50 dark:bg-wt-surface/50 rounded-lg">
                                     <div className="flex items-center gap-3">
                                         <div className={`w-2 h-2 rounded-full ${getStatusColor(run.status)}`} />
-                                        <span className="text-sm text-foreground dark:text-foreground">
+                                        <span className="text-sm text-wt-text dark:text-wt-text">
                                             {new Date(run.started_at).toLocaleString()}
                                         </span>
                                     </div>
-                                    <div className="flex items-center gap-4 text-sm text-muted-foreground dark:text-muted-foreground">
+                                    <div className="flex items-center gap-4 text-sm text-wt-text-muted dark:text-wt-text-muted">
                                         <span>{run.items_scraped} scraped</span>
                                         <span>{run.items_updated} updated</span>
                                         {run.execution_time_ms && (

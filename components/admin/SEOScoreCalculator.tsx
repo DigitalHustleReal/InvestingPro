@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -141,13 +141,13 @@ export default function SEOScoreCalculator({
     }, [title, content, metaDescription, keywords]);
 
     const getScoreColor = (score: number) => {
-        if (score >= 80) return 'text-primary-600';
-        if (score >= 60) return 'text-accent-600';
+        if (score >= 80) return 'text-wt-gold';
+        if (score >= 60) return 'text-wt-gold';
         return 'text-danger-600';
     };
 
     const getScoreBadge = (score: number) => {
-        if (score >= 80) return 'bg-primary-100 text-primary-800';
+        if (score >= 80) return 'bg-wt-gold-subtle text-wt-gold';
         if (score >= 60) return 'bg-accent-100 text-accent-800';
         return 'bg-danger-100 text-danger-800';
     };
@@ -165,7 +165,7 @@ export default function SEOScoreCalculator({
             <CardContent className="space-y-4">
                 <div>
                     <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">Overall Score</span>
+                        <span className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50">Overall Score</span>
                         <span className={`text-2xl font-bold ${getScoreColor(analysis.score)}`}>
                             {analysis.score}
                         </span>
@@ -175,19 +175,19 @@ export default function SEOScoreCalculator({
 
                 <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
-                        <span className="text-muted-foreground/50 dark:text-muted-foreground/50">Words:</span>
+                        <span className="text-wt-text-muted/50 dark:text-wt-text-muted/50">Words:</span>
                         <span className="ml-2 font-medium">{analysis.wordCount}</span>
                     </div>
                     <div>
-                        <span className="text-muted-foreground/50 dark:text-muted-foreground/50">Characters:</span>
+                        <span className="text-wt-text-muted/50 dark:text-wt-text-muted/50">Characters:</span>
                         <span className="ml-2 font-medium">{analysis.charCount.toLocaleString()}</span>
                     </div>
                     <div>
-                        <span className="text-muted-foreground/50 dark:text-muted-foreground/50">H2 Headings:</span>
+                        <span className="text-wt-text-muted/50 dark:text-wt-text-muted/50">H2 Headings:</span>
                         <span className="ml-2 font-medium">{analysis.h2Count}</span>
                     </div>
                     <div>
-                        <span className="text-muted-foreground/50 dark:text-muted-foreground/50">Links:</span>
+                        <span className="text-wt-text-muted/50 dark:text-wt-text-muted/50">Links:</span>
                         <span className="ml-2 font-medium">{analysis.linkCount}</span>
                     </div>
                 </div>
@@ -197,13 +197,13 @@ export default function SEOScoreCalculator({
                     {analysis.checks.map((check, idx) => (
                         <div key={idx} className="flex items-start gap-2 text-sm">
                             {check.passed ? (
-                                <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
+                                <CheckCircle2 className="w-4 h-4 text-wt-gold mt-0.5 flex-shrink-0" />
                             ) : (
                                 <XCircle className="w-4 h-4 text-danger-600 mt-0.5 flex-shrink-0" />
                             )}
                             <div className="flex-1">
                                 <span className="font-medium">{check.label}:</span>
-                                <span className="ml-2 text-muted-foreground/50 dark:text-muted-foreground/50">{check.message}</span>
+                                <span className="ml-2 text-wt-text-muted/50 dark:text-wt-text-muted/50">{check.message}</span>
                             </div>
                         </div>
                     ))}

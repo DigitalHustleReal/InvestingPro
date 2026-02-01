@@ -15,19 +15,19 @@ export function AdminBreadcrumb() {
     if (items.length <= 1) return null;
 
     return (
-        <nav className="flex items-center gap-2 text-sm text-admin-pro-text-muted" aria-label="Breadcrumb">
-            <Link href="/admin" className="flex items-center justify-center w-7 h-7 rounded-md hover:bg-admin-pro-surface hover:text-admin-pro-accent transition-colors" aria-label="Dashboard">
+        <nav className="flex items-center gap-2 text-sm text-wt-text-muted" aria-label="Breadcrumb">
+            <Link href="/admin" className="flex items-center justify-center w-7 h-7 rounded-md hover:bg-wt-surface-hover hover:text-wt-nav transition-colors" aria-label="Dashboard">
                 <Home className="w-4 h-4" />
             </Link>
             {items.slice(1).map((item, index) => (
                 <div key={index} className="flex items-center gap-2">
-                    <ChevronRight className="w-3.5 h-3.5 text-admin-pro-text-dim shrink-0" aria-hidden />
+                    <ChevronRight className="w-3.5 h-3.5 text-wt-text-dim shrink-0" aria-hidden />
                     {item.href ? (
-                        <Link href={item.href} className="hover:text-admin-pro-accent transition-colors truncate max-w-[180px] sm:max-w-none">
+                        <Link href={item.href} className="hover:text-wt-nav transition-colors truncate max-w-[180px] sm:max-w-none">
                             {item.label}
                         </Link>
                     ) : (
-                        <span className="text-admin-pro-text font-medium truncate max-w-[180px] sm:max-w-none">{item.label}</span>
+                        <span className="text-wt-text font-medium truncate max-w-[180px] sm:max-w-none">{item.label}</span>
                     )}
                 </div>
             ))}

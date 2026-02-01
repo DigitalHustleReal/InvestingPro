@@ -313,18 +313,18 @@ export default function AdminPage() {
     return (
         <AdminLayout>
             <AdminPageContainer noPaddingY className="h-full flex flex-col">
-                <div className="pb-6 border-b border-admin-pro-border">
+                <div className="pb-6 border-b border-wt-border">
                     {(scraperStatus.status === 'idle' || pipelineStatus.failed > 3) && (
-                        <div id="alerts" className="mb-6 p-4 bg-admin-pro-danger-subtle border border-admin-pro-danger/30 rounded-lg flex items-center gap-4">
-                            <AlertCircle className="w-5 h-5 text-admin-pro-danger shrink-0" />
+                        <div id="alerts" className="mb-6 p-4 bg-wt-danger-subtle border border-wt-danger/30 rounded-lg flex items-center gap-4">
+                            <AlertCircle className="w-5 h-5 text-wt-danger shrink-0" />
                             <div className="flex-1 min-w-0">
-                                <p className="font-semibold text-admin-pro-text text-sm">System health alert</p>
-                                <p className="text-xs text-admin-pro-text-muted mt-0.5">
+                                <p className="font-semibold text-wt-text text-sm">System health alert</p>
+                                <p className="text-xs text-wt-text-muted mt-0.5">
                                     {scraperStatus.status === 'idle' && 'Data sources idle. '}
                                     {pipelineStatus.failed > 3 && `${pipelineStatus.failed} pipeline failures detected.`}
                                 </p>
                             </div>
-                            <Button size="sm" className="shrink-0 rounded-md bg-admin-pro-accent hover:bg-admin-pro-accent-hover text-white font-medium border-0" onClick={() => router.push(pipelineStatus.failed > 3 ? '/admin/pipeline-monitor' : '/admin/cms/health')}>
+                            <Button size="sm" className="shrink-0 rounded-md bg-wt-gold hover:bg-wt-gold-hover text-white font-medium border-0" onClick={() => router.push(pipelineStatus.failed > 3 ? '/admin/pipeline-monitor' : '/admin/cms/health')}>
                                 View details
                             </Button>
                         </div>
@@ -332,13 +332,13 @@ export default function AdminPage() {
 
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div>
-                            <h1 className="text-2xl font-semibold text-admin-pro-text tracking-tight">Dashboard</h1>
-                            <p className="text-sm text-admin-pro-text-muted mt-0.5">Key metrics and system status.</p>
+                            <h1 className="text-2xl font-semibold text-wt-text tracking-tight">Dashboard</h1>
+                            <p className="text-sm text-wt-text-muted mt-0.5">Key metrics and system status.</p>
                         </div>
                         <Button
                             size="sm"
                             onClick={() => { queryClient.invalidateQueries(); toast.success('Metrics refreshed.'); }}
-                            className="rounded-md border border-admin-pro-border bg-admin-pro-surface text-admin-pro-text hover:bg-admin-pro-surface-hover font-medium"
+                            className="rounded-md border border-wt-border bg-wt-surface text-wt-text hover:bg-wt-surface-hover font-medium"
                             aria-label="Refresh metrics"
                         >
                             <RefreshCw className="w-4 h-4 mr-2" />
@@ -350,119 +350,119 @@ export default function AdminPage() {
                 <div className="flex-1 overflow-y-auto pt-8">
                     <div id="quick-stats" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                         {[...stats, ...alertStats].slice(0, 4).map((stat, index) => (
-                            <div key={index} className="rounded-xl border border-admin-pro-border bg-admin-pro-surface p-5 transition-colors hover:border-admin-pro-border-light">
+                            <div key={index} className="rounded-xl border border-wt-border bg-wt-surface p-5 transition-colors hover:border-wt-border-light">
                                 <div className="flex items-start justify-between gap-3">
-                                    <div className="w-10 h-10 rounded-lg bg-admin-pro-border flex items-center justify-center shrink-0">
-                                        <stat.icon className="w-5 h-5 text-admin-pro-text-muted" />
+                                    <div className="w-10 h-10 rounded-lg bg-wt-border flex items-center justify-center shrink-0">
+                                        <stat.icon className="w-5 h-5 text-wt-text-muted" />
                                     </div>
                                     {stat.trend != null && (
                                         <span className={cn(
                                             "inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium",
-                                            stat.trend === 'up' ? "bg-admin-pro-accent-subtle text-admin-pro-accent" : "bg-admin-pro-danger-subtle text-admin-pro-danger"
+                                            stat.trend === 'up' ? "bg-wt-gold-subtle text-wt-gold" : "bg-wt-danger-subtle text-wt-danger"
                                         )}>
                                             {stat.trend === 'up' ? <ArrowUpRight className="w-3.5 h-3.5" /> : <ArrowDownRight className="w-3.5 h-3.5" />}
                                             {stat.trend === 'up' ? 'Growth' : 'Alert'}
                                         </span>
                                     )}
                                 </div>
-                                <p className="text-[11px] font-medium text-admin-pro-text-muted uppercase tracking-wider mt-4 mb-1">{stat.label}</p>
-                                <p className="text-2xl font-semibold text-admin-pro-text tabular-nums">{stat.value}</p>
-                                <p className="text-xs text-admin-pro-text-muted mt-1">{stat.change}</p>
+                                <p className="text-[11px] font-medium text-wt-text-muted uppercase tracking-wider mt-4 mb-1">{stat.label}</p>
+                                <p className="text-2xl font-semibold text-wt-text tabular-nums">{stat.value}</p>
+                                <p className="text-xs text-wt-text-muted mt-1">{stat.change}</p>
                             </div>
                         ))}
                     </div>
 
                     <div id="system-health" className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                        <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface overflow-hidden">
-                            <div className="px-5 py-4 border-b border-admin-pro-border flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-lg bg-admin-pro-border flex items-center justify-center">
-                                    <Database className="w-4 h-4 text-admin-pro-text-muted" />
+                        <div className="rounded-xl border border-wt-border bg-wt-surface overflow-hidden">
+                            <div className="px-5 py-4 border-b border-wt-border flex items-center gap-3">
+                                <div className="w-9 h-9 rounded-lg bg-wt-border flex items-center justify-center">
+                                    <Database className="w-4 h-4 text-wt-text-muted" />
                                 </div>
-                                <span className="text-sm font-medium text-admin-pro-text">Data sources</span>
+                                <span className="text-sm font-medium text-wt-text">Data sources</span>
                             </div>
                             <div className="p-5">
                                 <div className="space-y-4">
                                     <div className="flex items-center justify-between text-sm">
-                                        <span className="text-admin-pro-text-muted">Status</span>
+                                        <span className="text-wt-text-muted">Status</span>
                                         <span className={cn(
                                             "inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium",
-                                            scraperStatus.status === 'running' ? "bg-admin-pro-accent-subtle text-admin-pro-accent" : "bg-admin-pro-border text-admin-pro-text-muted"
+                                            scraperStatus.status === 'running' ? "bg-wt-gold-subtle text-wt-gold" : "bg-wt-border text-wt-text-muted"
                                         )}>
-                                            <span className={cn("w-1.5 h-1.5 rounded-full", scraperStatus.status === 'running' ? "bg-admin-pro-accent animate-pulse" : "bg-admin-pro-text-dim")} />
+                                            <span className={cn("w-1.5 h-1.5 rounded-full", scraperStatus.status === 'running' ? "bg-wt-gold animate-pulse" : "bg-wt-text-dim")} />
                                             {scraperStatus.status === 'running' ? 'Running' : 'Idle'}
                                         </span>
                                     </div>
                                     <div className="flex items-center justify-between text-sm">
-                                        <span className="text-admin-pro-text-muted">Accuracy</span>
-                                        <span className="font-medium text-admin-pro-text tabular-nums">{scraperStatus.successRate || 0}%</span>
+                                        <span className="text-wt-text-muted">Accuracy</span>
+                                        <span className="font-medium text-wt-text tabular-nums">{scraperStatus.successRate || 0}%</span>
                                     </div>
                                     <div className="flex items-center justify-between text-sm">
-                                        <span className="text-admin-pro-text-muted">Last run</span>
-                                        <span className="text-admin-pro-text text-xs tabular-nums">{scraperStatus.lastRun ? new Date(scraperStatus.lastRun).toLocaleTimeString() : 'No data'}</span>
+                                        <span className="text-wt-text-muted">Last run</span>
+                                        <span className="text-wt-text text-xs tabular-nums">{scraperStatus.lastRun ? new Date(scraperStatus.lastRun).toLocaleTimeString() : 'No data'}</span>
                                     </div>
                                     {scraperStatus.productsScraped != null && (
-                                        <div className="pt-4 border-t border-admin-pro-border grid grid-cols-3 gap-2 text-center">
-                                            <div className="p-2 rounded-lg bg-admin-pro-bg"><span className="text-[10px] text-admin-pro-text-muted block">Assets</span><span className="text-sm font-medium text-admin-pro-text tabular-nums">{scraperStatus.productsScraped}</span></div>
-                                            <div className="p-2 rounded-lg bg-admin-pro-bg"><span className="text-[10px] text-admin-pro-text-muted block">Feed</span><span className="text-sm font-medium text-admin-pro-text tabular-nums">{scraperStatus.reviewsScraped}</span></div>
-                                            <div className="p-2 rounded-lg bg-admin-pro-bg"><span className="text-[10px] text-admin-pro-text-muted block">Rates</span><span className="text-sm font-medium text-admin-pro-text tabular-nums">{scraperStatus.ratesScraped}</span></div>
+                                        <div className="pt-4 border-t border-wt-border grid grid-cols-3 gap-2 text-center">
+                                            <div className="p-2 rounded-lg bg-wt-bg"><span className="text-[10px] text-wt-text-muted block">Assets</span><span className="text-sm font-medium text-wt-text tabular-nums">{scraperStatus.productsScraped}</span></div>
+                                            <div className="p-2 rounded-lg bg-wt-bg"><span className="text-[10px] text-wt-text-muted block">Feed</span><span className="text-sm font-medium text-wt-text tabular-nums">{scraperStatus.reviewsScraped}</span></div>
+                                            <div className="p-2 rounded-lg bg-wt-bg"><span className="text-[10px] text-wt-text-muted block">Rates</span><span className="text-sm font-medium text-wt-text tabular-nums">{scraperStatus.ratesScraped}</span></div>
                                         </div>
                                     )}
                                 </div>
                             </div>
                         </div>
 
-                        <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface overflow-hidden">
-                            <div className="px-5 py-4 border-b border-admin-pro-border flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-lg bg-admin-pro-accent-subtle flex items-center justify-center">
-                                    <Zap className="w-4 h-4 text-admin-pro-accent" />
+                        <div className="rounded-xl border border-wt-border bg-wt-surface overflow-hidden">
+                            <div className="px-5 py-4 border-b border-wt-border flex items-center gap-3">
+                                <div className="w-9 h-9 rounded-lg bg-wt-gold-subtle flex items-center justify-center">
+                                    <Zap className="w-4 h-4 text-wt-gold" />
                                 </div>
-                                <span className="text-sm font-medium text-admin-pro-text">Content pipeline</span>
+                                <span className="text-sm font-medium text-wt-text">Content pipeline</span>
                             </div>
                             <div className="p-5 space-y-4">
                                 <div className="flex items-center justify-between text-sm">
-                                    <span className="text-admin-pro-text-muted">Active jobs</span>
-                                    <span className="font-medium text-admin-pro-text tabular-nums">{pipelineStatus.active || 0}</span>
+                                    <span className="text-wt-text-muted">Active jobs</span>
+                                    <span className="font-medium text-wt-text tabular-nums">{pipelineStatus.active || 0}</span>
                                 </div>
                                 <div className="flex items-center justify-between text-sm">
-                                    <span className="text-admin-pro-text-muted">Completed</span>
-                                    <span className="font-medium text-admin-pro-text tabular-nums">{pipelineStatus.completed || 0}</span>
+                                    <span className="text-wt-text-muted">Completed</span>
+                                    <span className="font-medium text-wt-text tabular-nums">{pipelineStatus.completed || 0}</span>
                                 </div>
                                 <div className="flex items-center justify-between text-sm">
-                                    <span className="text-admin-pro-text-muted">Failed</span>
-                                    <span className="font-medium text-admin-pro-danger tabular-nums">{pipelineStatus.failed || 0}</span>
+                                    <span className="text-wt-text-muted">Failed</span>
+                                    <span className="font-medium text-wt-danger tabular-nums">{pipelineStatus.failed || 0}</span>
                                 </div>
                                 <div className="flex items-center justify-between text-sm">
-                                    <span className="text-admin-pro-text-muted">Avg. run time</span>
-                                    <span className="text-admin-pro-text text-xs tabular-nums">{pipelineStatus.avgTime || '—'}</span>
+                                    <span className="text-wt-text-muted">Avg. run time</span>
+                                    <span className="text-wt-text text-xs tabular-nums">{pipelineStatus.avgTime || '—'}</span>
                                 </div>
-                                <Button size="sm" className="w-full bg-admin-pro-accent hover:bg-admin-pro-accent-hover text-white rounded-md h-9 font-medium" onClick={() => router.push('/admin/content-factory')}>
+                                <Button size="sm" className="w-full bg-wt-gold hover:bg-wt-gold-hover text-white rounded-md h-9 font-medium" onClick={() => router.push('/admin/content-factory')}>
                                     <Play className="w-4 h-4 mr-2 fill-white" />
                                     Start content run
                                 </Button>
                             </div>
                         </div>
 
-                        <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface overflow-hidden">
-                            <div className="px-5 py-4 border-b border-admin-pro-border flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-lg bg-admin-pro-border flex items-center justify-center">
-                                    <Rss className="w-4 h-4 text-admin-pro-text-muted" />
+                        <div className="rounded-xl border border-wt-border bg-wt-surface overflow-hidden">
+                            <div className="px-5 py-4 border-b border-wt-border flex items-center gap-3">
+                                <div className="w-9 h-9 rounded-lg bg-wt-border flex items-center justify-center">
+                                    <Rss className="w-4 h-4 text-wt-text-muted" />
                                 </div>
-                                <span className="text-sm font-medium text-admin-pro-text">RSS feeds</span>
+                                <span className="text-sm font-medium text-wt-text">RSS feeds</span>
                             </div>
                             <div className="p-5 space-y-4">
                                 <div className="flex items-center justify-between text-sm">
-                                    <span className="text-admin-pro-text-muted">Feeds connected</span>
-                                    <span className="font-medium text-admin-pro-text tabular-nums">{Array.isArray(rssFeeds) ? rssFeeds.filter((f: any) => f?.status === 'active').length : 0}</span>
+                                    <span className="text-wt-text-muted">Feeds connected</span>
+                                    <span className="font-medium text-wt-text tabular-nums">{Array.isArray(rssFeeds) ? rssFeeds.filter((f: any) => f?.status === 'active').length : 0}</span>
                                 </div>
                                 <div className="space-y-2">
                                     {Array.isArray(rssFeeds) && rssFeeds.slice(0, 3).map((feed: any) => (
-                                        <div key={feed.id} className="flex items-center justify-between py-2 px-3 rounded-md bg-admin-pro-bg text-sm">
-                                            <span className="text-admin-pro-text truncate flex-1">{feed.name}</span>
-                                            <span className="text-admin-pro-text-muted text-xs tabular-nums ml-2">{feed.itemsCount || 0}</span>
+                                        <div key={feed.id} className="flex items-center justify-between py-2 px-3 rounded-md bg-wt-bg text-sm">
+                                            <span className="text-wt-text truncate flex-1">{feed.name}</span>
+                                            <span className="text-wt-text-muted text-xs tabular-nums ml-2">{feed.itemsCount || 0}</span>
                                         </div>
                                     ))}
                                 </div>
-                                <Button size="sm" className="w-full rounded-md h-9 font-medium border border-admin-pro-border bg-admin-pro-surface text-admin-pro-text hover:bg-admin-pro-surface-hover">
+                                <Button size="sm" className="w-full rounded-md h-9 font-medium border border-wt-border bg-wt-surface text-wt-text hover:bg-wt-surface-hover">
                                     <RefreshCw className="w-4 h-4 mr-2" />
                                     Sync feeds
                                 </Button>
@@ -474,81 +474,81 @@ export default function AdminPage() {
                     <div className="space-y-8">
                         {/* Section: Omnichannel & Intelligence */}
                         <div className="space-y-6">
-                            <h2 className="text-xs font-semibold text-admin-pro-text-muted uppercase tracking-wider">Channels & intelligence</h2>
+                            <h2 className="text-xs font-semibold text-wt-text-muted uppercase tracking-wider">Channels & intelligence</h2>
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                 {/* Social / Omnichannel */}
-                                <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface overflow-hidden">
-                                    <div className="px-5 py-4 border-b border-admin-pro-border flex items-center gap-3">
-                                        <div className="w-9 h-9 rounded-lg bg-admin-pro-border flex items-center justify-center">
-                                            <Share2 className="w-4 h-4 text-admin-pro-text-muted" />
+                                <div className="rounded-xl border border-wt-border bg-wt-surface overflow-hidden">
+                                    <div className="px-5 py-4 border-b border-wt-border flex items-center gap-3">
+                                        <div className="w-9 h-9 rounded-lg bg-wt-border flex items-center justify-center">
+                                            <Share2 className="w-4 h-4 text-wt-text-muted" />
                                         </div>
-                                        <span className="text-sm font-medium text-admin-pro-text">Omnichannel presence</span>
+                                        <span className="text-sm font-medium text-wt-text">Omnichannel presence</span>
                                     </div>
                                     <div className="p-5">
                                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                                             {socialMetrics.facebook && (
-                                                <div className="text-center p-4 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50">
-                                                    <Facebook className="w-5 h-5 text-admin-pro-text-muted mx-auto mb-2" />
-                                                    <div className="text-lg font-semibold text-admin-pro-text tabular-nums">{(socialMetrics.facebook?.followers ?? 0).toLocaleString()}</div>
-                                                    <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider">Followers</div>
+                                                <div className="text-center p-4 rounded-lg bg-wt-bg border border-wt-border/50">
+                                                    <Facebook className="w-5 h-5 text-wt-text-muted mx-auto mb-2" />
+                                                    <div className="text-lg font-semibold text-wt-text tabular-nums">{(socialMetrics.facebook?.followers ?? 0).toLocaleString()}</div>
+                                                    <div className="text-[10px] font-medium text-wt-text-muted uppercase tracking-wider">Followers</div>
                                                 </div>
                                             )}
                                             {socialMetrics.twitter && (
-                                                <div className="text-center p-4 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50">
-                                                    <Twitter className="w-5 h-5 text-admin-pro-text-muted mx-auto mb-2" />
-                                                    <div className="text-lg font-semibold text-admin-pro-text tabular-nums">{(socialMetrics.twitter?.followers ?? 0).toLocaleString()}</div>
-                                                    <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider">Followers</div>
+                                                <div className="text-center p-4 rounded-lg bg-wt-bg border border-wt-border/50">
+                                                    <Twitter className="w-5 h-5 text-wt-text-muted mx-auto mb-2" />
+                                                    <div className="text-lg font-semibold text-wt-text tabular-nums">{(socialMetrics.twitter?.followers ?? 0).toLocaleString()}</div>
+                                                    <div className="text-[10px] font-medium text-wt-text-muted uppercase tracking-wider">Followers</div>
                                                 </div>
                                             )}
                                             {socialMetrics.linkedin && (
-                                                <div className="text-center p-4 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50">
-                                                    <Linkedin className="w-5 h-5 text-admin-pro-text-muted mx-auto mb-2" />
-                                                    <div className="text-lg font-semibold text-admin-pro-text tabular-nums">{(socialMetrics.linkedin?.followers ?? 0).toLocaleString()}</div>
-                                                    <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider">Followers</div>
+                                                <div className="text-center p-4 rounded-lg bg-wt-bg border border-wt-border/50">
+                                                    <Linkedin className="w-5 h-5 text-wt-text-muted mx-auto mb-2" />
+                                                    <div className="text-lg font-semibold text-wt-text tabular-nums">{(socialMetrics.linkedin?.followers ?? 0).toLocaleString()}</div>
+                                                    <div className="text-[10px] font-medium text-wt-text-muted uppercase tracking-wider">Followers</div>
                                                 </div>
                                             )}
                                             {socialMetrics.instagram && (
-                                                <div className="text-center p-4 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50">
-                                                    <Instagram className="w-5 h-5 text-admin-pro-text-muted mx-auto mb-2" />
-                                                    <div className="text-lg font-semibold text-admin-pro-text tabular-nums">{(socialMetrics.instagram?.followers ?? 0).toLocaleString()}</div>
-                                                    <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider">Followers</div>
+                                                <div className="text-center p-4 rounded-lg bg-wt-bg border border-wt-border/50">
+                                                    <Instagram className="w-5 h-5 text-wt-text-muted mx-auto mb-2" />
+                                                    <div className="text-lg font-semibold text-wt-text tabular-nums">{(socialMetrics.instagram?.followers ?? 0).toLocaleString()}</div>
+                                                    <div className="text-[10px] font-medium text-wt-text-muted uppercase tracking-wider">Followers</div>
                                                 </div>
                                             )}
                                             {socialMetrics.youtube && (
-                                                <div className="text-center p-4 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50">
-                                                    <Youtube className="w-5 h-5 text-admin-pro-text-muted mx-auto mb-2" />
-                                                    <div className="text-lg font-semibold text-admin-pro-text tabular-nums">{(socialMetrics.youtube?.subscribers ?? 0).toLocaleString()}</div>
-                                                    <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider">Subscribers</div>
+                                                <div className="text-center p-4 rounded-lg bg-wt-bg border border-wt-border/50">
+                                                    <Youtube className="w-5 h-5 text-wt-text-muted mx-auto mb-2" />
+                                                    <div className="text-lg font-semibold text-wt-text tabular-nums">{(socialMetrics.youtube?.subscribers ?? 0).toLocaleString()}</div>
+                                                    <div className="text-[10px] font-medium text-wt-text-muted uppercase tracking-wider">Subscribers</div>
                                                 </div>
                                             )}
                                             {!socialMetrics.facebook && !socialMetrics.twitter && !socialMetrics.linkedin && !socialMetrics.instagram && !socialMetrics.youtube && (
-                                                <div className="col-span-2 sm:col-span-3 text-center py-6 text-sm text-admin-pro-text-muted">Connect channels in Settings</div>
+                                                <div className="col-span-2 sm:col-span-3 text-center py-6 text-sm text-wt-text-muted">Connect channels in Settings</div>
                                             )}
                                         </div>
                                     </div>
                                 </div>
                                 {/* Trends / Intelligence Vectors */}
-                                <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface overflow-hidden">
-                                    <div className="px-5 py-4 border-b border-admin-pro-border flex items-center gap-3">
-                                        <div className="w-9 h-9 rounded-lg bg-admin-pro-accent-subtle flex items-center justify-center">
-                                            <TrendingUp className="w-4 h-4 text-admin-pro-accent" />
+                                <div className="rounded-xl border border-wt-border bg-wt-surface overflow-hidden">
+                                    <div className="px-5 py-4 border-b border-wt-border flex items-center gap-3">
+                                        <div className="w-9 h-9 rounded-lg bg-wt-gold-subtle flex items-center justify-center">
+                                            <TrendingUp className="w-4 h-4 text-wt-gold" />
                                         </div>
-                                        <span className="text-sm font-medium text-admin-pro-text">Intelligence vectors</span>
+                                        <span className="text-sm font-medium text-wt-text">Intelligence vectors</span>
                                     </div>
                                     <div className="p-5">
                                         <div className="space-y-2 max-h-[200px] overflow-y-auto">
                                             {Array.isArray(trends) && trends.length > 0 ? trends.slice(0, 6).map((trend: any, index: number) => (
-                                                <div key={index} className="flex items-center justify-between py-2.5 px-3 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50">
-                                                    <span className="font-medium text-admin-pro-text truncate">{trend.keyword}</span>
+                                                <div key={index} className="flex items-center justify-between py-2.5 px-3 rounded-lg bg-wt-bg border border-wt-border/50">
+                                                    <span className="font-medium text-wt-text truncate">{trend.keyword}</span>
                                                     <span className={cn(
                                                         "text-sm font-medium tabular-nums shrink-0 ml-2",
-                                                        trend.trend === 'up' ? 'text-admin-pro-accent' : 'text-admin-pro-danger'
+                                                        trend.trend === 'up' ? 'text-wt-gold' : 'text-wt-danger'
                                                     )}>
                                                         {trend.trend === 'up' ? '+' : ''}{trend.change}%
                                                     </span>
                                                 </div>
                                             )) : (
-                                                <div className="text-center py-8 text-sm text-admin-pro-text-muted">No trend data yet</div>
+                                                <div className="text-center py-8 text-sm text-wt-text-muted">No trend data yet</div>
                                             )}
                                         </div>
                                     </div>
@@ -558,86 +558,86 @@ export default function AdminPage() {
 
                         {/* Section: Content snapshot */}
                         <div className="space-y-4">
-                            <h2 className="text-xs font-semibold text-admin-pro-text-muted uppercase tracking-wider">Content snapshot</h2>
+                            <h2 className="text-xs font-semibold text-wt-text-muted uppercase tracking-wider">Content snapshot</h2>
                             <div id="recent-activity" className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface p-5 text-center">
-                                    <div className="text-2xl font-semibold text-admin-pro-text tabular-nums">{statsData?.total_articles ?? 0}</div>
-                                    <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider mt-1">Total articles</div>
-                                    <div className="text-xs text-admin-pro-text-muted mt-1">{statsData?.published_articles ?? 0} published</div>
+                                <div className="rounded-xl border border-wt-border bg-wt-surface p-5 text-center">
+                                    <div className="text-2xl font-semibold text-wt-text tabular-nums">{statsData?.total_articles ?? 0}</div>
+                                    <div className="text-[10px] font-medium text-wt-text-muted uppercase tracking-wider mt-1">Total articles</div>
+                                    <div className="text-xs text-wt-text-muted mt-1">{statsData?.published_articles ?? 0} published</div>
                                 </div>
-                                <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface p-5 text-center">
-                                    <div className="text-2xl font-semibold text-admin-pro-text tabular-nums">{Number(totalViews ?? 0).toLocaleString()}</div>
-                                    <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider mt-1">Total views</div>
+                                <div className="rounded-xl border border-wt-border bg-wt-surface p-5 text-center">
+                                    <div className="text-2xl font-semibold text-wt-text tabular-nums">{Number(totalViews ?? 0).toLocaleString()}</div>
+                                    <div className="text-[10px] font-medium text-wt-text-muted uppercase tracking-wider mt-1">Total views</div>
                                 </div>
-                                <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface p-5 text-center">
-                                    <div className="text-2xl font-semibold text-admin-pro-text tabular-nums">{statsData?.ai_generated_articles ?? 0}</div>
-                                    <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider mt-1">AI drafts</div>
+                                <div className="rounded-xl border border-wt-border bg-wt-surface p-5 text-center">
+                                    <div className="text-2xl font-semibold text-wt-text tabular-nums">{statsData?.ai_generated_articles ?? 0}</div>
+                                    <div className="text-[10px] font-medium text-wt-text-muted uppercase tracking-wider mt-1">AI drafts</div>
                                 </div>
-                                <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface p-5 text-center">
-                                    <div className="text-2xl font-semibold text-admin-pro-accent tabular-nums">{pendingArticlesCount ?? 0}</div>
-                                    <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider mt-1">Pending review</div>
+                                <div className="rounded-xl border border-wt-border bg-wt-surface p-5 text-center">
+                                    <div className="text-2xl font-semibold text-wt-gold tabular-nums">{pendingArticlesCount ?? 0}</div>
+                                    <div className="text-[10px] font-medium text-wt-text-muted uppercase tracking-wider mt-1">Pending review</div>
                                 </div>
                             </div>
                         </div>
 
                         {/* Section: Metrics & pipeline */}
                         <div className="space-y-4">
-                            <h2 className="text-xs font-semibold text-admin-pro-text-muted uppercase tracking-wider">Metrics & pipeline</h2>
+                            <h2 className="text-xs font-semibold text-wt-text-muted uppercase tracking-wider">Metrics & pipeline</h2>
                             <AdvancedMetricsTable timeRange={timeRange as '7d' | '30d' | '90d'} />
                         </div>
 
                         {/* Section: Revenue & performance */}
                         <div className="space-y-6">
-                            <h2 className="text-xs font-semibold text-admin-pro-text-muted uppercase tracking-wider">Revenue & performance</h2>
+                            <h2 className="text-xs font-semibold text-wt-text-muted uppercase tracking-wider">Revenue & performance</h2>
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                 {/* Top content by revenue */}
-                                <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface overflow-hidden">
-                                    <div className="px-5 py-4 border-b border-admin-pro-border flex items-center gap-3">
-                                        <div className="w-9 h-9 rounded-lg bg-admin-pro-accent-subtle flex items-center justify-center">
-                                            <DollarSign className="w-4 h-4 text-admin-pro-accent" />
+                                <div className="rounded-xl border border-wt-border bg-wt-surface overflow-hidden">
+                                    <div className="px-5 py-4 border-b border-wt-border flex items-center gap-3">
+                                        <div className="w-9 h-9 rounded-lg bg-wt-gold-subtle flex items-center justify-center">
+                                            <DollarSign className="w-4 h-4 text-wt-gold" />
                                         </div>
-                                        <span className="text-sm font-medium text-admin-pro-text">Top revenue content</span>
+                                        <span className="text-sm font-medium text-wt-text">Top revenue content</span>
                                     </div>
                                     <div className="p-5">
                                         <div className="space-y-2">
                                             {recentArticles.slice(0, 5).map((article: any, index: number) => (
-                                                <div key={article.id} className="flex items-center justify-between py-2.5 px-3 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50">
+                                                <div key={article.id} className="flex items-center justify-between py-2.5 px-3 rounded-lg bg-wt-bg border border-wt-border/50">
                                                     <div className="flex items-center gap-3 flex-1 min-w-0">
-                                                        <span className="w-6 h-6 rounded flex items-center justify-center text-xs font-medium bg-admin-pro-border text-admin-pro-text-muted shrink-0">
+                                                        <span className="w-6 h-6 rounded flex items-center justify-center text-xs font-medium bg-wt-border text-wt-text-muted shrink-0">
                                                             {index + 1}
                                                         </span>
-                                                        <span className="font-medium text-admin-pro-text truncate">{article.title}</span>
+                                                        <span className="font-medium text-wt-text truncate">{article.title}</span>
                                                     </div>
-                                                    <span className="text-xs text-admin-pro-text-muted shrink-0 ml-2">{(article.views ?? 0).toLocaleString()} views</span>
+                                                    <span className="text-xs text-wt-text-muted shrink-0 ml-2">{(article.views ?? 0).toLocaleString()} views</span>
                                                 </div>
                                             ))}
                                             {recentArticles.length === 0 && (
-                                                <div className="text-center py-8 text-sm text-admin-pro-text-muted">Connect analytics for revenue data</div>
+                                                <div className="text-center py-8 text-sm text-wt-text-muted">Connect analytics for revenue data</div>
                                             )}
                                         </div>
                                     </div>
                                 </div>
                                 {/* Performance indicators */}
-                                <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface overflow-hidden">
-                                    <div className="px-5 py-4 border-b border-admin-pro-border flex items-center gap-3">
-                                        <div className="w-9 h-9 rounded-lg bg-admin-pro-border flex items-center justify-center">
-                                            <Activity className="w-4 h-4 text-admin-pro-text-muted" />
+                                <div className="rounded-xl border border-wt-border bg-wt-surface overflow-hidden">
+                                    <div className="px-5 py-4 border-b border-wt-border flex items-center gap-3">
+                                        <div className="w-9 h-9 rounded-lg bg-wt-border flex items-center justify-center">
+                                            <Activity className="w-4 h-4 text-wt-text-muted" />
                                         </div>
-                                        <span className="text-sm font-medium text-admin-pro-text">Performance</span>
+                                        <span className="text-sm font-medium text-wt-text">Performance</span>
                                     </div>
                                     <div className="p-5">
                                         <div className="grid grid-cols-3 gap-3">
-                                            <div className="p-4 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50 text-center">
-                                                <div className="text-xl font-semibold text-admin-pro-text tabular-nums">{statsData?.articles_this_month ?? 0}</div>
-                                                <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider mt-1">This month</div>
+                                            <div className="p-4 rounded-lg bg-wt-bg border border-wt-border/50 text-center">
+                                                <div className="text-xl font-semibold text-wt-text tabular-nums">{statsData?.articles_this_month ?? 0}</div>
+                                                <div className="text-[10px] font-medium text-wt-text-muted uppercase tracking-wider mt-1">This month</div>
                                             </div>
-                                            <div className="p-4 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50 text-center">
-                                                <div className="text-xl font-semibold text-admin-pro-text tabular-nums">{pendingReviewsCount ?? 0}</div>
-                                                <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider mt-1">Pending reviews</div>
+                                            <div className="p-4 rounded-lg bg-wt-bg border border-wt-border/50 text-center">
+                                                <div className="text-xl font-semibold text-wt-text tabular-nums">{pendingReviewsCount ?? 0}</div>
+                                                <div className="text-[10px] font-medium text-wt-text-muted uppercase tracking-wider mt-1">Pending reviews</div>
                                             </div>
-                                            <div className="p-4 rounded-lg bg-admin-pro-bg border border-admin-pro-border/50 text-center">
-                                                <div className="text-xl font-semibold text-admin-pro-text tabular-nums">{(totalClicks ?? 0).toLocaleString()}</div>
-                                                <div className="text-[10px] font-medium text-admin-pro-text-muted uppercase tracking-wider mt-1">{conversionRate ?? 0}% conv.</div>
+                                            <div className="p-4 rounded-lg bg-wt-bg border border-wt-border/50 text-center">
+                                                <div className="text-xl font-semibold text-wt-text tabular-nums">{(totalClicks ?? 0).toLocaleString()}</div>
+                                                <div className="text-[10px] font-medium text-wt-text-muted uppercase tracking-wider mt-1">{conversionRate ?? 0}% conv.</div>
                                             </div>
                                         </div>
                                     </div>

@@ -123,9 +123,9 @@ export function KeyboardShortcuts({ shortcuts = [] }: KeyboardShortcutsProps) {
                         {allShortcuts.map((shortcut, index) => (
                             <div
                                 key={index}
-                                className="flex items-center justify-between p-3 rounded-lg bg-surface-darker/50 dark:bg-surface-darker/50 border border-border dark:border-border"
+                                className="flex items-center justify-between p-3 rounded-lg bg-surface-darker/50 dark:bg-surface-darker/50 border border-wt-border dark:border-wt-border"
                             >
-                                <span className="text-foreground/80 dark:text-foreground/80">{shortcut.description}</span>
+                                <span className="text-wt-text/80 dark:text-wt-text/80">{shortcut.description}</span>
                                 <Badge variant="outline" className="font-mono">
                                     {shortcut.key}
                                 </Badge>

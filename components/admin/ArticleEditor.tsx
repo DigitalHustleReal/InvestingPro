@@ -123,12 +123,12 @@ export default function ArticleEditor({
             }),
             Table.configure({
                 resizable: true,
-                HTMLAttributes: { class: 'border-collapse border border-slate-300 my-4' },
+                HTMLAttributes: { class: 'border-collapse border border-wt-border my-4' },
             }),
             TableRow,
             TableHeader,
             TableCell.configure({
-                HTMLAttributes: { class: 'border border-slate-300 px-4 py-2' },
+                HTMLAttributes: { class: 'border border-wt-border px-4 py-2' },
             }),
             SemanticImage,
         ],
@@ -139,19 +139,19 @@ export default function ArticleEditor({
         editorProps: {
             attributes: {
                 class: `prose prose-slate dark:prose-invert max-w-none focus:outline-none min-h-[400px] p-4 
-                text-slate-900 dark:text-foreground/95 dark:text-foreground/95 
-                [&_h1]:text-slate-900 dark:[&_h1]:text-foreground dark:text-foreground 
-                [&_h2]:text-slate-900 dark:[&_h2]:text-foreground dark:text-foreground 
-                [&_h3]:text-slate-900 dark:[&_h3]:text-foreground dark:text-foreground 
-                [&_h4]:text-slate-900 dark:[&_h4]:text-foreground dark:text-foreground
-                [&_p]:text-slate-700 dark:[&_p]:text-foreground/80 dark:text-foreground/80 
-                [&_ul]:text-slate-700 dark:[&_ul]:text-foreground/80 dark:text-foreground/80 
-                [&_ol]:text-slate-700 dark:[&_ol]:text-foreground/80 dark:text-foreground/80 
-                [&_li]:text-slate-700 dark:[&_li]:text-foreground/80 dark:text-foreground/80 
-                [&_strong]:text-slate-900 dark:[&_strong]:text-foreground dark:text-foreground 
-                [&_blockquote]:text-muted-foreground/50 dark:text-muted-foreground/50 dark:[&_blockquote]:text-muted-foreground dark:text-muted-foreground [&_blockquote]:border-slate-300 dark:[&_blockquote]:border-border dark:border-border
-                [&_code]:text-slate-800 dark:[&_code]:text-foreground/90 dark:text-foreground/90 [&_code]:bg-slate-100 dark:[&_code]:bg-muted dark:bg-muted [&_code]:px-1 [&_code]:rounded
-                [&_a]:text-primary-600 dark:[&_a]:text-primary-400 [&_a]:no-underline hover:[&_a]:underline
+                text-wt-text dark:text-wt-text/95 dark:text-wt-text/95 
+                [&_h1]:text-wt-text dark:[&_h1]:text-wt-text dark:text-wt-text 
+                [&_h2]:text-wt-text dark:[&_h2]:text-wt-text dark:text-wt-text 
+                [&_h3]:text-wt-text dark:[&_h3]:text-wt-text dark:text-wt-text 
+                [&_h4]:text-wt-text dark:[&_h4]:text-wt-text dark:text-wt-text
+                [&_p]:text-wt-text dark:[&_p]:text-wt-text/80 dark:text-wt-text/80 
+                [&_ul]:text-wt-text dark:[&_ul]:text-wt-text/80 dark:text-wt-text/80 
+                [&_ol]:text-wt-text dark:[&_ol]:text-wt-text/80 dark:text-wt-text/80 
+                [&_li]:text-wt-text dark:[&_li]:text-wt-text/80 dark:text-wt-text/80 
+                [&_strong]:text-wt-text dark:[&_strong]:text-wt-text dark:text-wt-text 
+                [&_blockquote]:text-wt-text-muted/50 dark:text-wt-text-muted/50 dark:[&_blockquote]:text-wt-text-muted dark:text-wt-text-muted [&_blockquote]:border-wt-border dark:[&_blockquote]:border-wt-border dark:border-wt-border
+                [&_code]:text-slate-800 dark:[&_code]:text-wt-text/90 dark:text-wt-text/90 [&_code]:bg-wt-card dark:[&_code]:bg-muted dark:bg-muted [&_code]:px-1 [&_code]:rounded
+                [&_a]:text-wt-gold dark:[&_a]:text-wt-gold [&_a]:no-underline hover:[&_a]:underline
                 ${className}`,
                 'data-placeholder': placeholder,
             },
@@ -219,30 +219,30 @@ export default function ArticleEditor({
     // Don't render until ready (prevents hydration mismatch)
     if (!isReady) {
         return (
-            <div className="border border-slate-300 rounded-lg bg-white overflow-hidden min-h-[400px] flex items-center justify-center">
-                <div className="text-muted-foreground dark:text-muted-foreground">Loading editor...</div>
+            <div className="border border-wt-border rounded-lg bg-white overflow-hidden min-h-[400px] flex items-center justify-center">
+                <div className="text-wt-text-muted dark:text-wt-text-muted">Loading editor...</div>
             </div>
         );
     }
 
     if (!editor) {
         return (
-            <div className="border border-slate-300 rounded-lg bg-white overflow-hidden min-h-[400px] flex items-center justify-center">
-                <div className="text-muted-foreground dark:text-muted-foreground">Initializing editor...</div>
+            <div className="border border-wt-border rounded-lg bg-white overflow-hidden min-h-[400px] flex items-center justify-center">
+                <div className="text-wt-text-muted dark:text-wt-text-muted">Initializing editor...</div>
             </div>
         );
     }
 
     return (
-        <div className="border border-slate-200 dark:border-slate-800 rounded-lg bg-white/50 dark:bg-surface-darker/50 dark:bg-surface-darker/50 backdrop-blur-xl overflow-hidden shadow-sm dark:shadow-2xl transition-colors duration-300">
+        <div className="border border-wt-border border-wt-border rounded-lg bg-white/50 dark:bg-surface-darker/50 dark:bg-surface-darker/50 backdrop-blur-xl overflow-hidden shadow-sm dark:shadow-2xl transition-colors duration-300">
             {/* Toolbar */}
             {editable && (
-                <div className="border-b border-slate-200 dark:border-slate-800 p-2 flex flex-wrap gap-1 bg-slate-50/50 dark:bg-surface-darker/50 dark:bg-surface-darker/50 transition-colors duration-300">
+                <div className="border-b border-wt-border border-wt-border p-2 flex flex-wrap gap-1 bg-wt-surface-hover/50 dark:bg-surface-darker/50 dark:bg-surface-darker/50 transition-colors duration-300">
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-                        className={editor.isActive('heading', { level: 1 }) ? 'bg-slate-200 text-primary-600 dark:bg-muted dark:bg-muted dark:text-primary-400' : 'text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-900 hover:bg-slate-200 dark:text-muted-foreground dark:text-muted-foreground dark:hover:text-foreground/95 dark:text-foreground/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('heading', { level: 1 }) ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
                         aria-label="Heading 1"
                         aria-pressed={editor.isActive('heading', { level: 1 })}
                     >
@@ -252,7 +252,7 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-                        className={editor.isActive('heading', { level: 2 }) ? 'bg-slate-200 text-primary-600 dark:bg-muted dark:bg-muted dark:text-primary-400' : 'text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-900 hover:bg-slate-200 dark:text-muted-foreground dark:text-muted-foreground dark:hover:text-foreground/95 dark:text-foreground/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('heading', { level: 2 }) ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
                         aria-label="Heading 2"
                         aria-pressed={editor.isActive('heading', { level: 2 })}
                     >
@@ -262,7 +262,7 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-                        className={editor.isActive('heading', { level: 3 }) ? 'bg-slate-200 text-primary-600 dark:bg-muted dark:bg-muted dark:text-primary-400' : 'text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-900 hover:bg-slate-200 dark:text-muted-foreground dark:text-muted-foreground dark:hover:text-foreground/95 dark:text-foreground/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('heading', { level: 3 }) ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
                         aria-label="Heading 3"
                         aria-pressed={editor.isActive('heading', { level: 3 })}
                     >
@@ -273,7 +273,7 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleBold().run()}
-                        className={editor.isActive('bold') ? 'bg-slate-200 text-primary-600 dark:bg-muted dark:bg-muted dark:text-primary-400' : 'text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-900 hover:bg-slate-200 dark:text-muted-foreground dark:text-muted-foreground dark:hover:text-foreground/95 dark:text-foreground/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('bold') ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
                         aria-label="Bold (Ctrl+B)"
                         aria-pressed={editor.isActive('bold')}
                     >
@@ -283,7 +283,7 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleItalic().run()}
-                        className={editor.isActive('italic') ? 'bg-slate-200 text-primary-600 dark:bg-muted dark:bg-muted dark:text-primary-400' : 'text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-900 hover:bg-slate-200 dark:text-muted-foreground dark:text-muted-foreground dark:hover:text-foreground/95 dark:text-foreground/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('italic') ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
                         aria-label="Italic (Ctrl+I)"
                         aria-pressed={editor.isActive('italic')}
                     >
@@ -293,7 +293,7 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleCode().run()}
-                        className={editor.isActive('code') ? 'bg-slate-200 text-primary-600 dark:bg-muted dark:bg-muted dark:text-primary-400' : 'text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-900 hover:bg-slate-200 dark:text-muted-foreground dark:text-muted-foreground dark:hover:text-foreground/95 dark:text-foreground/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('code') ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
                         aria-label="Inline code"
                         aria-pressed={editor.isActive('code')}
                     >
@@ -304,7 +304,7 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleBulletList().run()}
-                        className={editor.isActive('bulletList') ? 'bg-slate-200 text-primary-600 dark:bg-muted dark:bg-muted dark:text-primary-400' : 'text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-900 hover:bg-slate-200 dark:text-muted-foreground dark:text-muted-foreground dark:hover:text-foreground/95 dark:text-foreground/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('bulletList') ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
                         aria-label="Bullet list"
                         aria-pressed={editor.isActive('bulletList')}
                     >
@@ -314,7 +314,7 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleOrderedList().run()}
-                        className={editor.isActive('orderedList') ? 'bg-slate-200 text-primary-600 dark:bg-muted dark:bg-muted dark:text-primary-400' : 'text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-900 hover:bg-slate-200 dark:text-muted-foreground dark:text-muted-foreground dark:hover:text-foreground/95 dark:text-foreground/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('orderedList') ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
                         aria-label="Numbered list"
                         aria-pressed={editor.isActive('orderedList')}
                     >
@@ -324,7 +324,7 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleBlockquote().run()}
-                        className={editor.isActive('blockquote') ? 'bg-slate-200 text-primary-600 dark:bg-muted dark:bg-muted dark:text-primary-400' : 'text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-900 hover:bg-slate-200 dark:text-muted-foreground dark:text-muted-foreground dark:hover:text-foreground/95 dark:text-foreground/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('blockquote') ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
                         aria-label="Quote"
                         aria-pressed={editor.isActive('blockquote')}
                     >
@@ -335,7 +335,7 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={addLink}
-                        className={editor.isActive('link') ? 'bg-slate-200 text-primary-600 dark:bg-muted dark:bg-muted dark:text-primary-400' : 'text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-900 hover:bg-slate-200 dark:text-muted-foreground dark:text-muted-foreground dark:hover:text-foreground/95 dark:text-foreground/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('link') ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
                         aria-label="Add link"
                         aria-pressed={editor.isActive('link')}
                     >
@@ -346,7 +346,7 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={addSemanticImage}
-                        className="text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-900 hover:bg-slate-200 dark:text-muted-foreground dark:text-muted-foreground dark:hover:text-foreground/95 dark:text-foreground/95 dark:hover:bg-muted dark:bg-muted"
+                        className="text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted"
                         aria-label="Insert semantic image reference"
                         title="Insert semantic image reference"
                     >
@@ -356,7 +356,7 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={insertTable}
-                        className="text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-900 hover:bg-slate-200 dark:text-muted-foreground dark:text-muted-foreground dark:hover:text-foreground/95 dark:text-foreground/95 dark:hover:bg-muted dark:bg-muted"
+                        className="text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted"
                         aria-label="Insert table (3x3)"
                     >
                         <Grid3x3 className="w-4 h-4" aria-hidden="true" />
@@ -365,7 +365,7 @@ export default function ArticleEditor({
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().setHorizontalRule().run()}
-                        className="text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-900 hover:bg-slate-200 dark:text-muted-foreground dark:text-muted-foreground dark:hover:text-foreground/95 dark:text-foreground/95 dark:hover:bg-muted dark:bg-muted"
+                        className="text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted"
                         aria-label="Insert horizontal rule"
                     >
                         <Minus className="w-4 h-4" aria-hidden="true" />

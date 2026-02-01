@@ -1,0 +1,823 @@
+{
+  "summary": {
+    "TODO": 68,
+    "FIXME": 0,
+    "HACK": 0,
+    "NOTE": 48,
+    "TOTAL": 116
+  },
+  "debts": [
+    {
+      "file": "app\\admin\\settings\\vault\\page.tsx",
+      "line": 76,
+      "type": "NOTE",
+      "content": "This is stored in your browser's LocalStorage only.\"}",
+      "snippet": "placeholder={\"// Paste your keys here\\nOPENAI_API_KEY=sk-...\\nSUPABASE_KEY=ey...\\n\\n// Note: This is"
+    },
+    {
+      "file": "app\\api\\admin\\content-assignments\\stats\\route.ts",
+      "line": 47,
+      "type": "TODO",
+      "content": "Calculate from actual data",
+      "snippet": "avg_review_time: '2.5 hrs', // TODO: Calculate from actual data"
+    },
+    {
+      "file": "app\\api\\admin\\generate-article\\route.ts",
+      "line": 17,
+      "type": "TODO",
+      "content": "Check for admin role",
+      "snippet": "// TODO: Check for admin role"
+    },
+    {
+      "file": "app\\api\\cms\\bulk-generate\\route.ts",
+      "line": 36,
+      "type": "TODO",
+      "content": "Add logic to generate topics from config if needed",
+      "snippet": "// TODO: Add logic to generate topics from config if needed"
+    },
+    {
+      "file": "app\\api\\downloads\\generate\\[resourceId]\\route.ts",
+      "line": 83,
+      "type": "TODO",
+      "content": "Use ExcelJS to generate real .xlsx files",
+      "snippet": "// TODO: Use ExcelJS to generate real .xlsx files"
+    },
+    {
+      "file": "app\\api\\experiments\\assignment\\route.ts",
+      "line": 21,
+      "type": "TODO",
+      "content": "Store assignment in database",
+      "snippet": "// TODO: Store assignment in database"
+    },
+    {
+      "file": "app\\api\\experiments\\conversion\\route.ts",
+      "line": 21,
+      "type": "TODO",
+      "content": "Store conversion in database",
+      "snippet": "// TODO: Store conversion in database"
+    },
+    {
+      "file": "app\\api\\pipeline\\metrics\\route.ts",
+      "line": 9,
+      "type": "TODO",
+      "content": "Replace with actual database queries",
+      "snippet": "// TODO: Replace with actual database queries"
+    },
+    {
+      "file": "app\\api\\test\\events\\route.ts",
+      "line": 18,
+      "type": "TODO",
+      "content": "Add admin auth check in production",
+      "snippet": "// TODO: Add admin auth check in production"
+    },
+    {
+      "file": "app\\api\\v1\\admin\\revenue\\by-category\\route.ts",
+      "line": 86,
+      "type": "NOTE",
+      "content": "Supabase doesn't support OR directly in filters, so we'll filter in code",
+      "snippet": "// Note: Supabase doesn't support OR directly in filters, so we'll filter in code"
+    },
+    {
+      "file": "app\\compare\\page.tsx",
+      "line": 403,
+      "type": "TODO",
+      "content": "format currency",
+      "snippet": "return <span className=\"font-semibold\">{String(value)}</span>; // TODO: format currency"
+    },
+    {
+      "file": "app\\compare\\versus\\page-skeleton.tsx",
+      "line": 21,
+      "type": "NOTE",
+      "content": "If you want a specific URL structure like /compare/hdfc-vs-sbi,",
+      "snippet": "// Note: If you want a specific URL structure like /compare/hdfc-vs-sbi,"
+    },
+    {
+      "file": "app\\credit-cards\\page.tsx",
+      "line": 5,
+      "type": "NOTE",
+      "content": "Search Input in Hero is non-functional in SSR unless wrapped, keeping visual or moving to Client",
+      "snippet": "import { Input } from \"@/components/ui/input\"; // Note: Search Input in Hero is non-functional in SS"
+    },
+    {
+      "file": "app\\credit-cards\\[slug]\\page.tsx",
+      "line": 590,
+      "type": "TODO",
+      "content": "Fetch similar products dynamically",
+      "snippet": "// TODO: Fetch similar products dynamically"
+    },
+    {
+      "file": "app\\[category]\\[slug]\\page.tsx",
+      "line": 187,
+      "type": "NOTE",
+      "content": "We need to import NAVIGATION_CATEGORIES dynamically if it's not available in NAVIGATION_CONFIG",
+      "snippet": "// Note: We need to import NAVIGATION_CATEGORIES dynamically if it's not available in NAVIGATION_CON"
+    },
+    {
+      "file": "components\\admin\\ArticleVersionHistory.tsx",
+      "line": 279,
+      "type": "TODO",
+      "content": "Implement pagination",
+      "snippet": "// TODO: Implement pagination"
+    },
+    {
+      "file": "components\\admin\\GlobalSearch.tsx",
+      "line": 69,
+      "type": "TODO",
+      "content": "Implement real search API call",
+      "snippet": "// TODO: Implement real search API call"
+    },
+    {
+      "file": "components\\calculators\\PortfolioRebalancingCalculator.tsx",
+      "line": 43,
+      "type": "NOTE",
+      "content": "In a real app, we'd need to ensure total allocation sums to 100%",
+      "snippet": "// Note: In a real app, we'd need to ensure total allocation sums to 100%"
+    },
+    {
+      "file": "components\\common\\AffiliateLink.tsx",
+      "line": 28,
+      "type": "NOTE",
+      "content": "We compute the URL in the render.",
+      "snippet": "// Note: We compute the URL in the render."
+    },
+    {
+      "file": "components\\common\\ErrorBoundary.tsx",
+      "line": 51,
+      "type": "TODO",
+      "content": "Send to error tracking service (Sentry, etc.)",
+      "snippet": "// TODO: Send to error tracking service (Sentry, etc.)"
+    },
+    {
+      "file": "components\\compare\\CompareTray.tsx",
+      "line": 66,
+      "type": "NOTE",
+      "content": "Comparison link is generic here, ideally dynamic based on category */}",
+      "snippet": "{/* Note: Comparison link is generic here, ideally dynamic based on category */}"
+    },
+    {
+      "file": "components\\home\\TrendingSection.tsx",
+      "line": 60,
+      "type": "TODO",
+      "content": "Replace with real API call",
+      "snippet": "// TODO: Replace with real API call"
+    },
+    {
+      "file": "components\\products\\CreditCardValueCalculator.tsx",
+      "line": 26,
+      "type": "NOTE",
+      "content": "rewardRate input often varies. Let's assume input is % return for simplicity if cashback provided,",
+      "snippet": "// Note: rewardRate input often varies. Let's assume input is % return for simplicity if cashback pr"
+    },
+    {
+      "file": "components\\tools\\CalculatorHydrator.tsx",
+      "line": 39,
+      "type": "TODO",
+      "content": "Replace with EMICalculator once ready",
+      "snippet": "root.render(<SIPCalculator />); // TODO: Replace with EMICalculator once ready"
+    },
+    {
+      "file": "lib\\ai\\image-generator.ts",
+      "line": 219,
+      "type": "TODO",
+      "content": "Parse bodyHtml and insert illustrations at strategic points",
+      "snippet": "// TODO: Parse bodyHtml and insert illustrations at strategic points"
+    },
+    {
+      "file": "lib\\ai-service.ts",
+      "line": 135,
+      "type": "TODO",
+      "content": "Investigate SDK version mismatch with model names",
+      "snippet": "// TODO: Investigate SDK version mismatch with model names"
+    },
+    {
+      "file": "lib\\alerts\\alert-manager.ts",
+      "line": 185,
+      "type": "TODO",
+      "content": "Implement Axiom API query",
+      "snippet": "// TODO: Implement Axiom API query"
+    },
+    {
+      "file": "lib\\analytics\\conversion-funnel.ts",
+      "line": 46,
+      "type": "NOTE",
+      "content": "This would require analytics_events table with page_view events",
+      "snippet": "// Note: This would require analytics_events table with page_view events"
+    },
+    {
+      "file": "lib\\analytics\\gsc-trends.ts",
+      "line": 81,
+      "type": "TODO",
+      "content": "Implement Google Search Console API integration",
+      "snippet": "// TODO: Implement Google Search Console API integration"
+    },
+    {
+      "file": "lib\\analytics\\gsc-trends.ts",
+      "line": 169,
+      "type": "TODO",
+      "content": "Calculate growth by comparing with previous period",
+      "snippet": "growth: 0, // TODO: Calculate growth by comparing with previous period"
+    },
+    {
+      "file": "lib\\analytics\\gsc-trends.ts",
+      "line": 205,
+      "type": "TODO",
+      "content": "Check if we have content for this query",
+      "snippet": "// TODO: Check if we have content for this query"
+    },
+    {
+      "file": "lib\\analytics\\gsc-trends.ts",
+      "line": 228,
+      "type": "TODO",
+      "content": "Fetch top pages from GSC",
+      "snippet": "topPages: [], // TODO: Fetch top pages from GSC"
+    },
+    {
+      "file": "lib\\analytics\\rankings-tracker.ts",
+      "line": 249,
+      "type": "TODO",
+      "content": "Implement Google Search Console API integration",
+      "snippet": "// TODO: Implement Google Search Console API integration"
+    },
+    {
+      "file": "lib\\api.ts",
+      "line": 245,
+      "type": "NOTE",
+      "content": "Health check disabled to force retry after quota fix",
+      "snippet": "// Note: Health check disabled to force retry after quota fix"
+    },
+    {
+      "file": "lib\\automation\\article-generator.ts",
+      "line": 14,
+      "type": "NOTE",
+      "content": "eventPublisher and workflow imports made lazy to avoid server-only chain in scripts",
+      "snippet": "// NOTE: eventPublisher and workflow imports made lazy to avoid server-only chain in scripts"
+    },
+    {
+      "file": "lib\\automation\\article-generator.ts",
+      "line": 456,
+      "type": "TODO",
+      "content": "Pass as parameter",
+      "snippet": "const category = 'mutual-funds'; // TODO: Pass as parameter"
+    },
+    {
+      "file": "lib\\automation\\content-distribution.ts",
+      "line": 243,
+      "type": "TODO",
+      "content": "Add distributed_at field to filter out already distributed articles",
+      "snippet": "// TODO: Add distributed_at field to filter out already distributed articles"
+    },
+    {
+      "file": "lib\\automation\\content-refresh.ts",
+      "line": 69,
+      "type": "TODO",
+      "content": "Add refreshed_at field to track refresh history",
+      "snippet": "// TODO: Add refreshed_at field to track refresh history"
+    },
+    {
+      "file": "lib\\automation\\refresh-triggers.ts",
+      "line": 169,
+      "type": "TODO",
+      "content": "Use SERP analysis to update content",
+      "snippet": "// TODO: Use SERP analysis to update content"
+    },
+    {
+      "file": "lib\\automation\\refresh-triggers.ts",
+      "line": 180,
+      "type": "TODO",
+      "content": "Integrate with content generation pipeline",
+      "snippet": "// TODO: Integrate with content generation pipeline"
+    },
+    {
+      "file": "lib\\automation\\scheduler.ts",
+      "line": 79,
+      "type": "TODO",
+      "content": "Store social post schedules in a separate table",
+      "snippet": "// TODO: Store social post schedules in a separate table"
+    },
+    {
+      "file": "lib\\automation\\seo-optimizer.ts",
+      "line": 252,
+      "type": "TODO",
+      "content": "Apply optimizations to article",
+      "snippet": "// TODO: Apply optimizations to article"
+    },
+    {
+      "file": "lib\\automation\\social-poster.ts",
+      "line": 43,
+      "type": "TODO",
+      "content": "Integrate with Twitter API (Twitter API v2) and LinkedIn API",
+      "snippet": "// TODO: Integrate with Twitter API (Twitter API v2) and LinkedIn API"
+    },
+    {
+      "file": "lib\\automation\\social-poster.ts",
+      "line": 52,
+      "type": "TODO",
+      "content": "Implement actual posting",
+      "snippet": "// TODO: Implement actual posting"
+    },
+    {
+      "file": "lib\\automation\\social-poster.ts",
+      "line": 190,
+      "type": "TODO",
+      "content": "Implement LinkedIn API integration",
+      "snippet": "// TODO: Implement LinkedIn API integration"
+    },
+    {
+      "file": "lib\\automation\\workflow-engine.ts",
+      "line": 469,
+      "type": "NOTE",
+      "content": "Workflow stats are updated via database trigger",
+      "snippet": "// Note: Workflow stats are updated via database trigger"
+    },
+    {
+      "file": "lib\\cms\\article-service.ts",
+      "line": 367,
+      "type": "NOTE",
+      "content": "Database trigger also creates versions, but we do it explicitly for control",
+      "snippet": "// Note: Database trigger also creates versions, but we do it explicitly for control"
+    },
+    {
+      "file": "lib\\content\\link-manager.ts",
+      "line": 38,
+      "type": "NOTE",
+      "content": "Production-grade implementation should use a DOM parser to avoid breaking attributes.",
+      "snippet": "// Note: Production-grade implementation should use a DOM parser to avoid breaking attributes."
+    },
+    {
+      "file": "lib\\data\\ipo-service.ts",
+      "line": 125,
+      "type": "TODO",
+      "content": "Implement web scraping or API integration",
+      "snippet": "// TODO: Implement web scraping or API integration"
+    },
+    {
+      "file": "lib\\data-sources\\rbi-api.ts",
+      "line": 71,
+      "type": "TODO",
+      "content": "Implement web scraping of RBI website",
+      "snippet": "// TODO: Implement web scraping of RBI website"
+    },
+    {
+      "file": "lib\\engagement\\newsletter-service.ts",
+      "line": 231,
+      "type": "TODO",
+      "content": "Implement actual email sending",
+      "snippet": "// TODO: Implement actual email sending"
+    },
+    {
+      "file": "lib\\env.ts",
+      "line": 58,
+      "type": "NOTE",
+      "content": "We use safeParse to avoid crashing the build if envs are missing during CI/CD checks that don't need them",
+      "snippet": "// Note: We use safeParse to avoid crashing the build if envs are missing during CI/CD checks that d"
+    },
+    {
+      "file": "lib\\events\\handlers\\content-handler.ts",
+      "line": 49,
+      "type": "NOTE",
+      "content": "This is a simple approach. In production, you might want pattern-based invalidation",
+      "snippet": "// Note: This is a simple approach. In production, you might want pattern-based invalidation"
+    },
+    {
+      "file": "lib\\events\\publisher.ts",
+      "line": 8,
+      "type": "NOTE",
+      "content": "server-only import removed to allow scripts to import this module",
+      "snippet": "// NOTE: server-only import removed to allow scripts to import this module"
+    },
+    {
+      "file": "lib\\intelligence\\orchestrators\\data-sync-orchestrator.ts",
+      "line": 230,
+      "type": "TODO",
+      "content": "Implement actual scraping using Playwright/Cheerio",
+      "snippet": "// TODO: Implement actual scraping using Playwright/Cheerio"
+    },
+    {
+      "file": "lib\\intelligence\\orchestrators\\data-sync-orchestrator.ts",
+      "line": 242,
+      "type": "TODO",
+      "content": "Implement AMFI scraping",
+      "snippet": "// TODO: Implement AMFI scraping"
+    },
+    {
+      "file": "lib\\intelligence\\orchestrators\\data-sync-orchestrator.ts",
+      "line": 250,
+      "type": "TODO",
+      "content": "Implement credit card scraping",
+      "snippet": "// TODO: Implement credit card scraping"
+    },
+    {
+      "file": "lib\\jobs\\product-data-scraping.ts",
+      "line": 64,
+      "type": "TODO",
+      "content": "Implement actual scraping from URLs",
+      "snippet": "// TODO: Implement actual scraping from URLs"
+    },
+    {
+      "file": "lib\\media\\image-manager.ts",
+      "line": 85,
+      "type": "TODO",
+      "content": "Query a 'media_library' table for tags.",
+      "snippet": "// TODO: Query a 'media_library' table for tags."
+    },
+    {
+      "file": "lib\\media\\image-manager.ts",
+      "line": 111,
+      "type": "NOTE",
+      "content": "Unsplash Source API is deprecated/unreliable, but good fallback for prototypes",
+      "snippet": "// Note: Unsplash Source API is deprecated/unreliable, but good fallback for prototypes"
+    },
+    {
+      "file": "lib\\middleware\\api-wrapper.ts",
+      "line": 62,
+      "type": "TODO",
+      "content": "Add auth check if requireAuth is true",
+      "snippet": "// TODO: Add auth check if requireAuth is true"
+    },
+    {
+      "file": "lib\\middleware\\rate-limit.ts",
+      "line": 13,
+      "type": "NOTE",
+      "content": "@upstash/ratelimit and @upstash/redis should be installed",
+      "snippet": "// Note: @upstash/ratelimit and @upstash/redis should be installed"
+    },
+    {
+      "file": "lib\\queue\\job-status.ts",
+      "line": 56,
+      "type": "TODO",
+      "content": "Implement Inngest API query if needed",
+      "snippet": "// TODO: Implement Inngest API query if needed"
+    },
+    {
+      "file": "lib\\queue\\jobs\\image-generation.ts",
+      "line": 21,
+      "type": "TODO",
+      "content": "Integrate with actual image generation service",
+      "snippet": "// TODO: Integrate with actual image generation service"
+    },
+    {
+      "file": "lib\\ranking\\engine.ts",
+      "line": 114,
+      "type": "NOTE",
+      "content": "CreditCard type doesn't have interestRate, skipping for now",
+      "snippet": "// Note: CreditCard type doesn't have interestRate, skipping for now"
+    },
+    {
+      "file": "lib\\scraper\\credit-card-scraper.ts",
+      "line": 84,
+      "type": "NOTE",
+      "content": "HDFC website structure may change - adjust selectors as needed",
+      "snippet": "// Note: HDFC website structure may change - adjust selectors as needed"
+    },
+    {
+      "file": "lib\\scraper\\credit-card-scraper.ts",
+      "line": 618,
+      "type": "NOTE",
+      "content": "This assumes credit_cards table has pipeline_run_id column (added in migration?)",
+      "snippet": "// Note: This assumes credit_cards table has pipeline_run_id column (added in migration?)"
+    },
+    {
+      "file": "lib\\scraper\\product-data-scraper.ts",
+      "line": 351,
+      "type": "NOTE",
+      "content": "Mutual funds typically don't have image_url in MutualFundData interface",
+      "snippet": "// Note: Mutual funds typically don't have image_url in MutualFundData interface"
+    },
+    {
+      "file": "lib\\seo\\keyword-api-client.ts",
+      "line": 59,
+      "type": "TODO",
+      "content": "Implement Ahrefs API integration",
+      "snippet": "// TODO: Implement Ahrefs API integration"
+    },
+    {
+      "file": "lib\\seo\\keyword-api-client.ts",
+      "line": 72,
+      "type": "TODO",
+      "content": "Implement",
+      "snippet": "// TODO: Implement"
+    },
+    {
+      "file": "lib\\seo\\keyword-api-client.ts",
+      "line": 78,
+      "type": "TODO",
+      "content": "Implement",
+      "snippet": "// TODO: Implement"
+    },
+    {
+      "file": "lib\\seo\\keyword-api-client.ts",
+      "line": 84,
+      "type": "TODO",
+      "content": "Implement",
+      "snippet": "// TODO: Implement"
+    },
+    {
+      "file": "lib\\seo\\keyword-api-client.ts",
+      "line": 107,
+      "type": "TODO",
+      "content": "Implement Semrush API integration",
+      "snippet": "// TODO: Implement Semrush API integration"
+    },
+    {
+      "file": "lib\\seo\\keyword-api-client.ts",
+      "line": 120,
+      "type": "TODO",
+      "content": "Implement",
+      "snippet": "// TODO: Implement"
+    },
+    {
+      "file": "lib\\seo\\keyword-api-client.ts",
+      "line": 126,
+      "type": "TODO",
+      "content": "Implement",
+      "snippet": "// TODO: Implement"
+    },
+    {
+      "file": "lib\\seo\\keyword-api-client.ts",
+      "line": 132,
+      "type": "TODO",
+      "content": "Implement",
+      "snippet": "// TODO: Implement"
+    },
+    {
+      "file": "lib\\seo\\keyword-api-client.ts",
+      "line": 155,
+      "type": "TODO",
+      "content": "Implement Ubersuggest API integration",
+      "snippet": "// TODO: Implement Ubersuggest API integration"
+    },
+    {
+      "file": "lib\\seo\\keyword-api-client.ts",
+      "line": 168,
+      "type": "TODO",
+      "content": "Implement",
+      "snippet": "// TODO: Implement"
+    },
+    {
+      "file": "lib\\seo\\keyword-api-client.ts",
+      "line": 174,
+      "type": "TODO",
+      "content": "Implement",
+      "snippet": "// TODO: Implement"
+    },
+    {
+      "file": "lib\\seo\\keyword-api-client.ts",
+      "line": 180,
+      "type": "TODO",
+      "content": "Implement",
+      "snippet": "// TODO: Implement"
+    },
+    {
+      "file": "lib\\seo\\keyword-discovery.ts",
+      "line": 219,
+      "type": "TODO",
+      "content": "Save to keyword_discoveries table when migration is created",
+      "snippet": "// TODO: Save to keyword_discoveries table when migration is created"
+    },
+    {
+      "file": "lib\\seo\\providers\\free-keyword-providers.ts",
+      "line": 46,
+      "type": "TODO",
+      "content": "Implement Google Ads API integration",
+      "snippet": "// TODO: Implement Google Ads API integration"
+    },
+    {
+      "file": "lib\\seo\\providers\\free-keyword-providers.ts",
+      "line": 384,
+      "type": "TODO",
+      "content": "Implement Ubersuggest free API",
+      "snippet": "// TODO: Implement Ubersuggest free API"
+    },
+    {
+      "file": "lib\\seo\\providers\\free-keyword-providers.ts",
+      "line": 397,
+      "type": "TODO",
+      "content": "Implement",
+      "snippet": "// TODO: Implement"
+    },
+    {
+      "file": "lib\\seo\\providers\\free-keyword-providers.ts",
+      "line": 403,
+      "type": "TODO",
+      "content": "Implement",
+      "snippet": "// TODO: Implement"
+    },
+    {
+      "file": "lib\\seo\\providers\\free-keyword-providers.ts",
+      "line": 409,
+      "type": "TODO",
+      "content": "Implement",
+      "snippet": "// TODO: Implement"
+    },
+    {
+      "file": "lib\\seo\\versus-generator.ts",
+      "line": 66,
+      "type": "NOTE",
+      "content": "We cast to 'any' because product service types might need alignment",
+      "snippet": "// Note: We cast to 'any' because product service types might need alignment"
+    },
+    {
+      "file": "lib\\services\\articles\\article.repository.cached.ts",
+      "line": 117,
+      "type": "NOTE",
+      "content": "Redis pattern matching requires SCAN in production",
+      "snippet": "// Note: Redis pattern matching requires SCAN in production"
+    },
+    {
+      "file": "lib\\services\\bookmarks\\bookmark.service.ts",
+      "line": 43,
+      "type": "TODO",
+      "content": "Add notes support if needed",
+      "snippet": "// TODO: Add notes support if needed"
+    },
+    {
+      "file": "lib\\services\\products\\product.repository.cached.ts",
+      "line": 117,
+      "type": "NOTE",
+      "content": "Redis pattern matching requires SCAN in production",
+      "snippet": "// Note: Redis pattern matching requires SCAN in production"
+    },
+    {
+      "file": "lib\\theme\\brand-theme.ts",
+      "line": 120,
+      "type": "NOTE",
+      "content": "NEVER use for category theming (psychologically negative in India)",
+      "snippet": "// Note: NEVER use for category theming (psychologically negative in India)"
+    },
+    {
+      "file": "lib\\validation\\fact-checker-authoritative.ts",
+      "line": 309,
+      "type": "TODO",
+      "content": "Integrate with SEBI circulars/regulations database",
+      "snippet": "// TODO: Integrate with SEBI circulars/regulations database"
+    },
+    {
+      "file": "lib\\validation\\fact-checker.ts",
+      "line": 405,
+      "type": "TODO",
+      "content": "Integrate with product database to validate rates/fees",
+      "snippet": "// TODO: Integrate with product database to validate rates/fees"
+    },
+    {
+      "file": "lib\\validation\\fact-checker.ts",
+      "line": 417,
+      "type": "NOTE",
+      "content": "warnings are handled at a higher level, not here",
+      "snippet": "// Note: warnings are handled at a higher level, not here"
+    },
+    {
+      "file": "lib\\visuals\\ImageService.ts",
+      "line": 37,
+      "type": "NOTE",
+      "content": "source.unsplash is deprecated/unreliable, better to use specific reliable placeholders or just mock urls that Unsplash might redirect.",
+      "snippet": "// note: source.unsplash is deprecated/unreliable, better to use specific reliable placeholders or j"
+    },
+    {
+      "file": "lib\\workflows\\actions\\article-actions.ts",
+      "line": 119,
+      "type": "NOTE",
+      "content": "This would need to be integrated with article service update method",
+      "snippet": "// Note: This would need to be integrated with article service update method"
+    },
+    {
+      "file": "lib\\workflows\\hooks\\article-workflow-hooks.ts",
+      "line": 7,
+      "type": "NOTE",
+      "content": "server-only import removed to allow scripts to run",
+      "snippet": "// NOTE: server-only import removed to allow scripts to run"
+    },
+    {
+      "file": "lib\\workflows\\workflow-service.ts",
+      "line": 8,
+      "type": "NOTE",
+      "content": "server-only import removed to allow scripts to run",
+      "snippet": "// NOTE: server-only import removed to allow scripts to run"
+    },
+    {
+      "file": "middleware.ts",
+      "line": 204,
+      "type": "NOTE",
+      "content": "This runs after response is sent, so it's fire-and-forget",
+      "snippet": "// Note: This runs after response is sent, so it's fire-and-forget"
+    },
+    {
+      "file": "next-env.d.ts",
+      "line": 5,
+      "type": "NOTE",
+      "content": "This file should not be edited",
+      "snippet": "// NOTE: This file should not be edited"
+    },
+    {
+      "file": "scripts\\apply-migrations.ts",
+      "line": 111,
+      "type": "NOTE",
+      "content": "Supabase JS client doesn't support direct SQL execution",
+      "snippet": "// Note: Supabase JS client doesn't support direct SQL execution"
+    },
+    {
+      "file": "scripts\\fix-deep-colors.ts",
+      "line": 28,
+      "type": "NOTE",
+      "content": "In inline styles or props, we often need the hex or the var.",
+      "snippet": "// NOTE: In inline styles or props, we often need the hex or the var."
+    },
+    {
+      "file": "scripts\\generate-category-guides.ts",
+      "line": 27,
+      "type": "NOTE",
+      "content": "generateArticleCore handles its own DB inserts and logging",
+      "snippet": "// Note: generateArticleCore handles its own DB inserts and logging"
+    },
+    {
+      "file": "scripts\\ghost_sync.js",
+      "line": 9,
+      "type": "NOTE",
+      "content": "This would typically be run in a Node environment with Playwright installed.",
+      "snippet": "// NOTE: This would typically be run in a Node environment with Playwright installed."
+    },
+    {
+      "file": "scripts\\ingest-mutual-funds.ts",
+      "line": 41,
+      "type": "NOTE",
+      "content": "api.mfapi.in lists EVERYTHING.",
+      "snippet": "// Note: api.mfapi.in lists EVERYTHING."
+    },
+    {
+      "file": "scripts\\inject-affiliate-links.ts",
+      "line": 118,
+      "type": "NOTE",
+      "content": "we use a direct string replacement for the first match found by regex",
+      "snippet": "// Note: we use a direct string replacement for the first match found by regex"
+    },
+    {
+      "file": "scripts\\process-planned-queue.ts",
+      "line": 94,
+      "type": "NOTE",
+      "content": "ideally we should join category table, but for now we rely on simple string or default.",
+      "snippet": "// Note: ideally we should join category table, but for now we rely on simple string or default."
+    },
+    {
+      "file": "scripts\\scrapers\\mutual-fund-scraper.ts",
+      "line": 97,
+      "type": "TODO",
+      "content": "Scrape additional data from Value Research, Moneycontrol",
+      "snippet": "// TODO: Scrape additional data from Value Research, Moneycontrol"
+    },
+    {
+      "file": "scripts\\seed\\verified_credit_cards.ts",
+      "line": 248,
+      "type": "NOTE",
+      "content": "In a real app, we'd use a slug or unique code. Here we use name for simplicity.",
+      "snippet": "// Note: In a real app, we'd use a slug or unique code. Here we use name for simplicity."
+    },
+    {
+      "file": "scripts\\seed-reviews.ts",
+      "line": 53,
+      "type": "NOTE",
+      "content": "'auth.users' is in the 'auth' schema.",
+      "snippet": "// Note: 'auth.users' is in the 'auth' schema."
+    },
+    {
+      "file": "scripts\\test-all-systems.ts",
+      "line": 226,
+      "type": "NOTE",
+      "content": "fact-checker uses server-only imports, so we'll test it differently",
+      "snippet": "// Note: fact-checker uses server-only imports, so we'll test it differently"
+    },
+    {
+      "file": "__tests__\\integration\\rls-policies.test.ts",
+      "line": 103,
+      "type": "NOTE",
+      "content": "Real RLS would prevent anonymous access to drafts",
+      "snippet": "// Note: Real RLS would prevent anonymous access to drafts"
+    },
+    {
+      "file": "__tests__\\integration\\state-machine.test.ts",
+      "line": 30,
+      "type": "TODO",
+      "content": "Fix mock workflow hook persistence for integration tests",
+      "snippet": "// TODO: Fix mock workflow hook persistence for integration tests"
+    },
+    {
+      "file": "__tests__\\integration\\state-machine.test.ts",
+      "line": 91,
+      "type": "TODO",
+      "content": "Fix mock workflow hook persistence for integration tests",
+      "snippet": "// TODO: Fix mock workflow hook persistence for integration tests"
+    },
+    {
+      "file": "__tests__\\integration\\state-machine.test.ts",
+      "line": 131,
+      "type": "NOTE",
+      "content": "The service might allowed it if we don't have strict state machine logic",
+      "snippet": "// Note: The service might allowed it if we don't have strict state machine logic"
+    },
+    {
+      "file": "__tests__\\load\\api-load.test.ts",
+      "line": 38,
+      "type": "NOTE",
+      "content": "Response time measurement would need custom fetch wrapper",
+      "snippet": "// Note: Response time measurement would need custom fetch wrapper"
+    }
+  ]
+}

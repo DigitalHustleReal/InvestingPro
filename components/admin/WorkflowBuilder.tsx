@@ -181,20 +181,20 @@ export function WorkflowBuilder({
     return (
         <div className="space-y-6">
             {/* Trigger Section */}
-            <Card className="bg-card/50 border-primary-500/30">
+            <Card className="bg-wt-surface/50 border-wt-gold/30">
                 <CardHeader 
                     className="cursor-pointer"
                     onClick={() => setExpandedTrigger(!expandedTrigger)}
                 >
                     <CardTitle className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-lg bg-primary-500/20 flex items-center justify-center">
-                                <Wand2 className="w-4 h-4 text-primary-400" />
+                            <div className="w-8 h-8 rounded-lg bg-wt-gold-subtle flex items-center justify-center">
+                                <Wand2 className="w-4 h-4 text-wt-gold" />
                             </div>
                             <div>
-                                <span className="text-foreground">Trigger</span>
+                                <span className="text-wt-text">Trigger</span>
                                 {triggerDef && (
-                                    <Badge className="ml-2 bg-primary-500/20 text-primary-400">
+                                    <Badge className="ml-2 bg-wt-gold-subtle text-wt-gold">
                                         {triggerDef.name}
                                     </Badge>
                                 )}
@@ -231,8 +231,8 @@ export function WorkflowBuilder({
                                 
                                 {/* Trigger Config */}
                                 {triggerDef && triggerDef.configSchema.length > 0 && (
-                                    <div className="space-y-4 pt-4 border-t border-border/50">
-                                        <h4 className="text-sm font-medium text-foreground">Trigger Settings</h4>
+                                    <div className="space-y-4 pt-4 border-t border-wt-border/50">
+                                        <h4 className="text-sm font-medium text-wt-text">Trigger Settings</h4>
                                         <ConfigFields
                                             schema={triggerDef.configSchema}
                                             values={triggerConfig}
@@ -248,7 +248,7 @@ export function WorkflowBuilder({
             </Card>
 
             {/* Conditions Section */}
-            <Card className="bg-card/50 border-warning-500/30">
+            <Card className="bg-wt-surface/50 border-warning-500/30">
                 <CardHeader 
                     className="cursor-pointer"
                     onClick={() => setExpandedConditions(!expandedConditions)}
@@ -259,8 +259,8 @@ export function WorkflowBuilder({
                                 <GitBranch className="w-4 h-4 text-warning-400" />
                             </div>
                             <div>
-                                <span className="text-foreground">Conditions</span>
-                                <Badge className="ml-2 bg-muted/50 text-muted-foreground">
+                                <span className="text-wt-text">Conditions</span>
+                                <Badge className="ml-2 bg-wt-card text-wt-text-muted">
                                     {conditions.length === 0 ? 'Always run' : `${conditions.length} condition${conditions.length !== 1 ? 's' : ''}`}
                                 </Badge>
                             </div>
@@ -271,7 +271,7 @@ export function WorkflowBuilder({
                 {expandedConditions && (
                     <CardContent className="space-y-4">
                         {conditions.length === 0 ? (
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-wt-text-muted">
                                 No conditions - workflow will run every time trigger fires
                             </p>
                         ) : (
@@ -304,19 +304,19 @@ export function WorkflowBuilder({
             </Card>
 
             {/* Actions Section */}
-            <Card className="bg-card/50 border-success-500/30">
+            <Card className="bg-wt-surface/50 border-wt-green/30">
                 <CardHeader 
                     className="cursor-pointer"
                     onClick={() => setExpandedActions(!expandedActions)}
                 >
                     <CardTitle className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-lg bg-success-500/20 flex items-center justify-center">
-                                <Send className="w-4 h-4 text-success-400" />
+                            <div className="w-8 h-8 rounded-lg bg-wt-green-subtle flex items-center justify-center">
+                                <Send className="w-4 h-4 text-wt-green" />
                             </div>
                             <div>
-                                <span className="text-foreground">Actions</span>
-                                <Badge className="ml-2 bg-success-500/20 text-success-400">
+                                <span className="text-wt-text">Actions</span>
+                                <Badge className="ml-2 bg-wt-green-subtle text-wt-green">
                                     {actions.length} action{actions.length !== 1 ? 's' : ''}
                                 </Badge>
                             </div>
@@ -334,7 +334,7 @@ export function WorkflowBuilder({
                         ) : (
                             <>
                                 {actions.length === 0 ? (
-                                    <div className="text-center py-8 text-muted-foreground">
+                                    <div className="text-center py-8 text-wt-text-muted">
                                         <AlertTriangle className="w-8 h-8 mx-auto mb-2 opacity-50" />
                                         <p>No actions configured</p>
                                         <p className="text-sm">Add at least one action</p>
@@ -400,7 +400,7 @@ function TriggerPicker({
     return (
         <div className="space-y-4">
             <div className="flex items-center justify-between">
-                <h4 className="font-medium text-foreground">Select Trigger</h4>
+                <h4 className="font-medium text-wt-text">Select Trigger</h4>
                 <Button variant="ghost" size="sm" onClick={onClose}>
                     <X className="w-4 h-4" />
                 </Button>
@@ -412,7 +412,7 @@ function TriggerPicker({
 
                 return (
                     <div key={category}>
-                        <h5 className="text-xs font-medium text-muted-foreground uppercase mb-2">
+                        <h5 className="text-xs font-medium text-wt-text-muted uppercase mb-2">
                             {categoryLabels[category]}
                         </h5>
                         <div className="grid grid-cols-2 gap-2">
@@ -424,15 +424,15 @@ function TriggerPicker({
                                         onClick={() => onSelect(trigger.type)}
                                         className={`p-3 rounded-lg border text-left transition-all ${
                                             selected === trigger.type
-                                                ? 'bg-primary-500/20 border-primary-500/50'
-                                                : 'bg-muted/10 border-border/50 hover:bg-muted/20'
+                                                ? 'bg-wt-gold-subtle border-wt-gold/50'
+                                                : 'bg-wt-surface-hover border-wt-border/50 hover:bg-wt-surface-hover'
                                         }`}
                                     >
                                         <div className="flex items-center gap-2 mb-1">
-                                            <Icon className="w-4 h-4 text-primary-400" />
-                                            <span className="text-sm font-medium text-foreground">{trigger.name}</span>
+                                            <Icon className="w-4 h-4 text-wt-gold" />
+                                            <span className="text-sm font-medium text-wt-text">{trigger.name}</span>
                                         </div>
-                                        <p className="text-xs text-muted-foreground line-clamp-2">
+                                        <p className="text-xs text-wt-text-muted line-clamp-2">
                                             {trigger.description}
                                         </p>
                                     </button>
@@ -465,7 +465,7 @@ function ActionPicker({
     return (
         <div className="space-y-4">
             <div className="flex items-center justify-between">
-                <h4 className="font-medium text-foreground">Select Action</h4>
+                <h4 className="font-medium text-wt-text">Select Action</h4>
                 <Button variant="ghost" size="sm" onClick={onClose}>
                     <X className="w-4 h-4" />
                 </Button>
@@ -477,7 +477,7 @@ function ActionPicker({
 
                 return (
                     <div key={category}>
-                        <h5 className="text-xs font-medium text-muted-foreground uppercase mb-2">
+                        <h5 className="text-xs font-medium text-wt-text-muted uppercase mb-2">
                             {categoryLabels[category]}
                         </h5>
                         <div className="grid grid-cols-2 gap-2">
@@ -487,13 +487,13 @@ function ActionPicker({
                                     <button
                                         key={action.type}
                                         onClick={() => onSelect(action.type)}
-                                        className="p-3 rounded-lg border bg-muted/10 border-border/50 hover:bg-muted/20 text-left transition-all"
+                                        className="p-3 rounded-lg border bg-wt-surface-hover border-wt-border/50 hover:bg-wt-surface-hover text-left transition-all"
                                     >
                                         <div className="flex items-center gap-2 mb-1">
-                                            <Icon className="w-4 h-4 text-success-400" />
-                                            <span className="text-sm font-medium text-foreground">{action.name}</span>
+                                            <Icon className="w-4 h-4 text-wt-green" />
+                                            <span className="text-sm font-medium text-wt-text">{action.name}</span>
                                         </div>
-                                        <p className="text-xs text-muted-foreground line-clamp-2">
+                                        <p className="text-xs text-wt-text-muted line-clamp-2">
                                             {action.description}
                                         </p>
                                     </button>
@@ -531,8 +531,8 @@ function ConditionRow({
     ];
 
     return (
-        <div className="flex items-center gap-2 p-3 bg-muted/10 rounded-lg border border-border/50">
-            <span className="text-xs text-muted-foreground w-8">{index === 0 ? 'IF' : 'AND'}</span>
+        <div className="flex items-center gap-2 p-3 bg-wt-surface-hover rounded-lg border border-wt-border/50">
+            <span className="text-xs text-wt-text-muted w-8">{index === 0 ? 'IF' : 'AND'}</span>
             
             <input
                 type="text"
@@ -540,14 +540,14 @@ function ConditionRow({
                 onChange={(e) => onUpdate({ field: e.target.value })}
                 placeholder="Field (e.g., category)"
                 disabled={readOnly}
-                className="flex-1 px-2 py-1 text-sm bg-background border border-border rounded"
+                className="flex-1 px-2 py-1 text-sm bg-wt-surface border border-wt-border rounded"
             />
             
             <select
                 value={condition.operator}
                 onChange={(e) => onUpdate({ operator: e.target.value })}
                 disabled={readOnly}
-                className="px-2 py-1 text-sm bg-background border border-border rounded"
+                className="px-2 py-1 text-sm bg-wt-surface border border-wt-border rounded"
             >
                 {operators.map(op => (
                     <option key={op.value} value={op.value}>{op.label}</option>
@@ -560,12 +560,12 @@ function ConditionRow({
                 onChange={(e) => onUpdate({ value: e.target.value })}
                 placeholder="Value"
                 disabled={readOnly}
-                className="flex-1 px-2 py-1 text-sm bg-background border border-border rounded"
+                className="flex-1 px-2 py-1 text-sm bg-wt-surface border border-wt-border rounded"
             />
             
             {!readOnly && (
                 <Button variant="ghost" size="sm" onClick={onRemove}>
-                    <Trash2 className="w-4 h-4 text-danger-400" />
+                    <Trash2 className="w-4 h-4 text-wt-danger" />
                 </Button>
             )}
         </div>
@@ -594,9 +594,9 @@ function ActionRow({
     const Icon = actionDef ? ICONS[actionDef.icon] || FileText : FileText;
 
     return (
-        <div className="border border-border/50 rounded-lg overflow-hidden">
+        <div className="border border-wt-border/50 rounded-lg overflow-hidden">
             <div 
-                className="flex items-center gap-3 p-3 bg-muted/10 cursor-pointer"
+                className="flex items-center gap-3 p-3 bg-wt-surface-hover cursor-pointer"
                 onClick={() => setExpanded(!expanded)}
             >
                 {!readOnly && (
@@ -604,27 +604,27 @@ function ActionRow({
                         <button
                             onClick={(e) => { e.stopPropagation(); onMove('up'); }}
                             disabled={index === 0}
-                            className="p-0.5 hover:bg-muted/30 rounded disabled:opacity-30"
+                            className="p-0.5 hover:bg-wt-surface-hover rounded disabled:opacity-30"
                         >
                             <ChevronUp className="w-3 h-3" />
                         </button>
                         <button
                             onClick={(e) => { e.stopPropagation(); onMove('down'); }}
                             disabled={index === totalActions - 1}
-                            className="p-0.5 hover:bg-muted/30 rounded disabled:opacity-30"
+                            className="p-0.5 hover:bg-wt-surface-hover rounded disabled:opacity-30"
                         >
                             <ChevronDown className="w-3 h-3" />
                         </button>
                     </div>
                 )}
                 
-                <div className="w-6 h-6 rounded bg-success-500/20 flex items-center justify-center">
-                    <span className="text-xs font-bold text-success-400">{index + 1}</span>
+                <div className="w-6 h-6 rounded bg-wt-green-subtle flex items-center justify-center">
+                    <span className="text-xs font-bold text-wt-green">{index + 1}</span>
                 </div>
                 
-                <Icon className="w-4 h-4 text-success-400" />
+                <Icon className="w-4 h-4 text-wt-green" />
                 
-                <span className="flex-1 text-sm font-medium text-foreground">
+                <span className="flex-1 text-sm font-medium text-wt-text">
                     {actionDef?.name || action.type}
                 </span>
                 
@@ -634,7 +634,7 @@ function ActionRow({
                         size="sm"
                         onClick={(e) => { e.stopPropagation(); onRemove(); }}
                     >
-                        <Trash2 className="w-4 h-4 text-danger-400" />
+                        <Trash2 className="w-4 h-4 text-wt-danger" />
                     </Button>
                 )}
                 
@@ -642,7 +642,7 @@ function ActionRow({
             </div>
             
             {expanded && actionDef && (
-                <div className="p-4 border-t border-border/50 space-y-4">
+                <div className="p-4 border-t border-wt-border/50 space-y-4">
                     <ConfigFields
                         schema={actionDef.configSchema}
                         values={action.config}
@@ -658,7 +658,7 @@ function ActionRow({
                             disabled={readOnly}
                             className="rounded"
                         />
-                        <span className="text-muted-foreground">Continue workflow if this action fails</span>
+                        <span className="text-wt-text-muted">Continue workflow if this action fails</span>
                     </label>
                 </div>
             )}
@@ -685,9 +685,9 @@ function ConfigFields({
         <div className="space-y-4">
             {schema.map(field => (
                 <div key={field.key}>
-                    <label className="block text-sm font-medium text-foreground mb-1">
+                    <label className="block text-sm font-medium text-wt-text mb-1">
                         {field.label}
-                        {field.required && <span className="text-danger-400 ml-1">*</span>}
+                        {field.required && <span className="text-wt-danger ml-1">*</span>}
                     </label>
                     
                     {field.type === 'text' && (
@@ -697,7 +697,7 @@ function ConfigFields({
                             onChange={(e) => handleChange(field.key, e.target.value)}
                             placeholder={field.placeholder}
                             disabled={readOnly}
-                            className="w-full px-3 py-2 text-sm bg-background border border-border rounded-lg"
+                            className="w-full px-3 py-2 text-sm bg-wt-surface border border-wt-border rounded-lg"
                         />
                     )}
                     
@@ -708,7 +708,7 @@ function ConfigFields({
                             onChange={(e) => handleChange(field.key, parseFloat(e.target.value))}
                             placeholder={field.placeholder}
                             disabled={readOnly}
-                            className="w-full px-3 py-2 text-sm bg-background border border-border rounded-lg"
+                            className="w-full px-3 py-2 text-sm bg-wt-surface border border-wt-border rounded-lg"
                         />
                     )}
                     
@@ -719,7 +719,7 @@ function ConfigFields({
                             placeholder={field.placeholder}
                             disabled={readOnly}
                             rows={3}
-                            className="w-full px-3 py-2 text-sm bg-background border border-border rounded-lg"
+                            className="w-full px-3 py-2 text-sm bg-wt-surface border border-wt-border rounded-lg"
                         />
                     )}
                     
@@ -728,7 +728,7 @@ function ConfigFields({
                             value={values[field.key] || field.default || ''}
                             onChange={(e) => handleChange(field.key, e.target.value)}
                             disabled={readOnly}
-                            className="w-full px-3 py-2 text-sm bg-background border border-border rounded-lg"
+                            className="w-full px-3 py-2 text-sm bg-wt-surface border border-wt-border rounded-lg"
                         >
                             {!field.required && <option value="">Select...</option>}
                             {field.options?.map(opt => (
@@ -755,8 +755,8 @@ function ConfigFields({
                                         }}
                                         className={`px-3 py-1 text-sm rounded-full border transition-all ${
                                             selected
-                                                ? 'bg-primary-500/20 border-primary-500/50 text-primary-400'
-                                                : 'bg-muted/10 border-border/50 text-muted-foreground hover:bg-muted/20'
+                                                ? 'bg-wt-gold-subtle border-wt-gold/50 text-wt-gold'
+                                                : 'bg-wt-surface-hover border-wt-border/50 text-wt-text-muted hover:bg-wt-surface-hover'
                                         }`}
                                     >
                                         {opt.label}
@@ -775,7 +775,7 @@ function ConfigFields({
                                 disabled={readOnly}
                                 className="rounded"
                             />
-                            <span className="text-sm text-muted-foreground">Enable</span>
+                            <span className="text-sm text-wt-text-muted">Enable</span>
                         </label>
                     )}
                     
@@ -787,7 +787,7 @@ function ConfigFields({
                                 onChange={(e) => handleChange(field.key, e.target.value)}
                                 placeholder={field.placeholder || '0 9 * * *'}
                                 disabled={readOnly}
-                                className="w-full px-3 py-2 text-sm bg-background border border-border rounded-lg font-mono"
+                                className="w-full px-3 py-2 text-sm bg-wt-surface border border-wt-border rounded-lg font-mono"
                             />
                             <div className="flex flex-wrap gap-2 text-xs">
                                 {[
@@ -801,7 +801,7 @@ function ConfigFields({
                                         type="button"
                                         onClick={() => handleChange(field.key, preset.value)}
                                         disabled={readOnly}
-                                        className="px-2 py-1 bg-muted/20 hover:bg-muted/30 rounded text-muted-foreground"
+                                        className="px-2 py-1 bg-wt-surface-hover hover:bg-wt-surface-hover rounded text-wt-text-muted"
                                     >
                                         {preset.label}
                                     </button>
@@ -811,7 +811,7 @@ function ConfigFields({
                     )}
                     
                     {field.helpText && (
-                        <p className="text-xs text-muted-foreground mt-1">{field.helpText}</p>
+                        <p className="text-xs text-wt-text-muted mt-1">{field.helpText}</p>
                     )}
                 </div>
             ))}

@@ -50,9 +50,9 @@ export function BulkActionsBar({
     };
 
     const variantStyles = {
-        default: 'bg-slate-700 hover:bg-slate-600 text-foreground dark:text-foreground',
-        danger: 'bg-danger-500/20 hover:bg-danger-500/30 text-danger-400 border border-danger-500/30',
-        success: 'bg-primary-500/20 hover:bg-primary-500/30 text-primary-400 border border-primary-500/30'
+        default: 'bg-slate-700 hover:bg-slate-600 text-wt-text dark:text-wt-text',
+        danger: 'bg-wt-danger/20 hover:bg-wt-danger/30 text-wt-danger border border-danger-500/30',
+        success: 'bg-wt-gold-subtle hover:bg-primary-500/30 text-wt-gold border border-wt-gold/30'
     };
 
     return (
@@ -65,13 +65,13 @@ export function BulkActionsBar({
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                     className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
                 >
-                    <div className="flex items-center gap-3 px-6 py-4 bg-surface-darker dark:bg-surface-darker/95 backdrop-blur-xl border border-border dark:border-border rounded-xl shadow-2xl shadow-black/50">
+                    <div className="flex items-center gap-3 px-6 py-4 bg-surface-darker dark:bg-surface-darker/95 backdrop-blur-xl border border-wt-border dark:border-wt-border rounded-xl shadow-2xl shadow-black/50">
                         {/* Selection Count */}
-                        <div className="flex items-center gap-2 pr-4 border-r border-border dark:border-border">
+                        <div className="flex items-center gap-2 pr-4 border-r border-wt-border dark:border-wt-border">
                             <div className="w-8 h-8 rounded-lg bg-brand-500/20 flex items-center justify-center">
                                 <CheckSquare className="w-4 h-4 text-brand-400" />
                             </div>
-                            <span className="text-sm font-medium text-foreground dark:text-foreground">
+                            <span className="text-sm font-medium text-wt-text dark:text-wt-text">
                                 {selectedIds.length} selected
                             </span>
                         </div>
@@ -107,7 +107,7 @@ export function BulkActionsBar({
                         {/* Clear Selection */}
                         <button
                             onClick={onClearSelection}
-                            className="ml-2 p-2 hover:bg-slate-700 rounded-lg text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground transition-colors"
+                            className="ml-2 p-2 hover:bg-slate-700 rounded-lg text-wt-text-muted dark:text-wt-text-muted hover:text-wt-text dark:text-wt-text transition-colors"
                             title="Clear selection"
                         >
                             <X className="w-4 h-4" />

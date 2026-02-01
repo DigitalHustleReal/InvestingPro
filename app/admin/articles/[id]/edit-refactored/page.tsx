@@ -286,7 +286,7 @@ export default function EditArticlePage() {
                     <p className="text-muted-foreground/50 dark:text-muted-foreground/50 mb-6">The article you're looking for doesn't exist.</p>
                     <button
                         onClick={() => router.push('/admin/articles')}
-                        className="px-4 py-2 bg-teal-600 text-foreground dark:text-foreground rounded-lg hover:bg-teal-700"
+                        className="px-4 py-2 bg-wt-gold text-wt-nav rounded-lg hover:bg-wt-gold-hover"
                     >
                         Back to Articles
                     </button>

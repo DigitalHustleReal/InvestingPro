@@ -128,9 +128,9 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
             id: 'research',
             name: 'RESEARCH',
             icon: Search,
-            color: 'text-primary-400',
-            bgColor: 'bg-primary-500/10',
-            borderColor: 'border-primary-500/20',
+            color: 'text-wt-gold',
+            bgColor: 'bg-wt-gold-subtle',
+            borderColor: 'border-wt-gold/20',
             metrics: researchMetrics,
             labels: {
                 keywordsResearched: 'Keywords Researched',
@@ -143,7 +143,7 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
             id: 'publish',
             name: 'PUBLISH',
             icon: FileText,
-            color: 'text-secondary-400',
+            color: 'text-wt-gold',
             bgColor: 'bg-secondary-500/10',
             borderColor: 'border-secondary-500/20',
             metrics: publishMetrics,
@@ -160,7 +160,7 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
             name: 'TRACKING',
             icon: Eye,
             color: 'text-accent-400',
-            bgColor: 'bg-accent-500/10',
+            bgColor: 'bg-wt-gold-subtle',
             borderColor: 'border-accent-500/20',
             metrics: trackingMetrics,
             labels: {
@@ -175,8 +175,8 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
             id: 'income',
             name: 'INCOME',
             icon: DollarSign,
-            color: 'text-success-400',
-            bgColor: 'bg-success-500/10',
+            color: 'text-wt-green',
+            bgColor: 'bg-wt-green-subtle',
             borderColor: 'border-success-500/20',
             metrics: incomeMetrics,
             labels: {
@@ -190,14 +190,14 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
 
     return (
         <div className="space-y-6">
-            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
-                <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center justify-between">
+            <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden">
+                <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-6">
+                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-wt-text-muted dark:text-wt-text-muted flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                            <BarChart3 className="w-5 h-5 text-primary-400" />
+                            <BarChart3 className="w-5 h-5 text-wt-gold" />
                             <span>Advanced Metrics - Content Lifecycle Sequence</span>
                         </div>
-                        <Badge className="bg-primary-500/20 text-primary-400 border-primary-500/30">
+                        <Badge className="bg-wt-gold-subtle text-wt-gold border-wt-gold/30">
                             {timeRange.toUpperCase()}
                         </Badge>
                     </CardTitle>
@@ -218,7 +218,7 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
                                             <stage.icon className={cn("w-5 h-5", stage.color)} />
                                         </div>
                                         <div>
-                                            <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground">
+                                            <h3 className="text-xs font-bold uppercase tracking-widest text-wt-text-muted dark:text-wt-text-muted">
                                                 STAGE {index + 1}
                                             </h3>
                                             <h4 className={cn("text-lg font-extrabold", stage.color)}>
@@ -239,7 +239,7 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
 
                                             return (
                                                 <div key={key} className="flex items-center justify-between">
-                                                    <span className="text-xs font-medium text-muted-foreground dark:text-muted-foreground">
+                                                    <span className="text-xs font-medium text-wt-text-muted dark:text-wt-text-muted">
                                                         {label}
                                                     </span>
                                                     <span className={cn("text-sm font-bold tabular-nums", stage.color)}>
@@ -254,15 +254,15 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
                                     </div>
 
                                     {/* Progress Indicator */}
-                                    <div className="mt-6 pt-6 border-t border-border/50 dark:border-border/50">
-                                        <div className="flex items-center justify-between text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">
+                                    <div className="mt-6 pt-6 border-t border-wt-border/50 dark:border-wt-border/50">
+                                        <div className="flex items-center justify-between text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-widest">
                                             <span>Status</span>
                                             <Badge className={cn(
                                                 "bg-white/10 border-0 text-xs",
-                                                index === 0 ? 'text-primary-400' :
-                                                index === 1 ? 'text-secondary-400' :
+                                                index === 0 ? 'text-wt-gold' :
+                                                index === 1 ? 'text-wt-gold' :
                                                 index === 2 ? 'text-accent-400' :
-                                                'text-success-400'
+                                                'text-wt-green'
                                             )}>
                                                 {index === 0 && 'Active'}
                                                 {index === 1 && publishMetrics.published > 0 ? 'Active' : 'Pending'}
@@ -276,7 +276,7 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
                                 {/* Arrow between stages */}
                                 {index < stages.length - 1 && (
                                     <div className="hidden lg:flex items-center justify-center">
-                                        <ArrowRight className="w-6 h-6 text-muted-foreground/50 dark:text-muted-foreground/50" />
+                                        <ArrowRight className="w-6 h-6 text-wt-text-muted/50 dark:text-wt-text-muted/50" />
                                     </div>
                                 )}
                             </React.Fragment>
@@ -284,36 +284,36 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
                     </div>
 
                     {/* Summary Row - All Stages Combined */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-border/50 dark:border-border/50">
-                        <div className="text-center p-4 bg-card/50 dark:bg-card/50 rounded-xl border border-border/50 dark:border-border/50">
-                            <div className="text-2xl font-extrabold text-primary-400 mb-1">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-wt-border/50 dark:border-wt-border/50">
+                        <div className="text-center p-4 bg-wt-surface/50 dark:bg-wt-surface/50 rounded-xl border border-wt-border/50 dark:border-wt-border/50">
+                            <div className="text-2xl font-extrabold text-wt-gold mb-1">
                                 {researchMetrics.keywordsResearched}
                             </div>
-                            <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">
+                            <div className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-widest">
                                 Keywords Found
                             </div>
                         </div>
-                        <div className="text-center p-4 bg-card/50 dark:bg-card/50 rounded-xl border border-border/50 dark:border-border/50">
-                            <div className="text-2xl font-extrabold text-secondary-400 mb-1">
+                        <div className="text-center p-4 bg-wt-surface/50 dark:bg-wt-surface/50 rounded-xl border border-wt-border/50 dark:border-wt-border/50">
+                            <div className="text-2xl font-extrabold text-wt-gold mb-1">
                                 {publishMetrics.publishedThisPeriod}
                             </div>
-                            <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">
+                            <div className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-widest">
                                 Published ({timeRange})
                             </div>
                         </div>
-                        <div className="text-center p-4 bg-card/50 dark:bg-card/50 rounded-xl border border-border/50 dark:border-border/50">
+                        <div className="text-center p-4 bg-wt-surface/50 dark:bg-wt-surface/50 rounded-xl border border-wt-border/50 dark:border-wt-border/50">
                             <div className="text-2xl font-extrabold text-accent-400 mb-1">
                                 {trackingMetrics.totalViews.toLocaleString()}
                             </div>
-                            <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">
+                            <div className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-widest">
                                 Total Views
                             </div>
                         </div>
-                        <div className="text-center p-4 bg-card/50 dark:bg-card/50 rounded-xl border border-border/50 dark:border-border/50">
-                            <div className="text-2xl font-extrabold text-success-400 mb-1">
+                        <div className="text-center p-4 bg-wt-surface/50 dark:bg-wt-surface/50 rounded-xl border border-wt-border/50 dark:border-wt-border/50">
+                            <div className="text-2xl font-extrabold text-wt-green mb-1">
                                 ₹{Math.round(incomeMetrics.estimatedRevenue).toLocaleString()}
                             </div>
-                            <div className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">
+                            <div className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-widest">
                                 Est. Revenue
                             </div>
                         </div>

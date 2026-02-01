@@ -162,19 +162,19 @@ export default function TagInput({
     return (
         <div className={`relative ${className}`}>
             {/* Input with tags */}
-            <div className="flex flex-wrap gap-2 p-2 border border-slate-300 rounded-lg bg-white focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-200">
+            <div className="flex flex-wrap gap-2 p-2 border border-wt-border rounded-lg bg-white focus-within:border-wt-gold focus-within:ring-2 focus-within:ring-wt-gold">
                 {/* Existing tags */}
                 {value.map((tag, idx) => (
                     <Badge
                         key={idx}
                         variant="outline"
-                        className="bg-primary-50 text-primary-700 border-primary-200 px-2 py-1 text-sm flex items-center gap-1"
+                        className="bg-wt-gold-subtle text-wt-gold border-wt-border-light px-2 py-1 text-sm flex items-center gap-1"
                     >
                         {tag}
                         <button
                             type="button"
                             onClick={() => removeTag(tag)}
-                            className="ml-1 hover:text-primary-900 focus:outline-none"
+                            className="ml-1 hover:text-wt-text focus:outline-none"
                             aria-label={`Remove ${tag}`}
                         >
                             <X className="w-3 h-3" />
@@ -199,7 +199,7 @@ export default function TagInput({
             {showSuggestions && (filteredSuggestions.length > 0 || inputValue.trim()) && (
                 <div
                     ref={suggestionsRef}
-                    className="absolute z-50 w-full mt-1 bg-white border border-slate-200 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+                    className="absolute z-50 w-full mt-1 bg-white border border-wt-border rounded-lg shadow-lg max-h-60 overflow-y-auto"
                 >
                     {/* Existing suggestions */}
                     {filteredSuggestions.map((tag: string, idx: number) => (
@@ -207,8 +207,8 @@ export default function TagInput({
                             key={tag}
                             type="button"
                             onClick={() => handleSuggestionClick(tag)}
-                            className={`w-full text-left px-4 py-2 text-sm hover:bg-slate-100 focus:bg-slate-100 focus:outline-none ${
-                                idx === focusedIndex ? 'bg-slate-100' : ''
+                            className={`w-full text-left px-4 py-2 text-sm hover:bg-wt-card focus:bg-wt-card focus:outline-none ${
+                                idx === focusedIndex ? 'bg-wt-card' : ''
                             }`}
                         >
                             {tag}
@@ -220,12 +220,12 @@ export default function TagInput({
                         <button
                             type="button"
                             onClick={handleCreateNew}
-                            className={`w-full text-left px-4 py-2 text-sm hover:bg-primary-50 focus:bg-primary-50 focus:outline-none border-t border-slate-200 flex items-center gap-2 ${
-                                focusedIndex === filteredSuggestions.length ? 'bg-primary-50' : ''
+                            className={`w-full text-left px-4 py-2 text-sm hover:bg-wt-gold-subtle focus:bg-wt-gold-subtle focus:outline-none border-t border-wt-border flex items-center gap-2 ${
+                                focusedIndex === filteredSuggestions.length ? 'bg-wt-gold-subtle' : ''
                             }`}
                         >
-                            <Plus className="w-4 h-4 text-primary-600" />
-                            <span className="text-primary-700 font-medium">
+                            <Plus className="w-4 h-4 text-wt-gold" />
+                            <span className="text-wt-gold font-medium">
                                 Create "{inputValue.trim()}"
                             </span>
                         </button>
@@ -234,7 +234,7 @@ export default function TagInput({
             )}
 
             {/* Helper text */}
-            <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
+            <p className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 mt-1">
                 Press Enter to add tag, Backspace to remove
             </p>
         </div>

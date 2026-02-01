@@ -480,12 +480,12 @@ Include features, benefits, and value proposition`;
                                 onClick={() => setContentStyle(style.value)}
                                 className={`p-4 rounded-lg border-2 transition-all text-left ${
                                     contentStyle === style.value
-                                        ? 'border-purple-600 bg-secondary-50'
-                                        : 'border-slate-200 hover:border-slate-300'
+                                        ? 'border-purple-600 bg-wt-gold-subtle'
+                                        : 'border-wt-border hover:border-wt-border'
                                 }`}
                             >
-                                <div className="font-semibold text-slate-900 mb-1">{style.label}</div>
-                                <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">{style.description}</div>
+                                <div className="font-semibold text-wt-text mb-1">{style.label}</div>
+                                <div className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50">{style.description}</div>
                             </button>
                         ))}
                     </div>
@@ -497,7 +497,7 @@ Include features, benefits, and value proposition`;
                 <CardHeader>
                     <div className="flex items-center justify-between">
                         <CardTitle className="flex items-center gap-6 md:p-8">
-                            <Zap className="w-5 h-5 text-primary-600" />
+                            <Zap className="w-5 h-5 text-wt-gold" />
                             Content Type
                         </CardTitle>
                         <div className="flex gap-2">
@@ -528,16 +528,16 @@ Include features, benefits, and value proposition`;
                                     onClick={() => setSelectedContentType(type.id)}
                                     className={`p-4 rounded-lg border-2 transition-all text-center ${
                                         selectedContentType === type.id
-                                            ? 'border-primary-600 bg-secondary-50'
-                                            : 'border-slate-200 hover:border-slate-300'
+                                            ? 'border-wt-gold bg-wt-gold-subtle'
+                                            : 'border-wt-border hover:border-wt-border'
                                     }`}
                                     title={type.description}
                                 >
                                     <Icon className={`w-6 h-6 mx-auto mb-2 ${
-                                        selectedContentType === type.id ? 'text-primary-600' : 'text-muted-foreground/70 dark:text-muted-foreground/70'
+                                        selectedContentType === type.id ? 'text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70'
                                     }`} />
                                     <div className={`text-sm font-medium ${
-                                        selectedContentType === type.id ? 'text-secondary-900' : 'text-slate-700'
+                                        selectedContentType === type.id ? 'text-secondary-900' : 'text-wt-text'
                                     }`}>
                                         {type.label}
                                     </div>
@@ -686,7 +686,7 @@ Include features, benefits, and value proposition`;
                     <Button
                         onClick={generateContent}
                         disabled={!selectedContentType || generating || (!topic.trim() && !existingContent.trim())}
-                        className="w-full bg-secondary-600 hover:bg-secondary-700"
+                        className="w-full bg-wt-nav hover:bg-wt-nav-light"
                     >
                         {generating ? (
                             <>
@@ -712,7 +712,7 @@ Include features, benefits, and value proposition`;
                             <div className="flex gap-2">
                                 {seoScore !== null && (
                                     <Badge className={
-                                        seoScore >= 80 ? 'bg-primary-100 text-primary-700' :
+                                        seoScore >= 80 ? 'bg-wt-gold-subtle text-wt-gold' :
                                         seoScore >= 60 ? 'bg-accent-100 text-accent-700' :
                                         'bg-danger-100 text-danger-700'
                                     }>
@@ -722,7 +722,7 @@ Include features, benefits, and value proposition`;
                                 <Button variant="outline" size="sm" onClick={handleCopy}>
                                     {copied ? <CheckCircle2 className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                                 </Button>
-                                <Button size="sm" onClick={handleSave} className="bg-primary-600 hover:bg-primary-700">
+                                <Button size="sm" onClick={handleSave} className="bg-wt-gold hover:bg-wt-gold-hover">
                                     <Save className="w-4 h-4 mr-2" />
                                     Save as Draft
                                 </Button>
@@ -731,7 +731,7 @@ Include features, benefits, and value proposition`;
                     </CardHeader>
                     <CardContent>
                         <div className="prose max-w-none">
-                            <pre className="whitespace-pre-wrap font-sans text-sm bg-slate-50 p-6 md:p-8 rounded-lg border">
+                            <pre className="whitespace-pre-wrap font-sans text-sm bg-wt-surface-hover p-6 md:p-8 rounded-lg border">
                                 {typeof generatedContent === 'object' && generatedContent.type === 'structured'
                                     ? generatedContent.preview
                                     : (typeof generatedContent === 'object' ? generatedContent.content : generatedContent || '')}
@@ -740,7 +740,7 @@ Include features, benefits, and value proposition`;
                         {seoScore !== null && seoScore < 80 && (
                             <div className="mt-4 p-4 bg-accent-50 border border-accent-200 rounded-lg">
                                 <div className="flex items-start gap-2">
-                                    <AlertCircle className="w-5 h-5 text-accent-600 mt-0.5" />
+                                    <AlertCircle className="w-5 h-5 text-wt-gold mt-0.5" />
                                     <div>
                                         <div className="font-semibold text-accent-900 mb-1">SEO Recommendations</div>
                                         <ul className="text-sm text-accent-800 space-y-1 list-disc list-inside">
@@ -757,13 +757,13 @@ Include features, benefits, and value proposition`;
             )}
 
             {/* Model Information */}
-            <Card className="bg-slate-50">
+            <Card className="bg-wt-surface-hover">
                 <CardContent className="p-6 md:p-8">
                     <div className="flex items-start gap-3">
-                        <Info className="w-5 h-5 text-primary-600 mt-0.5" />
+                        <Info className="w-5 h-5 text-wt-gold mt-0.5" />
                         <div className="flex-1">
-                            <div className="font-semibold text-slate-900 mb-1">AI Model Information</div>
-                            <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 space-y-1">
+                            <div className="font-semibold text-wt-text mb-1">AI Model Information</div>
+                            <div className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50 space-y-1">
                                 <p><strong>Model:</strong> GPT-4o-mini (Financial Expert Training)</p>
                                 <p><strong>Training:</strong> Specialized prompts for Indian financial content</p>
                                 <p><strong>Expertise:</strong> Mutual Funds, Stocks, Insurance, Loans, Tax Planning</p>

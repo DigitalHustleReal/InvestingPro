@@ -19,7 +19,7 @@ export function MobileMenuButton({ isOpen, onClick }: { isOpen: boolean; onClick
     return (
         <button
             onClick={onClick}
-            className="md:hidden fixed top-4 left-4 z-50 p-2 bg-surface-darker dark:bg-surface-darker border border-border dark:border-border rounded-lg text-foreground dark:text-foreground hover:bg-muted dark:bg-muted transition-colors"
+            className="md:hidden fixed top-4 left-4 z-50 p-2 bg-surface-darker dark:bg-surface-darker border border-wt-border dark:border-wt-border rounded-lg text-wt-text dark:text-wt-text hover:bg-muted dark:bg-muted transition-colors"
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isOpen}
         >

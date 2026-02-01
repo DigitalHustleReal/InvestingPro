@@ -160,14 +160,14 @@ export default function PromptManager() {
                             return (
                                 <div
                                     key={slug}
-                                    className="p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer"
+                                    className="p-4 border border-wt-border rounded-lg hover:bg-wt-surface-hover cursor-pointer"
                                     onClick={() => setSelectedPrompt(activeVersion || versions[0])}
                                 >
                                     <div className="flex items-center justify-between">
                                         <div>
                                             <div className="font-semibold">{versions[0].name}</div>
-                                            <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">{slug}</div>
-                                            <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
+                                            <div className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50">{slug}</div>
+                                            <div className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 mt-1">
                                                 {versions.length} version{versions.length !== 1 ? 's' : ''}
                                             </div>
                                         </div>
@@ -203,14 +203,14 @@ export default function PromptManager() {
                             {abTests.map((test) => (
                                 <div
                                     key={test.id}
-                                    className="p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer"
+                                    className="p-4 border border-wt-border rounded-lg hover:bg-wt-surface-hover cursor-pointer"
                                     onClick={() => setSelectedTest(test)}
                                 >
                                     <div className="flex items-center justify-between">
                                         <div>
                                             <div className="font-semibold">{test.name}</div>
-                                            <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">{test.prompt_slug}</div>
-                                            <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
+                                            <div className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50">{test.prompt_slug}</div>
+                                            <div className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 mt-1">
                                                 Status: {test.status}
                                             </div>
                                         </div>
@@ -237,7 +237,7 @@ export default function PromptManager() {
                             ))}
                         </div>
                     ) : (
-                        <p className="text-muted-foreground/70 dark:text-muted-foreground/70 text-center py-4">No A/B tests yet</p>
+                        <p className="text-wt-text-muted/70 dark:text-wt-text-muted/70 text-center py-4">No A/B tests yet</p>
                     )}
                 </CardContent>
             </Card>
@@ -252,19 +252,19 @@ export default function PromptManager() {
                         <div className="space-y-4">
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">Category</div>
+                                    <div className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50">Category</div>
                                     <div className="font-semibold">{selectedPrompt.category}</div>
                                 </div>
                                 <div>
-                                    <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">Model</div>
+                                    <div className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50">Model</div>
                                     <div className="font-semibold">{selectedPrompt.preferred_model}</div>
                                 </div>
                                 <div>
-                                    <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">Usage Count</div>
+                                    <div className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50">Usage Count</div>
                                     <div className="font-semibold">{selectedPrompt.usage_count}</div>
                                 </div>
                                 <div>
-                                    <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">Success Rate</div>
+                                    <div className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50">Success Rate</div>
                                     <div className="font-semibold">
                                         {selectedPrompt.usage_count > 0
                                             ? ((selectedPrompt.success_count / selectedPrompt.usage_count) * 100).toFixed(1)
@@ -273,7 +273,7 @@ export default function PromptManager() {
                                 </div>
                                 {selectedPrompt.performance_score !== null && (
                                     <div>
-                                        <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">Performance Score</div>
+                                        <div className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50">Performance Score</div>
                                         <div className="font-semibold">
                                             {selectedPrompt.performance_score.toFixed(1)}
                                         </div>
@@ -281,7 +281,7 @@ export default function PromptManager() {
                                 )}
                                 {selectedPrompt.quality_score !== null && (
                                     <div>
-                                        <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">Quality Score</div>
+                                        <div className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50">Quality Score</div>
                                         <div className="font-semibold">
                                             {selectedPrompt.quality_score.toFixed(1)}
                                         </div>
@@ -290,7 +290,7 @@ export default function PromptManager() {
                             </div>
 
                             <div>
-                                <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 mb-2">User Prompt Template</div>
+                                <div className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50 mb-2">User Prompt Template</div>
                                 <Textarea
                                     value={selectedPrompt.user_prompt_template}
                                     readOnly
@@ -301,7 +301,7 @@ export default function PromptManager() {
 
                             {selectedPrompt.system_prompt && (
                                 <div>
-                                    <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 mb-2">System Prompt</div>
+                                    <div className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50 mb-2">System Prompt</div>
                                     <Textarea
                                         value={selectedPrompt.system_prompt}
                                         readOnly
@@ -325,23 +325,23 @@ export default function PromptManager() {
                         <div className="space-y-4">
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">Status</div>
+                                    <div className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50">Status</div>
                                     <div className="font-semibold">{selectedTest.status}</div>
                                 </div>
                                 <div>
-                                    <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">Min Sample Size</div>
+                                    <div className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50">Min Sample Size</div>
                                     <div className="font-semibold">{selectedTest.min_sample_size}</div>
                                 </div>
                                 {selectedTest.winner_version && (
                                     <div>
-                                        <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50">Winner</div>
+                                        <div className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50">Winner</div>
                                         <div className="font-semibold">{selectedTest.winner_version}</div>
                                     </div>
                                 )}
                             </div>
 
                             <div>
-                                <div className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 mb-2">Traffic Split</div>
+                                <div className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50 mb-2">Traffic Split</div>
                                 <div className="space-y-2">
                                     {Object.entries(selectedTest.traffic_split).map(([group, percentage]) => (
                                         <div key={group} className="flex items-center justify-between">

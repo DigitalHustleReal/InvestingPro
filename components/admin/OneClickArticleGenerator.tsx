@@ -400,10 +400,10 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-6 md:p-8">
-                            <Zap className="w-6 h-6 text-primary-600" />
+                            <Zap className="w-6 h-6 text-wt-gold" />
                             One-Click SEO Article Generator
                         </CardTitle>
-                        <p className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 mt-2">
+                        <p className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50 mt-2">
                             Generate complete, SEO-optimized articles in one click. Perfect for financial content.
                         </p>
                     </CardHeader>
@@ -426,7 +426,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                                     }
                                 }}
                             />
-                            <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
+                            <p className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 mt-1">
                                 Enter the main topic or primary keyword for your article
                             </p>
                         </div>
@@ -475,7 +475,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                                 placeholder="e.g., SIP investment, mutual funds, tax saving"
                                 className="mt-2"
                             />
-                            <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
+                            <p className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 mt-1">
                                 Comma-separated keywords. Leave empty for auto-generation.
                             </p>
                         </div>
@@ -528,7 +528,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                                 >
                                     Generate in Background (Pipeline)
                                 </Label>
-                                <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">
+                                <p className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70">
                                     Recommended for comprehensive articles. You can close this window and track progress in Automation tab.
                                 </p>
                             </div>
@@ -538,7 +538,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                         <Button
                             onClick={generateArticle}
                             disabled={!topic.trim() || generating}
-                            className="w-full bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground h-12 text-lg font-semibold"
+                            className="w-full bg-wt-gold hover:bg-wt-gold-hover text-wt-text dark:text-wt-text h-12 text-lg font-semibold"
                             size="lg"
                         >
                             {generating ? (
@@ -554,8 +554,8 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                             )}
                         </Button>
 
-                        <div className="flex items-center gap-2 text-xs text-muted-foreground/70 dark:text-muted-foreground/70 pt-2 border-t">
-                            <CheckCircle2 className="w-4 h-4 text-primary-600" />
+                        <div className="flex items-center gap-2 text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 pt-2 border-t">
+                            <CheckCircle2 className="w-4 h-4 text-wt-gold" />
                             <span>Includes: Title, Meta Description, Content, Keywords, Tags, SEO Analysis</span>
                         </div>
                     </CardContent>
@@ -566,21 +566,21 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
             {step === 'generating' && (
                 <Card>
                     <CardContent className="p-6 md:p-8 text-center">
-                        <Loader2 className="w-12 h-12 animate-spin text-primary-600 mx-auto mb-4" />
-                        <h3 className="text-xl font-semibold text-slate-900 mb-2">Generating Your Article</h3>
-                        <p className="text-muted-foreground/50 dark:text-muted-foreground/50 mb-4">
+                        <Loader2 className="w-12 h-12 animate-spin text-wt-gold mx-auto mb-4" />
+                        <h3 className="text-xl font-semibold text-wt-text mb-2">Generating Your Article</h3>
+                        <p className="text-wt-text-muted/50 dark:text-wt-text-muted/50 mb-4">
                             Creating a complete, SEO-optimized article about "{topic}"
                         </p>
                         <div className="space-y-2 max-w-md mx-auto">
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground/70 dark:text-muted-foreground/70">
-                                <CheckCircle2 className="w-4 h-4 text-primary-600" />
+                            <div className="flex items-center gap-2 text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70">
+                                <CheckCircle2 className="w-4 h-4 text-wt-gold" />
                                 <span>Analyzing topic and keywords...</span>
                             </div>
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground/70 dark:text-muted-foreground/70">
-                                <CheckCircle2 className="w-4 h-4 text-primary-600" />
+                            <div className="flex items-center gap-2 text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70">
+                                <CheckCircle2 className="w-4 h-4 text-wt-gold" />
                                 <span>Writing SEO-optimized content...</span>
                             </div>
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-muted-foreground">
+                            <div className="flex items-center gap-2 text-sm text-wt-text-muted dark:text-wt-text-muted">
                                 <Loader2 className="w-4 h-4 animate-spin" />
                                 <span>Optimizing for search engines...</span>
                             </div>
@@ -593,13 +593,13 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
             {step === 'review' && generatedArticle && (
                 <div className="space-y-6">
                     {/* Success Message */}
-                    <Card className="bg-primary-50 border-primary-200">
+                    <Card className="bg-wt-gold-subtle border-wt-border-light">
                         <CardContent className="p-6">
                             <div className="flex items-center gap-3">
-                                <CheckCircle2 className="w-6 h-6 text-primary-600" />
+                                <CheckCircle2 className="w-6 h-6 text-wt-gold" />
                                 <div>
-                                    <h3 className="font-semibold text-primary-900">Article Generated Successfully!</h3>
-                                    <p className="text-sm text-primary-700">
+                                    <h3 className="font-semibold text-wt-text">Article Generated Successfully!</h3>
+                                    <p className="text-sm text-wt-gold">
                                         Review the article below. You can edit, save as draft, or publish directly.
                                     </p>
                                 </div>
@@ -617,7 +617,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                                         <Badge variant="outline">{generatedArticle.category}</Badge>
                                         <Badge variant="outline">{generatedArticle.read_time} min read</Badge>
                                         <Badge variant="outline">{generatedArticle.word_count} words</Badge>
-                                        <Badge className="bg-primary-100 text-primary-700 border-0">
+                                        <Badge className="bg-wt-gold-subtle text-wt-gold border-0">
                                             SEO Score: {generatedArticle.seo_score}/100
                                         </Badge>
                                     </div>
@@ -626,21 +626,21 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                         </CardHeader>
                         <CardContent className="space-y-6">
                             {/* SEO Meta */}
-                            <div className="bg-slate-50 p-6 md:p-8 rounded-lg space-y-2">
+                            <div className="bg-wt-surface-hover p-6 md:p-8 rounded-lg space-y-2">
                                 <div>
-                                    <Label className="text-xs text-muted-foreground/50 dark:text-muted-foreground/50">SEO Title</Label>
-                                    <p className="text-sm font-semibold text-slate-900">{generatedArticle.seo_title}</p>
+                                    <Label className="text-xs text-wt-text-muted/50 dark:text-wt-text-muted/50">SEO Title</Label>
+                                    <p className="text-sm font-semibold text-wt-text">{generatedArticle.seo_title}</p>
                                 </div>
                                 <div>
-                                    <Label className="text-xs text-muted-foreground/50 dark:text-muted-foreground/50">Meta Description</Label>
-                                    <p className="text-sm text-slate-700">{generatedArticle.meta_description}</p>
+                                    <Label className="text-xs text-wt-text-muted/50 dark:text-wt-text-muted/50">Meta Description</Label>
+                                    <p className="text-sm text-wt-text">{generatedArticle.meta_description}</p>
                                 </div>
                             </div>
 
                             {/* Keywords & Tags */}
                             <div className="flex gap-4">
                                 <div className="flex-1">
-                                    <Label className="text-xs text-muted-foreground/50 dark:text-muted-foreground/50 mb-2 block">Keywords</Label>
+                                    <Label className="text-xs text-wt-text-muted/50 dark:text-wt-text-muted/50 mb-2 block">Keywords</Label>
                                     <div className="flex flex-wrap gap-2">
                                         {generatedArticle.keywords.map((keyword, idx) => (
                                             <Badge key={idx} variant="outline" className="text-xs">
@@ -650,7 +650,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                                     </div>
                                 </div>
                                 <div className="flex-1">
-                                    <Label className="text-xs text-muted-foreground/50 dark:text-muted-foreground/50 mb-2 block">Tags</Label>
+                                    <Label className="text-xs text-wt-text-muted/50 dark:text-wt-text-muted/50 mb-2 block">Tags</Label>
                                     <div className="flex flex-wrap gap-2">
                                         {generatedArticle.tags.map((tag, idx) => (
                                             <Badge key={idx} variant="outline" className="text-xs">
@@ -663,9 +663,9 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
 
                             {/* Content Preview */}
                             <div>
-                                <Label className="text-xs text-muted-foreground/50 dark:text-muted-foreground/50 mb-2 block">Content Preview</Label>
+                                <Label className="text-xs text-wt-text-muted/50 dark:text-wt-text-muted/50 mb-2 block">Content Preview</Label>
                                 <div 
-                                    className="prose prose-slate max-w-none bg-white p-4 rounded-lg border border-slate-200 max-h-96 overflow-y-auto"
+                                    className="prose prose-slate max-w-none bg-white p-4 rounded-lg border border-wt-border max-h-96 overflow-y-auto"
                                     dangerouslySetInnerHTML={{ 
                                         __html: generatedArticle.structured_content
                                             ? structuredToMarkdown(generatedArticle.structured_content).substring(0, 2000) + '...'
@@ -697,7 +697,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                                 <Button
                                     onClick={publishDirectly}
                                     disabled={step === 'publishing'}
-                                    className="flex-1 bg-primary-600 hover:bg-primary-700"
+                                    className="flex-1 bg-wt-gold hover:bg-wt-gold-hover"
                                 >
                                     {step === 'publishing' ? (
                                         <>
@@ -729,9 +729,9 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
             {step === 'publishing' && (
                 <Card>
                     <CardContent className="p-6 md:p-8 text-center">
-                        <Loader2 className="w-12 h-12 animate-spin text-primary-600 mx-auto mb-4" />
-                        <h3 className="text-xl font-semibold text-slate-900 mb-2">Processing...</h3>
-                        <p className="text-muted-foreground/50 dark:text-muted-foreground/50">Saving your article...</p>
+                        <Loader2 className="w-12 h-12 animate-spin text-wt-gold mx-auto mb-4" />
+                        <h3 className="text-xl font-semibold text-wt-text mb-2">Processing...</h3>
+                        <p className="text-wt-text-muted/50 dark:text-wt-text-muted/50">Saving your article...</p>
                     </CardContent>
                 </Card>
             )}

@@ -130,39 +130,39 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
         <div className="space-y-10">
             {/* High-Impact Performance Metrics */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden hover:border-primary-500/30 transition-all group">
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden hover:border-wt-gold/30 transition-all group">
                     <CardContent className="p-8">
                         <div className="flex items-center justify-between mb-4">
-                            <span className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-[0.2em]">Total Propagation</span>
-                            <div className="w-10 h-10 rounded-xl bg-primary-500/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                <Eye className="w-5 h-5 text-primary-400" />
+                            <span className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-[0.2em]">Total Propagation</span>
+                            <div className="w-10 h-10 rounded-xl bg-wt-gold-subtle flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                <Eye className="w-5 h-5 text-wt-gold" />
                             </div>
                         </div>
                         <div className="space-y-1">
-                            <h3 className="text-3xl font-extrabold text-foreground dark:text-foreground tabular-nums tracking-tight tracking-tighter">
+                            <h3 className="text-3xl font-extrabold text-wt-text dark:text-wt-text tabular-nums tracking-tight tracking-tighter">
                                 {totalViews.toLocaleString()}
                             </h3>
-                            <p className="text-[10px] font-bold text-primary-400 uppercase tracking-widest flex items-center gap-1">
+                            <p className="text-[10px] font-bold text-wt-gold uppercase tracking-widest flex items-center gap-1">
                                 <TrendingUp className="w-3 h-3" />
-                                +12.4% <span className="text-muted-foreground/70 dark:text-muted-foreground/70">vs Prev Period</span>
+                                +12.4% <span className="text-wt-text-muted/70 dark:text-wt-text-muted/70">vs Prev Period</span>
                             </p>
                         </div>
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden hover:border-secondary-500/30 transition-all group">
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden hover:border-secondary-500/30 transition-all group">
                     <CardContent className="p-8">
                         <div className="flex items-center justify-between mb-4">
-                            <span className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-[0.2em]">Conversion Vector</span>
+                            <span className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-[0.2em]">Conversion Vector</span>
                             <div className="w-10 h-10 rounded-xl bg-secondary-500/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                <MousePointerClick className="w-5 h-5 text-secondary-400" />
+                                <MousePointerClick className="w-5 h-5 text-wt-gold" />
                             </div>
                         </div>
                         <div className="space-y-1">
-                            <h3 className="text-3xl font-extrabold text-foreground dark:text-foreground tabular-nums tracking-tighter">
+                            <h3 className="text-3xl font-extrabold text-wt-text dark:text-wt-text tabular-nums tracking-tighter">
                                 {totalClicks.toLocaleString()}
                             </h3>
-                            <p className="text-[10px] font-bold text-secondary-400 uppercase tracking-widest flex items-center gap-1">
+                            <p className="text-[10px] font-bold text-wt-gold uppercase tracking-widest flex items-center gap-1">
                                 <TrendingUp className="w-3 h-3" />
                                 Velocity Optimized
                             </p>
@@ -170,19 +170,19 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden hover:border-primary-500/30 transition-all group">
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden hover:border-wt-gold/30 transition-all group">
                     <CardContent className="p-8">
                         <div className="flex items-center justify-between mb-4">
-                            <span className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-[0.2em]">Synthesized Yield</span>
-                            <div className="w-10 h-10 rounded-xl bg-primary-500/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                <DollarSign className="w-5 h-5 text-primary-400" />
+                            <span className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-[0.2em]">Synthesized Yield</span>
+                            <div className="w-10 h-10 rounded-xl bg-wt-gold-subtle flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                <DollarSign className="w-5 h-5 text-wt-gold" />
                             </div>
                         </div>
                         <div className="space-y-1">
-                            <h3 className="text-3xl font-extrabold text-foreground dark:text-foreground tabular-nums tracking-tighter">
+                            <h3 className="text-3xl font-extrabold text-wt-text dark:text-wt-text tabular-nums tracking-tighter">
                                 ₹{estimatedRevenue.toLocaleString()}
                             </h3>
-                            <p className="text-[10px] font-bold text-primary-400 uppercase tracking-widest flex items-center gap-1">
+                            <p className="text-[10px] font-bold text-wt-gold uppercase tracking-widest flex items-center gap-1">
                                 <Zap className="w-3 h-3" />
                                 Revenue Node Beta
                             </p>
@@ -190,19 +190,19 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden hover:border-slate-500/30 transition-all group">
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden hover:border-slate-500/30 transition-all group">
                     <CardContent className="p-8">
                         <div className="flex items-center justify-between mb-4">
-                            <span className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-[0.2em]">Asset Inventory</span>
-                            <div className="w-10 h-10 rounded-xl bg-slate-500/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                <FileText className="w-5 h-5 text-muted-foreground dark:text-muted-foreground" />
+                            <span className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-[0.2em]">Asset Inventory</span>
+                            <div className="w-10 h-10 rounded-xl bg-wt-card flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                <FileText className="w-5 h-5 text-wt-text-muted dark:text-wt-text-muted" />
                             </div>
                         </div>
                         <div className="space-y-1">
-                            <h3 className="text-3xl font-extrabold text-foreground dark:text-foreground tabular-nums tracking-tighter">
+                            <h3 className="text-3xl font-extrabold text-wt-text dark:text-wt-text tabular-nums tracking-tighter">
                                 {articles.length}
                             </h3>
-                            <p className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">Active Intelligence Units</p>
+                            <p className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-widest">Active Intelligence Units</p>
                         </div>
                     </CardContent>
                 </Card>
@@ -210,10 +210,10 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
 
             {/* Visual Intelligence Charts */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
-                    <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
-                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
-                            <BarChart3 className="w-4 h-4 text-primary-400" />
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden">
+                    <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-6">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-wt-text-muted dark:text-wt-text-muted flex items-center gap-6 md:p-8">
+                            <BarChart3 className="w-4 h-4 text-wt-gold" />
                             Content Pulse Logic (7D Temporal)
                         </CardTitle>
                     </CardHeader>
@@ -255,10 +255,10 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
-                    <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
-                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
-                            <TrendingUp className="w-4 h-4 text-primary-400" />
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden">
+                    <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-6">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-wt-text-muted dark:text-wt-text-muted flex items-center gap-6 md:p-8">
+                            <TrendingUp className="w-4 h-4 text-wt-gold" />
                             Cluster Hierarchy (By Propagation)
                         </CardTitle>
                     </CardHeader>
@@ -294,9 +294,9 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
             {/* Tactical Intelligence Overlays */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Top Performing Articles */}
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
-                    <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-5">
-                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-primary-400 flex items-center gap-6 md:p-8">
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden">
+                    <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-5">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-wt-gold flex items-center gap-6 md:p-8">
                             <TrendingUp className="w-4 h-4" />
                             Alpha Assets (High Velocity)
                         </CardTitle>
@@ -305,39 +305,39 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                         <div className="divide-y divide-white/5">
                             {topArticles.length > 0 ? (
                                 topArticles.map((article: any, idx: number) => (
-                                    <div key={article.id || idx} className="flex items-center justify-between p-6 hover:bg-card/50 dark:bg-card/50 transition-colors group">
+                                    <div key={article.id || idx} className="flex items-center justify-between p-6 hover:bg-wt-surface/50 dark:bg-wt-surface/50 transition-colors group">
                                         <div className="flex items-center gap-5 flex-1 min-w-0">
-                                            <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center text-[10px] font-bold text-primary-400 border border-primary-500/20">
+                                            <div className="w-8 h-8 rounded-lg bg-wt-gold-subtle flex items-center justify-center text-[10px] font-bold text-wt-gold border border-wt-gold/20">
                                                 0{idx + 1}
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <p className="font-bold text-foreground dark:text-foreground tracking-tight line-clamp-1 group-hover:text-primary-400 transition-colors">
+                                                <p className="font-bold text-wt-text dark:text-wt-text tracking-tight line-clamp-1 group-hover:text-wt-gold transition-colors">
                                                     {article.title || 'Inert System Node'}
                                                 </p>
-                                                <p className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest mt-1">
+                                                <p className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-widest mt-1">
                                                     {article.category || 'Standard Terminal'}
                                                 </p>
                                             </div>
                                         </div>
                                         <div className="text-right ml-4">
-                                            <p className="text-sm font-bold text-foreground dark:text-foreground px-3 py-1 bg-white/5 rounded-lg tabular-nums">
+                                            <p className="text-sm font-bold text-wt-text dark:text-wt-text px-3 py-1 bg-wt-surface-hover rounded-lg tabular-nums">
                                                 {article.views?.toLocaleString() || 0}
                                             </p>
-                                            <p className="text-[9px] font-semibold text-muted-foreground/50 dark:text-muted-foreground/50 uppercase tracking-st mt-1">Impact Factor</p>
+                                            <p className="text-[9px] font-semibold text-wt-text-muted/50 dark:text-wt-text-muted/50 uppercase tracking-st mt-1">Impact Factor</p>
                                         </div>
                                     </div>
                                 ))
                             ) : (
-                                <div className="text-center py-12 text-muted-foreground/50 dark:text-muted-foreground/50 font-bold uppercase tracking-widest text-[10px]">No active data streams</div>
+                                <div className="text-center py-12 text-wt-text-muted/50 dark:text-wt-text-muted/50 font-bold uppercase tracking-widest text-[10px]">No active data streams</div>
                             )}
                         </div>
                     </CardContent>
                 </Card>
 
                 {/* Revenue Drivers */}
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
-                    <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-5">
-                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-primary-400 flex items-center gap-6 md:p-8">
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden">
+                    <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-5">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-wt-gold flex items-center gap-6 md:p-8">
                             <DollarSign className="w-4 h-4" />
                             Fiscal Drivers (Yield Extraction)
                         </CardTitle>
@@ -348,31 +348,31 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                                 revenueDrivers.map((article: any, idx: number) => {
                                     const estimatedArticleRevenue = (article.views || 0) * 0.1;
                                     return (
-                                        <div key={article.id || idx} className="flex items-center justify-between p-6 hover:bg-card/50 dark:bg-card/50 transition-colors group">
+                                        <div key={article.id || idx} className="flex items-center justify-between p-6 hover:bg-wt-surface/50 dark:bg-wt-surface/50 transition-colors group">
                                             <div className="flex items-center gap-5 flex-1 min-w-0">
-                                                <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center text-[10px] font-bold text-primary-400 border border-primary-500/20">
+                                                <div className="w-8 h-8 rounded-lg bg-wt-gold-subtle flex items-center justify-center text-[10px] font-bold text-wt-gold border border-wt-gold/20">
                                                     0{idx + 1}
                                                 </div>
                                                 <div className="flex-1 min-w-0">
-                                                    <p className="font-bold text-foreground dark:text-foreground tracking-tight line-clamp-1 group-hover:text-primary-400 transition-colors">
+                                                    <p className="font-bold text-wt-text dark:text-wt-text tracking-tight line-clamp-1 group-hover:text-wt-gold transition-colors">
                                                         {article.title || 'Inert System Node'}
                                                     </p>
-                                                    <p className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest mt-1">
+                                                    <p className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-widest mt-1">
                                                         {(article.views || 0).toLocaleString()} Yield Points
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className="text-right ml-4">
-                                                <p className="text-sm font-bold text-primary-400 px-3 py-1 bg-primary-500/10 rounded-lg tabular-nums border border-primary-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]">
+                                                <p className="text-sm font-bold text-wt-gold px-3 py-1 bg-wt-gold-subtle rounded-lg tabular-nums border border-wt-gold/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]">
                                                     ₹{estimatedArticleRevenue.toFixed(0)}
                                                 </p>
-                                                <p className="text-[9px] font-semibold text-muted-foreground/50 dark:text-muted-foreground/50 uppercase tracking-st mt-1">Net Extraction</p>
+                                                <p className="text-[9px] font-semibold text-wt-text-muted/50 dark:text-wt-text-muted/50 uppercase tracking-st mt-1">Net Extraction</p>
                                             </div>
                                         </div>
                                     );
                                 })
                             ) : (
-                                <div className="text-center py-12 text-muted-foreground/50 dark:text-muted-foreground/50 font-bold uppercase tracking-widest text-[10px]">No active yield nodes</div>
+                                <div className="text-center py-12 text-wt-text-muted/50 dark:text-wt-text-muted/50 font-bold uppercase tracking-widest text-[10px]">No active yield nodes</div>
                             )}
                         </div>
                     </CardContent>
@@ -381,9 +381,9 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
 
             {/* Needs Optimization */}
             {worstArticles.length > 0 && (
-                <Card className="bg-danger-500/[0.02] border-danger-500/10 rounded-xl overflow-hidden">
+                <Card className="bg-wt-danger/[0.02] border-danger-500/10 rounded-xl overflow-hidden">
                     <CardHeader className="border-b border-danger-500/10 px-8 py-5">
-                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-danger-400 flex items-center gap-6 md:p-8">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-wt-danger flex items-center gap-6 md:p-8">
                             <TrendingDown className="w-4 h-4" />
                             System Faults (Latency Detected)
                         </CardTitle>
@@ -391,19 +391,19 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                     <CardContent className="p-0">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 divide-x divide-danger-500/10">
                             {worstArticles.map((article: any, idx: number) => (
-                                <div key={article.id || idx} className="p-6 hover:bg-danger-500/[0.05] transition-colors">
+                                <div key={article.id || idx} className="p-6 hover:bg-wt-danger/[0.05] transition-colors">
                                     <div className="flex items-center gap-3 mb-3">
-                                        <div className="w-6 h-6 rounded bg-danger-500/10 flex items-center justify-center text-[9px] font-bold text-danger-400 border border-danger-500/20">
+                                        <div className="w-6 h-6 rounded bg-wt-danger/10 flex items-center justify-center text-[9px] font-bold text-wt-danger border border-danger-500/20">
                                             {idx + 1}
                                         </div>
-                                        <p className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">{article.category || 'Terminal'}</p>
+                                        <p className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-widest">{article.category || 'Terminal'}</p>
                                     </div>
-                                    <p className="text-xs font-bold text-foreground dark:text-foreground tracking-tight line-clamp-1 mb-2">
+                                    <p className="text-xs font-bold text-wt-text dark:text-wt-text tracking-tight line-clamp-1 mb-2">
                                         {article.title || 'Faulty Node'}
                                     </p>
                                     <div className="flex items-center justify-between">
-                                        <span className="text-[10px] font-semibold text-danger-400 uppercase tracking-st">{article.views || 0} hits</span>
-                                        <ArrowDownRight className="w-3 h-3 text-danger-400" />
+                                        <span className="text-[10px] font-semibold text-wt-danger uppercase tracking-st">{article.views || 0} hits</span>
+                                        <ArrowDownRight className="w-3 h-3 text-wt-danger" />
                                     </div>
                                 </div>
                             ))}

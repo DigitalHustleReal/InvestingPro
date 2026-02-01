@@ -56,7 +56,7 @@ export default function CMSSubNavigation() {
     const pathname = usePathname();
 
     return (
-        <div className="sticky top-[128px] z-20 bg-surface-darkest/95 dark:bg-surface-darkest/95 backdrop-blur-lg border-b border-border dark:border-border">
+        <div className="sticky top-[128px] z-20 bg-surface-darkest/95 dark:bg-surface-darkest/95 backdrop-blur-lg border-b border-wt-border dark:border-wt-border">
             <div className="max-w-[1920px] mx-auto px-8">
                 <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
                     {CMS_TABS.map((tab) => {
@@ -71,8 +71,8 @@ export default function CMSSubNavigation() {
                                     "group relative flex items-center gap-3 px-6 py-4 text-sm font-medium transition-all whitespace-nowrap",
                                     "border-b-2 -mb-[2px]",
                                     isActive
-                                        ? "text-primary-400 border-primary-500"
-                                        : "text-muted-foreground dark:text-muted-foreground border-transparent hover:text-foreground dark:text-foreground hover:border-border/80 dark:border-border/80"
+                                        ? "text-wt-gold border-wt-gold"
+                                        : "text-wt-text-muted dark:text-wt-text-muted border-transparent hover:text-wt-text dark:text-wt-text hover:border-wt-border/80 dark:border-wt-border/80"
                                 )}
                             >
                                 <Icon className={cn(
@@ -83,7 +83,7 @@ export default function CMSSubNavigation() {
                                     <span className="font-bold">{tab.label}</span>
                                     <span className={cn(
                                         "text-[10px] uppercase tracking-wider transition-opacity",
-                                        isActive ? "text-primary-400/70" : "text-muted-foreground/70 dark:text-muted-foreground/70 group-hover:text-muted-foreground dark:text-muted-foreground"
+                                        isActive ? "text-wt-gold/70" : "text-wt-text-muted/70 dark:text-wt-text-muted/70 group-hover:text-wt-text-muted dark:text-wt-text-muted"
                                     )}>
                                         {tab.description}
                                     </span>

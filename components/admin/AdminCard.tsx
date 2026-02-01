@@ -5,7 +5,7 @@
  * Standard Pattern:
  * - Background: bg-surface-darker/50 dark:bg-surface-darker/50
  * - Border: border-slate-800
- * - Hover: hover:border-primary-500/30
+ * - Hover: hover:border-wt-gold/30
  * - Transition: transition-all duration-300
  */
 
@@ -41,7 +41,7 @@ export function AdminCard({
         // Rounded corners
         'rounded-xl',
         // Hover effects if enabled
-        hoverable && 'hover:border-primary-500/30 hover:shadow-xl hover:-translate-y-0.5',
+        hoverable && 'hover:border-wt-gold/30 hover:shadow-xl hover:-translate-y-0.5',
         // Transitions
         'transition-all duration-300',
         // Glow effect
@@ -53,7 +53,7 @@ export function AdminCard({
     >
       {/* Optional glow effect */}
       {glowEffect && (
-        <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 blur-3xl -mr-16 -mt-16 group-hover:bg-primary-500/10 transition-colors" />
+        <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 blur-3xl -mr-16 -mt-16 group-hover:bg-wt-gold-subtle transition-colors" />
       )}
       
       {/* Content with z-index if glow is enabled */}

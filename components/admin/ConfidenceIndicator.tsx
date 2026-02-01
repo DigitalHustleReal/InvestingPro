@@ -56,10 +56,10 @@ export function ConfidenceIndicator({
 
     // Color configurations
     const colorConfig: Record<string, string> = {
-        success: 'text-success-400 bg-success-500/20 border-success-500/30',
+        success: 'text-wt-green bg-wt-green-subtle border-success-500/30',
         warning: 'text-warning-400 bg-warning-500/20 border-warning-500/30',
         orange: 'text-orange-400 bg-orange-500/20 border-orange-500/30',
-        danger: 'text-danger-400 bg-danger-500/20 border-danger-500/30',
+        danger: 'text-wt-danger bg-wt-danger/20 border-danger-500/30',
     };
 
     if (variant === 'compact') {
@@ -92,17 +92,17 @@ export function ConfidenceIndicator({
                 <div className="h-2 bg-muted/30 rounded-full overflow-hidden mb-2">
                     <div 
                         className={`h-full transition-all duration-500 ${
-                            status.color === 'success' ? 'bg-success-500' :
+                            status.color === 'success' ? 'bg-wt-green' :
                             status.color === 'warning' ? 'bg-warning-500' :
                             status.color === 'orange' ? 'bg-orange-500' :
-                            'bg-danger-500'
+                            'bg-wt-danger'
                         }`}
                         style={{ width: `${score}%` }}
                     />
                 </div>
 
                 {showConfidence && (
-                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-1 text-xs text-wt-text-muted">
                         <Shield className="w-3 h-3" />
                         <span>Confidence: {Math.round(confidence * 100)}%</span>
                     </div>
@@ -123,7 +123,7 @@ export function ConfidenceIndicator({
             </div>
             
             {showConfidence && (
-                <div className="flex items-center gap-1 text-muted-foreground">
+                <div className="flex items-center gap-1 text-wt-text-muted">
                     <TrendingUp className={config.icon} />
                     <span className={config.text}>{Math.round(confidence * 100)}%</span>
                 </div>
@@ -137,10 +137,10 @@ export function ConfidenceIndicator({
  */
 export function ScoreBadge({ score, className = '' }: { score: number; className?: string }) {
     const getColor = () => {
-        if (score >= 85) return 'bg-success-500/20 text-success-400 border-success-500/30';
+        if (score >= 85) return 'bg-wt-green-subtle text-wt-green border-success-500/30';
         if (score >= 70) return 'bg-warning-500/20 text-warning-400 border-warning-500/30';
         if (score >= 50) return 'bg-orange-500/20 text-orange-400 border-orange-500/30';
-        return 'bg-danger-500/20 text-danger-400 border-danger-500/30';
+        return 'bg-wt-danger/20 text-wt-danger border-danger-500/30';
     };
 
     return (
@@ -172,7 +172,7 @@ export function AutoPublishIndicator({
 
     if (canAutoPublish) {
         return (
-            <div className="flex items-center gap-2 text-success-400">
+            <div className="flex items-center gap-2 text-wt-green">
                 <CheckCircle2 className={config.icon} />
                 <span className={config.text}>Auto-publish eligible</span>
             </div>

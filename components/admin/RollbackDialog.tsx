@@ -27,21 +27,21 @@ export function RollbackDialog({
 }: RollbackDialogProps) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-            <div className="bg-white dark:bg-muted dark:bg-muted rounded-lg shadow-xl max-w-md w-full mx-4 border border-slate-200 dark:border-border dark:border-border">
+            <div className="bg-white dark:bg-muted dark:bg-muted rounded-lg shadow-xl max-w-md w-full mx-4 border border-wt-border dark:border-wt-border dark:border-wt-border">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-border dark:border-border">
+                <div className="flex items-center justify-between p-6 border-b border-wt-border dark:border-wt-border dark:border-wt-border">
                     <div className="flex items-center gap-3">
                         <div className="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg">
                             <AlertTriangle className="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
                         </div>
-                        <h3 className="text-lg font-semibold text-slate-900 dark:text-foreground dark:text-foreground">
+                        <h3 className="text-lg font-semibold text-wt-text dark:text-wt-text dark:text-wt-text">
                             Restore Article Version
                         </h3>
                     </div>
                     <button
                         onClick={onCancel}
                         disabled={isRestoring}
-                        className="text-muted-foreground dark:text-muted-foreground hover:text-muted-foreground/50 dark:text-muted-foreground/50 dark:hover:text-foreground/80 dark:text-foreground/80 transition-colors"
+                        className="text-wt-text-muted dark:text-wt-text-muted hover:text-wt-text-muted/50 dark:text-wt-text-muted/50 dark:hover:text-wt-text/80 dark:text-wt-text/80 transition-colors"
                     >
                         <X className="w-5 h-5" />
                     </button>
@@ -49,7 +49,7 @@ export function RollbackDialog({
 
                 {/* Content */}
                 <div className="p-6">
-                    <p className="text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mb-4">
+                    <p className="text-wt-text-muted/50 dark:text-wt-text-muted/50 dark:text-wt-text-muted dark:text-wt-text-muted mb-4">
                         Are you sure you want to restore this article to <strong>Version {versionNumber}</strong>?
                     </p>
                     
@@ -67,13 +67,13 @@ export function RollbackDialog({
                         </div>
                     </div>
 
-                    <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground">
+                    <p className="text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted dark:text-wt-text-muted">
                         You can always restore to a different version later if needed.
                     </p>
                 </div>
 
                 {/* Actions */}
-                <div className="flex items-center justify-end gap-3 p-6 border-t border-slate-200 dark:border-border dark:border-border">
+                <div className="flex items-center justify-end gap-3 p-6 border-t border-wt-border dark:border-wt-border dark:border-wt-border">
                     <Button
                         onClick={onCancel}
                         variant="outline"
@@ -84,7 +84,7 @@ export function RollbackDialog({
                     <Button
                         onClick={onConfirm}
                         disabled={isRestoring}
-                        className="bg-yellow-600 hover:bg-yellow-700 text-foreground dark:text-foreground gap-2"
+                        className="bg-yellow-600 hover:bg-yellow-700 text-wt-text dark:text-wt-text gap-2"
                     >
                         {isRestoring ? (
                             <>

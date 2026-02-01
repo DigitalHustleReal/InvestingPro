@@ -105,8 +105,8 @@ export default function KeywordResearch({
             <div
                 className={`p-3 border rounded-lg cursor-pointer transition-all ${
                     isSelected
-                        ? 'border-secondary-500 bg-secondary-50 dark:bg-primary-950'
-                        : 'border-slate-200 dark:border-border dark:border-border hover:border-secondary-300 hover:bg-slate-50 dark:hover:bg-muted dark:bg-muted'
+                        ? 'border-secondary-500 bg-wt-gold-subtle bg-wt-gold-subtle'
+                        : 'border-wt-border dark:border-wt-border dark:border-wt-border hover:border-secondary-300 hover:bg-wt-surface-hover dark:hover:bg-muted dark:bg-muted'
                 }`}
                 onClick={() => handleKeywordClick(keyword.keyword_text)}
             >
@@ -192,8 +192,8 @@ export default function KeywordResearch({
                             <button
                                 className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
                                     activeTab === 'long-tail'
-                                        ? 'border-secondary-500 text-primary-600'
-                                        : 'border-transparent text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-700'
+                                        ? 'border-secondary-500 text-wt-gold'
+                                        : 'border-transparent text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text'
                                 }`}
                                 onClick={() => setActiveTab('long-tail')}
                             >
@@ -202,8 +202,8 @@ export default function KeywordResearch({
                             <button
                                 className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
                                     activeTab === 'semantic'
-                                        ? 'border-secondary-500 text-primary-600'
-                                        : 'border-transparent text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-700'
+                                        ? 'border-secondary-500 text-wt-gold'
+                                        : 'border-transparent text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text'
                                 }`}
                                 onClick={() => setActiveTab('semantic')}
                             >
@@ -212,8 +212,8 @@ export default function KeywordResearch({
                             <button
                                 className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
                                     activeTab === 'alternative'
-                                        ? 'border-secondary-500 text-primary-600'
-                                        : 'border-transparent text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-700'
+                                        ? 'border-secondary-500 text-wt-gold'
+                                        : 'border-transparent text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text'
                                 }`}
                                 onClick={() => setActiveTab('alternative')}
                             >
@@ -222,8 +222,8 @@ export default function KeywordResearch({
                             <button
                                 className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
                                     activeTab === 'lsi'
-                                        ? 'border-secondary-500 text-primary-600'
-                                        : 'border-transparent text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-700'
+                                        ? 'border-secondary-500 text-wt-gold'
+                                        : 'border-transparent text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text'
                                 }`}
                                 onClick={() => setActiveTab('lsi')}
                             >
@@ -237,7 +237,7 @@ export default function KeywordResearch({
                                 <KeywordCard key={index} keyword={keyword} />
                             ))}
                             {getKeywordsForTab().length === 0 && (
-                                <p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/70 text-center py-8">
+                                <p className="text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 text-center py-8">
                                     No keywords found in this category
                                 </p>
                             )}

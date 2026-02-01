@@ -143,7 +143,7 @@ export default function ValidationReport({
     return (
         <div className="space-y-3">
             <div className="flex items-center justify-between">
-                <h3 className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+                <h3 className="text-xs font-semibold text-wt-text-muted dark:text-wt-text-muted uppercase tracking-wider flex items-center gap-2">
                     <Shield className="w-4 h-4" />
                     Content Validation
                 </h3>
@@ -160,13 +160,13 @@ export default function ValidationReport({
             </div>
 
             {lastValidated && (
-                <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground">
+                <p className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted dark:text-wt-text-muted">
                     Last validated: {new Date(lastValidated).toLocaleString('en-IN')}
                 </p>
             )}
 
             {!validationResult && (
-                <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground">
+                <p className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted dark:text-wt-text-muted">
                     Click "Validate" to check content for fact-check and compliance issues.
                 </p>
             )}
@@ -204,7 +204,7 @@ export default function ValidationReport({
                     {factCheck && (
                         <div className="space-y-2">
                             <div className="flex items-center justify-between">
-                                <h4 className="text-xs font-semibold text-slate-700 dark:text-foreground/80 dark:text-foreground/80 flex items-center gap-2">
+                                <h4 className="text-xs font-semibold text-wt-text dark:text-wt-text/80 dark:text-wt-text/80 flex items-center gap-2">
                                     <FileText className="w-3.5 h-3.5" />
                                     Fact-Check
                                 </h4>
@@ -257,16 +257,16 @@ export default function ValidationReport({
                                                             {error.type.replace('_', ' ')}
                                                         </Badge>
                                                         {error.field && (
-                                                            <span className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground">
+                                                            <span className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted dark:text-wt-text-muted">
                                                                 Field: {error.field}
                                                             </span>
                                                         )}
                                                     </div>
-                                                    <p className="text-sm font-semibold text-slate-900 dark:text-foreground/95 dark:text-foreground/95">
+                                                    <p className="text-sm font-semibold text-wt-text dark:text-wt-text/95 dark:text-wt-text/95">
                                                         {error.message}
                                                     </p>
                                                     {error.suggestedFix && (
-                                                        <p className="text-xs text-primary-600 dark:text-primary-400 mt-1">
+                                                        <p className="text-xs text-wt-gold dark:text-wt-gold mt-1">
                                                             💡 {error.suggestedFix}
                                                         </p>
                                                     )}
@@ -282,9 +282,9 @@ export default function ValidationReport({
                                     {factCheck.warnings.map((warning, index) => (
                                         <div
                                             key={index}
-                                            className="p-2 rounded bg-slate-50 dark:bg-muted/50 dark:bg-muted/50 border border-slate-200 dark:border-border dark:border-border"
+                                            className="p-2 rounded bg-wt-surface-hover dark:bg-wt-card dark:bg-wt-card border border-wt-border dark:border-wt-border dark:border-wt-border"
                                         >
-                                            <p className="text-xs text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">
+                                            <p className="text-xs text-wt-text-muted/50 dark:text-wt-text-muted/50 dark:text-wt-text-muted dark:text-wt-text-muted">
                                                 ⚠️ {warning.message}
                                             </p>
                                         </div>
@@ -298,7 +298,7 @@ export default function ValidationReport({
                     {compliance && (
                         <div className="space-y-2">
                             <div className="flex items-center justify-between">
-                                <h4 className="text-xs font-semibold text-slate-700 dark:text-foreground/80 dark:text-foreground/80 flex items-center gap-2">
+                                <h4 className="text-xs font-semibold text-wt-text dark:text-wt-text/80 dark:text-wt-text/80 flex items-center gap-2">
                                     <Shield className="w-3.5 h-3.5" />
                                     Regulatory Compliance
                                 </h4>
@@ -350,20 +350,20 @@ export default function ValidationReport({
                                                         >
                                                             {violation.type}
                                                         </Badge>
-                                                        <span className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground">
+                                                        <span className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted dark:text-wt-text-muted">
                                                             Rule: {violation.rule}
                                                         </span>
                                                     </div>
-                                                    <p className="text-sm font-semibold text-slate-900 dark:text-foreground/95 dark:text-foreground/95">
+                                                    <p className="text-sm font-semibold text-wt-text dark:text-wt-text/95 dark:text-wt-text/95">
                                                         {violation.message}
                                                     </p>
                                                     {violation.location && (
-                                                        <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground mt-1">
+                                                        <p className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted dark:text-wt-text-muted mt-1">
                                                             Location: {violation.location}
                                                         </p>
                                                     )}
                                                     {violation.suggestedFix && (
-                                                        <p className="text-xs text-primary-600 dark:text-primary-400 mt-1">
+                                                        <p className="text-xs text-wt-gold dark:text-wt-gold mt-1">
                                                             💡 {violation.suggestedFix}
                                                         </p>
                                                     )}
@@ -375,13 +375,13 @@ export default function ValidationReport({
                             )}
 
                             {compliance.recommendations && compliance.recommendations.length > 0 && (
-                                <div className="p-3 rounded-lg bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800">
-                                    <p className="text-xs font-semibold text-primary-900 dark:text-primary-100 mb-2">
+                                <div className="p-3 rounded-lg bg-wt-gold-subtle bg-wt-gold-subtle border border-wt-border-light border-wt-border">
+                                    <p className="text-xs font-semibold text-wt-text text-wt-text mb-2">
                                         Recommendations:
                                     </p>
                                     <ul className="space-y-1">
                                         {compliance.recommendations.map((rec, index) => (
-                                            <li key={index} className="text-xs text-primary-700 dark:text-primary-300">
+                                            <li key={index} className="text-xs text-wt-gold text-wt-text-muted">
                                                 • {rec}
                                             </li>
                                         ))}

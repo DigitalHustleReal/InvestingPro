@@ -8,13 +8,13 @@ const buttonVariants = cva(
     {
         variants: {
             variant: {
-                default: "bg-primary-500 text-white hover:bg-primary-600 active:scale-95 shadow-sm",
-                secondary: "bg-secondary-500 text-white hover:bg-secondary-600 active:scale-95 shadow-sm",
-                gradient: "bg-gradient-to-r from-primary-600 to-primary-800 text-white hover:from-primary-700 hover:to-primary-900 shadow-md",
-                destructive: "bg-danger-500 text-white hover:bg-danger-700",
-                outline: "border-2 border-primary-600 bg-white dark:bg-slate-800 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30",
-                success: "bg-success-600 text-white hover:bg-success-700",
-                ghost: "text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800",
+                default: "bg-primary-500 text-white hover:bg-primary-600 active:scale-95 shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 ease-out",
+                secondary: "bg-secondary-500 text-white hover:bg-secondary-600 active:scale-95 shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 ease-out",
+                gradient: "bg-gradient-to-r from-primary-600 to-primary-800 text-white hover:from-primary-700 hover:to-primary-900 shadow-md hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all duration-300 ease-out",
+                destructive: "bg-danger-500 text-white hover:bg-danger-700 shadow-sm hover:shadow-md",
+                outline: "border-2 border-primary-600 bg-white dark:bg-slate-800 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300",
+                success: "bg-success-600 text-white hover:bg-success-700 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:scale-95",
+                ghost: "text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 active:scale-95 transition-all duration-200",
                 link: "text-secondary-600 underline-offset-4 hover:underline dark:text-secondary-400",
             },
             size: {

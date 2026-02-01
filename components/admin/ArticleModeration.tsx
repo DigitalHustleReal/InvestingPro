@@ -127,25 +127,25 @@ export default function ArticleModeration({ article }: { article: Article }) {
                     <div className="flex flex-col lg:flex-row gap-6">
                         {/* Article Info */}
                         <div className="flex-1">
-                            <h3 className="text-xl font-bold text-slate-900 mb-2">{article.title}</h3>
+                            <h3 className="text-xl font-bold text-wt-text mb-2">{article.title}</h3>
 
-                            <div className="flex flex-wrap gap-4 mb-3 text-sm text-muted-foreground/50 dark:text-muted-foreground/50">
+                            <div className="flex flex-wrap gap-4 mb-3 text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50">
                                 <span className="flex items-center gap-1.5">
-                                    <User className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
+                                    <User className="w-4 h-4 text-wt-text-muted dark:text-wt-text-muted" />
                                     {article.author_name}
                                 </span>
                                 <span className="flex items-center gap-1.5">
-                                    <Calendar className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
+                                    <Calendar className="w-4 h-4 text-wt-text-muted dark:text-wt-text-muted" />
                                     {new Date(displayDate).toLocaleDateString()}
                                 </span>
                                 <span className="flex items-center gap-1.5">
-                                    <FileText className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
+                                    <FileText className="w-4 h-4 text-wt-text-muted dark:text-wt-text-muted" />
                                     {article.read_time} min read
                                 </span>
                             </div>
 
                             <div className="flex flex-wrap gap-2 mb-3">
-                                <Badge className="bg-slate-700 text-foreground dark:text-foreground border-0">
+                                <Badge className="bg-slate-700 text-wt-text dark:text-wt-text border-0">
                                     {article.category?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                                 </Badge>
                                 <Badge variant="outline" className="bg-white">
@@ -158,9 +158,9 @@ export default function ArticleModeration({ article }: { article: Article }) {
                                 ))}
                             </div>
 
-                            <p className="text-muted-foreground/50 dark:text-muted-foreground/50 mb-4 line-clamp-2">{article.excerpt}</p>
+                            <p className="text-wt-text-muted/50 dark:text-wt-text-muted/50 mb-4 line-clamp-2">{article.excerpt}</p>
 
-                            <div className="flex items-center gap-2 text-xs text-muted-foreground dark:text-muted-foreground italic">
+                            <div className="flex items-center gap-2 text-xs text-wt-text-muted dark:text-wt-text-muted italic">
                                 <span>Author email: {article.author_email}</span>
                             </div>
                         </div>
@@ -181,7 +181,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
                             <Button
                                 onClick={handleApprove}
                                 disabled={approveMutation.isPending}
-                                className="w-full bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground"
+                                className="w-full bg-wt-gold hover:bg-wt-gold-hover text-wt-text dark:text-wt-text"
                             >
                                 <CheckCircle2 className="w-4 h-4 mr-2" />
                                 Approve & Publish
@@ -191,7 +191,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
                                 <Button
                                     onClick={() => setShowRevisionDialog(true)}
                                     variant="outline"
-                                    className="w-full border-secondary-300 text-secondary-700 hover:bg-secondary-50 bg-white"
+                                    className="w-full border-secondary-300 text-secondary-700 hover:bg-wt-gold-subtle bg-white"
                                 >
                                     <AlertCircle className="w-4 h-4 mr-1 sm:mr-2" />
                                     Review
@@ -222,7 +222,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
                     </DialogHeader>
                     
                     <Tabs defaultValue="content" className="mt-4 flex-1 flex flex-col overflow-hidden">
-                        <TabsList className="grid w-64 grid-cols-2 bg-slate-100 p-1 rounded-xl mb-4">
+                        <TabsList className="grid w-64 grid-cols-2 bg-wt-card p-1 rounded-xl mb-4">
                             <TabsTrigger value="content" className="rounded-lg data-[state=active]:bg-white">
                                 <FileText className="w-4 h-4 mr-2" />
                                 Content
@@ -237,7 +237,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
                             {article.content ? (
                                 <ReactMarkdown>{article.content}</ReactMarkdown>
                             ) : (
-                                <p className="text-muted-foreground/70 dark:text-muted-foreground/70 italic">No content available</p>
+                                <p className="text-wt-text-muted/70 dark:text-wt-text-muted/70 italic">No content available</p>
                             )}
                         </TabsContent>
 
@@ -275,7 +275,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
                         <Button
                             onClick={handleReject}
                             disabled={rejectMutation.isPending}
-                            className="bg-danger-600 hover:bg-danger-700 text-foreground dark:text-foreground"
+                            className="bg-danger-600 hover:bg-danger-700 text-wt-text dark:text-wt-text"
                         >
                             Reject Article
                         </Button>
@@ -310,7 +310,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
                         <Button
                             onClick={handleRevision}
                             disabled={revisionMutation.isPending}
-                            className="bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground"
+                            className="bg-wt-gold hover:bg-wt-gold-hover text-wt-text dark:text-wt-text"
                         >
                             Request Revision
                         </Button>

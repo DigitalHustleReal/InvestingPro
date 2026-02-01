@@ -93,7 +93,7 @@ export default function EnhancedAnalyticsDashboard() {
         return (
             <div className="space-y-6">
                 {[1, 2, 3].map(i => (
-                    <div key={i} className="h-32 bg-card/50 rounded-xl animate-pulse" />
+                    <div key={i} className="h-32 bg-wt-surface/50 rounded-xl animate-pulse" />
                 ))}
             </div>
         );
@@ -104,16 +104,16 @@ export default function EnhancedAnalyticsDashboard() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                    <h2 className="text-2xl font-bold text-wt-text">
                         Analytics Dashboard
                     </h2>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    <p className="text-sm text-wt-text-muted mt-1">
                         Comprehensive platform analytics and insights
                     </p>
                 </div>
                 <div className="flex items-center gap-3">
                     {/* Date Range Selector */}
-                    <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-900 rounded-lg p-1">
+                    <div className="flex items-center gap-2 bg-wt-card rounded-lg p-1">
                         {(['today', '7d', '30d', '90d', 'all'] as DateRange[]).map((range) => (
                             <button
                                 key={range}
@@ -121,8 +121,8 @@ export default function EnhancedAnalyticsDashboard() {
                                 className={cn(
                                     "px-3 py-1.5 text-sm font-medium rounded-md transition-colors",
                                     dateRange === range
-                                        ? "bg-white dark:bg-slate-800 text-primary-600 shadow-sm"
-                                        : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                                        ? "bg-wt-surface text-wt-gold shadow-sm"
+                                        : "text-wt-text-muted hover:text-wt-text"
                                 )}
                             >
                                 {range === 'today' ? 'Today' : 
@@ -178,7 +178,7 @@ export default function EnhancedAnalyticsDashboard() {
             <Card>
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                        <TrendingUp className="w-5 h-5 text-primary-600" />
+                        <TrendingUp className="w-5 h-5 text-wt-gold" />
                         Traffic Trends
                     </CardTitle>
                 </CardHeader>
@@ -193,7 +193,7 @@ export default function EnhancedAnalyticsDashboard() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                            <BarChart3 className="w-5 h-5 text-primary-600" />
+                            <BarChart3 className="w-5 h-5 text-wt-gold" />
                             Top Performing Content
                         </CardTitle>
                     </CardHeader>
@@ -206,7 +206,7 @@ export default function EnhancedAnalyticsDashboard() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                            <BarChart3 className="w-5 h-5 text-primary-600" />
+                            <BarChart3 className="w-5 h-5 text-wt-gold" />
                             Category Performance
                         </CardTitle>
                     </CardHeader>
@@ -220,7 +220,7 @@ export default function EnhancedAnalyticsDashboard() {
             <Card>
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                        <TrendingUp className="w-5 h-5 text-primary-600" />
+                        <TrendingUp className="w-5 h-5 text-wt-gold" />
                         Conversion Funnel
                     </CardTitle>
                 </CardHeader>
@@ -246,9 +246,9 @@ function MetricCard({
     isRevenue?: boolean;
 }) {
     const colorClasses = {
-        primary: 'bg-primary-500/10 text-primary-600',
-        accent: 'bg-accent-500/10 text-accent-600',
-        success: 'bg-success-500/10 text-success-600'
+        primary: 'bg-wt-gold-subtle text-wt-gold',
+        accent: 'bg-wt-gold-subtle text-wt-gold',
+        success: 'bg-wt-green-subtle text-wt-green'
     };
 
     return (
@@ -262,10 +262,10 @@ function MetricCard({
                         Live
                     </Badge>
                 </div>
-                <div className="text-3xl font-bold text-slate-900 dark:text-white">
+                <div className="text-3xl font-bold text-wt-text">
                     {typeof value === 'number' && !isRevenue ? value.toLocaleString() : value}
                 </div>
-                <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                <div className="text-xs text-wt-text-muted mt-1">
                     {label}
                 </div>
             </CardContent>
@@ -275,7 +275,7 @@ function MetricCard({
 
 function TimeSeriesChart({ data }: { data: any[] }) {
     if (data.length === 0) {
-        return <div className="text-center py-8 text-slate-600 dark:text-slate-400">No data available</div>;
+        return <div className="text-center py-8 text-wt-text-muted">No data available</div>;
     }
 
     const maxViews = Math.max(...data.map(d => d.views));
@@ -287,16 +287,16 @@ function TimeSeriesChart({ data }: { data: any[] }) {
                     const height = (point.views / maxViews) * 100;
                     return (
                         <div key={idx} className="flex-1 flex flex-col items-center gap-2">
-                            <div className="w-full bg-slate-100 dark:bg-slate-900 rounded-t-lg relative group">
+                            <div className="w-full bg-wt-card rounded-t-lg relative group">
                                 <div 
-                                    className="w-full bg-gradient-to-t from-primary-500 to-primary-400 rounded-t-lg transition-all duration-300 hover:from-primary-600 hover:to-primary-500"
+                                    className="w-full bg-gradient-to-t from-wt-gold to-wt-gold-hover rounded-t-lg transition-all duration-300"
                                     style={{ height: `${height}%`, minHeight: '4px' }}
                                 />
-                                <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-wt-nav text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                                     {point.views.toLocaleString()} views
                                 </div>
                             </div>
-                            <div className="text-[10px] text-slate-600 dark:text-slate-400">
+                            <div className="text-[10px] text-wt-text-muted">
                                 {new Date(point.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                             </div>
                         </div>
@@ -311,26 +311,26 @@ function TopContentList({ content }: { content: any[] }) {
     return (
         <div className="space-y-3">
             {content.slice(0, 5).map((item, idx) => (
-                <div key={item.id} className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors">
+                <div key={item.id} className="flex items-center justify-between p-3 rounded-lg hover:bg-wt-surface-hover transition-colors">
                     <div className="flex items-center gap-3 flex-1">
                         <div className={cn(
                             "w-6 h-6 rounded flex items-center justify-center text-xs font-bold",
-                            idx === 0 ? "bg-accent-500/20 text-accent-600" :
-                            "bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400"
+                            idx === 0 ? "bg-wt-gold-subtle text-wt-gold" :
+                            "bg-wt-card text-wt-text-muted"
                         )}>
                             {idx + 1}
                         </div>
                         <div className="flex-1 min-w-0">
-                            <div className="text-sm font-medium text-slate-900 dark:text-white truncate">
+                            <div className="text-sm font-medium text-wt-text truncate">
                                 {item.title}
                             </div>
-                            <div className="text-xs text-slate-600 dark:text-slate-400 capitalize">
+                            <div className="text-xs text-wt-text-muted capitalize">
                                 {item.category?.replace(/-/g, ' ')}
                             </div>
                         </div>
                     </div>
-                    <div className="flex items-center gap-1 text-sm font-semibold text-slate-900 dark:text-white">
-                        <Eye className="w-4 h-4 text-slate-400" />
+                    <div className="flex items-center gap-1 text-sm font-semibold text-wt-text">
+                        <Eye className="w-4 h-4 text-wt-text-dim" />
                         {item.views.toLocaleString()}
                     </div>
                 </div>
@@ -350,16 +350,16 @@ function CategoryBreakdown({ categories }: { categories: any[] }) {
                 return (
                     <div key={cat.category} className="space-y-2">
                         <div className="flex items-center justify-between text-sm">
-                            <span className="text-slate-900 dark:text-white capitalize font-medium">
+                            <span className="text-wt-text capitalize font-medium">
                                 {cat.category?.replace(/-/g, ' ') || 'Uncategorized'}
                             </span>
-                            <span className="text-slate-600 dark:text-slate-400">
+                            <span className="text-wt-text-muted">
                                 {cat.totalViews.toLocaleString()} views
                             </span>
                         </div>
-                        <div className="h-2 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden">
+                        <div className="h-2 bg-wt-card rounded-full overflow-hidden">
                             <div 
-                                className="h-full bg-gradient-to-r from-primary-500 to-accent-500 rounded-full transition-all duration-500"
+                                className="h-full bg-gradient-to-r from-wt-gold to-wt-gold-hover rounded-full transition-all duration-500"
                                 style={{ width: `${percentage}%` }}
                             />
                         </div>
@@ -380,11 +380,11 @@ function ConversionFunnel({ funnel }: { funnel: any[] }) {
                 return (
                     <div key={stage.stage} className="space-y-2">
                         <div className="flex items-center justify-between text-sm">
-                            <span className="text-slate-900 dark:text-white font-medium">
+                            <span className="text-wt-text font-medium">
                                 {stage.stage}
                             </span>
                             <div className="flex items-center gap-3">
-                                <span className="text-slate-600 dark:text-slate-400">
+                                <span className="text-wt-text-muted">
                                     {stage.users.toLocaleString()} users
                                 </span>
                                 {!isFirst && (
@@ -394,9 +394,9 @@ function ConversionFunnel({ funnel }: { funnel: any[] }) {
                                 )}
                             </div>
                         </div>
-                        <div className="h-12 bg-slate-100 dark:bg-slate-900 rounded-lg overflow-hidden">
+                        <div className="h-12 bg-wt-card rounded-lg overflow-hidden">
                             <div 
-                                className="h-full bg-gradient-to-r from-primary-500 to-primary-600 flex items-center justify-center text-white font-semibold text-sm transition-all duration-500"
+                                className="h-full bg-gradient-to-r from-wt-gold to-wt-gold-hover flex items-center justify-center text-white font-semibold text-sm transition-all duration-500"
                                 style={{ width: `${width}%` }}
                             >
                                 {stage.users.toLocaleString()}

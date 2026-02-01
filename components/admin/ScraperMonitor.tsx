@@ -165,7 +165,7 @@ export default function ScraperMonitor({
   if (loading) {
     return (
       <div className="flex items-center justify-center p-12">
-        <Loader2 className="w-8 h-8 animate-spin text-primary-500" />
+        <Loader2 className="w-8 h-8 animate-spin text-wt-gold" />
       </div>
     );
   }
@@ -175,7 +175,7 @@ export default function ScraperMonitor({
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-foreground dark:text-foreground">Scraper Monitor</h2>
+          <h2 className="text-2xl font-bold text-wt-text dark:text-wt-text">Scraper Monitor</h2>
           <p className="text-sm text-gray-400 mt-1">
             {activeScrapers} of {scrapers.length} scrapers running
           </p>
@@ -195,7 +195,7 @@ export default function ScraperMonitor({
           <Button
             onClick={triggerAll}
             disabled={triggering !== null}
-            className="gap-2 bg-primary-500 hover:bg-primary-600"
+            className="gap-2 bg-wt-gold hover:bg-wt-gold-hover"
           >
             {triggering === 'all' ? (
               <Loader2 className="w-4 h-4 animate-spin" />
@@ -210,13 +210,13 @@ export default function ScraperMonitor({
       {/* Scrapers Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {scrapers.map((scraper) => (
-          <Card key={scraper.id} className="p-6 bg-surface-darker/50 dark:bg-surface-darker/50 border-slate-800">
+          <Card key={scraper.id} className="p-6 bg-surface-darker/50 dark:bg-surface-darker/50 border-wt-border">
             {/* Header */}
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-start gap-3">
                 {getStatusIcon(scraper.status)}
                 <div>
-                  <h3 className="font-semibold text-foreground dark:text-foreground">{scraper.name}</h3>
+                  <h3 className="font-semibold text-wt-text dark:text-wt-text">{scraper.name}</h3>
                   <p className="text-sm text-gray-400 mt-1">{scraper.description}</p>
                 </div>
               </div>
@@ -248,21 +248,21 @@ export default function ScraperMonitor({
             <div className="grid grid-cols-3 gap-4 mb-4">
               <div>
                 <p className="text-xs text-gray-400">Items Scraped</p>
-                <p className="text-lg font-semibold text-foreground dark:text-foreground mt-1">
+                <p className="text-lg font-semibold text-wt-text dark:text-wt-text mt-1">
                   {scraper.itemsScraped.toLocaleString()}
                 </p>
               </div>
               
               <div>
                 <p className="text-xs text-gray-400">Last Run</p>
-                <p className="text-sm font-medium text-foreground dark:text-foreground mt-1">
+                <p className="text-sm font-medium text-wt-text dark:text-wt-text mt-1">
                   {formatDate(scraper.lastRun)}
                 </p>
               </div>
               
               <div>
                 <p className="text-xs text-gray-400">Duration</p>
-                <p className="text-sm font-medium text-foreground dark:text-foreground mt-1">
+                <p className="text-sm font-medium text-wt-text dark:text-wt-text mt-1">
                   {formatDuration(scraper.duration)}
                 </p>
               </div>

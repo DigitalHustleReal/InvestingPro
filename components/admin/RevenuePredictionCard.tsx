@@ -144,7 +144,7 @@ export function RevenuePredictionCard({
     // Compact mode rendering
     if (compact) {
         return (
-            <div className={cn("p-3 rounded-lg border border-slate-200 dark:border-slate-800", className)}>
+            <div className={cn("p-3 rounded-lg border border-wt-border border-wt-border", className)}>
                 <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
                         <Brain className="w-4 h-4 text-purple-500" />
@@ -161,7 +161,7 @@ export function RevenuePredictionCard({
                 </div>
                 
                 {isLoading ? (
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-2 text-sm text-wt-text-muted">
                         <RefreshCw className="w-3 h-3 animate-spin" />
                         Calculating...
                     </div>
@@ -170,12 +170,12 @@ export function RevenuePredictionCard({
                         <div className="text-xl font-bold text-purple-600 dark:text-purple-400">
                             {formatCurrency(prediction.predictedRevenue.expected)}
                         </div>
-                        <div className="text-xs text-muted-foreground">
+                        <div className="text-xs text-wt-text-muted">
                             Range: {formatCurrency(prediction.predictedRevenue.low)} - {formatCurrency(prediction.predictedRevenue.high)}
                         </div>
                     </div>
                 ) : (
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-sm text-wt-text-muted">
                         Add content to see prediction
                     </div>
                 )}
@@ -199,7 +199,7 @@ export function RevenuePredictionCard({
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger>
-                                    <HelpCircle className="w-3.5 h-3.5 text-muted-foreground" />
+                                    <HelpCircle className="w-3.5 h-3.5 text-wt-text-muted" />
                                 </TooltipTrigger>
                                 <TooltipContent className="max-w-xs">
                                     <p>AI-predicted revenue based on historical data, category performance, and content analysis.</p>
@@ -221,12 +221,12 @@ export function RevenuePredictionCard({
                 {isLoading ? (
                     <div className="flex flex-col items-center justify-center py-6">
                         <RefreshCw className="w-8 h-8 animate-spin text-purple-500 mb-2" />
-                        <p className="text-sm text-muted-foreground">Analyzing article...</p>
+                        <p className="text-sm text-wt-text-muted">Analyzing article...</p>
                     </div>
                 ) : isError ? (
                     <div className="flex flex-col items-center justify-center py-6 text-center">
                         <AlertTriangle className="w-8 h-8 text-amber-500 mb-2" />
-                        <p className="text-sm text-muted-foreground">Unable to generate prediction</p>
+                        <p className="text-sm text-wt-text-muted">Unable to generate prediction</p>
                         <Button variant="outline" size="sm" className="mt-2" onClick={() => refetch()}>
                             Try Again
                         </Button>
@@ -239,7 +239,7 @@ export function RevenuePredictionCard({
                                 <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">
                                     {formatCurrency(prediction.predictedRevenue.expected)}
                                 </div>
-                                <div className="text-sm text-muted-foreground">
+                                <div className="text-sm text-wt-text-muted">
                                     Expected annual revenue
                                 </div>
                             </div>
@@ -253,14 +253,14 @@ export function RevenuePredictionCard({
                                         {prediction.confidence}%
                                     </span>
                                 </div>
-                                <div className="text-xs text-muted-foreground">Confidence</div>
+                                <div className="text-xs text-wt-text-muted">Confidence</div>
                             </div>
                         </div>
 
                         {/* Revenue Range */}
-                        <div className="p-3 rounded-lg bg-slate-100 dark:bg-slate-800/50">
+                        <div className="p-3 rounded-lg bg-wt-card bg-wt-surface/50">
                             <div className="flex items-center justify-between text-sm">
-                                <span className="text-muted-foreground">Prediction Range</span>
+                                <span className="text-wt-text-muted">Prediction Range</span>
                                 <span className="font-medium">
                                     {formatCurrency(prediction.predictedRevenue.low)} - {formatCurrency(prediction.predictedRevenue.high)}
                                 </span>
@@ -279,17 +279,17 @@ export function RevenuePredictionCard({
 
                         {/* Timeframe Breakdown */}
                         <div className="grid grid-cols-3 gap-2 text-center">
-                            <div className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/30">
+                            <div className="p-2 rounded-lg bg-wt-surface-hover bg-wt-surface/30">
                                 <div className="text-sm font-semibold">{formatCurrency(prediction.timeframe.days30)}</div>
-                                <div className="text-xs text-muted-foreground">30 days</div>
+                                <div className="text-xs text-wt-text-muted">30 days</div>
                             </div>
-                            <div className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/30">
+                            <div className="p-2 rounded-lg bg-wt-surface-hover bg-wt-surface/30">
                                 <div className="text-sm font-semibold">{formatCurrency(prediction.timeframe.days90)}</div>
-                                <div className="text-xs text-muted-foreground">90 days</div>
+                                <div className="text-xs text-wt-text-muted">90 days</div>
                             </div>
-                            <div className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/30">
+                            <div className="p-2 rounded-lg bg-wt-surface-hover bg-wt-surface/30">
                                 <div className="text-sm font-semibold">{formatCurrency(prediction.timeframe.days365)}</div>
-                                <div className="text-xs text-muted-foreground">1 year</div>
+                                <div className="text-xs text-wt-text-muted">1 year</div>
                             </div>
                         </div>
 
@@ -314,7 +314,7 @@ export function RevenuePredictionCard({
 
                         {/* Expanded Details */}
                         {isExpanded && (
-                            <div className="space-y-4 pt-2 border-t border-slate-200 dark:border-slate-700">
+                            <div className="space-y-4 pt-2 border-t border-wt-border dark:border-wt-border">
                                 {/* Prediction Factors */}
                                 <div>
                                     <h4 className="text-sm font-medium mb-2 flex items-center gap-2">
@@ -329,7 +329,7 @@ export function RevenuePredictionCard({
                                                     "flex items-center justify-between p-2 rounded-lg text-sm",
                                                     factor.impact === 'positive' && "bg-green-50 dark:bg-green-900/20",
                                                     factor.impact === 'negative' && "bg-red-50 dark:bg-red-900/20",
-                                                    factor.impact === 'neutral' && "bg-slate-50 dark:bg-slate-800/50"
+                                                    factor.impact === 'neutral' && "bg-wt-surface-hover bg-wt-surface/50"
                                                 )}
                                             >
                                                 <div className="flex items-center gap-2">
@@ -340,14 +340,14 @@ export function RevenuePredictionCard({
                                                         <TrendingDown className="w-4 h-4 text-red-500" />
                                                     )}
                                                     {factor.impact === 'neutral' && (
-                                                        <Info className="w-4 h-4 text-slate-500" />
+                                                        <Info className="w-4 h-4 text-wt-text-muted" />
                                                     )}
                                                     <span className="font-medium">{factor.name}</span>
                                                 </div>
                                                 <Badge variant="outline" className={cn(
                                                     factor.impact === 'positive' && "border-green-500 text-green-600",
                                                     factor.impact === 'negative' && "border-red-500 text-red-600",
-                                                    factor.impact === 'neutral' && "border-slate-400 text-slate-600"
+                                                    factor.impact === 'neutral' && "border-slate-400 text-wt-text-muted"
                                                 )}>
                                                     {factor.weight > 0 ? '+' : ''}{factor.weight}
                                                 </Badge>
@@ -367,11 +367,11 @@ export function RevenuePredictionCard({
                                             {prediction.comparableArticles.slice(0, 3).map((article, idx) => (
                                                 <div 
                                                     key={idx}
-                                                    className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800/50 text-sm"
+                                                    className="flex items-center justify-between p-2 rounded-lg bg-wt-surface-hover bg-wt-surface/50 text-sm"
                                                 >
                                                     <div className="flex-1 min-w-0">
                                                         <div className="font-medium truncate">{article.title}</div>
-                                                        <div className="text-xs text-muted-foreground">
+                                                        <div className="text-xs text-wt-text-muted">
                                                             {article.similarityScore}% similar
                                                         </div>
                                                     </div>
@@ -409,10 +409,10 @@ export function RevenuePredictionCard({
                 ) : (
                     <div className="flex flex-col items-center justify-center py-6 text-center">
                         <Sparkles className="w-8 h-8 text-purple-300 mb-2" />
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-wt-text-muted">
                             Start writing to see revenue prediction
                         </p>
-                        <p className="text-xs text-muted-foreground mt-1">
+                        <p className="text-xs text-wt-text-muted mt-1">
                             Prediction updates as you add content
                         </p>
                     </div>

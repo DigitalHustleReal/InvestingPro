@@ -48,7 +48,7 @@ export default function AdminPageHeader({
 }: AdminPageHeaderProps) {
     return (
         <div className={cn(
-            "pb-6 border-b border-border/50 dark:border-border/50 mb-6",
+            "pb-6 border-b border-wt-border mb-6",
             className
         )}>
             {/* Breadcrumbs */}
@@ -62,7 +62,7 @@ export default function AdminPageHeader({
             {(title || actions) && (
                 <div className="flex items-center justify-between gap-4">
                     {title && (
-                        <h1 className="text-2xl font-bold text-foreground dark:text-foreground">
+                        <h1 className="text-2xl font-bold text-wt-text">
                             {title}
                         </h1>
                     )}

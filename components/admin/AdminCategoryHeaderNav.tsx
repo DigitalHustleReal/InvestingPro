@@ -31,7 +31,7 @@ export default function AdminCategoryHeaderNav({
     };
 
     return (
-        <div className="border-b border-admin-pro-border bg-admin-pro-bg">
+        <div className="border-b border-wt-border bg-wt-bg">
             <div className="max-w-[1600px] mx-auto px-4">
                 <nav className="flex items-center gap-0.5 overflow-x-auto scrollbar-hide py-2" aria-label="Sections">
                     {CATEGORIES.map((category) => {
@@ -44,8 +44,8 @@ export default function AdminCategoryHeaderNav({
                                 className={cn(
                                     "flex items-center gap-2 px-4 py-2.5 rounded-md text-sm font-medium transition-colors whitespace-nowrap",
                                     isActive
-                                        ? "bg-admin-pro-accent-subtle text-admin-pro-accent"
-                                        : "text-admin-pro-text-muted hover:text-admin-pro-text hover:bg-admin-pro-surface"
+                                        ? "bg-wt-gold-subtle text-wt-gold"
+                                        : "text-wt-text-muted hover:text-wt-text hover:bg-wt-surface"
                                 )}
                                 aria-label={category.label}
                                 aria-current={isActive ? 'page' : undefined}

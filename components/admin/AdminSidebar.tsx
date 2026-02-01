@@ -20,9 +20,9 @@ export default function AdminSidebar() {
                 {navSections.map((section, sectionIndex) => (
                     <div key={section.title}>
                         {sectionIndex > 0 && (
-                            <div className="mb-3 mt-1 border-t border-admin-pro-border" aria-hidden="true" />
+                            <div className="mb-3 mt-1 border-t border-wt-border" aria-hidden="true" />
                         )}
-                        <h3 className="text-[11px] font-semibold text-admin-pro-text-muted uppercase tracking-wider mb-2.5 px-3">
+                        <h3 className="text-[11px] font-semibold text-wt-text-muted uppercase tracking-wider mb-2.5 px-3">
                             {section.title}
                         </h3>
                         <ul className="space-y-0.5">
@@ -36,8 +36,8 @@ export default function AdminSidebar() {
                                             className={cn(
                                                 "flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors",
                                                 isActive
-                                                    ? "bg-admin-pro-accent-subtle text-admin-pro-accent border-l-2 border-admin-pro-accent -ml-px pl-[11px]"
-                                                    : "text-admin-pro-text-muted hover:text-admin-pro-text hover:bg-admin-pro-surface"
+                                                    ? "bg-wt-gold-subtle text-wt-nav border-l-2 border-wt-gold -ml-px pl-[11px]"
+                                                    : "text-wt-text-muted hover:text-wt-text hover:bg-wt-surface-hover"
                                             )}
                                             aria-label={item.label}
                                             aria-current={isActive ? 'page' : undefined}
@@ -45,7 +45,7 @@ export default function AdminSidebar() {
                                             <Icon className="w-4 h-4 shrink-0" />
                                             <span className="truncate">{item.label}</span>
                                             {item.badge !== undefined && item.badge > 0 && (
-                                                <span className="ml-auto text-xs font-medium text-admin-pro-text-muted tabular-nums">{item.badge}</span>
+                                                <span className="ml-auto text-xs font-medium text-wt-text-muted tabular-nums">{item.badge}</span>
                                             )}
                                         </Link>
                                     </li>
@@ -55,14 +55,14 @@ export default function AdminSidebar() {
                     </div>
                 ))}
             </nav>
-            <div className="mt-auto border-t border-admin-pro-border pt-4 px-3 pb-2">
-                <div className="flex items-center gap-3 py-2.5 px-3 rounded-lg bg-admin-pro-surface border border-admin-pro-border/50">
-                    <div className="w-9 h-9 rounded-lg bg-admin-pro-border flex items-center justify-center text-admin-pro-text-muted text-xs font-semibold shrink-0">
+            <div className="mt-auto border-t border-wt-border pt-4 px-3 pb-2">
+                <div className="flex items-center gap-3 py-2.5 px-3 rounded-lg bg-wt-card border border-wt-border">
+                    <div className="w-9 h-9 rounded-lg bg-wt-nav flex items-center justify-center text-white text-xs font-semibold shrink-0">
                         DH
                     </div>
                     <div className="min-w-0 flex-1">
-                        <p className="text-sm font-medium text-admin-pro-text truncate">Digital Hustle</p>
-                        <p className="text-[11px] text-admin-pro-text-muted truncate">Super Admin</p>
+                        <p className="text-sm font-medium text-wt-text truncate">Digital Hustle</p>
+                        <p className="text-[11px] text-wt-text-muted truncate">Super Admin</p>
                     </div>
                 </div>
             </div>

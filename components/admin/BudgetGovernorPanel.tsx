@@ -124,20 +124,20 @@ export default function BudgetGovernorPanel() {
     // Show loading state
     if (isLoading) {
         return (
-            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl">
+            <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl">
                 <CardContent className="p-8">
-                    <div className="text-center text-muted-foreground dark:text-muted-foreground">Loading budget data...</div>
+                    <div className="text-center text-wt-text-muted dark:text-wt-text-muted">Loading budget data...</div>
                 </CardContent>
             </Card>
         );
     }
     
     return (
-        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl">
-            <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
+        <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl">
+            <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-6">
                 <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg font-bold text-foreground dark:text-foreground flex items-center gap-3">
-                        <DollarSign className="w-5 h-5 text-primary-400" />
+                    <CardTitle className="text-lg font-bold text-wt-text dark:text-wt-text flex items-center gap-3">
+                        <DollarSign className="w-5 h-5 text-wt-gold" />
                         Budget Governor
                     </CardTitle>
                     <Badge variant={budget?.is_paused ? "destructive" : "default"}>
@@ -161,108 +161,108 @@ export default function BudgetGovernorPanel() {
                     <div className="grid grid-cols-3 gap-4">
                         <div>
                             <div className="flex items-center justify-between mb-2">
-                                <span className="text-sm text-muted-foreground dark:text-muted-foreground">Tokens</span>
-                                <span className="text-sm font-medium text-foreground dark:text-foreground">
+                                <span className="text-sm text-wt-text-muted dark:text-wt-text-muted">Tokens</span>
+                                <span className="text-sm font-medium text-wt-text dark:text-wt-text">
                                     {tokensUsed.toLocaleString()} / {maxTokens.toLocaleString()}
                                 </span>
                             </div>
                             <div className="w-full bg-muted dark:bg-muted rounded-full h-2">
                                 <div 
                                     className={`h-2 rounded-full ${
-                                        tokensPercent >= 90 ? 'bg-danger-500' :
+                                        tokensPercent >= 90 ? 'bg-wt-danger' :
                                         tokensPercent >= 75 ? 'bg-accent-500' :
-                                        'bg-success-500'
+                                        'bg-wt-green'
                                     }`}
                                     style={{ width: `${Math.min(100, tokensPercent)}%` }}
                                 />
                             </div>
-                            <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
+                            <p className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 mt-1">
                                 {tokensRemaining.toLocaleString()} remaining
                             </p>
                         </div>
                         
                         <div>
                             <div className="flex items-center justify-between mb-2">
-                                <span className="text-sm text-muted-foreground dark:text-muted-foreground">Images</span>
-                                <span className="text-sm font-medium text-foreground dark:text-foreground">
+                                <span className="text-sm text-wt-text-muted dark:text-wt-text-muted">Images</span>
+                                <span className="text-sm font-medium text-wt-text dark:text-wt-text">
                                     {imagesUsed} / {maxImages}
                                 </span>
                             </div>
                             <div className="w-full bg-muted dark:bg-muted rounded-full h-2">
                                 <div 
                                     className={`h-2 rounded-full ${
-                                        imagesPercent >= 90 ? 'bg-danger-500' :
+                                        imagesPercent >= 90 ? 'bg-wt-danger' :
                                         imagesPercent >= 75 ? 'bg-accent-500' :
-                                        'bg-success-500'
+                                        'bg-wt-green'
                                     }`}
                                     style={{ width: `${Math.min(100, imagesPercent)}%` }}
                                 />
                             </div>
-                            <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
+                            <p className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 mt-1">
                                 {imagesRemaining.toLocaleString()} remaining
                             </p>
                         </div>
                         
                         <div>
                             <div className="flex items-center justify-between mb-2">
-                                <span className="text-sm text-muted-foreground dark:text-muted-foreground">Cost (USD)</span>
-                                <span className="text-sm font-medium text-foreground dark:text-foreground">
+                                <span className="text-sm text-wt-text-muted dark:text-wt-text-muted">Cost (USD)</span>
+                                <span className="text-sm font-medium text-wt-text dark:text-wt-text">
                                     ${costSpent.toFixed(2)} / ${maxCost.toFixed(2)}
                                 </span>
                             </div>
                             <div className="w-full bg-muted dark:bg-muted rounded-full h-2">
                                 <div 
                                     className={`h-2 rounded-full ${
-                                        costPercent >= 90 ? 'bg-danger-500' :
+                                        costPercent >= 90 ? 'bg-wt-danger' :
                                         costPercent >= 75 ? 'bg-accent-500' :
-                                        'bg-success-500'
+                                        'bg-wt-green'
                                     }`}
                                     style={{ width: `${Math.min(100, costPercent)}%` }}
                                 />
                             </div>
-                            <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
+                            <p className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 mt-1">
                                 ${costRemaining.toFixed(2)} remaining
                             </p>
                         </div>
                     </div>
                     
                     {/* Set Budget */}
-                    <div className="border-t border-border/50 dark:border-border/50 pt-6">
-                        <h4 className="text-sm font-semibold text-foreground dark:text-foreground mb-4">Set Daily Limits</h4>
+                    <div className="border-t border-wt-border/50 dark:border-wt-border/50 pt-6">
+                        <h4 className="text-sm font-semibold text-wt-text dark:text-wt-text mb-4">Set Daily Limits</h4>
                         <div className="grid grid-cols-3 gap-4 mb-4">
                             <div>
-                                <label className="block text-sm text-muted-foreground dark:text-muted-foreground mb-2">Max Tokens</label>
+                                <label className="block text-sm text-wt-text-muted dark:text-wt-text-muted mb-2">Max Tokens</label>
                                 <input
                                     type="number"
                                     value={maxTokensInput}
                                     onChange={(e) => setMaxTokensInput(parseInt(e.target.value) || 0)}
-                                    className="w-full px-4 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-foreground dark:text-foreground"
+                                    className="w-full px-4 py-2 bg-muted dark:bg-muted border border-wt-border dark:border-wt-border rounded-lg text-wt-text dark:text-wt-text"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm text-muted-foreground dark:text-muted-foreground mb-2">Max Images</label>
+                                <label className="block text-sm text-wt-text-muted dark:text-wt-text-muted mb-2">Max Images</label>
                                 <input
                                     type="number"
                                     value={maxImagesInput}
                                     onChange={(e) => setMaxImagesInput(parseInt(e.target.value) || 0)}
-                                    className="w-full px-4 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-foreground dark:text-foreground"
+                                    className="w-full px-4 py-2 bg-muted dark:bg-muted border border-wt-border dark:border-wt-border rounded-lg text-wt-text dark:text-wt-text"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm text-muted-foreground dark:text-muted-foreground mb-2">Max Cost (USD)</label>
+                                <label className="block text-sm text-wt-text-muted dark:text-wt-text-muted mb-2">Max Cost (USD)</label>
                                 <input
                                     type="number"
                                     step="0.01"
                                     value={maxCostInput}
                                     onChange={(e) => setMaxCostInput(parseFloat(e.target.value) || 0)}
-                                    className="w-full px-4 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-foreground dark:text-foreground"
+                                    className="w-full px-4 py-2 bg-muted dark:bg-muted border border-wt-border dark:border-wt-border rounded-lg text-wt-text dark:text-wt-text"
                                 />
                             </div>
                         </div>
                         <Button
                             onClick={handleSetBudget}
                             disabled={setBudget.isPending}
-                            className="w-full bg-primary-600 hover:bg-primary-700"
+                            className="w-full bg-wt-gold hover:bg-wt-gold-hover"
                         >
                             {setBudget.isPending ? (
                                 <>

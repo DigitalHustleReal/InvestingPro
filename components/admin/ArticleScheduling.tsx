@@ -127,27 +127,27 @@ export default function ArticleScheduling({
 
     return (
         <div className="space-y-3">
-            <h3 className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+            <h3 className="text-xs font-semibold text-wt-text-muted dark:text-wt-text-muted uppercase tracking-wider flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
                 Schedule Publication
             </h3>
 
             {isScheduled && scheduledPublishAt ? (
-                <div className="bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-lg p-4">
+                <div className="bg-wt-gold-subtle bg-wt-gold-subtle border border-wt-border-light border-wt-border rounded-lg p-4">
                     <div className="flex items-start justify-between">
                         <div className="flex items-start gap-3">
-                            <CheckCircle2 className="w-5 h-5 text-primary-600 dark:text-primary-400 mt-0.5" />
+                            <CheckCircle2 className="w-5 h-5 text-wt-gold dark:text-wt-gold mt-0.5" />
                             <div>
-                                <p className="text-sm font-semibold text-primary-900 dark:text-primary-100">
+                                <p className="text-sm font-semibold text-wt-text text-wt-text">
                                     Scheduled for Publication
                                 </p>
-                                <p className="text-sm text-primary-700 dark:text-primary-300 mt-1">
+                                <p className="text-sm text-wt-gold text-wt-text-muted mt-1">
                                     {new Date(scheduledPublishAt).toLocaleString('en-IN', {
                                         dateStyle: 'full',
                                         timeStyle: 'short'
                                     })}
                                 </p>
-                                <p className="text-xs text-primary-600 dark:text-primary-400 mt-2">
+                                <p className="text-xs text-wt-gold dark:text-wt-gold mt-2">
                                     Article will be published automatically at the scheduled time.
                                 </p>
                             </div>
@@ -157,7 +157,7 @@ export default function ArticleScheduling({
                             size="sm"
                             onClick={handleUnschedule}
                             disabled={unscheduleMutation.isPending}
-                            className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300"
+                            className="text-wt-gold dark:text-wt-gold hover:text-wt-gold dark:hover:text-primary-300"
                         >
                             <X className="w-4 h-4" />
                         </Button>
@@ -166,7 +166,7 @@ export default function ArticleScheduling({
             ) : (
                 <div className="space-y-3">
                     <div>
-                        <Label htmlFor="schedule-date" className="text-slate-700 dark:text-foreground/80 dark:text-foreground/80">
+                        <Label htmlFor="schedule-date" className="text-wt-text dark:text-wt-text/80 dark:text-wt-text/80">
                             Publication Date
                         </Label>
                         <Input
@@ -175,11 +175,11 @@ export default function ArticleScheduling({
                             value={scheduledDate}
                             onChange={(e) => setScheduledDate(e.target.value)}
                             min={new Date().toISOString().split('T')[0]}
-                            className="mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-border dark:border-border text-slate-900 dark:text-foreground/90 dark:text-foreground/90"
+                            className="mt-1 bg-white dark:bg-surface-darker border-wt-border dark:border-wt-border dark:border-wt-border text-wt-text dark:text-wt-text/90 dark:text-wt-text/90"
                         />
                     </div>
                     <div>
-                        <Label htmlFor="schedule-time" className="text-slate-700 dark:text-foreground/80 dark:text-foreground/80 flex items-center gap-2">
+                        <Label htmlFor="schedule-time" className="text-wt-text dark:text-wt-text/80 dark:text-wt-text/80 flex items-center gap-2">
                             <Clock className="w-4 h-4" />
                             Publication Time (IST)
                         </Label>
@@ -188,12 +188,12 @@ export default function ArticleScheduling({
                             type="time"
                             value={scheduledTime}
                             onChange={(e) => setScheduledTime(e.target.value)}
-                            className="mt-1 bg-white dark:bg-surface-darker border-slate-200 dark:border-border dark:border-border text-slate-900 dark:text-foreground/90 dark:text-foreground/90"
+                            className="mt-1 bg-white dark:bg-surface-darker border-wt-border dark:border-wt-border dark:border-wt-border text-wt-text dark:text-wt-text/90 dark:text-wt-text/90"
                         />
                     </div>
 
                     {scheduledDateTime && (
-                        <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground">
+                        <div className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted dark:text-wt-text-muted">
                             Will publish on:{' '}
                             <span className="font-semibold">
                                 {scheduledDateTime.toLocaleString('en-IN', {
@@ -207,14 +207,14 @@ export default function ArticleScheduling({
                     <Button
                         onClick={handleSchedule}
                         disabled={scheduleMutation.isPending || !scheduledDate || !scheduledTime}
-                        className="w-full bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground"
+                        className="w-full bg-wt-gold hover:bg-wt-gold-hover text-wt-text dark:text-wt-text"
                     >
                         {scheduleMutation.isPending ? 'Scheduling...' : 'Schedule Publication'}
                     </Button>
                 </div>
             )}
 
-            <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground">
+            <p className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted dark:text-wt-text-muted">
                 Scheduled articles will be published automatically every 15 minutes by the cron job.
             </p>
         </div>

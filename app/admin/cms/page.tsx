@@ -42,10 +42,10 @@ export default function CMSDashboardPage() {
 
     const getHealthColor = (status: string) => {
         switch (status) {
-            case 'healthy': return 'bg-primary-500/10 text-primary-400 border-primary-500/20';
-            case 'degraded': return 'bg-accent-500/10 text-accent-400 border-accent-500/20';
-            case 'unhealthy': return 'bg-danger-500/10 text-danger-400 border-danger-500/20';
-            default: return 'bg-slate-500/10 text-muted-foreground dark:text-muted-foreground border-slate-500/20';
+            case 'healthy': return 'bg-wt-green-subtle text-wt-green border-wt-green/30';
+            case 'degraded': return 'bg-wt-orange-subtle text-wt-orange border-wt-orange/30';
+            case 'unhealthy': return 'bg-wt-danger-subtle text-wt-danger border-wt-danger/30';
+            default: return 'bg-wt-surface-hover text-wt-text-muted border-wt-border';
         }
     };
 
@@ -56,11 +56,11 @@ export default function CMSDashboardPage() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-foreground dark:text-foreground mb-2 flex items-center gap-3">
-                            <Sparkles className="w-8 h-8 text-primary-400" />
+                        <h1 className="text-3xl font-bold text-wt-text mb-2 flex items-center gap-3">
+                            <Sparkles className="w-8 h-8 text-wt-gold" />
                             Pipeline Dashboard
                         </h1>
-                        <p className="text-muted-foreground dark:text-muted-foreground">Monitor and manage the AI-powered content pipeline</p>
+                        <p className="text-wt-text-muted">Monitor and manage the AI-powered content pipeline</p>
                     </div>
                 </div>
 
@@ -124,10 +124,10 @@ export default function CMSDashboardPage() {
                 </div>
 
                 {/* Budget Panel */}
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50">
-                    <CardHeader className="border-b border-border/50 dark:border-border/50">
-                        <CardTitle className="text-lg font-bold text-foreground dark:text-foreground flex items-center gap-3">
-                            <DollarSign className="w-5 h-5 text-secondary-400" />
+                <Card className="bg-wt-surface border-wt-border">
+                    <CardHeader className="border-b border-wt-border">
+                        <CardTitle className="text-lg font-bold text-wt-text flex items-center gap-3">
+                            <DollarSign className="w-5 h-5 text-wt-gold" />
                             Budget Overview
                         </CardTitle>
                     </CardHeader>
@@ -139,15 +139,15 @@ export default function CMSDashboardPage() {
                 {/* Quick Links */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <Link href="/admin/cms/budget">
-                        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 hover:border-primary-500/30 transition-all cursor-pointer">
+                        <Card className="bg-wt-surface border-wt-border hover:border-wt-gold/40 transition-all cursor-pointer">
                             <CardContent className="p-6">
                                 <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-xl bg-secondary-500/10 flex items-center justify-center">
-                                        <DollarSign className="w-6 h-6 text-secondary-400" />
+                                    <div className="w-12 h-12 rounded-xl bg-wt-green-subtle flex items-center justify-center">
+                                        <DollarSign className="w-6 h-6 text-wt-green" />
                                     </div>
                                     <div>
-                                        <h3 className="font-bold text-foreground dark:text-foreground mb-1">Budget Management</h3>
-                                        <p className="text-sm text-muted-foreground dark:text-muted-foreground">Configure spending limits</p>
+                                        <h3 className="font-bold text-wt-text mb-1">Budget Management</h3>
+                                        <p className="text-sm text-wt-text-muted">Configure spending limits</p>
                                     </div>
                                 </div>
                             </CardContent>
@@ -155,15 +155,15 @@ export default function CMSDashboardPage() {
                     </Link>
 
                     <Link href="/admin/cms/generation">
-                        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 hover:border-primary-500/30 transition-all cursor-pointer">
+                        <Card className="bg-wt-surface border-wt-border hover:border-wt-gold/40 transition-all cursor-pointer">
                             <CardContent className="p-6">
                                 <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center">
-                                        <Zap className="w-6 h-6 text-primary-400" />
+                                    <div className="w-12 h-12 rounded-xl bg-wt-gold-subtle flex items-center justify-center">
+                                        <Zap className="w-6 h-6 text-wt-gold" />
                                     </div>
                                     <div>
-                                        <h3 className="font-bold text-foreground dark:text-foreground mb-1">Content Generation</h3>
-                                        <p className="text-sm text-muted-foreground dark:text-muted-foreground">Generate articles</p>
+                                        <h3 className="font-bold text-wt-text mb-1">Content Generation</h3>
+                                        <p className="text-sm text-wt-text-muted">Generate articles</p>
                                     </div>
                                 </div>
                             </CardContent>
@@ -171,15 +171,15 @@ export default function CMSDashboardPage() {
                     </Link>
 
                     <Link href="/admin/cms/health">
-                        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 hover:border-primary-500/30 transition-all cursor-pointer">
+                        <Card className="bg-wt-surface border-wt-border hover:border-wt-gold/40 transition-all cursor-pointer">
                             <CardContent className="p-6">
                                 <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center">
-                                        <Activity className="w-6 h-6 text-primary-400" />
+                                    <div className="w-12 h-12 rounded-xl bg-wt-green-subtle flex items-center justify-center">
+                                        <Activity className="w-6 h-6 text-wt-green" />
                                     </div>
                                     <div>
-                                        <h3 className="font-bold text-foreground dark:text-foreground mb-1">Health Monitor</h3>
-                                        <p className="text-sm text-muted-foreground dark:text-muted-foreground">System diagnostics</p>
+                                        <h3 className="font-bold text-wt-text mb-1">Health Monitor</h3>
+                                        <p className="text-sm text-wt-text-muted">System diagnostics</p>
                                     </div>
                                 </div>
                             </CardContent>
@@ -187,15 +187,15 @@ export default function CMSDashboardPage() {
                     </Link>
 
                     <Link href="/admin/cms/scrapers">
-                        <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 hover:border-primary-500/30 transition-all cursor-pointer">
+                        <Card className="bg-wt-surface border-wt-border hover:border-wt-gold/40 transition-all cursor-pointer">
                             <CardContent className="p-6">
                                 <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-xl bg-accent-500/10 flex items-center justify-center">
-                                        <Rss className="w-6 h-6 text-accent-400" />
+                                    <div className="w-12 h-12 rounded-xl bg-wt-orange-subtle flex items-center justify-center">
+                                        <Rss className="w-6 h-6 text-wt-orange" />
                                     </div>
                                     <div>
-                                        <h3 className="font-bold text-foreground dark:text-foreground mb-1">Scraper Management</h3>
-                                        <p className="text-sm text-muted-foreground dark:text-muted-foreground">Manage data scrapers</p>
+                                        <h3 className="font-bold text-wt-text mb-1">Scraper Management</h3>
+                                        <p className="text-sm text-wt-text-muted">Manage data scrapers</p>
                                     </div>
                                 </div>
                             </CardContent>

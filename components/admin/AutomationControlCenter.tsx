@@ -127,9 +127,9 @@ export default function AutomationControlCenter() {
 
     const getStateColor = (state: string) => {
         switch (state) {
-            case 'completed': return 'bg-success-500';
+            case 'completed': return 'bg-wt-green';
             case 'running': return 'bg-secondary-500';
-            case 'failed': return 'bg-danger-500';
+            case 'failed': return 'bg-wt-danger';
             case 'paused': return 'bg-warning-500';
             default: return 'bg-slate-500';
         }
@@ -150,15 +150,15 @@ export default function AutomationControlCenter() {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                         <div className="text-center">
                             <div className="text-2xl font-bold">{status.runningWorkflows}</div>
-                            <div className="text-sm text-muted-foreground">Running</div>
+                            <div className="text-sm text-wt-text-muted">Running</div>
                         </div>
                         <div className="text-center">
                             <div className="text-2xl font-bold text-danger-500">{status.failedWorkflows}</div>
-                            <div className="text-sm text-muted-foreground">Failed (24h)</div>
+                            <div className="text-sm text-wt-text-muted">Failed (24h)</div>
                         </div>
                         <div className="text-center">
                             <div className="text-2xl font-bold text-warning-500">{status.stuckWorkflows}</div>
-                            <div className="text-sm text-muted-foreground">Stuck</div>
+                            <div className="text-sm text-wt-text-muted">Stuck</div>
                         </div>
                         <div className="text-center">
                             <Badge variant={status.isPaused ? 'destructive' : 'default'}>
@@ -211,7 +211,7 @@ export default function AutomationControlCenter() {
                 <CardContent>
                     <div className="space-y-2">
                         {workflows.length === 0 ? (
-                            <div className="text-center text-muted-foreground py-8">
+                            <div className="text-center text-wt-text-muted py-8">
                                 No workflows found
                             </div>
                         ) : (
@@ -224,7 +224,7 @@ export default function AutomationControlCenter() {
                                         <div className={`w-3 h-3 rounded-full ${getStateColor(workflow.state)}`} />
                                         <div>
                                             <div className="font-medium">{workflow.workflowId}</div>
-                                            <div className="text-sm text-muted-foreground">
+                                            <div className="text-sm text-wt-text-muted">
                                                 {workflow.currentStep && `Step: ${workflow.currentStep}`}
                                                 {workflow.duration && ` • ${Math.round(workflow.duration / 1000)}s`}
                                             </div>

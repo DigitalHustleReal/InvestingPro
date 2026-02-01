@@ -159,18 +159,18 @@ export default function DecisionCTA({
 export const DecisionCTAs = {
     CreditCard: {
         primary: (productId?: string) => ({
-            text: "Find Your Perfect Card",
+            text: "Help Me Find a Card",
             href: productId ? `/credit-cards/${productId}` : "/credit-cards/find-your-card",
             productId,
             isExternal: !!productId
         }),
         compare: {
-            text: "Compare All Cards",
+            text: "Show Me All Cards",
             href: "/credit-cards#compare",
             isExternal: false
         },
         apply: (productId: string) => ({
-            text: "Apply Instantly",
+            text: "Start Application",
             href: `/api/out?id=${productId}`,
             productId,
             isExternal: true
@@ -178,13 +178,13 @@ export const DecisionCTAs = {
     },
     MutualFund: {
         primary: (productId?: string) => ({
-            text: "Start Your Investment Journey",
+            text: "Plan My Investment",
             href: productId ? `/mutual-funds/${productId}` : "/mutual-funds/find-your-fund",
             productId,
             isExternal: !!productId
         }),
         compare: {
-            text: "Compare All Funds",
+            text: "Show Me Top Funds",
             href: "/mutual-funds#compare",
             isExternal: false
         },
@@ -197,13 +197,13 @@ export const DecisionCTAs = {
     },
     Loan: {
         primary: (productId?: string) => ({
-            text: "Check Your Eligibility",
+            text: "Check My Eligibility",
             href: productId ? `/loans/${productId}` : "/loans",
             productId,
             isExternal: !!productId
         }),
         apply: (productId: string) => ({
-            text: "Apply for Loan",
+            text: "Start Loan Application",
             href: `/api/out?id=${productId}`,
             productId,
             isExternal: true
@@ -211,13 +211,13 @@ export const DecisionCTAs = {
     },
     Insurance: {
         primary: (productId?: string) => ({
-            text: "Get Protected Now",
+            text: "Protect My Family",
             href: productId ? `/insurance/${productId}` : "/insurance#protection-score",
             productId,
             isExternal: !!productId
         }),
         apply: (productId: string) => ({
-            text: "Buy Policy",
+            text: "View Plan Details",
             href: `/api/out?id=${productId}`,
             productId,
             isExternal: true
@@ -225,7 +225,7 @@ export const DecisionCTAs = {
     },
     Generic: {
         decide: {
-            text: "Make Your Decision",
+            text: "Help Me Decide",
             href: "#",
             isExternal: false
         },

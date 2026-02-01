@@ -42,23 +42,23 @@ export default function ContextualSidebar({
     return (
         <div
             className={cn(
-                "bg-surface-darker border-r border-border/50 dark:border-border/50 flex flex-col transition-all duration-300 relative z-30",
+                "bg-surface-darker border-r border-wt-border/50 dark:border-wt-border/50 flex flex-col transition-all duration-300 relative z-30",
                 collapsed ? 'w-20' : 'w-64'
             )}
             style={{ height: 'calc(100vh)' }}
         >
             {/* Header */}
             {title && (
-                <div className="h-20 border-b border-border/50 dark:border-border/50 flex items-center justify-between px-6">
+                <div className="h-20 border-b border-wt-border/50 dark:border-wt-border/50 flex items-center justify-between px-6">
                     {!collapsed && (
-                        <h3 className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-[0.2em]">
+                        <h3 className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-[0.2em]">
                             {title}
                         </h3>
                     )}
                     {onToggle && (
                         <button
                             onClick={onToggle}
-                            className="p-2 rounded-xl bg-white/5 border border-border dark:border-border hover:bg-white/10 text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground transition-all duration-300"
+                            className="p-2 rounded-xl bg-wt-surface-hover border border-wt-border dark:border-wt-border hover:bg-wt-surface-hover text-wt-text-muted dark:text-wt-text-muted hover:text-wt-text dark:text-wt-text transition-all duration-300"
                             aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
                         >
                             {collapsed ? (
@@ -85,8 +85,8 @@ export default function ContextualSidebar({
                                 className={cn(
                                     "w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-left relative group",
                                     active
-                                        ? 'bg-primary-600/10 text-foreground dark:text-foreground shadow-[inset_0_0_20px_rgba(79,70,229,0.05)] border border-primary-500/20'
-                                        : 'text-muted-foreground/70 dark:text-muted-foreground/70 hover:bg-white/5 hover:text-foreground/80 dark:text-foreground/80'
+                                        ? 'bg-wt-gold/10 text-wt-text dark:text-wt-text shadow-[inset_0_0_20px_rgba(79,70,229,0.05)] border border-wt-gold/20'
+                                        : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:bg-wt-surface-hover hover:text-wt-text/80 dark:text-wt-text/80'
                                 )}
                                 title={collapsed ? item.label : undefined}
                             >
@@ -97,14 +97,14 @@ export default function ContextualSidebar({
                                 {Icon && (
                                     <Icon className={cn(
                                         "w-5 h-5 flex-shrink-0 transition-transform group-hover:scale-110",
-                                        active ? 'text-primary-400' : 'text-muted-foreground/70 dark:text-muted-foreground/70'
+                                        active ? 'text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70'
                                     )} />
                                 )}
                                 {!collapsed && (
                                     <>
                                         <span className="flex-1 truncate text-sm font-medium">{item.label}</span>
                                         {item.badge !== undefined && item.badge > 0 && (
-                                            <span className="px-2 py-0.5 text-[10px] font-bold bg-primary-500/20 text-primary-400 border border-primary-500/30 rounded-full">
+                                            <span className="px-2 py-0.5 text-[10px] font-bold bg-wt-gold-subtle text-wt-gold border border-wt-gold/30 rounded-full">
                                                 {item.badge}
                                             </span>
                                         )}

@@ -73,7 +73,7 @@ export default function FeaturedImageSelector({
     return (
         <div className="space-y-3">
             {/* Preview */}
-            <div className="relative aspect-video bg-slate-100 rounded-lg overflow-hidden border-2 border-dashed border-slate-300 group">
+            <div className="relative aspect-video bg-wt-card rounded-lg overflow-hidden border-2 border-dashed border-wt-border group">
                 {imageUrl ? (
                     <>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -82,7 +82,7 @@ export default function FeaturedImageSelector({
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center">
                             <button
                                 onClick={handleRemove}
-                                className="opacity-0 group-hover:opacity-100 transition-opacity bg-danger-600 text-foreground dark:text-foreground p-2 rounded-full hover:bg-danger-700"
+                                className="opacity-0 group-hover:opacity-100 transition-opacity bg-danger-600 text-wt-text dark:text-wt-text p-2 rounded-full hover:bg-danger-700"
                                 title="Remove image"
                             >
                                 <X className="w-5 h-5" />
@@ -90,7 +90,7 @@ export default function FeaturedImageSelector({
                         </div>
                     </>
                 ) : (
-                    <div className="flex flex-col items-center justify-center h-full text-muted-foreground dark:text-muted-foreground">
+                    <div className="flex flex-col items-center justify-center h-full text-wt-text-muted dark:text-wt-text-muted">
                         <ImageIcon className="w-12 h-12 mb-2 opacity-50" />
                         <span className="text-sm">No image selected</span>
                     </div>
@@ -104,7 +104,7 @@ export default function FeaturedImageSelector({
                     disabled={autoSelecting || !articleTitle}
                     variant="default"
                     size="sm"
-                    className="flex-1 bg-secondary-600 hover:bg-secondary-700 text-foreground dark:text-foreground"
+                    className="flex-1 bg-wt-nav hover:bg-wt-nav-light text-wt-text dark:text-wt-text"
                     title="Automatically select image based on article title"
                 >
                     {autoSelecting ? (
@@ -123,7 +123,7 @@ export default function FeaturedImageSelector({
                     onClick={() => setShowMediaLibrary(true)}
                     variant="outline"
                     size="sm"
-                    className="flex-1 bg-white hover:bg-slate-50 border-slate-300"
+                    className="flex-1 bg-white hover:bg-wt-surface-hover border-wt-border"
                 >
                     <Upload className="w-4 h-4 mr-2" />
                     {imageUrl ? 'Change' : 'Choose'}
@@ -142,13 +142,13 @@ export default function FeaturedImageSelector({
                     {/* Modal */}
                     <div className="absolute inset-4 md:inset-8 bg-white rounded-lg shadow-2xl flex flex-col">
                         {/* Header */}
-                        <div className="border-b border-slate-200 px-6 py-4 flex items-center justify-between">
-                            <h2 className="text-lg font-semibold text-slate-900">Select Featured Image</h2>
+                        <div className="border-b border-wt-border px-6 py-4 flex items-center justify-between">
+                            <h2 className="text-lg font-semibold text-wt-text">Select Featured Image</h2>
                             <button
                                 onClick={() => setShowMediaLibrary(false)}
-                                className="p-2 hover:bg-slate-100 rounded-md transition-colors"
+                                className="p-2 hover:bg-wt-card rounded-md transition-colors"
                             >
-                                <X className="w-5 h-5 text-muted-foreground/50 dark:text-muted-foreground/50" />
+                                <X className="w-5 h-5 text-wt-text-muted/50 dark:text-wt-text-muted/50" />
                             </button>
                         </div>
 

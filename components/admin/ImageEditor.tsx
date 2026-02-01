@@ -265,7 +265,7 @@ export default function ImageEditor({
                                         Zoom: {Math.round(zoom * 100)}%
                                     </Label>
                                     <div className="flex items-center gap-2">
-                                        <ZoomOut className="w-4 h-4 text-muted-foreground/70 dark:text-muted-foreground/70" />
+                                        <ZoomOut className="w-4 h-4 text-wt-text-muted/70 dark:text-wt-text-muted/70" />
                                         <Slider
                                             value={[zoom]}
                                             onValueChange={(value) => setZoom(value[0])}
@@ -274,7 +274,7 @@ export default function ImageEditor({
                                             step={0.1}
                                             className="flex-1"
                                         />
-                                        <ZoomIn className="w-4 h-4 text-muted-foreground/70 dark:text-muted-foreground/70" />
+                                        <ZoomIn className="w-4 h-4 text-wt-text-muted/70 dark:text-wt-text-muted/70" />
                                     </div>
                                 </div>
 
@@ -306,7 +306,7 @@ export default function ImageEditor({
                                 </div>
 
                                 {/* Resize Controls */}
-                                <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-200">
+                                <div className="grid grid-cols-2 gap-4 pt-4 border-t border-wt-border">
                                     <div>
                                         <Label className="text-sm font-medium mb-2 block">
                                             Target Width (px)
@@ -342,7 +342,7 @@ export default function ImageEditor({
                                                     onChange={(e) => setMaintainAspectRatio(e.target.checked)}
                                                     className="rounded"
                                                 />
-                                                <span className="text-sm text-slate-700">
+                                                <span className="text-sm text-wt-text">
                                                     Maintain aspect ratio ({aspectRatio.toFixed(2)})
                                                 </span>
                                             </label>
@@ -365,7 +365,7 @@ export default function ImageEditor({
                     <Button
                         onClick={handleSave}
                         disabled={!imageSrc || !croppedAreaPixels || isProcessing}
-                        className="bg-primary-600 hover:bg-primary-700"
+                        className="bg-wt-gold hover:bg-wt-gold-hover"
                     >
                         {isProcessing ? (
                             <>

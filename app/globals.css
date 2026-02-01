@@ -360,6 +360,165 @@
     box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
   }
 
+  /* Admin header: force Wealth & Trust navy (survives theme/SSR) */
+  [data-admin-header] {
+    background-color: #1F3B5C !important;
+    color: #ffffff;
+  }
+  [data-admin-header] a,
+  [data-admin-header] button {
+    color: rgba(255, 255, 255, 0.85);
+  }
+  [data-admin-header] a:hover,
+  [data-admin-header] button:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  [data-admin-header] [class*="bg-wt-gold-subtle"] {
+    background-color: rgba(212, 175, 55, 0.2) !important;
+    color: #D4AF37 !important;
+  }
+
+  /* Wealth & Trust – admin light theme (navy, gold, cream) */
+  .admin-wt-app [data-slot="card"],
+  .admin-wt-app .bg-card {
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 0.75rem;
+  }
+  .admin-wt-app .border-border {
+    border-color: #DDDDDD;
+  }
+  .admin-wt-app .text-muted-foreground {
+    color: #555555;
+  }
+  .admin-wt-app .text-foreground {
+    color: #1A1A1A;
+  }
+  .admin-wt-app thead {
+    background-color: #F5F5F5;
+    border-bottom: 1px solid #DDDDDD;
+  }
+  .admin-wt-app th {
+    color: #555555;
+    font-weight: 500;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.75rem 1rem;
+  }
+  .admin-wt-app tbody tr {
+    border-bottom: 1px solid #DDDDDD;
+    transition: background-color 0.15s;
+  }
+  .admin-wt-app tbody tr:hover {
+    background-color: #EEEEEE;
+  }
+  .admin-wt-app td {
+    padding: 0.75rem 1rem;
+    color: #1A1A1A;
+    font-size: 0.875rem;
+  }
+  .admin-wt-app .admin-page-content {
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    padding: 1.5rem 1rem;
+  }
+  @media (min-width: 640px) {
+    .admin-wt-app .admin-page-content {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .admin-wt-app .admin-page-content {
+      padding: 2rem 2rem;
+    }
+  }
+  .admin-wt-app .bg-surface-darker,
+  .admin-wt-app [class*="bg-surface-darker"] {
+    background-color: #F5F5F5;
+  }
+  .admin-wt-app [data-admin-section] {
+    border: 1px solid #DDDDDD;
+    background-color: #FFFFFF;
+  }
+  .admin-wt-app [data-admin-section] h2 {
+    color: #1A1A1A;
+  }
+  .admin-wt-app [data-admin-section] .text-muted-foreground {
+    color: #555555;
+  }
+  .admin-wt-app [data-slot="card"] > div,
+  .admin-wt-app .bg-card > div {
+    border-color: #DDDDDD;
+  }
+  .admin-wt-app .text-primary-400,
+  .admin-wt-app .text-primary-500,
+  .admin-wt-app .text-secondary-400,
+  .admin-wt-app .text-accent-400,
+  .admin-wt-app .text-accent-500 {
+    color: #D4AF37;
+  }
+  .admin-wt-app .bg-primary-500\/10,
+  .admin-wt-app .bg-secondary-500\/10,
+  .admin-wt-app .bg-primary-500\/20,
+  .admin-wt-app .bg-accent-500\/10,
+  .admin-wt-app .bg-accent-500\/20 {
+    background-color: rgba(212, 175, 55, 0.15);
+  }
+  .admin-wt-app .border-primary-500\/20,
+  .admin-wt-app .border-primary-500\/30,
+  .admin-wt-app .border-accent-500\/20,
+  .admin-wt-app .border-accent-500\/30 {
+    border-color: rgba(212, 175, 55, 0.3);
+  }
+  .admin-wt-app .text-danger-400,
+  .admin-wt-app .text-danger-500 {
+    color: #DC2626;
+  }
+  .admin-wt-app .bg-danger-500\/10,
+  .admin-wt-app .bg-danger-500\/20 {
+    background-color: rgba(220, 38, 38, 0.12);
+  }
+  .admin-wt-app .border-danger-500\/20,
+  .admin-wt-app .border-danger-500\/30 {
+    border-color: rgba(220, 38, 38, 0.3);
+  }
+  .admin-wt-app table {
+    border-color: #DDDDDD;
+  }
+  .admin-wt-app .divide-white\/5 {
+    border-color: #DDDDDD;
+  }
+  .admin-wt-app tr.hover\:bg-white\/5:hover {
+    background-color: #EEEEEE;
+  }
+  .admin-wt-app .text-foreground\/80 {
+    color: #1A1A1A;
+  }
+  .admin-wt-app .bg-white\/5 {
+    background-color: #F9F9F9;
+  }
+  .admin-wt-app .hover\:bg-white\/20:hover,
+  .admin-wt-app .hover\:bg-surface-darker:hover {
+    background-color: #EEEEEE;
+  }
+  .admin-wt-app input,
+  .admin-wt-app textarea,
+  .admin-wt-app select {
+    border: 1px solid #DDDDDD;
+    background-color: #FFFFFF;
+  }
+  .admin-wt-app input:focus,
+  .admin-wt-app textarea:focus {
+    outline: none;
+    border-color: #D4AF37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  }
+
   /* GLOBAL CONTENT THEME (Prose Overrides) */
   .prose table {
      @apply w-full border-collapse border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden my-8 shadow-sm;

@@ -84,10 +84,10 @@ const ANOMALY_LABELS: Record<AnomalyType, string> = {
 
 // Severity colors
 const SEVERITY_COLORS: Record<AnomalySeverity, string> = {
-    low: 'bg-slate-500/20 text-slate-400 border-slate-500/30',
+    low: 'bg-wt-surface-hover text-wt-text-dim border-slate-500/30',
     medium: 'bg-warning-500/20 text-warning-400 border-warning-500/30',
     high: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
-    critical: 'bg-danger-500/20 text-danger-400 border-danger-500/30',
+    critical: 'bg-wt-danger/20 text-wt-danger border-danger-500/30',
 };
 
 /**
@@ -166,7 +166,7 @@ export function AnomalyBadgeGroup({
             {remaining > 0 && (
                 <Badge 
                     variant="outline" 
-                    className="text-muted-foreground"
+                    className="text-wt-text-muted"
                     title={sorted.slice(maxDisplay).map(a => ANOMALY_LABELS[a.type]).join(', ')}
                 >
                     +{remaining}
@@ -196,7 +196,7 @@ export function AnomalySummary({
 }) {
     if (count === 0) {
         return (
-            <div className={`flex items-center gap-1 text-success-400 ${className}`}>
+            <div className={`flex items-center gap-1 text-wt-green ${className}`}>
                 <Shield className={size === 'sm' ? 'w-3 h-3' : 'w-4 h-4'} />
                 <span className={size === 'sm' ? 'text-xs' : 'text-sm'}>No issues</span>
             </div>

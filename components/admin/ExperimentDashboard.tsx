@@ -59,10 +59,10 @@ export default function ExperimentDashboard() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                    <h2 className="text-2xl font-bold text-wt-text">
                         A/B Testing Dashboard
                     </h2>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    <p className="text-sm text-wt-text-muted mt-1">
                         Manage and analyze experiments
                     </p>
                 </div>
@@ -77,14 +77,14 @@ export default function ExperimentDashboard() {
                 <Card>
                     <CardContent className="p-6">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-primary-500/10 flex items-center justify-center">
-                                <FlaskConical className="w-5 h-5 text-primary-600" />
+                            <div className="w-10 h-10 rounded-lg bg-wt-gold-subtle flex items-center justify-center">
+                                <FlaskConical className="w-5 h-5 text-wt-gold" />
                             </div>
                             <div>
-                                <div className="text-2xl font-bold text-slate-900 dark:text-white">
+                                <div className="text-2xl font-bold text-wt-text">
                                     {experiments.length}
                                 </div>
-                                <div className="text-xs text-slate-600 dark:text-slate-400">
+                                <div className="text-xs text-wt-text-muted">
                                     Total Experiments
                                 </div>
                             </div>
@@ -95,14 +95,14 @@ export default function ExperimentDashboard() {
                 <Card>
                     <CardContent className="p-6">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-success-500/10 flex items-center justify-center">
-                                <Play className="w-5 h-5 text-success-600" />
+                            <div className="w-10 h-10 rounded-lg bg-wt-green-subtle flex items-center justify-center">
+                                <Play className="w-5 h-5 text-wt-green" />
                             </div>
                             <div>
-                                <div className="text-2xl font-bold text-slate-900 dark:text-white">
+                                <div className="text-2xl font-bold text-wt-text">
                                     {runningExperiments.length}
                                 </div>
-                                <div className="text-xs text-slate-600 dark:text-slate-400">
+                                <div className="text-xs text-wt-text-muted">
                                     Running
                                 </div>
                             </div>
@@ -113,14 +113,14 @@ export default function ExperimentDashboard() {
                 <Card>
                     <CardContent className="p-6">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-slate-500/10 flex items-center justify-center">
-                                <CheckCircle2 className="w-5 h-5 text-slate-600" />
+                            <div className="w-10 h-10 rounded-lg bg-wt-card flex items-center justify-center">
+                                <CheckCircle2 className="w-5 h-5 text-wt-text-muted" />
                             </div>
                             <div>
-                                <div className="text-2xl font-bold text-slate-900 dark:text-white">
+                                <div className="text-2xl font-bold text-wt-text">
                                     {completedExperiments.length}
                                 </div>
-                                <div className="text-xs text-slate-600 dark:text-slate-400">
+                                <div className="text-xs text-wt-text-muted">
                                     Completed
                                 </div>
                             </div>
@@ -131,14 +131,14 @@ export default function ExperimentDashboard() {
                 <Card>
                     <CardContent className="p-6">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-accent-500/10 flex items-center justify-center">
-                                <Trophy className="w-5 h-5 text-accent-600" />
+                            <div className="w-10 h-10 rounded-lg bg-wt-gold-subtle flex items-center justify-center">
+                                <Trophy className="w-5 h-5 text-wt-gold" />
                             </div>
                             <div>
-                                <div className="text-2xl font-bold text-slate-900 dark:text-white">
+                                <div className="text-2xl font-bold text-wt-text">
                                     {completedExperiments.filter(e => e.variants.some(v => v.weight > 50)).length}
                                 </div>
-                                <div className="text-xs text-slate-600 dark:text-slate-400">
+                                <div className="text-xs text-wt-text-muted">
                                     Winners Found
                                 </div>
                             </div>
@@ -151,13 +151,13 @@ export default function ExperimentDashboard() {
             <Card>
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                        <Play className="w-5 h-5 text-success-600" />
+                        <Play className="w-5 h-5 text-wt-green" />
                         Running Experiments
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
                     {runningExperiments.length === 0 ? (
-                        <div className="text-center py-8 text-slate-600 dark:text-slate-400">
+                        <div className="text-center py-8 text-wt-text-muted">
                             No running experiments
                         </div>
                     ) : (
@@ -180,7 +180,7 @@ export default function ExperimentDashboard() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                            <TrendingUp className="w-5 h-5 text-primary-600" />
+                            <TrendingUp className="w-5 h-5 text-wt-gold" />
                             Experiment Results
                         </CardTitle>
                     </CardHeader>
@@ -195,7 +195,7 @@ export default function ExperimentDashboard() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                            <CheckCircle2 className="w-5 h-5 text-slate-600" />
+                            <CheckCircle2 className="w-5 h-5 text-wt-text-muted" />
                             Completed Experiments
                         </CardTitle>
                     </CardHeader>
@@ -232,24 +232,24 @@ function ExperimentCard({
             className={cn(
                 "p-4 border rounded-lg cursor-pointer transition-colors",
                 selected 
-                    ? "border-primary-500 bg-primary-50 dark:bg-primary-900/20" 
-                    : "border-slate-200 dark:border-slate-800 hover:border-primary-300"
+                    ? "border-wt-gold bg-wt-gold-subtle bg-wt-gold-subtle" 
+                    : "border-wt-border border-wt-border hover:border-wt-gold"
             )}
         >
             <div className="flex items-start justify-between">
                 <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                        <h4 className="font-semibold text-slate-900 dark:text-white">
+                        <h4 className="font-semibold text-wt-text">
                             {experiment.name}
                         </h4>
                         <Badge variant={experiment.status === 'running' ? 'default' : 'secondary'}>
                             {experiment.status}
                         </Badge>
                     </div>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                    <p className="text-sm text-wt-text-muted mb-3">
                         {experiment.description}
                     </p>
-                    <div className="flex items-center gap-4 text-xs text-slate-600 dark:text-slate-400">
+                    <div className="flex items-center gap-4 text-xs text-wt-text-muted">
                         <span className="flex items-center gap-1">
                             <Target className="w-3 h-3" />
                             {experiment.targetMetric}
@@ -285,17 +285,17 @@ function ExperimentResults({ results }: { results: ExperimentResult[] }) {
                         className={cn(
                             "p-4 border rounded-lg",
                             result.isWinner 
-                                ? "border-success-500 bg-success-50 dark:bg-success-900/20"
-                                : "border-slate-200 dark:border-slate-800"
+                                ? "border-wt-green/30 bg-wt-green-subtle"
+                                : "border-wt-border border-wt-border"
                         )}
                     >
                         <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center gap-3">
-                                <h5 className="font-semibold text-slate-900 dark:text-white capitalize">
+                                <h5 className="font-semibold text-wt-text capitalize">
                                     {result.variant}
                                 </h5>
                                 {result.isWinner && (
-                                    <Badge className="bg-success-500">
+                                    <Badge className="bg-wt-green">
                                         <Trophy className="w-3 h-3 mr-1" />
                                         Winner
                                     </Badge>
@@ -307,7 +307,7 @@ function ExperimentResults({ results }: { results: ExperimentResult[] }) {
                             {!isControl && (
                                 <div className={cn(
                                     "text-sm font-semibold",
-                                    lift > 0 ? "text-success-600" : "text-error-600"
+                                    lift > 0 ? "text-wt-green" : "text-error-600"
                                 )}>
                                     {lift > 0 ? '+' : ''}{lift.toFixed(1)}% lift
                                 </div>
@@ -316,36 +316,36 @@ function ExperimentResults({ results }: { results: ExperimentResult[] }) {
 
                         <div className="grid grid-cols-4 gap-4">
                             <div>
-                                <div className="text-xs text-slate-600 dark:text-slate-400 mb-1">
+                                <div className="text-xs text-wt-text-muted mb-1">
                                     Participants
                                 </div>
-                                <div className="text-lg font-bold text-slate-900 dark:text-white">
+                                <div className="text-lg font-bold text-wt-text">
                                     {result.participants.toLocaleString()}
                                 </div>
                             </div>
                             <div>
-                                <div className="text-xs text-slate-600 dark:text-slate-400 mb-1">
+                                <div className="text-xs text-wt-text-muted mb-1">
                                     Conversions
                                 </div>
-                                <div className="text-lg font-bold text-slate-900 dark:text-white">
+                                <div className="text-lg font-bold text-wt-text">
                                     {result.conversions.toLocaleString()}
                                 </div>
                             </div>
                             <div>
-                                <div className="text-xs text-slate-600 dark:text-slate-400 mb-1">
+                                <div className="text-xs text-wt-text-muted mb-1">
                                     Conversion Rate
                                 </div>
-                                <div className="text-lg font-bold text-slate-900 dark:text-white">
+                                <div className="text-lg font-bold text-wt-text">
                                     {(result.conversionRate * 100).toFixed(2)}%
                                 </div>
                             </div>
                             <div>
-                                <div className="text-xs text-slate-600 dark:text-slate-400 mb-1">
+                                <div className="text-xs text-wt-text-muted mb-1">
                                     Confidence
                                 </div>
                                 <div className={cn(
                                     "text-lg font-bold",
-                                    result.confidence >= 95 ? "text-success-600" : "text-slate-900 dark:text-white"
+                                    result.confidence >= 95 ? "text-wt-green" : "text-wt-text"
                                 )}>
                                     {result.confidence.toFixed(1)}%
                                 </div>

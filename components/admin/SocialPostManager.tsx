@@ -77,7 +77,7 @@ export function SocialPostManager({ articleId }: SocialPostManagerProps) {
     return (
         <div className="space-y-6">
             <div className="flex items-center justify-between">
-                <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wider">
+                <h3 className="text-sm font-semibold text-wt-text uppercase tracking-wider">
                     Social Distribution
                 </h3>
                 <Button
@@ -97,15 +97,15 @@ export function SocialPostManager({ articleId }: SocialPostManagerProps) {
             </div>
 
             {!articleId && (
-                <div className="text-center py-8 text-muted-foreground/70 dark:text-muted-foreground/70 text-sm border-2 border-dashed rounded-lg bg-slate-50">
+                <div className="text-center py-8 text-wt-text-muted/70 dark:text-wt-text-muted/70 text-sm border-2 border-dashed rounded-lg bg-wt-surface-hover">
                     Save article first
                 </div>
             )}
 
             {articleId && posts.length === 0 && !generating && (
-                <div className="text-center py-8 text-muted-foreground/70 dark:text-muted-foreground/70 text-sm border-2 border-dashed rounded-lg bg-slate-50">
+                <div className="text-center py-8 text-wt-text-muted/70 dark:text-wt-text-muted/70 text-sm border-2 border-dashed rounded-lg bg-wt-surface-hover">
                     <p>No social posts yet.</p>
-                    <Button variant="link" onClick={generatePosts} className="mt-2 text-secondary-600">
+                    <Button variant="link" onClick={generatePosts} className="mt-2 text-wt-gold hover:text-wt-gold-hover">
                         Generate with AI
                     </Button>
                 </div>
@@ -131,10 +131,10 @@ export function SocialPostManager({ articleId }: SocialPostManagerProps) {
 
                         <Textarea
                             defaultValue={post.content}
-                            className="text-sm min-h-[100px] border-none bg-slate-50 focus:bg-white resize-none"
+                            className="text-sm min-h-[100px] border-none bg-wt-surface-hover focus:bg-white resize-none"
                         />
 
-                        <div className="flex justify-end gap-2 pt-2 border-t border-slate-100 opacity-50 group-hover:opacity-100 transition-opacity">
+                        <div className="flex justify-end gap-2 pt-2 border-t border-wt-border opacity-50 group-hover:opacity-100 transition-opacity">
                             <Button
                                 size="sm"
                                 variant="ghost"

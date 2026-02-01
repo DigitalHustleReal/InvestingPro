@@ -444,7 +444,7 @@ export default function EditArticlePage() {
                     </p>
                     <Button
                         onClick={() => router.push('/admin/articles')}
-                        className="gap-2 bg-teal-600 hover:bg-teal-700 text-foreground dark:text-foreground"
+                        className="gap-2 bg-wt-gold hover:bg-wt-gold-hover text-wt-nav"
                     >
                         <ArrowLeft className="w-4 h-4" />
                         Back to Articles
@@ -563,7 +563,7 @@ export default function EditArticlePage() {
                                 <Button
                                     onClick={handleSave}
                                     disabled={saving || isAutoSaving}
-                                    className="gap-2 bg-teal-600 hover:bg-teal-700 text-foreground dark:text-foreground"
+                                    className="gap-2 bg-wt-gold hover:bg-wt-gold-hover text-wt-nav"
                                     aria-label="Save article (⌘S)"
                                 >
                                     {saving || isAutoSaving ? (

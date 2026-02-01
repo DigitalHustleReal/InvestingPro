@@ -149,7 +149,7 @@ export default function EditPillarPage() {
                     <h1 className="text-2xl font-bold text-slate-900 dark:text-foreground dark:text-foreground mb-4">Pillar Page Not Found</h1>
                     <button
                         onClick={() => router.push('/admin/pillar-pages')}
-                        className="text-teal-600 hover:text-teal-700"
+                        className="text-wt-gold hover:text-wt-gold-hover"
                     >
                         Back to Pillar Pages
                     </button>
@@ -179,7 +179,7 @@ export default function EditPillarPage() {
                 {/* Header Bar */}
                 <div className="border-b border-slate-200 dark:border-slate-800 px-8 py-4 flex items-center justify-between bg-white dark:bg-surface-darker dark:bg-surface-darker">
                     <div className="flex-1 flex items-center gap-3">
-                        <Target className="w-6 h-6 text-teal-600" />
+                        <Target className="w-6 h-6 text-wt-gold" />
                         <div className="flex-1">
                             <Input
                                 value={title}

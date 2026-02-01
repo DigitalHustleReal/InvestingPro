@@ -100,12 +100,31 @@ const DecisionHelper = dynamic(
     }
 );
 
+// Lazy loaded humanistic widgets
+const ExpertBylineWidget = dynamic(
+    () => import('@/components/widgets/ExpertBylineWidget'),
+    { 
+        loading: () => <WidgetSkeleton height="h-64" />,
+        ssr: false 
+    }
+);
+
+const TestimonialWidget = dynamic(
+    () => import('@/components/widgets/TestimonialWidget'),
+    { 
+        loading: () => <WidgetSkeleton height="h-48" />,
+        ssr: false 
+    }
+);
+
 interface UniversalSidebarProps {
     className?: string;
     category?: 'credit_card' | 'loans' | 'mutual_fund' | 'investing' | 'general';
     showNews?: boolean;
     showRates?: boolean;
     showTools?: boolean;
+    showExperts?: boolean;
+    showTestimonials?: boolean;
 }
 
 // Intersection Observer hook for lazy loading below-fold widgets
@@ -140,7 +159,9 @@ export default function UniversalSidebar({
     category = 'general',
     showNews = true,
     showRates = true,
-    showTools = true
+    showTools = true,
+    showExperts = true,
+    showTestimonials = true
 }: UniversalSidebarProps) {
     // Intersection observers for lazy loading
     const ratesObserver = useIntersectionObserver();
@@ -174,8 +195,18 @@ export default function UniversalSidebar({
                 <DecisionHelper category={category === 'loans' ? 'loan' : category as any} variant="compact" />
             )}
 
+            {/* 0.5 Human Element: Expert Byline (Trust Signal) - High Priority */}
+            {showExperts && (
+                <ExpertBylineWidget />
+            )}
+
             {/* 1. Value/Tool Widget (High Engagement) - Always load immediately */}
             {showTools && renderToolWidget()}
+
+            {/* 1.5 Human Element: Testimonial (Social Proof) */}
+            {showTestimonials && (
+                <TestimonialWidget />
+            )}
 
             {/* 2. Market Pulse (Rates) - Load when in view */}
             {showRates && (

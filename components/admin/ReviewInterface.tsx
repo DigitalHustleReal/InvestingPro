@@ -48,16 +48,16 @@ export default function ReviewInterface({ article, sourceData, onAction }: Revie
     return (
         <div className="h-[calc(100vh-100px)] flex flex-col lg:flex-row gap-4">
             {/* Left Panel: Content Preview */}
-            <div className="flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
-                <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
+            <div className="flex-1 flex flex-col bg-white bg-wt-card rounded-xl border border-wt-border border-wt-border overflow-hidden shadow-sm">
+                <div className="p-4 border-b border-wt-border border-wt-border flex justify-between items-center bg-wt-surface-hover bg-wt-card/50">
                     <div className="flex items-center gap-2">
-                        <Type className="h-4 w-4 text-slate-500" />
-                        <h3 className="font-semibold text-slate-900 dark:text-white">Content Preview</h3>
+                        <Type className="h-4 w-4 text-wt-text-muted" />
+                        <h3 className="font-semibold text-wt-text">Content Preview</h3>
                         <Badge variant="outline" className="ml-2 bg-yellow-50 text-yellow-700 border-yellow-200">
                             {article.status}
                         </Badge>
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-slate-500">
+                    <div className="flex items-center gap-2 text-xs text-wt-text-muted">
                         <History className="h-3 w-3" />
                         Last edit: {format(new Date(article.updated_at), 'MMM d, HH:mm')}
                     </div>
@@ -73,13 +73,13 @@ export default function ReviewInterface({ article, sourceData, onAction }: Revie
                                 className="w-full h-48 object-cover rounded-lg mb-6"
                             />
                         )}
-                        <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg mb-6 text-sm italic border-l-4 border-slate-300 dark:border-slate-600">
+                        <div className="bg-wt-card bg-wt-surface p-4 rounded-lg mb-6 text-sm italic border-l-4 border-wt-border dark:border-wt-border">
                             {article.excerpt}
                         </div>
                         
-                        <div className="whitespace-pre-wrap font-sans text-slate-800 dark:text-slate-200 leading-relaxed">
+                        <div className="whitespace-pre-wrap font-sans text-wt-text leading-relaxed">
                              {/* Render content with highlighting */}
-                             {article.content ? highlightNumbers(article.content) : <span className="text-slate-400 italic">No content...</span>}
+                             {article.content ? highlightNumbers(article.content) : <span className="text-wt-text-dim italic">No content...</span>}
                         </div>
                     </div>
                 </ScrollArea>
@@ -88,9 +88,9 @@ export default function ReviewInterface({ article, sourceData, onAction }: Revie
             {/* Right Panel: Source & Verification */}
             <div className="w-full lg:w-[400px] flex flex-col gap-4">
                 {/* Source Data Explorer */}
-                <Card className="flex-1 flex flex-col overflow-hidden bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800">
+                <Card className="flex-1 flex flex-col overflow-hidden bg-wt-surface-hover bg-wt-surface border-wt-border border-wt-border">
                     <Tabs defaultValue="source" className="flex-1 flex flex-col">
-                        <div className="p-3 border-b border-slate-200 dark:border-slate-800">
+                        <div className="p-3 border-b border-wt-border border-wt-border">
                             <TabsList className="w-full grid grid-cols-2">
                                 <TabsTrigger value="source" className="flex items-center gap-2">
                                     <FileJson className="h-3 w-3" /> Data Source
@@ -104,11 +104,11 @@ export default function ReviewInterface({ article, sourceData, onAction }: Revie
                         <TabsContent value="source" className="flex-1 p-0 m-0 overflow-hidden">
                             <ScrollArea className="h-full p-4">
                                 {sourceData ? (
-                                    <pre className="text-xs font-mono text-slate-600 dark:text-slate-400 whitespace-pre-wrap break-all">
+                                    <pre className="text-xs font-mono text-wt-text-muted whitespace-pre-wrap break-all">
                                         {JSON.stringify(sourceData, null, 2)}
                                     </pre>
                                 ) : (
-                                    <div className="flex flex-col items-center justify-center h-48 text-slate-400 p-8 text-center bg-slate-100/50 dark:bg-slate-900/50 rounded-lg m-4 border-2 border-dashed border-slate-200 dark:border-slate-800">
+                                    <div className="flex flex-col items-center justify-center h-48 text-wt-text-dim p-8 text-center bg-wt-card/50 bg-wt-card/50 rounded-lg m-4 border-2 border-dashed border-wt-border border-wt-border">
                                         <AlertTriangle className="h-8 w-8 mb-2 opacity-50" />
                                         <p className="text-sm">No source data linked.</p>
                                         <p className="text-xs mt-1">This article was likely created manually or predates the pipeline tracking system.</p>
@@ -119,21 +119,21 @@ export default function ReviewInterface({ article, sourceData, onAction }: Revie
 
                         <TabsContent value="citations" className="flex-1 p-4 m-0">
                             <div className="space-y-3">
-                                <h4 className="text-xs font-bold uppercase tracking-wide text-slate-400">Linked Sources</h4>
+                                <h4 className="text-xs font-bold uppercase tracking-wide text-wt-text-dim">Linked Sources</h4>
                                 {article.citations && article.citations.length > 0 ? (
                                     article.citations.map((cite: any, i: number) => (
-                                        <div key={i} className="flex items-start gap-3 p-3 bg-white dark:bg-slate-900 rounded border border-slate-200 dark:border-slate-800 text-sm">
-                                            <Globe className="h-4 w-4 text-primary-500 mt-0.5 shrink-0" />
+                                        <div key={i} className="flex items-start gap-3 p-3 bg-white bg-wt-card rounded border border-wt-border border-wt-border text-sm">
+                                            <Globe className="h-4 w-4 text-wt-gold mt-0.5 shrink-0" />
                                             <div className="break-all">
-                                                <div className="font-medium text-slate-700 dark:text-slate-300">{cite.text || "Untitled Source"}</div>
-                                                <a href={cite.url} target="_blank" className="text-xs text-primary-600 hover:underline flex items-center gap-1 mt-1">
+                                                <div className="font-medium text-wt-text">{cite.text || "Untitled Source"}</div>
+                                                <a href={cite.url} target="_blank" className="text-xs text-wt-gold hover:underline flex items-center gap-1 mt-1">
                                                     {cite.url} <ExternalLink className="h-3 w-3" />
                                                 </a>
                                             </div>
                                         </div>
                                     ))
                                 ) : (
-                                    <p className="text-sm text-slate-500 italic">No citations recorded.</p>
+                                    <p className="text-sm text-wt-text-muted italic">No citations recorded.</p>
                                 )}
                             </div>
                         </TabsContent>
@@ -141,15 +141,15 @@ export default function ReviewInterface({ article, sourceData, onAction }: Revie
                 </Card>
 
                 {/* Review Controls */}
-                <Card className="p-4 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-lg">
-                    <h3 className="font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+                <Card className="p-4 bg-white bg-wt-card border-wt-border border-wt-border shadow-lg">
+                    <h3 className="font-bold text-wt-text mb-3 flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-emerald-500" />
                         Editorial Decision
                     </h3>
                     
                     <div className="space-y-3">
                         <textarea
-                            className="w-full h-24 p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-sm focus:ring-2 focus:ring-primary-500 outline-none resize-none"
+                            className="w-full h-24 p-3 rounded-lg border border-wt-border dark:border-wt-border bg-wt-surface-hover bg-wt-surface text-sm focus:ring-2 focus:ring-wt-gold outline-none resize-none"
                             placeholder="Add notes for the author or audit log..."
                             value={reviewNotes}
                             onChange={(e) => setReviewNotes(e.target.value)}
@@ -165,7 +165,7 @@ export default function ReviewInterface({ article, sourceData, onAction }: Revie
                                 Request Changes
                             </Button>
                             <Button 
-                                className="bg-emerald-600 hover:bg-emerald-700 text-white"
+                                className="bg-wt-green hover:bg-wt-green/90 text-white"
                                 onClick={() => onAction('approve', reviewNotes)}
                             >
                                 <CheckCircle2 className="w-4 h-4 mr-2" />

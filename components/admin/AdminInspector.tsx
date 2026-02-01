@@ -23,18 +23,18 @@ export default function AdminInspector({ children, collapsed, onToggle }: AdminI
     return (
         <aside
             className={cn(
-                "bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 flex flex-col transition-all duration-300 relative",
+                "bg-white bg-wt-card border-l border-wt-border border-wt-border flex flex-col transition-all duration-300 relative",
                 collapsed ? "w-0 overflow-hidden" : "w-80"
             )}
         >
             {!collapsed && (
                 <>
                     {/* Header */}
-                    <div className="h-16 flex items-center justify-between px-4 border-b border-slate-200 dark:border-slate-800 flex-shrink-0">
-                        <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Settings</h2>
+                    <div className="h-16 flex items-center justify-between px-4 border-b border-wt-border border-wt-border flex-shrink-0">
+                        <h2 className="text-sm font-semibold text-wt-text">Settings</h2>
                         <button
                             onClick={onToggle}
-                            className="p-1.5 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 text-muted-foreground/50 dark:text-muted-foreground/50 hover:text-slate-900 dark:hover:text-white transition-colors"
+                            className="p-1.5 rounded-md hover:bg-wt-card dark:hover:bg-slate-800 text-wt-text-muted/50 dark:text-wt-text-muted/50 hover:text-wt-text transition-colors"
                             aria-label="Collapse inspector"
                         >
                             <X className="w-4 h-4" />
@@ -52,10 +52,10 @@ export default function AdminInspector({ children, collapsed, onToggle }: AdminI
             {collapsed && (
                 <button
                     onClick={onToggle}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-r-lg p-2 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors z-10"
+                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-full bg-white bg-wt-surface border border-wt-border dark:border-wt-border rounded-r-lg p-2 shadow-sm hover:bg-wt-surface-hover dark:hover:bg-slate-700 transition-colors z-10"
                     aria-label="Expand inspector"
                 >
-                    <ChevronRight className="w-4 h-4 text-muted-foreground/50 dark:text-muted-foreground/50" />
+                    <ChevronRight className="w-4 h-4 text-wt-text-muted/50 dark:text-wt-text-muted/50" />
                 </button>
             )}
         </aside>

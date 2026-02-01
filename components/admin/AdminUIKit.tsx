@@ -15,11 +15,11 @@ interface AdminPageHeaderProps {
 }
 
 const iconColorClasses = {
-    teal: 'bg-admin-pro-accent-subtle text-admin-pro-accent',
-    purple: 'bg-admin-pro-accent-subtle text-admin-pro-accent',
-    blue: 'bg-admin-pro-accent-subtle text-admin-pro-accent',
-    amber: 'bg-admin-pro-accent-subtle text-admin-pro-accent',
-    rose: 'bg-admin-pro-danger-subtle text-admin-pro-danger',
+    teal: 'bg-wt-gold-subtle text-wt-gold',
+    purple: 'bg-wt-gold-subtle text-wt-gold',
+    blue: 'bg-wt-gold-subtle text-wt-gold',
+    amber: 'bg-wt-gold-subtle text-wt-gold',
+    rose: 'bg-wt-danger-subtle text-wt-danger',
 };
 
 export function AdminPageHeader({
@@ -41,15 +41,15 @@ export function AdminPageHeader({
                             w-14 h-14 rounded-xl bg-gradient-to-br ${iconColorClasses[iconColor]}
                             flex items-center justify-center shadow-lg
                         `}>
-                            <Icon className="w-7 h-7 text-foreground dark:text-foreground" />
+                            <Icon className="w-7 h-7 text-wt-gold" />
                         </div>
                     )}
                     <div>
-                        <h1 className="text-2xl md:text-3xl font-bold text-admin-pro-text tracking-tight">
+                        <h1 className="text-2xl md:text-3xl font-bold text-wt-text tracking-tight">
                             {title}
                         </h1>
                         {subtitle && (
-                            <p className="text-admin-pro-text-muted mt-1 text-sm md:text-base">
+                            <p className="text-wt-text-muted mt-1 text-sm md:text-base">
                                 {subtitle}
                             </p>
                         )}
@@ -78,24 +78,24 @@ interface StatCardProps {
 
 export function StatCard({ label, value, change, changeType = 'neutral', icon: Icon, color = 'teal' }: StatCardProps) {
     const changeColors = {
-        positive: 'text-admin-pro-accent',
-        negative: 'text-admin-pro-danger',
-        neutral: 'text-admin-pro-text-muted',
+        positive: 'text-wt-green',
+        negative: 'text-wt-danger',
+        neutral: 'text-wt-text-muted',
     };
 
     return (
-        <div className="rounded-xl border border-admin-pro-border bg-admin-pro-surface p-5 transition-colors hover:border-admin-pro-border-light hover:bg-admin-pro-surface-hover/50">
+        <div className="rounded-xl border border-wt-border bg-wt-surface p-5 transition-colors hover:border-wt-border-light hover:bg-wt-surface-hover/50">
             <div className="flex items-start justify-between">
                 <div>
-                    <p className="text-[11px] font-medium text-admin-pro-text-muted uppercase tracking-wider">{label}</p>
-                    <p className="text-2xl font-semibold text-admin-pro-text mt-1 tabular-nums">{value}</p>
+                    <p className="text-[11px] font-medium text-wt-text-muted uppercase tracking-wider">{label}</p>
+                    <p className="text-2xl font-semibold text-wt-text mt-1 tabular-nums">{value}</p>
                     {change && (
                         <p className={`text-xs mt-1 ${changeColors[changeType]}`}>{change}</p>
                     )}
                 </div>
                 {Icon && (
-                    <div className="w-10 h-10 rounded-lg bg-admin-pro-border flex items-center justify-center shrink-0">
-                        <Icon className="w-5 h-5 text-admin-pro-text-muted" />
+                    <div className="w-10 h-10 rounded-lg bg-wt-border flex items-center justify-center shrink-0">
+                        <Icon className="w-5 h-5 text-wt-text-muted" />
                     </div>
                 )}
             </div>
@@ -113,12 +113,12 @@ interface ContentSectionProps {
 
 export function ContentSection({ title, subtitle, actions, children }: ContentSectionProps) {
     return (
-        <section className="rounded-xl border border-admin-pro-border bg-admin-pro-surface overflow-hidden">
+        <section className="rounded-xl border border-wt-border bg-wt-surface overflow-hidden">
             {(title || actions) && (
-                <div className="px-5 py-4 border-b border-admin-pro-border flex items-center justify-between gap-4">
+                <div className="px-5 py-4 border-b border-wt-border flex items-center justify-between gap-4">
                     <div>
-                        {title && <h2 className="text-sm font-semibold text-admin-pro-text">{title}</h2>}
-                        {subtitle && <p className="text-xs text-admin-pro-text-muted mt-0.5">{subtitle}</p>}
+                        {title && <h2 className="text-sm font-semibold text-wt-text">{title}</h2>}
+                        {subtitle && <p className="text-xs text-wt-text-muted mt-0.5">{subtitle}</p>}
                     </div>
                     {actions}
                 </div>
@@ -167,10 +167,10 @@ export function ActionButton({
     };
 
     const adminStyles = {
-        primary: 'bg-admin-pro-accent hover:bg-admin-pro-accent-hover text-white border-0 shadow-admin-pro-accent/20',
-        secondary: 'bg-admin-pro-surface border border-admin-pro-border hover:bg-admin-pro-surface-hover text-admin-pro-text',
-        ghost: 'hover:bg-admin-pro-surface text-admin-pro-text-muted hover:text-admin-pro-text',
-        danger: 'bg-admin-pro-danger-subtle text-admin-pro-danger border border-admin-pro-danger/30 hover:bg-admin-pro-danger/20',
+        primary: 'bg-wt-gold hover:bg-wt-gold-hover text-white border-0 shadow-md',
+        secondary: 'bg-wt-surface border border-wt-border hover:bg-wt-surface-hover text-wt-text',
+        ghost: 'hover:bg-wt-surface text-wt-text-muted hover:text-wt-text',
+        danger: 'bg-wt-danger-subtle text-wt-danger border border-wt-danger/30 hover:bg-wt-danger/20',
     };
 
     return (
@@ -194,7 +194,7 @@ interface DataTableProps {
 
 export function DataTable({ children }: DataTableProps) {
     return (
-        <div className="overflow-x-auto rounded-xl border border-admin-pro-border bg-admin-pro-surface">
+        <div className="overflow-x-auto rounded-xl border border-wt-border bg-wt-surface">
             <table className="w-full">
                 {children}
             </table>
@@ -204,8 +204,8 @@ export function DataTable({ children }: DataTableProps) {
 
 export function TableHeader({ children }: { children: ReactNode }) {
     return (
-        <thead className="bg-admin-pro-surface">
-            <tr className="border-b border-admin-pro-border">
+        <thead className="bg-wt-surface">
+            <tr className="border-b border-wt-border">
                 {children}
             </tr>
         </thead>
@@ -214,21 +214,21 @@ export function TableHeader({ children }: { children: ReactNode }) {
 
 export function TableHeaderCell({ children, className = '' }: { children?: ReactNode; className?: string }) {
     return (
-        <th className={`px-4 py-3 text-left text-[11px] font-medium text-admin-pro-text-muted uppercase tracking-wider ${className}`}>
+        <th className={`px-4 py-3 text-left text-[11px] font-medium text-wt-text-muted uppercase tracking-wider ${className}`}>
             {children}
         </th>
     );
 }
 
 export function TableBody({ children }: { children: ReactNode }) {
-    return <tbody className="divide-y divide-admin-pro-border">{children}</tbody>;
+    return <tbody className="divide-y divide-wt-border">{children}</tbody>;
 }
 
 export function TableRow({ children, onClick, className = '' }: { children: ReactNode; onClick?: () => void; className?: string }) {
     return (
         <tr
             onClick={onClick}
-            className={`hover:bg-admin-pro-surface-hover transition-colors ${onClick ? 'cursor-pointer' : ''} ${className}`}
+            className={`hover:bg-wt-surface-hover transition-colors ${onClick ? 'cursor-pointer' : ''} ${className}`}
         >
             {children}
         </tr>
@@ -237,7 +237,7 @@ export function TableRow({ children, onClick, className = '' }: { children: Reac
 
 export function TableCell({ children, className = '' }: { children?: ReactNode; className?: string }) {
     return (
-        <td className={`px-4 py-3 text-sm text-admin-pro-text ${className}`}>
+        <td className={`px-4 py-3 text-sm text-wt-text ${className}`}>
             {children}
         </td>
     );
@@ -251,11 +251,11 @@ interface BadgeProps {
 
 export function StatusBadge({ children, variant = 'default' }: BadgeProps) {
     const variants = {
-        default: 'bg-admin-pro-surface text-admin-pro-text border border-admin-pro-border',
-        success: 'bg-admin-pro-accent-subtle text-admin-pro-accent border border-admin-pro-accent/30',
-        warning: 'bg-admin-pro-accent-subtle text-admin-pro-accent border border-admin-pro-accent/30',
-        danger: 'bg-admin-pro-danger-subtle text-admin-pro-danger border border-admin-pro-danger/30',
-        info: 'bg-admin-pro-accent-subtle text-admin-pro-accent border border-admin-pro-accent/30',
+        default: 'bg-wt-surface text-wt-text border border-wt-border',
+        success: 'bg-wt-green-subtle text-wt-green border border-wt-green/30',
+        warning: 'bg-wt-orange-subtle text-wt-orange border border-wt-orange/30',
+        danger: 'bg-wt-danger-subtle text-wt-danger border border-wt-danger/30',
+        info: 'bg-wt-gold-subtle text-wt-gold border border-wt-gold/30',
     };
 
     return (
@@ -277,12 +277,12 @@ export function EmptyState({ icon: Icon, title, description, action }: EmptyStat
     return (
         <div className="text-center py-12">
             {Icon && (
-                <div className="w-16 h-16 rounded-xl bg-admin-pro-surface border border-admin-pro-border flex items-center justify-center mx-auto mb-4">
-                    <Icon className="w-8 h-8 text-admin-pro-text-muted" />
+                <div className="w-16 h-16 rounded-xl bg-wt-surface border border-wt-border flex items-center justify-center mx-auto mb-4">
+                    <Icon className="w-8 h-8 text-wt-text-muted" />
                 </div>
             )}
-            <h3 className="text-base font-semibold text-admin-pro-text mb-2">{title}</h3>
-            {description && <p className="text-sm text-admin-pro-text-muted mb-6 max-w-md mx-auto">{description}</p>}
+            <h3 className="text-base font-semibold text-wt-text mb-2">{title}</h3>
+            {description && <p className="text-sm text-wt-text-muted mb-6 max-w-md mx-auto">{description}</p>}
             {action}
         </div>
     );

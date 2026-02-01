@@ -125,19 +125,19 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
         <div className="space-y-10">
             {/* High-Impact Performance Metrics */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden hover:border-primary-500/30 transition-all group">
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden hover:border-wt-gold/30 transition-all group">
                     <CardContent className="p-8">
                         <div className="flex items-center justify-between mb-4">
-                            <span className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-[0.2em]">Product Views</span>
-                            <div className="w-10 h-10 rounded-xl bg-primary-500/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                <Eye className="w-5 h-5 text-primary-400" />
+                            <span className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-[0.2em]">Product Views</span>
+                            <div className="w-10 h-10 rounded-xl bg-wt-gold-subtle flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                <Eye className="w-5 h-5 text-wt-gold" />
                             </div>
                         </div>
                         <div className="space-y-1">
-                            <h3 className="text-3xl font-extrabold text-foreground dark:text-foreground tabular-nums tracking-tight tracking-tighter">
+                            <h3 className="text-3xl font-extrabold text-wt-text dark:text-wt-text tabular-nums tracking-tight tracking-tighter">
                                 {totalProductViews.toLocaleString()}
                             </h3>
-                            <p className="text-[10px] font-bold text-primary-400 uppercase tracking-widest flex items-center gap-1">
+                            <p className="text-[10px] font-bold text-wt-gold uppercase tracking-widest flex items-center gap-1">
                                 <TrendingUp className="w-3 h-3" />
                                 Product Engagement
                             </p>
@@ -145,19 +145,19 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden hover:border-secondary-500/30 transition-all group">
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden hover:border-secondary-500/30 transition-all group">
                     <CardContent className="p-8">
                         <div className="flex items-center justify-between mb-4">
-                            <span className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-[0.2em]">Affiliate Clicks</span>
+                            <span className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-[0.2em]">Affiliate Clicks</span>
                             <div className="w-10 h-10 rounded-xl bg-secondary-500/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                <MousePointerClick className="w-5 h-5 text-secondary-400" />
+                                <MousePointerClick className="w-5 h-5 text-wt-gold" />
                             </div>
                         </div>
                         <div className="space-y-1">
-                            <h3 className="text-3xl font-extrabold text-foreground dark:text-foreground tabular-nums tracking-tighter">
+                            <h3 className="text-3xl font-extrabold text-wt-text dark:text-wt-text tabular-nums tracking-tighter">
                                 {totalClicks.toLocaleString()}
                             </h3>
-                            <p className="text-[10px] font-bold text-secondary-400 uppercase tracking-widest flex items-center gap-1">
+                            <p className="text-[10px] font-bold text-wt-gold uppercase tracking-widest flex items-center gap-1">
                                 <Target className="w-3 h-3" />
                                 Conversion Velocity
                             </p>
@@ -165,19 +165,19 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden hover:border-primary-500/30 transition-all group">
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden hover:border-wt-gold/30 transition-all group">
                     <CardContent className="p-8">
                         <div className="flex items-center justify-between mb-4">
-                            <span className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-[0.2em]">Total Revenue</span>
-                            <div className="w-10 h-10 rounded-xl bg-primary-500/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                <DollarSign className="w-5 h-5 text-primary-400" />
+                            <span className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-[0.2em]">Total Revenue</span>
+                            <div className="w-10 h-10 rounded-xl bg-wt-gold-subtle flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                <DollarSign className="w-5 h-5 text-wt-gold" />
                             </div>
                         </div>
                         <div className="space-y-1">
-                            <h3 className="text-3xl font-extrabold text-foreground dark:text-foreground tabular-nums tracking-tighter">
+                            <h3 className="text-3xl font-extrabold text-wt-text dark:text-wt-text tabular-nums tracking-tighter">
                                 ₹{totalRevenue.toLocaleString()}
                             </h3>
-                            <p className="text-[10px] font-bold text-primary-400 uppercase tracking-widest flex items-center gap-1">
+                            <p className="text-[10px] font-bold text-wt-gold uppercase tracking-widest flex items-center gap-1">
                                 <TrendingUp className="w-3 h-3" />
                                 {conversionRate.toFixed(1)}% Conversion Rate
                             </p>
@@ -185,19 +185,19 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden hover:border-slate-500/30 transition-all group">
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden hover:border-slate-500/30 transition-all group">
                     <CardContent className="p-8">
                         <div className="flex items-center justify-between mb-4">
-                            <span className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-[0.2em]">Active Products</span>
-                            <div className="w-10 h-10 rounded-xl bg-slate-500/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                <Package className="w-5 h-5 text-muted-foreground dark:text-muted-foreground" />
+                            <span className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-[0.2em]">Active Products</span>
+                            <div className="w-10 h-10 rounded-xl bg-wt-card flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                                <Package className="w-5 h-5 text-wt-text-muted dark:text-wt-text-muted" />
                             </div>
                         </div>
                         <div className="space-y-1">
-                            <h3 className="text-3xl font-extrabold text-foreground dark:text-foreground tabular-nums tracking-tighter">
+                            <h3 className="text-3xl font-extrabold text-wt-text dark:text-wt-text tabular-nums tracking-tighter">
                                 {totalProducts}
                             </h3>
-                            <p className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">Product Inventory</p>
+                            <p className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-widest">Product Inventory</p>
                         </div>
                     </CardContent>
                 </Card>
@@ -205,10 +205,10 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
 
             {/* Visual Intelligence Charts */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
-                    <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
-                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
-                            <BarChart3 className="w-4 h-4 text-primary-400" />
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden">
+                    <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-6">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-wt-text-muted dark:text-wt-text-muted flex items-center gap-6 md:p-8">
+                            <BarChart3 className="w-4 h-4 text-wt-gold" />
                             Revenue & Conversions (7D Temporal)
                         </CardTitle>
                     </CardHeader>
@@ -264,10 +264,10 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
-                    <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-6">
-                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
-                            <TrendingUp className="w-4 h-4 text-primary-400" />
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden">
+                    <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-6">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-wt-text-muted dark:text-wt-text-muted flex items-center gap-6 md:p-8">
+                            <TrendingUp className="w-4 h-4 text-wt-gold" />
                             Revenue by Category
                         </CardTitle>
                     </CardHeader>
@@ -299,9 +299,9 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
             </div>
 
             {/* Top Products by Revenue */}
-            <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
-                <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-5">
-                    <CardTitle className="text-xs font-bold uppercase tracking-widest text-primary-400 flex items-center gap-6 md:p-8">
+            <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden">
+                <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-5">
+                    <CardTitle className="text-xs font-bold uppercase tracking-widest text-wt-gold flex items-center gap-6 md:p-8">
                         <TrendingUp className="w-4 h-4" />
                         Top Products by Revenue
                     </CardTitle>
@@ -310,41 +310,41 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
                     <div className="divide-y divide-white/5">
                         {productStats.topProducts && productStats.topProducts.length > 0 ? (
                             productStats.topProducts.slice(0, 10).map((product: any, idx: number) => (
-                                <div key={product.id || idx} className="flex items-center justify-between p-6 hover:bg-card/50 dark:bg-card/50 transition-colors group">
+                                <div key={product.id || idx} className="flex items-center justify-between p-6 hover:bg-wt-surface/50 dark:bg-wt-surface/50 transition-colors group">
                                     <div className="flex items-center gap-5 flex-1 min-w-0">
-                                        <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center text-[10px] font-bold text-primary-400 border border-primary-500/20">
+                                        <div className="w-8 h-8 rounded-lg bg-wt-gold-subtle flex items-center justify-center text-[10px] font-bold text-wt-gold border border-wt-gold/20">
                                             0{idx + 1}
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="font-bold text-foreground dark:text-foreground tracking-tight line-clamp-1 group-hover:text-primary-400 transition-colors">
+                                            <p className="font-bold text-wt-text dark:text-wt-text tracking-tight line-clamp-1 group-hover:text-wt-gold transition-colors">
                                                 {product.name || 'Unknown Product'}
                                             </p>
                                             <div className="flex items-center gap-3 mt-1">
-                                                <p className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest">
+                                                <p className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-widest">
                                                     {product.category || 'Standard'}
                                                 </p>
-                                                <Badge variant="outline" className="text-[9px] border-primary-500/20 text-primary-400">
+                                                <Badge variant="outline" className="text-[9px] border-wt-gold/20 text-wt-gold">
                                                     {product.company || 'Brand'}
                                                 </Badge>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="text-right ml-4 space-y-1">
-                                        <p className="text-sm font-bold text-primary-400 px-3 py-1 bg-primary-500/10 rounded-lg tabular-nums border border-primary-500/20">
+                                        <p className="text-sm font-bold text-wt-gold px-3 py-1 bg-wt-gold-subtle rounded-lg tabular-nums border border-wt-gold/20">
                                             ₹{product.revenue?.toLocaleString() || 0}
                                         </p>
-                                        <div className="flex items-center gap-2 text-[9px] text-muted-foreground/70 dark:text-muted-foreground/70">
+                                        <div className="flex items-center gap-2 text-[9px] text-wt-text-muted/70 dark:text-wt-text-muted/70">
                                             <span>{product.clicks || 0} clicks</span>
                                             <span>•</span>
                                             <span>{product.conversions || 0} conv</span>
                                             <span>•</span>
-                                            <span className="text-primary-400">{product.conversionRate?.toFixed(1) || 0}%</span>
+                                            <span className="text-wt-gold">{product.conversionRate?.toFixed(1) || 0}%</span>
                                         </div>
                                     </div>
                                 </div>
                             ))
                         ) : (
-                            <div className="text-center py-12 text-muted-foreground/50 dark:text-muted-foreground/50 font-bold uppercase tracking-widest text-[10px]">No product data available</div>
+                            <div className="text-center py-12 text-wt-text-muted/50 dark:text-wt-text-muted/50 font-bold uppercase tracking-widest text-[10px]">No product data available</div>
                         )}
                     </div>
                 </CardContent>
@@ -352,9 +352,9 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
 
             {/* Top Affiliates/Brands */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
-                    <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-5">
-                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-primary-400 flex items-center gap-6 md:p-8">
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden">
+                    <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-5">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-wt-gold flex items-center gap-6 md:p-8">
                             <Building2 className="w-4 h-4" />
                             Top Affiliate Partners
                         </CardTitle>
@@ -363,40 +363,40 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
                         <div className="divide-y divide-white/5">
                             {affiliateStats.topAffiliates && affiliateStats.topAffiliates.length > 0 ? (
                                 affiliateStats.topAffiliates.slice(0, 5).map((affiliate: any, idx: number) => (
-                                    <div key={affiliate.id || idx} className="flex items-center justify-between p-6 hover:bg-card/50 dark:bg-card/50 transition-colors group">
+                                    <div key={affiliate.id || idx} className="flex items-center justify-between p-6 hover:bg-wt-surface/50 dark:bg-wt-surface/50 transition-colors group">
                                         <div className="flex items-center gap-5 flex-1 min-w-0">
-                                            <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center text-[10px] font-bold text-primary-400 border border-primary-500/20">
+                                            <div className="w-8 h-8 rounded-lg bg-wt-gold-subtle flex items-center justify-center text-[10px] font-bold text-wt-gold border border-wt-gold/20">
                                                 0{idx + 1}
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <p className="font-bold text-foreground dark:text-foreground tracking-tight line-clamp-1 group-hover:text-primary-400 transition-colors">
+                                                <p className="font-bold text-wt-text dark:text-wt-text tracking-tight line-clamp-1 group-hover:text-wt-gold transition-colors">
                                                     {affiliate.name || affiliate.partner || 'Unknown Partner'}
                                                 </p>
-                                                <p className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest mt-1">
+                                                <p className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-widest mt-1">
                                                     {affiliate.commission_type || 'CPA'} • {affiliate.commission_rate || 0}%
                                                 </p>
                                             </div>
                                         </div>
                                         <div className="text-right ml-4">
-                                            <p className="text-sm font-bold text-foreground dark:text-foreground px-3 py-1 bg-white/5 rounded-lg tabular-nums">
+                                            <p className="text-sm font-bold text-wt-text dark:text-wt-text px-3 py-1 bg-wt-surface-hover rounded-lg tabular-nums">
                                                 ₹{affiliate.revenue?.toLocaleString() || 0}
                                             </p>
-                                            <p className="text-[9px] font-semibold text-muted-foreground/50 dark:text-muted-foreground/50 uppercase tracking-st mt-1">
+                                            <p className="text-[9px] font-semibold text-wt-text-muted/50 dark:text-wt-text-muted/50 uppercase tracking-st mt-1">
                                                 {affiliate.clicks || 0} clicks
                                             </p>
                                         </div>
                                     </div>
                                 ))
                             ) : (
-                                <div className="text-center py-12 text-muted-foreground/50 dark:text-muted-foreground/50 font-bold uppercase tracking-widest text-[10px]">No affiliate data available</div>
+                                <div className="text-center py-12 text-wt-text-muted/50 dark:text-wt-text-muted/50 font-bold uppercase tracking-widest text-[10px]">No affiliate data available</div>
                             )}
                         </div>
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
-                    <CardHeader className="border-b border-border/50 dark:border-border/50 px-8 py-5">
-                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-primary-400 flex items-center gap-6 md:p-8">
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden">
+                    <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-5">
+                        <CardTitle className="text-xs font-bold uppercase tracking-widest text-wt-gold flex items-center gap-6 md:p-8">
                             <Target className="w-4 h-4" />
                             Brand Promotions Performance
                         </CardTitle>
@@ -405,32 +405,32 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
                         <div className="divide-y divide-white/5">
                             {brandStats.topBrands && brandStats.topBrands.length > 0 ? (
                                 brandStats.topBrands.slice(0, 5).map((brand: any, idx: number) => (
-                                    <div key={brand.id || idx} className="flex items-center justify-between p-6 hover:bg-card/50 dark:bg-card/50 transition-colors group">
+                                    <div key={brand.id || idx} className="flex items-center justify-between p-6 hover:bg-wt-surface/50 dark:bg-wt-surface/50 transition-colors group">
                                         <div className="flex items-center gap-5 flex-1 min-w-0">
-                                            <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center text-[10px] font-bold text-primary-400 border border-primary-500/20">
+                                            <div className="w-8 h-8 rounded-lg bg-wt-gold-subtle flex items-center justify-center text-[10px] font-bold text-wt-gold border border-wt-gold/20">
                                                 0{idx + 1}
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <p className="font-bold text-foreground dark:text-foreground tracking-tight line-clamp-1 group-hover:text-primary-400 transition-colors">
+                                                <p className="font-bold text-wt-text dark:text-wt-text tracking-tight line-clamp-1 group-hover:text-wt-gold transition-colors">
                                                     {brand.name || brand.company || 'Unknown Brand'}
                                                 </p>
-                                                <p className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest mt-1">
+                                                <p className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-widest mt-1">
                                                     {brand.activePromotions || 0} active promotions
                                                 </p>
                                             </div>
                                         </div>
                                         <div className="text-right ml-4">
-                                            <p className="text-sm font-bold text-primary-400 px-3 py-1 bg-primary-500/10 rounded-lg tabular-nums border border-primary-500/20">
+                                            <p className="text-sm font-bold text-wt-gold px-3 py-1 bg-wt-gold-subtle rounded-lg tabular-nums border border-wt-gold/20">
                                                 ₹{brand.revenue?.toLocaleString() || 0}
                                             </p>
-                                            <p className="text-[9px] font-semibold text-muted-foreground/50 dark:text-muted-foreground/50 uppercase tracking-st mt-1">
+                                            <p className="text-[9px] font-semibold text-wt-text-muted/50 dark:text-wt-text-muted/50 uppercase tracking-st mt-1">
                                                 {brand.impressions || 0} impressions
                                             </p>
                                         </div>
                                     </div>
                                 ))
                             ) : (
-                                <div className="text-center py-12 text-muted-foreground/50 dark:text-muted-foreground/50 font-bold uppercase tracking-widest text-[10px]">No brand data available</div>
+                                <div className="text-center py-12 text-wt-text-muted/50 dark:text-wt-text-muted/50 font-bold uppercase tracking-widest text-[10px]">No brand data available</div>
                             )}
                         </div>
                     </CardContent>
@@ -439,46 +439,46 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
 
             {/* Key Metrics Summary */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden">
                     <CardContent className="p-6">
                         <div className="flex items-center justify-between mb-4">
-                            <Percent className="w-5 h-5 text-primary-400" />
-                            <span className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Conversion Rate</span>
+                            <Percent className="w-5 h-5 text-wt-gold" />
+                            <span className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase">Conversion Rate</span>
                         </div>
-                        <h3 className="text-2xl font-extrabold text-foreground dark:text-foreground tabular-nums">
+                        <h3 className="text-2xl font-extrabold text-wt-text dark:text-wt-text tabular-nums">
                             {conversionRate.toFixed(2)}%
                         </h3>
-                        <p className="text-[10px] text-muted-foreground/70 dark:text-muted-foreground/70 mt-2">
+                        <p className="text-[10px] text-wt-text-muted/70 dark:text-wt-text-muted/70 mt-2">
                             {totalConversions} conversions from {totalClicks} clicks
                         </p>
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden">
                     <CardContent className="p-6">
                         <div className="flex items-center justify-between mb-4">
-                            <DollarSign className="w-5 h-5 text-primary-400" />
-                            <span className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Avg Revenue/Conv</span>
+                            <DollarSign className="w-5 h-5 text-wt-gold" />
+                            <span className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase">Avg Revenue/Conv</span>
                         </div>
-                        <h3 className="text-2xl font-extrabold text-foreground dark:text-foreground tabular-nums">
+                        <h3 className="text-2xl font-extrabold text-wt-text dark:text-wt-text tabular-nums">
                             ₹{avgRevenuePerConversion.toFixed(0)}
                         </h3>
-                        <p className="text-[10px] text-muted-foreground/70 dark:text-muted-foreground/70 mt-2">
+                        <p className="text-[10px] text-wt-text-muted/70 dark:text-wt-text-muted/70 mt-2">
                             Average earnings per conversion
                         </p>
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-xl overflow-hidden">
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden">
                     <CardContent className="p-6">
                         <div className="flex items-center justify-between mb-4">
-                            <Users className="w-5 h-5 text-primary-400" />
-                            <span className="text-[10px] font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Active Brands</span>
+                            <Users className="w-5 h-5 text-wt-gold" />
+                            <span className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase">Active Brands</span>
                         </div>
-                        <h3 className="text-2xl font-extrabold text-foreground dark:text-foreground tabular-nums">
+                        <h3 className="text-2xl font-extrabold text-wt-text dark:text-wt-text tabular-nums">
                             {brandStats.topBrands?.length || 0}
                         </h3>
-                        <p className="text-[10px] text-muted-foreground/70 dark:text-muted-foreground/70 mt-2">
+                        <p className="text-[10px] text-wt-text-muted/70 dark:text-wt-text-muted/70 mt-2">
                             Brands with active promotions
                         </p>
                     </CardContent>

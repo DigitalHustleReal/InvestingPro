@@ -55,12 +55,12 @@ export default function SocialRepurposeView({ articleId }: SocialRepurposeViewPr
     };
 
     return (
-        <Card className="border-primary-100 dark:border-primary-800 bg-white dark:bg-slate-900 shadow-sm">
+        <Card className="border-wt-border-light border-wt-border bg-white bg-wt-card shadow-sm">
             <CardHeader className="pb-4">
                 <div className="flex items-center justify-between">
                     <div>
-                        <CardTitle className="text-lg font-bold flex items-center gap-6 md:p-8 text-primary-900">
-                            <Sparkles className="w-5 h-5 text-primary-500" />
+                        <CardTitle className="text-lg font-bold flex items-center gap-6 md:p-8 text-wt-text">
+                            <Sparkles className="w-5 h-5 text-wt-gold" />
                             Omnichannel Repurposing
                         </CardTitle>
                         <CardDescription>
@@ -71,52 +71,52 @@ export default function SocialRepurposeView({ articleId }: SocialRepurposeViewPr
             </CardHeader>
             <CardContent>
                 <Tabs defaultValue="linkedin" onValueChange={(v) => setPlatform(v as any)}>
-                    <TabsList className="grid grid-cols-4 mb-6 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
-                        <TabsTrigger value="twitter" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700">
-                            <Twitter className="w-4 h-4 mr-2 text-secondary-500 dark:text-secondary-400" />
+                    <TabsList className="grid grid-cols-4 mb-6 bg-wt-card bg-wt-surface p-1 rounded-xl">
+                        <TabsTrigger value="twitter" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-wt-gold-subtle">
+                            <Twitter className="w-4 h-4 mr-2 text-secondary-500 dark:text-wt-gold" />
                             X
                         </TabsTrigger>
-                        <TabsTrigger value="linkedin" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700">
-                            <LinkedIn className="w-4 h-4 mr-2 text-secondary-700 dark:text-secondary-400" />
+                        <TabsTrigger value="linkedin" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-wt-gold-subtle">
+                            <LinkedIn className="w-4 h-4 mr-2 text-secondary-700 dark:text-wt-gold" />
                             LinkedIn
                         </TabsTrigger>
-                        <TabsTrigger value="facebook" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700">
-                            <Facebook className="w-4 h-4 mr-2 text-primary-600 dark:text-primary-400" />
+                        <TabsTrigger value="facebook" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-wt-gold-subtle">
+                            <Facebook className="w-4 h-4 mr-2 text-wt-gold dark:text-wt-gold" />
                             Facebook
                         </TabsTrigger>
-                        <TabsTrigger value="instagram" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700">
-                            <Instagram className="w-4 h-4 mr-2 text-danger-600 dark:text-danger-400" />
+                        <TabsTrigger value="instagram" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-wt-gold-subtle">
+                            <Instagram className="w-4 h-4 mr-2 text-danger-600 dark:text-wt-danger" />
                             Instagram
                         </TabsTrigger>
                     </TabsList>
 
                     <div className="space-y-4">
                         {!postContent ? (
-                            <div className="flex flex-col items-center justify-center py-12 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800/50">
-                                <p className="text-muted-foreground/70 dark:text-muted-foreground/70 text-sm mb-4">No content generated for {platform} yet.</p>
+                            <div className="flex flex-col items-center justify-center py-12 border-2 border-dashed border-wt-border dark:border-wt-border rounded-xl bg-wt-surface-hover bg-wt-surface/50">
+                                <p className="text-wt-text-muted/70 dark:text-wt-text-muted/70 text-sm mb-4">No content generated for {platform} yet.</p>
                                 <Button 
                                     onClick={handleRepurpose}
                                     disabled={generating}
-                                    className="bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground rounded-xl px-6"
+                                    className="bg-wt-gold hover:bg-wt-gold-hover text-wt-text dark:text-wt-text rounded-xl px-6"
                                 >
                                     {generating ? 'Processing with AI...' : `Generate ${platform} Post`}
                                 </Button>
                             </div>
                         ) : (
                             <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
-                                <div className="p-5 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
+                                <div className="p-5 bg-wt-surface-hover bg-wt-surface/50 rounded-xl border border-wt-border dark:border-wt-border">
                                     <div className="flex items-center gap-2 mb-3">
-                                        <Badge variant="outline" className="bg-white dark:bg-slate-800 text-primary-600 dark:text-primary-400 border-primary-100 dark:border-primary-800">
+                                        <Badge variant="outline" className="bg-white bg-wt-surface text-wt-gold dark:text-wt-gold border-wt-border-light border-wt-border">
                                             {platform.toUpperCase()} DRAFT
                                         </Badge>
-                                        <span className="text-xs text-muted-foreground dark:text-muted-foreground">Word count: {postContent.content_text.length} chars</span>
+                                        <span className="text-xs text-wt-text-muted dark:text-wt-text-muted">Word count: {postContent.content_text.length} chars</span>
                                     </div>
-                                    <p className="text-slate-700 dark:text-slate-300 text-sm whitespace-pre-wrap leading-relaxed">
+                                    <p className="text-wt-text text-sm whitespace-pre-wrap leading-relaxed">
                                         {postContent.content_text}
                                     </p>
                                     <div className="mt-4 flex flex-wrap gap-2">
                                         {postContent.hashtags?.map((tag: string, idx: number) => (
-                                            <span key={idx} className="text-xs font-bold text-primary-600 dark:text-primary-400">#{tag}</span>
+                                            <span key={idx} className="text-xs font-bold text-wt-gold dark:text-wt-gold">#{tag}</span>
                                         ))}
                                     </div>
                                 </div>
@@ -139,7 +139,7 @@ export default function SocialRepurposeView({ articleId }: SocialRepurposeViewPr
                                         Copy
                                     </Button>
                                     <Button 
-                                        className="flex-1 bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground rounded-xl"
+                                        className="flex-1 bg-wt-gold hover:bg-wt-gold-hover text-wt-text dark:text-wt-text rounded-xl"
                                         onClick={() => toast.success('Sent to Social Scheduler!')}
                                     >
                                         <Send className="w-4 h-4 mr-2" />

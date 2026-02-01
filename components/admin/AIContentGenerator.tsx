@@ -275,7 +275,7 @@ export default function AIContentGenerator() {
                 <Button
                     onClick={generateArticle}
                     disabled={!topic || generating}
-                    className="w-full bg-secondary-600 hover:bg-secondary-700"
+                    className="w-full bg-wt-nav hover:bg-wt-nav-light"
                 >
                     {generating ? (
                         <>
@@ -292,11 +292,11 @@ export default function AIContentGenerator() {
 
                 {/* Job Status Display */}
                 {jobId && jobStatus && (
-                    <div className="mt-4 p-4 bg-slate-50 rounded-lg border border-slate-200">
+                    <div className="mt-4 p-4 bg-wt-surface-hover rounded-lg border border-wt-border">
                         <div className="flex items-center gap-2 mb-2">
                             {jobStatus === 'queued' && <Clock className="w-4 h-4 text-secondary-600" />}
                             {jobStatus === 'running' && <Loader2 className="w-4 h-4 text-secondary-600 animate-spin" />}
-                            {jobStatus === 'completed' && <CheckCircle2 className="w-4 h-4 text-success-600" />}
+                            {jobStatus === 'completed' && <CheckCircle2 className="w-4 h-4 text-wt-green" />}
                             {jobStatus === 'failed' && <AlertTriangle className="w-4 h-4 text-danger-600" />}
                             <span className="text-sm font-semibold">
                                 Status: {jobStatus.charAt(0).toUpperCase() + jobStatus.slice(1)}
@@ -308,7 +308,7 @@ export default function AIContentGenerator() {
                             </div>
                         )}
                         {jobStatus === 'queued' || jobStatus === 'running' ? (
-                            <div className="text-xs text-muted-foreground/50 dark:text-muted-foreground/50 mt-1">
+                            <div className="text-xs text-wt-text-muted/50 dark:text-wt-text-muted/50 mt-1">
                                 Job ID: {jobId}
                             </div>
                         ) : null}
@@ -319,17 +319,17 @@ export default function AIContentGenerator() {
                     <div className="space-y-4 border-t pt-6">
                         {/* AI Metadata Display */}
                         {generatedContent.article.ai_metadata && (
-                            <div className="bg-slate-50 rounded-lg p-4 space-y-3 border border-slate-200">
+                            <div className="bg-wt-surface-hover rounded-lg p-4 space-y-3 border border-wt-border">
                                 <div className="flex items-center gap-2 mb-3">
-                                    <Info className="w-4 h-4 text-primary-600" />
+                                    <Info className="w-4 h-4 text-wt-gold" />
                                     <h4 className="font-bold text-sm">AI Generation Metadata</h4>
                                 </div>
                                 
                                 {/* Structured Content Info */}
                                 {generatedContent.article.structured_content && (
                                     <div className="space-y-1">
-                                        <span className="text-xs font-semibold text-muted-foreground/50 dark:text-muted-foreground/50">Structured Content:</span>
-                                        <div className="text-xs text-muted-foreground/50 dark:text-muted-foreground/50 space-y-1">
+                                        <span className="text-xs font-semibold text-wt-text-muted/50 dark:text-wt-text-muted/50">Structured Content:</span>
+                                        <div className="text-xs text-wt-text-muted/50 dark:text-wt-text-muted/50 space-y-1">
                                             <div>• {generatedContent.article.structured_content.headings?.length || 0} headings</div>
                                             <div>• {generatedContent.article.structured_content.sections?.length || 0} sections</div>
                                             {generatedContent.article.structured_content.tables && generatedContent.article.structured_content.tables.length > 0 && (
@@ -369,7 +369,7 @@ export default function AIContentGenerator() {
                         </div>
 
                         <div className="flex gap-3">
-                            <Button onClick={saveArticle} className="bg-primary-600 hover:bg-primary-700">
+                            <Button onClick={saveArticle} className="bg-wt-gold hover:bg-wt-gold-hover">
                                 Save as Draft
                             </Button>
                             <Button variant="outline" onClick={() => {

@@ -1,0 +1,408 @@
+[
+  {
+    "file": "app\\admin\\ads\\page.tsx",
+    "line": 69,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<table className=\"w-full min-w-[800px]\">"
+  },
+  {
+    "file": "app\\admin\\categories\\page.tsx",
+    "line": 180,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<table className=\"w-full min-w-[700px]\">"
+  },
+  {
+    "file": "app\\admin\\products\\page.tsx",
+    "line": 137,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<table className=\"w-full min-w-[900px]\">"
+  },
+  {
+    "file": "app\\admin\\tags\\page.tsx",
+    "line": 185,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<table className=\"w-full min-w-[600px]\">"
+  },
+  {
+    "file": "app\\article\\[slug]\\page.tsx",
+    "line": 230,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "sizes=\"(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px\""
+  },
+  {
+    "file": "app\\articles\\[slug]\\article-content.css",
+    "line": 533,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "@media (max-width: 768px) {"
+  },
+  {
+    "file": "app\\articles\\[slug]\\article-content.css",
+    "line": 908,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "@media (max-width: 768px) {"
+  },
+  {
+    "file": "app\\blog\\page.tsx",
+    "line": 168,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "sizes=\"(max-width: 768px) 100vw, 50vw\""
+  },
+  {
+    "file": "app\\blog\\page.tsx",
+    "line": 232,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "sizes=\"(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px\""
+  },
+  {
+    "file": "app\\calculators\\page.tsx",
+    "line": 78,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary rounded-full blur-[140px] -tr"
+  },
+  {
+    "file": "app\\calculators\\page.tsx",
+    "line": 151,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute top-0 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[100px] t"
+  },
+  {
+    "file": "app\\compare\\page.tsx",
+    "line": 231,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<table className=\"w-full min-w-[800px] border-collapse\">"
+  },
+  {
+    "file": "app\\demat-accounts\\page.tsx",
+    "line": 51,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary-600 rounded-full blur-[120px]"
+  },
+  {
+    "file": "app\\demat-accounts\\page.tsx",
+    "line": 52,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-primary-600 rounded-full blur-[10"
+  },
+  {
+    "file": "app\\fixed-deposits\\page.tsx",
+    "line": 73,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute top-0 right-1/4 w-[500px] h-[500px] bg-accent-600 rounded-full blur-[120px]"
+  },
+  {
+    "file": "app\\fixed-deposits\\page.tsx",
+    "line": 74,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-accent-600 rounded-full blur-[100p"
+  },
+  {
+    "file": "app\\globals.css",
+    "line": 263,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "@media (min-width: 640px) {"
+  },
+  {
+    "file": "app\\investing\\page.tsx",
+    "line": 172,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute top-0 right-0 w-[800px] h-[800px] bg-primary-500/10 rounded-full blur-[120p"
+  },
+  {
+    "file": "app\\investing\\page.tsx",
+    "line": 173,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary-500/10 rounded-full blur-[10"
+  },
+  {
+    "file": "app\\ipo\\page.tsx",
+    "line": 166,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute top-0 right-0 w-[800px] h-[800px] bg-primary-500/10 rounded-full blur-[120p"
+  },
+  {
+    "file": "app\\ipo\\page.tsx",
+    "line": 167,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary-500/10 rounded-full blur-[10"
+  },
+  {
+    "file": "app\\portfolio\\page.tsx",
+    "line": 87,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute top-0 right-1/4 w-[600px] h-[600px] bg-primary-600 rounded-full blur-[140px"
+  },
+  {
+    "file": "app\\portfolio\\page.tsx",
+    "line": 88,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-primary-600 rounded-full blur-[100"
+  },
+  {
+    "file": "app\\ppf-nps\\page.tsx",
+    "line": 38,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute top-0 right-1/4 w-[600px] h-[600px] bg-secondary-600 rounded-full blur-[140"
+  },
+  {
+    "file": "app\\ppf-nps\\page.tsx",
+    "line": 39,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-primary-600 rounded-full blur-[100"
+  },
+  {
+    "file": "app\\profile\\page.tsx",
+    "line": 125,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary-600 rounded-full blur-[140px]"
+  },
+  {
+    "file": "app\\risk-profiler\\page.tsx",
+    "line": 244,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute top-0 right-1/4 w-[600px] h-[600px] bg-secondary-600 rounded-full blur-[140"
+  },
+  {
+    "file": "app\\stocks\\page.tsx",
+    "line": 73,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary-600 rounded-full blur-[140px]"
+  },
+  {
+    "file": "app\\stocks\\page.tsx",
+    "line": 74,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-primary-600 rounded-full blur-[12"
+  },
+  {
+    "file": "app\\taxes\\page.tsx",
+    "line": 201,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-prima"
+  },
+  {
+    "file": "app\\taxes\\page.tsx",
+    "line": 202,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[600px] h-[600px] bg-pri"
+  },
+  {
+    "file": "components\\admin\\EnhancedWordPressStyleCMS.tsx",
+    "line": 241,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<table className=\"w-full min-w-[800px]\">"
+  },
+  {
+    "file": "components\\admin\\preview\\PreviewPane.tsx",
+    "line": 22,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "tablet: 'max-w-[768px]',"
+  },
+  {
+    "file": "components\\admin\\WordPressStyleCMS.tsx",
+    "line": 272,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<table className=\"w-full min-w-[800px]\">"
+  },
+  {
+    "file": "components\\admin\\WordPressStylePages.tsx",
+    "line": 267,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<table className=\"w-full min-w-[800px]\">"
+  },
+  {
+    "file": "components\\bulk\\BulkActionsBar.tsx",
+    "line": 113,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"bg-slate-900 text-white rounded-lg shadow-2xl px-6 py-4 flex items-center gap-4 min-"
+  },
+  {
+    "file": "components\\calculators\\SIPCalculatorWithInflation.tsx",
+    "line": 647,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<table className=\"w-full min-w-[500px]\">"
+  },
+  {
+    "file": "components\\common\\ImageWithFallback.tsx",
+    "line": 53,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "sizes = \"(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px\""
+  },
+  {
+    "file": "components\\common\\WhatsAppAlerts.tsx",
+    "line": 65,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<DialogContent className=\"sm:max-w-[450px] p-0 overflow-hidden border-0 shadow-2xl rounded-2xl\">"
+  },
+  {
+    "file": "components\\compare\\ComparisonTable.tsx",
+    "line": 107,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"bg-card dark:bg-slate-900 rounded-xl shadow-lg border border-border dark:border-slat"
+  },
+  {
+    "file": "components\\compare\\ProductSelector.tsx",
+    "line": 92,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<DialogContent className=\"sm:max-w-[500px]\">"
+  },
+  {
+    "file": "components\\content\\ComparisonTable.tsx",
+    "line": 37,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<table className=\"w-full min-w-[600px] text-left border-collapse\">"
+  },
+  {
+    "file": "components\\home\\AnimatedHero.tsx",
+    "line": 59,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute bottom-0 left-0 w-[800px] h-[800px] bg-secondary-300/20 dark:bg-secondary-6"
+  },
+  {
+    "file": "components\\home\\AnimatedHero.tsx",
+    "line": 60,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute top-1/3 left-1/2 w-[600px] h-[600px] bg-secondary-300/10 dark:bg-secondary-"
+  },
+  {
+    "file": "components\\home\\HeroSection.tsx",
+    "line": 108,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute -top-40 -right-40 w-[600px] h-[600px] bg-primary-500/5 dark:bg-primary-500/"
+  },
+  {
+    "file": "components\\home\\HeroSplit.tsx",
+    "line": 43,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute bottom-0 left-0 w-[800px] h-[800px] bg-gradient-to-tr from-emerald-50/50 vi"
+  },
+  {
+    "file": "components\\home\\MobileAppComingSoon.tsx",
+    "line": 16,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute top-0 right-0 w-[600px] h-[600px] bg-primary-500/10 rounded-full blur-[120p"
+  },
+  {
+    "file": "components\\home\\MobileAppComingSoon.tsx",
+    "line": 17,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary-500/10 rounded-full blur-["
+  },
+  {
+    "file": "components\\home\\UserSegmentation.tsx",
+    "line": 63,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute top-0 right-0 w-[500px] h-[500px] bg-secondary-500/5 rounded-full blur-[100"
+  },
+  {
+    "file": "components\\home\\UserSegmentation.tsx",
+    "line": 64,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-primary-500/5 rounded-full blur-[1"
+  },
+  {
+    "file": "components\\layout\\Footer.tsx",
+    "line": 159,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<div className=\"absolute top-0 right-0 w-[400px] h-[400px] bg-secondary-500/5 blur-[100px] rounded-f"
+  },
+  {
+    "file": "components\\layout\\Navbar.tsx",
+    "line": 220,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "className=\"w-[900px] p-6 bg-white dark:bg-slate-900 shadow-xl rounded-xl border border-slate-100 dar"
+  },
+  {
+    "file": "components\\partners\\PartnerLogos.tsx",
+    "line": 102,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "sizes=\"(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw\""
+  },
+  {
+    "file": "components\\portfolio\\AddHoldingDialog.tsx",
+    "line": 64,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<DialogContent className=\"sm:max-w-[500px] rounded-xl p-8 border-0 shadow-2xl\">"
+  },
+  {
+    "file": "components\\preview\\ArticlePreview.tsx",
+    "line": 44,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "tablet: 'max-w-[768px]',"
+  },
+  {
+    "file": "components\\profile\\EditProfileDialog.tsx",
+    "line": 57,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<DialogContent className=\"sm:max-w-[500px] rounded-xl p-8 border-0 shadow-2xl\">"
+  },
+  {
+    "file": "components\\profile\\ProfileOnboarding.tsx",
+    "line": 110,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "<DialogContent className=\"sm:max-w-[550px] p-0 overflow-hidden border-0 shadow-2xl rounded-2xl bg-wh"
+  },
+  {
+    "file": "app\\globals.css",
+    "line": 263,
+    "issue": "Hardcoded large width (>400px) without responsive prefix",
+    "severity": "WARN",
+    "snippet": "@media (min-width: 640px) {"
+  }
+]

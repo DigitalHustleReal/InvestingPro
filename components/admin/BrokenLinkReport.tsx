@@ -101,7 +101,7 @@ export default function BrokenLinkReport({ articleId }: BrokenLinkReportProps) {
     return (
         <div className="space-y-3">
             <div className="flex items-center justify-between">
-                <h3 className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+                <h3 className="text-xs font-semibold text-wt-text-muted dark:text-wt-text-muted uppercase tracking-wider flex items-center gap-2">
                     <ExternalLink className="w-4 h-4" />
                     Link Health
                 </h3>
@@ -118,7 +118,7 @@ export default function BrokenLinkReport({ articleId }: BrokenLinkReportProps) {
             </div>
 
             {lastChecked && (
-                <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground">
+                <p className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted dark:text-wt-text-muted">
                     Last checked: {new Date(lastChecked).toLocaleString('en-IN')}
                 </p>
             )}
@@ -138,7 +138,7 @@ export default function BrokenLinkReport({ articleId }: BrokenLinkReportProps) {
                 <div className="space-y-3">
                     <div className="flex items-center gap-2">
                         <AlertCircle className="w-4 h-4 text-warning-600 dark:text-warning-400" />
-                        <span className="text-sm font-semibold text-slate-900 dark:text-foreground/95 dark:text-foreground/95">
+                        <span className="text-sm font-semibold text-wt-text dark:text-wt-text/95 dark:text-wt-text/95">
                             {brokenLinks.length} Broken Link{brokenLinks.length !== 1 ? 's' : ''}
                         </span>
                         {repairable > 0 && (
@@ -152,7 +152,7 @@ export default function BrokenLinkReport({ articleId }: BrokenLinkReportProps) {
                         <Button
                             onClick={repairLinks}
                             disabled={repairing}
-                            className="w-full bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground text-sm"
+                            className="w-full bg-wt-gold hover:bg-wt-gold-hover text-wt-text dark:text-wt-text text-sm"
                         >
                             {repairing ? 'Repairing...' : `Auto-Repair ${repairable} Link(s)`}
                         </Button>
@@ -175,8 +175,8 @@ export default function BrokenLinkReport({ articleId }: BrokenLinkReportProps) {
                                                 variant="outline"
                                                 className={`text-xs ${
                                                     brokenLink.link.type === 'internal'
-                                                        ? 'border-primary-300 text-primary-700'
-                                                        : 'border-slate-300 text-slate-700'
+                                                        ? 'border-wt-border-light text-wt-gold'
+                                                        : 'border-wt-border text-wt-text'
                                                 }`}
                                             >
                                                 {brokenLink.link.type === 'internal' ? 'Internal' : 'External'}
@@ -185,18 +185,18 @@ export default function BrokenLinkReport({ articleId }: BrokenLinkReportProps) {
                                                 <AlertTriangle className="w-4 h-4 text-red-600 dark:text-red-400" />
                                             )}
                                         </div>
-                                        <p className="text-sm font-semibold text-slate-900 dark:text-foreground/95 dark:text-foreground/95 truncate">
+                                        <p className="text-sm font-semibold text-wt-text dark:text-wt-text/95 dark:text-wt-text/95 truncate">
                                             {brokenLink.link.anchorText || brokenLink.link.url}
                                         </p>
-                                        <p className="text-xs text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground truncate mt-1">
+                                        <p className="text-xs text-wt-text-muted/50 dark:text-wt-text-muted/50 dark:text-wt-text-muted dark:text-wt-text-muted truncate mt-1">
                                             {brokenLink.link.url}
                                         </p>
-                                        <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
+                                        <p className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted/70 mt-1">
                                             Error: {brokenLink.error}
                                             {brokenLink.statusCode && ` (HTTP ${brokenLink.statusCode})`}
                                         </p>
                                         {brokenLink.repairSuggestion && (
-                                            <p className="text-xs text-primary-600 dark:text-primary-400 mt-1">
+                                            <p className="text-xs text-wt-gold dark:text-wt-gold mt-1">
                                                 💡 {brokenLink.repairSuggestion}
                                             </p>
                                         )}
@@ -206,7 +206,7 @@ export default function BrokenLinkReport({ articleId }: BrokenLinkReportProps) {
                         ))}
                     </div>
 
-                    <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground space-y-1">
+                    <div className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted dark:text-wt-text-muted space-y-1">
                         <p>
                             Internal: {internalBroken} broken | External: {externalBroken} broken
                         </p>
@@ -218,7 +218,7 @@ export default function BrokenLinkReport({ articleId }: BrokenLinkReportProps) {
             )}
 
             {!lastChecked && (
-                <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground">
+                <p className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted dark:text-wt-text-muted">
                     Click "Check Links" to scan for broken links in this article.
                 </p>
             )}

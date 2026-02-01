@@ -8,8 +8,8 @@ interface AdminShellProps {
 }
 
 /**
- * Wraps the layout when on admin routes to force admin-pro dark theme.
- * Ensures header, sidebar, and content all use the same dark palette.
+ * Wraps the layout when on admin routes to apply Wealth & Trust light theme.
+ * Ensures header, sidebar, and content use navy, gold, and cream palette.
  */
 export default function AdminShell({ children }: AdminShellProps) {
   const pathname = usePathname();
@@ -19,7 +19,7 @@ export default function AdminShell({ children }: AdminShellProps) {
 
   if (isAdmin) {
     return (
-      <div className="admin-pro-app min-h-screen bg-admin-pro-bg text-admin-pro-text flex flex-col [color-scheme:dark]">
+      <div className="admin-wt-app min-h-screen bg-wt-bg text-wt-text flex flex-col [color-scheme:light]">
         {children}
       </div>
     );

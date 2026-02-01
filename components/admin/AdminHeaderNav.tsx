@@ -16,7 +16,7 @@ export default function AdminHeaderNav() {
 
     return (
         <nav
-            className="sticky top-14 z-30 flex w-full border-b border-admin-pro-border bg-admin-pro-bg"
+            className="sticky top-14 z-30 flex w-full border-b border-wt-border bg-wt-bg"
             aria-label="Main navigation"
         >
             <div className="mx-auto flex w-full max-w-[1600px] items-center gap-1 px-4 py-3 sm:px-6 lg:px-8">
@@ -30,8 +30,8 @@ export default function AdminHeaderNav() {
                             className={cn(
                                 "flex items-center gap-2.5 rounded-lg px-3.5 py-2 text-sm font-medium transition-colors whitespace-nowrap",
                                 isActive
-                                    ? "bg-admin-pro-accent-subtle text-admin-pro-accent shadow-sm"
-                                    : "text-admin-pro-text-muted hover:text-admin-pro-text hover:bg-admin-pro-surface"
+                                    ? "bg-wt-gold-subtle text-wt-gold shadow-sm"
+                                    : "text-wt-text-muted hover:text-wt-text hover:bg-wt-surface"
                             )}
                             aria-current={isActive ? 'page' : undefined}
                         >
