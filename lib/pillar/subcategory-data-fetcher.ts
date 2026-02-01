@@ -19,6 +19,10 @@ export interface SubcategoryPageData {
         description: string;
         keywords: string[];
     };
+    whatItIs: string;
+    whoItIsFor: string;
+    relatedCalculators: Array<{ name: string; slug: string; description?: string }>;
+    relatedGlossary: Array<{ term: string; slug: string; definition?: string }>;
     guide?: {
         title: string;
         slug: string;
@@ -144,6 +148,10 @@ export async function fetchSubcategoryPageData(
                 description: subcategory.description,
                 keywords: subcategory.keywords,
             },
+            whatItIs: subcategory.description || `${subcategory.name} - compare options, rates, and features.`,
+            whoItIsFor: 'Anyone looking to compare and choose the right option for their needs.',
+            relatedCalculators: [],
+            relatedGlossary: [],
             guide: guideData ? {
                 title: guideData.title,
                 slug: guideData.slug,

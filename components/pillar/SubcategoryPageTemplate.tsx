@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { SubcategoryPageData } from '@/lib/pillar/data-fetcher';
+import { SubcategoryPageData } from '@/lib/pillar/subcategory-data-fetcher';
 import SEOHead from '@/components/common/SEOHead';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
