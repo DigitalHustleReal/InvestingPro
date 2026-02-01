@@ -59,7 +59,7 @@ export async function GET(
         });
         
         // Count events
-        (events || []).forEach(event => {
+        (events || []).forEach((event: { variant_id: string; event_type: string; created_at?: string }) => {
             if (!variantStats[event.variant_id]) {
                 variantStats[event.variant_id] = { impressions: 0, conversions: 0, ctr: 0 };
             }
