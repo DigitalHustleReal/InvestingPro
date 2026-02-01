@@ -1,44 +1,5 @@
 {
-  "crons": [
-    {
-      "path": "/api/automation/refresh-triggers",
-      "schedule": "0 2 * * *"
-    },
-    {
-      "path": "/api/analytics/rankings/sync",
-      "schedule": "0 3 * * *"
-    },
-    {
-      "path": "/api/cron/update-rbi-rates",
-      "schedule": "30 0 * * *"
-    },
-    {
-      "path": "/api/cron/sync-amfi-data",
-      "schedule": "30 23 * * *"
-    },
-    {
-      "path": "/api/cron/scrape-credit-cards",
-      "schedule": "30 20 * * 6"
-    },
-    {
-      "path": "/api/cron/publish-scheduled",
-      "schedule": "0 9 * * *"
-    },
-    {
-      "path": "/api/cron/check-links",
-      "schedule": "30 21 * * 6"
-    },
-    {
-      "path": "/api/seo/rankings/sync",
-      "schedule": "0 2 * * *"
-    },
-    {
-      "path": "/api/cron/check-rankings-drops",
-      "schedule": "0 3 * * *"
-    },
-    {
-      "path": "/api/cron/check-data-changes",
-      "schedule": "0 4 * * *"
-    }
-  ]
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "crons": []
 }

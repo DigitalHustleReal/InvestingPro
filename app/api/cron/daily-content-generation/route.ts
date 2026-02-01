@@ -13,7 +13,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import { env } from '@/lib/env';
+import { env, getServerPublicUrl } from '@/lib/env';
 import { logger } from '@/lib/logger';
 
 // Verify cron secret (for Vercel Cron Jobs)
@@ -77,10 +77,19 @@ export async function GET(request: NextRequest) {
         const jobIds: string[] = [];
         const results: Array<{ topic: string; success: boolean; jobId?: string; error?: string }> = [];
 
+        const baseUrl = getServerPublicUrl();
+        if (!baseUrl) {
+            logger.error('Daily content generation: set NEXT_PUBLIC_APP_URL or NEXT_PUBLIC_BASE_URL (or VERCEL_URL is set)');
+            return NextResponse.json(
+                { error: 'App URL not configured. Set NEXT_PUBLIC_APP_URL or NEXT_PUBLIC_BASE_URL in Vercel.' },
+                { status: 503 }
+            );
+        }
+
         for (const topicData of topics) {
             try {
                 // Call article generation API
-                const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/articles/generate-comprehensive`, {
+                const response = await fetch(`${baseUrl}/api/articles/generate-comprehensive`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

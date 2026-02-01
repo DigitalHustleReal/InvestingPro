@@ -64,10 +64,10 @@ interface CachedImageSearch {
 // CONFIGURATION
 // ============================================================================
 
-const PEXELS_API_KEY = process.env.PEXELS_API_KEY || 'PwXCmeo4jefIBHvVQO1yBKuPoD2OKyvxvnup0N68wotIq5cldWdyRqlR';
-const UNSPLASH_ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY || 'IUrwmrGaNkIyc_xurixdcaR0b5fBtiqErUiXL3eqruU';
-const PIXABAY_API_KEY = process.env.PIXABAY_API_KEY || '49964802-81f83edc4f18ee975423b511f';
-const FREEPIK_API_KEY = process.env.FREEPIK_API_KEY;
+const PEXELS_API_KEY = process.env.PEXELS_API_KEY ?? '';
+const UNSPLASH_ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY ?? '';
+const PIXABAY_API_KEY = process.env.PIXABAY_API_KEY ?? '';
+const FREEPIK_API_KEY = process.env.FREEPIK_API_KEY ?? '';
 
 const CACHE_TTL_DAYS = 30; // Cache image searches for 30 days
 const DEFAULT_ORIENTATION = 'landscape';

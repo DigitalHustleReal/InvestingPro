@@ -50,8 +50,9 @@ export async function POST(request: NextRequest) {
         }
 
         // Trigger background processing immediately (simulated)
-        // This allows the local "Content Factory" to start working
-        fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/cron/process-pipeline`, {
+        // In production uses getServerPublicUrl() so we never call localhost
+        const baseUrl = getServerPublicUrl();
+        if (baseUrl) fetch(`${baseUrl}/api/cron/process-pipeline`, {
             method: 'POST',
             headers: { 'x-internal-trigger': 'true' }
         }).catch(e => logger.error('Background kickoff failed', e));

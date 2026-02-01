@@ -12,6 +12,7 @@
  * - Type safety
  */
 
+import { getServerPublicUrl } from '@/lib/env';
 import { logger } from '@/lib/logger';
 
 export interface APIResponse<T = any> {
@@ -50,9 +51,9 @@ class APIClient {
     private baseURL: string;
 
     constructor() {
-        this.baseURL = typeof window !== 'undefined' 
-            ? window.location.origin 
-            : process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+        this.baseURL = typeof window !== 'undefined'
+            ? window.location.origin
+            : getServerPublicUrl() || process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
     }
 
     /**

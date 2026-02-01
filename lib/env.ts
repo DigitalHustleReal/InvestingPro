@@ -2,13 +2,11 @@ import { z } from 'zod';
 
 /**
  * Environment Variable Validation
- * Ensures the application fails fast if critical configuration is missing.
- * 
+ *
  * Features:
- * - Zod-based schema validation
- * - Runtime validation on startup
- * - Fail-fast in production
- * - Graceful handling in development
+ * - Zod-based schema validation (safeParse: never throws at import time)
+ * - validateEnvOnStartup(): logs missing vars; only throws in production when REQUIRE_STRICT_ENV=1
+ * - Deploy-first: you can deploy with no/minimal env, then add vars in Vercel and redeploy
  */
 
 // Track if validation has run
@@ -81,36 +79,47 @@ export function requireEnv(key: keyof z.infer<typeof serverSchema>) {
 /**
  * Validate environment on startup
  * Call this in app/layout.tsx before other initializations
- * 
- * In production: throws on missing required vars
- * In development: logs warnings but continues
+ *
+ * Deploy-first friendly:
+ * - Set REQUIRE_STRICT_ENV=1 in Vercel to throw in production when required vars are missing.
+ * - Otherwise in production we only log errors/warnings so the build and first deploy succeed;
+ *   add env vars in Vercel after deploy, then redeploy or let runtime use them.
  */
 export function validateEnvOnStartup(): void {
     // Only run once
     if (validationComplete) return;
     validationComplete = true;
-    
+
+    // MINIMAL DEPLOY: Skip validation during Vercel build when no env are set (first deploy)
+    const onVercel = !!process.env.VERCEL;
+    const hasAnyEnv = !!(process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.OPENAI_API_KEY);
+    if (onVercel && !hasAnyEnv) {
+        console.log('✅ Env validation skipped (Vercel first deploy – add env in dashboard and redeploy)');
+        return;
+    }
+
     const isProduction = process.env.NODE_ENV === 'production';
+    const strictMode = process.env.REQUIRE_STRICT_ENV === '1';
     const errors: string[] = [];
     const warnings: string[] = [];
-    
-    // Required environment variables
+
+    // Required environment variables (for full functionality)
     const requiredVars = [
         'NEXT_PUBLIC_SUPABASE_URL',
         'NEXT_PUBLIC_SUPABASE_ANON_KEY',
         'SUPABASE_SERVICE_ROLE_KEY',
     ];
-    
-    // Production-only required vars
-    const productionRequiredVars = [
+
+    // Production-only recommended vars
+    const productionRecommendedVars = [
         'INNGEST_EVENT_KEY',
         'INNGEST_SIGNING_KEY',
         'CRON_SECRET',
         'RESEND_API_KEY',
         'NEXT_PUBLIC_SENTRY_DSN',
     ];
-    
-    // AI providers - at least one required
+
+    // AI providers - at least one needed for AI features
     const aiProviders = [
         'OPENAI_API_KEY',
         'GOOGLE_GEMINI_API_KEY',
@@ -119,50 +128,49 @@ export function validateEnvOnStartup(): void {
         'ANTHROPIC_API_KEY',
         'DEEPSEEK_API_KEY',
     ];
-    
+
     // Check required vars
     for (const key of requiredVars) {
         if (!process.env[key]) {
             errors.push(`Missing required: ${key}`);
         }
     }
-    
-    // Check production-only required vars
+
+    // Check production recommended vars (warnings only)
     if (isProduction) {
-        for (const key of productionRequiredVars) {
+        for (const key of productionRecommendedVars) {
             if (!process.env[key]) {
                 warnings.push(`Missing (recommended for production): ${key}`);
             }
         }
     }
-    
+
     // Check at least one AI provider
     const hasAIProvider = aiProviders.some(key => process.env[key]);
     if (!hasAIProvider) {
         errors.push(`No AI provider configured. Add at least one: ${aiProviders.join(', ')}`);
     }
-    
-    // Report results
+
+    // Report results: only throw in production when REQUIRE_STRICT_ENV=1
     if (errors.length > 0) {
-        const errorMsg = `\n❌ Environment Validation Failed:\n${errors.map(e => `   - ${e}`).join('\n')}\n`;
-        
-        if (isProduction) {
+        const errorMsg = `\n❌ Environment Validation:\n${errors.map(e => `   - ${e}`).join('\n')}\n`;
+
+        if (isProduction && strictMode) {
             console.error(errorMsg);
-            throw new Error(`Production startup blocked: ${errors.length} missing environment variables`);
-        } else {
-            console.warn(errorMsg);
-            console.warn('⚠️  Continuing in development mode with missing vars...\n');
+            throw new Error(`Production startup blocked: ${errors.length} missing environment variables (REQUIRE_STRICT_ENV=1)`);
         }
+        // Deploy-first: log but do not throw so build and first request succeed
+        console.warn(errorMsg);
+        console.warn('⚠️  Add these in Vercel → Settings → Environment Variables, then redeploy.\n');
     }
-    
+
     if (warnings.length > 0) {
         console.warn(`\n⚠️  Environment Warnings:\n${warnings.map(w => `   - ${w}`).join('\n')}\n`);
     }
-    
-    // Success message
+
     const configuredProviders = aiProviders.filter(key => process.env[key]);
-    console.log('✅ Environment validated');
-    console.log(`   Database: ${process.env.NEXT_PUBLIC_SUPABASE_URL?.substring(0, 40)}...`);
+    console.log('✅ Environment validated (deploy-first: missing vars only block if REQUIRE_STRICT_ENV=1)');
+    console.log(`   Database: ${process.env.NEXT_PUBLIC_SUPABASE_URL ? process.env.NEXT_PUBLIC_SUPABASE_URL.substring(0, 40) + '...' : 'Not set'}`);
     console.log(`   AI Providers: ${configuredProviders.length > 0 ? configuredProviders.join(', ') : 'None'}`);
     console.log(`   Mode: ${process.env.NODE_ENV || 'development'}\n`);
 }
@@ -179,4 +187,21 @@ export function isProduction(): boolean {
  */
 export function isDevelopment(): boolean {
     return process.env.NODE_ENV === 'development';
+}
+
+/**
+ * Get the public base URL for server-side use (fetch, redirects, links).
+ * In production: never returns localhost; uses VERCEL_URL if no env is set.
+ * Use this for cron/API routes that call back into the app.
+ */
+export function getServerPublicUrl(): string {
+    const inProd = process.env.NODE_ENV === 'production';
+    const fromEnv =
+        process.env.NEXT_PUBLIC_SITE_URL ||
+        process.env.NEXT_PUBLIC_APP_URL ||
+        process.env.NEXT_PUBLIC_BASE_URL;
+    if (fromEnv && (!inProd || !fromEnv.includes('localhost'))) return fromEnv;
+    if (inProd && process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+    if (!inProd) return process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    return '';
 }

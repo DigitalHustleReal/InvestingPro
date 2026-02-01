@@ -26,7 +26,7 @@
     "test:authoritative": "tsx scripts/test-authoritative-validation.ts",
     "test:all-systems": "tsx scripts/test-all-systems.ts",
     "preview": "npm run build && npm run start",
-    "prepare": "husky install",
+    "prepare": "node -e \"if (process.env.CI) process.exit(0); require('child_process').execSync('npx husky install', {stdio:'inherit'})\"",
     "generate:content": "tsx scripts/auto-generate-batch.ts",
     "generate:sample": "tsx scripts/sample-article-data.ts",
     "generate:author-images": "tsx scripts/generate-author-images.ts",
