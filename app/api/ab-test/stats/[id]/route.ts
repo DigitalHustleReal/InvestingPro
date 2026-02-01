@@ -9,6 +9,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { calculateStatisticalSignificance } from '@/lib/analytics/ab-testing';
 
+type AbTestEvent = { variant_id: string; event_type: string; created_at?: string };
+
 export const dynamic = 'force-dynamic';
 
 export async function GET(
@@ -59,7 +61,7 @@ export async function GET(
         });
         
         // Count events
-        (events || []).forEach((event: { variant_id: string; event_type: string; created_at?: string }) => {
+        (events || []).forEach((event: AbTestEvent) => {
             if (!variantStats[event.variant_id]) {
                 variantStats[event.variant_id] = { impressions: 0, conversions: 0, ctr: 0 };
             }
@@ -110,14 +112,14 @@ export async function GET(
             date.setDate(date.getDate() - i);
             const dateStr = date.toISOString().split('T')[0];
             
-            const dayEvents = (events || []).filter(e => 
-                e.created_at.startsWith(dateStr)
+            const dayEvents = (events || []).filter((e: AbTestEvent) => 
+                e.created_at?.startsWith(dateStr)
             );
             
             timeline.push({
                 date: dateStr,
-                impressions: dayEvents.filter(e => e.event_type === 'impression').length,
-                conversions: dayEvents.filter(e => e.event_type === 'conversion').length,
+                impressions: dayEvents.filter((e: AbTestEvent) => e.event_type === 'impression').length,
+                conversions: dayEvents.filter((e: AbTestEvent) => e.event_type === 'conversion').length,
             });
         }
         
