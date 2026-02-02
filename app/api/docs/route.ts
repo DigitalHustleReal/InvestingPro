@@ -13,7 +13,6 @@ import {
     articleParamsSchema,
 } from '@/lib/validation/api-schemas';
 import { zodToOpenAPI } from '@/lib/api/openapi-generator';
-import { commonResponses } from '@/lib/api/openapi-generator';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -60,7 +59,6 @@ export async function GET(request: NextRequest) {
                     },
                 ],
                 responses: {
-                    ...commonResponses.success,
                     '200': {
                         description: 'Success',
                         content: {
@@ -96,7 +94,7 @@ export async function GET(request: NextRequest) {
                             },
                         },
                     },
-                },
+                } as import('@/lib/api/openapi-generator').OpenAPIResponses,
             },
             // Health endpoints
             {
