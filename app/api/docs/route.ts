@@ -60,6 +60,7 @@ export async function GET(request: NextRequest) {
                     },
                 ],
                 responses: {
+                    ...commonResponses.success,
                     '200': {
                         description: 'Success',
                         content: {
@@ -95,7 +96,6 @@ export async function GET(request: NextRequest) {
                             },
                         },
                     },
-                    ...commonResponses.success,
                 },
             },
             // Health endpoints
