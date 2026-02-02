@@ -10,6 +10,7 @@ const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE
 
 export interface RevenueMetrics {
     totalRevenue: number;
+    totalConversions: number;
     revenueByCategory: Record<string, number>;
     revenueByArticle: Array<{
         articleId: string;
@@ -156,8 +157,11 @@ export async function getRevenueMetrics(
             })
             .sort((a, b) => b.revenue - a.revenue);
 
+        const totalConversions = conversions?.length || 0;
+
         return {
             totalRevenue,
+            totalConversions,
             revenueByCategory,
             revenueByArticle,
             revenueByProduct,
