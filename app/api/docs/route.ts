@@ -5,17 +5,52 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { generateOpenAPISpec } from '@/lib/api/openapi-generator';
-import { 
-    createArticleSchema, 
-    updateArticleSchema,
-    articleQuerySchema,
-    articleParamsSchema,
-} from '@/lib/validation/api-schemas';
-import { zodToOpenAPI } from '@/lib/api/openapi-generator';
+import {
+    generateOpenAPISpec,
+    type OpenAPISchema,
+    type OpenAPIResponses,
+} from '@/lib/api/openapi-generator';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
+
+/** Build a success response with a custom data schema. */
+function createSuccessResponse(dataSchema: OpenAPISchema): OpenAPIResponses[string] {
+    return {
+        description: 'Successful response',
+        content: {
+            'application/json': {
+                schema: {
+                    type: 'object',
+                    required: ['success', 'data'],
+                    properties: {
+                        success: { type: 'boolean', example: true },
+                        data: dataSchema,
+                    },
+                },
+            },
+        },
+    };
+}
+
+/** Build an error response. */
+function createErrorResponse(description: string): OpenAPIResponses[string] {
+    return {
+        description,
+        content: {
+            'application/json': {
+                schema: {
+                    type: 'object',
+                    required: ['success', 'error'],
+                    properties: {
+                        success: { type: 'boolean', example: false },
+                        error: { type: 'string' },
+                    },
+                },
+            },
+        },
+    };
+}
 
 export async function GET(request: NextRequest) {
     try {
@@ -59,67 +94,81 @@ export async function GET(request: NextRequest) {
                     },
                 ],
                 responses: {
-                    '200': {
-                        description: 'Success',
-                        content: {
-                            'application/json': {
-                                schema: {
+                    '200': createSuccessResponse({
+                        type: 'object',
+                        properties: {
+                            articles: {
+                                type: 'array',
+                                items: {
                                     type: 'object',
                                     properties: {
-                                        articles: {
-                                            type: 'array',
-                                            items: {
-                                                type: 'object',
-                                                properties: {
-                                                    id: { type: 'string', format: 'uuid' },
-                                                    title: { type: 'string' },
-                                                    slug: { type: 'string' },
-                                                    excerpt: { type: 'string' },
-                                                    category: { type: 'string' },
-                                                    published_at: { type: 'string', format: 'date-time' },
-                                                },
-                                            },
-                                        },
-                                        pagination: {
-                                            type: 'object',
-                                            properties: {
-                                                page: { type: 'integer' },
-                                                limit: { type: 'integer' },
-                                                total: { type: 'integer' },
-                                                totalPages: { type: 'integer' },
-                                            },
-                                        },
+                                        id: { type: 'string', format: 'uuid' },
+                                        title: { type: 'string' },
+                                        slug: { type: 'string' },
+                                        excerpt: { type: 'string' },
+                                        category: { type: 'string' },
+                                        published_at: { type: 'string', format: 'date-time' },
                                     },
                                 },
                             },
+                            pagination: {
+                                type: 'object',
+                                properties: {
+                                    page: { type: 'integer' },
+                                    limit: { type: 'integer' },
+                                    total: { type: 'integer' },
+                                    totalPages: { type: 'integer' },
+                                },
+                            },
                         },
-                    },
-                } as import('@/lib/api/openapi-generator').OpenAPIResponses,
+                    }),
+                    '400': createErrorResponse('Bad request'),
+                    '500': createErrorResponse('Internal server error'),
+                },
             },
             // Health endpoints
             {
                 path: '/api/health',
                 method: 'get' as const,
-                summary: 'Health check',
-                description: 'Comprehensive health check endpoint',
+                summary: 'Health Check',
+                description: 'Check API health and service status',
                 tags: ['Health'],
                 responses: {
                     '200': {
-                        description: 'System is healthy',
+                        description: 'Service is healthy',
                         content: {
                             'application/json': {
                                 schema: {
                                     type: 'object',
+                                    required: ['status', 'timestamp', 'uptime_seconds', 'components'],
                                     properties: {
-                                        status: { type: 'string', enum: ['healthy', 'degraded', 'unhealthy'] },
-                                        timestamp: { type: 'string', format: 'date-time' },
-                                        uptime_seconds: { type: 'integer' },
+                                        status: {
+                                            type: 'string',
+                                            enum: ['healthy', 'degraded', 'unhealthy'],
+                                        },
+                                        timestamp: {
+                                            type: 'string',
+                                            format: 'date-time',
+                                        },
+                                        uptime_seconds: {
+                                            type: 'number',
+                                        },
                                         components: {
                                             type: 'object',
+                                            required: ['database', 'cache', 'ai_providers'],
                                             properties: {
-                                                database: { type: 'object' },
-                                                cache: { type: 'object' },
-                                                ai_providers: { type: 'object' },
+                                                database: {
+                                                    type: 'string',
+                                                    enum: ['healthy', 'degraded', 'unhealthy'],
+                                                },
+                                                cache: {
+                                                    type: 'string',
+                                                    enum: ['healthy', 'degraded', 'unhealthy'],
+                                                },
+                                                ai_providers: {
+                                                    type: 'string',
+                                                    enum: ['healthy', 'degraded', 'unhealthy'],
+                                                },
                                             },
                                         },
                                     },
@@ -142,6 +191,7 @@ export async function GET(request: NextRequest) {
                             'application/json': {
                                 schema: {
                                     type: 'object',
+                                    required: ['status', 'timestamp'],
                                     properties: {
                                         status: { type: 'string', example: 'alive' },
                                         timestamp: { type: 'string', format: 'date-time' },
@@ -168,6 +218,7 @@ export async function GET(request: NextRequest) {
                             'application/json': {
                                 schema: {
                                     type: 'object',
+                                    required: ['status', 'timestamp'],
                                     properties: {
                                         status: { type: 'string', example: 'ready' },
                                         timestamp: { type: 'string', format: 'date-time' },
@@ -211,42 +262,29 @@ export async function GET(request: NextRequest) {
                 tags: ['Admin'],
                 security: [{ bearerAuth: [] }],
                 responses: {
-                    '200': {
-                        description: 'Database performance metrics',
-                        content: {
-                            'application/json': {
-                                schema: {
-                                    type: 'object',
-                                    properties: {
-                                        success: { type: 'boolean' },
-                                        data: {
-                                            type: 'object',
-                                            properties: {
-                                                slowQueries: {
-                                                    type: 'array',
-                                                    items: { type: 'object' },
-                                                },
-                                                connectionPool: { type: 'object' },
-                                                tableSizes: {
-                                                    type: 'array',
-                                                    items: { type: 'object' },
-                                                },
-                                                tableGrowth: {
-                                                    type: 'array',
-                                                    items: { type: 'object' },
-                                                },
-                                            },
-                                        },
-                                    },
-                                },
+                    '200': createSuccessResponse({
+                        type: 'object',
+                        properties: {
+                            slowQueries: {
+                                type: 'array',
+                                items: { type: 'object' },
+                            },
+                            connectionPool: { type: 'object' },
+                            tableSizes: {
+                                type: 'array',
+                                items: { type: 'object' },
+                            },
+                            tableGrowth: {
+                                type: 'array',
+                                items: { type: 'object' },
                             },
                         },
-                    },
+                    }),
                 },
             },
         ];
 
-        const spec = generateOpenAPISpec(paths);
+        const spec = generateOpenAPISpec(paths as OpenAPIPath[]);
 
         return NextResponse.json(spec, {
             headers: {
