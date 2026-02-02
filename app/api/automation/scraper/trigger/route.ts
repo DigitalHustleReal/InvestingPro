@@ -2,6 +2,19 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
 
+/** Server-side base URL for callbacks; never localhost in production. */
+function getBaseUrl(): string {
+    const inProd = process.env.NODE_ENV === 'production';
+    const fromEnv =
+        process.env.NEXT_PUBLIC_SITE_URL ||
+        process.env.NEXT_PUBLIC_APP_URL ||
+        process.env.NEXT_PUBLIC_BASE_URL;
+    if (fromEnv && (!inProd || !fromEnv.includes('localhost'))) return fromEnv;
+    if (inProd && process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+    if (!inProd) return process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    return '';
+}
+
 /**
  * Scraper Trigger API
  * 
@@ -50,8 +63,8 @@ export async function POST(request: NextRequest) {
         }
 
         // Trigger background processing immediately (simulated)
-        // In production uses getServerPublicUrl() so we never call localhost
-        const baseUrl = getServerPublicUrl();
+        // In production never uses localhost (getBaseUrl above)
+        const baseUrl = getBaseUrl();
         if (baseUrl) fetch(`${baseUrl}/api/cron/process-pipeline`, {
             method: 'POST',
             headers: { 'x-internal-trigger': 'true' }
