@@ -284,7 +284,7 @@ export async function GET(request: NextRequest) {
             },
         ];
 
-        const spec = generateOpenAPISpec(paths as import('@/lib/api/openapi-generator').OpenAPIPath[]);
+        const spec = generateOpenAPISpec(paths as unknown as import('@/lib/api/openapi-generator').OpenAPIPath[]);
 
         return NextResponse.json(spec, {
             headers: {
