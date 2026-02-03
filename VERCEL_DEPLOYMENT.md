@@ -30,7 +30,7 @@ These are distinct. If you add routes like `[intent]` or `[subcategory]` at the 
 
 **Cause:** Next.js 16 deprecated `middleware.ts` in favor of `proxy.ts`.
 
-**Solution:** ✅ **Fixed** - The project has been migrated from `middleware.ts` to `proxy.ts`. The proxy runs on Node.js by default with full API access.
+**Solution:** The project uses `middleware.ts` for compatibility with Next.js 16.1.x. The deprecation is a warning only—builds succeed. Migrate to `proxy.ts` when upgrading to a newer Next.js version that fully supports it.
 
 ### Error: RevenueMetrics / totalConversions
 
@@ -190,7 +190,7 @@ Vercel auto-detects Next.js, so most settings are optional. Add custom config on
 - [ ] `npm run build` succeeds locally
 - [ ] `npm run type-check` passes
 - [ ] No ambiguous route patterns in `app/` directory
-- [ ] `proxy.ts` exists (replaced deprecated `middleware.ts`)
+- [ ] `middleware.ts` exists (required for auth and request handling)
 
 ---
 
