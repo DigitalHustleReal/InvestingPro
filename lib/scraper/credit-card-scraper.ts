@@ -554,8 +554,8 @@ async function detectChanges(
         .select('name, bank, annual_fee, interest_rate')
         .eq('bank', bank);
 
-    const existingMap = new Map(
-        (existingCards || []).map(card => [
+    const existingMap = new Map<string, CreditCardData>(
+        (existingCards || []).map((card: any) => [
             `${card.bank}-${card.name}`,
             card
         ])

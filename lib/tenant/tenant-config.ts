@@ -345,7 +345,7 @@ export async function getTenantConfig(tenantId: string): Promise<TenantConfig | 
       .single();
 
     if (tenantError || !tenant) {
-      logger.error('Tenant not found', { tenantId, error: tenantError });
+      logger.error('Tenant not found', tenantError as Error, { tenantId });
       return null;
     }
 
@@ -403,7 +403,7 @@ export async function getTenantConfig(tenantId: string): Promise<TenantConfig | 
       branding,
     };
   } catch (error) {
-    logger.error('Error getting tenant config', { error, tenantId });
+    logger.error('Error getting tenant config', error as Error, { tenantId });
     return null;
   }
 }
@@ -453,14 +453,14 @@ export async function updateTenantSetting(
       });
 
     if (error) {
-      logger.error('Error updating setting', { error, tenantId, key });
+      logger.error('Error updating setting', error as Error, { tenantId, key });
       return false;
     }
 
     logger.info('Tenant setting updated', { tenantId, key });
     return true;
   } catch (error) {
-    logger.error('Error in updateTenantSetting', { error, tenantId, key });
+    logger.error('Error in updateTenantSetting', error as Error, { tenantId, key });
     return false;
   }
 }
@@ -506,14 +506,14 @@ export async function updateFeatureFlag(
       });
 
     if (error) {
-      logger.error('Error updating feature flag', { error, tenantId, featureKey });
+      logger.error('Error updating feature flag', error as Error, { tenantId, featureKey });
       return false;
     }
 
     logger.info('Feature flag updated', { tenantId, featureKey, enabled });
     return true;
   } catch (error) {
-    logger.error('Error in updateFeatureFlag', { error, tenantId, featureKey });
+    logger.error('Error in updateFeatureFlag', error as Error, { tenantId, featureKey });
     return false;
   }
 }
@@ -561,13 +561,12 @@ export async function initializeTenantSettings(tenantId: string): Promise<void> 
     if (settingsToInsert.length > 0) {
       await supabase
         .from('tenant_settings')
-        .insert(settingsToInsert)
-        .onConflict('tenant_id,key');
+        .upsert(settingsToInsert, { onConflict: 'tenant_id,key', ignoreDuplicates: true });
     }
 
     logger.info('Tenant settings initialized', { tenantId, count: settingsToInsert.length });
   } catch (error) {
-    logger.error('Error initializing tenant settings', { error, tenantId });
+    logger.error('Error initializing tenant settings', error as Error, { tenantId });
   }
 }
 
@@ -591,13 +590,12 @@ export async function initializeTenantFeatures(
     if (flagsToInsert.length > 0) {
       await supabase
         .from('tenant_feature_flags')
-        .insert(flagsToInsert)
-        .onConflict('tenant_id,feature_key');
+        .upsert(flagsToInsert, { onConflict: 'tenant_id,feature_key', ignoreDuplicates: true });
     }
 
     logger.info('Tenant features initialized', { tenantId, count: flagsToInsert.length });
   } catch (error) {
-    logger.error('Error initializing tenant features', { error, tenantId });
+    logger.error('Error initializing tenant features', error as Error, { tenantId });
   }
 }
 
@@ -627,7 +625,7 @@ export async function getTenantLimits(tenantId: string): Promise<TenantPlanLimit
       features: planLimits.features,
     };
   } catch (error) {
-    logger.error('Error getting tenant limits', { error, tenantId });
+    logger.error('Error getting tenant limits', error as Error, { tenantId });
     return PLAN_LIMITS.starter;
   }
 }

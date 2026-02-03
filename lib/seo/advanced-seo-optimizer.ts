@@ -372,8 +372,19 @@ async function getRecommendedInternalLinks(
 
         if (!articles) return recommendations;
         
+        // Define Article type locally if needed or import, but casting or explicit typing helps
+        interface ArticleStub {
+            id: string;
+            title: string;
+            slug: string;
+            category?: string;
+            excerpt?: string;
+        }
+        
+        const typedArticles = articles as unknown as ArticleStub[];
+        
         // Find relevant articles based on keyword matching
-        articles.forEach(article => {
+        typedArticles.forEach(article => {
             const titleLower = article.title.toLowerCase();
             const excerptLower = (article.excerpt || '').toLowerCase();
             

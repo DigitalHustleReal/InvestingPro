@@ -154,7 +154,7 @@ export class ProductDataScraper {
                 
                 return await response.text();
             } catch (error) {
-                logger.warn(`Failed to fetch ${url} (attempt ${i + 1}/${retries})`, { error });
+                logger.warn(`Failed to fetch ${url} (attempt ${i + 1}/${retries})`, { error: error instanceof Error ? error.message : String(error) });
                 if (i < retries - 1) {
                     await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
                 }
@@ -223,7 +223,7 @@ export class ProductDataScraper {
                 apply_link: applyLink,
             };
         } catch (error) {
-            logger.error('Error scraping credit card from BankBazaar', { url, error });
+            logger.error('Error scraping credit card from BankBazaar', error as Error, { url });
             return null;
         }
     }
@@ -271,7 +271,7 @@ export class ProductDataScraper {
 
             return null;
         } catch (error) {
-            logger.error('Error scraping AMFI NAV data', { error });
+            logger.error('Error scraping AMFI NAV data', error as Error);
             return null;
         }
     }
@@ -329,14 +329,14 @@ export class ProductDataScraper {
                 });
 
             if (error) {
-                logger.error('Error saving credit card', { error, data });
+                logger.error('Error saving credit card', error as Error, { data });
                 return false;
             }
 
             logger.info('Credit card saved', { name: data.name, slug, imageUrl });
             return true;
         } catch (error) {
-            logger.error('Exception saving credit card', { error, data });
+            logger.error('Exception saving credit card', error as Error, { data });
             return false;
         }
     }
@@ -375,14 +375,14 @@ export class ProductDataScraper {
                 });
 
             if (error) {
-                logger.error('Error saving mutual fund', { error, data });
+                logger.error('Error saving mutual fund', error as Error, { data });
                 return false;
             }
 
             logger.info('Mutual fund saved', { name: data.name, slug });
             return true;
         } catch (error) {
-            logger.error('Exception saving mutual fund', { error, data });
+            logger.error('Exception saving mutual fund', error as Error, { data });
             return false;
         }
     }
@@ -465,7 +465,7 @@ export class ProductDataScraper {
                 // Rate limiting - wait 1 second between requests
                 await new Promise(resolve => setTimeout(resolve, 1000));
             } catch (error) {
-                logger.error('Error scraping credit card URL', { url, error });
+                logger.error('Error scraping credit card URL', error as Error, { url });
                 failed++;
             }
         }
@@ -525,7 +525,7 @@ export class ProductDataScraper {
                     .eq('scheme_code', schemeCode);
 
                 if (error) {
-                    logger.error('Error updating NAV', { schemeCode, error });
+                    logger.error('Error updating NAV', error as Error, { schemeCode });
                     failed++;
                 } else {
                     updated++;
@@ -609,7 +609,7 @@ export class ProductDataScraper {
                 apply_link: applyLink,
             };
         } catch (error) {
-            logger.error('Error scraping insurance from Policybazaar', { url, error });
+            logger.error('Error scraping insurance from Policybazaar', error as Error, { url });
             return null;
         }
     }
@@ -683,7 +683,7 @@ export class ProductDataScraper {
                 apply_link: applyLink,
             };
         } catch (error) {
-            logger.error('Error scraping loan from BankBazaar', { url, error });
+            logger.error('Error scraping loan from BankBazaar', error as Error, { url });
             return null;
         }
     }
@@ -742,14 +742,14 @@ export class ProductDataScraper {
                 });
 
             if (error) {
-                logger.error('Error saving insurance', { error, data });
+                logger.error('Error saving insurance', error as Error, { data });
                 return false;
             }
 
             logger.info('Insurance saved', { name: data.name, slug, imageUrl });
             return true;
         } catch (error) {
-            logger.error('Exception saving insurance', { error, data });
+            logger.error('Exception saving insurance', error as Error, { data });
             return false;
         }
     }
@@ -802,7 +802,7 @@ export class ProductDataScraper {
                 .single();
 
             if (productError || !product) {
-                logger.error('Error saving product for loan', { error: productError, data });
+                logger.error('Error saving product for loan', productError as Error, { data });
                 return false;
             }
 
@@ -820,14 +820,14 @@ export class ProductDataScraper {
                 });
 
             if (loanError) {
-                logger.error('Error saving loan details', { error: loanError, data });
+                logger.error('Error saving loan details', loanError as Error, { data });
                 return false;
             }
 
             logger.info('Loan saved', { name: data.name, slug });
             return true;
         } catch (error) {
-            logger.error('Exception saving loan', { error, data });
+            logger.error('Exception saving loan', error as Error, { data });
             return false;
         }
     }
@@ -953,7 +953,7 @@ export class ProductDataScraper {
                 // Rate limiting
                 await new Promise(resolve => setTimeout(resolve, 1000));
             } catch (error) {
-                logger.error('Error scraping insurance URL', { url, error });
+                logger.error('Error scraping insurance URL', error as Error, { url });
                 failed++;
             }
         }
@@ -985,7 +985,7 @@ export class ProductDataScraper {
                 // Rate limiting
                 await new Promise(resolve => setTimeout(resolve, 1000));
             } catch (error) {
-                logger.error('Error scraping loan URL', { url, error });
+                logger.error('Error scraping loan URL', error as Error, { url });
                 failed++;
             }
         }
