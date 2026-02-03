@@ -80,8 +80,9 @@ async function getPPFNPSData(slug: string): Promise<PPFNPSDetail | null> {
   };
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const scheme = await getPPFNPSData(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const scheme = await getPPFNPSData(slug)
   
   if (!scheme) {
     return { title: 'Scheme Not Found - InvestingPro' }
@@ -94,8 +95,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function PPFNPSDetailPage({ params }: { params: { slug: string } }) {
-  const scheme = await getPPFNPSData(params.slug)
+export default async function PPFNPSDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const scheme = await getPPFNPSData(slug)
   
   if (!scheme) {
     notFound()
@@ -151,7 +153,7 @@ export default async function PPFNPSDetailPage({ params }: { params: { slug: str
               <Card className="bg-white/10 backdrop-blur-sm border-white/20">
                 <CardContent className="p-6">
                   <p className="text-sm text-amber-200 mb-4">Start your tax-saving journey</p>
-                  <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-6 text-lg mb-3">
                       Open Account <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
@@ -287,7 +289,7 @@ export default async function PPFNPSDetailPage({ params }: { params: { slug: str
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Save Tax Today</h3>
                   <p className="text-sm text-amber-100 mb-4">Up to ₹46,800 tax savings</p>
-                  <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-white text-amber-600 hover:bg-gray-100 font-semibold py-6 mb-3">
                       Start Investing <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
@@ -344,7 +346,7 @@ export default async function PPFNPSDetailPage({ params }: { params: { slug: str
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Start Your {scheme.name} Today</h2>
           <p className="text-slate-300 mb-8">Build wealth while saving taxes!</p>
-          <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+          <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
             <Button className="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-12 py-6 text-lg">
               Open Account <ExternalLink className="w-5 h-5 ml-2" />
             </Button>

@@ -76,8 +76,9 @@ async function getFixedDepositData(slug: string): Promise<FixedDepositDetail | n
   };
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const fd = await getFixedDepositData(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const fd = await getFixedDepositData(slug)
   
   if (!fd) {
     return { title: 'Fixed Deposit Not Found - InvestingPro' }
@@ -90,8 +91,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function FixedDepositDetailPage({ params }: { params: { slug: string } }) {
-  const fd = await getFixedDepositData(params.slug)
+export default async function FixedDepositDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const fd = await getFixedDepositData(slug)
   
   if (!fd) {
     notFound()
@@ -147,7 +149,7 @@ export default async function FixedDepositDetailPage({ params }: { params: { slu
               <Card className="bg-white/10 backdrop-blur-sm border-white/20">
                 <CardContent className="p-6">
                   <p className="text-sm text-success-200 mb-4">Start earning guaranteed returns</p>
-                  <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-6 text-lg mb-3">
                       Open FD <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
@@ -273,7 +275,7 @@ export default async function FixedDepositDetailPage({ params }: { params: { slu
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Start Earning Today</h3>
                   <p className="text-sm text-success-100 mb-4">Guaranteed returns with zero risk</p>
-                  <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-white text-success-600 hover:bg-gray-100 font-semibold py-6 mb-3">
                       Open FD <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
@@ -330,7 +332,7 @@ export default async function FixedDepositDetailPage({ params }: { params: { slu
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Open {fd.name} Today</h2>
           <p className="text-slate-300 mb-8">Earn guaranteed returns with India's trusted bank!</p>
-          <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+          <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
             <Button className="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-12 py-6 text-lg">
               Open FD Now <ExternalLink className="w-5 h-5 ml-2" />
             </Button>

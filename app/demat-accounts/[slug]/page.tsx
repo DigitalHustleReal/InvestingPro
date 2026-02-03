@@ -78,8 +78,9 @@ async function getDematAccountData(slug: string): Promise<DematAccountDetail | n
   };
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const account = await getDematAccountData(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const account = await getDematAccountData(slug)
   
   if (!account) {
     return { title: 'Demat Account Not Found - InvestingPro' }
@@ -92,8 +93,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function DematAccountDetailPage({ params }: { params: { slug: string } }) {
-  const account = await getDematAccountData(params.slug)
+export default async function DematAccountDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const account = await getDematAccountData(slug)
   
   if (!account) {
     notFound()
@@ -148,7 +150,7 @@ export default async function DematAccountDetailPage({ params }: { params: { slu
               <Card className="bg-white/10 backdrop-blur-sm border-white/20">
                 <CardContent className="p-6">
                   <p className="text-sm text-secondary-200 mb-4">Open your demat account in 15 minutes</p>
-                  <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-6 text-lg mb-3">
                       Open Account <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
@@ -289,7 +291,7 @@ export default async function DematAccountDetailPage({ params }: { params: { slu
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Ready to Start Trading?</h3>
                   <p className="text-sm text-secondary-100 mb-4">Open your account in minutes</p>
-                  <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-white text-secondary-600 hover:bg-gray-100 font-semibold py-6 mb-3">
                       Open Account <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
@@ -349,7 +351,7 @@ export default async function DematAccountDetailPage({ params }: { params: { slu
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Start Investing with {account.name}</h2>
           <p className="text-slate-300 mb-8">Join millions of investors. Open your account today!</p>
-          <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+          <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
             <Button className="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-12 py-6 text-lg">
               Open Free Account <ExternalLink className="w-5 h-5 ml-2" />
             </Button>

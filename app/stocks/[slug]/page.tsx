@@ -83,8 +83,9 @@ async function getStockData(slug: string): Promise<StockDetail | null> {
   };
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const stock = await getStockData(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const stock = await getStockData(slug)
   
   if (!stock) {
     return { title: 'Stock Not Found - InvestingPro' }
@@ -97,8 +98,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function StockDetailPage({ params }: { params: { slug: string } }) {
-  const stock = await getStockData(params.slug)
+export default async function StockDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const stock = await getStockData(slug)
   
   if (!stock) {
     notFound()
@@ -185,7 +187,7 @@ export default async function StockDetailPage({ params }: { params: { slug: stri
                     <span className="text-xl font-bold text-success-400">{stock.targetPrice}</span>
                   </div>
                   
-                  <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-6 text-lg mb-3">
                       Invest Now <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
@@ -303,7 +305,7 @@ export default async function StockDetailPage({ params }: { params: { slug: stri
                     <span className="text-primary-100">Target Price</span>
                   </div>
                   <p className="text-3xl font-bold mb-4">{stock.targetPrice}</p>
-                  <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-white text-primary-600 hover:bg-gray-100 font-semibold py-6 mb-3">
                       Buy {stock.symbol} <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
@@ -357,7 +359,7 @@ export default async function StockDetailPage({ params }: { params: { slug: stri
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Invest in {stock.symbol} Today</h2>
           <p className="text-slate-300 mb-8">Open a demat account and build your long-term portfolio!</p>
-          <a href={`/go/${params.slug}`} target="_blank" rel="noopener noreferrer">
+          <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
             <Button className="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-12 py-6 text-lg">
               Open Demat Account <ExternalLink className="w-5 h-5 ml-2" />
             </Button>

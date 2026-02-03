@@ -13,9 +13,9 @@ export const POST = createAPIWrapper('/api/alerts/[id]/acknowledge', {
   rateLimitType: 'authenticated',
   trackMetrics: false,
 })(
-  async (request: NextRequest, _body: unknown, params: { id: string }) => {
+  async (request: NextRequest, props: { params: Promise<{ id: string }> }) => {
     try {
-      const { id } = params;
+      const { id } = await props.params;
       const acknowledged = alertManager.acknowledgeAlert(id);
 
       if (!acknowledged) {

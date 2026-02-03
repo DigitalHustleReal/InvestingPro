@@ -9,10 +9,11 @@ import type { ExperimentResult } from '@/lib/ab-testing/experiment-manager';
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const experimentId = params.id;
+        const { id } = await params;
+        const experimentId = id;
 
         // Mock results (replace with database query)
         const results: ExperimentResult[] = [
