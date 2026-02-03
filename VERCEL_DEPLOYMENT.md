@@ -26,11 +26,11 @@ This guide helps you deploy the InvestingPro Next.js application to Vercel and t
 
 These are distinct. If you add routes like `[intent]` or `[subcategory]` at the same level, use different static path segments (e.g., `/[category]/intent/[id]` instead of `/[category]/[intent]`).
 
-### Error: "The middleware file convention is deprecated"
+### Error: "The middleware file convention is deprecated" / MIDDLEWARE_INVOCATION_FAILED
 
-**Cause:** Next.js 16 deprecated `middleware.ts` in favor of `proxy.ts`.
+**Cause:** Next.js 16 removed `middleware.ts` support—only `proxy.ts` is supported. Using middleware causes Vercel deployment errors.
 
-**Solution:** The project uses `middleware.ts` for compatibility with Next.js 16.1.x. The deprecation is a warning only—builds succeed. Migrate to `proxy.ts` when upgrading to a newer Next.js version that fully supports it.
+**Solution:** ✅ The project uses `proxy.ts` with a top-level try-catch to prevent unhandled exceptions.
 
 ### Error: RevenueMetrics / totalConversions
 
@@ -190,7 +190,7 @@ Vercel auto-detects Next.js, so most settings are optional. Add custom config on
 - [ ] `npm run build` succeeds locally
 - [ ] `npm run type-check` passes
 - [ ] No ambiguous route patterns in `app/` directory
-- [ ] `middleware.ts` exists (required for auth and request handling)
+- [ ] `proxy.ts` exists (Next.js 16 - middleware.ts is removed)
 
 ---
 
