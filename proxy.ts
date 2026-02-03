@@ -66,10 +66,10 @@ function extractTenantIdentifier(request: NextRequest): TenantIdentification {
 }
 
 // =============================================================================
-// MAIN MIDDLEWARE
+// MAIN PROXY (formerly middleware)
 // =============================================================================
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
     // Generate correlation ID for request tracking
     const correlationId = nanoid();
     const requestId = request.headers.get('x-request-id') || nanoid();
@@ -133,7 +133,7 @@ export async function middleware(request: NextRequest) {
             return NextResponse.redirect(url);
         }
 
-        // Create Supabase client for middleware authentication
+        // Create Supabase client for authentication
         const supabase = createServerClient(
             supabaseUrl!,
             supabaseAnonKey!,
