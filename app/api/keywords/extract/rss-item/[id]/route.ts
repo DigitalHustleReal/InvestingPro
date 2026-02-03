@@ -60,7 +60,7 @@ export async function POST(
             .from('keyword_extractions')
             .insert({
                 source_type: 'rss_item',
-                source_id: params.id,
+                source_id: id,
                 extracted_text: content.substring(0, 5000), // Limit stored text
                 extraction_method: 'ai',
                 keywords: {
@@ -96,7 +96,7 @@ export async function POST(
                 extracted_keywords: extractedKeywords,
                 processing_status: 'processed'
             })
-            .eq('id', params.id);
+            .eq('id', id);
 
         return NextResponse.json({
             success: true,
