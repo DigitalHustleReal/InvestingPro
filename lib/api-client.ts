@@ -538,6 +538,17 @@ export const apiClient = {
                     .or(`term.ilike.%${term}%,definition.ilike.%${term}%`)
                     .order('term', { ascending: true });
                 return data || [];
+            },
+            getByCategory: async (category: string) => {
+                try {
+                    const { data } = await supabase.from('glossary_terms').select('*')
+                        .eq('category', category)
+                        .order('term', { ascending: true });
+                    return data || [];
+                } catch (error) {
+                    console.error('Error fetching glossary by category:', error);
+                    return [];
+                }
             }
         },
 

@@ -4,6 +4,9 @@ import ExpertTeam from '@/components/experts/ExpertTeam';
 import SEOHead from '@/components/common/SEOHead';
 import CategoryHero from '@/components/common/CategoryHero';
 
+// Force dynamic rendering to avoid prerendering issues during build
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
     title: 'Meet Our Expert Team - Financial Analysts & Advisors | InvestingPro',
     description: 'Meet the financial experts behind InvestingPro. Our team of CAs, CFAs, and financial analysts help you make informed financial decisions.',
@@ -12,7 +15,7 @@ export const metadata: Metadata = {
 export default async function ExpertsPage() {
     const supabase = createClient();
     
-    const { data: experts, error } = await supabase
+    const { data: expertsData, error } = await supabase
         .from('authors')
         .select('*')
         .eq('is_expert', true)
@@ -22,6 +25,9 @@ export default async function ExpertsPage() {
     if (error) {
         console.error('Error fetching experts:', error);
     }
+    
+    // Ensure experts is always an array
+    const experts = Array.isArray(expertsData) ? expertsData : [];
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950">

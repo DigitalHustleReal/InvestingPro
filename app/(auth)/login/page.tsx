@@ -5,6 +5,7 @@
  * 
  * For regular users (not admin)
  * Features: Google OAuth, Email/Password, Magic Link
+ * Note: Dynamic rendering is handled by parent layout
  */
 
 import React, { useState, useEffect } from 'react';

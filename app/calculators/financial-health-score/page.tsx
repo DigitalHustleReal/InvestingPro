@@ -4,6 +4,9 @@ import { Metadata } from 'next';
 import { FinancialHealthCalculator } from '@/components/calculators/FinancialHealthCalculator';
 import { Badge } from "@/components/ui/badge";
 
+// Prevent prerendering to avoid circular import issues
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Financial Health Score Calculator | Free Financial Checkup',
   description: 'Check your financial fitness with our free Financial Health Score calculator. Analyze your savings, debt, insurance, and investments to get a personalized score.',

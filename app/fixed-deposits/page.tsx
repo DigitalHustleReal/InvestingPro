@@ -44,13 +44,15 @@ export default function FixedDepositsPage() {
         queryFn: () => api.entities.FixedDeposit.list()
     });
 
-    const sortedRates = [...fdRates].sort((a: any, b: any) => {
-        if (sortBy === "rate") return b.rates[selectedTenure] - a.rates[selectedTenure];
-        if (sortBy === "bank") return a.bank.localeCompare(b.bank);
+    // Ensure fdRates is always an array before sorting
+    const safeRates = Array.isArray(fdRates) ? fdRates : [];
+    const sortedRates = [...safeRates].sort((a: any, b: any) => {
+        if (sortBy === "rate") return (b.rates?.[selectedTenure] || 0) - (a.rates?.[selectedTenure] || 0);
+        if (sortBy === "bank") return (a.bank || '').localeCompare(b.bank || '');
         return 0;
     });
 
-    const highestRate = fdRates.length > 0 ? Math.max(...fdRates.map((fd: any) => fd.rates[selectedTenure])) : 0;
+    const highestRate = safeRates.length > 0 ? Math.max(...safeRates.map((fd: any) => fd.rates?.[selectedTenure] || 0)) : 0;
 
     if (isLoading) {
         return (

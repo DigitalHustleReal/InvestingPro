@@ -91,6 +91,9 @@ export async function fetchSubcategoryPageData(
         };
         const dbCategory = dbCategoryMap[categorySlug] || categorySlug;
 
+        // Create supabase client
+        const supabase = await createClient();
+
         // Fetch products for this subcategory
         const { data: productsData } = await supabase
             .from('products')
@@ -118,7 +121,7 @@ export async function fetchSubcategoryPageData(
         // Construct Product Comparison Data
         const productComparison = {
             totalProducts: products.length,
-            topProducts: products.slice(0, 3).map(p => ({
+            topProducts: products.slice(0, 3).map((p: any) => ({
                 id: p.id,
                 name: p.name,
                 slug: p.slug,
@@ -152,28 +155,14 @@ export async function fetchSubcategoryPageData(
             whoItIsFor: 'Anyone looking to compare and choose the right option for their needs.',
             relatedCalculators: [],
             relatedGlossary: [],
-            guide: guideData ? {
-                title: guideData.title,
-                slug: guideData.slug,
-                excerpt: guideData.excerpt || '',
-                content: guideData.content || '',
-                author: {
-                    name: guideData.author?.name || 'InvestingPro Team',
-                    avatar_url: guideData.author?.avatar_url,
-                },
-            } : undefined,
-            products: products.map(p => ({
+            guide: undefined, // TODO: Implement guide fetching
+            products: products.map((p: any) => ({
                ...p,
                features: p.features || []
             })),
             productComparison, // Add to return
-            articles: articlesData?.map(article => ({
-                ...article,
-                author: {
-                    name: article.author?.name || 'InvestingPro Team',
-                },
-            })) || [],
-            faqs: faqsData || [],
+            articles: [], // TODO: Implement articles fetching
+            faqs: [], // TODO: Implement FAQs fetching
         };
     } catch (error) {
         logger.error('Failed to fetch subcategory page data', error as Error, {

@@ -28,7 +28,10 @@ interface ExpertTeamProps {
 }
 
 export default function ExpertTeam({ experts }: ExpertTeamProps) {
-    if (experts.length === 0) {
+    // Ensure experts is always an array (prevents prerendering errors)
+    const safeExperts = Array.isArray(experts) ? experts : [];
+    
+    if (safeExperts.length === 0) {
         return (
             <div className="max-w-4xl mx-auto text-center py-12">
                 <p className="text-slate-600 dark:text-slate-400">
@@ -54,7 +57,7 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
 
             {/* Expert Grid */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                {experts.map((expert) => (
+                {safeExperts.map((expert) => (
                     <Card key={expert.id} className="hover:shadow-lg transition-shadow">
                         <CardContent className="p-6">
                             <div className="flex flex-col items-center text-center">

@@ -33,10 +33,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const studies = await getAllDataStudies();
-  return studies.map((study) => ({
-    slug: study.slug,
-  }));
+  try {
+    const studies = await getAllDataStudies();
+    return studies.map((study) => ({
+      slug: study.slug,
+    }));
+  } catch (error) {
+    // Return empty array during build if DB is unavailable
+    console.warn('generateStaticParams: Unable to fetch data studies, using fallback');
+    return [];
+  }
 }
 
 export default async function DataStudyPage({ params }: Props) {

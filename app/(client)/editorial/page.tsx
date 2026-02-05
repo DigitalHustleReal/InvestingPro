@@ -69,9 +69,10 @@ export default function EditorialDashboard() {
         refetchInterval: 30000, // Refresh every 30 seconds
     });
 
-    // Calculate risk level for each draft
+    // Calculate risk level for each draft (with array guard)
     const draftsWithRisk = useMemo(() => {
-        return drafts.map((draft: DraftArticle) => {
+        const safeDrafts = Array.isArray(drafts) ? drafts : [];
+        return safeDrafts.map((draft: DraftArticle) => {
             const risk = calculateRiskLevel(draft);
             return { ...draft, risk };
         });

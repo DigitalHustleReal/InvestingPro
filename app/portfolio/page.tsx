@@ -50,7 +50,9 @@ export default function PortfolioPage() {
         enabled: !!user?.email
     });
     
-    const holdings = allHoldings.filter((h: any) => h.user_email === user?.email);
+    // Ensure allHoldings is always an array before filtering
+    const safeHoldings = Array.isArray(allHoldings) ? allHoldings : [];
+    const holdings = safeHoldings.filter((h: any) => h.user_email === user?.email);
 
     const addHoldingMutation = useMutation({
         mutationFn: (holding) => api.entities.Portfolio.create(holding),
