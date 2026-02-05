@@ -1,5 +1,8 @@
 "use client";
 
+// Force dynamic rendering - admin pages should not be prerendered
+export const dynamic = 'force-dynamic';
+
 import React from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import CMSSubNavigation from '@/components/admin/CMSSubNavigation';
