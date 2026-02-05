@@ -55,7 +55,7 @@ async function getInsuranceData(slug: string): Promise<InsuranceDetail | null> {
     name: product.name,
     provider: product.provider_name,
     image: product.image_url || undefined,
-    rating: product.rating,
+    rating: product.rating.overall,
     insuranceType: features.insurance_type || 'Life Insurance',
     coverAmount: features.cover_amount || '₹1 Crore',
     premium: features.premium || '₹500/month',

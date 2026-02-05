@@ -27,8 +27,8 @@ export async function POST(request: NextRequest) {
         });
 
         // Also revalidate common tags
-        revalidateTag('articles');
-        revalidateTag('article-list');
+        revalidateTag('articles', 'default');
+        revalidateTag('article-list', 'default');
 
         return NextResponse.json({
             revalidated: true,

@@ -141,7 +141,7 @@ export default function PortfolioRebalancingCalculator() {
                                     <Cell key={`cell-${index}`} fill={assets[index].color} />
                                 ))}
                             </Pie>
-                            <Tooltip formatter={(value: number) => `₹${value.toLocaleString()}`} />
+                            <Tooltip formatter={(value: any) => `₹${Number(value).toLocaleString()}`} />
                             <Legend />
                         </PieChart>
                     </ResponsiveContainer>

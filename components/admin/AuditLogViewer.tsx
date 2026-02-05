@@ -195,7 +195,7 @@ export default function AuditLogViewer({ initialFilters }: AuditLogViewerProps) 
                             <Label>Entity Type</Label>
                             <Select
                                 value={filters.entity_type}
-                                onValueChange={(value) => handleFilterChange('entity_type', value)}
+                                onValueChange={(value: string) => handleFilterChange('entity_type', value)}
                             >
                                 <SelectTrigger>
                                     <SelectValue placeholder="All types" />
@@ -216,7 +216,7 @@ export default function AuditLogViewer({ initialFilters }: AuditLogViewerProps) 
                             <Label>Action</Label>
                             <Select
                                 value={filters.action}
-                                onValueChange={(value) => handleFilterChange('action', value)}
+                                onValueChange={(value: string) => handleFilterChange('action', value)}
                             >
                                 <SelectTrigger>
                                     <SelectValue placeholder="All actions" />
@@ -238,7 +238,7 @@ export default function AuditLogViewer({ initialFilters }: AuditLogViewerProps) 
                             <Label>Severity</Label>
                             <Select
                                 value={filters.severity}
-                                onValueChange={(value) => handleFilterChange('severity', value)}
+                                onValueChange={(value: string) => handleFilterChange('severity', value)}
                             >
                                 <SelectTrigger>
                                     <SelectValue placeholder="All severities" />

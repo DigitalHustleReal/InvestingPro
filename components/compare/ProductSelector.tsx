@@ -51,11 +51,9 @@ export function ProductSelector({ category, excludeIds = [], onSelect, trigger }
                 const loans = await api.entities.Loan.list();
                 data = loans.filter((l: any) => l.name.toLowerCase().includes(searchTerm.toLowerCase()));
             } else {
-                // Generic fallback
-                 data = await api.entities.Assets.search(searchTerm);
-                 if (category) {
-                     data = data.filter((d: any) => d.category === category);
-                 }
+                // Generic fallback - no specific API, return empty
+                // In the future, a generic search endpoint could be added
+                data = [];
             }
 
             // Exclude already selected

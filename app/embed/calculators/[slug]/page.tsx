@@ -6,20 +6,20 @@ import dynamic from 'next/dynamic';
 import { EMBEDDABLE_CALCULATORS, trackWidgetEmbed } from '@/lib/linkable-assets/embeddable-widget';
 
 // Dynamically import calculators to reduce bundle size
-const calculatorComponents: Record<string, React.ComponentType<any>> = {
-  'sip': dynamic(() => import('@/components/calculators/SIPCalculatorWithInflation')),
-  'emi': dynamic(() => import('@/components/calculators/EMICalculatorEnhanced')),
-  'fd': dynamic(() => import('@/components/calculators/FDCalculator')),
-  'ppf': dynamic(() => import('@/components/calculators/PPFCalculator')),
-  'nps': dynamic(() => import('@/components/calculators/NPSCalculator')),
-  'tax': dynamic(() => import('@/components/calculators/TaxCalculator')),
-  'lumpsum': dynamic(() => import('@/components/calculators/LumpsumCalculatorWithInflation')),
-  'retirement': dynamic(() => import('@/components/calculators/RetirementCalculator')),
-  'compound-interest': dynamic(() => import('@/components/calculators/CompoundInterestCalculator')),
-  'gst': dynamic(() => import('@/components/calculators/GSTCalculator')),
-  'swp': dynamic(() => import('@/components/calculators/SWPCalculator')),
-  'goal-planning': dynamic(() => import('@/components/calculators/GoalPlanningCalculator')),
-  'financial-health-score': dynamic(() => import('@/components/calculators/FinancialHealthCalculator')),
+const calculatorComponents: Record<string, any> = {
+  'sip': dynamic(() => import('@/components/calculators/SIPCalculatorWithInflation').then(mod => mod.SIPCalculatorWithInflation)),
+  'emi': dynamic(() => import('@/components/calculators/EMICalculatorEnhanced').then(mod => mod.EMICalculatorEnhanced)),
+  'fd': dynamic(() => import('@/components/calculators/FDCalculator').then(mod => mod.FDCalculator)),
+  'ppf': dynamic(() => import('@/components/calculators/PPFCalculator').then(mod => mod.PPFCalculator)),
+  'nps': dynamic(() => import('@/components/calculators/NPSCalculator').then(mod => mod.NPSCalculator)),
+  'tax': dynamic(() => import('@/components/calculators/TaxCalculator').then(mod => mod.TaxCalculator)),
+  'lumpsum': dynamic(() => import('@/components/calculators/LumpsumCalculatorWithInflation').then(mod => mod.LumpsumCalculatorWithInflation)),
+  'retirement': dynamic(() => import('@/components/calculators/RetirementCalculator').then(mod => mod.RetirementCalculator)),
+  'compound-interest': dynamic(() => import('@/components/calculators/CompoundInterestCalculator').then(mod => mod.CompoundInterestCalculator)),
+  'gst': dynamic(() => import('@/components/calculators/GSTCalculator').then(mod => mod.GSTCalculator)),
+  'swp': dynamic(() => import('@/components/calculators/SWPCalculator').then(mod => mod.SWPCalculator)),
+  'goal-planning': dynamic(() => import('@/components/calculators/GoalPlanningCalculator').then(mod => mod.GoalPlanningCalculator)),
+  'financial-health-score': dynamic(() => import('@/components/calculators/FinancialHealthCalculator').then(mod => mod.FinancialHealthCalculator)),
 };
 
 export default function EmbedCalculatorPage() {

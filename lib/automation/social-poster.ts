@@ -10,11 +10,9 @@
  * CURRENT: Generates posts, stores them for manual posting or RSS distribution
  */
 
-import { createClient } from '@supabase/supabase-js';
-import { env } from '@/lib/env';
 import { logger } from '@/lib/logger';
 
-const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
+// NOTE: Supabase client removed - not used in this file
 
 export interface SocialPostParams {
     articleId: string;

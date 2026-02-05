@@ -17,10 +17,8 @@ const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE
 export async function GET(request: NextRequest) {
     try {
         // Check admin authentication
-        const adminCheck = await requireAdmin(request);
-        if (adminCheck.error) {
-            return adminCheck.response;
-        }
+        // Check admin authentication
+        await requireAdmin();
 
         const searchParams = request.nextUrl.searchParams;
         const affiliateId = searchParams.get('affiliateId');

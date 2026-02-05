@@ -89,7 +89,7 @@ async function getLoanData(slug: string): Promise<LoanDetail | null> {
     name: product.name,
     provider: product.provider_name,
     loanType: features.type || 'Personal Loan',
-    rating: product.rating,
+    rating: product.rating.overall,
     interestRateMin: parseFloat(features.rate_min || '10.5'),
     interestRateMax: parseFloat(features.rate_max || '21.0'),
     maxLoanAmount: parseInt(features.max_amount || '4000000'),

@@ -76,7 +76,7 @@ export interface ActionDefinition {
 export interface ConfigField {
   key: string;
   label: string;
-  type: 'text' | 'number' | 'select' | 'multiselect' | 'boolean' | 'textarea' | 'json';
+  type: 'text' | 'number' | 'select' | 'multiselect' | 'boolean' | 'textarea' | 'json' | 'cron';
   required: boolean;
   default?: any;
   options?: { value: string; label: string }[];

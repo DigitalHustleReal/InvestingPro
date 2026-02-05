@@ -182,7 +182,7 @@ export default function ProductDetailPage() {
                                     </div>
                                     <div className="p-4 bg-slate-50 rounded-xl">
                                         <div className="text-sm text-slate-500 mb-1">Rating</div>
-                                        <div className="text-lg font-bold text-slate-900">{product.rating}/5</div>
+                                        <div className="text-lg font-bold text-slate-900">{product.rating.overall}/5</div>
                                     </div>
                                     {product.trust_score > 0 && (
                                         <div className="p-4 bg-slate-50 rounded-xl">

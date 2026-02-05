@@ -271,7 +271,7 @@ export default function PromptManager() {
                                             : 0}%
                                     </div>
                                 </div>
-                                {selectedPrompt.performance_score !== null && (
+                                {selectedPrompt.performance_score !== undefined && selectedPrompt.performance_score !== null && (
                                     <div>
                                         <div className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50">Performance Score</div>
                                         <div className="font-semibold">
@@ -279,7 +279,7 @@ export default function PromptManager() {
                                         </div>
                                     </div>
                                 )}
-                                {selectedPrompt.quality_score !== null && (
+                                {selectedPrompt.quality_score !== undefined && selectedPrompt.quality_score !== null && (
                                     <div>
                                         <div className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50">Quality Score</div>
                                         <div className="font-semibold">

@@ -44,7 +44,7 @@ import { getCorrelationId, getRequestId, getUserId } from './middleware/request-
 class Logger {
     private isDevelopment = process.env.NODE_ENV === 'development';
     private isProduction = process.env.NODE_ENV === 'production';
-    private isStaging = process.env.NODE_ENV === 'staging' || process.env.VERCEL_ENV === 'preview';
+    private isStaging = (process.env.NODE_ENV as string) === 'staging' || process.env.VERCEL_ENV === 'preview';
     private serviceName = process.env.SERVICE_NAME || 'investingpro-api';
     private logAggregationService = process.env.LOG_AGGREGATION_SERVICE; // 'datadog' | 'logrocket' | 'axiom' | 'better-stack'
 
@@ -184,7 +184,7 @@ class Logger {
         }
     }
 
-    private log(level: LogLevel, message: string, context?: Record<string, any>, error?: Error) {
+    public log(level: LogLevel, message: string, context?: Record<string, any>, error?: Error) {
         const entry = this.formatMessage(level, message, context, error);
 
         // In production, only log errors and warnings to console

@@ -197,6 +197,21 @@ export const api = {
                 
             return profile ? { ...user, ...profile } : user;
         },
+        updateMe: async (updates: any) => {
+            const supabase = getSupabaseClient();
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) throw new Error('Not authenticated');
+            
+            const { data, error } = await supabase
+                .from('users')
+                .update(updates)
+                .eq('id', user.id)
+                .select()
+                .single();
+            
+            if (error) throw error;
+            return data;
+        },
         signOut: async () => {
             const supabase = getSupabaseClient();
             return await supabase.auth.signOut();
@@ -862,6 +877,31 @@ The AI was unable to reach a provider, so we've generated this professional outl
                     updated_at: card.updated_at
                 }));
             },
+            getById: async (id: string) => {
+                const { data, error } = await supabase.from('credit_cards').select('*').eq('id', id).single();
+                if (error || !data) return null;
+                
+                const card = data;
+                return {
+                    id: card.id,
+                    slug: card.slug,
+                    name: card.name,
+                    category: 'credit_card',
+                    provider: card.bank,
+                    provider_name: card.bank,
+                    image_url: card.image_url,
+                    description: card.description || '',
+                    rating: Number(card.rating) || 4.5,
+                    applyLink: card.apply_link || card.source_url || '#',
+                    // Structured data 
+                    joiningFee: card.joining_fee,
+                    annualFee: card.annual_fee,
+                    rewardRate: card.rewards?.[0] || '1%',
+                    loungeAccess: card.lounge_access || 'Nil',
+                    type: card.type || 'rewards',
+                    features: card.pros || [],
+                };
+            },
             filter: async (filters: any) => { 
                 // Basic filtering support can be added here if needed
                 return []; 
@@ -900,6 +940,38 @@ The AI was unable to reach a provider, so we've generated this professional outl
                     ],
                     url: l.apply_link || '#'
                 }));
+            },
+            getById: async (id: string) => {
+                const { data, error } = await supabase.from('loans').select('*').eq('id', id).single();
+                if (error || !data) return null;
+                
+                const l = data;
+                return {
+                    id: l.id,
+                    slug: l.slug,
+                    name: l.name,
+                    category: 'loan',
+                    provider: l.bank_name,
+                    provider_name: l.bank_name,
+                    description: l.description || '',
+                    rating: 4.0,
+                    reviewsCount: 0,
+                    applyLink: l.apply_link || '#',
+
+                    // Structured data for scorers
+                    loanType: l.type,
+                    interestRateMin: l.interest_rate_min,
+                    interestRateMax: l.interest_rate_max,
+                    maxTenureMonths: l.max_tenure_months,
+                    maxAmount: l.max_amount,
+                    processingFee: l.processing_fee,
+                    
+                    features: [
+                        `Interest starts at ${l.interest_rate_min}%`,
+                        `Tenure up to ${l.max_tenure_months/12} years`,
+                        `Processing Fee: ${l.processing_fee}`
+                    ]
+                };
             }
         },
         FixedDeposit: {
@@ -975,6 +1047,25 @@ The AI was unable to reach a provider, so we've generated this professional outl
                     claim_ratio: i.claim_settlement_ratio,
                     features: i.features || {}
                 }));
+            },
+            getById: async (id: string) => {
+                const { data, error } = await supabase.from('insurance').select('*').eq('id', id).single();
+                if (error || !data) return null;
+                
+                const i = data;
+                return {
+                    id: i.id,
+                    slug: i.slug,
+                    name: i.name,
+                    provider: i.provider_name,
+                    provider_name: i.provider_name,
+                    type: i.type,
+                    cover: i.cover_amount,
+                    premium: i.min_premium,
+                    claim_ratio: i.claim_settlement_ratio,
+                    features: i.features || {},
+                    applyLink: i.apply_link || '#' 
+                };
             }
         },
         Glossary: {
@@ -1004,6 +1095,25 @@ The AI was unable to reach a provider, so we've generated this professional outl
                 
                 if (error) {
                     console.error("Error fetching reviews", error);
+                    return [];
+                }
+                return data || [];
+            },
+            filter: async (filters: any) => {
+                let query = supabase
+                    .from('reviews')
+                    .select('*, user:user_id(email)');
+                
+                Object.entries(filters).forEach(([key, value]) => {
+                    if (value !== undefined && value !== null) {
+                        query = query.eq(key, value);
+                    }
+                });
+                
+                const { data, error } = await query.order('created_at', { ascending: false });
+                
+                if (error) {
+                    console.error("Error filtering reviews", error);
                     return [];
                 }
                 return data || [];

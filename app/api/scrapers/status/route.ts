@@ -260,8 +260,7 @@ async function triggerScraperAsync(scraper: any, runId: string, supabase: any) {
 
       case 'trending-topics':
         const { GhostScraper } = await import('@/lib/scraper/ghost_scraper');
-        const ghostScraper = new GhostScraper();
-        const topics = await ghostScraper.scanTrendingTopics();
+        const topics = await GhostScraper.scanTrends();
         itemsScraped = topics.length;
         break;
 

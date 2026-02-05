@@ -31,12 +31,18 @@ function normalizeProduct(data: any): Product {
     return {
         ...data,
         category: data.category || 'credit_card',
-        rating: Number(data.rating) || 0,
+        rating: {
+            overall: Number(data.rating) || 0,
+            trust_score: Number(data.trust_score) || 0,
+        },
         features: data.features || {},
+        key_features: data.key_features || [],
         pros: data.pros || [],
         cons: data.cons || [],
         trust_score: data.trust_score || 0,
         is_active: data.is_active ?? true,
-        verification_status: data.verification_status || 'pending'
+        is_verified: data.verification_status === 'verified',
+        verification_status: data.verification_status || 'pending',
+        provider_name: data.provider_name || 'InvestingPro Partner'
     };
 }

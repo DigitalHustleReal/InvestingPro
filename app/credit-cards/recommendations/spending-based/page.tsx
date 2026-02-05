@@ -281,7 +281,7 @@ export default function SpendingBasedRecommendationsPage() {
                                                                     </span>
                                                                 </div>
                                                                 <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
-                                                                    {rec.card.provider}
+                                                                    {(rec.card as any).provider}
                                                                 </p>
                                                                 <div className="flex items-center gap-4 text-sm">
                                                                     <span className="text-slate-600 dark:text-slate-400">

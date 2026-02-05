@@ -16,7 +16,7 @@ const stateTransitionSchema = z.object({
   from: z.string(),
   to: z.string(),
   action: z.string(),
-  metadata: z.record(z.any()).optional()
+  metadata: z.record(z.string(), z.any()).optional()
 });
 
 export const POST = createAPIWrapper('/api/workflows/state/transition', {

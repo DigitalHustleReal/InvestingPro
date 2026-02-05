@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function CompareTray() {
-    const { selectedProducts, removeProduct, clearComparison } = useCompare();
+    const { selectedProducts, removeProduct, clearAll } = useCompare();
     
     // Don't render if no products selected
     // We use AnimatePresence in parent usually, or handled here via conditional rendering with exit animation
@@ -56,7 +56,7 @@ export function CompareTray() {
                                 variant="ghost" 
                                 size="sm" 
                                 className="text-slate-400 hover:text-white hover:bg-white/10 h-10 rounded-lg px-3"
-                                onClick={clearComparison}
+                                onClick={clearAll}
                             >
                                 <X className="w-4 h-4 mr-2" />
                                 Clear

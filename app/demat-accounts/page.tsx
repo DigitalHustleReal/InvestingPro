@@ -31,6 +31,8 @@ export default function DematAccountsPage() {
         queryFn: () => api.entities.Broker.list()
     });
 
+    const safeBrokers = Array.isArray(brokers) ? brokers : [];
+
     if (isLoading) {
         return (
             <div className="min-h-screen bg-slate-50 flex items-center justify-center">
@@ -109,7 +111,7 @@ export default function DematAccountsPage() {
                 </div>
 
                 <div className="space-y-8">
-                    {brokers.map((broker: any, index: number) => (
+                    {safeBrokers.map((broker: any, index: number) => (
                         <Card key={index} className={`rounded-[2.5rem] border-0 shadow-xl shadow-slate-200/50 overflow-hidden transition-all hover:-translate-y-1 hover:shadow-2xl ${broker.featured ? 'ring-2 ring-secondary-500' : ''}`}>
                             {broker.featured && (
                                 <div className="bg-gradient-to-r from-secondary-600 to-secondary-700 text-white text-center py-2 text-[10px] font-bold uppercase tracking-[0.3em] flex items-center justify-center gap-2">

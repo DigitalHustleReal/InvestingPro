@@ -23,19 +23,18 @@ export const GET = createAPIWrapper('/api/search', {
 
                 switch (type) {
                     case 'search':
-                        const searchResults = await searchService.search({
-                            q: searchQuery,
-                            type: 'all',
+                        const results = await searchService.search(searchQuery, {
                             category,
                             limit
                         });
-                        return NextResponse.json(searchResults);
+                        return NextResponse.json(results);
 
                     case 'related':
                         if (!articleId) {
                             return NextResponse.json({ error: 'articleId required' }, { status: 400 });
                         }
-                        const relatedResults = await searchService.getRelated(searchQuery || articleId, limit);
+                        // Use getRelatedArticles instead of getRelated
+                        const relatedResults = await searchService.getRelatedArticles(articleId, limit);
                         return NextResponse.json({ results: relatedResults });
 
                     case 'trending':
@@ -43,7 +42,8 @@ export const GET = createAPIWrapper('/api/search', {
                         return NextResponse.json({ results: trendingResults });
 
                     case 'suggestions':
-                        const suggestions = await searchService.getSuggestions(searchQuery, limit);
+                        // getSuggestions takes no arguments in the underlying service
+                        const suggestions = await searchService.getSuggestions();
                         return NextResponse.json({ suggestions });
 
                     default:

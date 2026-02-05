@@ -12,7 +12,7 @@ import { generateBreadcrumbs } from '@/lib/linking/breadcrumbs';
  * Automatically generates breadcrumbs from URL path
  * No manual configuration needed
  */
-export default function AutoBreadcrumbs() {
+export default function AutoBreadcrumbs({ className }: { className?: string }) {
     const pathname = usePathname();
     const breadcrumbs = generateBreadcrumbs(pathname || '/');
 
@@ -21,7 +21,7 @@ export default function AutoBreadcrumbs() {
     }
 
     return (
-        <nav aria-label="Breadcrumb" className="mb-6">
+        <nav aria-label="Breadcrumb" className={className}>
             <ol className="flex items-center gap-2 text-sm">
                 {breadcrumbs.map((crumb, index) => {
                     const isLast = index === breadcrumbs.length - 1;

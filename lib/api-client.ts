@@ -57,6 +57,18 @@ export const apiClient = {
             }
             return data || [];
         },
+        filter: async (filters: any) => {
+            let query = supabase.from('reviews').select('*, user:user_id(email)');
+            Object.entries(filters).forEach(([key, value]) => { 
+                if (value !== undefined && value !== null) query = query.eq(key, value);
+            });
+            const { data, error } = await query;
+            if (error) {
+                console.error("Error filtering reviews", error);
+                return [];
+            }
+            return data || [];
+        },
         create: async (review: {
             product_slug: string;
             product_type: string;
@@ -126,6 +138,64 @@ export const apiClient = {
                 const { data, error } = await supabase.from('brokers').select('*').eq('slug', slug).single();
                 if (error) throw error;
                 return data;
+            }
+        },
+
+        FixedDeposit: {
+             list: async () => {
+                // Return mock FD data until database is seeded
+                return [
+                    {
+                        bank: "HDFC Bank",
+                        type: "Bank",
+                        logo: "H",
+                        color: "from-blue-600 to-blue-700",
+                        rates: { "1 Year": 7.00, "2 Years": 7.10, "3 Years": 7.25, "5 Years": 7.40 },
+                        seniorCitizenBonus: 0.50,
+                        minDeposit: "₹5,000",
+                        featured: true
+                    },
+                    {
+                        bank: "SBI",
+                        type: "Bank",
+                        logo: "S",
+                        color: "from-primary-600 to-primary-700",
+                        rates: { "1 Year": 6.80, "2 Years": 7.00, "3 Years": 7.10, "5 Years": 7.50 },
+                        seniorCitizenBonus: 0.50,
+                        minDeposit: "₹1,000",
+                        featured: false
+                    },
+                    {
+                        bank: "ICICI Bank",
+                        type: "Bank",
+                        logo: "I",
+                        color: "from-orange-600 to-orange-700",
+                        rates: { "1 Year": 7.00, "2 Years": 7.10, "3 Years": 7.25, "5 Years": 7.50 },
+                        seniorCitizenBonus: 0.50,
+                        minDeposit: "₹10,000",
+                        featured: false
+                    },
+                    {
+                        bank: "Bajaj Finance",
+                        type: "NBFC",
+                        logo: "B",
+                        color: "from-accent-600 to-accent-700",
+                        rates: { "1 Year": 8.10, "2 Years": 8.25, "3 Years": 8.35, "5 Years": 8.50 },
+                        seniorCitizenBonus: 0.25,
+                        minDeposit: "₹15,000",
+                        featured: true
+                    },
+                    {
+                        bank: "Mahindra Finance",
+                        type: "NBFC",
+                        logo: "M",
+                        color: "from-danger-600 to-danger-700",
+                        rates: { "1 Year": 7.75, "2 Years": 8.00, "3 Years": 8.15, "5 Years": 8.30 },
+                        seniorCitizenBonus: 0.25,
+                        minDeposit: "₹10,000",
+                        featured: false
+                    }
+                ];
             }
         },
 
@@ -305,6 +375,27 @@ export const apiClient = {
             }
         },
 
+        Portfolio: {
+            list: async () => {
+                const { data, error } = await supabase.from('portfolio').select('*').order('created_at', { ascending: false });
+                if (error) {
+                    console.error('Error fetching portfolio:', error);
+                    return [];
+                }
+                return data || [];
+            },
+            create: async (holding: any) => {
+                const { data, error } = await supabase.from('portfolio').insert([holding]).select().single();
+                if (error) throw error;
+                return data;
+            },
+            delete: async (id: string) => {
+                const { error } = await supabase.from('portfolio').delete().eq('id', id);
+                if (error) throw error;
+                return true;
+            }
+        },
+
         MutualFund: {
              list: async (options: { 
                 page?: number; 
@@ -437,6 +528,19 @@ export const apiClient = {
                  }));
              }
         },
+        Glossary: {
+            list: async () => {
+                const { data } = await supabase.from('glossary_terms').select('*').order('term', { ascending: true });
+                return data || [];
+            },
+            search: async (term: string) => {
+                const { data } = await supabase.from('glossary_terms').select('*')
+                    .or(`term.ilike.%${term}%,definition.ilike.%${term}%`)
+                    .order('term', { ascending: true });
+                return data || [];
+            }
+        },
+
         AdPlacement: {
             list: async () => {
                 const { data, error } = await supabase

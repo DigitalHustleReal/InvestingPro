@@ -52,7 +52,7 @@ export default async function ProductReviewPage({ params }: { params: Promise<{ 
                              <div className="flex items-center gap-4">
                                  <div className="flex items-center gap-1 bg-amber-50 text-amber-700 px-3 py-1 rounded-full font-bold">
                                      <Star className="w-4 h-4 fill-current" />
-                                     {product.rating}/5
+                                     {product.rating.overall}/5
                                  </div>
                                  <Link href={product.affiliate_link || '#'}>
                                      <Button className="gap-2 bg-primary-600 hover:bg-primary-700">

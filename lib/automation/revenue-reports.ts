@@ -3,15 +3,31 @@
  * Generates daily/weekly/monthly revenue reports and sends alerts
  */
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { env } from '@/lib/env';
 import { getRevenueMetrics } from '@/lib/analytics/revenue-tracker';
 import { logger } from '@/lib/logger';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy-initialize clients
+let resendClient: Resend | null = null;
+let supabaseClient: SupabaseClient | null = null;
 
-const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
+function getResendClient(): Resend | null {
+    if (!process.env.RESEND_API_KEY) return null;
+    if (!resendClient) resendClient = new Resend(process.env.RESEND_API_KEY);
+    return resendClient;
+}
+
+function getSupabaseClient(): SupabaseClient {
+    if (!supabaseClient) {
+        if (!env.NEXT_PUBLIC_SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) {
+            throw new Error('Supabase environment variables not configured');
+        }
+        supabaseClient = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
+    }
+    return supabaseClient;
+}
 
 export interface RevenueReport {
     period: 'daily' | 'weekly' | 'monthly';
@@ -351,3 +367,4 @@ function getStartOfWeek(date: Date): Date {
     const diff = d.getDate() - day + (day === 0 ? -6 : 1); // Adjust when day is Sunday
     return new Date(d.setDate(diff));
 }
+

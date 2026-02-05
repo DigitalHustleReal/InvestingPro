@@ -84,14 +84,14 @@ export default function DataStudiesPage() {
 
   // Get unique categories
   const categories = useMemo(() => {
-    if (!studies) return [];
+    if (!studies || !Array.isArray(studies)) return [];
     const cats = [...new Set(studies.map(s => s.category))];
     return cats.sort();
   }, [studies]);
 
   // Filter studies
   const filteredStudies = useMemo(() => {
-    if (!studies) return [];
+    if (!studies || !Array.isArray(studies)) return [];
     return studies.filter(study => {
       const matchesSearch = searchTerm === '' || 
         study.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -113,7 +113,7 @@ export default function DataStudiesPage() {
     }, {} as Record<string, DataStudy[]>);
   }, [filteredStudies]);
 
-  const liveStudiesCount = studies?.filter(s => s.isLive).length || 0;
+  const liveStudiesCount = Array.isArray(studies) ? studies.filter(s => s.isLive).length : 0;
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
@@ -186,7 +186,7 @@ export default function DataStudiesPage() {
                 {CATEGORY_ICONS[cat]}
                 {CATEGORY_LABELS[cat] || cat}
                 <Badge variant="secondary" className="ml-1">
-                  {studies?.filter(s => s.category === cat).length || 0}
+                  {Array.isArray(studies) ? studies.filter(s => s.category === cat).length : 0}
                 </Badge>
               </Button>
             ))}

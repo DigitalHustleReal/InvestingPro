@@ -3,14 +3,24 @@
  * Automatically distributes new articles to social media and email
  */
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { env } from '@/lib/env';
 import { logger } from '@/lib/logger';
 import { postToSocialMedia } from './social-poster';
 import { sendNewArticleEmail } from './email-sender';
 import { sendMessagingNotification } from './messaging-notifier';
 
-const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
+let supabaseClient: SupabaseClient | null = null;
+
+function getSupabaseClient(): SupabaseClient {
+    if (!supabaseClient) {
+        if (!env.NEXT_PUBLIC_SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) {
+            throw new Error('Supabase environment variables not configured');
+        }
+        supabaseClient = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
+    }
+    return supabaseClient;
+}
 
 export interface ContentDistributionResult {
     articleId: string;
@@ -48,7 +58,7 @@ export interface ContentDistributionResult {
 export async function distributeContent(articleId: string): Promise<ContentDistributionResult> {
     try {
         // Get article details
-        const { data: article, error: articleError } = await supabase
+        const { data: article, error: articleError } = await getSupabaseClient()
             .from('articles')
             .select('id, title, slug, excerpt, category, published_date')
             .eq('id', articleId)
@@ -155,7 +165,7 @@ export async function distributeContent(articleId: string): Promise<ContentDistr
 
         // 4. Log distribution in database (optional - track distribution history)
         try {
-            await supabase
+            await getSupabaseClient()
                 .from('articles')
                 .update({
                     updated_at: new Date().toISOString()
@@ -235,7 +245,7 @@ export async function distributeNewArticles(): Promise<{
         const yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
 
-        const { data: newArticles, error } = await supabase
+        const { data: newArticles, error } = await getSupabaseClient()
             .from('articles')
             .select('id')
             .eq('status', 'published')

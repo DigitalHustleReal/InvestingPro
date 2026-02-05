@@ -271,7 +271,7 @@ export default function TweetableQuote({
                                         </>
                                     )}
                                 </Button>
-                                {navigator.share && (
+                                {typeof navigator !== 'undefined' && 'share' in navigator && (
                                     <Button
                                         size="sm"
                                         variant="outline"

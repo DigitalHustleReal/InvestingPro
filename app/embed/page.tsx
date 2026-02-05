@@ -124,7 +124,7 @@ export default function EmbedPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label>Theme</Label>
-                    <Select value={theme} onValueChange={(v) => setTheme(v as 'light' | 'dark')}>
+                    <Select value={theme} onValueChange={(v: string) => setTheme(v as 'light' | 'dark')}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>

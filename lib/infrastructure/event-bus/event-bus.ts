@@ -33,7 +33,8 @@ export enum SystemEvent {
   // Intelligence Events - Autonomous Decisions
   CONTENT_CREATION_TRIGGERED = 'intelligence.content.create',
   CONTENT_UPDATE_TRIGGERED = 'intelligence.content.update',
-  SCRAPE_SCHEDULED = 'intelligence.scrape.scheduled'
+  SCRAPE_SCHEDULED = 'intelligence.scrape.scheduled',
+  NOTIFICATION = 'system.notification'
 }
 
 export interface EventPayload {

@@ -678,43 +678,29 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                             <div className="flex gap-3 pt-4 border-t">
                                 <Button
                                     onClick={saveAndEdit}
-                                    disabled={step === 'publishing'}
+                                    disabled={false}
                                     variant="outline"
                                     className="flex-1"
                                 >
-                                    {step === 'publishing' ? (
-                                        <>
-                                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                            Saving...
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Save className="w-4 h-4 mr-2" />
-                                            Save & Edit in Editor
-                                        </>
-                                    )}
+                                    <>
+                                        <Save className="w-4 h-4 mr-2" />
+                                        Save & Edit in Editor
+                                    </>
                                 </Button>
                                 <Button
                                     onClick={publishDirectly}
-                                    disabled={step === 'publishing'}
+                                    disabled={false}
                                     className="flex-1 bg-wt-gold hover:bg-wt-gold-hover"
                                 >
-                                    {step === 'publishing' ? (
-                                        <>
-                                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                            Publishing...
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Send className="w-4 h-4 mr-2" />
-                                            Publish Directly
-                                        </>
-                                    )}
+                                    <>
+                                        <Send className="w-4 h-4 mr-2" />
+                                        Publish Directly
+                                    </>
                                 </Button>
                                 <Button
                                     onClick={reset}
                                     variant="ghost"
-                                    disabled={step === 'publishing'}
+                                    disabled={false}
                                 >
                                     <ArrowRight className="w-4 h-4 mr-2" />
                                     Generate Another

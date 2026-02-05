@@ -72,28 +72,7 @@ export default function ResponsiveSidebar({ children }: ResponsiveSidebarProps) 
     }, [isMobileMenuOpen]);
 
     // Close mobile menu on window resize (desktop)
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth >= 768) {
-                setIsMobileMenuOpen(false);
-            }
-        };
 
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    // Prevent body scroll when mobile menu is open
-    useEffect(() => {
-        if (isMobileMenuOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-        return () => {
-            document.body.style.overflow = '';
-        };
-    }, [isMobileMenuOpen]);
 
     return (
         <>
@@ -110,7 +89,7 @@ export default function ResponsiveSidebar({ children }: ResponsiveSidebarProps) 
             />
 
             {/* Inject mobile menu toggle into children via context or render prop */}
-            {React.cloneElement(children as React.ReactElement, {
+            {React.cloneElement(children as React.ReactElement<any>, {
                 mobileMenuOpen: isMobileMenuOpen,
                 onMobileMenuToggle: () => setIsMobileMenuOpen(!isMobileMenuOpen),
             })}

@@ -11,9 +11,22 @@ import { requireAdmin } from '@/lib/auth/admin-auth';
 export async function GET(request: NextRequest) {
     try {
         // Check admin authentication
-        const adminCheck = await requireAdmin(request);
-        if (adminCheck.error) {
-            return adminCheck.response;
+        try {
+            await requireAdmin();
+        } catch (authError: any) {
+            if (authError.message.includes('Unauthorized')) {
+                return NextResponse.json(
+                    { error: 'Unauthorized', message: 'Authentication required' },
+                    { status: 401 }
+                );
+            }
+            if (authError.message.includes('Forbidden')) {
+                return NextResponse.json(
+                    { error: 'Forbidden', message: 'Admin access required' },
+                    { status: 403 }
+                );
+            }
+            throw authError;
         }
 
         const searchParams = request.nextUrl.searchParams;

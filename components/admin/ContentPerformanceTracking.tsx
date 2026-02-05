@@ -14,7 +14,8 @@ import {
     FileText,
     ArrowUpRight,
     ArrowDownRight,
-    BarChart3
+    BarChart3,
+    Zap
 } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 

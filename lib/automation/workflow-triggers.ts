@@ -60,7 +60,7 @@ export interface TriggerDefinition {
 export interface ConfigField {
   key: string;
   label: string;
-  type: 'text' | 'number' | 'select' | 'multiselect' | 'boolean' | 'cron' | 'json';
+  type: 'text' | 'number' | 'select' | 'multiselect' | 'boolean' | 'cron' | 'json' | 'textarea';
   required: boolean;
   default?: any;
   options?: { value: string; label: string }[];

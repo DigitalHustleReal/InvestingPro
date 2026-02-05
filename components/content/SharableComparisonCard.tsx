@@ -178,7 +178,7 @@ export default function SharableComparisonCard({
                                     <Copy className="w-4 h-4 text-slate-400" />
                                 )}
                             </button>
-                            {navigator.share && (
+                            {typeof navigator !== 'undefined' && 'share' in navigator && (
                                 <button
                                     onClick={handleShare}
                                     className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-colors"

@@ -301,7 +301,7 @@ Include features, benefits, and value proposition`;
                             category,
                             targetKeywords: keywords.split(',').map(k => k.trim()).filter(Boolean),
                             targetAudience: 'general',
-                            contentLength: wordCount >= 2000 ? 'comprehensive' : wordCount >= 1500 ? 'detailed' : 'standard',
+                            contentLength: parseInt(wordCount) >= 2000 ? 'comprehensive' : parseInt(wordCount) >= 1500 ? 'detailed' : 'standard',
                             wordCount: parseInt(wordCount),
                             language,
                             tone,

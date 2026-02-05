@@ -36,7 +36,7 @@ export default function AdBanner({ position, pageName }: AdBannerProps) {
             const ads = await api.entities.AdPlacement.filter({
                 position: position,
                 status: 'active'
-            });
+            }) as unknown as Ad[];
 
             // Filter by page
             const relevantAds = ads.filter((ad: Ad) =>

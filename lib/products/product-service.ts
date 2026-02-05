@@ -2,7 +2,7 @@
 import { createClient } from '@/lib/supabase/client';
 import { logger } from '@/lib/logger';
 
-export type ProductCategory = 'credit_card' | 'broker' | 'loan' | 'mutual_fund' | 'insurance';
+export type ProductCategory = 'credit_card' | 'broker' | 'loan' | 'mutual_fund' | 'insurance' | 'demat_account' | 'fixed_deposit' | 'ppf' | 'nps' | 'ppf_nps' | 'stock';
 
 export type Product = {
     id: string;
@@ -10,16 +10,26 @@ export type Product = {
     name: string;
     category: ProductCategory;
     provider_name: string;
+    provider_slug: string; // Added for routing
+    meta_title?: string;
+    canonical_url?: string;
     description?: string;
     image_url?: string;
-    rating: number;
+    rating: {
+        overall: number;
+        trust_score: number;
+    };
     features: Record<string, any>;
+    key_features: any[];
     pros: string[];
     cons: string[];
     affiliate_link?: string;
     official_link?: string;
     is_active: boolean;
+    is_verified: boolean;
     trust_score: number;
+    meta_description?: string;
+    launch_date?: string;
     verification_status: 'pending' | 'verified' | 'discrepancy' | 'outdated';
     verification_notes?: string;
     created_at?: string;
@@ -83,6 +93,53 @@ export class ProductService {
         } catch (e: any) {
             logger.error('Unexpected error in getProducts', e);
             return [];
+        }
+    }
+
+    async getProductsPaginated(params: ProductListParams): Promise<ProductListResult> {
+        const { page = 1, limit = 10, category, search, includeInactive = false } = params;
+        const supabase = createClient();
+        
+        let query = supabase.from('products').select('*', { count: 'exact' });
+        
+        if (!includeInactive) {
+            query = query.eq('is_active', true);
+        }
+        
+        if (category) {
+            query = query.eq('category', category);
+        }
+
+        if (search) {
+            const term = search.toLowerCase();
+            query = query.or(`name.ilike.%${term}%,description.ilike.%${term}%,provider_name.ilike.%${term}%`);
+        }
+        
+        const from = (page - 1) * limit;
+        const to = from + limit - 1;
+        
+        query = query.order('rating', { ascending: false })
+                     .order('trust_score', { ascending: false, nullsFirst: false })
+                     .range(from, to);
+                     
+        try {
+            const { data, error, count } = await query;
+            if (error) {
+                logger.error('Failed to fetch paginated products', error, { query: params });
+                return { products: [], total: 0, page, limit, totalPages: 0 };
+            }
+            
+            const total = count || 0;
+            return {
+                products: (data || []).map((p: any) => this.normalizeProduct(p)),
+                total,
+                page,
+                limit,
+                totalPages: Math.ceil(total / limit)
+            };
+        } catch (e: any) {
+            logger.error('Unexpected error in getProductsPaginated', e);
+            return { products: [], total: 0, page, limit, totalPages: 0 };
         }
     }
 
@@ -196,18 +253,29 @@ export class ProductService {
         return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
     }
 
-    private normalizeProduct(data: any): Product {
+    public normalizeProduct(data: any): Product {
         if (!data) return data;
         return {
             ...data,
             category: data.category || 'credit_card',
-            rating: Number(data.rating) || 0,
+            rating: {
+                overall: Number(data.rating) || 0,
+                trust_score: Number(data.trust_score) || 0,
+            },
             features: data.features || {},
+            key_features: data.key_features || [],
             pros: data.pros || [],
             cons: data.cons || [],
             trust_score: data.trust_score || 0,
             is_active: data.is_active ?? true,
-            verification_status: data.verification_status || 'pending'
+            is_verified: data.verification_status === 'verified',
+            verification_status: data.verification_status || 'pending',
+            provider_name: data.provider_name || 'InvestingPro Partner',
+            provider_slug: data.provider_slug || this.generateSlug(data.provider_name || 'InvestingPro Partner'),
+            meta_title: data.meta_title,
+            canonical_url: data.canonical_url,
+            meta_description: data.meta_description || data.description?.substring(0, 160),
+            launch_date: data.launch_date || data.created_at
         };
     }
 }

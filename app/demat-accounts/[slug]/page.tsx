@@ -53,7 +53,7 @@ async function getDematAccountData(slug: string): Promise<DematAccountDetail | n
     name: product.name,
     provider: product.provider_name,
     image: product.image_url || undefined,
-    rating: product.rating,
+    rating: product.rating.overall,
     accountOpeningFee: parseInt(String(features.account_opening_fee || '0').replace(/[^0-9]/g, '')) || 0,
     annualMaintenanceFee: parseInt(String(features.amc || '0').replace(/[^0-9]/g, '')) || 0,
     equityDeliveryBrokerage: features.equity_delivery || 'Zero',

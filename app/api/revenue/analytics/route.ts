@@ -10,10 +10,8 @@ import { requireAdmin } from '@/lib/auth/admin-auth';
 export async function GET(request: NextRequest) {
     try {
         // Check admin authentication
-        const adminCheck = await requireAdmin(request);
-        if (adminCheck.error) {
-            return adminCheck.response;
-        }
+        // Check admin authentication
+        await requireAdmin();
 
         const searchParams = request.nextUrl.searchParams;
         const startDateParam = searchParams.get('startDate');

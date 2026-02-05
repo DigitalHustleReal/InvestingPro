@@ -17,7 +17,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { formatINR, formatPercentage } from "@/lib/utils/currency";
-import { Check, X, ArrowUpDown, Award, AlertCircle } from "lucide-react";
+import { Check, X, ArrowUpDown, Award, AlertCircle, Info } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
 export interface ComparisonTableColumn {
@@ -208,10 +208,11 @@ export function ComparisonTable({
                         {row.feature}
                       </span>
                       {row.tooltip && (
-                        <AlertCircle
-                          className="w-4 h-4 text-slate-400 dark:text-slate-500"
-                          title={row.tooltip}
-                        />
+                        <span title={row.tooltip}>
+                          <AlertCircle
+                            className="w-4 h-4 text-slate-400 dark:text-slate-500"
+                          />
+                        </span>
                       )}
                     </div>
                   </td>

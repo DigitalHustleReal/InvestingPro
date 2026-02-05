@@ -10,6 +10,7 @@ interface SEOHeadProps {
     url?: string;
     type?: string;
     structuredData?: any;
+    keywords?: string[];
 }
 
 export default function SEOHead({

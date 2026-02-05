@@ -55,7 +55,7 @@ async function getPPFNPSData(slug: string): Promise<PPFNPSDetail | null> {
     name: product.name,
     provider: product.provider_name,
     image: product.image_url || undefined,
-    rating: product.rating,
+    rating: product.rating.overall,
     schemeType: features.scheme_type || 'Government Scheme',
     interestRate: features.interest_rate || '7.1% p.a.',
     lockInPeriod: features.lock_in || '15 years',

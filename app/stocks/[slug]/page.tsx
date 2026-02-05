@@ -58,7 +58,7 @@ async function getStockData(slug: string): Promise<StockDetail | null> {
     symbol: features.symbol || product.name.split(' ')[0].toUpperCase(),
     sector: features.sector || 'Technology',
     image: product.image_url || undefined,
-    rating: product.rating,
+    rating: product.rating.overall,
     currentPrice: features.current_price || '₹1,500',
     change: features.change || '+25.50',
     changePercent: features.change_percent || '+1.72%',

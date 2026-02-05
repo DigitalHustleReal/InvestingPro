@@ -502,7 +502,7 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
             <DifferentiationCard 
                 score={scoreMutualFund({
                     id: fund.id,
-                    slug: params.slug,
+                    slug: slug,
                     name: fund.name,
                     category: 'mutual_fund',
                     provider: fund.amc,

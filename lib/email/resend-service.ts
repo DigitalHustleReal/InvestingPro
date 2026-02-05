@@ -12,7 +12,17 @@
 
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let resendClient: Resend | null = null;
+
+function getResendClient(): Resend | null {
+    if (!process.env.RESEND_API_KEY) {
+        return null;
+    }
+    if (!resendClient) {
+        resendClient = new Resend(process.env.RESEND_API_KEY);
+    }
+    return resendClient;
+}
 
 export interface SendEmailOptions {
   to: string | string[];
@@ -38,6 +48,10 @@ export async function sendEmail(options: SendEmailOptions) {
   }
 
   try {
+    const resend = getResendClient();
+    if (!resend) {
+      return { success: false, error: 'Resend client not initialized' };
+    }
     const { data, error } = await resend.emails.send({
       from: options.from || 'InvestingPro <noreply@investingpro.in>',
       to: options.to,

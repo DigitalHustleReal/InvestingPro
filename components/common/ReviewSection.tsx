@@ -43,15 +43,12 @@ export default function ReviewSection({ productId }: { productId: string }) {
 
     const { data: reviews = [], isLoading } = useQuery<Review[]>({
         queryKey: ['reviews', productId],
-        queryFn: () => api.entities.Review.filter({
-            product_id: productId,
-            status: 'approved'
-        }),
+        queryFn: () => api.entities.reviews.list(productId),
         initialData: []
     });
 
     const submitReviewMutation = useMutation({
-        mutationFn: (reviewPayload: any) => api.entities.Review.create(reviewPayload),
+        mutationFn: (reviewPayload: any) => api.entities.reviews.create(reviewPayload),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['reviews', productId] });
             setShowReviewForm(false);

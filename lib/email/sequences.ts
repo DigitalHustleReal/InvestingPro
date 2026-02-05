@@ -3,13 +3,30 @@
  * Automated email sequences for welcome, nurture, re-engagement
  */
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { env } from '@/lib/env';
 import { logger } from '@/lib/logger';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
+// Lazy-initialize clients
+let resendClient: Resend | null = null;
+let supabaseClient: SupabaseClient | null = null;
+
+function getResendClient(): Resend | null {
+    if (!process.env.RESEND_API_KEY) return null;
+    if (!resendClient) resendClient = new Resend(process.env.RESEND_API_KEY);
+    return resendClient;
+}
+
+function getSupabaseClient(): SupabaseClient {
+    if (!supabaseClient) {
+        if (!env.NEXT_PUBLIC_SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) {
+            throw new Error('Supabase environment variables not configured');
+        }
+        supabaseClient = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
+    }
+    return supabaseClient;
+}
 
 export interface EmailSequence {
     id: string;
@@ -74,7 +91,7 @@ export async function sendWelcomeSequence(email: string, subscriberId?: string):
             sendDate.setDate(sendDate.getDate() + emailData.delay);
 
             // Store in database for cron job to process
-            await supabase.from('email_sequences').insert({
+            await getSupabaseClient().from('email_sequences').insert({
                 subscriber_email: email,
                 subscriber_id: subscriberId,
                 sequence_type: 'welcome',
@@ -134,7 +151,7 @@ export async function sendNurtureSequence(email: string, interests?: string[]): 
             const sendDate = new Date();
             sendDate.setDate(sendDate.getDate() + emailData.delay);
 
-            await supabase.from('email_sequences').insert({
+            await getSupabaseClient().from('email_sequences').insert({
                 subscriber_email: email,
                 sequence_type: 'nurture',
                 email_id: emailData.id,
@@ -181,7 +198,7 @@ export async function sendReEngagementSequence(email: string): Promise<void> {
             const sendDate = new Date();
             sendDate.setDate(sendDate.getDate() + emailData.delay);
 
-            await supabase.from('email_sequences').insert({
+            await getSupabaseClient().from('email_sequences').insert({
                 subscriber_email: email,
                 sequence_type: 're-engagement',
                 email_id: emailData.id,
@@ -214,7 +231,7 @@ async function sendSequenceEmail(
             return;
         }
 
-        const result = await resend.emails.send({
+        const result = await getResendClient()!!.emails.send({
             from: process.env.RESEND_FROM_EMAIL || 'InvestingPro <onboarding@resend.dev>',
             to: email,
             subject: emailData.subject,
@@ -222,7 +239,7 @@ async function sendSequenceEmail(
         });
 
         // Track email sent
-        await supabase.from('email_sequences').insert({
+        await getSupabaseClient().from('email_sequences').insert({
             subscriber_email: email,
             subscriber_id: subscriberId,
             sequence_type: 'welcome',
@@ -382,3 +399,4 @@ function generateReEngagementEmail2(): string {
         <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://investingpro.in'}">Explore Now →</a>
     </body></html>`;
 }
+

@@ -139,7 +139,7 @@ function CreditCardCompareContent() {
                 <ComparisonOutcomeWidget products={selectedCards} />
 
                 {/* Comparison Table */}
-                <ComparisonTable products={selectedCards} onRemoveProduct={handleRemove} />
+                <ComparisonTable products={selectedCards as any} onRemove={handleRemove} />
 
                 {/* Help Section */}
                 <div className="mt-12 bg-primary/5 rounded-xl p-8 border border-primary/10">

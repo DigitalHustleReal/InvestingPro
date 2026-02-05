@@ -52,7 +52,7 @@ async function getFixedDepositData(slug: string): Promise<FixedDepositDetail | n
     name: product.name,
     provider: product.provider_name,
     image: product.image_url || undefined,
-    rating: product.rating,
+    rating: product.rating.overall,
     interestRate: features.interest_rate || '7.5% p.a.',
     seniorCitizenRate: features.senior_rate || '8.0% p.a.',
     minDeposit: features.min_deposit || '₹1,000',

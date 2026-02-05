@@ -21,17 +21,17 @@ import { normalizeArticleBody } from '@/lib/content/normalize';
 import ArticleRenderer from '@/components/articles/ArticleRenderer';
 
 interface Article {
-    id: string;
+    id?: string;
     title: string;
     slug: string;
-    excerpt: string;
-    content: string;
+    excerpt?: string;
+    content?: string;
     body_markdown?: string;
     body_html?: string;
-    author_name: string;
-    published_date: string;
-    read_time: number;
-    views: number;
+    author_name?: string;
+    published_date?: string;
+    read_time?: number;
+    views?: number;
     category: string;
     status: string;
     featured_image?: string;
@@ -118,12 +118,20 @@ export default function PreviewArticlePage() {
         contentPreview: article.content?.substring(0, 100),
     });
 
-    const structuredData = generateSchema(article);
+    const structuredData = generateSchema({
+        pageType: 'explainer',
+        title: article.title,
+        description: article.seo_description || article.excerpt,
+        url: generateCanonicalUrl(`/article/${article.slug}`),
+        author: article.author_name,
+        publishedDate: article.published_date,
+        category: article.category
+    });
     const canonicalUrl = generateCanonicalUrl(`/article/${article.slug}`);
     const breadcrumbSchema = generateBreadcrumbSchema([
-        { name: 'Home', url: '/' },
-        { name: article.category?.replace(/-/g, ' ') || 'Article', url: `/${article.category}` },
-        { name: article.title, url: `/article/${article.slug}` },
+        { label: 'Home', url: '/' },
+        { label: article.category?.replace(/-/g, ' ') || 'Article', url: `/${article.category}` },
+        { label: article.title, url: `/article/${article.slug}` },
     ]);
 
     return (
@@ -131,7 +139,7 @@ export default function PreviewArticlePage() {
             <SEOHead
                 title={article.seo_title || article.title}
                 description={article.seo_description || article.excerpt}
-                canonicalUrl={canonicalUrl}
+                url={canonicalUrl}
                 structuredData={[structuredData, breadcrumbSchema]}
             />
 

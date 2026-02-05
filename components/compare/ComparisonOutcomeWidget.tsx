@@ -14,7 +14,10 @@ export default function ComparisonOutcomeWidget({ products }: ComparisonOutcomeW
     const [p1, p2] = products;
 
     // Helper to extract numeric values safely
-    const getFee = (p: RichProduct) => typeof p.annualFee === 'number' ? p.annualFee : parseInt(String(p.annualFee).replace(/[^0-9]/g, '') || '0');
+    const getFee = (p: RichProduct) => {
+        const fee = p.specs?.annualFee ?? p.specs?.annual_fee ?? 0;
+        return typeof fee === 'number' ? fee : parseInt(String(fee).replace(/[^0-9]/g, '') || '0');
+    };
     // Reward Rate is often a string description "4%". We need a proxy or manual rating. 
     // Using 'rating' as proxy for "Quality" if reward rate parsing is hard.
     // Or check rewardRate string? 
@@ -80,7 +83,7 @@ export default function ComparisonOutcomeWidget({ products }: ComparisonOutcomeW
                        {/* Mock Attribute: Lounge */}
                        <li className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
                            <Plane className="w-4 h-4 text-blue-500" />
-                           {p1.loungeAccess || 'Lounge info'}
+                           {(p1 as any).loungeAccess || p1.specs?.lounge_access || 'Lounge info'}
                        </li>
                    </ul>
                 </div>
@@ -111,7 +114,7 @@ export default function ComparisonOutcomeWidget({ products }: ComparisonOutcomeW
                        )}
                        <li className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
                            <Plane className="w-4 h-4 text-blue-500" />
-                           {p2.loungeAccess || 'Lounge info'}
+                           {(p2 as any).loungeAccess || p2.specs?.lounge_access || 'Lounge info'}
                        </li>
                    </ul>
                 </div>

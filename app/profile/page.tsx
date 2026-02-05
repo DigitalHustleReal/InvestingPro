@@ -75,10 +75,10 @@ export default function ProfilePage() {
 
     const { data: userReviews = [] } = useQuery({
         queryKey: ['user-reviews', user?.email],
-        queryFn: () => api.entities.Review.filter({
-            created_by: user?.email
+        queryFn: () => api.entities.reviews.filter({
+            user_id: user?.id
         }),
-        enabled: !!user?.email
+        enabled: !!user?.id
     });
 
     if (!isLoaded) {
@@ -89,10 +89,10 @@ export default function ProfilePage() {
         );
     }
 
-    const publishedArticles = userArticles.filter(a => a.status === 'published');
-    const totalViews = userArticles.reduce((sum, a) => sum + (a.views || 0), 0);
-    const approvedReviews = userReviews.filter(r => r.status === 'approved');
-    const totalHelpful = userReviews.reduce((sum, r) => sum + (r.helpful_count || 0), 0);
+    const publishedArticles = userArticles.filter((a: any) => a.status === 'published');
+    const totalViews = userArticles.reduce((sum: number, a: any) => sum + (a.views || 0), 0);
+    const approvedReviews = userReviews.filter((r: any) => r.status === 'approved');
+    const totalHelpful = userReviews.reduce((sum: number, r: any) => sum + (r.helpful_count || 0), 0);
 
     const stats = [
         { label: 'Verified submissions', value: publishedArticles.length, icon: FileText, color: 'text-primary-500', bg: 'bg-primary-50' },

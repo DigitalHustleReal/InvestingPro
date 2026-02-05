@@ -6,13 +6,19 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-import { env } from '@/lib/env';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { logger } from '@/lib/logger';
 import { Resend } from 'resend';
 
-const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy-initialize Resend client
+let resendClient: Resend | null = null;
+function getResendClient(): Resend | null {
+    if (!process.env.RESEND_API_KEY) return null;
+    if (!resendClient) {
+        resendClient = new Resend(process.env.RESEND_API_KEY);
+    }
+    return resendClient;
+}
 
 // Verify cron secret
 function verifyCronSecret(request: NextRequest): boolean {
@@ -40,6 +46,7 @@ export async function GET(request: NextRequest) {
 
         // Get scheduled emails that are due
         const now = new Date().toISOString();
+        const supabase = getSupabaseAdmin();
         const { data: scheduledEmails, error } = await supabase
             .from('email_sequences')
             .select('*')
@@ -77,7 +84,7 @@ export async function GET(request: NextRequest) {
         for (const emailData of scheduledEmails) {
             try {
                 // Check if subscriber is still active
-                const { data: subscriber } = await supabase
+                const { data: subscriber } = await getSupabaseAdmin()
                     .from('newsletter_subscribers')
                     .select('status')
                     .eq('email', emailData.subscriber_email)
@@ -85,7 +92,7 @@ export async function GET(request: NextRequest) {
 
                 if (!subscriber || subscriber.status !== 'active') {
                     // Mark as skipped
-                    await supabase
+                    await getSupabaseAdmin()
                         .from('email_sequences')
                         .update({ status: 'skipped', skipped_reason: 'Subscriber inactive' })
                         .eq('id', emailData.id);
@@ -93,6 +100,8 @@ export async function GET(request: NextRequest) {
                 }
 
                 // Send email
+                const resend = getResendClient();
+                if (!resend) throw new Error('Resend not configured');
                 const result = await resend.emails.send({
                     from: process.env.RESEND_FROM_EMAIL || 'InvestingPro <onboarding@resend.dev>',
                     to: emailData.subscriber_email,
@@ -101,7 +110,7 @@ export async function GET(request: NextRequest) {
                 });
 
                 // Update status
-                await supabase
+                await getSupabaseAdmin()
                     .from('email_sequences')
                     .update({
                         status: 'sent',
@@ -122,7 +131,7 @@ export async function GET(request: NextRequest) {
                 errors.push(`${emailData.subscriber_email}: ${emailError.message}`);
 
                 // Update status
-                await supabase
+                await getSupabaseAdmin()
                     .from('email_sequences')
                     .update({
                         status: 'failed',

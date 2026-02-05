@@ -87,8 +87,12 @@ export default function WalletArchitectPage() {
                         title="Wallet Architect"
                         subtitle="Build Your Perfect Card Combo"
                         description="Don't just guess. Let our AI analyze your spending patterns to find the credit cards that give you maximum returns."
-                        variant="accent"
+                        variant="primary"
                         badge="New • AI Powered"
+                        primaryCta={{
+                            text: "Start Optimization",
+                            href: "#results-section"
+                        }}
                         stats={[
                             { label: "Optimization Logic", value: "Advanced" },
                             { label: "Cards Analyzed", value: "50+" },
@@ -116,32 +120,32 @@ export default function WalletArchitectPage() {
                                 label="Groceries & Supermarket" 
                                 icon={ShoppingCart}
                                 value={profile.groceries} 
-                                onChange={(v) => setProfile({...profile, groceries: v})} 
+                                onChange={(v: number) => setProfile({...profile, groceries: v})} 
                             />
                             <SpendInput 
                                 label="Dining & Food Delivery" 
                                 icon={Utensils}
                                 value={profile.dining} 
-                                onChange={(v) => setProfile({...profile, dining: v})} 
+                                onChange={(v: number) => setProfile({...profile, dining: v})} 
                             />
                             <SpendInput 
                                 label="Travel (Flights/Hotels)" 
                                 icon={Plane}
                                 value={profile.travel} 
-                                onChange={(v) => setProfile({...profile, travel: v})} 
+                                onChange={(v: number) => setProfile({...profile, travel: v})} 
                                 max={100000}
                             />
                             <SpendInput 
                                 label="Online Shopping" 
                                 icon={Globe}
                                 value={profile.online} 
-                                onChange={(v) => setProfile({...profile, online: v})} 
+                                onChange={(v: number) => setProfile({...profile, online: v})} 
                             />
                             <SpendInput 
                                 label="Fuel & Commute" 
                                 icon={Fuel}
                                 value={profile.fuel} 
-                                onChange={(v) => setProfile({...profile, fuel: v})} 
+                                onChange={(v: number) => setProfile({...profile, fuel: v})} 
                             />
 
                             <div className="pt-6 border-t border-slate-100 dark:border-slate-800">
@@ -232,7 +236,7 @@ function SpendInput({ label, value, onChange, icon: Icon, max = 50000 }: any) {
                 value={[value]} 
                 max={max} 
                 step={500} 
-                onValueChange={(v) => onChange(v[0])}
+                onValueChange={(v: number[]) => onChange(v[0])}
                 className="py-2"
             />
         </div>

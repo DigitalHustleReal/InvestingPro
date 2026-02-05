@@ -8,7 +8,15 @@ import { env } from '@/lib/env';
 import { logger } from '@/lib/logger';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy-initialize Resend client
+let resendClient: Resend | null = null;
+function getResendClient(): Resend | null {
+    if (!process.env.RESEND_API_KEY) return null;
+    if (!resendClient) {
+        resendClient = new Resend(process.env.RESEND_API_KEY);
+    }
+    return resendClient;
+}
 
 export interface NewArticleEmailParams {
     articleId: string;
@@ -80,6 +88,8 @@ export async function sendNewArticleEmail(params: NewArticleEmailParams): Promis
 
             for (const batchEmails of batches) {
                 try {
+                    const resend = getResendClient();
+                    if (!resend) throw new Error('Resend not configured');
                     const result = await resend.emails.send({
                         from: process.env.RESEND_FROM_EMAIL || 'InvestingPro <onboarding@resend.dev>',
                         to: batchEmails,

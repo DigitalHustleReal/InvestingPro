@@ -1,5 +1,5 @@
 
-export type ProductCategory = 'credit_card' | 'broker' | 'loan' | 'mutual_fund' | 'insurance';
+export type ProductCategory = 'credit_card' | 'broker' | 'loan' | 'mutual_fund' | 'insurance' | 'demat_account' | 'fixed_deposit' | 'ppf' | 'nps' | 'ppf_nps' | 'stock';
 
 export interface RichFeature {
     icon?: string;

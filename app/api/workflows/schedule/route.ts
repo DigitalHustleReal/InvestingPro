@@ -7,14 +7,14 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { workflowService } from '@/lib/workflows/workflow-service';
-import { workflowRegistry } from '@/lib/workflows/workflow-registry';
+import { getWorkflowDefinition } from '@/lib/workflows/workflow-registry';
 import { createAPIWrapper } from '@/lib/middleware/api-wrapper';
 import { withValidation } from '@/lib/middleware/validation';
 import { z } from 'zod';
 
 const scheduleSchema = z.object({
   workflowId: z.string(),
-  context: z.record(z.any()).optional(),
+  context: z.record(z.string(), z.any()).optional(),
   scheduleAt: z.string().datetime().optional(),
   scheduleIn: z.number().optional(), // milliseconds
   cron: z.string().optional(),

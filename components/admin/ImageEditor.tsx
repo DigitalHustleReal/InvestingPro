@@ -17,6 +17,8 @@ import {
 import { ZoomIn, ZoomOut, RotateCw, Download, X, Maximize2 } from 'lucide-react';
 import imageCompression from 'browser-image-compression';
 
+import { toast } from 'sonner';
+
 interface ImageEditorProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;

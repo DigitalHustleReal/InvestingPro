@@ -18,13 +18,12 @@ export const POST = createAPIWrapper('/api/newsletter', {
                 const sanitizedEmail = body.email ? sanitizeText(body.email) : body.email;
                 const sanitizedName = body.name ? sanitizeText(body.name) : body.name;
                 
-                const result = await newsletterService.subscribe(
-                    sanitizedEmail,
-                    body.source || 'website',
-                    sanitizedName,
-                    body.interests,
-                    body.frequency
-                );
+                const result = await newsletterService.subscribe({
+                    email: sanitizedEmail,
+                    name: sanitizedName,
+                    interests: body.interests,
+                    frequency: body.frequency
+                });
 
                 return NextResponse.json(result);
             } catch (error) {

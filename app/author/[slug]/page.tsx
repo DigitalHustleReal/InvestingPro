@@ -94,7 +94,7 @@ export default async function AuthorProfilePage({ params }: PageProps) {
                                 {/* Credentials */}
                                 {author.credentials && author.credentials.length > 0 && (
                                     <div className="flex flex-wrap gap-2 justify-center mb-4">
-                                        {author.credentials.map((cred, idx) => (
+                                        {author.credentials.map((cred: string, idx: number) => (
                                             <Badge
                                                 key={idx}
                                                 variant="secondary"
@@ -182,7 +182,7 @@ export default async function AuthorProfilePage({ params }: PageProps) {
                                 <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
                                     <p className="text-sm font-semibold text-slate-900 dark:text-white mb-3 uppercase tracking-wide">Areas of Expertise</p>
                                     <div className="flex flex-wrap gap-2">
-                                        {author.specialization.map((skill, i) => (
+                                        {author.specialization.map((skill: string, i: number) => (
                                             <span key={i} className="px-3 py-1 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 rounded-full text-sm font-medium border border-primary-100 dark:border-primary-800">
                                                 {skill}
                                             </span>

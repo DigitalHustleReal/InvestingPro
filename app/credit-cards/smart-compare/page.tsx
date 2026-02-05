@@ -27,14 +27,14 @@ import {
 } from '@/components/smart-comparison';
 
 // Mock data for demonstration - in production, fetch from API
-const mockCards: CreditCard[] = [
+const mockCards: any[] = [
   {
     id: '1',
     name: 'HDFC Regalia',
     slug: 'hdfc-regalia',
-    provider: 'HDFC Bank',
+
     type: 'travel',
-    annualFee: 2500,
+
     annual_fee: '₹2,500',
     features: ['Lounge Access', 'Travel Insurance', 'Airport Meet & Greet', 'Golf Privileges'],
     rating: 4.5,
@@ -53,9 +53,9 @@ const mockCards: CreditCard[] = [
     id: '2',
     name: 'HDFC Millennia',
     slug: 'hdfc-millennia',
-    provider: 'HDFC Bank',
+
     type: 'cashback',
-    annualFee: 0,
+
     annual_fee: 'Lifetime Free',
     features: ['5% Cashback on Amazon/Flipkart', 'EMI on Call', 'Fuel Surcharge Waiver'],
     rating: 4.3,
@@ -72,9 +72,9 @@ const mockCards: CreditCard[] = [
     id: '3',
     name: 'SBI SimplyCLICK',
     slug: 'sbi-simplyclick',
-    provider: 'SBI Card',
+
     type: 'shopping',
-    annualFee: 499,
+
     annual_fee: '₹499',
     features: ['10X Rewards on Amazon', 'No Fuel Surcharge', 'E-vouchers'],
     rating: 4.2,
@@ -91,9 +91,9 @@ const mockCards: CreditCard[] = [
     id: '4',
     name: 'ICICI Amazon Pay',
     slug: 'icici-amazon-pay',
-    provider: 'ICICI Bank',
+
     type: 'cashback',
-    annualFee: 0,
+
     annual_fee: 'Lifetime Free',
     features: ['5% Amazon Cashback', 'Prime Benefits', 'No Foreign Transaction Fee'],
     rating: 4.4,
@@ -110,9 +110,9 @@ const mockCards: CreditCard[] = [
     id: '5',
     name: 'Axis Ace',
     slug: 'axis-ace',
-    provider: 'Axis Bank',
+
     type: 'rewards',
-    annualFee: 499,
+
     annual_fee: '₹499 (Waivable)',
     features: ['5% Cashback on Bill Payments', 'Google Pay Integration', 'Movie Discounts'],
     rating: 4.1,
@@ -129,9 +129,9 @@ const mockCards: CreditCard[] = [
     id: '6',
     name: 'IndianOil Citi',
     slug: 'indianoil-citi',
-    provider: 'Citi Bank',
+
     type: 'fuel',
-    annualFee: 500,
+
     annual_fee: '₹500',
     features: ['Turbo Points on Fuel', 'Fuel Surcharge Waiver', 'Reward Redemption'],
     rating: 4.0,
@@ -191,8 +191,8 @@ const features = [
 
 export default function SmartComparePage() {
   const [activeTab, setActiveTab] = useState('break-even');
-  const [selectedCard, setSelectedCard] = useState<CreditCard>(mockCards[0]);
-  const [cards, setCards] = useState<CreditCard[]>(mockCards);
+  const [selectedCard, setSelectedCard] = useState<any>(mockCards[0]);
+  const [cards, setCards] = useState<any[]>(mockCards);
   const [isLoading, setIsLoading] = useState(false);
 
   // In production, fetch cards from API

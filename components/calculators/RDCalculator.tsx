@@ -189,7 +189,7 @@ export function RDCalculator() {
                                         <Pie data={chartData} cx="50%" cy="50%" innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value">
                                             {chartData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
                                         </Pie>
-                                        <Tooltip formatter={(value: number) => formatCurrency(value)} />
+                                        <Tooltip formatter={(value: any) => formatCurrency(value)} />
                                     </PieChart>
                                 </ResponsiveContainer>
                              </div>
@@ -233,7 +233,7 @@ export function RDCalculator() {
                                 <XAxis dataKey="year" tick={{fontSize: 12}} stroke="#94a3b8" />
                                 <YAxis tick={{fontSize: 12}} stroke="#94a3b8" tickFormatter={(value) => `₹${value/1000}k`} />
                                 <Tooltip
-                                    formatter={(value: number) => formatCurrency(value)}
+                                    formatter={(value: any) => formatCurrency(value)}
                                     contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))', borderRadius: '8px' }}
                                 />
                                 <Area type="monotone" dataKey="invested" stackId="1" stroke="#0088cc" fill="url(#colorInvested)" name="Total Invested" />

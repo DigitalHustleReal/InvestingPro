@@ -1,11 +1,17 @@
+// Sentry edge config - STUBBED for build
+// TODO: Re-enable Sentry by un-commenting the initialization below
+
+/*
 import * as Sentry from "@sentry/nextjs";
 
-Sentry.init({
-  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-  
-  // Adjust this value in production, or use tracesSampler for greater control
-  tracesSampleRate: 1.0,
+if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
+  Sentry.init({
+    dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+    tracesSampleRate: 1.0,
+    debug: false,
+  });
+}
+*/
 
-  // Setting this option to true will print useful information to the console while you're setting up Sentry.
-  debug: false,
-});
+// Empty export to satisfy module requirements
+export {};

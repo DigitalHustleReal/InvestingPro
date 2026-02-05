@@ -54,7 +54,7 @@ export default function EditorialDashboard() {
     const queryClient = useQueryClient();
 
     // Fetch pending drafts (AI-generated content awaiting review)
-    const { data: drafts = [], isLoading } = useQuery({
+    const { data: drafts = [], isLoading } = useQuery<DraftArticle[]>({
         queryKey: ['editorial-drafts'],
         queryFn: async () => {
             const articles = await api.entities.Article.filter({
@@ -209,7 +209,7 @@ export default function EditorialDashboard() {
         }
     };
 
-    const categories = useMemo(() => {
+    const categories = useMemo<string[]>(() => {
         const cats = new Set(drafts.map((d: DraftArticle) => d.category));
         return Array.from(cats).sort();
     }, [drafts]);

@@ -55,7 +55,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
         trust_score: product?.trust_score || 0,
         verification_status: product?.verification_status || 'pending',
         verification_notes: product?.verification_notes || '',
-        rating: product?.rating || 4.5,
+        rating: product?.rating?.overall || 4.5,
         affiliate_link: product?.affiliate_link || '',
         official_link: product?.official_link || '',
         pros: product?.pros || [''],
@@ -145,7 +145,11 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                 ...formData,
                 pros: formData.pros.filter(p => p.trim()),
                 cons: formData.cons.filter(c => c.trim()),
-                features: featuresObj
+                features: featuresObj,
+                rating: {
+                    overall: formData.rating,
+                    trust_score: formData.trust_score
+                }
             };
 
             let result: Product;
@@ -195,7 +199,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-wt-text mb-2">Category *</label>
-                                    <select value={formData.category} onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))} className="w-full h-10 px-3 border border-wt-border rounded-lg">
+                                    <select value={formData.category} onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value as any }))} className="w-full h-10 px-3 border border-wt-border rounded-lg">
                                         {CATEGORIES.map(cat => (
                                             <option key={cat.value} value={cat.value}>{cat.label}</option>
                                         ))}
@@ -247,7 +251,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                                     <div>
                                         <div className="flex justify-between mb-2">
                                             <label className="block text-sm font-medium text-wt-text">Pros</label>
-                                            <Button type="button" size="xs" variant="ghost" onClick={() => addListItem('pros')}><Plus className="w-3 h-3 mr-1"/> Add</Button>
+                                            <Button type="button" size="sm" variant="ghost" onClick={() => addListItem('pros')}><Plus className="w-3 h-3 mr-1"/> Add</Button>
                                         </div>
                                         <div className="space-y-2">
                                             {formData.pros.map((item, idx) => (
@@ -261,7 +265,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                                     <div>
                                         <div className="flex justify-between mb-2">
                                             <label className="block text-sm font-medium text-wt-text">Cons</label>
-                                            <Button type="button" size="xs" variant="ghost" onClick={() => addListItem('cons')}><Plus className="w-3 h-3 mr-1"/> Add</Button>
+                                            <Button type="button" size="sm" variant="ghost" onClick={() => addListItem('cons')}><Plus className="w-3 h-3 mr-1"/> Add</Button>
                                         </div>
                                         <div className="space-y-2">
                                             {formData.cons.map((item, idx) => (

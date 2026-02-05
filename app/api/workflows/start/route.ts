@@ -15,7 +15,7 @@ import { z } from 'zod';
 const startWorkflowSchema = z.object({
   workflowName: z.string().min(1),
   workflowVersion: z.string().optional(),
-  context: z.record(z.any()).optional()
+  context: z.record(z.string(), z.any()).optional()
 });
 
 export const POST = createAPIWrapper('/api/workflows/start', {

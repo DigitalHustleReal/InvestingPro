@@ -10,10 +10,10 @@
  */
 
 import React from 'react';
-import { Card, CardProps } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
-interface AdminCardProps extends Omit<CardProps, 'className'> {
+interface AdminCardProps extends Omit<React.ComponentProps<typeof Card>, 'className'> {
   /** Additional custom classes (merged with standard styling) */
   className?: string;
   /** Enable hover effect (border glow) */
