@@ -18,8 +18,14 @@ import { CREDIT_CARD_SEO_CONTENT } from '@/lib/content/seo-content';
 export const revalidate = 3600; // ISR: Revalidate every hour
 
 export default async function CreditCardsPage() {
-    // SSR Fetch
-    const assets = await getCreditCardsServer();
+    // SSR Fetch with Safety Fallback
+    let assets = [];
+    try {
+        assets = await getCreditCardsServer();
+    } catch (error) {
+        console.error("Failed to load credit cards:", error);
+        assets = [];
+    }
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
@@ -77,7 +83,7 @@ export default async function CreditCardsPage() {
                 <TopPicksRow />
 
                 {/* Interactive Client Section (Filters, List, Search) */}
-                <CreditCardsClient initialAssets={assets} />
+                <CreditCardsClient initialAssets={assets as any} />
              
             </div>
 

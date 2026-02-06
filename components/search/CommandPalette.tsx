@@ -72,8 +72,11 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
             if (e.key === 'Enter') {
                 e.preventDefault();
                 const item = items[selectedIndex];
-                if (item) {
+                if (item && selectedIndex !== -1) {
                     navigateToResult(item.url);
+                } else if (query) {
+                    // Fallback to full search page if no specific item selected
+                    navigateToResult(`/search?q=${encodeURIComponent(query)}`);
                 }
             }
         };

@@ -143,7 +143,7 @@ export default function MutualFundsPage() {
     };
 
     // Apply Advanced Filters
-    const filteredFunds = funds.filter(fund => {
+    const filteredFunds = (Array.isArray(funds) ? funds : []).filter(fund => {
         const matchesSearch = (fund.name || "").toLowerCase().includes(searchTerm.toLowerCase());
         
         // Category Filter
