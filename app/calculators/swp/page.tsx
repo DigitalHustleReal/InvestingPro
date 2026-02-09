@@ -277,7 +277,7 @@ export default function SWPCalculatorPage() {
                     {/* Taxation Section */}
                     <Card className="border border-slate-200 shadow-sm rounded-2xl bg-white">
                         <CardHeader>
-                            <CardTitle className="text-2xl font-bold text-slate-900">SWP Taxation Rules (FY 2024-25)</CardTitle>
+                            <CardTitle className="text-2xl font-bold text-slate-900">SWP Taxation Rules (FY 2025-26)</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="overflow-x-auto">

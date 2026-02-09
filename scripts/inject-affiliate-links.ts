@@ -47,80 +47,73 @@ async function injectLinks() {
         if (!content) continue;
 
         for (const partner of partners) {
-            // Simple keyword matching: Partner Name
-            // Avoid replacing already linked text like [HDFC](...)
-            // Regex lookbehind is tricky in JS, so we'll use a safer approach:
-            // Find "Partner Name" that is NOT followed by ] or ) inside a markdown link structure?
-            // Actually, simplest is to look for ` Partner Name ` (words)
-            
-            const keyword = partner.name;
-            const linkSlug = `${partner.slug}-auto-link-${article.id.substring(0, 8)}`;
-            
-            // Regex: \b(Keyword)\b(?![^\[]*\])(?![^\(]*\)) - rough attempt to avoid inside links
-            // Better: Simple replace first occurrence if not already linked.
-            
-            // Check if already contains the specific link
-            if (content.includes(`/api/out?link_id=`)) {
-                // If we want to be sophisticated, we check if THIS partner is linked.
-                // For MVP, if we find the text "HDFC Bank" and it's not part of a link...
-            }
+            // Match against Partner Name AND Keywords
+            const keywordsToMatch = [
+                partner.name,
+                ...(partner.keywords ? partner.keywords.split(',').map((k: string) => k.trim()) : [])
+            ].filter(k => k.length > 0);
 
-            const regex = new RegExp(`\\b${keyword}\\b`, 'i');
-            const match = content.match(regex);
+            for (const keyword of keywordsToMatch) {
+                const linkSlug = `${partner.slug}-auto-link-${article.id.substring(0, 8)}`;
+                
+                // Avoid matching keywords that are too short (risk of false positives)
+                if (keyword.length < 3) continue;
 
-            if (match) {
-                 // Check if it's already a markdown link
-                 const index = match.index!;
-                 const before = content.substring(Math.max(0, index - 2), index);
-                 const after = content.substring(index + keyword.length, index + keyword.length + 2);
-                 
-                 if (before.includes('[') || after.includes(']')) {
-                     // Likely already linked
-                     continue;
-                 }
+                const regex = new RegExp(`\\b${keyword}\\b`, 'i');
+                const match = content.match(regex);
 
-                 console.log(`   Found '${keyword}' in '${article.title}'`);
-
-                 // Create/Get Affiliate Link
-                 // Check if link exists
-                 const { data: existingLink } = await supabase
-                    .from('affiliate_links')
-                    .select('id')
-                    .eq('slug', linkSlug)
-                    .single();
-
-                 let linkId;
-                 if (existingLink) {
-                     linkId = existingLink.id;
-                 } else {
-                     // Create new link
-                     const { data: newLink, error } = await supabase
-                        .from('affiliate_links')
-                        .insert({
-                            partner_id: partner.id,
-                            name: `Auto-Link in: ${article.title}`,
-                            destination_url: `${partner.base_url}?${partner.tracking_param}=investingpro`,
-                            slug: linkSlug,
-                            placement: 'article_body',
-                            is_active: true
-                        })
-                        .select()
-                        .single();
+                if (match) {
+                     // Check if it's already a markdown link or part of one
+                     const index = match.index!;
+                     const contextBefore = content.substring(Math.max(0, index - 20), index);
+                     const contextAfter = content.substring(index + keyword.length, index + keyword.length + 20);
                      
-                     if (error) {
-                         console.error(`Failed to create link: ${error.message}`);
+                     if (contextBefore.includes('[') && contextAfter.includes('](')) {
+                         // Likely already linked in markdown
                          continue;
                      }
-                     linkId = newLink.id;
-                 }
 
-                 // Perform Replacement (First occurrence only to be safe)
-                 // Note: we use a direct string replacement for the first match found by regex
-                 // to ensure we target what we matched.
-                 
-                 const replacement = `[${keyword}](/api/out?link_id=${linkId})`;
-                 content = content.replace(regex, replacement);
-                 hasChanges = true;
+                     console.log(`   Found '${keyword}' for partner '${partner.name}' in '${article.title}'`);
+
+                     // Create/Get Affiliate Link
+                     const { data: existingLink } = await supabase
+                        .from('affiliate_links')
+                        .select('id')
+                        .eq('slug', linkSlug)
+                        .maybeSingle();
+
+                     let linkId;
+                     if (existingLink) {
+                         linkId = existingLink.id;
+                     } else {
+                         // Create new link
+                         const { data: newLink, error } = await supabase
+                            .from('affiliate_links')
+                            .insert({
+                                partner_id: partner.id,
+                                name: `Auto-Link in: ${article.title}`,
+                                destination_url: `${partner.base_url}?${partner.tracking_param}=investingpro`,
+                                slug: linkSlug,
+                                placement: 'article_body',
+                                is_active: true
+                            })
+                            .select()
+                            .single();
+                         
+                         if (error) {
+                             console.error(`Failed to create link: ${error.message}`);
+                             continue;
+                         }
+                         linkId = newLink.id;
+                     }
+
+                     const replacement = `[${keyword}](/api/out?link_id=${linkId})`;
+                     content = content.replace(regex, replacement);
+                     hasChanges = true;
+                     
+                     // Only one link per partner per article
+                     break; 
+                }
             }
         }
 

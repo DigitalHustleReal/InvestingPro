@@ -10,17 +10,17 @@
 *Critical blockers preventing a public launch.*
 
 ### A. Technical Fixes (P0)
-- [ ] **Fix Credit Cards Page (`/credit-cards`):** Resolve "System Interruption" / 500 error.
-- [ ] **Fix Mutual Funds Page (`/mutual-funds`):** Resolve generic error.
-- [ ] **Fix Loans Page (`/loans`):** Resolve "System Interruption".
-- [ ] **Fix Search:** Ensure queries (`?q=`) route correctly to results.
-- [ ] **Fix Comparison Routes:** `/compare/*` returning 404s.
+- [x] **Fix Credit Cards Page (`/credit-cards`):** Resolve "System Interruption" / 500 error.
+- [x] **Fix Mutual Funds Page (`/mutual-funds`):** Resolve generic error.
+- [x] **Fix Loans Page (`/loans`):** Resolve "System Interruption".
+- [x] **Fix Search:** Ensure queries (`?q=`) route correctly to results.
+- [x] **Fix Comparison Routes:** `/compare/*` returning 404s.
 
 ### B. Deployment Readiness (P0)
 - [ ] **Test Coverage:** Run `npm run test:coverage` (Target: >75%).
 - [ ] **Migration Rollback:** Create rollback scripts for recent migrations.
 - [ ] **Accessibility Audit:** Run Lighthouse Accessibility check (Target: 90+).
-- [ ] **Staging Env:** Setup Vercel Staging environment.
+- [x] **Staging Env:** Setup Vercel Staging environment.
 
 ### C. Launch Assets (P1)
 - [ ] **Analytics:** Verify Google Analytics 4 & Hotjar tracking.
@@ -33,13 +33,13 @@
 *Filling the empty shell with high-value content.*
 
 ### A. Content Seeds
-- [ ] **Mega-Guide 1:** "Credit Card Optimization 2026" (4000 words).
-- [ ] **Mega-Guide 2:** "Mutual Fund Selection Guide" (4000 words).
-- [ ] **Mega-Guide 3:** "Home Loan Complete Guide" (4000 words).
+- [x] **Mega-Guide 1:** "Credit Card Optimization 2026" (4000 words).
+- [x] **Mega-Guide 2:** "Mutual Fund Selection Guide" (4000 words).
+- [x] **Mega-Guide 3:** "Home Loan Complete Guide" (4000 words).
 
 ### B. Data Population
-- [ ] **Scrape Phase 2:** Implement weekly automated refresh for existing 100 products.
-- [ ] **Affiliate Links:** Tag "Apply Now" buttons with proper affiliate IDs (CIBIL, Banks).
+- [x] **Scrape Phase 2:** Implement weekly automated refresh for existing 100 products.
+- [x] **Affiliate Links:** Tag "Apply Now" buttons with proper affiliate IDs (CIBIL, Banks).
 
 ### C. CMS Usage
 - [ ] **Templates:** Create 5 standard templates in CMS (Review, Comparison, Guide).

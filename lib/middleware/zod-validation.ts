@@ -60,7 +60,7 @@ export async function validateBody<T>(
             const error = result.error;
             if (options.logErrors !== false) {
                 logger.warn('Request body validation failed', {
-                    errors: error.errors,
+                    errors: error.issues,
                     path: request.nextUrl?.pathname || 'unknown',
                 });
             }
@@ -70,8 +70,8 @@ export async function validateBody<T>(
                 : formatZodError(error);
             
             const validationError = new ValidationError(errorMessage, {
-                errors: options.includeDetails ? error.errors : undefined,
-                fieldCount: error.errors.length,
+                errors: options.includeDetails ? error.issues : undefined,
+                fieldCount: error.issues.length,
             });
             
             return {
@@ -107,7 +107,7 @@ export function validateQuery<T>(
         if (error instanceof ZodError) {
             if (options.logErrors !== false) {
                 logger.warn('Query parameter validation failed', {
-                    errors: error.errors,
+                    errors: error.issues,
                     path: request.nextUrl.pathname,
                 });
             }
@@ -117,8 +117,8 @@ export function validateQuery<T>(
                 : formatZodError(error);
             
             const validationError = new ValidationError(errorMessage, {
-                errors: options.includeDetails ? error.errors : undefined,
-                fieldCount: error.errors.length,
+                errors: options.includeDetails ? error.issues : undefined,
+                fieldCount: error.issues.length,
             });
             
             return {
@@ -153,7 +153,7 @@ export function validateParams<T>(
         if (error instanceof ZodError) {
             if (options.logErrors !== false) {
                 logger.warn('Route parameter validation failed', {
-                    errors: error.errors,
+                    errors: error.issues,
                 });
             }
             
@@ -162,8 +162,8 @@ export function validateParams<T>(
                 : formatZodError(error);
             
             const validationError = new ValidationError(errorMessage, {
-                errors: options.includeDetails ? error.errors : undefined,
-                fieldCount: error.errors.length,
+                errors: options.includeDetails ? error.issues : undefined,
+                fieldCount: error.issues.length,
             });
             
             return { success: false, error: validationError };
@@ -176,12 +176,13 @@ export function validateParams<T>(
  * Format Zod error into readable message
  */
 function formatZodError(error: ZodError): string {
-    const messages = error.errors.map(err => {
-        const path = err.path.join('.');
+    const issues = error.issues || [];
+    const messages = issues.map(err => {
+        const path = err.path ? err.path.join('.') : '';
         return path ? `${path}: ${err.message}` : err.message;
     });
     
-    return messages.join('; ');
+    return messages.length > 0 ? messages.join('; ') : error.message || 'Validation failed';
 }
 
 /**

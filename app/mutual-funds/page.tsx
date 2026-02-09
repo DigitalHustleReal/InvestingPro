@@ -95,46 +95,45 @@ export default function MutualFundsPage() {
     const loadFunds = async () => {
         setLoading(true);
         try {
-            const { data, count } = await api.entities.MutualFund.list({
+            const response = await api.entities.MutualFund.list({
                 page: currentPage,
-                limit: itemsPerPage,
+                limit: itemsPerPage, // Note: Pagination logic in API might need this
                 categoryType: selectedCategory,
                 sortBy: `${sortBy}:desc`,
                 searchTerm: searchTerm
             });
+            
+            const data = response?.data;
+            const count = response?.count;
 
-            if (data && data.length > 0) {
-                // Normalize Supabase Product to UI Fund structure
-                // Normalize Supabase Product to UI Fund structure
+            if (Array.isArray(data) && data.length > 0) {
+                // Normalize UI keys from API keys (Double-check property names match)
                 const normalizedFunds = data.map((p: any) => {
                     return {
-                        id: p.slug || p.id,
-                        name: p.name,
-                        // api.ts returns category: 'mutual_fund', type: p.category (e.g. 'Large Cap')
-                        // So p.type is the sub-category like 'Large Cap'
-                        category: p.type || 'Equity', 
-                        type: 'Equity', // Hardcoded or derived? UI uses this for badge. 
-                        
-                        aum: p.aum, 
-                        returns_1y: p.returns1Y,
-                        returns_3y: p.returns3Y,
-                        returns_5y: p.returns5Y,
-                        rating: p.rating,
-                        risk: p.riskLevel, 
-                        expense_ratio: p.expenseRatio,
-                        min_investment: p.minInvestment,
-                        fund_house: p.providerName
+                        id: p.id || p.slug,
+                        name: p.name || "Unknown Fund",
+                        category: p.category || 'Equity',
+                        type: p.type || 'Equity', 
+                        aum: p.aum || 'N/A',
+                        returns_1y: p.returns1Y ?? 0,
+                        returns_3y: p.returns3Y ?? 0,
+                        returns_5y: p.returns5Y ?? 0,
+                        rating: p.rating ?? 0,
+                        risk: p.riskLevel || "Moderate",
+                        expense_ratio: p.expenseRatio ?? 0,
+                        min_investment: p.minInvestment || "₹500",
+                        fund_house: p.providerName || "Unknown"
                     };
                 });
                 setFunds(normalizedFunds);
-                setTotalCount(count);
+                setTotalCount(count || 0);
             } else {
                 setFunds([]);
                 setTotalCount(0);
-                logger.warn('No mutual funds found in database');
+                logger.warn('[MutualFunds] No funds found or invalid data format');
             }
         } catch (error) {
-            logger.error('Error loading mutual funds', error as Error);
+            logger.error('[MutualFunds] Critical Error loading funds', error as Error);
             setFunds([]);
             setTotalCount(0);
         } finally {

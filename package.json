@@ -6,7 +6,7 @@
     "dev": "next dev",
     "dev:turbo": "next dev --turbo",
     "dev:watch": "next dev --watch",
-    "build": "next build --webpack",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",

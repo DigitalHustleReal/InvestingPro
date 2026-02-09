@@ -300,7 +300,7 @@ export default function TaxesPage() {
 
                         <div className="space-y-8">
                             {[
-                                { date: 'March 31', title: 'Investment Proof Submission', desc: 'Last day to complete your 80C investments for FY 2024-25.', color: 'bg-primary-500' },
+                                { date: 'March 31', title: 'Investment Proof Submission', desc: 'Last day to complete your 80C investments for FY 2025-26.', color: 'bg-primary-500' },
                                 { date: 'July 31', title: 'ITR Filing Deadline', desc: 'Standard deadline for individual tax payers and salaried employees.', color: 'bg-accent-500' },
                                 { date: 'Sept 30', title: 'Tax Audit Deadline', desc: 'Deadline for businesses and professionals requiring a tax audit.', color: 'bg-primary-500' },
                                 { date: 'Dec 31', title: 'Belated ITR Return', desc: 'Last chance to file your taxes with a penalty for late submission.', color: 'bg-danger-500' },

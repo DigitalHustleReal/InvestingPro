@@ -13,8 +13,9 @@ export default async function LoansPage() {
     let loans: any[] = [];
     try {
         loans = await getLoansServer();
+        console.log(`[LoansPage] Fetched ${loans?.length || 0} loans`);
     } catch (error) {
-        console.error("Failed to load loans:", error);
+        console.error("[LoansPage] CRITICAL: Failed to load loans:", error);
         loans = [];
     }
 

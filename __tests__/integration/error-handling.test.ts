@@ -53,25 +53,26 @@ describe('Error Handling Integration', () => {
   });
 
   describe('Error Handling', () => {
-    it('should handle ApiError correctly', () => {
+    it('should handle ApiError correctly', async () => {
       const error = new ValidationError('Test error');
       const response = handleError(error);
 
       expect(response.status).toBe(400);
-      expect(response.body).toHaveProperty('error');
-      expect(response.body).toHaveProperty('code');
+      const data = await response.json();
+      expect(data).toHaveProperty('error');
     });
 
-    it('should handle generic Error correctly', () => {
+    it('should handle generic Error correctly', async () => {
       const error = new Error('Generic error');
       const response = handleError(error);
 
       expect(response.status).toBe(500);
-      expect(response.body).toHaveProperty('error');
-      expect(response.body.code).toBe(ErrorCode.INTERNAL_ERROR);
+      const data = await response.json();
+      expect(data).toHaveProperty('error');
+      expect(data.error.code).toBe(ErrorCode.INTERNAL_ERROR);
     });
 
-    it('should include correlation ID in error response', () => {
+    it('should include correlation ID in error response', async () => {
       const error = new ApiError(
         ErrorCode.INTERNAL_ERROR,
         'Test error',
@@ -80,7 +81,9 @@ describe('Error Handling Integration', () => {
       );
       const response = handleError(error);
 
-      expect(response.body.correlationId).toBe('test-correlation-id');
+      const data = await response.json();
+      console.log('DEBUG_DATA:', JSON.stringify(data));
+      expect(data.error.correlationId).toBe('test-correlation-id');
     });
   });
 });

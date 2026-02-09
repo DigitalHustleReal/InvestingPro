@@ -16,7 +16,7 @@ export default function PPFCalculatorPage() {
         },
         {
             question: "What is the current PPF interest rate for 2026?",
-            answer: "The PPF interest rate for Q4 FY 2024-25 (Jan-Mar 2026) is 7.1% per annum, compounded annually. The government reviews and announces PPF rates quarterly. Historical rates have ranged from 7.1% to 8.7% over the past decade."
+            answer: "The PPF interest rate for Q4 FY 2025-26 (Jan-Mar 2026) is 7.1% per annum, compounded annually. The government reviews and announces PPF rates quarterly. Historical rates have ranged from 7.1% to 8.7% over the past decade."
         },
         {
             question: "What is the minimum and maximum PPF investment?",

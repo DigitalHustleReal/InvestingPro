@@ -60,22 +60,30 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                 onClose();
             }
 
-            const items = results.length > 0 ? results : trending;
+            // Fix: Only fallback to trending if query is empty. 
+            // If query exists but no results, we should NOT select trending items.
+            const items = (results.length > 0) ? results : (query.length === 0 ? trending : []);
+            
             if (e.key === 'ArrowDown') {
                 e.preventDefault();
-                setSelectedIndex(prev => Math.min(prev + 1, items.length - 1));
+                if (items.length > 0) {
+                    setSelectedIndex(prev => Math.min(prev + 1, items.length - 1));
+                }
             }
             if (e.key === 'ArrowUp') {
                 e.preventDefault();
-                setSelectedIndex(prev => Math.max(prev - 1, 0));
+                if (items.length > 0) {
+                    setSelectedIndex(prev => Math.max(prev - 1, 0));
+                }
             }
             if (e.key === 'Enter') {
                 e.preventDefault();
-                const item = items[selectedIndex];
-                if (item && selectedIndex !== -1) {
-                    navigateToResult(item.url);
+                
+                // If we have a valid selected item from the active list
+                if (items.length > 0 && selectedIndex >= 0 && selectedIndex < items.length) {
+                    navigateToResult(items[selectedIndex].url);
                 } else if (query) {
-                    // Fallback to full search page if no specific item selected
+                    // Fallback to full search page if no specific item selected (or no results found)
                     navigateToResult(`/search?q=${encodeURIComponent(query)}`);
                 }
             }

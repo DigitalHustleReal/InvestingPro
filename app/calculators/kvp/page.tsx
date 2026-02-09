@@ -16,7 +16,7 @@ export default function KVPCalculatorPage() {
         },
         {
             question: "What is the current KVP doubling period?",
-            answer: "As of Q4 FY 2024-25, the KVP interest rate is 7.5%, which means your money doubles in 115 months (9 years and 7 months)."
+            answer: "As of Q4 FY 2025-26, the KVP interest rate is 7.5%, which means your money doubles in 115 months (9 years and 7 months)."
         },
         {
             question: "Is KVP taxable?",

@@ -346,7 +346,7 @@ function TaxSEOContentSection() {
                         Income Tax Calculator India 2024-25 - Compare Old vs New Tax Regime
                     </h2>
                     <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-                        Use our free income tax calculator to compare Old vs New tax regime and calculate your tax liability for FY 2024-25. 
+                        Use our free income tax calculator to compare Old vs New tax regime and calculate your tax liability for FY 2025-26. 
                         Our tax calculator helps you determine which regime saves you more money based on your income, deductions, and age. 
                         Make an informed decision about which tax regime to choose for optimal tax savings.
                     </p>
@@ -354,7 +354,7 @@ function TaxSEOContentSection() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {[
                             "Compare Old vs New tax regime side-by-side",
-                            "Calculate tax liability with accurate tax slabs for FY 2024-25",
+                            "Calculate tax liability with accurate tax slabs for FY 2025-26",
                             "Understand tax savings by choosing the right regime",
                             "Free tax calculator with no registration required",
                             "Instant results showing tax payable and net income",
@@ -380,7 +380,7 @@ function TaxSEOContentSection() {
                             {
                                 step: "1",
                                 title: "Enter Annual Income",
-                                description: "Input your total annual income for FY 2024-25. This includes salary, business income, capital gains, and other sources."
+                                description: "Input your total annual income for FY 2025-26. This includes salary, business income, capital gains, and other sources."
                             },
                             {
                                 step: "2",
@@ -428,7 +428,7 @@ function TaxSEOContentSection() {
                                 a: "The better regime depends on your income level and deductions. Old regime is beneficial if you have substantial deductions (80C, HRA, 80D, etc.) exceeding ₹1.5-2 lakhs. New regime benefits those with minimal deductions and simpler tax situations. Use our calculator to compare both regimes based on your specific situation."
                             },
                             {
-                                q: "What are the tax slabs for FY 2024-25?",
+                                q: "What are the tax slabs for FY 2025-26?",
                                 a: "Old Regime: Up to ₹2.5L (0%), ₹2.5L-₹5L (5%), ₹5L-₹10L (20%), Above ₹10L (30%). New Regime: Up to ₹3L (0%), ₹3L-₹7L (5%), ₹7L-₹10L (10%), ₹10L-₹12L (15%), ₹12L-₹15L (20%), Above ₹15L (30%). Health & education cess of 4% is applicable on tax amount in both regimes."
                             },
                             {
@@ -440,8 +440,8 @@ function TaxSEOContentSection() {
                                 a: "Common deductions in Old regime include Section 80C (up to ₹1.5L - PPF, ELSS, life insurance, etc.), Section 80D (health insurance), HRA, Section 24 (home loan interest), Section 80G (donations), and others. New regime has minimal deductions, primarily standard deduction for salaried employees."
                             },
                             {
-                                q: "Is the tax calculator accurate for FY 2024-25?",
-                                a: "Yes, our tax calculator uses the latest tax slabs and rates for FY 2024-25 (Assessment Year 2025-26). It includes all tax brackets, cess calculations, and senior citizen benefits. However, this is for estimation purposes. Consult a CA for complex tax situations."
+                                q: "Is the tax calculator accurate for FY 2025-26?",
+                                a: "Yes, our tax calculator uses the latest tax slabs and rates for FY 2025-26 (Assessment Year 2026-27). It includes all tax brackets, cess calculations, and senior citizen benefits. However, this is for estimation purposes. Consult a CA for complex tax situations."
                             },
                             {
                                 q: "How much tax will I pay on ₹10 lakhs income?",

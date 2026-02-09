@@ -18,12 +18,14 @@ import { CREDIT_CARD_SEO_CONTENT } from '@/lib/content/seo-content';
 export const revalidate = 3600; // ISR: Revalidate every hour
 
 export default async function CreditCardsPage() {
-    // SSR Fetch with Safety Fallback
+    // SSR Fetch with Safety Fallback (Defensive Programming)
     let assets = [];
     try {
         assets = await getCreditCardsServer();
+        console.log(`[CreditCardsPage] Fetched ${assets?.length || 0} cards`);
     } catch (error) {
-        console.error("Failed to load credit cards:", error);
+        // FAIL OPEN strategy: Log error but render page with empty assets
+        console.error("[CreditCardsPage] CRITICAL: Failed to load credit cards:", error);
         assets = [];
     }
 

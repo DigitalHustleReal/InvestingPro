@@ -11,20 +11,20 @@ import { Info } from "lucide-react";
 export default function TaxCalculatorPage() {
     const faqs = [
         {
-            question: "How to calculate income tax for FY 2024-25?",
-            answer: "Use our tax calculator to calculate income tax for FY 2024-25 (AY 2025-26). Enter your income, deductions under Section 80C, 80D, and other sections. The calculator will show tax liability under both old and new tax regimes, helping you choose the better option."
+            question: "How to calculate income tax for FY 2025-26?",
+            answer: "Use our tax calculator to calculate income tax for FY 2025-26 (AY 2026-27). Enter your income, deductions under Section 80C, 80D, and other sections. The calculator will show tax liability under both old and new tax regimes, helping you choose the better option."
         },
         {
             question: "Which tax regime is better - old or new?",
             answer: "The better tax regime depends on your deductions. If you have significant deductions (80C, HRA, home loan interest), the old regime might be better. If you have minimal deductions, the new regime with lower tax rates could save more. Our calculator compares both regimes automatically."
         },
         {
-            question: "What is the new tax regime for FY 2024-25?",
-            answer: "The new tax regime for FY 2024-25 offers lower tax rates but doesn't allow most deductions and exemptions. Tax slabs: 0-3 lakhs (nil), 3-6 lakhs (5%), 6-9 lakhs (10%), 9-12 lakhs (15%), 12-15 lakhs (20%), above 15 lakhs (30%). Standard deduction of ₹50,000 is allowed."
+            question: "What is the new tax regime for FY 2025-26?",
+            answer: "The new tax regime for FY 2025-26 offers lower tax rates but doesn't allow most deductions and exemptions. Tax slabs: 0-3 lakhs (nil), 3-6 lakhs (5%), 6-9 lakhs (10%), 9-12 lakhs (15%), 12-15 lakhs (20%), above 15 lakhs (30%). Standard deduction of ₹50,000 is allowed."
         },
         {
             question: "Is this tax calculator accurate?",
-            answer: "Yes, our tax calculator uses official income tax slabs and rates as per the Income Tax Act for FY 2024-25. It calculates tax liability accurately for both old and new regimes. However, for complex cases with multiple income sources or special deductions, consult a tax professional."
+            answer: "Yes, our tax calculator uses official income tax slabs and rates as per the Income Tax Act for FY 2025-26. It calculates tax liability accurately for both old and new regimes. However, for complex cases with multiple income sources or special deductions, consult a tax professional."
         },
         {
             question: "Can I switch between old and new tax regime?",
@@ -35,14 +35,14 @@ export default function TaxCalculatorPage() {
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
             <SEOHead
-                title="Income Tax Calculator India 2026 - FY 2024-25 (AY 2025-26) | InvestingPro"
-                description="Free income tax calculator for FY 2024-25. Calculate tax under old vs new regime. Compare tax liability, get accurate results for salary, deductions, and exemptions."
+                title="Income Tax Calculator India 2026 - FY 2025-26 (AY 2026-27) | InvestingPro"
+                description="Free income tax calculator for FY 2025-26. Calculate tax under old vs new regime. Compare tax liability, get accurate results for salary, deductions, and exemptions."
             />
 
             {/* Schema Markup */}
             <CalculatorSchema
                 name="Income Tax Calculator"
-                description="Calculate income tax for FY 2024-25 under old and new tax regimes"
+                description="Calculate income tax for FY 2025-26 under old and new tax regimes"
                 url="/calculators/tax"
             />
             <FAQSchema faqs={faqs} />
@@ -60,10 +60,10 @@ export default function TaxCalculatorPage() {
 
                 <div className="text-center mb-8 mt-6">
                     <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-                        Income Tax Calculator FY 2024-25
+                        Income Tax Calculator FY 2025-26
                     </h1>
                     <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-                        Calculate your income tax liability for FY 2024-25 (AY 2025-26). Compare old vs new tax regime and choose the best option.
+                        Calculate your income tax liability for FY 2025-26 (AY 2026-27). Compare old vs new tax regime and choose the best option.
                     </p>
                 </div>
             </div>

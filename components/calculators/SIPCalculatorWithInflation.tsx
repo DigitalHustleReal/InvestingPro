@@ -11,6 +11,7 @@ import { IndianRupee, Calendar, Percent, TrendingDown, TrendingUp, Info, CheckCi
 import { Badge } from "@/components/ui/badge";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, PieChart, Pie, Cell } from 'recharts';
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 export function SIPCalculatorWithInflation() {
     const [monthlyInvestment, setMonthlyInvestment] = useState(5000);
@@ -22,6 +23,26 @@ export function SIPCalculatorWithInflation() {
     const [enableStepUp, setEnableStepUp] = useState(false);
     // Mobile UX: Collapsible inputs (UI/UX Phase 1 - Priority 2)
     const [inputsExpanded, setInputsExpanded] = useState(false);
+    const [showAllYears, setShowAllYears] = useState(false);
+
+    // Lead Capture State
+    const [email, setEmail] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const handleEmailSubmit = () => {
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            toast.error("Please enter a valid email address");
+            return;
+        }
+        
+        setIsSubmitting(true);
+        // Simulate API call
+        setTimeout(() => {
+            setIsSubmitting(false);
+            setEmail("");
+            toast.success("Report sent successfully! Check your inbox.");
+        }, 1500);
+    };
 
     const calculateSIP = () => {
         const monthlyRate = expectedReturn / 12 / 100;
@@ -119,7 +140,7 @@ export function SIPCalculatorWithInflation() {
         const data = [];
         const monthlyRate = expectedReturn / 12 / 100;
         
-        for (let year = 1; year <= Math.min(years, 15); year++) {
+        for (let year = 1; year <= years; year++) {
             const totalMonths = year * 12;
             let invested = 0;
             let futureValue = 0;
@@ -357,10 +378,10 @@ export function SIPCalculatorWithInflation() {
                         <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200">
                             <span className="text-xs font-semibold text-slate-600 mr-1">Quick Examples:</span>
                             {[
-                                { label: "₹10L Investment", monthlyInvestment: 1000000, years: 10, return: 12 },
-                                { label: "Short Term", monthlyInvestment: 500000, years: 5, return: 10 },
-                                { label: "Long Term", monthlyInvestment: 2000000, years: 15, return: 12 },
-                                { label: "High Return", monthlyInvestment: 1000000, years: 10, return: 15 },
+                                { label: "Starter", monthlyInvestment: 1000, years: 5, return: 12 },
+                                { label: "Standard", monthlyInvestment: 5000, years: 10, return: 12 },
+                                { label: "Long Term", monthlyInvestment: 15000, years: 20, return: 12 },
+                                { label: "High Growth", monthlyInvestment: 50000, years: 15, return: 15 },
                             ].map((preset, idx) => (
                                 <button
                                     key={idx}
@@ -644,7 +665,7 @@ export function SIPCalculatorWithInflation() {
                             <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
                                 <div className="min-w-full">
                                     <div className="overflow-hidden rounded-xl border border-slate-200">
-                                        <table className="w-full min-w-[500px]">
+                                        <table className="w-full min-w-full sm:min-w-[500px]">
                                             <thead className="bg-slate-50 border-b border-slate-200">
                                                 <tr>
                                                     <th className="px-3 py-2 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Year</th>
@@ -653,21 +674,28 @@ export function SIPCalculatorWithInflation() {
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-border">
-                                                {yearlyData.slice(0, 10).map((row, idx) => (
+                                                {(showAllYears ? yearlyData : yearlyData.slice(0, 10)).map((row, idx) => (
                                                     <tr key={idx} className="hover:bg-muted/50 transition-colors">
                                                         <td className="px-3 py-2.5 text-sm font-semibold text-foreground">Year {row.year}</td>
                                                         <td className="px-3 py-2.5 text-sm text-right font-semibold text-primary">{formatCurrency(row.returns)}</td>
                                                         <td className="px-3 py-2.5 text-sm text-right font-medium text-muted-foreground">{formatCurrency(row.total)}</td>
                                                     </tr>
                                                 ))}
-                                                {yearlyData.length > 10 && (
-                                                    <tr className="bg-muted/30">
-                                                        <td colSpan={3} className="px-3 py-2 text-xs text-center text-muted-foreground font-medium">
-                                                            ... and {yearlyData.length - 10} more years
+                                                {!showAllYears && yearlyData.length > 10 && (
+                                                    <tr className="bg-muted/30 cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => setShowAllYears(true)}>
+                                                        <td colSpan={3} className="px-3 py-3 text-xs text-center text-primary-600 font-bold">
+                                                            Show {yearlyData.length - 10} more years...
                                                         </td>
                                                     </tr>
                                                 )}
-                                                {yearlyData.length > 0 && (
+                                                {showAllYears && (
+                                                     <tr className="bg-muted/30 cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => setShowAllYears(false)}>
+                                                        <td colSpan={3} className="px-3 py-3 text-xs text-center text-primary-600 font-bold">
+                                                            Show Less
+                                                        </td>
+                                                    </tr>
+                                                )}
+                                                {!showAllYears && yearlyData.length > 0 && (
                                                     <tr className="bg-primary/10 border-t-2 border-primary/20">
                                                         <td className="px-3 py-3 text-sm font-bold text-foreground">Final</td>
                                                         <td className="px-3 py-3 text-sm text-right font-bold text-primary">{formatCurrency(adjustForInflation ? sipResult.realReturns : sipResult.returns)}</td>
@@ -739,9 +767,20 @@ export function SIPCalculatorWithInflation() {
                                     Receive a personalized investment plan with top fund recommendations for your goal of {formatCurrency(adjustForInflation ? sipResult.realValue : sipResult.futureValue)}.
                                 </p>
                                 <div className="flex gap-2">
-                                    <Input placeholder="Enter your email" className="h-9 text-sm" />
-                                    <Button size="sm" className="h-9 bg-primary-600 hover:bg-primary-700 text-white">
-                                        Send
+                                    <Input 
+                                        placeholder="Enter your email" 
+                                        className="h-9 text-sm" 
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        disabled={isSubmitting}
+                                    />
+                                    <Button 
+                                        size="sm" 
+                                        className="h-9 bg-primary-600 hover:bg-primary-700 text-white"
+                                        onClick={handleEmailSubmit}
+                                        disabled={isSubmitting}
+                                    >
+                                        {isSubmitting ? "Sending..." : "Send"}
                                     </Button>
                                 </div>
                                 <p className="text-[10px] text-slate-400 mt-2 text-center">

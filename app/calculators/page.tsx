@@ -54,6 +54,7 @@ import { SimpleInterestCalculator } from "@/components/calculators/SimpleInteres
 import { CompoundInterestCalculator } from "@/components/calculators/CompoundInterestCalculator";
 import ComplianceDisclaimer from "@/components/common/ComplianceDisclaimer";
 import { FinancialHealthCalculator } from "@/components/calculators/FinancialHealthCalculator";
+import { ErrorBoundary } from "@/components/common/ErrorBoundary";
 
 export default function CalculatorsPage() {
     return (
@@ -83,7 +84,7 @@ export default function CalculatorsPage() {
                         {/* Badge */}
                         <Badge className="mb-6 bg-primary/10 text-primary border-primary/20 px-4 py-2 uppercase tracking-widest text-xs font-bold inline-flex items-center gap-2">
                             <CalculatorIcon className="w-3 h-3" />
-                            12 Free Tools
+                            22 Free Tools
                         </Badge>
 
                         {/* Title */}
@@ -102,7 +103,7 @@ export default function CalculatorsPage() {
                         {/* Stats */}
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
                             {[
-                                { label: "Calculators", value: "13+", icon: <CalculatorIcon className="w-5 h-5" /> },
+                                { label: "Calculators", value: "22+", icon: <CalculatorIcon className="w-5 h-5" /> },
                                 { label: "Inflation Adjusted", value: "All", icon: <Percent className="w-5 h-5" /> },
                                 { label: "Free Forever", value: "100%", icon: <CheckCircle2 className="w-5 h-5" /> },
                                 { label: "Updated Daily", value: "24/7", icon: <Clock className="w-5 h-5" /> }
@@ -120,7 +121,8 @@ export default function CalculatorsPage() {
                 </div>
             </div>
 
-            {/* Calculators Guide Visual Placeholder */}
+            {/* Calculators Guide Visual Placeholder - HIDDEN UNTIL INFOGRAPHIC IS READY */}
+            {/* 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20 mb-12">
                 <div className="bg-slate-900 text-white p-8 rounded-[2.5rem] overflow-hidden relative min-h-[300px] flex flex-col md:flex-row items-center gap-12 shadow-2xl shadow-indigo-500/20">
                     <div className="flex-1 text-center md:text-left z-10">
@@ -136,7 +138,6 @@ export default function CalculatorsPage() {
                         </div>
                     </div>
                     
-                    {/* Placeholder Area */}
                     <div className="flex-1 w-full max-w-md">
                         <div className="aspect-video bg-white/5 rounded-2xl border border-dashed border-white/20 flex items-center justify-center relative overflow-hidden group">
                            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -147,10 +148,10 @@ export default function CalculatorsPage() {
                         </div>
                     </div>
 
-                    {/* Background Decor */}
                     <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none" />
                 </div>
             </div>
+            */}
 
             {/* Calculators */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -290,7 +291,9 @@ export default function CalculatorsPage() {
                                     View Full Page →
                                 </Link>
                             </div>
-                            <FinancialHealthCalculator />
+                            <ErrorBoundary>
+                                <FinancialHealthCalculator />
+                            </ErrorBoundary>
                         </div>
                     </TabsContent>
 
@@ -495,7 +498,7 @@ export default function CalculatorsPage() {
                                         "Lumpsum Calculator - Calculate one-time investment returns",
                                         "FD Calculator - Fixed deposit maturity calculator",
                                         "EMI Calculator - Loan EMI calculator for all loan types",
-                                        "Tax Calculator - Income tax calculator for FY 2024-25",
+                                        "Tax Calculator - Income tax calculator for FY 2025-26",
                                         "Retirement Calculator - Plan your retirement corpus",
                                         "Inflation Calculator - Calculate real returns after inflation",
                                         "PPF Calculator - Public Provident Fund calculator",
@@ -554,8 +557,8 @@ export default function CalculatorsPage() {
                                     answer: "Currently, calculations are performed in real-time and results are displayed instantly. We're working on adding save functionality for future updates. For now, you can bookmark the page or take screenshots of your results."
                                 },
                                 {
-                                    question: "Are the calculations updated for FY 2024-25?",
-                                    answer: "Yes, all our calculators are updated for the current financial year (FY 2024-25). Tax calculators include the latest tax slabs and rates. Interest rate calculators use current market rates. We regularly update our calculators to reflect the latest regulations and rates."
+                                    question: "Are the calculations updated for FY 2025-26?",
+                                    answer: "Yes, all our calculators are updated for the current financial year (FY 2025-26). Tax calculators include the latest tax slabs and rates. Interest rate calculators use current market rates. We regularly update our calculators to reflect the latest regulations and rates."
                                 }
                             ]}
                         />
@@ -597,8 +600,8 @@ export default function CalculatorsPage() {
                                         a: "Currently, calculations are performed in real-time and results are displayed instantly. We're working on adding save functionality for future updates. For now, you can bookmark the page or take screenshots of your results."
                                     },
                                     {
-                                        q: "Are the calculations updated for FY 2024-25?",
-                                        a: "Yes, all our calculators are updated for the current financial year (FY 2024-25). Tax calculators include the latest tax slabs and rates. Interest rate calculators use current market rates. We regularly update our calculators to reflect the latest regulations and rates."
+                                        q: "Are the calculations updated for FY 2025-26?",
+                                        a: "Yes, all our calculators are updated for the current financial year (FY 2025-26). Tax calculators include the latest tax slabs and rates. Interest rate calculators use current market rates. We regularly update our calculators to reflect the latest regulations and rates."
                                     }
                                 ].map((faq, idx) => (
                                     <div key={idx} className="border-b border-slate-200 dark:border-slate-800 pb-6 last:border-0">

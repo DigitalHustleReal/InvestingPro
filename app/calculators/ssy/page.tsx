@@ -12,7 +12,7 @@ export default function SSYCalculatorPage() {
     const faqs = [
         {
             question: "What is the SSY interest rate for 2026?",
-            answer: "The current interest rate for Sukanya Samriddhi Yojana (SSY) is 8.2% per annum (as of Q4 FY 2024-25). The government reviews this rate quarterly. It is historically one of the highest-paying small savings schemes."
+            answer: "The current interest rate for Sukanya Samriddhi Yojana (SSY) is 8.2% per annum (as of Q4 FY 2025-26). The government reviews this rate quarterly. It is historically one of the highest-paying small savings schemes."
         },
         {
             question: "What are the SSY maturity rules?",

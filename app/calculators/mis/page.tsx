@@ -16,7 +16,7 @@ export default function MISCalculatorPage() {
         },
         {
             question: "What is the current MIS interest rate?",
-            answer: "As of Q4 FY 2024-25, the interest rate for Post Office MIS is 7.4% per annum. The interest is calculated annually but paid monthly to the investor."
+            answer: "As of Q4 FY 2025-26, the interest rate for Post Office MIS is 7.4% per annum. The interest is calculated annually but paid monthly to the investor."
         },
         {
             question: "What is the maximum investment limit in MIS?",

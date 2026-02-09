@@ -16,7 +16,7 @@ export default function NSCCalculatorPage() {
         },
         {
             question: "What is the current NSC interest rate?",
-            answer: "As of Q4 FY 2024-25, the interest rate for NSC (VIII Issue) is 7.7% per annum. The interest is compounded annually but payable at maturity. The Government revises the interest rates every quarter."
+            answer: "As of Q4 FY 2025-26, the interest rate for NSC (VIII Issue) is 7.7% per annum. The interest is compounded annually but payable at maturity. The Government revises the interest rates every quarter."
         },
         {
             question: "Is NSC interest taxable?",

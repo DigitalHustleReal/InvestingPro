@@ -20,7 +20,7 @@ export default function SCSSCalculatorPage() {
         },
         {
             question: "What is the current SCSS interest rate?",
-            answer: "As of Q4 FY 2024-25, the interest rate for SCSS is 8.2% per annum. The interest is paid on a quarterly basis on the 1st working day of April, July, October, and January."
+            answer: "As of Q4 FY 2025-26, the interest rate for SCSS is 8.2% per annum. The interest is paid on a quarterly basis on the 1st working day of April, July, October, and January."
         },
         {
             question: "What is the investment limit for SCSS?",

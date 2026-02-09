@@ -19,6 +19,10 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import CategoryHero from '@/components/common/CategoryHero';
+import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
+import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
+import { CreditCard, Landmark, TrendingUp, ArrowRight, ArrowLeftRight } from 'lucide-react';
 
 import { getComparisonProducts } from '@/app/actions/get-comparison-data';
 import { toast } from 'sonner';
@@ -99,20 +103,95 @@ export default function ComparisonPage() {
     }
 
     if (products.length === 0) {
+        // Render Hub View (Rich Empty State)
+        const categories = [
+            {
+                title: "Credit Cards",
+                icon: CreditCard,
+                slug: "credit-cards",
+                desc: "Compare Rewards, Fees, and Lounge Access",
+                color: "text-primary-600",
+                bg: "bg-primary-50",
+                link: "/credit-cards#compare"
+            },
+            {
+                title: "Loans",
+                icon: Landmark,
+                slug: "loans",
+                desc: "Compare Interest Rates, Tenure, and EMI",
+                color: "text-secondary-600",
+                bg: "bg-secondary-50",
+                link: "/loans#compare"
+            },
+            {
+                title: "Mutual Funds",
+                icon: TrendingUp,
+                slug: "mutual-funds",
+                desc: "Compare Returns, Risk, and Expense Ratio",
+                color: "text-accent-600",
+                bg: "bg-accent-50",
+                link: "/mutual-funds#compare"
+            }
+        ];
+
+        const popularComparisons = [
+            { p1: "HDFC Regalia Gold", p2: "Axis Magnus", category: "credit-cards", slug: "hdfc-regalia-gold-vs-axis-magnus-credit-card" },
+            { p1: "SBI Octane", p2: "BPCL SBI Card", category: "credit-cards", slug: "sbi-bpcl-octane-vs-bpcl-sbi-card" },
+            { p1: "HDFC Home Loan", p2: "SBI Home Loan", category: "loans", slug: "hdfc-home-loan-vs-sbi-home-loan" },
+            { p1: "Parag Parikh Flexi Cap", p2: "Quant Active Fund", category: "mutual-funds", slug: "parag-parikh-flexi-cap-vs-quant-active-fund" }
+        ];
+
         return (
-            <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-32 pb-12 px-4 text-center">
-                 <div className="max-w-md mx-auto">
-                    <div className="w-20 h-20 bg-slate-100 dark:bg-slate-900 rounded-3xl flex items-center justify-center mx-auto mb-6">
-                        <Sparkles className="w-10 h-10 text-slate-300" />
-                    </div>
-                    <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">No Products Selected</h1>
-                    <p className="text-slate-500 mb-8">Select products from any category to start comparing them side-by-side.</p>
-                    <Link href="/credit-cards">
-                        <Button className="bg-primary-600 hover:bg-secondary-600 text-white rounded-xl">
-                            Browse Products
-                        </Button>
-                    </Link>
+            <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-24 pb-12 transition-colors duration-300">
+                 <div className="container mx-auto px-4">
+                      <AutoBreadcrumbs />
+                      <CategoryHero
+                          title="Compare & Decide"
+                          subtitle="Unbiased Side-by-Side Analysis"
+                          description="Don't rely on guesswork. Compare fees, features, and hidden charges of over 2000+ financial products to find the one that fits your wallet."
+                          variant="secondary"
+                          className="mb-16"
+                          primaryCta={{ text: "Start Comparing", href: "#categories" }}
+                      />
+
+                      <div id="categories" className="grid md:grid-cols-3 gap-8 mb-20 max-w-6xl mx-auto">
+                          {categories.map((cat, i) => (
+                              <Link key={i} href={cat.link} className="group bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 hover:shadow-xl transition-all hover:-translate-y-1">
+                                  <div className={`w-14 h-14 ${cat.bg} rounded-2xl flex items-center justify-center mb-6`}>
+                                      <cat.icon className={`w-7 h-7 ${cat.color}`} />
+                                  </div>
+                                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-primary-600 transition-colors">{cat.title}</h3>
+                                  <p className="text-slate-500 dark:text-slate-400 mb-6">{cat.desc}</p>
+                                  <div className="flex items-center text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                                      Compare Now <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                                  </div>
+                              </Link>
+                          ))}
+                      </div>
+
+                      <div className="max-w-4xl mx-auto mb-16">
+                          <h2 className="text-2xl font-bold text-center mb-10 flex items-center justify-center gap-3">
+                              <ArrowLeftRight className="w-6 h-6 text-slate-400" />
+                              Popular Battles
+                          </h2>
+                          <div className="grid md:grid-cols-2 gap-4">
+                              {popularComparisons.map((comp, i) => (
+                                  <Link key={i} href={`/compare/${comp.slug}`} className="flex items-center justify-between p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary-500 hover:shadow-md transition-all group">
+                                      <div className="flex items-center gap-3">
+                                          <span className="font-semibold text-slate-700 dark:text-slate-300">{comp.p1}</span>
+                                          <span className="text-slate-400 text-xs font-bold bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">VS</span>
+                                          <span className="font-semibold text-slate-700 dark:text-slate-300">{comp.p2}</span>
+                                      </div>
+                                      <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-primary-500 transition-colors" />
+                                  </Link>
+                              ))}
+                          </div>
+                      </div>
                  </div>
+
+                 <div className="container mx-auto px-4 pb-8">
+                    <ComplianceDisclaimer variant="compact" />
+                </div>
             </div>
         );
     }

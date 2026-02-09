@@ -549,6 +549,11 @@ export const apiClient = {
                     console.error('Error fetching glossary by category:', error);
                     return [];
                 }
+            },
+            getBySlug: async (slug: string) => {
+                const { data, error } = await supabase.from('glossary_terms').select('*').eq('slug', slug).single();
+                if (error) throw error;
+                return data;
             }
         },
 

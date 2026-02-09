@@ -291,7 +291,7 @@ export function Footer() {
                             <ul className="space-y-2">
                                 {footerLinks.company.map((link, i) => (
                                     <li key={i}>
-                                        <Link href={getHref(link.page)} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                    <Link href={link.href || getHref(link.page)} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>

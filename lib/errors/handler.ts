@@ -67,6 +67,8 @@ export function handleError(
         // Return formatted error response
         return NextResponse.json(
             {
+                code: error.code,
+                statusCode: error.statusCode,
                 error: {
                     code: error.code,
                     message: error.message,
@@ -121,6 +123,8 @@ export function handleError(
     
     return NextResponse.json(
         {
+            code: ErrorCode.INTERNAL_ERROR,
+            statusCode: 500,
             error: {
                 code: ErrorCode.INTERNAL_ERROR,
                 message: isDevelopment 

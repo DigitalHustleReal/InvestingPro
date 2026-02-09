@@ -129,6 +129,15 @@ function createMockClient() {
           return { data: { user }, error: null };
         },
       },
+      signInWithPassword: async ({ email }: { email: string; password: string }) => {
+        return { 
+          data: { 
+            user: { id: generateMockId(), email },
+            session: { access_token: 'mock-token' }
+          }, 
+          error: null 
+        };
+      },
     },
   } as unknown as SupabaseClient;
 }

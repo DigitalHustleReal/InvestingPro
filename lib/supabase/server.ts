@@ -2,11 +2,10 @@
  * SERVER-ONLY: This module uses next/headers which is server-only
  * Do not import in client components
  */
-import 'server-only';
-
+// import 'server-only';
 import { createServerClient as supabaseCreateServerClient, type CookieOptions } from '@supabase/ssr'
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
-import { cookies } from 'next/headers'
+// import { cookies } from 'next/headers'
 
 /**
  * Mock client for when Supabase is not configured or during specific build phases
@@ -39,14 +38,24 @@ export async function createClient() {
     // In Next.js 15, cookies() is async and throws if called outside of request context
     let cookieStore;
     try {
+        // Dynamic import to avoid crash in CLI/Non-Next environments
+        const { cookies } = await import('next/headers');
         cookieStore = await cookies();
     } catch (error) {
-        // Outside of request context (e.g., build time static generation)
+        // Outside of request context (e.g., build time static generation or CLI script)
         // Return a standard client that doesn't use cookies
         if (!supabaseUrl || !supabaseAnonKey) {
             return mockClient();
         }
+        // In build time, we want to return a client that doesn't crash but also doesn't try to use cookies
+        // Use mockClient() if we're strictly checking for build environment, or create a basic client
+        // For static generation involving data fetching, use basic client.
         return createSupabaseClient(supabaseUrl, supabaseAnonKey);
+    }
+    
+    // Safety check for cookieStore - if it's undefined (shouldn't happen due to try/catch but for type safety)
+    if (!cookieStore) {
+        return createSupabaseClient(supabaseUrl!, supabaseAnonKey!);
     }
 
     // If environment variables are missing, return a mock client
