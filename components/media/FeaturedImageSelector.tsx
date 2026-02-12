@@ -85,7 +85,7 @@ export function FeaturedImageSelector({
                 >
                     <div className="text-center">
                         <svg
-                            className="mx-auto h-12 w-12 text-slate-400"
+                            className="mx-auto h-12 w-12 text-slate-600"
                             stroke="currentColor"
                             fill="none"
                             viewBox="0 0 48 48"

@@ -61,7 +61,7 @@ export function DataTablePagination({
   return (
     <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-2">
       {/* Items info */}
-      <div className="text-sm text-slate-600 dark:text-slate-400">
+      <div className="text-sm text-slate-600 dark:text-slate-600">
         Showing <span className="font-semibold text-slate-900 dark:text-white">{startItem}</span> to{' '}
         <span className="font-semibold text-slate-900 dark:text-white">{endItem}</span> of{' '}
         <span className="font-semibold text-slate-900 dark:text-white">{totalCount}</span> results
@@ -82,7 +82,7 @@ export function DataTablePagination({
         {getPageNumbers().map((page, index) => {
           if (page === '...') {
             return (
-              <span key={`ellipsis-${index}`} className="px-2 text-slate-400">
+              <span key={`ellipsis-${index}`} className="px-2 text-slate-600">
                 ...
               </span>
             );

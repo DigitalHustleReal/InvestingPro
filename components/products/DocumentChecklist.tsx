@@ -41,7 +41,7 @@ export default function DocumentChecklist({ documents, productName, className }:
           <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />
           <h3 className="font-bold text-slate-900 dark:text-white">Required Documents</h3>
         </div>
-        <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
+        <span className="text-sm font-semibold text-slate-600 dark:text-slate-600">
           {checkedDocs.size}/{documents.length} ready
         </span>
       </div>
@@ -79,7 +79,7 @@ export default function DocumentChecklist({ documents, productName, className }:
                 <p className={cn(
                   "font-semibold text-sm",
                   checkedDocs.has(doc.id) 
-                    ? "text-slate-500 dark:text-slate-400 line-through" 
+                    ? "text-slate-500 dark:text-slate-600 line-through" 
                     : "text-slate-900 dark:text-white"
                 )}>
                   {doc.name}
@@ -90,7 +90,7 @@ export default function DocumentChecklist({ documents, productName, className }:
                   </span>
                 )}
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400">
+              <p className="text-xs text-slate-600 dark:text-slate-600">
                 {doc.description}
               </p>
             </div>
@@ -112,7 +112,7 @@ export default function DocumentChecklist({ documents, productName, className }:
       </Button>
 
       {/* Helper Text */}
-      <p className="text-xs text-slate-500 dark:text-slate-400 mt-4 text-center">
+      <p className="text-xs text-slate-500 dark:text-slate-600 mt-4 text-center">
         Keep these documents ready before applying for {productName}
       </p>
     </div>

@@ -185,7 +185,7 @@ export function InflationAdjustedCalculator() {
             {/* Bottom Row: Nominal vs Real Value Chart */}
             <Card className="border-border shadow-sm rounded-xl">
                 <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Nominal vs Real Value</CardTitle>
+                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-600 dark:text-slate-500">Nominal vs Real Value</CardTitle>
                 </CardHeader>
                     <CardContent>
                         <div className="h-80">

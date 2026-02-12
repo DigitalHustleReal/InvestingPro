@@ -25,7 +25,7 @@ export default function WatchlistSparklines() {
                 <CardTitle className="text-lg text-slate-900 dark:text-white flex items-center gap-2">
                     <Eye className="w-4 h-4 text-primary-500" /> My Watchlist
                 </CardTitle>
-                <button className="text-slate-400 hover:text-primary-500">
+                <button className="text-slate-600 hover:text-primary-500">
                     <MoreHorizontal className="w-5 h-5" />
                 </button>
             </CardHeader>

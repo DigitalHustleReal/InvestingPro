@@ -36,7 +36,7 @@ export default function PointsWidget({ points = 0, level = 'Beginner' }: PointsW
                                 <Star className="w-4 h-4 text-accent-500 fill-accent-500" />
                                 <span className="text-sm font-semibold uppercase tracking-st">{level} Status</span>
                             </div>
-                            <span className="text-xs font-bold text-slate-400">{pointsToNext} XP to Next Tier</span>
+                            <span className="text-xs font-bold text-slate-600">{pointsToNext} XP to Next Tier</span>
                         </div>
                         <Progress value={progress} className="h-3 rounded-full bg-white/10" />
                     </div>

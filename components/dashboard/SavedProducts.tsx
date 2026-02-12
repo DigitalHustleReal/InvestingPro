@@ -25,11 +25,11 @@ export default function SavedProducts() {
     return (
       <Card className="border-2 border-dashed border-slate-200 dark:border-slate-800 bg-transparent">
         <CardContent className="p-12 text-center">
-          <div className="mx-auto w-16 h-16 bg-slate-100 dark:bg-slate-900 rounded-full flex items-center justify-center text-slate-400 mb-4">
+          <div className="mx-auto w-16 h-16 bg-slate-100 dark:bg-slate-900 rounded-full flex items-center justify-center text-slate-600 mb-4">
             <Bookmark size={32} />
           </div>
           <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">No saved products yet</h3>
-          <p className="text-slate-500 dark:text-slate-400 mb-6 max-w-sm mx-auto">
+          <p className="text-slate-500 dark:text-slate-600 mb-6 max-w-sm mx-auto">
             Pin the credit cards or loans you're interested in to compare them here later.
           </p>
           <div className="flex justify-center gap-3">
@@ -73,7 +73,7 @@ export default function SavedProducts() {
                     <h4 className="font-bold text-slate-900 dark:text-white truncate text-sm">
                       {product.name}
                     </h4>
-                    <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">
+                    <p className="text-[10px] text-slate-500 dark:text-slate-600 font-medium uppercase tracking-wider">
                       {product.provider}
                     </p>
                   </div>

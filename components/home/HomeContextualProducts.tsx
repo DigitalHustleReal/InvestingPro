@@ -21,7 +21,7 @@ export default function HomeContextualProducts({ selectedCategory }: HomeContext
                         <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                             Explore Financial Products
                         </h2>
-                        <p className="text-xl text-slate-600 dark:text-slate-400">
+                        <p className="text-xl text-slate-600 dark:text-slate-600">
                             Compare top picks side-by-side across all categories
                         </p>
                     </div>
@@ -38,7 +38,7 @@ export default function HomeContextualProducts({ selectedCategory }: HomeContext
                                             <TrendingUp className="w-5 h-5 text-primary-600" />
                                             <h3 className="text-lg font-bold text-slate-900 dark:text-white">{category.name}</h3>
                                         </div>
-                                        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">{category.description}</p>
+                                        <p className="text-sm text-slate-600 dark:text-slate-600 mb-4">{category.description}</p>
                                         <div className="space-y-2 mb-4">
                                             {topCollections.map((collection) => (
                                                 <Link
@@ -104,8 +104,8 @@ export default function HomeContextualProducts({ selectedCategory }: HomeContext
                                 >
                                     <div className="h-full p-6 bg-slate-50 dark:bg-slate-800 hover:bg-primary-50 dark:hover:bg-primary-900/20 border-2 border-slate-200 dark:border-slate-800 hover:border-primary-500 rounded-xl transition-all duration-200 group-hover:shadow-lg">
                                         <div className="flex items-center justify-between mb-2">
-                                            <TrendingUp className="w-5 h-5 text-slate-400 group-hover:text-primary-600 transition-colors" />
-                                            <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-primary-600 group-hover:translate-x-1 transition-all" />
+                                            <TrendingUp className="w-5 h-5 text-slate-600 group-hover:text-primary-600 transition-colors" />
+                                            <ArrowRight className="w-4 h-4 text-slate-600 group-hover:text-primary-600 group-hover:translate-x-1 transition-all" />
                                         </div>
                                         <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors leading-tight">
                                             {collection.name.toUpperCase()}

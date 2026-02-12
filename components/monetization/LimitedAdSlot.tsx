@@ -155,7 +155,7 @@ export default function LimitedAdSlot({
             </div>
 
             {/* Clear "Ad" label */}
-            <div className="text-[10px] uppercase font-bold tracking-widest text-slate-400 px-3 pt-2">
+            <div className="text-[10px] uppercase font-bold tracking-widest text-slate-600 px-3 pt-2">
                 Advertisement
             </div>
 

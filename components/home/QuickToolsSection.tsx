@@ -108,7 +108,7 @@ function HeroSIPCalculator() {
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger>
-                                    <HelpCircle className="w-4 h-4 text-slate-400 hover:text-slate-600 transition-colors" />
+                                    <HelpCircle className="w-4 h-4 text-slate-600 hover:text-slate-600 transition-colors" />
                                 </TooltipTrigger>
                                 <TooltipContent className="bg-slate-800 border-slate-700 text-slate-200">
                                     <p className="w-48 text-xs font-medium">SIP (Systematic Investment Plan) lets you invest small amounts regularly in mutual funds.</p>
@@ -117,7 +117,7 @@ function HeroSIPCalculator() {
                         </TooltipProvider>
                     </div>
                     <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover/sip:text-emerald-600 dark:group-hover/sip:text-emerald-400 transition-colors">SIP Calculator</h3>
-                    <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">See how small investments grow huge.</p>
+                    <p className="text-slate-500 dark:text-slate-600 text-sm font-medium">See how small investments grow huge.</p>
                 </div>
                 <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover/sip:scale-110 transition-transform">
                     <TrendingUp className="w-6 h-6 text-white" />
@@ -157,19 +157,19 @@ function HeroSIPCalculator() {
                 <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 mt-auto">
                     <div className="flex flex-col md:flex-row items-center gap-6">
                         <div className="flex-1 text-center md:text-left">
-                            <div className="text-xs text-slate-500 dark:text-slate-400 mb-1 font-bold uppercase tracking-wider">Projected Value ({years}y)</div>
+                            <div className="text-xs text-slate-500 dark:text-slate-600 mb-1 font-bold uppercase tracking-wider">Projected Value ({years}y)</div>
                             <div className="text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
                                 <AnimatedNumber value={result.total} format={(n) => `₹${(n/100000).toFixed(2)} Lakh`} />
                             </div>
                             <div className="mt-4 space-y-2">
                                 <div className="flex items-center gap-2 text-xs font-bold">
                                     <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                                    <span className="text-slate-600 dark:text-slate-400">Wealth Gain:</span>
+                                    <span className="text-slate-600 dark:text-slate-600">Wealth Gain:</span>
                                     <span className="text-emerald-600 dark:text-emerald-400">₹{(result.gains/100000).toFixed(1)}L</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-xs font-bold">
                                     <div className="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-600" />
-                                    <span className="text-slate-600 dark:text-slate-400">Total Invested:</span>
+                                    <span className="text-slate-600 dark:text-slate-600">Total Invested:</span>
                                     <span className="text-slate-900 dark:text-white">₹{(result.invested/100000).toFixed(1)}L</span>
                                 </div>
                             </div>
@@ -238,7 +238,7 @@ function PreviewCard({ title, icon: Icon, color, href, description }: any) {
             </div>
             
             <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">{title}</h4>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">{description}</p>
+            <p className="text-sm text-slate-500 dark:text-slate-600 mb-6">{description}</p>
             
             {/* Visual Preview (Static Graph) */}
             <div className="mt-auto h-16 flex items-end gap-1 opacity-50 group-hover:opacity-100 transition-opacity">
@@ -270,7 +270,7 @@ export default function QuickToolsSection() {
                     <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
                         Calculate Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">Financial Future</span>
                     </h2>
-                    <p className="text-lg text-slate-600 dark:text-slate-400">
+                    <p className="text-lg text-slate-600 dark:text-slate-600">
                         Powerful tools to help you plan, save, and grow your wealth.
                     </p>
                 </div>
@@ -320,7 +320,7 @@ export default function QuickToolsSection() {
                             rose: 'bg-rose-500',
                             sky: 'bg-sky-500',
                             indigo: 'bg-indigo-500',
-                            slate: 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
+                            slate: 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-600'
                         };
                         const iconBgClass = calc.color === 'slate' 
                             ? colorMap.slate 
@@ -342,7 +342,7 @@ export default function QuickToolsSection() {
                 </div>
 
                 {/* Trust Footer */}
-                <div className="mt-8 flex flex-wrap justify-center items-center gap-6 md:gap-8 text-sm text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-800 pt-8">
+                <div className="mt-8 flex flex-wrap justify-center items-center gap-6 md:gap-8 text-sm text-slate-500 dark:text-slate-600 border-t border-slate-200 dark:border-slate-800 pt-8">
                      <span className="flex items-center gap-2"><Lock className="w-4 h-4" /> 100% Private</span>
                      <span className="flex items-center gap-2"><Shield className="w-4 h-4" /> Verified Accuracy</span>
                      <span className="flex items-center gap-2"><Users className="w-4 h-4" /> 2M+ Users</span>

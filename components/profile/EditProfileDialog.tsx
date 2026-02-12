@@ -64,9 +64,9 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
 
                 <form onSubmit={handleSubmit} className="space-y-6 pt-4">
                     <div className="space-y-2">
-                        <Label htmlFor="full_name" className="text-[10px] font-semibold uppercase text-slate-400 tracking-st px-1">Display Identity</Label>
+                        <Label htmlFor="full_name" className="text-[10px] font-semibold uppercase text-slate-600 tracking-st px-1">Display Identity</Label>
                         <div className="relative group">
-                            <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-secondary-600 transition-colors" />
+                            <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 group-focus-within:text-secondary-600 transition-colors" />
                             <Input
                                 id="full_name"
                                 value={formData.full_name}
@@ -78,9 +78,9 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="bio" className="text-[10px] font-semibold uppercase text-slate-400 tracking-st px-1">Authority Bio</Label>
+                        <Label htmlFor="bio" className="text-[10px] font-semibold uppercase text-slate-600 tracking-st px-1">Authority Bio</Label>
                         <div className="relative group">
-                            <FileText className="absolute left-4 top-4 w-4 h-4 text-slate-400 group-focus-within:text-secondary-600 transition-colors" />
+                            <FileText className="absolute left-4 top-4 w-4 h-4 text-slate-600 group-focus-within:text-secondary-600 transition-colors" />
                             <Textarea
                                 id="bio"
                                 value={formData.bio}
@@ -92,7 +92,7 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="expertise" className="text-[10px] font-semibold uppercase text-slate-400 tracking-st px-1">Domains of Expertise (Comma separated)</Label>
+                        <Label htmlFor="expertise" className="text-[10px] font-semibold uppercase text-slate-600 tracking-st px-1">Domains of Expertise (Comma separated)</Label>
                         <div className="relative group">
                             <Input
                                 id="expertise"
@@ -105,9 +105,9 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="profile_picture" className="text-[10px] font-semibold uppercase text-slate-400 tracking-st px-1">Avatar URL</Label>
+                        <Label htmlFor="profile_picture" className="text-[10px] font-semibold uppercase text-slate-600 tracking-st px-1">Avatar URL</Label>
                         <div className="relative group">
-                            <Camera className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-secondary-600 transition-colors" />
+                            <Camera className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 group-focus-within:text-secondary-600 transition-colors" />
                             <Input
                                 id="profile_picture"
                                 value={formData.profile_picture}
@@ -123,7 +123,7 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
                             type="button"
                             variant="ghost"
                             onClick={() => onOpenChange(false)}
-                            className="rounded-xl h-14 font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-200"
+                            className="rounded-xl h-14 font-semibold uppercase tracking-widest text-slate-600 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-200"
                         >
                             Discard Changes
                         </Button>

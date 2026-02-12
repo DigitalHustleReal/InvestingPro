@@ -35,7 +35,7 @@ export function FundTable({ funds }: FundTableProps) {
                         <Badge variant="outline" className="text-[9px] h-4 rounded px-1.5 border-slate-200 text-slate-500 font-bold">
                             {row.category}
                         </Badge>
-                        <span className="text-[9px] text-slate-400 font-bold flex items-center gap-1 uppercase">
+                        <span className="text-[9px] text-slate-600 font-bold flex items-center gap-1 uppercase">
                             <CheckCircle2 className="w-2.5 h-2.5 text-secondary-500" />
                             Direct
                         </span>
@@ -105,7 +105,7 @@ export function FundTable({ funds }: FundTableProps) {
                     <span className={cn("text-sm font-bold", row.returns_1y >= 0 ? 'text-primary-600' : 'text-danger-600')}>
                         {row.returns_1y}%
                     </span>
-                    <span className="text-[9px] text-slate-400 font-bold uppercase">1Y</span>
+                    <span className="text-[9px] text-slate-600 font-bold uppercase">1Y</span>
                 </div>
             ),
             sortable: true,
@@ -131,7 +131,7 @@ export function FundTable({ funds }: FundTableProps) {
                             {row.returns_3y}%
                         </span>
                     </div>
-                    <span className="text-[9px] text-slate-400 font-bold uppercase">3Y CAGR</span>
+                    <span className="text-[9px] text-slate-600 font-bold uppercase">3Y CAGR</span>
                 </div>
             ),
             sortable: true,
@@ -150,11 +150,11 @@ export function FundTable({ funds }: FundTableProps) {
                                 {h[0]}
                             </div>
                         ))}
-                        <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-slate-50 border border-white text-[8px] text-slate-400 font-medium">
+                        <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-slate-50 border border-white text-[8px] text-slate-600 font-medium">
                             +6
                         </div>
                     </div>
-                    <p className="text-[9px] text-slate-400 leading-tight truncate w-24">
+                    <p className="text-[9px] text-slate-600 leading-tight truncate w-24">
                         Financials, Tech, Energy
                     </p>
                 </div>
@@ -166,7 +166,7 @@ export function FundTable({ funds }: FundTableProps) {
             key: 'aum',
             header: 'AUM (Cr)',
             accessor: (row) => (
-                <span className="text-sm font-bold text-slate-600 dark:text-slate-400 tabular-nums">
+                <span className="text-sm font-bold text-slate-600 dark:text-slate-600 tabular-nums">
                     ₹{formatCompactNumber(row.aum)}
                 </span>
             ),
@@ -183,7 +183,7 @@ export function FundTable({ funds }: FundTableProps) {
                     <Button 
                         size="icon" 
                         variant="ghost" 
-                        className="h-8 w-8 text-slate-400 hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-500/10" 
+                        className="h-8 w-8 text-slate-600 hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-500/10" 
                         asChild
                     >
                         <Link href={`/mutual-funds/${row.id}`}>

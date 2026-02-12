@@ -86,7 +86,7 @@ export default function LeadMagnet({ title, description, downloadUrl, type }: Le
                     {!isSubmitted ? (
                         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
                             <div className="relative flex-1">
-                                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
                                 <Input 
                                     type="email" 
                                     placeholder="Enter your email to download" 
@@ -107,7 +107,7 @@ export default function LeadMagnet({ title, description, downloadUrl, type }: Le
                         </div>
                     )}
                     
-                    <div className="mt-4 flex items-center gap-4 text-[10px] text-slate-400">
+                    <div className="mt-4 flex items-center gap-4 text-[10px] text-slate-600">
                         <span className="flex items-center gap-1"><Lock className="w-3 h-3" /> Spam-free guaranteed</span>
                         <span>•</span>
                         <span>Used by 5,000+ investors</span>

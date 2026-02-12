@@ -59,15 +59,15 @@ export default function HeroSplit() {
                     animate={{ opacity: 1, y: 0 }}
                     className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 mb-12 text-xs sm:text-sm relative z-20"
                 >
-                    <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                    <div className="flex items-center gap-2 text-slate-600 dark:text-slate-600">
                         <BadgeCheck className="w-4 h-4 text-emerald-500" />
                         <span>100% Free Forever</span>
                     </div>
-                    <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                    <div className="flex items-center gap-2 text-slate-600 dark:text-slate-600">
                         <Shield className="w-4 h-4 text-blue-500" />
                         <span>Unbiased Research</span>
                     </div>
-                    <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                    <div className="flex items-center gap-2 text-slate-600 dark:text-slate-600">
                         <Clock className="w-4 h-4 text-amber-500" />
                         <span>Updated Daily</span>
                     </div>
@@ -123,7 +123,7 @@ export default function HeroSplit() {
                             </h1>
                             
                             {/* Quantified expertise - what makes us credible */}
-                            <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed mt-6 mx-auto lg:mx-0">
+                            <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-600 max-w-xl leading-relaxed mt-6 mx-auto lg:mx-0">
                                 We analyzed <span className="font-bold text-slate-900 dark:text-white">500+ credit cards</span>, 
                                 <span className="font-bold text-slate-900 dark:text-white"> 2,000+ mutual funds</span>, and 
                                 <span className="font-bold text-slate-900 dark:text-white"> 50+ loan products</span> so you don't have to.
@@ -167,7 +167,7 @@ export default function HeroSplit() {
                             
                             {/* Quick Action Chips */}
                             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mt-4">
-                                <span className="text-xs text-slate-500 dark:text-slate-400">Popular:</span>
+                                <span className="text-xs text-slate-500 dark:text-slate-600">Popular:</span>
                                 {["Best Rewards Cards", "Tax Saving Funds", "SIP Calculator", "Home Loan EMI"].map((chip, i) => (
                                     <Link 
                                         key={i}
@@ -190,7 +190,7 @@ export default function HeroSplit() {
                                             ))}
                                             <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 ml-1">4.9</span>
                                         </div>
-                                        <p className="text-xs text-slate-500 dark:text-slate-400">
+                                        <p className="text-xs text-slate-500 dark:text-slate-600">
                                             Trusted by <span className="font-semibold text-slate-700 dark:text-slate-200">50,000+</span> users
                                         </p>
                                     </div>
@@ -202,7 +202,7 @@ export default function HeroSplit() {
                                     <div className="text-lg font-bold text-emerald-600 dark:text-emerald-400">
                                         ₹<AnimatedStat value={12} />Cr+
                                     </div>
-                                    <p className="text-xs text-slate-500 dark:text-slate-400">Saved by our users</p>
+                                    <p className="text-xs text-slate-500 dark:text-slate-600">Saved by our users</p>
                                 </div>
                             </div>
                         </motion.div>
@@ -244,7 +244,7 @@ export default function HeroSplit() {
                                                 <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                                                     Find Your Perfect Credit Card
                                                 </h3>
-                                                <p className="text-slate-600 dark:text-slate-400 text-sm mb-4">
+                                                <p className="text-slate-600 dark:text-slate-600 text-sm mb-4">
                                                     Compare 500+ cards from 30+ banks. Get personalized recommendations based on your spending habits.
                                                 </p>
                                                 
@@ -325,7 +325,7 @@ function SecondaryCard({ title, desc, outcome, icon: Icon, href, iconBg, delay }
                         <h3 className="text-base font-bold text-slate-900 dark:text-white mb-0.5 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                             {title}
                         </h3>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">
+                        <p className="text-xs text-slate-500 dark:text-slate-600 mb-2">
                             {desc}
                         </p>
                         

@@ -118,7 +118,7 @@ export default function TrustBar() {
                                         suffix={stat.displaySuffix}
                                     />
                                 </h4>
-                                <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+                                <p className="text-sm font-semibold text-slate-500 dark:text-slate-600 uppercase tracking-wide">
                                     {stat.label}
                                 </p>
                             </div>
@@ -128,7 +128,7 @@ export default function TrustBar() {
 
                 {/* Data Source Attribution - Builds trust through transparency */}
                 <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-                    <div className="flex flex-wrap justify-center items-center gap-6 text-xs text-slate-500 dark:text-slate-400">
+                    <div className="flex flex-wrap justify-center items-center gap-6 text-xs text-slate-500 dark:text-slate-600">
                         <span className="flex items-center gap-2">
                             <Shield className="w-4 h-4 text-emerald-500" />
                             Data from AMFI & RBI

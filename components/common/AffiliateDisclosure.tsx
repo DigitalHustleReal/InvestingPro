@@ -32,7 +32,7 @@ export default function AffiliateDisclosure({
     // Button variant - appears below "Apply Now" buttons
     if (variant === 'button') {
         return (
-            <p className={`text-[10px] text-slate-400 text-center flex items-center justify-center gap-0.5 ${className}`}>
+            <p className={`text-[10px] text-slate-600 text-center flex items-center justify-center gap-0.5 ${className}`}>
                 <Info className="w-3 h-3" aria-hidden="true" />
                 <span>We may earn a commission</span>
             </p>

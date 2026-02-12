@@ -56,7 +56,7 @@ export default function AppTracker() {
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900 dark:text-white">{app.productName}</h4>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">{app.provider}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-600 font-medium">{app.provider}</p>
                 </div>
               </div>
 
@@ -76,7 +76,7 @@ export default function AppTracker() {
                         )} />
                         <span className={cn(
                           "text-[8px] font-bold uppercase mt-2 tracking-tighter",
-                          isCurrent ? "text-primary-600" : "text-slate-400"
+                          isCurrent ? "text-primary-600" : "text-slate-600"
                         )}>
                           {step.replace('_', ' ')}
                         </span>
@@ -96,7 +96,7 @@ export default function AppTracker() {
             {app.status === 'under_review' && (
               <div className="mt-6 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700 flex items-start gap-3">
                 <Clock className="w-4 h-4 text-amber-500 mt-0.5" />
-                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
                   The bank is currently verifying your documents. This usually takes <span className="font-bold">2-3 business days</span>. 
                   We'll notify you on WhatsApp once there's an update.
                 </p>

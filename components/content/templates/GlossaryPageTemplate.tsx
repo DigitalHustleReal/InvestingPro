@@ -34,7 +34,7 @@ export default function GlossaryPageTemplate({ content }: GlossaryPageTemplatePr
                         <h1 className="text-4xl md:text-5xl font-bold mb-4">
                             {sections.definition.term}
                             {sections.definition.full_form && (
-                                <span className="text-2xl text-slate-400 ml-3">({sections.definition.full_form})</span>
+                                <span className="text-2xl text-slate-600 ml-3">({sections.definition.full_form})</span>
                             )}
                         </h1>
                         {sections.definition.pronunciation && (

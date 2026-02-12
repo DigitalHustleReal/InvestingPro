@@ -75,7 +75,7 @@ export default function StickyMobileCTA() {
                             {/* Dismiss button */}
                             <button
                                 onClick={handleDismiss}
-                                className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                                className="p-2 text-slate-600 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
                                 aria-label="Dismiss"
                             >
                                 <X className="w-5 h-5" />
@@ -83,7 +83,7 @@ export default function StickyMobileCTA() {
                         </div>
                         
                         {/* Trust signal */}
-                        <div className="flex items-center justify-center gap-2 mt-2 text-xs text-slate-500 dark:text-slate-400">
+                        <div className="flex items-center justify-center gap-2 mt-2 text-xs text-slate-500 dark:text-slate-600">
                             <span className="flex items-center gap-1">
                                 {[1,2,3,4,5].map((i) => (
                                     <svg key={i} className="w-3 h-3 text-amber-400 fill-amber-400" viewBox="0 0 20 20">

@@ -99,7 +99,7 @@ export function InlineEligibilityWidget() {
                         </p>
                         
                         <div className="bg-slate-50 rounded-xl p-3 mb-6 text-left">
-                            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Your Pre-approved Offers</p>
+                            <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Your Pre-approved Offers</p>
                             <div className="flex items-center gap-2 mb-2">
                                 <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white text-[8px] font-bold">H</div>
                                 <span className="text-sm font-bold">HDFC Bank</span>
@@ -119,7 +119,7 @@ export function InlineEligibilityWidget() {
                             View All 12 Offers
                         </Button>
                         <button 
-                            className="text-xs text-slate-400 mt-3 hover:text-primary-600 hover:underline"
+                            className="text-xs text-slate-600 mt-3 hover:text-primary-600 hover:underline"
                             onClick={() => setStep(1)}
                         >
                             Check for someone else

@@ -49,14 +49,14 @@ export default function FeaturedTools() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-8">
                     <div>
-                        <Badge variant="outline" className="mb-4 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-widest text-xs">
+                        <Badge variant="outline" className="mb-4 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-600 font-semibold uppercase tracking-widest text-xs">
                             <Sparkles size={12} className="mr-2 text-primary-500" />
                             Quant Utilities
                         </Badge>
                         <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight mb-4">
                             Smarter <span className="text-primary-600 dark:text-primary-400">Decision</span> Engines
                         </h2>
-                        <p className="text-lg text-slate-500 dark:text-slate-400 font-medium max-w-xl leading-relaxed">
+                        <p className="text-lg text-slate-500 dark:text-slate-600 font-medium max-w-xl leading-relaxed">
                             Professional instruments for precision wealth planning.
                             Zero bias, 100% data-driven.
                         </p>
@@ -84,11 +84,11 @@ export default function FeaturedTools() {
                                     <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors tracking-tight">
                                         {tool.name}
                                     </h3>
-                                    <p className="text-slate-500 dark:text-slate-400 text-sm font-medium leading-relaxed mb-8">
+                                    <p className="text-slate-500 dark:text-slate-600 text-sm font-medium leading-relaxed mb-8">
                                         {tool.description}
                                     </p>
                                 </div>
-                                <div className="flex items-center gap-2 text-[10px] font-semibold text-slate-400 uppercase tracking-st group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                                <div className="flex items-center gap-2 text-[10px] font-semibold text-slate-600 uppercase tracking-st group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                                     Launch Module <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
                                 </div>
                             </div>

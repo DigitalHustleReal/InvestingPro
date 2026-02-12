@@ -34,9 +34,9 @@ export default function ProgressiveDisclosure({
                 >
                     <span className="font-semibold text-slate-700">{title}</span>
                     {isOpen ? (
-                        <ChevronUp className="w-5 h-5 text-slate-400" />
+                        <ChevronUp className="w-5 h-5 text-slate-600" />
                     ) : (
-                        <ChevronDown className="w-5 h-5 text-slate-400" />
+                        <ChevronDown className="w-5 h-5 text-slate-600" />
                     )}
                 </button>
                 {isOpen && (
@@ -93,7 +93,7 @@ export function DetailsGrid({ items, columns = 2 }: DetailsGridProps) {
                     <dt className="text-xs font-medium text-slate-500 uppercase tracking-wider">
                         {item.label}
                         {item.tooltip && (
-                            <span className="ml-1 text-slate-400 cursor-help" title={item.tooltip}>ⓘ</span>
+                            <span className="ml-1 text-slate-600 cursor-help" title={item.tooltip}>ⓘ</span>
                         )}
                     </dt>
                     <dd className="text-sm font-semibold text-slate-900">{item.value}</dd>

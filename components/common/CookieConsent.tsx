@@ -49,7 +49,7 @@ export default function CookieConsent() {
                         variant="outline"
                         size="sm"
                         onClick={declineCookies}
-                        className="flex-1 border-slate-700 text-slate-400 hover:bg-slate-800 rounded-xl h-10"
+                        className="flex-1 border-slate-700 text-slate-600 hover:bg-slate-800 rounded-xl h-10"
                     >
                         Decline
                     </Button>

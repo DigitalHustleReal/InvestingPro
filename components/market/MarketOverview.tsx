@@ -41,7 +41,7 @@ export default function MarketOverview() {
                         <Activity className="text-primary-400 w-5 h-5" />
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-300">Macro Indicators</CardTitle>
                     </div>
-                    <Badge variant="outline" className="border-slate-700 text-slate-400 text-[10px] font-mono">
+                    <Badge variant="outline" className="border-slate-700 text-slate-600 text-[10px] font-mono">
                         INDIA
                     </Badge>
                 </div>
@@ -52,13 +52,13 @@ export default function MarketOverview() {
                         <div key={idx} className="p-4 hover:bg-slate-900/30 transition-colors group">
                             <div className="flex justify-between items-start mb-2">
                                 <div>
-                                    <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">{index.name}</h4>
+                                    <h4 className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">{index.name}</h4>
                                     <div className="text-lg font-bold text-slate-50">{index.value}</div>
                                 </div>
                                 <Badge className={`px-1.5 py-0.5 text-[10px] font-bold border-0 ${
                                     index.trend === 'up' ? 'bg-primary-500/10 text-primary-400' : 
                                     index.trend === 'down' ? 'bg-primary-500/10 text-primary-400' :
-                                    'bg-slate-500/10 text-slate-400'
+                                    'bg-slate-500/10 text-slate-600'
                                 }`}>
                                     {index.change}
                                 </Badge>
@@ -91,7 +91,7 @@ export default function MarketOverview() {
 
                 {/* Additional Stats Row */}
                 <div className="border-t border-slate-800 p-3 bg-slate-900/30 flex items-center justify-between text-xs overflow-x-auto whitespace-nowrap gap-4">
-                    <div className="flex items-center gap-2 text-slate-400 font-medium">
+                    <div className="flex items-center gap-2 text-slate-600 font-medium">
                         <BarChart2 size={12} />
                         <span>Asset Trends:</span>
                     </div>

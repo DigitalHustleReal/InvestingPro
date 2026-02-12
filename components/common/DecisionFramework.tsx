@@ -133,7 +133,7 @@ export default function DecisionFramework({
                                                 "flex items-center gap-2 px-3 py-1.5 rounded-lg transition-colors cursor-pointer",
                                                 isActive && "bg-primary-600 dark:bg-primary-700 text-white",
                                                 isCompleted && !isActive && "bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300",
-                                                !isActive && !isCompleted && "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                                                !isActive && !isCompleted && "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-600"
                                             )}
                                             onClick={() => handleStageClick(stage.id)}
                                         >
@@ -145,7 +145,7 @@ export default function DecisionFramework({
                                             <span className="text-xs font-medium hidden sm:inline">{stage.label}</span>
                                         </div>
                                         {idx < STAGES.length - 1 && (
-                                            <ArrowRight className="w-4 h-4 text-slate-400" />
+                                            <ArrowRight className="w-4 h-4 text-slate-600" />
                                         )}
                                     </React.Fragment>
                                 );
@@ -181,7 +181,7 @@ export default function DecisionFramework({
                                     "flex items-center gap-1.5 px-2 py-1 rounded",
                                     isActive && "bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-medium",
                                     isCompleted && !isActive && "text-success-600 dark:text-success-400",
-                                    !isActive && !isCompleted && "text-slate-500 dark:text-slate-400"
+                                    !isActive && !isCompleted && "text-slate-500 dark:text-slate-600"
                                 )}
                             >
                                 {isCompleted ? (
@@ -192,7 +192,7 @@ export default function DecisionFramework({
                                 <span className="text-xs">{stage.label}</span>
                             </div>
                             {idx < STAGES.length - 1 && (
-                                <ArrowRight className="w-3 h-3 text-slate-400" />
+                                <ArrowRight className="w-3 h-3 text-slate-600" />
                             )}
                         </React.Fragment>
                     );
@@ -209,7 +209,7 @@ export default function DecisionFramework({
                     <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
                         Your Decision Journey
                     </h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                    <p className="text-sm text-slate-600 dark:text-slate-600">
                         Follow these steps to make the best financial decision
                     </p>
                 </div>
@@ -237,7 +237,7 @@ export default function DecisionFramework({
                                     "w-10 h-10 rounded-full flex items-center justify-center shrink-0",
                                     isActive && "bg-primary-600 dark:bg-primary-500 text-white",
                                     isCompleted && !isActive && "bg-success-600 dark:bg-success-500 text-white",
-                                    !isActive && !isCompleted && "bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400"
+                                    !isActive && !isCompleted && "bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-600"
                                 )}>
                                     {isCompleted ? (
                                         <Check className="w-5 h-5" />
@@ -267,7 +267,7 @@ export default function DecisionFramework({
                                             </Badge>
                                         )}
                                     </div>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                                    <p className="text-sm text-slate-600 dark:text-slate-600">
                                         {stage.description}
                                     </p>
                                 </div>
@@ -284,7 +284,7 @@ export default function DecisionFramework({
                                 <p className="text-sm font-medium text-slate-900 dark:text-white mb-1">
                                     Next Step
                                 </p>
-                                <p className="text-xs text-slate-600 dark:text-slate-400">
+                                <p className="text-xs text-slate-600 dark:text-slate-600">
                                     {nextAction.cta}
                                 </p>
                             </div>

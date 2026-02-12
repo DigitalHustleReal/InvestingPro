@@ -61,7 +61,7 @@ export default function ProductReviews({ productSlug, productType }: ProductRevi
                   {stats.average.toFixed(1)}
                 </span>
                 <RatingStars rating={stats.average} size={20} className="mt-2" />
-                <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
+                <p className="text-sm text-slate-500 dark:text-slate-600 mt-2">
                   {stats.count > 0 ? `Based on ${stats.count} reviews` : 'Be the first to review'}
                 </p>
               </div>

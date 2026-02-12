@@ -92,7 +92,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                 
                 {/* 1. Credit Score (NEW - High Priority) */}
                 <div className="space-y-3">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                    <label className="text-xs font-bold text-slate-600 uppercase tracking-wider flex items-center gap-2">
                         Eligibilty (Score)
                         <Badge variant="outline" className="text-[9px] h-4 px-1 border-primary-200 text-primary-600">New</Badge>
                     </label>
@@ -116,7 +116,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
 
                 {/* 2. Card Type (NEW) */}
                  <div className="space-y-3">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Card Category</label>
+                    <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Card Category</label>
                     <div className="flex flex-wrap gap-2">
                         {CARD_TYPES.map(type => (
                             <button
@@ -139,7 +139,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                 {/* 3. Annual Fee Slider */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                         <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Max Annual Fee</label>
+                         <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Max Annual Fee</label>
                          <span className="text-sm font-bold text-slate-900 dark:text-white">₹{filters.maxFee}</span>
                     </div>
                     <Slider
@@ -152,7 +152,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
 
                 {/* 4. Issuer Bank (Expanded) */}
                 <div className="space-y-3">
-                     <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Issuer Bank</label>
+                     <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Issuer Bank</label>
                      <div className="space-y-2">
                         {displayedIssuers.map((issuer) => (
                              <div className="flex items-center space-x-2" key={issuer}>
@@ -161,7 +161,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                                     checked={filters.issuers.includes(issuer)}
                                     onCheckedChange={() => toggleArrayItem('issuers', issuer)}
                                 />
-                                <Label htmlFor={`issuer-${issuer}`} className="text-sm text-slate-600 dark:text-slate-400 cursor-pointer">
+                                <Label htmlFor={`issuer-${issuer}`} className="text-sm text-slate-600 dark:text-slate-600 cursor-pointer">
                                     {issuer} Bank
                                 </Label>
                             </div>
@@ -181,7 +181,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
 
                  {/* 5. Rewards Type (NEW) */}
                  <div className="space-y-3">
-                     <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Rewards Type</label>
+                     <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Rewards Type</label>
                      <div className="flex flex-wrap gap-2">
                          {REWARDS_TYPES.map(type => (
                              <button
@@ -201,7 +201,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
 
                 {/* 6. Spending Categories */}
                  <div className="space-y-3">
-                     <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Best For Spending</label>
+                     <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Best For Spending</label>
                      <div className="space-y-2">
                          {SPENDING_CATEGORIES.map((category) => (
                              <div className="flex items-center space-x-2" key={category.value}>
@@ -221,7 +221,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                  
                    {/* 7. Premium Features */}
                 <div className="space-y-3">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Features</label>
+                    <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Features</label>
                     <div className="space-y-2">
                         {FEATURES.map((feat) => (
                             <div className="flex items-center space-x-2" key={feat}>

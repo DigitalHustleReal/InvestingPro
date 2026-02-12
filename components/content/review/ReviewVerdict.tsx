@@ -32,13 +32,13 @@ export default function ReviewVerdict({
             {/* Header / Score Strip */}
             <div className="bg-slate-900 text-white p-6 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="flex-1">
-                    <div className="uppercase tracking-widest text-xs font-bold text-slate-400 mb-2">Our Verdict</div>
+                    <div className="uppercase tracking-widest text-xs font-bold text-slate-600 mb-2">Our Verdict</div>
                     <h3 className="text-2xl font-bold leading-tight">{verdictTitle}</h3>
                 </div>
                 <div className="flex items-center gap-4 shrink-0">
                     <div className="text-right hidden md:block">
                         <div className="text-2xl font-bold">{score}/10</div>
-                        <div className="text-xs text-slate-400">InvestingPro Rating</div>
+                        <div className="text-xs text-slate-600">InvestingPro Rating</div>
                     </div>
                     {/* Radial Progress Placeholder (Simple CSS) */}
                     <div className={cn("w-20 h-20 rounded-full flex items-center justify-center border-4 text-3xl font-bold bg-slate-800", theme.border)}>

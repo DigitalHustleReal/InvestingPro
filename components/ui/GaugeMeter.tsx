@@ -117,7 +117,7 @@ export function GaugeMeter({
                             {unit && <span className="text-sm sm:text-base ml-0.5 opacity-90">{unit}</span>}
                         </div>
                         {label && (
-                            <div className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1 sm:mt-1.5">
+                            <div className="text-[9px] sm:text-[10px] font-bold text-slate-600 uppercase tracking-widest mt-1 sm:mt-1.5">
                                 {label}
                             </div>
                         )}

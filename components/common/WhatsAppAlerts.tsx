@@ -84,16 +84,16 @@ export default function WhatsAppAlerts({ productName, trigger }: WhatsAppAlertsP
 
           {!subscribed ? (
             <div className="p-8 space-y-6">
-              <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+              <p className="text-slate-500 dark:text-slate-600 text-sm leading-relaxed">
                 Be the first to know about interest rate changes, new card launches, and exclusive offers for 
                 <span className="font-bold text-slate-900 dark:text-white"> {productName || 'top financial products'}</span>.
               </p>
 
               <form onSubmit={handleSubscribe} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="whatsapp-phone" className="text-[10px] font-black uppercase text-slate-400 tracking-widest px-1">WhatsApp Number</Label>
+                  <Label htmlFor="whatsapp-phone" className="text-[10px] font-black uppercase text-slate-600 tracking-widest px-1">WhatsApp Number</Label>
                   <div className="relative group">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-400">+91</span>
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-600">+91</span>
                     <Input
                       id="whatsapp-phone"
                       type="tel"
@@ -121,7 +121,7 @@ export default function WhatsAppAlerts({ productName, trigger }: WhatsAppAlertsP
                     <div key={i} className="w-6 h-6 rounded-full border-2 border-white dark:border-slate-900 bg-slate-200" />
                   ))}
                 </div>
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">
+                <p className="text-[10px] text-slate-600 font-bold uppercase tracking-tight">
                   <span className="text-success-600">4.9/5</span> Rated by Active Users
                 </p>
               </div>
@@ -134,7 +134,7 @@ export default function WhatsAppAlerts({ productName, trigger }: WhatsAppAlertsP
               <h3 className="text-xl font-black text-slate-900 dark:text-white mb-2 underline decoration-success-500 decoration-4 underline-offset-4">
                 You're In!
               </h3>
-              <p className="text-slate-500 dark:text-slate-400 text-sm mb-8 leading-relaxed">
+              <p className="text-slate-500 dark:text-slate-600 text-sm mb-8 leading-relaxed">
                 We've activated your WhatsApp alerts for <span className="font-bold text-slate-900 dark:text-white">{productName || 'financial products'}</span>. 
                 Expect high-value updates twice a week. No Spam. Guaranteed.
               </p>

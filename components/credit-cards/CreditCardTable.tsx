@@ -33,7 +33,7 @@ export function CreditCardTable({ cards }: CreditCardTableProps) {
                             >
                                 {row.name}
                             </Link>
-                            <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
+                            <p className="text-[10px] text-slate-600 font-semibold uppercase tracking-wider">
                                 {row.provider || row.provider_name || 'Bank'}
                             </p>
                         </div>
@@ -146,7 +146,7 @@ export function CreditCardTable({ cards }: CreditCardTableProps) {
                                 />
                             ))}
                         </div>
-                        <span className="text-xs font-bold text-slate-600 dark:text-slate-400">
+                        <span className="text-xs font-bold text-slate-600 dark:text-slate-600">
                             {finalRating.toFixed(1)}
                         </span>
                     </div>

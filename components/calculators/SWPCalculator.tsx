@@ -286,7 +286,7 @@ export function SWPCalculator() {
                                     <div className="flex items-center gap-1.5">
                                         <Label className="text-sm text-slate-700 font-semibold">Expected Return</Label>
                                         <div className="group relative">
-                                            <HelpCircle className="w-3.5 h-3.5 text-slate-400 hover:text-slate-600 cursor-help" />
+                                            <HelpCircle className="w-3.5 h-3.5 text-slate-600 hover:text-slate-600 cursor-help" />
                                             <div className="absolute left-0 bottom-full mb-2 w-64 p-3 bg-slate-900 text-white text-xs rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 shadow-xl">
                                                 <div className="font-semibold mb-1.5">SWP Calculation:</div>
                                                 <div className="text-[10px] font-mono leading-relaxed">

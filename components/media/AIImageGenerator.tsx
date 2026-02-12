@@ -206,7 +206,7 @@ export function AIImageGenerator() {
                             <p className="text-slate-500 text-lg font-medium mb-2">
                                 Ready to generate!
                             </p>
-                            <p className="text-slate-400 text-sm">
+                            <p className="text-slate-600 text-sm">
                                 Enter a description above and click "Generate Image"
                             </p>
                         </div>

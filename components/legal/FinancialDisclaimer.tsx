@@ -16,7 +16,7 @@ export default function FinancialDisclaimer({
 }: FinancialDisclaimerProps) {
   if (variant === 'inline') {
     return (
-      <p className={`text-xs text-slate-500 dark:text-slate-400 ${className}`}>
+      <p className={`text-xs text-slate-500 dark:text-slate-600 ${className}`}>
         Not financial advice. See{' '}
         <Link href="/disclaimer" className="underline hover:text-primary-600 transition-colors">
           disclaimer

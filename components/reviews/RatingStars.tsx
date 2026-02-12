@@ -41,7 +41,7 @@ export default function RatingStars({
       })}
       
       {showCount && (
-        <span className="ml-2 text-sm text-slate-500 dark:text-slate-400">
+        <span className="ml-2 text-sm text-slate-500 dark:text-slate-600">
           ({count} reviews)
         </span>
       )}

@@ -30,14 +30,14 @@ export default function RiskResult({ score, profile, onRetake }: RiskResultProps
             <div className="text-center space-y-4">
                 <div className="inline-block">
                      <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Your Risk Score</span>
-                     <div className="text-6xl font-bold text-primary-600 my-2">{score}<span className="text-2xl text-slate-400">/48</span></div>
+                     <div className="text-6xl font-bold text-primary-600 my-2">{score}<span className="text-2xl text-slate-600">/48</span></div>
                 </div>
                 
                 <div>
                     <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
                         {profile.label} Investor
                     </h2>
-                    <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    <p className="text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
                         {profile.description}
                     </p>
                 </div>

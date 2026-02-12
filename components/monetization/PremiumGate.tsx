@@ -142,7 +142,7 @@ export function PremiumGate({
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </Button>
-            <Button variant="ghost" className="text-slate-400">
+            <Button variant="ghost" className="text-slate-600">
               Learn More
             </Button>
           </div>
@@ -189,7 +189,7 @@ export function PremiumLock({ className = '' }: { className?: string }) {
     <div className={`absolute inset-0 flex items-center justify-center bg-slate-950/80 ${className}`}>
       <div className="flex flex-col items-center gap-2">
         <Lock className="w-8 h-8 text-accent-500" />
-        <span className="text-sm text-slate-400">Pro Feature</span>
+        <span className="text-sm text-slate-600">Pro Feature</span>
       </div>
     </div>
   );

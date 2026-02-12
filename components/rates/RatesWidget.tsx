@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -50,7 +50,7 @@ export default function RatesWidget({ category, title, className }: RatesWidgetP
          return (
              <Card className={cn("bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800", className)}>
                 <CardContent className="p-6 flex justify-center items-center h-40">
-                    <Loader2 className="w-6 h-6 animate-spin text-slate-400" />
+                    <Loader2 className="w-6 h-6 animate-spin text-slate-600" />
                 </CardContent>
              </Card>
          );
@@ -81,7 +81,7 @@ export default function RatesWidget({ category, title, className }: RatesWidgetP
                                     {rate.value}
                                 </span>
                             </div>
-                            {rate.subtext && <span className="text-[10px] text-slate-400">{rate.subtext}</span>}
+                            {rate.subtext && <span className="text-[10px] text-slate-600">{rate.subtext}</span>}
                         </div>
                     ))}
                 </div>

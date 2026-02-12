@@ -151,7 +151,7 @@ export function BulkUploader() {
                     <div className="flex items-center justify-center h-64">
                         <div className="text-center">
                             <svg
-                                className="mx-auto h-16 w-16 text-slate-400 mb-4"
+                                className="mx-auto h-16 w-16 text-slate-600 mb-4"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -163,10 +163,10 @@ export function BulkUploader() {
                                     d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                                 />
                             </svg>
-                            <p className="text-slate-500 dark:text-slate-400 text-lg font-medium mb-2">
+                            <p className="text-slate-500 dark:text-slate-600 text-lg font-medium mb-2">
                                 No files selected
                             </p>
-                            <p className="text-slate-400 dark:text-slate-500 text-sm mb-4">
+                            <p className="text-slate-600 dark:text-slate-500 text-sm mb-4">
                                 Click "Select Files" to choose multiple images
                             </p>
                         </div>
@@ -199,7 +199,7 @@ export function BulkUploader() {
                                         <p className="font-medium text-slate-900 dark:text-white truncate">
                                             {item.file.name}
                                         </p>
-                                        <p className="text-sm text-slate-600 dark:text-slate-400">
+                                        <p className="text-sm text-slate-600 dark:text-slate-600">
                                             {(item.file.size / 1024 / 1024).toFixed(2)} MB
                                         </p>
 

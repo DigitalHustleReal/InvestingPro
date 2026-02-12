@@ -37,7 +37,7 @@ export default function DifferentiationCard({ score, productName }: Differentiat
                                 </span>
                             ))}
                         </div>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 max-w-[200px]">
+                        <p className="text-xs text-slate-500 dark:text-slate-600 max-w-[200px]">
                             Calculated based on rewards, fees, and benefits analysis.
                         </p>
                     </div>
@@ -46,7 +46,7 @@ export default function DifferentiationCard({ score, productName }: Differentiat
                         <div className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-success-600 to-secondary-600 dark:from-success-400 dark:to-secondary-400">
                             {score.overall}
                         </div>
-                        <div className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold">
+                        <div className="text-[10px] text-slate-500 dark:text-slate-600 uppercase tracking-wider font-semibold">
                             Pro Score
                         </div>
                     </div>

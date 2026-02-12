@@ -117,7 +117,7 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                                 <TrendingUp className="w-6 h-6 text-white" />
                             </div>
                             <h2 className="text-2xl font-bold tracking-tight mb-2">Build Your <br /> Alpha Profile</h2>
-                            <p className="text-slate-400 text-sm font-medium">Join 2.5k+ investors making data-driven decisions.</p>
+                            <p className="text-slate-600 text-sm font-medium">Join 2.5k+ investors making data-driven decisions.</p>
                         </div>
 
                         <div className="relative z-10 space-y-6">
@@ -137,7 +137,7 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                         <div>
                             <div className="flex justify-between items-center mb-10">
                                 <Progress value={progress} className="h-1.5 flex-1 mr-4 bg-slate-100" />
-                                <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-st">{Math.round(progress)}%</span>
+                                <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-st">{Math.round(progress)}%</span>
                             </div>
 
                             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
@@ -215,7 +215,7 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                                                     : 'bg-white border-slate-100 hover:border-slate-200'
                                                     }`}
                                             >
-                                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${formData.interests.includes(opt.id) ? 'bg-accent-500 text-white' : 'bg-slate-50 text-slate-400'}`}>
+                                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${formData.interests.includes(opt.id) ? 'bg-accent-500 text-white' : 'bg-slate-50 text-slate-600'}`}>
                                                     <opt.icon className="w-5 h-5" />
                                                 </div>
                                                 <span className="font-bold text-[10px] uppercase tracking-widest text-slate-900">{opt.label}</span>

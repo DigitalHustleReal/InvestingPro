@@ -80,7 +80,7 @@ export default function TopPicksRow() {
                     <Trophy className="w-5 h-5 text-yellow-600 dark:text-yellow-500" />
                 </div>
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-                    Editors' Top Picks <span className="text-slate-400 font-medium text-lg ml-2">January 2026</span>
+                    Editors' Top Picks <span className="text-slate-600 font-medium text-lg ml-2">January 2026</span>
                 </h2>
             </div>
             
@@ -121,7 +121,7 @@ export default function TopPicksRow() {
                             
                             <ul className="space-y-2 mb-6 flex-1">
                                 {card.benefits.map((benefit: string, i: number) => (
-                                    <li key={i} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+                                    <li key={i} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-600 font-medium leading-relaxed">
                                         <Check className="w-3.5 h-3.5 text-success-500 mt-0.5 shrink-0" />
                                         {benefit}
                                     </li>

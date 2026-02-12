@@ -58,7 +58,7 @@ export default function NewsSentiment() {
                             <div className="flex justify-between items-start mb-2">
                                 <div className="flex items-center gap-2">
                                     <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{news.source}</span>
-                                    <span className="text-[10px] text-slate-400">•</span>
+                                    <span className="text-[10px] text-slate-600">•</span>
                                     <span className="text-[10px] font-bold text-slate-500 flex items-center gap-1">
                                         <Clock size={10} /> {news.time}
                                     </span>

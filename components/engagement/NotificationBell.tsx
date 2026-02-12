@@ -150,7 +150,7 @@ export default function NotificationBell() {
                     <div className="max-h-96 overflow-y-auto">
                         {isLoading ? (
                             <div className="py-8 text-center">
-                                <Loader2 className="w-6 h-6 animate-spin mx-auto text-slate-400" />
+                                <Loader2 className="w-6 h-6 animate-spin mx-auto text-slate-600" />
                             </div>
                         ) : notifications.length > 0 ? (
                             <div className="divide-y divide-slate-100 dark:divide-white/5">
@@ -181,15 +181,15 @@ export default function NotificationBell() {
                                                         <span className="w-2 h-2 rounded-full bg-primary-500 flex-shrink-0" />
                                                     )}
                                                 </div>
-                                                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">
+                                                <p className="text-xs text-slate-500 dark:text-slate-600 mt-0.5 line-clamp-2">
                                                     {notification.message}
                                                 </p>
-                                                <span className="text-[10px] text-slate-400 mt-1 block">
+                                                <span className="text-[10px] text-slate-600 mt-1 block">
                                                     {formatTime(notification.created_at)}
                                                 </span>
                                             </div>
                                             {notification.link && (
-                                                <ExternalLink className="w-4 h-4 text-slate-400 flex-shrink-0" />
+                                                <ExternalLink className="w-4 h-4 text-slate-600 flex-shrink-0" />
                                             )}
                                         </div>
                                     </div>

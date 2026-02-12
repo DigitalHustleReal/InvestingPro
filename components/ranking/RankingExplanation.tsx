@@ -71,7 +71,7 @@ export default function RankingExplanation({
                 <div className="flex items-start justify-between">
                     <div>
                         <CardTitle className="text-2xl mb-2 dark:text-white">Ranking Score</CardTitle>
-                        <p className="text-sm text-slate-600 dark:text-slate-400">
+                        <p className="text-sm text-slate-600 dark:text-slate-600">
                             Transparent, data-driven ranking based on verified information
                         </p>
                     </div>
@@ -118,7 +118,7 @@ export default function RankingExplanation({
                                             <TooltipProvider>
                                                 <Tooltip>
                                                     <TooltipTrigger asChild>
-                                                        <Info className="w-4 h-4 text-slate-400 cursor-help" />
+                                                        <Info className="w-4 h-4 text-slate-600 cursor-help" />
                                                     </TooltipTrigger>
                                                     <TooltipContent className="max-w-xs">
                                                         <p className="text-xs">
@@ -135,7 +135,7 @@ export default function RankingExplanation({
                                             <div className="text-sm font-semibold text-slate-900 dark:text-white">
                                                 {item.weightedScore.toFixed(1)} pts
                                             </div>
-                                            <div className="text-xs text-slate-500 dark:text-slate-400">
+                                            <div className="text-xs text-slate-500 dark:text-slate-600">
                                                 {item.normalizedScore.toFixed(1)} × {(item.weight * 100).toFixed(0)}%
                                             </div>
                                         </div>
@@ -195,7 +195,7 @@ export default function RankingExplanation({
                 {/* Methodology Link */}
                 {methodology && (
                     <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
-                        <p className="text-xs text-slate-600 dark:text-slate-400 mb-2">
+                        <p className="text-xs text-slate-600 dark:text-slate-600 mb-2">
                             <strong>Note:</strong> Rankings are calculated using a transparent, weighted methodology.
                             Rankings are not influenced by monetization or affiliate relationships.
                         </p>
@@ -211,7 +211,7 @@ export default function RankingExplanation({
                 {/* Metadata */}
                 {(calculatedAt || dataSnapshotDate) && (
                     <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
-                        <div className="text-xs text-slate-500 dark:text-slate-400 space-y-1">
+                        <div className="text-xs text-slate-500 dark:text-slate-600 space-y-1">
                             {calculatedAt && (
                                 <div>
                                     <strong>Calculated:</strong> {new Date(calculatedAt).toLocaleString('en-IN')}

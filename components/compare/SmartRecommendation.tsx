@@ -74,7 +74,7 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
                                 SMART PICK
                             </Badge>
                         </h3>
-                        <p className="text-sm text-slate-600 dark:text-slate-400">Based on your comparison</p>
+                        <p className="text-sm text-slate-600 dark:text-slate-600">Based on your comparison</p>
                     </div>
                 </div>
 
@@ -127,7 +127,7 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
                             {/* Why it's best */}
                             {reasons.length > 0 && (
                                 <div className="space-y-2 mb-4">
-                                    <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Why it's the best:</p>
+                                    <p className="text-xs font-semibold text-slate-600 dark:text-slate-600 uppercase tracking-wider">Why it's the best:</p>
                                     {reasons.map((reason, idx) => (
                                         <motion.div
                                             key={idx}

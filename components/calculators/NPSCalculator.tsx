@@ -174,7 +174,7 @@ export function NPSCalculator() {
                                 step={0.5}
                                 className="py-2"
                             />
-                            <p className="text-xs text-slate-500 dark:text-slate-400">NPS typically returns 8-12% based on asset allocation</p>
+                            <p className="text-xs text-slate-500 dark:text-slate-600">NPS typically returns 8-12% based on asset allocation</p>
                         </div>
 
                         {/* Inflation Toggle */}
@@ -298,7 +298,7 @@ export function NPSCalculator() {
             {/* Bottom Row: Growth Chart */}
             <Card className="border-border shadow-sm rounded-xl">
                 <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">NPS Growth Projection</CardTitle>
+                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-600">NPS Growth Projection</CardTitle>
                 </CardHeader>
                     <CardContent>
                         <div className="h-80">

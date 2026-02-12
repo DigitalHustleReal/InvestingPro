@@ -220,14 +220,14 @@ export default function EditorialDraftCard({
                                             <ExternalLink className="w-3 h-3" />
                                             <span className="truncate">{source.source_name || source.name || 'Unknown'}</span>
                                             {source.confidence && (
-                                                <span className="text-slate-400">
+                                                <span className="text-slate-600">
                                                     ({Math.round(source.confidence * 100)}%)
                                                 </span>
                                             )}
                                         </div>
                                     ))}
                                     {dataSources.length > 3 && (
-                                        <div className="text-xs text-slate-400">
+                                        <div className="text-xs text-slate-600">
                                             +{dataSources.length - 3} more
                                         </div>
                                     )}

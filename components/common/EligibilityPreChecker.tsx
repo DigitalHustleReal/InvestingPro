@@ -33,7 +33,7 @@ export default function EligibilityPreChecker() {
                     <CheckCircle2 className="text-green-400" />
                     Check Your Approval Chance
                 </CardTitle>
-                <p className="text-slate-400 text-sm">No impact on credit score • Instant result</p>
+                <p className="text-slate-600 text-sm">No impact on credit score • Instant result</p>
             </CardHeader>
             <CardContent className="space-y-6">
                 {!result ? (

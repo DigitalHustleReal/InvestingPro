@@ -51,36 +51,36 @@ export default function ApplicationStats({
         <div className="bg-white dark:bg-slate-800/50 rounded-xl p-4 border border-slate-100 dark:border-slate-700">
           <div className="flex items-center gap-2 mb-1">
             <Users className="w-4 h-4 text-slate-500" />
-            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">This Month</p>
+            <p className="text-xs text-slate-500 dark:text-slate-600 font-medium">This Month</p>
           </div>
           <p className="text-2xl font-black text-slate-900 dark:text-white">
             {stats.applications.toLocaleString('en-IN')}
           </p>
-          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">applications</p>
+          <p className="text-xs text-slate-600 dark:text-slate-600 mt-1">applications</p>
         </div>
 
         {/* Approval Rate */}
         <div className="bg-white dark:bg-slate-800/50 rounded-xl p-4 border border-slate-100 dark:border-slate-700">
           <div className="flex items-center gap-2 mb-1">
             <CheckCircle2 className="w-4 h-4 text-success-500" />
-            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Approval Rate</p>
+            <p className="text-xs text-slate-500 dark:text-slate-600 font-medium">Approval Rate</p>
           </div>
           <p className="text-2xl font-black text-success-600 dark:text-success-400">
             {stats.approvalRate}%
           </p>
-          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">avg. approval</p>
+          <p className="text-xs text-slate-600 dark:text-slate-600 mt-1">avg. approval</p>
         </div>
 
         {/* Processing Time */}
         <div className="bg-white dark:bg-slate-800/50 rounded-xl p-4 border border-slate-100 dark:border-slate-700">
           <div className="flex items-center gap-2 mb-1">
             <Clock className="w-4 h-4 text-primary-500" />
-            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Processing</p>
+            <p className="text-xs text-slate-500 dark:text-slate-600 font-medium">Processing</p>
           </div>
           <p className="text-lg font-black text-slate-900 dark:text-white">
             {stats.processingTime}
           </p>
-          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">avg. time</p>
+          <p className="text-xs text-slate-600 dark:text-slate-600 mt-1">avg. time</p>
         </div>
       </div>
 

@@ -45,7 +45,7 @@ export default function AlternativesCarousel({ products, currentProductSlug, cla
                     <h4 className="font-bold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-1">
                       {product.name}
                     </h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                    <p className="text-xs text-slate-500 dark:text-slate-600">
                       {product.provider_name}
                     </p>
                   </div>
@@ -58,7 +58,7 @@ export default function AlternativesCarousel({ products, currentProductSlug, cla
                     <span className="text-sm font-semibold text-slate-900 dark:text-white">
                       {product.rating.toFixed(1)}
                     </span>
-                    <span className="text-xs text-slate-500 dark:text-slate-400">
+                    <span className="text-xs text-slate-500 dark:text-slate-600">
                       ({Math.floor(Math.random() * 500) + 100} reviews)
                     </span>
                   </div>
@@ -69,13 +69,13 @@ export default function AlternativesCarousel({ products, currentProductSlug, cla
                   {product.bestFor && (
                     <div className="flex items-center gap-2 text-xs">
                       <TrendingUp className="w-3 h-3 text-success-600 dark:text-success-400" />
-                      <span className="text-slate-600 dark:text-slate-400">
+                      <span className="text-slate-600 dark:text-slate-600">
                         Best for {product.bestFor}
                       </span>
                     </div>
                   )}
                   {product.specs?.annualFee && (
-                    <div className="text-xs text-slate-600 dark:text-slate-400">
+                    <div className="text-xs text-slate-600 dark:text-slate-600">
                       Annual Fee: <span className="font-semibold text-slate-900 dark:text-white">{product.specs.annualFee}</span>
                     </div>
                   )}
@@ -93,7 +93,7 @@ export default function AlternativesCarousel({ products, currentProductSlug, cla
       </div>
 
       {/* Mobile Scroll Indicator */}
-      <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-2 md:hidden">
+      <p className="text-xs text-slate-500 dark:text-slate-600 text-center mt-2 md:hidden">
         ← Swipe to see more →
       </p>
     </div>

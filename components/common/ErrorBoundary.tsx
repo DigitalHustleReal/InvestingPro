@@ -77,12 +77,12 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
                         <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
                             Something went wrong
                         </h1>
-                        <p className="text-slate-600 dark:text-slate-400 mb-6">
+                        <p className="text-slate-600 dark:text-slate-600 mb-6">
                             We encountered an unexpected error. Please try again or contact support if the problem persists.
                         </p>
                         {process.env.NODE_ENV === 'development' && this.state.error && (
                             <details className="mb-6 text-left">
-                                <summary className="cursor-pointer text-sm text-slate-500 dark:text-slate-400 mb-2">
+                                <summary className="cursor-pointer text-sm text-slate-500 dark:text-slate-600 mb-2">
                                     Error Details (Development Only)
                                 </summary>
                                 <pre className="text-xs bg-slate-100 dark:bg-slate-800 p-3 rounded overflow-auto max-h-40 text-slate-900 dark:text-slate-300">

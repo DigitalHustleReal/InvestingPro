@@ -72,9 +72,9 @@ export default function AddHoldingDialog({ onAdd, user }: AddHoldingDialogProps)
                 <form onSubmit={handleSubmit} className="space-y-6 pt-4">
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2 col-span-2">
-                            <Label className="text-[10px] font-semibold uppercase text-slate-400 tracking-st px-1">Asset Identity</Label>
+                            <Label className="text-[10px] font-semibold uppercase text-slate-600 tracking-st px-1">Asset Identity</Label>
                             <div className="relative group">
-                                <Wallet className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                                <Wallet className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
                                 <Input
                                     required
                                     placeholder="Asset Name (e.g. Reliance Industries)"
@@ -86,7 +86,7 @@ export default function AddHoldingDialog({ onAdd, user }: AddHoldingDialogProps)
                         </div>
 
                         <div className="space-y-2">
-                            <Label className="text-[10px] font-semibold uppercase text-slate-400 tracking-st px-1">Symbol / Ticker</Label>
+                            <Label className="text-[10px] font-semibold uppercase text-slate-600 tracking-st px-1">Symbol / Ticker</Label>
                             <Input
                                 required
                                 placeholder="RELIANCE"
@@ -97,7 +97,7 @@ export default function AddHoldingDialog({ onAdd, user }: AddHoldingDialogProps)
                         </div>
 
                         <div className="space-y-2">
-                            <Label className="text-[10px] font-semibold uppercase text-slate-400 tracking-st px-1">Asset Class</Label>
+                            <Label className="text-[10px] font-semibold uppercase text-slate-600 tracking-st px-1">Asset Class</Label>
                             <Select value={formData.asset_type} onValueChange={(v: string) => setFormData({ ...formData, asset_type: v })}>
                                 <SelectTrigger className="h-14 rounded-xl border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 font-bold">
                                     <SelectValue placeholder="Select Type" />
@@ -112,9 +112,9 @@ export default function AddHoldingDialog({ onAdd, user }: AddHoldingDialogProps)
                         </div>
 
                         <div className="space-y-2">
-                            <Label className="text-[10px] font-semibold uppercase text-slate-400 tracking-st px-1">Purchase Units</Label>
+                            <Label className="text-[10px] font-semibold uppercase text-slate-600 tracking-st px-1">Purchase Units</Label>
                             <div className="relative">
-                                <TrendingUp className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                                <TrendingUp className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
                                 <Input
                                     required
                                     type="number"
@@ -127,9 +127,9 @@ export default function AddHoldingDialog({ onAdd, user }: AddHoldingDialogProps)
                         </div>
 
                         <div className="space-y-2">
-                            <Label className="text-[10px] font-semibold uppercase text-slate-400 tracking-st px-1">Average Cost (₹)</Label>
+                            <Label className="text-[10px] font-semibold uppercase text-slate-600 tracking-st px-1">Average Cost (₹)</Label>
                             <div className="relative">
-                                <IndianRupee className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                                <IndianRupee className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
                                 <Input
                                     required
                                     type="number"

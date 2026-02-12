@@ -257,7 +257,7 @@ function CibilExpandedContent() {
                 <ChevronRight className="w-5 h-5 ml-2" />
             </Button>
             
-            <p className="text-xs text-center text-slate-400">
+            <p className="text-xs text-center text-slate-600">
                 No impact on your credit score. Powered by CIBIL.
             </p>
         </div>
@@ -326,7 +326,7 @@ function RatesExpandedContent({ category }: { category: string }) {
                 ))}
             </div>
             
-            <div className="text-xs text-center text-slate-400 pt-2">
+            <div className="text-xs text-center text-slate-600 pt-2">
                 Last updated: 2 minutes ago
             </div>
         </div>

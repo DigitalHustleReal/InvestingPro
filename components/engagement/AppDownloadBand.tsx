@@ -23,7 +23,7 @@ export default function AppDownloadBand() {
               <h4 className="text-xl md:text-2xl font-black text-white font-heading tracking-tight mb-1">
                 Take InvestingPro Everywhere
               </h4>
-              <p className="text-slate-400 text-sm md:text-base font-medium">
+              <p className="text-slate-600 text-sm md:text-base font-medium">
                 Get real-time alerts, compare cards on the go, and track your portfolio.
               </p>
             </div>

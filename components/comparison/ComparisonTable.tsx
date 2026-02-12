@@ -57,7 +57,7 @@ export function ComparisonTable({
     type: ComparisonTableRow['type']
   ): React.ReactNode => {
     if (value === null || value === undefined) {
-      return <span className="text-slate-400 dark:text-slate-500">—</span>;
+      return <span className="text-slate-600 dark:text-slate-500">—</span>;
     }
 
     switch (type) {
@@ -210,7 +210,7 @@ export function ComparisonTable({
                       {row.tooltip && (
                         <span title={row.tooltip}>
                           <AlertCircle
-                            className="w-4 h-4 text-slate-400 dark:text-slate-500"
+                            className="w-4 h-4 text-slate-600 dark:text-slate-500"
                           />
                         </span>
                       )}
@@ -282,7 +282,7 @@ export function ComparisonTable({
       </div>
 
       {/* Mobile Notice */}
-      <div className="mt-4 flex items-center justify-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 md:hidden">
+      <div className="mt-4 flex items-center justify-center gap-1.5 text-xs text-slate-500 dark:text-slate-600 md:hidden">
         <Info className="w-3.5 h-3.5 text-primary-500" />
         <span>Swipe horizontally to see all products</span>
       </div>

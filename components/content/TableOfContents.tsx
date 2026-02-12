@@ -55,7 +55,7 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
 
     return (
         <nav className="hidden lg:block sticky top-24 self-start max-w-[260px] pl-4 border-l border-slate-200">
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">
+            <h4 className="text-xs font-bold text-slate-600 uppercase tracking-widest mb-4">
                 On this page
             </h4>
             <ul className="space-y-1">

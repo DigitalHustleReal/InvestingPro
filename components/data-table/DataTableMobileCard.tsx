@@ -60,7 +60,7 @@ export function DataTableMobileCard<T>({
           <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
             {secondaryColumns.map((column) => (
               <div key={column.key}>
-                <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mb-1">
+                <div className="text-xs text-slate-500 dark:text-slate-600 font-medium mb-1">
                   {column.header}
                 </div>
                 <div className="text-sm text-slate-900 dark:text-white font-medium">

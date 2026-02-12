@@ -51,7 +51,7 @@ export default function DisclosureBlock({
         return (
             <div className="text-xs text-slate-600 border-t border-slate-200 pt-4 mt-6">
                 <div className="flex items-start gap-2">
-                    <Icon className="w-3 h-3 mt-0.5 text-slate-400 shrink-0" />
+                    <Icon className="w-3 h-3 mt-0.5 text-slate-600 shrink-0" />
                     <p>
                         <strong className="font-semibold text-slate-700">{disclosure.title}:</strong>{' '}
                         {disclosure.content}

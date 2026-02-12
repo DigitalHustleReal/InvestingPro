@@ -39,7 +39,7 @@ export default function AssetAllocation({ holdings }: AssetAllocationProps) {
                 <CardHeader>
                     <CardTitle>Asset Allocation</CardTitle>
                 </CardHeader>
-                <CardContent className="h-64 flex items-center justify-center text-slate-500 dark:text-slate-400">
+                <CardContent className="h-64 flex items-center justify-center text-slate-500 dark:text-slate-600">
                     No data available
                 </CardContent>
             </Card>

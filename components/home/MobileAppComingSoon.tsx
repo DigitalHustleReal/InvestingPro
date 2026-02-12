@@ -81,7 +81,7 @@ export default function MobileAppComingSoon() {
                                     <input
                                         type="email"
                                         placeholder="Enter your email"
-                                        className="w-full h-14 px-5 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-400 focus:border-primary-500/50 focus:ring-2 focus:ring-primary-500/20 transition-all backdrop-blur-sm"
+                                        className="w-full h-14 px-5 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:border-primary-500/50 focus:ring-2 focus:ring-primary-500/20 transition-all backdrop-blur-sm"
                                     />
                                 </div>
                                 <button className="w-full sm:w-auto h-14 px-8 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-700 hover:to-primary-600 text-white font-bold rounded-xl shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 transition-all whitespace-nowrap hover:scale-105 active:scale-95">
@@ -89,7 +89,7 @@ export default function MobileAppComingSoon() {
                                 </button>
                             </div>
 
-                            <p className="text-xs text-slate-400 mt-4">
+                            <p className="text-xs text-slate-600 mt-4">
                                 Be the first to know when we launch. No spam, ever.
                             </p>
                         </motion.div>
@@ -154,9 +154,9 @@ export default function MobileAppComingSoon() {
                                                 
                                                 {/* Search Bar */}
                                                 <div className="relative">
-                                                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                                                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
                                                     <div className="w-full h-12 bg-white rounded-xl flex items-center px-4 pl-11 shadow-lg">
-                                                        <span className="text-sm text-slate-400">Search products...</span>
+                                                        <span className="text-sm text-slate-600">Search products...</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -174,7 +174,7 @@ export default function MobileAppComingSoon() {
                                                         <div className={`text-lg font-black bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
                                                             {stat.value}
                                                         </div>
-                                                        <div className="text-[10px] text-slate-400 font-medium mt-0.5">
+                                                        <div className="text-[10px] text-slate-600 font-medium mt-0.5">
                                                             {stat.label}
                                                         </div>
                                                     </div>
@@ -209,7 +209,7 @@ export default function MobileAppComingSoon() {
                                                         </div>
                                                         <div className="flex-1 min-w-0">
                                                             <div className="font-bold text-white text-sm">{cat.name}</div>
-                                                            <div className="text-xs text-slate-400">{cat.desc}</div>
+                                                            <div className="text-xs text-slate-600">{cat.desc}</div>
                                                         </div>
                                                         <div className="w-6 h-6 rounded-full bg-slate-700/50 flex items-center justify-center">
                                                             <div className="w-1.5 h-1.5 rounded-full bg-slate-400" />

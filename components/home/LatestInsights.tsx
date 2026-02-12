@@ -134,10 +134,10 @@ export default function LatestInsights() {
                                     <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 line-clamp-2 group-hover:text-primary-600 transition-colors leading-tight">
                                         {featuredArticle.title}
                                     </h3>
-                                    <p className="text-slate-700 dark:text-slate-400 mb-6 line-clamp-3 leading-relaxed">
+                                    <p className="text-slate-700 dark:text-slate-600 mb-6 line-clamp-3 leading-relaxed">
                                         {featuredArticle.excerpt}
                                     </p>
-                                    <div className="flex items-center justify-between text-sm text-slate-600 dark:text-slate-400">
+                                    <div className="flex items-center justify-between text-sm text-slate-600 dark:text-slate-600">
                                         <div className="flex items-center gap-4">
                                             <span className="flex items-center gap-1.5">
                                                 <Calendar className="w-4 h-4" />
@@ -181,10 +181,10 @@ export default function LatestInsights() {
                                         {/* Content */}
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2 mb-2">
-                                                <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400">
+                                                <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-600">
                                                     {formatCategory(article.category)}
                                                 </Badge>
-                                                <span className="text-xs text-slate-400 dark:text-slate-500 flex items-center gap-1">
+                                                <span className="text-xs text-slate-600 dark:text-slate-500 flex items-center gap-1">
                                                     <Clock className="w-3 h-3" />
                                                     {article.read_time || 5} min
                                                 </span>

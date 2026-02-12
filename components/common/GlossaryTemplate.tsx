@@ -140,7 +140,7 @@ export default function GlossaryTemplate({
                                     href={`/glossary/${related.slug}`}
                                     className="flex items-center gap-3 p-4 border border-slate-200 rounded-xl hover:border-primary-300 hover:bg-slate-50 transition-colors group"
                                 >
-                                    <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-primary-600 transition-colors flex-shrink-0" />
+                                    <ChevronRight className="w-5 h-5 text-slate-600 group-hover:text-primary-600 transition-colors flex-shrink-0" />
                                     <span className="font-medium text-slate-900">{related.term}</span>
                                 </Link>
                             ))}
@@ -157,7 +157,7 @@ export default function GlossaryTemplate({
                                     href={link.href}
                                     className="flex items-start gap-3 p-4 border border-slate-200 rounded-xl hover:border-primary-300 hover:bg-slate-50 transition-colors group"
                                 >
-                                    <ExternalLink className="w-5 h-5 text-slate-400 group-hover:text-primary-600 transition-colors flex-shrink-0 mt-0.5" />
+                                    <ExternalLink className="w-5 h-5 text-slate-600 group-hover:text-primary-600 transition-colors flex-shrink-0 mt-0.5" />
                                     <div>
                                         <p className="font-semibold text-slate-900 mb-1">{link.label}</p>
                                         <p className="text-sm text-slate-600">{link.description}</p>

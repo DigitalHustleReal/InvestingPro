@@ -159,7 +159,7 @@ export function EMICalculatorEnhanced() {
                                     <div className="flex items-center gap-1.5">
                                         <Label className="text-sm text-slate-700 font-semibold">Interest Rate</Label>
                                         <div className="group relative">
-                                            <HelpCircle className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-400 cursor-help" />
+                                            <HelpCircle className="w-3.5 h-3.5 text-slate-600 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-600 cursor-help" />
                                             <div className="absolute left-0 bottom-full mb-2 w-72 p-3 bg-slate-900 text-white text-xs rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 shadow-xl">
                                                 <div className="font-semibold mb-1.5">EMI Formula:</div>
                                                 <div className="text-[10px] font-mono leading-relaxed">
@@ -287,7 +287,7 @@ export function EMICalculatorEnhanced() {
                 {/* Left: Amortization Schedule Chart */}
                 <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-xl">
                     <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Amortization Schedule (First Year)</CardTitle>
+                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-600">Amortization Schedule (First Year)</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="h-80">
@@ -316,18 +316,18 @@ export function EMICalculatorEnhanced() {
                 {/* Right: Year-by-Year Breakdown */}
                 <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-xl">
                     <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Year-by-Year Breakdown</CardTitle>
+                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-600">Year-by-Year Breakdown</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4">
                             {/* Summary Stats */}
                             <div className="grid grid-cols-2 gap-3">
                                 <div className="p-4 bg-accent-50 rounded-xl border border-accent-100">
-                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Monthly EMI</p>
+                                    <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Monthly EMI</p>
                                     <p className="text-lg font-bold text-accent-600">{formatCurrency(emiResult.emi)}</p>
                                 </div>
                                 <div className="p-4 bg-secondary-50 rounded-xl border border-secondary-100">
-                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Interest Rate</p>
+                                    <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Interest Rate</p>
                                     <p className="text-lg font-bold text-primary-600">{emiRate}%</p>
                                 </div>
                             </div>
@@ -381,7 +381,7 @@ export function EMICalculatorEnhanced() {
                                     <Info className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
                                     <div>
                                         <p className="text-sm font-semibold text-slate-900 dark:text-white mb-1">Payment Structure</p>
-                                        <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                                        <p className="text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
                                             Early EMIs have higher interest component. As you pay down principal, interest portion decreases and principal portion increases over time.
                                         </p>
                                     </div>

@@ -56,14 +56,14 @@ export default function ScoreExplanation({ overall, breakdown, children }: Score
                                     style={{ width: `${(item.score / 10) * 100}%` }}
                                />
                            </div>
-                           <div className="text-[10px] text-slate-400 text-right">
+                           <div className="text-[10px] text-slate-600 text-right">
                                Weight: {Math.round(item.weight * 100)}%
                            </div>
                        </div>
                    ))}
                </div>
                
-               <p className="text-[10px] text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800 italic">
+               <p className="text-[10px] text-slate-600 pt-2 border-t border-slate-100 dark:border-slate-800 italic">
                    Scores are personalized based on your selected preferences (Rewards, Travel, Fees).
                </p>
            </div>

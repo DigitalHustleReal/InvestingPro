@@ -99,7 +99,7 @@ export function ExpertByline({
         {/* Title */}
         <p 
           className={cn(
-            "text-slate-600 dark:text-slate-400",
+            "text-slate-600 dark:text-slate-600",
             isCompact ? "text-xs" : "text-sm"
           )}
           itemProp="jobTitle"
@@ -126,11 +126,11 @@ export function ExpertByline({
         {lastUpdated && (
           <div className="flex items-center gap-1 mt-2">
             <Calendar className={cn(
-              "text-slate-500 dark:text-slate-400",
+              "text-slate-500 dark:text-slate-600",
               isCompact ? "w-3 h-3" : "w-3.5 h-3.5"
             )} aria-hidden="true" />
             <span className={cn(
-              "text-slate-500 dark:text-slate-400",
+              "text-slate-500 dark:text-slate-600",
               isCompact ? "text-[10px]" : "text-xs"
             )}>
               Last updated: {lastUpdated.toLocaleDateString('en-IN', {
@@ -194,7 +194,7 @@ export function ExpertReviewByline(
           )}
           
           {reviewDate && (
-            <div className="flex items-center gap-1 text-xs text-slate-600 dark:text-slate-400">
+            <div className="flex items-center gap-1 text-xs text-slate-600 dark:text-slate-600">
               <Calendar className="w-3 h-3" aria-hidden="true" />
               Reviewed: {reviewDate.toLocaleDateString('en-IN', {
                 year: 'numeric',

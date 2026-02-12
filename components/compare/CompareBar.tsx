@@ -55,7 +55,7 @@ export default function CompareBar() {
                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-600 flex items-center justify-center shadow-lg shadow-primary-500/30">
                     <Sparkles className="w-4 h-4 text-white" />
                     </div>
-                    <span className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
+                    <span className="text-xs text-slate-500 dark:text-slate-600 font-bold uppercase tracking-wider">
                     Comparing
                     </span>
                 </div>
@@ -91,7 +91,7 @@ export default function CompareBar() {
                         </p>
                         <div className="flex items-center gap-1">
                             <span className="text-[10px] text-accent-600 dark:text-accent-400">â˜…</span>
-                            <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
+                            <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-600">
                             {/* Handle both object and primitive rating structures */}
                             {typeof product.rating === 'object' 
                                 ? Number(product.rating?.overall || 0).toFixed(1) 
@@ -107,7 +107,7 @@ export default function CompareBar() {
                         className="p-1 hover:bg-danger-100 dark:hover:bg-danger-900/30 rounded-full group/remove transition-colors"
                         aria-label="Remove"
                         >
-                        <X className="w-3.5 h-3.5 text-slate-400 group-hover/remove:text-danger-500" />
+                        <X className="w-3.5 h-3.5 text-slate-600 group-hover/remove:text-danger-500" />
                         </button>
                     </div>
                     ))}

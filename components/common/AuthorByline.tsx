@@ -36,7 +36,7 @@ export default function AuthorByline({
             </span>
             <Shield className="w-3 h-3 text-emerald-500" />
         </div>
-        <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+        <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-600">
             <span>{authorRole}</span>
             <span>•</span>
             <span>Updated {lastUpdated}</span>

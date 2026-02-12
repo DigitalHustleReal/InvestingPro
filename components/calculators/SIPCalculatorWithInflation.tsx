@@ -605,7 +605,7 @@ export function SIPCalculatorWithInflation() {
                 {/* Left: Growth Projection Chart */}
                 <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-xl">
                     <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Growth Projection</CardTitle>
+                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-600">Growth Projection</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="h-80 lg:h-96">
@@ -645,18 +645,18 @@ export function SIPCalculatorWithInflation() {
                 {/* Right: Year-by-Year Breakdown */}
                 <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-xl">
                     <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Year-by-Year Breakdown</CardTitle>
+                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-600">Year-by-Year Breakdown</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4">
                             {/* Summary Stats */}
                             <div className="grid grid-cols-2 gap-3">
                                 <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
-                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Investment</p>
+                                    <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Investment</p>
                                     <p className="text-lg font-bold text-slate-900 dark:text-white">{formatCurrency(monthlyInvestment)}</p>
                                 </div>
                                 <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
-                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Expected ROI</p>
+                                    <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Expected ROI</p>
                                     <p className="text-lg font-bold text-primary-600">{expectedReturn}%</p>
                                 </div>
                             </div>
@@ -783,7 +783,7 @@ export function SIPCalculatorWithInflation() {
                                         {isSubmitting ? "Sending..." : "Send"}
                                     </Button>
                                 </div>
-                                <p className="text-[10px] text-slate-400 mt-2 text-center">
+                                <p className="text-[10px] text-slate-600 mt-2 text-center">
                                     <Lock className="w-3 h-3 inline mr-1" /> No spam. Unsubscribe anytime.
                                 </p>
                             </div>

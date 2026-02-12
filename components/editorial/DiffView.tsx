@@ -166,7 +166,7 @@ export default function DiffView({ draft, onClose }: DiffViewProps) {
                                         )}
                                     </div>
                                     {source.last_verified && (
-                                        <div className="text-xs text-slate-400">
+                                        <div className="text-xs text-slate-600">
                                             Verified: {new Date(source.last_verified).toLocaleDateString()}
                                         </div>
                                     )}
@@ -187,7 +187,7 @@ export default function DiffView({ draft, onClose }: DiffViewProps) {
                                         <span className="font-bold text-slate-900">
                                             {log.change_type || log.event}
                                         </span>
-                                        <span className="text-xs text-slate-400">
+                                        <span className="text-xs text-slate-600">
                                             {new Date(log.timestamp || log.generated_at).toLocaleString()}
                                         </span>
                                     </div>

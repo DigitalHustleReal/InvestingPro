@@ -145,7 +145,7 @@ export function FinancialHealthCalculator() {
                                 <Label className="text-sm font-medium text-slate-700 dark:text-slate-300">Monthly Income (In Hand)</Label>
                                 <div className="flex items-center gap-2">
                                     <div className="relative w-full">
-                                        <IndianRupee className="absolute left-3 top-2.5 w-4 h-4 text-slate-500 dark:text-slate-400" />
+                                        <IndianRupee className="absolute left-3 top-2.5 w-4 h-4 text-slate-500 dark:text-slate-600" />
                                         <Input type="number" className="pl-9" value={monthlyIncome} onChange={(e) => setMonthlyIncome(Number(e.target.value))} />
                                     </div>
                                 </div>
@@ -155,7 +155,7 @@ export function FinancialHealthCalculator() {
                             <div className="space-y-2">
                                 <Label className="text-sm font-medium text-slate-700 dark:text-slate-300">Monthly Expenses</Label>
                                 <div className="relative w-full">
-                                    <IndianRupee className="absolute left-3 top-2.5 w-4 h-4 text-slate-500 dark:text-slate-400" />
+                                    <IndianRupee className="absolute left-3 top-2.5 w-4 h-4 text-slate-500 dark:text-slate-600" />
                                     <Input type="number" className="pl-9" value={monthlyExpenses} onChange={(e) => setMonthlyExpenses(Number(e.target.value))} />
                                 </div>
                                 <Slider value={[monthlyExpenses]} onValueChange={(v) => setMonthlyExpenses(v[0])} min={5000} max={monthlyIncome} step={1000} />
@@ -163,7 +163,7 @@ export function FinancialHealthCalculator() {
                              <div className="space-y-2">
                                 <Label className="text-sm font-medium text-slate-700 dark:text-slate-300">Monthly Debt Payments (EMI)</Label>
                                 <div className="relative w-full">
-                                    <IndianRupee className="absolute left-3 top-2.5 w-4 h-4 text-slate-500 dark:text-slate-400" />
+                                    <IndianRupee className="absolute left-3 top-2.5 w-4 h-4 text-slate-500 dark:text-slate-600" />
                                     <Input type="number" className="pl-9" value={monthlyDebtPayments} onChange={(e) => setMonthlyDebtPayments(Number(e.target.value))} />
                                 </div>
                             </div>
@@ -176,21 +176,21 @@ export function FinancialHealthCalculator() {
                             <div className="space-y-2">
                                 <Label className="text-sm font-medium text-slate-700 dark:text-slate-300">Total Liquid Savings (Cash/Bank)</Label>
                                 <div className="relative w-full">
-                                    <IndianRupee className="absolute left-3 top-2.5 w-4 h-4 text-slate-500 dark:text-slate-400" />
+                                    <IndianRupee className="absolute left-3 top-2.5 w-4 h-4 text-slate-500 dark:text-slate-600" />
                                     <Input type="number" className="pl-9" value={totalSavings} onChange={(e) => setTotalSavings(Number(e.target.value))} />
                                 </div>
                             </div>
                              <div className="space-y-2">
                                 <Label className="text-sm font-medium text-slate-700 dark:text-slate-300">Total Investments</Label>
                                 <div className="relative w-full">
-                                    <IndianRupee className="absolute left-3 top-2.5 w-4 h-4 text-slate-500 dark:text-slate-400" />
+                                    <IndianRupee className="absolute left-3 top-2.5 w-4 h-4 text-slate-500 dark:text-slate-600" />
                                     <Input type="number" className="pl-9" value={investmentCorp} onChange={(e) => setInvestmentCorp(Number(e.target.value))} />
                                 </div>
                             </div>
                              <div className="space-y-2">
                                 <Label className="text-sm font-medium text-slate-700 dark:text-slate-300">Total Outstanding Debt</Label>
                                 <div className="relative w-full">
-                                    <IndianRupee className="absolute left-3 top-2.5 w-4 h-4 text-slate-500 dark:text-slate-400" />
+                                    <IndianRupee className="absolute left-3 top-2.5 w-4 h-4 text-slate-500 dark:text-slate-600" />
                                     <Input type="number" className="pl-9" value={totalDebt} onChange={(e) => setTotalDebt(Number(e.target.value))} />
                                 </div>
                             </div>
@@ -234,25 +234,25 @@ export function FinancialHealthCalculator() {
                                 </div>
                                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[20%] text-center">
                                     <span className={`text-4xl font-black ${result.color}`}>{result.score}</span>
-                                    <span className="text-sm text-slate-400 dark:text-slate-500 block font-medium">/ 100</span>
+                                    <span className="text-sm text-slate-600 dark:text-slate-500 block font-medium">/ 100</span>
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg text-center">
-                                    <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase">Savings Rate</p>
+                                    <p className="text-xs text-slate-500 dark:text-slate-600 font-semibold uppercase">Savings Rate</p>
                                     <p className="text-lg font-bold text-slate-800 dark:text-white">{result.metrics.savingsRate}%</p>
                                 </div>
                                 <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg text-center">
-                                    <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase">Emergency Fund</p>
+                                    <p className="text-xs text-slate-500 dark:text-slate-600 font-semibold uppercase">Emergency Fund</p>
                                     <p className="text-lg font-bold text-slate-800 dark:text-white">{result.metrics.emergencyMonths} Mo</p>
                                 </div>
                                 <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg text-center">
-                                    <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase">Debt Fraction</p>
+                                    <p className="text-xs text-slate-500 dark:text-slate-600 font-semibold uppercase">Debt Fraction</p>
                                     <p className="text-lg font-bold text-slate-800 dark:text-white">{result.metrics.dti}%</p>
                                 </div>
                                 <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg text-center">
-                                    <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase">Asset Ratio</p>
+                                    <p className="text-xs text-slate-500 dark:text-slate-600 font-semibold uppercase">Asset Ratio</p>
                                     <p className="text-lg font-bold text-slate-800 dark:text-white">{result.metrics.netWorthRatio}x</p>
                                 </div>
                             </div>

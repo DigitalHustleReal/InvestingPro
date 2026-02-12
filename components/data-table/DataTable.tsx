@@ -96,7 +96,7 @@ export function DataTable<T extends Record<string, any>>({
 
   const getSortIcon = (columnKey: string) => {
     if (!sortConfig || sortConfig.column !== columnKey) {
-      return <ChevronsUpDown className="w-4 h-4 text-slate-400" />;
+      return <ChevronsUpDown className="w-4 h-4 text-slate-600" />;
     }
     return sortConfig.direction === 'asc' 
       ? <ChevronUp className="w-4 h-4 text-primary-600" />
@@ -121,7 +121,7 @@ export function DataTable<T extends Record<string, any>>({
   if (sortedData.length === 0) {
     return (
       <div className="text-center py-12 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
-        <p className="text-slate-500 dark:text-slate-400">{emptyMessage}</p>
+        <p className="text-slate-500 dark:text-slate-600">{emptyMessage}</p>
       </div>
     );
   }
@@ -144,7 +144,7 @@ export function DataTable<T extends Record<string, any>>({
               {columns.map((column) => (
                 <th
                   key={column.key}
-                  className={`px-4 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider ${
+                  className={`px-4 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-600 uppercase tracking-wider ${
                     column.sortable && sortable ? 'cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors' : ''
                   } ${column.align === 'center' ? 'text-center' : column.align === 'right' ? 'text-right' : ''}`}
                   style={{ width: column.width }}

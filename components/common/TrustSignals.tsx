@@ -45,7 +45,7 @@ export default function TrustSignals({
                     <span className="font-semibold text-slate-900 dark:text-white">
                         {stats.totalUsers.toLocaleString()}+
                     </span>
-                    <span className="text-slate-600 dark:text-slate-400">Users</span>
+                    <span className="text-slate-600 dark:text-slate-600">Users</span>
                 </div>
             )}
 
@@ -57,7 +57,7 @@ export default function TrustSignals({
                             {stats.averageRating}
                         </span>
                     </div>
-                    <span className="text-slate-600 dark:text-slate-400">
+                    <span className="text-slate-600 dark:text-slate-600">
                         ({stats.totalReviews.toLocaleString()} reviews)
                     </span>
                 </div>
@@ -66,7 +66,7 @@ export default function TrustSignals({
             {showReviews && variant === 'full' && (
                 <div className="flex items-center gap-2 text-sm">
                     <CheckCircle2 className="w-4 h-4 text-success-600 dark:text-success-400" />
-                    <span className="text-slate-600 dark:text-slate-400">
+                    <span className="text-slate-600 dark:text-slate-600">
                         {stats.totalReviews.toLocaleString()} Verified Reviews
                     </span>
                 </div>
@@ -124,7 +124,7 @@ export function TrustBadge({
         <div className="flex items-center gap-2 text-sm">
             <Icon className={cn("w-4 h-4", color)} />
             {label && (
-                <span className="text-slate-600 dark:text-slate-400">{label}</span>
+                <span className="text-slate-600 dark:text-slate-600">{label}</span>
             )}
         </div>
     );

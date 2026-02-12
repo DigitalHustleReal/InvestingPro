@@ -115,7 +115,7 @@ export default function ExitIntentPopup({
                     {/* Close button */}
                     <button
                         onClick={handleClose}
-                        className="absolute right-4 top-4 z-10 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                        className="absolute right-4 top-4 z-10 text-slate-600 hover:text-slate-600 dark:hover:text-slate-300"
                     >
                         <X className="w-5 h-5" />
                     </button>
@@ -129,7 +129,7 @@ export default function ExitIntentPopup({
                             <DialogTitle className="text-2xl font-bold mb-2">
                                 Don't Miss Out!
                             </DialogTitle>
-                            <p className="text-slate-600 dark:text-slate-400 mb-6">
+                            <p className="text-slate-600 dark:text-slate-600 mb-6">
                                 Get weekly investment insights, exclusive deals, and expert tips delivered to your inbox.
                             </p>
                             <form onSubmit={handleSubscribe} className="space-y-4">
@@ -194,7 +194,7 @@ export default function ExitIntentPopup({
                             <DialogTitle className="text-2xl font-bold mb-2 text-center">
                                 Find Your Perfect Match
                             </DialogTitle>
-                            <p className="text-slate-600 dark:text-slate-400 mb-6 text-center">
+                            <p className="text-slate-600 dark:text-slate-600 mb-6 text-center">
                                 Get personalized product recommendations based on your needs.
                             </p>
                             <form onSubmit={handleSubscribe} className="space-y-4">
@@ -231,7 +231,7 @@ export default function ExitIntentPopup({
                               {/* Content Side */}
                               <div className="md:col-span-3 p-8">
                                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Wait! Not sure which card to pick?</h2>
-                                <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
+                                <p className="text-slate-600 dark:text-slate-600 mb-6 text-sm leading-relaxed">
                                   Get a personalized recommendation based on your spending. It only takes 30 seconds.
                                 </p>
                     
@@ -241,7 +241,7 @@ export default function ExitIntentPopup({
                                   </Button>
                                 </Link>
                                 
-                                <p className="text-center mt-4 text-xs text-slate-400 hover:text-slate-500 cursor-pointer" onClick={handleClose}>
+                                <p className="text-center mt-4 text-xs text-slate-600 hover:text-slate-500 cursor-pointer" onClick={handleClose}>
                                   No thanks, I'll browse manually.
                                 </p>
                               </div>

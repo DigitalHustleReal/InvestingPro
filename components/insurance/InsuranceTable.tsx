@@ -36,7 +36,7 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
                                 {row.name}
                             </Link>
                             <div className="flex items-center gap-2">
-                                <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
+                                <p className="text-[10px] text-slate-600 font-semibold uppercase tracking-wider">
                                     {row.provider || row.provider_name || 'Insurer'}
                                 </p>
                                 {row.metadata?.type && (
@@ -63,7 +63,7 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
                         <p className="font-bold text-slate-900 dark:text-white">
                             {premium}
                         </p>
-                        <p className="text-[9px] text-slate-400 uppercase font-semibold">Starts from</p>
+                        <p className="text-[9px] text-slate-600 uppercase font-semibold">Starts from</p>
                     </div>
                 );
             },
@@ -82,7 +82,7 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
                         <p className="font-bold text-primary-600">
                             {coverage}
                         </p>
-                        <p className="text-[9px] text-slate-400 uppercase font-semibold">Sum Assured</p>
+                        <p className="text-[9px] text-slate-600 uppercase font-semibold">Sum Assured</p>
                     </div>
                 );
             },
@@ -167,7 +167,7 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
                                 />
                             ))}
                         </div>
-                        <span className="text-xs font-bold text-slate-600 dark:text-slate-400">
+                        <span className="text-xs font-bold text-slate-600 dark:text-slate-600">
                             {(typeof rating === 'number' ? rating : Number(rating) || 4.5).toFixed(1)}
                         </span>
                     </div>

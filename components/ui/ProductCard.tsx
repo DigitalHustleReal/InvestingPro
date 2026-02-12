@@ -87,7 +87,7 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
                     <div className="grid grid-cols-2 md:grid-cols-1 gap-4">
                         {metrics.map((m, i) => (
                             <div key={i}>
-                                <p className="text-xs text-slate-400 mb-0.5">{m.label}</p>
+                                <p className="text-xs text-slate-600 mb-0.5">{m.label}</p>
                                 <p className={`font-bold text-slate-900 ${m.isHighlight ? 'text-primary-600 text-lg' : ''} ${m.isCapitalize ? 'capitalize' : ''}`}>
                                     {m.value}
                                 </p>

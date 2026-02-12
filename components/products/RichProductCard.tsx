@@ -115,7 +115,7 @@ export function RichProductCard({ product, layout = 'grid', onCompare, matchScor
                         "p-2 rounded-xl border transition-all shadow-sm flex items-center gap-1.5",
                         isCompareSelected 
                             ? "bg-primary-600 border-primary-500 text-white" 
-                            : "bg-white/90 backdrop-blur-md border-slate-200 text-slate-400 hover:border-primary-500 hover:text-primary-500"
+                            : "bg-white/90 backdrop-blur-md border-slate-200 text-slate-600 hover:border-primary-500 hover:text-primary-500"
                     )}
                     aria-label={isCompareSelected ? "Remove from comparison" : "Add to comparison"}
                 >
@@ -152,7 +152,7 @@ export function RichProductCard({ product, layout = 'grid', onCompare, matchScor
                         />
                     ) : (
                         <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center rounded-xl">
-                            <span className="text-5xl font-bold text-slate-400">{product.name.charAt(0)}</span>
+                            <span className="text-5xl font-bold text-slate-600">{product.name.charAt(0)}</span>
                         </div>
                     )}
                 </div>

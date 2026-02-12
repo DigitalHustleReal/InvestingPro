@@ -147,7 +147,7 @@ export default function DecisionHelper({ category, variant = 'full', className }
                                             <p className="font-semibold text-sm text-slate-900 dark:text-white truncate">{tool.title}</p>
                                             <p className="text-xs text-slate-500 truncate">{tool.description}</p>
                                         </div>
-                                        <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
+                                        <ChevronRight className="w-4 h-4 text-slate-600 shrink-0" />
                                     </div>
                                 </Link>
                             );
@@ -170,7 +170,7 @@ export default function DecisionHelper({ category, variant = 'full', className }
                         </div>
                         <div>
                             <h3 className="font-bold text-lg">Decision Helper</h3>
-                            <p className="text-sm text-slate-400">Tools to help you decide faster</p>
+                            <p className="text-sm text-slate-600">Tools to help you decide faster</p>
                         </div>
                     </div>
                 </div>
@@ -197,7 +197,7 @@ export default function DecisionHelper({ category, variant = 'full', className }
                                                 </Badge>
                                             )}
                                         </div>
-                                        <p className="text-sm text-slate-500 dark:text-slate-400">{tool.description}</p>
+                                        <p className="text-sm text-slate-500 dark:text-slate-600">{tool.description}</p>
                                     </div>
                                     <Button variant="ghost" size="sm" className="shrink-0 rounded-xl group-hover:bg-primary-100 group-hover:text-primary-700">
                                         Try Now
@@ -213,7 +213,7 @@ export default function DecisionHelper({ category, variant = 'full', className }
                 {category !== 'all' && (
                     <div className="px-6 pb-6">
                         <div className="p-4 rounded-2xl bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-950 dark:to-secondary-950 border border-primary-100 dark:border-primary-900">
-                            <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                            <p className="text-sm text-slate-600 dark:text-slate-600 mb-3">
                                 <Zap className="w-4 h-4 inline mr-1 text-primary-500" />
                                 <strong>Pro Tip:</strong> Use our decision tools to make informed choices without endless browsing.
                             </p>

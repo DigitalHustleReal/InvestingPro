@@ -179,7 +179,7 @@ export default function PortfolioRebalancingCalculator() {
                         <div className="text-2xl font-bold font-mono">
                             ₹{Math.round(item.amount).toLocaleString()}
                         </div>
-                        <p className="text-xs text-slate-400 mt-2">
+                        <p className="text-xs text-slate-600 mt-2">
                             to reach {assets[index].targetAllocation}% allocation
                         </p>
                     </div>

@@ -112,7 +112,7 @@ export default function ApplicationFlow({
                                     <h3 className="font-semibold text-slate-900 dark:text-white mb-1">
                                         Secure Application Process
                                     </h3>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                                    <p className="text-sm text-slate-600 dark:text-slate-600">
                                         You'll be redirected to the official {getProductTypeLabel().toLowerCase()} provider's website. 
                                         Your application is secure and protected.
                                     </p>
@@ -154,7 +154,7 @@ export default function ApplicationFlow({
                         </div>
 
                         {/* Disclaimer */}
-                        <p className="text-xs text-slate-500 dark:text-slate-400 text-center">
+                        <p className="text-xs text-slate-500 dark:text-slate-600 text-center">
                             By clicking "{getCtaText()}", you'll be redirected to the official provider's website. 
                             InvestingPro earns a commission if you complete the application.
                         </p>
@@ -167,7 +167,7 @@ export default function ApplicationFlow({
                         <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
                             Redirecting You...
                         </h3>
-                        <p className="text-slate-600 dark:text-slate-400">
+                        <p className="text-slate-600 dark:text-slate-600">
                             Opening the official application page in a new tab.
                         </p>
                     </div>
@@ -179,7 +179,7 @@ export default function ApplicationFlow({
                         <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
                             Application Page Opened
                         </h3>
-                        <p className="text-slate-600 dark:text-slate-400 mb-6">
+                        <p className="text-slate-600 dark:text-slate-600 mb-6">
                             Complete your application on the official provider's website.
                         </p>
                         <Button onClick={onClose} variant="outline">

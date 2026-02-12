@@ -86,9 +86,9 @@ export default function CategoryGrid() {
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
                     <div className="max-w-2xl">
                         <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-6">
-                            Asset <span className="text-slate-400">Inventory</span>
+                            Asset <span className="text-slate-600">Inventory</span>
                         </h2>
-                        <p className="text-lg text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
+                        <p className="text-lg text-slate-500 dark:text-slate-600 font-medium leading-relaxed">
                             Navigate the Indian financial landscape with precision instrumentation.
                             Our inventory scans 10,000+ data points daily for asymmetric yield.
                         </p>
@@ -106,7 +106,7 @@ export default function CategoryGrid() {
                                 <div className={`w-12 h-12 rounded-xl ${category.bg} ${category.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
                                     <category.icon className="w-6 h-6" />
                                 </div>
-                                <Badge className="bg-slate-900/5 dark:bg-white/5 text-slate-500 dark:text-slate-400 border-0 text-[9px] font-semibold uppercase tracking-st px-2 py-0.5 group-hover:bg-primary-600 group-hover:text-white transition-colors">
+                                <Badge className="bg-slate-900/5 dark:bg-white/5 text-slate-500 dark:text-slate-600 border-0 text-[9px] font-semibold uppercase tracking-st px-2 py-0.5 group-hover:bg-primary-600 group-hover:text-white transition-colors">
                                     {category.tag}
                                 </Badge>
                             </div>
@@ -116,7 +116,7 @@ export default function CategoryGrid() {
                                     <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2 tracking-tight group-hover:text-primary-500 transition-colors">
                                         {category.name}
                                     </h3>
-                                    <p className="text-slate-500 dark:text-slate-400 text-sm font-medium leading-relaxed mb-6">
+                                    <p className="text-slate-500 dark:text-slate-600 text-sm font-medium leading-relaxed mb-6">
                                         {category.description}
                                     </p>
                                 </div>

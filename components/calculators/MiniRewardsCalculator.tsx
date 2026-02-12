@@ -33,7 +33,7 @@ export default function MiniRewardsCalculator({
         <h3 className="font-bold text-slate-900 dark:text-white">Rewards Calculator</h3>
       </div>
 
-      <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+      <p className="text-sm text-slate-600 dark:text-slate-600 mb-4">
         See if this card's rewards justify the annual fee
       </p>
 
@@ -51,7 +51,7 @@ export default function MiniRewardsCalculator({
           onChange={(e) => setMonthlySpend(parseInt(e.target.value))}
           className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-success-600"
         />
-        <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400 mt-1">
+        <div className="flex justify-between text-xs text-slate-500 dark:text-slate-600 mt-1">
           <span>₹5k</span>
           <span className="font-bold text-slate-900 dark:text-white">₹{(monthlySpend / 1000).toFixed(0)}k</span>
           <span>₹1L</span>
@@ -61,15 +61,15 @@ export default function MiniRewardsCalculator({
       {/* Results */}
       <div className="space-y-3 p-4 bg-white dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
         <div className="flex justify-between text-sm">
-          <span className="text-slate-600 dark:text-slate-400">Annual Spend</span>
+          <span className="text-slate-600 dark:text-slate-600">Annual Spend</span>
           <span className="font-semibold text-slate-900 dark:text-white">₹{annualSpend.toLocaleString('en-IN')}</span>
         </div>
         <div className="flex justify-between text-sm">
-          <span className="text-slate-600 dark:text-slate-400">Rewards Earned</span>
+          <span className="text-slate-600 dark:text-slate-600">Rewards Earned</span>
           <span className="font-semibold text-success-600 dark:text-success-400">+₹{rewardsEarned.toLocaleString('en-IN')}</span>
         </div>
         <div className="flex justify-between text-sm">
-          <span className="text-slate-600 dark:text-slate-400">Annual Fee</span>
+          <span className="text-slate-600 dark:text-slate-600">Annual Fee</span>
           <span className="font-semibold text-danger-600 dark:text-danger-400">-₹{annualFee.toLocaleString('en-IN')}</span>
         </div>
         <div className="pt-3 border-t border-slate-200 dark:border-slate-700">

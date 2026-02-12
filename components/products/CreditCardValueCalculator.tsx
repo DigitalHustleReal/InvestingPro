@@ -73,7 +73,7 @@ export default function CreditCardValueCalculator({
                         onValueChange={(val) => setMonthlySpend(val[0])}
                         className="py-2"
                     />
-                    <div className="flex justify-between text-xs text-slate-400 mt-2">
+                    <div className="flex justify-between text-xs text-slate-600 mt-2">
                         <span>₹5k</span>
                         <span>₹2L</span>
                     </div>
@@ -82,15 +82,15 @@ export default function CreditCardValueCalculator({
                 {/* Calculation Breakdown */}
                 <div className="bg-white dark:bg-black/20 rounded-xl border border-slate-100 dark:border-slate-800 p-4 space-y-3">
                     <div className="flex justify-between text-sm">
-                        <span className="text-slate-600 dark:text-slate-400">Annual Rewards (~{displayRate.toFixed(1)}%)</span>
+                        <span className="text-slate-600 dark:text-slate-600">Annual Rewards (~{displayRate.toFixed(1)}%)</span>
                         <span className="font-semibold text-emerald-600">+ ₹{annualRewards.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                        <span className="text-slate-600 dark:text-slate-400 flex items-center gap-1">
+                        <span className="text-slate-600 dark:text-slate-600 flex items-center gap-1">
                             Annual Fee 
                              {pointsWaiver && <span className="text-[10px] bg-success-100 text-success-700 px-1 rounded ml-1">WAIVED</span>}
                         </span>
-                        <span className={`font-semibold ${pointsWaiver ? 'text-slate-400 line-through' : 'text-rose-500'}`}>
+                        <span className={`font-semibold ${pointsWaiver ? 'text-slate-600 line-through' : 'text-rose-500'}`}>
                             - ₹{annualFee.toLocaleString('en-IN')}
                         </span>
                     </div>

@@ -54,7 +54,7 @@ export default function PortfolioSummary({ holdings = [] }: PortfolioSummaryProp
                                 </span>
                             )}
                         </div>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">{stat.label}</p>
+                        <p className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em] mb-1">{stat.label}</p>
                         <h3 className="text-3xl font-bold text-slate-900 tracking-tight">{stat.value}</h3>
                     </CardContent>
                 </Card>

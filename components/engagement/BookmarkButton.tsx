@@ -97,7 +97,7 @@ export default function BookmarkButton({
                     "rounded-xl flex items-center justify-center transition-all",
                     isBookmarked 
                         ? "bg-primary-500/10 text-primary-500 hover:bg-primary-500/20" 
-                        : "bg-slate-100 dark:bg-white/5 text-slate-400 hover:text-primary-500 hover:bg-slate-200 dark:hover:bg-white/10",
+                        : "bg-slate-100 dark:bg-white/5 text-slate-600 hover:text-primary-500 hover:bg-slate-200 dark:hover:bg-white/10",
                     sizeStyles[size],
                     className
                 )}

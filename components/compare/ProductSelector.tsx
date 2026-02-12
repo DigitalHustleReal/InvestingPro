@@ -79,7 +79,7 @@ export function ProductSelector({ category, excludeIds = [], onSelect, trigger }
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 {trigger || (
-                    <Button variant="outline" className="h-full min-h-[120px] w-full border-dashed border-2 flex flex-col gap-2 hover:border-primary-500 hover:bg-primary-50 text-slate-400 hover:text-primary-600">
+                    <Button variant="outline" className="h-full min-h-[120px] w-full border-dashed border-2 flex flex-col gap-2 hover:border-primary-500 hover:bg-primary-50 text-slate-600 hover:text-primary-600">
                         <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
                             <Plus className="w-6 h-6" />
                         </div>
@@ -93,7 +93,7 @@ export function ProductSelector({ category, excludeIds = [], onSelect, trigger }
                 </DialogHeader>
                 
                 <div className="relative">
-                    <Search className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                    <Search className="absolute left-3 top-3 h-4 w-4 text-slate-600" />
                     <Input
                         placeholder="Search products..."
                         className="pl-9"
@@ -132,7 +132,7 @@ export function ProductSelector({ category, excludeIds = [], onSelect, trigger }
                                             className="w-full h-full object-contain"
                                         />
                                     ) : (
-                                        <div className="w-full h-full flex items-center justify-center bg-slate-50 text-slate-400">
+                                        <div className="w-full h-full flex items-center justify-center bg-slate-50 text-slate-600">
                                             {product.name?.[0]}
                                         </div>
                                     )}
@@ -153,7 +153,7 @@ export function ProductSelector({ category, excludeIds = [], onSelect, trigger }
                                         )}
                                     </div>
                                 </div>
-                                <Plus className="w-4 h-4 text-slate-400" />
+                                <Plus className="w-4 h-4 text-slate-600" />
                             </button>
                         ))
                     )}

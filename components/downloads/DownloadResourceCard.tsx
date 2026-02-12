@@ -179,7 +179,7 @@ export default function DownloadResourceCard({ resource, onDownload }: DownloadR
                     </div>
                 ) : (
                     <div className="space-y-3">
-                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-600">
                             <Download className="w-4 h-4" />
                             <span>{resource.downloadCount || 0} downloads</span>
                         </div>

@@ -247,7 +247,7 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
             </div>
             <button
                 onClick={() => setIsCollapsed(true)}
-                className="text-slate-400 hover:text-primary-600 hover:bg-primary-50 p-1.5 rounded-lg transition-colors"
+                className="text-slate-600 hover:text-primary-600 hover:bg-primary-50 p-1.5 rounded-lg transition-colors"
             >
                 <Minimize2 className="w-4 h-4" />
             </button>

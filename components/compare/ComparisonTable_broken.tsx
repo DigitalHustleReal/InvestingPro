@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { CreditCard, Loan, MutualFund } from "@/types";
 import { Button } from "@/components/ui/Button";
@@ -110,7 +110,7 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
                                         {value}
                                     </span>
                                 ) : (
-                                    <span className="text-slate-400 italic">Not specified</span>
+                                    <span className="text-slate-600 italic">Not specified</span>
                                 )}
                             </div>
                         );
@@ -123,7 +123,7 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
                 <>
                     <div className="grid grid-cols-1 md:grid-cols-4 border-b border-slate-200 bg-success-50/30">
                         <div className="p-4 font-semibold text-slate-700 text-sm border-r border-slate-200">
-                            âœ… Pros
+                            ✅ Pros
                         </div>
                         {products.map((product) => (
                             <div key={product.id} className="p-4 text-xs text-slate-700 border-r border-slate-200 last:border-r-0">
@@ -140,7 +140,7 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-4 bg-danger-50/30">
                         <div className="p-4 font-semibold text-slate-700 text-sm border-r border-slate-200">
-                            âš ï¸ Cons
+                            ⚠️ Cons
                         </div>
                         {products.map((product) => (
                             <div key={product.id} className="p-4 text-xs text-slate-700 border-r border-slate-200 last:border-r-0">

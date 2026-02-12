@@ -21,7 +21,7 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
             <Card className="border-0 shadow-lg rounded-xl bg-gradient-to-br from-slate-50 dark:from-slate-900 to-white dark:to-slate-800">
                 <CardContent className="p-8">
                     <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">{content.h1}</h2>
-                    <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-6">{content.intro}</p>
+                    <p className="text-lg text-slate-600 dark:text-slate-600 leading-relaxed mb-6">{content.intro}</p>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {content.benefits.map((benefit, idx) => (
@@ -49,7 +49,7 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
                                     </div>
                                     <div className="pl-6">
                                         <h3 className="font-bold text-slate-900 dark:text-slate-100 mb-2">{step.title}</h3>
-                                        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{step.description}</p>
+                                        <p className="text-sm text-slate-600 dark:text-slate-600 leading-relaxed">{step.description}</p>
                                     </div>
                                 </div>
                             ))}
@@ -74,7 +74,7 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
                                     <AccordionTrigger className="text-left font-semibold text-slate-900 dark:text-slate-100 hover:text-primary-600">
                                         {faq.q}
                                     </AccordionTrigger>
-                                    <AccordionContent className="text-slate-600 dark:text-slate-400 leading-relaxed pt-2">
+                                    <AccordionContent className="text-slate-600 dark:text-slate-600 leading-relaxed pt-2">
                                         {faq.a}
                                     </AccordionContent>
                                 </AccordionItem>
@@ -101,7 +101,7 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
                                     <Calculator className="w-4 h-4 text-primary-600 group-hover:text-primary-700" />
                                     <span className="font-semibold text-slate-900 dark:text-slate-100 group-hover:text-primary-600">{calc}</span>
                                 </div>
-                                <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-primary-600 group-hover:translate-x-1 transition-transform" />
+                                <ArrowRight className="w-4 h-4 text-slate-600 group-hover:text-primary-600 group-hover:translate-x-1 transition-transform" />
                             </Link>
                         ))}
                     </div>

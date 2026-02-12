@@ -63,7 +63,7 @@ export default function AssetAllocation({ holdings = [] }: AssetAllocationProps)
                         </PieChart>
                     </ResponsiveContainer>
                 ) : (
-                    <div className="h-full flex items-center justify-center text-slate-400 font-bold uppercase tracking-widest text-[10px]">
+                    <div className="h-full flex items-center justify-center text-slate-600 font-bold uppercase tracking-widest text-[10px]">
                         No data available
                     </div>
                 )}

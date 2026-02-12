@@ -45,8 +45,8 @@ export default function RelatedArticles() {
                             <h4 className="font-semibold text-slate-900 dark:text-slate-200 text-sm group-hover:text-primary-600 transition-colors">{article.title}</h4>
                             <div className="flex items-center gap-2 mt-1">
                                 <span className="text-xs font-medium text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">{article.category}</span>
-                                <span className="text-[10px] text-slate-400">•</span>
-                                <span className="text-xs text-slate-400">{article.readTime}</span>
+                                <span className="text-[10px] text-slate-600">•</span>
+                                <span className="text-xs text-slate-600">{article.readTime}</span>
                             </div>
                         </div>
                         <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-primary-500 -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />

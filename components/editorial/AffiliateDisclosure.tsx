@@ -19,7 +19,7 @@ export function AffiliateDisclosure({ variant = 'inline', compact = false }: Aff
                         <h3 className="font-bold text-slate-900 dark:text-white mb-2">
                             How We Make Money
                         </h3>
-                        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
+                        <p className="text-sm text-slate-600 dark:text-slate-600 leading-relaxed mb-3">
                             We're an independent comparison platform supported by affiliate commissions. 
                             When you apply for a product through our links, we may earn a fee.
                         </p>
@@ -67,7 +67,7 @@ export function AffiliateDisclosure({ variant = 'inline', compact = false }: Aff
                             <p className="text-xs font-semibold text-slate-900 dark:text-white mb-1">
                                 Affiliate Disclosure
                             </p>
-                            <p className="text-xs text-slate-600 dark:text-slate-400">
+                            <p className="text-xs text-slate-600 dark:text-slate-600">
                                 {isExpanded 
                                     ? "We may earn a commission if you apply through our links, but this never influences our recommendations."
                                     : "We may earn a commission. Click to learn more."
@@ -76,9 +76,9 @@ export function AffiliateDisclosure({ variant = 'inline', compact = false }: Aff
                         </div>
                     </div>
                     {isExpanded ? (
-                        <ChevronUp className="w-4 h-4 text-slate-400 flex-shrink-0" />
+                        <ChevronUp className="w-4 h-4 text-slate-600 flex-shrink-0" />
                     ) : (
-                        <ChevronDown className="w-4 h-4 text-slate-400 flex-shrink-0" />
+                        <ChevronDown className="w-4 h-4 text-slate-600 flex-shrink-0" />
                     )}
                 </div>
                 

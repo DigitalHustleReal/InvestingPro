@@ -163,7 +163,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                     <div className="relative flex items-center gap-4 px-6 py-5 border-b border-white/10 group">
                         <div className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-primary-500/50 to-transparent opacity-0 group-focus-within:opacity-100 transition-opacity" />
                         
-                        <Search className="w-6 h-6 text-slate-400 group-focus-within:text-primary-400 transition-colors" />
+                        <Search className="w-6 h-6 text-slate-600 group-focus-within:text-primary-400 transition-colors" />
                         <input
                             ref={inputRef}
                             type="text"
@@ -286,11 +286,11 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                     <div className="px-6 py-4 bg-black/20 border-t border-white/5 backdrop-blur-md flex items-center justify-between">
                         <div className="flex items-center gap-6">
                             <div className="flex items-center gap-2 text-[10px] text-slate-500">
-                                <kbd className="flex items-center justify-center w-5 h-5 rounded border border-white/10 bg-white/5 text-slate-400">↑↓</kbd>
+                                <kbd className="flex items-center justify-center w-5 h-5 rounded border border-white/10 bg-white/5 text-slate-600">↑↓</kbd>
                                 <span>Navigate</span>
                             </div>
                             <div className="flex items-center gap-2 text-[10px] text-slate-500">
-                                <kbd className="flex items-center justify-center w-8 h-5 rounded border border-white/10 bg-white/5 text-slate-400">↵</kbd>
+                                <kbd className="flex items-center justify-center w-8 h-5 rounded border border-white/10 bg-white/5 text-slate-600">↵</kbd>
                                 <span>Select</span>
                             </div>
                         </div>

@@ -111,7 +111,7 @@ export default function ExpertBylineWidget() {
                     {expert.role}
                 </p>
 
-                <p className="text-sm text-slate-600 dark:text-slate-400 mb-6 italic line-clamp-3">
+                <p className="text-sm text-slate-600 dark:text-slate-600 mb-6 italic line-clamp-3">
                     "{expert.bio}"
                 </p>
 

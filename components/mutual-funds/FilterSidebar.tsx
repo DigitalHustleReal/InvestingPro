@@ -71,7 +71,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                 
                 {/* 1. Category */}
                 <div className="space-y-3">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Fund Category</label>
+                    <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Fund Category</label>
                     <div className="flex flex-wrap gap-2">
                         {CATEGORIES.map(cat => (
                             <button
@@ -80,7 +80,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border ${
                                     filters.categories.includes(cat)
                                         ? 'bg-slate-900 dark:bg-primary-500 text-white border-slate-900 dark:border-primary-500 shadow-lg shadow-slate-900/20'
-                                        : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-300'
+                                        : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-600 border-slate-200 dark:border-slate-700 hover:border-slate-300'
                                 }`}
                             >
                                 {cat}
@@ -94,7 +94,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                 {/* 2. Returns Slider */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                         <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Min 3Y Returns</label>
+                         <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Min 3Y Returns</label>
                          <span className="text-sm font-bold text-primary-600">{filters.minReturns}%</span>
                     </div>
                     <Slider
@@ -137,9 +137,9 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
 
                  {/* 4. Fund House */}
                  <div className="space-y-3">
-                     <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Fund House (AMC)</label>
+                     <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Fund House (AMC)</label>
                      <div className="relative">
-                         <Search className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-slate-400" />
+                         <Search className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-slate-600" />
                          <Input className="h-9 pl-8 bg-slate-50 dark:bg-slate-800 border-0" placeholder="Search AMC..." />
                      </div>
                      <div className="max-h-32 overflow-y-auto space-y-2 pr-2 scrollbar-thin">
@@ -150,7 +150,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                                     checked={filters.amcs.includes(amc)}
                                     onCheckedChange={() => toggleArrayItem('amcs', amc)}
                                 />
-                                <Label htmlFor={`amc-${amc}`} className="text-sm text-slate-600 dark:text-slate-400">
+                                <Label htmlFor={`amc-${amc}`} className="text-sm text-slate-600 dark:text-slate-600">
                                     {amc} Mutual Fund
                                 </Label>
                             </div>
@@ -163,7 +163,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                  {/* 5. Expense Ratio */}
                  <div className="space-y-4">
                      <div className="flex items-center justify-between">
-                         <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Max Expense Ratio</label>
+                         <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Max Expense Ratio</label>
                          <span className="text-sm font-bold text-danger-600">{filters.maxExpenseRatio}%</span>
                     </div>
                     <Slider

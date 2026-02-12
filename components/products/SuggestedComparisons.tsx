@@ -26,7 +26,7 @@ export default function SuggestedComparisons() {
                     </Link>
                 ))}
             </div>
-            <p className="mt-4 text-sm text-slate-400 text-center italic">
+            <p className="mt-4 text-sm text-slate-600 text-center italic">
                 Pro Tip: You can compare any two products by changing the URL!
             </p>
         </div>

@@ -52,7 +52,7 @@ export default function PillarPageTemplate({ content }: PillarPageTemplateProps)
                                                 <div className="text-3xl font-bold text-primary-600 mb-2">{stat.value}</div>
                                                 <div className="text-sm text-slate-600">{stat.label}</div>
                                                 {stat.source && (
-                                                    <div className="text-xs text-slate-400 mt-2">Source: {stat.source}</div>
+                                                    <div className="text-xs text-slate-600 mt-2">Source: {stat.source}</div>
                                                 )}
                                             </CardContent>
                                         </Card>

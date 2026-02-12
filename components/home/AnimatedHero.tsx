@@ -82,7 +82,7 @@ export default function AnimatedHero() {
                             Data-Driven Insights
                         </span>
                     </h1>
-                    <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed font-light">
+                    <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-600 max-w-3xl mx-auto leading-relaxed font-light">
                         Compare <strong className="font-bold text-slate-900 dark:text-white">10,000+</strong> financial products. 
                         Get institutional-grade analysis. <strong className="font-bold text-slate-900 dark:text-white">100% free</strong>, forever.
                     </p>
@@ -104,7 +104,7 @@ export default function AnimatedHero() {
                                     placeholder="Search credit cards, loans, mutual funds..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="flex-1 border-0 bg-transparent text-lg text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-0 h-16"
+                                    className="flex-1 border-0 bg-transparent text-lg text-slate-900 dark:text-white placeholder:text-slate-600 focus:ring-0 h-16"
                                 />
                                 <Button
                                     type="submit"
@@ -119,7 +119,7 @@ export default function AnimatedHero() {
                         {/* Trust badges under search */}
                         <div className="flex items-center justify-center gap-6 mt-4">
                             {trustBadges.map((badge, i) => (
-                                <div key={i} className="flex items-center gap-2 text-slate-600 dark:text-slate-400 text-sm">
+                                <div key={i} className="flex items-center gap-2 text-slate-600 dark:text-slate-600 text-sm">
                                     <badge.icon className={`w-4 h-4 text-${badge.color}-500`} />
                                     <span className="font-medium">{badge.text}</span>
                                 </div>
@@ -134,7 +134,7 @@ export default function AnimatedHero() {
                         <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
                             Explore Financial Products
                         </h2>
-                        <p className="text-slate-600 dark:text-slate-400">
+                        <p className="text-slate-600 dark:text-slate-600">
                             Click any category to start comparing
                         </p>
                     </div>
@@ -177,7 +177,7 @@ export default function AnimatedHero() {
                                                 `}>
                                                     <Icon className={`
                                                         w-7 h-7 
-                                                        text-slate-600 dark:text-slate-400
+                                                        text-slate-600 dark:text-slate-600
                                                         group-hover:text-white
                                                         transition-colors duration-300
                                                     `} />
@@ -238,7 +238,7 @@ export default function AnimatedHero() {
                                                 stat.display
                                             )}
                                         </div>
-                                        <div className="text-sm text-slate-600 dark:text-slate-400 font-medium">
+                                        <div className="text-sm text-slate-600 dark:text-slate-600 font-medium">
                                             {stat.label}
                                         </div>
                                     </div>

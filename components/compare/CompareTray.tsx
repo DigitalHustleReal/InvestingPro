@@ -32,7 +32,7 @@ export function CompareTray() {
                             </div>
                             <div>
                                 <h3 className="font-bold text-sm leading-tight">Ready to Compare</h3>
-                                <p className="text-xs text-slate-400">Select up to 4 items</p>
+                                <p className="text-xs text-slate-600">Select up to 4 items</p>
                             </div>
                         </div>
 
@@ -55,7 +55,7 @@ export function CompareTray() {
                              <Button 
                                 variant="ghost" 
                                 size="sm" 
-                                className="text-slate-400 hover:text-white hover:bg-white/10 h-10 rounded-lg px-3"
+                                className="text-slate-600 hover:text-white hover:bg-white/10 h-10 rounded-lg px-3"
                                 onClick={clearAll}
                             >
                                 <X className="w-4 h-4 mr-2" />

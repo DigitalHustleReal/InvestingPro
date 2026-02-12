@@ -57,8 +57,8 @@ export default function ContextualProducts({ categorySlug }: ContextualProductsP
                                 >
                                     <div className="h-full p-6 bg-slate-50 hover:bg-primary-50 border-2 border-slate-200 hover:border-primary-500 rounded-xl transition-all duration-200 group-hover:shadow-lg">
                                         <div className="flex items-center justify-between mb-2">
-                                            <TrendingUp className="w-5 h-5 text-slate-400 group-hover:text-primary-600 transition-colors" />
-                                            <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-primary-600 group-hover:translate-x-1 transition-all" />
+                                            <TrendingUp className="w-5 h-5 text-slate-600 group-hover:text-primary-600 transition-colors" />
+                                            <ArrowRight className="w-4 h-4 text-slate-600 group-hover:text-primary-600 group-hover:translate-x-1 transition-all" />
                                         </div>
                                         <h3 className="text-base font-bold text-slate-900 group-hover:text-primary-700 transition-colors leading-tight">
                                             {collection.name.toUpperCase()}

@@ -59,7 +59,7 @@ export default function NewsletterWidget({
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         disabled={status === 'loading' || status === 'success'}
-                        className="w-full bg-white dark:bg-slate-900/50 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-primary-500/20 dark:focus:ring-primary-400/20 transition-all h-12"
+                        className="w-full bg-white dark:bg-slate-900/50 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-600 dark:placeholder:text-slate-500 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-primary-500/20 dark:focus:ring-primary-400/20 transition-all h-12"
                     />
                     {!email && (
                         <span className="absolute right-3 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-primary-400 animate-pulse" />
@@ -94,7 +94,7 @@ export default function NewsletterWidget({
                 </div>
                 
                 <h3 className="text-2xl font-bold mb-3 tracking-tight">{title}</h3>
-                <p className="text-slate-400 mb-8 max-w-xs mx-auto leading-relaxed">
+                <p className="text-slate-600 mb-8 max-w-xs mx-auto leading-relaxed">
                     {description}
                 </p>
 

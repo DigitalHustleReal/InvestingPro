@@ -92,7 +92,7 @@ export default function HeroSection() {
 
                                 {/* Description */}
                                 <StaggerItem>
-                                    <p className="text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl leading-relaxed">
+                                    <p className="text-xl text-slate-600 dark:text-slate-600 mb-10 max-w-2xl leading-relaxed">
                                         {slide.desc}
                                     </p>
                                 </StaggerItem>
@@ -134,7 +134,7 @@ export default function HeroSection() {
                             <input
                                 type="text"
                                 placeholder="What are you looking for? (Cards, Loans, Investments...)"
-                                className="w-full h-16 pl-14 pr-6 rounded-xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-4 focus:ring-primary-500/10 dark:focus:ring-primary-400/10 transition-all font-medium text-lg shadow-sm hover:shadow-md"
+                                className="w-full h-16 pl-14 pr-6 rounded-xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white placeholder:text-slate-600 dark:placeholder:text-slate-500 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-4 focus:ring-primary-500/10 dark:focus:ring-primary-400/10 transition-all font-medium text-lg shadow-sm hover:shadow-md"
                             />
                         </div>
 
@@ -143,7 +143,7 @@ export default function HeroSection() {
                             {/* Prev Button */}
                             <button
                                 onClick={() => setCurrentSlide((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)}
-                                className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:border-primary-300 dark:hover:border-primary-700 hover:text-primary-600 dark:hover:text-primary-400 transition-all shadow-sm hover:shadow-md"
+                                className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-600 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:border-primary-300 dark:hover:border-primary-700 hover:text-primary-600 dark:hover:text-primary-400 transition-all shadow-sm hover:shadow-md"
                                 aria-label="Previous slide"
                             >
                                 <ChevronLeft className="w-5 h-5" />
@@ -172,14 +172,14 @@ export default function HeroSection() {
                             {/* Next Button */}
                             <button
                                 onClick={() => setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length)}
-                                className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:border-primary-300 dark:hover:border-primary-700 hover:text-primary-600 dark:hover:text-primary-400 transition-all shadow-sm hover:shadow-md"
+                                className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-600 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:border-primary-300 dark:hover:border-primary-700 hover:text-primary-600 dark:hover:text-primary-400 transition-all shadow-sm hover:shadow-md"
                                 aria-label="Next slide"
                             >
                                 <ChevronRight className="w-5 h-5" />
                             </button>
                             
                             {/* Pause/Play indicator */}
-                            <span className="text-xs text-slate-400 dark:text-slate-500 ml-2">
+                            <span className="text-xs text-slate-600 dark:text-slate-500 ml-2">
                                 {isPaused ? '⏸ Paused' : '▶ Auto'}
                             </span>
                         </div>

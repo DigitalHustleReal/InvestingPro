@@ -66,14 +66,14 @@ const UserSegmentation = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
                     <div className="max-w-2xl">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-400 text-xs font-bold uppercase tracking-wider mb-4">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-600 text-xs font-bold uppercase tracking-wider mb-4">
                             <Zap size={14} className="text-accent-400" />
                             Personalized Experience
                         </div>
                         <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">
                             What describes you <span className="text-primary-500">best?</span>
                         </h2>
-                        <p className="text-lg text-slate-400 font-medium">
+                        <p className="text-lg text-slate-600 font-medium">
                             Route yourself to the right tools and research hubs designed for your specific financial stage.
                         </p>
                     </div>
@@ -97,7 +97,7 @@ const UserSegmentation = () => {
                                         {item.tag}
                                     </div>
                                 </div>
-                                <p className="text-sm text-slate-400 leading-relaxed mb-8">
+                                <p className="text-sm text-slate-600 leading-relaxed mb-8">
                                     {item.desc}
                                 </p>
                             </div>

@@ -54,7 +54,7 @@ export function AuthorBadge({
         <div className={`flex items-center gap-3 ${className} cursor-pointer group`}>
             <Avatar className={`${sizeClasses[size]} border border-slate-200 bg-slate-50 transition-transform group-hover:scale-105`}>
                 <AvatarImage src={avatarUrl || ""} alt={name} />
-                <AvatarFallback className="bg-slate-100 text-slate-400">
+                <AvatarFallback className="bg-slate-100 text-slate-600">
                     <User className={size === 'sm' ? "w-4 h-4" : "w-6 h-6"} />
                 </AvatarFallback>
             </Avatar>

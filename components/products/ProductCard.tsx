@@ -54,7 +54,7 @@ export default function ProductCard({ product }: { product: Product }) {
                     />
                 ) : (
                     <div className="h-32 w-32 bg-slate-200 rounded flex items-center justify-center">
-                        <span className="text-2xl font-bold text-slate-400">{product.name.charAt(0)}</span>
+                        <span className="text-2xl font-bold text-slate-600">{product.name.charAt(0)}</span>
                     </div>
                 )}
             </div>
@@ -90,13 +90,13 @@ export default function ProductCard({ product }: { product: Product }) {
                 <div className="grid grid-cols-2 gap-2 mb-4 text-xs bg-slate-50 p-3 rounded-lg">
                     {annualFee && (
                         <div>
-                            <span className="block text-slate-400">Annual Fee</span>
+                            <span className="block text-slate-600">Annual Fee</span>
                             <span className="font-semibold text-slate-700">{annualFee}</span>
                         </div>
                     )}
                     {rewardRate && (
                         <div>
-                            <span className="block text-slate-400">Rewards</span>
+                            <span className="block text-slate-600">Rewards</span>
                             <span className="font-semibold text-slate-700">{rewardRate}</span>
                         </div>
                     )}
@@ -128,7 +128,7 @@ export default function ProductCard({ product }: { product: Product }) {
                 {/* Last Updated Timestamp */}
                 <div className="w-full pt-2 border-t border-slate-100 flex items-center justify-between">
                     <LastUpdated productId={product.id} />
-                    <Link href="/editorial-policy" className="text-[10px] text-slate-400 hover:text-primary-600 transition-colors">
+                    <Link href="/editorial-policy" className="text-[10px] text-slate-600 hover:text-primary-600 transition-colors">
                         How we rate
                     </Link>
                 </div>

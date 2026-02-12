@@ -129,7 +129,7 @@ export default function SharableStatCard({
             case 'decrease':
                 return 'text-danger-600 dark:text-danger-400';
             default:
-                return 'text-slate-600 dark:text-slate-400';
+                return 'text-slate-600 dark:text-slate-600';
         }
     };
 
@@ -180,7 +180,7 @@ export default function SharableStatCard({
     if (variant === 'minimal') {
         return (
             <div className={cn("inline-flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg", className)}>
-                <span className="text-sm font-medium text-slate-600 dark:text-slate-400">{title}:</span>
+                <span className="text-sm font-medium text-slate-600 dark:text-slate-600">{title}:</span>
                 <span className="text-sm font-bold text-slate-900 dark:text-white">{formatValue(value)}</span>
                 {showShare && (
                     <button
@@ -191,7 +191,7 @@ export default function SharableStatCard({
                         {copied ? (
                             <Check className="w-3 h-3 text-success-600" />
                         ) : (
-                            <Copy className="w-3 h-3 text-slate-400" />
+                            <Copy className="w-3 h-3 text-slate-600" />
                         )}
                     </button>
                 )}
@@ -206,7 +206,7 @@ export default function SharableStatCard({
             className
         )}>
             <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-medium text-slate-600 dark:text-slate-400 flex items-center justify-between">
+                <CardTitle className="text-sm font-medium text-slate-600 dark:text-slate-600 flex items-center justify-between">
                     <span className="flex items-center gap-2">
                         {Icon && <Icon className="w-4 h-4" />}
                         {title}
@@ -230,7 +230,7 @@ export default function SharableStatCard({
                                 {copied ? (
                                     <Check className="w-3.5 h-3.5 text-success-600" />
                                 ) : (
-                                    <Copy className="w-3.5 h-3.5 text-slate-400" />
+                                    <Copy className="w-3.5 h-3.5 text-slate-600" />
                                 )}
                             </button>
                         </div>
@@ -250,7 +250,7 @@ export default function SharableStatCard({
                                 {Math.abs(change.value)}%
                             </span>
                             {change.period && (
-                                <span className="text-xs text-slate-500 dark:text-slate-400 ml-1">
+                                <span className="text-xs text-slate-500 dark:text-slate-600 ml-1">
                                     {change.period}
                                 </span>
                             )}
@@ -258,7 +258,7 @@ export default function SharableStatCard({
                     )}
                 </div>
                 {source && (
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
+                    <p className="text-xs text-slate-500 dark:text-slate-600 mt-2">
                         Source: {source}
                     </p>
                 )}

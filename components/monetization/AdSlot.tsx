@@ -44,7 +44,7 @@ export default function AdSlot({
                 <div className="relative">
                     {/* Sponsored badge */}
                     <div className="absolute top-3 left-3 z-10">
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 bg-white/90 dark:bg-slate-900/90 px-2 py-1 rounded-full">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-slate-600 bg-white/90 dark:bg-slate-900/90 px-2 py-1 rounded-full">
                             Sponsored
                         </span>
                     </div>
@@ -93,7 +93,7 @@ export default function AdSlot({
                             </div>
                         )}
                         
-                        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                        <p className="text-sm text-slate-600 dark:text-slate-600 mb-4">
                             {product.description}
                         </p>
 
@@ -116,7 +116,7 @@ export default function AdSlot({
     // Placeholder for ad networks (Google AdSense, etc.)
     return (
         <div className={cn(
-            "bg-slate-100 dark:bg-slate-800/50 rounded-xl flex items-center justify-center text-slate-400 text-sm",
+            "bg-slate-100 dark:bg-slate-800/50 rounded-xl flex items-center justify-center text-slate-600 text-sm",
             variant === 'inline' && "my-6 h-24",
             variant === 'sidebar' && "h-64",
             variant === 'banner' && "h-32 w-full",
@@ -168,7 +168,7 @@ export function PromotionCard({
                 </div>
                 <div className="flex-1">
                     <h4 className="font-bold text-slate-900 dark:text-white mb-1">{title}</h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">{description}</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-600 mb-4">{description}</p>
                     <SmartCTA
                         variant="primary"
                         size="sm"
@@ -198,7 +198,7 @@ export function ComparisonWidget({
 }) {
     return (
         <Card className="p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10">
-            <h4 className="text-sm font-bold uppercase tracking-widest text-slate-400 mb-4 flex items-center gap-2">
+            <h4 className="text-sm font-bold uppercase tracking-widest text-slate-600 mb-4 flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-primary-500" />
                 Quick Compare
             </h4>
@@ -227,7 +227,7 @@ export function ComparisonWidget({
                             </div>
                             <div className="text-sm text-slate-500">{product.highlight}</div>
                         </div>
-                        <ArrowRight className="w-5 h-5 text-slate-400" />
+                        <ArrowRight className="w-5 h-5 text-slate-600" />
                     </a>
                 ))}
             </div>

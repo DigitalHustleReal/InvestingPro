@@ -31,7 +31,7 @@ export default function ContextualProducts({ category }: { category: string }) {
         return (
             <div className="my-16 p-8 bg-slate-900 rounded-xl text-white border border-slate-700 shadow-2xl relative overflow-hidden">
                 <div className="relative z-10 flex items-center justify-center py-12">
-                    <div className="text-slate-400">Loading recommendations...</div>
+                    <div className="text-slate-600">Loading recommendations...</div>
                 </div>
             </div>
         );
@@ -51,7 +51,7 @@ export default function ContextualProducts({ category }: { category: string }) {
                     </div>
                     <h3 className="text-2xl font-bold tracking-tight">Expert Recommendations</h3>
                 </div>
-                <p className="text-slate-400 mb-8 max-w-lg text-sm">Based on the analysis in this article, these are currently the best {category.replace('-', ' ')} options in India for 2026.</p>
+                <p className="text-slate-600 mb-8 max-w-lg text-sm">Based on the analysis in this article, these are currently the best {category.replace('-', ' ')} options in India for 2026.</p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {Array.isArray(products) && products.map(p => (
@@ -78,7 +78,7 @@ export default function ContextualProducts({ category }: { category: string }) {
                             </div>
                             
                             <h4 className="font-bold text-base mb-2 leading-tight group-hover:text-primary-400 transition-colors uppercase tracking-tight">{p.name}</h4>
-                            <p className="text-[12px] text-slate-400 mb-6 line-clamp-2 leading-relaxed opacity-80">{p.description}</p>
+                            <p className="text-[12px] text-slate-600 mb-6 line-clamp-2 leading-relaxed opacity-80">{p.description}</p>
                             
                             <div className="mt-auto">
                                 <Link href={`/go/${p.slug}`} target="_blank">

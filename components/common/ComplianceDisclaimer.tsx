@@ -21,7 +21,7 @@ export default function ComplianceDisclaimer({
     className,
     showIcon = true
 }: ComplianceDisclaimerProps) {
-    const baseStyles = "text-xs text-slate-600 dark:text-slate-400 leading-relaxed";
+    const baseStyles = "text-xs text-slate-600 dark:text-slate-600 leading-relaxed";
     
     if (variant === 'inline') {
         return (
@@ -82,7 +82,7 @@ export default function ComplianceDisclaimer({
                         <AlertTriangle className="w-4 h-4 text-warning-500" />
                         Compliance & Regulatory Disclaimer
                     </h4>
-                    <div className="space-y-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    <div className="space-y-2 text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
                         <p>
                             <strong className="text-slate-800 dark:text-slate-300">Not SEBI Registered:</strong> InvestingPro.in is <strong>NOT</strong> a SEBI registered investment advisor (RIA), financial advisor, or stockbroker. We are an independent research, education, and discovery platform.
                         </p>

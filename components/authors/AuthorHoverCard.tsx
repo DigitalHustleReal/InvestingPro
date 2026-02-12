@@ -74,7 +74,7 @@ export function AuthorHoverCard({ author, children, className, showAvatar = fals
                                     className="object-cover"
                                 />
                             ) : (
-                                <div className="w-full h-full flex items-center justify-center text-[10px] font-bold text-slate-400 bg-slate-100">
+                                <div className="w-full h-full flex items-center justify-center text-[10px] font-bold text-slate-600 bg-slate-100">
                                     {getInitials(author.name)}
                                 </div>
                             )}
@@ -120,7 +120,7 @@ export function AuthorHoverCard({ author, children, className, showAvatar = fals
                         {safeCredentials.length > 0 && (
                             <div className="flex flex-wrap gap-1.5">
                                 {safeCredentials.slice(0, 2).map((cred, i) => (
-                                    <span key={i} className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 shadow-sm">
+                                    <span key={i} className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-600 border border-slate-200 dark:border-slate-700 shadow-sm">
                                         {cred}
                                     </span>
                                 ))}
@@ -131,7 +131,7 @@ export function AuthorHoverCard({ author, children, className, showAvatar = fals
 
                 {/* Bio Section */}
                 <div className="px-6 pb-6 pt-0 bg-gradient-to-b from-slate-50/50 to-white dark:from-slate-900/50 dark:to-slate-950">
-                    <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed">
+                    <p className="text-sm text-slate-600 dark:text-slate-600 line-clamp-3 leading-relaxed">
                         {author.bio || author.short_bio || `Expert personal finance researcher and editor at InvestingPro.`}
                     </p>
                 </div>
@@ -140,12 +140,12 @@ export function AuthorHoverCard({ author, children, className, showAvatar = fals
                 <div className="bg-slate-100/50 dark:bg-slate-900/50 px-5 py-4 flex items-center justify-between border-t border-slate-200/50 dark:border-slate-800/50 backdrop-blur-sm">
                     <div className="flex gap-1">
                          {author.social_links?.twitter && (
-                            <a href={author.social_links.twitter} target="_blank" rel="noreferrer" className="w-8 h-8 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 text-slate-400 hover:text-sky-500 hover:shadow-md transition-all">
+                            <a href={author.social_links.twitter} target="_blank" rel="noreferrer" className="w-8 h-8 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 text-slate-600 hover:text-sky-500 hover:shadow-md transition-all">
                                 <Twitter className="w-4 h-4" />
                             </a>
                         )}
                         {author.social_links?.linkedin && (
-                            <a href={author.social_links.linkedin} target="_blank" rel="noreferrer" className="w-8 h-8 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 text-slate-400 hover:text-blue-600 hover:shadow-md transition-all">
+                            <a href={author.social_links.linkedin} target="_blank" rel="noreferrer" className="w-8 h-8 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 text-slate-600 hover:text-blue-600 hover:shadow-md transition-all">
                                 <Linkedin className="w-4 h-4" />
                             </a>
                         )}

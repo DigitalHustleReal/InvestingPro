@@ -175,7 +175,7 @@ export function RetirementCalculator() {
                             <div className="flex justify-between items-center">
                                 <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Current Savings</Label>
                                 <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-1.5">
-                                    <IndianRupee className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+                                    <IndianRupee className="w-3.5 h-3.5 text-slate-500 dark:text-slate-600" />
                                     <Input
                                         type="number"
                                         value={currentSavings}
@@ -359,7 +359,7 @@ export function RetirementCalculator() {
             {/* Bottom Row: Projection Chart */}
             <Card className="border-border shadow-sm rounded-xl">
                 <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Retirement Projection</CardTitle>
+                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-600">Retirement Projection</CardTitle>
                 </CardHeader>
                 <CardContent>
                         <div className="h-80">

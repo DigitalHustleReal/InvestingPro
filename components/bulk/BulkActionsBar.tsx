@@ -149,7 +149,7 @@ export function BulkActionsBar({
                     <Button
                         size="sm"
                         variant="ghost"
-                        className="text-slate-400 hover:bg-slate-400/10"
+                        className="text-slate-600 hover:bg-slate-400/10"
                         onClick={() => handleBulkAction('archive')}
                         disabled={isProcessing}
                         title="Archive selected"
@@ -210,7 +210,7 @@ export function BulkActionsBar({
                 <Button
                     size="sm"
                     variant="ghost"
-                    className="text-slate-400 hover:bg-slate-800 ml-auto"
+                    className="text-slate-600 hover:bg-slate-800 ml-auto"
                     onClick={onClearSelection}
                     disabled={isProcessing}
                 >

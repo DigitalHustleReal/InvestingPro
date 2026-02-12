@@ -49,11 +49,11 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex items-center gap-2 text-sm">
                             <Link href="/" className="text-slate-600 hover:text-primary-600">Home</Link>
-                            <ChevronRight className="w-4 h-4 text-slate-400" />
+                            <ChevronRight className="w-4 h-4 text-slate-600" />
                             <Link href={`/${category.slug}`} className="text-slate-600 hover:text-primary-600">
                                 {category.name}
                             </Link>
-                            <ChevronRight className="w-4 h-4 text-slate-400" />
+                            <ChevronRight className="w-4 h-4 text-slate-600" />
                             <span className="text-slate-900 font-medium">{subcategory.name}</span>
                         </div>
                     </div>
@@ -70,7 +70,7 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                                 >
                                     {category.name}
                                 </Link>
-                                <ChevronRight className="w-4 h-4 text-slate-400" />
+                                <ChevronRight className="w-4 h-4 text-slate-600" />
                                 <Badge className="bg-primary-500/20 text-primary-400 border-primary-500/30">
                                     {subcategory.name}
                                 </Badge>

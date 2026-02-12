@@ -40,7 +40,7 @@ export default function RiskAnalysis({ holdings = [], user }: RiskAnalysisProps)
             <CardContent className="p-0 relative z-10 space-y-8">
                 <div>
                     <div className="flex justify-between items-end mb-3">
-                        <span className="text-[10px] font-semibold uppercase text-slate-400 tracking-st">Calculated Volatility</span>
+                        <span className="text-[10px] font-semibold uppercase text-slate-600 tracking-st">Calculated Volatility</span>
                         <span className={`text-2xl font-bold ${getRiskColor(portfolioRiskScore)}`}>{portfolioRiskScore}/100</span>
                     </div>
                     <Progress value={portfolioRiskScore} className="h-3 rounded-full bg-white/5" />

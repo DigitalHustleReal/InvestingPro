@@ -28,7 +28,7 @@ export function LoansTable({ loans }: LoansTableProps) {
                         {row.name}
                     </Link>
                     <div className="flex items-center gap-2">
-                        <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
+                        <p className="text-[10px] text-slate-600 font-semibold uppercase tracking-wider">
                             {row.provider || row.provider_name || 'Lender'}
                         </p>
                         {row.category && (
@@ -52,12 +52,12 @@ export function LoansTable({ loans }: LoansTableProps) {
                 return (
                     <div className="flex flex-col items-center gap-1">
                         <div className="flex items-center gap-1">
-                            <Percent className={`w-3.5 h-3.5 ${rateNum < 10 ? 'text-primary-600' : 'text-slate-400'}`} />
+                            <Percent className={`w-3.5 h-3.5 ${rateNum < 10 ? 'text-primary-600' : 'text-slate-600'}`} />
                             <p className={`font-bold ${rateNum < 10 ? 'text-primary-600' : 'text-slate-900 dark:text-white'}`}>
                                 {rate}
                             </p>
                         </div>
-                        <p className="text-[8px] text-slate-400 uppercase font-semibold">p.a.</p>
+                        <p className="text-[8px] text-slate-600 uppercase font-semibold">p.a.</p>
                         {rateNum < 10 && (
                             <Badge className="text-[7px] bg-primary-100 text-primary-700 border-0 h-4">
                                 Best Rate
@@ -79,7 +79,7 @@ export function LoansTable({ loans }: LoansTableProps) {
                 return (
                     <div className="text-center">
                         <p className="font-bold text-slate-900 dark:text-white">{amount}</p>
-                        <p className="text-[9px] text-slate-400 uppercase font-semibold">Maximum</p>
+                        <p className="text-[9px] text-slate-600 uppercase font-semibold">Maximum</p>
                     </div>
                 );
             },
@@ -95,9 +95,9 @@ export function LoansTable({ loans }: LoansTableProps) {
                 
                 return (
                     <div className="flex flex-col items-center gap-1">
-                        <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                        <Calendar className="w-3.5 h-3.5 text-slate-600" />
                         <p className="font-bold text-slate-900 dark:text-white text-sm">{tenure}</p>
-                        <p className="text-[9px] text-slate-400 uppercase font-semibold">Max Period</p>
+                        <p className="text-[9px] text-slate-600 uppercase font-semibold">Max Period</p>
                     </div>
                 );
             },
@@ -149,7 +149,7 @@ export function LoansTable({ loans }: LoansTableProps) {
                         }`}>
                             {chance}
                         </Badge>
-                        <p className="text-[8px] text-slate-400 mt-1">Based on profile</p>
+                        <p className="text-[8px] text-slate-600 mt-1">Based on profile</p>
                     </div>
                  );
             },
@@ -194,7 +194,7 @@ export function LoansTable({ loans }: LoansTableProps) {
                                 />
                             ))}
                         </div>
-                        <span className="text-xs font-bold text-slate-600 dark:text-slate-400">
+                        <span className="text-xs font-bold text-slate-600 dark:text-slate-600">
                             {(typeof rating === 'number' ? rating : Number(rating) || 4.5).toFixed(1)}
                         </span>
                     </div>

@@ -178,7 +178,7 @@ export function LeadMagnetPopup({
           onClick={handleClose}
           className="absolute top-4 right-4 z-10 p-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
         >
-          <X className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+          <X className="w-4 h-4 text-slate-600 dark:text-slate-600" />
         </button>
 
         {/* Success State */}
@@ -190,7 +190,7 @@ export function LeadMagnetPopup({
             <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
               You're in! ðŸŽ‰
             </h3>
-            <p className="text-slate-600 dark:text-slate-400 mb-4">
+            <p className="text-slate-600 dark:text-slate-600 mb-4">
               {variant === 'newsletter' 
                 ? 'Check your inbox for a welcome email.'
                 : 'Your download link is on the way!'}
@@ -224,7 +224,7 @@ export function LeadMagnetPopup({
               <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 text-center md:text-left">
                 {content.title}
               </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mb-6 text-center md:text-left">
+              <p className="text-slate-600 dark:text-slate-600 text-sm mb-6 text-center md:text-left">
                 {content.description}
               </p>
 
@@ -241,7 +241,7 @@ export function LeadMagnetPopup({
                     placeholder="Your name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/50"
+                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50"
                   />
                 )}
                 <input
@@ -250,7 +250,7 @@ export function LeadMagnetPopup({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/50"
+                  className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50"
                 />
                 <button
                   type="submit"

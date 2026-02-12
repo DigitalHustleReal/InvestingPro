@@ -94,7 +94,7 @@ export default function TrendingSection() {
                             <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
                                 Trending This Week
                             </h2>
-                            <p className="text-sm text-slate-500 dark:text-slate-400">
+                            <p className="text-sm text-slate-500 dark:text-slate-600">
                                 Market insights that impact your finances
                             </p>
                         </div>
@@ -145,7 +145,7 @@ export default function TrendingSection() {
                             </h3>
 
                             {/* Description */}
-                            <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-2">
+                            <p className="text-sm text-slate-600 dark:text-slate-600 mb-4 line-clamp-2">
                                 {item.description}
                             </p>
 

@@ -25,7 +25,7 @@ export default function AffiliateDisclosure({
 
   if (variant === 'tooltip') {
     return (
-      <span className={`inline-flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 ${className}`} title="We may earn a commission if you apply through this link">
+      <span className={`inline-flex items-center gap-1 text-xs text-slate-500 dark:text-slate-600 ${className}`} title="We may earn a commission if you apply through this link">
         {showIcon && <Info className="w-3.5 h-3.5" />}
         <span>Affiliate</span>
       </span>
@@ -34,7 +34,7 @@ export default function AffiliateDisclosure({
 
   if (variant === 'inline') {
     return (
-      <p className={`text-xs text-slate-600 dark:text-slate-400 ${className}`}>
+      <p className={`text-xs text-slate-600 dark:text-slate-600 ${className}`}>
         <strong>Affiliate Disclosure:</strong> We may earn a commission if you apply through our links. 
         This doesn't affect our recommendations or the price you pay.{' '}
         <Link href="/affiliate-disclosure" className="underline hover:text-primary-600 transition-colors font-medium">

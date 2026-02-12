@@ -145,7 +145,7 @@ export function ComparisonCard({
               {product.name}
             </h3>
             <p className={cn(
-              "text-slate-600 dark:text-slate-400 mt-0.5",
+              "text-slate-600 dark:text-slate-600 mt-0.5",
               isCompact ? "text-sm" : "text-base"
             )}>
               {product.provider}
@@ -165,7 +165,7 @@ export function ComparisonCard({
               </span>
             </div>
             {product.reviewCount && (
-              <span className="text-xs text-slate-500 dark:text-slate-400">
+              <span className="text-xs text-slate-500 dark:text-slate-600">
                 ({product.reviewCount} reviews)
               </span>
             )}

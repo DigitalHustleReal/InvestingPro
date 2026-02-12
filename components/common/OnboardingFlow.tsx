@@ -150,7 +150,7 @@ const steps = [
                                         <User className="w-5 h-5 text-primary-600" />
                                         <span className="font-medium text-slate-900">Add Bio & Profile Picture</span>
                                     </div>
-                                    <ArrowRight className="w-5 h-5 text-slate-400" />
+                                    <ArrowRight className="w-5 h-5 text-slate-600" />
                                 </div>
                             </CardContent>
                         </Card>
@@ -163,7 +163,7 @@ const steps = [
                                         <TrendingUp className="w-5 h-5 text-secondary-600" />
                                         <span className="font-medium text-slate-900">Take Risk Profiler Assessment</span>
                                     </div>
-                                    <ArrowRight className="w-5 h-5 text-slate-400" />
+                                    <ArrowRight className="w-5 h-5 text-slate-600" />
                                 </div>
                             </CardContent>
                         </Card>
@@ -233,7 +233,7 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                     {/* Content */}
                     <div className="text-center mb-6">
                         <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{step.title}</h2>
-                        <p className="text-slate-600 dark:text-slate-400">{step.description}</p>
+                        <p className="text-slate-600 dark:text-slate-600">{step.description}</p>
                     </div>
 
                     <div className="mb-8">
@@ -258,7 +258,7 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                     </div>
 
                     {/* Step counter */}
-                    <p className="text-center text-sm text-slate-400 mt-4">
+                    <p className="text-center text-sm text-slate-600 mt-4">
                         Step {currentStep + 1} of {steps.length}
                     </p>
                 </div>

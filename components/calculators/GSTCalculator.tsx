@@ -104,7 +104,7 @@ export function GSTCalculator() {
                                     <SelectItem value="inclusive">GST Inclusive (Extract GST from amount)</SelectItem>
                                 </SelectContent>
                             </Select>
-                            <p className="text-xs text-slate-500 dark:text-slate-400">
+                            <p className="text-xs text-slate-500 dark:text-slate-600">
                                 {calculationType === 'exclusive' 
                                     ? 'Enter the base amount, GST will be added'
                                     : 'Enter the total amount including GST, base amount will be calculated'}

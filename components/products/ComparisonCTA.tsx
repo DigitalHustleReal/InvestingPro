@@ -42,14 +42,14 @@ export default function ComparisonCTA({
           <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
             Compare Before You Decide
           </h3>
-          <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+          <p className="text-sm text-slate-600 dark:text-slate-600 mb-4">
             See how {currentProductName} stacks up against similar cards. Compare fees, rewards, and benefits side-by-side.
           </p>
 
           {/* Similar Products Preview */}
           {similarProducts.length > 0 && (
             <div className="mb-4">
-              <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">Compare with:</p>
+              <p className="text-xs text-slate-500 dark:text-slate-600 mb-2">Compare with:</p>
               <div className="flex flex-wrap gap-2">
                 {similarProducts.slice(0, 3).map((product) => (
                   <span 

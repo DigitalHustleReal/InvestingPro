@@ -73,7 +73,7 @@ export default function HomeHero({ selectedCategory: propSelectedCategory, onCat
                             placeholder="Search products, calculators, guides..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full h-16 pl-14 pr-4 bg-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-primary-500 rounded-xl text-lg shadow-xl"
+                            className="w-full h-16 pl-14 pr-4 bg-white text-slate-900 placeholder:text-slate-600 focus:ring-2 focus:ring-primary-500 rounded-xl text-lg shadow-xl"
                         />
                         <Button
                             type="submit"

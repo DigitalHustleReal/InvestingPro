@@ -83,7 +83,7 @@ export default function HoldingsList({ holdings, onDelete }: HoldingsListProps) 
                                 </div>
 
                                 <div className="flex md:block items-center justify-between">
-                                    <p className="text-[10px] uppercase text-slate-500 dark:text-slate-400 md:mb-1">Current</p>
+                                    <p className="text-[10px] uppercase text-slate-500 dark:text-slate-600 md:mb-1">Current</p>
                                     <p className="font-semibold text-slate-900 dark:text-white text-sm">
                                         ₹{holding.current_value.toLocaleString('en-IN')}
                                     </p>

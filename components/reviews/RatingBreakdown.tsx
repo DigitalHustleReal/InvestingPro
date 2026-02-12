@@ -45,7 +45,7 @@ export default function RatingBreakdown({ distribution, totalReviews, className 
             </div>
 
             {/* Count */}
-            <span className="text-sm text-slate-600 dark:text-slate-400 w-12 text-right">
+            <span className="text-sm text-slate-600 dark:text-slate-600 w-12 text-right">
               {count}
             </span>
           </div>

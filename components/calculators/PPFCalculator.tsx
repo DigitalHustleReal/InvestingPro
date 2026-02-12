@@ -112,7 +112,7 @@ export function PPFCalculator() {
                                 step={500}
                                 className="py-2"
                             />
-                            <p className="text-xs text-slate-500 dark:text-slate-400">Min: ₹500, Max: ₹1.5 Lakh (80C limit)</p>
+                            <p className="text-xs text-slate-500 dark:text-slate-600">Min: ₹500, Max: ₹1.5 Lakh (80C limit)</p>
                         </div>
 
                         {/* Investment Period */}
@@ -152,7 +152,7 @@ export function PPFCalculator() {
                                 step={0.1}
                                 className="py-2"
                             />
-                            <p className="text-xs text-slate-500 dark:text-slate-400">Current PPF rate: 7.1% (updated quarterly by government)</p>
+                            <p className="text-xs text-slate-500 dark:text-slate-600">Current PPF rate: 7.1% (updated quarterly by government)</p>
                         </div>
 
                         {/* Inflation Toggle */}
@@ -161,7 +161,7 @@ export function PPFCalculator() {
                                 <TrendingDown className="w-4 h-4 text-secondary-600" />
                                 <div>
                                     <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Adjust for Inflation</Label>
-                                    <p className="text-xs text-slate-500 dark:text-slate-400">Show real returns after inflation</p>
+                                    <p className="text-xs text-slate-500 dark:text-slate-600">Show real returns after inflation</p>
                                 </div>
                             </div>
                             <Switch
@@ -265,7 +265,7 @@ export function PPFCalculator() {
             {/* Bottom Row: Growth Chart */}
             <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-xl">
                 <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">PPF Growth Projection</CardTitle>
+                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-600">PPF Growth Projection</CardTitle>
                 </CardHeader>
                     <CardContent>
                         <div className="h-80">

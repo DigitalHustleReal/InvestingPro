@@ -225,12 +225,12 @@ function CategoryCard({ category, isHovered, onHover }: {
                     <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-1 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                         {category.title}
                     </h3>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
+                    <p className="text-sm text-slate-500 dark:text-slate-600 mb-3">
                         {category.shortDesc}
                     </p>
 
                     {/* Stats */}
-                    <div className="flex items-center gap-3 text-xs text-slate-400 dark:text-slate-500">
+                    <div className="flex items-center gap-3 text-xs text-slate-600 dark:text-slate-500">
                         <span className="flex items-center gap-1">
                             <BookOpen className="w-3 h-3" />
                             {category.stats.guides}+ guides
@@ -272,7 +272,7 @@ function CategoryCard({ category, isHovered, onHover }: {
                 }}
             >
                 <div className="bg-white dark:bg-slate-900 rounded-xl shadow-2xl border border-slate-100 dark:border-slate-800 p-3 space-y-1 backdrop-blur-lg bg-opacity-95 dark:bg-opacity-95">
-                    <p className="text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-500 font-semibold px-2 mb-2">
+                    <p className="text-[10px] uppercase tracking-wider text-slate-600 dark:text-slate-500 font-semibold px-2 mb-2">
                         Quick Links
                     </p>
                     {category.quickLinks.map((link, i) => (
@@ -343,7 +343,7 @@ export default function CategoryDiscovery() {
                     <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-slate-900 dark:text-white mb-4">
                         Explore by Category
                     </h2>
-                    <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    <p className="text-lg text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
                         Everything you need to manage your wealth — guides, calculators, and comparisons
                     </p>
                 </motion.div>
@@ -370,17 +370,17 @@ export default function CategoryDiscovery() {
                 {/* Bottom CTA */}
                 <div className="text-center">
                     <div className="inline-flex items-center gap-6 px-8 py-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-lg">
-                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-600">
                             <FileText className="w-4 h-4 text-blue-500" />
                             <span><strong className="text-slate-900 dark:text-white">500+</strong> Guides</span>
                         </div>
                         <div className="w-px h-6 bg-slate-200 dark:bg-slate-700" />
-                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-600">
                             <Calculator className="w-4 h-4 text-emerald-500" />
                             <span><strong className="text-slate-900 dark:text-white">15+</strong> Calculators</span>
                         </div>
                         <div className="w-px h-6 bg-slate-200 dark:bg-slate-700" />
-                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-600">
                             <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
                             <span><strong className="text-slate-900 dark:text-white">4.8</strong> Rating</span>
                         </div>

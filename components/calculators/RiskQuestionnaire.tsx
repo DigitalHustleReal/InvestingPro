@@ -82,7 +82,7 @@ export default function RiskQuestionnaire() {
                          <Button 
                             variant="ghost" 
                             onClick={() => setCurrentStep(prev => prev - 1)}
-                            className="text-slate-400 hover:text-slate-600"
+                            className="text-slate-600 hover:text-slate-600"
                         >
                             Back to previous question
                         </Button>

@@ -113,10 +113,10 @@ export function HomeLoanVsSIPCalculator() {
                 <Card>
                     <CardContent className="p-6 space-y-6">
                         <div className="flex items-center gap-2 font-bold text-slate-900 dark:text-white border-b dark:border-slate-700 pb-4">
-                            <Home className="w-5 h-5 text-slate-400 dark:text-slate-500" /> Loan Details
+                            <Home className="w-5 h-5 text-slate-600 dark:text-slate-500" /> Loan Details
                         </div>
                         <div>
-                            <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">Loan Amount (₹)</label>
+                            <label className="text-xs font-bold uppercase text-slate-600 mb-2 block">Loan Amount (₹)</label>
                             <Input 
                                 type="number" 
                                 value={loanAmount} 
@@ -132,7 +132,7 @@ export function HomeLoanVsSIPCalculator() {
                             />
                         </div>
                         <div>
-                            <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">Interest Rate (%)</label>
+                            <label className="text-xs font-bold uppercase text-slate-600 mb-2 block">Interest Rate (%)</label>
                             <Input 
                                 type="number" 
                                 value={interestRate} 
@@ -140,7 +140,7 @@ export function HomeLoanVsSIPCalculator() {
                             />
                         </div>
                         <div>
-                            <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">Tenor (Years)</label>
+                            <label className="text-xs font-bold uppercase text-slate-600 mb-2 block">Tenor (Years)</label>
                             <Input 
                                 type="number" 
                                 value={tenor} 
@@ -156,7 +156,7 @@ export function HomeLoanVsSIPCalculator() {
                             <TrendingUp className="w-5 h-5 text-primary-600 dark:text-primary-400" /> SIP Alternative
                         </div>
                         <div>
-                            <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">Monthly SIP Amount (₹)</label>
+                            <label className="text-xs font-bold uppercase text-slate-600 mb-2 block">Monthly SIP Amount (₹)</label>
                             <Input 
                                 type="number" 
                                 value={sipAmount} 
@@ -164,7 +164,7 @@ export function HomeLoanVsSIPCalculator() {
                             />
                         </div>
                         <div>
-                            <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">Expected Return (%)</label>
+                            <label className="text-xs font-bold uppercase text-slate-600 mb-2 block">Expected Return (%)</label>
                             <Input 
                                 type="number" 
                                 value={sipReturn} 
@@ -181,7 +181,7 @@ export function HomeLoanVsSIPCalculator() {
                     <Card className="bg-white dark:bg-slate-800 border-none shadow-sm">
                         <CardContent className="pt-6">
                             <div className="text-2xl font-bold text-slate-900 dark:text-white mb-1">₹{results.emi.toLocaleString()}</div>
-                            <div className="text-xs text-slate-400 dark:text-slate-500">Monthly EMI</div>
+                            <div className="text-xs text-slate-600 dark:text-slate-500">Monthly EMI</div>
                         </CardContent>
                     </Card>
                     <Card className="bg-danger-50 border-none shadow-sm">
@@ -227,7 +227,7 @@ export function HomeLoanVsSIPCalculator() {
                             </div>
                             <h3 className="text-lg font-bold">Our Insightful Verdict</h3>
                         </div>
-                        <p className="text-slate-400 text-sm leading-relaxed">
+                        <p className="text-slate-600 text-sm leading-relaxed">
                             If you invest ₹{sipAmount.toLocaleString()} per month at {sipReturn}% instead of prepaying your {interestRate}% loan, 
                             you create a surplus of <span className="text-primary-400 font-bold">₹{(results.sipWealth - results.totalInterest).toLocaleString()}</span>. 
                         </p>

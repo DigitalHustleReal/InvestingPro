@@ -88,13 +88,13 @@ const NavbarDesktopItem = React.memo(function NavbarDesktopItem({
                                             className={`group flex items-center justify-between px-3 py-2.5 rounded-lg transition-all cursor-pointer ${
                                                 isActive 
                                                     ? 'bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400' 
-                                                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
+                                                    : 'text-slate-600 dark:text-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
                                             }`}
                                         >
                                             <div className="flex flex-col">
                                                 <span className="text-sm font-semibold">{intent.name}</span>
                                                 {intent.description && (
-                                                    <span className={`text-[11px] mt-0.5 line-clamp-1 ${isActive ? 'text-primary-600/80 dark:text-primary-400/70' : 'text-slate-400 dark:text-slate-500'}`}>
+                                                    <span className={`text-[11px] mt-0.5 line-clamp-1 ${isActive ? 'text-primary-600/80 dark:text-primary-400/70' : 'text-slate-600 dark:text-slate-500'}`}>
                                                         {intent.description}
                                                     </span>
                                                 )}
@@ -109,7 +109,7 @@ const NavbarDesktopItem = React.memo(function NavbarDesktopItem({
                         {/* Column 2: Collections */}
                         <div className="pr-6">
                             <div className="animate-in fade-in zoom-in-95 duration-200">
-                                <h4 className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+                                <h4 className="text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-2">
                                     <div className="h-px bg-slate-200 dark:bg-slate-700 flex-1"></div>
                                     {activeIntent.name}
                                     <div className="h-px bg-slate-200 dark:bg-slate-700 flex-1"></div>
@@ -142,21 +142,21 @@ const NavbarDesktopItem = React.memo(function NavbarDesktopItem({
                         <div className="pl-6 border-l border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 -my-6 -mr-6 p-6">
                             {activeIntent.slug === EDITORIAL_INTENTS.CALCULATORS ? (
                                 <div>
-                                    <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Top Tools</h4>
+                                    <h4 className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-3">Top Tools</h4>
                                     <nav className="space-y-2">
                                         <Link href="/calculators/sip" className="block p-3 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-md transition-all">
                                             <div className="text-sm font-bold text-slate-900 dark:text-white mb-0.5">SIP Calculator</div>
-                                            <div className="text-[11px] text-slate-500 dark:text-slate-400">Estimate your returns</div>
+                                            <div className="text-[11px] text-slate-500 dark:text-slate-600">Estimate your returns</div>
                                         </Link>
                                         <Link href="/calculators/emi" className="block p-3 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-md transition-all">
                                             <div className="text-sm font-bold text-slate-900 dark:text-white mb-0.5">EMI Calculator</div>
-                                            <div className="text-[11px] text-slate-500 dark:text-slate-400">Plan your loans</div>
+                                            <div className="text-[11px] text-slate-500 dark:text-slate-600">Plan your loans</div>
                                         </Link>
                                     </nav>
                                 </div>
                             ) : (
                                 <div>
-                                    <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Featured Guide</h4>
+                                    <h4 className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-3">Featured Guide</h4>
                                     <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
                                         <Link 
                                             href={`/${category.slug}/${activeIntent.slug}`}
@@ -166,7 +166,7 @@ const NavbarDesktopItem = React.memo(function NavbarDesktopItem({
                                                 ? `The Ultimate Guide to ${category.name}` 
                                                 : `Best ${category.name} Analysis 2026`}
                                         </Link>
-                                        <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed mb-3">
+                                        <p className="text-[11px] text-slate-500 dark:text-slate-600 leading-relaxed mb-3">
                                             Expert insights and data-driven recommendations.
                                         </p>
                                         <Link

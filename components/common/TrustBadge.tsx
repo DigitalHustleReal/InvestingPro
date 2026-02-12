@@ -24,7 +24,7 @@ const badgeConfig = {
   secure: {
     label: 'Secure Application',
     icon: Lock,
-    color: 'bg-slate-50 text-slate-700 border-slate-200 dark:bg-slate-900 dark:text-slate-400 dark:border-slate-800',
+    color: 'bg-slate-50 text-slate-700 border-slate-200 dark:bg-slate-900 dark:text-slate-600 dark:border-slate-800',
   },
   independent: {
     label: '100% Independent',

@@ -111,7 +111,7 @@ export default function PersonalizedPicks() {
                       <Star size={12} className="fill-amber-400 text-amber-400" />
                       <span className="text-xs font-bold text-slate-900 dark:text-slate-200">{rec.product.rating?.overall || 4.5}</span>
                     </div>
-                    <p className="text-[10px] text-slate-400 font-medium">Expert Score</p>
+                    <p className="text-[10px] text-slate-600 font-medium">Expert Score</p>
                 </div>
                 <Link href={`/${rec.product.category.replace('_', '-')}s/${rec.product.slug}`}>
                   <Button size="sm" className="bg-slate-900 dark:bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-lg h-9 px-4">

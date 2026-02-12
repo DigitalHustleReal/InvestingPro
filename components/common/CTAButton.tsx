@@ -45,7 +45,7 @@ export function CategoryCTA({ categoryName, description, href }: CategoryCTAProp
       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
         Explore {categoryName}
       </h3>
-      <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl mx-auto">
+      <p className="text-slate-600 dark:text-slate-600 mb-6 max-w-2xl mx-auto">
         {description}
       </p>
       <CTAButton 

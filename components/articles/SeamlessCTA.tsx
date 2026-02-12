@@ -48,7 +48,7 @@ export default function SeamlessCTA({ category }: SeamlessCTAProps) {
                             <h3 className="text-xl font-bold mb-3 tracking-tight group-hover:text-primary-400 transition-colors">
                                 {action.title}
                             </h3>
-                            <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-1">
+                            <p className="text-slate-600 text-sm leading-relaxed mb-8 flex-1">
                                 {action.description}
                             </p>
 

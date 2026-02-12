@@ -76,7 +76,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                                 <Check className="w-5 h-5 text-success-600 dark:text-success-400" />
                             </div>
                             <div>
-                                <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Approval Chance</div>
+                                <div className="text-xs text-slate-500 dark:text-slate-600 font-medium">Approval Chance</div>
                                 <div className="text-lg font-bold text-slate-900 dark:text-white">Excellent</div>
                             </div>
                         </motion.div>
@@ -101,7 +101,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                             <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center mb-4 text-primary-600 dark:text-primary-400">
                                 <Landmark className="w-8 h-8" />
                             </div>
-                            <div className="text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wide font-semibold mb-1">Loan Application</div>
+                            <div className="text-slate-500 dark:text-slate-600 text-xs uppercase tracking-wide font-semibold mb-1">Loan Application</div>
                             <div className="text-2xl font-bold text-slate-900 dark:text-white mb-2">₹ 50,00,000</div>
                             <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-4">
                                 <div className="h-full bg-primary-500 w-[90%]" />
@@ -237,7 +237,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
                             className="bg-slate-900 p-5 rounded-xl shadow-2xl w-64 mx-auto text-white border border-slate-700"
                         >
                             <div className="text-right mb-4">
-                                <div className="text-slate-400 text-xs mb-1">Monthly Investment</div>
+                                <div className="text-slate-600 text-xs mb-1">Monthly Investment</div>
                                 <div className="text-2xl font-mono text-primary-400">₹ 10,000</div>
                             </div>
                             <div className="grid grid-cols-4 gap-2 mb-4">

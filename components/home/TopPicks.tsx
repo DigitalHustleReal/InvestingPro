@@ -69,7 +69,7 @@ export default function TopPicks() {
                     <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                         Our Top Picks
                     </h2>
-                    <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    <p className="text-lg text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
                         Handpicked recommendations based on extensive research and analysis.
                     </p>
                 </div>
@@ -101,7 +101,7 @@ export default function TopPicks() {
                                                 <Star key={i} className={`w-3 h-3 ${i < fund.rating ? 'text-accent-400 fill-accent-400' : 'text-slate-200'}`} />
                                             ))}
                                         </div>
-                                        <span className="text-[10px] font-medium text-slate-400 italic">
+                                        <span className="text-[10px] font-medium text-slate-600 italic">
                                             {index === 0 ? "Top-tier Alpha & Consistency" : index === 1 ? "Downside Risk Rank: A" : "Best-in-class SF Efficiency"}
                                         </span>
                                     </div>
@@ -137,7 +137,7 @@ export default function TopPicks() {
                                             {broker.highlight}
                                         </Badge>
                                     </div>
-                                    <p className="text-[10px] font-medium text-slate-400 italic">
+                                    <p className="text-[10px] font-medium text-slate-600 italic">
                                         {index === 0 ? "Dominant market leader with zero AMC options." : index === 1 ? "Top-rated UX for mobile-first traders." : "Advanced terminal for high-frequency setups."}
                                     </p>
                                 </div>
@@ -172,7 +172,7 @@ export default function TopPicks() {
                                             {card.reward}
                                         </Badge>
                                     </div>
-                                    <p className="text-[10px] font-medium text-slate-400 italic">
+                                    <p className="text-[10px] font-medium text-slate-600 italic">
                                         {index === 0 ? "Best reward-to-fee ratio for high spenders." : index === 1 ? "Optimized for utility and online retail rewards." : "Direct 5% discount on partner ecosystem."}
                                     </p>
                                 </div>

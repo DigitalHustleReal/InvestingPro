@@ -134,7 +134,7 @@ export function StockPhotosBrowser({ onSelect }: StockPhotosBrowserProps) {
                     <div className="flex items-center justify-center h-64">
                         <div className="text-center">
                             <p className="text-slate-500 text-lg mb-2">No photos found</p>
-                            <p className="text-slate-400 text-sm">Try a different search term</p>
+                            <p className="text-slate-600 text-sm">Try a different search term</p>
                         </div>
                     </div>
                 ) : (

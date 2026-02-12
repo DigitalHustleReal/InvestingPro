@@ -61,7 +61,7 @@ export function InsuranceFilterSidebar({ filters, setFilters }: FilterSidebarPro
                 {/* 1. Max Premium */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                         <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Max Yearly Premium</label>
+                         <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Max Yearly Premium</label>
                          <span className="text-sm font-bold text-slate-900 dark:text-white">₹{filters.maxPremium}</span>
                     </div>
                     <Slider
@@ -76,7 +76,7 @@ export function InsuranceFilterSidebar({ filters, setFilters }: FilterSidebarPro
                 {/* 2. Min Cover */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                         <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Min Cover Amount</label>
+                         <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Min Cover Amount</label>
                          <span className="text-sm font-bold text-slate-900 dark:text-white">₹{(filters.minCover/100000).toFixed(0)}L</span>
                     </div>
                     <Slider
@@ -90,7 +90,7 @@ export function InsuranceFilterSidebar({ filters, setFilters }: FilterSidebarPro
 
                 {/* 3. Policy Type */}
                  <div className="space-y-3">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Policy Type</label>
+                    <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Policy Type</label>
                     <div className="flex flex-wrap gap-2">
                         {POLICY_TYPES.map(type => (
                             <button
@@ -110,7 +110,7 @@ export function InsuranceFilterSidebar({ filters, setFilters }: FilterSidebarPro
 
                 {/* 4. Insurers */}
                 <div className="space-y-3">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Preferred Insurer</label>
+                    <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Preferred Insurer</label>
                     <div className="grid grid-cols-1 gap-2">
                          {INSURERS.map((ins) => (
                             <div className="flex items-center space-x-2" key={ins}>

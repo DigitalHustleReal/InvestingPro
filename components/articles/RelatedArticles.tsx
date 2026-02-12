@@ -148,7 +148,7 @@ export default function RelatedArticles({
                                         {article.title}
                                     </h4>
                                     {article.excerpt && (
-                                        <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-3">
+                                        <p className="text-sm text-slate-600 dark:text-slate-600 line-clamp-2 mb-3">
                                             {article.excerpt}
                                         </p>
                                     )}
@@ -192,7 +192,7 @@ export default function RelatedArticles({
                                     {article.title}
                                 </h4>
                                 {article.excerpt && (
-                                    <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-1 mb-2">
+                                    <p className="text-sm text-slate-600 dark:text-slate-600 line-clamp-1 mb-2">
                                         {article.excerpt}
                                     </p>
                                 )}
@@ -205,7 +205,7 @@ export default function RelatedArticles({
                                     )}
                                 </div>
                             </div>
-                            <ArrowRight className="w-5 h-5 text-slate-400 shrink-0 group-hover:text-primary-600 group-hover:translate-x-1 transition-all" />
+                            <ArrowRight className="w-5 h-5 text-slate-600 shrink-0 group-hover:text-primary-600 group-hover:translate-x-1 transition-all" />
                         </div>
                     </Link>
                 ))}

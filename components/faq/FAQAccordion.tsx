@@ -80,7 +80,7 @@ export default function FAQAccordion({
           </h2>
         )}
         {subtitle && (
-          <p className="text-lg text-slate-600 dark:text-slate-400 mb-8">
+          <p className="text-lg text-slate-600 dark:text-slate-600 mb-8">
             {subtitle}
           </p>
         )}
@@ -88,13 +88,13 @@ export default function FAQAccordion({
         {/* Search */}
         {searchable && (
           <div className="relative max-w-md mx-auto">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600" />
             <input
               type="text"
               placeholder="Search FAQs..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all"
+              className="w-full pl-12 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all"
             />
           </div>
         )}
@@ -103,7 +103,7 @@ export default function FAQAccordion({
       {/* FAQ Items */}
       <div className="space-y-4">
         {filteredFAQs.length === 0 ? (
-          <p className="text-center text-slate-600 dark:text-slate-400 py-8">
+          <p className="text-center text-slate-600 dark:text-slate-600 py-8">
             No FAQs found matching your search.
           </p>
         ) : (
@@ -160,7 +160,7 @@ function FAQItem({
           {faq.question}
         </h3>
         <ChevronDown
-          className={`w-5 h-5 text-slate-500 dark:text-slate-400 flex-shrink-0 transition-transform ${
+          className={`w-5 h-5 text-slate-500 dark:text-slate-600 flex-shrink-0 transition-transform ${
             isOpen ? 'rotate-180' : ''
           }`}
         />

@@ -61,7 +61,7 @@ export function LoanFilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                 {/* 1. Interest Rate Slider */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                         <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Max Interest Rate</label>
+                         <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Max Interest Rate</label>
                          <span className="text-sm font-bold text-slate-900 dark:text-white">{filters.maxRate}%</span>
                     </div>
                     <Slider
@@ -74,7 +74,7 @@ export function LoanFilterSidebar({ filters, setFilters }: FilterSidebarProps) {
 
                 {/* 2. Loan Type */}
                 <div className="space-y-3">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Loan Type</label>
+                    <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Loan Type</label>
                     <div className="flex flex-wrap gap-2">
                         {LOAN_TYPES.map(type => (
                             <button
@@ -94,7 +94,7 @@ export function LoanFilterSidebar({ filters, setFilters }: FilterSidebarProps) {
 
                 {/* 3. Banks */}
                 <div className="space-y-3">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Preferred Bank</label>
+                    <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Preferred Bank</label>
                     <div className="grid grid-cols-2 gap-2">
                          {BANKS.map((bank) => (
                             <div className="flex items-center space-x-2" key={bank}>

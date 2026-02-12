@@ -59,7 +59,7 @@ function ProcessDiagram({ title, steps }: { title: string; steps: Array<{ number
                         {/* Step Content */}
                         <div>
                             <h4 className="font-bold text-slate-900 dark:text-slate-100 mb-2">{step.title}</h4>
-                            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{step.description}</p>
+                            <p className="text-sm text-slate-600 dark:text-slate-600 leading-relaxed">{step.description}</p>
                         </div>
                     </div>
                 ))}
@@ -223,7 +223,7 @@ function TimelineDiagram({ title, data }: { title: string; data: any }) {
                                 <div className="text-sm font-bold text-primary-600 mb-1">{event.date || `Step ${idx + 1}`}</div>
                                 <h4 className="font-bold text-slate-900 dark:text-slate-100 mb-2">{event.title}</h4>
                                 {event.description && (
-                                    <p className="text-sm text-slate-600 dark:text-slate-400">{event.description}</p>
+                                    <p className="text-sm text-slate-600 dark:text-slate-600">{event.description}</p>
                                 )}
                             </div>
                         </div>

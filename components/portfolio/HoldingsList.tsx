@@ -36,11 +36,11 @@ export default function HoldingsList({ holdings = [], onDelete }: HoldingsListPr
                     <table className="w-full text-left">
                         <thead>
                             <tr className="border-b border-slate-50">
-                                <th className="pb-6 text-[10px] font-semibold text-slate-400 uppercase tracking-st">Asset Name</th>
-                                <th className="pb-6 text-[10px] font-semibold text-slate-400 uppercase tracking-st text-right">Avg Price</th>
-                                <th className="pb-6 text-[10px] font-semibold text-slate-400 uppercase tracking-st text-right">Quantity</th>
-                                <th className="pb-6 text-[10px] font-semibold text-slate-400 uppercase tracking-st text-right">Market Value</th>
-                                <th className="pb-6 text-[10px] font-semibold text-slate-400 uppercase tracking-st text-right">Returns</th>
+                                <th className="pb-6 text-[10px] font-semibold text-slate-600 uppercase tracking-st">Asset Name</th>
+                                <th className="pb-6 text-[10px] font-semibold text-slate-600 uppercase tracking-st text-right">Avg Price</th>
+                                <th className="pb-6 text-[10px] font-semibold text-slate-600 uppercase tracking-st text-right">Quantity</th>
+                                <th className="pb-6 text-[10px] font-semibold text-slate-600 uppercase tracking-st text-right">Market Value</th>
+                                <th className="pb-6 text-[10px] font-semibold text-slate-600 uppercase tracking-st text-right">Returns</th>
                                 <th className="pb-6 text-right"></th>
                             </tr>
                         </thead>
@@ -48,7 +48,7 @@ export default function HoldingsList({ holdings = [], onDelete }: HoldingsListPr
                             {holdings.length === 0 ? (
                                 <tr>
                                     <td colSpan={6} className="py-20 text-center">
-                                        <p className="text-slate-400 font-semibold uppercase tracking-widest text-">Your ledger is empty. Begin by adding a position.</p>
+                                        <p className="text-slate-600 font-semibold uppercase tracking-widest text-">Your ledger is empty. Begin by adding a position.</p>
                                     </td>
                                 </tr>
                             ) : (
@@ -68,7 +68,7 @@ export default function HoldingsList({ holdings = [], onDelete }: HoldingsListPr
                                                     </div>
                                                     <div>
                                                         <p className="text-sm font-bold text-slate-900 leading-none mb-1">{holding.asset_name}</p>
-                                                        <Badge variant="outline" className="text-[8px] font-bold uppercase py-0 px-1.5 border-slate-100 text-slate-400">
+                                                        <Badge variant="outline" className="text-[8px] font-bold uppercase py-0 px-1.5 border-slate-100 text-slate-600">
                                                             {holding.asset_type || 'Equity'}
                                                         </Badge>
                                                     </div>

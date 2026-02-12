@@ -81,7 +81,7 @@ export default function SmartContextualOffers({
                                 <h3 className="text-lg font-bold text-white mb-1 group-hover:text-primary-400 transition-colors">
                                     {product.name}
                                 </h3>
-                                <p className="text-xs text-slate-400 mb-4 line-clamp-2 h-8">
+                                <p className="text-xs text-slate-600 mb-4 line-clamp-2 h-8">
                                     {product.description}
                                 </p>
 

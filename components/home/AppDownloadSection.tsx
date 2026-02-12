@@ -43,7 +43,7 @@ export default function AppDownloadSection() {
                             <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-primary-500 animate-pulse" />
                         </div>
                         
-                        <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 mb-2 max-w-xl mx-auto md:mx-0">
+                        <p className="text-base sm:text-lg text-slate-600 dark:text-slate-600 mb-2 max-w-xl mx-auto md:mx-0">
                             Take your financial planning everywhere. Compare products, calculate returns, and access expert guides — all in one premium mobile app.
                         </p>
                         

@@ -259,7 +259,7 @@ export function MediaLibrary({
                     <div className="flex items-center justify-center h-64">
                         <div className="text-center">
                             <svg
-                                className="mx-auto h-16 w-16 text-slate-400 mb-4"
+                                className="mx-auto h-16 w-16 text-slate-600 mb-4"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -274,7 +274,7 @@ export function MediaLibrary({
                             <p className="text-slate-500 text-lg font-medium mb-2">
                                 {searchQuery ? 'No images found' : 'No images yet'}
                             </p>
-                            <p className="text-slate-400 text-sm mb-4">
+                            <p className="text-slate-600 text-sm mb-4">
                                 {searchQuery ? 'Try a different search term' : 'Upload your first image to get started'}
                             </p>
                             {!searchQuery && (
@@ -380,7 +380,7 @@ export function MediaLibrary({
                                     disabled={page === 1}
                                     className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                                         page === 1
-                                            ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
+                                            ? 'bg-slate-100 text-slate-600 cursor-not-allowed'
                                             : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
                                     }`}
                                 >
@@ -394,7 +394,7 @@ export function MediaLibrary({
                                     disabled={page === totalPages}
                                     className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                                         page === totalPages
-                                            ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
+                                            ? 'bg-slate-100 text-slate-600 cursor-not-allowed'
                                             : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
                                     }`}
                                 >

@@ -98,7 +98,7 @@ export default function DiscoveryWizard() {
           <div className="px-8 pt-8">
             <div className="flex items-center justify-between mb-4">
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary-600">Question {step} of {QUESTIONS.length}</span>
-              <button onClick={() => setStep(step - 1)} className="text-slate-400 hover:text-slate-600 transition-colors">
+              <button onClick={() => setStep(step - 1)} className="text-slate-600 hover:text-slate-600 transition-colors">
                 <ArrowLeft className="w-4 h-4" />
               </button>
             </div>
@@ -131,7 +131,7 @@ export default function DiscoveryWizard() {
                   <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4 font-heading tracking-tight">
                     Find Your Perfect Card <br />in 2 Minutes.
                   </h2>
-                  <p className="text-slate-600 dark:text-slate-400 text-lg max-w-md mx-auto">
+                  <p className="text-slate-600 dark:text-slate-600 text-lg max-w-md mx-auto">
                     Answer 3 simple questions and our algorithm will pick the best card for your spending habits.
                   </p>
                 </div>
@@ -142,7 +142,7 @@ export default function DiscoveryWizard() {
                 >
                   Start Discovery <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
-                <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">
+                <p className="text-xs text-slate-600 font-bold uppercase tracking-widest">
                   No Personal Data Required
                 </p>
               </motion.div>
@@ -161,7 +161,7 @@ export default function DiscoveryWizard() {
                   <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-2 font-heading tracking-tight">
                     {QUESTIONS[step - 1].title}
                   </h2>
-                  <p className="text-slate-500 dark:text-slate-400 font-medium">
+                  <p className="text-slate-500 dark:text-slate-600 font-medium">
                     {QUESTIONS[step - 1].subtitle}
                   </p>
                 </div>
@@ -180,11 +180,11 @@ export default function DiscoveryWizard() {
                         )}
                       >
                         <div className="w-12 h-12 rounded-xl bg-white dark:bg-slate-900 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                           <Icon className="w-6 h-6 text-slate-600 dark:text-slate-400 group-hover:text-primary-600 dark:group-hover:text-primary-400" />
+                           <Icon className="w-6 h-6 text-slate-600 dark:text-slate-600 group-hover:text-primary-600 dark:group-hover:text-primary-400" />
                         </div>
                         <div>
                           <p className="font-bold text-slate-900 dark:text-white mb-0.5 group-hover:text-primary-600 transition-colors">{option.label}</p>
-                          <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">{option.desc}</p>
+                          <p className="text-xs text-slate-500 dark:text-slate-600 font-medium">{option.desc}</p>
                         </div>
                       </button>
                     );

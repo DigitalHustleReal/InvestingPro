@@ -190,7 +190,7 @@ export function ShareEmbed({
                 href={shareLinks.email}
                 className="flex flex-col items-center gap-2 p-4 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
               >
-                <Mail className="w-6 h-6 text-slate-600 dark:text-slate-400" />
+                <Mail className="w-6 h-6 text-slate-600 dark:text-slate-600" />
                 <span className="text-xs">Email</span>
               </a>
             </div>

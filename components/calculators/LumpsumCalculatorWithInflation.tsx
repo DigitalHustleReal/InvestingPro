@@ -159,7 +159,7 @@ export function LumpsumCalculatorWithInflation() {
                                 <div className="flex justify-between items-center">
                                     <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Investment Period</Label>
                                     <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-1.5">
-                                        <Calendar className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+                                        <Calendar className="w-3.5 h-3.5 text-slate-500 dark:text-slate-600" />
                                         <span className="text-sm font-bold text-slate-900 dark:text-white">{lumpsumYears} Y</span>
                                     </div>
                                 </div>
@@ -178,7 +178,7 @@ export function LumpsumCalculatorWithInflation() {
                                 <div className="flex justify-between items-center">
                                     <Label className="text-sm text-slate-700 dark:text-slate-300 font-semibold">Expected Return</Label>
                                     <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-1.5">
-                                        <Percent className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+                                        <Percent className="w-3.5 h-3.5 text-slate-500 dark:text-slate-600" />
                                         <span className="text-sm font-bold text-slate-900 dark:text-white">{lumpsumReturn}%</span>
                                     </div>
                                 </div>
@@ -299,7 +299,7 @@ export function LumpsumCalculatorWithInflation() {
                 {/* Left: Growth Projection Chart */}
                 <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-xl">
                     <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Growth Projection</CardTitle>
+                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-600">Growth Projection</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="h-80 lg:h-96">
@@ -339,18 +339,18 @@ export function LumpsumCalculatorWithInflation() {
                 {/* Right: Year-by-Year Breakdown */}
                 <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-xl">
                     <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-400">Year-by-Year Breakdown</CardTitle>
+                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-600">Year-by-Year Breakdown</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4">
                             {/* Summary Stats */}
                             <div className="grid grid-cols-2 gap-3">
                                 <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
-                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Investment</p>
+                                    <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Investment</p>
                                     <p className="text-lg font-bold text-slate-900 dark:text-white">{formatCurrency(lumpsum)}</p>
                                 </div>
                                 <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
-                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Expected ROI</p>
+                                    <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Expected ROI</p>
                                     <p className="text-lg font-bold text-primary-600">{lumpsumReturn}%</p>
                                 </div>
                             </div>

@@ -212,7 +212,7 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
                                                     </p>
                                                 )}
                                                 {guide.published_date && (
-                                                    <p className="text-xs text-slate-400">
+                                                    <p className="text-xs text-slate-600">
                                                         {new Date(guide.published_date).toLocaleDateString()}
                                                     </p>
                                                 )}

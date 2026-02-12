@@ -38,7 +38,7 @@ export default function AutoBreadcrumbs({ className }: { className?: string }) {
                                 </Link>
                             ) : (
                                 <>
-                                    <ChevronRight className="w-4 h-4 text-slate-400" />
+                                    <ChevronRight className="w-4 h-4 text-slate-600" />
                                     {isLast ? (
                                         <span className="text-slate-900 font-medium" aria-current="page">
                                             {crumb.label}

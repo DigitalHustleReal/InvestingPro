@@ -34,7 +34,7 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
     if (safeExperts.length === 0) {
         return (
             <div className="max-w-4xl mx-auto text-center py-12">
-                <p className="text-slate-600 dark:text-slate-400">
+                <p className="text-slate-600 dark:text-slate-600">
                     Our expert team profiles are being updated. Check back soon!
                 </p>
             </div>
@@ -48,7 +48,7 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
                 <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
                     Trusted Financial Experts
                 </h2>
-                <p className="text-lg text-slate-600 dark:text-slate-400">
+                <p className="text-lg text-slate-600 dark:text-slate-600">
                     Our team combines decades of experience in Indian financial markets, 
                     regulatory compliance, and personal finance to bring you accurate, 
                     actionable advice.
@@ -72,7 +72,7 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
                                             className="object-cover"
                                         />
                                     ) : (
-                                        <div className="w-full h-full flex items-center justify-center text-2xl font-bold text-slate-400">
+                                        <div className="w-full h-full flex items-center justify-center text-2xl font-bold text-slate-600">
                                             {expert.name.charAt(0).toUpperCase()}
                                         </div>
                                     )}
@@ -104,7 +104,7 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
 
                                 {/* Experience */}
                                 {expert.years_of_experience && (
-                                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                                    <p className="text-sm text-slate-600 dark:text-slate-600 mb-3">
                                         {expert.years_of_experience}+ years of experience
                                     </p>
                                 )}
@@ -112,7 +112,7 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
                                 {/* Specialization */}
                                 {expert.specialization && expert.specialization.length > 0 && (
                                     <div className="w-full mb-4">
-                                        <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">
+                                        <p className="text-xs font-semibold text-slate-500 dark:text-slate-600 uppercase tracking-wide mb-2">
                                             Expertise
                                         </p>
                                         <div className="flex flex-wrap gap-1 justify-center">
@@ -130,7 +130,7 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
 
                                 {/* Bio Preview */}
                                 {expert.bio && (
-                                    <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-3 mb-4">
+                                    <p className="text-sm text-slate-600 dark:text-slate-600 line-clamp-3 mb-4">
                                         {expert.bio}
                                     </p>
                                 )}
@@ -144,7 +144,7 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
                                             rel="noopener noreferrer"
                                             className="p-2 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                                         >
-                                            <Linkedin className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                                            <Linkedin className="w-4 h-4 text-slate-600 dark:text-slate-600" />
                                         </a>
                                     )}
                                     {expert.twitter_url && (
@@ -154,7 +154,7 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
                                             rel="noopener noreferrer"
                                             className="p-2 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                                         >
-                                            <Twitter className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                                            <Twitter className="w-4 h-4 text-slate-600 dark:text-slate-600" />
                                         </a>
                                     )}
                                     {expert.website_url && (
@@ -164,7 +164,7 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
                                             rel="noopener noreferrer"
                                             className="p-2 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                                         >
-                                            <Globe className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                                            <Globe className="w-4 h-4 text-slate-600 dark:text-slate-600" />
                                         </a>
                                     )}
                                 </div>
@@ -204,15 +204,15 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
                             <div className="flex flex-wrap gap-4 text-sm">
                                 <div className="flex items-center gap-2">
                                     <BookOpen className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                                    <span className="text-slate-600 dark:text-slate-400">Data-driven research</span>
+                                    <span className="text-slate-600 dark:text-slate-600">Data-driven research</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <TrendingUp className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                                    <span className="text-slate-600 dark:text-slate-400">Market expertise</span>
+                                    <span className="text-slate-600 dark:text-slate-600">Market expertise</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <Award className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                                    <span className="text-slate-600 dark:text-slate-400">Professional certifications</span>
+                                    <span className="text-slate-600 dark:text-slate-600">Professional certifications</span>
                                 </div>
                             </div>
                         </div>

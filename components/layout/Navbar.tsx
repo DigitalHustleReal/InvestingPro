@@ -36,11 +36,11 @@ function SearchButton({ variant = 'desktop' }: { variant?: 'desktop' | 'mobile' 
         return (
             <button 
                 onClick={openSearch}
-                className="w-full flex items-center gap-3 h-12 pl-4 pr-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-200 text-sm text-left shadow-sm hover:shadow-md"
+                className="w-full flex items-center gap-3 h-12 pl-4 pr-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-200 text-sm text-left shadow-sm hover:shadow-md"
             >
                 <Search className="w-4 h-4 text-primary-700 dark:text-primary-500 flex-shrink-0" />
                 <span className="flex-1">Search products, guides...</span>
-                <kbd className="px-2 py-0.5 text-xs bg-white dark:bg-slate-700 rounded border border-slate-200 dark:border-slate-600 text-slate-400">⌘K</kbd>
+                <kbd className="px-2 py-0.5 text-xs bg-white dark:bg-slate-700 rounded border border-slate-200 dark:border-slate-600 text-slate-600">⌘K</kbd>
             </button>
         );
     }
@@ -59,8 +59,8 @@ function SearchButton({ variant = 'desktop' }: { variant?: 'desktop' | 'mobile' 
             aria-label="Search products and guides"
         >
             <Search className="w-4 h-4 text-primary-700 dark:text-primary-500 flex-shrink-0" />
-            <span className="text-sm text-slate-600 dark:text-slate-400 flex-1 text-left truncate">Search...</span>
-            <kbd className="hidden xl:inline-flex px-1.5 py-0.5 text-[10px] bg-white dark:bg-slate-700 rounded border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-400 font-mono">⌘K</kbd>
+            <span className="text-sm text-slate-600 dark:text-slate-600 flex-1 text-left truncate">Search...</span>
+            <kbd className="hidden xl:inline-flex px-1.5 py-0.5 text-[10px] bg-white dark:bg-slate-700 rounded border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-600 font-mono">⌘K</kbd>
         </button>
     );
 }
@@ -241,7 +241,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                         variant="ghost" 
                                         size="icon"
                                         onClick={() => setIsOpen(false)}
-                                        className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
+                                        className="text-slate-500 hover:text-slate-900 dark:text-slate-600 dark:hover:text-slate-100"
                                         aria-label="Close menu"
                                     >
                                         <X className="w-5 h-5" />
@@ -270,9 +270,9 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                                             {category.name}
                                                         </span>
                                                         {isExpanded ? (
-                                                            <ChevronDown className="w-5 h-5 text-slate-400" />
+                                                            <ChevronDown className="w-5 h-5 text-slate-600" />
                                                         ) : (
-                                                            <ChevronRight className="w-5 h-5 text-slate-400" />
+                                                            <ChevronRight className="w-5 h-5 text-slate-600" />
                                                         )}
                                                     </button>
 

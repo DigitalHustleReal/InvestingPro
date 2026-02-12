@@ -75,7 +75,7 @@ export default function RelatedCalculators({ category, className }: RelatedCalcu
         <h3 className="font-bold text-slate-900 dark:text-white">Related Calculators</h3>
       </div>
 
-      <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">
+      <p className="text-sm text-slate-600 dark:text-slate-600 mb-6">
         Make informed decisions with our financial calculators
       </p>
 
@@ -88,9 +88,9 @@ export default function RelatedCalculators({ category, className }: RelatedCalcu
                 <h4 className="font-semibold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                   {calc.name}
                 </h4>
-                <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 group-hover:translate-x-1 transition-all" />
+                <ArrowRight className="w-4 h-4 text-slate-600 group-hover:text-primary-600 dark:group-hover:text-primary-400 group-hover:translate-x-1 transition-all" />
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400">
+              <p className="text-xs text-slate-600 dark:text-slate-600">
                 {calc.description}
               </p>
             </div>
