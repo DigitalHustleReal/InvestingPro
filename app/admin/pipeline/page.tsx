@@ -15,8 +15,13 @@ import {
     XCircle,
     Calendar,
     BarChart3,
-    Activity
+    Activity,
+    Zap,
+    Flame,
+    ShieldCheck
 } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { ADMIN_THEME } from '@/lib/admin/theme';
 interface ArticleStats {
     draft: number;
     review: number;
@@ -115,7 +120,7 @@ export default function PipelineHealthPage() {
         switch (status) {
             case 'published': return 'bg-success-500/20 text-success-400 border-success-500/30';
             case 'review': return 'bg-warning-500/20 text-warning-400 border-warning-500/30';
-            case 'draft': return 'bg-slate-500/20 text-slate-400 border-slate-500/30';
+            case 'draft': return 'bg-slate-500/20 text-slate-300 border-slate-500/30';
             case 'failed': return 'bg-danger-500/20 text-danger-400 border-danger-500/30';
             default: return 'bg-muted/20 text-muted-foreground border-muted/30';
         }
@@ -126,145 +131,142 @@ export default function PipelineHealthPage() {
     return (
         <AdminLayout>
             <div className="min-h-screen p-8 font-sans">
-                {/* Header */}
-                <div className="flex items-center gap-4 mb-10">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 shadow-lg shadow-primary-500/25 flex items-center justify-center">
-                        <Activity className="w-7 h-7 text-white" />
-                    </div>
-                    <div>
-                        <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">
-                            Pipeline Health Dashboard
-                        </h1>
-                        <p className="text-muted-foreground mt-1">
-                            Monitor article status, daily production, and failure rates
-                        </p>
+            <div className="p-8 space-y-10 max-w-7xl mx-auto">
+                {/* Header Section */}
+                <div 
+                    className="relative overflow-hidden shadow-2xl"
+                    style={{ 
+                        borderRadius: '24px',
+                        padding: '32px',
+                        background: 'linear-gradient(135deg, #0a192f 0%, #0d213f 100%)',
+                        border: '1px solid rgba(196, 158, 72, 0.2)'
+                    }}
+                >
+                    <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full blur-3xl opacity-10 bg-[#c49e48]" />
+                    
+                    <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div className="flex items-center gap-6">
+                            <div className="p-4 rounded-2xl bg-[#c49e48]/10 border border-[#c49e48]/20">
+                                <Activity className="w-10 h-10 text-[#c49e48]" />
+                            </div>
+                            <div>
+                                <h1 className="text-3xl font-bold tracking-tight text-white mb-2">Pipeline Health</h1>
+                                <p className="text-slate-300 max-w-md">Real-time status tracking and quality assurance for our AI content engine.</p>
+                            </div>
+                        </div>
+                        
+                        <div className="flex items-center gap-3">
+                            <Badge className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-4 py-1.5 rounded-full flex gap-2 items-center">
+                                <ShieldCheck className="w-4 h-4" />
+                                System Optimal
+                            </Badge>
+                        </div>
                     </div>
                 </div>
 
                 {/* Stats Overview */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <Card className="bg-gradient-to-br from-slate-500/10 to-slate-600/5 border-slate-500/20">
-                        <CardContent className="p-6">
-                            <div className="flex items-center justify-between mb-4">
-                                <FileText className="w-5 h-5 text-slate-400" />
-                                <Badge variant="outline" className="text-xs">Draft</Badge>
-                            </div>
-                            <div className="text-3xl font-bold text-foreground mb-1">
-                                {isLoading ? '...' : stats?.draft}
-                            </div>
-                            <p className="text-xs text-muted-foreground">Awaiting review</p>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="bg-gradient-to-br from-warning-500/10 to-warning-600/5 border-warning-500/20">
-                        <CardContent className="p-6">
-                            <div className="flex items-center justify-between mb-4">
-                                <Clock className="w-5 h-5 text-warning-400" />
-                                <Badge variant="outline" className="text-xs">In Review</Badge>
-                            </div>
-                            <div className="text-3xl font-bold text-foreground mb-1">
-                                {isLoading ? '...' : stats?.review}
-                            </div>
-                            <p className="text-xs text-muted-foreground">Being reviewed</p>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="bg-gradient-to-br from-success-500/10 to-success-600/5 border-success-500/20">
-                        <CardContent className="p-6">
-                            <div className="flex items-center justify-between mb-4">
-                                <CheckCircle2 className="w-5 h-5 text-success-400" />
-                                <Badge variant="outline" className="text-xs">Published</Badge>
-                            </div>
-                            <div className="text-3xl font-bold text-foreground mb-1">
-                                {isLoading ? '...' : stats?.published}
-                            </div>
-                            <p className="text-xs text-muted-foreground">Live on site</p>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="bg-gradient-to-br from-danger-500/10 to-danger-600/5 border-danger-500/20">
-                        <CardContent className="p-6">
-                            <div className="flex items-center justify-between mb-4">
-                                <XCircle className="w-5 h-5 text-danger-400" />
-                                <Badge variant="outline" className="text-xs">Failure Rate</Badge>
-                            </div>
-                            <div className="text-3xl font-bold text-foreground mb-1">
-                                {isLoading ? '...' : `${stats?.failureRate}%`}
-                            </div>
-                            <p className="text-xs text-muted-foreground">Of all articles</p>
-                        </CardContent>
-                    </Card>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <HealthStatCard 
+                        label="Draft Queue" 
+                        value={isLoading ? '...' : stats?.draft} 
+                        icon={FileText} 
+                        desc="Awaiting review" 
+                        color="amber"
+                    />
+                    <HealthStatCard 
+                        label="In Review" 
+                        value={isLoading ? '...' : stats?.review} 
+                        icon={Clock} 
+                        desc="Quality audit" 
+                        color="blue"
+                    />
+                    <HealthStatCard 
+                        label="Live Content" 
+                        value={isLoading ? '...' : stats?.published} 
+                        icon={CheckCircle2} 
+                        desc="Live on site" 
+                        color="emerald"
+                    />
+                    <HealthStatCard 
+                        label="Failure Rate" 
+                        value={isLoading ? '...' : `${stats?.failureRate}%`} 
+                        icon={XCircle} 
+                        desc="System health" 
+                        color="rose"
+                    />
                 </div>
 
                 {/* Daily Production Chart & Recent Articles */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* Daily Counts Chart */}
-                    <Card className="bg-card/50 border-border/50">
-                        <CardHeader>
-                            <CardTitle className="text-foreground flex items-center gap-2">
-                                <BarChart3 className="w-5 h-5 text-primary-400" />
-                                Daily Production (Last 7 Days)
+                    <Card className="bg-[#111827]/40 border-white/10 backdrop-blur-xl rounded-2xl overflow-hidden shadow-xl">
+                        <CardHeader className="border-b border-white/5 pb-4">
+                            <CardTitle className="text-white flex items-center gap-2 text-lg">
+                                <BarChart3 className="w-5 h-5 text-[#c49e48]" />
+                                Content Velocity
                             </CardTitle>
                         </CardHeader>
-                        <CardContent>
-                            <div className="flex items-end justify-between h-48 gap-2">
+                        <CardContent className="p-6">
+                            <div className="flex items-end justify-between h-48 gap-3">
                                 {dailyCounts.map((day, i) => (
-                                    <div key={i} className="flex flex-col items-center flex-1">
-                                        <div className="w-full bg-muted/30 rounded-t-lg relative flex-1 flex items-end">
+                                    <div key={i} className="flex flex-col items-center flex-1 group">
+                                        <div className="w-full bg-white/5 rounded-t-lg relative flex-1 flex items-end overflow-hidden">
                                             <div 
-                                                className="w-full bg-gradient-to-t from-primary-600 to-primary-400 rounded-t-lg transition-all duration-500"
+                                                className="w-full bg-gradient-to-t from-[#c49e48] to-[#e5c162] rounded-t-lg transition-all duration-700 group-hover:opacity-80"
                                                 style={{ height: `${(day.count / maxDailyCount) * 100}%`, minHeight: day.count > 0 ? '8px' : '0px' }}
                                             />
                                         </div>
-                                        <div className="text-xs font-bold text-foreground mt-2">{day.count}</div>
-                                        <div className="text-xs text-muted-foreground">{day.date}</div>
+                                        <div className="text-xs font-bold text-white mt-3">{day.count}</div>
+                                        <div className="text-[10px] uppercase tracking-tighter text-slate-500 mt-1">{day.date}</div>
                                     </div>
                                 ))}
                             </div>
-                            <div className="mt-6 pt-4 border-t border-border/50 flex justify-between text-sm">
-                                <div>
-                                    <span className="text-muted-foreground">Today: </span>
-                                    <span className="font-bold text-foreground">{stats?.todayCount || 0} articles</span>
+                            <div className="mt-8 pt-6 border-t border-white/5 flex justify-between text-sm">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-2 h-2 rounded-full bg-[#c49e48]" />
+                                    <span className="text-slate-300">Today: </span>
+                                    <span className="font-bold text-white">{stats?.todayCount || 0}</span>
                                 </div>
-                                <div>
-                                    <span className="text-muted-foreground">This week: </span>
-                                    <span className="font-bold text-foreground">{stats?.weekCount || 0} articles</span>
+                                <div className="flex items-center gap-2">
+                                    <div className="w-2 h-2 rounded-full bg-blue-400" />
+                                    <span className="text-slate-300">7d Volume: </span>
+                                    <span className="font-bold text-white">{stats?.weekCount || 0}</span>
                                 </div>
                             </div>
                         </CardContent>
                     </Card>
 
                     {/* Recent Articles */}
-                    <Card className="bg-card/50 border-border/50">
-                        <CardHeader>
-                            <CardTitle className="text-foreground flex items-center gap-2">
-                                <Calendar className="w-5 h-5 text-secondary-400" />
-                                Recent Articles
+                    <Card className="bg-[#111827]/40 border-white/10 backdrop-blur-xl rounded-2xl overflow-hidden shadow-xl">
+                        <CardHeader className="border-b border-white/5 pb-4">
+                            <CardTitle className="text-white flex items-center gap-2 text-lg">
+                                <Calendar className="w-5 h-5 text-blue-400" />
+                                Activity Feed
                             </CardTitle>
                         </CardHeader>
-                        <CardContent>
-                            <div className="space-y-3 max-h-[300px] overflow-y-auto">
+                        <CardContent className="p-0">
+                            <div className="divide-y divide-white/5 max-h-[300px] overflow-y-auto custom-scrollbar">
                                 {recentArticles.map((article: any) => (
                                     <div 
                                         key={article.id} 
-                                        className="flex items-center justify-between p-3 bg-muted/10 rounded-lg hover:bg-muted/20 transition-colors"
+                                        className="flex items-center justify-between p-4 hover:bg-white/5 transition-colors"
                                     >
                                         <div className="flex-1 min-w-0 mr-4">
-                                            <p className="text-sm font-medium text-foreground truncate">
+                                            <p className="text-sm font-bold text-white truncate group-hover:text-[#c49e48]">
                                                 {article.title || 'Untitled'}
                                             </p>
-                                            <p className="text-xs text-muted-foreground">
+                                            <p className="text-xs text-slate-500 mt-1 uppercase tracking-widest font-medium">
                                                 {new Date(article.created_at).toLocaleDateString()}
                                             </p>
                                         </div>
-                                        <Badge className={getStatusColor(article.status)}>
+                                        <Badge className={cn("border-none px-2", getStatusColor(article.status))}>
                                             {article.status}
                                         </Badge>
                                     </div>
                                 ))}
                                 {recentArticles.length === 0 && (
-                                    <p className="text-center text-muted-foreground py-8">
-                                        No articles found
+                                    <p className="text-center text-slate-500 py-12">
+                                        No recent telemetry data
                                     </p>
                                 )}
                             </div>
@@ -273,41 +275,65 @@ export default function PipelineHealthPage() {
                 </div>
 
                 {/* Summary Stats */}
-                <Card className="bg-card/50 border-border/50">
-                    <CardHeader>
-                        <CardTitle className="text-foreground flex items-center gap-2">
-                            <TrendingUp className="w-5 h-5 text-accent-400" />
-                            Pipeline Summary
+                <Card className="bg-[#111827]/40 border-white/5 backdrop-blur-xl rounded-2xl overflow-hidden shadow-2xl">
+                    <CardHeader className="border-b border-white/5 pb-4">
+                        <CardTitle className="text-white flex items-center gap-2 text-lg">
+                            <TrendingUp className="w-5 h-5 text-[#c49e48]" />
+                            Performance Metadata
                         </CardTitle>
                     </CardHeader>
-                    <CardContent>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                            <div className="text-center p-4 bg-muted/10 rounded-xl">
-                                <div className="text-3xl font-bold text-foreground mb-1">{stats?.total || 0}</div>
-                                <p className="text-sm text-muted-foreground">Total Articles</p>
+                    <CardContent className="p-8">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                            <div className="text-center">
+                                <div className="text-3xl font-bold text-white mb-2">{stats?.total || 0}</div>
+                                <p className="text-[10px] uppercase tracking-widest text-slate-500">Asset Count</p>
                             </div>
-                            <div className="text-center p-4 bg-muted/10 rounded-xl">
-                                <div className="text-3xl font-bold text-success-400 mb-1">
+                            <div className="text-center">
+                                <div className="text-3xl font-bold text-emerald-400 mb-2">
                                     {stats?.total ? Math.round((stats.published / stats.total) * 100) : 0}%
                                 </div>
-                                <p className="text-sm text-muted-foreground">Published Rate</p>
+                                <p className="text-[10px] uppercase tracking-widest text-slate-500">Publication Efficiency</p>
                             </div>
-                            <div className="text-center p-4 bg-muted/10 rounded-xl">
-                                <div className="text-3xl font-bold text-warning-400 mb-1">
+                            <div className="text-center">
+                                <div className="text-3xl font-bold text-amber-400 mb-2">
                                     {(stats?.draft || 0) + (stats?.review || 0)}
                                 </div>
-                                <p className="text-sm text-muted-foreground">In Progress</p>
+                                <p className="text-[10px] uppercase tracking-widest text-slate-500">Nodes In-Flight</p>
                             </div>
-                            <div className="text-center p-4 bg-muted/10 rounded-xl">
-                                <div className="text-3xl font-bold text-primary-400 mb-1">
+                            <div className="text-center">
+                                <div className="text-3xl font-bold text-[#c49e48] mb-2">
                                     {Math.round((stats?.weekCount || 0) / 7 * 10) / 10}
                                 </div>
-                                <p className="text-sm text-muted-foreground">Daily Avg (7d)</p>
+                                <p className="text-[10px] uppercase tracking-widest text-slate-500">Daily Delta</p>
                             </div>
                         </div>
                     </CardContent>
                 </Card>
+                </div>
             </div>
         </AdminLayout>
     );
 }
+
+function HealthStatCard({ label, value, icon: Icon, desc, color }: any) {
+    const colors: Record<string, string> = {
+        amber: 'text-amber-400 bg-amber-400/10 border-amber-400/20',
+        blue: 'text-blue-400 bg-blue-400/10 border-blue-400/20',
+        emerald: 'text-emerald-400 bg-emerald-400/10 border-emerald-400/20',
+        rose: 'text-rose-400 bg-rose-400/10 border-rose-400/20'
+    };
+
+    return (
+        <Card className="bg-[#111827]/40 border-white/5 backdrop-blur-sm p-6 rounded-2xl group hover:border-[#c49e48]/30 transition-all">
+            <div className="flex items-center justify-between mb-4">
+                <div className={cn("p-2 rounded-lg", colors[color])}>
+                    <Icon className="w-5 h-5" />
+                </div>
+                <Badge variant="outline" className="text-[10px] border-white/10 text-slate-500 uppercase tracking-widest">{label}</Badge>
+            </div>
+            <div className="text-3xl font-bold text-white mb-1 group-hover:text-[#c49e48] transition-colors">{value}</div>
+            <p className="text-xs text-slate-500 font-medium">{desc}</p>
+        </Card>
+    );
+}
+

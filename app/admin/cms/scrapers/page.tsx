@@ -5,14 +5,12 @@ export const dynamic = 'force-dynamic';
 
 import React from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
-import CMSSubNavigation from '@/components/admin/CMSSubNavigation';
 import ScraperDashboard from '@/components/admin/ScraperDashboard';
 import { Rss } from 'lucide-react';
 
 export default function CMSScrapersPage() {
     return (
         <AdminLayout>
-            <CMSSubNavigation />
             <div className="p-8 space-y-8">
                 {/* Header */}
                 <div className="flex items-center justify-between">

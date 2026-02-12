@@ -175,8 +175,7 @@ export default function TagsPage() {
                         <EmptyState
                             icon={TagIcon}
                             title={searchQuery ? 'No tags found' : 'No tags yet'}
-                            description={searchQuery ? 'Try a different search' : 'Create tags to organize your articles'}
-                            action={!searchQuery && <ActionButton onClick={() => setIsCreateDialogOpen(true)} icon={Plus}>Create Tag</ActionButton>}
+                            description={searchQuery ? 'Try a different search' : 'Create tags to organize your articles. Use the button above to get started.'}
                         />
                     </ContentSection>
                 ) : (
@@ -303,7 +302,7 @@ export default function TagsPage() {
                                 Delete Tag
                             </DialogTitle>
                             <DialogDescription className="text-muted-foreground dark:text-muted-foreground">
-                                Delete "{selectedTag?.name}"? 
+                                Delete &quot;{selectedTag?.name}&quot;? 
                                 {tagUsageCounts[selectedTag?.slug || ''] > 0 && (
                                     <span className="block mt-1 text-accent-400">
                                         Warning: Used in {tagUsageCounts[selectedTag?.slug || '']} articles.

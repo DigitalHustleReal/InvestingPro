@@ -2,7 +2,6 @@
 
 import React from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
-import CMSSubNavigation from '@/components/admin/CMSSubNavigation';
 import { Activity, CheckCircle, XCircle, AlertCircle, RefreshCw } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -49,7 +48,6 @@ export default function CMSHealthPage() {
 
     return (
         <AdminLayout>
-            <CMSSubNavigation />
             <div className="p-8 space-y-8">
                 {/* Header */}
                 <div className="flex items-center justify-between">

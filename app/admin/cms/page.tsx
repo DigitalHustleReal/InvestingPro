@@ -3,7 +3,6 @@
 import React from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import AdminPageContainer from '@/components/admin/AdminPageContainer';
-import CMSSubNavigation from '@/components/admin/CMSSubNavigation';
 import BudgetGovernorPanel from '@/components/admin/BudgetGovernorPanel';
 import { Sparkles, DollarSign, Zap, Activity, Rss } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
@@ -51,7 +50,6 @@ export default function CMSDashboardPage() {
 
     return (
         <AdminLayout>
-            <CMSSubNavigation />
             <AdminPageContainer>
                 {/* Header */}
                 <div className="flex items-center justify-between">

@@ -114,7 +114,7 @@ export default function ContentStrategyPage() {
             case 'urgent': return 'bg-danger-500/20 text-danger-400 border-danger-500/30';
             case 'high': return 'bg-orange-500/20 text-orange-400 border-orange-500/30';
             case 'medium': return 'bg-warning-500/20 text-warning-400 border-warning-500/30';
-            case 'low': return 'bg-slate-500/20 text-slate-400 border-slate-500/30';
+            case 'low': return 'bg-slate-500/20 text-slate-300 border-slate-500/30';
             default: return 'bg-muted/20 text-muted-foreground border-muted/30';
         }
     };
@@ -342,7 +342,7 @@ export default function ContentStrategyPage() {
                                                         ? 'bg-success-500/20 text-success-400'
                                                         : cat.growthPotential === 'medium'
                                                         ? 'bg-warning-500/20 text-warning-400'
-                                                        : 'bg-slate-500/20 text-slate-400'
+                                                        : 'bg-slate-500/20 text-slate-300'
                                                 }>
                                                     {cat.growthPotential} growth
                                                 </Badge>
@@ -494,3 +494,4 @@ export default function ContentStrategyPage() {
         </AdminLayout>
     );
 }
+

@@ -22,6 +22,7 @@ import {
     Eye,
     Brain,
     Sparkles,
+    RefreshCw,
     Link as LinkIcon
 } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
@@ -72,30 +73,50 @@ export default function PipelineMonitorPage() {
         refetchInterval: 10000
     });
 
-    const runningActivities = activities.filter((a: any) => a.status === 'running');
-    const completedToday = activities.filter((a: any) => 
+    const activitiesList = Array.isArray(activities) ? activities : [];
+    const runningActivities = activitiesList.filter((a: any) => a.status === 'running');
+    const completedToday = activitiesList.filter((a: any) => 
         a.status === 'completed' && 
+        a.started_at &&
         new Date(a.started_at).toDateString() === new Date().toDateString()
     ).length;
 
     return (
         <AdminLayout>
-            <div className="p-8 space-y-8">
-                {/* Header */}
-                <div className="flex items-center justify-between">
-                    <div>
-                        <h1 className="text-3xl font-bold text-foreground dark:text-foreground mb-2">Pipeline Intelligence Center</h1>
-                        <p className="text-muted-foreground dark:text-muted-foreground">Real-time visibility into AI content generation</p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <Badge className="bg-primary-500/20 text-primary-400 border-primary-500/30 px-4 py-2">
-                            <Activity className="w-4 h-4 mr-2 animate-pulse" />
-                            {runningActivities.length} Active
-                        </Badge>
-                        <Button size="sm" onClick={() => refetch()} className="bg-white/10 hover:bg-white/20">
-                            <Loader2 className="w-4 h-4 mr-2" />
-                            Refresh
-                        </Button>
+            <div className="p-8 space-y-10 max-w-7xl mx-auto">
+                {/* Header Section */}
+                <div 
+                    className="relative overflow-hidden shadow-2xl"
+                    style={{ 
+                        borderRadius: '24px',
+                        padding: '32px',
+                        background: 'linear-gradient(135deg, #0a192f 0%, #0d213f 100%)',
+                        border: '1px solid rgba(196, 158, 72, 0.2)'
+                    }}
+                >
+                    <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full blur-3xl opacity-10 bg-[#c49e48]" />
+                    
+                    <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div className="flex items-center gap-6">
+                            <div className="p-4 rounded-2xl bg-[#c49e48]/10 border border-[#c49e48]/20">
+                                <Activity className="w-10 h-10 text-[#c49e48]" />
+                            </div>
+                            <div>
+                                <h1 className="text-3xl font-bold tracking-tight text-white mb-2">Pipeline Intelligence</h1>
+                                <p className="text-slate-300 max-w-md">Real-time visibility and heuristic analysis of the AI content generation engine.</p>
+                            </div>
+                        </div>
+                        
+                        <div className="flex items-center gap-3">
+                            <Badge className="bg-[#c49e48]/10 text-[#c49e48] border border-[#c49e48]/20 px-4 py-1.5 rounded-full flex gap-2 items-center">
+                                <div className="w-2 h-2 rounded-full bg-[#c49e48] animate-pulse" />
+                                {runningActivities.length} Active Nodes
+                            </Badge>
+                            <Button onClick={() => refetch()} variant="outline" className="bg-white/5 border-[#c49e48]/20 text-[#c49e48] hover:bg-[#c49e48]/10">
+                                <RefreshCw className="w-4 h-4 mr-2" />
+                                Sync Telemetry
+                            </Button>
+                        </div>
                     </div>
                 </div>
 
@@ -155,9 +176,9 @@ export default function PipelineMonitorPage() {
                 </div>
 
                 {/* Tab Content */}
-                {activeTab === 'live' && <LiveActivityTab activities={activities} />}
-                {activeTab === 'metrics' && <MetricsTab activities={activities} />}
-                {activeTab === 'research' && <ResearchTab activities={activities} />}
+                {activeTab === 'live' && <LiveActivityTab activities={activitiesList} />}
+                {activeTab === 'metrics' && <MetricsTab activities={activitiesList} />}
+                {activeTab === 'research' && <ResearchTab activities={activitiesList} />}
             </div>
         </AdminLayout>
     );
@@ -463,3 +484,4 @@ function ResearchTab({ activities }: { activities: any[] }) {
         </div>
     );
 }
+

@@ -378,7 +378,7 @@ export default function RevenueIntelligencePage() {
                                                                             ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300'
                                                                             : factor.impact === 'negative'
                                                                                 ? 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300'
-                                                                                : 'bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+                                                                                : 'bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
                                                                     }`}
                                                                 >
                                                                     <span className="font-medium">{factor.name}</span>
@@ -701,3 +701,4 @@ function generateMockPredictions(): { predictions: PredictionData[] } {
         ],
     };
 }
+

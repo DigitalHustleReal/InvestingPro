@@ -35,11 +35,11 @@ export default function AdminLoginPage() {
   const [message, setMessage] = useState('');
   const supabase = createClient();
 
-  // Check for error in URL params
+  // Check for error in URL params (from callback redirects)
   useEffect(() => {
     const errorParam = searchParams.get('error');
-    if (errorParam === 'supabase_not_configured') {
-      setError('Supabase is not configured. Please add environment variables.');
+    if (errorParam) {
+      setError(decodeURIComponent(errorParam));
     }
   }, [searchParams]);
 
@@ -61,14 +61,25 @@ export default function AdminLoginPage() {
       }
 
       if (data.user) {
-        // Check admin role
-        const { data: profile } = await supabase
-          .from('user_profiles')
-          .select('role')
-          .eq('id', data.user.id)
-          .single();
+        // Check admin role in BOTH tables (user_profiles and user_roles)
+        const [profileResult, roleResult] = await Promise.all([
+          supabase
+            .from('user_profiles')
+            .select('role')
+            .eq('id', data.user.id)
+            .single(),
+          supabase
+            .from('user_roles')
+            .select('role')
+            .eq('user_id', data.user.id)
+            .single()
+        ]);
 
-        if (profile?.role === 'admin') {
+        const isAdmin = 
+          profileResult.data?.role === 'admin' || 
+          roleResult.data?.role === 'admin';
+
+        if (isAdmin) {
           router.push('/admin');
           router.refresh();
         } else {
@@ -92,7 +103,7 @@ export default function AdminLoginPage() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback?redirect=/admin`,
+          redirectTo: `${window.location.origin}/auth/callback?redirect=${encodeURIComponent('/admin')}&source=admin`,
           queryParams: {
             access_type: 'offline',
             prompt: 'consent',
@@ -101,7 +112,12 @@ export default function AdminLoginPage() {
       });
 
       if (error) {
-        setError(error.message);
+        // Provide user-friendly error for disabled provider
+        if (error.message.includes('provider') || error.message.includes('not enabled')) {
+          setError('Google login is not configured yet. Please use Email/Password or Magic Link instead.');
+        } else {
+          setError(error.message);
+        }
         setGoogleLoading(false);
       }
     } catch (err: any) {
@@ -121,17 +137,28 @@ export default function AdminLoginPage() {
     setError('');
 
     try {
+      // Use the site URL directly for magic link redirect
+      // Supabase will redirect to this URL after email verification
+      // The callback handler will detect admin role and redirect to /admin
+      const siteUrl = window.location.origin;
+      
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback?redirect=/admin`,
+          // Point directly to /auth/callback with admin redirect
+          // Important: Supabase must have this URL in the Redirect URLs allowlist
+          emailRedirectTo: `${siteUrl}/auth/callback?redirect=%2Fadmin&source=admin`,
         },
       });
 
       if (error) {
-        setError(error.message);
+        if (error.message.includes('rate') || error.message.includes('limit')) {
+          setError('Too many attempts. Please wait a few minutes and try again.');
+        } else {
+          setError(error.message);
+        }
       } else {
-        setMessage('Check your email for the login link!');
+        setMessage('✅ Check your email! Click the link to access the Admin Dashboard. (Check spam folder too)');
       }
     } catch (err: any) {
       setError(err.message || 'Failed to send magic link');

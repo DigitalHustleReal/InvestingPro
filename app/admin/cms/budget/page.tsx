@@ -2,7 +2,6 @@
 
 import React from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
-import CMSSubNavigation from '@/components/admin/CMSSubNavigation';
 import BudgetGovernorPanel from '@/components/admin/BudgetGovernorPanel';
 import { DollarSign } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,7 +9,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 export default function CMSBudgetPage() {
     return (
         <AdminLayout>
-            <CMSSubNavigation />
             <div className="p-8 space-y-8">
                 {/* Header */}
                 <div className="flex items-center justify-between">

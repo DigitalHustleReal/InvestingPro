@@ -23,8 +23,10 @@ import {
     FileText,
     Eye,
     MoreVertical,
-    TrendingUp
+    TrendingUp,
+    Sparkles
 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
 interface WorkflowItem {
@@ -137,7 +139,7 @@ export default function WorkflowsPage() {
             quality_passed: 'bg-success-500/20 text-success-400',
             quality_failed: 'bg-danger-500/20 text-danger-400',
             scheduled: 'bg-warning-500/20 text-warning-400',
-            manual: 'bg-slate-500/20 text-slate-400',
+            manual: 'bg-slate-500/20 text-slate-300',
             webhook: 'bg-violet-500/20 text-violet-400',
         };
         return colors[type] || 'bg-muted/20 text-muted-foreground';
@@ -149,100 +151,63 @@ export default function WorkflowsPage() {
     };
 
     // Stats
-    const enabledCount = workflows.filter(w => w.is_enabled).length;
-    const totalRuns = workflows.reduce((sum, w) => sum + w.total_runs, 0);
-    const avgSuccessRate = workflows.length > 0
-        ? Math.round(workflows.reduce((sum, w) => {
+    const workflowList = Array.isArray(workflows) ? workflows : [];
+    const enabledCount = workflowList.filter(w => w.is_enabled).length;
+    const totalRuns = workflowList.reduce((sum, w) => sum + w.total_runs, 0);
+    const avgSuccessRate = workflowList.length > 0
+        ? Math.round(workflowList.reduce((sum, w) => {
             const rate = getSuccessRate(w);
             return sum + (rate !== null ? rate : 100);
-        }, 0) / workflows.length)
+        }, 0) / workflowList.length)
         : 100;
 
     return (
         <AdminLayout>
             <div className="min-h-screen p-8 font-sans">
                 {/* Header */}
-                <div className="flex items-center justify-between mb-10">
-                    <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500 to-violet-700 shadow-lg shadow-violet-500/25 flex items-center justify-center">
-                            <Workflow className="w-7 h-7 text-white" />
+                <div 
+                    className="relative overflow-hidden mb-10 shadow-2xl"
+                    style={{ 
+                        borderRadius: '24px',
+                        padding: '32px',
+                        background: 'linear-gradient(135deg, #0a192f 0%, #0d213f 100%)',
+                        border: '1px solid rgba(196, 158, 72, 0.2)'
+                    }}
+                >
+                    <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full blur-3xl opacity-10 bg-[#c49e48]" />
+                    
+                    <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div className="flex items-center gap-6">
+                            <div className="p-4 rounded-2xl bg-[#c49e48]/10 border border-[#c49e48]/20">
+                                <Workflow className="w-10 h-10 text-[#c49e48]" />
+                            </div>
+                            <div>
+                                <h1 className="text-3xl font-bold tracking-tight text-white mb-2">Workflow Hub</h1>
+                                <p className="text-slate-300 max-w-md">Automate content operations and pipeline routing with premium AI logic.</p>
+                            </div>
                         </div>
-                        <div>
-                            <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">
-                                Workflows
-                            </h1>
-                            <p className="text-muted-foreground mt-1">
-                                Automate content operations with no-code workflows
-                            </p>
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <Button onClick={() => refetch()} variant="outline" className="gap-2">
-                            <RefreshCw className="w-4 h-4" />
-                            Refresh
-                        </Button>
-                        <Link href="/admin/workflows/new">
-                            <Button className="gap-2">
-                                <Plus className="w-4 h-4" />
-                                New Workflow
+                        
+                        <div className="flex items-center gap-3">
+                            <Button onClick={() => refetch()} variant="outline" className="bg-white/5 border-[#c49e48]/20 text-[#c49e48] hover:bg-[#c49e48]/10">
+                                <RefreshCw className="w-4 h-4 mr-2" />
+                                Sync
                             </Button>
-                        </Link>
+                            <Link href="/admin/workflows/new">
+                                <Button className="bg-[#c49e48] text-[#0a192f] hover:bg-[#b38d39] font-bold">
+                                    <Plus className="w-4 h-4 mr-2" />
+                                    New Workflow
+                                </Button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
 
                 {/* Stats */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                    <Card className="bg-gradient-to-br from-violet-500/10 to-violet-600/5 border-violet-500/20">
-                        <CardContent className="p-6">
-                            <div className="flex items-center justify-between mb-4">
-                                <Workflow className="w-5 h-5 text-violet-400" />
-                                <Badge variant="outline" className="text-xs">Total</Badge>
-                            </div>
-                            <div className="text-3xl font-bold text-foreground mb-1">
-                                {workflows.length}
-                            </div>
-                            <p className="text-xs text-muted-foreground">Workflows created</p>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="bg-gradient-to-br from-success-500/10 to-success-600/5 border-success-500/20">
-                        <CardContent className="p-6">
-                            <div className="flex items-center justify-between mb-4">
-                                <Play className="w-5 h-5 text-success-400" />
-                                <Badge variant="outline" className="text-xs">Active</Badge>
-                            </div>
-                            <div className="text-3xl font-bold text-success-400 mb-1">
-                                {enabledCount}
-                            </div>
-                            <p className="text-xs text-muted-foreground">Enabled workflows</p>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="bg-gradient-to-br from-primary-500/10 to-primary-600/5 border-primary-500/20">
-                        <CardContent className="p-6">
-                            <div className="flex items-center justify-between mb-4">
-                                <Zap className="w-5 h-5 text-primary-400" />
-                                <Badge variant="outline" className="text-xs">Runs</Badge>
-                            </div>
-                            <div className="text-3xl font-bold text-foreground mb-1">
-                                {totalRuns}
-                            </div>
-                            <p className="text-xs text-muted-foreground">Total executions</p>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="bg-gradient-to-br from-secondary-500/10 to-secondary-600/5 border-secondary-500/20">
-                        <CardContent className="p-6">
-                            <div className="flex items-center justify-between mb-4">
-                                <TrendingUp className="w-5 h-5 text-secondary-400" />
-                                <Badge variant="outline" className="text-xs">Success</Badge>
-                            </div>
-                            <div className="text-3xl font-bold text-foreground mb-1">
-                                {avgSuccessRate}%
-                            </div>
-                            <p className="text-xs text-muted-foreground">Average success rate</p>
-                        </CardContent>
-                    </Card>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+                    <StatBox label="Total Workflows" value={workflowList.length} icon={Workflow} color="amber" />
+                    <StatBox label="Active Scripts" value={enabledCount} icon={Play} color="teal" />
+                    <StatBox label="Total Executions" value={totalRuns} icon={Zap} color="blue" />
+                    <StatBox label="Success Rate" value={`${avgSuccessRate}%`} icon={TrendingUp} color="emerald" />
                 </div>
 
                 {/* Filter */}
@@ -253,42 +218,46 @@ export default function WorkflowsPage() {
                             variant={filter === f ? 'default' : 'outline'}
                             size="sm"
                             onClick={() => setFilter(f)}
-                            className="capitalize"
+                            className={cn(
+                                "capitalize rounded-full px-6 transition-all",
+                                filter === f ? "bg-[#c49e48] text-[#0a192f] hover:bg-[#b38d39]" : "border-[#c49e48]/20 text-slate-300 hover:text-[#c49e48]"
+                            )}
                         >
-                            {f === 'all' ? 'All Workflows' : f}
+                            {f === 'all' ? 'All Channels' : f}
                         </Button>
                     ))}
                 </div>
 
                 {/* Workflows List */}
-                <Card className="bg-card/50 border-border/50">
+                <Card className="bg-[#111827]/50 border-[#c49e48]/10 backdrop-blur-xl rounded-2xl overflow-hidden shadow-xl">
                     <CardContent className="p-0">
                         {isLoading ? (
-                            <div className="text-center py-12 text-muted-foreground">
-                                Loading workflows...
+                            <div className="text-center py-20 text-slate-300">
+                                <RefreshCw className="w-8 h-8 animate-spin mx-auto mb-4 opacity-50" />
+                                <p>Ingesting workflow schema...</p>
                             </div>
-                        ) : workflows.length === 0 ? (
-                            <div className="text-center py-12">
-                                <Workflow className="w-12 h-12 mx-auto mb-4 text-muted-foreground opacity-50" />
-                                <p className="text-muted-foreground mb-4">No workflows found</p>
+                        ) : workflowList.length === 0 ? (
+                            <div className="text-center py-20">
+                                <Workflow className="w-16 h-16 mx-auto mb-6 text-slate-700" />
+                                <p className="text-slate-300 mb-6 text-lg">No active workflows orchestration found</p>
                                 <Link href="/admin/workflows/new">
-                                    <Button className="gap-2">
-                                        <Plus className="w-4 h-4" />
-                                        Create Your First Workflow
+                                    <Button className="bg-[#c49e48] text-[#0a192f] hover:bg-[#b38d39]">
+                                        <Plus className="w-4 h-4 mr-2" />
+                                        Initialize First Flow
                                     </Button>
                                 </Link>
                             </div>
                         ) : (
-                            <div className="divide-y divide-border/50">
-                                {workflows.map((workflow) => {
+                            <div className="divide-y divide-[#c49e48]/5">
+                                {workflowList.map((workflow) => {
                                     const successRate = getSuccessRate(workflow);
                                     return (
                                         <div 
                                             key={workflow.id}
-                                            className="p-4 hover:bg-muted/10 transition-colors"
+                                            className="p-6 hover:bg-white/5 transition-all group"
                                         >
                                             <div className="flex items-center justify-between">
-                                                <div className="flex items-center gap-4 flex-1 min-w-0">
+                                                <div className="flex items-center gap-6 flex-1 min-w-0">
                                                     {/* Enable/Disable Toggle */}
                                                     <button
                                                         onClick={() => toggleMutation.mutate({ 
@@ -296,38 +265,40 @@ export default function WorkflowsPage() {
                                                             enabled: !workflow.is_enabled 
                                                         })}
                                                         disabled={toggleMutation.isPending}
-                                                        className={`w-10 h-6 rounded-full transition-colors relative ${
+                                                        className={cn(
+                                                            "w-12 h-6 rounded-full transition-all relative",
                                                             workflow.is_enabled 
-                                                                ? 'bg-success-500' 
-                                                                : 'bg-muted/50'
-                                                        }`}
+                                                                ? 'bg-[#c49e48]' 
+                                                                : 'bg-slate-700'
+                                                        )}
                                                     >
-                                                        <div className={`w-4 h-4 rounded-full bg-white absolute top-1 transition-all ${
-                                                            workflow.is_enabled ? 'left-5' : 'left-1'
-                                                        }`} />
+                                                        <div className={cn(
+                                                            "w-4 h-4 rounded-full bg-white absolute top-1 transition-all shadow-md",
+                                                            workflow.is_enabled ? 'left-7' : 'left-1'
+                                                        )} />
                                                     </button>
 
                                                     {/* Info */}
                                                     <div className="flex-1 min-w-0">
-                                                        <div className="flex items-center gap-2 mb-1">
+                                                        <div className="flex items-center gap-3 mb-1.5">
                                                             <Link 
                                                                 href={`/admin/workflows/${workflow.id}`}
-                                                                className="font-medium text-foreground hover:text-primary-400 truncate"
+                                                                className="font-bold text-lg text-white group-hover:text-[#c49e48] transition-colors truncate"
                                                             >
                                                                 {workflow.name}
                                                             </Link>
                                                             {workflow.is_system && (
-                                                                <Badge className="bg-slate-500/20 text-slate-400">
-                                                                    System
+                                                                <Badge className="bg-slate-500/20 text-slate-300 border-none px-2">
+                                                                    SYSTEM_NODE
                                                                 </Badge>
                                                             )}
                                                         </div>
-                                                        <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                                                            <Badge className={getTriggerColor(workflow.trigger_type)}>
+                                                        <div className="flex items-center gap-4 text-sm">
+                                                            <Badge className={cn("border-none px-2.5 py-0.5", getTriggerColor(workflow.trigger_type))}>
                                                                 {getTriggerLabel(workflow.trigger_type)}
                                                             </Badge>
                                                             {workflow.description && (
-                                                                <span className="truncate max-w-[200px]">
+                                                                <span className="text-slate-300 truncate max-w-md hidden sm:inline">
                                                                     {workflow.description}
                                                                 </span>
                                                             )}
@@ -335,32 +306,25 @@ export default function WorkflowsPage() {
                                                     </div>
 
                                                     {/* Stats */}
-                                                    <div className="hidden md:flex items-center gap-6 text-sm">
+                                                    <div className="hidden lg:flex items-center gap-8 px-6">
                                                         <div className="text-center">
-                                                            <div className="font-medium text-foreground">
+                                                            <div className="text-lg font-bold text-white leading-none mb-1">
                                                                 {workflow.total_runs}
                                                             </div>
-                                                            <div className="text-xs text-muted-foreground">Runs</div>
+                                                            <div className="text-[10px] uppercase tracking-widest text-slate-500">Executions</div>
                                                         </div>
                                                         <div className="text-center">
-                                                            <div className={`font-medium ${
-                                                                successRate === null ? 'text-muted-foreground' :
-                                                                successRate >= 90 ? 'text-success-400' :
-                                                                successRate >= 70 ? 'text-warning-400' :
-                                                                'text-danger-400'
-                                                            }`}>
+                                                            <div className={cn(
+                                                                "text-lg font-bold leading-none mb-1",
+                                                                successRate === null ? 'text-slate-500' :
+                                                                successRate >= 90 ? 'text-emerald-400' :
+                                                                successRate >= 70 ? 'text-amber-400' :
+                                                                'text-rose-400'
+                                                            )}>
                                                                 {successRate !== null ? `${successRate}%` : '-'}
                                                             </div>
-                                                            <div className="text-xs text-muted-foreground">Success</div>
+                                                            <div className="text-[10px] uppercase tracking-widest text-slate-500">Success</div>
                                                         </div>
-                                                        {workflow.last_run_at && (
-                                                            <div className="text-center">
-                                                                <div className="font-medium text-foreground text-xs">
-                                                                    {new Date(workflow.last_run_at).toLocaleDateString()}
-                                                                </div>
-                                                                <div className="text-xs text-muted-foreground">Last Run</div>
-                                                            </div>
-                                                        )}
                                                     </div>
                                                 </div>
 
@@ -372,16 +336,16 @@ export default function WorkflowsPage() {
                                                             size="sm"
                                                             onClick={() => runMutation.mutate(workflow.id)}
                                                             disabled={runMutation.isPending || !workflow.is_enabled}
-                                                            className="gap-1"
+                                                            className="border-[#c49e48]/20 text-[#c49e48] hover:bg-[#c49e48]/10 h-9"
                                                         >
-                                                            <Play className="w-3 h-3" />
-                                                            Run
+                                                            <Play className="w-3.5 h-3.5 mr-2" />
+                                                            Fire
                                                         </Button>
                                                     )}
                                                     <Link href={`/admin/workflows/${workflow.id}`}>
-                                                        <Button variant="outline" size="sm" className="gap-1">
-                                                            <Eye className="w-3 h-3" />
-                                                            View
+                                                        <Button variant="outline" size="sm" className="bg-white/5 border-slate-700 text-slate-300 hover:bg-white/10 h-9">
+                                                            <Eye className="w-3.5 h-3.5 mr-2" />
+                                                            Audit
                                                         </Button>
                                                     </Link>
                                                     {!workflow.is_system && (
@@ -389,13 +353,14 @@ export default function WorkflowsPage() {
                                                             variant="ghost"
                                                             size="sm"
                                                             onClick={() => {
-                                                                if (confirm('Delete this workflow?')) {
+                                                                if (confirm('Erase this workflow node?')) {
                                                                     deleteMutation.mutate(workflow.id);
                                                                 }
                                                             }}
                                                             disabled={deleteMutation.isPending}
+                                                            className="hover:bg-rose-500/10 h-9 px-2"
                                                         >
-                                                            <Trash2 className="w-4 h-4 text-danger-400" />
+                                                            <Trash2 className="w-4 h-4 text-rose-500/50 hover:text-rose-500" />
                                                         </Button>
                                                     )}
                                                 </div>
@@ -408,49 +373,70 @@ export default function WorkflowsPage() {
                     </CardContent>
                 </Card>
 
-                {/* Quick Templates */}
-                <Card className="bg-card/50 border-border/50 mt-8">
-                    <CardHeader>
-                        <CardTitle className="text-foreground flex items-center gap-2">
-                            <FileText className="w-5 h-5 text-primary-400" />
-                            Quick Start Templates
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            {[
-                                {
-                                    name: 'Auto-Publish High Quality',
-                                    description: 'Publish articles with 85+ quality score automatically',
-                                    trigger: 'quality_passed',
-                                },
-                                {
-                                    name: 'Review Notification',
-                                    description: 'Get notified when articles need review',
-                                    trigger: 'article_status_changed',
-                                },
-                                {
-                                    name: 'Daily Content Check',
-                                    description: 'Run daily checks for stale content',
-                                    trigger: 'scheduled',
-                                },
-                            ].map((template, i) => (
-                                <Link 
-                                    key={i}
-                                    href={`/admin/workflows/new?template=${i}`}
-                                    className="p-4 rounded-lg border border-border/50 bg-muted/10 hover:bg-muted/20 transition-colors"
-                                >
-                                    <h4 className="font-medium text-foreground mb-1">{template.name}</h4>
-                                    <p className="text-sm text-muted-foreground mb-2">{template.description}</p>
-                                    <Badge className={getTriggerColor(template.trigger)}>
-                                        {getTriggerLabel(template.trigger)}
-                                    </Badge>
-                                </Link>
-                            ))}
-                        </div>
-                    </CardContent>
-                </Card>
+                {/* Templates Deck */}
+                <div className="mt-12">
+                    <div className="flex items-center gap-3 mb-6">
+                        <Sparkles className="w-5 h-5 text-[#c49e48]" />
+                        <h2 className="text-xl font-bold text-white">Flow Blueprints</h2>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {[
+                            {
+                                name: 'Auto-Publish High Quality',
+                                desc: 'Autonomous publishing for 85+ score nodes',
+                                trigger: 'quality_passed',
+                                color: 'emerald'
+                            },
+                            {
+                                name: 'Review Notification',
+                                desc: 'Trigger alerts for manual editorial audit',
+                                trigger: 'article_status_changed',
+                                color: 'amber'
+                            },
+                            {
+                                name: 'Daily Content Check',
+                                desc: 'Scheduled maintenance for stale assets',
+                                trigger: 'scheduled',
+                                color: 'blue'
+                            },
+                        ].map((template, i) => (
+                            <Link 
+                                key={i}
+                                href={`/admin/workflows/new?template=${i}`}
+                                className="p-6 rounded-2xl border border-[#c49e48]/10 bg-white/5 hover:border-[#c49e48]/30 hover:bg-white/10 transition-all group"
+                            >
+                                <h4 className="font-bold text-white mb-2 group-hover:text-[#c49e48]">{template.name}</h4>
+                                <p className="text-sm text-slate-300 mb-4">{template.desc}</p>
+                                <Badge className={cn("border-none", getTriggerColor(template.trigger))}>
+                                    {getTriggerLabel(template.trigger)}
+                                </Badge>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
             </div>
         </AdminLayout>
     );
 }
+
+function StatBox({ label, value, icon: Icon, color }: any) {
+    const colors: Record<string, string> = {
+        emerald: 'text-emerald-400 bg-emerald-400/10',
+        amber: 'text-amber-400 bg-amber-400/10',
+        blue: 'text-blue-400 bg-blue-400/10',
+        teal: 'text-teal-400 bg-teal-400/10'
+    };
+    
+    return (
+        <Card className="bg-[#111827]/40 border-white/5 backdrop-blur-sm p-6 rounded-2xl">
+            <div className="flex items-center justify-between mb-4">
+                <div className={cn("p-2 rounded-lg", colors[color])}>
+                    <Icon className="w-5 h-5" />
+                </div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-slate-500">{label}</div>
+            </div>
+            <div className="text-2xl font-bold text-white">{value}</div>
+        </Card>
+    );
+}
+

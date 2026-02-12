@@ -25,7 +25,7 @@ import {
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { toast } from 'sonner';
-import { AdminPageHeader, ContentSection, StatCard, StatusBadge, ActionButton, EmptyState } from '@/components/admin/AdminUIKit';
+import { AdminPageHeader, ContentSection, StatCard, ActionButton, EmptyState } from '@/components/admin/AdminUIKit';
 
 interface Category {
     id: string;
@@ -170,8 +170,7 @@ export default function CategoriesPage() {
                         <EmptyState
                             icon={FolderOpen}
                             title={searchQuery ? 'No categories found' : 'No categories yet'}
-                            description={searchQuery ? 'Try a different search term' : 'Create your first category to organize articles'}
-                            action={!searchQuery && <ActionButton onClick={() => setIsCreateDialogOpen(true)} icon={Plus}>Create Category</ActionButton>}
+                            description={searchQuery ? 'Try a different search term' : 'Create your first category to organize articles. Use the button above to get started.'}
                         />
                     </ContentSection>
                 ) : (
@@ -302,7 +301,7 @@ export default function CategoriesPage() {
                                 Delete Category
                             </DialogTitle>
                             <DialogDescription className="text-muted-foreground dark:text-muted-foreground">
-                                Are you sure you want to delete "{selectedCategory?.name}"? This cannot be undone.
+                                Are you sure you want to delete &quot;{selectedCategory?.name}&quot;? This cannot be undone.
                             </DialogDescription>
                         </DialogHeader>
                         <DialogFooter className="gap-2">

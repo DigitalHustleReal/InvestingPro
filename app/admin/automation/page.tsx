@@ -4,10 +4,16 @@ import React from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import AdminPageContainer from '@/components/admin/AdminPageContainer';
 import AutomationControls from '@/components/admin/AutomationControls';
-import { CheckCircle2, XCircle, Clock, Zap, Rss, Play } from 'lucide-react';
+import { 
+    CheckCircle2, XCircle, Clock, Zap, Rss, Play, 
+    FileText, Calendar, BarChart3, Sparkles, Flame 
+} from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
-import { AdminPageHeader, StatCard, ContentSection } from '@/components/admin/AdminUIKit';
+import { StatCard, ContentSection } from '@/components/admin/AdminUIKit';
 import Link from 'next/link';
+import { ADMIN_THEME } from '@/lib/admin/theme';
+import { cn } from '@/lib/utils';
+import { ActionButton } from '@/components/admin/AdminUIKit';
 
 export default function AutomationPage() {
     const { data: pipelineStatus = { completed: 0, failed: 0, lastRun: null } } = useQuery({
@@ -28,103 +34,181 @@ export default function AutomationPage() {
 
     return (
         <AdminLayout>
-            <AdminPageContainer>
-            <div className="p-8 space-y-8">
-                <AdminPageHeader
-                    title="Automation Hub"
-                    subtitle="Control and monitor the AI-driven content generation pipeline"
-                    icon={Zap}
-                    iconColor="amber"
-                    actions={
-                        <Link href="/admin/content-factory">
-                            <button className="px-4 py-2.5 bg-gradient-to-r from-accent-500 to-orange-500 text-foreground dark:text-foreground rounded-xl text-sm font-medium flex items-center gap-2 shadow-lg shadow-accent-500/25 hover:shadow-accent-500/40 transition-shadow">
-                                <Play className="w-4 h-4" /> Open Content Factory
-                            </button>
-                        </Link>
-                    }
-                />
+            <div className="p-8 space-y-8 max-w-7xl mx-auto">
+                {/* Hero / Header Section */}
+                <div 
+                    className="relative overflow-hidden shadow-2xl transition-all duration-500"
+                    style={{ 
+                        borderRadius: ADMIN_THEME.radius.xl,
+                        padding: ADMIN_THEME.spacing[8],
+                        background: `linear-gradient(135deg, ${ADMIN_THEME.colors.primary[900]} 0%, ${ADMIN_THEME.colors.primary[800]} 100%)`,
+                        border: `1px solid ${ADMIN_THEME.colors.primary[700]}`
+                    }}
+                >
+                    <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full blur-3xl opacity-20" style={{ backgroundColor: ADMIN_THEME.colors.accent.default }} />
+                    
+                    <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div className="flex items-center gap-6">
+                            <div className="p-4 rounded-2xl bg-wt-gold/10 border border-wt-gold/20">
+                                <Zap className="w-10 h-10 text-wt-gold shadow-glow" />
+                            </div>
+                            <div>
+                                <h1 className="text-3xl font-bold tracking-tight text-white mb-2">Automation Hub</h1>
+                                <p className="text-wt-text-muted/80 max-w-md">Orchestrate and monitor your AI-driven content engine from a central command center.</p>
+                            </div>
+                        </div>
+                        
+                        <div className="flex items-center gap-3">
+                            <Link href="/admin/content-factory">
+                                <ActionButton variant="primary" icon={Play}>
+                                    Run Content Factory
+                                </ActionButton>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
 
-                {/* Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {/* Status Command Center */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <StatCard 
-                        label="Successful Jobs" 
-                        value={pipelineStatus.completed} 
+                        label="Success Rate" 
+                        value={`${pipelineStatus.completed > 0 ? Math.round((pipelineStatus.completed / (pipelineStatus.completed + pipelineStatus.failed)) * 100) : 0}%`}
                         icon={CheckCircle2} 
                         color="teal" 
+                        changeType="positive"
                     />
                     <StatCard 
-                        label="Failed Jobs" 
+                        label="Failed Ops" 
                         value={pipelineStatus.failed} 
                         icon={XCircle} 
                         color="rose" 
+                        changeType="negative"
                     />
                     <StatCard 
+                        label="System Uptime" 
+                        value="99.9%" 
+                        icon={Zap} 
+                        color="amber" 
+                    />
+                     <StatCard 
                         label="Last Activity" 
-                        value={pipelineStatus.lastRun ? new Date(pipelineStatus.lastRun).toLocaleTimeString() : 'Never'} 
+                        value={pipelineStatus.lastRun ? new Date(pipelineStatus.lastRun).toLocaleTimeString() : 'Idle'} 
                         icon={Clock} 
                         color="blue" 
                     />
-                    <StatCard 
-                        label="Active Pipelines" 
-                        value="0" 
-                        icon={Rss} 
-                        color="purple" 
-                    />
                 </div>
 
-                {/* Quick Actions */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <ContentSection title="Content Factory" subtitle="AI-powered bulk generation">
-                        <div className="space-y-4">
-                            <p className="text-sm text-muted-foreground dark:text-muted-foreground">Generate multiple articles at once using AI with real-time progress tracking.</p>
-                            <Link href="/admin/content-factory">
-                                <button className="w-full px-4 py-3 bg-gradient-to-r from-secondary-500/20 to-pink-500/20 hover:from-secondary-500/30 hover:to-pink-500/30 text-secondary-400 rounded-xl text-sm font-medium border border-secondary-500/30 transition-colors">
-                                    Open Content Factory →
-                                </button>
-                            </Link>
-                        </div>
-                    </ContentSection>
+                {/* Command Deck */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {/* Primary Generation Deck */}
+                    <div className="space-y-6">
+                        <ContentSection title="Content Factory" subtitle="AI Mass Production">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <ActionCard 
+                                    title="Bulk Engine" 
+                                    desc="Queue hundreds of topics"
+                                    href="/admin/content-factory"
+                                    icon={Flame}
+                                    color="orange"
+                                />
+                                <ActionCard 
+                                    title="Evergreen Sync" 
+                                    desc="Update existing content"
+                                    href="/admin/automation/evergreen"
+                                    icon={Rss}
+                                    color="teal"
+                                />
+                            </div>
+                        </ContentSection>
 
-                    <ContentSection title="Scheduled Publishing" subtitle="Automate your content calendar">
-                        <div className="space-y-4">
-                            <p className="text-sm text-muted-foreground dark:text-muted-foreground">Schedule articles to publish automatically at optimal times.</p>
-                            <Link href="/admin/content-calendar">
-                                <button className="w-full px-4 py-3 bg-white/10 hover:bg-white/20 text-foreground dark:text-foreground rounded-xl text-sm font-medium border border-border dark:border-border transition-colors">
-                                    View Calendar →
-                                </button>
-                            </Link>
-                        </div>
-                    </ContentSection>
+                        <ContentSection title="Infrastructure" subtitle="System Control">
+                            <AutomationControls />
+                        </ContentSection>
+                    </div>
 
-                    <ContentSection title="Review Queue" subtitle="Pending editorial approval">
-                        <div className="space-y-4">
-                            <p className="text-sm text-muted-foreground dark:text-muted-foreground">Review and approve articles waiting for publication.</p>
-                            <Link href="/admin/review-queue">
-                                <button className="w-full px-4 py-3 bg-white/10 hover:bg-white/20 text-foreground dark:text-foreground rounded-xl text-sm font-medium border border-border dark:border-border transition-colors">
-                                    View Queue →
-                                </button>
-                            </Link>
+                    {/* Operational Flow Deck */}
+                    <div className="space-y-6">
+                        <ContentSection title="Workflow Management" subtitle="Pipeline Routing">
+                            <div className="space-y-3">
+                                <ActionRow 
+                                    title="Editorial Queue" 
+                                    desc="Pending human verification" 
+                                    count={12} 
+                                    href="/admin/review-queue"
+                                    icon={FileText}
+                                />
+                                <ActionRow 
+                                    title="Publishing Schedule" 
+                                    desc="Time-optimized distribution" 
+                                    count={pipelineStatus.completed} 
+                                    href="/admin/content-calendar"
+                                    icon={Calendar}
+                                />
+                                <ActionRow 
+                                    title="Node Monitor" 
+                                    desc="Active scraping & NLP nodes" 
+                                    count={4} 
+                                    href="/admin/automation/monitor"
+                                    icon={BarChart3}
+                                />
+                            </div>
+                        </ContentSection>
+                        
+                        <div className="p-6 bg-wt-gold-subtle/30 rounded-2xl border border-wt-gold/20 flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                                <Sparkles className="w-6 h-6 text-wt-gold anim-pulse" />
+                                <div>
+                                    <h4 className="font-semibold text-wt-text">AI Pilot Mode</h4>
+                                    <p className="text-xs text-wt-text-muted">Currently operating at Level 4 Autonomy</p>
+                                </div>
+                            </div>
+                            <button className="px-3 py-1.5 bg-wt-gold text-wt-navy-950 rounded-lg text-xs font-bold uppercase tracking-wider">
+                                Active
+                            </button>
                         </div>
-                    </ContentSection>
-
-                    <ContentSection title="Workflows" subtitle="Configure automation workflows">
-                        <div className="space-y-4">
-                            <p className="text-sm text-muted-foreground dark:text-muted-foreground">Create and manage workflow triggers, actions, and schedules.</p>
-                            <Link href="/admin/workflows">
-                                <button className="w-full px-4 py-3 bg-white/10 hover:bg-white/20 text-foreground dark:text-foreground rounded-xl text-sm font-medium border border-border dark:border-border transition-colors">
-                                    Open Workflows →
-                                </button>
-                            </Link>
-                        </div>
-                    </ContentSection>
+                    </div>
                 </div>
-
-                {/* Automation Controls */}
-                <ContentSection title="Pipeline Controls" subtitle="Manage automation triggers and schedules">
-                    <AutomationControls />
-                </ContentSection>
             </div>
-            </AdminPageContainer>
         </AdminLayout>
+    );
+}
+
+// Internal Landing components for cleaner layout
+function ActionCard({ title, desc, href, icon: Icon, color }: any) {
+    return (
+        <Link href={href}>
+            <div className="group p-5 bg-wt-card border border-wt-border rounded-2xl hover:border-wt-gold/50 hover:bg-wt-surface-hover transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-1">
+                <div className={cn(
+                    "w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110",
+                    color === 'orange' ? 'bg-orange-500/10 text-orange-500' : 'bg-teal-500/10 text-teal-500'
+                )}>
+                    <Icon className="w-5 h-5" />
+                </div>
+                <h4 className="font-bold text-wt-text mb-1">{title}</h4>
+                <p className="text-xs text-wt-text-muted leading-relaxed">{desc}</p>
+            </div>
+        </Link>
+    );
+}
+
+function ActionRow({ title, desc, count, href, icon: Icon }: any) {
+    return (
+        <Link href={href}>
+            <div className="flex items-center justify-between p-4 bg-wt-card border border-wt-border rounded-xl hover:bg-wt-surface-hover transition-colors group">
+                <div className="flex items-center gap-4">
+                    <div className="p-2 rounded-lg bg-wt-surface/50 group-hover:bg-wt-gold/10 transition-colors">
+                        <Icon className="w-4 h-4 text-wt-text-muted group-hover:text-wt-gold" />
+                    </div>
+                    <div>
+                        <h4 className="text-sm font-semibold text-wt-text">{title}</h4>
+                        <p className="text-xs text-wt-text-muted">{desc}</p>
+                    </div>
+                </div>
+                <div className="flex items-center gap-3">
+                    <span className="text-xs font-bold px-2 py-0.5 bg-wt-surface rounded-full border border-wt-border">{count}</span>
+                    <Play className="w-3 h-3 text-wt-text-muted group-hover:text-wt-gold opacity-0 group-hover:opacity-100 transition-all" />
+                </div>
+            </div>
+        </Link>
     );
 }

@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
-import CMSSubNavigation from '@/components/admin/CMSSubNavigation';
 import BulkGenerationPanel from '@/components/admin/BulkGenerationPanel';
 import { Zap, Play, Sparkles } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -61,7 +60,6 @@ export default function CMSGenerationPage() {
 
     return (
         <AdminLayout>
-            <CMSSubNavigation />
             <div className="p-8 space-y-8">
                 {/* Header */}
                 <div className="flex items-center justify-between">

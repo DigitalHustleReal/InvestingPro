@@ -13,7 +13,7 @@ const MOCK_CREDIT_CARD: RichProduct = {
     name: 'HDFC Regalia Gold',
     provider_name: 'HDFC Bank',
     category: 'credit_card',
-    image_url: 'https://logo.clearbit.com/hdfcbank.com',
+    image_url: '/images/stock/finance-1.jpg',
     rating: {
         overall: 4.8,
         trust_score: 98,
@@ -39,7 +39,7 @@ const MOCK_MUTUAL_FUND: RichProduct = {
     name: 'Quant Small Cap Fund',
     provider_name: 'Quant Mutual Fund',
     category: 'mutual_fund',
-    image_url: 'https://logo.clearbit.com/quant.in',
+    image_url: '/images/stock/mutual-funds-1.jpg',
     rating: {
         overall: 4.5,
         trust_score: 92,

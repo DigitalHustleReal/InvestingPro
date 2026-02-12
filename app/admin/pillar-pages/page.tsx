@@ -62,12 +62,7 @@ export default function PillarPagesPage() {
                         <EmptyState
                             icon={Target}
                             title="No pillar pages yet"
-                            description="Create comprehensive hub pages that serve as the foundation for content clusters"
-                            action={
-                                <Link href="/admin/pillar-pages/new">
-                                    <ActionButton icon={Plus}>Create Pillar Page</ActionButton>
-                                </Link>
-                            }
+                            description="Create comprehensive hub pages that serve as the foundation for content clusters. Use the button above to get started."
                         />
                     </ContentSection>
                 ) : (
