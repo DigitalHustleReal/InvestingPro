@@ -156,7 +156,7 @@ export default async function AuthorProfilePage({ params }: Props) {
                         
                         {/* Expertise */}
                         <div>
-                            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Areas of Expertise</h3>
+                            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-300 mb-4">Areas of Expertise</h3>
                             <div className="flex flex-wrap gap-2">
                                 {author.expertise.map(skill => (
                                     <Badge key={skill} variant="secondary" className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200">

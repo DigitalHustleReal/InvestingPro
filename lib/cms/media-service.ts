@@ -21,22 +21,22 @@ export class MediaService {
         const fileExt = file.name.split('.').pop();
         const fileName = `${folder}/${uuidv4()}.${fileExt}`;
 
-        const { data, error } = await this.supabase.storage
-            .from(this.bucket)
-            .upload(fileName, file, {
-                cacheControl: '3600',
-                upsert: false
-            });
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('filePath', fileName);
+        formData.append('mimeType', file.type);
 
-        if (error) {
-            console.error('Upload error:', error);
-            throw error;
+        const apiResponse = await fetch('/api/media/upload', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (!apiResponse.ok) {
+            const apiError = await apiResponse.json();
+            throw new Error(`Upload failed: ${apiError.error || apiResponse.statusText}`);
         }
 
-        // Get public URL
-        const { data: { publicUrl } } = this.supabase.storage
-            .from(this.bucket)
-            .getPublicUrl(fileName);
+        const { publicUrl } = await apiResponse.json();
 
         return {
             id: fileName,

@@ -1,16 +1,37 @@
 import { createBrowserClient as supabaseCreateBrowserClient } from '@supabase/ssr'
 
+// Singleton instance for the browser
+let browserClient: any = null;
+
 export function createClient() {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
+    // Return existing browser client if it's already initialized and we are in the browser
+    if (typeof window !== 'undefined') {
+        if (browserClient) return browserClient;
+    }
 
     // If environment variables are missing, return a mock client that handles errors gracefully
-    if (!supabaseUrl || !supabaseAnonKey) {
+    if (!supabaseUrl || !supabaseAnonKey || supabaseUrl === 'undefined' || supabaseAnonKey === 'undefined') {
+        if (typeof window !== 'undefined') {
+            console.warn('Supabase credentials missing. Using mock client.');
+        }
+
         // Return a mock client that won't crash but will return empty results
-        return {
+        const mockResponse = { data: [], error: null, count: 0 };
+        const mockClient = {
             from: () => ({
-                select: () => ({ data: [], error: null }),
+                select: () => ({ 
+                    ...mockResponse,
+                    order: function() { return this; },
+                    limit: function() { return this; },
+                    eq: function() { return this; },
+                    gte: function() { return this; },
+                    lte: function() { return this; },
+                    lt: function() { return this; },
+                    count: 0
+                }),
                 insert: () => ({ data: null, error: { message: 'Supabase not configured' } }),
                 update: () => ({ data: null, error: { message: 'Supabase not configured' } }),
                 delete: () => ({ data: null, error: { message: 'Supabase not configured' } }),
@@ -22,20 +43,34 @@ export function createClient() {
             }),
             auth: {
                 getUser: async () => ({ data: { user: null }, error: null }),
-                updateUser: async () => ({ data: { user: null }, error: { message: 'Supabase not configured' } })
+                updateUser: async () => ({ data: { user: null }, error: { message: 'Supabase not configured' } }),
+                getSession: async () => ({ data: { session: null }, error: null }),
+                onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } })
             },
             storage: {
                 from: () => ({
-                    upload: async () => ({ data: null, error: { message: 'Supabase Storage not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local' } }),
+                    upload: async () => ({ data: null, error: { message: 'Supabase Storage not configured' } }),
                     list: async () => ({ data: [], error: { message: 'Supabase Storage not configured' } }),
                     remove: async () => ({ data: null, error: { message: 'Supabase Storage not configured' } }),
                     getPublicUrl: () => ({ publicUrl: '' })
                 })
-            }
+            },
+            rpc: async () => ({ data: null, error: { message: 'Supabase RPC not configured' } })
         } as any;
+
+        if (typeof window !== 'undefined') browserClient = mockClient;
+        return mockClient;
     }
 
-    return supabaseCreateBrowserClient(supabaseUrl, supabaseAnonKey);
+    // Create a new client
+    const client = supabaseCreateBrowserClient(supabaseUrl, supabaseAnonKey);
+    
+    // Cache the client if we are in the browser
+    if (typeof window !== 'undefined') {
+        browserClient = client;
+    }
+    
+    return client;
 }
 
 // Alias for compatibility with common patterns

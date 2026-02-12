@@ -112,17 +112,35 @@ export class HealthMonitorAgent extends BaseAgent {
                 };
             });
             
-            // Get budget status
-            const budgetStatus = await this.budgetAgent.checkBudget();
+            // Get budget status with timeout
+            let budgetStatus;
+            try {
+                const budgetPromise = this.budgetAgent.checkBudget();
+                const timeoutPromise = new Promise<any>((_, reject) => 
+                    setTimeout(() => reject(new Error('Budget check timed out')), 2000)
+                );
+                budgetStatus = await Promise.race([budgetPromise, timeoutPromise]);
+            } catch (e) {
+                logger.warn('HealthMonitor: Budget check timed out or failed, using fallback', e);
+                budgetStatus = {
+                    canGenerate: true, // Fail open for health check display
+                    tokensRemaining: 0,
+                    imagesRemaining: 0,
+                    costRemaining: 0,
+                    isPaused: false,
+                    reason: 'Budget check timed out'
+                };
+            }
+
             const budget = {
                 status: budgetStatus.isPaused 
                     ? 'critical' as const
-                    : budgetStatus.costRemaining < 5
+                    : (budgetStatus.costRemaining < 5 && budgetStatus.costRemaining > 0) // Fix logic for "warning"
                     ? 'warning' as const
                     : 'ok' as const,
-                tokensRemaining: budgetStatus.tokensRemaining,
-                costRemaining: budgetStatus.costRemaining,
-                isPaused: budgetStatus.isPaused
+                tokensRemaining: budgetStatus.tokensRemaining || 0,
+                costRemaining: budgetStatus.costRemaining || 0,
+                isPaused: budgetStatus.isPaused || false
             };
             
             // Get recent errors

@@ -190,7 +190,7 @@ export const api = {
             
             // Fetch public profile data
             const { data: profile } = await supabase
-                .from('users')
+                .from('user_profiles')
                 .select('*')
                 .eq('id', user.id)
                 .single();
@@ -203,7 +203,7 @@ export const api = {
             if (!user) throw new Error('Not authenticated');
             
             const { data, error } = await supabase
-                .from('users')
+                .from('user_profiles')
                 .update(updates)
                 .eq('id', user.id)
                 .select()

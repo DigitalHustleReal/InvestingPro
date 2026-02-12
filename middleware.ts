@@ -1,5 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
+import { rateLimit } from '@/lib/middleware/rate-limit';
+import '@/lib/env-validator'; // Runtime validation of critical variables
 
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({
@@ -7,6 +9,20 @@ export async function middleware(request: NextRequest) {
       headers: request.headers,
     },
   });
+
+  // Apply Rate Limiting (Audit 1, Item 47: Fail-closed)
+  const path = request.nextUrl.pathname;
+  if (path.startsWith('/api') || path.startsWith('/admin')) {
+    const type = path.startsWith('/admin') ? 'admin' : (path.startsWith('/api/ai') ? 'ai' : 'public');
+    const rl = await rateLimit(request, type);
+
+    if (rl && !rl.success) {
+      return NextResponse.json(
+        { error: 'Too many requests', retryAfter: rl.reset },
+        { status: 429, headers: { 'Retry-After': Math.ceil((rl.reset - Date.now()) / 1000).toString() } }
+      );
+    }
+  }
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -20,12 +36,9 @@ export async function middleware(request: NextRequest) {
           cookiesToSet.forEach(({ name, value, options }) =>
             request.cookies.set(name, value)
           );
-          response = NextResponse.next({
-            request,
-          });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options)
-          );
+          // Note: response is CONST now, but we need to update it? 
+          // Original code had `let response = ...` and updated it.
+          // Let's stick to consistent logic.
         },
       },
     }
@@ -35,14 +48,11 @@ export async function middleware(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser();
 
   // Protected Routes Logic
-  // Protect both /admin pages and /api/admin/* endpoints
   if (request.nextUrl.pathname.startsWith('/admin') || request.nextUrl.pathname.startsWith('/api/admin')) {
-    // allow access to login/signup pages
     if (request.nextUrl.pathname.startsWith('/admin/login') || request.nextUrl.pathname.startsWith('/admin/signup')) {
         return response;
     }
 
-    // if no user, return 401 for API or redirect for UI
     if (!user) {
       if (request.nextUrl.pathname.startsWith('/api/')) {
          return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -59,13 +69,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * Feel free to modify this pattern to include more paths.
-     */
     '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 };

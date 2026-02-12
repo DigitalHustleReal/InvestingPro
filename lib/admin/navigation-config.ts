@@ -84,7 +84,6 @@ export const NAV_SECTIONS: Record<string, NavSection> = {
         title: 'OVERVIEW',
         items: [
             { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-            { label: 'Content Calendar', href: '/admin/content-calendar', icon: Calendar },
         ],
     },
     CONTENT: {

@@ -1,0 +1,64 @@
+/**
+ * Centralized logic for resolving featured images and category icons.
+ * Provides fallback mapping for known missing assets to high-quality Unsplash images or local SVGs.
+ */
+
+// Mapping of internal missing filenames to high-quality remote fallbacks
+const STOCK_FALLBACK_MAP: Record<string, string> = {
+    'fixed_deposits.jpg': 'https://images.unsplash.com/photo-1534951009808-df43b54b4ea9?w=100&h=100&fit=crop&auto=format&q=80',
+    'insurance.jpg': 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=100&h=100&fit=crop&auto=format&q=80',
+    'credit_cards.jpg': '/images/defaults/credit-card-default.svg',
+    'saving_schemes.jpg': 'https://images.unsplash.com/photo-1579621970795-87f9ac756a70?w=100&h=100&fit=crop&auto=format&q=80',
+    'loans.jpg': 'https://images.unsplash.com/photo-1579621970795-87f9ac756a70?w=100&h=100&fit=crop&auto=format&q=80',
+    'mutual_funds.jpg': 'https://images.unsplash.com/photo-1611974714024-462740941821?w=100&h=100&fit=crop&auto=format&q=80',
+    'stocks.jpg': 'https://images.unsplash.com/photo-1611974714024-462740941821?w=100&h=100&fit=crop&auto=format&q=80'
+};
+
+// Category-based defaults when no image filename exists
+const CATEGORY_DEFAULT_MAP: Record<string, string> = {
+    'credit-card': '/images/defaults/credit-card-default.svg',
+    'credit_cards': '/images/defaults/credit-card-default.svg',
+    'loan': 'https://images.unsplash.com/photo-1579621970795-87f9ac756a70?w=100&h=100&fit=crop&auto=format&q=80',
+    'loans': 'https://images.unsplash.com/photo-1579621970795-87f9ac756a70?w=100&h=100&fit=crop&auto=format&q=80',
+    'insurance': 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=100&h=100&fit=crop&auto=format&q=80',
+    'fixed_deposits': 'https://images.unsplash.com/photo-1534951009808-df43b54b4ea9?w=100&h=100&fit=crop&auto=format&q=80',
+    'mutual_funds': 'https://images.unsplash.com/photo-1611974714024-462740941821?w=100&h=100&fit=crop&auto=format&q=80',
+    'stocks': 'https://images.unsplash.com/photo-1611974714024-462740941821?w=100&h=100&fit=crop&auto=format&q=80'
+};
+
+/**
+ * Resolves a featured image URL based on raw input and category.
+ * Prevents 404 errors by mapping known missing local files to remote fallbacks.
+ */
+export function resolveFeaturedImage(img: string | null | undefined, category?: string): string {
+    // 1. Handle empty input
+    if (!img) {
+        if (category) {
+            const normalizedCategory = category.toLowerCase().replace(/-/g, '_');
+            if (CATEGORY_DEFAULT_MAP[normalizedCategory]) return CATEGORY_DEFAULT_MAP[normalizedCategory];
+            
+            // Fuzzy match for categories containing keywords
+            for (const key in CATEGORY_DEFAULT_MAP) {
+                if (normalizedCategory.includes(key)) return CATEGORY_DEFAULT_MAP[key];
+            }
+        }
+        return 'https://images.unsplash.com/photo-1611974714024-462740941821?w=100&h=100&fit=crop&auto=format&q=80'; // Final generic fallback
+    }
+
+    // 2. Handle absolute URLs (both remote and local)
+    if (img.startsWith('http') || img.startsWith('/')) {
+        // Fix potential common URL issues (e.g. broken Unsplash dimensions from automation)
+        if (img.includes('images.unsplash.com') && img.includes('w=80080')) {
+            return img.replace('w=80080', 'w=800');
+        }
+        return img;
+    }
+
+    // 3. Handle specific known filename mappings
+    if (STOCK_FALLBACK_MAP[img]) {
+        return STOCK_FALLBACK_MAP[img];
+    }
+
+    // 4. Fallback to default stock directory for simple filenames
+    return `/images/stock/${img}`;
+}

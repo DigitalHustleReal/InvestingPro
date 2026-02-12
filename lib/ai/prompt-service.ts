@@ -28,20 +28,26 @@ interface CacheEntry {
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
 class PromptService {
-    private supabase;
+    private supabaseClient: ReturnType<typeof createClient> | null = null;
     private cache: Map<string, CacheEntry> = new Map();
 
     constructor() {
-        // Initialize Supabase client
-        // We use process.env directly here to work in Node scripts and Next.js
-        const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-        const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-        
-        if (!url || !key) {
-            console.warn('⚠️ PromptService: Supabase credentials missing');
+        // Initialization moved to getSupabase()
+    }
+
+    private getSupabase() {
+        if (!this.supabaseClient) {
+            const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+            const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+            
+            if (!url || !key) {
+                console.warn('⚠️ PromptService: Supabase credentials missing');
+                // We don't throw here to allow non-DB dependent methods to work, 
+                // but createClient might fail or be useless.
+            }
+            this.supabaseClient = createClient(url, key);
         }
-        
-        this.supabase = createClient(url, key);
+        return this.supabaseClient;
     }
 
     /**
@@ -55,7 +61,7 @@ class PromptService {
         }
 
         // Fetch from DB
-        const { data, error } = await this.supabase
+        const { data, error } = await this.getSupabase()
             .from('prompts')
             .select('*')
             .eq('slug', slug)
@@ -63,7 +69,7 @@ class PromptService {
             .single();
 
         if (error) {
-            console.error(`Error fetching prompt '${slug}':`, error.message);
+            // console.warn(`Note: Prompt '${slug}' not found in DB, using fallback.`);
             return null;
         }
 
@@ -98,10 +104,7 @@ class PromptService {
      * Record usage of a prompt
      */
     private async recordUsage(slug: string) {
-        // We can call the stored procedure if available, or just update directly
-        // The migration created a function get_prompt that updates usage, but we are querying directly for simplicity first
-        // Let's trying calling the DB update
-        await this.supabase.rpc('get_prompt', { prompt_slug: slug });
+        await this.getSupabase().rpc('get_prompt', { prompt_slug: slug });
     }
 }
 

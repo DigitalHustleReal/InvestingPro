@@ -11,10 +11,6 @@
 
 import { BaseAgent, AgentContext, AgentResult } from './base-agent';
 import { logger } from '@/lib/logger';
-import { exec } from 'child_process';
-import { promisify } from 'util';
-
-const execAsync = promisify(exec);
 
 export interface ScraperConfig {
     name: string;
@@ -200,6 +196,11 @@ export class ScraperAgent extends BaseAgent {
         const command = `npx tsx ${scriptPath}`;
         
         try {
+            // Lazy import to avoid build issues
+            const { exec } = await import('child_process');
+            const { promisify } = await import('util');
+            const execAsync = promisify(exec);
+
             const { stdout, stderr } = await execAsync(command, {
                 env: {
                     ...process.env,

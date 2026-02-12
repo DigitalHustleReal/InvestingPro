@@ -95,60 +95,36 @@ export class MediaService {
             const folder = options?.folder || 'uploads';
             const filePath = `${folder}/${filename}`;
 
-            // Upload to Supabase Storage
+            // Upload to Supabase Storage via Server Proxy (to bypass RLS/hanging issues in browser)
             options?.onProgress?.({
                 progress: 50,
                 status: 'uploading',
-                message: 'Uploading to storage...'
+                message: 'Uploading to storage (via proxy)...'
             });
 
-            const { data: uploadData, error: uploadError } = await this.supabase.storage
-                .from(this.bucketName)
-                .upload(filePath, optimizedFile, {
-                    cacheControl: '31536000', // 1 year
-                    upsert: false
-                });
+            const formData = new FormData();
+            formData.append('file', optimizedFile);
+            formData.append('filePath', filePath);
+            formData.append('mimeType', 'image/webp');
+            formData.append('originalFilename', file.name);
+            formData.append('width', optimized.original.width.toString());
+            formData.append('height', optimized.original.height.toString());
+            formData.append('fileSize', optimizedBlob.size.toString());
+            formData.append('folder', folder);
+            if (options?.altText) formData.append('altText', options.altText);
+            if (options?.title) formData.append('title', options.title);
 
-            if (uploadError) {
-                throw new Error(`Upload failed: ${uploadError.message}`);
-            }
-
-            // Get public URL
-            const { data: { publicUrl } } = this.supabase.storage
-                .from(this.bucketName)
-                .getPublicUrl(filePath);
-
-            // Save metadata to database
-            options?.onProgress?.({
-                progress: 75,
-                status: 'processing',
-                message: 'Saving metadata...'
+            const apiResponse = await fetch('/api/media/upload', {
+                method: 'POST',
+                body: formData,
             });
 
-            const { data: mediaData, error: dbError } = await this.supabase
-                .from('media')
-                .insert({
-                    filename,
-                    original_filename: file.name,
-                    file_path: filePath,
-                    public_url: publicUrl,
-                    mime_type: 'image/webp', // Always WebP now
-                    file_size: optimizedBlob.size, // Optimized size
-                    width: optimized.original.width,
-                    height: optimized.original.height,
-                    alt_text: options?.altText || file.name.replace(/\.[^/.]+$/, ''),
-                    title: options?.title,
-                    folder: folder,
-                    usage_count: 0
-                })
-                .select()
-                .single();
-
-            if (dbError) {
-                // Rollback: delete from storage
-                await this.supabase.storage.from(this.bucketName).remove([filePath]);
-                throw new Error(`Database save failed: ${dbError.message}`);
+            if (!apiResponse.ok) {
+                const apiError = await apiResponse.json();
+                throw new Error(`Upload failed: ${apiError.error || apiResponse.statusText}`);
             }
+
+            const { mediaItem } = await apiResponse.json();
 
             // Complete
             options?.onProgress?.({
@@ -157,7 +133,7 @@ export class MediaService {
                 message: `Upload complete! Saved ${ImageOptimizer.formatFileSize(optimized.metadata.savings)}`
             });
 
-            return this.mapToMediaFile(mediaData);
+            return this.mapToMediaFile(mediaItem);
         } catch (error: any) {
             options?.onProgress?.({
                 progress: 0,

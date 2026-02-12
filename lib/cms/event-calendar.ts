@@ -37,7 +37,7 @@ export interface ContentSuggestion {
     urgency: 'publish_now' | 'prepare' | 'upcoming' | 'future';
     daysUntilEvent: number;
     daysUntilPublishDeadline: number;
-    articleCategory: string;
+    articleCategories: string[];
     searchIntent: 'informational' | 'commercial' | 'transactional';
 }
 
@@ -445,21 +445,23 @@ export class EventCalendarService {
                 urgency = 'future';
             }
 
-            // Generate suggestions for each topic
+            // Group by topic to avoid duplicates
             for (const topic of event.suggestedTopics) {
-                for (const category of event.articleCategories) {
-                    if (forCategory && category !== forCategory) continue;
+                const relevantCategories = event.articleCategories.filter(cat => 
+                    !forCategory || cat === forCategory
+                );
 
-                    suggestions.push({
-                        event,
-                        suggestedTitle: topic,
-                        urgency,
-                        daysUntilEvent,
-                        daysUntilPublishDeadline,
-                        articleCategory: category,
-                        searchIntent: this.determineSearchIntent(topic)
-                    });
-                }
+                if (relevantCategories.length === 0) continue;
+
+                suggestions.push({
+                    event,
+                    suggestedTitle: topic,
+                    urgency,
+                    daysUntilEvent,
+                    daysUntilPublishDeadline,
+                    articleCategories: relevantCategories,
+                    searchIntent: this.determineSearchIntent(topic)
+                });
             }
         }
 
