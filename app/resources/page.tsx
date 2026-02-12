@@ -98,7 +98,7 @@ export default function ResourcesPage() {
                                 </p>
                             </div>
                             <div className="mt-auto p-6 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
-                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                                <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">
                                     {resource.type.replace('-', ' ')}
                                 </span>
                                 <Button variant="ghost" size="sm" className="font-bold text-primary-600 hover:text-primary-700 p-0 flex items-center gap-1">

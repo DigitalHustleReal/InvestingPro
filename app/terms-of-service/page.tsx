@@ -15,7 +15,7 @@ export default function TermsOfServicePage() {
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
             Terms of Service
           </h1>
-          <p className="text-slate-600 dark:text-slate-400 mb-8">
+          <p className="text-slate-600 dark:text-slate-600 mb-8">
             Last updated: January 23, 2026
           </p>
 

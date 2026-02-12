@@ -1,4 +1,4 @@
-﻿import { api } from "@/lib/api";
+import { api } from "@/lib/api";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import { ArrowLeft, Check, X, Minus } from "lucide-react";
@@ -43,7 +43,7 @@ export default async function CompareMutualFunds({ searchParams }: { searchParam
 
                     {/* Sticky Fund Names Header */}
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                        <div className="hidden md:block text-slate-400 font-medium self-end pb-2">
+                        <div className="hidden md:block text-slate-600 font-medium self-end pb-2">
                             Comparison Metrics
                         </div>
                         {funds.map(fund => (
@@ -53,7 +53,7 @@ export default async function CompareMutualFunds({ searchParams }: { searchParam
                                 </Link>
                                 <div className="flex items-center gap-1">
                                     <span className="text-xs font-bold bg-secondary-100 text-secondary-700 px-1.5 py-0.5 rounded">
-                                        {fund!.rating}.0 â˜…
+                                        {fund!.rating}.0 ★
                                     </span>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@ export default async function CompareMutualFunds({ searchParams }: { searchParam
                         {/* Add Placeholder for up to 3 funds */}
                         {[...Array(3 - funds.length)].map((_, i) => (
                             <div key={i} className="hidden md:flex items-center justify-center bg-slate-50 border border-dashed border-slate-300 rounded-lg p-4">
-                                <span className="text-sm text-slate-400">Add Fund</span>
+                                <span className="text-sm text-slate-600">Add Fund</span>
                             </div>
                         ))}
                     </div>

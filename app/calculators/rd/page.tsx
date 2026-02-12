@@ -123,7 +123,7 @@ export default function RDCalculatorPage() {
                 <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">
                     RD <span className="text-primary-600">Calculator</span>
                 </h1>
-                <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mb-8 leading-relaxed">
+                <p className="text-lg text-slate-600 dark:text-slate-600 max-w-2xl mb-8 leading-relaxed">
                     Calculate the maturity value of your Recurring Deposit (RD) with our accurate calculator. 
                     Uses quarterly compounding logic followed by SBI, HDFC, ICICI, and other Indian banks.
                 </p>
@@ -134,11 +134,11 @@ export default function RDCalculatorPage() {
                 <div className="mt-16 grid gap-8 md:grid-cols-2">
                     <div className="prose prose-slate dark:prose-invert max-w-none">
                         <h2 className="text-2xl font-bold text-slate-900 dark:text-white">What is a Recurring Deposit?</h2>
-                        <p className="text-slate-600 dark:text-slate-400">
+                        <p className="text-slate-600 dark:text-slate-600">
                             A Recurring Deposit (RD) is a special kind of Term Deposit offered by banks which helps people with regular incomes to deposit a fixed amount every month into their Recurring Deposit account and earn interest at the rate applicable to Fixed Deposits.
                         </p>
                         <h3 className="text-xl font-bold text-slate-900 dark:text-white mt-6">Key Features</h3>
-                        <ul className="list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-400">
+                        <ul className="list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-600">
                             <li><strong>Disciplined Savings:</strong> Helps in building a habit of saving small amounts monthly.</li>
                             <li><strong>Guaranteed Returns:</strong> Interest rates are fixed for the entire tenure.</li>
                             <li><strong>Flexible Tenure:</strong> Usually ranges from 6 months to 10 years.</li>

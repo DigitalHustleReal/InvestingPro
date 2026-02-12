@@ -1,4 +1,4 @@
-﻿
+
 import React from 'react';
 import { productService } from '@/lib/products/product-service';
 import ProductCard from '@/components/products/ProductCard';
@@ -58,7 +58,7 @@ export default async function ProductsPage({
                 ) : products.length === 0 ? (
                    <div className="text-center py-20">
                        <p className="text-slate-500 mb-4">No products found.</p>
-                       <p className="text-sm text-slate-400">Run: npx tsx scripts/seed-products.ts</p>
+                       <p className="text-sm text-slate-600">Run: npx tsx scripts/seed-products.ts</p>
                    </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

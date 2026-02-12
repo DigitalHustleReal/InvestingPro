@@ -91,7 +91,7 @@ const TaxHeroCalculator = () => {
                     <div className="space-y-10">
                         <div>
                             <div className="flex justify-between mb-4">
-                                <label className="text-sm font-medium text-slate-400">Annual Income (CTC)</label>
+                                <label className="text-sm font-medium text-slate-600">Annual Income (CTC)</label>
                                 <span className="text-lg font-bold text-white">₹ {(income / 100000).toFixed(1)} Lakhs</span>
                             </div>
                             <Slider 
@@ -110,7 +110,7 @@ const TaxHeroCalculator = () => {
 
                         <div>
                             <div className="flex justify-between mb-4">
-                                <label className="text-sm font-medium text-slate-400">Investments & Deductions (Old Regime)</label>
+                                <label className="text-sm font-medium text-slate-600">Investments & Deductions (Old Regime)</label>
                                 <span className="text-lg font-bold text-white">₹ {(deductions / 1000).toFixed(0)}k</span>
                             </div>
                             <Slider 
@@ -129,7 +129,7 @@ const TaxHeroCalculator = () => {
 
                     <div className="mt-12 p-4 rounded-2xl bg-white/5 border border-white/5 flex items-start gap-3">
                         <Info className="w-5 h-5 text-primary-400 mt-0.5" />
-                        <p className="text-xs text-slate-400 leading-relaxed">
+                        <p className="text-xs text-slate-600 leading-relaxed">
                             Calculations are based on FY 2025-26 rules. New regime now includes ₹75,000 standard deduction and Nil tax up to ₹7 Lakhs taxable income.
                         </p>
                     </div>
@@ -173,7 +173,7 @@ const TaxHeroCalculator = () => {
 
                     {/* Recommendation Footer */}
                     <div className="mt-8 pt-8 border-t border-white/10 text-center">
-                        <p className="text-slate-400 text-sm mb-2">You save approximately</p>
+                        <p className="text-slate-600 text-sm mb-2">You save approximately</p>
                         <div className="text-4xl font-black text-white mb-2">
                             ₹ {savings.toLocaleString('en-IN')}
                         </div>
@@ -209,7 +209,7 @@ export default function TaxesPage() {
                         <h1 className="text-5xl sm:text-7xl font-black text-slate-900 dark:text-white mb-6 leading-[1.1] tracking-tight">
                             Save More. <span className="text-transparent bg-clip-text bg-gradient-to-r from-success-400 via-primary-500 to-secondary-500">Tax Less.</span>
                         </h1>
-                        <p className="text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                        <p className="text-xl text-slate-500 dark:text-slate-600 max-w-2xl mx-auto leading-relaxed">
                             Stop overpaying taxes. Compare regimes, track deadlines, and optimize your 80C investments with India's most advanced tax toolkit.
                         </p>
                     </div>
@@ -228,7 +228,7 @@ export default function TaxesPage() {
                     <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
                         <div className="max-w-2xl">
                             <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">Tax Saving Radar</h2>
-                            <p className="text-lg text-slate-500 dark:text-slate-400">
+                            <p className="text-lg text-slate-500 dark:text-slate-600">
                                 Most people leave money on the table. Are you maximizing these deductuions?
                             </p>
                         </div>
@@ -247,7 +247,7 @@ export default function TaxesPage() {
                                 <ShieldCheck className="w-7 h-7 text-primary-500" />
                             </div>
                             <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">Section 80C</h3>
-                            <p className="text-slate-500 dark:text-slate-400 mb-6 line-clamp-2">
+                            <p className="text-slate-500 dark:text-slate-600 mb-6 line-clamp-2">
                                 Deductions up to ₹1.5 Lakhs through ELSS, PPF, Insurance premiums, and Home Loan principal.
                             </p>
                             <div className="flex items-center gap-2 group/btn cursor-pointer">
@@ -262,7 +262,7 @@ export default function TaxesPage() {
                                 <BadgePercent className="w-7 h-7 text-primary-500" />
                             </div>
                             <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">Health (80D)</h3>
-                            <p className="text-slate-500 dark:text-slate-400 mb-6 line-clamp-2">
+                            <p className="text-slate-500 dark:text-slate-600 mb-6 line-clamp-2">
                                 Claim up to ₹1 Lakh for medical insurance premiums for you, your spouse, and senior citizen parents.
                             </p>
                             <div className="flex items-center gap-2 group/btn cursor-pointer">
@@ -277,7 +277,7 @@ export default function TaxesPage() {
                                 <TrendingUp className="w-7 h-7 text-primary-500" />
                             </div>
                             <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">NPS (80CCD)</h3>
-                            <p className="text-slate-500 dark:text-slate-400 mb-6 line-clamp-2">
+                            <p className="text-slate-500 dark:text-slate-600 mb-6 line-clamp-2">
                                 Additional deduction of ₹50,000 above the 80C limit specifically for National Pension Scheme.
                             </p>
                             <div className="flex items-center gap-2 group/btn cursor-pointer">
@@ -295,7 +295,7 @@ export default function TaxesPage() {
                     <div className="max-w-5xl mx-auto">
                         <div className="text-center mb-16">
                             <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">Crucial Tax Deadlines</h2>
-                            <p className="text-lg text-slate-500 dark:text-slate-400">Mark your calendars to avoid heavy penalties and interest.</p>
+                            <p className="text-lg text-slate-500 dark:text-slate-600">Mark your calendars to avoid heavy penalties and interest.</p>
                         </div>
 
                         <div className="space-y-8">
@@ -311,9 +311,9 @@ export default function TaxesPage() {
                                         <div className="w-px h-full bg-slate-200 dark:bg-slate-800 group-hover:bg-slate-300 dark:group-hover:bg-slate-700 transition-colors" />
                                     </div>
                                     <div className="pb-12">
-                                        <span className="text-lg font-black text-slate-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{item.date}</span>
+                                        <span className="text-lg font-black text-slate-600 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{item.date}</span>
                                         <h4 className="text-xl font-bold text-slate-900 dark:text-white mt-1">{item.title}</h4>
-                                        <p className="text-slate-500 dark:text-slate-400 mt-2">{item.desc}</p>
+                                        <p className="text-slate-500 dark:text-slate-600 mt-2">{item.desc}</p>
                                     </div>
                                 </div>
                             ))}
@@ -328,7 +328,7 @@ export default function TaxesPage() {
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div>
                             <h2 className="text-4xl font-black text-white mb-6 leading-tight">Master Tax Planning with Our Free Guides</h2>
-                            <p className="text-lg text-slate-400 mb-10 leading-relaxed">
+                            <p className="text-lg text-slate-600 mb-10 leading-relaxed">
                                 Our chartered accountants have written comprehensive blueprints to help you navigate complex tax laws effortlessly.
                             </p>
                             <div className="space-y-4">

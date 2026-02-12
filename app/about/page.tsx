@@ -59,19 +59,19 @@ export default async function AboutPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
               <div className="text-3xl md:text-5xl font-bold mb-2">2.1M+</div>
-              <div className="text-slate-400 text-sm font-medium uppercase tracking-wider">Happy Users</div>
+              <div className="text-slate-600 text-sm font-medium uppercase tracking-wider">Happy Users</div>
             </div>
             <div>
               <div className="text-3xl md:text-5xl font-bold mb-2">₹500Cr+</div>
-              <div className="text-slate-400 text-sm font-medium uppercase tracking-wider">Investments Facilitated</div>
+              <div className="text-slate-600 text-sm font-medium uppercase tracking-wider">Investments Facilitated</div>
             </div>
             <div>
               <div className="text-3xl md:text-5xl font-bold mb-2">150+</div>
-              <div className="text-slate-400 text-sm font-medium uppercase tracking-wider">Expert Reviews</div>
+              <div className="text-slate-600 text-sm font-medium uppercase tracking-wider">Expert Reviews</div>
             </div>
             <div>
               <div className="text-3xl md:text-5xl font-bold mb-2">4.8/5</div>
-              <div className="text-slate-400 text-sm font-medium uppercase tracking-wider">User Rating</div>
+              <div className="text-slate-600 text-sm font-medium uppercase tracking-wider">User Rating</div>
             </div>
           </div>
         </div>
@@ -82,7 +82,7 @@ export default async function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">What Sets Us Apart</h2>
-            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">We follow a strict editorial methodology to ensure every recommendation is backed by data, not commission.</p>
+            <p className="text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">We follow a strict editorial methodology to ensure every recommendation is backed by data, not commission.</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -118,7 +118,7 @@ export default async function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Meet Our Experts</h2>
-            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">The humans behind the data. Our team brings decades of experience from major financial institutions.</p>
+            <p className="text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">The humans behind the data. Our team brings decades of experience from major financial institutions.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -139,7 +139,7 @@ export default async function AboutPage() {
                   <h3 className="text-lg font-extrabold text-slate-900 dark:text-white mb-1">{member.name}</h3>
                   <p className="text-primary-600 dark:text-primary-400 text-sm font-semibold uppercase tracking-wider mb-4">{member.role}</p>
                   <div className="flex justify-center gap-3">
-                    <Link href={`/author/${member.slug}`} className="p-2 rounded-full bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors">
+                    <Link href={`/author/${member.slug}`} className="p-2 rounded-full bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 text-slate-600 hover:text-slate-600 transition-colors">
                       <Users className="w-4 h-4" />
                     </Link>
                   </div>

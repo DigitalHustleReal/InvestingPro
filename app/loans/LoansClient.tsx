@@ -163,7 +163,7 @@ export default function LoansClient({ initialLoans }: LoansClientProps) {
                         </div>
                         <Input
                             placeholder="Search lenders (e.g. 'HDFC', 'SBI Home Loan')..."
-                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary-500 shadow-xl"
+                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-600 focus:border-primary-500 shadow-xl"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             aria-label="Search loans by lender name"
@@ -225,7 +225,7 @@ export default function LoansClient({ initialLoans }: LoansClientProps) {
                                 {/* Result Box */}
                                 <div className="bg-slate-50 dark:bg-slate-800 rounded-2xl p-6 mb-6">
                                     <div className="text-center">
-                                        <div className="text-sm text-slate-500 dark:text-slate-400 mb-1">Monthly Approx EMI</div>
+                                        <div className="text-sm text-slate-500 dark:text-slate-600 mb-1">Monthly Approx EMI</div>
                                         <div className="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
                                             {formatRupee(emi)}
                                         </div>
@@ -260,7 +260,7 @@ export default function LoansClient({ initialLoans }: LoansClientProps) {
                                     <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4">Required Documents</h3>
                                     <ul className="space-y-3">
                                         {['PAN Card', 'Aadhaar Card', 'Last 3 Months Salary Slips', '6 Months Bank Statement'].map((doc, i) => (
-                                            <li key={i} className="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
+                                            <li key={i} className="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-600">
                                                 <div className="w-5 h-5 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 mt-0.5">
                                                     <span className="text-xs font-bold text-slate-500">{i+1}</span>
                                                 </div>
@@ -282,7 +282,7 @@ export default function LoansClient({ initialLoans }: LoansClientProps) {
                         {/* Status Bar with View Toggle */}
                         <div className="flex justify-between items-center mb-6">
                             <h2 className="text-xl font-bold text-slate-900 dark:text-white">
-                                Top Loan Offers <span className="text-slate-400 font-medium text-sm ml-2">({filteredAssets.length})</span>
+                                Top Loan Offers <span className="text-slate-600 font-medium text-sm ml-2">({filteredAssets.length})</span>
                             </h2>
                             
                             {/* View Toggle */}
@@ -292,7 +292,7 @@ export default function LoansClient({ initialLoans }: LoansClientProps) {
                                     className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
                                         viewMode === 'table'
                                             ? 'bg-primary-600 text-white'
-                                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                            : 'text-slate-600 dark:text-slate-600 hover:text-slate-900 dark:hover:text-white'
                                     }`}
                                     aria-label="Switch to table view"
                                 >
@@ -304,7 +304,7 @@ export default function LoansClient({ initialLoans }: LoansClientProps) {
                                     className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
                                         viewMode === 'grid'
                                             ? 'bg-primary-600 text-white'
-                                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                            : 'text-slate-600 dark:text-slate-600 hover:text-slate-900 dark:hover:text-white'
                                     }`}
                                     aria-label="Switch to grid view"
                                 >
@@ -357,7 +357,7 @@ export default function LoansClient({ initialLoans }: LoansClientProps) {
                     <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                         Complete EMI Calculator with Amortization
                     </h2>
-                    <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    <p className="text-lg text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
                         Calculate your loan EMI with detailed month-by-month and year-by-year payment breakdown
                     </p>
                 </div>
@@ -372,7 +372,7 @@ export default function LoansClient({ initialLoans }: LoansClientProps) {
                     <div className="text-center mb-16">
                         <Badge className="mb-4 bg-primary-50 text-primary-700 border-primary-100">Loan Knowledge Base</Badge>
                         <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Everything You Need to Know About Loans</h2>
-                        <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                        <p className="text-xl text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
                             Don't just sign the papers. Understand the fine print, interest calculations, and hidden charges.
                         </p>
                     </div>
@@ -389,7 +389,7 @@ export default function LoansClient({ initialLoans }: LoansClientProps) {
                                     <item.icon className="w-6 h-6 text-primary-600" />
                                 </div>
                                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{item.title}</h3>
-                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</p>
+                                <p className="text-slate-600 dark:text-slate-600 leading-relaxed">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -434,9 +434,9 @@ export default function LoansClient({ initialLoans }: LoansClientProps) {
                                 <details key={i} className="group bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 cursor-pointer">
                                     <summary className="font-bold text-slate-900 dark:text-white flex justify-between items-center list-none">
                                         {faq.q}
-                                        <ArrowRight className="w-4 h-4 text-slate-400 group-open:rotate-90 transition-transform" />
+                                        <ArrowRight className="w-4 h-4 text-slate-600 group-open:rotate-90 transition-transform" />
                                     </summary>
-                                    <p className="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed pl-0">{faq.a}</p>
+                                    <p className="mt-4 text-slate-600 dark:text-slate-600 leading-relaxed pl-0">{faq.a}</p>
                                 </details>
                             ))}
                         </div>

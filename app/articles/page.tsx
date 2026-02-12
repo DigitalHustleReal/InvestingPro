@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/Button';
 import { Search, Clock, Calendar, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import EmptyState from '@/components/common/EmptyState';
+import SmartImage from '@/components/ui/SmartImage';
 
 interface Article {
     id: string;
@@ -91,7 +92,7 @@ export default function ArticlesPage() {
                 <div className="mb-8">
                     <div className="flex flex-col sm:flex-row gap-4 mb-6">
                         <div className="flex-1 relative">
-                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
+                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-600 w-5 h-5" />
                             <Input
                                 placeholder="Search articles..."
                                 value={searchTerm}
@@ -155,10 +156,11 @@ export default function ArticlesPage() {
                                     <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
                                         {article.featured_image && (
                                             <div className="aspect-video w-full overflow-hidden rounded-t-lg">
-                                                <img
+                                                <SmartImage
                                                     src={article.featured_image}
+                                                    category={article.category}
                                                     alt={article.title}
-                                                    className="w-full h-full object-cover"
+                                                    className="w-full h-full"
                                                 />
                                             </div>
                                         )}

@@ -57,6 +57,7 @@ import UniversalSidebar from '@/components/common/UniversalSidebar';
 import MobileEngagementBar from '@/components/common/MobileEngagementBar';
 import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
 import DecisionCTA from '@/components/common/DecisionCTA';
+import AffiliateDisclosure from '@/components/common/AffiliateDisclosure';
 
 export default function MutualFundsPage() {
     const [viewMode, setViewMode] = useState<'grid' | 'table'>('table'); // Default to table for Pro users
@@ -228,16 +229,21 @@ export default function MutualFundsPage() {
                          ]}
                          badge="Helps You Decide • Goal-Based • Instant SIP"
                          variant="secondary"
-                         className="mb-12"
+                         className="mb-8"
                      />
+
+                     {/* Pre-Launch Critical: Affiliate Disclosure above the fold */}
+                     <div className="max-w-xl mx-auto mb-10">
+                        <AffiliateDisclosure variant="inline" hasAffiliateLink={true} className="rounded-xl border border-primary-200/50" />
+                     </div>
 
                      <div className="relative group max-w-xl mx-auto mb-12 z-20">
                         <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-                            <Search className="h-5 w-5 text-slate-400 group-focus-within:text-primary- transition-colors" />
+                            <Search className="h-5 w-5 text-slate-600 group-focus-within:text-primary- transition-colors" />
                         </div>
                         <Input
                             placeholder="Search funds (e.g. 'HDFC Equity', 'Large Cap')..."
-                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-2 focus:ring-primary-500/20 dark:focus:ring-primary-400/20 transition-all shadow-xl"
+                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-600 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-2 focus:ring-primary-500/20 dark:focus:ring-primary-400/20 transition-all shadow-xl"
                             value={searchTerm}
                             onChange={(e) => {
                                 setSearchTerm(e.target.value);
@@ -274,13 +280,13 @@ export default function MutualFundsPage() {
                                 <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg p-1">
                                     <button 
                                         onClick={() => setViewMode('grid')}
-                                        className={`p-2 rounded-md transition-all ${viewMode === 'grid' ? 'bg-white dark:bg-slate-700 shadow text-primary-600 dark:text-primary-400' : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-400'}`}
+                                        className={`p-2 rounded-md transition-all ${viewMode === 'grid' ? 'bg-white dark:bg-slate-700 shadow text-primary-600 dark:text-primary-400' : 'text-slate-600 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-600'}`}
                                     >
                                         <LayoutGrid className="w-4 h-4" />
                                     </button>
                                     <button 
                                         onClick={() => setViewMode('table')}
-                                        className={`p-2 rounded-md transition-all ${viewMode === 'table' ? 'bg-white dark:bg-slate-700 shadow text-primary-600' : 'text-slate-400 hover:text-slate-600'}`}
+                                        className={`p-2 rounded-md transition-all ${viewMode === 'table' ? 'bg-white dark:bg-slate-700 shadow text-primary-600' : 'text-slate-600 hover:text-slate-600'}`}
                                     >
                                         <List className="w-4 h-4" />
                                     </button>
@@ -360,7 +366,7 @@ export default function MutualFundsPage() {
                                                                     {fund.name}
                                                                 </h3>
                                                             </Link>
-                                                            <p className="text-xs font-bold text-slate-400 flex items-center gap-1.5 uppercase tracking-widest">
+                                                            <p className="text-xs font-bold text-slate-600 flex items-center gap-1.5 uppercase tracking-widest">
                                                                 <Building2 className="w-3 h-3" />
                                                                 {fund.fund_house}
                                                             </p>
@@ -371,7 +377,7 @@ export default function MutualFundsPage() {
                                                         <Badge className={`${riskColors[fund.risk] || riskColors["Moderate"]} border text-[10px] uppercase font-bold tracking-widest px-3`}>
                                                             {fund.risk || "MODERATE"} RISK
                                                         </Badge>
-                                                        <Badge variant="outline" className="border-slate-100 text-slate-400 text-[10px] uppercase font-bold tracking-widest px-3">
+                                                        <Badge variant="outline" className="border-slate-100 text-slate-600 text-[10px] uppercase font-bold tracking-widest px-3">
                                                             AUM: {fund.aum || "N/A"}
                                                         </Badge>
                                                     </div>
@@ -386,10 +392,10 @@ export default function MutualFundsPage() {
                                                             { label: "5Y Yield", value: fund.returns_5y, trend: fund.returns_5y > 0 }
                                                         ].map((ret, i) => (
                                                             <div key={i} className="space-y-1">
-                                                                <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-st">{ret.label}</p>
+                                                                <p className="text-[10px] font-semibold text-slate-600 uppercase tracking-st">{ret.label}</p>
                                                                 <div className="flex items-center justify-center gap-1">
                                                                     <p className={`text-xl font-bold ${ret.trend ? 'text-primary-600 dark:text-primary-400' : 'text-slate-900 dark:text-white'}`}>{ret.value}%</p>
-                                                                    {ret.trend ? <TrendingUp className="w-4 h-4 text-primary-500" /> : <TrendingDown className="w-4 h-4 text-slate-400" />}
+                                                                    {ret.trend ? <TrendingUp className="w-4 h-4 text-primary-500" /> : <TrendingDown className="w-4 h-4 text-slate-600" />}
                                                                 </div>
                                                             </div>
                                                         ))}
@@ -445,7 +451,7 @@ export default function MutualFundsPage() {
                         <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                             Plan Your SIP Journey
                         </h2>
-                        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                        <p className="text-lg text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
                             Calculate how much your systematic investment can grow over time
                         </p>
                     </div>
@@ -461,7 +467,7 @@ export default function MutualFundsPage() {
                     <div className="text-center mb-16">
                         <Badge className="mb-4 bg-primary- text-primary- border-primary-">Investor's Guide</Badge>
                         <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Wealth Creation Made Simple</h2>
-                        <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                        <p className="text-xl text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
                             You don't need to be an expert to beat inflation. Understand the basics of asset allocation.
                         </p>
                     </div>
@@ -478,7 +484,7 @@ export default function MutualFundsPage() {
                                     <item.icon className="w-6 h-6 text-primary-" />
                                 </div>
                                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{item.title}</h3>
-                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</p>
+                                <p className="text-slate-600 dark:text-slate-600 leading-relaxed">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -522,9 +528,9 @@ export default function MutualFundsPage() {
                                 <details key={i} className="group bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 cursor-pointer">
                                     <summary className="font-bold text-slate-900 dark:text-white flex justify-between items-center list-none">
                                         {faq.q}
-                                        <ArrowRight className="w-4 h-4 text-slate-400 group-open:rotate-90 transition-transform" />
+                                        <ArrowRight className="w-4 h-4 text-slate-600 group-open:rotate-90 transition-transform" />
                                     </summary>
-                                    <p className="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed pl-0">{faq.a}</p>
+                                    <p className="mt-4 text-slate-600 dark:text-slate-600 leading-relaxed pl-0">{faq.a}</p>
                                 </details>
                             ))}
                         </div>

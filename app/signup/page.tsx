@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 /**
  * Public Signup Page
@@ -123,7 +123,7 @@ export default function SignupPage() {
             <CheckCircle className="w-8 h-8 text-success-600 dark:text-success-400" />
           </div>
           <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">Check your email</h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-6">
+          <p className="text-slate-600 dark:text-slate-600 mb-6">
             We've sent a confirmation link to <strong className="text-slate-900 dark:text-white">{email}</strong>
           </p>
           <Link
@@ -152,7 +152,7 @@ export default function SignupPage() {
             <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
               <TrendingUp className="w-6 h-6 text-white" />
             </div>
-            <span className="text-2xl font-bold text-white">InvestingP₹o</span>
+            <span className="text-2xl font-bold text-white">InvestingP?o</span>
           </div>
 
           <h1 className="text-4xl font-bold text-white mb-6">
@@ -184,12 +184,12 @@ export default function SignupPage() {
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center">
                 <TrendingUp className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-slate-900 dark:text-white">InvestingP₹o</span>
+              <span className="text-xl font-bold text-slate-900 dark:text-white">InvestingP?o</span>
             </div>
           </div>
 
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Create your account</h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-8">It's free and takes less than a minute</p>
+          <p className="text-slate-600 dark:text-slate-600 mb-8">It's free and takes less than a minute</p>
 
           {/* Error Display */}
           {error && (
@@ -221,7 +221,7 @@ export default function SignupPage() {
           {/* Divider */}
           <div className="flex items-center gap-4 my-6">
             <div className="flex-1 h-px bg-slate-200 dark:bg-white/10" />
-            <span className="text-slate-400 text-sm">or</span>
+            <span className="text-slate-600 text-sm">or</span>
             <div className="flex-1 h-px bg-slate-200 dark:bg-white/10" />
           </div>
 
@@ -232,7 +232,7 @@ export default function SignupPage() {
                 Full Name
               </label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600" />
                 <input
                   id="fullName"
                   type="text"
@@ -241,7 +241,7 @@ export default function SignupPage() {
                   onChange={(e) => setFullName(e.target.value)}
                   required
                   disabled={loading}
-                  className="w-full pl-11 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all"
+                  className="w-full pl-11 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all"
                 />
               </div>
             </div>
@@ -251,7 +251,7 @@ export default function SignupPage() {
                 Email
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600" />
                 <input
                   id="email"
                   type="email"
@@ -260,7 +260,7 @@ export default function SignupPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   disabled={loading}
-                  className="w-full pl-11 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all"
+                  className="w-full pl-11 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all"
                 />
               </div>
             </div>
@@ -270,7 +270,7 @@ export default function SignupPage() {
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600" />
                 <input
                   id="password"
                   type="password"
@@ -280,7 +280,7 @@ export default function SignupPage() {
                   required
                   minLength={8}
                   disabled={loading}
-                  className="w-full pl-11 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all"
+                  className="w-full pl-11 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all"
                 />
               </div>
             </div>
@@ -310,7 +310,7 @@ export default function SignupPage() {
           </p>
 
           {/* Login Link */}
-          <p className="text-center text-slate-600 dark:text-slate-400 text-sm mt-6">
+          <p className="text-center text-slate-600 dark:text-slate-600 text-sm mt-6">
             Already have an account?{' '}
             <Link href="/login" className="text-primary-600 hover:text-primary-500 font-medium">
               Sign in

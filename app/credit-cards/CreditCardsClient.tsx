@@ -234,7 +234,7 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
 
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                     <h2 className="text-xl font-bold text-slate-900 dark:text-white">
-                        Compare Cards <span className="text-slate-400 font-medium text-sm ml-2">({filteredAssets.length} found)</span>
+                        Compare Cards <span className="text-slate-600 font-medium text-sm ml-2">({filteredAssets.length} found)</span>
                     </h2>
                     
                     <div className="flex items-center gap-3">
@@ -255,7 +255,7 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
                                     viewMode === 'table'
                                         ? 'bg-primary-600 text-white'
-                                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                        : 'text-slate-600 dark:text-slate-600 hover:text-slate-900 dark:hover:text-white'
                                 }`}
                             >
                                 <TableIcon className="w-4 h-4" />
@@ -266,7 +266,7 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
                                     viewMode === 'grid'
                                         ? 'bg-primary-600 text-white'
-                                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                        : 'text-slate-600 dark:text-slate-600 hover:text-slate-900 dark:hover:text-white'
                                 }`}
                             >
                                 <LayoutGrid className="w-4 h-4" />
@@ -309,7 +309,7 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                                 >
                                     Load More Cards (+{filteredAssets.length - visibleCount})
                                 </Button>
-                                <p className="text-xs text-slate-400 mt-3">
+                                <p className="text-xs text-slate-600 mt-3">
                                     Showing {visibleCount} of {filteredAssets.length} cards
                                 </p>
                             </div>

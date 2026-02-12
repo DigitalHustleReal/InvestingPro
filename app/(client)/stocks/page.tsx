@@ -84,7 +84,7 @@ export default function StocksPage() {
                             <h1 className="text-5xl sm:text-7xl font-bold text-white mb-6 tracking-tight leading-tight">
                                 Quality <br /> <span className="text-primary-400">Equity Hub</span>
                             </h1>
-                            <p className="text-xl text-slate-400 mb-10 font-medium leading-relaxed">
+                            <p className="text-xl text-slate-600 mb-10 font-medium leading-relaxed">
                                 Professional-grade market tracking for long-term investors. Monitor live IPO sentiments, fundamentals, and benchmarking tools.
                             </p>
                             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
@@ -104,7 +104,7 @@ export default function StocksPage() {
                                 <Card key={i} className="bg-white/5 backdrop-blur-3xl border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden group hover:bg-white/10 transition-all cursor-pointer">
                                     <CardContent className="p-6">
                                         <div className="flex items-center justify-between mb-2">
-                                            <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-st">{index.name}</span>
+                                            <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-st">{index.name}</span>
                                             {index.isUp ? (
                                                 <TrendingUp className="w-4 h-4 text-primary-400" />
                                             ) : (
@@ -134,7 +134,7 @@ export default function StocksPage() {
                                 </div>
                                 <div>
                                     <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Top Gainers</h3>
-                                    <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Investment Partners</p>
+                                    <p className="text-xs font-bold text-slate-600 dark:text-slate-500 uppercase tracking-widest">Investment Partners</p>
                                 </div>
                             </div>
                             <Button variant="ghost" className="rounded-xl font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-widest">View All</Button>
@@ -143,12 +143,12 @@ export default function StocksPage() {
                             {topGainers.map((stock, i) => (
                                 <div key={i} className="flex items-center justify-between p-5 bg-slate-50/50 dark:bg-slate-800/50 rounded-2xl border border-transparent dark:border-slate-700 hover:border-primary-100 dark:hover:border-primary-800 hover:bg-white dark:hover:bg-slate-800 transition-all group/item">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-700 border border-slate-100 dark:border-slate-600 flex items-center justify-center font-semibold text-slate-400 dark:text-slate-500 group-hover/item:bg-primary-600 group-hover/item:text-white transition-colors">
+                                        <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-700 border border-slate-100 dark:border-slate-600 flex items-center justify-center font-semibold text-slate-600 dark:text-slate-500 group-hover/item:bg-primary-600 group-hover/item:text-white transition-colors">
                                             {stock.name.substring(0, 1)}
                                         </div>
                                         <div>
                                             <p className="font-bold text-slate-900 dark:text-white">{stock.name}</p>
-                                            <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase">{stock.sector}</p>
+                                            <p className="text-[10px] font-bold text-slate-600 dark:text-slate-500 uppercase">{stock.sector}</p>
                                         </div>
                                     </div>
                                     <div className="text-right">
@@ -168,7 +168,7 @@ export default function StocksPage() {
                                 </div>
                                 <div>
                                     <h3 className="text-xl font-bold text-slate-900 tracking-tight">Top Losers</h3>
-                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Market Laggards</p>
+                                    <p className="text-xs font-bold text-slate-600 uppercase tracking-widest">Market Laggards</p>
                                 </div>
                             </div>
                             <Button variant="ghost" className="rounded-xl font-semibold text- uppercase text-danger-600 tracking-widest">View All</Button>
@@ -177,12 +177,12 @@ export default function StocksPage() {
                             {topLosers.map((stock, i) => (
                                 <div key={i} className="flex items-center justify-between p-5 bg-slate-50/50 rounded-2xl border border-transparent hover:border-danger-100 hover:bg-white transition-all group/item">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center font-semibold text- text-slate-400 group-hover/item:bg-danger-600 group-hover/item:text-white transition-colors">
+                                        <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center font-semibold text- text-slate-600 group-hover/item:bg-danger-600 group-hover/item:text-white transition-colors">
                                             {stock.name.substring(0, 2)}
                                         </div>
                                         <div>
                                             <p className="font-bold text-slate-900">{stock.name}</p>
-                                            <p className="text-[10px] font-bold text-slate-400 uppercase">{stock.sector}</p>
+                                            <p className="text-[10px] font-bold text-slate-600 uppercase">{stock.sector}</p>
                                         </div>
                                     </div>
                                     <div className="text-right">
@@ -218,29 +218,29 @@ export default function StocksPage() {
                                     <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${ipo.color || 'from-slate-800 to-slate-900'} flex items-center justify-center text-white font-bold text-2xl shadow-lg`}>
                                         {ipo.name.substring(0, 1)}
                                     </div>
-                                    <Badge className={`border-0 rounded-xl px-3 py-1 text-[9px] font-bold uppercase tracking-widest ${ipo.status === 'Open' ? 'bg-primary-100 text-primary-700' : 'bg-slate-100 text-slate-400'}`}>
+                                    <Badge className={`border-0 rounded-xl px-3 py-1 text-[9px] font-bold uppercase tracking-widest ${ipo.status === 'Open' ? 'bg-primary-100 text-primary-700' : 'bg-slate-100 text-slate-600'}`}>
                                         {ipo.status}
                                     </Badge>
                                 </div>
 
                                 <h3 className="text-2xl font-bold text-slate-900 mb-2 leading-tight">{ipo.name}</h3>
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-8">Premium Mainboard Issuer</p>
+                                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-8">Premium Mainboard Issuer</p>
 
                                 <div className="grid grid-cols-2 gap-6 p-6 bg-slate-50 rounded-3xl mb-8 border border-white">
                                     <div>
-                                        <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Issue Price</p>
+                                        <p className="text-[9px] font-semibold text-slate-600 uppercase tracking-st mb-1">Issue Price</p>
                                         <p className="font-semibold text- text-slate-900">{ipo.price}</p>
                                     </div>
                                     <div>
-                                        <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Subscription</p>
+                                        <p className="text-[9px] font-semibold text-slate-600 uppercase tracking-st mb-1">Subscription</p>
                                         <p className="font-semibold text- text-primary-600">{ipo.subscription}</p>
                                     </div>
                                     <div>
-                                        <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Lot Size</p>
+                                        <p className="text-[9px] font-semibold text-slate-600 uppercase tracking-st mb-1">Lot Size</p>
                                         <p className="font-semibold text- text-slate-900">{ipo.lot}</p>
                                     </div>
                                     <div>
-                                        <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Listing Date</p>
+                                        <p className="text-[9px] font-semibold text-slate-600 uppercase tracking-st mb-1">Listing Date</p>
                                         <p className="font-semibold text- text-slate-900">{ipo.listing}</p>
                                     </div>
                                 </div>
@@ -286,7 +286,7 @@ export default function StocksPage() {
                                             </div>
                                         </div>
                                         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4">
-                                            <span className="text-[10px] font-bold text-slate-400 uppercase flex items-center gap-1.5">
+                                            <span className="text-[10px] font-bold text-slate-600 uppercase flex items-center gap-1.5">
                                                 <Users className="w-3.5 h-3.5" />
                                                 {broker.users} Verified Users
                                             </span>
@@ -297,11 +297,11 @@ export default function StocksPage() {
 
                                 <div className="grid grid-cols-2 gap-4 mb-10 p-6 bg-slate-50 rounded-[2.5rem] border border-white">
                                     <div>
-                                        <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Account Opening</p>
+                                        <p className="text-[9px] font-semibold text-slate-600 uppercase tracking-st mb-1">Account Opening</p>
                                         <p className="font-extrabold text-slate-900">{broker.pricing?.account_opening || '₹0'}</p>
                                     </div>
                                     <div>
-                                        <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-st mb-1">Equity Delivery</p>
+                                        <p className="text-[9px] font-semibold text-slate-600 uppercase tracking-st mb-1">Equity Delivery</p>
                                         <p className="font-bold text-primary-600">{broker.pricing?.equity || '₹0'}</p>
                                     </div>
                                 </div>

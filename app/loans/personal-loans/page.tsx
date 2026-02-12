@@ -150,23 +150,23 @@ export default function PersonalLoansPage() {
                         <CardContent>
                             <ul className="space-y-2 text-slate-700">
                                 <li className="flex items-start gap-2">
-                                    <span className="text-slate-400 mt-1">•</span>
+                                    <span className="text-slate-600 mt-1">•</span>
                                     <span><strong>Processing Fee:</strong> Usually 1-6% of loan amount, plus GST (18%)</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-slate-400 mt-1">•</span>
+                                    <span className="text-slate-600 mt-1">•</span>
                                     <span><strong>Interest Rate:</strong> Typically 10.5% to 24% per annum, depending on credit profile</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-slate-400 mt-1">•</span>
+                                    <span className="text-slate-600 mt-1">•</span>
                                     <span><strong>Prepayment Charges:</strong> Some lenders charge 2-5% on prepayment, especially in early years</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-slate-400 mt-1">•</span>
+                                    <span className="text-slate-600 mt-1">•</span>
                                     <span><strong>Late Payment Fee:</strong> Penalty charges for delayed EMI payments</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-slate-400 mt-1">•</span>
+                                    <span className="text-slate-600 mt-1">•</span>
                                     <span><strong>Documentation Charges:</strong> Nominal charges for verification and documentation</span>
                                 </li>
                             </ul>
@@ -227,23 +227,23 @@ export default function PersonalLoansPage() {
                     
                     <ul className="space-y-2 text-slate-700 mb-4">
                         <li className="flex items-start gap-2">
-                            <span className="text-slate-400 mt-1">•</span>
+                            <span className="text-slate-600 mt-1">•</span>
                             <span><strong>Credit Cards:</strong> For smaller amounts and short-term needs, though interest rates are typically higher</span>
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-slate-400 mt-1">•</span>
+                            <span className="text-slate-600 mt-1">•</span>
                             <span><strong>Home Loan Top-up:</strong> If you have a home loan, a top-up loan offers lower rates but requires existing loan</span>
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-slate-400 mt-1">•</span>
+                            <span className="text-slate-600 mt-1">•</span>
                             <span><strong>Loan Against Fixed Deposits or Insurance:</strong> Lower interest rates but requires existing investments as collateral</span>
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-slate-400 mt-1">•</span>
+                            <span className="text-slate-600 mt-1">•</span>
                             <span><strong>Gold Loan:</strong> Lower interest rates but requires gold as collateral</span>
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-slate-400 mt-1">•</span>
+                            <span className="text-slate-600 mt-1">•</span>
                             <span><strong>Delaying or Saving:</strong> For non-urgent expenses, saving or delaying the purchase may be more cost-effective</span>
                         </li>
                     </ul>

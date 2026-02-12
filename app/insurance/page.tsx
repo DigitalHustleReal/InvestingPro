@@ -214,7 +214,7 @@ export default function InsurancePage() {
                         </div>
                         <Input
                             placeholder="Search plans (e.g. 'HDFC Life', 'Health Insurance')..."
-                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-secondary-500 shadow-xl"
+                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-600 focus:border-secondary-500 shadow-xl"
                             value={searchTerm}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
                         />
@@ -236,7 +236,7 @@ export default function InsurancePage() {
                                         )}
                                     </div>
                                     {!hasCalculated ? (
-                                        <p className="text-sm text-slate-600 dark:text-slate-400">
+                                        <p className="text-sm text-slate-600 dark:text-slate-600">
                                             Answer these quick questions to see your coverage gaps
                                         </p>
                                     ) : (() => {
@@ -280,7 +280,7 @@ export default function InsurancePage() {
                                                     }`}
                                                 >
                                                     <div className="flex items-center gap-3">
-                                                        <q.icon className={`w-4 h-4 ${answers[q.key as keyof typeof answers] ? 'text-secondary-600 dark:text-secondary-400' : 'text-slate-400'}`} />
+                                                        <q.icon className={`w-4 h-4 ${answers[q.key as keyof typeof answers] ? 'text-secondary-600 dark:text-secondary-400' : 'text-slate-600'}`} />
                                                         <span className={`text-sm font-medium ${answers[q.key as keyof typeof answers] ? 'text-secondary-900 dark:text-secondary-100' : 'text-slate-700 dark:text-slate-300'}`}>
                                                             {q.label}
                                                         </span>
@@ -310,13 +310,13 @@ export default function InsurancePage() {
                                                 <h4 className="font-bold text-slate-900 dark:text-white mb-3">Recommended Actions:</h4>
                                                 <ul className="space-y-2">
                                                     {!answers.hasHealthInsurance && (
-                                                        <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+                                                        <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-600">
                                                             <AlertTriangle className="w-4 h-4 text-danger-500 mt-0.5 shrink-0" />
                                                             <span><strong>Critical:</strong> Get Health Insurance immediately</span>
                                                         </li>
                                                     )}
                                                     {!answers.hasLifeInsurance && answers.hasDependents && (
-                                                        <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+                                                        <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-600">
                                                             <AlertTriangle className="w-4 h-4 text-accent-500 mt-0.5 shrink-0" />
                                                             <span><strong>Urgent:</strong> Term Insurance for family protection</span>
                                                         </li>
@@ -369,7 +369,7 @@ export default function InsurancePage() {
                                 <CardContent className="p-6">
                                     <ShieldCheck className="w-8 h-8 text-primary-400 mb-4" />
                                     <h3 className="text-xl font-bold mb-2">95% Claim Ratio</h3>
-                                    <p className="text-slate-400 text-sm mb-4">We only list insurers with proven track records.</p>
+                                    <p className="text-slate-600 text-sm mb-4">We only list insurers with proven track records.</p>
                                 </CardContent>
                             </Card>
                          </div>
@@ -379,7 +379,7 @@ export default function InsurancePage() {
                     <div className="flex-1">
                         <div className="flex justify-between items-center mb-6">
                             <h2 className="text-xl font-bold text-slate-900 dark:text-white">
-                                Top Insurance Plans <span className="text-slate-400 font-medium text-sm ml-2">({filteredAssets.length})</span>
+                                Top Insurance Plans <span className="text-slate-600 font-medium text-sm ml-2">({filteredAssets.length})</span>
                             </h2>
                             
                             {/* View Toggle */}
@@ -389,7 +389,7 @@ export default function InsurancePage() {
                                     className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
                                         viewMode === 'table'
                                             ? 'bg-primary-600 text-white'
-                                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                            : 'text-slate-600 dark:text-slate-600 hover:text-slate-900 dark:hover:text-white'
                                     }`}
                                 >
                                     <TableIcon className="w-4 h-4" />
@@ -400,7 +400,7 @@ export default function InsurancePage() {
                                     className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
                                         viewMode === 'grid'
                                             ? 'bg-primary-600 text-white'
-                                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                            : 'text-slate-600 dark:text-slate-600 hover:text-slate-900 dark:hover:text-white'
                                     }`}
                                 >
                                     <LayoutGrid className="w-4 h-4" />
@@ -448,7 +448,7 @@ export default function InsurancePage() {
                     <h2 className="text-3xl md:text-4xl font-bold text=slate-900 dark:text-white mb-4">
                         How Much Coverage Do You Need?
                     </h2>
-                    <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    <p className="text-lg text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
                         Calculate your ideal insurance coverage using the Human Life Value (HLV) method
                     </p>
                 </div>
@@ -463,7 +463,7 @@ export default function InsurancePage() {
                     <div className="text-center mb-16">
                         <Badge className="mb-4 bg-secondary-50 text-secondary-700 border-secondary-100">Protection Academy</Badge>
                         <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Demystifying Insurance Claims</h2>
-                        <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                        <p className="text-xl text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
                             Insurance is not an investmentâ€”it's risk management. Learn how to choose coverage that actually pays out.
                         </p>
                     </div>
@@ -480,7 +480,7 @@ export default function InsurancePage() {
                                     <item.icon className="w-6 h-6 text-secondary-600" />
                                 </div>
                                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{item.title}</h3>
-                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</p>
+                                <p className="text-slate-600 dark:text-slate-600 leading-relaxed">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -507,7 +507,7 @@ export default function InsurancePage() {
                                     <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-dashed border-white/40">
                                         <span className="text-xs text-white/60 font-mono">IMAGE</span>
                                     </div>
-                                    <p className="text-slate-400 font-mono text-sm">Use Content Injection<br/>"Cashless Claim Flowchart"</p>
+                                    <p className="text-slate-600 font-mono text-sm">Use Content Injection<br/>"Cashless Claim Flowchart"</p>
                                 </div>
                             </div>
                         </div>
@@ -525,9 +525,9 @@ export default function InsurancePage() {
                                 <details key={i} className="group bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 cursor-pointer">
                                     <summary className="font-bold text-slate-900 dark:text-white flex justify-between items-center list-none">
                                         {faq.q}
-                                        <ArrowRight className="w-4 h-4 text-slate-400 group-open:rotate-90 transition-transform" />
+                                        <ArrowRight className="w-4 h-4 text-slate-600 group-open:rotate-90 transition-transform" />
                                     </summary>
-                                    <p className="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed pl-0">{faq.a}</p>
+                                    <p className="mt-4 text-slate-600 dark:text-slate-600 leading-relaxed pl-0">{faq.a}</p>
                                 </details>
                             ))}
                         </div>

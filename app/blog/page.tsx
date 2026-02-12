@@ -13,6 +13,7 @@ import Link from 'next/link';
 import PageErrorBoundary from "@/components/common/PageErrorBoundary";
 import ComplianceDisclaimer from "@/components/common/ComplianceDisclaimer";
 import Image from 'next/image';
+import SmartImage from '@/components/ui/SmartImage';
 
 // Debounce hook for search
 function useDebounce<T>(value: T, delay: number): T {
@@ -104,11 +105,11 @@ export default function BlogPage() {
                         <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-6 leading-tight">
                             Unlock Your <span className="text-primary-400">Financial Potential</span>
                         </h1>
-                        <p className="text-xl text-slate-400 mb-10 leading-relaxed font-medium">
+                        <p className="text-xl text-slate-600 mb-10 leading-relaxed font-medium">
                             Deep dives, market analysis, and simplified financial guides to empower your investment journey.
                         </p>
                         <div className="relative group max-w-2xl">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-primary-400 transition-colors" strokeWidth={2} />
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600 group-focus-within:text-primary-400 transition-colors" strokeWidth={2} />
                             <Input
                                 placeholder="Search articles, guides, strategies..."
                                 value={searchTerm}
@@ -119,7 +120,7 @@ export default function BlogPage() {
                             {debouncedSearch && (
                                 <button
                                     onClick={() => setSearchTerm('')}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600 hover:text-white transition-colors"
                                     aria-label="Clear search"
                                 >
                                     <X className="w-5 h-5" strokeWidth={2} />
@@ -151,21 +152,18 @@ export default function BlogPage() {
                 {/* Featured Article */}
                 {featuredArticle && (
                     <div className="mb-16">
-                        <h2 className="text-sm font-bold text-slate-400 uppercase tracking-[0.2em] mb-6">Latest Highlight</h2>
+                        <h2 className="text-sm font-bold text-slate-600 uppercase tracking-[0.2em] mb-6">Latest Highlight</h2>
                         <Link href={`/article/${featuredArticle.slug}`}>
                             <Card className="overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 border-slate-200 group">
                                 <div className="grid md:grid-cols-2">
                                     <div className="h-64 md:h-auto overflow-hidden relative">
                                         <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-secondary-600 transition-transform duration-700 group-hover:scale-110" />
                                         {featuredArticle.featured_image && (
-                                            <Image
+                                            <SmartImage
                                                 src={featuredArticle.featured_image}
+                                                category={featuredArticle.category}
                                                 alt={featuredArticle.title || 'Featured article image'}
-                                                fill
-                                                className="object-cover transition-transform duration-700 group-hover:scale-110"
-                                                loading="lazy"
-                                                quality={85}
-                                                sizes="(max-width: 768px) 100vw, 50vw"
+                                                className="w-full h-full"
                                             />
                                         )}
                                         <div className="absolute inset-0 bg-black/20" />
@@ -178,7 +176,7 @@ export default function BlogPage() {
                                         <p className="text-slate-500 text-lg mb-8 line-clamp-2 leading-relaxed font-medium">
                                             {featuredArticle.excerpt}
                                         </p>
-                                        <div className="flex items-center gap-6 text-xs text-slate-400 font-bold uppercase tracking-tight mb-8">
+                                        <div className="flex items-center gap-6 text-xs text-slate-600 font-bold uppercase tracking-tight mb-8">
                                             <span className="flex items-center gap-2">
                                                 <Calendar className="w-3.5 h-3.5" aria-hidden="true" />
                                                 {new Date(featuredArticle.published_date || Date.now()).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })}
@@ -222,14 +220,11 @@ export default function BlogPage() {
                                     <div className="h-56 relative overflow-hidden bg-slate-100">
                                         <div className="absolute inset-0 bg-gradient-to-br from-slate-400 to-slate-600 opacity-20" />
                                         {article.featured_image && (
-                                            <Image
+                                            <SmartImage
                                                 src={article.featured_image}
+                                                category={article.category}
                                                 alt={article.title || 'Article featured image'}
-                                                fill
-                                                className="object-cover transition-transform duration-700 group-hover:scale-110"
-                                                loading="lazy"
-                                                quality={80}
-                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
+                                                className="w-full h-full"
                                             />
                                         )}
                                         <div className="absolute top-4 left-4">
@@ -248,13 +243,13 @@ export default function BlogPage() {
                                         <div className="pt-6 border-t border-slate-100 flex items-center justify-between">
                                             <div className="flex items-center gap-2">
                                                 <div className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center">
-                                                    <User className="w-3 h-3 text-slate-400" aria-hidden="true" />
+                                                    <User className="w-3 h-3 text-slate-600" aria-hidden="true" />
                                                 </div>
                                                 <span className="text-xs font-bold text-slate-900 uppercase tracking-tighter">
                                                     {article.author_name}
                                                 </span>
                                             </div>
-                                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
+                                            <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest flex items-center gap-1.5">
                                                 <Clock className="w-3.5 h-3.5" />
                                                 {article.read_time} MIN
                                             </span>

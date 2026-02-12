@@ -63,7 +63,7 @@ export default function DematAccountsPage() {
                     <h1 className="text-4xl sm:text-6xl font-extrabold text-white mb-6 tracking-tight leading-tight">
                         Begin Your <span className="text-secondary-400">Wealth Journey</span>
                     </h1>
-                    <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                    <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed">
                         Compare India's leading investment platforms. Access low-cost brokerage, build long-term portfolios, and start systematic wealth creation today.
                     </p>
                 </div>
@@ -84,7 +84,7 @@ export default function DematAccountsPage() {
                                     <stat.icon className="w-6 h-6" />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">{stat.label}</p>
+                                    <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-0.5">{stat.label}</p>
                                     <p className="text-lg font-extrabold text-slate-900">{stat.value}</p>
                                 </div>
                             </CardContent>
@@ -133,7 +133,7 @@ export default function DematAccountsPage() {
                                                 <div className="flex items-center gap-2 mt-1">
                                                     <Star className="w-3.5 h-3.5 text-accent-500 fill-accent-500" />
                                                     <span className="text-sm font-extrabold text-slate-900">{broker.rating}</span>
-                                                    <span className="text-xs font-bold text-slate-400 uppercase tracking-tighter">({broker.reviews})</span>
+                                                    <span className="text-xs font-bold text-slate-600 uppercase tracking-tighter">({broker.reviews})</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -146,7 +146,7 @@ export default function DematAccountsPage() {
 
                                     {/* Pricing Matrix */}
                                     <div className="lg:col-span-1 py-2">
-                                        <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+                                        <h4 className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
                                             <Info className="w-3.5 h-3.5" />
                                             Brokerage Fee
                                         </h4>
@@ -172,7 +172,7 @@ export default function DematAccountsPage() {
 
                                     {/* High Yield Features */}
                                     <div className="lg:col-span-1 py-2">
-                                        <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+                                        <h4 className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
                                             <Check className="w-3.5 h-3.5" />
                                             Premium Insights
                                         </h4>
@@ -257,9 +257,9 @@ export default function DematAccountsPage() {
                                 ))}
                             </div>
                             <div className="mt-10 pt-8 border-t border-slate-50">
-                                <div className="flex items-center gap-3 text-slate-400">
+                                <div className="flex items-center gap-3 text-slate-600">
                                     <HelpCircle className="w-5 h-5" />
-                                    <p className="text-xs font-bold uppercase tracking-widest text-slate-400">For inquiries, please contact support.</p>
+                                    <p className="text-xs font-bold uppercase tracking-widest text-slate-600">For inquiries, please contact support.</p>
                                 </div>
                             </div>
                         </CardContent>

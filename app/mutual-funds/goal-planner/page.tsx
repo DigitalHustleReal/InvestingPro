@@ -184,7 +184,7 @@ export default function GoalPlannerPage() {
                                                     <Icon className="w-6 h-6 text-white" />
                                                 </div>
                                                 <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-1">{goal.label}</h3>
-                                                <p className="text-sm text-slate-500 dark:text-slate-400">{goal.description}</p>
+                                                <p className="text-sm text-slate-500 dark:text-slate-600">{goal.description}</p>
                                             </button>
                                         );
                                     })}
@@ -214,7 +214,7 @@ export default function GoalPlannerPage() {
                                 <div className="space-y-3">
                                     <Label className="text-base font-semibold">How much do you need?</Label>
                                     <div className="relative">
-                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">₹</span>
+                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 font-bold">₹</span>
                                         <Input
                                             type="number"
                                             value={targetAmount}
@@ -232,7 +232,7 @@ export default function GoalPlannerPage() {
                                                     "px-3 py-1.5 rounded-lg text-sm font-medium transition-colors",
                                                     targetAmount === amt
                                                         ? "bg-primary-600 text-white"
-                                                        : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200"
+                                                        : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-600 hover:bg-slate-200"
                                                 )}
                                             >
                                                 {formatCurrency(amt)}
@@ -263,7 +263,7 @@ export default function GoalPlannerPage() {
                                 <div className="space-y-3">
                                     <Label className="text-base font-semibold">Monthly SIP budget (optional)</Label>
                                     <div className="relative">
-                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">₹</span>
+                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 font-bold">₹</span>
                                         <Input
                                             type="number"
                                             value={monthlyBudget || ''}
@@ -390,7 +390,7 @@ export default function GoalPlannerPage() {
                                                 {/* Reasons */}
                                                 <div className="mt-4 flex flex-wrap gap-2">
                                                     {rec.reasons.map((reason, i) => (
-                                                        <div key={i} className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-400">
+                                                        <div key={i} className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-600">
                                                             <CheckCircle2 className="w-3.5 h-3.5 text-green-500" />
                                                             {reason}
                                                         </div>

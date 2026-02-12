@@ -85,7 +85,7 @@ export default function FixedDepositsPage() {
                         <h1 className="text-4xl sm:text-6xl font-extrabold text-white mb-6 tracking-tight leading-tight">
                             Grow Wealth with <span className="text-accent-500">Absolute Peace</span>
                         </h1>
-                        <p className="text-xl text-slate-400 leading-relaxed mb-10">
+                        <p className="text-xl text-slate-600 leading-relaxed mb-10">
                             Compare the highest Fixed Deposit rates across 50+ Banks and NBFCs. Secure your future with guaranteed returns and zero market risk.
                         </p>
                         <div className="flex gap-4">
@@ -118,9 +118,9 @@ export default function FixedDepositsPage() {
                                     <stat.icon className="w-6 h-6" />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">{stat.label}</p>
+                                    <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-0.5">{stat.label}</p>
                                     <p className="text-lg font-extrabold text-slate-900 dark:text-white leading-none mb-1">{stat.value}</p>
-                                    <p className="text-[10px] text-slate-400 font-medium">{stat.sub}</p>
+                                    <p className="text-[10px] text-slate-600 font-medium">{stat.sub}</p>
                                 </div>
                             </CardContent>
                         </Card>
@@ -133,7 +133,7 @@ export default function FixedDepositsPage() {
                 <div className="bg-white rounded-[2.5rem] p-8 shadow-xl shadow-slate-200/50 mb-12 border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-8">
                     <div className="flex items-center gap-6">
                         <div className="flex flex-col">
-                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+                            <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-2 flex items-center gap-2">
                                 <Clock className="w-3 h-3" />
                                 Desired Tenure
                             </span>
@@ -153,17 +153,17 @@ export default function FixedDepositsPage() {
                     <div className="hidden md:block h-12 w-px bg-slate-100" />
 
                     <div className="flex-1 flex flex-col items-center">
-                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">
+                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-2">
                             <TrendingUp className="w-3 h-3 text-primary-500" />
                             Best Market Opportunity
                         </div>
-                        <p className="text-slate-900 font-bold text-xl">8.15% <span className="text-slate-400 text-sm font-bold">at Shriram Finance</span></p>
+                        <p className="text-slate-900 font-bold text-xl">8.15% <span className="text-slate-600 text-sm font-bold">at Shriram Finance</span></p>
                     </div>
 
                     <div className="hidden md:block h-12 w-px bg-slate-100" />
 
                     <div className="flex flex-col items-end">
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Refine List</span>
+                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-2">Refine List</span>
                         <Select value={sortBy} onValueChange={setSortBy}>
                             <SelectTrigger className="w-52 bg-slate-50 dark:bg-slate-800 border-0 rounded-xl h-12 font-bold text-slate-900 dark:text-white">
                                 <SelectValue placeholder="Sort By" />
@@ -216,7 +216,7 @@ export default function FixedDepositsPage() {
                                                     key={tenure}
                                                     className={`text-center p-4 rounded-3xl transition-all ${tenure === selectedTenure ? 'bg-accent-500 text-white shadow-lg shadow-accent-500/20 scale-110' : 'bg-slate-50/50 hover:bg-slate-50'}`}
                                                 >
-                                                    <p className={`text-[9px] font-bold uppercase tracking-tighter mb-1 ${tenure === selectedTenure ? 'text-white/70' : 'text-slate-400'}`}>{tenure}</p>
+                                                    <p className={`text-[9px] font-bold uppercase tracking-tighter mb-1 ${tenure === selectedTenure ? 'text-white/70' : 'text-slate-600'}`}>{tenure}</p>
                                                     <p className="text-xl font-bold tracking-tight">{fd.rates[tenure]}%</p>
                                                 </div>
                                             ))}
@@ -228,11 +228,11 @@ export default function FixedDepositsPage() {
                                         <div className="flex flex-col gap-3">
                                             <div className="flex justify-between items-center mb-1">
                                                 <div className="flex flex-col">
-                                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.1em]">Senior Citizen</span>
+                                                    <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.1em]">Senior Citizen</span>
                                                     <span className="text-sm font-extrabold text-primary-600">{fd.seniorCitizenBonus > 0 ? `+${fd.seniorCitizenBonus}% Extra` : 'Standard Rates'}</span>
                                                 </div>
                                                 <div className="text-right">
-                                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.1em]">Min Deposit</span>
+                                                    <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.1em]">Min Deposit</span>
                                                     <span className="text-sm font-extrabold text-slate-900 dark:text-white">{fd.minDeposit}</span>
                                                 </div>
                                             </div>
@@ -244,7 +244,7 @@ export default function FixedDepositsPage() {
                                     </div>
                                 </div>
 
-                                <div className="mt-8 pt-6 border-t border-slate-50 flex items-center justify-between text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+                                <div className="mt-8 pt-6 border-t border-slate-50 flex items-center justify-between text-[11px] font-bold text-slate-600 uppercase tracking-widest">
                                     <div className="flex items-center gap-6">
                                         <div className="flex items-center gap-2">
                                             <ShieldCheck className="w-4 h-4 text-primary-500" />
@@ -255,7 +255,7 @@ export default function FixedDepositsPage() {
                                             Instant Liquidity Available
                                         </div>
                                     </div>
-                                    <div className="flex items-center gap-2 cursor-pointer hover:text-slate-600 dark:hover:text-slate-400 transition-colors text-slate-900 dark:text-white">
+                                    <div className="flex items-center gap-2 cursor-pointer hover:text-slate-600 dark:hover:text-slate-600 transition-colors text-slate-900 dark:text-white">
                                         View Detailed T&C
                                         <ChevronRight className="w-3.5 h-3.5" />
                                     </div>
@@ -279,7 +279,7 @@ export default function FixedDepositsPage() {
                                     <Zap className="w-4 h-4" />
                                     Guaranteed Capital
                                 </h4>
-                                <p className="text-slate-400 text-sm leading-relaxed font-medium">Unlike equities, FD returns are locked at the time of deposit. Your principal is shielded from market fluctuations and volatility.</p>
+                                <p className="text-slate-600 text-sm leading-relaxed font-medium">Unlike equities, FD returns are locked at the time of deposit. Your principal is shielded from market fluctuations and volatility.</p>
                             </div>
                             <div className="pt-8 border-t border-white/5 grid grid-cols-2 gap-6">
                                 <div>

@@ -90,7 +90,7 @@ export default function EditorialTeamPage() {
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">
               Expertise You Can Trust
             </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p className="text-lg text-slate-600 dark:text-slate-600 leading-relaxed">
               We are a team of journalists, CAs, bankers, and analysts obsessed with one mission: 
               <strong> Making you wealthier, faster.</strong> Our content is fact-checked, unbiased, and data-driven.
             </p>
@@ -105,17 +105,17 @@ export default function EditorialTeamPage() {
             <div className="flex flex-col items-center gap-2">
               <ShieldCheck className="h-8 w-8 text-primary-600" />
               <h3 className="font-semibold text-slate-900 dark:text-white">Editorial Independence</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Our reviews are never influenced by partners.</p>
+              <p className="text-sm text-slate-500 dark:text-slate-600">Our reviews are never influenced by partners.</p>
             </div>
             <div className="flex flex-col items-center gap-2">
               <CheckCircle2 className="h-8 w-8 text-primary-600" />
               <h3 className="font-semibold text-slate-900 dark:text-white">Fact-Checked Accuracy</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Every rate and fee verified weekly.</p>
+              <p className="text-sm text-slate-500 dark:text-slate-600">Every rate and fee verified weekly.</p>
             </div>
             <div className="flex flex-col items-center gap-2">
               <Newspaper className="h-8 w-8 text-primary-600" />
               <h3 className="font-semibold text-slate-900 dark:text-white">Expert Contributors</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Written by CAs, Bankers & Analysts.</p>
+              <p className="text-sm text-slate-500 dark:text-slate-600">Written by CAs, Bankers & Analysts.</p>
             </div>
           </div>
         </div>
@@ -153,10 +153,10 @@ export default function EditorialTeamPage() {
                                 ))}
                             </div>
                             <div className="flex gap-4">
-                                <a href="#" className="text-slate-400 hover:text-primary-600 transition-colors">
+                                <a href="#" className="text-slate-600 hover:text-primary-600 transition-colors">
                                     <Twitter className="h-5 w-5" />
                                 </a>
-                                <a href="#" className="text-slate-400 hover:text-primary-600 transition-colors">
+                                <a href="#" className="text-slate-600 hover:text-primary-600 transition-colors">
                                     <Linkedin className="h-5 w-5" />
                                 </a>
                             </div>
@@ -186,13 +186,13 @@ export default function EditorialTeamPage() {
                         <CardTitle className="text-xl font-bold group-hover:text-primary-600 transition-colors">{member.name}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-3">
+                        <p className="text-slate-600 dark:text-slate-600 text-sm mb-4 line-clamp-3">
                             {member.bio}
                         </p>
                         <Separator className="my-4" />
                         <div className="flex flex-wrap gap-2 mb-4 h-16 overflow-hidden content-start">
                             {member.expertise.map((skill) => (
-                                <Badge key={skill} variant="secondary" className="text-xs bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400">
+                                <Badge key={skill} variant="secondary" className="text-xs bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-600">
                                     {skill}
                                 </Badge>
                             ))}

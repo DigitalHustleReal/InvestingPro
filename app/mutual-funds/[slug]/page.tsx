@@ -22,6 +22,9 @@ import { scoreMutualFund } from '@/lib/products/scoring-rules'
 import { MutualFund } from '@/types'
 import DecisionFramework from '@/components/common/DecisionFramework'
 import DecisionCTA from '@/components/common/DecisionCTA'
+import AffiliateDisclosure from '@/components/common/AffiliateDisclosure'
+import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer'
+import Link from 'next/link'
 
 interface MutualFundDetail {
   id: string
@@ -246,7 +249,13 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
                 <span className="text-sm font-semibold uppercase">{fund.amc}</span>
               </div>
               <h1 className="text-4xl font-bold mb-4">{fund.name}</h1>
-              <p className="text-lg text-primary-200 mb-4">{fund.description}</p>
+               
+               {/* Pre-Launch Critical: Affiliate Disclosure above the fold */}
+               <div className="mb-6">
+                 <AffiliateDisclosure variant="inline" hasAffiliateLink={true} className="bg-white/10 border-white/20 text-white rounded-lg p-3 max-w-fit" />
+               </div>
+
+               <p className="text-lg text-primary-200 mb-4">{fund.description}</p>
               
               {/* Category & Rating */}
               <div className="flex flex-wrap items-center gap-4 mb-6">
@@ -573,18 +582,8 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
                 </Card>
               )}
               
-              {/* Risk Warning */}
-              <Card className="bg-amber-50 border-amber-200">
-                <CardContent className="p-6 md:p-8">
-                  <div className="flex gap-3">
-                    <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-                    <div className="text-xs text-amber-800">
-                      <p className="font-semibold mb-1">SEBI Disclaimer</p>
-                      <p>Mutual Fund investments are subject to market risks. Read all scheme-related documents carefully before investing.</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+               {/* Risk Warning & Full Compliance Disclosure */}
+               <ComplianceDisclaimer variant="compact" className="bg-amber-50 border-amber-200 shadow-sm" />
             </div>
           </div>
         </div>

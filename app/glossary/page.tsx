@@ -87,14 +87,14 @@ export default function GlossaryPage() {
                         <h1 className="text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">
                             Financial Glossary
                         </h1>
-                        <p className="text-lg text-slate-600 dark:text-slate-400 mb-6">
+                        <p className="text-lg text-slate-600 dark:text-slate-600 mb-6">
                             {filteredTerms.length} terms to help you understand the financial world
                         </p>
 
                         {/* Search Bar */}
                         <div className="relative">
                             <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-                                <Search className="h-5 w-5 text-slate-400" />
+                                <Search className="h-5 w-5 text-slate-600" />
                             </div>
                             <Input
                                 placeholder="Search terms..."
@@ -113,7 +113,7 @@ export default function GlossaryPage() {
                     {/* Sidebar - Category Filter */}
                     <aside className="lg:sticky lg:top-24 lg:self-start">
                         <div className="bg-slate-50 dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800">
-                            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">
+                            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-600 mb-4">
                                 Categories
                             </h3>
                             <nav className="space-y-1">
@@ -129,7 +129,7 @@ export default function GlossaryPage() {
                                             className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-between group ${
                                                 activeCategory === cat
                                                 ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400'
-                                                : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                                                : 'text-slate-600 dark:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800'
                                             }`}
                                         >
                                             <span className="flex items-center gap-2">
@@ -142,7 +142,7 @@ export default function GlossaryPage() {
                                             <span className={`text-xs px-2 py-0.5 rounded-full ${
                                                 activeCategory === cat
                                                 ? 'bg-primary-100 dark:bg-primary-800 text-primary-700 dark:text-primary-300'
-                                                : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400'
+                                                : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-600'
                                             }`}>
                                                 {count}
                                             </span>
@@ -155,7 +155,7 @@ export default function GlossaryPage() {
                         {/* Alphabet Jump Links */}
                         {alphabet.length > 0 && (
                             <div className="bg-slate-50 dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 mt-6">
-                                <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">
+                                <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-600 mb-4">
                                     Quick Jump
                                 </h3>
                                 <div className="flex flex-wrap gap-2">
@@ -219,11 +219,11 @@ export default function GlossaryPage() {
                                                                             {term.category}
                                                                         </Badge>
                                                                     </div>
-                                                                    <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
+                                                                    <p className="text-sm text-slate-600 dark:text-slate-600 line-clamp-2">
                                                                         {term.definition}
                                                                     </p>
                                                                 </div>
-                                                                <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 flex-shrink-0 transition-colors" />
+                                                                <ChevronRight className="w-5 h-5 text-slate-600 group-hover:text-primary-600 dark:group-hover:text-primary-400 flex-shrink-0 transition-colors" />
                                                             </div>
                                                         </div>
                                                     </Link>

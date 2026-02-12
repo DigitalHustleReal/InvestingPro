@@ -47,6 +47,7 @@ import AlternativesCarousel from '@/components/products/AlternativesCarousel'
 import RelatedCalculators from '@/components/calculators/RelatedCalculators'
 import { getSimilarProducts } from '@/lib/utils/product-similarity'
 import WhatsAppAlerts from '@/components/common/WhatsAppAlerts'
+import AffiliateDisclosure from '@/components/common/AffiliateDisclosure'
 
 interface CreditCardDetail {
   id: string
@@ -294,6 +295,12 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
                         <h1 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4 font-heading">
                             {card.name}
                         </h1>
+
+                        {/* Pre-Launch Critical: Affiliate Disclosure above the fold */}
+                        <div className="mb-6">
+                           <AffiliateDisclosure variant="inline" hasAffiliateLink={true} className="bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-lg p-3 max-w-fit" />
+                        </div>
+
                         <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
                             {card.description}
                         </p>

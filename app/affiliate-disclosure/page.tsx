@@ -21,7 +21,7 @@ export default function AffiliateDisclosurePage() {
             <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
               Affiliate Disclosure
             </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400">
+            <p className="text-lg text-slate-600 dark:text-slate-600">
               Transparency about how we earn revenue
             </p>
           </div>
@@ -286,7 +286,7 @@ export default function AffiliateDisclosurePage() {
                   <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                   <div>
                     <p className="font-semibold text-slate-900 dark:text-white">Terms of Service</p>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Platform usage terms</p>
+                    <p className="text-xs text-slate-600 dark:text-slate-600">Platform usage terms</p>
                   </div>
                 </Link>
 
@@ -297,7 +297,7 @@ export default function AffiliateDisclosurePage() {
                   <Shield className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                   <div>
                     <p className="font-semibold text-slate-900 dark:text-white">Privacy Policy</p>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Data protection</p>
+                    <p className="text-xs text-slate-600 dark:text-slate-600">Data protection</p>
                   </div>
                 </Link>
 
@@ -308,7 +308,7 @@ export default function AffiliateDisclosurePage() {
                   <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                   <div>
                     <p className="font-semibold text-slate-900 dark:text-white">Disclaimer</p>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Risk disclosures</p>
+                    <p className="text-xs text-slate-600 dark:text-slate-600">Risk disclosures</p>
                   </div>
                 </Link>
 
@@ -319,7 +319,7 @@ export default function AffiliateDisclosurePage() {
                   <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                   <div>
                     <p className="font-semibold text-slate-900 dark:text-white">Cookie Policy</p>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Cookie usage</p>
+                    <p className="text-xs text-slate-600 dark:text-slate-600">Cookie usage</p>
                   </div>
                 </Link>
               </div>

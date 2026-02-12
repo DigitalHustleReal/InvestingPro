@@ -57,7 +57,7 @@ export default function WealthDashboard() {
                         <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">
                             Namaste, {user?.full_name?.split(' ')[0] || 'Investor'}!
                         </h1>
-                        <p className="text-slate-500 dark:text-slate-400 font-medium flex items-center gap-2 mt-1">
+                        <p className="text-slate-500 dark:text-slate-600 font-medium flex items-center gap-2 mt-1">
                           <ShieldCheck size={14} className="text-success-600" />
                           {income ? `Profile Level: Silver (₹${(income/100000).toFixed(1)}L/yr)` : 'Complete your profile for better insights'}
                         </p>
@@ -92,7 +92,7 @@ export default function WealthDashboard() {
                           "w-full flex items-center gap-4 px-4 py-3.5 rounded-xl font-bold transition-all text-sm",
                           activeTab === tab.id 
                             ? "bg-primary-600 text-white shadow-xl shadow-primary-500/20" 
-                            : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900"
+                            : "text-slate-500 dark:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-900"
                         )}
                       >
                         <tab.icon size={18} />
@@ -100,7 +100,7 @@ export default function WealthDashboard() {
                       </button>
                     ))}
                     <div className="pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
-                        <button className="w-full flex items-center gap-4 px-4 py-3.5 rounded-xl font-bold text-slate-400 hover:text-danger-500 transition-all text-sm">
+                        <button className="w-full flex items-center gap-4 px-4 py-3.5 rounded-xl font-bold text-slate-600 hover:text-danger-500 transition-all text-sm">
                           <LogOut size={18} />
                           Sign Out
                         </button>
@@ -129,7 +129,7 @@ export default function WealthDashboard() {
                           <Card className="border-none bg-white dark:bg-slate-900 shadow-sm">
                             <CardContent className="p-6">
                               <div className="flex justify-between mb-1">
-                                <p className="text-xs font-bold uppercase text-slate-400">Monthly Potential</p>
+                                <p className="text-xs font-bold uppercase text-slate-600">Monthly Potential</p>
                                 <TrendingUp size={14} className="text-primary-600" />
                               </div>
                               <h3 className="text-2xl font-black text-slate-900 dark:text-white">₹4,250</h3>
@@ -140,7 +140,7 @@ export default function WealthDashboard() {
                           <Card className="border-none bg-white dark:bg-slate-900 shadow-sm">
                             <CardContent className="p-6">
                               <div className="flex justify-between mb-1">
-                                <p className="text-xs font-bold uppercase text-slate-400">Applications</p>
+                                <p className="text-xs font-bold uppercase text-slate-600">Applications</p>
                                 <ArrowUpRight size={14} className="text-primary-600" />
                               </div>
                               <h3 className="text-2xl font-black text-slate-900 dark:text-white">02</h3>
@@ -196,7 +196,7 @@ export default function WealthDashboard() {
                       <div className="space-y-8 animate-in fade-in duration-500">
                         <header>
                           <h2 className="text-2xl font-black text-slate-900 dark:text-white">Smart Recommendations</h2>
-                          <p className="text-slate-500 dark:text-slate-400 font-medium">Top products matched to your financial profile.</p>
+                          <p className="text-slate-500 dark:text-slate-600 font-medium">Top products matched to your financial profile.</p>
                         </header>
                         <PersonalizedPicks />
                         

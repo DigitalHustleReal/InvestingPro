@@ -251,7 +251,7 @@ export default function LoanEligibilityPage() {
                                 <div className="space-y-3">
                                     <Label className="text-base font-semibold">Loan Amount Required</Label>
                                     <div className="relative">
-                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">₹</span>
+                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 font-bold">₹</span>
                                         <Input
                                             type="number"
                                             value={loanAmount}
@@ -281,7 +281,7 @@ export default function LoanEligibilityPage() {
                                 <div className="space-y-3">
                                     <Label className="text-base font-semibold">Monthly Income (Net)</Label>
                                     <div className="relative">
-                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">₹</span>
+                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 font-bold">₹</span>
                                         <Input
                                             type="number"
                                             value={monthlyIncome}
@@ -310,7 +310,7 @@ export default function LoanEligibilityPage() {
                                                 >
                                                     <Icon className={cn(
                                                         "w-6 h-6 mx-auto mb-2",
-                                                        employment === type.id ? "text-primary-600" : "text-slate-400"
+                                                        employment === type.id ? "text-primary-600" : "text-slate-600"
                                                     )} />
                                                     <p className="text-sm font-semibold">{type.label}</p>
                                                 </button>
@@ -378,7 +378,7 @@ export default function LoanEligibilityPage() {
                                     <ChevronRight className="w-5 h-5 ml-2" />
                                 </Button>
 
-                                <p className="text-xs text-center text-slate-400">
+                                <p className="text-xs text-center text-slate-600">
                                     This check does not impact your credit score
                                 </p>
                             </CardContent>

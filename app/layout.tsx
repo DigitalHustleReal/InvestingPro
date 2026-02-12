@@ -129,12 +129,12 @@ export default async function RootLayout({
       <head>
         <meta charSet="utf-8" />
       </head>
-      <body className={cn(
+      <body suppressHydrationWarning className={cn(
+        inter.className,
         inter.variable,
         outfit.variable,
         serif.variable,
         mono.variable,
-        inter.className,
         "min-h-screen flex flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-300"
       )}>
         <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />
@@ -191,20 +191,22 @@ export default async function RootLayout({
         </ErrorBoundaryProvider>
         </ThemeProvider>
         <CookieConsent />
-        {/* Tawk.to Live Chat - NEW */}
-        <Script id="tawk-to" strategy="afterInteractive">
-          {`
-            var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-            (function(){
-            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-            s1.async=true;
-            s1.src='https://embed.tawk.to/679b3891825083258e0a3013/1iiqnndun';
-            s1.charset='UTF-8';
-            s1.setAttribute('crossorigin','*');
-            s0.parentNode.insertBefore(s1,s0);
-            })();
-          `}
-        </Script>
+        {/* Tawk.to Live Chat - Externalized for stability */}
+        {process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID && process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID !== 'undefined' && (
+          <Script id="tawk-to" strategy="afterInteractive">
+            {`
+              var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+              (function(){
+              var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+              s1.async=true;
+              s1.src='https://embed.tawk.to/${process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID}/default';
+              s1.charset='UTF-8';
+              s1.setAttribute('crossorigin','*');
+              s0.parentNode.insertBefore(s1,s0);
+              })();
+            `}
+          </Script>
+        )}
       </body>
     </html>
   );

@@ -69,7 +69,7 @@ export default function SmartRecommendationsPage() {
                                 className={`cursor-pointer hover:border-primary-500 hover:shadow-lg transition-all ${prefs.productType === item.id ? 'border-primary-500 bg-primary-50' : ''}`}
                                >
                                    <CardContent className="p-8 flex flex-col items-center text-center">
-                                       <item.icon className={`w-12 h-12 mb-4 ${prefs.productType === item.id ? 'text-primary-600' : 'text-slate-400'}`} />
+                                       <item.icon className={`w-12 h-12 mb-4 ${prefs.productType === item.id ? 'text-primary-600' : 'text-slate-600'}`} />
                                        <h3 className="font-bold text-lg">{item.label}</h3>
                                    </CardContent>
                                </Card>
@@ -141,7 +141,7 @@ export default function SmartRecommendationsPage() {
                                             {range === 'low' ? '< ₹20k / month' : range === 'medium' ? '₹20k - ₹50k / month' : '> ₹50k / month'}
                                         </p>
                                     </div>
-                                    <ChevronRight className="w-5 h-5 text-slate-400" />
+                                    <ChevronRight className="w-5 h-5 text-slate-600" />
                                </div>
                            ))}
                         </div>
@@ -174,7 +174,7 @@ export default function SmartRecommendationsPage() {
                     // WIZARD MODE
                     <div className="bg-white rounded-2xl shadow-xl max-w-3xl mx-auto p-8 md:p-12 min-h-[500px] flex flex-col justify-center relative">
                         {step > 0 && (
-                            <button onClick={handleBack} className="absolute top-8 left-8 text-slate-400 hover:text-slate-600 flex items-center gap-1 text-sm font-semibold">
+                            <button onClick={handleBack} className="absolute top-8 left-8 text-slate-600 hover:text-slate-600 flex items-center gap-1 text-sm font-semibold">
                                 <ArrowLeft className="w-4 h-4" /> Back
                             </button>
                         )}

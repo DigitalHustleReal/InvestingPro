@@ -54,7 +54,7 @@ export default function EMICalculatorPage() {
             />
             
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-6">
-                <nav className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                <nav className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-600">
                     <Link href="/" className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Home</Link>
                     <span>/</span>
                     <Link href="/calculators" className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Calculators</Link>
@@ -68,7 +68,7 @@ export default function EMICalculatorPage() {
                     <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
                         EMI Calculator - Calculate Loan EMI Online
                     </h1>
-                    <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                    <p className="text-xl text-slate-600 dark:text-slate-600 max-w-3xl mx-auto leading-relaxed">
                         Calculate EMI for home loans, car loans, personal loans, and education loans. See principal vs interest breakdown and total interest paid over loan tenure.
                     </p>
                 </div>
@@ -164,7 +164,7 @@ export default function EMICalculatorPage() {
                             <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl font-mono text-center text-lg font-bold text-primary-700 dark:text-primary-400 border border-slate-200 dark:border-slate-700">
                                 EMI = [P x R x (1+R)^N] / [(1+R)^N-1]
                             </div>
-                            <div className="grid grid-cols-2 gap-4 text-sm text-slate-600 dark:text-slate-400">
+                            <div className="grid grid-cols-2 gap-4 text-sm text-slate-600 dark:text-slate-600">
                                 <div><span className="font-bold text-slate-900 dark:text-white">P</span> = Principal Loan Amount</div>
                                 <div><span className="font-bold text-slate-900 dark:text-white">R</span> = Monthly Interest Rate (Annual Rate/12/100)</div>
                                 <div><span className="font-bold text-slate-900 dark:text-white">N</span> = Loan Tenure in Months</div>
@@ -183,7 +183,7 @@ export default function EMICalculatorPage() {
                             <Info className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                             EMI Calculator - Frequently Asked Questions (FAQs)
                         </CardTitle>
-                        <p className="text-slate-600 dark:text-slate-400 mt-2">Find answers to the most common questions about EMI calculator and loan repayments</p>
+                        <p className="text-slate-600 dark:text-slate-600 mt-2">Find answers to the most common questions about EMI calculator and loan repayments</p>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-8">

@@ -406,7 +406,7 @@ export default function AIContentWriterPage() {
                                                                 </div>
                                                             </div>
                                                             {index < autoSteps.length - 1 && (
-                                                                <ArrowDown className="w-5 h-5 text-slate-400 absolute left-5 mt-12" />
+                                                                <ArrowDown className="w-5 h-5 text-slate-600 absolute left-5 mt-12" />
                                                             )}
                                                         </div>
                                                     );
@@ -561,7 +561,7 @@ export default function AIContentWriterPage() {
                                                         <ul className="space-y-2">
                                                             {NICHE_TEMPLATES.find(t => t.id === selectedTemplate)?.structure.map((section, idx) => (
                                                                 <li key={idx} className="flex items-center gap-2 text-sm text-slate-700">
-                                                                    <ArrowRight className="w-4 h-4 text-slate-400" />
+                                                                    <ArrowRight className="w-4 h-4 text-slate-600" />
                                                                     {section}
                                                                 </li>
                                                             ))}
@@ -722,7 +722,7 @@ export default function AIContentWriterPage() {
                                                 ))
                                             ) : (
                                                 <div className="text-center py-12">
-                                                    <ClipboardCheck className="w-12 h-12 text-slate-400 mx-auto mb-4" />
+                                                    <ClipboardCheck className="w-12 h-12 text-slate-600 mx-auto mb-4" />
                                                     <p className="text-slate-600">No articles in review queue</p>
                                                 </div>
                                             )}

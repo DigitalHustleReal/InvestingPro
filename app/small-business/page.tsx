@@ -28,7 +28,7 @@ const BusinessTool = ({ icon: Icon, title, desc, href }: { icon: any, title: str
             <Icon className="w-6 h-6 text-primary-600 dark:text-primary-400" />
         </div>
         <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">{title}</h3>
-        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">{desc}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-600 leading-relaxed mb-4">{desc}</p>
         <div className="flex items-center gap-1 text-xs font-bold text-primary-600 dark:text-primary-400 opacity-0 group-hover:opacity-100 transition-opacity">
             Explore <ArrowRight className="w-3 h-3" />
         </div>
@@ -52,7 +52,7 @@ export default function SmallBusinessPage() {
                         Finance Your <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-success-600">Business Growth.</span>
                     </h1>
-                    <p className="text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+                    <p className="text-xl text-slate-500 dark:text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
                         From Seed to Scale—get access to machinery loans, GST tools, business credit cards, and expert compliance guides for your startup or enterprise.
                     </p>
 
@@ -91,7 +91,7 @@ export default function SmallBusinessPage() {
                 <div className="container mx-auto px-4">
                     <div className="mb-16 text-center md:text-left">
                         <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">Tailored Capital Solutions</h2>
-                        <p className="text-lg text-slate-500 dark:text-slate-400">One size doesn't fit all. Choose the funding that matches your machinery, inventory, or payroll needs.</p>
+                        <p className="text-lg text-slate-500 dark:text-slate-600">One size doesn't fit all. Choose the funding that matches your machinery, inventory, or payroll needs.</p>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-8">
@@ -130,7 +130,7 @@ export default function SmallBusinessPage() {
                                 
                                 <ul className="space-y-3 mb-8 relative z-10">
                                     {loan.features.map((f, i) => (
-                                        <li key={i} className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
+                                        <li key={i} className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-600">
                                             <CheckCircle2 className="w-4 h-4 text-primary-500 flex-shrink-0" />
                                             {f}
                                         </li>
@@ -197,7 +197,7 @@ export default function SmallBusinessPage() {
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16 px-4">
                         <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4">MSME Digital Toolkit</h2>
-                        <p className="text-lg text-slate-500 dark:text-slate-400">Essential software and services to automate your business operations.</p>
+                        <p className="text-lg text-slate-500 dark:text-slate-600">Essential software and services to automate your business operations.</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -210,7 +210,7 @@ export default function SmallBusinessPage() {
                             <div key={idx} className="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center hover:border-primary-500 dark:hover:border-primary-500 hover:shadow-xl hover:shadow-primary-500/5 transition-all duration-300 group">
                                 <div className="text-5xl mb-6 group-hover:scale-110 transition-transform duration-300 inline-block">{tool.logo}</div>
                                 <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-1">{tool.name}</h4>
-                                <p className="text-sm text-slate-500 dark:text-slate-400 mb-6 font-medium">{tool.type}</p>
+                                <p className="text-sm text-slate-500 dark:text-slate-600 mb-6 font-medium">{tool.type}</p>
                                 <Button variant="link" className="text-primary-600 dark:text-primary-400 font-bold p-0 group-hover:underline">
                                     Get Partner Offer
                                 </Button>
@@ -225,15 +225,15 @@ export default function SmallBusinessPage() {
                 <div className="container mx-auto px-4 flex flex-col items-center text-center">
                     <Handshake className="w-16 h-16 text-slate-300 dark:text-slate-700 mb-8" />
                     <h2 className="text-3xl font-black text-slate-900 dark:text-white mb-6">Trusted by 10,000+ Indian Small Businesses</h2>
-                    <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mb-12">
+                    <p className="text-lg text-slate-500 dark:text-slate-600 max-w-2xl mb-12">
                         We don't just list products; we help you interpret them. Our experts are available for personalized financial consultations.
                     </p>
                     <div className="flex flex-wrap justify-center gap-12 opacity-40 hover:opacity-100 transition-all duration-500 grayscale">
                         {/* Partner logos placeholder */}
-                        <div className="font-bold text-3xl text-slate-400 dark:text-slate-600">SBI</div>
-                        <div className="font-bold text-3xl text-slate-400 dark:text-slate-600">SIDBI</div>
-                        <div className="font-bold text-3xl text-slate-400 dark:text-slate-600">NSIC</div>
-                        <div className="font-bold text-3xl text-slate-400 dark:text-slate-600">NABARD</div>
+                        <div className="font-bold text-3xl text-slate-600 dark:text-slate-600">SBI</div>
+                        <div className="font-bold text-3xl text-slate-600 dark:text-slate-600">SIDBI</div>
+                        <div className="font-bold text-3xl text-slate-600 dark:text-slate-600">NSIC</div>
+                        <div className="font-bold text-3xl text-slate-600 dark:text-slate-600">NABARD</div>
                     </div>
                 </div>
             </section>

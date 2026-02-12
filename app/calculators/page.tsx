@@ -165,7 +165,7 @@ export default function CalculatorsPage() {
                 <Tabs defaultValue="sip" className="space-y-8">
                     <div className="mb-8">
                         <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">All Calculators</h2>
-                        <p className="text-slate-600 dark:text-slate-400">Choose a calculator to get started</p>
+                        <p className="text-slate-600 dark:text-slate-600">Choose a calculator to get started</p>
                     </div>
                     <TabsList className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-1.5 h-auto inline-flex flex-wrap rounded-xl shadow-sm gap-2">
                         <TabsTrigger value="sip" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
@@ -262,7 +262,7 @@ export default function CalculatorsPage() {
                     <TabsContent value="sip">
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
-                                <p className="text-slate-600 dark:text-slate-400">Visit our dedicated SIP calculator page for comprehensive guides and FAQs.</p>
+                                <p className="text-slate-600 dark:text-slate-600">Visit our dedicated SIP calculator page for comprehensive guides and FAQs.</p>
                                 <Link href="/calculators/sip" className="text-primary-600 hover:text-primary-700 font-semibold">
                                     View Full Page →
                                 </Link>
@@ -274,7 +274,7 @@ export default function CalculatorsPage() {
                     <TabsContent value="swp">
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
-                                <p className="text-slate-600 dark:text-slate-400">Visit our dedicated SWP calculator page for comprehensive guides and FAQs.</p>
+                                <p className="text-slate-600 dark:text-slate-600">Visit our dedicated SWP calculator page for comprehensive guides and FAQs.</p>
                                 <Link href="/calculators/swp" className="text-primary-600 hover:text-primary-700 font-semibold">
                                     View Full Page →
                                 </Link>
@@ -286,7 +286,7 @@ export default function CalculatorsPage() {
                     <TabsContent value="health">
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
-                                <p className="text-slate-600 dark:text-slate-400">Get a comprehensive assessment of your financial health.</p>
+                                <p className="text-slate-600 dark:text-slate-600">Get a comprehensive assessment of your financial health.</p>
                                 <Link href="/calculators/financial-health-score" className="text-primary-600 hover:text-primary-700 font-semibold">
                                     View Full Page →
                                 </Link>
@@ -460,7 +460,7 @@ export default function CalculatorsPage() {
                     <TabsContent value="loan-vs-sip">
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
-                                <p className="text-slate-600 dark:text-slate-400">Compare the opportunity cost of loan prepayments against equity SIPs.</p>
+                                <p className="text-slate-600 dark:text-slate-600">Compare the opportunity cost of loan prepayments against equity SIPs.</p>
                                 <Link href="/calculators/home-loan-vs-sip" className="text-primary-600 hover:text-primary-700 font-semibold">
                                     View Full Page →
                                 </Link>
@@ -606,7 +606,7 @@ export default function CalculatorsPage() {
                                 ].map((faq, idx) => (
                                     <div key={idx} className="border-b border-slate-200 dark:border-slate-800 pb-6 last:border-0">
                                         <h3 className="font-bold text-slate-900 dark:text-white mb-2 text-lg">{faq.q}</h3>
-                                        <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{faq.a}</p>
+                                        <p className="text-slate-600 dark:text-slate-600 leading-relaxed">{faq.a}</p>
                                     </div>
                                 ))}
                             </div>
@@ -635,7 +635,7 @@ export default function CalculatorsPage() {
                                             <CalculatorIcon className="w-4 h-4 text-primary-600 group-hover:text-primary-700" />
                                             <span className="font-semibold text-slate-900 dark:text-white group-hover:text-primary-600">{item.name}</span>
                                         </div>
-                                        <p className="text-sm text-slate-600 dark:text-slate-400">{item.desc}</p>
+                                        <p className="text-sm text-slate-600 dark:text-slate-600">{item.desc}</p>
                                     </Link>
                                 ))}
                             </div>
@@ -693,7 +693,7 @@ export default function CalculatorsPage() {
                                     <CardContent className="p-8 text-center">
                                         <div className="flex justify-center mb-4">{feature.icon}</div>
                                         <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{feature.title}</h3>
-                                        <p className="text-slate-600 dark:text-slate-400">{feature.description}</p>
+                                        <p className="text-slate-600 dark:text-slate-600">{feature.description}</p>
                                     </CardContent>
                                 </Card>
                             ))}

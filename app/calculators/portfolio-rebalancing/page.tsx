@@ -23,7 +23,7 @@ export default function RebalancingPage() {
            <h1 className="text-4xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">
              Portfolio Rebalancing Tool
            </h1>
-           <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+           <p className="text-lg text-slate-600 dark:text-slate-600 leading-relaxed">
              Maintain your risk discipline. Our tool calculates exactly what you need to buy or sell to get your portfolio back on track.
            </p>
         </div>

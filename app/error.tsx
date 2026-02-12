@@ -14,9 +14,24 @@ export default function GlobalError({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Log the error to our internal logging service
     logger.error('Global Application Error', error);
   }, [error]);
+
+  // Determine error type for actionable guidance
+  const getErrorGuidance = () => {
+    const msg = error.message?.toLowerCase() || '';
+    if (msg.includes('timeout') || msg.includes('timed out'))
+      return { title: 'Request Timed Out', detail: 'The server took too long to respond. This usually resolves on retry.' };
+    if (msg.includes('network') || msg.includes('fetch'))
+      return { title: 'Connection Issue', detail: 'Could not reach the server. Check your internet connection and try again.' };
+    if (msg.includes('auth') || msg.includes('unauthorized') || msg.includes('401'))
+      return { title: 'Session Expired', detail: 'Your login session may have expired. Try refreshing or logging in again.' };
+    if (msg.includes('not found') || msg.includes('404'))
+      return { title: 'Page Not Found', detail: 'The requested resource could not be located.' };
+    return { title: 'Something Went Wrong', detail: 'An unexpected error occurred. Our team has been notified.' };
+  };
+
+  const guidance = getErrorGuidance();
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
@@ -29,16 +44,16 @@ export default function GlobalError({
           </div>
         </div>
 
-        <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
-          System Interruption
+        <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
+          {guidance.title}
         </h1>
         
-        <p className="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
-          We've encountered an unexpected technical issue. Our engineering team has been notified and is working on a fix.
+        <p className="text-slate-600 dark:text-slate-600 mb-6 leading-relaxed">
+          {guidance.detail}
         </p>
 
         {error.digest && (
-          <div className="mb-8 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+          <div className="mb-6 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
             <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-1">Error Reference</p>
             <p className="text-xs font-mono text-slate-700 dark:text-slate-300 break-all">{error.digest}</p>
           </div>
@@ -47,27 +62,40 @@ export default function GlobalError({
         <div className="flex flex-col gap-3">
           <Button 
             onClick={() => reset()}
-            className="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 h-12 rounded-xl font-bold flex items-center justify-center gap-2"
+            className="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 h-12 rounded-xl font-bold flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-500"
           >
             <RefreshCcw className="w-4 h-4" />
             Retry Request
           </Button>
 
-          <Button 
-            variant="outline" 
-            asChild
-            className="w-full h-12 rounded-xl border-slate-200 dark:border-slate-800 flex items-center justify-center gap-2"
-          >
-            <Link href="/">
-              <Home className="w-4 h-4" />
-              Return to Home
-            </Link>
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              variant="outline" 
+              asChild
+              className="flex-1 h-12 rounded-xl border-slate-200 dark:border-slate-800 flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-offset-2"
+            >
+              <Link href="/">
+                <Home className="w-4 h-4" />
+                Home
+              </Link>
+            </Button>
 
-          <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800">
+            <Button 
+              variant="outline" 
+              asChild
+              className="flex-1 h-12 rounded-xl border-slate-200 dark:border-slate-800 flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-offset-2"
+            >
+              <Link href="/admin">
+                <Home className="w-4 h-4" />
+                Admin
+              </Link>
+            </Button>
+          </div>
+
+          <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800">
             <Link 
               href="/support" 
-              className="text-sm font-medium text-slate-500 hover:text-secondary-500 flex items-center justify-center gap-2 transition-colors"
+              className="text-sm font-medium text-slate-500 hover:text-secondary-500 flex items-center justify-center gap-2 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-500 rounded-lg p-2"
             >
               <MessageSquare className="w-4 h-4" />
               Report this behavior

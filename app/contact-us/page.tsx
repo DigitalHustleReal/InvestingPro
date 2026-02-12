@@ -22,7 +22,7 @@ export default function ContactPage() {
                     <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                         Get in Touch
                     </h1>
-                    <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg">
+                    <p className="text-slate-600 dark:text-slate-600 max-w-2xl mx-auto text-lg">
                         Have a question about a financial product? Found a bug? Or just want to say hi? 
                         We'd love to hear from you.
                     </p>
@@ -75,7 +75,7 @@ export default function ContactPage() {
 
                         <div className="p-6 bg-slate-100 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
                             <h4 className="font-bold text-slate-900 dark:text-white mb-2">Not Financial Advice</h4>
-                            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                            <p className="text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
                                 Please note that we cannot provide personalized investment advice or handle grievances related to specific bank accounts or products directly. Please contact the respective financial institution for account-specific issues.
                             </p>
                         </div>

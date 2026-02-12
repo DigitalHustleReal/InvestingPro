@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { ScraperAgent } from '@/lib/agents/scraper-agent';
 import { logger } from '@/lib/logger';
 
-const scraperAgent = new ScraperAgent();
+const getScraperAgent = () => new ScraperAgent();
 
 /**
  * Scraper Management API
@@ -13,6 +13,7 @@ export async function GET(request: NextRequest) {
         const { searchParams } = new URL(request.url);
         const scraperId = searchParams.get('scraperId');
         const action = searchParams.get('action') || 'list';
+        const scraperAgent = getScraperAgent();
         
         if (action === 'list') {
             const scrapers = await scraperAgent.getAllScrapers();
@@ -39,6 +40,7 @@ export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
         const action = body.action;
+        const scraperAgent = getScraperAgent();
         
         if (action === 'register') {
             const scraperId = await scraperAgent.registerScraper(body.config);

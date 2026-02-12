@@ -127,11 +127,11 @@ export default function DataStudiesPage() {
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
             India Finance Data Studies
           </h1>
-          <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-8">
+          <p className="text-xl text-slate-600 dark:text-slate-600 max-w-2xl mx-auto mb-8">
             Authoritative data on loans, insurance, investments, banking, and government schemes. 
             Updated from official RBI, IRDAI, SEBI, and government sources.
           </p>
-          <div className="flex items-center justify-center gap-6 text-sm text-slate-500 dark:text-slate-400">
+          <div className="flex items-center justify-center gap-6 text-sm text-slate-500 dark:text-slate-600">
             <span className="flex items-center gap-1">
               <Clock className="w-4 h-4 text-green-500" />
               {liveStudiesCount} Live Data Studies
@@ -281,7 +281,7 @@ export default function DataStudiesPage() {
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
             Use Our Data in Your Content
           </h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-6">
+          <p className="text-slate-600 dark:text-slate-600 mb-6">
             Journalists, bloggers, and researchers can cite our data studies. 
             All data is sourced from official government and regulatory bodies (RBI, IRDAI, SEBI, AMFI).
           </p>
@@ -355,7 +355,7 @@ function StudyCard({ study }: { study: DataStudy }) {
               key={idx}
               className="flex items-center justify-between text-sm py-1 border-b border-slate-100 dark:border-slate-800 last:border-0"
             >
-              <span className="text-slate-600 dark:text-slate-400 truncate max-w-[60%]">
+              <span className="text-slate-600 dark:text-slate-600 truncate max-w-[60%]">
                 {point.label}
               </span>
               <span className="font-semibold">
@@ -373,7 +373,7 @@ function StudyCard({ study }: { study: DataStudy }) {
         {/* Key Insight */}
         {study.insights[0] && (
           <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-3 mb-4">
-            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-600 mb-1">
               Key Insight
             </p>
             <p className="text-sm text-slate-700 dark:text-slate-300">

@@ -134,19 +134,19 @@ export default function HomeLoansPage() {
                         <CardContent>
                             <ul className="space-y-2 text-slate-700">
                                 <li className="flex items-start gap-2">
-                                    <span className="text-slate-400 mt-1">•</span>
+                                    <span className="text-slate-600 mt-1">•</span>
                                     <span><strong>Processing Fee:</strong> Typically 0.5% to 1% of the loan amount, plus applicable GST</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-slate-400 mt-1">•</span>
+                                    <span className="text-slate-600 mt-1">•</span>
                                     <span><strong>Legal and Technical Fees:</strong> For property valuation and legal verification</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-slate-400 mt-1">•</span>
+                                    <span className="text-slate-600 mt-1">•</span>
                                     <span><strong>Stamp Duty and Registration:</strong> State-specific charges for property registration</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-slate-400 mt-1">•</span>
+                                    <span className="text-slate-600 mt-1">•</span>
                                     <span><strong>Insurance:</strong> Home loan insurance may be required by some lenders</span>
                                 </li>
                             </ul>
@@ -203,15 +203,15 @@ export default function HomeLoansPage() {
                     
                     <ul className="space-y-2 text-slate-700 mb-4">
                         <li className="flex items-start gap-2">
-                            <span className="text-slate-400 mt-1">•</span>
+                            <span className="text-slate-600 mt-1">•</span>
                             <span><strong>Personal Loans:</strong> For smaller amounts or when you don't have property to offer as collateral, though interest rates are typically higher</span>
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-slate-400 mt-1">•</span>
+                            <span className="text-slate-600 mt-1">•</span>
                             <span><strong>Loan Against Property:</strong> When you already own property and need funds, using existing property as collateral</span>
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-slate-400 mt-1">•</span>
+                            <span className="text-slate-600 mt-1">•</span>
                             <span><strong>Self-Funding:</strong> If you have sufficient savings and the opportunity cost of using those funds is lower than loan interest</span>
                         </li>
                     </ul>

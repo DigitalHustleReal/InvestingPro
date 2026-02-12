@@ -95,13 +95,13 @@ export default function IPOPage() {
         switch(status) {
             case 'open': return 'bg-primary-50 text-primary-600 dark:bg-primary-500/10 dark:text-primary-400 border-primary-100 dark:border-primary-500/20';
             case 'upcoming': return 'bg-primary-50 text-primary-600 dark:bg-primary-500/10 dark:text-primary-400 border-primary-100 dark:border-primary-500/20';
-            case 'closed': return 'bg-slate-100 text-slate-600 dark:bg-slate-500/10 dark:text-slate-400 border-slate-200 dark:border-slate-500/20';
-            default: return 'bg-slate-100 text-slate-600 dark:bg-slate-500/10 dark:text-slate-400';
+            case 'closed': return 'bg-slate-100 text-slate-600 dark:bg-slate-500/10 dark:text-slate-600 border-slate-200 dark:border-slate-500/20';
+            default: return 'bg-slate-100 text-slate-600 dark:bg-slate-500/10 dark:text-slate-600';
         }
     };
 
     const getGMPColor = (gmp?: number) => {
-        if (!gmp) return 'text-slate-600 dark:text-slate-400';
+        if (!gmp) return 'text-slate-600 dark:text-slate-600';
         if (gmp > 0) return 'text-primary-600 dark:text-primary-400';
         return 'text-danger-600 dark:text-danger-400';
     };
@@ -125,7 +125,7 @@ export default function IPOPage() {
             <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
                 <div className="text-center">
                     <RefreshCw className="w-12 h-12 text-primary-500 animate-spin mx-auto mb-4" />
-                    <p className="text-slate-600 dark:text-slate-400">Loading IPO data...</p>
+                    <p className="text-slate-600 dark:text-slate-600">Loading IPO data...</p>
                 </div>
             </div>
         );
@@ -139,7 +139,7 @@ export default function IPOPage() {
                     <CardContent className="p-8 text-center">
                         <AlertCircle className="w-12 h-12 text-danger-500 mx-auto mb-4" />
                         <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Failed to Load Data</h3>
-                        <p className="text-slate-600 dark:text-slate-400 mb-4">
+                        <p className="text-slate-600 dark:text-slate-600 mb-4">
                             {error instanceof Error ? error.message : 'Unknown error occurred'}
                         </p>
                         <Button onClick={() => refetch()} className="bg-primary-600 hover:bg-primary-700">
@@ -179,7 +179,7 @@ export default function IPOPage() {
                             <span className="bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text text-transparent">GMP Tracker</span>
                         </h1>
                         
-                        <p className="text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed">
+                        <p className="text-xl text-slate-600 dark:text-slate-600 mb-10 max-w-3xl mx-auto leading-relaxed">
                             Track Grey Market Premium (GMP), subscription status, and get data-driven listing predictions 
                             for all upcoming and current IPOs in India.
                         </p>
@@ -196,7 +196,7 @@ export default function IPOPage() {
                                 { label: "Data Source", value: apiResponse?.source || 'Live', icon: CheckCircle2, color: "purple" }
                             ].map((stat, i) => (
                                 <div key={i} className="text-center">
-                                    <div className="flex items-center justify-center gap-2 text-slate-500 dark:text-slate-400 text-sm font-medium mb-2">
+                                    <div className="flex items-center justify-center gap-2 text-slate-500 dark:text-slate-600 text-sm font-medium mb-2">
                                         <stat.icon size={14} /> {stat.label}
                                     </div>
                                     <div className="text-3xl font-bold text-slate-900 dark:text-white">{stat.value}</div>
@@ -206,7 +206,7 @@ export default function IPOPage() {
 
                         {/* Last Updated & Refresh */}
                         <div className="mt-8 flex items-center justify-center gap-4">
-                            <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+                            <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-600">
                                 <Clock className="w-4 h-4" />
                                 Last updated: {lastUpdated.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}
                             </div>
@@ -256,7 +256,7 @@ export default function IPOPage() {
                                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
                                     No IPOs Found
                                 </h3>
-                                <p className="text-slate-600 dark:text-slate-400">
+                                <p className="text-slate-600 dark:text-slate-600">
                                     No {activeTab !== 'all' ? activeTab : ''} IPOs available at the moment.
                                 </p>
                             </CardContent>
@@ -288,7 +288,7 @@ export default function IPOPage() {
                                                                     {status.toUpperCase()}
                                                 </Badge>
                                                 <div className="mt-3 text-sm">
-                                                    <div className="text-slate-500 dark:text-slate-400">Issue Price</div>
+                                                    <div className="text-slate-500 dark:text-slate-600">Issue Price</div>
                                                                     <div className="font-bold text-slate-900 dark:text-white text-xl">{formatCurrency(ipo.issuePrice)}</div>
                                                                     <div className="text-xs text-slate-500 mt-1">Lot Size: {ipo.lotSize || 'â€”'} shares</div>
                                                 </div>
@@ -301,7 +301,7 @@ export default function IPOPage() {
                                         <div className="grid md:grid-cols-2 gap-8">
                                             {/* GMP Section */}
                                             <div>
-                                                <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-3">
+                                                <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-600 mb-3">
                                                     <Info size={14} />
                                                     Grey Market Premium (GMP)
                                                 </div>
@@ -313,14 +313,14 @@ export default function IPOPage() {
                                                     {gmpPercent > 0 ? '+' : ''}{gmpPercent}% over issue price
                                                 </div>
                                                 <div className="mt-4 p-3 bg-slate-100 dark:bg-slate-800 rounded-xl">
-                                                    <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">Expected Listing Price</div>
+                                                    <div className="text-xs text-slate-500 dark:text-slate-600 mb-1">Expected Listing Price</div>
                                                                     <div className="text-xl font-bold text-slate-900 dark:text-white">{formatCurrency(ipo.estimatedListingPrice)}</div>
                                                 </div>
                                             </div>
 
                                             {/* Subscription Section */}
                                             <div>
-                                                <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-3">
+                                                <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-600 mb-3">
                                                     <BarChart3 size={14} />
                                                     Subscription Status
                                                 </div>
@@ -336,7 +336,7 @@ export default function IPOPage() {
                                                     ].map((cat, idx) => (
                                                         <div key={idx}>
                                                             <div className="flex justify-between text-xs mb-1">
-                                                                <span className="text-slate-500 dark:text-slate-400">{cat.label}</span>
+                                                                <span className="text-slate-500 dark:text-slate-600">{cat.label}</span>
                                                                 <span className="font-semibold text-slate-900 dark:text-white">{cat.value}x</span>
                                                             </div>
                                                             <div className="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
@@ -355,21 +355,21 @@ export default function IPOPage() {
                                         <div className="mt-8 pt-8 border-t border-slate-100 dark:border-slate-800">
                                             <div className="flex items-center justify-between text-sm">
                                                 <div>
-                                                    <div className="text-slate-500 dark:text-slate-400 mb-1">Opens</div>
+                                                    <div className="text-slate-500 dark:text-slate-600 mb-1">Opens</div>
                                                     <div className="font-semibold text-slate-900 dark:text-white">
                                                                         {ipo.openDate ? new Date(ipo.openDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'â€”'}
                                                     </div>
                                                 </div>
                                                 <div className="text-slate-300 dark:text-slate-700">â†’</div>
                                                 <div>
-                                                    <div className="text-slate-500 dark:text-slate-400 mb-1">Closes</div>
+                                                    <div className="text-slate-500 dark:text-slate-600 mb-1">Closes</div>
                                                     <div className="font-semibold text-slate-900 dark:text-white">
                                                                         {ipo.closeDate ? new Date(ipo.closeDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'â€”'}
                                                     </div>
                                                 </div>
                                                 <div className="text-slate-300 dark:text-slate-700">â†’</div>
                                                 <div>
-                                                    <div className="text-slate-500 dark:text-slate-400 mb-1">Listing</div>
+                                                    <div className="text-slate-500 dark:text-slate-600 mb-1">Listing</div>
                                                     <div className="font-semibold text-slate-900 dark:text-white">
                                                                         {ipo.listingDate ? new Date(ipo.listingDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'â€”'}
                                                     </div>
@@ -408,7 +408,7 @@ export default function IPOPage() {
                         <CardContent className="p-8">
                             <Sparkles className="w-8 h-8 text-primary-500 mb-4" />
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">What is Grey Market Premium (GMP)?</h3>
-                            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                            <p className="text-slate-600 dark:text-slate-600 text-sm leading-relaxed">
                                 GMP is the price at which IPO shares trade in the unofficial "grey market" before listing. 
                                 A positive GMP suggests strong demand, but it's not a guarantee of listing day gains.
                             </p>
@@ -419,7 +419,7 @@ export default function IPOPage() {
                         <CardContent className="p-8">
                             <BarChart3 className="w-8 h-8 text-primary-500 mb-4" />
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Understanding Subscription Data</h3>
-                            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                            <p className="text-slate-600 dark:text-slate-600 text-sm leading-relaxed">
                                 QIB (banks/funds), NII (wealthy investors), and Retail subscription numbers help gauge 
                                 demand across investor segments. Higher subscription often indicates confidence.
                             </p>

@@ -9,6 +9,7 @@ import CategoryHero from '@/components/common/CategoryHero';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
 import MobileEngagementBar from '@/components/common/MobileEngagementBar';
+import AffiliateDisclosure from '@/components/common/AffiliateDisclosure';
 
 import { getCreditCardsServer } from '@/lib/products/get-credit-cards-server';
 import CreditCardsClient from './CreditCardsClient';
@@ -68,8 +69,13 @@ export default async function CreditCardsPage() {
                           ]}
                           badge="Helps You Decide • Expert-Reviewed • Instant Apply"
                           variant="primary"
-                          className="mb-12"
+                          className="mb-8"
                       />
+
+                      {/* Pre-Launch Critical: Affiliate Disclosure above the fold */}
+                      <div className="max-w-xl mx-auto mb-10">
+                         <AffiliateDisclosure variant="inline" hasAffiliateLink={true} className="rounded-xl border border-primary-200/50" />
+                      </div>
 
                       {/* Search Bar - Visual Only (Real search is in Client Component below or needs Refactoring to use URL params) 
                           For now, we keep it as a visual entry point that scrolls to the list or we move logic to Client.

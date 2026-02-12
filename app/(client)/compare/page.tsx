@@ -161,7 +161,7 @@ export default function ComparisonPage() {
                                       <cat.icon className={`w-7 h-7 ${cat.color}`} />
                                   </div>
                                   <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-primary-600 transition-colors">{cat.title}</h3>
-                                  <p className="text-slate-500 dark:text-slate-400 mb-6">{cat.desc}</p>
+                                  <p className="text-slate-500 dark:text-slate-600 mb-6">{cat.desc}</p>
                                   <div className="flex items-center text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
                                       Compare Now <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                                   </div>
@@ -171,7 +171,7 @@ export default function ComparisonPage() {
 
                       <div className="max-w-4xl mx-auto mb-16">
                           <h2 className="text-2xl font-bold text-center mb-10 flex items-center justify-center gap-3">
-                              <ArrowLeftRight className="w-6 h-6 text-slate-400" />
+                              <ArrowLeftRight className="w-6 h-6 text-slate-600" />
                               Popular Battles
                           </h2>
                           <div className="grid md:grid-cols-2 gap-4">
@@ -179,7 +179,7 @@ export default function ComparisonPage() {
                                   <Link key={i} href={`/compare/${comp.slug}`} className="flex items-center justify-between p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary-500 hover:shadow-md transition-all group">
                                       <div className="flex items-center gap-3">
                                           <span className="font-semibold text-slate-700 dark:text-slate-300">{comp.p1}</span>
-                                          <span className="text-slate-400 text-xs font-bold bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">VS</span>
+                                          <span className="text-slate-600 text-xs font-bold bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">VS</span>
                                           <span className="font-semibold text-slate-700 dark:text-slate-300">{comp.p2}</span>
                                       </div>
                                       <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-primary-500 transition-colors" />
@@ -283,7 +283,7 @@ export default function ComparisonPage() {
 
                                     return (
                                         <div key={field.key} className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
-                                            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 dark:border-slate-800 pb-2">{field.label}</p>
+                                            <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-4 border-b border-slate-100 dark:border-slate-800 pb-2">{field.label}</p>
                                             <div className="grid grid-cols-2 gap-4">
                                                 {products.map((product, pIdx) => {
                                                     const value = getFieldValue(product, field.key);
@@ -332,7 +332,7 @@ export default function ComparisonPage() {
                                                 }}
                                                 className="absolute -top-2 -right-2 p-1 bg-slate-200 dark:bg-slate-800 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                                             >
-                                                <X className="w-3 h-3 text-slate-600 dark:text-slate-400" />
+                                                <X className="w-3 h-3 text-slate-600 dark:text-slate-600" />
                                             </button>
 
                                             <div className="h-32 flex items-center justify-center mb-4 p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
@@ -398,7 +398,7 @@ export default function ComparisonPage() {
 
                                         return (
                                             <tr key={field.key} className="group hover:bg-slate-50 dark:hover:bg-slate-900/30 transition-colors">
-                                                <td className="p-4 py-6 text-sm font-medium text-slate-600 dark:text-slate-400 bg-white dark:bg-slate-950 sticky left-0 z-10 border-r border-slate-100 dark:border-slate-800 group-hover:bg-slate-50 dark:group-hover:bg-slate-900/30">
+                                                <td className="p-4 py-6 text-sm font-medium text-slate-600 dark:text-slate-600 bg-white dark:bg-slate-950 sticky left-0 z-10 border-r border-slate-100 dark:border-slate-800 group-hover:bg-slate-50 dark:group-hover:bg-slate-900/30">
                                                     {field.label}
                                                     {field.help && <AlertCircle className="w-3 h-3 inline ml-1 text-slate-300" />}
                                                 </td>

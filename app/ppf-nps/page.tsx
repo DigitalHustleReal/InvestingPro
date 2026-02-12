@@ -48,7 +48,7 @@ export default function PPFandNPSPage() {
                         <h1 className="text-4xl sm:text-6xl font-bold text-white tracking-tight leading-tight">
                             Retirement <span className="text-secondary-400">Tactics</span>: PPF & NPS
                         </h1>
-                        <p className="text-xl text-slate-400 font-medium leading-relaxed">
+                        <p className="text-xl text-slate-600 font-medium leading-relaxed">
                             Strategic deployment into EEE-status savings and market-linked pension systems. Build your multi-generational wealth fortress.
                         </p>
                     </div>
@@ -108,7 +108,7 @@ export default function PPFandNPSPage() {
                                         ].map((stat, i) => (
                                             <div key={i} className={`p-6 rounded-3xl ${stat.bg} border border-transparent hover:border-white/50 transition-all`}>
                                                 <stat.icon className={`w-5 h-5 ${stat.color} mb-3`} />
-                                                <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-st mb-1">{stat.label}</p>
+                                                <p className="text-[10px] font-semibold text-slate-600 uppercase tracking-st mb-1">{stat.label}</p>
                                                 <p className={`text-2xl font-bold ${stat.color} mb-1`}>{stat.value}</p>
                                                 <p className="text-[11px] font-bold text-slate-500 opacity-60 uppercase">{stat.sub}</p>
                                             </div>
@@ -220,7 +220,7 @@ export default function PPFandNPSPage() {
                                         ].map((stat, i) => (
                                             <div key={i} className={`p-6 rounded-3xl ${stat.bg} border border-transparent hover:border-white/50 transition-all`}>
                                                 <stat.icon className={`w-5 h-5 ${stat.color} mb-3`} />
-                                                <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-st mb-1">{stat.label}</p>
+                                                <p className="text-[10px] font-semibold text-slate-600 uppercase tracking-st mb-1">{stat.label}</p>
                                                 <p className={`text-2xl font-bold ${stat.color} mb-1`}>{stat.value}</p>
                                                 <p className="text-[11px] font-bold text-slate-500 opacity-60 uppercase">{stat.sub}</p>
                                             </div>
@@ -234,7 +234,7 @@ export default function PPFandNPSPage() {
                                                 <div className="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-full blur-2xl group-hover:scale-150 transition-transform" />
                                                 <h4 className="text-[10px] font-semibold uppercase text-slate-500 tracking-st mb-3">Core Deduction (80CCD)</h4>
                                                 <p className="text-2xl font-bold tracking-tight mb-2">₹1,50,000</p>
-                                                <p className="text-sm text-slate-400 font-medium leading-relaxed">Integrated within the shared Section 80C umbrella for annual exemptions.</p>
+                                                <p className="text-sm text-slate-600 font-medium leading-relaxed">Integrated within the shared Section 80C umbrella for annual exemptions.</p>
                                             </div>
                                             <div className="p-6 bg-primary-600 text-white rounded-[2.5rem] relative overflow-hidden group">
                                                 <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform" />
@@ -276,7 +276,7 @@ export default function PPFandNPSPage() {
                                                     <Badge className="bg-primary-50 text-primary-600 border-0 rounded-lg text-[9px] font-bold uppercase">{fund.returns}</Badge>
                                                 </div>
                                                 <div className="flex justify-between items-center pt-4 border-t border-slate-100">
-                                                    <span className="text-[10px] font-bold text-slate-400 tracking-widest uppercase">Verified AUM</span>
+                                                    <span className="text-[10px] font-bold text-slate-600 tracking-widest uppercase">Verified AUM</span>
                                                     <span className="text-xs font-bold text-slate-900">{fund.aum}</span>
                                                 </div>
                                             </div>
@@ -343,7 +343,7 @@ export default function PPFandNPSPage() {
                         <table className="w-full text-left">
                             <thead>
                                 <tr className="border-b border-slate-100">
-                                    <th className="pb-6 text-[11px] font-semibold text-slate-400 uppercase tracking-st">Asset Parameters</th>
+                                    <th className="pb-6 text-[11px] font-semibold text-slate-600 uppercase tracking-st">Asset Parameters</th>
                                     <th className="pb-6 text-[11px] font-semibold text-secondary-600 uppercase tracking-st text-center">PPF Protocol</th>
                                     <th className="pb-6 text-[11px] font-semibold text-primary-600 uppercase tracking-st text-center">NPS Infrastructure</th>
                                 </tr>

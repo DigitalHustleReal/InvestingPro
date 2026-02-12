@@ -57,7 +57,7 @@ export default function AccessibilityPage() {
                         <li>JavaScript</li>
                     </ul>
 
-                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-8">
+                    <p className="text-sm text-slate-500 dark:text-slate-600 mt-8">
                         This statement was last updated on January 10, 2026.
                     </p>
                 </div>

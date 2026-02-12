@@ -204,7 +204,7 @@ export default function WalletArchitectPage() {
                             </div>
                         </div>
                     ) : (
-                        <div className="h-full flex flex-col items-center justify-center text-center p-12 text-slate-400 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-[3rem]">
+                        <div className="h-full flex flex-col items-center justify-center text-center p-12 text-slate-600 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-[3rem]">
                             <div className="w-24 h-24 bg-slate-50 dark:bg-slate-900 rounded-full flex items-center justify-center mb-6">
                                 <Wallet className="w-10 h-10 opacity-20" />
                             </div>
@@ -225,7 +225,7 @@ function SpendInput({ label, value, onChange, icon: Icon, max = 50000 }: any) {
         <div className="space-y-3">
             <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300 font-medium">
-                    <Icon className="w-4 h-4 text-slate-400" />
+                    <Icon className="w-4 h-4 text-slate-600" />
                     {label}
                 </div>
                 <div className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-sm font-bold w-24 text-right">

@@ -32,7 +32,7 @@ export default function GlobalError({
               <Button onClick={() => reset()} className="w-full bg-primary-600 hover:bg-primary-700 text-white">
                 Try again
               </Button>
-              <button onClick={() => window.location.href = '/'} className="text-sm text-slate-400 hover:text-slate-600">
+              <button onClick={() => window.location.href = '/'} className="text-sm text-slate-600 hover:text-slate-600">
                   Go to Homepage
               </button>
           </div>

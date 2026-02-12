@@ -134,7 +134,7 @@ export default function LumpsumCalculatorPage() {
                     <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
                         Lumpsum Investment Calculator
                     </h1>
-                    <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                    <p className="text-xl text-slate-600 dark:text-slate-600 max-w-3xl mx-auto leading-relaxed">
                         Calculate returns on one-time lumpsum investments with inflation adjustment. Plan your investment goals with accurate projections.
                     </p>
                 </div>
@@ -265,7 +265,7 @@ export default function LumpsumCalculatorPage() {
                                         <span className="text-primary-600 font-bold">Q{idx + 1}.</span>
                                         <span>{faq.question}</span>
                                     </h3>
-                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed ml-8">
+                                    <p className="text-slate-600 dark:text-slate-600 leading-relaxed ml-8">
                                         {faq.answer}
                                     </p>
                                 </div>

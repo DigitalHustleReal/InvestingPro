@@ -221,11 +221,11 @@ export default function SpendingBasedRecommendationsPage() {
                             {spendingInput.monthlySpending === 0 ? (
                                 <Card>
                                     <CardContent className="py-12 text-center">
-                                        <TrendingUp className="w-12 h-12 text-slate-400 mx-auto mb-4" />
+                                        <TrendingUp className="w-12 h-12 text-slate-600 mx-auto mb-4" />
                                         <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
                                             Enter Your Spending
                                         </h3>
-                                        <p className="text-slate-600 dark:text-slate-400">
+                                        <p className="text-slate-600 dark:text-slate-600">
                                             Fill in your monthly spending to get personalized credit card recommendations.
                                         </p>
                                     </CardContent>
@@ -234,13 +234,13 @@ export default function SpendingBasedRecommendationsPage() {
                                 <Card>
                                     <CardContent className="py-12 text-center">
                                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-                                        <p className="mt-4 text-slate-600 dark:text-slate-400">Loading recommendations...</p>
+                                        <p className="mt-4 text-slate-600 dark:text-slate-600">Loading recommendations...</p>
                                     </CardContent>
                                 </Card>
                             ) : recommendations.length === 0 ? (
                                 <Card>
                                     <CardContent className="py-12 text-center">
-                                        <p className="text-slate-600 dark:text-slate-400">No recommendations found. Try adjusting your spending amounts.</p>
+                                        <p className="text-slate-600 dark:text-slate-600">No recommendations found. Try adjusting your spending amounts.</p>
                                     </CardContent>
                                 </Card>
                             ) : (
@@ -254,7 +254,7 @@ export default function SpendingBasedRecommendationsPage() {
                                                         Top Spending Category: {topCategory.name === 'onlineShopping' ? 'Online Shopping' : topCategory.name.charAt(0).toUpperCase() + topCategory.name.slice(1)}
                                                     </h3>
                                                 </div>
-                                                <p className="text-sm text-slate-600 dark:text-slate-400">
+                                                <p className="text-sm text-slate-600 dark:text-slate-600">
                                                     You spend {formatCurrency(topCategory.amount)}/month on {topCategory.name === 'onlineShopping' ? 'online shopping' : topCategory.name}. 
                                                     We've prioritized cards that maximize rewards in this category.
                                                 </p>
@@ -280,14 +280,14 @@ export default function SpendingBasedRecommendationsPage() {
                                                                         #{idx + 1} Match
                                                                     </span>
                                                                 </div>
-                                                                <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                                                                <p className="text-sm text-slate-600 dark:text-slate-600 mb-3">
                                                                     {(rec.card as any).provider}
                                                                 </p>
                                                                 <div className="flex items-center gap-4 text-sm">
-                                                                    <span className="text-slate-600 dark:text-slate-400">
+                                                                    <span className="text-slate-600 dark:text-slate-600">
                                                                         Estimated Rewards: <strong className="text-success-600 dark:text-success-400">{formatCurrency(rec.estimatedRewards)}/month</strong>
                                                                     </span>
-                                                                    <span className="text-slate-600 dark:text-slate-400">
+                                                                    <span className="text-slate-600 dark:text-slate-600">
                                                                         Match Score: <strong className="text-primary-600 dark:text-primary-400">{rec.score.toFixed(0)}</strong>
                                                                     </span>
                                                                 </div>
@@ -298,7 +298,7 @@ export default function SpendingBasedRecommendationsPage() {
                                                             <h4 className="font-semibold text-slate-900 dark:text-white mb-2">Why This Card:</h4>
                                                             <ul className="space-y-1">
                                                                 {rec.reasons.map((reason, i) => (
-                                                                    <li key={i} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+                                                                    <li key={i} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-600">
                                                                         <CheckCircle2 className="w-4 h-4 text-success-600 dark:text-success-400 mt-0.5 shrink-0" />
                                                                         {reason}
                                                                     </li>

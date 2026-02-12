@@ -109,7 +109,7 @@ export default function ProfilePage() {
             'revision-requested': 'bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-400',
             published: 'bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-400'
         };
-        return styles[status] || 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-400';
+        return styles[status] || 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-600';
     };
 
     return (
@@ -149,7 +149,7 @@ export default function ProfilePage() {
                                         <h1 className="text-4xl font-bold text-white tracking-tight">{user.full_name}</h1>
                                         <Badge className="bg-primary-500 text-slate-900 font-semibold rounded-lg uppercase tracking-st text-[9px] px-2.5">Verified Contributor</Badge>
                                     </div>
-                                    <div className="flex items-center gap-4 text-slate-400 font-bold mb-4">
+                                    <div className="flex items-center gap-4 text-slate-600 font-bold mb-4">
                                         <div className="flex items-center gap-1.5">
                                             <Globe className="w-3.5 h-3.5" />
                                             <span className="text-sm">Mumbai, India</span>
@@ -196,11 +196,11 @@ export default function ProfilePage() {
                         </div>
                         <Card className="rounded-[2.5rem] border-0 shadow-2xl bg-white dark:bg-slate-900 p-8 overflow-hidden relative group">
                             <div className="absolute inset-0 bg-gradient-to-br from-primary-50 dark:from-primary-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                            <h4 className="text-[10px] font-semibold text-slate-400 uppercase tracking-st mb-6 relative z-10">Achievements</h4>
+                            <h4 className="text-[10px] font-semibold text-slate-600 uppercase tracking-st mb-6 relative z-10">Achievements</h4>
                             <div className="relative z-10">
                                 <BadgeDisplay badges={user.badges} showTooltip={true} />
                                 {(!user.badges || user.badges.length === 0) && (
-                                    <p className="text-xs font-bold text-slate-400 italic">No badges unlocked yet. Start submitting analysis!</p>
+                                    <p className="text-xs font-bold text-slate-600 italic">No badges unlocked yet. Start submitting analysis!</p>
                                 )}
                             </div>
                         </Card>
@@ -213,7 +213,7 @@ export default function ProfilePage() {
                                 <div className={`w-12 h-12 rounded-2xl ${stat.bg} dark:bg-white/5 ${stat.color} flex items-center justify-center mb-4 shadow-sm group-hover:rotate-6 transition-transform`}>
                                     <stat.icon className="w-5 h-5" />
                                 </div>
-                                <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-st mb-1">{stat.label}</p>
+                                <p className="text-[10px] font-semibold text-slate-600 uppercase tracking-st mb-1">{stat.label}</p>
                                 <p className="text-3xl font-bold text-slate-900 dark:text-white">{stat.value}</p>
                             </Card>
                         ))}
@@ -222,11 +222,11 @@ export default function ProfilePage() {
                     {/* Content Hub Tabs */}
                     <Tabs defaultValue="articles" className="space-y-8">
                         <TabsList className="bg-white dark:bg-slate-900 p-2 rounded-[2rem] shadow-xl border border-slate-100 dark:border-slate-800 flex h-auto max-w-fit mx-auto sm:mx-0">
-                            <TabsTrigger value="articles" className="rounded-3xl px-8 py-4 font-semibold uppercase tracking-widest text- data-[state=active]:bg-slate-900 dark:data-[state=active]:bg-primary-600 data-[state=active]:text-white transition-all text-slate-500 dark:text-slate-400">
-                                Analysis Hub <span className="ml-2 text-slate-400 dark:text-slate-300">{userArticles.length}</span>
+                            <TabsTrigger value="articles" className="rounded-3xl px-8 py-4 font-semibold uppercase tracking-widest text- data-[state=active]:bg-slate-900 dark:data-[state=active]:bg-primary-600 data-[state=active]:text-white transition-all text-slate-500 dark:text-slate-600">
+                                Analysis Hub <span className="ml-2 text-slate-600 dark:text-slate-300">{userArticles.length}</span>
                             </TabsTrigger>
-                            <TabsTrigger value="reviews" className="rounded-3xl px-8 py-4 font-semibold uppercase tracking-widest text- data-[state=active]:bg-slate-900 dark:data-[state=active]:bg-primary-600 data-[state=active]:text-white transition-all text-slate-500 dark:text-slate-400">
-                                Community Reviews <span className="ml-2 text-slate-400 dark:text-slate-300">{userReviews.length}</span>
+                            <TabsTrigger value="reviews" className="rounded-3xl px-8 py-4 font-semibold uppercase tracking-widest text- data-[state=active]:bg-slate-900 dark:data-[state=active]:bg-primary-600 data-[state=active]:text-white transition-all text-slate-500 dark:text-slate-600">
+                                Community Reviews <span className="ml-2 text-slate-600 dark:text-slate-300">{userReviews.length}</span>
                             </TabsTrigger>
                         </TabsList>
 
@@ -238,7 +238,7 @@ export default function ProfilePage() {
                                         <FileText className="w-10 h-10 text-slate-300 dark:text-slate-600" />
                                     </div>
                                     <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Authority Pending</h3>
-                                    <p className="text-slate-500 dark:text-slate-400 font-medium mb-10">You haven't published any analysis articles yet. Share your market wisdom with the community.</p>
+                                    <p className="text-slate-500 dark:text-slate-600 font-medium mb-10">You haven't published any analysis articles yet. Share your market wisdom with the community.</p>
                                     <Button className="rounded-2xl bg-primary-600 hover:bg-secondary-600 dark:bg-primary-500 dark:hover:bg-secondary-500 text-white font-bold h-14 px-8 shadow-xl transition-all">Submit Your First Article</Button>
                                 </Card>
                             ) : (
@@ -250,13 +250,13 @@ export default function ProfilePage() {
                                                     <Badge className={`${getStatusBadge(article.submission_status || article.status)} border-0 rounded-xl px-4 py-1.5 font-bold uppercase tracking-widest text-[9px]`}>
                                                         {article.submission_status || article.status}
                                                     </Badge>
-                                                    <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-st">{new Date(article.created_at || article.created_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                                                    <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-st">{new Date(article.created_at || article.created_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                                                 </div>
                                                 <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight leading-tight group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{article.title}</h4>
                                                 <div className="flex items-center gap-6 pt-4 border-t border-slate-50 dark:border-slate-800">
                                                     <div className="flex items-center gap-2">
                                                         <Eye className="w-4 h-4 text-slate-300 dark:text-slate-600" />
-                                                        <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{article.views || 0}</span>
+                                                        <span className="text-xs font-bold text-slate-500 dark:text-slate-600">{article.views || 0}</span>
                                                     </div>
                                                     <div className="flex items-center gap-2">
                                                         <Badge variant="outline" className="border-slate-100 dark:border-slate-800 font-bold text-[9px] uppercase dark:text-slate-300">{article.category || 'General'}</Badge>
@@ -283,7 +283,7 @@ export default function ProfilePage() {
                                 {userReviews.length === 0 ? (
                                     <div className="text-center py-12">
                                         <Star className="w-12 h-12 text-slate-200 dark:text-slate-700 mx-auto mb-6" />
-                                        <p className="text-slate-400 font-semibold uppercase tracking-widest text-">Conflict evidence not found</p>
+                                        <p className="text-slate-600 font-semibold uppercase tracking-widest text-">Conflict evidence not found</p>
                                     </div>
                                 ) : (
                                     <div className="grid gap-6">
@@ -304,7 +304,7 @@ export default function ProfilePage() {
                                                                 ))}
                                                             </div>
                                                             <span className="text-slate-300">â€¢</span>
-                                                            <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-st">
+                                                            <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-st">
                                                                 {new Date(review.created_at || review.created_date).toLocaleDateString()}
                                                             </span>
                                                         </div>

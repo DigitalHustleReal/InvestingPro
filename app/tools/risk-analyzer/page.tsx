@@ -32,7 +32,7 @@ export default function RiskAnalyzerPage() {
                     <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
                         What's Your Investment <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-secondary-600">DNA?</span>
                     </h1>
-                    <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    <p className="text-xl text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
                         Take our 2-minute psychometric test to discover your true risk tolerance and get a personalized portfolio mix.
                     </p>
                 </div>

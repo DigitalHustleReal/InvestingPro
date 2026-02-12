@@ -100,7 +100,7 @@ export default function PortfolioPage() {
                             <h1 className="text-4xl sm:text-6xl font-bold text-white tracking-tight leading-tight">
                                 Capital <span className="text-secondary-400">Headquarters</span>
                             </h1>
-                            <p className="text-xl text-slate-400 font-medium max-w-2xl leading-relaxed">
+                            <p className="text-xl text-slate-600 font-medium max-w-2xl leading-relaxed">
                                 Strategic overview of your global investment positions. Real-time benchmarking against India VIX and Nifty 50.
                             </p>
                         </div>
