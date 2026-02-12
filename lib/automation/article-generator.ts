@@ -799,7 +799,7 @@ export async function generateArticleCore(
             content: sanitizedHTML, // Keep content for full-text search if needed
             excerpt: sanitizedExcerpt,
             meta_title: sanitizedSeoTitle,
-            meta_description: parsed.seo_description || excerpt,
+            meta_description: aiSeoDesc || excerpt,
             keywords: tags,
             featured_image: imageUrl || null,
             published_at: status === 'published' ? now : null,

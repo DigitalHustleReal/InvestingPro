@@ -2,16 +2,17 @@
  * AdminCard - Standardized Card Component for CMS
  * Ensures design consistency across all admin pages
  * 
- * Standard Pattern:
- * - Background: bg-surface-darker/50 dark:bg-surface-darker/50
- * - Border: border-slate-800
- * - Hover: hover:border-wt-gold/30
- * - Transition: transition-all duration-300
+ * Standard Pattern (Wealth & Trust):
+ * - Background: ADMIN_THEME.colors.bg.surface (#FFFFFF)
+ * - Border: ADMIN_THEME.colors.border.default
+ * - Shadow: ADMIN_THEME.shadows.card
+ * - Hover: ADMIN_THEME.shadows.cardHover, border-accent
  */
 
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+import { ADMIN_THEME } from '@/lib/admin/theme';
 
 interface AdminCardProps extends Omit<React.ComponentProps<typeof Card>, 'className'> {
   /** Additional custom classes (merged with standard styling) */
@@ -31,17 +32,21 @@ export function AdminCard({
   className, 
   hoverable = false,
   glowEffect = false,
+  style,
   ...props 
 }: AdminCardProps) {
   return (
     <Card
+      style={style}
       className={cn(
         // Standard background and border
-        'bg-surface-darker/50 dark:bg-surface-darker/50 border-slate-800',
+        'bg-white border-wt-border-light',
         // Rounded corners
         'rounded-xl',
+        // Shadow
+        'shadow-card',
         // Hover effects if enabled
-        hoverable && 'hover:border-wt-gold/30 hover:shadow-xl hover:-translate-y-0.5',
+        hoverable && 'hover:border-wt-gold/30 hover:shadow-cardHover hover:-translate-y-0.5',
         // Transitions
         'transition-all duration-300',
         // Glow effect
@@ -53,7 +58,7 @@ export function AdminCard({
     >
       {/* Optional glow effect */}
       {glowEffect && (
-        <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 blur-3xl -mr-16 -mt-16 group-hover:bg-wt-gold-subtle transition-colors" />
+        <div className="absolute top-0 right-0 w-32 h-32 bg-wt-gold-subtle blur-3xl -mr-16 -mt-16 group-hover:bg-wt-gold transition-colors opacity-20" />
       )}
       
       {/* Content with z-index if glow is enabled */}

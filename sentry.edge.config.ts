@@ -1,7 +1,6 @@
 // Sentry edge config - STUBBED for build
 // TODO: Re-enable Sentry by un-commenting the initialization below
 
-/*
 import * as Sentry from "@sentry/nextjs";
 
 if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
@@ -9,9 +8,9 @@ if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
     dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
     tracesSampleRate: 1.0,
     debug: false,
+    environment: process.env.NODE_ENV || process.env.VERCEL_ENV || 'development',
   });
 }
-*/
 
 // Empty export to satisfy module requirements
 export {};

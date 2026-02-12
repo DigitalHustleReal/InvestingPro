@@ -8,15 +8,15 @@ module.exports = {
     ci: {
         collect: {
             url: [
-                'http://localhost:3000',
-                'http://localhost:3000/article/sample-article',
-                'http://localhost:3000/mutual-funds',
-                'http://localhost:3000/calculators/sip',
+                'http://localhost:3001',
+                'http://localhost:3001/article/sample-article',
+                'http://localhost:3001/mutual-funds',
+                'http://localhost:3001/calculators/sip',
             ],
             numberOfRuns: 3,
-            startServerCommand: 'npm run start',
+            startServerCommand: 'npm run start -- -p 3001',
             startServerReadyPattern: 'ready on',
-            startServerReadyTimeout: 10000,
+            startServerReadyTimeout: 20000,
         },
         assert: {
             assertions: {

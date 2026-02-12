@@ -22,6 +22,7 @@ import LanguageSwitcher from "@/components/common/LanguageSwitcher";
 import { useSearch } from "@/components/search/SearchProvider";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { useNavigation } from "@/contexts/NavigationContext";
+import NavbarDesktopItem from "./NavbarDesktopItem";
 
 
 // Constants
@@ -75,14 +76,8 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
     // Mobile menu state
     const [isOpen, setIsOpen] = useState(false);
     
-    // Track active intent per category for hover-driven dropdowns
-    const [activeIntents, setActiveIntents] = useState<Record<string, number>>({});
-    
     // Track expanded categories in mobile menu
     const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
-    
-    // Track open dropdowns (for click-to-open)
-    const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>({});
 
     const pathname = usePathname();
     const router = useRouter();
@@ -93,10 +88,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
     // Close dropdowns when clicking outside
     React.useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            const target = event.target as HTMLElement;
-            if (!target.closest('.navigation-menu-item')) {
-                setOpenDropdowns({});
-            }
+            // Dropdowns are now handled by isolated sub-components
         };
         
         document.addEventListener('mousedown', handleClickOutside);
@@ -136,43 +128,11 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
         setIsOpen(false);
     }, [pathname]);
     
-    // Open dropdown on hover - close others first, only one open at a time
-    const handleMouseEnter = (categorySlug: string) => {
-        setOpenDropdowns({ [categorySlug]: true });
-    };
-    
-    // Close dropdown when mouse leaves
-    const handleMouseLeave = (categorySlug: string) => {
-        // Small delay to prevent accidental closes
-        setTimeout(() => {
-            setOpenDropdowns(prev => {
-                // Only close if this is the currently open dropdown
-                if (prev[categorySlug]) {
-                    const newState = { ...prev };
-                    delete newState[categorySlug];
-                    return newState;
-                }
-                return prev;
-            });
-        }, DROPDOWN_CLOSE_DELAY);
-    };
-    
     const toggleCategory = (categorySlug: string) => {
         setExpandedCategories(prev => ({
             ...prev,
             [categorySlug]: !prev[categorySlug]
         }));
-    };
-
-    // Set active intent for a category (defaults to first intent)
-    const setActiveIntent = (categorySlug: string, intentIndex: number) => {
-        setActiveIntents(prev => ({ ...prev, [categorySlug]: intentIndex }));
-    };
-
-    // Get active intent for a category
-    const getActiveIntent = (categorySlug: string, intents: typeof NAVIGATION_CONFIG[0]['intents']) => {
-        const activeIndex = activeIntents[categorySlug] ?? 0;
-        return intents[activeIndex] || intents[0];
     };
 
     return (
@@ -192,196 +152,14 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                     <div className="hidden lg:flex items-center gap-4 xl:gap-6 ml-auto">
                         <NavigationMenu>
                             <NavigationMenuList>
-                                {navigationCategories.map((category) => {
-                                    const isDropdownOpen = openDropdowns[category.slug] || false;
-                                    const displayName = category.name;
-                                    
-                                    return (
-                                        <NavigationMenuItem key={category.slug} className="navigation-menu-item">
-                                            <NavigationMenuTrigger 
-                                                className={`gap-1 text-slate-700 dark:text-slate-300 hover:text-secondary-600 dark:hover:text-secondary-400 data-[state=open]:text-secondary-600 dark:data-[state=open]:text-secondary-400 font-semibold text-base tracking-tight font-sans bg-transparent hover:bg-transparent focus:bg-transparent transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2 ${
-                                                    (pathname.startsWith(`/${category.slug}`) || isDropdownOpen)
-                                                    ? 'text-secondary-600 dark:text-secondary-400 font-bold' 
-                                                    : ''
-                                                }`}
-                                                onClick={() => handleCategoryClick(category.slug)}
-                                                onMouseEnter={() => handleMouseEnter(category.slug)}
-                                            >
-                                                {displayName}
-                                            </NavigationMenuTrigger>
-                                            <NavigationMenuContent 
-                                                isOpen={isDropdownOpen}
-                                                onMouseEnter={() => handleMouseEnter(category.slug)}
-                                                onMouseLeave={() => handleMouseLeave(category.slug)}
-                                                role="menu"
-                                                aria-label={`${category.name} submenu`}
-                                            >
-                                                <div 
-                                                    className="w-[900px] p-6 bg-white dark:bg-slate-900 shadow-xl rounded-xl border border-slate-100 dark:border-slate-800"
-                                                    onMouseLeave={() => {
-                                                        setActiveIntents(prev => ({ ...prev, [category.slug]: 0 }));
-                                                        handleMouseLeave(category.slug);
-                                                    }}
-                                                    onKeyDown={(e) => {
-                                                        if (e.key === 'Escape') {
-                                                            setOpenDropdowns({});
-                                                        }
-                                                    }}
-                                                >
-                                                <div className="grid grid-cols-3 gap-8">
-                                                    {/* Left Column: Intent List */}
-                                                    <div className="border-r border-slate-100 dark:border-slate-800 pr-6">
-                                                        <nav className="space-y-1" role="list">
-                                                            {category.intents.map((intent, index) => {
-                                                                const isActive = (activeIntents[category.slug] ?? 0) === index;
-                                                                const intentHref = `/${category.slug}/${intent.slug}`;
-                                                                return (
-                                                                    <Link
-                                                                        key={intent.slug}
-                                                                        href={intentHref}
-                                                                        role="listitem"
-                                                                        aria-label={`${intent.name} ${category.name}`}
-                                                                        aria-current={isActive ? 'true' : undefined}
-                                                                        onMouseEnter={() => setActiveIntent(category.slug, index)}
-                                                                        onKeyDown={(e) => {
-                                                                            if (e.key === 'ArrowDown' && index < category.intents.length - 1) {
-                                                                                e.preventDefault();
-                                                                                setActiveIntent(category.slug, index + 1);
-                                                                                const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
-                                                                                nextElement?.focus();
-                                                                            } else if (e.key === 'ArrowUp' && index > 0) {
-                                                                                e.preventDefault();
-                                                                                setActiveIntent(category.slug, index - 1);
-                                                                                const prevElement = e.currentTarget.previousElementSibling as HTMLElement;
-                                                                                prevElement?.focus();
-                                                                            } else if (e.key === 'Escape') {
-                                                                                e.preventDefault();
-                                                                                setOpenDropdowns({});
-                                                                            }
-                                                                        }}
-                                                                        className={`group flex items-center justify-between px-3 py-2.5 rounded-lg transition-all cursor-pointer ${
-                                                                            isActive 
-                                                                                ? 'bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400' 
-                                                                                : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
-                                                                        }`}
-                                                                    >
-                                                                        <div className="flex flex-col">
-                                                                            <span className="text-sm font-semibold">
-                                                                                {intent.name}
-                                                                            </span>
-                                                                            {intent.description && (
-                                                                                <span className={`text-[11px] mt-0.5 line-clamp-1 ${isActive ? 'text-primary-600/80 dark:text-primary-400/70' : 'text-slate-400 dark:text-slate-500'}`}>
-                                                                                    {intent.description}
-                                                                                </span>
-                                                                            )}
-                                                                        </div>
-                                                                        {isActive && <ChevronRight className="w-4 h-4 text-primary-500" />}
-                                                                    </Link>
-                                                                );
-                                                            })}
-                                                        </nav>
-                                                    </div>
-
-                                                    {/* Middle Column: Collections for Active Intent */}
-                                                    <div className="pr-6">
-                                                        {(() => {
-                                                            const activeIntent = getActiveIntent(category.slug, category.intents);
-                                                            return (
-                                                                <div className="animate-in fade-in zoom-in-95 duration-200">
-                                                                    <h4 className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-2">
-                                                                        <div className="h-px bg-slate-200 dark:bg-slate-700 flex-1"></div>
-                                                                        {activeIntent.name}
-                                                                        <div className="h-px bg-slate-200 dark:bg-slate-700 flex-1"></div>
-                                                                    </h4>
-                                                                    <nav className="space-y-1" role="list">
-                                                                        {activeIntent.collections.map((collection) => (
-                                                                            <Link
-                                                                                key={collection.href}
-                                                                                href={collection.href}
-                                                                                className="flex items-center justify-between group px-3 py-2 rounded-lg text-sm text-slate-700 dark:text-slate-300 hover:text-primary-700 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 transition-all"
-                                                                                role="listitem"
-                                                                            >
-                                                                                <span>{collection.name}</span>
-                                                                                <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-primary-500 transition-opacity" />
-                                                                            </Link>
-                                                                        ))}
-                                                                        {activeIntent.collections.length > 0 && (
-                                                                            <Link
-                                                                                href={`/${category.slug}/${activeIntent.slug}`}
-                                                                                className="flex items-center gap-1 text-xs text-primary-600 hover:text-primary-700 font-semibold px-3 mt-4"
-                                                                            >
-                                                                                View all {activeIntent.name.toLowerCase()}
-                                                                                <ChevronRight className="w-3 h-3" />
-                                                                            </Link>
-                                                                        )}
-                                                                    </nav>
-                                                                </div>
-                                                            );
-                                                        })()}
-                                                    </div>
-
-                                                    {/* Right Panel: Editorial Highlight or Calculators */}
-                                                    <div className="pl-6 border-l border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 -my-6 -mr-6 p-6">
-                                                        {(() => {
-                                                            const activeIntent = getActiveIntent(category.slug, category.intents);
-                                                            const hasCalculators = activeIntent.slug === EDITORIAL_INTENTS.CALCULATORS;
-                                                            
-                                                            if (hasCalculators) {
-                                                                // Show calculator links
-                                                                return (
-                                                                    <div>
-                                                                        <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
-                                                                            Top Tools
-                                                                        </h4>
-                                                                        <nav className="space-y-2" role="list">
-                                                                            <Link href="/calculators/sip" className="block p-3 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-md transition-all">
-                                                                                <div className="text-sm font-semibold text-slate-900 dark:text-white mb-0.5">SIP Calculator</div>
-                                                                                <div className="text-xs text-slate-500 dark:text-slate-400">Estimate your returns</div>
-                                                                            </Link>
-                                                                            <Link href="/calculators/emi" className="block p-3 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-md transition-all">
-                                                                                <div className="text-sm font-semibold text-slate-900 dark:text-white mb-0.5">EMI Calculator</div>
-                                                                                <div className="text-xs text-slate-500 dark:text-slate-400">Plan your loans</div>
-                                                                            </Link>
-                                                                        </nav>
-                                                                    </div>
-                                                                );
-                                                            } else {
-                                                                // Show editorial highlight
-                                                                return (
-                                                                    <div>
-                                                                        <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
-                                                                            Featured
-                                                                        </h4>
-                                                                        <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                                                                            <Link 
-                                                                                href={`/${category.slug}/${activeIntent.slug}`}
-                                                                                className="block text-sm font-bold text-slate-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 mb-2 leading-snug"
-                                                                            >
-                                                                                {activeIntent.slug === EDITORIAL_INTENTS.GUIDES 
-                                                                                    ? `The Ultimate Guide to ${category.name}` 
-                                                                                    : `Best ${category.name} for 2026`}
-                                                                            </Link>
-                                                                            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-3">
-                                                                                Expert insights to help you choose the right financial product today.
-                                                                            </p>
-                                                                            <Link
-                                                                                href={`/${category.slug}/${activeIntent.slug}`}
-                                                                                className="inline-flex items-center text-xs text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-bold uppercase tracking-wide"
-                                                                            >
-                                                                                Read Now <ChevronRight className="w-3 h-3 ml-1" />
-                                                                            </Link>
-                                                                        </div>
-                                                                    </div>
-                                                                );
-                                                            }
-                                                        })()}
-                                                    </div>
-                                                </div>
-                                                </div>
-                                            </NavigationMenuContent>
-                                        </NavigationMenuItem>
-                                    );
-                                })}
+                                {navigationCategories.map((category) => (
+                                    <NavbarDesktopItem 
+                                        key={category.slug}
+                                        category={category}
+                                        pathname={pathname}
+                                        onCategoryClick={handleCategoryClick}
+                                    />
+                                ))}
                             </NavigationMenuList>
                         </NavigationMenu>
                     </div>

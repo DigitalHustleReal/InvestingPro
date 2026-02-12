@@ -21,6 +21,7 @@ import { SemanticImage } from './extensions/SemanticImage';
 import { normalizeArticleBody } from '@/lib/content/normalize';
 import { htmlToMarkdown } from '@/lib/editor/markdown';
 import { tiptapToHTML } from '@/lib/editor/markdown';
+import { cn } from '@/lib/utils';
 import './extensions/SemanticImage.css';
 import { Button } from '@/components/ui/Button';
 import { ImagePickerButton } from './editor/ImagePickerButton';
@@ -116,64 +117,65 @@ export default function ArticleEditor({
 
     // Create editor instance
     // CRITICAL: Only create once, with initial content
+    // Memoize extensions to prevent re-initialization
+    const extensions = React.useMemo(() => [
+        StarterKit.configure({
+            heading: { levels: [1, 2, 3, 4] },
+        }),
+        Table.configure({
+            resizable: true,
+            HTMLAttributes: { class: 'border-collapse border border-wt-border my-4' },
+        }),
+        TableRow,
+        TableHeader,
+        TableCell.configure({
+            HTMLAttributes: { class: 'border border-wt-border px-4 py-2' },
+        }),
+        SemanticImage,
+    ], []);
+
+    // Create editor instance
+    // CRITICAL: Minimal dependencies to prevent re-mounting
     const editor = useEditor({
-        extensions: [
-            StarterKit.configure({
-                heading: { levels: [1, 2, 3, 4] }, // H1-H4 support
-            }),
-            Table.configure({
-                resizable: true,
-                HTMLAttributes: { class: 'border-collapse border border-wt-border my-4' },
-            }),
-            TableRow,
-            TableHeader,
-            TableCell.configure({
-                HTMLAttributes: { class: 'border border-wt-border px-4 py-2' },
-            }),
-            SemanticImage,
-        ],
-        // CRITICAL: Initialize with normalized HTML (only once)
-        content: isReady ? normalizedContent.html : '',
+        extensions,
+        content: '', // content handled by useEffect
         editable,
         immediatelyRender: false,
         editorProps: {
             attributes: {
-                class: `prose prose-slate dark:prose-invert max-w-none focus:outline-none min-h-[400px] p-4 
-                text-wt-text dark:text-wt-text/95 dark:text-wt-text/95 
-                [&_h1]:text-wt-text dark:[&_h1]:text-wt-text dark:text-wt-text 
-                [&_h2]:text-wt-text dark:[&_h2]:text-wt-text dark:text-wt-text 
-                [&_h3]:text-wt-text dark:[&_h3]:text-wt-text dark:text-wt-text 
-                [&_h4]:text-wt-text dark:[&_h4]:text-wt-text dark:text-wt-text
-                [&_p]:text-wt-text dark:[&_p]:text-wt-text/80 dark:text-wt-text/80 
-                [&_ul]:text-wt-text dark:[&_ul]:text-wt-text/80 dark:text-wt-text/80 
-                [&_ol]:text-wt-text dark:[&_ol]:text-wt-text/80 dark:text-wt-text/80 
-                [&_li]:text-wt-text dark:[&_li]:text-wt-text/80 dark:text-wt-text/80 
-                [&_strong]:text-wt-text dark:[&_strong]:text-wt-text dark:text-wt-text 
-                [&_blockquote]:text-wt-text-muted/50 dark:text-wt-text-muted/50 dark:[&_blockquote]:text-wt-text-muted dark:text-wt-text-muted [&_blockquote]:border-wt-border dark:[&_blockquote]:border-wt-border dark:border-wt-border
-                [&_code]:text-slate-800 dark:[&_code]:text-wt-text/90 dark:text-wt-text/90 [&_code]:bg-wt-card dark:[&_code]:bg-muted dark:bg-muted [&_code]:px-1 [&_code]:rounded
-                [&_a]:text-wt-gold dark:[&_a]:text-wt-gold [&_a]:no-underline hover:[&_a]:underline
-                ${className}`,
+                class: cn(
+                    "prose prose-slate dark:prose-invert max-w-none focus:outline-none min-h-[400px] p-4",
+                    "text-wt-text dark:text-wt-text/95",
+                    "[&_h1]:text-wt-text dark:[&_h1]:text-wt-text",
+                    "[&_h2]:text-wt-text dark:[&_h2]:text-wt-text",
+                    "[&_h3]:text-wt-text dark:[&_h3]:text-wt-text",
+                    "[&_h4]:text-wt-text dark:[&_h4]:text-wt-text",
+                    "[&_p]:text-wt-text dark:[&_p]:text-wt-text/80",
+                    "[&_ul]:text-wt-text dark:[&_ul]:text-wt-text/80",
+                    "[&_ol]:text-wt-text dark:[&_ol]:text-wt-text/80",
+                    "[&_li]:text-wt-text dark:[&_li]:text-wt-text/80",
+                    "[&_strong]:text-wt-text dark:[&_strong]:text-wt-text",
+                    "[&_blockquote]:text-wt-text-muted/50 dark:text-wt-text-muted/50 dark:[&_blockquote]:text-wt-text-muted [&_blockquote]:border-wt-border dark:[&_blockquote]:border-wt-border",
+                    "[&_code]:text-slate-800 dark:[&_code]:text-wt-text/90 [&_code]:bg-wt-card dark:[&_code]:bg-muted [&_code]:px-1 [&_code]:rounded",
+                    "[&_a]:text-wt-gold dark:[&_a]:text-wt-gold [&_a]:no-underline hover:[&_a]:underline",
+                    className
+                ),
                 'data-placeholder': placeholder,
             },
         },
         onUpdate: ({ editor }) => {
-            // Extract content on change
             if (onChangeRef.current && hasInitializedRef.current) {
                 try {
                     const rawHTML = tiptapToHTML(editor);
                     const normalizedHTML = normalizeArticleBody(rawHTML);
                     const markdown = htmlToMarkdown(normalizedHTML);
-                    
-                    onChangeRef.current({
-                        markdown,
-                        html: normalizedHTML,
-                    });
+                    onChangeRef.current({ markdown, html: normalizedHTML });
                 } catch (error) {
                     console.error('Error extracting editor content:', error);
                 }
             }
         },
-    }, [isReady, normalizedContent.html, editable, className, placeholder]);
+    }, [editable]); // Only recompute if editable changes
 
     // CRITICAL: Set content once after editor is ready
     // This happens only once, preventing rehydration issues

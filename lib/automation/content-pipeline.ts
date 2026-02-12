@@ -38,6 +38,7 @@ import { featuredImageGenerator } from '../images/featured-image-generator';
 import { optimizeSEO } from '../seo/advanced-seo-optimizer';
 import { generateComprehensiveSchema } from '../seo/schema-generator-enhanced';
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '../logger';
 
 // ============================================================================
 // TYPES & INTERFACES
@@ -153,7 +154,8 @@ function reportProgress(stage: string, status: PipelineProgress['status'], progr
         timestamp: new Date().toISOString()
     };
     
-    console.log(`[${stage}] ${status === 'running' ? '🔄' : status === 'complete' ? '✅' : status === 'failed' ? '❌' : '⏳'} ${message}`);
+    const statusIcon = status === 'running' ? '🔄' : status === 'complete' ? '✅' : status === 'failed' ? '❌' : '⏳';
+    logger.info(`[${stage}] ${statusIcon} ${message}`);
     
     if (progressCallback) {
         progressCallback(progressUpdate);
@@ -182,9 +184,7 @@ export async function runAutomationPipeline(config: PipelineConfig): Promise<Pip
     };
     
     try {
-        console.log('\n🚀 ==================== AUTOMATION PIPELINE START ====================');
-        console.log(`Topic: ${config.topic}`);
-        console.log(`Type: ${mergedConfig.contentType}`);
+        logger.info('AUTOMATION PIPELINE START', { topic: config.topic, type: mergedConfig.contentType });
         
         // ===================================================================
         // STAGE 1: KEYWORD RESEARCH
@@ -446,19 +446,19 @@ export async function runAutomationPipeline(config: PipelineConfig): Promise<Pip
         result.success = true;
         result.total_time_ms = Date.now() - startTime;
         
-        console.log('\n✅ ==================== PIPELINE COMPLETE ====================');
-        console.log(`✅ Article: ${result.article_slug}`);
-        console.log(`✅ Quality: ${result.final_quality_score}/100`);
-        console.log(`✅ SEO: ${result.final_seo_score}/100`);
-        console.log(`✅ Plagiarism: ${result.plagiarism_percentage}%`);
-        console.log(`✅ Time: ${(result.total_time_ms / 1000).toFixed(1)}s`);
-        console.log(`✅ Cost: $${result.total_cost_usd.toFixed(4)}`);
-        console.log('================================================================\n');
+        logger.info('PIPELINE COMPLETE', {
+            slug: result.article_slug,
+            quality: result.final_quality_score,
+            seo: result.final_seo_score,
+            plagiarism: result.plagiarism_percentage,
+            time_s: (result.total_time_ms / 1000).toFixed(1),
+            cost: result.total_cost_usd.toFixed(4)
+        });
         
         return result;
         
     } catch (error: any) {
-        console.error('\n❌ PIPELINE FAILED:', error.message);
+        logger.error('PIPELINE FAILED', error);
         result.success = false;
         result.errors.push(error.message);
         result.total_time_ms = Date.now() - startTime;
@@ -477,12 +477,12 @@ export async function runBatchAutomation(
     topics: string[],
     baseConfig: Partial<PipelineConfig> = {}
 ): Promise<PipelineResult[]> {
-    console.log(`\n🚀 Starting batch automation for ${topics.length} topics...`);
+    logger.info(`Starting batch automation for ${topics.length} topics...`);
     
     const results: PipelineResult[] = [];
     
     for (const topic of topics) {
-        console.log(`\n--- Processing: ${topic} ---`);
+        logger.info(`Processing topic: ${topic}`);
         
         const result = await runAutomationPipeline({
             ...baseConfig,
@@ -496,7 +496,7 @@ export async function runBatchAutomation(
     }
     
     const successCount = results.filter(r => r.success).length;
-    console.log(`\n✅ Batch Complete: ${successCount}/${topics.length} successful`);
+    logger.info(`Batch Complete: ${successCount}/${topics.length} successful`);
     
     return results;
 }

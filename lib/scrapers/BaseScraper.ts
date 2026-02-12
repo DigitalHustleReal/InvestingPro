@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/client';
 import { z } from 'zod';
 import { PipelineLogger } from '@/lib/pipeline-logger';
+import { logger } from '@/lib/logger';
 import robotsParser from 'robots-parser';
 
 export interface ScraperResult<T> {
@@ -29,11 +30,10 @@ export abstract class BaseScraper<T> {
   
   protected supabase = createClient();
   protected retryConfig: RetryConfig = DEFAULT_RETRY_CONFIG;
-  protected logger: PipelineLogger;
+  protected logger!: PipelineLogger;
 
   constructor() {
-      // Initialize logger with placeholder name; subclass name available at runtime
-      this.logger = new PipelineLogger(this.name || 'base_scraper');
+      // Logger initialized in run() method when name is available
   }
 
   // Core abstract method to be implemented by specific scrapers
@@ -74,7 +74,7 @@ export abstract class BaseScraper<T> {
 
         if (attempt <= this.retryConfig.maxRetries) {
           const delay = this.getRetryDelay(attempt);
-          console.warn(`⚠️ ${this.name} scrape attempt ${attempt} failed. Retrying in ${delay}ms...`, lastError.message);
+          logger.warn(`${this.name} scrape attempt ${attempt} failed. Retrying in ${delay}ms...`, { error: lastError.message });
           await this.sleep(delay);
         }
       }
@@ -100,24 +100,20 @@ export abstract class BaseScraper<T> {
       }
 
       const robotsTxt = await response.text();
-      const robots = robotsParser({
-        userAgent: 'InvestingProBot/1.0 (+https://investingpro.in)',
-        allowOnNeutral: true,
-      });
+      const robots = robotsParser(robotsUrl, robotsTxt);
+      const userAgent = 'InvestingProBot/1.0 (+https://investingpro.in)';
 
-      robots.parseRobots(robotsUrl, robotsTxt);
+      const allowed = robots.isAllowed(url, userAgent) ?? true;
+      const crawlDelay = robots.getCrawlDelay(userAgent);
 
-      const allowed = robots.canCrawl(url);
-      const crawlDelay = robots.getCrawlDelay();
-
-      console.log(`🤖 robots.txt check for ${urlObj.host}: ${allowed ? '✅ Allowed' : '❌ Blocked'}`);
+      logger.info(`robots.txt check for ${urlObj.host}: ${allowed ? '✅ Allowed' : '❌ Blocked'}`);
       if (crawlDelay) {
-        console.log(`⏱️ Crawl delay: ${crawlDelay}s`);
+        logger.debug(`Crawl delay: ${crawlDelay}s`);
       }
 
       return { allowed, crawlDelay };
     } catch (error) {
-      console.warn(`⚠️ Could not check robots.txt for ${url}:`, error);
+      logger.warn(`Could not check robots.txt for ${url}`, { error });
       // On error, allow by default but log warning
       return { allowed: true };
     }
@@ -128,7 +124,7 @@ export abstract class BaseScraper<T> {
    */
   async run(): Promise<ScraperResult<T>> {
     this.logger = new PipelineLogger(this.name); // Re-init with correct name
-    console.log(`🚀 Starting ${this.name} scraper...`);
+    logger.info(`Starting ${this.name} scraper...`);
     
     // Start Pipeline Log
     const runId = await this.logger.start({
@@ -143,7 +139,7 @@ export abstract class BaseScraper<T> {
       // 1. Scrape with retry
       const { data: rawData, retryAttempts: attempts } = await this.scrapeWithRetry();
       retryAttempts = attempts;
-      console.log(`📦 Scraped ${rawData.length} items from ${this.sourceName}${attempts > 0 ? ` (after ${attempts} retries)` : ''}`);
+      logger.info(`Scraped ${rawData.length} items from ${this.sourceName}${attempts > 0 ? ` (after ${attempts} retries)` : ''}`);
 
       // 2. Validate
       const validData: T[] = [];
@@ -159,7 +155,7 @@ export abstract class BaseScraper<T> {
       }
 
       if (invalidData.length > 0) {
-        console.warn(`⚠️ ${invalidData.length} items failed validation`);
+        logger.warn(`${invalidData.length} items failed validation`);
       }
 
       // 3. Save
@@ -168,7 +164,7 @@ export abstract class BaseScraper<T> {
       }
 
       const duration = Date.now() - startTime;
-      console.log(`✅ ${this.name} completed in ${duration}ms. Saved ${validData.length} items.`);
+      logger.info(`${this.name} completed in ${duration}ms. Saved ${validData.length} items.`);
 
       const resultMetadata = {
         duration,
@@ -195,7 +191,7 @@ export abstract class BaseScraper<T> {
       const duration = Date.now() - startTime;
       const errorMessage = error instanceof Error ? error.message : String(error);
       
-      console.error(`❌ ${this.name} failed after ${retryAttempts} retries:`, error);
+      logger.error(`${this.name} failed after ${retryAttempts} retries`, error as Error);
 
       // Log failure to Pipeline Runs
       await this.logger.fail(error as Error);

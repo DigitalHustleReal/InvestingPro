@@ -7,9 +7,8 @@
 "use client";
 
 import React from 'react';
-import { Button } from '@/components/ui/Button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { ActionButton, StatusBadge } from './AdminUIKit';
+import { ADMIN_THEME } from '@/lib/admin/theme';
 import { 
     FileText, 
     Plus, 
@@ -23,7 +22,8 @@ import {
     User,
     Clock,
     TrendingUp,
-    Sparkles
+    Sparkles,
+    ExternalLink
 } from 'lucide-react';
 import Link from 'next/link';
 import { formatDistanceToNow } from 'date-fns';
@@ -121,30 +121,30 @@ export default function WordPressStyleCMS({
     return (
         <div className="space-y-6">
             {/* Header Bar - WordPress Style */}
-            <div className="flex items-center justify-between border-b border-wt-border pb-4">
+            <div className="flex items-center justify-between border-b border-wt-border pb-6">
                 <div>
-                    <h1 className="text-3xl font-bold text-wt-text">Articles</h1>
-                    <p className="text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 mt-1">
-                        Manage your content library
+                    <h1 className="text-3xl font-bold text-wt-navy-900 tracking-tight">Content Library</h1>
+                    <p className="text-sm font-medium text-wt-navy-500 mt-1">
+                        Curate and manage your financial insights
                     </p>
                 </div>
                 <div className="flex gap-3">
                     {onGenerate && (
-                        <Button
+                        <ActionButton
                             onClick={onGenerate}
-                            className="bg-wt-gold hover:bg-wt-gold-hover text-white border-0"
+                            variant="secondary"
+                            icon={Sparkles}
                         >
-                            <Sparkles className="w-4 h-4 mr-2" />
                             Generate with AI
-                        </Button>
+                        </ActionButton>
                     )}
-                    <Button
+                    <ActionButton
                         onClick={onNewArticle}
-                        className="bg-wt-gold hover:bg-wt-gold-hover text-wt-text dark:text-wt-text"
+                        variant="primary"
+                        icon={Plus}
                     >
-                        <Plus className="w-4 h-4 mr-2" />
-                        Add New Article
-                    </Button>
+                        New Article
+                    </ActionButton>
                 </div>
             </div>
 
@@ -208,33 +208,35 @@ export default function WordPressStyleCMS({
             </div>
 
             {/* Filters and Search - WordPress Style */}
-            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between bg-white p-6 md:p-8 rounded-lg border border-wt-border">
+            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between bg-wt-bg-hover/30 p-6 md:p-8 rounded-xl border border-wt-border-subtle">
                 <div className="flex-1 w-full sm:w-auto">
-                    <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-wt-text-muted dark:text-wt-text-muted" />
+                    <div className="relative group">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-wt-navy-400 group-focus-within:text-wt-gold transition-colors" />
                         <input
                             type="text"
                             placeholder="Search articles..."
                             value={searchTerm}
                             onChange={(e) => onSearchChange?.(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 border border-wt-border rounded-lg focus:ring-2 focus:ring-wt-gold focus:border-wt-gold"
+                            className="w-full pl-10 pr-4 py-2.5 bg-white border border-wt-border-subtle rounded-lg focus:ring-4 focus:ring-wt-gold/10 focus:border-wt-gold transition-all"
                         />
                     </div>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 p-1 bg-wt-bg-hover rounded-xl border border-wt-border-subtle">
                     {['all', 'published', 'draft', 'review', 'archived'].map((status) => (
                         <button
                             key={status}
                             onClick={() => onFilterChange?.(status)}
-                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                            className={`px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all ${
                                 filterStatus === status
-                                    ? 'bg-wt-gold text-wt-text dark:text-wt-text'
-                                    : 'bg-wt-card text-wt-text hover:bg-slate-200'
+                                    ? 'bg-wt-navy-900 text-white shadow-md'
+                                    : 'text-wt-navy-500 hover:text-wt-navy-900 hover:bg-white/50'
                             }`}
                         >
-                            {(status ?? 'All').charAt(0).toUpperCase() + (status ?? 'All').slice(1)}
+                            {status === 'all' ? 'All Content' : status}
                             {statusCounts[status as keyof typeof statusCounts] > 0 && (
-                                <span className="ml-2 px-1.5 py-0.5 bg-white/20 rounded text-xs">
+                                <span className={`ml-2 px-1.5 py-0.5 rounded text-[9px] ${
+                                    filterStatus === status ? 'bg-white/20 text-white' : 'bg-wt-bg-hover text-wt-navy-400'
+                                }`}>
                                     {statusCounts[status as keyof typeof statusCounts]}
                                 </span>
                             )}
@@ -353,9 +355,10 @@ export default function WordPressStyleCMS({
                                             )}
                                         </td>
                                         <td className="px-4 md:px-6 py-4 whitespace-nowrap">
-                                            <Badge className={getStatusColor(article.status)}>
-                                                {getStatusLabel(article.status)}
-                                            </Badge>
+                                            <StatusBadge 
+                                                status={article.status === 'published' ? 'completed' : article.status === 'review' ? 'processing' : 'neutral'} 
+                                                label={getStatusLabel(article.status)} 
+                                            />
                                         </td>
                                         <td className="px-4 md:px-6 py-4 whitespace-nowrap hidden lg:table-cell">
                                             <div className="flex items-center gap-2">
@@ -375,55 +378,44 @@ export default function WordPressStyleCMS({
                                                 )}
                                             </div>
                                         </td>
-                                        <td className="px-4 md:px-6 py-4 whitespace-nowrap text-right">
+                                         <td className="px-4 md:px-6 py-4 whitespace-nowrap text-right">
                                             <div className="flex items-center justify-end gap-1 md:gap-2">
                                                 {article.status === 'draft' && onPublish && (
-                                                    <Button
+                                                    <ActionButton
                                                         size="sm"
-                                                        variant="ghost"
+                                                        variant="secondary"
                                                         onClick={() => onPublish(article.id)}
-                                                        className="text-wt-green hover:text-wt-green hover:bg-wt-green-subtle text-xs md:text-sm"
+                                                        className="h-8 px-3 text-[10px]"
                                                     >
-                                                        <span className="hidden md:inline">Publish</span>
-                                                        <span className="md:hidden">Pub</span>
-                                                    </Button>
+                                                        Publish
+                                                    </ActionButton>
                                                 )}
-                                                <Link href={`/admin/articles/${article.id}/edit`}>
-                                                    <Button
-                                                        size="sm"
-                                                        variant="ghost"
-                                                        className="text-wt-text-muted/50 dark:text-wt-text-muted/50 hover:text-wt-text"
-                                                        title="Edit"
-                                                    >
-                                                        <Edit className="w-4 h-4" />
-                                                    </Button>
-                                                </Link>
-                                                <Link href={`/articles/${article.slug}${article.status !== 'published' ? '?preview=true' : ''}`} target="_blank">
-                                                    <Button
-                                                        size="sm"
-                                                        variant="ghost"
-                                                        className="text-wt-text-muted/50 dark:text-wt-text-muted/50 hover:text-wt-text"
-                                                        title="View"
-                                                    >
-                                                        <Eye className="w-4 h-4" />
-                                                    </Button>
-                                                </Link>
+                                                <ActionButton
+                                                    size="sm"
+                                                    variant="ghost"
+                                                    onClick={() => onEdit?.(article.id)}
+                                                    icon={Edit}
+                                                    className="h-8 w-8 p-0"
+                                                />
+                                                <ActionButton
+                                                    size="sm"
+                                                    variant="ghost"
+                                                    onClick={() => window.open(`/articles/${article.slug}${article.status !== 'published' ? '?preview=true' : ''}`, '_blank')}
+                                                    icon={Eye}
+                                                    className="h-8 w-8 p-0"
+                                                />
                                                 {onDelete && (
-                                                    <Button
+                                                    <ActionButton
                                                         size="sm"
                                                         variant="ghost"
-                                                        onClick={(e) => {
-                                                            e.preventDefault();
-                                                            e.stopPropagation();
-                                                            if (confirm(`Are you sure you want to delete "${article.title}"? This action cannot be undone.`)) {
+                                                        onClick={() => {
+                                                            if (confirm(`Are you sure you want to delete "${article.title}"?`)) {
                                                                 onDelete(article.id);
                                                             }
                                                         }}
-                                                        className="text-danger-600 hover:text-danger-700 hover:bg-danger-50"
-                                                        title="Delete"
-                                                    >
-                                                        <Trash2 className="w-4 h-4" />
-                                                    </Button>
+                                                        icon={Trash2}
+                                                        className="h-8 w-8 p-0 text-wt-danger hover:bg-wt-danger/5"
+                                                    />
                                                 )}
                                             </div>
                                         </td>

@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { ADMIN_THEME } from '@/lib/admin/theme';
 
 interface ContentSuggestion {
     event: {
@@ -29,7 +30,7 @@ interface ContentSuggestion {
     urgency: 'publish_now' | 'prepare' | 'upcoming' | 'future';
     daysUntilEvent: number;
     daysUntilPublishDeadline: number;
-    articleCategory: string;
+    articleCategories: string[];
     searchIntent: string;
 }
 
@@ -235,12 +236,23 @@ export default function ContentCalendarWidget({
                                     <h4 className="font-semibold text-wt-text mb-1">{item.suggestedTitle}</h4>
                                     <p className="text-sm text-wt-text-muted mb-3">{item.event.name}</p>
                                     <div className="flex items-center justify-between">
-                                        <Badge variant="outline" className="text-xs border-wt-border text-wt-text-muted">
-                                            {item.articleCategory.replace(/-/g, ' ')}
-                                        </Badge>
-                                        <Link href={`/admin/articles/new?title=${encodeURIComponent(item.suggestedTitle)}&category=${item.articleCategory}`}>
-                                            <Button size="sm" className="h-7 bg-wt-danger hover:bg-wt-danger/90 text-white border-0">
-                                                <FileText className="w-3 h-3 mr-1" />
+                                        <div className="flex flex-wrap gap-1">
+                                            {item.articleCategories.map((cat, idx) => (
+                                                <Badge key={idx} variant="outline" className="text-[10px] py-0 h-5 border-wt-border text-wt-text-muted">
+                                                    {cat.replace(/-/g, ' ')}
+                                                </Badge>
+                                            ))}
+                                        </div>
+                                        <Link href={`/admin/articles/new?title=${encodeURIComponent(item.suggestedTitle)}&category=${item.articleCategories[0]}`}>
+                                            <Button 
+                                                size="sm" 
+                                                className="h-8 px-3 shadow-sm hover:shadow-md transition-all"
+                                                style={{ 
+                                                    backgroundColor: ADMIN_THEME.colors.status.error.bg || '#DC2626',
+                                                    color: '#FFFFFF'
+                                                }}
+                                            >
+                                                <Zap className="w-3 h-3 mr-1" />
                                                 Create
                                             </Button>
                                         </Link>
@@ -337,14 +349,23 @@ export default function ContentCalendarWidget({
                                             <Badge variant="outline" className="text-[10px] border-wt-border text-wt-text-muted">
                                                 {item.searchIntent}
                                             </Badge>
+                                            {item.articleCategories.map((cat, idx) => (
+                                                <Badge key={idx} variant="outline" className="text-[10px] border-wt-border text-wt-text-dim">
+                                                    {cat.replace(/-/g, ' ')}
+                                                </Badge>
+                                            ))}
                                         </div>
                                         <h4 className="font-semibold text-wt-text truncate">{item.suggestedTitle}</h4>
                                         <p className="text-xs text-wt-text-muted">
                                             {item.event.name} • {item.daysUntilEvent}d until event
                                         </p>
                                     </div>
-                                    <Link href={`/admin/articles/new?title=${encodeURIComponent(item.suggestedTitle)}&category=${item.articleCategory}`}>
-                                        <Button size="sm" variant="outline" className="border-wt-border text-wt-text hover:bg-wt-surface-hover">
+                                    <Link href={`/admin/articles/new?title=${encodeURIComponent(item.suggestedTitle)}&category=${item.articleCategories[0]}`}>
+                                        <Button 
+                                            size="sm" 
+                                            variant="outline" 
+                                            className="border-wt-border text-wt-text hover:bg-wt-surface-hover shadow-sm"
+                                        >
                                             <Zap className="w-3 h-3 mr-1" />
                                             Create
                                         </Button>

@@ -76,7 +76,7 @@ async function syncHealthFromDB() {
             lastHealthSync = Date.now();
         }
     } catch (e) {
-        console.warn('Failed to sync AI health from DB:', e);
+        logger.warn('Failed to sync AI health from DB', { error: e });
     }
 }
 
@@ -117,7 +117,7 @@ async function reportFailure(name: string, error: string) {
             });
         } catch (dbError) {
              // Ignore DB errors (table might be missing), rely on in-memory health
-             console.warn('Failed to persist AI health to DB', dbError);
+             logger.warn('Failed to persist AI health to DB', { error: dbError });
         }
     }
 }
@@ -138,7 +138,7 @@ async function reportSuccess(name: string) {
                 updated_at: new Date().toISOString()
             });
         } catch (dbError) {
-             console.warn('Failed to persist AI health to DB', dbError);
+             logger.warn('Failed to persist AI health to DB', { error: dbError });
         }
     }
 }
@@ -248,7 +248,7 @@ export const api = {
                     throw new Error(`Operation "${operation}" is forbidden.`);
                 }
                 // Use custom system prompt if provided (from dynamic prompt builder), otherwise generate default
-                const systemPrompt = customSystemPrompt || generateSystemPrompt(operation);
+                const finalSystemPrompt = customSystemPrompt || generateSystemPrompt(operation);
                 const enhancedPrompt = contextData 
                     ? `${prompt}\n\nVerified Data:\n${JSON.stringify(contextData, null, 2)}`
                     : prompt;
@@ -263,7 +263,7 @@ export const api = {
                         const response = await openai.chat.completions.create({
                             model: process.env.OPENAI_MODEL || "gpt-4o-mini",
                             messages: [
-                                { role: "system", content: systemPrompt + " You must response in JSON." },
+                                { role: "system", content: finalSystemPrompt + " You must response in JSON." },
                                 { role: "user", content: enhancedPrompt }
                             ],
                             response_format: { type: "json_object" },
@@ -277,7 +277,7 @@ export const api = {
                             reportSuccess('openai');
                             let contentToValidate = parsed.content || '';
                             if (typeof contentToValidate !== 'string') {
-                                console.log('⚠️ OpenAI returned object/array for content, stringifying...');
+                                logger.warn('OpenAI returned object/array for content, stringifying');
                                 contentToValidate = JSON.stringify(contentToValidate);
                             }
                             const validation = validateAIContent(contentToValidate, operation);
@@ -296,17 +296,18 @@ export const api = {
                                 }
                             };
                         } else {
-                            console.log('🔴 OPENAI NULL CONTENT. Finish reason:', response.choices[0]?.finish_reason);
+                            logger.error('OPENAI NULL CONTENT', new Error(`Finish reason: ${response.choices[0]?.finish_reason}`));
                         }
                     } catch (error: any) {
-                        console.log('🔴 OPENAI FAILURE DEBUG:', error.message);
-                        if (error.response) console.log('   Status:', error.response.status);
-                        if (error.code) console.log('   Code:', error.code);
-                        if (error.type) console.log('   Type:', error.type);
+                        logger.error('OPENAI FAILURE', error, {
+                            status: error.response?.status,
+                            code: error.code,
+                            type: error.type
+                        });
                         reportFailure('openai', error.message);
                     }
                 } else {
-                    console.log('⚠️ OpenAI skipped. openai object exists:', !!openai);
+                    logger.debug('OpenAI skipped', { openai_exists: !!openai });
                 }
 
                 // 2. Try Google Gemini (Fallback)
@@ -323,7 +324,7 @@ export const api = {
                             body: JSON.stringify({
                                 contents: [{ 
                                     role: 'user', 
-                                    parts: [{ text: `${systemPrompt}\n\n${enhancedPrompt}` }] 
+                                    parts: [{ text: `${finalSystemPrompt}\n\n${enhancedPrompt}` }] 
                                 }],
                                 generationConfig: { 
                                     temperature: 0.3
@@ -374,7 +375,7 @@ export const api = {
                     try {
                         const completion = await groq.chat.completions.create({
                             messages: [
-                                { role: "system", content: systemPrompt },
+                                { role: "system", content: finalSystemPrompt },
                                 { role: "user", content: enhancedPrompt }
                             ],
                             model: "llama-3.3-70b-versatile",
@@ -411,7 +412,7 @@ export const api = {
                         const response = await mistral.chat.complete({
                             model: "mistral-small-latest",
                             messages: [
-                                { role: "system", content: systemPrompt },
+                                { role: "system", content: finalSystemPrompt },
                                 { role: "user", content: enhancedPrompt }
                             ],
                             responseFormat: { type: "json_object" }
@@ -581,8 +582,8 @@ The AI was unable to reach a provider, so we've generated this professional outl
     entities: {
         Assets: {
             list: async (category?: string) => {
+                const supabase = getSupabaseClient();
                 let query = supabase.from('assets').select('*');
-                if (category) query = query.eq('category', category);
                 const { data } = await query;
                 return data || [];
             },
@@ -1035,7 +1036,7 @@ The AI was unable to reach a provider, so we've generated this professional outl
              list: async () => {
                 const { data } = await supabase.from('insurance').select('*');
                 
-                return (data || []).map(i => ({
+                return (data || []).map((i: any) => ({
                     id: i.id,
                     slug: i.slug,
                     name: i.name,
@@ -1154,7 +1155,7 @@ The AI was unable to reach a provider, so we've generated this professional outl
                 
                 if (error || !data || data.length === 0) return { average: 0, count: 0 };
                 
-                const sum = data.reduce((acc, curr) => acc + curr.rating, 0);
+                const sum = data.reduce((acc: number, curr: any) => acc + curr.rating, 0);
                 return {
                     average: parseFloat((sum / data.length).toFixed(1)),
                     count: data.length

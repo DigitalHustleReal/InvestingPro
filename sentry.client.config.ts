@@ -1,7 +1,6 @@
 // Sentry client config - STUBBED for build
 // TODO: Re-enable Sentry by un-commenting the initialization below
 
-/*
 import * as Sentry from "@sentry/nextjs";
 
 if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
@@ -12,7 +11,6 @@ if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
     environment: process.env.NODE_ENV || process.env.VERCEL_ENV || 'development',
   });
 }
-*/
 
 // Empty export to satisfy module requirements
 export {};

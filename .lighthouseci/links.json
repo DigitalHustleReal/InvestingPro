@@ -1,0 +1,6 @@
+{
+  "http://localhost:3001/": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1770599654855-10613.report.html",
+  "http://localhost:3001/article/sample-article": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1770599656404-72783.report.html",
+  "http://localhost:3001/mutual-funds": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1770599658027-49352.report.html",
+  "http://localhost:3001/calculators/sip": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1770599659863-79514.report.html"
+}

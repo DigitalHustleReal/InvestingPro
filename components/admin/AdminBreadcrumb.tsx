@@ -15,7 +15,7 @@ export function AdminBreadcrumb() {
     if (items.length <= 1) return null;
 
     return (
-        <nav className="flex items-center gap-2 text-sm text-wt-text-muted" aria-label="Breadcrumb">
+        <nav suppressHydrationWarning className="flex items-center gap-2 text-sm text-wt-text-muted" aria-label="Breadcrumb">
             <Link href="/admin" className="flex items-center justify-center w-7 h-7 rounded-md hover:bg-wt-surface-hover hover:text-wt-nav transition-colors" aria-label="Dashboard">
                 <Home className="w-4 h-4" />
             </Link>

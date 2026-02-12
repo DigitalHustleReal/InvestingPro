@@ -12,8 +12,11 @@ import {
     XCircle,
     Clock,
     FileText,
-    TrendingUp
+    TrendingUp,
+    Play
 } from 'lucide-react';
+import { ActionButton } from './AdminUIKit';
+import { ADMIN_THEME } from '@/lib/admin/theme';
 
 /**
  * Bulk Generation Panel
@@ -58,14 +61,14 @@ export default function BulkGenerationPanel() {
     };
     
     return (
-        <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl">
-            <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-6">
-                <CardTitle className="text-lg font-bold text-wt-text dark:text-wt-text flex items-center gap-3">
+        <div className="bg-white border border-wt-border-light rounded-xl shadow-card overflow-hidden">
+            <div className="border-b border-wt-border-subtle px-8 py-6 bg-wt-bg-hover/30">
+                <h3 className="text-lg font-bold text-wt-navy-900 flex items-center gap-3">
                     <Zap className="w-5 h-5 text-wt-gold" />
                     Bulk Content Generation
-                </CardTitle>
-            </CardHeader>
-            <CardContent className="p-8">
+                </h3>
+            </div>
+            <div className="p-8">
                 <div className="space-y-6">
                     {/* Configuration */}
                     <div className="grid grid-cols-2 gap-4">
@@ -141,18 +144,21 @@ export default function BulkGenerationPanel() {
                     </div>
                     
                     {/* Info */}
-                    <div className="bg-wt-card dark:bg-wt-card rounded-lg p-4 text-sm text-wt-text-muted dark:text-wt-text-muted">
-                        <p className="mb-2">
-                            <strong className="text-wt-text dark:text-wt-text">Estimated Time:</strong>{' '}
-                            {useParallel 
-                                ? `${Math.ceil(totalArticles / (batchSize * parallelBatches)) * 2} minutes`
-                                : `${Math.ceil(totalArticles / batchSize) * 5} minutes`
-                            }
+                    <div className="bg-wt-bg-hover border border-wt-border-subtle rounded-lg p-5 text-sm text-wt-navy-700">
+                        <p className="mb-2 flex items-center justify-between">
+                            <span className="font-bold uppercase tracking-tight text-[10px] text-wt-navy-400">Estimated Duration</span>
+                            <span className="font-extrabold text-wt-navy-900">
+                                {useParallel 
+                                    ? `${Math.ceil(totalArticles / (batchSize * parallelBatches)) * 2} min`
+                                    : `${Math.ceil(totalArticles / batchSize) * 5} min`
+                                }
+                            </span>
                         </p>
-                        <p>
-                            <strong className="text-wt-text dark:text-wt-text">Batches:</strong>{' '}
-                            {Math.ceil(totalArticles / batchSize)} batches
-                            {useParallel && ` (${parallelBatches} in parallel)`}
+                        <p className="flex items-center justify-between">
+                            <span className="font-bold uppercase tracking-tight text-[10px] text-wt-navy-400">Total Batches</span>
+                            <span className="font-extrabold text-wt-navy-900">
+                                {Math.ceil(totalArticles / batchSize)} {useParallel ? `(${parallelBatches} parallel)` : ''}
+                            </span>
                         </p>
                     </div>
                     
@@ -203,7 +209,7 @@ export default function BulkGenerationPanel() {
                         </div>
                     )}
                 </div>
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     );
 }

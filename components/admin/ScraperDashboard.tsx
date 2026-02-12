@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/badge';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { ActionButton, StatusBadge } from './AdminUIKit';
+import { ADMIN_THEME } from '@/lib/admin/theme';
 import { 
     RefreshCw, 
     Play, 
@@ -15,8 +14,11 @@ import {
     AlertCircle,
     CheckCircle,
     Clock,
-    Zap
+    Zap,
+    History
 } from 'lucide-react';
+
+import { formatDistanceToNow } from 'date-fns';
 
 /**
  * Scraper Dashboard
@@ -62,18 +64,20 @@ export default function ScraperDashboard() {
     return (
         <div className="space-y-8">
             {/* Header */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between border-b border-wt-border pb-6">
                 <div>
-                    <h1 className="text-2xl font-bold text-wt-text dark:text-wt-text">Scraper Management</h1>
-                    <p className="text-wt-text-muted dark:text-wt-text-muted mt-1">Monitor and manage all data scrapers</p>
+                    <h1 className="text-3xl font-bold text-wt-navy-900 tracking-tight">Data Scrapers</h1>
+                    <p className="text-sm font-medium text-wt-navy-500 mt-1">
+                        Monitor real-time data ingestion pipelines
+                    </p>
                 </div>
-                <Button
+                <ActionButton
                     onClick={() => queryClient.invalidateQueries({ queryKey: ['scrapers'] })}
-                    variant="outline"
+                    variant="secondary"
+                    icon={RefreshCw}
                 >
-                    <RefreshCw className="w-4 h-4 mr-2" />
-                    Refresh
-                </Button>
+                    Refresh Status
+                </ActionButton>
             </div>
             
             {/* Scrapers List */}
@@ -120,122 +124,137 @@ function ScraperCard({ scraper, onExecute, isExecuting }: any) {
     const runs = runsData || [];
     const lastRun = runs[0];
     
-    const getStatusColor = (status: string) => {
+    const getStatusType = (status: string) => {
         switch (status) {
-            case 'completed': return 'bg-wt-green';
-            case 'failed': return 'bg-wt-danger';
-            case 'running': return 'bg-accent-500 animate-pulse';
-            default: return 'bg-wt-text-dim';
+            case 'completed': return 'completed';
+            case 'failed': return 'error';
+            case 'running': return 'processing';
+            default: return 'neutral';
         }
     };
     
     return (
-        <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl">
-            <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-6">
+        <div className="bg-white border border-wt-border-subtle rounded-2xl overflow-hidden hover:shadow-cardHover hover:border-wt-gold/20 transition-all duration-300 group">
+            <div className="px-8 py-6 border-b border-wt-border-subtle bg-wt-bg-hover/10">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <div className={`w-3 h-3 rounded-full ${getStatusColor(lastRun?.status || 'unknown')}`} />
+                        <div className="p-3 bg-white rounded-xl shadow-sm border border-wt-border-subtle group-hover:border-wt-gold/30 transition-colors">
+                            <Database className="w-6 h-6 text-wt-gold" />
+                        </div>
                         <div>
-                            <CardTitle className="text-lg font-bold text-wt-text dark:text-wt-text">
+                            <h3 className="text-lg font-bold text-wt-navy-900 leading-tight">
                                 {scraper.display_name || scraper.name}
-                            </CardTitle>
-                            <p className="text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 mt-1">
-                                {scraper.category} â€¢ {scraper.source_type}
+                            </h3>
+                            <div className="flex items-center gap-2 mt-1">
+                                <span className="text-[10px] font-extrabold uppercase tracking-widest text-wt-gold bg-wt-gold/5 px-2 py-0.5 rounded">
+                                    {scraper.category}
+                                </span>
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-wt-navy-400">
+                                    {scraper.source_type}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <StatusBadge 
+                            status={scraper.is_active ? 'completed' : 'neutral'} 
+                            label={scraper.is_active ? 'Operational' : 'Paused'} 
+                        />
+                        <ActionButton
+                            onClick={onExecute}
+                            isLoading={isExecuting}
+                            disabled={!scraper.is_active}
+                            variant="primary"
+                            icon={Play}
+                        >
+                            Execute
+                        </ActionButton>
+                    </div>
+                </div>
+            </div>
+
+            <div className="p-8">
+                <div className="grid grid-cols-4 gap-8">
+                    <div className="space-y-1">
+                        <p className="text-[10px] font-extrabold uppercase tracking-tight text-wt-navy-400">Snapshot Status</p>
+                        <div className="flex items-center gap-2">
+                            <div className={`w-2 h-2 rounded-full ${
+                                lastRun?.status === 'completed' ? 'bg-wt-green' : 
+                                lastRun?.status === 'failed' ? 'bg-wt-danger' : 
+                                lastRun?.status === 'running' ? 'bg-wt-gold animate-pulse' : 'bg-wt-navy-200'
+                            }`} />
+                            <p className="text-sm font-bold text-wt-navy-900 capitalize">
+                                {lastRun?.status || 'Never Analyzed'}
                             </p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                        <Badge variant={scraper.is_active ? "default" : "outline"}>
-                            {scraper.is_active ? 'Active' : 'Inactive'}
-                        </Badge>
-                        <Button
-                            onClick={onExecute}
-                            disabled={isExecuting || !scraper.is_active}
-                            size="sm"
-                            className="bg-wt-gold hover:bg-wt-gold-hover"
-                        >
-                            {isExecuting ? (
-                                <>
-                                    <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                                    Running...
-                                </>
-                            ) : (
-                                <>
-                                    <Play className="w-4 h-4 mr-2" />
-                                    Run Now
-                                </>
-                            )}
-                        </Button>
+                    <div className="space-y-1 text-center md:text-left">
+                        <p className="text-[10px] font-extrabold uppercase tracking-tight text-wt-navy-400">Items Scraped</p>
+                        <p className="text-lg font-extrabold text-wt-navy-900">{lastRun?.items_scraped || 0}</p>
                     </div>
-                </div>
-            </CardHeader>
-            <CardContent className="p-8">
-                <div className="grid grid-cols-4 gap-6 mb-6">
-                    <div>
-                        <p className="text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 mb-1">Last Run</p>
-                        <p className="text-wt-text dark:text-wt-text font-medium">
-                            {lastRun?.started_at 
-                                ? new Date(lastRun.started_at).toLocaleString()
-                                : 'Never'
-                            }
-                        </p>
+                    <div className="space-y-1 text-center md:text-left">
+                        <p className="text-[10px] font-extrabold uppercase tracking-tight text-wt-navy-400">Updates</p>
+                        <p className="text-lg font-extrabold text-wt-navy-900">{lastRun?.items_updated || 0}</p>
                     </div>
-                    <div>
-                        <p className="text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 mb-1">Items Scraped</p>
-                        <p className="text-wt-text dark:text-wt-text font-medium">
-                            {lastRun?.items_scraped || 0}
-                        </p>
-                    </div>
-                    <div>
-                        <p className="text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 mb-1">Items Updated</p>
-                        <p className="text-wt-text dark:text-wt-text font-medium">
-                            {lastRun?.items_updated || 0}
-                        </p>
-                    </div>
-                    <div>
-                        <p className="text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 mb-1">Execution Time</p>
-                        <p className="text-wt-text dark:text-wt-text font-medium">
+                    <div className="space-y-1 text-center md:text-left">
+                        <p className="text-[10px] font-extrabold uppercase tracking-tight text-wt-navy-400">Latency</p>
+                        <p className="text-lg font-extrabold text-wt-navy-900">
                             {lastRun?.execution_time_ms 
                                 ? `${(lastRun.execution_time_ms / 1000).toFixed(1)}s`
-                                : '-'
+                                : '--'
                             }
                         </p>
                     </div>
                 </div>
                 
-                <div className="flex items-center gap-4">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setShowRuns(!showRuns)}
-                    >
-                        {showRuns ? 'Hide' : 'Show'} Runs
-                    </Button>
-                    {scraper.next_run_at && (
-                        <div className="flex items-center gap-2 text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70">
-                            <Clock className="w-4 h-4" />
-                            Next run: {new Date(scraper.next_run_at).toLocaleString()}
-                        </div>
+                <div className="mt-8 flex items-center justify-between border-t border-wt-border-subtle pt-6">
+                    <div className="flex items-center gap-6">
+                        <ActionButton
+                            variant="secondary"
+                            size="sm"
+                            onClick={() => setShowRuns(!showRuns)}
+                            icon={History}
+                        >
+                            {showRuns ? 'Hide' : 'View'} Execution History
+                        </ActionButton>
+                        {scraper.next_run_at && (
+                            <div className="flex items-center gap-2 px-3 py-1.5 bg-wt-bg-hover rounded-lg">
+                                <Clock className="w-3.5 h-3.5 text-wt-navy-400" />
+                                <span className="text-[10px] font-bold text-wt-navy-600">
+                                    Next Run: {new Date(scraper.next_run_at).toLocaleString()}
+                                </span>
+                            </div>
+                        )}
+                    </div>
+                    {lastRun?.started_at && (
+                        <p className="text-[10px] font-bold text-wt-navy-400 uppercase tracking-widest">
+                            Last Analyzed: {formatDistanceToNow(new Date(lastRun.started_at), { addSuffix: true })}
+                        </p>
                     )}
                 </div>
                 
                 {showRuns && (
-                    <div className="mt-6 space-y-2">
-                        <h4 className="text-sm font-semibold text-wt-text dark:text-wt-text mb-3">Recent Runs</h4>
+                    <div className="mt-8 space-y-3 animate-in fade-in slide-in-from-top-4 duration-300">
+                        <h4 className="text-[10px] font-extrabold uppercase tracking-widest text-wt-navy-400 mb-4 px-1">Recent Executions</h4>
                         {runs.length === 0 ? (
-                            <p className="text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70">No runs yet</p>
+                            <div className="p-8 text-center bg-wt-bg-hover rounded-xl border border-dashed border-wt-border-subtle">
+                                <p className="text-sm text-wt-navy-400">No telemetry data available for this scraper.</p>
+                            </div>
                         ) : (
                             runs.slice(0, 5).map((run: any) => (
-                                <div key={run.id} className="flex items-center justify-between p-3 bg-wt-surface/50 dark:bg-wt-surface/50 rounded-lg">
-                                    <div className="flex items-center gap-3">
-                                        <div className={`w-2 h-2 rounded-full ${getStatusColor(run.status)}`} />
-                                        <span className="text-sm text-wt-text dark:text-wt-text">
-                                            {new Date(run.started_at).toLocaleString()}
+                                <div key={run.id} className="flex items-center justify-between p-4 bg-wt-bg-hover/30 hover:bg-white border border-wt-border-subtle rounded-xl transition-all group/run">
+                                    <div className="flex items-center gap-4">
+                                        <StatusBadge 
+                                            status={getStatusType(run.status)} 
+                                            size="sm"
+                                        />
+                                        <span className="text-sm font-bold text-wt-navy-700">
+                                            {formatDistanceToNow(new Date(run.started_at), { addSuffix: true })}
                                         </span>
                                     </div>
-                                    <div className="flex items-center gap-4 text-sm text-wt-text-muted dark:text-wt-text-muted">
-                                        <span>{run.items_scraped} scraped</span>
-                                        <span>{run.items_updated} updated</span>
+                                    <div className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-tight text-wt-navy-400">
+                                        <span className="flex items-center gap-1.5"><Zap className="w-3 h-3 text-wt-gold" /> {run.items_scraped}</span>
+                                        <span className="flex items-center gap-1.5"><RefreshCw className="w-3 h-3 text-wt-navy-300" /> {run.items_updated}</span>
                                         {run.execution_time_ms && (
                                             <span>{(run.execution_time_ms / 1000).toFixed(1)}s</span>
                                         )}
@@ -245,7 +264,7 @@ function ScraperCard({ scraper, onExecute, isExecuting }: any) {
                         )}
                     </div>
                 )}
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     );
 }

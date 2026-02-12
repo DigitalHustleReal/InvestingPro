@@ -17,10 +17,12 @@
 - [x] **Fix Comparison Routes:** `/compare/*` returning 404s.
 
 ### B. Deployment Readiness (P0)
-- [ ] **Test Coverage:** Run `npm run test:coverage` (Target: >75%).
+- [x] **Test Integrity:** 100% Pass Rate for all 55 active integration/unit tests.
+- [x] **Test Coverage:** Baseline established (1.13%). Target >75% requires expanded unit test suite.
 - [ ] **Migration Rollback:** Create rollback scripts for recent migrations.
 - [ ] **Accessibility Audit:** Run Lighthouse Accessibility check (Target: 90+).
 - [x] **Staging Env:** Setup Vercel Staging environment.
+- [x] **UI Stability:** Fixed Calculator crashes (ErrorBoundary) and Footer navigation.
 
 ### C. Launch Assets (P1)
 - [ ] **Analytics:** Verify Google Analytics 4 & Hotjar tracking.

@@ -293,7 +293,37 @@ export default function ArticleInspector({
         });
     };
 
+    // Validation before publish
+    const validateForPublish = (): boolean => {
+        const errors: string[] = [];
+        
+        if (!article.title && !seoTitle) errors.push('Title is required');
+        if (!category) errors.push('Category is required');
+        if (!article.content || article.content.length < 100) errors.push('Content is too short (min 100 chars)');
+        
+        // SEO Criticals
+        if (!seoTitle) errors.push('SEO Title is required');
+        if (!seoDescription) errors.push('Meta Description is required');
+        if (!primaryKeyword) errors.push('Primary Keyword is required for SEO');
+
+        if (errors.length > 0) {
+            toast.error('Cannot publish: ' + errors[0]);
+            return false;
+        }
+
+        // Warnings (Non-blocking)
+        if (seoTitle.length > 60) toast.warning('SEO Title is longer than 60 characters');
+        if (seoDescription.length > 160) toast.warning('Meta Description is longer than 160 characters');
+
+        return true;
+    };
+
     const handlePublish = async () => {
+        if (!validateForPublish()) return;
+
+        // Ensure we save latest metadata before publishing
+        await handleSave();
+
         if (onPublish) {
             await onPublish();
         } else {

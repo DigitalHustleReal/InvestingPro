@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/badge';
-import { Play, RefreshCw, Zap, Loader2, CheckCircle2, XCircle, Clock, Activity } from 'lucide-react';
+import { Play, RefreshCw, Zap, Loader2, CheckCircle2, XCircle, Clock, Activity, ExternalLink } from 'lucide-react';
+import { ActionButton, StatusBadge } from './AdminUIKit';
+import { ADMIN_THEME } from '@/lib/admin/theme';
 import { toast } from 'sonner';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { usePipeline } from '@/hooks/usePipeline';
@@ -124,179 +123,143 @@ export default function AutomationControls({ className = "" }: AutomationControl
     return (
         <div className={cn("space-y-8", className)}>
             {/* Scraper Triggers */}
-            <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden">
-                <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-6">
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-wt-text-muted dark:text-wt-text-muted flex items-center gap-6 md:p-8">
+            <div className="bg-white border border-wt-border-light rounded-xl shadow-card overflow-hidden">
+                <div className="border-b border-wt-border-subtle px-8 py-6 bg-wt-bg-hover/30">
+                    <h3 className="text-sm font-bold text-wt-navy-900 flex items-center gap-4">
                         <div className="w-8 h-8 rounded-lg bg-wt-gold-subtle flex items-center justify-center">
                             <Zap className="w-4 h-4 text-wt-gold" />
                         </div>
-                        Content Extraction Nodes
-                    </CardTitle>
-                </CardHeader>
-                <CardContent className="p-8">
+                        CONTENT EXTRACTION NODES
+                    </h3>
+                </div>
+                <div className="p-8">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div className="p-6 bg-wt-surface dark:bg-wt-surface border border-wt-border/50 dark:border-wt-border/50 rounded-xl hover:border-wt-gold/30 transition-all group">
+                        <div className="p-6 bg-wt-bg-hover/20 border border-wt-border-subtle rounded-xl hover:border-wt-gold/30 hover:shadow-sm transition-all group">
                             <div className="flex items-center justify-between mb-4">
-                                <span className="text-xs font-bold text-wt-text-muted dark:text-wt-text-muted uppercase tracking-widest">Asset Crawler</span>
-                                <Badge className="bg-wt-gold-subtle text-wt-gold border border-wt-gold/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
+                                <span className="text-[10px] font-bold text-wt-navy-400 uppercase tracking-widest">Asset Crawler</span>
+                                <StatusBadge status="completed" label="Ready" />
                             </div>
-                            <Button
-                                size="sm"
-                                variant="ghost"
-                                className="w-full h-10 bg-wt-surface-hover text-wt-text dark:text-wt-text hover:bg-wt-surface-hover rounded-xl font-bold uppercase tracking-widest text-[10px]"
+                            <ActionButton
                                 onClick={() => handleTriggerScraper('products')}
-                                disabled={triggering === 'scraper-products'}
+                                isLoading={triggering === 'scraper-products'}
+                                variant="secondary"
+                                size="sm"
+                                icon={Play}
+                                className="w-full text-[10px]"
                             >
-                                {triggering === 'scraper-products' ? (
-                                    <>
-                                        <Loader2 className="w-4 h-4 mr-2 animate-spin text-wt-gold" />
-                                        Syncing
-                                    </>
-                                ) : (
-                                    <>
-                                        <Play className="w-3.5 h-3.5 mr-2 text-wt-gold" />
-                                        Execute
-                                    </>
-                                )}
-                            </Button>
+                                Execute
+                            </ActionButton>
                         </div>
 
-                        <div className="p-6 bg-wt-surface dark:bg-wt-surface border border-wt-border/50 dark:border-wt-border/50 rounded-xl hover:border-secondary-500/30 transition-all group">
+                        <div className="p-6 bg-wt-bg-hover/20 border border-wt-border-subtle rounded-xl hover:border-wt-gold/30 hover:shadow-sm transition-all group">
                             <div className="flex items-center justify-between mb-4">
-                                <span className="text-xs font-bold text-wt-text-muted dark:text-wt-text-muted uppercase tracking-widest">Sentiment Crawler</span>
-                                <Badge className="bg-wt-gold-subtle text-wt-gold border border-wt-gold/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
+                                <span className="text-[10px] font-bold text-wt-navy-400 uppercase tracking-widest">Sentiment Crawler</span>
+                                <StatusBadge status="completed" label="Ready" />
                             </div>
-                            <Button
-                                size="sm"
-                                variant="ghost"
-                                className="w-full h-10 bg-wt-surface-hover text-wt-text dark:text-wt-text hover:bg-wt-surface-hover rounded-xl font-bold uppercase tracking-widest text-[10px]"
+                            <ActionButton
                                 onClick={() => handleTriggerScraper('reviews')}
-                                disabled={triggering === 'scraper-reviews'}
+                                isLoading={triggering === 'scraper-reviews'}
+                                variant="secondary"
+                                size="sm"
+                                icon={Play}
+                                className="w-full text-[10px]"
                             >
-                                {triggering === 'scraper-reviews' ? (
-                                    <>
-                                        <Loader2 className="w-4 h-4 mr-2 animate-spin text-wt-gold" />
-                                        Syncing
-                                    </>
-                                ) : (
-                                    <>
-                                        <Play className="w-3.5 h-3.5 mr-2 text-wt-gold" />
-                                        Execute
-                                    </>
-                                )}
-                            </Button>
+                                Execute
+                            </ActionButton>
                         </div>
 
-                        <div className="p-6 bg-wt-surface dark:bg-wt-surface border border-wt-border/50 dark:border-wt-border/50 rounded-xl hover:border-wt-gold/30 transition-all group">
+                        <div className="p-6 bg-wt-bg-hover/20 border border-wt-border-subtle rounded-xl hover:border-wt-gold/30 hover:shadow-sm transition-all group">
                             <div className="flex items-center justify-between mb-4">
-                                <span className="text-xs font-bold text-wt-text-muted dark:text-wt-text-muted uppercase tracking-widest">Market Feed Crawler</span>
-                                <Badge className="bg-wt-gold-subtle text-wt-gold border border-wt-gold/20 text-[9px] font-bold uppercase tracking-wider px-2">Ready</Badge>
+                                <span className="text-[10px] font-bold text-wt-navy-400 uppercase tracking-widest">Market Feed Crawler</span>
+                                <StatusBadge status="completed" label="Ready" />
                             </div>
-                            <Button
-                                size="sm"
-                                variant="ghost"
-                                className="w-full h-10 bg-wt-surface-hover text-wt-text dark:text-wt-text hover:bg-wt-surface-hover rounded-xl font-bold uppercase tracking-widest text-[10px]"
+                            <ActionButton
                                 onClick={() => handleTriggerScraper('rates')}
-                                disabled={triggering === 'scraper-rates'}
+                                isLoading={triggering === 'scraper-rates'}
+                                variant="secondary"
+                                size="sm"
+                                icon={Play}
+                                className="w-full text-[10px]"
                             >
-                                {triggering === 'scraper-rates' ? (
-                                    <>
-                                        <Loader2 className="w-4 h-4 mr-2 animate-spin text-wt-gold" />
-                                        Syncing
-                                    </>
-                                ) : (
-                                    <>
-                                        <Play className="w-3.5 h-3.5 mr-2 text-wt-gold" />
-                                        Execute
-                                    </>
-                                )}
-                            </Button>
+                                Execute
+                            </ActionButton>
                         </div>
                     </div>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
 
             {/* Pipeline Controls */}
-            <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden">
-                <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-6">
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-wt-text-muted dark:text-wt-text-muted flex items-center gap-6 md:p-8">
-                        <div className="w-8 h-8 rounded-lg bg-secondary-500/10 flex items-center justify-center">
-                            <Activity className="w-4 h-4 text-wt-gold" />
+            <div className="bg-white border border-wt-border-light rounded-xl shadow-card overflow-hidden">
+                <div className="border-b border-wt-border-subtle px-8 py-6 bg-wt-bg-hover/30">
+                    <h3 className="text-sm font-bold text-wt-navy-900 flex items-center gap-4">
+                        <div className="w-8 h-8 rounded-lg bg-wt-navy-50 flex items-center justify-center">
+                            <Activity className="w-4 h-4 text-wt-navy-600" />
                         </div>
-                        Synthesis Engine
-                    </CardTitle>
-                </CardHeader>
-                <CardContent className="p-8">
-                    <div className="flex flex-col md:flex-row items-center justify-between p-6 bg-wt-surface dark:bg-wt-surface border border-wt-border/50 dark:border-wt-border/50 rounded-xl group hover:border-wt-gold/30 transition-all">
-                        <div className="mb-4 md:mb-0">
-                            <h4 className="font-bold text-wt-text dark:text-wt-text tracking-tight text-lg mb-1">Content Factory Pipeline</h4>
-                            <p className="text-[11px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-widest">
-                                Automated analysis and distribution sequence
+                        SYNTHESIS ENGINE
+                    </h3>
+                </div>
+                <div className="p-8">
+                    <div className="flex flex-col md:flex-row items-center justify-between p-7 bg-wt-navy-900 rounded-xl shadow-lg border border-wt-navy-800">
+                        <div className="mb-6 md:mb-0">
+                            <h4 className="font-bold text-white tracking-tight text-xl mb-1">Content Factory Pipeline</h4>
+                            <p className="text-[10px] font-bold text-wt-navy-300 uppercase tracking-[0.1em]">
+                                Automated deep-research and trend analysis sequence
                             </p>
                         </div>
-                        <Button
+                        <ActionButton
                             size="lg"
-                            className="h-12 px-8 rounded-xl font-extrabold uppercase tracking-widest text-[11px] bg-primary-500 text-wt-text dark:text-wt-text hover:bg-wt-gold shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all active:scale-95"
+                            className="h-14 px-10"
                             onClick={handleTriggerPipeline}
-                            disabled={isTriggering === 'scrape_and_generate'}
+                            isLoading={isTriggering === 'scrape_and_generate'}
+                            icon={Play}
                         >
-                            {isTriggering === 'scrape_and_generate' ? (
-                                <>
-                                    <Loader2 className="w-5 h-5 mr-3 animate-spin" />
-                                    Synthesizing...
-                                </>
-                            ) : (
-                                <>
-                                    <Play className="w-5 h-5 mr-3 fill-current" />
-                                    Initialize Reactor
-                                </>
-                            )}
-                        </Button>
+                            Initialize Reactor
+                        </ActionButton>
                     </div>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
 
-           {/* Manual Content Factory */}
-            <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden">
-                <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-6">
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-wt-text-muted dark:text-wt-text-muted flex items-center gap-6 md:p-8">
-                        <div className="w-8 h-8 rounded-lg bg-wt-danger/10 flex items-center justify-center">
-                            <Zap className="w-4 h-4 text-wt-danger" />
+            {/* Manual Content Factory */}
+            <div className="bg-white border border-wt-border-light rounded-xl shadow-card overflow-hidden">
+                <div className="border-b border-wt-border-subtle px-8 py-6 bg-wt-bg-hover/30">
+                    <h3 className="text-sm font-bold text-wt-navy-900 flex items-center gap-4">
+                        <div className="w-8 h-8 rounded-lg bg-wt-gold-subtle flex items-center justify-center">
+                            <Zap className="w-4 h-4 text-wt-gold" />
                         </div>
-                        Proactive Generation
-                    </CardTitle>
-                </CardHeader>
-                <CardContent className="p-8">
-                    <div className="flex flex-col md:flex-row items-center justify-between p-6 bg-wt-surface dark:bg-wt-surface border border-wt-border/50 dark:border-wt-border/50 rounded-xl group hover:border-pink-500/30 transition-all">
+                        PROACTIVE GENERATION
+                    </h3>
+                </div>
+                <div className="p-8">
+                    <div className="flex flex-col md:flex-row items-center justify-between p-6 bg-wt-bg-hover/20 border-2 border-dashed border-wt-border-subtle rounded-xl group hover:border-wt-gold/30 transition-all">
                         <div className="mb-4 md:mb-0">
-                            <h4 className="font-bold text-wt-text dark:text-wt-text tracking-tight text-lg mb-1">Writer Workspace</h4>
-                            <p className="text-[11px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-widest">
+                            <h4 className="font-bold text-wt-navy-900 tracking-tight text-lg mb-1">Writer Workspace</h4>
+                            <p className="text-[11px] font-bold text-wt-navy-500 uppercase tracking-widest">
                                 Manually trigger AI content generation for specific topics
                             </p>
                         </div>
-                        <Button
+                        <ActionButton
                             size="lg"
-                            className="h-12 px-8 rounded-xl font-extrabold uppercase tracking-widest text-[11px] bg-wt-danger text-wt-text dark:text-wt-text hover:bg-wt-danger/90 shadow-[0_0_20px_rgba(236,72,153,0.3)] transition-all active:scale-95 border-0"
+                            className="h-12 px-8"
                             onClick={() => router.push('/admin/content-factory')}
+                            icon={ExternalLink}
                         >
-                            <Play className="w-5 h-5 mr-3 fill-current" />
                             Launch Workspace
-                        </Button>
+                        </ActionButton>
                     </div>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
 
             {/* Recent Pipeline Runs */}
-            <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden">
-                <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-6 bg-white/[0.01]">
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-wt-text-muted dark:text-wt-text-muted flex items-center gap-6 md:p-8">
-                        <div className="w-8 h-8 rounded-lg bg-wt-card flex items-center justify-center">
-                            <Clock className="w-4 h-4 text-wt-text-muted dark:text-wt-text-muted" />
+            <div className="bg-white border border-wt-border-light rounded-xl shadow-card overflow-hidden">
+                <div className="border-b border-wt-border-subtle px-8 py-6 bg-wt-bg-hover/30">
+                    <h3 className="text-sm font-bold text-wt-navy-900 flex items-center gap-4">
+                        <div className="w-8 h-8 rounded-lg bg-wt-navy-50 flex items-center justify-center">
+                            <Clock className="w-4 h-4 text-wt-navy-600" />
                         </div>
-                        Execution History Ledger
-                    </CardTitle>
-                </CardHeader>
-                <CardContent className="p-0">
+                        EXECUTION HISTORY LEDGER
+                    </h3>
+                </div>
+                <div className="p-0">
                     {(!pipelineRuns || pipelineRuns.length === 0) ? (
                         <div className="text-center py-16 text-wt-text-muted/70 dark:text-wt-text-muted/70 font-bold uppercase tracking-[0.2em] text-[10px]">
                             No system operations logged
@@ -343,7 +306,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                                                 </div>
                                             </div>
                                             
-                                            <div className="flex items-center gap-4">
+                                             <div className="flex items-center gap-4">
                                                 {run.error_message && (
                                                     <div className="max-w-[200px] text-right">
                                                         <p className="text-[10px] text-wt-danger font-bold tracking-tight uppercase leading-relaxed">
@@ -353,14 +316,15 @@ export default function AutomationControls({ className = "" }: AutomationControl
                                                 )}
                                                 
                                                 {run.result?.article_id && (
-                                                    <Button 
+                                                    <ActionButton 
                                                         size="sm" 
-                                                        variant="ghost" 
-                                                        className="h-10 px-6 bg-wt-surface-hover text-wt-text dark:text-wt-text hover:bg-wt-surface-hover rounded-xl font-bold uppercase tracking-widest text-[10px]"
+                                                        variant="secondary" 
+                                                        className="h-10 px-6 text-[10px]"
                                                         onClick={() => window.open(`/admin/articles/edit/${run.result.article_id}`, '_blank')}
+                                                        icon={ExternalLink}
                                                     >
-                                                        Review Output â†’
-                                                    </Button>
+                                                        Review Output
+                                                    </ActionButton>
                                                 )}
                                             </div>
                                         </div>
@@ -369,66 +333,60 @@ export default function AutomationControls({ className = "" }: AutomationControl
                             })}
                         </div>
                     )}
-                </CardContent>
-            </Card>
+                </div>
+            </div>
 
             {/* Content Refresh Controls */}
-            <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden">
-                <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-8 py-6">
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest text-wt-text-muted dark:text-wt-text-muted flex items-center gap-6 md:p-8">
+            <div className="bg-white border border-wt-border-light rounded-xl shadow-card overflow-hidden">
+                <div className="border-b border-wt-border-subtle px-8 py-6 bg-wt-bg-hover/30">
+                    <h3 className="text-sm font-bold text-wt-navy-900 flex items-center gap-4">
                         <div className="w-8 h-8 rounded-lg bg-wt-gold-subtle flex items-center justify-center">
                             <RefreshCw className="w-4 h-4 text-wt-gold" />
                         </div>
-                        Cache Maintenance
-                    </CardTitle>
-                </CardHeader>
-                <CardContent className="p-8">
+                        CACHE MAINTENANCE
+                    </h3>
+                </div>
+                <div className="p-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="flex items-center justify-between p-6 bg-wt-surface dark:bg-wt-surface border border-wt-border/50 dark:border-wt-border/50 rounded-xl group hover:border-wt-gold/30 transition-all">
+                        <div className="flex items-center justify-between p-6 bg-wt-bg-hover/20 border border-wt-border-subtle rounded-xl group hover:border-wt-gold/30 transition-all">
                             <div>
-                                <h4 className="font-bold text-wt-text dark:text-wt-text mb-1">Articles Buffer</h4>
-                                <p className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-widest">
+                                <h4 className="font-bold text-wt-navy-900 mb-1">Articles Buffer</h4>
+                                <p className="text-[10px] font-bold text-wt-navy-400 uppercase tracking-widest">
                                     Refresh all article indices
                                 </p>
                             </div>
-                            <Button
+                            <ActionButton
                                 size="sm"
-                                variant="ghost"
-                                className="h-10 px-6 bg-wt-surface-hover text-wt-gold hover:bg-primary-500 hover:text-wt-text dark:text-wt-text rounded-xl font-bold uppercase tracking-widest text-[10px]"
+                                variant="secondary"
+                                className="h-10 px-6 text-[10px]"
                                 onClick={() => handleContentRefresh('article')}
-                                disabled={triggering === 'refresh-article'}
+                                isLoading={triggering === 'refresh-article'}
+                                icon={RefreshCw}
                             >
-                                {triggering === 'refresh-article' ? (
-                                    <Loader2 className="w-4 h-4 animate-spin" />
-                                ) : (
-                                    <RefreshCw className="w-4 h-4" />
-                                )}
-                            </Button>
+                                Refresh
+                            </ActionButton>
                         </div>
-                        <div className="flex items-center justify-between p-6 bg-wt-surface dark:bg-wt-surface border border-wt-border/50 dark:border-wt-border/50 rounded-xl group hover:border-wt-gold/30 transition-all">
+                        <div className="flex items-center justify-between p-6 bg-wt-bg-hover/20 border border-wt-border-subtle rounded-xl group hover:border-wt-gold/30 transition-all">
                             <div>
-                                <h4 className="font-bold text-wt-text dark:text-wt-text mb-1">Pillar Page Index</h4>
-                                <p className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-widest">
+                                <h4 className="font-bold text-wt-navy-900 mb-1">Pillar Page Index</h4>
+                                <p className="text-[10px] font-bold text-wt-navy-400 uppercase tracking-widest">
                                     Synchronize cornerstone content
                                 </p>
                             </div>
-                            <Button
+                            <ActionButton
                                 size="sm"
-                                variant="ghost"
-                                className="h-10 px-6 bg-wt-surface-hover text-wt-gold hover:bg-primary-500 hover:text-wt-text dark:text-wt-text rounded-xl font-bold uppercase tracking-widest text-[10px]"
+                                variant="secondary"
+                                className="h-10 px-6 text-[10px]"
                                 onClick={() => handleContentRefresh('pillar')}
-                                disabled={triggering === 'refresh-pillar'}
+                                isLoading={triggering === 'refresh-pillar'}
+                                icon={RefreshCw}
                             >
-                                {triggering === 'refresh-pillar' ? (
-                                    <Loader2 className="w-4 h-4 animate-spin" />
-                                ) : (
-                                    <RefreshCw className="w-4 h-4" />
-                                )}
-                            </Button>
+                                Sync
+                            </ActionButton>
                         </div>
                     </div>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
         </div>
     );
 }

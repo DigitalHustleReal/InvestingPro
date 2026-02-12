@@ -6,6 +6,7 @@ import KeyboardShortcuts from './KeyboardShortcuts';
 import { AdminBreadcrumb } from './AdminBreadcrumb';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { ADMIN_THEME } from '@/lib/admin/theme';
 
 interface AdminLayoutProps {
     children: ReactNode;
@@ -54,25 +55,28 @@ export default function AdminLayout({
     return (
         <>
             <KeyboardShortcuts />
-            <div className="admin-wt-app min-h-screen bg-wt-bg text-wt-text flex flex-col antialiased">
+            <div className="min-h-screen flex flex-col antialiased bg-slate-950 text-slate-200 font-sans selection:bg-blue-500/30">
                 {/* Mobile menu button – Wealth & Trust */}
                 <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    className="md:hidden fixed top-[3.25rem] left-4 z-50 p-2.5 bg-wt-surface border border-wt-border rounded-lg text-wt-text hover:bg-wt-surface-hover transition-colors shadow-sm"
+                    className="md:hidden fixed top-[3.25rem] left-4 z-50 p-2.5 rounded-lg transition-colors shadow-sm bg-slate-900/90 border border-white/10 text-slate-200 backdrop-blur-md"
                     aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
                     aria-expanded={isMobileMenuOpen}
                 >
                     {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                 </button>
                 {isMobileMenuOpen && (
-                    <div className="md:hidden fixed inset-0 bg-wt-nav/60 z-40" onClick={() => setIsMobileMenuOpen(false)} aria-hidden="true" />
+                    <div className="md:hidden fixed inset-0 z-40 bg-slate-950/80 backdrop-blur-sm"
+                        onClick={() => setIsMobileMenuOpen(false)} 
+                        aria-hidden="true" 
+                    />
                 )}
 
                 {/* Main nav is now part of AdminTopBar (single header) */}
                 <div className="grid grid-cols-[auto_1fr] flex-1 overflow-hidden relative z-10">
                     <aside
                         className={cn(
-                            'bg-wt-surface border-r border-wt-border w-[240px] flex-shrink-0 shadow-sm',
+                            'w-[240px] flex-shrink-0 shadow-xl',
                             'fixed md:relative z-40 md:z-0',
                             'transition-transform duration-200 ease-out md:transition-none',
                             'h-[calc(100vh-3.5rem)] md:h-full',
@@ -85,24 +89,24 @@ export default function AdminLayout({
 
                     <div className="col-span-1 flex flex-col overflow-hidden min-w-0">
                         {/* Breadcrumb only in main content area */}
-                        <div className="sticky top-14 z-20 shrink-0 border-b border-wt-border bg-wt-bg">
+                        <div className="sticky top-14 z-20 shrink-0 border-b border-white/5 bg-slate-900/80 backdrop-blur-md">
                             <div className="max-w-[1600px] mx-auto px-4 py-3 sm:px-6 lg:px-8">
                                 <AdminBreadcrumb />
                             </div>
                         </div>
                         <div className="flex-1 flex overflow-hidden">
                             {contextualSidebar && (
-                                <aside className="flex-shrink-0 w-[200px] border-r border-wt-border bg-wt-card overflow-y-auto">
+                                <aside className="flex-shrink-0 w-[200px] overflow-y-auto border-r border-white/5 bg-slate-900/50 backdrop-blur-sm">
                                     {contextualSidebar}
                                 </aside>
                             )}
-                            <main className="flex-1 overflow-y-auto bg-wt-bg">
+                            <main className="flex-1 overflow-y-auto bg-transparent">
                                 <div className="min-h-full">
                                     {children}
                                 </div>
                             </main>
                             {showInspector && inspectorContent && (
-                                <aside className="w-80 flex-shrink-0 border-l border-wt-border bg-wt-surface overflow-y-auto">
+                                <aside className="w-80 flex-shrink-0 overflow-y-auto border-l border-white/5 bg-slate-900/50 backdrop-blur-sm">
                                     {inspectorContent}
                                 </aside>
                             )}

@@ -24,7 +24,9 @@ export default function SEOScoreCalculator({
     keywords = []
 }: SEOScoreCalculatorProps) {
     const analysis = useMemo(() => {
-        const wordCount = content.split(/\s+/).filter(w => w.length > 0).length;
+        // Strip out HTML tags for word count to avoid counting tags as words
+        const cleanContent = content.replace(/<[^>]*>/g, ' ');
+        const wordCount = cleanContent.split(/\s+/).filter(w => w.length > 0).length;
         const charCount = content.length;
         const titleLength = title.length;
         const metaLength = metaDescription.length;
@@ -70,13 +72,15 @@ export default function SEOScoreCalculator({
         }
 
         // Heading structure (15 points)
-        const h2Count = (content.match(/<h2[^>]*>/gi) || []).length;
-        const h3Count = (content.match(/<h3[^>]*>/gi) || []).length;
-        if (h2Count >= 2) {
+        // Markdown (## ) or HTML (<h2>)
+        const h2Matches = (content.match(/<h2[^>]*>/gi) || []).length + (content.match(/^#{2}\s/gm) || []).length;
+        const h3Matches = (content.match(/<h3[^>]*>/gi) || []).length + (content.match(/^#{3}\s/gm) || []).length;
+        
+        if (h2Matches >= 2) {
             score += 15;
-            checks.push({ label: 'Heading Structure', passed: true, message: `Has ${h2Count} H2 headings and ${h3Count} H3 headings` });
+            checks.push({ label: 'Heading Structure', passed: true, message: `Has ${h2Matches} H2 headings and ${h3Matches} H3 headings` });
         } else {
-            checks.push({ label: 'Heading Structure', passed: false, message: `Only ${h2Count} H2 headings (aim for 2+)` });
+            checks.push({ label: 'Heading Structure', passed: false, message: `Only ${h2Matches} H2 headings (aim for 2+)` });
         }
 
         // Keyword usage (15 points)
@@ -97,15 +101,25 @@ export default function SEOScoreCalculator({
         }
 
         // Image alt text (10 points)
-        const imageCount = (content.match(/<img[^>]*>/gi) || []).length;
-        const imagesWithAlt = (content.match(/<img[^>]*alt=["'][^"']+["'][^>]*>/gi) || []).length;
-        if (imageCount === 0) {
+        // Markdown (![alt](src)) or HTML (<img ...>)
+        const mdImages = (content.match(/!\[([^\]]*)\]\(([^)]+)\)/g) || []);
+        const htmlImages = (content.match(/<img[^>]*>/gi) || []);
+        const totalImages = mdImages.length + htmlImages.length;
+        
+        const mdImagesWithAlt = mdImages.filter(img => {
+            const match = img.match(/!\[([^\]]+)\]/);
+            return match && match[1].trim().length > 0;
+        }).length;
+        const htmlImagesWithAlt = (content.match(/<img[^>]*alt=["'][^"']+["'][^>]*>/gi) || []).length;
+        const totalImagesWithAlt = mdImagesWithAlt + htmlImagesWithAlt;
+
+        if (totalImages === 0) {
             checks.push({ label: 'Image Alt Text', passed: true, message: 'No images to check' });
-        } else if (imagesWithAlt === imageCount) {
+        } else if (totalImagesWithAlt === totalImages) {
             score += 10;
-            checks.push({ label: 'Image Alt Text', passed: true, message: `All ${imageCount} images have alt text` });
+            checks.push({ label: 'Image Alt Text', passed: true, message: `All ${totalImages} images have alt text` });
         } else {
-            checks.push({ label: 'Image Alt Text', passed: false, message: `${imagesWithAlt}/${imageCount} images have alt text` });
+            checks.push({ label: 'Image Alt Text', passed: false, message: `${totalImagesWithAlt}/${totalImages} images have alt text` });
         }
 
         // Readability (bonus points)
@@ -118,7 +132,12 @@ export default function SEOScoreCalculator({
         }
 
         // Link structure (bonus points)
-        const linkCount = (content.match(/<a[^>]*href=["'][^"']+["'][^>]*>/gi) || []).length;
+        // Markdown ([text](url)) or HTML (<a ...>)
+        // Filter out images from markdown links (images start with !)
+        const mdLinks = (content.match(/[^!]\[([^\]]+)\]\(([^)]+)\)/g) || []).length;
+        const htmlLinks = (content.match(/<a[^>]*href=["'][^"']+["'][^>]*>/gi) || []).length;
+        const linkCount = mdLinks + htmlLinks;
+
         if (linkCount >= 2) {
             score += 5;
             checks.push({ label: 'Internal Links', passed: true, message: `Has ${linkCount} links (good for SEO)` });
@@ -132,9 +151,9 @@ export default function SEOScoreCalculator({
             charCount,
             titleLength,
             metaLength,
-            h2Count,
-            h3Count,
-            imageCount,
+            h2Count: h2Matches,
+            h3Count: h3Matches,
+            imageCount: totalImages,
             linkCount,
             checks
         };

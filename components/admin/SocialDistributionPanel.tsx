@@ -1,10 +1,20 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/badge';
-import { Copy, Check, Twitter, Linkedin, Instagram, Sparkles, RefreshCw, Loader2 } from 'lucide-react';
+import { ActionButton, StatusBadge } from './AdminUIKit';
+import { ADMIN_THEME } from '@/lib/admin/theme';
+import { 
+    Copy, 
+    Check, 
+    Twitter, 
+    Linkedin, 
+    Instagram, 
+    Sparkles, 
+    RefreshCw, 
+    Loader2,
+    Share2,
+    Calendar
+} from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 
@@ -59,57 +69,74 @@ export default function SocialDistributionPanel({
     const hasPosts = posts && (posts.twitter?.length || posts.linkedin || posts.instagram);
 
     return (
-        <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden">
-            <CardHeader className="border-b border-wt-border/50 dark:border-wt-border/50 px-6 py-4 flex flex-row items-center justify-between">
-                <CardTitle className="text-sm font-bold uppercase tracking-widest text-wt-text-muted dark:text-wt-text-muted flex items-center gap-6 md:p-8">
-                    <Sparkles className="w-4 h-4 text-wt-danger" />
-                    Social Distribution Assets
-                </CardTitle>
+        <div className="bg-white border border-wt-border-subtle rounded-2xl overflow-hidden shadow-card">
+            <div className="px-8 py-6 border-b border-wt-border-subtle flex items-center justify-between bg-wt-bg-hover/10">
+                <div className="flex items-center gap-4">
+                    <div className="p-2.5 bg-wt-gold/10 rounded-xl">
+                        <Share2 className="w-5 h-5 text-wt-gold" />
+                    </div>
+                    <div>
+                        <h3 className="text-sm font-extrabold uppercase tracking-widest text-wt-navy-900">
+                            Social Distribution Assets
+                        </h3>
+                        <p className="text-[10px] font-bold text-wt-navy-400 uppercase tracking-tighter mt-0.5">
+                            Cross-platform engagement kit
+                        </p>
+                    </div>
+                </div>
                 {hasPosts && posts?.generated_at && (
-                    <Badge className="bg-muted dark:bg-muted text-wt-text-muted dark:text-wt-text-muted text-[10px] font-mono">
-                        Generated: {new Date(posts.generated_at).toLocaleDateString()}
-                    </Badge>
+                    <StatusBadge 
+                        status="completed" 
+                        label={`Generated: ${new Date(posts.generated_at).toLocaleDateString()}`}
+                        size="sm"
+                    />
                 )}
-            </CardHeader>
-            <CardContent className="p-6 space-y-6">
+            </div>
+            <div className="p-8 space-y-8">
                 {!hasPosts ? (
-                    <div className="text-center py-8">
-                        <p className="text-wt-text-muted/70 dark:text-wt-text-muted/70 text-sm mb-4">No social posts generated yet.</p>
+                    <div className="text-center py-12 bg-wt-bg-hover/20 rounded-2xl border border-dashed border-wt-border-subtle">
+                        <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
+                            <Sparkles className="w-8 h-8 text-wt-gold/30" />
+                        </div>
+                        <h4 className="text-lg font-bold text-wt-navy-900 mb-2">No campaign assets yet</h4>
+                        <p className="text-wt-navy-500 text-sm mb-8 max-w-xs mx-auto">Generate platform-optimized social snippets for this article.</p>
                         {onRegenerate && (
-                            <Button 
+                            <ActionButton 
                                 onClick={handleRegenerate}
-                                disabled={isRegenerating}
-                                className="bg-danger-600 hover:bg-danger-700 text-wt-text dark:text-wt-text"
+                                isLoading={isRegenerating}
+                                variant="primary"
+                                icon={Sparkles}
                             >
-                                {isRegenerating ? (
-                                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                ) : (
-                                    <Sparkles className="w-4 h-4 mr-2" />
-                                )}
-                                Generate Social Posts
-                            </Button>
+                                Generate Engagement Kit
+                            </ActionButton>
                         )}
                     </div>
                 ) : (
                     <>
                         {/* Twitter Thread */}
                         {posts?.twitter && posts.twitter.length > 0 && (
-                            <div className="space-y-3">
+                            <div className="space-y-4">
                                 <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-2">
-                                        <Twitter className="w-4 h-4 text-wt-gold" />
-                                        <span className="text-xs font-bold uppercase tracking-widest text-wt-text-muted dark:text-wt-text-muted">
-                                            Twitter Thread ({posts.twitter.length} tweets)
-                                        </span>
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
+                                            <Twitter className="w-4 h-4 text-white" />
+                                        </div>
+                                        <div>
+                                            <span className="text-[10px] font-extrabold uppercase tracking-widest text-wt-navy-900 block">
+                                                Twitter Thread
+                                            </span>
+                                            <span className="text-[9px] font-bold text-wt-navy-400 uppercase">{posts.twitter.length} Sequence items</span>
+                                        </div>
                                     </div>
-                                    <Button
+                                    <ActionButton
                                         size="sm"
                                         variant="ghost"
-                                        className="text-wt-text-muted dark:text-wt-text-muted hover:text-wt-text dark:text-wt-text h-8"
                                         onClick={() => copyToClipboard(posts.twitter!.join('\n\n---\n\n'), 'twitter-all')}
+                                        icon={copiedId === 'twitter-all' ? Check : Copy}
+                                        className="h-8 px-3 text-[10px]"
                                     >
-                                        {copiedId === 'twitter-all' ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                                    </Button>
+                                        Copy Thread
+                                    </ActionButton>
                                 </div>
                                 <div className="space-y-2">
                                     {posts.twitter.map((tweet, idx) => (
@@ -118,17 +145,16 @@ export default function SocialDistributionPanel({
                                             className="p-4 bg-black/30 rounded-xl border border-wt-border/50 dark:border-wt-border/50 group relative"
                                         >
                                             <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
-                                                <Badge className="bg-wt-gold-subtle text-wt-gold text-[10px]">{idx + 1}/{posts.twitter!.length}</Badge>
-                                                <Button
+                                                <StatusBadge status="completed" label={`${idx + 1}/${posts.twitter!.length}`} size="sm" />
+                                                <ActionButton
                                                     size="sm"
                                                     variant="ghost"
-                                                    className="h-6 w-6 p-0 text-wt-text-muted dark:text-wt-text-muted hover:text-wt-text dark:text-wt-text"
+                                                    className="h-6 w-6 p-0"
                                                     onClick={() => copyToClipboard(tweet, `tweet-${idx}`)}
-                                                >
-                                                    {copiedId === `tweet-${idx}` ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-                                                </Button>
+                                                    icon={copiedId === `tweet-${idx}` ? Check : Copy}
+                                                />
                                             </div>
-                                            <p className="text-wt-text/80 dark:text-wt-text/80 text-sm leading-relaxed pr-12">{tweet}</p>
+                                            <p className="text-wt-navy-900/80 text-sm leading-relaxed pr-12">{tweet}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -141,21 +167,22 @@ export default function SocialDistributionPanel({
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
                                         <Linkedin className="w-4 h-4 text-wt-gold" />
-                                        <span className="text-xs font-bold uppercase tracking-widest text-wt-text-muted dark:text-wt-text-muted">
+                                        <span className="text-[10px] font-extrabold uppercase tracking-widest text-wt-navy-900">
                                             LinkedIn Post
                                         </span>
                                     </div>
-                                    <Button
+                                    <ActionButton
                                         size="sm"
                                         variant="ghost"
-                                        className="text-wt-text-muted dark:text-wt-text-muted hover:text-wt-text dark:text-wt-text h-8"
+                                        className="h-8 px-3 text-[10px]"
                                         onClick={() => copyToClipboard(posts.linkedin!, 'linkedin')}
+                                        icon={copiedId === 'linkedin' ? Check : Copy}
                                     >
-                                        {copiedId === 'linkedin' ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                                    </Button>
+                                        Copy Post
+                                    </ActionButton>
                                 </div>
-                                <div className="p-4 bg-black/30 rounded-xl border border-wt-border/50 dark:border-wt-border/50">
-                                    <p className="text-wt-text/80 dark:text-wt-text/80 text-sm leading-relaxed whitespace-pre-wrap">{posts.linkedin}</p>
+                                <div className="p-4 bg-wt-bg-hover/20 rounded-xl border border-wt-border-subtle">
+                                    <p className="text-wt-navy-900/80 text-sm leading-relaxed whitespace-pre-wrap">{posts.linkedin}</p>
                                 </div>
                             </div>
                         )}
@@ -166,47 +193,42 @@ export default function SocialDistributionPanel({
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
                                         <Instagram className="w-4 h-4 text-wt-danger" />
-                                        <span className="text-xs font-bold uppercase tracking-widest text-wt-text-muted dark:text-wt-text-muted">
+                                        <span className="text-[10px] font-extrabold uppercase tracking-widest text-wt-navy-900">
                                             Instagram Caption
                                         </span>
                                     </div>
-                                    <Button
+                                    <ActionButton
                                         size="sm"
                                         variant="ghost"
-                                        className="text-wt-text-muted dark:text-wt-text-muted hover:text-wt-text dark:text-wt-text h-8"
+                                        className="h-8 px-3 text-[10px]"
                                         onClick={() => copyToClipboard(posts.instagram!, 'instagram')}
+                                        icon={copiedId === 'instagram' ? Check : Copy}
                                     >
-                                        {copiedId === 'instagram' ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                                    </Button>
+                                        Copy Caption
+                                    </ActionButton>
                                 </div>
-                                <div className="p-4 bg-black/30 rounded-xl border border-wt-border/50 dark:border-wt-border/50">
-                                    <p className="text-wt-text/80 dark:text-wt-text/80 text-sm leading-relaxed whitespace-pre-wrap">{posts.instagram}</p>
+                                <div className="p-4 bg-wt-bg-hover/20 rounded-xl border border-wt-border-subtle">
+                                    <p className="text-wt-navy-900/80 text-sm leading-relaxed whitespace-pre-wrap">{posts.instagram}</p>
                                 </div>
                             </div>
                         )}
 
                         {/* Actions */}
                         {onRegenerate && (
-                            <div className="pt-4 border-t border-wt-border/50 dark:border-wt-border/50 flex justify-end">
-                                <Button
-                                    size="sm"
-                                    variant="ghost"
-                                    className="text-wt-text-muted dark:text-wt-text-muted hover:text-wt-text dark:text-wt-text"
+                            <div className="pt-8 border-t border-wt-border-subtle flex justify-end">
+                                <ActionButton
+                                    variant="secondary"
                                     onClick={handleRegenerate}
-                                    disabled={isRegenerating}
+                                    isLoading={isRegenerating}
+                                    icon={RefreshCw}
                                 >
-                                    {isRegenerating ? (
-                                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                    ) : (
-                                        <RefreshCw className="w-4 h-4 mr-2" />
-                                    )}
-                                    Regenerate Posts
-                                </Button>
+                                    Regenerate All Assets
+                                </ActionButton>
                             </div>
                         )}
                     </>
                 )}
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     );
 }
