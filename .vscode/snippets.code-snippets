@@ -1,0 +1,43 @@
+{
+  "Accessible Button": {
+    "prefix": "a11y-button",
+    "body": [
+      "<AccessibleButton",
+      "  onClick={${1:handleClick}}",
+      "  ariaLabel=\"${2:Button description}\"",
+      "  variant=\"${3:primary}\"",
+      ">",
+      "  ${4:Button text}",
+      "</AccessibleButton>"
+    ],
+    "description": "Accessible button with ARIA label"
+  },
+  
+  "Accessible Form Input": {
+    "prefix": "a11y-input",
+    "body": [
+      "<FormInput",
+      "  label=\"${1:Label}\"",
+      "  name=\"${2:name}\"",
+      "  autoComplete=\"${3:off}\"",
+      "  required={${4:false}}",
+      "  error={errors.${2:name}}",
+      "  helperText=\"${5:Helper text}\"",
+      "/>"
+    ],
+    "description": "Accessible form input with label"
+  },
+
+  "Accessible Image": {
+    "prefix": "a11y-image",
+    "body": [
+      "<Image",
+      "  src=\"${1:src}\"",
+      "  alt=\"${2:Descriptive alt text}\"",
+      "  width={${3:width}}",
+      "  height={${4:height}}",
+      "/>"
+    ],
+    "description": "Next.js Image with required alt text"
+  }
+}

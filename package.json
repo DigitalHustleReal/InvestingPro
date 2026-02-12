@@ -40,7 +40,12 @@
     "deploy:validate": "npm run deploy:check-env && npm run deploy:check-db && npm run build",
     "analyze": "ANALYZE=true next build",
     "check:bundle-size": "node scripts/check-bundle-size.js",
-    "lighthouse": "lhci autorun"
+    "lighthouse": "lhci autorun",
+    "test:a11y": "node scripts/test-accessibility.js",
+    "test:a11y:component": "eslint --plugin jsx-a11y --rule 'jsx-a11y/alt-text: error'",
+    "test:a11y:staged": "eslint --plugin jsx-a11y --fix",
+    "lint:a11y": "eslint --plugin jsx-a11y .",
+    "monitor:a11y": "node lib/monitoring/accessibility-monitor.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",
@@ -155,6 +160,9 @@
     "zod": "^4.3.5"
   },
   "devDependencies": {
+    "@axe-core/cli": "^4.11.1",
+    "@axe-core/react": "^4.11.1",
+    "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.57.0",
     "@tailwindcss/typography": "^0.5.15",
     "@testing-library/jest-dom": "^6.9.1",
@@ -171,21 +179,28 @@
     "dotenv": "^17.2.3",
     "eslint": "^9",
     "eslint-config-next": "16.0.8",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
     "husky": "^9.1.7",
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^30.2.0",
+    "lighthouse": "^13.0.3",
     "lint-staged": "^16.2.7",
+    "node-cron": "^4.2.1",
     "playwright": "^1.57.0",
     "supabase": "^2.72.6",
     "tailwindcss": "^3.4.17",
     "ts-jest": "^29.4.6",
     "typescript": "^5",
+    "wait-on": "^9.0.3",
     "whatwg-fetch": "^3.6.20"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
       "eslint --fix",
-      "tsc-files --noEmit"
+      "prettier --write"
+    ],
+    "components/**/*.tsx": [
+      "eslint --plugin jsx-a11y"
     ]
   }
 }
