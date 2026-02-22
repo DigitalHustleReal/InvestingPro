@@ -413,6 +413,72 @@ export class ArticleService {
     }
 
     /**
+     * Quick save article metadata (excludes content)
+     */
+    async quickSaveMetadata(
+        id: string,
+        metadata: Partial<ArticleMetadata>
+    ): Promise<SaveResult> {
+        const supabase = this.getClient();
+
+        // Enforce Slug Normalization
+        if (metadata.slug) {
+            metadata.slug = this.normalizeSlug(metadata.slug);
+        }
+
+        // Get existing article to check status transition
+        const existing = await this.getById(id);
+        if (!existing) {
+            throw new Error('Article not found');
+        }
+
+        const previousStatus = existing.status;
+
+        // Build update object
+        const updateData: any = {
+            ...metadata,
+            updated_at: new Date().toISOString(),
+        };
+
+        const { data, error } = await supabase
+            .from('articles')
+            .update(updateData)
+            .eq('id', id)
+            .select()
+            .single();
+
+        if (error) {
+            logger.error('Failed to quick save article metadata', error);
+            throw new Error(error.message || 'Failed to update article metadata');
+        }
+
+        // Handle status transition if needed
+        if (metadata.status && metadata.status !== previousStatus) {
+            try {
+                const { transitionArticleState } = await import('@/lib/workflows/hooks/article-workflow-hooks');
+                await transitionArticleState(
+                    id,
+                    previousStatus,
+                    metadata.status,
+                    'update',
+                    existing.author_id || undefined
+                );
+            } catch (workflowError) {
+                logger.warn('Workflow transition skipped or failed in quickSave', { articleId: id });
+            }
+        }
+
+        // Invalidate cache
+        await invalidateArticleCache(id);
+
+        return {
+            id: data.id,
+            slug: data.slug,
+            status: data.status as ArticleStatus,
+        };
+    }
+
+    /**
      * Publish article (atomic operation)
      * 
      * Rules:

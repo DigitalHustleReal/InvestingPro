@@ -137,3 +137,42 @@ export async function DELETE(
     );
   }
 }
+
+/**
+ * PATCH /api/admin/articles/[id]
+ * Partial update for metadata (Quick Edit)
+ */
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+    const supabase = await createClient();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    
+    if (authError || !user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const body = await request.json();
+    const { metadata } = body;
+
+    if (!metadata) {
+      return NextResponse.json({ error: 'Metadata is required' }, { status: 400 });
+    }
+
+    // Pass authenticated client to service
+    const service = ArticleService.create(supabase);
+    const result = await service.quickSaveMetadata(id, metadata);
+
+    return NextResponse.json(result);
+  } catch (error) {
+    const { id } = await params;
+    logger.error('Error patching article metadata', error as Error, { articleId: id });
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}

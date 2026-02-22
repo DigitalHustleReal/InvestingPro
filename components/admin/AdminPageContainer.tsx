@@ -10,7 +10,7 @@ import { AdminPageTransition } from './AdminPageTransition';
  */
 const ADMIN_PAGE_PADDING = 'px-4 sm:px-6 lg:px-8';
 const ADMIN_PAGE_PADDING_Y = 'py-6 lg:py-8';
-const ADMIN_PAGE_MAX_W = 'max-w-[1600px]';
+const ADMIN_PAGE_MAX_W = 'max-w-[1800px]';
 const ADMIN_PAGE_GAP = 'space-y-8';
 
 interface AdminPageContainerProps {

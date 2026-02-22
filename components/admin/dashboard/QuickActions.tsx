@@ -12,6 +12,7 @@ import {
     type LucideIcon,
 } from 'lucide-react';
 import { AdminCard } from '@/components/admin/system/AdminCard';
+import { cn } from '@/lib/utils';
 
 interface QuickAction {
     label: string;
@@ -33,20 +34,27 @@ export default function QuickActions() {
     const router = useRouter();
 
     return (
-        <AdminCard noPadding className="animate-slide-up" style={{ animationDelay: '0.3s', animationFillMode: 'backwards' }}>
-            <div className="px-6 pt-5 pb-3 text-[15px] font-bold text-foreground">
+        <AdminCard noPadding glass className="h-full animate-slide-up" style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}>
+            <div className="px-6 pt-5 pb-3 text-[15px] font-bold text-white uppercase tracking-wider">
                 Quick Actions
             </div>
 
-            <div className="grid grid-cols-2 gap-2 px-4 pb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-3 px-4 pb-6">
                 {ACTIONS.map(({ label, icon: Icon, href, color }) => (
                     <button
                         key={href}
                         onClick={() => router.push(href)}
-                        className="flex items-center gap-2.5 px-3 py-2.5 rounded-md border border-transparent bg-transparent hover:bg-muted hover:border-border cursor-pointer transition-all text-left text-[13px] font-medium text-foreground"
+                        className="flex items-center gap-3 px-4 py-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/20 hover:shadow-xl hover:shadow-primary/5 transition-all text-left group/btn"
                     >
-                        <Icon className={`w-4.5 h-4.5 flex-shrink-0 ${color}`} />
-                        {label}
+                        <div className={cn(
+                            "p-2.5 rounded-lg bg-white/5 group-hover/btn:scale-110 transition-transform flex-shrink-0",
+                            color.replace('text-', 'bg-').replace('-400', '-500/10')
+                        )}>
+                            <Icon className={cn("w-5 h-5", color)} />
+                        </div>
+                        <span className="text-[14px] font-bold text-slate-200 group-hover/btn:text-white transition-colors truncate">
+                            {label}
+                        </span>
                     </button>
                 ))}
             </div>

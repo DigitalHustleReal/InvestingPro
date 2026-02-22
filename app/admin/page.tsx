@@ -9,16 +9,18 @@ import {
     FileText, 
     Eye, 
     Calendar, 
+    DollarSign, 
     Clock, 
 } from 'lucide-react';
 
-// New Components
-import DashboardHero from '@/components/admin/dashboard/DashboardHero';
+import ActionCenter from '@/components/admin/dashboard/ActionCenter';
 import ActivityTimeline from '@/components/admin/dashboard/ActivityTimeline';
 import SystemHealthStrip from '@/components/admin/dashboard/SystemHealthStrip';
 import QuickActions from '@/components/admin/dashboard/QuickActions';
 import AdvancedMetricsTable from '@/components/admin/AdvancedMetricsTable';
-import KpiCard from '@/components/admin/dashboard/KpiCard';
+import MetricBentoCard from '@/components/admin/dashboard/MetricBentoCard';
+import ContentVelocityChart from '@/components/admin/dashboard/ContentVelocityChart';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function AdminDashboardPage() {
     const [timeRange, setTimeRange] = useState<'7d' | '30d' | '90d'>('30d');
@@ -62,70 +64,117 @@ export default function AdminDashboardPage() {
         },
         refetchInterval: 60000
     });
+    // Sample sparkline data
+    const sparklineData = [
+        { value: 400 }, { value: 300 }, { value: 500 }, { value: 450 }, 
+        { value: 600 }, { value: 550 }, { value: 700 }
+    ];
+
+    const velocityData = [
+        { name: 'Mon', views: 2400, articles: 2 },
+        { name: 'Tue', views: 1398, articles: 4 },
+        { name: 'Wed', views: 9800, articles: 6 },
+        { name: 'Thu', views: 3908, articles: 3 },
+        { name: 'Fri', views: 4800, articles: 8 },
+        { name: 'Sat', views: 3800, articles: 5 },
+        { name: 'Sun', views: 4300, articles: 7 },
+    ];
 
     return (
         <AdminLayout>
             <AdminPageContainer>
-                <div className="space-y-8">
-                    {/* 1. Hero Section */}
-                    <DashboardHero />
-                    
-                    {/* 2. System Health Strip */}
-                    <SystemHealthStrip />
+                <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="pb-10"
+                >
+                    {/* 1. New Action Center */}
+                    <ActionCenter />
 
-                    {/* 3. KPI Cards */}
-                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                        <KpiCard 
-                            label="Total Articles" 
-                            value={stats?.total_articles || 0} 
-                            subtext="Lifetime content"
-                            icon={FileText}
-                            href="/admin/articles"
-                        />
-                        <KpiCard 
-                            label="Total Views" 
-                            value={(stats?.total_views || 0).toLocaleString()} 
-                            subtext="All-time reads"
-                            icon={Eye}
-                            trend="up"
-                            href="/admin/analytics"
-                        />
-                        <KpiCard 
-                            label="This Month" 
-                            value={stats?.articles_this_month || 0} 
-                            subtext="New articles"
-                            icon={Calendar}
-                            href="/admin/articles?sort=created_at&direction=desc"
-                        />
-                        <KpiCard 
-                            label="Pending" 
-                            value={stats?.draft_articles || 0} 
-                            subtext="Drafts & Reviews"
-                            icon={Clock}
-                            href="/admin/articles?status=draft"
-                        />
-                    </div>
+                    {/* 2. Unified Bento Dashboard Grid - IA Optimized Container */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-12 gap-6 items-start">
+                        {/* ROW 1: STRATEGIC GROWTH & PERFORMANCE */}
+                        
+                        {/* Left Side: Performance Metrics (3/12) */}
+                        <div className="xl:col-span-3 space-y-6">
+                            <MetricBentoCard 
+                                label="Content Volume"
+                                value={stats?.total_articles || 0}
+                                subtext="Total Lifetime Articles"
+                                icon={FileText}
+                                variant="cyan"
+                                data={sparklineData}
+                                href="/admin/articles"
+                            />
+                            <MetricBentoCard 
+                                label="Market Reach"
+                                value={(stats?.total_views || 0).toLocaleString()}
+                                subtext="Total Lifetime Impressions"
+                                icon={Eye}
+                                trend="up"
+                                trendValue="12.5%"
+                                variant="emerald"
+                                data={sparklineData}
+                                href="/admin/analytics"
+                            />
+                            <MetricBentoCard 
+                                label="Est. Revenue"
+                                value="₹2,450"
+                                subtext="Daily Affiliate Income"
+                                icon={DollarSign}
+                                variant="rose"
+                                data={sparklineData}
+                                href="/admin/monetization"
+                            />
+                        </div>
 
-                    {/* 4. Main Content Grid */}
-                    <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
-                        {/* Left Column (2/3 width) */}
-                        <div className="space-y-6 xl:col-span-2 min-w-0">
-                            {/* Advanced Metrics Table */}
+                        {/* Center: Momentum (6/12) */}
+                        <div className="xl:col-span-6 lg:col-span-2 md:col-span-2">
+                            <ContentVelocityChart data={velocityData} />
+                        </div>
+
+                        {/* Right Side: Velocity & Pipeline (3/12) */}
+                        <div className="xl:col-span-3 space-y-6">
+                            <MetricBentoCard 
+                                label="Monthly Velocity"
+                                value={stats?.articles_this_month || 0}
+                                subtext={`Target: 50 | ${Math.round(((stats?.articles_this_month || 0) / 50) * 100)}% to Goal`}
+                                icon={Calendar}
+                                variant="amber"
+                                data={sparklineData}
+                                href="/admin/articles"
+                            />
+                            <MetricBentoCard 
+                                label="In Pipeline"
+                                value={stats?.draft_articles || 0}
+                                subtext="Drafts & Reviews"
+                                icon={Clock}
+                                variant="purple"
+                                data={sparklineData}
+                                href="/admin/articles?status=draft"
+                            />
+                        </div>
+
+                        {/* ROW 2: CONTENT PRODUCTION ENGINE (Full Narrative) */}
+                        {/* Giving the lifecycle table full width is the ONLY way to prevent horizontal overlap in its internal columns */}
+                        <div className="xl:col-span-12 py-2">
                             <AdvancedMetricsTable timeRange={timeRange} />
                         </div>
 
-                        {/* Right Column (1/3 width) */}
-                        <div className="space-y-6 min-w-0">
-                            {/* Recent Activity Timeline */}
-                            <div className="h-[400px]">
-                                <ActivityTimeline activities={stats?.recent_activity || []} />
-                            </div>
+                        {/* ROW 3: OPERATIONS & MAINTENANCE HUB */}
+                        <div className="xl:col-span-3">
+                            <SystemHealthStrip variant="column" />
+                        </div>
 
-                            {/* Quick Actions */}
+                        <div className="xl:col-span-4 h-[400px]">
+                            <ActivityTimeline activities={stats?.recent_activity || []} />
+                        </div>
+
+                        <div className="xl:col-span-5">
                             <QuickActions />
                         </div>
                     </div>
-                </div>
+                </motion.div>
             </AdminPageContainer>
         </AdminLayout>
     );

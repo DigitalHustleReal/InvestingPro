@@ -47,16 +47,17 @@
     --tw-ring-color: rgba(14, 165, 233, 0.2);
 }
 
-/* Glassmorphism Tokens - Refined for Functionality */
+/* Glassmorphism Tokens - Refined for Premium Visuals */
 .admin-wealth-trust .glass-card {
-    @apply backdrop-blur-md shadow-lg;
-    background-color: rgb(255 255 255 / 0.8);
-    border-width: 1px;
-    border-color: rgb(229 231 235 / 0.5); /* slate-200 / 0.5 */
+    @apply backdrop-blur-2xl transition-all duration-300;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.05), 0 8px 32px rgba(0,0,0,0.4);
 }
+
 .admin-wealth-trust.dark .glass-card {
-    background-color: rgb(15 23 42 / 0.8); /* slate-900 / 0.8 */
-    border-color: rgb(255 255 255 / 0.05);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    border-color: rgba(255, 255, 255, 0.12);
 }
 
 .admin-wealth-trust .glass-surface {

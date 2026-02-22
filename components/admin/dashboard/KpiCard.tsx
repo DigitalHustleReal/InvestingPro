@@ -29,27 +29,27 @@ export default function KpiCard({
     const isNegative = trend === 'down';
 
     const CardContent = (
-        <div className="group relative overflow-hidden rounded-xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg h-full flex flex-col justify-between animate-scale-in" style={{ animationFillMode: 'backwards' }}>
+        <div className="group relative overflow-hidden rounded-xl border border-border bg-card p-4.5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg h-full flex flex-col justify-between animate-scale-in" style={{ animationFillMode: 'backwards' }}>
             {/* Hover Gradient */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             
             <div className="relative z-10 flex items-start justify-between">
                 <div>
-                    <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground font-inter mb-2">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground font-inter mb-1">
                         {label}
                     </p>
-                    <h3 className="text-2xl font-bold text-foreground tracking-tight font-inter tabular-nums">
+                    <h3 className="text-xl font-bold text-foreground tracking-tight font-inter tabular-nums">
                         {value}
                     </h3>
                 </div>
 
-                <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="w-6 h-6" />
+                <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 text-primary group-hover:scale-110 transition-transform duration-300">
+                    <Icon className="w-5 h-5" />
                 </div>
             </div>
 
             {(subtext || trend) && (
-                <div className="relative z-10 flex items-center gap-2 mt-4 text-xs font-medium">
+                <div className="relative z-10 flex items-center gap-2 mt-3 text-[11px] font-medium text-muted-foreground">
                     {trend && (
                         <div className={cn(
                             "flex items-center gap-1 px-2 py-1 rounded-md border backdrop-blur-sm",

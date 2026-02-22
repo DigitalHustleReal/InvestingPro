@@ -98,30 +98,30 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
     };
 
     return (
-        <AdminCard noPadding>
+        <AdminCard noPadding glass>
             {/* Header */}
-            <div className="px-6 py-5 border-b border-white/10 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-base font-bold text-slate-200">
+            <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between">
+                <div className="flex items-center gap-2 text-[15px] font-bold text-white">
                     <BarChart3 className="w-5 h-5 text-amber-400" />
                     Advanced Metrics - Content Lifecycle
                 </div>
-                <div className="px-3 py-1 rounded-full bg-white/10 text-xs font-semibold text-slate-300">
+                <div className="px-3 py-1 rounded-full bg-white/15 text-[11px] font-bold text-slate-200">
                     Last {timeRange.replace('d', ' Days')}
                 </div>
             </div>
 
             {/* Metrics Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-4 text-sm">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-4 text-sm">
                 {/* 1. RESEARCH */}
-                <div className="p-5 border-b md:border-b-0 md:border-r border-border/50">
-                    <div className="flex items-center gap-2 mb-4">
+                <div className="p-4 border-b md:border-b-0 md:border-r border-border/50">
+                    <div className="flex items-center gap-2 mb-3">
                         <div className="p-2 rounded-lg bg-cyan-500/10 text-cyan-400">
                             <Search className="w-4.5 h-4.5" />
                         </div>
                         <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">RESEARCH</h4>
                     </div>
                     
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-2">
                         <MetricRow label="Keywords Researched" value={researchMetrics.keywordsResearched} />
                         <MetricRow label="Active Keywords" value={researchMetrics.activeKeywords} />
                         <MetricRow label="Trending Opps" value={researchMetrics.trendingKeywords} highlight />
@@ -129,15 +129,15 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
                 </div>
 
                 {/* 2. PUBLISH */}
-                <div className="p-5 border-b md:border-b-0 xl:border-b 2xl:border-b-0 xl:border-r border-border/50">
-                    <div className="flex items-center gap-2 mb-4">
+                <div className="p-4 border-b md:border-b-0 xl:border-b 2xl:border-b-0 xl:border-r border-border/50">
+                    <div className="flex items-center gap-2 mb-3">
                         <div className="p-2 rounded-lg bg-amber-500/10 text-amber-400">
                             <FileText className="w-4.5 h-4.5" />
                         </div>
                         <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">PUBLISH</h4>
                     </div>
                     
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-2">
                         <MetricRow label="Published (Period)" value={publishMetrics.publishedThisPeriod} />
                         <MetricRow label="Scheduled" value={publishMetrics.scheduled} />
                         <MetricRow label="Drafts Pending" value={publishMetrics.drafts} />
@@ -145,15 +145,15 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
                 </div>
 
                 {/* 3. TRACKING */}
-                <div className="p-5 border-b md:border-b-0 md:border-r border-border/50">
-                    <div className="flex items-center gap-2 mb-4">
+                <div className="p-4 border-b md:border-b-0 md:border-r border-border/50">
+                    <div className="flex items-center gap-2 mb-3">
                         <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
                             <TrendingUp className="w-4.5 h-4.5" />
                         </div>
                         <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">TRACKING</h4>
                     </div>
                     
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-2">
                         <MetricRow label="Total Views" value={trackingMetrics.totalViews.toLocaleString()} />
                         <MetricRow label="Avg. Time on Page" value={trackingMetrics.avgTimeOnPage} />
                         <MetricRow label="CTR (Click-Through)" value={trackingMetrics.ctr} />
@@ -161,15 +161,15 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
                 </div>
 
                 {/* 4. INCOME */}
-                <div className="p-5">
-                    <div className="flex items-center gap-2 mb-4">
+                <div className="p-4">
+                    <div className="flex items-center gap-2 mb-3">
                         <div className="p-2 rounded-lg bg-rose-500/10 text-rose-400">
                             <DollarSign className="w-4.5 h-4.5" />
                         </div>
                         <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">INCOME</h4>
                     </div>
                     
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-2">
                         <MetricRow label="Est. Revenue" value={`₹${incomeMetrics.totalRevenue?.toLocaleString()}`} />
                         <MetricRow label="Conversions" value={incomeMetrics.conversions} />
                         <MetricRow label="EPC" value={`₹${incomeMetrics.epc}`} />
@@ -190,11 +190,11 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
 
 function MetricRow({ label, value, highlight = false }: { label: string, value: string | number, highlight?: boolean }) {
     return (
-        <div className="flex justify-between items-start gap-2">
-            <span className="text-[13px] text-muted-foreground leading-tight">{label}</span>
+        <div className="flex justify-between items-center gap-2">
+            <span className="text-[13px] text-slate-400 font-medium leading-tight">{label}</span>
             <span className={cn(
-                "text-sm font-semibold whitespace-nowrap",
-                highlight ? "text-amber-400" : "text-foreground"
+                "text-[14px] font-bold whitespace-nowrap",
+                highlight ? "text-amber-400" : "text-white"
             )}>
                 {value}
             </span>

@@ -24,23 +24,23 @@ function HealthIndicator({ label, status, icon: Icon }: HealthIndicatorProps) {
     const colors = STATUS_CLASSES[status];
     
     return (
-        <div className="flex items-center gap-4 p-4 rounded-xl border border-border bg-card shadow-sm transition-all hover:shadow-md cursor-default">
+        <div className="bento-card flex items-center gap-3 p-3 transition-all hover:bg-white/5 cursor-default group">
             <div className={cn(
-                "w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors",
+                "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110",
                 colors.bg,
                 colors.text
             )}>
-                <Icon className="w-6 h-6" />
+                <Icon className="w-5 h-5" />
             </div>
 
-            <div className="flex-1">
-                <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">
+            <div className="flex-1 min-w-0">
+                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-0.5 truncate">
                     {label}
                 </p>
 
                 <div className="flex items-center gap-2">
-                    <div className={cn("w-2 h-2 rounded-full animate-pulse", colors.dot)} />
-                    <span className="text-base font-bold text-foreground capitalize">
+                    <div className={cn("w-1.5 h-1.5 rounded-full animate-pulse", colors.dot)} />
+                    <span className="text-[13px] font-extrabold text-white capitalize leading-none">
                         {status === 'loading' ? 'Checking...' : status}
                     </span>
                 </div>
@@ -49,7 +49,7 @@ function HealthIndicator({ label, status, icon: Icon }: HealthIndicatorProps) {
     );
 }
 
-export default function SystemHealthStrip() {
+export default function SystemHealthStrip({ variant = 'grid' }: { variant?: 'grid' | 'column' }) {
     const { data: healthData, isLoading: healthLoading } = useQuery({
         queryKey: ['cms-health'],
         queryFn: async () => {
@@ -73,7 +73,12 @@ export default function SystemHealthStrip() {
     const dbStatus: Status = healthData?.status === 'error' ? 'error' : 'healthy';
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 animate-slide-up" style={{ animationDelay: '0.1s', animationFillMode: 'backwards' }}>
+        <div className={cn(
+            variant === 'grid' 
+                ? "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4" 
+                : "flex flex-col gap-3",
+            "animate-slide-up"
+        )} style={{ animationDelay: '0.1s', animationFillMode: 'backwards' }}>
             <HealthIndicator
                 label="CMS Pipeline"
                 status={healthLoading ? 'loading' : (healthData?.health?.overall === 'healthy' ? 'healthy' : 'degraded')}
