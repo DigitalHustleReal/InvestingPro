@@ -323,7 +323,7 @@ export default function NewArticlePage() {
                                         value={title}
                                         onChange={(e) => setTitle(e.target.value)}
                                         placeholder="Add title..."
-                                        className="text-3xl font-bold border-0 bg-transparent px-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-auto py-2 text-slate-900 dark:text-foreground placeholder:text-muted-foreground transition-colors"
+                                        className="text-3xl font-bold border-0 bg-transparent px-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-auto py-2 text-slate-900 dark:text-slate-100 placeholder:text-muted-foreground dark:placeholder:text-muted-foreground/50 transition-colors"
                                     />
                                 </FormField>
                             </div>
