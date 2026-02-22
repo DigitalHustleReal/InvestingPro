@@ -36,6 +36,9 @@ import {
     SlidersHorizontal,
     BarChart3
 } from 'lucide-react';
+import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import { toast } from 'sonner';
 import { exportToCSV, articleCSVColumns } from '@/lib/utils/csv-export';
 import { AdminPageHeader, StatCard, ActionButton } from '@/components/admin/AdminUIKit';
 import { cn } from '@/lib/utils';

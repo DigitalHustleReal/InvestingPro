@@ -385,19 +385,19 @@ export default function ArticleInspector({
                     <TabsList className="w-full justify-start rounded-none border-b border-wt-border bg-transparent h-auto p-0">
                         <TabsTrigger 
                             value="metadata" 
-                            className="px-6 py-3 rounded-none border-b-2 border-transparent data-[state=active]:border-wt-gold dark:data-[state=active]:border-primary-400 text-slate-800 dark:text-slate-400 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white font-medium"
+                            className="px-6 py-3 rounded-none border-b-2 border-transparent data-[state=active]:border-wt-gold dark:data-[state=active]:border-primary-400 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white data-[state=active]:text-slate-900 dark:data-[state=active]:text-white font-medium transition-colors"
                         >
                             Metadata
                         </TabsTrigger>
                         <TabsTrigger 
                             value="versions" 
-                            className="px-6 py-3 rounded-none border-b-2 border-transparent data-[state=active]:border-wt-gold dark:data-[state=active]:border-primary-400 text-slate-800 dark:text-slate-400 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white font-medium"
+                            className="px-6 py-3 rounded-none border-b-2 border-transparent data-[state=active]:border-wt-gold dark:data-[state=active]:border-primary-400 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white data-[state=active]:text-slate-900 dark:data-[state=active]:text-white font-medium transition-colors"
                         >
                             Versions
                         </TabsTrigger>
                         <TabsTrigger 
                             value="repurpose" 
-                            className="px-6 py-3 rounded-none border-b-2 border-transparent data-[state=active]:border-wt-gold dark:data-[state=active]:border-primary-400 text-slate-800 dark:text-slate-400 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white font-medium"
+                            className="px-6 py-3 rounded-none border-b-2 border-transparent data-[state=active]:border-wt-gold dark:data-[state=active]:border-primary-400 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white data-[state=active]:text-slate-900 dark:data-[state=active]:text-white font-medium transition-colors"
                         >
                             <Sparkles className="w-4 h-4 mr-2" />
                             Repurpose
@@ -408,10 +408,10 @@ export default function ArticleInspector({
                         <Accordion type="single" collapsible defaultValue="publishing" className="w-full">
                             {/* 1. Publishing & Schedule */}
                             <AccordionItem value="publishing" className="border-b border-wt-border">
-                                <AccordionTrigger className="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 hover:no-underline group">
+                                <AccordionTrigger className="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 data-[state=open]:bg-slate-50/80 dark:data-[state=open]:bg-slate-900/50 hover:no-underline group transition-colors">
                                     <div className="flex items-center gap-2">
-                                        <Send className="w-4 h-4 text-slate-500 group-data-[state=open]:text-primary" />
-                                        <span className="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">Publishing</span>
+                                        <Send className="w-4 h-4 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white group-data-[state=open]:text-primary transition-colors" />
+                                        <span className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white group-data-[state=open]:text-slate-900 dark:group-data-[state=open]:text-white transition-colors">Publishing</span>
                                     </div>
                                 </AccordionTrigger>
                                 <AccordionContent className="px-6 pb-6 pt-2 space-y-4">
@@ -489,10 +489,10 @@ export default function ArticleInspector({
 
                             {/* 2. Classification & Authors */}
                             <AccordionItem value="classification" className="border-b border-wt-border">
-                                <AccordionTrigger className="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 hover:no-underline group">
+                                <AccordionTrigger className="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 data-[state=open]:bg-slate-50/80 dark:data-[state=open]:bg-slate-900/50 hover:no-underline group transition-colors">
                                     <div className="flex items-center gap-2">
-                                        <Search className="w-4 h-4 text-slate-500 group-data-[state=open]:text-primary" />
-                                        <span className="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">Classification</span>
+                                        <Search className="w-4 h-4 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white group-data-[state=open]:text-primary transition-colors" />
+                                        <span className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white group-data-[state=open]:text-slate-900 dark:group-data-[state=open]:text-white transition-colors">Classification</span>
                                     </div>
                                 </AccordionTrigger>
                                 <AccordionContent className="px-6 pb-6 pt-2 space-y-4">
@@ -566,10 +566,10 @@ export default function ArticleInspector({
 
                             {/* 3. SEO Keywords & Intent */}
                             <AccordionItem value="seo-keywords" className="border-b border-wt-border">
-                                <AccordionTrigger className="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 hover:no-underline group">
+                                <AccordionTrigger className="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 data-[state=open]:bg-slate-50/80 dark:data-[state=open]:bg-slate-900/50 hover:no-underline group transition-colors">
                                     <div className="flex items-center gap-2">
-                                        <Sparkles className="w-4 h-4 text-slate-500 group-data-[state=open]:text-primary" />
-                                        <span className="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">SEO Keywords</span>
+                                        <Sparkles className="w-4 h-4 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white group-data-[state=open]:text-primary transition-colors" />
+                                        <span className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white group-data-[state=open]:text-slate-900 dark:group-data-[state=open]:text-white transition-colors">SEO Keywords</span>
                                     </div>
                                 </AccordionTrigger>
                                 <AccordionContent className="px-6 pb-6 pt-2 space-y-4">
@@ -635,10 +635,10 @@ export default function ArticleInspector({
 
                             {/* 4. SEO Metadata */}
                             <AccordionItem value="seo-meta" className="border-b border-wt-border">
-                                <AccordionTrigger className="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 hover:no-underline group">
+                                <AccordionTrigger className="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 data-[state=open]:bg-slate-50/80 dark:data-[state=open]:bg-slate-900/50 hover:no-underline group transition-colors">
                                     <div className="flex items-center gap-2">
-                                        <Search className="w-4 h-4 text-slate-500 group-data-[state=open]:text-primary" />
-                                        <span className="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">SEO Metadata</span>
+                                        <Search className="w-4 h-4 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white group-data-[state=open]:text-primary transition-colors" />
+                                        <span className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white group-data-[state=open]:text-slate-900 dark:group-data-[state=open]:text-white transition-colors">SEO Metadata</span>
                                     </div>
                                 </AccordionTrigger>
                                 <AccordionContent className="px-6 pb-6 pt-2 space-y-4">
@@ -689,10 +689,10 @@ export default function ArticleInspector({
 
                             {/* 5. Enhancements (Media, Tags, Excerpt) */}
                             <AccordionItem value="enhancements" className="border-b border-wt-border">
-                                <AccordionTrigger className="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 hover:no-underline group">
+                                <AccordionTrigger className="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 data-[state=open]:bg-slate-50/80 dark:data-[state=open]:bg-slate-900/50 hover:no-underline group transition-colors">
                                     <div className="flex items-center gap-2">
-                                        <ImageIcon className="w-4 h-4 text-slate-500 group-data-[state=open]:text-primary" />
-                                        <span className="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">Enhancements</span>
+                                        <ImageIcon className="w-4 h-4 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white group-data-[state=open]:text-primary transition-colors" />
+                                        <span className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white group-data-[state=open]:text-slate-900 dark:group-data-[state=open]:text-white transition-colors">Enhancements</span>
                                     </div>
                                 </AccordionTrigger>
                                 <AccordionContent className="px-6 pb-6 pt-2 space-y-6">
@@ -761,10 +761,10 @@ export default function ArticleInspector({
 
                             {/* 6. Intelligence & Tools */}
                             <AccordionItem value="intelligence" className="border-b border-wt-border">
-                                <AccordionTrigger className="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 hover:no-underline group">
+                                <AccordionTrigger className="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 data-[state=open]:bg-slate-50/80 dark:data-[state=open]:bg-slate-900/50 hover:no-underline group transition-colors">
                                     <div className="flex items-center gap-2">
-                                        <Wand2 className="w-4 h-4 text-slate-500 group-data-[state=open]:text-primary" />
-                                        <span className="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">Intelligence</span>
+                                        <Wand2 className="w-4 h-4 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white group-data-[state=open]:text-primary transition-colors" />
+                                        <span className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white group-data-[state=open]:text-slate-900 dark:group-data-[state=open]:text-white transition-colors">Intelligence</span>
                                     </div>
                                 </AccordionTrigger>
                                 <AccordionContent className="px-6 pb-6 pt-2 space-y-6">
