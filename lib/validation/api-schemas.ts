@@ -103,7 +103,7 @@ export const createProductSchema = z.object({
     commission_type: z.enum(['percentage', 'fixed', 'cpa']).default('cpa').optional(),
     rating: z.number().min(0).max(5).optional(),
     features: z.array(z.string()).max(50).optional(),
-    pricing: z.record(z.any()).optional(),
+    pricing: z.record(z.string(), z.any()).optional(),
     image_url: urlSchema.optional(),
 });
 
@@ -206,13 +206,13 @@ export const workflowStatusSchema = z.enum(['pending', 'running', 'completed', '
 export const createWorkflowSchema = z.object({
     workflow_id: z.string().min(1).max(100),
     workflow_version: z.string().max(50).optional(),
-    context: z.record(z.any()).optional(),
+    context: z.record(z.string(), z.any()).optional(),
 });
 
 export const updateWorkflowSchema = z.object({
     id: uuidSchema,
     state: workflowStatusSchema.optional(),
-    context: z.record(z.any()).optional(),
+    context: z.record(z.string(), z.any()).optional(),
     error: z.string().max(1000).optional(),
 });
 
@@ -264,7 +264,7 @@ export const generateTitleSchema = z.object({
 
 export const trackEventSchema = z.object({
     event: z.string().min(1).max(100),
-    properties: z.record(z.any()).optional(),
+    properties: z.record(z.string(), z.any()).optional(),
     timestamp: z.string().datetime().optional(),
     user_id: uuidSchema.optional(),
     session_id: z.string().max(200).optional(),
@@ -322,7 +322,7 @@ export const adminAutomationConfigSchema = z.object({
         revenue: z.number().min(0).optional(),
         seo: z.boolean().optional(),
     }).optional(),
-    constraints: z.record(z.any()).optional(),
+    constraints: z.record(z.string(), z.any()).optional(),
 });
 
 // ============================================

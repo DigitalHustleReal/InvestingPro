@@ -30,7 +30,7 @@ export const generateArticleJob = inngest.createFunction(
       logger.info('Article generation job completed', { 
         topic, 
         success: result.success,
-        articleId: result.article?.id 
+        articleId: (result as any).article?.id || 'none'
       });
       
       return result;

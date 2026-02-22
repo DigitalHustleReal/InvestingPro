@@ -71,7 +71,7 @@ export function calculateBestCards(profile: SpendProfile, allCards: RichProduct[
             totalCashbackValue += fuelReward;
              breakdown.push({ category: 'Fuel', points: 0, value: fuelReward });
              
-             const baseReward = (profile.grocery + profile.other) * 0.005; // Lower base
+             const baseReward = (profile.groceries + profile.other) * 0.005; // Lower base
              totalCashbackValue += baseReward;
         }
         // 4. Premium/General (Infinia, Emerald)

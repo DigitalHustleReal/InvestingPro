@@ -177,7 +177,7 @@ export class WorkflowRepository {
       return [];
     }
 
-    return data.map(item => ({
+    return data.map((item: any) => ({
       id: item.id,
       workflowInstanceId: item.workflow_instance_id,
       stepId: item.step_id,

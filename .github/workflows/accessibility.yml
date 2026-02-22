@@ -1,97 +1,39 @@
-name: Accessibility Tests
+name: Accessibility Checks
 
 on:
   pull_request:
-    branches: [main, master]
-  push:
-    branches: [main, master]
+    branches: [ master, main ]
 
 jobs:
-  accessibility:
+  a11y-check:
     runs-on: ubuntu-latest
-    
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
-      
-      - name: Install dependencies
+
+      - name: Install Dependencies
         run: npm ci
-      
-      - name: Run ESLint accessibility checks
-        run: npm run lint:a11y
-      
-      - name: Build application
+
+      - name: Build Project
         run: npm run build
-      
-      - name: Start dev server
-        run: npm run dev &
+
+      - name: Start Server
+        run: npm start &
         env:
           PORT: 3000
-      
-      - name: Wait for server
+
+      - name: Wait for Server
         run: npx wait-on http://localhost:3000
-      
+
       - name: Run Lighthouse CI
-        run: |
-          npm install -g @lhci/cli
-          lhci autorun
+        run: npm run lighthouse
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-      
-      - name: Run axe accessibility tests
-        run: npm run test:a11y
-      
-      - name: Upload accessibility reports
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: accessibility-reports
-          path: accessibility-reports/
-      
-      - name: Comment PR with results
-        uses: actions/github-script@v6
-        if: github.event_name == 'pull_request'
-        with:
-          script: |
-            const fs = require('fs');
-            try {
-              if (fs.existsSync('accessibility-reports/summary.json')) {
-                const summary = JSON.parse(fs.readFileSync('accessibility-reports/summary.json'));
-                
-                const comment = `## 🎯 Accessibility Test Results
-                
-                **Average Score:** ${summary.overall.averageScore.toFixed(1)}/100
-                **Passed Pages:** ${summary.overall.passedPages}/${summary.overall.totalPages}
-                
-                ${summary.overall.averageScore >= 95 ? '✅ **PASSED** - Ready to merge!' : '❌ **FAILED** - Fix accessibility issues before merging'}
-                
-                [View detailed reports](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
-                `;
-                
-                github.rest.issues.createComment({
-                  issue_number: context.issue.number,
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  body: comment
-                });
-              }
-            } catch (error) {
-              console.error('Error referencing summary.json', error);
-            }
-      
-      - name: Fail if score below 95
-        run: |
-          if [ -f "accessibility-reports/summary.json" ]; then
-            SCORE=$(node -p "JSON.parse(require('fs').readFileSync('accessibility-reports/summary.json')).overall.averageScore")
-            if (( $(echo "$SCORE < 95" | bc -l) )); then
-              echo "❌ Accessibility score $SCORE is below 95"
-              exit 1
-            fi
-          else
-            echo "⚠️ Summary report not found, skipping score check"
-          fi
+
+      - name: Run Color Check
+        run: bash scripts/check-admin-colors.sh

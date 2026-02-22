@@ -11,12 +11,10 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Content is required' }, { status: 400 });
         }
 
-        // SEO optimization disabled - needs refactoring
-        // if (action === 'optimize-seo') {
-        //     if (!title) return NextResponse.json({ error: 'Title required for SEO' }, { status: 400 });
-        //     const result = await autoOptimizeArticle(title, content);
-        //     return NextResponse.json({ success: true, data: result });
-        // } 
+        if (action === 'optimize-seo') {
+            const result = await autoOptimizeArticle(title || '', content);
+            return NextResponse.json({ success: true, data: result });
+        } 
         
         if (action === 'proofread') {
             const result = await proofreadContent(content);

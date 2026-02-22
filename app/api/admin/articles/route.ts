@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { articleService, type ArticleContent, type ArticleMetadata } from '@/lib/cms/article-service';
+import { ArticleService, type ArticleContent, type ArticleMetadata } from '@/lib/cms/article-service';
 import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
 
@@ -43,7 +43,9 @@ export async function POST(request: NextRequest) {
       ...metadata,
     };
 
-    const result = await articleService.createArticle(
+    const articleServiceInstance = ArticleService.create(supabase);
+
+    const result = await articleServiceInstance.createArticle(
       articleContent,
       articleMetadata
     );
@@ -59,3 +61,78 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+/**
+ * GET /api/admin/articles
+ * List articles with filtering
+ */
+export async function GET(request: NextRequest) {
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const searchParams = request.nextUrl.searchParams;
+    const status = (searchParams.get('status') as any) || undefined;
+    const includeDeleted = searchParams.get('includeDeleted') === 'true';
+    const limit = parseInt(searchParams.get('limit') || '50');
+    const page = parseInt(searchParams.get('page') || '1');
+    const query = searchParams.get('query') || undefined;
+    const slugParam = searchParams.get('slug') || undefined;
+    const order = searchParams.get('order') || undefined;
+
+    let sortField = 'created_at';
+    let sortOrder: 'asc' | 'desc' = 'desc';
+
+    if (order) {
+        if (order.startsWith('-')) {
+            sortField = order.slice(1);
+            sortOrder = 'desc';
+        } else {
+            sortField = order;
+            sortOrder = 'asc';
+        }
+    }
+
+    // Use service-role client for admin reads (bypasses RLS)
+    const { createServiceClient } = await import('@/lib/supabase/service');
+    const adminClient = createServiceClient();
+
+    // Direct slug lookup (used by preview mode)
+    if (slugParam) {
+        const { data, error } = await adminClient
+            .from('articles')
+            .select('*')
+            .eq('slug', slugParam)
+            .single();
+        
+        if (error || !data) {
+            return NextResponse.json({ error: 'Article not found' }, { status: 404 });
+        }
+        return NextResponse.json({ articles: [data], pagination: { page: 1, limit: 1, total: 1, totalPages: 1 } });
+    }
+
+    const articleServiceInstance = ArticleService.create(adminClient);
+    const result = await articleServiceInstance.getArticles({
+        page,
+        limit,
+        status,
+        includeDeleted,
+        search: query,
+        sortField,
+        sortOrder
+    });
+
+    return NextResponse.json(result);
+  } catch (error) {
+    logger.error('Error listing articles', error as Error);
+    return NextResponse.json(
+      { error: 'Failed to list articles' },
+      { status: 500 }
+    );
+  }
+}
+

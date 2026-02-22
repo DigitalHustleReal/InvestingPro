@@ -22,17 +22,19 @@ export function getThemeColor(
     }
     
     // Semantic colors
+    const hasShade = (obj: any, s: number) => Object.prototype.hasOwnProperty.call(obj, s);
+
     if (color === 'success') {
-        return SEMANTIC_COLORS.success[shade] || SEMANTIC_COLORS.success[500];
+        return hasShade(SEMANTIC_COLORS.success, shade) ? (SEMANTIC_COLORS.success as any)[shade] : SEMANTIC_COLORS.success[500];
     }
     if (color === 'danger') {
-        return SEMANTIC_COLORS.danger[shade] || SEMANTIC_COLORS.danger[500];
+        return hasShade(SEMANTIC_COLORS.danger, shade) ? (SEMANTIC_COLORS.danger as any)[shade] : SEMANTIC_COLORS.danger[500];
     }
     if (color === 'warning') {
-        return SEMANTIC_COLORS.warning[shade] || SEMANTIC_COLORS.warning[500];
+        return hasShade(SEMANTIC_COLORS.warning, shade) ? (SEMANTIC_COLORS.warning as any)[shade] : SEMANTIC_COLORS.warning[500];
     }
     if (color === 'info') {
-        return SEMANTIC_COLORS.info[shade] || SEMANTIC_COLORS.info[500];
+        return hasShade(SEMANTIC_COLORS.info, shade) ? (SEMANTIC_COLORS.info as any)[shade] : SEMANTIC_COLORS.info[500];
     }
     
     // Fallback to primary
@@ -123,5 +125,7 @@ export function getNeutralColor(
     palette: 'slate' | 'stone' = 'slate',
     shade: ColorShade = 500
 ): string {
-    return NEUTRAL_COLORS[palette][shade];
+    const colors = NEUTRAL_COLORS[palette];
+    const hasShade = (obj: any, s: number) => Object.prototype.hasOwnProperty.call(obj, s);
+    return hasShade(colors, shade) ? (colors as any)[shade] : colors[500];
 }

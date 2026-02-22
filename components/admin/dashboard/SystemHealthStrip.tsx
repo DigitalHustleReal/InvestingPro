@@ -8,10 +8,10 @@ import { cn } from '@/lib/utils';
 type Status = 'healthy' | 'degraded' | 'error' | 'loading';
 
 const STATUS_CLASSES = {
-    healthy: { bg: 'bg-emerald-500/10', text: 'text-emerald-400', dot: 'bg-emerald-400' },
-    degraded: { bg: 'bg-amber-500/10', text: 'text-amber-400', dot: 'bg-amber-400' },
-    error: { bg: 'bg-rose-500/10', text: 'text-rose-400', dot: 'bg-rose-400' },
-    loading: { bg: 'bg-slate-500/10', text: 'text-slate-300', dot: 'bg-slate-400' },
+    healthy: { bg: 'bg-success/10', text: 'text-success', dot: 'bg-success' },
+    degraded: { bg: 'bg-warning/10', text: 'text-warning', dot: 'bg-warning' },
+    error: { bg: 'bg-error/10', text: 'text-error', dot: 'bg-error' },
+    loading: { bg: 'bg-muted', text: 'text-muted-foreground', dot: 'bg-muted-foreground' },
 };
 
 interface HealthIndicatorProps {
@@ -24,24 +24,24 @@ function HealthIndicator({ label, status, icon: Icon }: HealthIndicatorProps) {
     const colors = STATUS_CLASSES[status];
     
     return (
-        <div className="flex items-center gap-3 p-4 rounded-lg border border-white/10 bg-white/10 backdrop-blur-sm transition-all hover:shadow-md hover:border-white/15 cursor-default">
+        <div className="flex items-center gap-4 p-4 rounded-xl border border-border bg-card shadow-sm transition-all hover:shadow-md cursor-default">
             <div className={cn(
-                "w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0",
+                "w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors",
                 colors.bg,
                 colors.text
             )}>
-                <Icon className="w-5 h-5" />
+                <Icon className="w-6 h-6" />
             </div>
 
-            <div>
-                <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">
+            <div className="flex-1">
+                <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">
                     {label}
                 </p>
 
                 <div className="flex items-center gap-2">
-                    <div className={cn("w-2 h-2 rounded-full", colors.dot)} />
-                    <span className="text-sm font-bold text-slate-200 capitalize">
-                        {status === 'loading' ? 'Checking…' : status}
+                    <div className={cn("w-2 h-2 rounded-full animate-pulse", colors.dot)} />
+                    <span className="text-base font-bold text-foreground capitalize">
+                        {status === 'loading' ? 'Checking...' : status}
                     </span>
                 </div>
             </div>
@@ -73,7 +73,7 @@ export default function SystemHealthStrip() {
     const dbStatus: Status = healthData?.status === 'error' ? 'error' : 'healthy';
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 animate-slide-up" style={{ animationDelay: '0.1s', animationFillMode: 'backwards' }}>
             <HealthIndicator
                 label="CMS Pipeline"
                 status={healthLoading ? 'loading' : (healthData?.health?.overall === 'healthy' ? 'healthy' : 'degraded')}

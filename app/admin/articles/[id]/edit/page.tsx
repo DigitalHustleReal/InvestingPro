@@ -20,6 +20,7 @@ import { useAutoSave } from '@/lib/hooks/useAutoSave';
 import { useUnsavedChanges } from '@/lib/hooks/useUnsavedChanges';
 import { formatErrorForUI } from '@/lib/errors/user-friendly-messages';
 import { ArticleCardSkeleton } from '@/components/loading/ArticleCardSkeleton';
+import { cn } from '@/lib/utils';
 
 // Helper to format time ago
 function formatTimeAgo(date: Date): string {
@@ -48,6 +49,7 @@ export default function EditArticlePage() {
     const [editorKey, setEditorKey] = useState(0);
     const [showPreview, setShowPreview] = useState(false);
     const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+    const [showInspector, setShowInspector] = useState(true);
 
     const handleProofread = async () => {
         if (!editorContent?.markdown) return;
@@ -110,7 +112,11 @@ export default function EditArticlePage() {
         if (article) {
             setTitle(article.title || '');
             setExcerpt(article.excerpt || '');
-            // Editor will load content via initialContent prop
+            // Initialize editor content state so we can save without editing the body
+            setEditorContent({
+                markdown: article.body_markdown || article.content || '',
+                html: article.body_html || ''
+            });
         }
     }, [article]);
 
@@ -361,10 +367,23 @@ export default function EditArticlePage() {
 
 
     const handleSave = async (metadata: any) => {
+        // Ensure metadata is an object if called without args
+        const meta = typeof metadata === 'object' ? metadata : {};
+
         // Validate before save
-        const errors = validateForm({ title, excerpt }, articleValidationRules);
+        // CRITICAL: Merge current state, metadata, and existing article data to ensure all required fields (like category) are present
+        const validationValues = {
+            title,
+            excerpt,
+            slug: article?.slug,
+            category: meta.category || article?.category,
+            ...meta
+        };
+
+        const errors = validateForm(validationValues, articleValidationRules);
         if (Object.keys(errors).length > 0) {
             setValidationErrors(errors);
+            console.error('Validation errors:', errors); // Debugging
             toast.error('Please fix the form errors before saving');
             return;
         }
@@ -375,16 +394,26 @@ export default function EditArticlePage() {
         }
 
         setSaving(true);
-        // Ensure metadata is an object if called without args
-        const meta = typeof metadata === 'object' ? metadata : {};
         await saveMutation.mutateAsync(meta);
     };
 
     const handlePublish = async (metadata: any = {}) => {
+        // Ensure metadata is an object if called without args
+        const meta = typeof metadata === 'object' ? metadata : {};
+        
         // Validate before publish
-        const errors = validateForm({ title, excerpt }, articleValidationRules);
+        const validationValues = {
+            title,
+            excerpt,
+            slug: article?.slug,
+            category: meta.category || article?.category,
+            ...meta
+        };
+
+        const errors = validateForm(validationValues, articleValidationRules);
         if (Object.keys(errors).length > 0) {
             setValidationErrors(errors);
+            console.error('Validation errors:', errors);
             toast.error('Please fix the form errors before publishing');
             return;
         }
@@ -399,8 +428,6 @@ export default function EditArticlePage() {
         if (!confirmed) return;
 
         setSaving(true);
-        // Ensure metadata is an object if called without args
-        const meta = typeof metadata === 'object' ? metadata : {};
         await publishMutation.mutateAsync(meta);
     };
 
@@ -456,7 +483,8 @@ export default function EditArticlePage() {
 
     return (
         <AdminLayout
-            showInspector={true}
+            showInspector={showInspector}
+            onInspectorClose={() => setShowInspector(false)}
             inspectorContent={
                 <ArticleInspector
                     article={{
@@ -478,6 +506,11 @@ export default function EditArticlePage() {
                     }}
                     onPublish={handlePublish}
                     onPreview={handlePreview}
+                    onUpdateContent={(updatedHtml) => {
+                        // Bridge between Inspector and Tiptap Editor
+                        editorContent?.ref?.commands.setContent(updatedHtml);
+                        setHasChanges(true);
+                    }}
                     saving={saving || isAutoSaving}
                 />
             }
@@ -551,6 +584,22 @@ export default function EditArticlePage() {
                                         )}
                                     </div>
                                 )}
+                                
+                                {/* Inspector Toggle (New) */}
+                                <Button
+                                    variant="outline"
+                                    onClick={() => setShowInspector(!showInspector)}
+                                    className={cn(
+                                        "gap-2 border-slate-200 dark:border-border dark:border-border text-slate-700 dark:text-foreground/80 dark:text-foreground/80 hover:text-slate-900 dark:hover:text-foreground dark:text-foreground transition-colors",
+                                        showInspector ? "bg-slate-100 dark:bg-muted" : "hover:bg-slate-100 dark:hover:bg-muted dark:bg-transparent"
+                                    )}
+                                    aria-label="Toggle inspector"
+                                    title="Toggle Inspector (Settings & SEO)"
+                                >
+                                    <Clock className="w-4 h-4 hidden" /> {/* Hidden icon just for spacing/consistency if needed */}
+                                    {showInspector ? 'Hide Info' : 'Show Info'}
+                                </Button>
+
                                 <Button
                                     variant="outline"
                                     onClick={() => setShowPreview(true)}

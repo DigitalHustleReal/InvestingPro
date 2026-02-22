@@ -1,209 +1,162 @@
 "use client";
 
-import { useState, useRef, DragEvent } from 'react';
-import { mediaService, UploadProgress } from '@/lib/media/media-service';
-import { Button } from '@/components/ui/Button';
+import { useState, useRef } from 'react';
+import { mediaService } from '@/lib/media/media-service';
 
 interface MediaUploaderProps {
     onUploadComplete?: (url: string, mediaId: string) => void;
     folder?: string;
-    acceptedTypes?: string[];
-    maxSizeMB?: number;
+    className?: string;
 }
 
-export function MediaUploader({
-    onUploadComplete,
-    folder = 'uploads',
-    acceptedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
-    maxSizeMB = 10
-}: MediaUploaderProps) {
-    const [uploading, setUploading] = useState(false);
+export function MediaUploader({ onUploadComplete, folder = 'uploads', className }: MediaUploaderProps) {
     const [dragActive, setDragActive] = useState(false);
-    const [progress, setProgress] = useState<UploadProgress | null>(null);
+    const [isUploading, setIsUploading] = useState(false);
+    const [progress, setProgress] = useState(0);
+    const [status, setStatus] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
-    const [preview, setPreview] = useState<string | null>(null);
-    const fileInputRef = useRef<HTMLInputElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
-    const handleUpload = async (files: FileList | null) => {
-        if (!files || files.length === 0) return;
-
-        const file = files[0];
-        setError(null);
-        setPreview(null);
-
-        try {
-            // Show preview
-            const previewUrl = URL.createObjectURL(file);
-            setPreview(previewUrl);
-
-            setUploading(true);
-
-            // Upload with progress tracking
-            const media = await mediaService.uploadImage(file, {
-                folder,
-                onProgress: setProgress
-            });
-
-            // Clean up preview
-            URL.revokeObjectURL(previewUrl);
-
-            // Notify parent
-            if (onUploadComplete) {
-                onUploadComplete(media.publicUrl, media.id);
-            }
-
-            // Reset
-            setPreview(null);
-            setProgress(null);
-            if (fileInputRef.current) {
-                fileInputRef.current.value = '';
-            }
-
-        } catch (err: any) {
-            setError(err.message || 'Upload failed');
-            if (preview) {
-                URL.revokeObjectURL(preview);
-                setPreview(null);
-            }
-        } finally {
-            setUploading(false);
-        }
-    };
-
-    const handleDrag = (e: DragEvent<HTMLDivElement>) => {
+    const handleDrag = (e: React.DragEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        
-        if (e.type === 'dragenter' || e.type === 'dragover') {
+        if (e.type === "dragenter" || e.type === "dragover") {
             setDragActive(true);
-        } else if (e.type === 'dragleave') {
+        } else if (e.type === "dragleave") {
             setDragActive(false);
         }
     };
 
-    const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+    const handleDrop = async (e: React.DragEvent) => {
         e.preventDefault();
         e.stopPropagation();
         setDragActive(false);
-
-        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-            handleUpload(e.dataTransfer.files);
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            handleUpload(e.dataTransfer.files[0]);
         }
     };
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        if (e.target.files && e.target.files[0]) {
+            handleUpload(e.target.files[0]);
+        }
+    };
+
+    const handleUpload = async (file: File) => {
+        if (!file.type.startsWith('image/')) {
+            setError('Please upload an image file');
+            return;
+        }
+        setError(null);
+        setIsUploading(true);
+        setProgress(0);
+        setStatus('Starting upload...');
+
+        try {
+            const result = await mediaService.uploadImage(file, {
+                folder,
+                onProgress: (p) => {
+                    setProgress(p.progress);
+                    setStatus(p.message || p.status);
+                }
+            });
+
+            if (onUploadComplete) {
+                onUploadComplete(result.publicUrl, result.id);
+            }
+
+            setTimeout(() => {
+                setIsUploading(false);
+                setProgress(0);
+                setStatus('');
+                if (inputRef.current) inputRef.current.value = '';
+            }, 1000);
+        } catch (err: any) {
+            console.error('Upload failed:', err);
+            setError(err.message || 'Upload failed. Please try again.');
+            setIsUploading(false);
+        }
+    };
+
+    const wrapperClass = [
+        "relative border-2 border-dashed rounded-xl p-8 transition-colors text-center",
+        dragActive ? "border-primary-500 bg-primary-50" : "border-slate-300 hover:border-slate-400",
+        isUploading ? "pointer-events-none opacity-80" : ""
+    ].join(" ");
+
     return (
-        <div className="w-full">
-            {/* Drop Zone */}
+        <div className={className || "w-full"}>
             <div
-                className={`
-                    relative border-2 border-dashed rounded-lg p-8 text-center
-                    transition-all duration-200
-                    ${dragActive 
-                        ? 'border-primary bg-primary/5 scale-[1.02]' 
-                        : 'border-slate-300 hover:border-slate-400'
-                    }
-                    ${uploading ? 'pointer-events-none opacity-60' : 'cursor-pointer'}
-                `}
+                className={wrapperClass}
                 onDragEnter={handleDrag}
                 onDragLeave={handleDrag}
                 onDragOver={handleDrag}
                 onDrop={handleDrop}
-                onClick={() => !uploading && fileInputRef.current?.click()}
             >
                 <input
-                    ref={fileInputRef}
+                    ref={inputRef}
                     type="file"
-                    accept={acceptedTypes.join(',')}
-                    onChange={(e) => handleUpload(e.target.files)}
                     className="hidden"
-                    disabled={uploading}
+                    accept="image/*"
+                    onChange={handleChange}
+                    disabled={isUploading}
                 />
 
-                {/* Upload Icon/Preview */}
-                {preview ? (
-                    <div className="mb-4">
-                        <img
-                            src={preview}
-                            alt="Preview"
-                            className="max-h-32 mx-auto rounded"
-                        />
-                    </div>
-                ) : (
-                    <div className="mb-4">
-                        <svg
-                            className="mx-auto h-12 w-12 text-slate-600"
-                            stroke="currentColor"
-                            fill="none"
-                            viewBox="0 0 48 48"
-                            aria-hidden="true"
-                        >
-                            <path
-                                d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                                strokeWidth={2}
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            />
-                        </svg>
-                    </div>
-                )}
-
-                {/* Upload Status */}
-                {uploading && progress ? (
-                    <div className="space-y-2">
-                        <p className="text-sm font-medium text-slate-700">
-                            {progress.message || 'Uploading...'}
-                        </p>
-                        <div className="w-full bg-slate-200 rounded-full h-2">
+                {isUploading ? (
+                    <div className="flex flex-col items-center justify-center py-4">
+                        <div className="w-10 h-10 border-4 border-primary-600 border-t-transparent rounded-full animate-spin mb-4" />
+                        <div className="w-full max-w-xs bg-slate-200 rounded-full h-2 mb-2 overflow-hidden">
                             <div
-                                className="bg-primary h-2 rounded-full transition-all duration-300"
-                                style={{ width: `${progress.progress}%` }}
+                                className="bg-primary-600 h-2 rounded-full transition-all duration-300"
+                                style={{ width: progress + "%" }}
                             />
                         </div>
-                        <p className="text-xs text-slate-500">
-                            {progress.progress}%
+                        <p className="text-sm font-medium text-slate-700">
+                            {status} ({Math.round(progress)}%)
                         </p>
                     </div>
                 ) : (
-                    <div className="space-y-2">
-                        <p className="text-lg font-medium text-slate-700">
-                            {dragActive ? 'Drop image here' : 'Drop image here or click to upload'}
-                        </p>
-                        <p className="text-sm text-slate-500">
-                            PNG, JPG, GIF, WebP up to {maxSizeMB}MB
-                        </p>
-                        {!dragActive && (
-                            <Button
-                                type="button"
-                                variant="default"
-                                className="mt-4"
-                                disabled={uploading}
-                            >
-                                Choose File
-                            </Button>
-                        )}
-                    </div>
-                )}
-
-                {/* Error Message */}
-                {error && (
-                    <div className="mt-4 p-3 bg-danger-50 border border-danger-200 rounded-lg">
-                        <p className="text-sm text-danger-600">{error}</p>
+                    <div className="flex flex-col items-center justify-center py-4 space-y-4">
+                        <div className="p-4 bg-slate-100 rounded-full">
+                            <svg className="w-8 h-8 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p className="text-base font-medium text-slate-900">
+                                Click or drag image to upload
+                            </p>
+                            <p className="text-sm text-slate-500 mt-1">
+                                Supports JPG, PNG, WebP (max 10MB)
+                            </p>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={() => inputRef.current?.click()}
+                            className="px-4 py-2 bg-white text-slate-700 border border-slate-300 rounded-lg hover:bg-slate-50 font-medium transition-colors"
+                        >
+                            Select File
+                        </button>
                     </div>
                 )}
             </div>
 
-            {/* Upload Tips */}
-            {!uploading && !error && (
-                <div className="mt-4 p-4 bg-secondary-50 border border-secondary-200 rounded-lg">
-                    <h4 className="text-sm font-medium text-secondary-900 mb-2">
-                        ðŸ’¡ Upload Tips:
-                    </h4>
-                    <ul className="text-sm text-secondary-700 space-y-1">
-                        <li>• Use descriptive filenames for better SEO</li>
-                        <li>• Optimize images before upload (recommended: under 500KB)</li>
-                        <li>• Landscape images work best for featured images (16:9 ratio)</li>
-                        <li>• Add alt text after upload for accessibility</li>
-                    </ul>
+            {error && (
+                <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3 text-red-700">
+                    <svg className="w-5 h-5 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div>
+                        <p className="font-medium">Upload Error</p>
+                        <p className="text-sm">{error}</p>
+                    </div>
+                    <button
+                        onClick={() => setError(null)}
+                        className="ml-auto text-red-500 hover:text-red-700"
+                    >
+                        X
+                    </button>
                 </div>
             )}
         </div>

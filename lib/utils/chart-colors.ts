@@ -36,11 +36,11 @@ export const CHART_COLORS = {
     dangerDark: SEMANTIC_COLORS.danger[600],  // #dc2626
     
     warning: SEMANTIC_COLORS.warning[500],    // #f59e0b - Amber (same as accent)
-    warningLight: SEMANTIC_COLORS.warning[400],
+    warningLight: SEMANTIC_COLORS.warning[100],
     warningDark: SEMANTIC_COLORS.warning[600],
     
     info: SEMANTIC_COLORS.info[500],         // #0ea5e9 - Sky Blue (same as secondary)
-    infoLight: SEMANTIC_COLORS.info[400],
+    infoLight: SEMANTIC_COLORS.info[100],
     infoDark: SEMANTIC_COLORS.info[600],
     
     // Neutral colors

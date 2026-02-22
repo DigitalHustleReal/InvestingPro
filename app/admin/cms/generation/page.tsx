@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
+import AdminPageContainer from '@/components/admin/AdminPageContainer';
 import BulkGenerationPanel from '@/components/admin/BulkGenerationPanel';
 import { Zap, Play, Sparkles } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,7 +12,6 @@ import { toast } from 'sonner';
 
 export default function CMSGenerationPage() {
     const queryClient = useQueryClient();
-    const [generating, setGenerating] = useState(false);
 
     // Canary test mutation
     const canaryTest = useMutation({
@@ -60,22 +60,21 @@ export default function CMSGenerationPage() {
 
     return (
         <AdminLayout>
-            <div className="p-8 space-y-8">
+            <AdminPageContainer>
                 {/* Header */}
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mb-8">
                     <div>
-                        <h1 className="text-3xl font-bold text-foreground dark:text-foreground mb-2 flex items-center gap-3">
-                            <Zap className="w-8 h-8 text-primary-400" />
+                        <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-3 tracking-tight">
+                            <Zap className="w-8 h-8 text-amber-500" />
                             Content Generation
                         </h1>
-                        <p className="text-muted-foreground dark:text-muted-foreground">Generate articles using the CMS orchestrator</p>
+                        <p className="text-slate-500 dark:text-slate-400 text-lg">Generate articles using the CMS orchestrator</p>
                     </div>
                     <div className="flex gap-3">
                         <Button
                             onClick={() => canaryTest.mutate()}
                             disabled={canaryTest.isPending}
                             variant="outline"
-                            className="bg-white/5 border-border dark:border-border hover:bg-white/10"
                         >
                             <Sparkles className="w-4 h-4 mr-2" />
                             {canaryTest.isPending ? 'Testing...' : 'Canary Test'}
@@ -85,7 +84,6 @@ export default function CMSGenerationPage() {
                                 goals: { volume: 10, quality: 80 }
                             })}
                             disabled={fullExecute.isPending}
-                            className="bg-primary-600 hover:bg-primary-700"
                         >
                             <Play className="w-4 h-4 mr-2" />
                             {fullExecute.isPending ? 'Generating...' : 'Generate Content'}
@@ -94,10 +92,10 @@ export default function CMSGenerationPage() {
                 </div>
 
                 {/* Bulk Generation Panel */}
-                <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50">
-                    <CardHeader className="border-b border-border/50 dark:border-border/50">
-                        <CardTitle className="text-lg font-bold text-foreground dark:text-foreground flex items-center gap-3">
-                            <Zap className="w-5 h-5 text-primary-400" />
+                <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-sm">
+                    <CardHeader className="border-b border-slate-200 dark:border-slate-800">
+                        <CardTitle className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                            <Zap className="w-5 h-5 text-amber-500" />
                             Bulk Content Generation
                         </CardTitle>
                     </CardHeader>
@@ -105,7 +103,7 @@ export default function CMSGenerationPage() {
                         <BulkGenerationPanel />
                     </CardContent>
                 </Card>
-            </div>
+            </AdminPageContainer>
         </AdminLayout>
     );
 }

@@ -7,14 +7,16 @@ import * as cheerio from 'cheerio';
 import slugify from 'slugify';
 import { serpAnalyzer, ResearchBrief } from '@/lib/research/serp-analyzer';
 import { analyzeContentQuality, generateQualityReport } from '@/lib/quality/content-quality-scorer';
-import { checkPlagiarism, generatePlagiarismReport } from '@/lib/quality/plagiarism-checker';
+import { checkPlagiarism } from '@/lib/quality/plagiarism-checker';
 import { generateImageAltText } from '@/lib/quality/image-alt-generator';
 import { generateArticleSchema, extractFAQsFromContent } from '@/lib/seo/schema-generator';
 import { imageService } from '@/lib/images/stock-image-service';
 // NOTE: eventPublisher and workflow imports made lazy to avoid server-only chain in scripts
 // import { eventPublisher, EventType } from '@/lib/events';
 // import { triggerArticlePublishingWorkflow } from '@/lib/workflows/hooks/article-workflow-hooks';
+import { normalizeArticleBody } from '@/lib/content/normalize';
 import { sanitizeHTML } from '@/lib/middleware/input-sanitization';
+import { injectInternalLinks } from '@/lib/content/link-manager';
 
 /**
  * CORE ARTICLE GENERATION LOGIC
@@ -76,7 +78,7 @@ async function getArticlePrompt(
             category: financeCategory,
             subcategory,
             topic,
-            keywords: brief?.keywords || [],
+            keywords: brief?.keyword ? [brief.keyword] : [],
             targetAudience: 'general',
             wordCount: brief?.recommended_word_count || 2000
         });
@@ -120,7 +122,7 @@ async function getArticlePrompt(
 
         let promptText = promptService.populateTemplate(dbPrompt.user_prompt_template, {
             topic: topic,
-            keywords: brief?.keywords?.join(', ') || topic,
+            keywords: brief?.keyword || topic,
             word_count_requirements: wordCountReqs
         });
 
@@ -238,7 +240,10 @@ async function getArticlePrompt(
     }
 
     prompt += `\nGenerate the extensive, high-quality article now.`;
-    return prompt;
+    return {
+        systemPrompt: 'You are an expert financial writer.',
+        userPrompt: prompt
+    };
 }
 
 // AI Generation with foolproof failover
@@ -248,8 +253,9 @@ async function generateWithAI(
     contentType: ContentType = 'ultimate',
     subcategory?: string,
     brief?: ResearchBrief, 
-    logFn: (msg: string) => void = console.log
-): Promise<string> {
+    logFn: (msg: string) => void = console.log,
+    jobId?: string
+): Promise<{ content: string; provider: string; model?: string }> {
     // USE RELATIVE PATH to avoid @ alias issues in tsx/node scripts
     const { api } = await import('../api');
     
@@ -270,8 +276,7 @@ async function generateWithAI(
                 topic, 
                 category,
                 contentType,
-                subcategory,
-                brief,
+                jobId,
                 promptMetadata: {
                     writer: category || 'default',
                     category: category || 'investing-basics',
@@ -281,31 +286,68 @@ async function generateWithAI(
             }
         });
 
-        if (!result || !result.content) {
-            console.error('🔴 GEN FAILURE DEBUG: Result is ' + (result ? JSON.stringify(result).substring(0, 200) : 'null'));
+        // Content extraction: handle possible key mismatches or non-string content
+        let extractedContent = result.content;
+        
+        // If content is null but there are other promising keys, use them
+        if (!extractedContent && result) {
+            extractedContent = result.article || result.text || result.response;
+        }
+
+        // Final safety check
+        if (!extractedContent) {
+            console.error('🔴 GEN FAILURE DEBUG: Result keys: ' + (result ? Object.keys(result).join(', ') : 'null'));
             throw new Error("AI engine failed to produce content");
+        }
+        
+        // Ensure string
+        if (typeof extractedContent !== 'string') {
+            extractedContent = JSON.stringify(extractedContent);
         }
 
         logFn(`✅ SUCCESS with ${result.provider}!`);
-        return result.content;
+        return { 
+            content: extractedContent, 
+            provider: result.provider, 
+            model: result.model 
+        };
     } catch (error: any) {
-        logFn(`❌ Generation failed: ${error.message}`);
+        logFn(`❌ Generation failed: ${error.message} (First 100 chars: ${error.message?.substring(0, 100)})`);
         // Fallback to simple prompt if dynamic builder fails
-        logFn(`🔄 Falling back to simple prompt...`);
+        logFn(`🔄 Falling back to ROBUST simple prompt...`);
         try {
             const { api } = await import('../api');
             const result = await api.integrations.Core.InvokeLLM({
-                prompt: `Write a comprehensive article about: ${topic}`,
+                prompt: `Write a HIGH-QUALITY, structured article about: "${topic}". 
+                Use at least 5 sections with <h2> tags. 
+                Focus on the Indian market. 
+                Use Rupee symbol (₹). 
+                Format as raw HTML. 
+                Write at least 1500 words.`,
                 operation: 'generate_article',
                 contextData: { topic, category }
             });
             
-            // CRITICAL FIX: Don't return empty string silently
-            if (!result?.content || result.content.trim().length < 100) {
-                throw new Error(`Fallback returned insufficient content (${result?.content?.length || 0} chars)`);
+            // CRITICAL FIX: handle non-string or missing content in fallback
+            let fallbackContent = result?.content || result?.article || result?.text || result?.response;
+            
+            if (!fallbackContent) {
+                throw new Error(`Fallback returned no usable content`);
             }
             
-            return result.content;
+            if (typeof fallbackContent !== 'string') {
+                fallbackContent = JSON.stringify(fallbackContent);
+            }
+            
+            if (fallbackContent.trim().length < 100) {
+                throw new Error(`Fallback returned insufficient content (${fallbackContent.length} chars)`);
+            }
+            
+            return { 
+                content: fallbackContent, 
+                provider: result.provider || 'fallback', 
+                model: result.model 
+            };
         } catch (fallbackError: any) {
             logFn(`❌ Fallback also failed: ${fallbackError.message}`);
             throw new Error(`All AI providers failed. Original: ${error.message}. Fallback: ${fallbackError.message}`);
@@ -424,19 +466,22 @@ export async function generateArticleCore(
     logFn: (msg: string) => void = console.log,
     options: { 
         dryRun?: boolean, 
-        authorId?: string, 
+        authorId?: string,
+        authorName?: string,
         cycleId?: string,
         modelOverride?: string,
         categorySlug?: string,
         targetWordCount?: number,
         forceRegenerate?: boolean,
         status?: 'published' | 'draft',
-        updateId?: string // Optionally update an existing article instead of creating new
+        jobId?: string,
+        updateId?: string
     } = {}
 ) {
     // Lazy imports for server-only modules
     const { eventPublisher, EventType } = await import('@/lib/events');
     const { triggerArticlePublishingWorkflow } = await import('@/lib/workflows/hooks/article-workflow-hooks');
+    const { storeJobStatus } = await import('@/lib/queue/job-status');
 
     const startTime = Date.now();
     
@@ -444,16 +489,22 @@ export async function generateArticleCore(
     const dryRun = typeof options === 'boolean' ? options : options?.dryRun;
     const authorId = typeof options === 'object' ? options?.authorId : undefined;
     const cycleId = typeof options === 'object' ? options?.cycleId : undefined;
+    const jobId = typeof options === 'object' ? options?.jobId : undefined; // Extract jobId
+
+    if (jobId) {
+        await storeJobStatus(jobId, 'running', { topic, cycleId }, 'workflow-step');
+    }
     
     // Publish generation started event
     try {
-        await eventPublisher.publish({
+        await eventPublisher.publish<any>({
             type: EventType.CONTENT_GENERATION_STARTED,
             source: 'ArticleGenerator',
             payload: {
                 topic,
                 agentId: 'ArticleGenerator',
-                cycleId
+                cycleId,
+                jobId // Added jobId here
             }
         });
     } catch (error) {
@@ -479,6 +530,9 @@ export async function generateArticleCore(
                 logFn(`   Keyword overlap: ${dupCheck.keyword_overlap.toFixed(1)}%`);
             }
             logFn(`\n💡 Suggestion: Try a different angle or topic.\n`);
+            if (jobId) {
+                await storeJobStatus(jobId, 'failed', { reason: dupCheck.reason, type: 'duplicate_content' }, 'duplicate-check');
+            }
             throw new Error(`Duplicate content detected: ${dupCheck.reason}`);
         } else if (dupCheck.recommendation === 'WARN') {
             logFn(`⚠️  Warning: ${dupCheck.reason}`);
@@ -499,7 +553,8 @@ export async function generateArticleCore(
     // GOOGLE-ALIGNED QUALITY THRESHOLDS (Updated from arbitrary values)
     // ============================================================================
     const MAX_RETRIES = 3;
-    const QUALITY_THRESHOLD = 60;  // FIXED: Lowered from 70 - more realistic for financial content
+    const QUALITY_THRESHOLD = 75;  // STRICTER: Raised to 75 for high-quality finance content
+    const EEAT_THRESHOLD = 50; // New: E-E-A-T must be at least 50/100
     const PLAGIARISM_THRESHOLD = 30; // FIXED: Lowered from 50 - Google allows 15-30% for citations
 
     // Retry loop for auto-correction
@@ -551,16 +606,17 @@ export async function generateArticleCore(
                 topic.toLowerCase().includes('top') || topic.toLowerCase().includes('best') ? 'listicle' :
                 'ultimate';
             
-            const rawResponse = await generateWithAI(
+            const result = await generateWithAI(
                 topic, 
                 detectedCategory, 
                 contentType, 
                 subcategory, 
                 enhancedBrief, 
-                logFn
+                logFn,
+                jobId // Pass jobId to generateWithAI
             );
         
-        let html = rawResponse;
+        let html = result.content;
         let aiImageKeywords = topic; 
         let aiTitle = null;
         let aiSeoTitle = null;
@@ -568,22 +624,41 @@ export async function generateArticleCore(
         let aiTags: string[] = [];
 
         try {
-             // Attempt to parse JSON
-             let cleanJson = rawResponse.trim();
-             // Remove markdown fences if present
-             cleanJson = cleanJson.replace(/```json/g, '').replace(/```/g, '');
+             // Attempt to parse JSON robustly
+             const { extractJSON } = await import('@/lib/utils/json');
+             const parsed = extractJSON(result.content);
              
-             const parsed = JSON.parse(cleanJson);
-             if (parsed.content) {
-                 html = parsed.content;
-                 if (parsed.image_keywords) aiImageKeywords = parsed.image_keywords;
-                 if (parsed.title) aiTitle = parsed.title;
-                 if (parsed.seo_title) aiSeoTitle = parsed.seo_title;
-                 if (parsed.seo_description) aiSeoDesc = parsed.seo_description;
-                 if (parsed.tags && Array.isArray(parsed.tags)) aiTags = parsed.tags;
+             if (parsed) {
+                 // Robustly find content key
+                 const content = parsed.content || parsed.article || parsed.text || parsed.response;
+                 
+                 if (content) {
+                     html = typeof content === 'string' ? content : JSON.stringify(content);
+                     if (parsed.image_keywords) aiImageKeywords = parsed.image_keywords;
+                     if (parsed.title) aiTitle = parsed.title;
+                     if (parsed.seo_title) aiSeoTitle = parsed.seo_title;
+                     if (parsed.seo_description) aiSeoDesc = parsed.seo_description;
+                     if (parsed.tags && Array.isArray(parsed.tags)) aiTags = parsed.tags;
+                 }
+                 logFn('   ✅ Successfully parsed AI JSON response.');
+             } else {
+                 logFn('   ⚠️ AI returned raw HTML/Text instead of JSON. Proceeding with raw content.');
              }
         } catch (e) {
-             logFn('   ⚠️ AI returned raw HTML/Text instead of JSON. Proceeding with raw content.');
+             logFn('   ⚠️ Error parsing AI response. Falling back to raw content.');
+        }
+
+        // 1b. Normalize Content (JSON/Markdown -> Clean HTML)
+        // This ensures cheerio and the frontend both get proper HTML
+        logFn('   🧹 Normalizing content structure...');
+        html = normalizeArticleBody(html);
+
+        // 1b. Internal Linking (Golden Keywords)
+        logFn('1️⃣b Injecting internal links...');
+        try {
+            html = injectInternalLinks(html);
+        } catch (linkError) {
+             logFn('   ⚠️ Link injection failed, proceeding with original content.');
         }
 
         // SERP DOMINATION STRATEGY: Word count validation
@@ -694,29 +769,33 @@ export async function generateArticleCore(
         logFn(`   📊 Quality Score: ${qualityScore.total_score}/100 (${qualityScore.grade})`);
         
         // Plagiarism check (FIXED: Corrected function call)
-        const uniquenessCheck = await checkPlagiarism(html);
-        logFn(`   🔍 Uniqueness: ${uniquenessCheck.unique_content_percentage}%`);
+        const uniquenessCheck = await checkPlagiarism(html, topic, undefined, getSupabaseClient());
+        logFn(`   🔍 Uniqueness: ${100 - uniquenessCheck.similarityScore}%`);
 
             // Quality gates with auto-correction logic
             const qualityFailed = qualityScore.total_score < QUALITY_THRESHOLD;
-            const plagiarismFailed = uniquenessCheck.is_plagiarized && uniquenessCheck.similarity_percentage > PLAGIARISM_THRESHOLD;
+            const eeatFailed = qualityScore.eeat_score < EEAT_THRESHOLD;
+            const plagiarismFailed = uniquenessCheck.isPlagiarized && uniquenessCheck.similarityScore > PLAGIARISM_THRESHOLD;
 
             if (qualityFailed) {
                 logFn(`   ⚠️ WARNING: Quality score below threshold (${qualityScore.total_score}/${QUALITY_THRESHOLD}).`);
             }
+            if (eeatFailed) {
+                 logFn(`   ⚠️ WARNING: E-E-A-T score below threshold (${qualityScore.eeat_score}/${EEAT_THRESHOLD}). Missing authority signals.`);
+            }
             if (plagiarismFailed) {
-                logFn(`   ⚠️ WARNING: High plagiarism detected (${uniquenessCheck.similarity_percentage}% similarity).`);
+                logFn(`   ⚠️ WARNING: High plagiarism detected (${uniquenessCheck.similarityScore}% similarity).`);
             }
 
             // Auto-correction: Retry if quality or plagiarism failed and we have retries left
-            if ((qualityFailed || plagiarismFailed) && attempt < MAX_RETRIES) {
+            if ((qualityFailed || eeatFailed || plagiarismFailed) && attempt < MAX_RETRIES) {
                 logFn(`   🔄 Auto-correction triggered. Regenerating article (attempt ${attempt + 1}/${MAX_RETRIES})...`);
                 continue; // Skip to next iteration (retry)
             }
 
             // If we've exhausted retries, log final warning
-            if ((qualityFailed || plagiarismFailed) && attempt === MAX_RETRIES) {
-                logFn(`   🚨 FINAL WARNING: Quality/plagiarism issues remain after ${MAX_RETRIES} attempts.`);
+            if ((qualityFailed || eeatFailed || plagiarismFailed) && attempt === MAX_RETRIES) {
+                logFn(`   🚨 FINAL WARNING: Quality/E-E-A-T/plagiarism issues remain after ${MAX_RETRIES} attempts.`);
                 logFn(`   📝 Article will be saved as DRAFT for manual review.`);
             }
 
@@ -756,11 +835,11 @@ export async function generateArticleCore(
             logFn('6️⃣ Publishing to database...');
             
             // Determine status based on quality/plagiarism
-            const status = (qualityFailed || plagiarismFailed) ? 'draft' : 'published';
+            const status = (qualityFailed || eeatFailed || plagiarismFailed) ? 'draft' : 'published';
             const statusReason = qualityFailed 
                 ? `Low quality score (${qualityScore.total_score}/${QUALITY_THRESHOLD})`
                 : plagiarismFailed
-                ? `High plagiarism (${uniquenessCheck.similarity_percentage}%)`
+                ? `High plagiarism (${uniquenessCheck.similarityScore}%)`
                 : 'Passed quality checks';
 
             if (status === 'draft') {
@@ -769,19 +848,24 @@ export async function generateArticleCore(
         const now = new Date().toISOString();
         const today = now.split('T')[0];
 
-        // Fetch a valid author ID (System Admin)
-        let authorId = null;
-        try {
-            // Try to get the first user from auth.users using Admin API
-            const { data: { users }, error } = await getSupabaseClient().auth.admin.listUsers({ page: 1, perPage: 1 });
-            if (users && users.length > 0) {
-                authorId = users[0].id;
-                logFn(`   👤 Assigned Author ID: ${authorId} (Admin)`);
-            } else {
-                 logFn('   ⚠️ No users found. Attempting to publish without Author ID.');
+        // Use passed authorId from pipeline, or fall back to admin user lookup
+        let resolvedAuthorId = (typeof options === 'object' ? options?.authorId : undefined) || null;
+        const resolvedAuthorName = (typeof options === 'object' ? options?.authorName : undefined) || 'InvestingPro Team';
+        
+        if (!resolvedAuthorId) {
+            try {
+                const { data: { users }, error } = await getSupabaseClient().auth.admin.listUsers({ page: 1, perPage: 1 });
+                if (users && users.length > 0) {
+                    resolvedAuthorId = users[0].id;
+                    logFn(`   👤 Assigned Author ID: ${resolvedAuthorId} (Admin)`);
+                } else {
+                    logFn('   ⚠️ No users found. Publishing without Author ID.');
+                }
+            } catch (e) {
+                logFn('   ⚠️ Could not fetch users. Defaulting to null author.');
             }
-        } catch (e) {
-            logFn('   ⚠️ Could not fetch users. Defaulting to null author.');
+        } else {
+            logFn(`   👤 Using selected author: ${resolvedAuthorName} (${resolvedAuthorId})`);
         }
 
         // Sanitize HTML content before storing
@@ -804,7 +888,7 @@ export async function generateArticleCore(
             featured_image: imageUrl || null,
             published_at: status === 'published' ? now : null,
             published_date: status === 'published' ? today : null,
-            author_id: authorId,
+            author_id: resolvedAuthorId,
             status: status,
             quality_score: qualityScore.total_score,
             read_time: readTime,
@@ -837,10 +921,10 @@ export async function generateArticleCore(
             updated_at: now,
             
             // Quality Metrics
-            uniqueness_score: uniquenessCheck.unique_content_percentage,
+            uniqueness_score: 100 - uniquenessCheck.similarityScore,
             seo_score: qualityScore.seo_score,
             readability_score: qualityScore.readability_score,
-            is_verified_quality: qualityScore.total_score >= 70 && !uniquenessCheck.is_plagiarized,
+            is_verified_quality: qualityScore.total_score >= 70 && !uniquenessCheck.isPlagiarized,
             is_plagiarism_checked: true,
             
             // New Metrics
@@ -848,12 +932,15 @@ export async function generateArticleCore(
             target_authority: 15, // Your current DA
             primary_keyword: topic,
             
-            author_name: 'AI Editor'
+            author_name: resolvedAuthorName
         };
         
         // DRY RUN CHECK
         if (dryRun) {
             logFn('🛑 Dry Run: Skipping DB Insert. Returning Payload.');
+            if (jobId) {
+                await storeJobStatus(jobId, 'completed', { dryRun: true, article: payload }, 'dry-run');
+            }
             return {
                 success: true,
                 article: payload, // Return payload simulating article
@@ -861,11 +948,11 @@ export async function generateArticleCore(
             };
         }
 
-        let article; // Variable to hold result for events
+        let article: any; // Variable to hold result for events
 
         if (options.updateId) {
              logFn(`   💾 Updating existing article ID: ${options.updateId}`);
-             const { data: updated, error: updateError } = await getSupabaseClient()
+             const { data: updated, error: updateError } = await (getSupabaseClient() as any)
                 .from('articles')
                 .update(payload)
                 .eq('id', options.updateId)
@@ -879,7 +966,7 @@ export async function generateArticleCore(
              article = updated;
              logFn(`   🎉 Successfully Updated Article: ${title}`);
         } else {
-             const { data: inserted, error: insertError } = await getSupabaseClient()
+             const { data: inserted, error: insertError } = await (getSupabaseClient() as any)
                 .from('articles')
                 .insert(payload)
                 .select()
@@ -898,6 +985,9 @@ export async function generateArticleCore(
             // Trigger content generation workflow for AI-generated articles
             try {
                 await triggerArticlePublishingWorkflow(article.id);
+                if (jobId) {
+                    await storeJobStatus(jobId, 'queued', { articleId: article.id }, 'workflow-step');
+                }
                 logFn(`   🔄 Workflow triggered: Content generation workflow started for article ${article.id}`);
             } catch (workflowError) {
                 // Don't fail article creation if workflow fails
@@ -907,7 +997,7 @@ export async function generateArticleCore(
             // Publish events
             try {
                 // Article created event
-                await eventPublisher.publish({
+                await eventPublisher.publish<any>({
                     type: EventType.ARTICLE_CREATED,
                     source: 'ArticleGenerator',
                     payload: {
@@ -920,7 +1010,7 @@ export async function generateArticleCore(
 
                 // If published, publish article published event
                 if (status === 'published') {
-                    await eventPublisher.publish({
+                    await eventPublisher.publish<any>({
                         type: EventType.ARTICLE_PUBLISHED,
                         source: 'ArticleGenerator',
                         payload: {
@@ -932,7 +1022,7 @@ export async function generateArticleCore(
                 }
 
                 // Content generation completed event
-                await eventPublisher.publish({
+                await eventPublisher.publish<any>({
                     type: EventType.CONTENT_GENERATION_COMPLETED,
                     source: 'ArticleGenerator',
                     payload: {
@@ -967,7 +1057,7 @@ export async function generateArticleCore(
             if (attempt === MAX_RETRIES) {
                 // Publish generation failed event
                 try {
-                    await eventPublisher.publish({
+                    await eventPublisher.publish<any>({
                         type: EventType.CONTENT_GENERATION_FAILED,
                         source: 'ArticleGenerator',
                         payload: {
@@ -977,7 +1067,8 @@ export async function generateArticleCore(
                             error: error.message
                         }
                     });
-                } catch (eventError) {
+                }
+ catch (eventError) {
                     // Don't fail if event publishing fails
                 }
 
@@ -997,7 +1088,7 @@ export async function generateArticleCore(
     // If we get here, all retries failed (shouldn't happen but just in case)
     // Publish generation failed event
     try {
-        await eventPublisher.publish({
+        await eventPublisher.publish<any>({
             type: EventType.CONTENT_GENERATION_FAILED,
             source: 'ArticleGenerator',
             payload: {
@@ -1007,7 +1098,8 @@ export async function generateArticleCore(
                 error: `Failed after ${MAX_RETRIES} attempts`
             }
         });
-    } catch (eventError) {
+    }
+ catch (eventError) {
         // Don't fail if event publishing fails
     }
 

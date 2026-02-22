@@ -25,7 +25,7 @@ export class LinkInjector {
 
         // 2. Sort by name length (descending) to prevent partial matching issues
         // e.g. Match "HDFC Regalia Gold" before "HDFC Regalia"
-        const sortedProducts = products.sort((a, b) => b.name.length - a.name.length);
+        const sortedProducts = (products as any[] || []).filter((p: any) => p.name).sort((a: any, b: any) => (b.name?.length || 0) - (a.name?.length || 0));
 
         // 3. Iterate and replace (Case-insensitive, global)
         // We use a temporary placeholder to avoid double-linking

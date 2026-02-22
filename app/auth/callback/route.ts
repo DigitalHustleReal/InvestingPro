@@ -89,7 +89,7 @@ export async function GET(request: Request) {
       .from('user_profiles')
       .select('id, role, email')
       .eq('id', session.user.id)
-      .single();
+      .maybeSingle();
 
     if (profileError?.code === 'PGRST116' || !profile) {
       await supabase.from('user_profiles').insert({
@@ -107,7 +107,7 @@ export async function GET(request: Request) {
       .from('user_roles')
       .select('role')
       .eq('user_id', session.user.id)
-      .single();
+      .maybeSingle();
 
     const userRole = roleData?.role || profile?.role || 'user';
     const isSystemAdmin = userRole === 'admin';

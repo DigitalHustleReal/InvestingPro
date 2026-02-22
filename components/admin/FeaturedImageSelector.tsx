@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Button } from '@/components/ui/Button';
 import { Image as ImageIcon, Upload, X, Wand2, Loader2 } from 'lucide-react';
 import { MediaLibrary } from '@/components/media/MediaLibrary';
@@ -25,6 +26,12 @@ export default function FeaturedImageSelector({
 }: FeaturedImageSelectorProps) {
     const [showMediaLibrary, setShowMediaLibrary] = useState(false);
     const [autoSelecting, setAutoSelecting] = useState(false);
+    const [initialView, setInitialView] = useState<'grid' | 'upload'>('grid');
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const handleMediaSelect = (media: MediaFile) => {
         onImageSelect(media.publicUrl);
@@ -98,13 +105,41 @@ export default function FeaturedImageSelector({
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-2">
+            <div className="grid grid-cols-2 gap-2">
+                <Button
+                    onClick={() => {
+                        setInitialView('grid');
+                        setShowMediaLibrary(true);
+                    }}
+                    variant="outline"
+                    size="sm"
+                    className="flex-1 bg-white hover:bg-slate-100 border-wt-border text-slate-700 hover:text-slate-900 dark:bg-slate-800 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-700 dark:hover:text-white"
+                >
+                    <ImageIcon className="w-4 h-4 mr-2" />
+                    Browse
+                </Button>
+                <Button
+                    onClick={() => {
+                        // We need a way to pass 'upload' view. 
+                        // Since we can't pass props dynamically to the state without prop drilling or context, 
+                        // we can use a separate state or just rely on the user clicking the tab.
+                        // BUT, I added initialView prop! I need to store the desired view in state.
+                        setInitialView('upload');
+                        setShowMediaLibrary(true);
+                    }}
+                    variant="outline"
+                    size="sm"
+                    className="flex-1 bg-white hover:bg-slate-100 border-wt-border text-slate-700 hover:text-slate-900 dark:bg-slate-800 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-700 dark:hover:text-white"
+                >
+                    <Upload className="w-4 h-4 mr-2" />
+                    Upload
+                </Button>
                 <Button
                     onClick={handleAutoSelect}
                     disabled={autoSelecting || !articleTitle}
                     variant="default"
                     size="sm"
-                    className="flex-1 bg-wt-nav hover:bg-wt-nav-light text-wt-text dark:text-wt-text"
+                    className="col-span-2 bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-100 dark:hover:bg-white dark:text-slate-900"
                     title="Automatically select image based on article title"
                 >
                     {autoSelecting ? (
@@ -115,52 +150,46 @@ export default function FeaturedImageSelector({
                     ) : (
                         <>
                             <Wand2 className="w-4 h-4 mr-2" />
-                            Auto-Select
+                            Auto-Select (AI)
                         </>
                     )}
                 </Button>
-                <Button
-                    onClick={() => setShowMediaLibrary(true)}
-                    variant="outline"
-                    size="sm"
-                    className="flex-1 bg-white hover:bg-wt-surface-hover border-wt-border"
-                >
-                    <Upload className="w-4 h-4 mr-2" />
-                    {imageUrl ? 'Change' : 'Choose'}
-                </Button>
             </div>
 
-            {/* Media Library Modal */}
-            {showMediaLibrary && (
-                <div className="fixed inset-0 z-50 overflow-hidden">
+            {/* Media Library Modal - Rendered via Portal */}
+            {showMediaLibrary && mounted && createPortal(
+                <div className="fixed inset-0 z-[100000] isolate overflow-hidden flex items-center justify-center p-4 md:p-8">
                     {/* Backdrop */}
                     <div
-                        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                        className="absolute inset-0 bg-black/80 backdrop-blur-md"
                         onClick={() => setShowMediaLibrary(false)}
                     />
 
                     {/* Modal */}
-                    <div className="absolute inset-4 md:inset-8 bg-white rounded-lg shadow-2xl flex flex-col">
+                    <div className="relative w-full h-full max-w-7xl max-h-[90vh] bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg shadow-2xl flex flex-col overflow-hidden">
                         {/* Header */}
-                        <div className="border-b border-wt-border px-6 py-4 flex items-center justify-between">
-                            <h2 className="text-lg font-semibold text-wt-text">Select Featured Image</h2>
+                        <div className="border-b border-wt-border dark:border-slate-800 px-6 py-4 flex items-center justify-between bg-white dark:bg-slate-950 flex-none z-20">
+                            <h2 className="text-lg font-semibold text-wt-text dark:text-white">Select Featured Image</h2>
                             <button
                                 onClick={() => setShowMediaLibrary(false)}
-                                className="p-2 hover:bg-wt-card rounded-md transition-colors"
+                                className="p-2 hover:bg-wt-card dark:hover:bg-slate-800 rounded-md transition-colors"
                             >
-                                <X className="w-5 h-5 text-wt-text-muted/50 dark:text-wt-text-muted/50" />
+                                <X className="w-5 h-5 text-wt-text-muted dark:text-slate-400" />
                             </button>
                         </div>
 
                         {/* Media Library */}
-                        <div className="flex-1 overflow-hidden">
+                        <div className="flex-1 overflow-hidden relative z-0">
                             <MediaLibrary
                                 onSelect={handleMediaSelect}
-                                mode="select"
+                                // Pass the state here
+                                initialView={initialView}
+                                selectionMode={true}
                             />
                         </div>
                     </div>
-                </div>
+                </div>,
+                document.body
             )}
         </div>
     );

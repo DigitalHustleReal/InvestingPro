@@ -34,19 +34,27 @@ export class WorkflowService {
     const instance = await workflowExecutor.execute(definition, context);
 
     // Save instance
-    await workflowRepository.saveInstance(instance);
+    if (instance) {
+      await workflowRepository.saveInstance(instance);
+    } else {
+      throw new Error('Failed to start workflow execution');
+    }
 
     // Publish workflow started event
-    await eventPublisher.publish({
+    await eventPublisher.publish<any>({
       type: EventType.CONTENT_GENERATION_STARTED,
       payload: {
-        workflowId: definition.id,
-        instanceId: instance.id
+        topic: (definition as any).name,
+        agentId: 'workflow-engine',
+        cycleId: (instance as any).id
       },
       metadata: {
         workflowName: definition.name,
-        workflowVersion: definition.version
-      }
+        workflowVersion: definition.version,
+        workflowId: definition.id,
+        instanceId: instance.id
+      },
+      source: 'workflow-service'
     });
 
     return instance;
@@ -100,7 +108,7 @@ export class WorkflowService {
     });
 
     // Publish state transition event
-    await eventPublisher.publish({
+    await eventPublisher.publish<any>({
       type: EventType.ARTICLE_UPDATED, // Or specific state transition event
       payload: {
         entityType,
@@ -112,7 +120,8 @@ export class WorkflowService {
       metadata: {
         userId,
         ...metadata
-      }
+      },
+      source: 'workflow-service'
     });
   }
 

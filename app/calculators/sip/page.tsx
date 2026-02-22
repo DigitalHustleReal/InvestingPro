@@ -1,4 +1,6 @@
+import FinancialDisclaimer from '@/components/legal/FinancialDisclaimer';
 import React from 'react';
+
 import type { Metadata } from 'next';
 import { SIPCalculatorWithInflation } from "@/components/calculators/SIPCalculatorWithInflation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -185,8 +187,10 @@ export default function SIPCalculatorPage() {
 
             {/* Calculator */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+                <FinancialDisclaimer variant="compact" className="mb-6" />
                 <SIPCalculatorWithInflation />
             </div>
+
 
             {/* SEO Content Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-8">

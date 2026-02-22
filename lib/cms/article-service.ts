@@ -70,6 +70,8 @@ export interface ArticleMetadata {
     // Review queue fields for creation/update
     is_user_submission?: boolean;
     submission_status?: 'pending' | 'approved' | 'rejected' | 'revision-requested';
+    author_id?: string;
+    editor_id?: string;
 }
 
 /**
@@ -97,6 +99,10 @@ export interface ArticleData extends ArticleContent, ArticleMetadata {
     editorial_notes?: any;
     difficulty_level?: 'beginner' | 'intermediate' | 'advanced';
     verified_by_expert?: boolean;
+    
+    // Soft Delete Metadata
+    deleted_at?: string;
+    deleted_by?: string;
 }
 
 /**
@@ -175,6 +181,7 @@ export class ArticleService {
             .from('articles')
             .select('*')
             .eq('id', id)
+            .is('deleted_at', null)
             .single();
 
         if (error) {
@@ -240,6 +247,7 @@ export class ArticleService {
             .select('*')
             .eq('slug', slug)
             .eq('status', 'published')
+            .is('deleted_at', null)
             .not('published_at', 'is', null)
             .single();
 
@@ -276,6 +284,21 @@ export class ArticleService {
     ): Promise<SaveResult> {
         const supabase = this.getClient();
 
+        // 1. Enforce Slug Normalization
+        if (metadata.slug) {
+            metadata.slug = this.normalizeSlug(metadata.slug);
+        }
+
+        // 2. Enforce Tag Normalization
+        if (metadata.tags) {
+            metadata.tags = Array.from(new Set(metadata.tags.map(t => t.trim().toLowerCase()))).filter(Boolean);
+        }
+
+        // 3. Category Validation & Normalization
+        if (metadata.category) {
+            metadata.category = metadata.category.trim().toLowerCase();
+        }
+
         // Normalize content (single source of truth)
         let normalizedHTML = content.body_html 
             ? normalizeArticleBody(content.body_html)
@@ -299,7 +322,10 @@ export class ArticleService {
             }
         } catch (disclosureError) {
             // Don't fail save if disclosure injection fails
-            logger.warn('Failed to inject affiliate disclosure', disclosureError instanceof Error ? disclosureError : new Error(String(disclosureError)), { articleId: id });
+            logger.warn('Failed to inject affiliate disclosure', { 
+                articleId: id, 
+                error: disclosureError instanceof Error ? disclosureError.message : String(disclosureError) 
+            });
         }
 
         const normalizedMarkdown = normalizedHTML ? htmlToMarkdown(normalizedHTML) : '';
@@ -370,7 +396,10 @@ export class ArticleService {
             await createArticleVersion(id, 'Article updated');
         } catch (versionError) {
             // Don't fail save if versioning fails
-            logger.warn('Failed to create article version', versionError instanceof Error ? versionError : new Error(String(versionError)), { articleId: id });
+            logger.warn('Failed to create article version', { 
+                articleId: id, 
+                error: versionError instanceof Error ? versionError.message : String(versionError) 
+            });
         }
 
         // Invalidate cache
@@ -452,18 +481,27 @@ export class ArticleService {
             await createArticleVersion(id, 'Article published');
         } catch (versionError) {
             // Don't fail publish if versioning fails
-            logger.warn('Failed to create article version on publish', versionError instanceof Error ? versionError : new Error(String(versionError)), { articleId: id });
+            logger.warn('Failed to create article version on publish', { 
+                articleId: id, 
+                error: versionError instanceof Error ? versionError.message : String(versionError) 
+            });
         }
 
         // Auto-interlink article after publish (async, don't block)
         try {
             const { autoInterlinkArticle } = await import('@/lib/automation/auto-interlinking');
             autoInterlinkArticle(id, { maxLinks: 5, minRelevance: 0.3 }).catch(err => {
-                logger.warn('Auto-interlinking failed after publish', err as Error, { articleId: id });
+                logger.warn('Auto-interlinking failed after publish', { 
+                    articleId: id, 
+                    error: err instanceof Error ? err.message : String(err) 
+                });
             });
         } catch (interlinkError) {
             // Don't fail publish if interlinking fails
-            logger.warn('Auto-interlinking setup failed', interlinkError instanceof Error ? interlinkError : new Error(String(interlinkError)), { articleId: id });
+            logger.warn('Auto-interlinking setup failed', { 
+                articleId: id, 
+                error: interlinkError instanceof Error ? interlinkError.message : String(interlinkError) 
+            });
         }
 
         // Invalidate cache
@@ -499,9 +537,15 @@ export class ArticleService {
 
         const normalizedMarkdown = normalizedHTML ? htmlToMarkdown(normalizedHTML) : '';
 
-        // Generate slug if not provided
-        let slug = metadata.slug || this.generateSlug(metadata.title);
+        // 1. Enforce Slug Normalization
+        let slug = metadata.slug ? this.normalizeSlug(metadata.slug) : this.generateSlug(metadata.title);
         
+        // 2. Enforce Tag Normalization
+        metadata.tags = Array.from(new Set((metadata.tags || []).map(t => t.trim().toLowerCase()))).filter(Boolean);
+
+        // 3. Category Validation & Normalization
+        metadata.category = (metadata.category || 'investing-basics').trim().toLowerCase();
+
         // Get current user for author
         const { data: { user } } = await supabase.auth.getUser();
 
@@ -520,7 +564,8 @@ export class ArticleService {
             seo_description: metadata.seo_description || metadata.excerpt,
             read_time: metadata.read_time,
             featured_image: metadata.featured_image,
-            author_id: user?.id || null,
+            author_id: metadata.author_id || user?.id || null,
+            editor_id: metadata.editor_id || null,
             author_name: user?.user_metadata?.full_name || 'Admin',
             ai_generated: false, // Set explicitly for manual creation
         };
@@ -567,8 +612,8 @@ export class ArticleService {
      * List articles (for admin dashboard)
      * Returns ALL statuses
      */
-    async listArticles(limit?: number): Promise<ArticleData[]> {
-        const cacheKey = cacheKeyGenerators.article.list(`limit:${limit || 'all'}`);
+    async listArticles(limit?: number, includeDeleted: boolean = false): Promise<ArticleData[]> {
+        const cacheKey = cacheKeyGenerators.article.list(`limit:${limit || 'all'}:deleted:${includeDeleted}`);
         const strategy = cacheStrategies.articlesList;
 
         // Try cache first
@@ -582,8 +627,13 @@ export class ArticleService {
         // First, try direct query (works for authenticated/admin users)
         let query = supabase
             .from('articles')
-            .select('*')
-            .order('created_at', { ascending: false });
+            .select('*');
+            
+        if (!includeDeleted) {
+            query = query.is('deleted_at', null);
+        }
+            
+        query = query.order('created_at', { ascending: false });
 
         if (limit) {
             query = query.limit(limit);
@@ -649,6 +699,7 @@ export class ArticleService {
             .from('articles')
             .select('*')
             .eq('status', 'published')
+            .is('deleted_at', null)
             .not('published_at', 'is', null)
             .order('published_at', { ascending: false });
 
@@ -675,6 +726,9 @@ export class ArticleService {
         category?: string;
         status?: string;
         search?: string;
+        sortField?: string;
+        sortOrder?: 'asc' | 'desc';
+        includeDeleted?: boolean;
     }): Promise<{
         articles: ArticleData[];
         pagination: {
@@ -688,14 +742,28 @@ export class ArticleService {
         const page = options.page || 1;
         const limit = options.limit || 10;
         const offset = (page - 1) * limit;
+        const sortField = options.sortField || 'created_at';
+        const sortOrder = options.sortOrder || 'desc';
 
         let query = supabase
             .from('articles')
             .select('*', { count: 'exact' });
 
-        // Filter by status
-        if (options.status) {
-            query = query.eq('status', options.status);
+        // Filter by Trash (soft-deleted) or Normal
+        if (options.status === 'trash') {
+            query = query.not('deleted_at', 'is', null);
+        } else if (options.includeDeleted) {
+            // No filter on deleted_at - include everything
+            if (options.status && options.status !== 'all') {
+                query = query.eq('status', options.status);
+            }
+        } else {
+            query = query.is('deleted_at', null);
+            
+            // Filter by status (only if NOT trash/includeDeleted)
+            if (options.status && options.status !== 'all') {
+                query = query.eq('status', options.status);
+            }
         }
 
         // Filter by category
@@ -708,8 +776,8 @@ export class ArticleService {
             query = query.or(`title.ilike.%${options.search}%,excerpt.ilike.%${options.search}%,content.ilike.%${options.search}%`);
         }
 
-        // Order by published date (most recent first)
-        query = query.order('published_at', { ascending: false, nullsFirst: false });
+        // Order by specified field
+        query = query.order(sortField, { ascending: sortOrder === 'asc', nullsFirst: false });
 
         // Apply pagination
         query = query.range(offset, offset + limit - 1);
@@ -759,16 +827,52 @@ export class ArticleService {
             logger.error('Failed to delete article', error);
             throw new Error(error.message || 'Failed to delete article');
         }
+
+        // Invalidate cache
+        await invalidateArticleCache(id);
+    }
+
+    /**
+     * Restore article from Trash
+     */
+    async restoreArticle(id: string): Promise<void> {
+        const supabase = this.getClient();
+
+        const { error } = await supabase
+            .from('articles')
+            .update({ 
+                deleted_at: null,
+                deleted_by: null
+            })
+            .eq('id', id);
+
+        if (error) {
+            logger.error('Failed to restore article', error);
+            throw new Error(error.message || 'Failed to restore article');
+        }
+
+        // Invalidate cache
+        await invalidateArticleCache(id);
     }
 
     /**
      * Generate slug from title
      */
     private generateSlug(title: string): string {
-        return title
+        return this.normalizeSlug(title);
+    }
+
+    /**
+     * Normalize a string into a URL-friendly slug
+     */
+    private normalizeSlug(text: string): string {
+        return text
             .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '') // Remove accents
             .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-|-$/g, '');
+            .replace(/^-|-$/g, '')
+            .substring(0, 200); // Prevent excessively long slugs
     }
 
     /**
@@ -817,6 +921,10 @@ export class ArticleService {
             editorial_notes: data.editorial_notes,
             difficulty_level: data.difficulty_level,
             verified_by_expert: data.verified_by_expert,
+
+            // Soft Delete Metadata
+            deleted_at: data.deleted_at,
+            deleted_by: data.deleted_by,
         };
     }
     

@@ -241,19 +241,92 @@ function calculateSEOScore(article: any): number {
 }
 
 /**
+ * AI-Powered SEO Metadata Generation
+ * 
+ * Uses GPT-4o to generate optimized titles, descriptions, and keywords.
+ */
+export async function generateAISEOMetadata(
+    title: string,
+    content: string
+): Promise<{
+    seo_title: string;
+    meta_description: string;
+    primary_keyword: string;
+    secondary_keywords: string[];
+    search_intent: string;
+}> {
+    try {
+        const { api } = await import('@/lib/api');
+        const { extractJSON } = await import('@/lib/utils/json');
+
+        const prompt = `You are an SEO expert for InvestingPro, a premium financial education platform in India.
+        Generate optimized SEO metadata for the following article.
+
+        ARTICLE TITLE: ${title}
+        
+        ARTICLE CONTENT:
+        """
+        ${content.substring(0, 5000)}
+        """
+
+        TASK:
+        1. Generate a compelling SEO Title (50-60 chars) including the primary keyword.
+        2. Generate a Meta Description (150-160 chars) that encourages clicks.
+        3. Identify the Single Primary Keyword.
+        4. Identify 3-5 Secondary Keywords.
+        5. Identify Search Intent (informational, commercial, or transactional).
+
+        FORMAT YOUR RESPONSE AS JSON:
+        {
+          "seo_title": "string",
+          "meta_description": "string",
+          "primary_keyword": "string",
+          "secondary_keywords": ["string", "string"],
+          "search_intent": "informational" | "commercial" | "transactional"
+        }`;
+
+        const result = await api.integrations.Core.InvokeLLM({
+            prompt,
+            operation: 'generate_seo_metadata',
+            persona: 'arjun' // Use Arjun for helpful, clicking-inducing tone
+        });
+
+        const parsed = extractJSON(result.content);
+
+        if (!parsed) {
+            throw new Error('Failed to parse AI SEO response');
+        }
+
+        return {
+            seo_title: parsed.seo_title || title,
+            meta_description: parsed.meta_description || '',
+            primary_keyword: parsed.primary_keyword || '',
+            secondary_keywords: parsed.secondary_keywords || [],
+            search_intent: parsed.search_intent || 'informational'
+        };
+
+    } catch (error) {
+        logger.error('Error generating AI SEO metadata', error as Error);
+        // Fallback to basic extraction
+        const primary = extractPrimaryKeywords(title)[0];
+        return {
+            seo_title: title,
+            meta_description: content.substring(0, 155),
+            primary_keyword: primary,
+            secondary_keywords: [],
+            search_intent: 'informational'
+        };
+    }
+}
+
+/**
  * Auto-optimize article based on SEO analysis
  */
-export async function autoOptimizeArticle(articleId: string): Promise<SEOOptimizationResult> {
-    const analysis = await analyzeArticleSEO(articleId);
-
-    // Apply high-priority optimizations automatically
-    const highPriorityOpts = analysis.optimizations.filter(opt => opt.priority === 'high');
-
-    // TODO: Apply optimizations to article
-    // For now, just return analysis
-
-    return {
-        ...analysis,
-        applied: highPriorityOpts.length > 0
-    };
+export async function autoOptimizeArticle(title: string, content: string): Promise<any> {
+    // This is the entry point for the editor tools
+    const aiMetadata = await generateAISEOMetadata(title, content);
+    
+    // We can also run the analysis to compare
+    // But for the tool, we return the optimized data
+    return aiMetadata;
 }

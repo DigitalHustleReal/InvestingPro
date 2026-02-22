@@ -61,6 +61,17 @@ export interface ArticlePublishedEvent extends BaseEvent {
     };
 }
 
+export interface ArticleUpdatedEvent extends BaseEvent {
+    type: EventType.ARTICLE_UPDATED;
+    payload: {
+        entityType: string;
+        entityId: string;
+        from: any;
+        to: any;
+        action: string;
+    };
+}
+
 export interface ContentGenerationStartedEvent extends BaseEvent {
     type: EventType.CONTENT_GENERATION_STARTED;
     payload: {

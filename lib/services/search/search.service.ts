@@ -3,7 +3,7 @@
  * Business logic for search functionality
  */
 import { cachedSearchService } from '@/lib/search/service.cached';
-import { logger } from '@/lib/logger';
+import { logger as serviceLogger } from '@/lib/logger';
 
 export interface SearchQuery {
     q?: string;
@@ -31,7 +31,7 @@ export class SearchServiceImpl implements SearchService {
     }> {
         try {
             const searchTerm = query.q || '';
-            const type = query.type || 'all';
+            const type = (query.type || 'all') as any;
             const limit = query.limit || 10;
 
             if (!searchTerm) {
@@ -43,7 +43,7 @@ export class SearchServiceImpl implements SearchService {
             }
 
             // Use existing search service
-            const results = await searchService.search(searchTerm, {
+            const results = await cachedSearchService.search(searchTerm, {
                 type,
                 category: query.category,
                 limit
@@ -52,10 +52,10 @@ export class SearchServiceImpl implements SearchService {
             return {
                 results: results.results || [],
                 total: results.total || 0,
-                type
+                type: query.type || 'all'
             };
         } catch (error) {
-            logger.error('Search service search error', error instanceof Error ? error : new Error(String(error)));
+            serviceLogger.error('Search service search error', error instanceof Error ? error : new Error(String(error)));
             throw error;
         }
     }
@@ -74,7 +74,7 @@ export class SearchServiceImpl implements SearchService {
                 return results.results || [];
             }
         } catch (error) {
-            logger.error('Search service getRelated error', error instanceof Error ? error : new Error(String(error)));
+            serviceLogger.error('Search service getRelated error', error instanceof Error ? error : new Error(String(error)));
             throw error;
         }
     }
@@ -85,7 +85,7 @@ export class SearchServiceImpl implements SearchService {
             const results = await cachedSearchService.getTrending(limit);
             return results || [];
         } catch (error) {
-            logger.error('Search service getTrending error', error instanceof Error ? error : new Error(String(error)));
+            serviceLogger.error('Search service getTrending error', error instanceof Error ? error : new Error(String(error)));
             throw error;
         }
     }
@@ -96,7 +96,7 @@ export class SearchServiceImpl implements SearchService {
             const suggestions = await cachedSearchService.getSuggestions(query);
             return suggestions || [];
         } catch (error) {
-            logger.error('Search service getSuggestions error', error instanceof Error ? error : new Error(String(error)));
+            serviceLogger.error('Search service getSuggestions error', error instanceof Error ? error : new Error(String(error)));
             throw error;
         }
     }

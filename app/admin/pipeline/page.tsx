@@ -21,7 +21,6 @@ import {
     ShieldCheck
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { ADMIN_THEME } from '@/lib/admin/theme';
 interface ArticleStats {
     draft: number;
     review: number;
@@ -134,29 +133,23 @@ export default function PipelineHealthPage() {
             <div className="p-8 space-y-10 max-w-7xl mx-auto">
                 {/* Header Section */}
                 <div 
-                    className="relative overflow-hidden shadow-2xl"
-                    style={{ 
-                        borderRadius: '24px',
-                        padding: '32px',
-                        background: 'linear-gradient(135deg, #0a192f 0%, #0d213f 100%)',
-                        border: '1px solid rgba(196, 158, 72, 0.2)'
-                    }}
+                    className="relative overflow-hidden shadow-2xl bg-gradient-to-br from-background via-card to-background rounded-[24px] p-8 border border-primary/20"
                 >
-                    <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full blur-3xl opacity-10 bg-[#c49e48]" />
+                    <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full blur-3xl opacity-10 bg-primary" />
                     
                     <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                         <div className="flex items-center gap-6">
-                            <div className="p-4 rounded-2xl bg-[#c49e48]/10 border border-[#c49e48]/20">
-                                <Activity className="w-10 h-10 text-[#c49e48]" />
+                            <div className="p-4 rounded-2xl bg-primary/10 border border-primary/20">
+                                <Activity className="w-10 h-10 text-primary" />
                             </div>
                             <div>
-                                <h1 className="text-3xl font-bold tracking-tight text-white mb-2">Pipeline Health</h1>
-                                <p className="text-slate-300 max-w-md">Real-time status tracking and quality assurance for our AI content engine.</p>
+                                <h1 className="text-3xl font-bold tracking-tight text-foreground mb-2">Pipeline Health</h1>
+                                <p className="text-muted-foreground max-w-md">Real-time status tracking and quality assurance for our AI content engine.</p>
                             </div>
                         </div>
                         
                         <div className="flex items-center gap-3">
-                            <Badge className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-4 py-1.5 rounded-full flex gap-2 items-center">
+                            <Badge className="bg-success/10 text-success border border-success/20 px-4 py-1.5 rounded-full flex gap-2 items-center">
                                 <ShieldCheck className="w-4 h-4" />
                                 System Optimal
                             </Badge>
@@ -199,10 +192,10 @@ export default function PipelineHealthPage() {
                 {/* Daily Production Chart & Recent Articles */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* Daily Counts Chart */}
-                    <Card className="bg-[#111827]/40 border-white/10 backdrop-blur-xl rounded-2xl overflow-hidden shadow-xl">
-                        <CardHeader className="border-b border-white/5 pb-4">
-                            <CardTitle className="text-white flex items-center gap-2 text-lg">
-                                <BarChart3 className="w-5 h-5 text-[#c49e48]" />
+                    <Card className="bg-card/40 border-border backdrop-blur-xl rounded-2xl overflow-hidden shadow-xl">
+                        <CardHeader className="border-b border-border pb-4">
+                            <CardTitle className="text-foreground flex items-center gap-2 text-lg">
+                                <BarChart3 className="w-5 h-5 text-primary" />
                                 Content Velocity
                             </CardTitle>
                         </CardHeader>
@@ -210,9 +203,9 @@ export default function PipelineHealthPage() {
                             <div className="flex items-end justify-between h-48 gap-3">
                                 {dailyCounts.map((day, i) => (
                                     <div key={i} className="flex flex-col items-center flex-1 group">
-                                        <div className="w-full bg-white/5 rounded-t-lg relative flex-1 flex items-end overflow-hidden">
+                                        <div className="w-full bg-muted rounded-t-lg relative flex-1 flex items-end overflow-hidden">
                                             <div 
-                                                className="w-full bg-gradient-to-t from-[#c49e48] to-[#e5c162] rounded-t-lg transition-all duration-700 group-hover:opacity-80"
+                                                className="w-full bg-gradient-to-t from-primary to-primary/60 rounded-t-lg transition-all duration-700 group-hover:opacity-80"
                                                 style={{ height: `${(day.count / maxDailyCount) * 100}%`, minHeight: day.count > 0 ? '8px' : '0px' }}
                                             />
                                         </div>
@@ -221,16 +214,16 @@ export default function PipelineHealthPage() {
                                     </div>
                                 ))}
                             </div>
-                            <div className="mt-8 pt-6 border-t border-white/5 flex justify-between text-sm">
+                            <div className="mt-8 pt-6 border-t border-border flex justify-between text-sm">
                                 <div className="flex items-center gap-2">
-                                    <div className="w-2 h-2 rounded-full bg-[#c49e48]" />
-                                    <span className="text-slate-300">Today: </span>
-                                    <span className="font-bold text-white">{stats?.todayCount || 0}</span>
+                                    <div className="w-2 h-2 rounded-full bg-primary" />
+                                    <span className="text-muted-foreground">Today: </span>
+                                    <span className="font-bold text-foreground">{stats?.todayCount || 0}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <div className="w-2 h-2 rounded-full bg-blue-400" />
-                                    <span className="text-slate-300">7d Volume: </span>
-                                    <span className="font-bold text-white">{stats?.weekCount || 0}</span>
+                                    <span className="text-muted-foreground">7d Volume: </span>
+                                    <span className="font-bold text-foreground">{stats?.weekCount || 0}</span>
                                 </div>
                             </div>
                         </CardContent>
@@ -275,36 +268,36 @@ export default function PipelineHealthPage() {
                 </div>
 
                 {/* Summary Stats */}
-                <Card className="bg-[#111827]/40 border-white/5 backdrop-blur-xl rounded-2xl overflow-hidden shadow-2xl">
-                    <CardHeader className="border-b border-white/5 pb-4">
-                        <CardTitle className="text-white flex items-center gap-2 text-lg">
-                            <TrendingUp className="w-5 h-5 text-[#c49e48]" />
+                <Card className="bg-card/40 border-border backdrop-blur-xl rounded-2xl overflow-hidden shadow-2xl">
+                    <CardHeader className="border-b border-border pb-4">
+                        <CardTitle className="text-foreground flex items-center gap-2 text-lg">
+                            <TrendingUp className="w-5 h-5 text-primary" />
                             Performance Metadata
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-8">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                             <div className="text-center">
-                                <div className="text-3xl font-bold text-white mb-2">{stats?.total || 0}</div>
-                                <p className="text-[10px] uppercase tracking-widest text-slate-500">Asset Count</p>
+                                <div className="text-3xl font-bold text-foreground mb-2">{stats?.total || 0}</div>
+                                <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Asset Count</p>
                             </div>
                             <div className="text-center">
-                                <div className="text-3xl font-bold text-emerald-400 mb-2">
+                                <div className="text-3xl font-bold text-success mb-2">
                                     {stats?.total ? Math.round((stats.published / stats.total) * 100) : 0}%
                                 </div>
-                                <p className="text-[10px] uppercase tracking-widest text-slate-500">Publication Efficiency</p>
+                                <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Publication Efficiency</p>
                             </div>
                             <div className="text-center">
-                                <div className="text-3xl font-bold text-amber-400 mb-2">
+                                <div className="text-3xl font-bold text-warning mb-2">
                                     {(stats?.draft || 0) + (stats?.review || 0)}
                                 </div>
-                                <p className="text-[10px] uppercase tracking-widest text-slate-500">Nodes In-Flight</p>
+                                <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Nodes In-Flight</p>
                             </div>
                             <div className="text-center">
-                                <div className="text-3xl font-bold text-[#c49e48] mb-2">
+                                <div className="text-3xl font-bold text-primary mb-2">
                                     {Math.round((stats?.weekCount || 0) / 7 * 10) / 10}
                                 </div>
-                                <p className="text-[10px] uppercase tracking-widest text-slate-500">Daily Delta</p>
+                                <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Daily Delta</p>
                             </div>
                         </div>
                     </CardContent>
@@ -317,22 +310,22 @@ export default function PipelineHealthPage() {
 
 function HealthStatCard({ label, value, icon: Icon, desc, color }: any) {
     const colors: Record<string, string> = {
-        amber: 'text-amber-400 bg-amber-400/10 border-amber-400/20',
-        blue: 'text-blue-400 bg-blue-400/10 border-blue-400/20',
-        emerald: 'text-emerald-400 bg-emerald-400/10 border-emerald-400/20',
-        rose: 'text-rose-400 bg-rose-400/10 border-rose-400/20'
+        amber: 'text-warning bg-warning/10 border-warning/20',
+        blue: 'text-info bg-info/10 border-info/20',
+        emerald: 'text-success bg-success/10 border-success/20',
+        rose: 'text-error bg-error/10 border-error/20'
     };
 
     return (
-        <Card className="bg-[#111827]/40 border-white/5 backdrop-blur-sm p-6 rounded-2xl group hover:border-[#c49e48]/30 transition-all">
+        <Card className="bg-card/40 border-border backdrop-blur-sm p-6 rounded-2xl group hover:border-primary/30 transition-all">
             <div className="flex items-center justify-between mb-4">
                 <div className={cn("p-2 rounded-lg", colors[color])}>
                     <Icon className="w-5 h-5" />
                 </div>
-                <Badge variant="outline" className="text-[10px] border-white/10 text-slate-500 uppercase tracking-widest">{label}</Badge>
+                <Badge variant="outline" className="text-[10px] border-border text-muted-foreground uppercase tracking-widest">{label}</Badge>
             </div>
-            <div className="text-3xl font-bold text-white mb-1 group-hover:text-[#c49e48] transition-colors">{value}</div>
-            <p className="text-xs text-slate-500 font-medium">{desc}</p>
+            <div className="text-3xl font-bold text-foreground mb-1 group-hover:text-primary transition-colors">{value}</div>
+            <p className="text-xs text-muted-foreground font-medium">{desc}</p>
         </Card>
     );
 }

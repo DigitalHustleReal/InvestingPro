@@ -18,6 +18,7 @@ import { TableRow } from '@tiptap/extension-table-row';
 import { TableHeader } from '@tiptap/extension-table-header';
 import { TableCell } from '@tiptap/extension-table-cell';
 import { SemanticImage } from './extensions/SemanticImage';
+import LinkExtension from '@tiptap/extension-link';
 import { normalizeArticleBody } from '@/lib/content/normalize';
 import { htmlToMarkdown } from '@/lib/editor/markdown';
 import { tiptapToHTML } from '@/lib/editor/markdown';
@@ -131,6 +132,26 @@ export default function ArticleEditor({
         TableCell.configure({
             HTMLAttributes: { class: 'border border-wt-border px-4 py-2' },
         }),
+        LinkExtension.configure({
+            openOnClick: false,
+            autolink: true,
+            defaultProtocol: 'https',
+            HTMLAttributes: {
+                class: 'text-primary hover:underline transition-colors',
+            },
+        }).extend({
+            addAttributes() {
+                return {
+                    ...this.parent?.(),
+                    'data-article-id': {
+                        default: null,
+                    },
+                    class: {
+                        default: 'text-primary hover:underline transition-colors',
+                    },
+                }
+            },
+        }),
         SemanticImage,
     ], []);
 
@@ -144,20 +165,20 @@ export default function ArticleEditor({
         editorProps: {
             attributes: {
                 class: cn(
-                    "prose prose-slate dark:prose-invert max-w-none focus:outline-none min-h-[400px] p-4",
-                    "text-wt-text dark:text-wt-text/95",
-                    "[&_h1]:text-wt-text dark:[&_h1]:text-wt-text",
-                    "[&_h2]:text-wt-text dark:[&_h2]:text-wt-text",
-                    "[&_h3]:text-wt-text dark:[&_h3]:text-wt-text",
-                    "[&_h4]:text-wt-text dark:[&_h4]:text-wt-text",
-                    "[&_p]:text-wt-text dark:[&_p]:text-wt-text/80",
-                    "[&_ul]:text-wt-text dark:[&_ul]:text-wt-text/80",
-                    "[&_ol]:text-wt-text dark:[&_ol]:text-wt-text/80",
-                    "[&_li]:text-wt-text dark:[&_li]:text-wt-text/80",
-                    "[&_strong]:text-wt-text dark:[&_strong]:text-wt-text",
-                    "[&_blockquote]:text-wt-text-muted/50 dark:text-wt-text-muted/50 dark:[&_blockquote]:text-wt-text-muted [&_blockquote]:border-wt-border dark:[&_blockquote]:border-wt-border",
-                    "[&_code]:text-slate-800 dark:[&_code]:text-wt-text/90 [&_code]:bg-wt-card dark:[&_code]:bg-muted [&_code]:px-1 [&_code]:rounded",
-                    "[&_a]:text-wt-gold dark:[&_a]:text-wt-gold [&_a]:no-underline hover:[&_a]:underline",
+                    "prose prose-gray dark:prose-invert max-w-none focus:outline-none min-h-[400px] p-4",
+                    "text-text-primary",
+                    "[&_h1]:text-text-primary",
+                    "[&_h2]:text-text-primary",
+                    "[&_h3]:text-text-primary",
+                    "[&_h4]:text-text-primary",
+                    "[&_p]:text-text-primary",
+                    "[&_ul]:text-text-primary",
+                    "[&_ol]:text-text-primary",
+                    "[&_li]:text-text-primary",
+                    "[&_strong]:text-text-primary",
+                    "[&_blockquote]:text-text-secondary/50 [&_blockquote]:border-border",
+                    "[&_code]:text-text-primary [&_code]:bg-surface [&_code]:px-1 [&_code]:rounded",
+                    "[&_a]:text-primary hover:[&_a]:underline",
                     className
                 ),
                 'data-placeholder': placeholder,
@@ -218,6 +239,50 @@ export default function ArticleEditor({
         editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
     }, [editor]);
 
+    // AI Outline Generation
+    const generateOutline = useCallback(async () => {
+        if (!editor || !isReady) return;
+        
+        const topic = window.prompt("Enter topic for AI Outline:");
+        if (!topic) return;
+
+        const originalContent = editor.getHTML();
+        // Insert loading state
+        editor.commands.setContent(originalContent + '<p><em>Generating outline...</em></p>');
+
+        try {
+            const response = await fetch('/api/ai/outline', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ topic })
+            });
+
+            if (!response.ok) throw new Error('Failed to generate outline');
+
+            const data = await response.json();
+            const outline = data.outline;
+
+            // Format outline as HTML
+            let outlineHtml = ''; // Initialize empty string
+            
+            outline.forEach((section: any) => {
+                outlineHtml += `<h${section.level}>${section.title}</h${section.level}>`;
+                if (section.description) {
+                   outlineHtml += `<p><em>${section.description}</em></p>`;
+                }
+            });
+
+            // Append to editor
+             editor.commands.setContent(originalContent + outlineHtml);
+
+        } catch (error) {
+            console.error("Outline generation failed:", error);
+            alert("Failed to generate outline. Please try again.");
+            // Revert content on failure (remove loading text)
+             editor.commands.setContent(originalContent);
+        }
+    }, [editor, isReady]);
+
     // Don't render until ready (prevents hydration mismatch)
     if (!isReady) {
         return (
@@ -236,153 +301,165 @@ export default function ArticleEditor({
     }
 
     return (
-        <div className="border border-wt-border border-wt-border rounded-lg bg-white/50 dark:bg-surface-darker/50 dark:bg-surface-darker/50 backdrop-blur-xl overflow-hidden shadow-sm dark:shadow-2xl transition-colors duration-300">
+        <div className="bg-white dark:bg-[#020617] rounded-xl overflow-hidden shadow-sm border border-wt-border dark:border-slate-800 transition-all duration-300">
             {/* Toolbar */}
             {editable && (
-                <div className="border-b border-wt-border border-wt-border p-2 flex flex-wrap gap-1 bg-wt-surface-hover/50 dark:bg-surface-darker/50 dark:bg-surface-darker/50 transition-colors duration-300">
+                <div className="border-b border-wt-border dark:border-slate-800 p-2 flex flex-wrap gap-1 bg-slate-50 dark:bg-slate-900 backdrop-blur-md transition-colors duration-300">
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-                        className={editor.isActive('heading', { level: 1 }) ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('heading', { level: 1 }) ? 'bg-surface-hover text-primary font-bold' : 'text-text-secondary hover:text-text-primary hover:bg-surface-hover'}
                         aria-label="Heading 1"
                         aria-pressed={editor.isActive('heading', { level: 1 })}
                     >
-                        <Heading1 className="w-4 h-4" aria-hidden="true" />
+                        <Heading1 className="w-5 h-5" aria-hidden="true" />
                     </Button>
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-                        className={editor.isActive('heading', { level: 2 }) ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('heading', { level: 2 }) ? 'bg-surface-hover text-primary font-bold' : 'text-text-secondary hover:text-text-primary hover:bg-surface-hover'}
                         aria-label="Heading 2"
                         aria-pressed={editor.isActive('heading', { level: 2 })}
                     >
-                        <Heading2 className="w-4 h-4" aria-hidden="true" />
+                        <Heading2 className="w-5 h-5" aria-hidden="true" />
                     </Button>
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-                        className={editor.isActive('heading', { level: 3 }) ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('heading', { level: 3 }) ? 'bg-surface-hover text-primary font-bold' : 'text-text-secondary hover:text-text-primary hover:bg-surface-hover'}
                         aria-label="Heading 3"
                         aria-pressed={editor.isActive('heading', { level: 3 })}
                     >
-                        <Heading3 className="w-4 h-4" aria-hidden="true" />
+                        <Heading3 className="w-5 h-5" aria-hidden="true" />
                     </Button>
-                    <div className="w-px h-6 bg-slate-200 dark:bg-muted dark:bg-muted mx-1" />
+                    <div className="w-px h-6 bg-border mx-1 self-center" />
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleBold().run()}
-                        className={editor.isActive('bold') ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('bold') ? 'bg-surface-hover text-primary font-bold' : 'text-text-secondary hover:text-text-primary hover:bg-surface-hover'}
                         aria-label="Bold (Ctrl+B)"
                         aria-pressed={editor.isActive('bold')}
                     >
-                        <Bold className="w-4 h-4" aria-hidden="true" />
+                        <Bold className="w-5 h-5" aria-hidden="true" />
                     </Button>
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleItalic().run()}
-                        className={editor.isActive('italic') ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('italic') ? 'bg-surface-hover text-primary font-bold' : 'text-text-secondary hover:text-text-primary hover:bg-surface-hover'}
                         aria-label="Italic (Ctrl+I)"
                         aria-pressed={editor.isActive('italic')}
                     >
-                        <Italic className="w-4 h-4" aria-hidden="true" />
+                        <Italic className="w-5 h-5" aria-hidden="true" />
                     </Button>
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleCode().run()}
-                        className={editor.isActive('code') ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('code') ? 'bg-surface-hover text-primary font-bold' : 'text-text-secondary hover:text-text-primary hover:bg-surface-hover'}
                         aria-label="Inline code"
                         aria-pressed={editor.isActive('code')}
                     >
-                        <Code className="w-4 h-4" aria-hidden="true" />
+                        <Code className="w-5 h-5" aria-hidden="true" />
                     </Button>
-                    <div className="w-px h-6 bg-slate-200 dark:bg-muted dark:bg-muted mx-1" />
+                    <div className="w-px h-6 bg-border mx-1 self-center" />
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleBulletList().run()}
-                        className={editor.isActive('bulletList') ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('bulletList') ? 'bg-surface-hover text-primary font-bold' : 'text-text-secondary hover:text-text-primary hover:bg-surface-hover'}
                         aria-label="Bullet list"
                         aria-pressed={editor.isActive('bulletList')}
                     >
-                        <List className="w-4 h-4" aria-hidden="true" />
+                        <List className="w-5 h-5" aria-hidden="true" />
                     </Button>
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleOrderedList().run()}
-                        className={editor.isActive('orderedList') ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('orderedList') ? 'bg-surface-hover text-primary font-bold' : 'text-text-secondary hover:text-text-primary hover:bg-surface-hover'}
                         aria-label="Numbered list"
                         aria-pressed={editor.isActive('orderedList')}
                     >
-                        <ListOrdered className="w-4 h-4" aria-hidden="true" />
+                        <ListOrdered className="w-5 h-5" aria-hidden="true" />
                     </Button>
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().toggleBlockquote().run()}
-                        className={editor.isActive('blockquote') ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('blockquote') ? 'bg-surface-hover text-primary font-bold' : 'text-text-secondary hover:text-text-primary hover:bg-surface-hover'}
                         aria-label="Quote"
                         aria-pressed={editor.isActive('blockquote')}
                     >
-                        <Quote className="w-4 h-4" aria-hidden="true" />
+                        <Quote className="w-5 h-5" aria-hidden="true" />
                     </Button>
-                    <div className="w-px h-6 bg-slate-200 dark:bg-muted dark:bg-muted mx-1" />
+                    <div className="w-px h-6 bg-border mx-1 self-center" />
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={addLink}
-                        className={editor.isActive('link') ? 'bg-slate-200 text-wt-gold dark:bg-muted dark:bg-muted dark:text-wt-gold' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted'}
+                        className={editor.isActive('link') ? 'bg-surface-hover text-primary font-bold' : 'text-text-secondary hover:text-text-primary hover:bg-surface-hover'}
                         aria-label="Add link"
                         aria-pressed={editor.isActive('link')}
                     >
-                        <LinkIcon className="w-4 h-4" aria-hidden="true" />
+                        <LinkIcon className="w-5 h-5" aria-hidden="true" />
                     </Button>
                     <ImagePickerButton editor={editor} />
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={addSemanticImage}
-                        className="text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted"
+                        className="text-text-secondary hover:text-text-primary hover:bg-surface-hover"
                         aria-label="Insert semantic image reference"
                         title="Insert semantic image reference"
                     >
-                        <ImageIcon className="w-4 h-4" aria-hidden="true" />
+                        <ImageIcon className="w-5 h-5" aria-hidden="true" />
                     </Button>
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={insertTable}
-                        className="text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted"
+                        className="text-text-secondary hover:text-text-primary hover:bg-surface-hover"
                         aria-label="Insert table (3x3)"
                     >
-                        <Grid3x3 className="w-4 h-4" aria-hidden="true" />
+                        <Grid3x3 className="w-5 h-5" aria-hidden="true" />
                     </Button>
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => editor.chain().focus().setHorizontalRule().run()}
-                        className="text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text hover:bg-slate-200 dark:text-wt-text-muted dark:text-wt-text-muted dark:hover:text-wt-text/95 dark:text-wt-text/95 dark:hover:bg-muted dark:bg-muted"
+                        className="text-text-secondary hover:text-text-primary hover:bg-surface-hover"
                         aria-label="Insert horizontal rule"
                     >
-                        <Minus className="w-4 h-4" aria-hidden="true" />
+                        <Minus className="w-5 h-5" aria-hidden="true" />
+                    </Button>
+                     <div className="w-px h-6 bg-border mx-1 self-center" />
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={generateOutline}
+                        className="text-primary hover:bg-primary/10 gap-2 font-medium"
+                        aria-label="Generate AI Outline"
+                    >
+                        ✨ Outline
                     </Button>
                 </div>
             )}
 
             {/* Editor Content */}
             <div 
-                className="bg-white/30 dark:bg-surface-darker/30 transition-colors duration-300"
+                className="p-6 md:p-8 min-h-[500px] bg-white dark:bg-slate-950"
                 role="textbox"
                 aria-label="Article content editor"
                 aria-multiline="true"
             >
-                <EditorContent editor={editor} />
+                <div className="prose-admin">
+                    <EditorContent editor={editor} />
+                </div>
             </div>
         </div>
     );

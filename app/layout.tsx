@@ -135,13 +135,14 @@ export default async function RootLayout({
         outfit.variable,
         serif.variable,
         mono.variable,
-        "min-h-screen flex flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-300"
+        "min-h-screen flex flex-col bg-slate-950 text-slate-50 antialiased selection:bg-cyan-500/30 selection:text-cyan-50"
       )}>
         <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />
         <ThemeProvider
             attribute="class"
-            defaultTheme="light"
-            enableSystem
+            defaultTheme="dark"
+            forcedTheme="dark"
+            enableSystem={false}
             disableTransitionOnChange
           >
         <ErrorBoundaryProvider>

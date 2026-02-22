@@ -63,12 +63,12 @@ export function DataTable<T extends { id: string | number }>({
 
   return (
     <div className={cn(
-      "overflow-x-auto",
+      "overflow-x-auto custom-scrollbar",
       "border border-white/10 rounded-xl",
       "bg-white/5 backdrop-blur-sm",
       className
     )}>
-      <table className="min-w-full divide-y divide-white/10">
+      <table className="min-w-[1000px] w-full divide-y divide-white/10">
         {/* Header */}
         <thead className="bg-white/5">
           <tr className="border-b-2 border-white/10">

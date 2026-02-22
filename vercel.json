@@ -2,5 +2,11 @@
   "framework": "nextjs",
   "buildCommand": "npm run build",
   "installCommand": "npm install",
-  "crons": []
+  "crons": [
+    {
+      "path": "/api/cron/check-data-freshness",
+      "schedule": "0 * * * *"
+    }
+  ]
 }
+

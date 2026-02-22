@@ -1,32 +1,30 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import AdminPageContainer from '@/components/admin/AdminPageContainer';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiClient as api } from '@/lib/api-client'; // Use client-safe API instead of articleService
+import { apiClient as api } from '@/lib/api-client';
 import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
-import DarkThemeCMS from '@/components/admin/DarkThemeCMS';
-import { createClient } from '@supabase/supabase-js';
-import { ArticleListSkeleton } from '@/components/loading/ArticleCardSkeleton';
+import { useRouter, useSearchParams } from 'next/navigation';
+import ArticlesTable from '@/components/admin/ArticlesTable';
+import { createClient } from '@/lib/supabase/client';
 
-export default function AdminArticlesPage() {
+function AdminArticlesContent() {
+    const searchParams = useSearchParams();
+    const initialStatus = searchParams.get('status') || 'all';
     const [searchTerm, setSearchTerm] = useState('');
-    const [statusFilter, setStatusFilter] = useState<string>('all');
+    const [statusFilter, setStatusFilter] = useState<string>(initialStatus);
     const queryClient = useQueryClient();
     const router = useRouter();
-    const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
+    const supabase = createClient();
     
     // Fetch all articles (including drafts, reviews, etc.)
     const { data: articles = [], isLoading } = useQuery({
         queryKey: ['articles', 'admin'],
         queryFn: async () => {
             try {
-                // Pass true to include all statuses (not just published)
+                // Pass true to include all statuses AND includeDeleted=true to see trashed articles
                 return await api.entities.Article.list(undefined, 500, true);
             } catch (error: any) {
                 console.error('Failed to load articles:', error);
@@ -44,13 +42,7 @@ export default function AdminArticlesPage() {
     
     const handleDelete = async (id: string) => {
         try {
-            const { error } = await supabase
-                .from('articles')
-                .delete()
-                .eq('id', id);
-            
-            if (error) throw error;
-            
+            await api.entities.Article.delete(id);
             queryClient.invalidateQueries({ queryKey: ['articles', 'admin'] });
             toast.success('Article deleted');
         } catch (error: any) {
@@ -66,13 +58,10 @@ export default function AdminArticlesPage() {
             // Use API route for publish operation
             await api.entities.Article.update(id, {
                 status: 'published',
-                body_markdown: (article as any).body_markdown || '',
-                body_html: (article as any).body_html || '',
-                content: (article as any).content || '',
+                published_at: new Date().toISOString(),
+                // Keep other fields
                 title: article.title,
                 slug: article.slug,
-                excerpt: (article as any).excerpt || '',
-                category: (article as any).category || 'investing-basics',
             });
 
             queryClient.invalidateQueries({ queryKey: ['articles'] });
@@ -84,46 +73,68 @@ export default function AdminArticlesPage() {
 
     // Bulk Operations
     const handleBulkPublish = async (ids: string[]) => {
-        const { error } = await supabase
-            .from('articles')
-            .update({ status: 'published', published_at: new Date().toISOString() })
-            .in('id', ids);
-        if (error) throw error;
-        queryClient.invalidateQueries({ queryKey: ['articles'] });
+        try {
+            await api.entities.Article.bulkAction('publish', ids);
+            queryClient.invalidateQueries({ queryKey: ['articles'] });
+            toast.success(`Published ${ids.length} articles`);
+        } catch (error: any) {
+            toast.error('Failed to bulk publish: ' + error.message);
+        }
     };
 
     const handleBulkArchive = async (ids: string[]) => {
-        const { error } = await supabase
-            .from('articles')
-            .update({ status: 'archived' })
-            .in('id', ids);
-        if (error) throw error;
-        queryClient.invalidateQueries({ queryKey: ['articles'] });
+        try {
+            await api.entities.Article.bulkAction('archive', ids);
+            queryClient.invalidateQueries({ queryKey: ['articles'] });
+            toast.success(`Archived ${ids.length} articles`);
+        } catch (error: any) {
+            toast.error('Failed to bulk archive: ' + error.message);
+        }
     };
 
     const handleBulkDelete = async (ids: string[]) => {
-        const { error } = await supabase
-            .from('articles')
-            .delete()
-            .in('id', ids);
-        if (error) throw error;
-        queryClient.invalidateQueries({ queryKey: ['articles'] });
+        try {
+            await api.entities.Article.bulkAction('delete', ids);
+            queryClient.invalidateQueries({ queryKey: ['articles', 'admin'] });
+            toast.success(`Deleted ${ids.length} articles`);
+        } catch (error: any) {
+            toast.error('Failed to bulk delete: ' + error.message);
+        }
+    };
+
+    const handleRestore = async (id: string) => {
+        try {
+            await api.entities.Article.bulkAction('restore', [id]);
+            queryClient.invalidateQueries({ queryKey: ['articles', 'admin'] });
+            toast.success('Article restored');
+        } catch (error: any) {
+            toast.error('Failed to restore article: ' + error.message);
+        }
+    };
+
+    const handleBulkRestore = async (ids: string[]) => {
+        try {
+            await api.entities.Article.bulkAction('restore', ids);
+            queryClient.invalidateQueries({ queryKey: ['articles', 'admin'] });
+            toast.success(`Restored ${ids.length} articles`);
+        } catch (error: any) {
+            toast.error('Failed to bulk restore: ' + error.message);
+        }
     };
 
     return (
         <AdminLayout>
             <AdminPageContainer>
-                <DarkThemeCMS
+                <ArticlesTable
                     articles={Array.isArray(articles) ? (articles as any[]) : []}
                     isLoading={isLoading}
                     onNewArticle={handleNewArticle}
                     onGenerate={handleGenerate}
                     onEdit={handleEdit}
                     onDelete={handleDelete}
-                    onPublish={handlePublish}
-                    onBulkPublish={handleBulkPublish}
-                    onBulkArchive={handleBulkArchive}
                     onBulkDelete={handleBulkDelete}
+                    onRestore={handleRestore}
+                    onBulkRestore={handleBulkRestore}
                     searchTerm={searchTerm}
                     onSearchChange={setSearchTerm}
                     filterStatus={statusFilter}
@@ -131,5 +142,13 @@ export default function AdminArticlesPage() {
                 />
             </AdminPageContainer>
         </AdminLayout>
+    );
+}
+
+export default function AdminArticlesPage() {
+    return (
+        <Suspense fallback={null}>
+            <AdminArticlesContent />
+        </Suspense>
     );
 }

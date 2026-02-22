@@ -38,7 +38,7 @@ export default function MetricsDashboard() {
     const { data: metrics, isLoading, refetch } = useQuery<{ success: boolean; metrics: MetricsData }>({
         queryKey: ['api-metrics'],
         queryFn: async () => {
-            const response = await fetch('/api/metrics');
+            const response = await fetch('/api/admin/metrics');
             if (!response.ok) throw new Error('Failed to fetch metrics');
             return response.json();
         },
@@ -48,7 +48,7 @@ export default function MetricsDashboard() {
     const { data: recentMetrics } = useQuery<{ success: boolean; metrics: any[] }>({
         queryKey: ['api-metrics-recent'],
         queryFn: async () => {
-            const response = await fetch('/api/metrics/recent?limit=50');
+            const response = await fetch('/api/admin/metrics/recent?limit=50');
             if (!response.ok) throw new Error('Failed to fetch recent metrics');
             return response.json();
         },

@@ -12,7 +12,6 @@
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { ADMIN_THEME } from '@/lib/admin/theme';
 
 interface AdminCardProps extends Omit<React.ComponentProps<typeof Card>, 'className'> {
   /** Additional custom classes (merged with standard styling) */
@@ -40,13 +39,13 @@ export function AdminCard({
       style={style}
       className={cn(
         // Standard background and border
-        'bg-white border-wt-border-light',
+        'bg-card border-border',
         // Rounded corners
         'rounded-xl',
-        // Shadow
-        'shadow-card',
+        // Shadow (shadow-md used as base for dark mode depth)
+        'shadow-md',
         // Hover effects if enabled
-        hoverable && 'hover:border-wt-gold/30 hover:shadow-cardHover hover:-translate-y-0.5',
+        hoverable && 'hover:border-primary/30 hover:shadow-lg hover:-translate-y-0.5',
         // Transitions
         'transition-all duration-300',
         // Glow effect
@@ -58,7 +57,7 @@ export function AdminCard({
     >
       {/* Optional glow effect */}
       {glowEffect && (
-        <div className="absolute top-0 right-0 w-32 h-32 bg-wt-gold-subtle blur-3xl -mr-16 -mt-16 group-hover:bg-wt-gold transition-colors opacity-20" />
+        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-3xl -mr-16 -mt-16 group-hover:bg-primary transition-colors opacity-20" />
       )}
       
       {/* Content with z-index if glow is enabled */}

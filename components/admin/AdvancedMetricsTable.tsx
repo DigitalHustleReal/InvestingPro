@@ -111,30 +111,30 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
             </div>
 
             {/* Metrics Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-4 text-sm">
                 {/* 1. RESEARCH */}
-                <div className="p-6 border-r border-white/5">
+                <div className="p-5 border-b md:border-b-0 md:border-r border-border/50">
                     <div className="flex items-center gap-2 mb-4">
                         <div className="p-2 rounded-lg bg-cyan-500/10 text-cyan-400">
                             <Search className="w-4.5 h-4.5" />
                         </div>
-                        <h4 className="text-sm font-bold text-slate-300 uppercase tracking-wider">RESEARCH</h4>
+                        <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">RESEARCH</h4>
                     </div>
                     
                     <div className="flex flex-col gap-3">
                         <MetricRow label="Keywords Researched" value={researchMetrics.keywordsResearched} />
                         <MetricRow label="Active Keywords" value={researchMetrics.activeKeywords} />
-                        <MetricRow label="Trending Opportunities" value={researchMetrics.trendingKeywords} highlight />
+                        <MetricRow label="Trending Opps" value={researchMetrics.trendingKeywords} highlight />
                     </div>
                 </div>
 
                 {/* 2. PUBLISH */}
-                <div className="p-6 border-r border-white/5">
+                <div className="p-5 border-b md:border-b-0 xl:border-b 2xl:border-b-0 xl:border-r border-border/50">
                     <div className="flex items-center gap-2 mb-4">
                         <div className="p-2 rounded-lg bg-amber-500/10 text-amber-400">
                             <FileText className="w-4.5 h-4.5" />
                         </div>
-                        <h4 className="text-sm font-bold text-slate-300 uppercase tracking-wider">PUBLISH</h4>
+                        <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">PUBLISH</h4>
                     </div>
                     
                     <div className="flex flex-col gap-3">
@@ -145,12 +145,12 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
                 </div>
 
                 {/* 3. TRACKING */}
-                <div className="p-6 border-r border-white/5">
+                <div className="p-5 border-b md:border-b-0 md:border-r border-border/50">
                     <div className="flex items-center gap-2 mb-4">
                         <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
                             <TrendingUp className="w-4.5 h-4.5" />
                         </div>
-                        <h4 className="text-sm font-bold text-slate-300 uppercase tracking-wider">TRACKING</h4>
+                        <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">TRACKING</h4>
                     </div>
                     
                     <div className="flex flex-col gap-3">
@@ -161,12 +161,12 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
                 </div>
 
                 {/* 4. INCOME */}
-                <div className="p-6">
+                <div className="p-5">
                     <div className="flex items-center gap-2 mb-4">
                         <div className="p-2 rounded-lg bg-rose-500/10 text-rose-400">
                             <DollarSign className="w-4.5 h-4.5" />
                         </div>
-                        <h4 className="text-sm font-bold text-slate-300 uppercase tracking-wider">INCOME</h4>
+                        <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">INCOME</h4>
                     </div>
                     
                     <div className="flex flex-col gap-3">
@@ -178,10 +178,10 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
             </div>
 
             {/* AI Insights Footer */}
-            <div className="px-6 py-4 bg-white/10 border-t border-white/10 flex items-center gap-3 text-sm text-slate-300">
-                <Sparkles className="w-4 h-4 text-amber-400 flex-shrink-0" />
-                <span>
-                    <strong className="text-slate-200">Insight:</strong> Content publishing velocity is up 12% this week. Focus on &quot;Credit Card&quot; keywords for higher EPC.
+            <div className="px-6 py-4 bg-muted/20 border-t border-border/50 flex items-start gap-3 text-sm text-muted-foreground">
+                <Sparkles className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                <span className="leading-relaxed">
+                    <strong className="text-foreground">Insight:</strong> Content publishing velocity is up 12% this week. Focus on "Credit Card" keywords for higher EPC.
                 </span>
             </div>
         </AdminCard>
@@ -190,11 +190,11 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
 
 function MetricRow({ label, value, highlight = false }: { label: string, value: string | number, highlight?: boolean }) {
     return (
-        <div className="flex justify-between items-center">
-            <span className="text-[13px] text-slate-500">{label}</span>
+        <div className="flex justify-between items-start gap-2">
+            <span className="text-[13px] text-muted-foreground leading-tight">{label}</span>
             <span className={cn(
-                "text-sm font-semibold",
-                highlight ? "text-amber-400" : "text-slate-200"
+                "text-sm font-semibold whitespace-nowrap",
+                highlight ? "text-amber-400" : "text-foreground"
             )}>
                 {value}
             </span>

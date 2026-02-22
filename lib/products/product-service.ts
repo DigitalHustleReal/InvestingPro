@@ -54,10 +54,14 @@ export interface ProductListResult {
     totalPages: number;
 }
 
+import { SupabaseClient } from '@supabase/supabase-js';
+
+// ... (existing imports)
+
 export class ProductService {
-    async getProducts(params: ProductListParams = {}): Promise<Product[]> {
+    async getProducts(params: ProductListParams = {}, client?: SupabaseClient): Promise<Product[]> {
         const { category, includeInactive = false, limit } = params;
-        const supabase = createClient();
+        const supabase = client || createClient();
         
         let query = supabase.from('products').select('*');
         
@@ -96,9 +100,9 @@ export class ProductService {
         }
     }
 
-    async getProductsPaginated(params: ProductListParams): Promise<ProductListResult> {
+    async getProductsPaginated(params: ProductListParams, client?: SupabaseClient): Promise<ProductListResult> {
         const { page = 1, limit = 10, category, search, includeInactive = false } = params;
-        const supabase = createClient();
+        const supabase = client || createClient();
         
         let query = supabase.from('products').select('*', { count: 'exact' });
         
@@ -167,9 +171,9 @@ export class ProductService {
         }
     }
 
-    async getProductById(id: string): Promise<Product | null> {
+    async getProductById(id: string, client?: SupabaseClient): Promise<Product | null> {
         try {
-            const supabase = createClient();
+            const supabase = client || createClient();
             const { data, error } = await supabase
                 .from('products')
                 .select('*')

@@ -130,9 +130,9 @@ export async function POST(req: NextRequest) {
                                 })}\n\n`));
                             }
 
-                            // Small delay between articles (30 seconds instead of 2 minutes for admin)
+                            // Small delay between articles (5 seconds instead of 30 for better responsiveness)
                             if (i < articleTopics.length - 1) {
-                                await new Promise(resolve => setTimeout(resolve, 30000));
+                                await new Promise(resolve => setTimeout(resolve, 5000));
                             }
 
                         } catch (error: any) {

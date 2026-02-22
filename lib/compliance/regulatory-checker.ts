@@ -142,6 +142,12 @@ export async function checkCompliance(
         const claimCheck = checkUnsourcedClaims(content);
         warnings.push(...claimCheck.warnings);
 
+        // 7. AI-Powered Regulatory Scan (Nuance detection)
+        const aiScan = await aiRegulatoryScan(content, metadata?.category, metadata?.title);
+        violations.push(...aiScan.violations);
+        warnings.push(...aiScan.warnings);
+        recommendations.push(...aiScan.recommendations);
+
         // Calculate compliance score
         const criticalViolations = violations.filter(v => v.severity === 'critical').length;
         const warningViolations = violations.filter(v => v.severity === 'warning').length;
@@ -389,6 +395,80 @@ function checkUnsourcedClaims(content: string): { warnings: ComplianceWarning[] 
     });
 
     return { warnings };
+}
+
+/**
+ * AI-Powered Regulatory Scan (GPT-4o)
+ * 
+ * Scans content for subtle compliance violations, aggressive marketing, 
+ * or implicit guarantees that rules might miss.
+ */
+async function aiRegulatoryScan(
+    content: string,
+    category?: string,
+    title?: string
+): Promise<{ violations: ComplianceViolation[]; warnings: ComplianceWarning[]; recommendations: string[] }> {
+    const violations: ComplianceViolation[] = [];
+    const warnings: ComplianceWarning[] = [];
+    const recommendations: string[] = [];
+
+    try {
+        const { api } = await import('@/lib/api');
+        
+        const prompt = `You are a professional Financial Compliance Officer in India. 
+        Your task is to scan the following content for violations of SEBI, RBI, IRDA, and Advertising Standards Council of India (ASCI) guidelines.
+
+        CONTENT OVERVIEW:
+        Title: ${title || 'N/A'}
+        Category: ${category || 'General Finance'}
+        
+        CONTENT TO SCAN:
+        """
+        ${content.substring(0, 5000)}
+        """
+
+        SPECIFIC CHECKS:
+        1. SEBI: Are there guaranteed returns? Is there a risk disclosure?
+        2. RBI: Is it clear that deposits/loans are subject to terms?
+        3. ASCI: Is the language overly aggressive (e.g., "Best in class", "India's highest") without substantiation?
+        4. Disclosures: Are affiliate links disclosed? Are disclaimers visible?
+
+        FORMAT YOUR RESPONSE AS JSON:
+        {
+          "violations": [
+            { "type": "sebi" | "rbi" | "irda" | "advertising" | "disclosure", "severity": "critical" | "warning", "rule": "string", "message": "string", "suggestedFix": "string" }
+          ],
+          "warnings": [
+            { "type": "promotional_language" | "missing_disclosure" | "unsourced_claim", "message": "string" }
+          ],
+          "recommendations": ["string"]
+        }`;
+
+        const result = await api.integrations.Core.InvokeLLM({
+            prompt,
+            operation: 'regulatory_compliance_scan',
+            contextData: { category, title }
+        });
+
+        const { extractJSON } = await import('@/lib/utils/json');
+        const parsed = extractJSON(result.content);
+
+        if (parsed) {
+            if (parsed.violations && Array.isArray(parsed.violations)) {
+                violations.push(...parsed.violations);
+            }
+            if (parsed.warnings && Array.isArray(parsed.warnings)) {
+                warnings.push(...parsed.warnings);
+            }
+            if (parsed.recommendations && Array.isArray(parsed.recommendations)) {
+                recommendations.push(...parsed.recommendations);
+            }
+        }
+    } catch (error) {
+        logger.warn('AI regulatory scan failed', error as Error);
+    }
+
+    return { violations, warnings, recommendations };
 }
 
 /**

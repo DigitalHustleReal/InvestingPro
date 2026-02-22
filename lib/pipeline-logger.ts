@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/client';
+import { createServiceClient } from '@/lib/supabase/service';
 import { logger } from '@/lib/logger';
 
 export type PipelineStatus = 'triggered' | 'running' | 'completed' | 'failed' | 'cancelled';
@@ -10,7 +10,7 @@ export class PipelineLogger {
 
     constructor(pipelineType: string) {
         this.pipelineType = pipelineType;
-        this.supabase = createClient();
+        this.supabase = createServiceClient();
     }
 
     /**
@@ -31,7 +31,7 @@ export class PipelineLogger {
 
             if (error) throw error;
             
-            this.runId = data.id;
+            this.runId = data.id as string;
             logger.info(`Pipeline ${this.pipelineType} started`, { runId: this.runId });
             return this.runId;
         } catch (error) {

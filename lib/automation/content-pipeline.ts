@@ -1,129 +1,97 @@
 /**
- * 🚀 PRODUCTION COMPLETE AUTOMATION PIPELINE
+ * 🚀 INTELLIGENT CONTENT PIPELINE
  * 
- * End-to-end automated content generation pipeline that orchestrates
- * all components from keyword research to published article.
+ * End-to-end orchestrator that chains:
+ *   Trend Discovery → Keyword Research → Topic Selection → 
+ *   Article Generation → Post-Gen SEO Audit
  * 
- * PIPELINE STAGES:
- * 1. Topic Selection (keyword research)
- * 2. SERP Analysis (competitive intel)
- * 3. Content Generation (AI with template)
- * 4. Quality Scoring (validation)
- * 5. Plagiarism Check (verification)
- * 6. Image Generation (visuals)
- * 7. SEO Optimization (meta + internal links)
- * 8. Schema Generation (rich snippets)
- * 9. Save to Database
- * 10. Schedule Publishing (optional)
- * 
- * FEATURES:
- * - Complete automation from idea to publish
- * - Quality gates at each stage
- * - Automatic retries and fallbacks
- * - Progress tracking and logging
- * - Cost tracking
- * - Success metrics
+ * Modes:
+ *   - 'auto'     : Full pipeline (trends → keywords → generation)
+ *   - 'trending' : Discover trends, generate from top results
+ *   - 'keyword'  : Accept seed keyword, expand, and generate
  */
 
-import { aiOrchestrator } from '../ai/orchestrator';
-import { researchKeyword } from '../research/keyword-researcher';
-import { serpAnalyzer } from '../research/serp-analyzer';
-import { selectTemplate, validateContent } from '../templates/content-templates';
-import { analyzeContentQuality } from '../quality/content-quality-scorer';
-import { checkPlagiarism } from '../quality/plagiarism-checker';
-import { generateImageAltText } from '../quality/image-alt-generator';
-import { imageService } from '../images/stock-image-service-enhanced';
-import { aiImageGenerator } from '../images/ai-image-generator';
-import { featuredImageGenerator } from '../images/featured-image-generator';
-import { optimizeSEO } from '../seo/advanced-seo-optimizer';
-import { generateComprehensiveSchema } from '../seo/schema-generator-enhanced';
+import { TrendAgent, type TrendItem } from '@/lib/agents/trend-agent';
+import { researchKeyword, findKeywordOpportunities, type KeywordResearchResult, type KeywordData } from '@/lib/research/keyword-researcher';
 import { createClient } from '@supabase/supabase-js';
-import { logger } from '../logger';
+import { logger } from '@/lib/logger';
 
 // ============================================================================
-// TYPES & INTERFACES
+// TYPES
 // ============================================================================
 
-export interface PipelineConfig {
-    topic: string;
-    contentType?: 'comparison' | 'howto' | 'ultimate' | 'listicle';
-    targetKeyword?: string;
-    category?: string;
-    authorName?: string;
-    
-    // Quality gates
-    minQualityScore?: number;
-    maxPlagiarismPercentage?: number;
-    minSEOScore?: number;
-    
-    // Options
-    generateImages?: boolean;
-    autoPublish?: boolean;
-    scheduledPublishDate?: Date;
-    
-    // AI preferences
-    preferredAI?: string;
+export type PipelineMode = 'auto' | 'trending' | 'keyword';
+
+export type PipelineStage = 
+    | 'initializing'
+    | 'trend_discovery'
+    | 'keyword_research'
+    | 'topic_selection'
+    | 'deduplication'
+    | 'generating'
+    | 'seo_audit'
+    | 'complete'
+    | 'error';
+
+export interface PipelineEvent {
+    stage: PipelineStage;
+    message: string;
+    data?: any;
+    progress?: { current: number; total: number };
+    timestamp: string;
+}
+
+export interface PipelineOptions {
+    count: number;                      // Number of articles to generate
+    mode: PipelineMode;                 // Pipeline mode
+    category?: string;                  // Optional category filter
+    seedKeyword?: string;               // Required for 'keyword' mode
+    maxKeywordDifficulty?: number;      // Default: 50
+    minOpportunityScore?: number;       // Default: 40
+    authorId?: string;                  // Author ID to assign
+    authorName?: string;                // Author display name
+    runId?: string;                     // Pipeline run ID for tracking
 }
 
 export interface PipelineResult {
     success: boolean;
-    article_id?: string;
-    article_slug?: string;
-    
-    // Metrics
-    total_time_ms: number;
-    total_cost_usd: number;
-    
-    // Stage results
-    stages: {
-        keyword_research?: any;
-        serp_analysis?: any;
-        content_generation?: any;
-        quality_score?: any;
-        plagiarism_check?: any;
-        image_generation?: any;
-        seo_optimization?: any;
-        schema_generation?: any;
+    articles: Array<{
+        id: string;
+        title: string;
+        slug: string;
+        status: string;
+        topic: string;
+        keyword_difficulty?: number;
+        opportunity_score?: number;
+        seo_score?: number;
+    }>;
+    pipeline_trace: {
+        trends_discovered: number;
+        keywords_researched: number;
+        topics_selected: number;
+        articles_generated: number;
+        articles_failed: number;
+        total_time_ms: number;
     };
-    
-    // Quality metrics
-    final_quality_score: number;
-    final_seo_score: number;
-    plagiarism_percentage: number;
-    
-    // Issues
     errors: string[];
-    warnings: string[];
-    
-    timestamp: string;
 }
 
-export interface PipelineProgress {
-    stage: string;
-    status: 'pending' | 'running' | 'complete' | 'failed';
-    progress: number; // 0-100
-    message: string;
-    timestamp: string;
+interface ScoredTopic {
+    topic: string;
+    category: string;
+    difficulty: number;
+    opportunity_score: number;
+    source: 'trend' | 'keyword' | 'content_gap';
+    keyword_data?: KeywordData;
 }
 
 // ============================================================================
-// CONFIGURATION
+// SUPABASE CLIENT (lazy)
 // ============================================================================
 
-const DEFAULT_CONFIG: Partial<PipelineConfig> = {
-    contentType: 'ultimate',
-    minQualityScore: 80,
-    maxPlagiarismPercentage: 5,
-    minSEOScore: 75,
-    generateImages: true,
-    autoPublish: false,
-    authorName: 'InvestingPro Team'
-};
-
-// Supabase client
 let supabaseClient: ReturnType<typeof createClient> | null = null;
 
-function getSupabaseClient() {
+function getSupabase() {
     if (!supabaseClient) {
         supabaseClient = createClient(
             process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -134,369 +102,480 @@ function getSupabaseClient() {
 }
 
 // ============================================================================
-// PROGRESS TRACKING
+// PIPELINE ORCHESTRATOR
 // ============================================================================
 
-type ProgressCallback = (progress: PipelineProgress) => void;
-
-let progressCallback: ProgressCallback | null = null;
-
-export function setProgressCallback(callback: ProgressCallback) {
-    progressCallback = callback;
-}
-
-function reportProgress(stage: string, status: PipelineProgress['status'], progress: number, message: string) {
-    const progressUpdate: PipelineProgress = {
-        stage,
-        status,
-        progress,
-        message,
-        timestamp: new Date().toISOString()
-    };
-    
-    const statusIcon = status === 'running' ? '🔄' : status === 'complete' ? '✅' : status === 'failed' ? '❌' : '⏳';
-    logger.info(`[${stage}] ${statusIcon} ${message}`);
-    
-    if (progressCallback) {
-        progressCallback(progressUpdate);
-    }
-}
-
-// ============================================================================
-// MAIN PIPELINE
-// ============================================================================
-
-export async function runAutomationPipeline(config: PipelineConfig): Promise<PipelineResult> {
+export async function runContentPipeline(
+    options: PipelineOptions,
+    emit: (event: PipelineEvent) => void
+): Promise<PipelineResult> {
     const startTime = Date.now();
-    const mergedConfig = { ...DEFAULT_CONFIG, ...config };
-    
-    const result: PipelineResult = {
-        success: false,
-        total_time_ms: 0,
-        total_cost_usd: 0,
-        stages: {},
-        final_quality_score: 0,
-        final_seo_score: 0,
-        plagiarism_percentage: 0,
-        errors: [],
-        warnings: [],
-        timestamp: new Date().toISOString()
-    };
-    
-    try {
-        logger.info('AUTOMATION PIPELINE START', { topic: config.topic, type: mergedConfig.contentType });
-        
-        // ===================================================================
-        // STAGE 1: KEYWORD RESEARCH
-        // ===================================================================
-        
-        reportProgress('keyword_research', 'running', 10, 'Researching keywords and opportunities...');
-        
-        const keywordResearch = await researchKeyword(config.targetKeyword || config.topic);
-        result.stages.keyword_research = {
-            difficulty: keywordResearch.keyword_data.difficulty,
-            opportunity_score: keywordResearch.keyword_data.opportunity_score,
-            intent: keywordResearch.keyword_data.intent,
-            clusters: keywordResearch.clusters.length
-        };
-        
-        const finalKeyword = config.targetKeyword || keywordResearch.primary_keyword;
-        
-        reportProgress('keyword_research', 'complete', 15, `Target: "${finalKeyword}" (Difficulty: ${keywordResearch.keyword_data.difficulty}, Opportunity: ${keywordResearch.keyword_data.opportunity_score})`);
-        
-        // ===================================================================
-        // STAGE 2: SERP ANALYSIS
-        // ===================================================================
-        
-        reportProgress('serp_analysis', 'running', 20, 'Analyzing top search results...');
-        
-        const serpBrief = await serpAnalyzer(finalKeyword);
-        result.stages.serp_analysis = {
-            top_results_count: serpBrief.top_results.length,
-            content_gaps: serpBrief.content_gaps.length,
-            recommended_word_count: serpBrief.recommended_word_count
-        };
-        
-        reportProgress('serp_analysis', 'complete', 25, `Found ${serpBrief.content_gaps.length} content gaps`);
-        
-        // ===================================================================
-        // STAGE 3: CONTENT GENERATION
-        // ===================================================================
-        
-        reportProgress('content_generation', 'running', 30, 'Generating content with AI...');
-        
-        const template = selectTemplate(mergedConfig.contentType!);
-        
-        const contentPrompt = template.article_prompt_template
-            .replace('{title}', config.topic)
-            .replace('{topic}', finalKeyword)
-            .replace('{audience}', template.target_audience)
-            .replace('{context}', serpBrief.unique_angle)
-            .replace('{complexity}', 'intermediate')
-            .replace('{expertiseLevel}', 'beginner to intermediate');
-        
-        const generationResponse = await aiOrchestrator.execute({
-            prompt: contentPrompt,
-            taskType: 'long_form_content',
-            systemPrompt: template.system_prompt,
-            maxTokens: 4000
+    const errors: string[] = [];
+    const generatedArticles: PipelineResult['articles'] = [];
+
+    const emitStage = async (stage: PipelineStage, message: string, data?: any, progress?: { current: number; total: number }) => {
+        emit({
+            stage,
+            message,
+            data,
+            progress,
+            timestamp: new Date().toISOString()
         });
-        
-        const contentMarkdown = generationResponse.content;
-        
-        result.stages.content_generation = {
-            provider: generationResponse.provider,
-            tokens: generationResponse.tokensUsed,
-            cost: generationResponse.costUSD,
-            latency_ms: generationResponse.latencyMs
-        };
-        
-        result.total_cost_usd += generationResponse.costUSD;
-        
-        reportProgress('content_generation', 'complete', 45, `Generated ${Math.round(generationResponse.tokensUsed / 4)} words with ${generationResponse.provider}`);
-        
-        // ===================================================================
-        // STAGE 4: QUALITY SCORING
-        // ===================================================================
-        
-        reportProgress('quality_scoring', 'running', 50, 'Analyzing content quality...');
-        
-        // Convert markdown to HTML for quality analysis (simplified)
-        const contentHTML = `<html><body>${contentMarkdown.replace(/\n/g, '<br>')}</body></html>`;
-        
-        const qualityResult = await analyzeContentQuality(contentHTML, finalKeyword);
-        
-        result.stages.quality_score = {
-            overall_score: qualityResult.total_score,
-            grade: qualityResult.grade,
-            readability: qualityResult.readability_score,
-            seo: qualityResult.seo_score,
-            depth: qualityResult.depth_score
-        };
-        
-        result.final_quality_score = qualityResult.total_score;
-        
-        if (qualityResult.total_score < (mergedConfig.minQualityScore || 80)) {
-            result.warnings.push(`Quality score ${qualityResult.total_score} is below minimum ${mergedConfig.minQualityScore}`);
+
+        // Update database tracking if runId is present
+        if (options.runId) {
+            try {
+                const { PipelineLogger } = await import('@/lib/pipeline-logger');
+                const logger = new PipelineLogger('content_factory');
+                // We use a simplified update here to avoid full 'start' logic
+                const supabase = getSupabase();
+                await supabase
+                    .from('pipeline_runs')
+                    .update({
+                        status: stage === 'generating' ? 'running' : stage === 'complete' ? 'completed' : stage === 'error' ? 'failed' : 'running',
+                        last_message: message,
+                        current_stage: stage,
+                        progress: progress ? Math.round((progress.current / progress.total) * 100) : undefined,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('id', options.runId);
+            } catch (e) {
+                // Silently fail database logging to prioritize pipeline execution
+            }
         }
+    };
+
+    try {
+        // ====================================================================
+        // STAGE 1: TREND DISCOVERY
+        // ====================================================================
+        emitStage('trend_discovery', 'Scanning for trending personal finance topics...');
         
-        reportProgress('quality_scoring', 'complete', 55, `Quality: ${qualityResult.total_score}/100 (${qualityResult.grade})`);
+        let trends: TrendItem[] = [];
         
-        // ===================================================================
-        // STAGE 5: PLAGIARISM CHECK
-        // ===================================================================
-        
-        reportProgress('plagiarism_check', 'running', 60, 'Checking for plagiarism...');
-        
-        const plagiarismResult = await checkPlagiarism(contentMarkdown, config.topic);
-        
-        result.stages.plagiarism_check = {
-            similarity_percentage: plagiarismResult.similarityScore,
-            matches_found: plagiarismResult.matches.length,
-            verdict: plagiarismResult.isPlagiarized ? 'Failed' : 'Passed'
-        };
-        
-        result.plagiarism_percentage = plagiarismResult.similarityScore;
-        
-        if (plagiarismResult.similarityScore > (mergedConfig.maxPlagiarismPercentage || 5)) {
-            result.warnings.push(`Plagiarism ${plagiarismResult.similarityScore}% exceeds maximum ${mergedConfig.maxPlagiarismPercentage}%`);
-        }
-        
-        reportProgress('plagiarism_check', 'complete', 65, `Plagiarism: ${plagiarismResult.similarityScore}% (${plagiarismResult.matches.length} matches)`);
-        
-        // ===================================================================
-        // STAGE 6: IMAGE GENERATION
-        // ===================================================================
-        
-        if (mergedConfig.generateImages) {
-            reportProgress('image_generation', 'running', 70, 'Generating images...');
-            
-            // Try stock photos first
-            let featuredImage = await imageService.getFeaturedImage(finalKeyword, config.category);
-            
-            if (!featuredImage || featuredImage.quality_score < 70) {
-                // Generate with AI if stock quality is poor
-                const aiImage = await aiImageGenerator.generate({
-                    prompt: `Professional illustration for article about ${finalKeyword}`,
-                    style: 'professional',
-                    brand_guidelines: true
+        if (options.mode === 'auto' || options.mode === 'trending') {
+            try {
+                const trendAgent = new TrendAgent();
+                trends = await trendAgent.detectTrends();
+                
+                // Filter by category if specified
+                if (options.category) {
+                    trends = trends.filter(t => t.category === options.category);
+                }
+                
+                emitStage('trend_discovery', `Discovered ${trends.length} trending topics`, {
+                    top_trends: trends.slice(0, 5).map(t => ({
+                        topic: t.topic,
+                        category: t.category,
+                        score: t.trendScore
+                    }))
                 });
+            } catch (e) {
+                const msg = e instanceof Error ? e.message : String(e);
+                errors.push(`Trend discovery failed: ${msg}`);
+                emitStage('trend_discovery', `⚠️ Trend discovery failed: ${msg}. Using fallback topics.`);
                 
-                featuredImage = {
-                    url: aiImage.url,
-                    quality_score: 90
-                } as any;
+                // Fallback to default trends
+                const trendAgent = new TrendAgent();
+                trends = (trendAgent as any).getDefaultTrends ? (trendAgent as any).getDefaultTrends() : [];
+            }
+        }
+
+        // ====================================================================
+        // STAGE 2: KEYWORD RESEARCH
+        // ====================================================================
+        emitStage('keyword_research', 'Performing keyword research and opportunity scoring...');
+        
+        let scoredTopics: ScoredTopic[] = [];
+
+        if (options.mode === 'keyword' && options.seedKeyword) {
+            // Keyword mode: expand from seed keyword
+            try {
+                const keywordResult = await researchKeyword(options.seedKeyword);
                 
-                result.total_cost_usd += aiImage.cost_usd;
+                // Add the primary keyword
+                scoredTopics.push({
+                    topic: keywordResult.primary_keyword,
+                    category: options.category || 'investing-basics',
+                    difficulty: keywordResult.keyword_data.difficulty,
+                    opportunity_score: keywordResult.keyword_data.opportunity_score,
+                    source: 'keyword',
+                    keyword_data: keywordResult.keyword_data
+                });
+
+                // Add recommended topics from keyword research
+                for (const topic of keywordResult.recommended_topics) {
+                    scoredTopics.push({
+                        topic,
+                        category: options.category || 'investing-basics',
+                        difficulty: 40, // Estimated
+                        opportunity_score: 65,
+                        source: 'content_gap'
+                    });
+                }
+
+                // Add long-tail opportunities
+                for (const kw of keywordResult.long_tail_opportunities.slice(0, 5)) {
+                    scoredTopics.push({
+                        topic: kw.keyword,
+                        category: options.category || 'investing-basics',
+                        difficulty: kw.difficulty,
+                        opportunity_score: kw.opportunity_score,
+                        source: 'keyword',
+                        keyword_data: kw
+                    });
+                }
+
+                emitStage('keyword_research', `Expanded seed keyword into ${scoredTopics.length} potential topics`, {
+                    difficulty: keywordResult.keyword_data.difficulty,
+                    opportunity: keywordResult.keyword_data.opportunity_score,
+                    clusters: keywordResult.clusters.length,
+                    long_tail: keywordResult.long_tail_opportunities.length
+                });
+            } catch (e) {
+                const msg = e instanceof Error ? e.message : String(e);
+                errors.push(`Keyword research failed: ${msg}`);
+                emitStage('keyword_research', `⚠️ Keyword research failed: ${msg}`);
+                
+                // Fallback: use the seed keyword directly
+                scoredTopics.push({
+                    topic: options.seedKeyword,
+                    category: options.category || 'investing-basics',
+                    difficulty: 50,
+                    opportunity_score: 50,
+                    source: 'keyword'
+                });
+            }
+        } else {
+            // Auto/Trending mode: research top trends
+            const topTrends = trends.slice(0, Math.min(trends.length, options.count * 2));
+            
+            for (let i = 0; i < topTrends.length; i++) {
+                const trend = topTrends[i];
+                emitStage('keyword_research', `Researching keyword: "${trend.topic}" (${i + 1}/${topTrends.length})`, null, {
+                    current: i + 1,
+                    total: topTrends.length
+                });
+
+                try {
+                    // Quick difficulty estimation (don't do full research for each trend)
+                    const opportunities = await findKeywordOpportunities(
+                        trend.topic,
+                        options.maxKeywordDifficulty || 50
+                    );
+                    
+                    // Add the trend itself
+                    scoredTopics.push({
+                        topic: trend.topic,
+                        category: trend.category,
+                        difficulty: 50,
+                        opportunity_score: trend.trendScore,
+                        source: 'trend'
+                    });
+
+                    // Add keyword opportunities
+                    for (const opp of opportunities.slice(0, 3)) {
+                        scoredTopics.push({
+                            topic: opp.keyword,
+                            category: trend.category,
+                            difficulty: opp.difficulty,
+                            opportunity_score: opp.opportunity_score,
+                            source: 'keyword',
+                            keyword_data: opp
+                        });
+                    }
+                } catch (e) {
+                    // Just use the trend topic directly
+                    scoredTopics.push({
+                        topic: trend.topic,
+                        category: trend.category,
+                        difficulty: 50,
+                        opportunity_score: trend.trendScore,
+                        source: 'trend'
+                    });
+                }
+
+                // Small delay between keyword research calls
+                if (i < topTrends.length - 1) {
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                }
             }
             
-            // Generate alt text
-            const altText = await generateImageAltText(featuredImage!.url, {
-                context: config.category,
-                keyword: finalKeyword
-            });
-            
-            result.stages.image_generation = {
-                source: featuredImage!.quality_score >= 70 ? 'stock' : 'ai',
-                alt_text: altText.alt_text,
-                url: featuredImage!.url
-            };
-            
-            reportProgress('image_generation', 'complete', 75, `Image generated: ${altText.alt_text}`);
+            emitStage('keyword_research', `Researched ${topTrends.length} trends, found ${scoredTopics.length} potential topics`);
         }
-        
-        // ===================================================================
-        // STAGE 7: SEO OPTIMIZATION
-        // ===================================================================
-        
-        reportProgress('seo_optimization', 'running', 80, 'Optimizing SEO...');
-        
-        const seoResult = await optimizeSEO(contentHTML, finalKeyword, `/${finalKeyword.replace(/\s+/g, '-')}`);
-        
-        result.stages.seo_optimization = {
-            overall_score: seoResult.overall_score,
-            grade: seoResult.grade,
-            critical_issues: seoResult.critical_issues.length,
-            quick_wins: seoResult.quick_wins.length
-        };
-        
-        result.final_seo_score = seoResult.overall_score;
-        
-        if (seoResult.overall_score < (mergedConfig.minSEOScore || 75)) {
-            result.warnings.push(`SEO score ${seoResult.overall_score} is below minimum ${mergedConfig.minSEOScore}`);
-        }
-        
-        reportProgress('seo_optimization', 'complete', 85, `SEO: ${seoResult.overall_score}/100 (${seoResult.grade})`);
-        
-        // ===================================================================
-        // STAGE 8: SCHEMA GENERATION
-        // ===================================================================
-        
-        reportProgress('schema_generation', 'running', 90, 'Generating schema markup...');
-        
-        const schemas = generateComprehensiveSchema({
-            article: {
-                headline: config.topic,
-                description: seoResult.suggested_meta_description || `Complete guide to ${finalKeyword}`,
-                image: result.stages.image_generation?.url || 'https://investingpro.in/default-image.jpg',
-                datePublished: new Date().toISOString(),
-                authorName: mergedConfig.authorName || 'InvestingPro Team',
-                url: `https://investingpro.in/articles/${finalKeyword.replace(/\s+/g, '-')}`,
-                category: config.category,
-                wordCount: qualityResult.depth.word_count
-            },
-            includeFAQ: true,
-            includeHowTo: mergedConfig.contentType === 'howto',
-            includeBreadcrumbs: true,
-            htmlContent: contentHTML
-        });
-        
-        result.stages.schema_generation = {
-            schemas_generated: schemas.schemas.length,
-            types: schemas.schemas.map((s: any) => s['@type'])
-        };
-        
-        reportProgress('schema_generation', 'complete', 95, `Generated ${schemas.schemas.length} schemas`);
-        
-        // ===================================================================
-        // STAGE 9: SAVE TO DATABASE
-        // ===================================================================
-        
-        reportProgress('save_database', 'running', 98, 'Saving to database...');
-        
-        const supabase = getSupabaseClient();
-        const slug = finalKeyword.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
-        
-        const { data: article, error } = await supabase.from('articles').insert({
-            title: config.topic,
-            slug,
-            excerpt: seoResult.suggested_meta_description?.substring(0, 200) || `Comprehensive guide to ${finalKeyword}`,
-            body_markdown: contentMarkdown,
-            body_html: contentHTML,
-            featured_image: result.stages.image_generation?.url,
-            category: config.category,
-            author_name: mergedConfig.authorName,
-            meta_title: seoResult.suggested_meta_title,
-            meta_description: seoResult.suggested_meta_description,
-            schema_markup: schemas.scriptTags,
-            status: mergedConfig.autoPublish ? 'published' : 'draft',
-            published_at: mergedConfig.autoPublish ? new Date().toISOString() : null,
-            scheduled_at: mergedConfig.scheduledPublishDate?.toISOString(),
-            quality_score: qualityResult.total_score,
-            seo_score: seoResult.overall_score,
-            ai_generated: true
-        } as any).select().single();
-        
-        if (error) {
-            throw new Error(`Database save failed: ${error.message}`);
-        }
-        
-        // Cast article to any to avoid 'never' type usage
-        const articleData = article as any;
 
-        result.article_id = articleData.id;
-        result.article_slug = articleData.slug;
-        
-        reportProgress('save_database', 'complete', 100, `Saved as ${mergedConfig.autoPublish ? 'published' : 'draft'}`);
-        
-        // ===================================================================
-        // PIPELINE SUCCESS
-        // ===================================================================
-        
-        result.success = true;
-        result.total_time_ms = Date.now() - startTime;
-        
-        logger.info('PIPELINE COMPLETE', {
-            slug: result.article_slug,
-            quality: result.final_quality_score,
-            seo: result.final_seo_score,
-            plagiarism: result.plagiarism_percentage,
-            time_s: (result.total_time_ms / 1000).toFixed(1),
-            cost: result.total_cost_usd.toFixed(4)
+        // ====================================================================
+        // STAGE 3: TOPIC SELECTION (Score, Rank, Filter)
+        // ====================================================================
+        emitStage('topic_selection', 'Ranking and selecting best topics...');
+
+        // Sort by opportunity score (higher = better)
+        scoredTopics.sort((a, b) => {
+            // Composite score: high opportunity + low difficulty
+            const scoreA = a.opportunity_score - (a.difficulty * 0.3);
+            const scoreB = b.opportunity_score - (b.difficulty * 0.3);
+            return scoreB - scoreA;
         });
+
+        // Filter by thresholds
+        const minOpportunity = options.minOpportunityScore || 40;
+        const filtered = scoredTopics.filter(t => t.opportunity_score >= minOpportunity);
+        const selectedTopics = (filtered.length > 0 ? filtered : scoredTopics).slice(0, options.count);
+
+        emitStage('topic_selection', `Selected ${selectedTopics.length} topics for generation`, {
+            selected: selectedTopics.map(t => ({
+                topic: t.topic,
+                difficulty: t.difficulty,
+                opportunity: t.opportunity_score,
+                source: t.source
+            }))
+        });
+
+        // ====================================================================
+        // STAGE 4: DEDUPLICATION (Check against existing articles)
+        // ====================================================================
+        emitStage('deduplication', 'Checking for duplicate content...');
+
+        const supabase = getSupabase();
+        const { data: existingArticles } = await supabase
+            .from('articles')
+            .select('title, slug')
+            .limit(500);
+
+        const existingTitles = new Set(
+            (existingArticles || []).map((a: any) => a.title?.toLowerCase().trim())
+        );
+        const existingSlugs = new Set(
+            (existingArticles || []).map((a: any) => a.slug?.toLowerCase().trim())
+        );
+
+        const deduplicatedTopics = selectedTopics.filter(t => {
+            const titleLower = t.topic.toLowerCase().trim();
+            const slugVersion = titleLower.replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            
+            if (existingTitles.has(titleLower)) {
+                emitStage('deduplication', `⏭️ Skipping duplicate: "${t.topic}"`);
+                return false;
+            }
+            if (existingSlugs.has(slugVersion)) {
+                emitStage('deduplication', `⏭️ Skipping duplicate slug: "${t.topic}"`);
+                return false;
+            }
+            return true;
+        });
+
+        emitStage('deduplication', `${deduplicatedTopics.length} unique topics after deduplication (${selectedTopics.length - deduplicatedTopics.length} skipped)`);
+
+        if (deduplicatedTopics.length === 0) {
+            emitStage('complete', 'No unique topics to generate. All candidates already exist in the database.');
+            return {
+                success: true,
+                articles: [],
+                pipeline_trace: {
+                    trends_discovered: trends.length,
+                    keywords_researched: scoredTopics.length,
+                    topics_selected: selectedTopics.length,
+                    articles_generated: 0,
+                    articles_failed: 0,
+                    total_time_ms: Date.now() - startTime
+                },
+                errors
+            };
+        }
+
+        // ====================================================================
+        // STAGE 5: ARTICLE GENERATION
+        // ====================================================================
+        emitStage('generating', `Starting generation of ${deduplicatedTopics.length} articles...`);
+
+        // Lazy import to avoid loading heavy modules at service init
+        const { generateArticleCore } = await import('@/lib/automation/article-generator');
+
+        let successCount = 0;
+        let failCount = 0;
+
+        for (let i = 0; i < deduplicatedTopics.length; i++) {
+            const topic = deduplicatedTopics[i];
+            
+            emitStage('generating', `Generating article ${i + 1}/${deduplicatedTopics.length}: "${topic.topic}"`, {
+                topic: topic.topic,
+                category: topic.category,
+                difficulty: topic.difficulty,
+                opportunity: topic.opportunity_score
+            }, {
+                current: i + 1,
+                total: deduplicatedTopics.length
+            });
+
+            try {
+                const result = await generateArticleCore(topic.topic, (msg) => {
+                    emitStage('generating', msg);
+                }, {
+                    categorySlug: topic.category,
+                    authorId: options.authorId,
+                    authorName: options.authorName,
+                    jobId: options.runId // Link the runId to the generation job
+                });
+
+                if (result.success) {
+                    successCount++;
+                    const art = result.article;
+                    generatedArticles.push({
+                        id: art?.id || '',
+                        title: art?.title || topic.topic,
+                        slug: art?.slug || '',
+                        status: art?.status || 'draft',
+                        topic: topic.topic,
+                        keyword_difficulty: topic.difficulty,
+                        opportunity_score: topic.opportunity_score
+                    });
+                    
+                    emitStage('generating', `✅ Generated: "${art?.title || topic.topic}"`, {
+                        id: art?.id,
+                        slug: art?.slug,
+                        status: art?.status
+                    });
+                } else {
+                    failCount++;
+                    errors.push(`Failed to generate "${topic.topic}": ${result.error}`);
+                    emitStage('generating', `❌ Failed: "${topic.topic}" — ${result.error}`);
+                }
+            } catch (e) {
+                failCount++;
+                const msg = e instanceof Error ? e.message : String(e);
+                errors.push(`Generation error for "${topic.topic}": ${msg}`);
+                emitStage('generating', `❌ Error generating "${topic.topic}": ${msg}`);
+            }
+
+            // Delay between articles
+            if (i < deduplicatedTopics.length - 1) {
+                await new Promise(resolve => setTimeout(resolve, 5000));
+            }
+        }
+
+        // ====================================================================
+        // STAGE 6: POST-GENERATION SEO AUDIT
+        // ====================================================================
+        if (generatedArticles.length > 0) {
+            emitStage('seo_audit', `Running SEO audit on ${generatedArticles.length} generated articles...`);
+
+            for (const article of generatedArticles) {
+                try {
+                    const { analyzeArticleSEO } = await import('@/lib/automation/seo-optimizer');
+                    const seoResult = await analyzeArticleSEO(article.id);
+                    article.seo_score = seoResult.scoreAfter;
+                    
+                    emitStage('seo_audit', `📊 "${article.title}" — SEO Score: ${seoResult.scoreAfter}/100`, {
+                        optimizations: seoResult.optimizations.length,
+                        score: seoResult.scoreAfter
+                    });
+                } catch (e) {
+                    emitStage('seo_audit', `⚠️ SEO audit skipped for "${article.title}"`);
+                }
+            }
+        }
+
+        // ====================================================================
+        // COMPLETE
+        // ====================================================================
+        const totalTime = Date.now() - startTime;
+
+        emitStage('complete', `Pipeline complete! Generated ${successCount}/${deduplicatedTopics.length} articles in ${Math.round(totalTime / 1000)}s`, {
+            success: successCount,
+            failed: failCount,
+            total_time_s: Math.round(totalTime / 1000)
+        });
+
+        return {
+            success: successCount > 0,
+            articles: generatedArticles,
+            pipeline_trace: {
+                trends_discovered: trends.length,
+                keywords_researched: scoredTopics.length,
+                topics_selected: selectedTopics.length,
+                articles_generated: successCount,
+                articles_failed: failCount,
+                total_time_ms: totalTime
+            },
+            errors
+        };
+
+    } catch (e) {
+        const msg = e instanceof Error ? e.message : String(e);
+        logger.error('Content pipeline fatal error', e instanceof Error ? e : new Error(msg));
         
-        return result;
+        emitStage('error', `💥 Pipeline failed: ${msg}`);
         
-    } catch (error: any) {
-        logger.error('PIPELINE FAILED', error);
-        result.success = false;
-        result.errors.push(error.message);
-        result.total_time_ms = Date.now() - startTime;
-        
-        reportProgress('pipeline', 'failed', 0, `Failed: ${error.message}`);
-        
-        return result;
+        return {
+            success: false,
+            articles: generatedArticles,
+            pipeline_trace: {
+                trends_discovered: 0,
+                keywords_researched: 0,
+                topics_selected: 0,
+                articles_generated: 0,
+                articles_failed: 0,
+                total_time_ms: Date.now() - startTime
+            },
+            errors: [...errors, msg]
+        };
     }
 }
 
 // ============================================================================
-// BATCH AUTOMATION
+// BACKWARD COMPATIBILITY EXPORTS
+// Used by keyword-content-generator.ts and other legacy consumers
 // ============================================================================
 
-export async function runBatchAutomation(
-    topics: string[],
-    baseConfig: Partial<PipelineConfig> = {}
-): Promise<PipelineResult[]> {
-    logger.info(`Starting batch automation for ${topics.length} topics...`);
-    
-    const results: PipelineResult[] = [];
-    
-    for (const topic of topics) {
-        logger.info(`Processing topic: ${topic}`);
+export interface PipelineConfig {
+    topic: string;
+    category: string;
+    contentType?: string;
+    targetKeyword?: string;
+    autoPublish?: boolean;
+    generateImages?: boolean;
+    minQualityScore?: number;
+    maxPlagiarismPercentage?: number;
+    minSEOScore?: number;
+}
+
+export interface AutomationPipelineResult {
+    success: boolean;
+    article_id?: string;
+    article_slug?: string;
+    errors?: string[];
+}
+
+/**
+ * Legacy wrapper — generates a single article via the new pipeline.
+ * Used by keyword-content-generator.ts.
+ */
+export async function runAutomationPipeline(config: PipelineConfig): Promise<AutomationPipelineResult> {
+    try {
+        const { generateArticleCore } = await import('@/lib/automation/article-generator');
         
-        const result = await runAutomationPipeline({
-            ...baseConfig,
-            topic
+        const result = await generateArticleCore(config.topic, (msg) => {
+            logger.info(`[Pipeline] ${msg}`);
+        }, {
+            categorySlug: config.category
         });
-        
-        results.push(result);
-        
-        // Rate limiting between articles
-        await new Promise(resolve => setTimeout(resolve, 5000));
+
+        if (result.success && result.article) {
+            return {
+                success: true,
+                article_id: result.article.id,
+                article_slug: result.article.slug
+            };
+        }
+
+        return {
+            success: false,
+            errors: [result.error || 'Unknown error']
+        };
+    } catch (e) {
+        return {
+            success: false,
+            errors: [e instanceof Error ? e.message : String(e)]
+        };
     }
-    
-    const successCount = results.filter(r => r.success).length;
-    logger.info(`Batch Complete: ${successCount}/${topics.length} successful`);
-    
-    return results;
 }

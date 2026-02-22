@@ -165,21 +165,13 @@ export default function WorkflowsPage() {
         <AdminLayout>
             <div className="min-h-screen p-8 font-sans">
                 {/* Header */}
-                <div 
-                    className="relative overflow-hidden mb-10 shadow-2xl"
-                    style={{ 
-                        borderRadius: '24px',
-                        padding: '32px',
-                        background: 'linear-gradient(135deg, #0a192f 0%, #0d213f 100%)',
-                        border: '1px solid rgba(196, 158, 72, 0.2)'
-                    }}
-                >
-                    <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full blur-3xl opacity-10 bg-[#c49e48]" />
+                <div className="relative overflow-hidden mb-10 rounded-3xl border border-amber-500/20 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 shadow-2xl">
+                    <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full blur-3xl opacity-10 bg-amber-500" />
                     
-                    <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6 p-8">
                         <div className="flex items-center gap-6">
-                            <div className="p-4 rounded-2xl bg-[#c49e48]/10 border border-[#c49e48]/20">
-                                <Workflow className="w-10 h-10 text-[#c49e48]" />
+                            <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20">
+                                <Workflow className="w-10 h-10 text-amber-500" />
                             </div>
                             <div>
                                 <h1 className="text-3xl font-bold tracking-tight text-white mb-2">Workflow Hub</h1>
@@ -188,12 +180,12 @@ export default function WorkflowsPage() {
                         </div>
                         
                         <div className="flex items-center gap-3">
-                            <Button onClick={() => refetch()} variant="outline" className="bg-white/5 border-[#c49e48]/20 text-[#c49e48] hover:bg-[#c49e48]/10">
+                            <Button onClick={() => refetch()} variant="outline" className="bg-white/5 border-amber-500/20 text-amber-500 hover:bg-amber-500/10">
                                 <RefreshCw className="w-4 h-4 mr-2" />
                                 Sync
                             </Button>
                             <Link href="/admin/workflows/new">
-                                <Button className="bg-[#c49e48] text-[#0a192f] hover:bg-[#b38d39] font-bold">
+                                <Button className="bg-amber-500 text-slate-900 hover:bg-amber-400 font-bold">
                                     <Plus className="w-4 h-4 mr-2" />
                                     New Workflow
                                 </Button>
@@ -220,7 +212,7 @@ export default function WorkflowsPage() {
                             onClick={() => setFilter(f)}
                             className={cn(
                                 "capitalize rounded-full px-6 transition-all",
-                                filter === f ? "bg-[#c49e48] text-[#0a192f] hover:bg-[#b38d39]" : "border-[#c49e48]/20 text-slate-300 hover:text-[#c49e48]"
+                                filter === f ? "bg-amber-500 text-slate-900 hover:bg-amber-400" : "border-amber-500/20 text-slate-300 hover:text-amber-500"
                             )}
                         >
                             {f === 'all' ? 'All Channels' : f}
@@ -229,7 +221,7 @@ export default function WorkflowsPage() {
                 </div>
 
                 {/* Workflows List */}
-                <Card className="bg-[#111827]/50 border-[#c49e48]/10 backdrop-blur-xl rounded-2xl overflow-hidden shadow-xl">
+                <Card className="bg-white/5 border-border/20 backdrop-blur-xl rounded-2xl overflow-hidden shadow-xl">
                     <CardContent className="p-0">
                         {isLoading ? (
                             <div className="text-center py-20 text-slate-300">
@@ -241,14 +233,14 @@ export default function WorkflowsPage() {
                                 <Workflow className="w-16 h-16 mx-auto mb-6 text-slate-700" />
                                 <p className="text-slate-300 mb-6 text-lg">No active workflows orchestration found</p>
                                 <Link href="/admin/workflows/new">
-                                    <Button className="bg-[#c49e48] text-[#0a192f] hover:bg-[#b38d39]">
+                                    <Button className="bg-amber-500 text-slate-900 hover:bg-amber-400">
                                         <Plus className="w-4 h-4 mr-2" />
                                         Initialize First Flow
                                     </Button>
                                 </Link>
                             </div>
                         ) : (
-                            <div className="divide-y divide-[#c49e48]/5">
+                            <div className="divide-y divide-amber-500/5">
                                 {workflowList.map((workflow) => {
                                     const successRate = getSuccessRate(workflow);
                                     return (
@@ -268,7 +260,7 @@ export default function WorkflowsPage() {
                                                         className={cn(
                                                             "w-12 h-6 rounded-full transition-all relative",
                                                             workflow.is_enabled 
-                                                                ? 'bg-[#c49e48]' 
+                                                                ? 'bg-amber-500' 
                                                                 : 'bg-slate-700'
                                                         )}
                                                     >
@@ -336,7 +328,7 @@ export default function WorkflowsPage() {
                                                             size="sm"
                                                             onClick={() => runMutation.mutate(workflow.id)}
                                                             disabled={runMutation.isPending || !workflow.is_enabled}
-                                                            className="border-[#c49e48]/20 text-[#c49e48] hover:bg-[#c49e48]/10 h-9"
+                                                            className="border-amber-500/20 text-amber-500 hover:bg-amber-500/10 h-9"
                                                         >
                                                             <Play className="w-3.5 h-3.5 mr-2" />
                                                             Fire
@@ -403,9 +395,9 @@ export default function WorkflowsPage() {
                             <Link 
                                 key={i}
                                 href={`/admin/workflows/new?template=${i}`}
-                                className="p-6 rounded-2xl border border-[#c49e48]/10 bg-white/5 hover:border-[#c49e48]/30 hover:bg-white/10 transition-all group"
+                                className="p-6 rounded-2xl border border-amber-500/10 bg-white/5 hover:border-amber-500/30 hover:bg-white/10 transition-all group"
                             >
-                                <h4 className="font-bold text-white mb-2 group-hover:text-[#c49e48]">{template.name}</h4>
+                                <h4 className="font-bold text-white mb-2 group-hover:text-amber-500">{template.name}</h4>
                                 <p className="text-sm text-slate-300 mb-4">{template.desc}</p>
                                 <Badge className={cn("border-none", getTriggerColor(template.trigger))}>
                                     {getTriggerLabel(template.trigger)}
@@ -428,14 +420,14 @@ function StatBox({ label, value, icon: Icon, color }: any) {
     };
     
     return (
-        <Card className="bg-[#111827]/40 border-white/5 backdrop-blur-sm p-6 rounded-2xl">
+        <Card className="bg-card dark:bg-card border-border dark:border-border backdrop-blur-sm p-6 rounded-2xl">
             <div className="flex items-center justify-between mb-4">
                 <div className={cn("p-2 rounded-lg", colors[color])}>
                     <Icon className="w-5 h-5" />
                 </div>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-slate-500">{label}</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{label}</div>
             </div>
-            <div className="text-2xl font-bold text-white">{value}</div>
+            <div className="text-2xl font-bold text-foreground dark:text-foreground">{value}</div>
         </Card>
     );
 }

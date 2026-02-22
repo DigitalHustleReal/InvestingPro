@@ -74,28 +74,34 @@ export default function ArticleDetailPage() {
 
     const loadArticle = async () => {
         try {
-            // Use client-safe Supabase client (no server-only imports)
+            // PREVIEW MODE: Use dedicated preview API (service-role, no auth needed)
+            if (previewToken) {
+                const res = await fetch(`/api/articles/preview?slug=${encodeURIComponent(slug)}`);
+                if (!res.ok) {
+                    setNotFound(true);
+                    setLoading(false);
+                    return;
+                }
+                const data = await res.json();
+                if (data.article) {
+                    setArticle(data.article);
+                } else {
+                    setNotFound(true);
+                }
+                setLoading(false);
+                return;
+            }
+
+            // PUBLIC MODE: Use client-safe Supabase (only published articles)
             const { createClient } = await import('@/lib/supabase/client');
             const supabase = createClient();
             
             let query = supabase
                 .from('articles')
-                .select('*, author:authors!author_id(*)') // specific inner/left join hint if needed, or just authors(*)
-                .eq('slug', slug);
-
-            // Preview mode: fetch any status if user is authenticated
-            if (previewToken) {
-                const { data: { user } } = await supabase.auth.getUser();
-                if (!user) {
-                    setNotFound(true);
-                    setLoading(false);
-                    return;
-                }
-                // In preview mode, fetch regardless of status
-            } else {
-                // Public mode: only fetch published articles
-                query = query.eq('status', 'published').not('published_at', 'is', null);
-            }
+                .select('*, author:authors!author_id(*)')
+                .eq('slug', slug)
+                .eq('status', 'published')
+                .not('published_at', 'is', null);
 
             const { data: articleData, error } = await query.single();
             

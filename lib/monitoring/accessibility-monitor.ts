@@ -4,8 +4,8 @@
  * Usage: node lib/monitoring/accessibility-monitor.ts
  */
 
-const { exec } = require('child_process');
-const https = require('https');
+import { exec } from 'child_process';
+import https from 'https';
 
 // Configuration
 const PAGES_TO_TEST = [
@@ -16,8 +16,13 @@ const PAGES_TO_TEST = [
 
 const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
 
-function runLighthouse(url) {
-  return new Promise((resolve, reject) => {
+interface LighthouseResult {
+  url: string;
+  score: number;
+}
+
+function runLighthouse(url: string): Promise<LighthouseResult | null> {
+    return new Promise((resolve) => {
     console.log(`Testing ${url}...`);
     const command = `npx lighthouse ${url} --only-categories=accessibility --output=json --chrome-flags="--headless"`;
     
@@ -43,7 +48,7 @@ function runLighthouse(url) {
 async function monitor() {
   console.log('🚀 Starting Accessibility Monitor...\n');
   
-  const results = [];
+  const results: LighthouseResult[] = [];
   
   for (const url of PAGES_TO_TEST) {
     const result = await runLighthouse(url);

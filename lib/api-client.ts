@@ -20,7 +20,7 @@ export const apiClient = {
                 .from('user_profiles')
                 .select('*')
                 .eq('id', user.id)
-                .single();
+                .maybeSingle();
                 
             return profile ? { ...user, ...profile } : user;
         },
@@ -298,6 +298,17 @@ export const apiClient = {
 
         Article: {
             list: async (order?: string, limit?: number, includeAllStatuses?: boolean) => {
+                if (includeAllStatuses) {
+                    const response = await fetch(`/api/admin/articles?limit=${limit || 500}${order ? `&order=${order}` : ''}&includeDeleted=true`);
+                    if (!response.ok) {
+                        const error = await response.json().catch(() => ({ message: 'Failed to fetch articles' }));
+                        throw new Error(error.message || 'Failed to fetch articles');
+                    }
+                    const result = await response.json();
+                    // Return only the articles array for compatibility with existing UI
+                    return result.articles || [];
+                }
+
                 let query = supabase
                     .from('articles')
                     .select('*');
@@ -372,6 +383,28 @@ export const apiClient = {
                     .single();
                 if (error) throw error;
                 return data;
+            },
+            delete: async (id: string) => {
+                const response = await fetch(`/api/admin/articles/${id}`, {
+                    method: 'DELETE'
+                });
+                if (!response.ok) {
+                    const error = await response.json().catch(() => ({ message: 'Failed to delete article' }));
+                    throw new Error(error.message || 'Failed to delete article');
+                }
+                return await response.json();
+            },
+            bulkAction: async (action: 'publish' | 'archive' | 'delete' | 'unpublish' | 'restore', ids: string[]) => {
+                const response = await fetch('/api/bulk-operations', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action, articleIds: ids })
+                });
+                if (!response.ok) {
+                    const error = await response.json().catch(() => ({ message: `Failed to ${action} articles` }));
+                    throw new Error(error.message || `Failed to ${action} articles`);
+                }
+                return await response.json();
             }
         },
 

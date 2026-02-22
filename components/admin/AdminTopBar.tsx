@@ -2,17 +2,14 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { ExternalLink, Settings, LogOut } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
-import { CATEGORIES, getActiveCategory } from '@/lib/admin/navigation-config';
-import Logo from '@/components/common/Logo';
+import AdminHeaderNav from './AdminHeaderNav';
 import { cn } from '@/lib/utils';
 
 export default function AdminTopBar() {
   const router = useRouter();
-  const pathname = usePathname();
-  const activeCategory = getActiveCategory(pathname);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -37,55 +34,49 @@ export default function AdminTopBar() {
     <header
       data-admin-header
       role="banner"
-      className="sticky top-0 z-50 w-full h-14 flex items-center border-b border-white/10 bg-slate-900/95 backdrop-blur-md shadow-lg"
+      className="sticky top-0 z-50 w-full h-16 flex items-center border-b border-border bg-background/80 backdrop-blur-md"
     >
-      <div className="relative flex items-center justify-between w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Logo + full site title + CMS badge */}
-        <div className="flex items-center gap-2.5 shrink-0 min-w-0">
-          <Logo href="/admin" variant="dark" size="md" showText={false} />
-          <span className="text-base font-semibold text-slate-900 tracking-tight whitespace-nowrap">
+      <div className="relative flex items-center justify-between w-full px-6">
+        {/* Brand - SaaS Style */}
+        <div className="flex items-center gap-3 shrink-0 min-w-[200px]">
+          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground shadow-lg shadow-primary/20 font-bold">
+            IP
+          </div>
+          <span className="text-lg font-bold text-foreground tracking-tight">
             InvestingPro
           </span>
-          <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold uppercase tracking-wider shrink-0 bg-amber-500/20 text-amber-700 border border-amber-600/40">
+          <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider shrink-0 bg-primary/10 text-primary border border-primary/20">
             CMS
           </span>
         </div>
 
-        {/* Main navigation – center-aligned */}
-        <nav
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-1 overflow-x-auto scrollbar-none max-w-[60%] py-1"
-          aria-label="Main navigation"
-        >
-          <div className="flex items-center gap-1">
-            {CATEGORIES.map((category) => (
-              <TopNavLink 
-                key={category.id} 
-                href={category.defaultPath} 
-                active={activeCategory === category.id}
-                label={category.label}
-              />
-            ))}
-          </div>
-        </nav>
+        {/* Main navigation – Center Aligned */}
+        <div className="flex-1 flex justify-center min-w-0 mx-2">
+            <AdminHeaderNav />
+        </div>
 
-        {/* View site + Account */}
-        <div className="flex items-center gap-2 shrink-0">
+        {/* Right Actions */}
+        <div className="flex items-center gap-3 shrink-0 justify-end min-w-[200px]">
           <Link
             href="/"
             target="_blank"
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-200/50 transition-colors"
+            className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
           >
             <ExternalLink className="h-4 w-4" />
-            <span className="hidden sm:inline">View site</span>
+            <span className="hidden lg:inline">View Site</span>
           </Link>
+
+          <div className="w-px h-6 bg-border mx-1" />
 
           <div className="relative" ref={menuRef}>
             <button
               type="button"
               onClick={() => setUserMenuOpen(!userMenuOpen)}
               className={cn(
-                "inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-slate-700 border-none cursor-pointer transition-colors",
-                userMenuOpen ? "bg-slate-200/70" : "bg-transparent hover:bg-slate-200/50"
+                "inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium border-none cursor-pointer transition-colors",
+                userMenuOpen 
+                    ? "bg-muted text-foreground" 
+                    : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
               )}
               aria-expanded={userMenuOpen}
             >
@@ -94,10 +85,10 @@ export default function AdminTopBar() {
             </button>
 
             {userMenuOpen && (
-              <div className="absolute right-0 top-[calc(100%+8px)] w-[200px] bg-slate-900/95 backdrop-blur-md rounded-md shadow-xl border border-white/10 p-1 z-[100]">
+              <div className="absolute right-0 top-[calc(100%+8px)] w-[200px] bg-card backdrop-blur-md rounded-lg shadow-xl border border-border p-1 z-[100]">
                 <button
                   onClick={handleSignOut}
-                  className="w-full flex items-center gap-2 px-3 py-2 text-sm text-rose-600 bg-transparent hover:bg-rose-100 border-none rounded-sm cursor-pointer text-left transition-colors"
+                  className="w-full flex items-center gap-2 px-3 py-2 text-sm text-error bg-transparent hover:bg-error/10 border-none rounded-md cursor-pointer text-left transition-colors font-medium"
                 >
                   <LogOut className="h-4 w-4" />
                   Sign out
@@ -111,19 +102,3 @@ export default function AdminTopBar() {
   );
 }
 
-// Helper component for navigation links
-function TopNavLink({ href, active, label }: { href: string, active: boolean, label: string }) {
-    return (
-        <Link
-            href={href}
-            className={cn(
-                "inline-flex items-center px-3 py-2 rounded-md text-sm whitespace-nowrap transition-all no-underline",
-                active 
-                    ? "font-semibold text-amber-700 bg-amber-500/20" 
-                    : "font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-200/50"
-            )}
-        >
-            {label}
-        </Link>
-    );
-}

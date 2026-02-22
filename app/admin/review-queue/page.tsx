@@ -4,7 +4,7 @@ import { useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import AdminPageContainer from '@/components/admin/AdminPageContainer';
 import { useQuery } from '@tanstack/react-query';
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@/lib/supabase/client';
 import { 
     CheckCircle2, 
     XCircle, 
@@ -28,10 +28,7 @@ import { formatDistanceToNow } from 'date-fns';
 import Link from 'next/link';
 import { AdminPageHeader, ContentSection, StatCard, StatusBadge, ActionButton } from '@/components/admin/AdminUIKit';
 
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+const supabase = createClient();
 
 export default function ReviewQueuePage() {
     const [selectedArticle, setSelectedArticle] = useState<any>(null);

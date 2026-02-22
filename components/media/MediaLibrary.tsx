@@ -11,16 +11,18 @@ interface MediaLibraryProps {
     onSelect?: (media: MediaFile) => void;
     mode?: 'browse' | 'select';
     selectedId?: string;
+    initialView?: 'grid' | 'upload' | 'stock' | 'bulk' | 'ai';
 }
 
 export function MediaLibrary({ 
     onSelect,
     mode = 'browse',
-    selectedId
+    selectedId,
+    initialView = 'grid'
 }: MediaLibraryProps) {
     const [media, setMedia] = useState<MediaFile[]>([]);
     const [loading, setLoading] = useState(true);
-    const [view, setView] = useState<'grid' | 'upload' | 'stock' | 'bulk' | 'ai'>('grid');
+    const [view, setView] = useState<'grid' | 'upload' | 'stock' | 'bulk' | 'ai'>(initialView);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedFolder, setSelectedFolder] = useState<string>('all');
     const [folders, setFolders] = useState<Array<{ name: string; slug: string; count: number }>>([]);
@@ -36,17 +38,27 @@ export function MediaLibrary({
     const loadMedia = async () => {
         try {
             setLoading(true);
-            const result = await mediaService.listMedia({
+            
+            // Create a timeout promise that rejects after 10 seconds
+            const timeoutPromise = new Promise((_, reject) => {
+                setTimeout(() => reject(new Error('Request timed out')), 10000);
+            });
+
+            const fetchPromise = mediaService.listMedia({
                 limit,
                 offset: (page - 1) * limit,
                 folder: selectedFolder === 'all' ? undefined : selectedFolder,
                 sortBy: 'created_at',
                 sortOrder: 'desc'
             });
+
+            const result = await Promise.race([fetchPromise, timeoutPromise]) as { data: MediaFile[], total: number };
+            
             setMedia(result.data);
             setTotal(result.total);
         } catch (error) {
             console.error('Failed to load media:', error);
+            // Don't leave the user hanging - show empty state or error could be better, but at least stop loading
         } finally {
             setLoading(false);
         }
@@ -106,125 +118,112 @@ export function MediaLibrary({
     const totalPages = Math.ceil(total / limit);
 
     return (
-        <div className="h-full flex flex-col bg-white">
-            {/* Header */}
-            <div className="border-b p-4 bg-slate-50">
-                <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-xl font-bold text-slate-900">Media Library</h2>
-                    <div className="flex gap-2 flex-wrap">
-                        <button
-                            onClick={() => setView('grid')}
-                            className={`px-3 py-2 rounded-lg font-medium transition-colors text-sm ${
-                                view === 'grid'
-                                    ? 'bg-secondary-600 text-white hover:bg-secondary-700'
-                                    : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-                            }`}
+        <div className="h-full flex flex-col bg-white dark:bg-slate-950">
+            {/* Header / Tabs */}
+            <div className="flex-none bg-white dark:bg-slate-950 px-4 pt-4 border-b border-slate-200 dark:border-slate-800">
+                <div className="flex items-center gap-6">
+                   {/* h2 removed */}
+                   
+                   <button
+                       onClick={() => setView('upload')}
+                       className={`pb-4 px-2 text-sm font-medium transition-all relative ${
+                           view === 'upload'
+                               ? 'text-primary-600 dark:text-primary-400'
+                               : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                       }`}
+                   >
+                       Upload Files
+                       {view === 'upload' && (
+                           <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600 dark:bg-primary-400 rounded-t-full" />
+                       )}
+                   </button>
+
+                   <button
+                       onClick={() => setView('grid')}
+                       className={`pb-4 px-2 text-sm font-medium transition-all relative ${
+                           view === 'grid'
+                               ? 'text-primary-600 dark:text-primary-400'
+                               : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                       }`}
+                   >
+                       Media Library
+                       {view === 'grid' && (
+                           <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600 dark:bg-primary-400 rounded-t-full" />
+                       )}
+                   </button>
+
+                   <button
+                       onClick={() => setView('stock')}
+                       className={`pb-4 px-2 text-sm font-medium transition-all relative ${
+                           view === 'stock'
+                               ? 'text-primary-600 dark:text-primary-400'
+                               : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                       }`}
+                   >
+                       Stock Photos
+                       {view === 'stock' && (
+                           <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600 dark:bg-primary-400 rounded-t-full" />
+                       )}
+                   </button>
+
+                   <button
+                       onClick={() => setView('ai')}
+                       className={`pb-4 px-2 text-sm font-medium transition-all relative ${
+                           view === 'ai'
+                               ? 'text-primary-600 dark:text-primary-400'
+                               : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                       }`}
+                   >
+                       AI Generate
+                       {view === 'ai' && (
+                           <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600 dark:bg-primary-400 rounded-t-full" />
+                       )}
+                   </button>
+                </div>
+            </div>
+
+            {/* Toolbar (Only visible in Media Library view) */}
+            {view === 'grid' && (
+                <div className="flex-none p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex flex-col sm:flex-row gap-4 items-center justify-between">
+                    {/* Filters */}
+                    <div className="flex items-center gap-2 w-full sm:w-auto overflow-x-auto no-scrollbar">
+                        <select
+                            value={selectedFolder}
+                            onChange={(e) => setSelectedFolder(e.target.value)}
+                            className="h-9 px-3 text-sm bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 dark:text-white"
                         >
-                            📁 Browse ({total})
-                        </button>
-                        <button
-                            onClick={() => setView('upload')}
-                            className={`px-3 py-2 rounded-lg font-medium transition-colors text-sm ${
-                                view === 'upload'
-                                    ? 'bg-secondary-600 text-white hover:bg-secondary-700'
-                                    : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-                            }`}
+                            <option value="all">All media items</option>
+                            {folders.map(folder => (
+                                <option key={folder.slug} value={folder.slug}>
+                                    {folder.name}
+                                </option>
+                            ))}
+                        </select>
+                        <button 
+                            onClick={loadMedia} // Refresh
+                            className="p-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+                            title="Refresh"
                         >
-                            ⬆️ Upload
+                            🔄
                         </button>
-                        <button
-                            onClick={() => setView('stock')}
-                            className={`px-3 py-2 rounded-lg font-medium transition-colors text-sm ${
-                                view === 'stock'
-                                    ? 'bg-secondary-600 text-white hover:bg-secondary-700'
-                                    : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-                            }`}
-                        >
-                            📸 Stock Photos
-                        </button>
-                        <button
-                            onClick={() => setView('bulk')}
-                            className={`px-3 py-2 rounded-lg font-medium transition-colors text-sm ${
-                                view === 'bulk'
-                                    ? 'bg-secondary-600 text-white hover:bg-secondary-700'
-                                    : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-                            }`}
-                        >
-                            📤 Bulk Upload
-                        </button>
-                        <button
-                            onClick={() => setView('ai')}
-                            className={`px-3 py-2 rounded-lg font-medium transition-colors text-sm ${
-                                view === 'ai'
-                                    ? 'bg-secondary-600 text-white hover:bg-secondary-700'
-                                    : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-                            }`}
-                        >
-                            🎨 AI Generate
-                        </button>
+                    </div>
+
+                    {/* Search */}
+                    <div className="relative w-full sm:w-64">
+                         <input
+                            type="text"
+                            placeholder="Search media items..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                            className="w-full h-9 pl-9 pr-4 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-md shadow-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary-500 dark:text-white placeholder-slate-400"
+                        />
+                        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">
+                            🔍
+                        </div>
                     </div>
                 </div>
-
-                {view === 'grid' && (
-                    <div className="space-y-3">
-                        {/* Search */}
-                        <div className="flex gap-2">
-                            <input
-                                type="text"
-                                placeholder="Search images..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                                className="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                            />
-                            <button
-                                onClick={handleSearch}
-                                className="px-4 py-2 bg-secondary-600 text-white rounded-lg hover:bg-secondary-700 font-medium"
-                            >
-                                🔍 Search
-                            </button>
-                            {searchQuery && (
-                                <button
-                                    onClick={() => {
-                                        setSearchQuery('');
-                                        loadMedia();
-                                    }}
-                                    className="px-4 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 font-medium"
-                                >
-                                    Clear
-                                </button>
-                            )}
-                        </div>
-
-                        {/* Folder Filter */}
-                        <div className="flex gap-2 flex-wrap">
-                            <button
-                                onClick={() => setSelectedFolder('all')}
-                                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-                                    selectedFolder === 'all'
-                                        ? 'bg-primary text-white'
-                                        : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-                                }`}
-                            >
-                                All ({total})
-                            </button>
-                            {folders.map(folder => (
-                                <button
-                                    key={folder.slug}
-                                    onClick={() => setSelectedFolder(folder.slug)}
-                                    className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-                                        selectedFolder === folder.slug
-                                            ? 'bg-primary text-white'
-                                            : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-                                    }`}
-                                >
-                                    {folder.name} ({folder.count})
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                )}
-            </div>
+            )}
 
             {/* Content */}
             <div className="flex-1 overflow-auto p-4">
@@ -252,7 +251,7 @@ export function MediaLibrary({
                     <div className="flex items-center justify-center h-64">
                         <div className="text-center">
                             <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mx-auto mb-4"></div>
-                            <p className="text-slate-500">Loading media...</p>
+                            <p className="text-slate-500 dark:text-slate-400">Loading media...</p>
                         </div>
                     </div>
                 ) : media.length === 0 ? (

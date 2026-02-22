@@ -5,6 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { invalidateAllArticlesCache } from '@/lib/cache/cache-invalidation';
 
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -60,11 +61,18 @@ export async function POST(request: NextRequest) {
                 result = await bulkUpdateAuthor(articleIds, data.authorId);
                 break;
             
+            case 'restore':
+                result = await bulkRestore(articleIds);
+                break;
+            
             default:
                 return NextResponse.json({ 
                     error: `Unknown action: ${action}` 
                 }, { status: 400 });
         }
+
+        // Invalidate cache after successful bulk operation
+        await invalidateAllArticlesCache();
 
         return NextResponse.json({
             success: true,
@@ -160,7 +168,7 @@ async function bulkAddTags(articleIds: string[], newTags: string[]) {
     // Update each article with merged tags
     const updates = articles?.map(article => ({
         id: article.id,
-        tags: [...new Set([...(article.tags || []), ...newTags])]
+        tags: Array.from(new Set([...(article.tags || []), ...newTags]))
     })) || [];
 
     let count = 0;
@@ -182,6 +190,20 @@ async function bulkUpdateAuthor(articleIds: string[], authorId: string) {
     const { data, error } = await supabase
         .from('articles')
         .update({ author_id: authorId })
+        .in('id', articleIds)
+        .select();
+
+    if (error) throw error;
+    return { count: data?.length || 0 };
+}
+
+async function bulkRestore(articleIds: string[]) {
+    const { data, error } = await supabase
+        .from('articles')
+        .update({ 
+            deleted_at: null,
+            deleted_by: null
+        })
         .in('id', articleIds)
         .select();
 

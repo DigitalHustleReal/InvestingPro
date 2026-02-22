@@ -24,6 +24,7 @@ const ALLOWED_ELEMENTS = [
     'blockquote',
     'hr',
     'table', 'thead', 'tbody', 'tr', 'th', 'td',
+    'a', // Hyperlinks allowed
 ];
 
 /**
@@ -39,9 +40,11 @@ export function normalizeArticleBody(input: string | null | undefined): string {
 
     const trimmed = input.trim();
 
-    // Step 1: Convert markdown to HTML if needed
+    // Step 1: Convert ALL formats to clean HTML
     let html = '';
-    if (isMarkdown(trimmed)) {
+    if (isJSON(trimmed)) {
+        html = jsonToHTML(trimmed);
+    } else if (isMarkdown(trimmed)) {
         html = markdownToHTML(trimmed);
     } else if (isHTML(trimmed)) {
         html = trimmed;
@@ -81,6 +84,60 @@ function isMarkdown(content: string): boolean {
  */
 function isHTML(content: string): boolean {
     return /<[a-z][\s\S]*>/i.test(content);
+}
+
+/**
+ * Check if content is JSON
+ */
+function isJSON(content: string): boolean {
+    try {
+        const trimmed = content.trim();
+        return (trimmed.startsWith('{') && trimmed.endsWith('}')) || 
+               (trimmed.startsWith('[') && trimmed.endsWith(']'));
+    } catch {
+        return false;
+    }
+}
+
+/**
+ * Convert JSON structured content to HTML
+ */
+function jsonToHTML(jsonStr: string): string {
+    try {
+        const parsed = JSON.parse(jsonStr);
+        
+        // Handle array of sections: [{"section": "...", "details": "..."}, ...]
+        if (Array.isArray(parsed)) {
+            return parsed.map(item => {
+                const heading = item.section || item.heading || item.title || '';
+                const body = item.details || item.content || item.body || item.text || '';
+                
+                let html = '';
+                if (heading) {
+                    html += `<h2>${escapeHTML(heading)}</h2>\n`;
+                }
+                if (body) {
+                    // Body might be markdown or plaintext
+                    html += normalizeArticleBody(body);
+                }
+                return html;
+            }).join('\n\n');
+        }
+        
+        // Handle single object with content field
+        if (typeof parsed === 'object' && parsed !== null) {
+            const content = parsed.content || parsed.article || parsed.body || parsed.text;
+            if (content) {
+                if (typeof content === 'string') return normalizeArticleBody(content);
+                if (typeof content === 'object') return jsonToHTML(JSON.stringify(content));
+            }
+        }
+        
+        return plaintextToHTML(jsonStr);
+    } catch (error) {
+        console.error('Error converting JSON to HTML:', error);
+        return plaintextToHTML(jsonStr);
+    }
 }
 
 /**

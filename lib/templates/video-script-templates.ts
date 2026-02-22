@@ -399,13 +399,13 @@ export function selectVideoScriptTemplate(
 ): VideoScriptTemplate {
     const templates: Record<string, VideoScriptTemplate> = {
         'youtube_educational': YOUTUBE_EDUCATIONAL,
-        'instagram_reels': INSTAGRAM_REELS,
-        'tiktok': TIKTOK_VIDEO,
-        'shorts': YOUTUBE_SHORTS
+        'instagram-reels_tips': INSTAGRAM_REELS,
+        'tiktok_tips': TIKTOK_VIDEO,
+        'shorts_tips': YOUTUBE_SHORTS
     };
     
-    const key = `${platform}_${videoType === 'educational' ? 'educational' : videoType === 'tips' ? 'tips' : 'educational'}`;
-    return templates[key] || YOUTUBE_EDUCATIONAL;
+    const key = `${platform}_${videoType}`;
+    return templates[key] || templates['youtube_educational'];
 }
 
 export function getAllVideoScriptTemplates(): VideoScriptTemplate[] {

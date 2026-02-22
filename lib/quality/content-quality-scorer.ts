@@ -101,6 +101,7 @@ interface EEATAnalysis {
     expert_quotes: number;
     publish_date_shown: boolean;
     last_updated_shown: boolean;
+    indian_context_score: number; // New metric
     score: number;
 }
 
@@ -348,15 +349,15 @@ function analyzeEEAT(html: string): EEATAnalysis {
     const authorMentioned = /author|written by|by\s+[A-Z]/i.test(html) || $('.author, .byline').length > 0;
     
     // Credentials
-    const credentials = /(certified|sebi registered|chartered|mba|cfa|experience|expert|advisor)/gi;
+    const credentials = /(certified|sebi registered|chartered|mba|cfa|experience|expert|advisor|analyst|planner)/gi;
     const credentialsShown = (text.match(credentials) || []).length > 0;
     
-    // Sources cited
-    const sourcePatterns = /(source:|according to|study by|research shows|data from)/gi;
-    const sourcesCited = (text.match(sourcePatterns) || []).length + $('cite, .source').length;
+    // Source Linking (Official Authority)
+    const sourcePatterns = /(source:|according to|study by|research shows|data from|rbi|sebi|amfi|nse|bse)/gi;
+    const sourcesCited = (text.match(sourcePatterns) || []).length + $('cite, .source, a[href*="gov.in"], a[href*="org.in"]').length;
     
     // Data points (numbers, percentages, statistics)
-    const dataPoints = (text.match(/\d+(\.\d+)?[%₹]?/g) || []).length;
+    const dataPoints = (text.match(/\d+(\.\d+)?[%]?/g) || []).length;
     
     // Expert quotes
     const quoteCount = $('blockquote').length;
@@ -364,16 +365,21 @@ function analyzeEEAT(html: string): EEATAnalysis {
     // Dates
     const publishDateShown = /published|updated|last modified/i.test(text) || $('[class*="date"], time').length > 0;
     const lastUpdatedShown = /updated|last modified/i.test(text);
+
+     // Indian Financial Context (Crucial for Local Authority)
+    const indianContextPatterns = /(₹|rs\.|rupees|lakh|crore|rbi|sebi|pan card|aadhaar|nifty|sensex)/gi;
+    const indianContextCount = (text.match(indianContextPatterns) || []).length;
+    const indianContextScore = Math.min(indianContextCount / 5 * 20, 20); // Cap at 20 points
     
     // Score (out of 100)
     let score = 0;
-    score += authorMentioned ? 15 : 0;
-    score += credentialsShown ? 20 : 0;
-    score += Math.min(sourcesCited / 3 * 20, 20);
-    score += Math.min(dataPoints / 10 * 20, 20);
-    score += Math.min(quoteCount / 2 * 15, 15);
+    score += authorMentioned ? 10 : 0;
+    score += credentialsShown ? 15 : 0; // Increased importance
+    score += Math.min(sourcesCited / 3 * 15, 15); // Authority links
+    score += Math.min(dataPoints / 10 * 15, 15); // Evidence
+    score += Math.min(quoteCount / 2 * 10, 10);
     score += publishDateShown ? 5 : 0;
-    score += lastUpdatedShown ? 5 : 0;
+    score += indianContextScore; // Up to 20 points for localization
     
     return {
         author_mentioned: authorMentioned,
@@ -383,6 +389,7 @@ function analyzeEEAT(html: string): EEATAnalysis {
         expert_quotes: quoteCount,
         publish_date_shown: publishDateShown,
         last_updated_shown: lastUpdatedShown,
+        indian_context_score: indianContextScore,
         score: Math.min(Math.round(score), 100)
     };
 }
@@ -544,6 +551,7 @@ ${score.recommendations.map(r => `- 💡 ${r}`).join('\n')}
 - Author Mentioned: ${score.eeat.author_mentioned ? 'Yes' : 'No'}
 - Credentials Shown: ${score.eeat.credentials_shown ? 'Yes' : 'No'}
 - Sources Cited: ${score.eeat.sources_cited}
+- Indian Context Score: ${score.eeat.indian_context_score}/20
 - Data Points: ${score.eeat.data_points}
 - Expert Quotes: ${score.eeat.expert_quotes}
     `.trim();

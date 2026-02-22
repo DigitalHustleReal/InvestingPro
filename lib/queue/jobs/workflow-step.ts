@@ -70,7 +70,7 @@ export const workflowStepJob = inngest.createFunction(
       await storeJobStatus(
         jobId,
         'completed',
-        null,
+        {},
         'workflow-step',
         result
       );
@@ -89,7 +89,7 @@ export const workflowStepJob = inngest.createFunction(
       await storeJobStatus(
         jobId,
         'failed',
-        null,
+        {},
         'workflow-step',
         null,
         errorMessage

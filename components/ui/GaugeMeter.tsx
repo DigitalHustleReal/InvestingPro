@@ -17,6 +17,13 @@ interface GaugeMeterProps {
     unit?: string;
 }
 
+/** Text labels for each band — used alongside color for color-blind users. */
+const BAND_LABELS = {
+    low:    { short: 'Low',    detail: 'Needs Work'    },
+    medium: { short: 'Medium', detail: 'Getting There' },
+    high:   { short: 'High',   detail: 'Excellent'     },
+} as const;
+
 export function GaugeMeter({
     value,
     min = 0,
@@ -27,58 +34,71 @@ export function GaugeMeter({
     showValue = true,
     unit = '%'
 }: GaugeMeterProps) {
-    // Default consistent color scheme (teal/emerald for positive, red for negative)
+    // Default consistent color scheme — orange replaces red so color-blind users
+    // can distinguish Low/High without relying solely on hue.
     const defaultColors = {
-        low: '#ef4444', // red for negative/low
+        low:    '#f97316', // orange  (visible to deuteranopes)
         medium: '#14b8a6', // teal
-        high: '#10b981' // emerald
+        high:   '#10b981', // emerald
     };
     const gaugeColors = colors || defaultColors;
-    
+
     // Clamp value between min and max
     const clampedValue = Math.max(min, Math.min(max, value));
     // Calculate percentage for the gauge (0-100)
     const percentage = ((clampedValue - min) / (max - min)) * 100;
-    
-    // Determine color based on percentage (consistent across all calculators)
-    let color = gaugeColors.high; // Default to emerald
-    if (percentage < 40) color = gaugeColors.low; // Red for low
-    else if (percentage < 70) color = gaugeColors.medium; // Teal for medium
-    
-    // Gauge arc calculations (180 degree arc)
-    const radius = size * 0.35;
-    const centerX = size / 2;
-    const centerY = size * 0.65;
+
+    // Determine color & band based on percentage
+    let color = gaugeColors.high;
+    let band: keyof typeof BAND_LABELS = 'high';
+    if (percentage < 40)      { color = gaugeColors.low;    band = 'low';    }
+    else if (percentage < 70) { color = gaugeColors.medium; band = 'medium'; }
+
+    // Gauge arc calculations (180-degree arc)
+    const radius      = size * 0.35;
+    const centerX     = size / 2;
+    const centerY     = size * 0.65;
     const strokeWidth = size * 0.08;
-    
-    // Start angle: -180 degrees (left side), End angle: 0 degrees (right side)
-    const startAngle = -180;
-    const endAngle = 0;
+
+    const startAngle   = -180;
+    const endAngle     = 0;
     const currentAngle = startAngle + (percentage / 100) * (endAngle - startAngle);
-    
-    // Convert angles to radians
-    const startRad = (startAngle * Math.PI) / 180;
-    const endRad = (currentAngle * Math.PI) / 180;
-    
-    // Calculate arc path
+
+    const startRad = (startAngle   * Math.PI) / 180;
+    const endRad   = (currentAngle * Math.PI) / 180;
+
     const startX = centerX + radius * Math.cos(startRad);
     const startY = centerY + radius * Math.sin(startRad);
-    const endX = centerX + radius * Math.cos(endRad);
-    const endY = centerY + radius * Math.sin(endRad);
-    
+    const endX   = centerX + radius * Math.cos(endRad);
+    const endY   = centerY + radius * Math.sin(endRad);
+
     const largeArcFlag = percentage > 50 ? 1 : 0;
     const arcPath = `M ${startX} ${startY} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${endX} ${endY}`;
-    
-    // Background arc
-    const bgEndRad = (endAngle * Math.PI) / 180;
-    const bgEndX = centerX + radius * Math.cos(bgEndRad);
-    const bgEndY = centerY + radius * Math.sin(bgEndRad);
+
+    // Background arc (full 180°)
+    const bgEndRad  = (endAngle * Math.PI) / 180;
+    const bgEndX    = centerX + radius * Math.cos(bgEndRad);
+    const bgEndY    = centerY + radius * Math.sin(bgEndRad);
     const bgArcPath = `M ${startX} ${startY} A ${radius} ${radius} 0 0 1 ${bgEndX} ${bgEndY}`;
-    
+
+    const accessibleLabel =
+        `${label ? label + ': ' : ''}${clampedValue}${unit} — ${BAND_LABELS[band].short} (${BAND_LABELS[band].detail})`;
+
     return (
         <div className="flex flex-col items-center justify-center w-full">
             <div className="relative w-full max-w-[120px] sm:max-w-none" style={{ width: size, height: size * 0.7 }}>
-                <svg className="w-full h-auto" width={size} height={size * 0.7} viewBox={`0 0 ${size} ${size * 0.7}`} preserveAspectRatio="xMidYMid meet">
+                <svg
+                    className="w-full h-auto"
+                    width={size}
+                    height={size * 0.7}
+                    viewBox={`0 0 ${size} ${size * 0.7}`}
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    aria-label={accessibleLabel}
+                >
+                    {/* Screen-reader title */}
+                    <title>{accessibleLabel}</title>
+
                     {/* Background arc */}
                     <path
                         d={bgArcPath}
@@ -96,7 +116,7 @@ export function GaugeMeter({
                         strokeLinecap="round"
                         className="transition-all duration-500 ease-out"
                     />
-                    {/* Needle/Center dot */}
+                    {/* Centre dot */}
                     <circle
                         cx={centerX}
                         cy={centerY}
@@ -105,10 +125,10 @@ export function GaugeMeter({
                         className="transition-all duration-500 ease-out"
                     />
                 </svg>
-                
-                {/* Value text */}
+
+                {/* Numeric value */}
                 {showValue && (
-                    <div 
+                    <div
                         className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center w-full"
                         style={{ bottom: size * 0.05 }}
                     >
@@ -124,7 +144,15 @@ export function GaugeMeter({
                     </div>
                 )}
             </div>
+
+            {/* Accessible band label — text supplement to color for color-blind users */}
+            <div
+                className="mt-1 text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full"
+                style={{ color, backgroundColor: `${color}18` }}
+                aria-hidden="true"
+            >
+                {BAND_LABELS[band].short} · {BAND_LABELS[band].detail}
+            </div>
         </div>
     );
 }
-

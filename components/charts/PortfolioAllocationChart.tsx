@@ -7,6 +7,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
+import { CHART_PALETTE, CHARTJS_TOOLTIP_DEFAULTS } from '@/lib/charts/theme';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -19,23 +20,13 @@ interface PortfolioAllocationChartProps {
  * Shows portfolio distribution by holdings
  */
 export function PortfolioAllocationChart({ holdings }: PortfolioAllocationChartProps) {
-  const colors = [
-    '#3b82f6', // Blue
-    '#10b981', // Green
-    '#f59e0b', // Amber
-    '#ef4444', // Red
-    '#8b5cf6', // Purple
-    '#ec4899', // Pink
-    '#06b6d4', // Cyan
-    '#f97316', // Orange
-  ];
-
   const chartData = {
     labels: holdings.map(h => h.name),
     datasets: [
       {
         data: holdings.map(h => h.value),
-        backgroundColor: holdings.map((h, i) => h.color || colors[i % colors.length]),
+        // Prefer per-holding override colour, then cycle through brand palette
+        backgroundColor: holdings.map((h, i) => h.color || CHART_PALETTE[i % CHART_PALETTE.length]),
         borderColor: '#ffffff',
         borderWidth: 2,
         hoverOffset: 10,
@@ -51,17 +42,13 @@ export function PortfolioAllocationChart({ holdings }: PortfolioAllocationChartP
         position: 'right' as const,
         labels: {
           padding: 15,
-          font: {
-            size: 12,
-          },
+          font: { size: 12 },
           generateLabels: function(chart: any) {
             const data = chart.data;
             const total = data.datasets[0].data.reduce((a: number, b: number) => a + b, 0);
-            
             return data.labels.map((label: string, i: number) => {
               const value = data.datasets[0].data[i];
               const percentage = ((value / total) * 100).toFixed(1);
-              
               return {
                 text: `${label} (${percentage}%)`,
                 fillStyle: data.datasets[0].backgroundColor[i],
@@ -73,8 +60,7 @@ export function PortfolioAllocationChart({ holdings }: PortfolioAllocationChartP
         },
       },
       tooltip: {
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-        padding: 12,
+        ...CHARTJS_TOOLTIP_DEFAULTS,
         callbacks: {
           label: function(context: any) {
             const label = context.label || '';

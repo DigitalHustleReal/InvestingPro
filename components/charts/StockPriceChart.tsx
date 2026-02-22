@@ -12,6 +12,7 @@ import {
   Legend,
   Filler
 } from 'chart.js';
+import { CHART_COLORS, CHART_COLORS_ALPHA, CHARTJS_TOOLTIP_DEFAULTS, CHARTJS_GRID_COLOR } from '@/lib/charts/theme';
 
 // Register Chart.js components
 ChartJS.register(
@@ -41,8 +42,8 @@ export function StockPriceChart({ data, symbol }: StockPriceChartProps) {
       {
         label: `${symbol} Price`,
         data: data.map(d => d.price),
-        borderColor: 'rgb(59, 130, 246)', // Blue
-        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+        borderColor: CHART_COLORS.primary,
+        backgroundColor: CHART_COLORS_ALPHA.primary,
         fill: true,
         tension: 0.4,
         pointRadius: 0,
@@ -56,22 +57,16 @@ export function StockPriceChart({ data, symbol }: StockPriceChartProps) {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: {
-        display: false,
-      },
+      legend: { display: false },
       title: {
         display: true,
         text: `${symbol} Price History`,
-        font: {
-          size: 16,
-          weight: 'bold' as const,
-        },
+        font: { size: 16, weight: 'bold' as const },
       },
       tooltip: {
+        ...CHARTJS_TOOLTIP_DEFAULTS,
         mode: 'index' as const,
         intersect: false,
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-        padding: 12,
         callbacks: {
           label: function(context: any) {
             return `₹${context.parsed.y.toFixed(2)}`;
@@ -81,17 +76,11 @@ export function StockPriceChart({ data, symbol }: StockPriceChartProps) {
     },
     scales: {
       x: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          maxTicksLimit: 8,
-        },
+        grid: { display: false },
+        ticks: { maxTicksLimit: 8 },
       },
       y: {
-        grid: {
-          color: 'rgba(0, 0, 0, 0.05)',
-        },
+        grid: { color: CHARTJS_GRID_COLOR },
         ticks: {
           callback: function(value: any) {
             return '₹' + value.toLocaleString();

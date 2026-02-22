@@ -37,13 +37,21 @@ export default function AdminProductsPage() {
     const [selectedCategory, setSelectedCategory] = useState('all');
     const queryClient = useQueryClient();
 
-    const { data: products = [], isLoading, refetch } = useQuery({
+    const { data, isLoading, refetch } = useQuery({
         queryKey: ['admin-products', selectedCategory],
-        queryFn: () => productService.getProducts({ 
-            category: selectedCategory !== 'all' ? selectedCategory : undefined,
-            includeInactive: true 
-        })
+        queryFn: async () => {
+            const params = new URLSearchParams();
+            if (selectedCategory !== 'all') params.append('category', selectedCategory);
+            params.append('limit', '100'); // Valid limit for now, until pagination UI
+            
+            const res = await fetch(`/api/admin/products?${params.toString()}`);
+            if (!res.ok) throw new Error('Failed to fetch products');
+            return res.json();
+        }
     });
+    
+    // Handle both array (legacy) and paginated response
+    const products = Array.isArray(data) ? data : (data?.products || []);
 
     const toggleMutation = useMutation({
         mutationFn: ({ id, isActive }: { id: string; isActive: boolean }) => 
@@ -64,7 +72,7 @@ export default function AdminProductsPage() {
         onError: (error: any) => toast.error(error.message)
     });
 
-    const filteredProducts = products.filter(p => 
+    const filteredProducts = products.filter((p: any) => 
         p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         p.provider_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -137,12 +145,12 @@ export default function AdminProductsPage() {
                         <table className="w-full min-w-[900px]">
                             <thead>
                                 <tr className="border-b border-border dark:border-border">
-                                    <th className="px-6 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Product</th>
+                                    <th className="pl-6 pr-4 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Product</th>
                                     <th className="px-4 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Category</th>
                                     <th className="px-4 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Trust Score</th>
                                     <th className="px-4 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Status</th>
                                     <th className="px-4 py-4 text-left text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Active</th>
-                                    <th className="px-4 py-4 text-right text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Actions</th>
+                                    <th className="pl-4 pr-6 py-4 text-right text-xs font-medium text-muted-foreground/70 dark:text-muted-foreground/70 uppercase">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-white/5">
@@ -155,7 +163,7 @@ export default function AdminProductsPage() {
                                 ) : (
                                     filteredProducts.map(product => (
                                         <tr key={product.id} className={`group hover:bg-white/5 transition-colors ${!product.is_active ? 'opacity-50' : ''}`}>
-                                            <td className="px-6 py-4">
+                                            <td className="pl-6 pr-4 py-4">
                                                 <div className="flex items-center gap-3">
                                                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-danger-500/20 to-danger-500/20 border border-danger-500/30 flex items-center justify-center">
                                                         <Package className="w-5 h-5 text-danger-400" />
@@ -200,7 +208,7 @@ export default function AdminProductsPage() {
                                                     {product.is_active ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
                                                 </button>
                                             </td>
-                                            <td className="px-4 py-4">
+                                            <td className="pl-4 pr-6 py-4">
                                                 <div className="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                                     <Link href={`/admin/products/${product.id}`}>
                                                         <button className="p-2 hover:bg-white/10 rounded-lg text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:text-foreground transition-colors">

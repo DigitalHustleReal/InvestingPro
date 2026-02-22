@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { ActionButton, StatusBadge } from './AdminUIKit';
-import { ADMIN_THEME } from '@/lib/admin/theme';
+import { Card, CardContent } from '@/components/ui/card';
 import { 
     RefreshCw, 
     Play, 
@@ -124,7 +124,7 @@ function ScraperCard({ scraper, onExecute, isExecuting }: any) {
     const runs = runsData || [];
     const lastRun = runs[0];
     
-    const getStatusType = (status: string) => {
+    const getStatusType = (status: string): 'completed' | 'error' | 'processing' | 'neutral' => {
         switch (status) {
             case 'completed': return 'completed';
             case 'failed': return 'error';

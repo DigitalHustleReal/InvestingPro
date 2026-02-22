@@ -1,16 +1,20 @@
+
 import { type NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { rateLimit } from '@/lib/middleware/rate-limit';
 import '@/lib/env-validator'; // Runtime validation of critical variables
+import { metricsStore } from '@/lib/metrics/store';
 
 export async function middleware(request: NextRequest) {
+  const startTime = Date.now();
+  
   let response = NextResponse.next({
     request: {
       headers: request.headers,
     },
   });
 
-  // Apply Rate Limiting (Audit 1, Item 47: Fail-closed)
+  // Apply Rate Limiting
   const path = request.nextUrl.pathname;
   if (path.startsWith('/api') || path.startsWith('/admin')) {
     const type = path.startsWith('/admin') ? 'admin' : (path.startsWith('/api/ai') ? 'ai' : 'public');
@@ -36,24 +40,19 @@ export async function middleware(request: NextRequest) {
           cookiesToSet.forEach(({ name, value, options }) =>
             request.cookies.set(name, value)
           );
-          // Note: response is CONST now, but we need to update it? 
-          // Original code had `let response = ...` and updated it.
-          // Let's stick to consistent logic.
         },
       },
     }
   );
 
-  // Refresh session if expired - required for Server Components
+  // Refresh session if expired
   const { data: { user } } = await supabase.auth.getUser();
 
   // Protected Routes Logic
   if (request.nextUrl.pathname.startsWith('/admin') || request.nextUrl.pathname.startsWith('/api/admin')) {
     if (request.nextUrl.pathname.startsWith('/admin/login') || request.nextUrl.pathname.startsWith('/admin/signup')) {
-        return response;
-    }
-
-    if (!user) {
+        // Pass through
+    } else if (!user) {
       if (request.nextUrl.pathname.startsWith('/api/')) {
          return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
       }
@@ -62,6 +61,23 @@ export async function middleware(request: NextRequest) {
       redirectUrl.searchParams.set('redirect', request.nextUrl.pathname);
       return NextResponse.redirect(redirectUrl);
     }
+  }
+
+  // Record Metrics (Non-blocking / Fire-and-forget)
+  // We Wrap in try-catch to ensure middleware never fails due to metrics
+  try {
+      const duration = Date.now() - startTime;
+      metricsStore.recordRequest({
+          method: request.method,
+          path: request.nextUrl.pathname,
+          statusCode: response.status,
+          duration: duration,
+          timestamp: new Date().toISOString(),
+          ip: request.ip || 'unknown'
+      });
+  } catch (e) {
+      // Ignore metrics errors in production to prevent blocking requests
+      // console.error('Metrics recording failed', e);
   }
 
   return response;

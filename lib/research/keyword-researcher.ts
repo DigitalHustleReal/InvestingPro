@@ -93,7 +93,7 @@ function getSupabaseClient() {
 
 async function getCachedKeywordData(keyword: string): Promise<KeywordData | null> {
     try {
-        const supabase = getSupabaseClient();
+        const supabase = getSupabaseClient() as any;
         const cacheKey = keyword.toLowerCase().trim();
         
         const { data, error } = await supabase
@@ -103,10 +103,10 @@ async function getCachedKeywordData(keyword: string): Promise<KeywordData | null
             .gte('cached_at', new Date(Date.now() - CACHE_TTL_DAYS * 24 * 60 * 60 * 1000).toISOString())
             .single();
 
-        if (error || !data) return null;
+        if (error || !data || !(data as any).data) return null;
 
         console.log(`✅ Keyword cache HIT for "${keyword}"`);
-        return data.data as KeywordData;
+        return (data as any).data as KeywordData;
     } catch (error) {
         return null;
     }
@@ -114,7 +114,7 @@ async function getCachedKeywordData(keyword: string): Promise<KeywordData | null
 
 async function cacheKeywordData(keyword: string, data: KeywordData): Promise<void> {
     try {
-        const supabase = getSupabaseClient();
+        const supabase = getSupabaseClient() as any;
         const cacheKey = keyword.toLowerCase().trim();
 
         await supabase.from('keyword_research_cache').upsert({

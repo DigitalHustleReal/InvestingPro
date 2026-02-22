@@ -4,7 +4,7 @@ import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { Clock } from 'lucide-react';
 import { AdminCard } from '@/components/admin/system/AdminCard';
-import { ADMIN_THEME } from '@/lib/admin/theme';
+import { cn } from '@/lib/utils';
 
 interface ActivityItem {
     id: string;
@@ -16,114 +16,56 @@ interface ActivityItem {
 
 export default function ActivityTimeline({ activities = [] }: { activities: ActivityItem[] }) {
     
-    // Status color mapping using Theme
+    // Status color mapping
     const getStatusColor = (status: string) => {
         switch(status) {
-            case 'published': return ADMIN_THEME.colors.status.success.icon;
-            case 'draft': return ADMIN_THEME.colors.text.light;
-            default: return ADMIN_THEME.colors.accent.default;
+            case 'published': return 'bg-success';
+            case 'draft': return 'bg-muted-foreground';
+            default: return 'bg-primary';
         }
-    };
-
-    const headerStyle: React.CSSProperties = {
-        padding: '20px 24px 12px',
-        fontSize: '15px',
-        fontWeight: 700,
-        color: ADMIN_THEME.colors.text.main,
     };
 
     if (!activities.length) {
         return (
-            <AdminCard noPadding style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                <div style={headerStyle}>Recent Activity</div>
-                <div style={{
-                    flex: 1,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '32px 0',
-                    color: ADMIN_THEME.colors.text.light,
-                }}>
-                    <Clock style={{ width: 32, height: 32, opacity: 0.25, marginBottom: 8 }} />
-                    <p style={{ fontSize: '14px' }}>No recent activity</p>
+            <AdminCard noPadding className="h-full flex flex-col">
+                <div className="px-6 py-5 pb-3 text-[15px] font-bold text-foreground">Recent Activity</div>
+                <div className="flex-1 flex flex-col items-center justify-center py-8 text-muted-foreground">
+                    <Clock className="w-8 h-8 opacity-25 mb-2" />
+                    <p className="text-sm">No recent activity</p>
                 </div>
             </AdminCard>
         );
     }
 
     return (
-        <AdminCard noPadding style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-            <div style={headerStyle}>Recent Activity</div>
+        <AdminCard noPadding className="h-full flex flex-col animate-slide-up" style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}>
+            <div className="px-6 py-5 pb-3 text-[15px] font-bold text-foreground">Recent Activity</div>
 
-            <div style={{
-                padding: '8px 24px 24px',
-                position: 'relative',
-                flex: 1,
-                overflowY: 'auto',
-            }}>
+            <div className="px-6 py-2 pb-6 relative flex-1 overflow-y-auto">
                 {/* Vertical timeline line */}
-                <div style={{
-                    position: 'absolute',
-                    left: 28,
-                    top: 16,
-                    bottom: 16,
-                    width: 1,
-                    backgroundColor: ADMIN_THEME.colors.border.subtle,
-                }} />
+                <div className="absolute left-7 top-4 bottom-4 w-px bg-border" />
 
                 {activities.map((item) => (
-                    <div key={item.id} style={{
-                        position: 'relative',
-                        display: 'flex',
-                        gap: 16,
-                        paddingBottom: 20,
-                    }}>
+                    <div key={item.id} className="relative flex gap-4 pb-5">
                         {/* Dot */}
-                        <div style={{
-                            position: 'relative',
-                            zIndex: 1,
-                            marginTop: 6,
-                            width: 8,
-                            height: 8,
-                            borderRadius: '50%',
-                            backgroundColor: getStatusColor(item.status),
-                            boxShadow: `0 0 0 4px ${ADMIN_THEME.colors.bg.surface}`,
-                            flexShrink: 0,
-                        }} />
+                        <div className={cn(
+                            "relative z-10 mt-1.5 w-2 h-2 rounded-full ring-4 ring-card shrink-0",
+                            getStatusColor(item.status)
+                        )} />
 
-                        <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                gap: 8,
-                            }}>
-                                <p style={{
-                                    fontSize: '13px',
-                                    fontWeight: 600,
-                                    color: ADMIN_THEME.colors.text.main,
-                                }}>
+                        <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between gap-2">
+                                <p className="text-[13px] font-semibold text-foreground">
                                     {item.status === 'published' ? 'Published' :
                                      item.status === 'draft' ? 'Created draft' : 'Updated'}
                                 </p>
-                                <span style={{
-                                    fontSize: '11px',
-                                    color: ADMIN_THEME.colors.text.light,
-                                    whiteSpace: 'nowrap',
-                                    flexShrink: 0,
-                                }}>
+                                <span className="text-[11px] text-muted-foreground whitespace-nowrap shrink-0">
                                     {formatDistanceToNow(new Date(item.updated_at), { addSuffix: true })}
                                 </span>
                             </div>
-                            <p style={{
-                                fontSize: '13px',
-                                color: ADMIN_THEME.colors.text.muted,
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                whiteSpace: 'nowrap',
-                                marginTop: 2,
-                            }}>{item.title}</p>
+                            <p className="text-[13px] text-muted-foreground overflow-hidden text-ellipsis whitespace-nowrap mt-0.5">
+                                {item.title}
+                            </p>
                         </div>
                     </div>
                 ))}

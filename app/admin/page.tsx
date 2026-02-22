@@ -107,15 +107,15 @@ export default function AdminDashboardPage() {
                     </div>
 
                     {/* 4. Main Content Grid */}
-                    <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+                    <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
                         {/* Left Column (2/3 width) */}
-                        <div className="space-y-8 lg:col-span-2">
+                        <div className="space-y-6 xl:col-span-2 min-w-0">
                             {/* Advanced Metrics Table */}
                             <AdvancedMetricsTable timeRange={timeRange} />
                         </div>
 
                         {/* Right Column (1/3 width) */}
-                        <div className="space-y-8">
+                        <div className="space-y-6 min-w-0">
                             {/* Recent Activity Timeline */}
                             <div className="h-[400px]">
                                 <ActivityTimeline activities={stats?.recent_activity || []} />

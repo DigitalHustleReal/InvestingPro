@@ -77,7 +77,7 @@ export function SocialPostManager({ articleId }: SocialPostManagerProps) {
     return (
         <div className="space-y-6">
             <div className="flex items-center justify-between">
-                <h3 className="text-sm font-semibold text-wt-text uppercase tracking-wider">
+                <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-300 uppercase tracking-wider">
                     Social Distribution
                 </h3>
                 <Button
@@ -85,7 +85,7 @@ export function SocialPostManager({ articleId }: SocialPostManagerProps) {
                     variant="outline"
                     onClick={generatePosts}
                     disabled={generating || !articleId}
-                    className="h-8"
+                    className="h-8 border-wt-border hover:bg-slate-100 text-slate-700 hover:text-slate-900 dark:border-slate-600 dark:bg-slate-800/50 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-white"
                 >
                     {generating ? (
                         <Loader2 className="w-3 h-3 animate-spin mr-2" />
@@ -97,13 +97,13 @@ export function SocialPostManager({ articleId }: SocialPostManagerProps) {
             </div>
 
             {!articleId && (
-                <div className="text-center py-8 text-wt-text-muted/70 dark:text-wt-text-muted/70 text-sm border-2 border-dashed rounded-lg bg-wt-surface-hover">
+                <div className="text-center py-8 text-slate-500 dark:text-slate-400 text-sm border-2 border-dashed rounded-lg bg-wt-surface-hover dark:bg-surface-darker">
                     Save article first
                 </div>
             )}
 
             {articleId && posts.length === 0 && !generating && (
-                <div className="text-center py-8 text-wt-text-muted/70 dark:text-wt-text-muted/70 text-sm border-2 border-dashed rounded-lg bg-wt-surface-hover">
+                <div className="text-center py-8 text-slate-500 dark:text-slate-400 text-sm border-2 border-dashed rounded-lg bg-wt-surface-hover dark:bg-surface-darker">
                     <p>No social posts yet.</p>
                     <Button variant="link" onClick={generatePosts} className="mt-2 text-wt-gold hover:text-wt-gold-hover">
                         Generate with AI
@@ -115,30 +115,30 @@ export function SocialPostManager({ articleId }: SocialPostManagerProps) {
                 {posts.map((post) => (
                     <div 
                         key={post.id} 
-                        className="border rounded-lg p-4 space-y-3 bg-white hover:border-secondary-200 transition-colors group relative"
+                        className="border rounded-lg p-4 space-y-3 bg-white dark:bg-surface-dark hover:border-secondary-200 transition-colors group relative"
                     >
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                                 {post.platform === 'twitter' && <Twitter className="w-4 h-4 text-secondary-500" />}
                                 {post.platform === 'linkedin' && <Linkedin className="w-4 h-4 text-secondary-700" />}
                                 {post.platform === 'facebook' && <Facebook className="w-4 h-4 text-secondary-600" />}
-                                <span className="text-sm font-medium capitalize">{post.platform}</span>
+                                <span className="text-sm font-medium capitalize text-slate-900 dark:text-white">{post.platform}</span>
                             </div>
-                            <Badge variant="outline" className="text-xs uppercase scale-90">
+                            <Badge variant="outline" className="text-xs uppercase scale-90 text-slate-700 dark:text-slate-300">
                                 {post.status}
                             </Badge>
                         </div>
 
                         <Textarea
                             defaultValue={post.content}
-                            className="text-sm min-h-[100px] border-none bg-wt-surface-hover focus:bg-white resize-none"
+                            className="text-sm min-h-[100px] border border-wt-border bg-white dark:bg-surface-darker focus:bg-white resize-none text-slate-900 dark:text-white"
                         />
-
+                        
                         <div className="flex justify-end gap-2 pt-2 border-t border-wt-border opacity-50 group-hover:opacity-100 transition-opacity">
                             <Button
                                 size="sm"
                                 variant="ghost"
-                                className="h-7 text-xs"
+                                className="h-7 text-xs text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
                                 onClick={() => copyToClipboard(post.content)}
                             >
                                 <Copy className="w-3 h-3 mr-1" />

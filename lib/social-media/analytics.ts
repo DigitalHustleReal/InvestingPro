@@ -61,7 +61,7 @@ export async function trackSocialPost(params: {
         logger.info('Social post tracked', { platform: params.platform, postId: params.postId });
 
     } catch (error) {
-        logger.error('Error tracking social post', error);
+        logger.error('Error tracking social post', error as Error);
     }
 }
 
@@ -88,7 +88,7 @@ export async function trackSocialEngagement(params: {
         logger.info('Social engagement tracked', { postId: params.postId, type: params.type });
 
     } catch (error) {
-        logger.error('Error tracking social engagement', error);
+        logger.error('Error tracking social engagement', error as Error);
     }
 }
 
@@ -165,7 +165,7 @@ export async function getSocialMediaMetrics(
         return Array.from(platformMetrics.values());
 
     } catch (error) {
-        logger.error('Error getting social media metrics', error);
+        logger.error('Error getting social media metrics', error as Error);
         throw error;
     }
 }
@@ -202,7 +202,7 @@ export async function getSocialMediaCampaigns(
         return campaigns;
 
     } catch (error) {
-        logger.error('Error getting social media campaigns', error);
+        logger.error('Error getting social media campaigns', error as Error);
         throw error;
     }
 }

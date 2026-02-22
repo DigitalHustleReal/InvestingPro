@@ -11,16 +11,16 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { StatCard, ContentSection } from '@/components/admin/AdminUIKit';
 import Link from 'next/link';
-import { ADMIN_THEME } from '@/lib/admin/theme';
 import { cn } from '@/lib/utils';
 import { ActionButton } from '@/components/admin/AdminUIKit';
+import { Badge } from '@/components/ui/badge';
 
 export default function AutomationPage() {
     const { data: pipelineStatus = { completed: 0, failed: 0, lastRun: null } } = useQuery({
         queryKey: ['pipeline-status-summary'],
         queryFn: async () => {
             const response = await fetch('/api/pipeline/runs?limit=100');
-            if (!response.ok) return { completed: 0, failed: 0 };
+            if (!response.ok) return { completed: 0, failed: 0, lastRun: null };
             const data = await response.json();
             const runs = data.runs || [];
             return {
@@ -32,29 +32,29 @@ export default function AutomationPage() {
         refetchInterval: 30000
     });
 
+    // Compute real success rate from pipeline data
+    const totalRuns = pipelineStatus.completed + pipelineStatus.failed;
+    const uptimeValue = totalRuns > 0
+        ? `${Math.round((pipelineStatus.completed / totalRuns) * 100)}%`
+        : '—';
+
     return (
         <AdminLayout>
             <div className="p-8 space-y-8 max-w-7xl mx-auto">
                 {/* Hero / Header Section */}
                 <div 
-                    className="relative overflow-hidden shadow-2xl transition-all duration-500"
-                    style={{ 
-                        borderRadius: ADMIN_THEME.radius.xl,
-                        padding: ADMIN_THEME.spacing[8],
-                        background: `linear-gradient(135deg, ${ADMIN_THEME.colors.primary[900]} 0%, ${ADMIN_THEME.colors.primary[800]} 100%)`,
-                        border: `1px solid ${ADMIN_THEME.colors.primary[700]}`
-                    }}
+                    className="relative overflow-hidden rounded-2xl p-8 bg-slate-900 border border-slate-800 shadow-xl"
                 >
-                    <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full blur-3xl opacity-20" style={{ backgroundColor: ADMIN_THEME.colors.accent.default }} />
+                    <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-sky-500/10 blur-3xl opacity-50" />
                     
                     <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                         <div className="flex items-center gap-6">
-                            <div className="p-4 rounded-2xl bg-wt-gold/10 border border-wt-gold/20">
-                                <Zap className="w-10 h-10 text-wt-gold shadow-glow" />
+                            <div className="w-16 h-16 rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center">
+                                <Zap className="w-8 h-8 text-sky-400" />
                             </div>
                             <div>
                                 <h1 className="text-3xl font-bold tracking-tight text-white mb-2">Automation Hub</h1>
-                                <p className="text-wt-text-muted/80 max-w-md">Orchestrate and monitor your AI-driven content engine from a central command center.</p>
+                                <p className="text-slate-400 max-w-md">Orchestrate and monitor your AI-driven content engine from a central command center.</p>
                             </div>
                         </div>
                         
@@ -85,8 +85,8 @@ export default function AutomationPage() {
                         changeType="negative"
                     />
                     <StatCard 
-                        label="System Uptime" 
-                        value="99.9%" 
+                        label="Success Rate" 
+                        value={uptimeValue} 
                         icon={Zap} 
                         color="amber" 
                     />
@@ -154,17 +154,17 @@ export default function AutomationPage() {
                             </div>
                         </ContentSection>
                         
-                        <div className="p-6 bg-wt-gold-subtle/30 rounded-2xl border border-wt-gold/20 flex items-center justify-between">
+                        <div className="p-6 bg-sky-500/5 rounded-2xl border border-sky-500/20 flex items-center justify-between">
                             <div className="flex items-center gap-4">
-                                <Sparkles className="w-6 h-6 text-wt-gold anim-pulse" />
+                                <Sparkles className="w-6 h-6 text-sky-500 animate-pulse" />
                                 <div>
-                                    <h4 className="font-semibold text-wt-text">AI Pilot Mode</h4>
-                                    <p className="text-xs text-wt-text-muted">Currently operating at Level 4 Autonomy</p>
+                                    <h4 className="font-semibold text-slate-900 dark:text-white">AI Pilot Mode</h4>
+                                    <p className="text-xs text-slate-500">Currently operating at Level 4 Autonomy</p>
                                 </div>
                             </div>
-                            <button className="px-3 py-1.5 bg-wt-gold text-wt-navy-950 rounded-lg text-xs font-bold uppercase tracking-wider">
+                            <Badge className="bg-emerald-500 text-white border-none font-bold">
                                 Active
-                            </button>
+                            </Badge>
                         </div>
                     </div>
                 </div>
@@ -177,15 +177,15 @@ export default function AutomationPage() {
 function ActionCard({ title, desc, href, icon: Icon, color }: any) {
     return (
         <Link href={href}>
-            <div className="group p-5 bg-wt-card border border-wt-border rounded-2xl hover:border-wt-gold/50 hover:bg-wt-surface-hover transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-1">
+            <div className="group p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl hover:border-sky-500/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 shadow-sm">
                 <div className={cn(
                     "w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110",
-                    color === 'orange' ? 'bg-orange-500/10 text-orange-500' : 'bg-teal-500/10 text-teal-500'
+                    color === 'orange' ? 'bg-orange-500/10 text-orange-500' : 'bg-sky-500/10 text-sky-500'
                 )}>
                     <Icon className="w-5 h-5" />
                 </div>
-                <h4 className="font-bold text-wt-text mb-1">{title}</h4>
-                <p className="text-xs text-wt-text-muted leading-relaxed">{desc}</p>
+                <h4 className="font-bold text-slate-900 dark:text-white mb-1">{title}</h4>
+                <p className="text-xs text-slate-500 leading-relaxed">{desc}</p>
             </div>
         </Link>
     );
@@ -194,19 +194,19 @@ function ActionCard({ title, desc, href, icon: Icon, color }: any) {
 function ActionRow({ title, desc, count, href, icon: Icon }: any) {
     return (
         <Link href={href}>
-            <div className="flex items-center justify-between p-4 bg-wt-card border border-wt-border rounded-xl hover:bg-wt-surface-hover transition-colors group">
+            <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
                 <div className="flex items-center gap-4">
-                    <div className="p-2 rounded-lg bg-wt-surface/50 group-hover:bg-wt-gold/10 transition-colors">
-                        <Icon className="w-4 h-4 text-wt-text-muted group-hover:text-wt-gold" />
+                    <div className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800 group-hover:bg-sky-500/10 transition-colors">
+                        <Icon className="w-4 h-4 text-slate-400 group-hover:text-sky-500" />
                     </div>
                     <div>
-                        <h4 className="text-sm font-semibold text-wt-text">{title}</h4>
-                        <p className="text-xs text-wt-text-muted">{desc}</p>
+                        <h4 className="text-sm font-semibold text-slate-900 dark:text-white">{title}</h4>
+                        <p className="text-xs text-slate-500">{desc}</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-3">
-                    <span className="text-xs font-bold px-2 py-0.5 bg-wt-surface rounded-full border border-wt-border">{count}</span>
-                    <Play className="w-3 h-3 text-wt-text-muted group-hover:text-wt-gold opacity-0 group-hover:opacity-100 transition-all" />
+                    <span className="text-xs font-bold px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-full border border-slate-200 dark:border-slate-700">{count}</span>
+                    <Play className="w-3 h-3 text-slate-400 group-hover:text-sky-500 opacity-0 group-hover:opacity-100 transition-all" />
                 </div>
             </div>
         </Link>

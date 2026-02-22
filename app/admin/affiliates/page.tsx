@@ -60,7 +60,7 @@ export default function AffiliatesPage() {
         },
         {
             label: 'Revenue',
-            value: `â‚¹${(stats?.totalRevenue || 0).toLocaleString()}`,
+            value: `₹${(stats?.totalRevenue || 0).toLocaleString()}`,
             icon: DollarSign,
             color: 'text-accent-400',
             bg: 'bg-accent-500/10',
@@ -82,7 +82,7 @@ export default function AffiliatesPage() {
         return (
             <AdminLayout>
                 <div className="p-8 flex items-center justify-center h-screen">
-                    <Loader2 className="w-8 h-8 animate-spin text-primary-500" />
+                    <Loader2 className="w-8 h-8 animate-spin text-primary" />
                 </div>
             </AdminLayout>
         );
@@ -92,23 +92,23 @@ export default function AffiliatesPage() {
         <AdminLayout>
             <div className="p-8 max-w-[1600px] mx-auto w-full">
                 {/* Header */}
-                <div className="mb-10 border-b border-border/50 dark:border-border/50 pb-8 mt-4">
+                <div className="mb-10 border-b border-border pb-8 mt-4">
                     <div className="flex items-center justify-between">
                         <div>
-                            <h1 className="text-3xl font-extrabold text-foreground dark:text-foreground tracking-tight flex items-center gap-4">
+                            <h1 className="text-3xl font-extrabold text-foreground tracking-tight flex items-center gap-4">
                                 <div className="w-12 h-12 rounded-xl bg-accent-500/10 flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.15)]">
                                     <DollarSign className="w-6 h-6 text-accent-400" />
                                 </div>
                                 Affiliate Dashboard
-                                <Badge className="bg-primary-500/10 text-primary-400 border-primary-500/20 ml-2 font-bold tracking-wider">
+                                <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 ml-2 font-bold tracking-wider">
                                     LIVE
                                 </Badge>
                             </h1>
-                            <p className="text-muted-foreground dark:text-muted-foreground mt-3 ml-16 font-medium tracking-wide max-w-2xl">
+                            <p className="text-muted-foreground mt-3 ml-16 font-medium tracking-wide max-w-2xl">
                                 Track affiliate performance, clicks, conversions, and revenue.
                             </p>
                         </div>
-                        <Button className="bg-primary-600 hover:bg-primary-700 text-foreground dark:text-foreground">
+                        <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
                             <Plus className="w-4 h-4 mr-2" />
                             New Link
                         </Button>
@@ -116,9 +116,9 @@ export default function AffiliatesPage() {
                 </div>
 
                 {/* Metrics Grid */}
-                <div className="grid grid-cols-4 gap-6 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                     {metrics.map((metric, idx) => (
-                        <Card key={idx} className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
+                        <Card key={idx} className="bg-card border-border rounded-2xl overflow-hidden hover:border-primary/50 transition-all">
                             <CardContent className="p-6">
                                 <div className="flex items-center justify-between mb-4">
                                     <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center", metric.bg)}>
@@ -126,7 +126,7 @@ export default function AffiliatesPage() {
                                     </div>
                                     <div className={cn(
                                         "flex items-center gap-1 text-xs font-bold",
-                                        metric.changeType === 'up' ? 'text-primary-400' : 'text-danger-400'
+                                        metric.changeType === 'up' ? 'text-emerald-500' : 'text-red-500'
                                     )}>
                                         {metric.changeType === 'up' 
                                             ? <ArrowUpRight className="w-3 h-3" />
@@ -135,10 +135,10 @@ export default function AffiliatesPage() {
                                         {metric.change}
                                     </div>
                                 </div>
-                                <div className="text-3xl font-extrabold text-foreground dark:text-foreground tracking-tight">
+                                <div className="text-3xl font-extrabold text-foreground tracking-tight">
                                     {typeof metric.value === 'number' ? metric.value.toLocaleString() : metric.value}
                                 </div>
-                                <div className="text-xs font-bold text-muted-foreground/70 dark:text-muted-foreground/70 uppercase tracking-widest mt-1">
+                                <div className="text-xs font-bold text-muted-foreground uppercase tracking-widest mt-1">
                                     {metric.label}
                                 </div>
                             </CardContent>
@@ -148,42 +148,42 @@ export default function AffiliatesPage() {
 
                 <div className="grid lg:grid-cols-2 gap-8">
                     {/* Top Partners */}
-                    <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
-                        <CardHeader className="border-b border-border/50 dark:border-border/50 px-6 py-4">
-                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
-                                <TrendingUp className="w-4 h-4 text-primary-400" />
+                    <Card className="bg-card border-border rounded-2xl overflow-hidden">
+                        <CardHeader className="border-b border-border px-6 py-4">
+                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-6 md:p-8">
+                                <TrendingUp className="w-4 h-4 text-primary" />
                                 Top Partners
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="p-0">
                             {stats?.topPartners && stats.topPartners.length > 0 ? (
-                                <div className="divide-y divide-white/5">
+                                <div className="divide-y divide-border">
                                     {stats.topPartners.map((partner, idx) => (
-                                        <div key={idx} className="flex items-center justify-between px-6 py-4">
+                                        <div key={idx} className="flex items-center justify-between px-6 py-4 hover:bg-muted/30 transition-colors">
                                             <div className="flex items-center gap-4">
                                                 <div className={cn(
                                                     "w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm",
                                                     idx === 0 ? "bg-accent-500/20 text-accent-400" :
-                                                    idx === 1 ? "bg-slate-500/20 text-muted-foreground dark:text-muted-foreground" :
-                                                    "bg-accent-500/20 text-accent-400"
+                                                    idx === 1 ? "bg-muted text-muted-foreground" :
+                                                    "bg-accent-500/10 text-accent-400/80"
                                                 )}>
                                                     {idx + 1}
                                                 </div>
-                                                <span className="font-semibold text-foreground dark:text-foreground">{partner.partner}</span>
+                                                <span className="font-semibold text-foreground">{partner.partner}</span>
                                             </div>
                                             <div className="flex items-center gap-6 text-sm">
                                                 <div className="text-right">
-                                                    <div className="text-muted-foreground dark:text-muted-foreground">{partner.clicks} clicks</div>
+                                                    <div className="text-muted-foreground">{partner.clicks} clicks</div>
                                                 </div>
                                                 <div className="text-right min-w-[80px]">
-                                                    <div className="font-bold text-primary-400">â‚¹{partner.revenue}</div>
+                                                    <div className="font-bold text-emerald-500">₹{partner.revenue}</div>
                                                 </div>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                             ) : (
-                                <div className="py-12 text-center text-muted-foreground/70 dark:text-muted-foreground/70">
+                                <div className="py-12 text-center text-muted-foreground">
                                     No partner data yet
                                 </div>
                             )}
@@ -191,29 +191,29 @@ export default function AffiliatesPage() {
                     </Card>
 
                     {/* Top Links */}
-                    <Card className="bg-card dark:bg-card border-border/50 dark:border-border/50 rounded-2xl overflow-hidden">
-                        <CardHeader className="border-b border-border/50 dark:border-border/50 px-6 py-4">
-                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground flex items-center gap-6 md:p-8">
-                                <Link2 className="w-4 h-4 text-primary-400" />
+                    <Card className="bg-card border-border rounded-2xl overflow-hidden">
+                        <CardHeader className="border-b border-border px-6 py-4">
+                            <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-6 md:p-8">
+                                <Link2 className="w-4 h-4 text-primary" />
                                 Top Performing Links
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="p-0">
                             {stats?.topLinks && stats.topLinks.length > 0 ? (
-                                <div className="divide-y divide-white/5">
+                                <div className="divide-y divide-border">
                                     {stats.topLinks.slice(0, 5).map((link, idx) => (
-                                        <div key={idx} className="flex items-center justify-between px-6 py-4 hover:bg-card/50 dark:bg-card/50 transition-colors">
+                                        <div key={idx} className="flex items-center justify-between px-6 py-4 hover:bg-muted/30 transition-colors">
                                             <div className="flex items-center gap-4">
-                                                <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
-                                                    <ExternalLink className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
+                                                <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center">
+                                                    <ExternalLink className="w-4 h-4 text-muted-foreground" />
                                                 </div>
-                                                <span className="text-sm font-medium text-foreground dark:text-foreground line-clamp-1">{link.name}</span>
+                                                <span className="text-sm font-medium text-foreground line-clamp-1">{link.name}</span>
                                             </div>
                                             <div className="flex items-center gap-4 text-sm">
-                                                <Badge className="bg-secondary-500/10 text-secondary-400 border-0">
+                                                <Badge variant="secondary" className="bg-secondary-500/10 text-secondary-400 border-0">
                                                     {link.clicks} clicks
                                                 </Badge>
-                                                <Badge className="bg-primary-500/10 text-primary-400 border-0">
+                                                <Badge variant="secondary" className="bg-primary/10 text-primary border-0">
                                                     {link.conversions} conv
                                                 </Badge>
                                             </div>
@@ -221,7 +221,7 @@ export default function AffiliatesPage() {
                                     ))}
                                 </div>
                             ) : (
-                                <div className="py-12 text-center text-muted-foreground/70 dark:text-muted-foreground/70">
+                                <div className="py-12 text-center text-muted-foreground">
                                     No link data yet
                                 </div>
                             )}
@@ -230,27 +230,44 @@ export default function AffiliatesPage() {
                 </div>
 
                 {/* Quick Actions */}
-                <div className="mt-8 grid grid-cols-3 gap-6">
-                    <Card className="bg-gradient-to-br from-primary-500/10 to-secondary-500/10 border-primary-500/20 rounded-2xl p-6">
-                        <h4 className="font-bold text-foreground dark:text-foreground mb-2">Create Short Link</h4>
-                        <p className="text-sm text-muted-foreground dark:text-muted-foreground mb-4">Generate trackable affiliate links</p>
-                        <Button variant="ghost" className="text-primary-400 hover:text-primary-300 p-0 h-auto">
-                            Create Link â†’
-                        </Button>
+                <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <Card className="bg-card border-border rounded-2xl p-6 hover:border-primary/50 transition-all cursor-pointer group">
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                                <Link2 className="w-5 h-5" />
+                            </div>
+                            <Button variant="ghost" size="icon" className="text-muted-foreground group-hover:text-primary transition-colors">
+                                <ArrowUpRight className="w-4 h-4" />
+                            </Button>
+                        </div>
+                        <h4 className="font-bold text-foreground mb-1 group-hover:text-primary transition-colors">Create Short Link</h4>
+                        <p className="text-sm text-muted-foreground">Generate trackable affiliate links</p>
                     </Card>
-                    <Card className="bg-gradient-to-br from-success-500/10 to-primary-500/10 border-primary-500/20 rounded-2xl p-6">
-                        <h4 className="font-bold text-foreground dark:text-foreground mb-2">Add Partner</h4>
-                        <p className="text-sm text-muted-foreground dark:text-muted-foreground mb-4">Register new affiliate partners</p>
-                        <Button variant="ghost" className="text-primary-400 hover:text-primary-300 p-0 h-auto">
-                            Add Partner â†’
-                        </Button>
+
+                    <Card className="bg-card border-border rounded-2xl p-6 hover:border-emerald-500/50 transition-all cursor-pointer group">
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+                                <Plus className="w-5 h-5" />
+                            </div>
+                            <Button variant="ghost" size="icon" className="text-muted-foreground group-hover:text-emerald-500 transition-colors">
+                                <ArrowUpRight className="w-4 h-4" />
+                            </Button>
+                        </div>
+                        <h4 className="font-bold text-foreground mb-1 group-hover:text-emerald-500 transition-colors">Add Partner</h4>
+                        <p className="text-sm text-muted-foreground">Register new affiliate partners</p>
                     </Card>
-                    <Card className="bg-gradient-to-br from-accent-500/10 to-orange-500/10 border-accent-500/20 rounded-2xl p-6">
-                        <h4 className="font-bold text-foreground dark:text-foreground mb-2">Export Report</h4>
-                        <p className="text-sm text-muted-foreground dark:text-muted-foreground mb-4">Download performance data</p>
-                        <Button variant="ghost" className="text-accent-400 hover:text-accent-300 p-0 h-auto">
-                            Export CSV â†’
-                        </Button>
+
+                    <Card className="bg-card border-border rounded-2xl p-6 hover:border-amber-500/50 transition-all cursor-pointer group">
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500">
+                                <BarChart3 className="w-5 h-5" />
+                            </div>
+                            <Button variant="ghost" size="icon" className="text-muted-foreground group-hover:text-amber-500 transition-colors">
+                                <ArrowUpRight className="w-4 h-4" />
+                            </Button>
+                        </div>
+                        <h4 className="font-bold text-foreground mb-1 group-hover:text-amber-500 transition-colors">Export Report</h4>
+                        <p className="text-sm text-muted-foreground">Download performance data</p>
                     </Card>
                 </div>
             </div>

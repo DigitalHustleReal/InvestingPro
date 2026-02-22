@@ -11,104 +11,69 @@
 
 @layer base {
   :root {
-    /* Base Colors - Light Mode */
-    --background: 0 0% 100%;                    /* White */
-    --foreground: 222.2 84% 4.9%;               /* Near Black */
+    /* Unified Dark System Base */
+    --background: 222 47% 7%;                    /* Deepest Navy #070B14 */
+    --foreground: 210 40% 98%;                  /* White/Slate-50 */
     
     /* Card/Surface Colors */
-    --card: 0 0% 100%;                          /* White */
-    --card-foreground: 222.2 84% 4.9%;          /* Near Black */
+    --card: 222 47% 10%;                        /* #0D121F - Dark Card */
+    --card-foreground: 210 40% 98%;             /* White/Slate-50 */
     
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 222 47% 7%;
+    --popover-foreground: 210 40% 98%;
     
-    --muted: 210 40% 96.1%;                     /* Light Gray */
-    --muted-foreground: 215.4 16.3% 46.9%;      /* Medium Gray */
+    --muted: 222 47% 15%;                       /* Muted Navy Surface */
+    --muted-foreground: 215 20% 65%;            /* Slate-400 (Secondary Text) */
     
-    /* Brand Colors */
-    --primary: 174 71% 41%;                     /* Brand Teal #1CB7A8 */
-    --primary-foreground: 0 0% 100%;            /* White */
-    --primary-dark: 174 84% 31%;                /* Accessible Teal #0D9488 */
+    /* Brand Colors - IP Cyan */
+    --primary: 188 100% 43%;                    /* Cyan #06B6D4 */
+    --primary-foreground: 222 47% 7%;           /* Navy (Opposite Cyan) */
+    --primary-dark: 188 100% 35%;               /* Deeper Cyan */
     
-    --secondary: 210 100% 56%;                  /* Blue #0088cc (Zoom-ish but fintech) */
-    --secondary-foreground: 0 0% 100%;          /* White */
+    --secondary: 217 91% 60%;                   /* Blue #3B82F6 */
+    --secondary-foreground: 210 40% 98%;        /* White */
     
     --accent: 45 93% 47%;                       /* Gold #fbb614 */
-    --accent-foreground: 222.2 47.4% 11.2%;     /* Dark */
+    --accent-foreground: 222 47% 7%;            /* Dark */
     
-    /* Semantic Status Colors */
-    --success: 161 84% 39%;                     /* Standard Green #10B981 */
-    --success-foreground: 0 0% 100%;            /* White */
+    /* Semantic Status Colors (High Contrast) */
+    --success: 161 84% 39%;                     /* Emerald #10B981 */
+    --success-foreground: 210 40% 98%;
     
-    --warning: 38 92% 50%;                      /* Orange #f39c12 */
-    --warning-foreground: 0 0% 100%;            /* White */
+    --warning: 38 92% 50%;                      /* Amber #f59e0b */
+    --warning-foreground: 210 40% 98%;
     
-    --error: 0 72% 51%;                         /* Red #e74c3c */
-    --error-foreground: 0 0% 100%;              /* White */
+    --error: 0 84% 60%;                         /* Rose/Red #f43f5e */
+    --error-foreground: 210 40% 98%;
     
-    --info: 174 100% 48%;                       /* Cyan #17d9cc */
-    --info-foreground: 0 0% 100%;               /* White */
+    --info: 188 100% 43%;                       /* Cyan (same as primary) */
+    --info-foreground: 210 40% 98%;
     
-    --destructive: 0 84.2% 60.2%;               /* Bright Red */
-    --destructive-foreground: 0 0% 98%;         /* Near White */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
     
     /* UI Elements */
-    --border: 214.3 31.8% 91.4%;                /* Light Border */
-    --input: 214.3 31.8% 91.4%;                 /* Light Input */
-    --ring: 174 71% 41%;                        /* Teal Ring */
-    
-    --radius: 0.5rem;                           /* Border Radius */
+    --border: 222 47% 18%;                      /* Muted Navy Border */
+    --input: 222 47% 18%;
+    --ring: 188 100% 43%;                       /* Cyan Ring */
+
+    /* Legacy Theme Support Redirects (to prevent breakage) */
+    --wt-nav: var(--background);
+    --wt-gold: var(--accent);
+    --wt-bg: var(--background);
+    --wt-card: var(--card);
+    --wt-surface: var(--muted);
+    --wt-border: var(--border);
+    --wt-text: var(--foreground);
+    --wt-text-muted: var(--muted-foreground);
+    --wt-text-dim: 215 16% 47%;
   }
   
   .dark {
-    /* Base Colors - Dark Mode */
-    --background: 218 32% 10%;                   /* Deep Navy #0F172A */
-    --foreground: 0 0% 98%;                     /* Near White */
-    
-    /* Card/Surface Colors */
-    --card: 218 32% 15%;                        /* #1A2332 - Dark Card */
-    --card-foreground: 0 0% 98%;                /* Near White */
-    
-    --popover: 218 32% 10%;                      /* Deep Navy */
-    --popover-foreground: 0 0% 98%;             /* Near White */
-    
-    --muted: 218 32% 18%;                       /* Muted Navy */
-    --muted-foreground: 215 20.2% 65.1%;        /* Light Gray */
-    
-    /* Brand Colors (synchronized) */
-    --primary: 174 71% 41%;                     /* Brand Teal #1CB7A8 */
-    --primary-foreground: 0 0% 100%;            /* White */
-    --primary-dark: 174 84% 31%;                /* Accessible Teal #0D9488 */
-    
-    --secondary: 210 100% 56%;                  /* Blue #0088cc */
-    --secondary-foreground: 0 0% 100%;          /* White */
-    
-    --accent: 45 93% 47%;                       /* Gold #fbb614 */
-    --accent-foreground: 0 0% 100%;             /* White in dark mode */
-    
-    /* Semantic Status Colors */
-    --success: 161 84% 39%;                     /* Standard Green #10B981 */
-    --success-foreground: 0 0% 100%;            /* White */
-    
-    --warning: 38 92% 50%;                      /* Orange #f39c12 */
-    --warning-foreground: 0 0% 100%;            /* White */
-    
-    --error: 0 72% 51%;                         /* Red #e74c3c */
-    --error-foreground: 0 0% 100%;              /* White */
-    
-    --info: 174 100% 48%;                       /* Cyan #17d9cc */
-    --info-foreground: 0 0% 100%;               /* White */
-    
-    --destructive: 0 62.8% 30.6%;               /* Dark Red */
-    --destructive-foreground: 0 0% 98%;         /* Near White */
-    
-    /* UI Elements */
-    --border: 218 32% 18%;                      /* Dark Border */
-    --input: 218 32% 18%;                       /* Dark Input */
-    --ring: 174 71% 41%;                        /* Teal Ring */
+    --background: 222 47% 7%;                   /* Deepest Navy #070B14 */
+    --foreground: 210 40% 98%;
   }
 }
-
 
 @layer base {
   body {
@@ -130,8 +95,14 @@
   button:focus-visible, 
   a:focus-visible,
   [role="button"]:focus-visible {
-    @apply ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-slate-900;
+    @apply ring-2 ring-primary-500 ring-offset-2 ring-offset-white;
     outline: none;
+  }
+
+  :is(.dark button:focus-visible), 
+  :is(.dark a:focus-visible),
+  :is(.dark [role="button"]:focus-visible) {
+    @apply ring-offset-slate-900;
   }
   
   input:focus-visible,
@@ -165,393 +136,81 @@
 
 @layer components {
   .glass-card {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl;
+    @apply backdrop-blur-xl shadow-2xl;
+    background-color: rgba(255, 255, 255, 0.05); /* bg-white/5 */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* border-white/10 */
   }
 
   .premium-gradient-text {
     @apply bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent;
   }
 
-  /* Admin Glassmorphism Theme Utilities */
+  /* Admin Glassmorphism Theme Utilities - DEPRECATED/LEGACY (Refactored to Safe CSS) */
   .admin-glass {
-    @apply bg-admin-glass backdrop-blur-xl border border-admin-border;
+    @apply backdrop-blur-xl;
+    /* bg-admin-glass */
+    border: 1px solid rgb(229 231 235 / 0.2);
   }
   
   .admin-glass-card {
-    @apply bg-admin-surface/80 backdrop-blur-xl 
-           border border-admin-border rounded-2xl 
-           shadow-lg shadow-admin-accent/10;
+    @apply backdrop-blur-xl rounded-2xl shadow-lg;
+    background-color: rgba(255, 255, 255, 0.8); /* Fallback */
+    border: 1px solid rgba(229, 231 235, 0.2);
   }
   
   .admin-glass-hover {
-    @apply hover:bg-admin-glass-hover hover:border-admin-border-strong
-           transition-all duration-300;
+    @apply transition-all duration-300;
+  }
+  .admin-glass-hover:hover {
+    background-color: rgba(255, 255, 255, 0.1);
   }
   
   .admin-gradient-text {
-    @apply bg-gradient-to-r from-admin-accent to-admin-accent-glow 
-           bg-clip-text text-transparent;
+     /* animate-gradient-text logic moved or simplified */
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(to right, #0ea5e9, #38bdf8);
   }
   
   .admin-input {
-    @apply bg-admin-input border border-admin-border rounded-lg
-           text-admin-text placeholder:text-admin-text-dim
-           focus:border-admin-accent focus:ring-1 focus:ring-admin-accent
-           transition-all duration-200;
+    @apply rounded-lg transition-all duration-200;
+    /* bg-admin-input */
+    background-color: transparent;
+    border: 1px solid rgb(229 231 235 / 0.5);
   }
   
   .admin-button-primary {
-    @apply bg-admin-accent hover:bg-admin-accent-strong text-white
-           rounded-lg font-medium transition-all duration-200
-           shadow-lg shadow-admin-accent/25 hover:shadow-admin-accent/40;
+    @apply text-white rounded-lg font-medium transition-all duration-200 shadow-lg;
+    background-color: #14B8A6; /* Teal-500 — brand primary */
   }
   
   .admin-button-ghost {
-    @apply bg-transparent hover:bg-admin-surface-hover text-admin-text-muted
-           hover:text-admin-text rounded-lg transition-all duration-200
-           border border-transparent hover:border-admin-border;
+    @apply rounded-lg transition-all duration-200 border border-transparent;
+    background-color: transparent;
+  }
+  .admin-button-ghost:hover {
+     background-color: rgba(241, 245, 249, 0.5); /* slate-100/50 */
   }
 
-  /* Admin Pro – theme overrides (plain CSS to avoid @apply circular deps) */
-  .admin-pro-app [data-slot="card"],
-  .admin-pro-app .bg-card {
-    background-color: #18181b;
-    border: 1px solid #27272a;
-    border-radius: 0.75rem;
-  }
-  .admin-pro-app .border-border {
-    border-color: #27272a;
-  }
-  .admin-pro-app .text-muted-foreground {
-    color: #a1a1aa;
-  }
-  .admin-pro-app .text-foreground {
-    color: #fafafa;
-  }
-  .admin-pro-app thead {
-    background-color: #18181b;
-    border-bottom: 1px solid #27272a;
-  }
-  .admin-pro-app th {
-    color: #a1a1aa;
-    font-weight: 500;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.75rem 1rem;
-  }
-  .admin-pro-app tbody tr {
-    border-bottom: 1px solid #27272a;
-    transition: background-color 0.15s;
-  }
-  .admin-pro-app tbody tr:hover {
-    background-color: #27272a;
-  }
-  .admin-pro-app td {
-    padding: 0.75rem 1rem;
-    color: #fafafa;
-    font-size: 0.875rem;
-  }
 
-  .admin-pro-app .admin-page-content {
-    max-width: 1600px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    padding: 1.5rem 1rem;
-  }
-  @media (min-width: 640px) {
-    .admin-pro-app .admin-page-content {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-  }
-  @media (min-width: 1024px) {
-    .admin-pro-app .admin-page-content {
-      padding: 2rem 2rem;
-    }
-  }
-
-  .admin-pro-app .bg-surface-darker,
-  .admin-pro-app [class*="bg-surface-darker"] {
-    background-color: #18181b;
-  }
-  .admin-pro-app [data-admin-section] {
-    border: 1px solid #27272a;
-    background-color: #18181b;
-  }
-  .admin-pro-app [data-admin-section] h2 {
-    color: #fafafa;
-  }
-  .admin-pro-app [data-admin-section] .text-muted-foreground {
-    color: #a1a1aa;
-  }
-
-  .admin-pro-app [data-slot="card"] > div,
-  .admin-pro-app .bg-card > div {
-    border-color: #27272a;
-  }
-
-  .admin-pro-app .text-primary-400,
-  .admin-pro-app .text-primary-500,
-  .admin-pro-app .text-secondary-400,
-  .admin-pro-app .text-accent-400,
-  .admin-pro-app .text-accent-500 {
-    color: #10b981;
-  }
-  .admin-pro-app .bg-primary-500\/10,
-  .admin-pro-app .bg-secondary-500\/10,
-  .admin-pro-app .bg-primary-500\/20,
-  .admin-pro-app .bg-accent-500\/10,
-  .admin-pro-app .bg-accent-500\/20 {
-    background-color: rgba(16, 185, 129, 0.12);
-  }
-  .admin-pro-app .border-primary-500\/20,
-  .admin-pro-app .border-primary-500\/30,
-  .admin-pro-app .border-accent-500\/20,
-  .admin-pro-app .border-accent-500\/30 {
-    border-color: rgba(16, 185, 129, 0.3);
-  }
-  .admin-pro-app .text-danger-400,
-  .admin-pro-app .text-danger-500 {
-    color: #ef4444;
-  }
-  .admin-pro-app .bg-danger-500\/10,
-  .admin-pro-app .bg-danger-500\/20 {
-    background-color: rgba(239, 68, 68, 0.12);
-  }
-  .admin-pro-app .border-danger-500\/20,
-  .admin-pro-app .border-danger-500\/30 {
-    border-color: rgba(239, 68, 68, 0.3);
-  }
-
-  /* thead.bg-muted/50: same as .admin-pro-app thead above; avoid selector that could be mis-parsed as .hover\:bg-muted\/50:hoverthead */
-  .admin-pro-app table {
-    border-color: #27272a;
-  }
-  .admin-pro-app .divide-white\/5 {
-    border-color: #27272a;
-  }
-  .admin-pro-app tr.hover\:bg-white\/5:hover {
-    background-color: #27272a;
-  }
-  .admin-pro-app .text-foreground\/80 {
-    color: #fafafa;
-  }
-
-  .admin-pro-app .bg-white\/5 {
-    background-color: #18181b;
-  }
-  .admin-pro-app .hover\:bg-white\/20:hover,
-  .admin-pro-app .hover\:bg-surface-darker:hover {
-    background-color: #27272a;
-  }
-
-  .admin-pro-app input,
-  .admin-pro-app textarea,
-  .admin-pro-app select {
-    border: 1px solid #27272a;
-    background-color: #18181b;
-  }
-  .admin-pro-app input:focus,
-  .admin-pro-app textarea:focus {
-    outline: none;
-    border-color: #10b981;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
-  }
-
-  /* Admin header: force Wealth & Trust navy (survives theme/SSR) */
-  [data-admin-header] {
-    background-color: #1F3B5C !important;
-    color: #ffffff;
-  }
-  [data-admin-header] a,
-  [data-admin-header] button {
-    color: rgba(255, 255, 255, 0.85);
-  }
-  [data-admin-header] a:hover,
-  [data-admin-header] button:hover {
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-  [data-admin-header] [class*="bg-wt-gold-subtle"] {
-    background-color: rgba(212, 175, 55, 0.2) !important;
-    color: #D4AF37 !important;
-  }
-
-  /* Wealth & Trust – admin light theme (navy, gold, cream) */
-  .admin-wt-app [data-slot="card"],
-  .admin-wt-app .bg-card {
-    background-color: #FFFFFF;
-    border: 1px solid #DDDDDD;
-    border-radius: 0.75rem;
-  }
-  .admin-wt-app .border-border {
-    border-color: #DDDDDD;
-  }
-  .admin-wt-app .text-muted-foreground {
-    color: #555555;
-  }
-  .admin-wt-app .text-foreground {
-    color: #1A1A1A;
-  }
-  .admin-wt-app thead {
-    background-color: #F5F5F5;
-    border-bottom: 1px solid #DDDDDD;
-  }
-  .admin-wt-app th {
-    color: #555555;
-    font-weight: 500;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.75rem 1rem;
-  }
-  .admin-wt-app tbody tr {
-    border-bottom: 1px solid #DDDDDD;
-    transition: background-color 0.15s;
-  }
-  .admin-wt-app tbody tr:hover {
-    background-color: #EEEEEE;
-  }
-  .admin-wt-app td {
-    padding: 0.75rem 1rem;
-    color: #1A1A1A;
-    font-size: 0.875rem;
-  }
-  .admin-wt-app .admin-page-content {
-    max-width: 1600px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    padding: 1.5rem 1rem;
-  }
-  @media (min-width: 640px) {
-    .admin-wt-app .admin-page-content {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-  }
-  @media (min-width: 1024px) {
-    .admin-wt-app .admin-page-content {
-      padding: 2rem 2rem;
-    }
-  }
-  .admin-wt-app .bg-surface-darker,
-  .admin-wt-app [class*="bg-surface-darker"] {
-    background-color: #F5F5F5;
-  }
-  .admin-wt-app [data-admin-section] {
-    border: 1px solid #DDDDDD;
-    background-color: #FFFFFF;
-  }
-  .admin-wt-app [data-admin-section] h2 {
-    color: #1A1A1A;
-  }
-  .admin-wt-app [data-admin-section] .text-muted-foreground {
-    color: #555555;
-  }
-  .admin-wt-app [data-slot="card"] > div,
-  .admin-wt-app .bg-card > div {
-    border-color: #DDDDDD;
-  }
-  .admin-wt-app .text-primary-400,
-  .admin-wt-app .text-primary-500,
-  .admin-wt-app .text-secondary-400,
-  .admin-wt-app .text-accent-400,
-  .admin-wt-app .text-accent-500 {
-    color: #D4AF37;
-  }
-  .admin-wt-app .bg-primary-500\/10,
-  .admin-wt-app .bg-secondary-500\/10,
-  .admin-wt-app .bg-primary-500\/20,
-  .admin-wt-app .bg-accent-500\/10,
-  .admin-wt-app .bg-accent-500\/20 {
-    background-color: rgba(212, 175, 55, 0.15);
-  }
-  .admin-wt-app .border-primary-500\/20,
-  .admin-wt-app .border-primary-500\/30,
-  .admin-wt-app .border-accent-500\/20,
-  .admin-wt-app .border-accent-500\/30 {
-    border-color: rgba(212, 175, 55, 0.3);
-  }
-  .admin-wt-app .text-danger-400,
-  .admin-wt-app .text-danger-500 {
-    color: #DC2626;
-  }
-  .admin-wt-app .bg-danger-500\/10,
-  .admin-wt-app .bg-danger-500\/20 {
-    background-color: rgba(220, 38, 38, 0.12);
-  }
-  .admin-wt-app .border-danger-500\/20,
-  .admin-wt-app .border-danger-500\/30 {
-    border-color: rgba(220, 38, 38, 0.3);
-  }
-  .admin-wt-app table {
-    border-color: #DDDDDD;
-  }
-  .admin-wt-app .divide-white\/5 {
-    border-color: #DDDDDD;
-  }
-  .admin-wt-app tr.hover\:bg-white\/5:hover {
-    background-color: #EEEEEE;
-  }
-  .admin-wt-app .text-foreground\/80 {
-    color: #1A1A1A;
-  }
-  .admin-wt-app .bg-white\/5 {
-    background-color: #F9F9F9;
-  }
-  .admin-wt-app .hover\:bg-white\/20:hover,
-  .admin-wt-app .hover\:bg-surface-darker:hover {
-    background-color: #EEEEEE;
-  }
-  .admin-wt-app input,
-  .admin-wt-app textarea,
-  .admin-wt-app select {
-    border: 1px solid #DDDDDD;
-    background-color: #FFFFFF;
-  }
-  .admin-wt-app input:focus,
-  .admin-wt-app textarea:focus {
-    outline: none;
-    border-color: #D4AF37;
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
-  }
-
-  /* GLOBAL CONTENT THEME (Prose Overrides) */
-  .prose table {
-     @apply w-full border-collapse border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden my-8 shadow-sm;
-  }
-  
-  .prose thead {
-      @apply bg-slate-900 border-b border-primary-500;
-  }
-
-  /* Theme-aware headers using primary color */
-  .prose th {
-     @apply text-white font-bold p-4 text-left;
-  }
-
-  .prose td {
-     @apply p-4 border-b border-slate-100 dark:border-slate-800 text-slate-600 dark:text-slate-400;
-  }
-  
-  .prose tr:hover td {
-      @apply bg-muted/30 transition-colors;
-  }
-
-  /* Use Brand Teal for links (Fix #8) */
-  .prose a {
-      @apply text-primary-700 no-underline border-b-2 border-primary-500/30 hover:border-primary-500 transition-all font-medium;
-  }
-
-  .prose h2 {
-      @apply text-foreground scroll-mt-24;
-  }
 }
 
+
+
+
 @layer utilities {
+  /* Custom Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+      height: 8px;
+      width: 8px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+      @apply bg-transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+      @apply bg-slate-300 dark:bg-slate-600 rounded-full hover:bg-slate-400 dark:hover:bg-slate-500 transition-colors;
+  }
+
+
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
@@ -584,20 +243,7 @@
     }
   }
 
-  /* Shimmer Animation */
-  @keyframes shimmer {
-    0% {
-      transform: translateX(-100%);
-    }
 
-    100% {
-      transform: translateX(100%);
-    }
-  }
-
-  .animate-shimmer {
-    animation: shimmer 2s infinite;
-  }
 
   @keyframes ticker {
     0% { transform: translateX(0); }
@@ -629,30 +275,9 @@
     background-size: 200% 200%;
   }
 
-  /* Running gradient border animation */
-  @keyframes gradient-border {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
 
-  /* Float animation for decorative elements */
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
 
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
-  }
+
 }
+
+

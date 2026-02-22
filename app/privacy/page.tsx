@@ -195,18 +195,24 @@ export default function PrivacyPage() {
             </div>
           </section>
 
-          <section className="mb-8 bg-accent-50 p-6 rounded-lg border border-accent-200">
+            <section className="mb-8 bg-accent-50 p-6 rounded-lg border border-accent-200">
             <h2 className="text-2xl font-bold text-accent-900 mb-4">13. Grievance Redressal</h2>
             <p className="text-accent-800 mb-4">
-              As per the Digital Personal Data Protection Act, 2023, you have the right to file a grievance regarding data privacy. Our Grievance Officer will respond to your complaint within the statutory timeline.
+              As per the Digital Personal Data Protection Act, 2023, you have the right to file a grievance regarding data privacy. Our Grievance Officer will respond to your complaint within the statutory timeline of 30 days.
             </p>
-            <p className="text-accent-800 mb-2">
-              <strong>Grievance Officer:</strong> [To be appointed]
-            </p>
-            <p className="text-accent-800">
-              <strong>Email:</strong> <a href="mailto:grievance@investingpro.in" className="text-primary-600 hover:text-primary-700 underline">grievance@investingpro.in</a>
-            </p>
+            <div className="bg-white rounded-lg p-4 border border-accent-200 space-y-1">
+              <p className="text-accent-900 font-semibold">Grievance Officer: Shivam Patel</p>
+              <p className="text-accent-800">
+                <strong>Email:</strong>{' '}
+                <a href="mailto:grievance@investingpro.in" className="text-primary-600 hover:text-primary-700 underline">
+                  grievance@investingpro.in
+                </a>
+              </p>
+              <p className="text-accent-800"><strong>Address:</strong> InvestingPro, Bangalore, Karnataka, India — 560001</p>
+              <p className="text-accent-800"><strong>Response Time:</strong> Within 30 days of receiving your complaint</p>
+            </div>
           </section>
+
 
           <div className="mt-12 pt-8 border-t border-slate-200">
             <p className="text-sm text-slate-600">

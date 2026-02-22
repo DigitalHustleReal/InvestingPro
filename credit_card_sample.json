@@ -1,0 +1,42 @@
+{
+  "id": "a87ae64a-45da-4cdb-8b23-21a5a99c57b8",
+  "product_id": null,
+  "slug": "simplyclick-sbi-card",
+  "name": "SimplyCLICK SBI Card",
+  "bank": "SBI Card",
+  "type": "Rewards",
+  "description": "Apply for SimplyCLICK SBI Card from SBI Card",
+  "annual_fee": 0,
+  "joining_fee": 0,
+  "renewal_fee": null,
+  "annual_fee_text": null,
+  "joining_fee_text": null,
+  "interest_rate_min": null,
+  "interest_rate_max": null,
+  "interest_rate_text": null,
+  "reward_rate": null,
+  "reward_type": null,
+  "reward_categories": null,
+  "rewards": [
+    "Online shopping"
+  ],
+  "min_income": null,
+  "min_income_text": null,
+  "min_credit_score": null,
+  "max_credit_limit": null,
+  "features": null,
+  "benefits": null,
+  "pros": [
+    "Online shopping"
+  ],
+  "cons": null,
+  "fuel_surcharge_waiver": null,
+  "lounge_access": null,
+  "insurance_coverage": null,
+  "rating": 4,
+  "image_url": null,
+  "apply_link": "https://www.bankbazaar.com/sbi-credit-card.html",
+  "updated_at": "2026-01-21T00:51:53.740971+00:00",
+  "created_at": "2026-01-21T00:51:53.740971+00:00",
+  "pipeline_run_id": null
+}

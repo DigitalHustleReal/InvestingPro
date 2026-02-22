@@ -212,11 +212,11 @@ export async function getClicksOverview(days: number = 7): Promise<{
         if (!data) return null;
         
         // Calculate stats
-        const uniqueSessions = new Set(data.map(d => d.session_id)).size;
+        const uniqueSessions = new Set((data as any[]).map(d => d.session_id)).size;
         
         // Top products
         const productCounts: Record<string, number> = {};
-        data.forEach(d => {
+        (data as any[]).forEach(d => {
             productCounts[d.product_name] = (productCounts[d.product_name] || 0) + 1;
         });
         const topProducts = Object.entries(productCounts)
@@ -226,7 +226,7 @@ export async function getClicksOverview(days: number = 7): Promise<{
         
         // Top sources
         const sourceCounts: Record<string, number> = {};
-        data.forEach(d => {
+        (data as any[]).forEach((d: any) => {
             sourceCounts[d.source_page] = (sourceCounts[d.source_page] || 0) + 1;
         });
         const topSources = Object.entries(sourceCounts)

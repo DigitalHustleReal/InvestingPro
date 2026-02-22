@@ -4,7 +4,6 @@ import React, { ReactNode } from 'react';
 import { AdminBreadcrumb } from './AdminBreadcrumb';
 import { LucideIcon, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { ADMIN_THEME } from '@/lib/admin/theme';
 import { cn } from '@/lib/utils';
 
 interface AdminPageHeaderProps {
@@ -17,11 +16,11 @@ interface AdminPageHeaderProps {
 }
 
 const ICON_COLOR_CLASSES = {
-    teal: 'bg-teal-500/10 border-teal-500/20 text-teal-400',
-    purple: 'bg-purple-500/10 border-purple-500/20 text-purple-400',
+    teal: 'bg-primary/10 border-primary/20 text-primary',
+    purple: 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400',
     blue: 'bg-blue-500/10 border-blue-500/20 text-blue-400',
     amber: 'bg-amber-500/10 border-amber-500/20 text-amber-400',
-    rose: 'bg-rose-500/10 border-rose-500/20 text-rose-400',
+    rose: 'bg-error/10 border-error/20 text-error',
 };
 
 export function AdminPageHeader({
@@ -42,18 +41,18 @@ export function AdminPageHeader({
                 <div className="flex items-center gap-4">
                     {Icon && (
                         <div className={cn(
-                            "w-14 h-14 rounded-xl flex items-center justify-center shadow-lg border backdrop-blur-sm",
+                            "w-12 h-12 rounded-xl flex items-center justify-center shadow-sm border",
                             colorClasses
                         )}>
-                            <Icon className="w-7 h-7" />
+                            <Icon className="w-6 h-6" />
                         </div>
                     )}
                     <div>
-                        <h1 className="text-2xl font-bold text-slate-200 tracking-tight leading-tight m-0 font-inter">
+                        <h1 className="text-2xl font-bold text-foreground tracking-tight leading-tight m-0 font-display">
                             {title}
                         </h1>
                         {subtitle && (
-                            <p className="text-slate-300 mt-1 text-sm m-0 font-inter">
+                            <p className="text-muted-foreground mt-1 text-sm m-0 font-sans">
                                 {subtitle}
                             </p>
                         )}
@@ -70,7 +69,6 @@ export function AdminPageHeader({
     );
 }
 
-// Quick stat card for dashboards
 interface StatCardProps {
     label: string;
     value: string | number;
@@ -85,26 +83,24 @@ export function StatCard({ label, value, change, changeType = 'neutral', icon: I
     const isNegative = changeType === 'negative';
     
     return (
-        <div className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/10 backdrop-blur-sm p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:bg-white/15 hover:border-white/15 hover:shadow-2xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            
+        <div className="group relative overflow-hidden rounded-xl bg-card border border-border p-6 transition-all duration-300 hover:shadow-md hover:border-primary/30">
             <div className="relative flex items-start justify-between z-10">
                 <div>
-                    <p className="text-[11px] font-bold uppercase tracking-wider text-slate-300 font-inter mb-2">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground font-sans mb-2">
                         {label}
                     </p>
                     <div className="flex items-baseline gap-2">
-                        <h3 className="text-3xl font-bold text-white tracking-tight font-inter tabular-nums">
+                        <h3 className="text-3xl font-bold text-foreground tracking-tight font-display tabular-nums">
                             {value}
                         </h3>
                     </div>
                     
                     {change && (
                         <div className={cn(
-                            "flex items-center gap-1.5 mt-3 text-xs font-medium px-2 py-1 rounded-md w-fit backdrop-blur-md border",
-                            isPositive ? "text-emerald-400 bg-emerald-400/10 border-emerald-400/20" : 
-                            isNegative ? "text-rose-400 bg-rose-400/10 border-rose-400/20" : 
-                            "text-slate-300 bg-slate-400/10 border-slate-400/20"
+                            "flex items-center gap-1.5 mt-3 text-xs font-medium px-2 py-1 rounded-md w-fit border",
+                            isPositive ? "text-success bg-success/10 border-success/20" : 
+                            isNegative ? "text-error bg-error/10 border-error/20" : 
+                            "text-muted-foreground bg-muted border-border"
                         )}>
                             {isPositive && <span className="text-[10px] ">▲</span>}
                             {isNegative && <span className="text-[10px] ">▼</span>}
@@ -115,25 +111,21 @@ export function StatCard({ label, value, change, changeType = 'neutral', icon: I
 
                 {Icon && (
                     <div className={cn(
-                        "flex items-center justify-center w-12 h-12 rounded-xl border shadow-lg transition-transform group-hover:scale-110 duration-300",
-                        color === 'teal' ? "bg-teal-500/10 border-teal-500/20 text-teal-400" :
-                        color === 'purple' ? "bg-purple-500/10 border-purple-500/20 text-purple-400" :
+                        "flex items-center justify-center w-10 h-10 rounded-lg border shadow-sm transition-transform group-hover:scale-105 duration-300",
+                        color === 'teal' ? "bg-primary/10 border-primary/20 text-primary" :
+                        color === 'purple' ? "bg-indigo-500/10 border-indigo-500/20 text-indigo-400" : 
                         color === 'amber' ? "bg-amber-500/10 border-amber-500/20 text-amber-400" :
-                        color === 'rose' ? "bg-rose-500/10 border-rose-500/20 text-rose-400" :
-                        "bg-blue-500/10 border-blue-500/20 text-blue-400"
+                        color === 'rose' ? "bg-error/10 border-error/20 text-error" :
+                        "bg-primary/10 border-primary/20 text-primary"
                     )}>
-                        <Icon className="w-6 h-6" />
+                        <Icon className="w-5 h-5" />
                     </div>
                 )}
             </div>
-            
-            {/* Background Glow */}
-            <div className="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-gradient-to-br from-white/5 to-transparent blur-2xl group-hover:from-white/10 transition-colors duration-300" />
         </div>
     );
 }
 
-// Content section wrapper
 interface ContentSectionProps {
     title?: string;
     subtitle?: string;
@@ -143,12 +135,12 @@ interface ContentSectionProps {
 
 export function ContentSection({ title, subtitle, actions, children }: ContentSectionProps) {
     return (
-        <section className="rounded-xl border border-white/10 bg-white/10 backdrop-blur-sm overflow-hidden shadow-lg mb-6">
+        <section className="rounded-xl bg-card border border-border shadow-sm overflow-hidden mb-6">
             {(title || actions) && (
-                <div className="px-5 py-4 border-b border-white/5 flex items-center justify-between gap-4">
+                <div className="px-5 py-4 border-b border-border flex items-center justify-between gap-4">
                     <div>
-                        {title && <h2 className="text-sm font-semibold text-slate-200 m-0 font-inter tracking-wide">{title}</h2>}
-                        {subtitle && <p className="text-xs text-slate-300 mt-0.5 m-0 font-inter">{subtitle}</p>}
+                        {title && <h2 className="text-sm font-semibold text-foreground m-0 font-sans tracking-wide">{title}</h2>}
+                        {subtitle && <p className="text-xs text-muted-foreground mt-0.5 m-0 font-sans">{subtitle}</p>}
                     </div>
                     {actions}
                 </div>
@@ -160,11 +152,10 @@ export function ContentSection({ title, subtitle, actions, children }: ContentSe
     );
 }
 
-// Action button variants
 interface ActionButtonProps {
-    onClick?: () => void | Promise<void> | any;
+    onClick?: () => void;
     children: ReactNode;
-    variant?: 'primary' | 'secondary' | 'ghost' | 'danger';
+    variant?: 'primary' | 'secondary' | 'danger' | 'ghost';
     size?: 'sm' | 'md' | 'lg';
     disabled?: boolean;
     isLoading?: boolean;
@@ -182,7 +173,6 @@ export function ActionButton({
     icon: Icon,
     className
 }: ActionButtonProps) {
-    // Map ActionButton variants to standard Button variants
     const buttonVariant = 
         variant === 'primary' ? 'default' : 
         variant === 'secondary' ? 'outline' : 
@@ -196,11 +186,11 @@ export function ActionButton({
             variant={buttonVariant}
             size={size === 'sm' ? 'sm' : size === 'lg' ? 'lg' : 'default'}
             className={cn(
-                "gap-2 font-bold transition-all duration-300 ring-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wt-gold/50",
-                variant === 'primary' && "bg-wt-gold text-wt-navy-900 hover:bg-[#FFD700] hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] border-none",
-                variant === 'secondary' && "bg-wt-surface-dark border border-wt-border-strong text-wt-text hover:bg-wt-surface-hover hover:border-wt-gold/50 hover:-translate-y-0.5 hover:shadow-sm",
-                variant === 'ghost' && "text-wt-text-muted hover:text-wt-text hover:bg-wt-surface-hover",
-                variant === 'danger' && "bg-red-500/10 border border-red-500/20 text-red-500 hover:bg-red-500 hover:text-white hover:-translate-y-0.5",
+                "gap-2 font-bold transition-all duration-300 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50",
+                variant === 'primary' && "bg-primary text-primary-foreground hover:bg-primary/90 hover:-translate-y-0.5 shadow-lg shadow-primary/20 hover:shadow-primary/30 border-none",
+                variant === 'secondary' && "bg-muted text-foreground border border-border hover:bg-muted/80 hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-sm",
+                variant === 'ghost' && "text-muted-foreground hover:text-primary hover:bg-primary/10",
+                variant === 'danger' && "bg-error/10 border border-error/20 text-error hover:bg-error hover:text-error-foreground hover:-translate-y-0.5",
                 className
             )}
         >
@@ -214,14 +204,9 @@ export function ActionButton({
     );
 }
 
-// Table wrapper with consistent styling
-interface DataTableProps {
-    children: ReactNode;
-}
-
 export function DataTable({ children }: { children: ReactNode }) {
     return (
-        <div className="rounded-lg border border-white/10 overflow-hidden bg-white/10 backdrop-blur-sm">
+        <div className="rounded-xl border border-border overflow-hidden bg-card shadow-sm">
             <table className="w-full border-collapse">
                 {children}
             </table>
@@ -231,8 +216,8 @@ export function DataTable({ children }: { children: ReactNode }) {
 
 export function TableHeader({ children }: { children: ReactNode }) {
     return (
-        <thead className="bg-white/10">
-            <tr className="border-b border-white/10">
+        <thead className="bg-muted/50">
+            <tr className="border-b border-border">
                 {children}
             </tr>
         </thead>
@@ -241,14 +226,14 @@ export function TableHeader({ children }: { children: ReactNode }) {
 
 export function TableHeaderCell({ children, className = '' }: { children?: ReactNode; className?: string }) {
     return (
-        <th className={cn("px-4 py-3 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider", className)}>
+        <th className={cn("px-4 py-3 text-left text-[11px] font-semibold text-text-muted uppercase tracking-wider", className)}>
             {children}
         </th>
     );
 }
 
 export function TableBody({ children }: { children: ReactNode }) {
-    return <tbody className="divide-y divide-white/5">{children}</tbody>;
+    return <tbody className="divide-y divide-border-subtle">{children}</tbody>;
 }
 
 export function TableRow({ children, onClick, className = '' }: { children: ReactNode; onClick?: () => void; className?: string }) {
@@ -256,8 +241,8 @@ export function TableRow({ children, onClick, className = '' }: { children: Reac
         <tr
             onClick={onClick}
             className={cn(
-                "border-b border-white/5 transition-colors",
-                onClick ? "cursor-pointer hover:bg-white/10" : "cursor-default",
+                "border-b border-border transition-colors",
+                onClick ? "cursor-pointer hover:bg-muted" : "cursor-default",
                 className
             )}
         >
@@ -268,30 +253,26 @@ export function TableRow({ children, onClick, className = '' }: { children: Reac
 
 export function TableCell({ children, className = '' }: { children?: ReactNode; className?: string }) {
     return (
-        <td className={cn("px-4 py-3 text-sm text-slate-200 align-middle", className)}>
+        <td className={cn("px-4 py-3 text-sm text-foreground align-middle", className)}>
             {children}
         </td>
     );
 }
 
-// Badge component
-// Status indicator mapping
-type StatusType = 'neutral' | 'completed' | 'processing' | 'warning' | 'error';
-
 interface StatusBadgeProps {
     children?: ReactNode;
-    status?: StatusType;
+    status?: 'neutral' | 'completed' | 'processing' | 'warning' | 'error';
     label?: string;
     size?: 'sm' | 'md';
 }
 
 export function StatusBadge({ children, status = 'neutral', label, size = 'md' }: StatusBadgeProps) {
     const variants = {
-        neutral: 'bg-slate-500/10 text-slate-300 border-slate-500/20',
-        completed: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-        processing: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
-        warning: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-        error: 'bg-rose-500/10 text-rose-400 border-rose-500/20',
+        neutral: 'bg-muted text-muted-foreground border-border',
+        completed: 'bg-success/10 text-success border-success/20',
+        processing: 'bg-info/10 text-info border-info/20',
+        warning: 'bg-warning/10 text-warning border-warning/20',
+        error: 'bg-error/10 text-error border-error/20',
     };
 
     return (
@@ -306,7 +287,6 @@ export function StatusBadge({ children, status = 'neutral', label, size = 'md' }
     );
 }
 
-// Empty state
 interface EmptyStateProps {
     icon?: LucideIcon;
     title: string;
@@ -318,15 +298,15 @@ export function EmptyState({ icon: Icon, title, description, action }: EmptyStat
     return (
         <div className="text-center py-12 px-6">
             {Icon && (
-                <div className="w-16 h-16 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
-                    <Icon className="w-8 h-8 text-slate-300" />
+                <div className="w-16 h-16 rounded-xl bg-card border border-border flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
+                    <Icon className="w-8 h-8 text-muted-foreground" />
                 </div>
             )}
-            <h3 className="text-base font-semibold text-slate-200 mb-2 m-0 font-inter">
+            <h3 className="text-base font-semibold text-foreground mb-2 m-0 font-inter">
                 {title}
             </h3>
             {description && (
-                <p className="text-sm text-slate-300 mb-6 max-w-md mx-auto font-inter">
+                <p className="text-sm text-muted-foreground mb-6 max-w-md mx-auto font-inter">
                     {description}
                 </p>
             )}

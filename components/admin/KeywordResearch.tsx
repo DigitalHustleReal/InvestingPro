@@ -188,12 +188,12 @@ export default function KeywordResearch({
                 {researchResult && (
                     <div className="space-y-4">
                         {/* Tabs */}
-                        <div className="flex gap-2 border-b">
+                        <div className="flex gap-2 border-b border-wt-border">
                             <button
                                 className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
                                     activeTab === 'long-tail'
                                         ? 'border-secondary-500 text-wt-gold'
-                                        : 'border-transparent text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text'
+                                        : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                                 }`}
                                 onClick={() => setActiveTab('long-tail')}
                             >
@@ -203,7 +203,7 @@ export default function KeywordResearch({
                                 className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
                                     activeTab === 'semantic'
                                         ? 'border-secondary-500 text-wt-gold'
-                                        : 'border-transparent text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text'
+                                        : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                                 }`}
                                 onClick={() => setActiveTab('semantic')}
                             >
@@ -213,7 +213,7 @@ export default function KeywordResearch({
                                 className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
                                     activeTab === 'alternative'
                                         ? 'border-secondary-500 text-wt-gold'
-                                        : 'border-transparent text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text'
+                                        : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                                 }`}
                                 onClick={() => setActiveTab('alternative')}
                             >
@@ -223,7 +223,7 @@ export default function KeywordResearch({
                                 className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
                                     activeTab === 'lsi'
                                         ? 'border-secondary-500 text-wt-gold'
-                                        : 'border-transparent text-wt-text-muted/70 dark:text-wt-text-muted/70 hover:text-wt-text'
+                                        : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                                 }`}
                                 onClick={() => setActiveTab('lsi')}
                             >
@@ -237,7 +237,7 @@ export default function KeywordResearch({
                                 <KeywordCard key={index} keyword={keyword} />
                             ))}
                             {getKeywordsForTab().length === 0 && (
-                                <p className="text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 text-center py-8">
+                                <p className="text-sm text-slate-500 dark:text-slate-400 text-center py-8">
                                     No keywords found in this category
                                 </p>
                             )}

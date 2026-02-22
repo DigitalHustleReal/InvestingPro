@@ -68,9 +68,11 @@ export class WorkflowMonitor {
     let completedCount = 0;
     let failedCount = 0;
 
-    data.forEach(instance => {
+    (data as any[] || []).forEach(instance => {
       const state = instance.state as WorkflowState;
-      byState[state] = (byState[state] || 0) + 1;
+      if (state && byState[state] !== undefined) {
+        byState[state] = (byState[state] || 0) + 1;
+      }
 
       if (instance.completed_at && instance.started_at) {
         const duration = new Date(instance.completed_at).getTime() - new Date(instance.started_at).getTime();

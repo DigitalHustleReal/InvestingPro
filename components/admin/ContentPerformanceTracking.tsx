@@ -18,6 +18,7 @@ import {
     Zap
 } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { CHART_COLORS, RECHARTS_TOOLTIP_STYLE, RECHARTS_GRID_STROKE, RECHARTS_TICK_FILL } from '@/lib/charts/theme';
 
 interface ContentPerformanceTrackingProps {
     timeRange?: '7d' | '30d' | '90d';
@@ -223,32 +224,32 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                             <LineChart data={chartData}>
                                 <defs>
                                     <linearGradient id="viewsGradient" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#0d9488" stopOpacity={0.3} />
-                                        <stop offset="95%" stopColor="#0d9488" stopOpacity={0} />
+                                        <stop offset="5%" stopColor={CHART_COLORS.primary} stopOpacity={0.3} />
+                                        <stop offset="95%" stopColor={CHART_COLORS.primary} stopOpacity={0} />
                                     </linearGradient>
                                 </defs>
-                                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                                <CartesianGrid strokeDasharray="3 3" stroke={RECHARTS_GRID_STROKE} vertical={false} />
                                 <XAxis 
                                     dataKey="date" 
                                     axisLine={false} 
                                     tickLine={false} 
-                                    tick={{ fill: '#64748b', fontSize: 10, fontWeight: 700 }}
+                                    tick={{ fill: RECHARTS_TICK_FILL, fontSize: 10, fontWeight: 700 }}
                                 />
                                 <YAxis 
                                     axisLine={false} 
                                     tickLine={false} 
-                                    tick={{ fill: '#64748b', fontSize: 10, fontWeight: 700 }}
+                                    tick={{ fill: RECHARTS_TICK_FILL, fontSize: 10, fontWeight: 700 }}
                                 />
                                 <Tooltip 
-                                    contentStyle={{ backgroundColor: '#0f172a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
+                                    contentStyle={RECHARTS_TOOLTIP_STYLE}
                                     itemStyle={{ color: '#fff', fontSize: '12px', fontWeight: 'bold' }}
                                 />
                                 <Line 
                                     type="monotone" 
                                     dataKey="views" 
-                                    stroke="#0d9488" 
+                                    stroke={CHART_COLORS.primary} 
                                     strokeWidth={4} 
-                                    dot={{ r: 4, fill: '#10b981', strokeWidth: 2, stroke: '#0f172a' }}
+                                    dot={{ r: 4, fill: CHART_COLORS.positive, strokeWidth: 2, stroke: '#0f172a' }}
                                     activeDot={{ r: 6, strokeWidth: 0 }}
                                 />
                             </LineChart>
@@ -266,7 +267,7 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                     <CardContent className="p-8">
                         <ResponsiveContainer width="100%" height={320}>
                             <BarChart data={categoryPerformance} layout="vertical">
-                                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" horizontal={false} />
+                                <CartesianGrid strokeDasharray="3 3" stroke={RECHARTS_GRID_STROKE} horizontal={false} />
                                 <XAxis type="number" hide />
                                 <YAxis 
                                     dataKey="category" 
@@ -277,12 +278,12 @@ export default function ContentPerformanceTracking({ timeRange = '30d' }: Conten
                                     width={100}
                                 />
                                 <Tooltip 
-                                    contentStyle={{ backgroundColor: '#0f172a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
+                                    contentStyle={RECHARTS_TOOLTIP_STYLE}
                                     cursor={{ fill: 'rgba(255,255,255,0.02)' }}
                                 />
                                 <Bar 
                                     dataKey="views" 
-                                    fill="#4f46e5" 
+                                    fill={CHART_COLORS.secondary} 
                                     radius={[0, 6, 6, 0]} 
                                     barSize={20}
                                 />

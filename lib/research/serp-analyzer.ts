@@ -90,7 +90,7 @@ function getSupabaseClient() {
 
 async function getCachedResults(keyword: string): Promise<ResearchBrief | null> {
     try {
-        const supabase = getSupabaseClient();
+        const supabase = getSupabaseClient() as any;
         const cacheKey = keyword.toLowerCase().trim();
         
         const { data, error } = await supabase
@@ -100,10 +100,10 @@ async function getCachedResults(keyword: string): Promise<ResearchBrief | null> 
             .gte('cached_at', new Date(Date.now() - CACHE_TTL_DAYS * 24 * 60 * 60 * 1000).toISOString())
             .single();
 
-        if (error || !data) return null;
+        if (error || !data || !(data as any).data) return null;
 
         console.log(`✅ SERP Cache HIT for "${keyword}"`);
-        return data.data as ResearchBrief;
+        return (data as any).data as ResearchBrief;
     } catch (error) {
         console.log(`ℹ️ SERP Cache MISS for "${keyword}"`);
         return null;
@@ -112,7 +112,7 @@ async function getCachedResults(keyword: string): Promise<ResearchBrief | null> 
 
 async function cacheResults(keyword: string, brief: ResearchBrief): Promise<void> {
     try {
-        const supabase = getSupabaseClient();
+        const supabase = getSupabaseClient() as any;
         const cacheKey = keyword.toLowerCase().trim();
 
         await supabase.from('serp_cache').upsert({
@@ -146,7 +146,8 @@ async function fetchFromSerpApi(keyword: string): Promise<ResearchBrief> {
             hl: 'en',
             gl: 'in',
             num: 10
-        }
+        },
+        timeout: 15000 // 15s timeout
     });
 
     const results = response.data;
@@ -198,7 +199,8 @@ async function fetchViaScraping(keyword: string): Promise<ResearchBrief> {
     const response = await axios.get(searchUrl, {
         headers: {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-        }
+        },
+        timeout: 15000 // 15s timeout
     });
 
     const $ = cheerio.load(response.data);

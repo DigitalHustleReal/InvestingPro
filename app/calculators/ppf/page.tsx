@@ -7,6 +7,8 @@ import { CalculatorSchema, FAQSchema, OrganizationSchema } from "@/components/se
 import { PPFCalculator } from "@/components/calculators/PPFCalculator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Info } from "lucide-react";
+import FinancialDisclaimer from "@/components/legal/FinancialDisclaimer";
+
 
 export default function PPFCalculatorPage() {
     const faqs = [
@@ -70,8 +72,10 @@ export default function PPFCalculatorPage() {
 
             {/* Calculator */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+                <FinancialDisclaimer variant="compact" className="mb-6" />
                 <PPFCalculator />
             </div>
+
 
             {/* FAQ Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">

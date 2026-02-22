@@ -135,7 +135,7 @@ async function pollForCompletion(predictionId: string, token: string, maxAttempt
         }
         
         if (prediction.status === 'failed') {
-            logger.error('Image generation failed', { error: prediction.error });
+            logger.error('Image generation failed', new Error(prediction.error || 'Unknown Replicate error'));
             return null;
         }
         

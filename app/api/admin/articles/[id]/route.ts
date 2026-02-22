@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { articleService, type ArticleContent, type ArticleMetadata } from '@/lib/cms/article-service';
+import { ArticleService, type ArticleContent, type ArticleMetadata } from '@/lib/cms/article-service';
 import { createClient } from '@/lib/supabase/server';
+import { createServiceClient } from '@/lib/supabase/service';
 import { logger } from '@/lib/logger';
 
 /**
@@ -21,7 +22,9 @@ export async function GET(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const article = await articleService.getById(id);
+    // Pass authenticated client to service
+    const service = ArticleService.create(supabase);
+    const article = await service.getById(id);
     
     if (!article) {
       return NextResponse.json({ error: 'Article not found' }, { status: 404 });
@@ -77,7 +80,9 @@ export async function PUT(
     // Validate and prepare metadata
     const articleMetadata: Partial<ArticleMetadata> = metadata || {};
 
-    const result = await articleService.saveArticle(
+    // Pass authenticated client to service
+    const service = ArticleService.create(supabase);
+    const result = await service.saveArticle(
       id,
       articleContent,
       articleMetadata
@@ -114,7 +119,11 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    await articleService.deleteArticle(id);
+    // Use service-role client for admin delete (bypasses RLS)
+    // Auth is already verified above via the cookie-based client
+    const adminClient = createServiceClient();
+    const service = ArticleService.create(adminClient);
+    await service.deleteArticle(id);
 
     return NextResponse.json({ success: true });
   } catch (error) {

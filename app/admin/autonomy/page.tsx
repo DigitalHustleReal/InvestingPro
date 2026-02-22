@@ -29,7 +29,6 @@ import { ConfidenceIndicator, ScoreBadge } from '@/components/admin/ConfidenceIn
 import { AnomalyBadgeGroup, RiskIndicator } from '@/components/admin/AnomalyBadge';
 import Link from 'next/link';
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
-import { ADMIN_THEME } from '@/lib/admin/theme';
 
 interface AutonomyLevel {
     id: string;

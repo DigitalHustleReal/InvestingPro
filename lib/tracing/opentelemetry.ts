@@ -56,7 +56,7 @@ export function initializeTracing(): void {
                 'Authorization': `Bearer ${apiKey}`,
                 'Content-Type': 'application/json',
             },
-        });
+        }) as any;
 
         // Create resource with service information
         const resource = resourceFromAttributes({

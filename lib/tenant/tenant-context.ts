@@ -154,7 +154,7 @@ export async function resolveTenant(
       metadata: data.metadata || {},
     };
   } catch (error) {
-    logger.error('Error resolving tenant', { error, identifier });
+    logger.error('Error resolving tenant', error as Error, { identifier });
     return null;
   }
 }
@@ -171,7 +171,7 @@ export async function getTenantSettings(tenantId: string): Promise<TenantSetting
       .eq('is_sensitive', false);
 
     if (error) {
-      logger.error('Error fetching tenant settings', { error, tenantId });
+      logger.error('Error fetching tenant settings', error as Error, { tenantId });
       return {};
     }
 
@@ -182,7 +182,7 @@ export async function getTenantSettings(tenantId: string): Promise<TenantSetting
 
     return settings;
   } catch (error) {
-    logger.error('Error in getTenantSettings', { error, tenantId });
+    logger.error('Error in getTenantSettings', error as Error, { tenantId });
     return {};
   }
 }
@@ -198,7 +198,7 @@ export async function getTenantFeatureFlags(tenantId: string): Promise<TenantFea
       .eq('tenant_id', tenantId);
 
     if (error) {
-      logger.error('Error fetching feature flags', { error, tenantId });
+      logger.error('Error fetching feature flags', error as Error, { tenantId });
       return {};
     }
 
@@ -216,7 +216,7 @@ export async function getTenantFeatureFlags(tenantId: string): Promise<TenantFea
 
     return flags;
   } catch (error) {
-    logger.error('Error in getTenantFeatureFlags', { error, tenantId });
+    logger.error('Error in getTenantFeatureFlags', error as Error, { tenantId });
     return {};
   }
 }
@@ -296,7 +296,7 @@ export async function getCurrentTenant(): Promise<Tenant | null> {
     // Fallback to default tenant
     return resolveTenant('main', 'default');
   } catch (error) {
-    logger.error('Error getting current tenant', { error });
+    logger.error('Error getting current tenant', error as Error);
     return null;
   }
 }
@@ -362,7 +362,7 @@ export async function getUserTenantMembership(
       permissions: data.permissions || {},
     };
   } catch (error) {
-    logger.error('Error getting user tenant membership', { error, userId });
+    logger.error('Error getting user tenant membership', error as Error, { userId });
     return null;
   }
 }
@@ -382,7 +382,7 @@ export async function getUserTenants(userId: string): Promise<Tenant[]> {
       .eq('status', 'active');
 
     if (error) {
-      logger.error('Error fetching user tenants', { error, userId });
+      logger.error('Error fetching user tenants', error as Error, { userId });
       return [];
     }
 
@@ -402,7 +402,7 @@ export async function getUserTenants(userId: string): Promise<Tenant[]> {
         metadata: row.tenants.metadata || {},
       }));
   } catch (error) {
-    logger.error('Error in getUserTenants', { error, userId });
+    logger.error('Error in getUserTenants', error as Error, { userId });
     return [];
   }
 }

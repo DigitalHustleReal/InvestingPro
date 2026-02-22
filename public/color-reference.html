@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Color Reference</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                colors: {
+                    background: {
+                        primary: '#0F172A',
+                        secondary: '#1E293B',
+                        tertiary: '#334155',
+                    },
+                    surface: {
+                        DEFAULT: 'rgba(30, 41, 59, 0.5)',
+                        hover: 'rgba(51, 65, 85, 0.3)',
+                    },
+                    text: {
+                        primary: '#F1F5F9',
+                        secondary: '#CBD5E1',
+                        tertiary: '#E2E8F0',
+                        disabled: '#94A3B8',
+                    },
+                    primary: { DEFAULT: '#14B8A6' },
+                    success: { DEFAULT: '#22C55E' },
+                    warning: { DEFAULT: '#F59E0B' },
+                    error: { DEFAULT: '#EF4444' },
+                    info: { DEFAULT: '#3B82F6' },
+                    white: '#ffffff',
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: system-ui, sans-serif; }
+    </style>
+</head>
+<body class="bg-background-primary text-text-primary p-10">
+    <h1 class="text-3xl font-bold mb-4 text-text-primary">Admin Color System Reference</h1>
+    <p class="text-text-secondary mb-8">This is the single source of truth for semantic colors.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Backgrounds -->
+        <section class="border border-white/10 p-6 rounded-xl bg-background-secondary">
+            <h2 class="text-xl font-bold mb-4 text-text-primary border-b border-white/10 pb-2">Backgrounds</h2>
+            <div class="space-y-4">
+                <div class="p-4 rounded bg-background-primary border border-white/10">
+                    <span class="text-text-secondary">bg-background-primary</span>
+                    <span class="block text-xs text-text-disabled">Main Page Background</span>
+                </div>
+                <div class="p-4 rounded bg-background-secondary border border-white/10">
+                   <span class="text-text-secondary">bg-background-secondary</span>
+                   <span class="block text-xs text-text-disabled">Cards, Sidebars</span>
+                </div>
+                <div class="p-4 rounded bg-surface border border-white/10">
+                    <span class="text-text-secondary">bg-surface</span>
+                    <span class="block text-xs text-text-disabled">Inputs, Inner Containers</span>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Typography -->
+        <section class="border border-white/10 p-6 rounded-xl bg-background-secondary">
+            <h2 class="text-xl font-bold mb-4 text-text-primary border-b border-white/10 pb-2">Typography & Contrast</h2>
+            <div class="space-y-4">
+                <div>
+                    <h1 class="text-3xl text-text-primary font-bold">Heading 1 (text-text-primary)</h1>
+                    <span class="text-xs text-success bg-success/10 px-1 rounded">AAA Compliant</span>
+                </div>
+                <div>
+                    <h2 class="text-2xl text-text-secondary font-semibold">Heading 2 (text-text-secondary)</h2>
+                    <span class="text-xs text-warning bg-warning/10 px-1 rounded">AA Compliant</span>
+                </div>
+                <div>
+                    <p class="text-base text-text-tertiary">Body Text (text-text-tertiary). Used for standard reading context.</p>
+                </div>
+                <div>
+                    <p class="text-sm text-text-disabled">Disabled / Muted Text (text-text-disabled)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Functional Colors -->
+        <section class="border border-white/10 p-6 rounded-xl bg-background-secondary col-span-1 md:col-span-2">
+            <h2 class="text-xl font-bold mb-4 text-text-primary border-b border-white/10 pb-2">Functional Palette</h2>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div class="p-4 rounded bg-primary text-white font-bold text-center">Primary</div>
+                <div class="p-4 rounded bg-success text-white font-bold text-center">Success</div>
+                <div class="p-4 rounded bg-warning text-white font-bold text-center">Warning</div>
+                <div class="p-4 rounded bg-error text-white font-bold text-center">Error</div>
+                <div class="p-4 rounded bg-info text-white font-bold text-center">Info</div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

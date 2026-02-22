@@ -400,7 +400,7 @@ Return ONLY valid JSON.
                 keywords: enrichedKeywords,
                 meta_title: structuredContent.seo_title || generatedContent.seo_title,
                 meta_description: structuredContent.seo_description || generatedContent.seo_description,
-                featured_image: featuredImage,
+                featured_image: featuredImage || undefined,
                 category: category
             };
 

@@ -15,7 +15,14 @@ export default function EditProductPage() {
 
     const { data: product, isLoading, error } = useQuery({
         queryKey: ['product', productId],
-        queryFn: () => productService.getProductById(productId),
+        queryFn: async () => {
+             const res = await fetch(`/api/admin/products?id=${productId}`);
+             if (!res.ok) {
+                 if (res.status === 404) throw new Error('Product not found');
+                 throw new Error('Failed to fetch product');
+             }
+             return res.json();
+        },
         enabled: !!productId
     });
 
@@ -23,7 +30,7 @@ export default function EditProductPage() {
         return (
             <AdminLayout>
                 <div className="p-8 flex items-center justify-center min-h-[400px]">
-                    <Loader2 className="w-8 h-8 animate-spin text-wt-gold" />
+                    <Loader2 className="w-8 h-8 animate-spin text-primary" />
                 </div>
             </AdminLayout>
         );
@@ -34,9 +41,9 @@ export default function EditProductPage() {
             <AdminLayout>
                 <div className="p-8">
                     <div className="text-center py-16">
-                        <h2 className="text-2xl font-bold text-slate-900 mb-2">Product Not Found</h2>
-                        <p className="text-muted-foreground/70 dark:text-muted-foreground/70 mb-6">The product you're looking for doesn't exist.</p>
-                        <Link href="/admin/products" className="text-wt-gold hover:text-wt-gold-hover font-medium">
+                        <h2 className="text-2xl font-bold text-foreground mb-2">Product Not Found</h2>
+                        <p className="text-muted-foreground mb-6">The product you're looking for doesn't exist.</p>
+                        <Link href="/admin/products" className="text-primary hover:text-primary/80 font-medium">
                             ← Back to Products
                         </Link>
                     </div>
@@ -51,17 +58,17 @@ export default function EditProductPage() {
                 <div className="mb-8">
                     <Link 
                         href="/admin/products" 
-                        className="inline-flex items-center gap-2 text-sm text-muted-foreground/70 dark:text-muted-foreground/70 hover:text-slate-700 mb-4"
+                        className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-4 transition-colors"
                     >
                         <ArrowLeft className="w-4 h-4" /> Back to Products
                     </Link>
                     <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary-500 to-secondary-600 flex items-center justify-center shadow-lg shadow-secondary-500/25">
-                            <Edit className="w-6 h-6 text-foreground dark:text-foreground" />
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary-500/20 to-secondary-600/20 border border-secondary-500/30 flex items-center justify-center">
+                            <Edit className="w-6 h-6 text-secondary-500" />
                         </div>
                         <div>
-                            <h1 className="text-3xl font-bold text-slate-900">Edit Product</h1>
-                            <p className="text-muted-foreground/70 dark:text-muted-foreground/70">{product.name}</p>
+                            <h1 className="text-3xl font-bold text-foreground">Edit Product</h1>
+                            <p className="text-muted-foreground">{product.name}</p>
                         </div>
                     </div>
                 </div>

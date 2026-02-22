@@ -148,7 +148,7 @@ export default function EnhancedAnalyticsDashboard() {
             {/* Main Insights Chart Area */}
             <ContentSection 
                 title="Traffic Performance Trends" 
-                subtitle="Visualisasi data views dan user harian"
+                subtitle="Daily views and user data visualization"
                 actions={<TrendingUp className="w-5 h-5 text-wt-gold" />}
             >
                 <TimeSeriesChart data={analytics?.timeSeries || []} />
@@ -156,17 +156,17 @@ export default function EnhancedAnalyticsDashboard() {
 
             {/* Secondary Insights Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <ContentSection title="Top Performing Posts" subtitle="Konten dengan views tertinggi">
+                <ContentSection title="Top Performing Posts" subtitle="Content with highest views">
                     <TopContentList content={analytics?.topContent || []} />
                 </ContentSection>
 
-                <ContentSection title="Conversion Funnel" subtitle="Analisis efisiensi pipeline">
+                <ContentSection title="Conversion Funnel" subtitle="Pipeline efficiency analysis">
                     <ConversionFunnel funnel={analytics?.conversionFunnel || []} />
                 </ContentSection>
             </div>
 
             {/* Category Analysis */}
-            <ContentSection title="Category Saturation" subtitle="Analisis volume konten per kategori">
+            <ContentSection title="Category Saturation" subtitle="Content volume analysis by category">
                 <CategoryBreakdown categories={analytics?.categoryBreakdown || []} />
             </ContentSection>
         </div>

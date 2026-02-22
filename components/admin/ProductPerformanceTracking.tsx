@@ -21,6 +21,7 @@ import {
     Calendar
 } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { CHART_COLORS, CHART_PALETTE, RECHARTS_TOOLTIP_STYLE, RECHARTS_GRID_STROKE, RECHARTS_TICK_FILL } from '@/lib/charts/theme';
 
 interface ProductPerformanceTrackingProps {
     timeRange?: '7d' | '30d' | '90d' | 'all';
@@ -115,11 +116,11 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
         return categories.map((cat: any, idx: number) => ({
             name: cat.category,
             value: cat.revenue || 0,
-            color: ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444', '#06b6d4'][idx % 6]
+            color: CHART_PALETTE[idx % CHART_PALETTE.length]
         }));
     }, [productStats.categoryStats]);
 
-    const COLORS = ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444', '#06b6d4'];
+    const COLORS = CHART_PALETTE;
 
     return (
         <div className="space-y-10">
@@ -217,45 +218,45 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
                             <LineChart data={revenueChartData}>
                                 <defs>
                                     <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
-                                        <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                                        <stop offset="5%" stopColor={CHART_COLORS.positive} stopOpacity={0.3} />
+                                        <stop offset="95%" stopColor={CHART_COLORS.positive} stopOpacity={0} />
                                     </linearGradient>
                                     <linearGradient id="clicksGradient" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
-                                        <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+                                        <stop offset="5%" stopColor={CHART_COLORS.secondary} stopOpacity={0.3} />
+                                        <stop offset="95%" stopColor={CHART_COLORS.secondary} stopOpacity={0} />
                                     </linearGradient>
                                 </defs>
-                                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                                <CartesianGrid strokeDasharray="3 3" stroke={RECHARTS_GRID_STROKE} vertical={false} />
                                 <XAxis 
                                     dataKey="date" 
                                     axisLine={false} 
                                     tickLine={false} 
-                                    tick={{ fill: '#64748b', fontSize: 10, fontWeight: 700 }}
+                                    tick={{ fill: RECHARTS_TICK_FILL, fontSize: 10, fontWeight: 700 }}
                                 />
                                 <YAxis 
                                     axisLine={false} 
                                     tickLine={false} 
-                                    tick={{ fill: '#64748b', fontSize: 10, fontWeight: 700 }}
+                                    tick={{ fill: RECHARTS_TICK_FILL, fontSize: 10, fontWeight: 700 }}
                                 />
                                 <Tooltip 
-                                    contentStyle={{ backgroundColor: '#0f172a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
+                                    contentStyle={RECHARTS_TOOLTIP_STYLE}
                                     itemStyle={{ color: '#fff', fontSize: '12px', fontWeight: 'bold' }}
                                 />
                                 <Line 
                                     type="monotone" 
                                     dataKey="revenue" 
-                                    stroke="#10b981" 
+                                    stroke={CHART_COLORS.positive} 
                                     strokeWidth={4} 
-                                    dot={{ r: 4, fill: '#10b981', strokeWidth: 2, stroke: '#0f172a' }}
+                                    dot={{ r: 4, fill: CHART_COLORS.positive, strokeWidth: 2, stroke: '#0f172a' }}
                                     activeDot={{ r: 6, strokeWidth: 0 }}
                                     name="Revenue (₹)"
                                 />
                                 <Line 
                                     type="monotone" 
                                     dataKey="clicks" 
-                                    stroke="#3b82f6" 
+                                    stroke={CHART_COLORS.secondary} 
                                     strokeWidth={3} 
-                                    dot={{ r: 3, fill: '#3b82f6', strokeWidth: 2, stroke: '#0f172a' }}
+                                    dot={{ r: 3, fill: CHART_COLORS.secondary, strokeWidth: 2, stroke: '#0f172a' }}
                                     activeDot={{ r: 5, strokeWidth: 0 }}
                                     name="Clicks"
                                 />
@@ -289,7 +290,7 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
                                     ))}
                                 </Pie>
                                 <Tooltip 
-                                    contentStyle={{ backgroundColor: '#0f172a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
+                                    contentStyle={RECHARTS_TOOLTIP_STYLE}
                                     formatter={(value: any) => `₹${value.toLocaleString()}`}
                                 />
                             </PieChart>

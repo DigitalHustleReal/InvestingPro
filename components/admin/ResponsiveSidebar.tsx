@@ -19,7 +19,7 @@ export function MobileMenuButton({ isOpen, onClick }: { isOpen: boolean; onClick
     return (
         <button
             onClick={onClick}
-            className="md:hidden fixed top-4 left-4 z-50 p-2 bg-surface-darker dark:bg-surface-darker border border-wt-border dark:border-wt-border rounded-lg text-wt-text dark:text-wt-text hover:bg-muted dark:bg-muted transition-colors"
+            className="md:hidden fixed top-4 left-4 z-50 p-2 bg-background-secondary border border-border rounded-lg text-text-primary hover:bg-surface-hover transition-colors shadow-md"
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isOpen}
         >
@@ -33,7 +33,7 @@ export function MobileMenuOverlay({ isOpen, onClose }: { isOpen: boolean; onClos
 
     return (
         <div
-            className="md:hidden fixed inset-0 bg-black/50 z-40"
+            className="md:hidden fixed inset-0 bg-background-primary/80 backdrop-blur-sm z-40"
             onClick={onClose}
             aria-hidden="true"
         />

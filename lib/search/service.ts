@@ -23,6 +23,7 @@ export interface SearchOptions {
     category?: string;
     tags?: string[];
     sortBy?: 'relevance' | 'date' | 'views';
+    type?: 'all' | 'articles' | 'products';
 }
 
 export interface SearchResponse {
@@ -39,7 +40,7 @@ class SearchService {
      * Search across articles and products
      */
     async search(query: string, options: SearchOptions = {}): Promise<SearchResponse> {
-        const { limit = 10, category } = options;
+        const { limit = 10, category, type = 'all' } = options;
         
         if (!query || query.length < 2) {
             return { results: [], total: 0, query, suggestions: await this.getSuggestions() };
@@ -60,14 +61,25 @@ class SearchService {
             if (category) articleQuery = articleQuery.eq('category', category);
 
             // 2. Search Products
-            const productQuery = this.supabase
+            let productQuery = this.supabase
                 .from('products')
                 .select('id, name, slug, description, category, provider_name, image_url')
                 .eq('is_active', true)
                 .or(`name.ilike.%${query}%,description.ilike.%${query}%,provider_name.ilike.%${query}%`)
                 .limit(limit);
 
-            const [articleRes, productRes] = await Promise.all([articleQuery, productQuery]);
+            let articleRes: any = { data: [] };
+            let productRes: any = { data: [] };
+
+            if (type === 'all' || type === 'articles') {
+                const res = await articleQuery;
+                articleRes = res;
+            }
+
+            if (type === 'all' || type === 'products') {
+                const res = await productQuery;
+                productRes = res;
+            }
 
             const results: SearchResult[] = [];
 

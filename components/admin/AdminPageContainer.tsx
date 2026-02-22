@@ -2,6 +2,7 @@
 
 import React, { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
+import { AdminPageTransition } from './AdminPageTransition';
 
 /**
  * Admin page content wrapper: consistent max-width, padding, and section spacing.
@@ -28,7 +29,7 @@ export function AdminPageContainer({
     className,
 }: AdminPageContainerProps) {
     return (
-        <div
+        <AdminPageTransition
             className={cn(
                 ADMIN_PAGE_MAX_W,
                 'mx-auto w-full min-h-0',
@@ -39,7 +40,7 @@ export function AdminPageContainer({
             )}
         >
             {children}
-        </div>
+        </AdminPageTransition>
     );
 }
 

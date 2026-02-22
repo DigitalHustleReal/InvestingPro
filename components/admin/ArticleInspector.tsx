@@ -17,17 +17,27 @@ import { Badge } from '@/components/ui/badge';
 import SEOScoreCalculator from '@/components/admin/SEOScoreCalculator';
 import { SocialPostManager } from '@/components/admin/SocialPostManager';
 import CategorySelect from '@/components/admin/CategorySelect';
-import { Loader2, Save, Eye, Send, Sparkles, Calendar, Search, Wand2, Languages, Clock } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Loader2, Save, Eye, Send, Sparkles, Calendar, Search, Wand2, Languages, Clock, Image as ImageIcon } from 'lucide-react';
 import { toast } from 'sonner';
 import type { ArticleCategory, ArticleLanguage, ArticleStatus, ContentType } from '@/types/article';
 import KeywordResearchQuickAccess from './KeywordResearchQuickAccess';
 import SubCategorySelect from './SubCategorySelect';
 import FeaturedImageSelector from './FeaturedImageSelector';
+import AuthorSelect from './AuthorSelect';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from '@/components/ui/accordion';
 import ArticleVersionHistory from './ArticleVersionHistory';
 import ArticleScheduling from './ArticleScheduling';
 import BrokenLinkReport from './BrokenLinkReport';
 import ValidationReport from './ValidationReport';
+import InterlinkingSuggestions from './InterlinkingSuggestions';
+import { RepurposePanel } from './RepurposePanel';
 
 /**
  * ArticleInspector - Right-side inspector panel for article editing
@@ -62,6 +72,7 @@ interface ArticleInspectorProps {
     onSave: (metadata: any) => void | Promise<void>;
     onPublish?: () => void | Promise<void>;
     onPreview?: () => void | Promise<void>;
+    onUpdateContent?: (content: string) => void;
     saving?: boolean;
 }
 
@@ -70,6 +81,7 @@ export default function ArticleInspector({
     onSave,
     onPublish,
     onPreview,
+    onUpdateContent,
     saving = false
 }: ArticleInspectorProps) {
     const queryClient = useQueryClient();
@@ -80,6 +92,31 @@ export default function ArticleInspector({
     const [language, setLanguage] = useState<ArticleLanguage>(article.language || 'en');
     const [status, setStatus] = useState<ArticleStatus>(article.status || 'draft');
     const [excerpt, setExcerpt] = useState(article.excerpt || '');
+
+    const handleApplyLink = (anchorText: string, slug: string, articleId: string) => {
+        if (!article.content || !onUpdateContent) return;
+
+        // Simple replacement: find first occurrence of anchorText
+        // We use a regex with word boundaries to avoid partial matches
+        const escapedAnchor = anchorText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`\\b${escapedAnchor}\\b`, 'i');
+        
+        const linkHtml = `<a href="/articles/${slug}" class="internal-link" data-article-id="${articleId}">${anchorText}</a>`;
+        const newContent = article.content.replace(regex, linkHtml);
+        
+        if (newContent !== article.content) {
+            onUpdateContent(newContent);
+        } else {
+            // Fallback if word boundary fails (sometimes for non-latin or joined text)
+            const fallbackRegex = new RegExp(escapedAnchor, 'i');
+            const fallbackContent = article.content.replace(fallbackRegex, linkHtml);
+            if (fallbackContent !== article.content) {
+                onUpdateContent(fallbackContent);
+            }
+        }
+    };
+    const [authorId, setAuthorId] = useState(article.author_id || '');
+    const [editorId, setEditorId] = useState(article.editor_id || '');
 
     // Sync excerpt when article prop changes
     React.useEffect(() => {
@@ -196,7 +233,7 @@ export default function ArticleInspector({
             
             const data = json.data;
             setSeoTitle(data.seo_title);
-            setSeoDescription(data.meta_description);
+            setSeoDescription(data.seo_description || data.meta_description);
             setPrimaryKeyword(data.primary_keyword);
             setSecondaryKeywords(data.secondary_keywords || []);
             setSearchIntent(data.search_intent);
@@ -281,7 +318,7 @@ export default function ArticleInspector({
             excerpt,
             featured_image: featuredImage,
             seo_title: seoTitle || article.title,
-            meta_description: seoDescription || excerpt,
+            seo_description: seoDescription || excerpt,
             tags,
             primary_keyword: primaryKeyword,
             secondary_keywords: secondaryKeywords,
@@ -289,7 +326,9 @@ export default function ArticleInspector({
             editorial_notes: {
                 ...article.editorial_notes,
                 sub_category: subCategory
-            }
+            },
+            author_id: authorId || undefined,
+            editor_id: editorId || undefined
         });
     };
 
@@ -334,8 +373,8 @@ export default function ArticleInspector({
     return (
         <div className="h-full flex flex-col bg-white dark:bg-surface-dark border-l border-wt-border border-wt-border transition-colors duration-300">
             {/* Header */}
-            <div className="border-b border-wt-border border-wt-border px-6 py-4 bg-wt-surface-hover/50 dark:bg-surface-darker/50">
-                <h2 className="text-sm font-semibold text-wt-text dark:text-wt-text/95 dark:text-wt-text/95 uppercase tracking-wider">
+            <div className="border-b border-wt-border px-6 py-4 bg-white dark:bg-surface-darker/50">
+                <h2 className="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider">
                     Inspector
                 </h2>
             </div>
@@ -343,484 +382,443 @@ export default function ArticleInspector({
             {/* Scrollable Content */}
             <div className="flex-1 overflow-y-auto">
                 <Tabs defaultValue="metadata" className="w-full">
-                    <TabsList className="w-full justify-start rounded-none border-b border-wt-border dark:border-wt-border dark:border-wt-border bg-transparent h-auto p-0">
+                    <TabsList className="w-full justify-start rounded-none border-b border-wt-border bg-transparent h-auto p-0">
                         <TabsTrigger 
                             value="metadata" 
-                            className="px-6 py-3 rounded-none border-b-2 border-transparent data-[state=active]:border-wt-gold dark:data-[state=active]:border-primary-400"
+                            className="px-6 py-3 rounded-none border-b-2 border-transparent data-[state=active]:border-wt-gold dark:data-[state=active]:border-primary-400 text-slate-800 dark:text-slate-400 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white font-medium"
                         >
                             Metadata
                         </TabsTrigger>
                         <TabsTrigger 
                             value="versions" 
-                            className="px-6 py-3 rounded-none border-b-2 border-transparent data-[state=active]:border-wt-gold dark:data-[state=active]:border-primary-400"
+                            className="px-6 py-3 rounded-none border-b-2 border-transparent data-[state=active]:border-wt-gold dark:data-[state=active]:border-primary-400 text-slate-800 dark:text-slate-400 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white font-medium"
                         >
-                            <Clock className="w-4 h-4 mr-2" />
                             Versions
+                        </TabsTrigger>
+                        <TabsTrigger 
+                            value="repurpose" 
+                            className="px-6 py-3 rounded-none border-b-2 border-transparent data-[state=active]:border-wt-gold dark:data-[state=active]:border-primary-400 text-slate-800 dark:text-slate-400 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white font-medium"
+                        >
+                            <Sparkles className="w-4 h-4 mr-2" />
+                            Repurpose
                         </TabsTrigger>
                     </TabsList>
 
-                    <TabsContent value="metadata" className="px-6 py-6 space-y-6 mt-0">
-                {/* Publishing Controls */}
-                <div className="space-y-3">
-                    <h3 className="text-xs font-semibold text-wt-text-muted dark:text-wt-text-muted uppercase tracking-wider">
-                        Publishing
-                    </h3>
-                    <div className="space-y-2">
-                        <div>
-                            <Label htmlFor="status" className="text-wt-text dark:text-wt-text/80 dark:text-wt-text/80">Status</Label>
-                            <Select value={status} onValueChange={(v: string) => setStatus(v as ArticleStatus)}>
-                                <SelectTrigger id="status" className="bg-white dark:bg-surface-darker border-wt-border dark:border-wt-border dark:border-wt-border text-wt-text dark:text-wt-text/90 dark:text-wt-text/90">
-                                    <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent className="bg-white dark:bg-surface-darker border-wt-border dark:border-wt-border dark:border-wt-border text-wt-text dark:text-wt-text/90 dark:text-wt-text/90">
-                                    <SelectItem value="draft">Draft</SelectItem>
-                                    <SelectItem value="published">Published</SelectItem>
-                                    <SelectItem value="archived">Archived</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                        <div className="flex gap-2">
-                            {/* 1. SAVE - Most frequent action */}
-                            <Button
-                                onClick={handleSave}
-                                disabled={saving}
-                                className="flex-1 bg-wt-nav hover:bg-wt-nav-light text-wt-text dark:text-wt-text"
-                                size="sm"
-                            >
-                                {saving ? (
-                                    <>
-                                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                        Saving...
-                                    </>
-                                ) : (
-                                    <>
-                                        <Save className="w-4 h-4 mr-2" />
-                                        Save
-                                    </>
-                                )}
-                            </Button>
+                    <TabsContent value="metadata" className="mt-0 pb-10">
+                        <Accordion type="single" collapsible defaultValue="publishing" className="w-full">
+                            {/* 1. Publishing & Schedule */}
+                            <AccordionItem value="publishing" className="border-b border-wt-border">
+                                <AccordionTrigger className="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 hover:no-underline group">
+                                    <div className="flex items-center gap-2">
+                                        <Send className="w-4 h-4 text-slate-500 group-data-[state=open]:text-primary" />
+                                        <span className="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">Publishing</span>
+                                    </div>
+                                </AccordionTrigger>
+                                <AccordionContent className="px-6 pb-6 pt-2 space-y-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="status" className="text-slate-700 dark:text-slate-200 text-xs">Status</Label>
+                                        <Select value={status} onValueChange={(v: string) => setStatus(v as ArticleStatus)}>
+                                            <SelectTrigger id="status" className="bg-white dark:bg-surface-darker border-wt-border text-slate-900 dark:text-white">
+                                                <SelectValue />
+                                            </SelectTrigger>
+                                            <SelectContent className="bg-white dark:bg-surface-darker border-wt-border text-wt-text dark:text-wt-text/90">
+                                                <SelectItem value="draft">Draft</SelectItem>
+                                                <SelectItem value="published">Published</SelectItem>
+                                                <SelectItem value="archived">Archived</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
 
-                            {/* 2. PREVIEW - Check before publishing */}
-                            {onPreview && (
-                                <Button
-                                    onClick={onPreview}
-                                    variant="outline"
-                                    size="sm"
-                                    className="flex-1 border-wt-border dark:border-wt-border text-wt-text/80 dark:text-wt-text/80 hover:bg-muted dark:bg-muted hover:text-wt-text dark:text-wt-text"
-                                >
-                                    <Eye className="w-4 h-4 mr-2" />
-                                    Preview
-                                </Button>
-                            )}
-
-                            {/* 3. PUBLISH - Final step */}
-                            {onPublish && (
-                                <Button
-                                    onClick={handlePublish}
-                                    disabled={saving || status === 'published'}
-                                    variant="outline"
-                                    size="sm"
-                                    className="flex-1 border-success-900 text-wt-green hover:bg-success-900/20"
-                                >
-                                    <Send className="w-4 h-4 mr-2" />
-                                    Publish
-                                </Button>
-                            )}
-                        </div>
-                    </div>
-                </div>
-
-                {/* Article Scheduling */}
-                {article.id && (
-                    <div className="pt-4 border-t border-wt-border border-wt-border">
-                        <ArticleScheduling
-                            articleId={article.id}
-                            currentStatus={status}
-                            scheduledPublishAt={(article as any).scheduled_publish_at}
-                            onScheduled={() => {
-                                // Refresh article data after scheduling
-                                queryClient.invalidateQueries({ queryKey: ['article', article.id] });
-                            }}
-                        />
-                    </div>
-                )}
-
-                {/* AI Status */}
-                {article.ai_generated && (
-                    <div className="space-y-2 p-3 bg-accent-50 border-accent-200 dark:bg-amber-950/30 dark:border-accent-900/50 border rounded-lg">
-                        <div className="flex items-center gap-2">
-                            <Sparkles className="w-4 h-4 text-wt-gold dark:text-accent-500" />
-                            <span className="text-sm font-medium text-accent-800 dark:text-accent-400">AI Generated</span>
-                        </div>
-                        <p className="text-xs text-accent-700 dark:text-accent-200/70">
-                            This content was generated with AI assistance. Please review before publishing.
-                        </p>
-                    </div>
-                )}
-
-                {/* Featured Image */}
-                <div className="space-y-3">
-                    <h3 className="text-xs font-semibold text-wt-text-muted dark:text-wt-text-muted uppercase tracking-wider">
-                        Featured Media
-                    </h3>
-                    <FeaturedImageSelector 
-                        imageUrl={featuredImage}
-                        onImageSelect={setFeaturedImage}
-                        articleTitle={article.title}
-                        articleCategory={category}
-                        keywords={[primaryKeyword, ...secondaryKeywords].filter(Boolean)}
-                    />
-                </div>
-
-                {/* Category & Language */}
-                <div className="space-y-3">
-                    <h3 className="text-xs font-semibold text-wt-text-muted dark:text-wt-text-muted uppercase tracking-wider">
-                        Classification
-                    </h3>
-                    <div className="space-y-3">
-                        <div>
-                            <div className="flex items-center justify-between mb-1">
-                                <Label htmlFor="category" className="text-wt-text dark:text-wt-text/80 dark:text-wt-text/80">Category</Label>
-                                <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    className="h-6 text-secondary-600 dark:text-wt-gold hover:bg-wt-gold-subtle dark:hover:bg-primary-900/20 hover:text-secondary-700 dark:hover:text-secondary-300"
-                                    onClick={handleAutoCategorize}
-                                    disabled={isAutoCategorizing}
-                                >
-                                    {isAutoCategorizing ? <Loader2 className="w-3 h-3 animate-spin mr-1"/> : <Wand2 className="w-3 h-3 mr-1"/>}
-                                    Auto
-                                </Button>
-                            </div>
-                            <CategorySelect
-                                value={category}
-                                onValueChange={(v: string) => setCategory(v as ArticleCategory)}
-                            />
-                        </div>
-                        <div>
-                             <Label htmlFor="sub-category" className="text-wt-text dark:text-wt-text/80 dark:text-wt-text/80">Topic / Sub-Category</Label>
-                             <SubCategorySelect
-                                categorySlug={category}
-                                value={subCategory}
-                                onValueChange={setSubCategory}
-                                className="mt-1 bg-white dark:bg-surface-darker border-wt-border dark:border-wt-border dark:border-wt-border text-wt-text dark:text-wt-text/90 dark:text-wt-text/90"
-                             />
-                        </div>
-                        <div>
-                            <Label htmlFor="language" className="text-wt-text dark:text-wt-text/80 dark:text-wt-text/80">Language</Label>
-                            <Select value={language} onValueChange={(v: string) => setLanguage(v as ArticleLanguage)}>
-                                <SelectTrigger id="language" className="bg-white dark:bg-surface-darker border-wt-border dark:border-wt-border dark:border-wt-border text-wt-text dark:text-wt-text/90 dark:text-wt-text/90">
-                                    <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent className="bg-white dark:bg-surface-darker border-wt-border dark:border-wt-border dark:border-wt-border text-wt-text dark:text-wt-text/90 dark:text-wt-text/90">
-                                    <SelectItem value="en">English</SelectItem>
-                                    <SelectItem value="hi">Hindi</SelectItem>
-                                    <SelectItem value="ta">Tamil</SelectItem>
-                                    <SelectItem value="te">Telugu</SelectItem>
-                                    <SelectItem value="bn">Bengali</SelectItem>
-                                    <SelectItem value="mr">Marathi</SelectItem>
-                                    <SelectItem value="gu">Gujarati</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Schema-Driven Fields: Keywords & Intent */}
-                <div className="space-y-3">
-                    <h3 className="text-xs font-semibold text-wt-text-muted dark:text-wt-text-muted uppercase tracking-wider">
-                        SEO Keywords & Intent
-                    </h3>
-                    <div className="space-y-3">
-                        <div>
-                            <Label htmlFor="primary-keyword" className="text-wt-text dark:text-wt-text/80 dark:text-wt-text/80">Primary Keyword</Label>
-                            <Input
-                                id="primary-keyword"
-                                value={primaryKeyword}
-                                onChange={(e) => setPrimaryKeyword(e.target.value)}
-                                placeholder="e.g., mutual funds"
-                                className="mt-1 bg-white dark:bg-surface-darker border-wt-border dark:border-wt-border dark:border-wt-border text-wt-text dark:text-wt-text/90 dark:text-wt-text/90 placeholder:text-wt-text-muted dark:text-wt-text-muted dark:placeholder:text-wt-text-muted/50 dark:text-wt-text-muted/50"
-                            />
-                            {primaryKeyword && (
-                                <div className="mt-2">
-                                    <KeywordResearchQuickAccess
-                                        articleId={article.id}
-                                        primaryKeyword={primaryKeyword}
-                                        onKeywordSelect={(keyword) => {
-                                            if (!secondaryKeywords.includes(keyword)) {
-                                                setSecondaryKeywords([...secondaryKeywords, keyword]);
-                                            }
-                                        }}
-                                    />
-                                </div>
-                            )}
-                        </div>
-                        <div>
-                            <Label htmlFor="secondary-keywords" className="text-wt-text dark:text-wt-text/80 dark:text-wt-text/80">Secondary Keywords</Label>
-                            <Input
-                                id="secondary-keywords"
-                                value={secondaryKeywordInput}
-                                onChange={(e) => setSecondaryKeywordInput(e.target.value)}
-                                onKeyDown={handleSecondaryKeywordKeyDown}
-                                placeholder="Press Enter to add"
-                                className="mt-1 bg-white dark:bg-surface-darker border-wt-border dark:border-wt-border dark:border-wt-border text-wt-text dark:text-wt-text/90 dark:text-wt-text/90 placeholder:text-wt-text-muted dark:text-wt-text-muted dark:placeholder:text-wt-text-muted/50 dark:text-wt-text-muted/50"
-                            />
-                            {secondaryKeywords.length > 0 && (
-                                <div className="flex flex-wrap gap-1 mt-2">
-                                    {secondaryKeywords.map((kw) => (
-                                        <Badge key={kw} variant="outline" className="text-xs border-wt-border dark:border-wt-border dark:border-wt-border text-wt-text dark:text-wt-text/80 dark:text-wt-text/80 bg-wt-card dark:bg-surface-darker">
-                                            {kw}
-                                            <button
-                                                onClick={() => removeSecondaryKeyword(kw)}
-                                                className="ml-1 hover:text-wt-danger"
-                                                aria-label={`Remove keyword ${kw}`}
+                                    <div className="flex flex-col gap-2">
+                                        <div className="flex gap-2">
+                                            <Button
+                                                onClick={handleSave}
+                                                disabled={saving}
+                                                variant="secondary"
+                                                className="flex-1 dark:bg-secondary-600 dark:hover:bg-secondary-500"
+                                                size="sm"
                                             >
-                                                ×
-                                            </button>
-                                        </Badge>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                        <div>
-                            <Label htmlFor="search-intent" className="text-wt-text dark:text-wt-text/80 dark:text-wt-text/80">Search Intent</Label>
-                            <Select
-                                value={searchIntent}
-                                onValueChange={(v: string) => setSearchIntent(v as 'informational' | 'commercial' | 'transactional' | '')}
-                            >
-                                <SelectTrigger id="search-intent" className="bg-white dark:bg-surface-darker border-wt-border dark:border-wt-border dark:border-wt-border text-wt-text dark:text-wt-text/90 dark:text-wt-text/90">
-                                    <SelectValue placeholder="Select intent" />
-                                </SelectTrigger>
-                                <SelectContent className="bg-white dark:bg-surface-darker border-wt-border dark:border-wt-border dark:border-wt-border text-wt-text dark:text-wt-text/90 dark:text-wt-text/90">
-                                    <SelectItem value="informational">Informational</SelectItem>
-                                    <SelectItem value="commercial">Commercial</SelectItem>
-                                    <SelectItem value="transactional">Transactional</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                    </div>
-                </div>
+                                                {saving ? (
+                                                    <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Saving...</>
+                                                ) : (
+                                                    <><Save className="w-4 h-4 mr-2" />Save</>
+                                                )}
+                                            </Button>
 
-                {/* Tags */}
-                <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                        <h3 className="text-xs font-semibold text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted dark:text-wt-text-muted uppercase tracking-wider">
-                            Tags
-                        </h3>
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className="h-6 text-secondary-600 dark:text-wt-gold hover:bg-wt-gold-subtle dark:hover:bg-primary-900/20 hover:text-secondary-700 dark:hover:text-secondary-300"
-                            onClick={handleAutoTag}
-                            disabled={isAutoTagging}
-                        >
-                            {isAutoTagging ? <Loader2 className="w-3 h-3 animate-spin mr-1"/> : <Wand2 className="w-3 h-3 mr-1"/>}
-                            Generate
-                        </Button>
-                    </div>
-                    <div>
-                        <Input
-                            value={tagInput}
-                            onChange={(e) => setTagInput(e.target.value)}
-                            onKeyDown={handleTagInputKeyDown}
-                            placeholder="Press Enter to add tag"
-                            className="bg-white dark:bg-surface-darker border-wt-border dark:border-wt-border dark:border-wt-border text-wt-text dark:text-wt-text/90 dark:text-wt-text/90 placeholder:text-wt-text-muted dark:text-wt-text-muted dark:placeholder:text-wt-text-muted/50 dark:text-wt-text-muted/50"
-                            aria-label="Add tag"
-                            aria-describedby="tags-help"
-                        />
-                        <p id="tags-help" className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 mt-1">
-                            Press Enter to add. Maximum 10 tags.
-                        </p>
-                        {tags.length > 0 && (
-                            <div className="flex flex-wrap gap-1 mt-2">
-                                {tags.map((tag) => (
-                                        <Badge key={tag} variant="outline" className="text-xs border-wt-border dark:border-wt-border dark:border-wt-border text-wt-text dark:text-wt-text/80 dark:text-wt-text/80 bg-wt-card dark:bg-surface-darker">
-                                            {tag}
-                                            <button
-                                                onClick={() => removeTag(tag)}
-                                                className="ml-1 hover:text-danger-600 dark:hover:text-wt-danger"
-                                                aria-label={`Remove tag ${tag}`}
+                                            {onPreview && (
+                                                <Button
+                                                    onClick={onPreview}
+                                                    variant="outline"
+                                                    size="sm"
+                                                    className="flex-1 border-wt-border text-slate-700 hover:bg-slate-100 dark:bg-slate-800/50 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-white"
+                                                >
+                                                    <Eye className="w-4 h-4 mr-2" />
+                                                    Preview
+                                                </Button>
+                                            )}
+                                        </div>
+
+                                        {onPublish && (
+                                            <Button
+                                                onClick={handlePublish}
+                                                disabled={saving || status === 'published'}
+                                                variant="outline"
+                                                size="sm"
+                                                className="w-full border-green-600 text-green-700 hover:bg-green-50 dark:border-green-500 dark:text-green-400 dark:hover:bg-green-900/20"
                                             >
-                                                ×
-                                            </button>
-                                        </Badge>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                </div>
+                                                <Send className="w-4 h-4 mr-2" />
+                                                Publish Final
+                                            </Button>
+                                        )}
+                                    </div>
 
-                {/* Excerpt */}
-                <div className="space-y-3">
-                    <h3 className="text-xs font-semibold text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted dark:text-wt-text-muted uppercase tracking-wider">
-                        Excerpt
-                    </h3>
-                    <Textarea
-                        value={excerpt}
-                        onChange={(e) => setExcerpt(e.target.value)}
-                        placeholder="Brief summary of the article..."
-                        rows={3}
-                        maxLength={300}
-                        className={`resize-none bg-white dark:bg-surface-darker border-wt-border dark:border-wt-border dark:border-wt-border text-wt-text dark:text-wt-text/90 dark:text-wt-text/90 placeholder:text-wt-text-muted dark:text-wt-text-muted dark:placeholder:text-wt-text-muted/50 dark:text-wt-text-muted/50 ${
-                            excerpt.length > 300 ? 'border-warning-500 dark:border-warning-500' : ''
-                        }`}
-                        aria-label="Article excerpt"
-                        aria-describedby="excerpt-char-count"
-                    />
-                    <div id="excerpt-char-count" className="flex items-center justify-between">
-                        <p className={`text-xs ${excerpt.length > 300 ? 'text-warning-600 dark:text-warning-400' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70'}`}>
-                            {excerpt.length}/300 characters
-                        </p>
-                        {excerpt.length > 300 && (
-                            <span className="text-xs text-warning-600 dark:text-warning-400" role="alert">
-                                Exceeds recommended length
-                            </span>
-                        )}
-                    </div>
-                </div>
+                                    {article.id && (
+                                        <div className="pt-4 border-t border-wt-border">
+                                            <ArticleScheduling
+                                                articleId={article.id}
+                                                currentStatus={status}
+                                                scheduledPublishAt={(article as any).scheduled_publish_at}
+                                                onScheduled={() => {
+                                                    queryClient.invalidateQueries({ queryKey: ['article', article.id] });
+                                                }}
+                                            />
+                                        </div>
+                                    )}
+                                </AccordionContent>
+                            </AccordionItem>
 
-                {/* SEO Metadata */}
-                <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                        <h3 className="text-xs font-semibold text-wt-text-muted dark:text-wt-text-muted uppercase tracking-wider">
-                            SEO Metadata
-                        </h3>
-                        <Button 
-                            variant="ghost" 
-                            size="sm" 
-                            className="h-6 text-wt-gold hover:bg-primary-900/20 hover:text-secondary-300"
-                            onClick={handleAutoOptimize}
-                            disabled={isOptimizing}
-                        >
-                            {isOptimizing ? <Loader2 className="w-3 h-3 animate-spin mr-1"/> : <Wand2 className="w-3 h-3 mr-1"/>}
-                            Auto-Fix
-                        </Button>
-                    </div>
-                    <div className="space-y-3">
-                        <div>
-                            <Label htmlFor="seo-title" className="text-wt-text dark:text-wt-text/80 dark:text-wt-text/80">SEO Title</Label>
-                            <Input
-                                id="seo-title"
-                                value={seoTitle}
-                                onChange={(e) => setSeoTitle(e.target.value)}
-                                placeholder={article.title || 'SEO title'}
-                                maxLength={70}
-                                className={`mt-1 bg-white dark:bg-surface-darker border-wt-border dark:border-wt-border dark:border-wt-border text-wt-text dark:text-wt-text/90 dark:text-wt-text/90 placeholder:text-wt-text-muted dark:text-wt-text-muted dark:placeholder:text-wt-text-muted/50 dark:text-wt-text-muted/50 ${
-                                    seoTitle.length > 60 ? 'border-warning-500 dark:border-warning-500' : ''
-                                }`}
-                                aria-label="SEO title"
-                                aria-describedby="seo-title-char-count"
-                            />
-                            <div className="flex items-center justify-between mt-1">
-                                <p className={`text-xs ${seoTitle.length > 60 ? 'text-warning-600 dark:text-warning-400' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70'}`}>
-                                    {seoTitle.length}/60 characters
-                                </p>
-                                {seoTitle.length > 60 && (
-                                    <span className="text-xs text-warning-600 dark:text-warning-400" role="alert">
-                                        May be truncated in search results
-                                    </span>
-                                )}
-                            </div>
-                        </div>
-                        <div>
-                            <Label htmlFor="seo-description" className="text-wt-text dark:text-wt-text/80 dark:text-wt-text/80">Meta Description</Label>
-                            <Textarea
-                                id="seo-description"
-                                value={seoDescription}
-                                onChange={(e) => setSeoDescription(e.target.value)}
-                                placeholder="Meta description for search engines..."
-                                rows={3}
-                                maxLength={165}
-                                className={`resize-none mt-1 bg-white dark:bg-surface-darker border-wt-border dark:border-wt-border dark:border-wt-border text-wt-text dark:text-wt-text/90 dark:text-wt-text/90 placeholder:text-wt-text-muted dark:text-wt-text-muted dark:placeholder:text-wt-text-muted/50 dark:text-wt-text-muted/50 ${
-                                    seoDescription.length > 160 ? 'border-warning-500 dark:border-warning-500' : ''
-                                }`}
-                                aria-label="Meta description"
-                                aria-describedby="seo-description-char-count"
-                            />
-                            <div className="flex items-center justify-between mt-1">
-                                <p className={`text-xs ${seoDescription.length > 160 ? 'text-warning-600 dark:text-warning-400' : 'text-wt-text-muted/70 dark:text-wt-text-muted/70'}`}>
-                                    {seoDescription.length}/160 characters
-                                </p>
-                                {seoDescription.length > 160 && (
-                                    <span className="text-xs text-warning-600 dark:text-warning-400" role="alert">
-                                        May be truncated in search results
-                                    </span>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            {/* 2. Classification & Authors */}
+                            <AccordionItem value="classification" className="border-b border-wt-border">
+                                <AccordionTrigger className="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 hover:no-underline group">
+                                    <div className="flex items-center gap-2">
+                                        <Search className="w-4 h-4 text-slate-500 group-data-[state=open]:text-primary" />
+                                        <span className="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">Classification</span>
+                                    </div>
+                                </AccordionTrigger>
+                                <AccordionContent className="px-6 pb-6 pt-2 space-y-4">
+                                    <div>
+                                        <div className="flex items-center justify-between mb-1">
+                                            <Label htmlFor="category" className="text-wt-text dark:text-wt-text/80 text-xs">Category</Label>
+                                            <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                className="h-6 text-secondary-600 dark:text-wt-gold hover:bg-wt-gold-subtle dark:hover:bg-primary-900/20 text-[10px]"
+                                                onClick={handleAutoCategorize}
+                                                disabled={isAutoCategorizing}
+                                            >
+                                                {isAutoCategorizing ? <Loader2 className="w-3 h-3 animate-spin mr-1"/> : <Wand2 className="w-3 h-3 mr-1"/>}
+                                                Auto
+                                            </Button>
+                                        </div>
+                                        <CategorySelect
+                                            value={category}
+                                            onValueChange={(v: string) => setCategory(v as ArticleCategory)}
+                                        />
+                                    </div>
+                                    <div>
+                                         <Label htmlFor="sub-category" className="text-wt-text dark:text-wt-text/80 text-xs">Topic / Sub-Category</Label>
+                                         <SubCategorySelect
+                                            categorySlug={category}
+                                            value={subCategory}
+                                            onValueChange={setSubCategory}
+                                            className="mt-1 bg-white dark:bg-surface-darker border-wt-border text-sm"
+                                         />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="language" className="text-wt-text dark:text-wt-text/80 text-xs">Language</Label>
+                                        <Select value={language} onValueChange={(v: string) => setLanguage(v as ArticleLanguage)}>
+                                            <SelectTrigger id="language" className="bg-white dark:bg-surface-darker border-wt-border">
+                                                <SelectValue />
+                                            </SelectTrigger>
+                                            <SelectContent className="bg-white dark:bg-surface-darker border-wt-border">
+                                                <SelectItem value="en">English</SelectItem>
+                                                <SelectItem value="hi">Hindi</SelectItem>
+                                                <SelectItem value="ta">Tamil</SelectItem>
+                                                <SelectItem value="te">Telugu</SelectItem>
+                                                <SelectItem value="bn">Bengali</SelectItem>
+                                                <SelectItem value="mr">Marathi</SelectItem>
+                                                <SelectItem value="gu">Gujarati</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <div className="pt-2 space-y-4">
+                                        <div>
+                                            <Label className="text-wt-text dark:text-wt-text/80 mb-1.5 block text-xs">Primary Author</Label>
+                                            <AuthorSelect 
+                                                value={authorId}
+                                                onValueChange={(id) => setAuthorId(id)}
+                                                roleFilter="author"
+                                                placeholder="Assign author..."
+                                            />
+                                        </div>
+                                        <div>
+                                            <Label className="text-wt-text dark:text-wt-text/80 mb-1.5 block text-xs">Expert Verifier (Editor)</Label>
+                                            <AuthorSelect 
+                                                value={editorId}
+                                                onValueChange={(id) => setEditorId(id)}
+                                                roleFilter="editor"
+                                                placeholder="Assign verifier..."
+                                            />
+                                        </div>
+                                    </div>
+                                </AccordionContent>
+                            </AccordionItem>
 
-                {/* Translation Tool */}
-                <div className="space-y-3 pt-4 border-t border-wt-border border-wt-border">
-                    <h3 className="text-xs font-semibold text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted dark:text-wt-text-muted uppercase tracking-wider flex items-center gap-2">
-                        <Languages className="w-4 h-4" />
-                        Translate
-                    </h3>
-                    <div className="flex gap-2">
-                         <Select value={targetLang} onValueChange={setTargetLang}>
-                            <SelectTrigger className="flex-1 bg-white dark:bg-surface-darker border-wt-border dark:border-wt-border dark:border-wt-border text-wt-text dark:text-wt-text/90 dark:text-wt-text/90">
-                                <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent className="bg-white dark:bg-surface-darker border-wt-border dark:border-wt-border dark:border-wt-border text-wt-text dark:text-wt-text/90 dark:text-wt-text/90">
-                                <SelectItem value="hi">Hindi (à¤¹à¤¿à¤‚à¤¦à¥€)</SelectItem>
-                                <SelectItem value="te">Telugu (à°¤à±†à°²à±à°—à±)</SelectItem>
-                                <SelectItem value="mr">Marathi (à¤®à¤°à¤¾à¤ à¥€)</SelectItem>
-                                <SelectItem value="ta">Tamil (à®¤à®®à®¿à®´à¯)</SelectItem>
-                                <SelectItem value="bn">Bengali (à¦¬à¦¾à¦‚à¦²à¦¾)</SelectItem>
-                                <SelectItem value="gu">Gujarati (àª—à«àªœàª°àª¾àª¤à«€)</SelectItem>
-                            </SelectContent>
-                        </Select>
-                        <Button 
-                            size="sm"
-                            variant="default"
-                            onClick={handleTranslate}
-                            disabled={isTranslating}
-                            className="bg-wt-gold hover:bg-wt-gold-hover text-wt-text dark:text-wt-text"
-                        >
-                             {isTranslating ? <Loader2 className="w-4 h-4 animate-spin"/> : "Go"}
-                        </Button>
-                    </div>
-                    <p className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70">
-                        Creates a new draft article in the selected language.
-                    </p>
-                </div>
+                            {/* 3. SEO Keywords & Intent */}
+                            <AccordionItem value="seo-keywords" className="border-b border-wt-border">
+                                <AccordionTrigger className="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 hover:no-underline group">
+                                    <div className="flex items-center gap-2">
+                                        <Sparkles className="w-4 h-4 text-slate-500 group-data-[state=open]:text-primary" />
+                                        <span className="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">SEO Keywords</span>
+                                    </div>
+                                </AccordionTrigger>
+                                <AccordionContent className="px-6 pb-6 pt-2 space-y-4">
+                                    <div>
+                                        <Label htmlFor="primary-keyword" className="text-slate-700 dark:text-slate-200 text-xs">Primary Keyword</Label>
+                                        <Input
+                                            id="primary-keyword"
+                                            value={primaryKeyword}
+                                            onChange={(e) => setPrimaryKeyword(e.target.value)}
+                                            placeholder="e.g., mutual funds"
+                                            className="mt-1 bg-white dark:bg-surface-darker border-wt-border text-sm"
+                                        />
+                                        {primaryKeyword && (
+                                            <div className="mt-2">
+                                                <KeywordResearchQuickAccess
+                                                    articleId={article.id}
+                                                    primaryKeyword={primaryKeyword}
+                                                    onKeywordSelect={(keyword) => {
+                                                        if (!secondaryKeywords.includes(keyword)) {
+                                                            setSecondaryKeywords([...secondaryKeywords, keyword]);
+                                                        }
+                                                    }}
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="secondary-keywords" className="text-wt-text dark:text-wt-text/80 text-xs">Secondary Keywords</Label>
+                                        <Input
+                                            id="secondary-keywords"
+                                            value={secondaryKeywordInput}
+                                            onChange={(e) => setSecondaryKeywordInput(e.target.value)}
+                                            onKeyDown={handleSecondaryKeywordKeyDown}
+                                            placeholder="Press Enter to add"
+                                            className="mt-1 bg-white dark:bg-surface-darker border-wt-border text-sm"
+                                        />
+                                        {secondaryKeywords.length > 0 && (
+                                            <div className="flex flex-wrap gap-1 mt-2">
+                                                {secondaryKeywords.map((kw) => (
+                                                    <Badge key={kw} variant="outline" className="text-[11px] bg-wt-card dark:bg-surface-darker">
+                                                        {kw}
+                                                        <button onClick={() => removeSecondaryKeyword(kw)} className="ml-1 hover:text-wt-danger">×</button>
+                                                    </Badge>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="search-intent" className="text-wt-text dark:text-wt-text/80 text-xs">Search Intent</Label>
+                                        <Select value={searchIntent} onValueChange={(v: string) => setSearchIntent(v as any)}>
+                                            <SelectTrigger id="search-intent" className="bg-white dark:bg-surface-darker border-wt-border text-sm">
+                                                <SelectValue placeholder="Select intent" />
+                                            </SelectTrigger>
+                                            <SelectContent className="bg-white dark:bg-surface-darker border-wt-border">
+                                                <SelectItem value="informational">Informational</SelectItem>
+                                                <SelectItem value="commercial">Commercial</SelectItem>
+                                                <SelectItem value="transactional">Transactional</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                </AccordionContent>
+                            </AccordionItem>
 
-                {/* Social Media Distribution */}
-                <div className="pt-4 border-t border-slate-800">
-                    <SocialPostManager articleId={article.id || ''} />
-                </div>
+                            {/* 4. SEO Metadata */}
+                            <AccordionItem value="seo-meta" className="border-b border-wt-border">
+                                <AccordionTrigger className="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 hover:no-underline group">
+                                    <div className="flex items-center gap-2">
+                                        <Search className="w-4 h-4 text-slate-500 group-data-[state=open]:text-primary" />
+                                        <span className="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">SEO Metadata</span>
+                                    </div>
+                                </AccordionTrigger>
+                                <AccordionContent className="px-6 pb-6 pt-2 space-y-4">
+                                    <div className="flex items-center justify-between mb-2">
+                                        <span className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight">AI Optimization</span>
+                                        <Button 
+                                            variant="ghost" 
+                                            size="sm" 
+                                            className="h-6 text-amber-600 hover:bg-amber-50 dark:text-amber-400 text-[10px]"
+                                            onClick={handleAutoOptimize}
+                                            disabled={isOptimizing}
+                                        >
+                                            {isOptimizing ? <Loader2 className="w-3 h-3 animate-spin mr-1"/> : <Wand2 className="w-3 h-3 mr-1"/>}
+                                            Auto-Fix
+                                        </Button>
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="seo-title" className="text-slate-700 dark:text-slate-200 text-xs text-xs">SEO Title</Label>
+                                        <Input
+                                            id="seo-title"
+                                            value={seoTitle}
+                                            onChange={(e) => setSeoTitle(e.target.value)}
+                                            placeholder={article.title || 'SEO title'}
+                                            maxLength={70}
+                                            className={cn("mt-1 bg-white dark:bg-surface-darker border-wt-border text-sm", seoTitle.length > 60 && "border-warning-500")}
+                                        />
+                                        <p className={cn("text-[10px] mt-1", seoTitle.length > 60 ? "text-warning-600" : "text-muted-foreground")}>
+                                            {seoTitle.length}/60 characters
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="seo-description" className="text-slate-700 dark:text-slate-200 text-xs">Meta Description</Label>
+                                        <Textarea
+                                            id="seo-description"
+                                            value={seoDescription}
+                                            onChange={(e) => setSeoDescription(e.target.value)}
+                                            placeholder="Meta description for search engines..."
+                                            rows={3}
+                                            maxLength={165}
+                                            className={cn("resize-none mt-1 bg-white dark:bg-surface-darker border-wt-border text-sm", seoDescription.length > 160 && "border-warning-500")}
+                                        />
+                                        <p className={cn("text-[10px] mt-1", seoDescription.length > 160 ? "text-warning-600" : "text-muted-foreground")}>
+                                            {seoDescription.length}/160 characters
+                                        </p>
+                                    </div>
+                                </AccordionContent>
+                            </AccordionItem>
 
-                {/* Validation Report */}
-                {article.id && (
-                    <div className="pt-4 border-t border-wt-border border-wt-border">
-                        <ValidationReport
-                            articleId={article.id}
-                            title={article.title}
-                            content={article.content}
-                            category={category}
-                        />
-                    </div>
-                )}
+                            {/* 5. Enhancements (Media, Tags, Excerpt) */}
+                            <AccordionItem value="enhancements" className="border-b border-wt-border">
+                                <AccordionTrigger className="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 hover:no-underline group">
+                                    <div className="flex items-center gap-2">
+                                        <ImageIcon className="w-4 h-4 text-slate-500 group-data-[state=open]:text-primary" />
+                                        <span className="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">Enhancements</span>
+                                    </div>
+                                </AccordionTrigger>
+                                <AccordionContent className="px-6 pb-6 pt-2 space-y-6">
+                                    <div className="space-y-3">
+                                        <Label className="text-wt-text dark:text-wt-text/80 text-xs text-xs mb-1 block">Featured Media</Label>
+                                        <FeaturedImageSelector 
+                                            imageUrl={featuredImage}
+                                            onImageSelect={setFeaturedImage}
+                                            articleTitle={article.title}
+                                            articleCategory={category}
+                                            keywords={[primaryKeyword, ...secondaryKeywords].filter(Boolean)}
+                                        />
+                                    </div>
+                                    
+                                    <div className="space-y-4 pt-2">
+                                        <div className="flex items-center justify-between">
+                                            <Label className="text-wt-text dark:text-wt-text/80 text-xs">Tags</Label>
+                                            <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                className="h-6 text-secondary-600 dark:text-wt-gold hover:bg-wt-gold-subtle text-[10px]"
+                                                onClick={handleAutoTag}
+                                                disabled={isAutoTagging}
+                                            >
+                                                {isAutoTagging ? <Loader2 className="w-3 h-3 animate-spin mr-1"/> : <Wand2 className="w-3 h-3 mr-1"/>}
+                                                Generate
+                                            </Button>
+                                        </div>
+                                        <div>
+                                            <Input
+                                                value={tagInput}
+                                                onChange={(e) => setTagInput(e.target.value)}
+                                                onKeyDown={handleTagInputKeyDown}
+                                                placeholder="Press Enter to add tag"
+                                                className="bg-white dark:bg-surface-darker border-wt-border text-sm"
+                                            />
+                                            {tags.length > 0 && (
+                                                <div className="flex flex-wrap gap-1 mt-2">
+                                                    {tags.map((tag) => (
+                                                        <Badge key={tag} variant="outline" className="text-[11px] bg-wt-card dark:bg-surface-darker">
+                                                            {tag}
+                                                            <button onClick={() => removeTag(tag)} className="ml-1 hover:text-wt-danger">×</button>
+                                                        </Badge>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
 
-                {/* Broken Link Report */}
-                {article.id && (
-                    <div className="pt-4 border-t border-wt-border border-wt-border">
-                        <BrokenLinkReport articleId={article.id} />
-                    </div>
-                )}
+                                    <div className="space-y-3 pt-2">
+                                        <Label className="text-wt-text dark:text-wt-text/80 text-xs">Excerpt</Label>
+                                        <Textarea
+                                            value={excerpt}
+                                            onChange={(e) => setExcerpt(e.target.value)}
+                                            placeholder="Brief summary..."
+                                            rows={3}
+                                            maxLength={300}
+                                            className={cn("resize-none bg-white dark:bg-surface-darker border-wt-border text-sm", excerpt.length > 300 && "border-warning-500")}
+                                        />
+                                        <p className={cn("text-[10px] mt-1", excerpt.length > 300 ? "text-warning-600" : "text-muted-foreground")}>
+                                            {excerpt.length}/300 characters
+                                        </p>
+                                    </div>
+                                </AccordionContent>
+                            </AccordionItem>
 
-                {/* SEO Score Calculator */}
-                {article.title && article.content && (
-                    <div>
-                        <SEOScoreCalculator
-                            title={article.title}
-                            content={article.content}
-                            metaDescription={seoDescription}
-                            keywords={keywordsForSEO}
-                        />
-                    </div>
-                )}
+                            {/* 6. Intelligence & Tools */}
+                            <AccordionItem value="intelligence" className="border-b border-wt-border">
+                                <AccordionTrigger className="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 hover:no-underline group">
+                                    <div className="flex items-center gap-2">
+                                        <Wand2 className="w-4 h-4 text-slate-500 group-data-[state=open]:text-primary" />
+                                        <span className="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">Intelligence</span>
+                                    </div>
+                                </AccordionTrigger>
+                                <AccordionContent className="px-6 pb-6 pt-2 space-y-6">
+                                    {article.ai_generated && (
+                                        <div className="p-3 bg-amber-50 border border-amber-200 dark:bg-amber-950/30 dark:border-amber-900/50 rounded-lg">
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <Sparkles className="w-4 h-4 text-amber-600" />
+                                                <span className="text-xs font-medium text-amber-800 dark:text-amber-400">AI Generated</span>
+                                            </div>
+                                            <p className="text-[10px] text-amber-700 dark:text-amber-200/70">
+                                                Content was generated with AI. Review before publishing.
+                                            </p>
+                                        </div>
+                                    )}
+
+                                    <div className="space-y-3">
+                                        <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Translation Tool</h4>
+                                        <div className="flex gap-2">
+                                             <Select value={targetLang} onValueChange={setTargetLang}>
+                                                <SelectTrigger className="flex-1 bg-white dark:bg-surface-darker border-wt-border text-xs">
+                                                    <SelectValue />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="hi">Hindi</SelectItem>
+                                                    <SelectItem value="te">Telugu</SelectItem>
+                                                    <SelectItem value="mr">Marathi</SelectItem>
+                                                    <SelectItem value="ta">Tamil</SelectItem>
+                                                    <SelectItem value="bn">Bengali</SelectItem>
+                                                    <SelectItem value="gu">Gujarati</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                            <Button size="sm" onClick={handleTranslate} disabled={isTranslating}>
+                                                {isTranslating ? <Loader2 className="w-3 h-3 animate-spin"/> : "Go"}
+                                            </Button>
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-4 pt-6 border-t border-wt-border">
+                                        <SocialPostManager articleId={article.id || ''} />
+                                        
+                                        {article.id && (
+                                            <>
+                                                <ValidationReport articleId={article.id} title={article.title} content={article.content} category={category} />
+                                                <BrokenLinkReport articleId={article.id} />
+                                            </>
+                                        )}
+
+                                        {article.title && article.content && (
+                                            <SEOScoreCalculator title={article.title} content={article.content} metaDescription={seoDescription} keywords={keywordsForSEO} />
+                                        )}
+                                    </div>
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
                     </TabsContent>
 
                     <TabsContent value="versions" className="px-6 py-6 mt-0">
@@ -838,6 +836,13 @@ export default function ArticleInspector({
                                 <p>Save the article to see version history</p>
                             </div>
                         )}
+                    </TabsContent>
+                    <TabsContent value="repurpose" className="px-6 py-6 mt-0">
+                         <RepurposePanel 
+                            articleId={article.id} 
+                            title={article.title || ''} 
+                            content={article.content || ''} 
+                         />
                     </TabsContent>
                 </Tabs>
             </div>

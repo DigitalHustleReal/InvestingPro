@@ -33,8 +33,8 @@ export default function QuickActions() {
     const router = useRouter();
 
     return (
-        <AdminCard noPadding>
-            <div className="px-6 pt-5 pb-3 text-[15px] font-bold text-slate-200">
+        <AdminCard noPadding className="animate-slide-up" style={{ animationDelay: '0.3s', animationFillMode: 'backwards' }}>
+            <div className="px-6 pt-5 pb-3 text-[15px] font-bold text-foreground">
                 Quick Actions
             </div>
 
@@ -43,7 +43,7 @@ export default function QuickActions() {
                     <button
                         key={href}
                         onClick={() => router.push(href)}
-                        className="flex items-center gap-2.5 px-3 py-2.5 rounded-md border border-transparent bg-transparent hover:bg-white/10 hover:border-white/15 cursor-pointer transition-all text-left text-[13px] font-medium text-slate-200"
+                        className="flex items-center gap-2.5 px-3 py-2.5 rounded-md border border-transparent bg-transparent hover:bg-muted hover:border-border cursor-pointer transition-all text-left text-[13px] font-medium text-foreground"
                     >
                         <Icon className={`w-4.5 h-4.5 flex-shrink-0 ${color}`} />
                         {label}

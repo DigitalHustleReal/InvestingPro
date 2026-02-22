@@ -56,10 +56,11 @@ function calculateReadability(content: string): QualityDetails['readability'] {
   // Handle null/undefined content
   if (!content || typeof content !== 'string') {
     return {
-      fleschScore: 50,
-      gradeLevel: 'N/A',
       score: 50,
-      issues: ['Content not available for analysis']
+      gradeLevel: 0,
+      avgSentenceLength: 0,
+      avgWordLength: 0,
+      rating: 'Medium'
     };
   }
   
@@ -134,10 +135,11 @@ function calculateSEO(
   if (!content || typeof content !== 'string') {
     return {
       score: 50,
-      keywordPlacement: false,
-      metaDescriptionQuality: metaDescription ? 'good' : 'missing',
-      headingStructure: 'unknown',
-      issues: ['Content not available for SEO analysis']
+      hasMetaDescription: false,
+      metaLength: 0,
+      hasHeadings: false,
+      headingStructure: false,
+      keywordDensity: 0
     };
   }
   
@@ -206,9 +208,9 @@ function calculateStructure(content: string): QualityDetails['structure'] {
       score: 50,
       wordCount: 0,
       paragraphCount: 0,
-      headingCount: 0,
-      hasTableOfContents: false,
-      issues: ['Content not available for structure analysis']
+      hasIntro: false,
+      hasConclusion: false,
+      listCount: 0
     };
   }
   

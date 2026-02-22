@@ -51,11 +51,14 @@ export const bulkGenerateJob = inngest.createFunction(
               options || {}
             );
             results.push({ topic, ...result });
-          } catch (error) {
-            logger.error('Bulk generation item failed', { 
-              topic, 
-              error: error instanceof Error ? error.message : String(error) 
+            logger.info('Bulk generation step completed', { 
+                topic, 
+                success: result.success,
+                articleId: (result as any).article?.id || 'none'
             });
+          } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            logger.error('Bulk generation item failed', new Error(`${errorMessage} (Topic: ${topic})`));
             results.push({ 
               topic, 
               success: false, 
@@ -86,7 +89,7 @@ export const bulkGenerateJob = inngest.createFunction(
       await storeJobStatus(
         jobId, 
         'completed', 
-        null, 
+        {}, 
         'bulk-generation', 
         jobResult
       );
@@ -102,7 +105,7 @@ export const bulkGenerateJob = inngest.createFunction(
       await storeJobStatus(
         jobId, 
         'failed', 
-        null, 
+        {}, 
         'bulk-generation', 
         null, 
         errorMessage

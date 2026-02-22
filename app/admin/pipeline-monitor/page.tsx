@@ -355,11 +355,18 @@ function MetricsTab({ activities }: { activities: any[] }) {
 
     const avgSeoScore = completedActivities.length > 0 
         ? Math.round(completedActivities.reduce((sum: number, a: any) => sum + (a.result?.seo_score || 0), 0) / completedActivities.length)
-        : 0;
+        : null;
 
     const avgQualityScore = completedActivities.length > 0
         ? Math.round(completedActivities.reduce((sum: number, a: any) => sum + (a.result?.quality_score || 0), 0) / completedActivities.length)
-        : 0;
+        : null;
+
+    // Compute real score bars from data
+    const avgReadability = completedActivities.length > 0
+        ? Math.round(completedActivities.reduce((sum: number, a: any) => sum + (a.result?.readability_score || 0), 0) / completedActivities.length)
+        : null;
+
+    const hasData = completedActivities.length > 0;
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -372,14 +379,18 @@ function MetricsTab({ activities }: { activities: any[] }) {
                 </CardHeader>
                 <CardContent>
                     <div className="text-center py-8">
-                        <div className="text-6xl font-bold text-primary-400 mb-2">{avgSeoScore}</div>
-                        <p className="text-muted-foreground dark:text-muted-foreground">Average SEO Score</p>
+                        <div className="text-6xl font-bold text-primary-400 mb-2">
+                            {avgSeoScore !== null ? avgSeoScore : <span className="text-muted-foreground text-4xl">—</span>}
+                        </div>
+                        <p className="text-muted-foreground dark:text-muted-foreground">
+                            {hasData ? 'Average SEO Score' : 'No completed runs yet'}
+                        </p>
                     </div>
-                    <div className="space-y-3">
-                        <ScoreBar label="Meta Optimization" score={92} color="primary" />
-                        <ScoreBar label="Keyword Density" score={88} color="primary" />
-                        <ScoreBar label="Internal Links" score={95} color="primary" />
-                    </div>
+                    {hasData && (
+                        <div className="space-y-3">
+                            <ScoreBar label="Avg SEO Score" score={avgSeoScore ?? 0} color="primary" />
+                        </div>
+                    )}
                 </CardContent>
             </Card>
 
@@ -392,14 +403,19 @@ function MetricsTab({ activities }: { activities: any[] }) {
                 </CardHeader>
                 <CardContent>
                     <div className="text-center py-8">
-                        <div className="text-6xl font-bold text-secondary-400 mb-2">{avgQualityScore}</div>
-                        <p className="text-muted-foreground dark:text-muted-foreground">Average Quality Score</p>
+                        <div className="text-6xl font-bold text-secondary-400 mb-2">
+                            {avgQualityScore !== null ? avgQualityScore : <span className="text-muted-foreground text-4xl">—</span>}
+                        </div>
+                        <p className="text-muted-foreground dark:text-muted-foreground">
+                            {hasData ? 'Average Quality Score' : 'No completed runs yet'}
+                        </p>
                     </div>
-                    <div className="space-y-3">
-                        <ScoreBar label="Readability" score={85} color="secondary" />
-                        <ScoreBar label="Originality" score={94} color="secondary" />
-                        <ScoreBar label="Depth" score={88} color="secondary" />
-                    </div>
+                    {hasData && avgReadability !== null && (
+                        <div className="space-y-3">
+                            <ScoreBar label="Avg Quality Score" score={avgQualityScore ?? 0} color="secondary" />
+                            <ScoreBar label="Avg Readability" score={avgReadability} color="secondary" />
+                        </div>
+                    )}
                 </CardContent>
             </Card>
         </div>
@@ -425,6 +441,11 @@ function ScoreBar({ label, score, color }: { label: string; score: number; color
 
 function ResearchTab({ activities }: { activities: any[] }) {
     const recentResearch = activities.filter((a: any) => a.result?.keywords || a.result?.serp_data);
+
+    // Compute affiliate link counts from completed activities
+    const completedActivities = activities.filter((a: any) => a.status === 'completed' && a.result);
+    const totalAffiliateLinks = completedActivities.reduce((sum: number, a: any) => sum + (a.result?.affiliate_link_count || 0), 0);
+    const hasAffiliateData = totalAffiliateLinks > 0;
 
     return (
         <div className="space-y-6">
@@ -465,20 +486,18 @@ function ResearchTab({ activities }: { activities: any[] }) {
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <div className="grid grid-cols-3 gap-4 text-center">
-                        <div>
-                            <div className="text-3xl font-bold text-success-400 mb-1">24</div>
-                            <p className="text-xs text-muted-foreground dark:text-muted-foreground">Links Added Today</p>
+                    {hasAffiliateData ? (
+                        <div className="grid grid-cols-1 gap-4 text-center">
+                            <div>
+                                <div className="text-3xl font-bold text-success-400 mb-1">{totalAffiliateLinks}</div>
+                                <p className="text-xs text-muted-foreground dark:text-muted-foreground">Affiliate Links in Generated Articles</p>
+                            </div>
                         </div>
-                        <div>
-                            <div className="text-3xl font-bold text-accent-400 mb-1">₹8.4K</div>
-                            <p className="text-xs text-muted-foreground dark:text-muted-foreground">Est. Revenue</p>
-                        </div>
-                        <div>
-                            <div className="text-3xl font-bold text-primary-400 mb-1">2.8%</div>
-                            <p className="text-xs text-muted-foreground dark:text-muted-foreground">Click Rate</p>
-                        </div>
-                    </div>
+                    ) : (
+                        <p className="text-muted-foreground dark:text-muted-foreground text-center py-8">
+                            No affiliate data available yet. Run content generation to see stats.
+                        </p>
+                    )}
                 </CardContent>
             </Card>
         </div>

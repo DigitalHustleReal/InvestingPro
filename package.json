@@ -196,6 +196,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
+      "bash scripts/check-admin-colors.sh",
       "eslint --fix",
       "prettier --write"
     ],

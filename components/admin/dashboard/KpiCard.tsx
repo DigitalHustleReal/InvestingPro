@@ -29,24 +29,22 @@ export default function KpiCard({
     const isNegative = trend === 'down';
 
     const CardContent = (
-        <div className="group relative overflow-hidden rounded-xl border border-white/5 bg-white/5 backdrop-blur-sm p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:bg-white/10 hover:border-white/10 hover:shadow-2xl h-full flex flex-col justify-between">
-            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <div className="group relative overflow-hidden rounded-xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg h-full flex flex-col justify-between animate-scale-in" style={{ animationFillMode: 'backwards' }}>
+            {/* Hover Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             
-            {/* Background Glow */}
-            <div className="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-gradient-to-br from-blue-500/10 to-transparent blur-2xl group-hover:from-blue-500/20 transition-colors duration-300" />
-
             <div className="relative z-10 flex items-start justify-between">
                 <div>
-                    <p className="text-[11px] font-bold uppercase tracking-wider text-slate-300 font-inter mb-2">
+                    <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground font-inter mb-2">
                         {label}
                     </p>
-                    <h3 className="text-3xl font-bold text-white tracking-tight font-inter tabular-nums">
+                    <h3 className="text-2xl font-bold text-foreground tracking-tight font-inter tabular-nums">
                         {value}
                     </h3>
                 </div>
 
-                <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="w-5 h-5" />
+                <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary group-hover:scale-110 transition-transform duration-300">
+                    <Icon className="w-6 h-6" />
                 </div>
             </div>
 
@@ -54,10 +52,10 @@ export default function KpiCard({
                 <div className="relative z-10 flex items-center gap-2 mt-4 text-xs font-medium">
                     {trend && (
                         <div className={cn(
-                            "flex items-center gap-1 px-1.5 py-0.5 rounded-md border backdrop-blur-md",
-                            isPositive ? "text-emerald-400 bg-emerald-400/10 border-emerald-400/20" : 
-                            isNegative ? "text-rose-400 bg-rose-400/10 border-rose-400/20" : 
-                            "text-slate-300 bg-slate-300/10 border-slate-300/20"
+                            "flex items-center gap-1 px-2 py-1 rounded-md border backdrop-blur-sm",
+                            isPositive ? "text-success bg-success/10 border-success/20" : 
+                            isNegative ? "text-error bg-error/10 border-error/20" : 
+                            "text-muted-foreground bg-muted border-border"
                         )}>
                             {isPositive && <ArrowUpRight className="w-3 h-3" />}
                             {isNegative && <ArrowDownRight className="w-3 h-3" />}
@@ -66,7 +64,7 @@ export default function KpiCard({
                         </div>
                     )}
                     {subtext && (
-                        <span className="text-slate-500 font-inter">{subtext}</span>
+                        <span className="text-muted-foreground font-inter">{subtext}</span>
                     )}
                 </div>
             )}

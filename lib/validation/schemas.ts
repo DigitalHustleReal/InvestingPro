@@ -64,7 +64,7 @@ export const orchestratorExecuteSchema = z.object({
         revenue: z.number().default(0).optional(),
         seo: z.boolean().default(true).optional(),
     }).optional(),
-    constraints: z.record(z.any()).optional(),
+    constraints: z.record(z.string(), z.any()).optional(),
 });
 
 /**
@@ -83,7 +83,7 @@ export const searchQuerySchema = paginationSchema.extend({
  */
 export const analyticsTrackSchema = z.object({
     event: z.string().min(1).max(100),
-    properties: z.record(z.any()).optional(),
+    properties: z.record(z.string(), z.any()).optional(),
     timestamp: z.string().datetime().optional(),
 });
 

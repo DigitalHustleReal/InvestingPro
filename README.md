@@ -7,8 +7,8 @@ This is a Next.js application designed to replicate the functionality of NerdWal
 - **Framework:** Next.js 14 (App Router)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
-- **Icons:** Lucide React
-- **CMS:** WordPress (Headless) - *Ready to connect*
+- **Database:** Supabase
+- **CMS:** Custom Integrated CMS (Ghost Team Command Center)
 
 ## Getting Started
 
@@ -38,24 +38,21 @@ This is a Next.js application designed to replicate the functionality of NerdWal
     - `cms.ts`: Functions to fetch data from your WordPress backend.
 - `types/`: TypeScript definitions for financial products.
 
-## Connecting WordPress (Headless CMS)
+## 🔑 Custom Integrated CMS & Ghost Team
 
-To use your Hostinger WordPress site as a headless CMS:
+This project features a proprietary, integrated CMS built directly into the Next.js application, designed for high-velocity financial content.
 
-1.  **Install WPGraphQL Plugin:**
-    - Log in to your WordPress Admin.
-    - Install and activate the "WPGraphQL" plugin.
-    - This exposes a GraphQL API at `https://your-domain.com/graphql`.
+1.  **Access the Admin Panel:**
+    - Navigate to `/admin`.
+    - Log in using your designated admin email (restricted by RBAC).
 
-2.  **Configure Environment Variables:**
-    - Create a `.env.local` file in the root of this project.
-    - Add your WordPress API URL:
-      ```
-      NEXT_PUBLIC_WORDPRESS_API_URL=https://investingpro.in/graphql
-      ```
+2.  **AI Engine (Ghost Team):**
+    - The CMS manages the "Ghost Team" pipeline (`lib/automation`).
+    - Generate articles, moderate AI drafts, and manage product data directly from the dashboard.
 
-3.  **Fetch Data:**
-    - Update `lib/cms.ts` to use `graphql-request` or `fetch` to query your WordPress data.
+3.  **Content Repository:**
+    - All content is stored in **Supabase**.
+    - The `articles` table is the source of truth for the blog and product guides.
 
 ## Next Steps
 

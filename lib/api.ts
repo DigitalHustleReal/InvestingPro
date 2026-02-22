@@ -193,7 +193,7 @@ export const api = {
                 .from('user_profiles')
                 .select('*')
                 .eq('id', user.id)
-                .single();
+                .maybeSingle();
                 
             return profile ? { ...user, ...profile } : user;
         },
@@ -207,7 +207,7 @@ export const api = {
                 .update(updates)
                 .eq('id', user.id)
                 .select()
-                .single();
+                .maybeSingle();
             
             if (error) throw error;
             return data;
@@ -263,7 +263,7 @@ export const api = {
                         const response = await openai.chat.completions.create({
                             model: process.env.OPENAI_MODEL || "gpt-4o-mini",
                             messages: [
-                                { role: "system", content: finalSystemPrompt + " You must response in JSON." },
+                                { role: "system", content: finalSystemPrompt + " You must respond in JSON." },
                                 { role: "user", content: enhancedPrompt }
                             ],
                             response_format: { type: "json_object" },
@@ -271,20 +271,27 @@ export const api = {
                             max_tokens: 4000  // FIXED: Increased from 2000 to allow 2,500-3,000 word articles
                         });
 
-                        const content = response.choices[0]?.message?.content;
-                        if (content) {
-                            const parsed = extractJSON(content);
+                        const rawContent = response.choices[0]?.message?.content;
+                        if (rawContent) {
+                            const parsed = extractJSON(rawContent);
                             reportSuccess('openai');
-                            let contentToValidate = parsed.content || '';
-                            if (typeof contentToValidate !== 'string') {
+                            
+                            // Key-agnostic content extraction: AI might use 'article', 'text', 'response' instead of 'content'
+                            let contentToValidate = parsed.content || parsed.article || parsed.text || parsed.response || '';
+                            
+                            // Ensure content is a string
+                            if (contentToValidate && typeof contentToValidate !== 'string') {
                                 logger.warn('OpenAI returned object/array for content, stringifying');
                                 contentToValidate = JSON.stringify(contentToValidate);
                             }
+                            
                             const validation = validateAIContent(contentToValidate, operation);
                             const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
                             const usage = response.usage || { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 };
+                            
                             return { 
                                 ...parsed, 
+                                content: contentToValidate, // Ensure it's returned as 'content' string
                                 validation_warnings: validation.errors, 
                                 is_draft: true, 
                                 provider: 'openai',

@@ -17,7 +17,6 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { ADMIN_THEME } from '@/lib/admin/theme';
 
 interface ContentSuggestion {
     event: {
@@ -180,7 +179,7 @@ export default function ContentCalendarWidget({
         );
     }
 
-    // Full variant – theme-aware (admin-pro)
+    // Full variant â€“ theme-aware (admin-pro)
     return (
         <div className="space-y-6">
             {/* Header with Theme */}
@@ -248,7 +247,7 @@ export default function ContentCalendarWidget({
                                                 size="sm" 
                                                 className="h-8 px-3 shadow-sm hover:shadow-md transition-all"
                                                 style={{ 
-                                                    backgroundColor: ADMIN_THEME.colors.status.error.bg || '#DC2626',
+                                                    backgroundColor: '#DC2626',
                                                     color: '#FFFFFF'
                                                 }}
                                             >
@@ -357,7 +356,7 @@ export default function ContentCalendarWidget({
                                         </div>
                                         <h4 className="font-semibold text-wt-text truncate">{item.suggestedTitle}</h4>
                                         <p className="text-xs text-wt-text-muted">
-                                            {item.event.name} • {item.daysUntilEvent}d until event
+                                            {item.event.name} â€¢ {item.daysUntilEvent}d until event
                                         </p>
                                     </div>
                                     <Link href={`/admin/articles/new?title=${encodeURIComponent(item.suggestedTitle)}&category=${item.articleCategories[0]}`}>

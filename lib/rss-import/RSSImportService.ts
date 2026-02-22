@@ -22,6 +22,13 @@ export interface RSSFeed {
     auto_generate_articles?: boolean;
     keyword_extraction_enabled?: boolean;
     status?: 'active' | 'paused' | 'error';
+    last_fetched_at?: string;
+    last_successful_fetch?: string;
+    fetch_count?: number;
+    error_count?: number;
+    error_message?: string | null;
+    created_at?: string;
+    updated_at?: string;
 }
 
 export interface RSSFeedItem {

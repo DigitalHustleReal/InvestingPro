@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
+import { CHART_COLORS, CHART_COLORS_ALPHA, CHARTJS_TOOLTIP_DEFAULTS, CHARTJS_GRID_COLOR } from '@/lib/charts/theme';
 
 ChartJS.register(
   CategoryScale,
@@ -35,15 +36,15 @@ export function SIPReturnsChart({ data }: SIPReturnsChartProps) {
       {
         label: 'Amount Invested',
         data: data.map(d => d.invested),
-        backgroundColor: 'rgba(239, 68, 68, 0.7)', // Red
-        borderColor: 'rgb(239, 68, 68)',
+        backgroundColor: CHART_COLORS_ALPHA.negative,
+        borderColor: CHART_COLORS.negative,
         borderWidth: 1,
       },
       {
         label: 'Current Value',
         data: data.map(d => d.value),
-        backgroundColor: 'rgba(16, 185, 129, 0.7)', // Green
-        borderColor: 'rgb(16, 185, 129)',
+        backgroundColor: CHART_COLORS_ALPHA.positive,
+        borderColor: CHART_COLORS.positive,
         borderWidth: 1,
       },
     ],
@@ -57,22 +58,16 @@ export function SIPReturnsChart({ data }: SIPReturnsChartProps) {
         position: 'top' as const,
         labels: {
           padding: 15,
-          font: {
-            size: 12,
-          },
+          font: { size: 12 },
         },
       },
       title: {
         display: true,
         text: 'SIP Investment Growth',
-        font: {
-          size: 16,
-          weight: 'bold' as const,
-        },
+        font: { size: 16, weight: 'bold' as const },
       },
       tooltip: {
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-        padding: 12,
+        ...CHARTJS_TOOLTIP_DEFAULTS,
         callbacks: {
           label: function(context: any) {
             return `${context.dataset.label}: ₹${context.parsed.y.toLocaleString()}`;
@@ -81,15 +76,9 @@ export function SIPReturnsChart({ data }: SIPReturnsChartProps) {
       },
     },
     scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-      },
+      x: { grid: { display: false } },
       y: {
-        grid: {
-          color: 'rgba(0, 0, 0, 0.05)',
-        },
+        grid: { color: CHARTJS_GRID_COLOR },
         ticks: {
           callback: function(value: any) {
             return '₹' + (value / 1000) + 'K';

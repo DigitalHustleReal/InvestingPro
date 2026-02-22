@@ -83,8 +83,8 @@ export default function ArticleVersionHistory({ articleId, onVersionRestored }: 
     if (isLoading) {
         return (
             <div className="flex items-center justify-center p-8">
-                <Loader2 className="w-6 h-6 animate-spin text-wt-text-muted dark:text-wt-text-muted" />
-                <span className="ml-2 text-wt-text-muted dark:text-wt-text-muted">Loading version history...</span>
+                <Loader2 className="w-6 h-6 animate-spin text-slate-400 dark:text-slate-500" />
+                <span className="ml-2 text-slate-500 dark:text-slate-400">Loading version history...</span>
             </div>
         );
     }
@@ -107,7 +107,7 @@ export default function ArticleVersionHistory({ articleId, onVersionRestored }: 
 
     if (!versionHistory || versionHistory.versions.length === 0) {
         return (
-            <div className="p-8 text-center text-wt-text-muted dark:text-wt-text-muted">
+            <div className="p-8 text-center text-slate-500 dark:text-slate-400">
                 <Clock className="w-8 h-8 mx-auto mb-2 opacity-50" />
                 <p>No version history available</p>
                 <p className="text-sm mt-1">Versions will be created when you save changes</p>
@@ -120,8 +120,8 @@ export default function ArticleVersionHistory({ articleId, onVersionRestored }: 
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h3 className="text-lg font-semibold text-wt-text dark:text-wt-text dark:text-wt-text">Version History</h3>
-                    <p className="text-sm text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted dark:text-wt-text-muted">
+                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Version History</h3>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">
                         {versionHistory.total} version{versionHistory.total !== 1 ? 's' : ''} total
                     </p>
                 </div>
@@ -171,7 +171,7 @@ export default function ArticleVersionHistory({ articleId, onVersionRestored }: 
                                 <div className="flex items-start justify-between">
                                     <div className="flex-1">
                                         <div className="flex items-center gap-2 mb-2">
-                                            <span className="font-semibold text-wt-text dark:text-wt-text dark:text-wt-text">
+                                            <span className="font-semibold text-slate-900 dark:text-white">
                                                 Version {version.version_number}
                                             </span>
                                             {isLatest && (
@@ -183,7 +183,7 @@ export default function ArticleVersionHistory({ articleId, onVersionRestored }: 
                                                 <span className={`px-2 py-0.5 text-xs font-medium rounded ${
                                                     version.content_preview.status === 'published'
                                                         ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
-                                                        : 'bg-wt-card dark:bg-slate-700 text-wt-text dark:text-wt-text/80 dark:text-wt-text/80'
+                                                        : 'bg-wt-card dark:bg-slate-700 text-slate-700 dark:text-slate-300'
                                                 }`}>
                                                     {version.content_preview.status}
                                                 </span>
@@ -191,18 +191,18 @@ export default function ArticleVersionHistory({ articleId, onVersionRestored }: 
                                         </div>
 
                                         {version.content_preview?.title && (
-                                            <p className="text-sm text-wt-text-muted/50 dark:text-wt-text-muted/50 dark:text-wt-text-muted dark:text-wt-text-muted mb-1">
+                                            <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">
                                                 {version.content_preview.title}
                                             </p>
                                         )}
 
                                         {version.change_summary && (
-                                            <p className="text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted/70 mb-2">
+                                            <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">
                                                 {version.change_summary}
                                             </p>
                                         )}
 
-                                        <div className="flex items-center gap-4 text-xs text-wt-text-muted/70 dark:text-wt-text-muted/70 dark:text-wt-text-muted dark:text-wt-text-muted">
+                                        <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400">
                                             <span className="flex items-center gap-1">
                                                 <Clock className="w-3 h-3" />
                                                 {formatDistanceToNow(new Date(version.created_at), { addSuffix: true })}

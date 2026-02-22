@@ -4,6 +4,8 @@
  */
 
 // Force dynamic rendering for all admin pages - prevents database calls during build
+import './admin-theme.css';
+
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 

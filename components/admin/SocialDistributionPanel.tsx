@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { ActionButton, StatusBadge } from './AdminUIKit';
-import { ADMIN_THEME } from '@/lib/admin/theme';
 import { 
     Copy, 
     Check, 

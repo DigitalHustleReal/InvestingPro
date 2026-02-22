@@ -63,7 +63,7 @@ class WorkflowScheduler {
             workflowId: definition.id,
             context,
           },
-          ts: scheduleConfig.scheduleAt,
+          ts: scheduleConfig.scheduleAt.getTime(),
         });
       } else {
         // Time has passed, execute immediately
@@ -78,7 +78,7 @@ class WorkflowScheduler {
           workflowId: definition.id,
           context,
         },
-        ts: new Date(Date.now() + scheduleConfig.scheduleIn),
+        ts: Date.now() + scheduleConfig.scheduleIn,
       });
     } else if (scheduleConfig.cron) {
       // Recurring schedule (would need cron job setup)

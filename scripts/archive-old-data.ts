@@ -108,7 +108,7 @@ async function getS3Client(): Promise<any> {
  * Archive articles older than retention period
  */
 async function archiveOldArticles(
-    supabase: ReturnType<typeof createClient>,
+    supabase: any,
     s3Client: any
 ): Promise<ArchivalResult> {
     const result: ArchivalResult = {
@@ -193,7 +193,7 @@ async function archiveOldArticles(
  * Delete old analytics data
  */
 async function deleteOldAnalytics(
-    supabase: ReturnType<typeof createClient>
+    supabase: any
 ): Promise<ArchivalResult> {
     const result: ArchivalResult = {
         table: 'analytics',
@@ -256,7 +256,7 @@ async function deleteOldAnalytics(
  * Archive old workflow instances
  */
 async function archiveOldWorkflows(
-    supabase: ReturnType<typeof createClient>,
+    supabase: any,
     s3Client: any
 ): Promise<ArchivalResult> {
     const result: ArchivalResult = {
@@ -324,7 +324,7 @@ async function archiveOldWorkflows(
         }
 
         // Delete archived workflows from database
-        const workflowIds = workflows.map(w => w.id);
+        const workflowIds = (workflows as any[] || []).map((w: any) => w.id).filter(Boolean);
         const { error: deleteError } = await supabase
             .from('workflow_instances')
             .delete()
@@ -348,7 +348,7 @@ async function archiveOldWorkflows(
  * Delete old system events/logs
  */
 async function deleteOldSystemEvents(
-    supabase: ReturnType<typeof createClient>
+    supabase: any
 ): Promise<ArchivalResult> {
     const result: ArchivalResult = {
         table: 'system_events',
@@ -403,7 +403,7 @@ export async function runArchival(): Promise<{
 }> {
     logger.info('Starting data archival process...');
 
-    const supabase = getSupabaseClient();
+    const supabase = getSupabaseClient() as any;
     const s3Client = await getS3Client();
 
     const results: ArchivalResult[] = [];

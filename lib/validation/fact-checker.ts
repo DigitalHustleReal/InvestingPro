@@ -168,6 +168,12 @@ export async function factCheckArticle(
             // Don't fail fact-checking if plagiarism check fails (non-blocking)
         }
 
+        // 8. semantic fact-check (AI-powered)
+        const semanticResult = await semanticFactCheck(content, metadata?.category, metadata?.title);
+        errors.push(...semanticResult.errors);
+        warnings.push(...semanticResult.warnings);
+        validatedFacts.push(...semanticResult.validatedFacts);
+
         // Calculate confidence score
         const confidence = calculateConfidence(errors, warnings, validatedFacts.length);
 
@@ -512,6 +518,98 @@ function calculateConfidence(
 
     // Ensure 0-100 range
     return Math.max(0, Math.min(100, confidence));
+}
+
+/**
+ * Semantic Fact-Check via AI (GPT-4o)
+ * 
+ * Verifies complex claims, context, and semantic accuracy that rule-based checks miss.
+ */
+async function semanticFactCheck(
+    content: string,
+    category?: string,
+    title?: string
+): Promise<{ errors: FactCheckError[]; warnings: FactCheckWarning[]; validatedFacts: ValidatedFact[] }> {
+    const errors: FactCheckError[] = [];
+    const warnings: FactCheckWarning[] = [];
+    const validatedFacts: ValidatedFact[] = [];
+
+    try {
+        const { api } = await import('@/lib/api');
+        
+        const prompt = `You are a professional financial fact-checker for InvestingPro, India's leading financial education platform.
+        Analyze the following financial content for factual accuracy, especially regarding Indian regulations (RBI, SEBI, IRDA, income tax rules).
+
+        CONTENT OVERVIEW:
+        Title: ${title || 'N/A'}
+        Category: ${category || 'General Finance'}
+        
+        CONTENT TO ANALYZE:
+        """
+        ${content.substring(0, 5000)}
+        """
+
+        TASK:
+        1. Identify specific factual errors (especially numbers, dates, or regulatory claims).
+        2. Identify misleading or context-deprived statements.
+        3. Identify claims that are "too good to be true" (unusually high returns without risk warnings).
+        4. List verified facts you found to be accurate.
+
+        FORMAT YOUR RESPONSE AS JSON:
+        {
+          "errors": [
+            { "field": "string", "message": "string", "severity": "critical" | "warning", "suggestedFix": "string" }
+          ],
+          "warnings": [
+            { "field": "string", "message": "string" }
+          ],
+          "validated_facts": [
+            { "fact": "string", "confidence": 0-100 }
+          ]
+        }`;
+
+        const result = await api.integrations.Core.InvokeLLM({
+            prompt,
+            operation: 'semantic_fact_check',
+            contextData: { category, title }
+        });
+
+        const { extractJSON } = await import('@/lib/utils/json');
+        const parsed = extractJSON(result.content);
+
+        if (parsed) {
+            if (parsed.errors && Array.isArray(parsed.errors)) {
+                errors.push(...parsed.errors.map((e: any) => ({
+                    type: 'financial_data' as const,
+                    field: e.field || 'content',
+                    message: e.message,
+                    severity: e.severity || 'warning',
+                    suggestedFix: e.suggestedFix
+                })));
+            }
+
+            if (parsed.warnings && Array.isArray(parsed.warnings)) {
+                warnings.push(...parsed.warnings.map((w: any) => ({
+                    type: 'unsourced' as const,
+                    message: w.message,
+                    field: w.field || 'content'
+                })));
+            }
+
+            if (parsed.validated_facts && Array.isArray(parsed.validated_facts)) {
+                validatedFacts.push(...parsed.validated_facts.map((f: any) => ({
+                    fact: f.fact,
+                    confidence: f.confidence || 90,
+                    validatedAt: new Date().toISOString(),
+                    source: 'AI Semantic Check'
+                })));
+            }
+        }
+    } catch (error) {
+        logger.warn('AI semantic fact-check failed', error as Error);
+    }
+
+    return { errors, warnings, validatedFacts };
 }
 
 /**
