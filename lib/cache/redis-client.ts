@@ -7,6 +7,7 @@ import { Redis } from '@upstash/redis';
 import { logger } from '@/lib/logger';
 
 let redisClient: Redis | null = null;
+let redisChecked = false; // Prevent repeated warning logs
 
 /**
  * Get Redis client instance
@@ -17,15 +18,18 @@ export function getRedisClient(): Redis | null {
     return null;
   }
 
-  if (redisClient) {
+  // Return cached result (whether success or null) — don't re-evaluate every call
+  if (redisChecked) {
     return redisClient;
   }
+
+  redisChecked = true;
 
   const url = process.env.UPSTASH_REDIS_REST_URL;
   const token = process.env.UPSTASH_REDIS_REST_TOKEN;
 
   if (!url || !token) {
-    logger.warn('Redis credentials not found. Caching disabled.');
+    logger.warn('Redis credentials not found. Caching disabled. Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN in Vercel to enable.');
     return null;
   }
 
