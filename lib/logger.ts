@@ -131,12 +131,16 @@ class Logger {
             };
         }
 
-        // Add performance metrics in production
-        if (this.isProduction && process.memoryUsage) {
-            const memUsage = process.memoryUsage();
-            entry.metrics = {
-                memory: Math.round(memUsage.heapUsed / 1024 / 1024), // MB
-            };
+        // Add performance metrics in production (Node.js only, not Edge Runtime)
+        if (this.isProduction && typeof process !== 'undefined' && typeof process.memoryUsage === 'function') {
+            try {
+                const memUsage = process.memoryUsage();
+                entry.metrics = {
+                    memory: Math.round(memUsage.heapUsed / 1024 / 1024), // MB
+                };
+            } catch {
+                // Silently skip if memoryUsage is not available (Edge Runtime)
+            }
         }
 
         return entry;

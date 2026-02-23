@@ -459,9 +459,9 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                 slug: EDITORIAL_INTENTS.BEST,
                 description: 'Top financial planning tools',
                 collections: [
-                    { name: 'Best Budgeting Apps', slug: 'budgeting-apps', href: '/personal-finance/best/budgeting-apps' },
-                    { name: 'Best Financial Planning Tools', slug: 'planning-tools', href: '/personal-finance/best/planning-tools' },
-                    { name: 'Best Wealth Management Services', slug: 'wealth-management', href: '/personal-finance/best/wealth-management' },
+                    { name: 'Best Budgeting Apps', slug: 'budgeting-apps', href: '/explore/personal-finance/best/budgeting-apps' },
+                    { name: 'Best Financial Planning Tools', slug: 'planning-tools', href: '/explore/personal-finance/best/planning-tools' },
+                    { name: 'Best Wealth Management Services', slug: 'wealth-management', href: '/explore/personal-finance/best/wealth-management' },
                 ],
             },
             {
@@ -469,9 +469,9 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                 slug: EDITORIAL_INTENTS.COMPARE,
                 description: 'Compare financial planning approaches',
                 collections: [
-                    { name: 'Financial Planning Approaches', slug: 'approaches', href: '/personal-finance/compare/approaches' },
-                    { name: 'Wealth Management Services', slug: 'wealth-services', href: '/personal-finance/compare/wealth-services' },
-                    { name: 'Budgeting Methods', slug: 'budgeting-methods', href: '/personal-finance/compare/budgeting-methods' },
+                    { name: 'Financial Planning Approaches', slug: 'approaches', href: '/explore/personal-finance/compare/approaches' },
+                    { name: 'Wealth Management Services', slug: 'wealth-services', href: '/explore/personal-finance/compare/wealth-services' },
+                    { name: 'Budgeting Methods', slug: 'budgeting-methods', href: '/explore/personal-finance/compare/budgeting-methods' },
                 ],
             },
             {
@@ -479,9 +479,9 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                 slug: EDITORIAL_INTENTS.CALCULATORS,
                 description: 'Personal finance calculators',
                 collections: [
-                    { name: 'Budget Calculator', slug: 'budget', href: '/personal-finance/calculators/budget' },
-                    { name: 'Emergency Fund Calculator', slug: 'emergency-fund', href: '/personal-finance/calculators/emergency-fund' },
-                    { name: 'Debt Payoff Calculator', slug: 'debt-payoff', href: '/personal-finance/calculators/debt-payoff' },
+                    { name: 'Budget Calculator', slug: 'budget', href: '/explore/personal-finance/calculators/budget' },
+                    { name: 'Emergency Fund Calculator', slug: 'emergency-fund', href: '/explore/personal-finance/calculators/emergency-fund' },
+                    { name: 'Debt Payoff Calculator', slug: 'debt-payoff', href: '/explore/personal-finance/calculators/debt-payoff' },
                     { name: 'Retirement Calculator', slug: 'retirement', href: '/calculators/retirement' },
                     { name: 'Goal Planning Calculator', slug: 'goal-planning', href: '/calculators/goal-planning' },
                 ],
@@ -491,7 +491,7 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                 slug: EDITORIAL_INTENTS.REVIEWS,
                 description: 'Personal finance app and tool reviews',
                 collections: [
-                    { name: 'App Reviews', slug: 'apps', href: '/personal-finance/reviews/apps' },
+                    { name: 'App Reviews', slug: 'apps', href: '/explore/personal-finance/reviews/apps' },
                 ],
             },
             {
@@ -501,12 +501,12 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
                 collections: [
                     { name: 'All Personal Finance Articles', slug: 'all-articles', href: '/articles' },
                     { name: 'Retirement Articles', slug: 'retirement', href: '/category/retirement' },
-                    { name: 'Financial Planning Guide', slug: 'financial-planning', href: '/personal-finance/guides/financial-planning' },
-                    { name: 'Budgeting Guide', slug: 'budgeting', href: '/personal-finance/guides/budgeting' },
-                    { name: 'Debt Management Guide', slug: 'debt-management', href: '/personal-finance/guides/debt-management' },
-                    { name: 'Emergency Fund Guide', slug: 'emergency-fund', href: '/personal-finance/guides/emergency-fund' },
-                    { name: 'Retirement Planning Guide', slug: 'retirement-planning', href: '/personal-finance/guides/retirement-planning' },
-                    { name: 'Wealth Building Guide', slug: 'wealth-building', href: '/personal-finance/guides/wealth-building' },
+                    { name: 'Financial Planning Guide', slug: 'financial-planning', href: '/explore/personal-finance/guides/financial-planning' },
+                    { name: 'Budgeting Guide', slug: 'budgeting', href: '/explore/personal-finance/guides/budgeting' },
+                    { name: 'Debt Management Guide', slug: 'debt-management', href: '/explore/personal-finance/guides/debt-management' },
+                    { name: 'Emergency Fund Guide', slug: 'emergency-fund', href: '/explore/personal-finance/guides/emergency-fund' },
+                    { name: 'Retirement Planning Guide', slug: 'retirement-planning', href: '/explore/personal-finance/guides/retirement-planning' },
+                    { name: 'Wealth Building Guide', slug: 'wealth-building', href: '/explore/personal-finance/guides/wealth-building' },
                 ],
             },
         ],

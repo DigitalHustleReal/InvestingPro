@@ -49,16 +49,32 @@ export async function middleware(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser();
 
   // Protected Routes Logic
-  if (request.nextUrl.pathname.startsWith('/admin') || request.nextUrl.pathname.startsWith('/api/admin')) {
-    if (request.nextUrl.pathname.startsWith('/admin/login') || request.nextUrl.pathname.startsWith('/admin/signup')) {
-        // Pass through
-    } else if (!user) {
+  const isAdminRoute = request.nextUrl.pathname.startsWith('/admin') || request.nextUrl.pathname.startsWith('/api/admin');
+  const isAuthPage = request.nextUrl.pathname.startsWith('/admin/login') || request.nextUrl.pathname.startsWith('/admin/signup');
+
+  if (isAdminRoute && !isAuthPage) {
+    if (!user) {
       if (request.nextUrl.pathname.startsWith('/api/')) {
-         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
       }
       const redirectUrl = request.nextUrl.clone();
       redirectUrl.pathname = '/admin/login';
       redirectUrl.searchParams.set('redirect', request.nextUrl.pathname);
+      return NextResponse.redirect(redirectUrl);
+    }
+
+    // Role check for /admin routes
+    const { data: profile } = await supabase
+      .from('user_profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single();
+
+    if (!profile || profile.role !== 'admin') {
+      console.warn(`[MIDDLEWARE] Non-admin access attempt: ${user.email} on ${request.nextUrl.pathname}`);
+      const redirectUrl = request.nextUrl.clone();
+      redirectUrl.pathname = '/admin/login';
+      redirectUrl.searchParams.set('error', 'access_denied');
       return NextResponse.redirect(redirectUrl);
     }
   }

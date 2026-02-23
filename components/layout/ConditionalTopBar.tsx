@@ -18,15 +18,13 @@ export default function ConditionalTopBar({ initialConfig }: ConditionalTopBarPr
   const pathname = usePathname();
   const lastAdminRef = useRef<boolean | null>(null);
 
-  const pathIsAdmin = pathname ? pathname.startsWith('/admin') : null;
-  if (pathIsAdmin !== null) lastAdminRef.current = pathIsAdmin;
-
   const isAdmin =
-    pathIsAdmin === true ||
-    pathIsAdmin === false
-      ? pathIsAdmin
-      : lastAdminRef.current ??
-        (typeof window !== 'undefined' && window.location.pathname.startsWith('/admin'));
+    (pathname?.startsWith('/admin') || 
+     pathname?.startsWith('/hi/admin') ||
+     (typeof window !== 'undefined' && (
+       window.location.pathname.startsWith('/admin') || 
+       window.location.pathname.startsWith('/hi/admin')
+     )));
 
   if (isAdmin) {
     return <AdminTopBar key="admin-top-bar" />;
