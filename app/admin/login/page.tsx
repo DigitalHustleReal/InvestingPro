@@ -33,7 +33,35 @@ export default function AdminLoginPage() {
   const [googleLoading, setGoogleLoading] = useState(false);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+  const [checkingSession, setCheckingSession] = useState(true);
   const supabase = createClient();
+
+  // On mount: check if user is already authenticated (e.g. returning from OAuth)
+  // If they have admin role, redirect straight to /admin
+  useEffect(() => {
+    const checkExistingSession = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          // Check admin role
+          const [profileResult, roleResult] = await Promise.all([
+            supabase.from('user_profiles').select('role').eq('id', user.id).single(),
+            supabase.from('user_roles').select('role').eq('user_id', user.id).single()
+          ]);
+          const isAdmin = profileResult.data?.role === 'admin' || roleResult.data?.role === 'admin';
+          if (isAdmin) {
+            router.replace('/admin');
+            return;
+          }
+        }
+      } catch (e) {
+        // Not authenticated, show login form
+      } finally {
+        setCheckingSession(false);
+      }
+    };
+    checkExistingSession();
+  }, []);
 
   // Check for error in URL params (from callback redirects)
   useEffect(() => {
@@ -103,7 +131,8 @@ export default function AdminLoginPage() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback?redirect=${encodeURIComponent('/admin')}&source=admin`,
+          // Redirect back to /admin/login — session check useEffect will detect auth and redirect to /admin
+          redirectTo: `${window.location.origin}/admin/login`,
           queryParams: {
             access_type: 'offline',
             prompt: 'consent',
@@ -147,7 +176,8 @@ export default function AdminLoginPage() {
         options: {
           // Point directly to /auth/callback with admin redirect
           // Important: Supabase must have this URL in the Redirect URLs allowlist
-          emailRedirectTo: `${siteUrl}/auth/callback?redirect=%2Fadmin&source=admin`,
+          // Redirect back to /admin/login — session check useEffect will detect auth and redirect to /admin
+          emailRedirectTo: `${siteUrl}/admin/login`,
         },
       });
 
