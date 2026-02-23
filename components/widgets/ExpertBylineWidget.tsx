@@ -1,7 +1,7 @@
 
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Shield, Star, CheckCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
