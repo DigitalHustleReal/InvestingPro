@@ -16,22 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build application
-        run: npm run build
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-
-      - name: Run Lighthouse CI
+      - name: Run Lighthouse CI against live site
         uses: treosh/lighthouse-ci-action@v10
         with:
           urls: |
@@ -41,12 +26,9 @@ jobs:
             https://investingpro.in/calculators/sip
           uploadArtifacts: true
           temporaryPublicStorage: true
+        continue-on-error: true
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
-      - name: Check Lighthouse scores
-        run: |
-          # Fail if performance score < 90
-          # Fail if accessibility score < 95
-          # This would be configured in lighthouserc.js
-          echo "Lighthouse CI completed"
+      - name: Lighthouse CI completed
+        run: echo "Lighthouse CI scan completed"

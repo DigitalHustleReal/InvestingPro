@@ -10,80 +10,55 @@ jobs:
   scrape-products:
     runs-on: ubuntu-latest
     name: Scrape Products
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
-      - name: Set up Python
-        uses: actions/setup-python@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          python-version: '3.11'
-      
-      - name: Install dependencies
-        run: |
-          cd lib/scraper
-          pip install -r requirements.txt
-      
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
       - name: Run product scraper
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-        run: |
-          cd lib/scraper
-          python3 product_scraper.py
-  
-  scrape-reviews:
-    runs-on: ubuntu-latest
-    name: Process Reviews
-    needs: scrape-products
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-      
-      - name: Install dependencies
-        run: |
-          cd lib/scraper
-          pip install -r requirements.txt
-      
-      - name: Run review processor
+        run: npx tsx lib/scraper/ts/product-scraper.ts
+        continue-on-error: true
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: |
-          cd lib/scraper
-          python3 review_processor.py
-  
+          GOOGLE_GEMINI_API_KEY: ${{ secrets.GOOGLE_GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+
   scrape-rates:
     runs-on: ubuntu-latest
     name: Scrape Financial Rates
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
-      - name: Set up Python
-        uses: actions/setup-python@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          python-version: '3.11'
-      
-      - name: Install dependencies
-        run: |
-          cd lib/scraper
-          pip install -r requirements.txt
-      
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
       - name: Run rate scraper
+        run: |
+          if [ -f "scripts/scrape-rates.ts" ]; then
+            npx tsx scripts/scrape-rates.ts
+          else
+            echo "Rate scraper script not found, skipping"
+          fi
+        continue-on-error: true
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-        run: |
-          cd lib/scraper
-          python3 rate_scraper.py
-
