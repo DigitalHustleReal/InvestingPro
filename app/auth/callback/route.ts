@@ -10,8 +10,9 @@
  * - source=platform → errors go to /login, users go to /dashboard
  */
 
-import { createClient } from '@/lib/supabase/server';
+import { createServerClient } from '@supabase/ssr';
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
@@ -24,13 +25,12 @@ export async function GET(request: Request) {
   const errorDescription = searchParams.get('error_description');
   
   // Routing params
-  const source = searchParams.get('source') || 'admin'; // Default to admin for backward compatibility
+  const source = searchParams.get('source') || 'admin';
   const redirect = searchParams.get('redirect') 
     || searchParams.get('next') 
     || searchParams.get('redirect_to') 
     || '/';
 
-  // Determine the correct login page for error redirects
   const errorLoginPage = source === 'platform' ? '/login' : '/admin/login';
 
   console.log('[AUTH CALLBACK] Received:', { 
@@ -46,7 +46,35 @@ export async function GET(request: Request) {
     );
   }
 
-  const supabase = await createClient();
+  // ===== Cookie-forwarding Supabase client =====
+  // We collect cookies set by exchangeCodeForSession / verifyOtp
+  // and forward them on the final redirect response.
+  const cookieStore = await cookies();
+  const pendingCookies: { name: string; value: string; options: any }[] = [];
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            // Store for forwarding on the redirect response
+            pendingCookies.push({ name, value, options });
+            try {
+              cookieStore.set({ name, value, ...options });
+            } catch {
+              // Swallow — will be forwarded on the redirect response
+            }
+          });
+        },
+      },
+    }
+  );
+
   let session = null;
 
   // PATH 1: OAuth Code Exchange
@@ -85,13 +113,13 @@ export async function GET(request: Request) {
   // Process authenticated session
   if (session?.user) {
     // Ensure user_profiles entry exists
-    const { data: profile, error: profileError } = await supabase
+    const { data: profile } = await supabase
       .from('user_profiles')
       .select('id, role, email')
       .eq('id', session.user.id)
       .maybeSingle();
 
-    if (profileError?.code === 'PGRST116' || !profile) {
+    if (!profile) {
       await supabase.from('user_profiles').insert({
         id: session.user.id,
         email: session.user.email,
@@ -124,17 +152,13 @@ export async function GET(request: Request) {
           `${origin}/admin/login?error=${encodeURIComponent('Access denied. Admin privileges required.')}`
         );
       }
-      // Admin goes to admin dashboard
-      if (finalRedirect === '/' || finalRedirect === '/dashboard') {
-        finalRedirect = '/admin';
-      }
+      // Admin ALWAYS goes to admin dashboard
+      finalRedirect = '/admin';
     } else {
-      // Platform login: regular users go to user dashboard
+      // Platform login
       if (isSystemAdmin) {
-        // Admin accidentally logged in via platform — send them to admin
         finalRedirect = '/admin';
       } else {
-        // Regular user — ensure they don't end up on /admin
         if (finalRedirect.startsWith('/admin')) {
           finalRedirect = '/dashboard';
         }
@@ -145,7 +169,16 @@ export async function GET(request: Request) {
     }
 
     console.log(`[AUTH CALLBACK] ✅ ${session.user.email} (${userRole}) → ${finalRedirect}`);
-    return NextResponse.redirect(`${origin}${finalRedirect}`);
+    
+    // Build redirect response WITH session cookies
+    const response = NextResponse.redirect(`${origin}${finalRedirect}`);
+    
+    // Forward all Supabase session cookies onto the redirect response
+    for (const cookie of pendingCookies) {
+      response.cookies.set(cookie.name, cookie.value, cookie.options);
+    }
+    
+    return response;
   }
 
   // No session — send back to the login page they came from
