@@ -73,7 +73,7 @@ describe('Validation Unit Tests', () => {
         });
       };
 
-      const handler = withZodValidation({ body: schema })(mockHandler);
+      const handler = withZodValidation({ body: schema })(mockHandler as any);
 
       const request = new Request('http://localhost', {
         method: 'POST',
@@ -102,7 +102,7 @@ describe('Validation Unit Tests', () => {
         });
       };
 
-      const handler = withZodValidation({ body: schema })(mockHandler);
+      const handler = withZodValidation({ body: schema })(mockHandler as any);
 
       const request = new Request('http://localhost', {
         method: 'POST',

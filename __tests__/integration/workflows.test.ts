@@ -86,6 +86,8 @@ describe('Workflow Engine Integration', () => {
         id: 'test-workflow',
         version: '1.0.0',
         name: 'Test Workflow',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         steps: [
           {
             id: 'step1',
@@ -109,6 +111,8 @@ describe('Workflow Engine Integration', () => {
         id: 'test-workflow-deps',
         version: '1.0.0',
         name: 'Test Workflow with Dependencies',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         steps: [
           {
             id: 'step1',
@@ -137,6 +141,8 @@ describe('Workflow Engine Integration', () => {
         id: 'test-workflow-fail',
         version: '1.0.0',
         name: 'Test Workflow Failure',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         steps: [
           {
             id: 'step1',
@@ -160,6 +166,8 @@ describe('Workflow Engine Integration', () => {
         id: 'test-workflow-lock',
         version: '1.0.0',
         name: 'Test Workflow Lock',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         steps: [
           {
             id: 'step1',
@@ -190,6 +198,8 @@ describe('Workflow Engine Integration', () => {
         id: 'test-workflow-state',
         version: '1.0.0',
         name: 'Test Workflow State',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         steps: [
           {
             id: 'step1',
@@ -221,6 +231,8 @@ describe('Workflow Engine Integration', () => {
         id: 'test-success',
         version: '1.0.0',
         name: 'Success Workflow',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         steps: [
           { id: 'step1', action: 'test.action', name: 'Step 1' },
           { id: 'step2', action: 'test.action', name: 'Step 2' },
@@ -236,6 +248,8 @@ describe('Workflow Engine Integration', () => {
         id: 'test-fail',
         version: '1.0.0',
         name: 'Fail Workflow',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         steps: [
           { id: 'step1', action: 'test.action', name: 'Step 1' },
           { id: 'step2', action: 'test.fail', name: 'Step 2' },
