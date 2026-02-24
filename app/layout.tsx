@@ -72,6 +72,9 @@ export const metadata: Metadata = {
   authors: [{ name: 'InvestingPro Team' }],
   creator: 'InvestingPro',
   publisher: 'InvestingPro',
+  verification: {
+    google: 'frJEpYhU206CZdHR23QlUvVr-4SFZbllQlQ2bQ_h0Uc',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_IN',
