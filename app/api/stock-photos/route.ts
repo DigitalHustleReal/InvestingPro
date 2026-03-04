@@ -4,6 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 
 const PEXELS_API_KEY = process.env.PEXELS_API_KEY || '';
 const PIXABAY_API_KEY = process.env.PIXABAY_API_KEY || '';
@@ -13,8 +14,8 @@ export async function GET(request: NextRequest) {
     const query = searchParams.get('query') || '';
     const page = parseInt(searchParams.get('page') || '1');
 
-    console.log('📸 Stock Photos API called:', { query, page });
-    console.log('🔑 API Keys configured:', {
+    logger.info('📸 Stock Photos API called:', { query, page });
+    logger.info('🔑 API Keys configured:', {
         pexels: !!PEXELS_API_KEY,
         pixabay: !!PIXABAY_API_KEY
     });
@@ -25,7 +26,7 @@ export async function GET(request: NextRequest) {
 
     // Check if at least one API key is configured
     if (!PEXELS_API_KEY && !PIXABAY_API_KEY) {
-        console.error('❌ No API keys configured!');
+        logger.error('❌ No API keys configured!');
         return NextResponse.json({
             error: 'Stock photo APIs not configured. Add PEXELS_API_KEY and/or PIXABAY_API_KEY to .env',
             photos: []
@@ -43,29 +44,29 @@ export async function GET(request: NextRequest) {
         results.forEach((result, index) => {
             const source = index === 0 ? 'Pexels' : 'Pixabay';
             if (result.status === 'fulfilled') {
-                console.log(`✅ ${source}: ${result.value.length} photos`);
+                logger.info(`✅ ${source}: ${result.value.length} photos`);
                 photos.push(...result.value);
             } else {
-                console.error(`❌ ${source} failed:`, result.reason);
+                logger.error(`❌ ${source} failed:`, result.reason);
             }
         });
 
-        console.log(`📊 Total photos returned: ${photos.length}`);
+        logger.info(`📊 Total photos returned: ${photos.length}`);
         return NextResponse.json({ photos });
     } catch (error: any) {
-        console.error('❌ Stock photo search error:', error);
+        logger.error('❌ Stock photo search error:', error);
         return NextResponse.json({ error: 'Search failed', photos: [] }, { status: 500 });
     }
 }
 
 async function searchPexels(query: string, page: number) {
     if (!PEXELS_API_KEY) {
-        console.log('⏭️  Skipping Pexels - no API key');
+        logger.info('⏭️  Skipping Pexels - no API key');
         return [];
     }
 
     try {
-        console.log(`🔍 Searching Pexels for: "${query}"`);
+        logger.info(`🔍 Searching Pexels for: "${query}"`);
         const response = await fetch(
             `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=20&page=${page}`,
             {
@@ -76,12 +77,12 @@ async function searchPexels(query: string, page: number) {
         );
 
         if (!response.ok) {
-            console.error(`Pexels API error: ${response.status} ${response.statusText}`);
+            logger.error(`Pexels API error: ${response.status} ${response.statusText}`);
             return [];
         }
 
         const data = await response.json();
-        console.log(`Pexels raw response:`, { total: data.total_results, photos: data.photos?.length });
+        logger.info(`Pexels raw response:`, { total: data.total_results, photos: data.photos?.length });
 
         return data.photos?.map((photo: any) => ({
             id: `pexels-${photo.id}`,
@@ -95,7 +96,7 @@ async function searchPexels(query: string, page: number) {
             downloadUrl: photo.src.original
         })) || [];
     } catch (error) {
-        console.error('Pexels search failed:', error);
+        logger.error('Pexels search failed:', error);
         return [];
     }
 }
@@ -124,7 +125,7 @@ async function searchPixabay(query: string, page: number) {
             downloadUrl: photo.largeImageURL
         })) || [];
     } catch (error) {
-        console.error('Pixabay search failed:', error);
+        logger.error('Pixabay search failed:', error);
         return [];
     }
 }

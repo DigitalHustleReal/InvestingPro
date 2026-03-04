@@ -5,6 +5,7 @@
  */
 
 import { NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { eventCalendar, ContentSuggestion } from '@/lib/cms/event-calendar';
 
 export async function GET(request: Request) {
@@ -57,7 +58,7 @@ export async function GET(request: Request) {
             }
         });
     } catch (error) {
-        console.error('Content suggestions error:', error);
+        logger.error('Content suggestions error:', error);
         return NextResponse.json(
             { success: false, error: 'Failed to get content suggestions' },
             { status: 500 }

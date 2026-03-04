@@ -269,36 +269,36 @@ export function checkSimilarity(text1: string, text2: string): {
  * Test the plagiarism checker
  */
 export function testPlagiarismChecker() {
-  console.log('\n🔍 PLAGIARISM CHECKER TEST\n');
-  console.log('='.repeat(60));
+  logger.info('\n🔍 PLAGIARISM CHECKER TEST\n');
+  logger.info('='.repeat(60));
   
   // Test 1: Identical content
   const text1 = "This is a test article about credit cards. Credit cards are very useful for managing finances.";
   const text2 = "This is a test article about credit cards. Credit cards are very useful for managing finances.";
   
   const result1 = checkSimilarity(text1, text2);
-  console.log('\n📝 Test 1: Identical Content');
-  console.log(`   Similarity: ${result1.similarity}%`);
-  console.log(`   Plagiarized: ${result1.isPlagiarized ? '❌ YES' : '✅ NO'}`);
+  logger.info('\n📝 Test 1: Identical Content');
+  logger.info(`   Similarity: ${result1.similarity}%`);
+  logger.info(`   Plagiarized: ${result1.isPlagiarized ? '❌ YES' : '✅ NO'}`);
   
   // Test 2: Different content
   const text3 = "Mutual funds are investment vehicles that pool money from multiple investors.";
   const text4 = "Pizza is a popular Italian dish made with dough, tomatoes, and cheese.";
   
   const result2 = checkSimilarity(text3, text4);
-  console.log('\n📝 Test 2: Different Content');
-  console.log(`   Similarity: ${result2.similarity}%`);
-  console.log(`   Plagiarized: ${result2.isPlagiarized ? '❌ YES' : '✅ NO'}`);
+  logger.info('\n📝 Test 2: Different Content');
+  logger.info(`   Similarity: ${result2.similarity}%`);
+  logger.info(`   Plagiarized: ${result2.isPlagiarized ? '❌ YES' : '✅ NO'}`);
   
   // Test 3: Similar but different
   const text5 = "The best credit card for you depends on your spending habits and financial goals.";
   const text6 = "Choosing the right credit card requires understanding your spending patterns and objectives.";
   
   const result3 = checkSimilarity(text5, text6);
-  console.log('\n📝 Test 3: Similar but Different');
-  console.log(`   Similarity: ${result3.similarity}%`);
-  console.log(`   Plagiarized: ${result3.isPlagiarized ? '❌ YES' : '✅ NO'}`);
+  logger.info('\n📝 Test 3: Similar but Different');
+  logger.info(`   Similarity: ${result3.similarity}%`);
+  logger.info(`   Plagiarized: ${result3.isPlagiarized ? '❌ YES' : '✅ NO'}`);
   
-  console.log('\n' + '='.repeat(60) + '\n');
-  console.log('✅ Plagiarism Checker Test Complete!\n');
+  logger.info('\n' + '='.repeat(60) + '\n');
+  logger.info('✅ Plagiarism Checker Test Complete!\n');
 }

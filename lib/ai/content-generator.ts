@@ -1,4 +1,5 @@
 import { aiService } from '@/lib/ai-service';
+import { logger } from '@/lib/logger';
 import { createServiceClient } from '@/lib/supabase/service';
 
 interface GlossaryTerm {
@@ -23,7 +24,7 @@ export class AIContentGenerator {
     }
 
     async generateGlossaryTerm(term: string, category: string): Promise<GlossaryTerm> {
-        console.log(`🔍 [AI] Requesting definition for: ${term}...`);
+        logger.info(`🔍 [AI] Requesting definition for: ${term}...`);
         const prompt = `You are a financial expert writing glossary definitions for an Indian financial platform.
 Generate a comprehensive glossary entry for the term: "${term}"
 Category: ${category}
@@ -33,7 +34,7 @@ Return JSON: { "term": "${term}", "definition": "...", "detailedExplanation": ".
             const parsed = await aiService.generateJSON(prompt);
             const slug = term.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
-            console.log(`✨ [AI] Received response for: ${term}`);
+            logger.info(`✨ [AI] Received response for: ${term}`);
             return {
                 term: parsed.term || term,
                 slug,
@@ -45,24 +46,24 @@ Return JSON: { "term": "${term}", "definition": "...", "detailedExplanation": ".
                 searchKeywords: parsed.searchKeywords || []
             };
         } catch (error: any) {
-            console.error(`❌ [AI] Generation failed for ${term}:`, error.message);
+            logger.error(`❌ [AI] Generation failed for ${term}:`, error.message);
             throw error;
         }
     }
 
     async batchGenerateGlossary(terms: string[], category: string, batchSize: number = 3): Promise<void> {
-        console.log(`🚀 [BATCH] Starting ${terms.length} terms for ${category}`);
+        logger.info(`🚀 [BATCH] Starting ${terms.length} terms for ${category}`);
         
         for (let i = 0; i < terms.length; i += batchSize) {
             const batch = terms.slice(i, i + batchSize);
-            console.log(`📦 [BATCH] Processing ${i + 1}-${Math.min(i + batchSize, terms.length)}: ${batch.join(', ')}`);
+            logger.info(`📦 [BATCH] Processing ${i + 1}-${Math.min(i + batchSize, terms.length)}: ${batch.join(', ')}`);
             
             // Sequential processing within batch to avoid flooding and better tracking
             for (const term of batch) {
                 try {
                     const data = await this.generateGlossaryTerm(term, category);
                     
-                    console.log(`💾 [DB] Inserting: ${term}...`);
+                    logger.info(`💾 [DB] Inserting: ${term}...`);
                     const { error } = await this.supabase
                         .from('glossary_terms')
                         .insert({
@@ -79,17 +80,17 @@ Return JSON: { "term": "${term}", "definition": "...", "detailedExplanation": ".
                         });
 
                     if (error) {
-                        console.error(`❌ [DB] Insert error for ${term}:`, JSON.stringify(error, null, 2));
+                        logger.error(`❌ [DB] Insert error for ${term}:`, JSON.stringify(error, null, 2));
                     } else {
-                        console.log(`✅ [SUCCESS] Term saved: ${term}`);
+                        logger.info(`✅ [SUCCESS] Term saved: ${term}`);
                     }
                 } catch (err: any) {
-                    console.error(`💥 [ERROR] Full failure for ${term}:`, err.message);
+                    logger.error(`💥 [ERROR] Full failure for ${term}:`, err.message);
                 }
             }
 
             if (i + batchSize < terms.length) {
-                console.log('⏳ [COOLDOWN] Waiting 3 seconds before next batch...');
+                logger.info('⏳ [COOLDOWN] Waiting 3 seconds before next batch...');
                 await new Promise(r => setTimeout(r, 3000));
             }
         }

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { logger } from '@/lib/logger';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/input';
@@ -118,7 +119,7 @@ export default function BatchGeneratorPage() {
             }
 
             if (!res.ok) {
-                console.error('Item failure:', data.error);
+                logger.error('Item failure:', data.error);
                 // Update local stats for visual feedback
                 setBatchProgress((prev: any) => ({
                     ...prev,
@@ -134,7 +135,7 @@ export default function BatchGeneratorPage() {
             }
 
         } catch (error) {
-            console.error('Process loop error:', error);
+            logger.error('Process loop error:', error);
         }
     };
 

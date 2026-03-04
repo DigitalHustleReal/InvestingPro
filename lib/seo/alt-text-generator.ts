@@ -6,6 +6,7 @@
  */
 
 import OpenAI from 'openai';
+import { logger } from '@/lib/logger';
 
 export interface AltTextResult {
   altText: string;
@@ -61,7 +62,7 @@ Write ONLY the alt text:`;
       return validateAltText(generated, keyword);
     }
   } catch (error) {
-    console.warn('AI generation failed, using fallback:', error);
+    logger.warn('AI generation failed, using fallback:', error);
   }
   
   // Fallback
@@ -196,8 +197,8 @@ export function generateAltTextByType(
  * Test alt text generator
  */
 export function testAltTextGenerator() {
-  console.log('\n🖼️ ALT TEXT GENERATOR TEST\n');
-  console.log('='.repeat(60));
+  logger.info('\n🖼️ ALT TEXT GENERATOR TEST\n');
+  logger.info('='.repeat(60));
   
   const testCases = [
     {
@@ -216,10 +217,10 @@ export function testAltTextGenerator() {
   
   testCases.forEach((test, idx) => {
     const result = generateAltTextQuick(test.title, test.context);
-    console.log(`\nTest ${idx + 1}: ${test.title} (${test.context})`);
-    console.log(`  Alt Text: "${result}"`);
-    console.log(`  Length: ${result.length} chars ${result.length >= 50 && result.length <= 125 ? '✅' : '❌'}`);
+    logger.info(`\nTest ${idx + 1}: ${test.title} (${test.context})`);
+    logger.info(`  Alt Text: "${result}"`);
+    logger.info(`  Length: ${result.length} chars ${result.length >= 50 && result.length <= 125 ? '✅' : '❌'}`);
   });
   
-  console.log('\n' + '='.repeat(60) + '\n');
+  logger.info('\n' + '='.repeat(60) + '\n');
 }

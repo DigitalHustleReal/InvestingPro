@@ -1,4 +1,5 @@
 import * as cheerio from 'cheerio';
+import { logger } from '@/lib/logger';
 import { createServiceClient } from '@/lib/supabase/service';
 import { Database } from '@/lib/database.types';
 
@@ -23,7 +24,7 @@ export class ProductScraperVideo {
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             return await response.text();
         } catch (error) {
-            console.error(`Failed to fetch ${url}:`, error);
+            logger.error(`Failed to fetch ${url}:`, error);
             return null;
         }
     }
@@ -131,7 +132,7 @@ export class ProductScraperVideo {
             .single();
 
         if (error || !product) {
-            console.error('Failed to upsert product:', error);
+            logger.error('Failed to upsert product:', error);
             return;
         }
 
@@ -153,7 +154,7 @@ export class ProductScraperVideo {
             }, { onConflict: 'product_id' });
         }
         
-        console.log(`✓ Updated ${data.name}`);
+        logger.info(`✓ Updated ${data.name}`);
     }
 
     private generateSlug(name: string): string {

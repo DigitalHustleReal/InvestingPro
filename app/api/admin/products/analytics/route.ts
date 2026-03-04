@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/server';
 
 /**
@@ -27,7 +28,7 @@ export async function GET(request: NextRequest) {
 
         return NextResponse.json(products);
     } catch (error: any) {
-        console.error('Error fetching product analytics:', error);
+        logger.error('Error fetching product analytics:', error);
         return NextResponse.json(
             { error: 'Failed to fetch product analytics' },
             { status: 500 }

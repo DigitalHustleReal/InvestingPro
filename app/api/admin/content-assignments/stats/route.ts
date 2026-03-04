@@ -5,6 +5,7 @@
  */
 
 import { NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/server';
 
 export async function GET() {
@@ -47,7 +48,7 @@ export async function GET() {
       avg_review_time: '2.5 hrs', // TODO: Calculate from actual data
     });
   } catch (error) {
-    console.error('[API] Stats error:', error);
+    logger.error('[API] Stats error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch stats' },
       { status: 500 }

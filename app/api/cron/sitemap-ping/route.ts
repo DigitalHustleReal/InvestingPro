@@ -6,6 +6,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 
 const SITEMAP_URL = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://investingpro.in'}/sitemap.xml`;
 
@@ -36,7 +37,7 @@ export async function GET(request: NextRequest) {
     results.bing = { status: 'error', error: String(error) };
   }
 
-  console.log('[CRON] Sitemap ping results:', results);
+  logger.info('[CRON] Sitemap ping results:', results);
 
   return NextResponse.json({
     success: true,

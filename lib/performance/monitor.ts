@@ -149,7 +149,7 @@ export async function reportPerformanceMetrics(metrics: PerformanceMetric[]) {
         });
     } catch (error) {
         // Ignore errors in reporting
-        console.warn('Failed to report performance metrics', error);
+        logger.warn('Failed to report performance metrics', error);
     }
 }
 

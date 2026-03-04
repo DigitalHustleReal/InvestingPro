@@ -12,6 +12,7 @@
  */
 
 import { marked } from 'marked';
+import { logger } from '@/lib/logger';
 
 /**
  * Allowed HTML elements for TipTap
@@ -135,7 +136,7 @@ function jsonToHTML(jsonStr: string): string {
         
         return plaintextToHTML(jsonStr);
     } catch (error) {
-        console.error('Error converting JSON to HTML:', error);
+        logger.error('Error converting JSON to HTML:', error);
         return plaintextToHTML(jsonStr);
     }
 }
@@ -156,7 +157,7 @@ function markdownToHTML(markdown: string): string {
         const html = marked.parse(markdown) as string;
         return html || '';
     } catch (error) {
-        console.error('Error converting markdown to HTML:', error);
+        logger.error('Error converting markdown to HTML:', error);
         return '';
     }
 }
@@ -238,7 +239,7 @@ function cleanHTML(html: string): string {
 
         return cleaned.trim();
     } catch (error) {
-        console.error('Error cleaning HTML:', error);
+        logger.error('Error cleaning HTML:', error);
         // Fallback: strip all tags except allowed ones
         return stripInvalidTags(html);
     }

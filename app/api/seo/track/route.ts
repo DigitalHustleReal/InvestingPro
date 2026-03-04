@@ -4,6 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { trackKeywordRanking, getRankingHistory, getAllTrackedKeywords } from '@/lib/seo/serp-tracker';
 import { requireAdmin } from '@/lib/auth/admin-auth';
 
@@ -50,7 +51,7 @@ export async function POST(request: NextRequest) {
         });
 
     } catch (error: any) {
-        console.error('Error tracking keyword ranking:', error);
+        logger.error('Error tracking keyword ranking:', error);
         
         return NextResponse.json(
             {
@@ -118,7 +119,7 @@ export async function GET(request: NextRequest) {
         }
 
     } catch (error: any) {
-        console.error('Error fetching SEO tracking data:', error);
+        logger.error('Error fetching SEO tracking data:', error);
         
         return NextResponse.json(
             {

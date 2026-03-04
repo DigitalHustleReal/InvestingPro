@@ -4,6 +4,7 @@
  */
 
 import dotenv from 'dotenv';
+import { logger } from '@/lib/logger';
 dotenv.config({ path: '.env.local' });
 import { createServiceClient } from '@/lib/supabase/service';
 
@@ -94,7 +95,7 @@ export class CompletenessTracker {
         const metrics = await this.calculateCompleteness(category);
         results.push(metrics);
       } catch (error) {
-        console.error(`Error calculating completeness for ${category}:`, error);
+        logger.error(`Error calculating completeness for ${category}:`, error);
       }
     }
 
@@ -139,15 +140,15 @@ if (require.main === module) {
   const tracker = new CompletenessTracker();
   
   tracker.getCompletenessSummary().then(summary => {
-    console.log('\n📊 DATA COMPLETENESS SUMMARY\n');
-    console.log(`Overall Completeness: ${summary.overall.avgCompleteness.toFixed(2)}%`);
-    console.log(`Categories ≥95%: ${summary.overall.categoriesAbove95}/${summary.overall.totalCategories}`);
-    console.log(`Categories <95%: ${summary.overall.categoriesBelow95}\n`);
+    logger.info('\n📊 DATA COMPLETENESS SUMMARY\n');
+    logger.info(`Overall Completeness: ${summary.overall.avgCompleteness.toFixed(2)}%`);
+    logger.info(`Categories ≥95%: ${summary.overall.categoriesAbove95}/${summary.overall.totalCategories}`);
+    logger.info(`Categories <95%: ${summary.overall.categoriesBelow95}\n`);
 
-    console.log('Per-Category Completeness:');
+    logger.info('Per-Category Completeness:');
     for (const metrics of summary.byCategory) {
       const status = metrics.completenessPercentage >= 95 ? '✅' : '⚠️';
-      console.log(`${status} ${metrics.category.padEnd(20)} ${metrics.completenessPercentage.toFixed(2)}%`);
+      logger.info(`${status} ${metrics.category.padEnd(20)} ${metrics.completenessPercentage.toFixed(2)}%`);
       
       // Show incomplete fields
       const incompleteFields = Object.entries(metrics.fieldCompleteness)
@@ -155,7 +156,7 @@ if (require.main === module) {
       
       if (incompleteFields.length > 0) {
         for (const [field, completeness] of incompleteFields) {
-          console.log(`   ⚠️ ${field}: ${completeness.toFixed(1)}% (${metrics.missingFields[field]} missing)`);
+          logger.info(`   ⚠️ ${field}: ${completeness.toFixed(1)}% (${metrics.missingFields[field]} missing)`);
         }
       }
     }

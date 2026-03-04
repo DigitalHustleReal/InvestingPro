@@ -5,6 +5,7 @@
  */
 
 import { exec } from 'child_process';
+import { logger } from '@/lib/logger';
 import https from 'https';
 
 // Configuration
@@ -23,12 +24,12 @@ interface LighthouseResult {
 
 function runLighthouse(url: string): Promise<LighthouseResult | null> {
     return new Promise((resolve) => {
-    console.log(`Testing ${url}...`);
+    logger.info(`Testing ${url}...`);
     const command = `npx lighthouse ${url} --only-categories=accessibility --output=json --chrome-flags="--headless"`;
     
     exec(command, (error, stdout, stderr) => {
       if (error) {
-        console.error(`Error testing ${url}:`, stderr);
+        logger.error(`Error testing ${url}:`, stderr);
         resolve(null); // Resolve null to verify other pages
         return;
       }
@@ -38,7 +39,7 @@ function runLighthouse(url: string): Promise<LighthouseResult | null> {
         const score = report.categories.accessibility.score * 100;
         resolve({ url, score });
       } catch (e) {
-        console.error('Error parsing report:', e);
+        logger.error('Error parsing report:', e);
         resolve(null);
       }
     });
@@ -46,7 +47,7 @@ function runLighthouse(url: string): Promise<LighthouseResult | null> {
 }
 
 async function monitor() {
-  console.log('🚀 Starting Accessibility Monitor...\n');
+  logger.info('🚀 Starting Accessibility Monitor...\n');
   
   const results: LighthouseResult[] = [];
   
@@ -55,29 +56,29 @@ async function monitor() {
     if (result) results.push(result);
   }
   
-  console.log('\nResults:');
+  logger.info('\nResults:');
   
   let failed = false;
   
   results.forEach(({ url, score }) => {
-    console.log(`${url}: ${score}/100`);
+    logger.info(`${url}: ${score}/100`);
     
     if (score < 95) {
       failed = true;
-      console.error(`⚠️ Regression detected on ${url}`);
+      logger.error(`⚠️ Regression detected on ${url}`);
       
       if (SLACK_WEBHOOK_URL) {
         // Send alert (simulated)
-        console.log('Sending Slack alert...');
+        logger.info('Sending Slack alert...');
       }
     }
   });
   
   if (failed) {
-    console.log('\n❌ Accessibility check failed!');
+    logger.info('\n❌ Accessibility check failed!');
     process.exit(1);
   } else {
-    console.log('\n✅ All systems normal.');
+    logger.info('\n✅ All systems normal.');
   }
 }
 

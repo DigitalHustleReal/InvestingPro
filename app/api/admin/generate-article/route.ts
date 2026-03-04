@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { generateArticle } from '@/lib/ai/article-writer';
 import { createClient } from '@/lib/supabase/server';
 
@@ -36,7 +37,7 @@ export async function POST(req: Request) {
         return NextResponse.json(articleData);
 
     } catch (error) {
-        console.error('Generation API Error:', error);
+        logger.error('Generation API Error:', error);
         return NextResponse.json(
             { error: 'Failed to generate article', details: error instanceof Error ? error.message : 'Unknown error' }, 
             { status: 500 }

@@ -290,7 +290,7 @@ export default function HeroVisuals({ currentSlide }: HeroVisualsProps) {
 
                             <div className="space-y-6 pt-4">
                                 {[
-                                    { icon: Shield, title: "Independent Research", desc: "Unbiased. Fact-checked. 100% Honest.", color: "text-primary-600" },
+                                    { icon: Shield, title: "Independent Research", desc: "Transparent. Fact-checked. 100% Honest.", color: "text-primary-600" },
                                     { icon: TrendingUp, title: "Detailed Comparisons", desc: "Compare 500+ products side-by-side.", color: "text-success-600" },
                                     { icon: Award, title: "Free Financial Tools", desc: "Calculators & guides at zero cost.", color: "text-primary-600" }
                                 ].map((item, i) => (

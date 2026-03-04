@@ -5,6 +5,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { getConversionFunnel, getConversionFunnelByCategory } from '@/lib/analytics/conversion-funnel';
 import { requireAdmin } from '@/lib/auth/admin-auth';
 
@@ -67,7 +68,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json(funnel);
 
     } catch (error: any) {
-        console.error('Error fetching conversion funnel:', error);
+        logger.error('Error fetching conversion funnel:', error);
         
         return NextResponse.json(
             {

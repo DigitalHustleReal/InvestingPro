@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendEmail } from '@/lib/email/resend-service';
 import { z } from 'zod';
+import { logger } from '@/lib/logger';
 
 const contactSchema = z.object({
   name: z.string().min(2),
@@ -44,7 +45,7 @@ export async function POST(req: NextRequest) {
         });
 
         if (!result.success) {
-            console.error('Email sending failed:', result.error);
+            logger.error('Email sending failed', result.error instanceof Error ? result.error : new Error(String(result.error)));
             // In a real app we might want to return 500, but often we fake success to user if it's a transient spam check or similar
             // But here we'll be honest
             return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
@@ -53,7 +54,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ success: true });
 
     } catch (error) {
-        console.error('Contact API Error:', error);
+        logger.error('Contact API error', error instanceof Error ? error : new Error(String(error)));
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }

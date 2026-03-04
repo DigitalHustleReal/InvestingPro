@@ -11,6 +11,7 @@
  */
 
 import { Redis } from '@upstash/redis';
+import { logger } from '@/lib/logger';
 
 const isConfigured = !!process.env.UPSTASH_REDIS_REST_URL && !!process.env.UPSTASH_REDIS_REST_TOKEN;
 
@@ -46,7 +47,7 @@ export async function cacheSet<T>(key: string, value: T, ttlSeconds?: number): P
     }
     return true;
   } catch (error) {
-    console.error('[REDIS] Cache set error:', error);
+    logger.error('[REDIS] Cache set error:', error);
     return false;
   }
 }
@@ -65,7 +66,7 @@ export async function cacheGet<T>(key: string): Promise<T | null> {
     if (data === null) return null;
     return typeof data === 'string' ? JSON.parse(data) : data as T;
   } catch (error) {
-    console.error('[REDIS] Cache get error:', error);
+    logger.error('[REDIS] Cache get error:', error);
     return null;
   }
 }
@@ -81,7 +82,7 @@ export async function cacheDelete(key: string): Promise<boolean> {
     await client.del(key);
     return true;
   } catch (error) {
-    console.error('[REDIS] Cache delete error:', error);
+    logger.error('[REDIS] Cache delete error:', error);
     return false;
   }
 }
@@ -117,7 +118,7 @@ export async function rateLimit(
       reset: ttl > 0 ? Date.now() + (ttl * 1000) : Date.now() + (windowSeconds * 1000),
     };
   } catch (error) {
-    console.error('[REDIS] Rate limit error:', error);
+    logger.error('[REDIS] Rate limit error:', error);
     return { allowed: true, remaining: limit, reset: 0 };
   }
 }
@@ -159,7 +160,7 @@ export async function invalidatePattern(pattern: string): Promise<number> {
     await client.del(...keys);
     return keys.length;
   } catch (error) {
-    console.error('[REDIS] Invalidate pattern error:', error);
+    logger.error('[REDIS] Invalidate pattern error:', error);
     return 0;
   }
 }

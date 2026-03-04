@@ -375,6 +375,9 @@ export function Footer() {
                                 <br className="hidden md:block" />
                                 All content is for educational purposes only.
                             </p>
+                            <p className="text-[10px] text-slate-700 text-center max-w-3xl mx-auto mt-2 leading-relaxed">
+                                InvestingPro.in is an independent platform owned and operated in India. It is not affiliated with, endorsed by, or associated in any way with Investing.com or its parent companies.
+                            </p>
                         </div>
                     </div>
                 </div>

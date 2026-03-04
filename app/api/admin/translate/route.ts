@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { translateArticle } from '@/lib/automation/translator';
 import { createClient } from '@supabase/supabase-js';
 import slugify from 'slugify';
@@ -61,7 +62,7 @@ export async function POST(req: NextRequest) {
         });
 
     } catch (error: any) {
-        console.error('Translation API Error:', error);
+        logger.error('Translation API Error:', error);
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }

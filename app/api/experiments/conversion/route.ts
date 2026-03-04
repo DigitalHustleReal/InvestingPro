@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 
 /**
  * Experiment Conversion API
@@ -27,11 +28,11 @@ export async function POST(request: NextRequest) {
         //     converted_at: new Date()
         // });
 
-        console.log('Experiment conversion:', { experimentId, variantId, userId, value });
+        logger.info('Experiment conversion:', { experimentId, variantId, userId, value });
 
         return NextResponse.json({ success: true });
     } catch (error) {
-        console.error('Conversion tracking error:', error);
+        logger.error('Conversion tracking error:', error);
         return NextResponse.json(
             { error: 'Failed to track conversion' },
             { status: 500 }

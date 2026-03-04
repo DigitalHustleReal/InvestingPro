@@ -710,10 +710,10 @@ export class ArticleService {
         let articles: ArticleData[] = [];
 
         if (error) {
-            console.error('[ArticleService] Direct query error:', error.message);
+            logger.error('[ArticleService] Direct query error:', error.message);
             logger.error('Failed to list articles', error);
         } else if (data && data.length > 0) {
-            console.log(`[ArticleService] Direct query returned ${data.length} articles`);
+            logger.info(`[ArticleService] Direct query returned ${data.length} articles`);
             articles = data.map((article: any) => this.normalizeArticle(article));
         } else {
             // FALLBACK: Use SECURITY DEFINER RPC to bypass RLS for public users

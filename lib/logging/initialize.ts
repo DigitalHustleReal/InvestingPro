@@ -4,6 +4,7 @@
  */
 
 import { initializeExternalLogger, LoggingService } from './external-logger';
+import { logger } from '@/lib/logger';
 
 /**
  * Initialize external logging based on environment variables
@@ -26,18 +27,18 @@ export function initializeLogging(): void {
     const source = process.env.BETTER_STACK_SOURCE;
 
     if (!apiKey) {
-        console.warn('[Logging] External logging enabled but no API key found. Set AXIOM_API_KEY, BETTER_STACK_API_KEY, or DATADOG_API_KEY');
+        logger.warn('[Logging] External logging enabled but no API key found. Set AXIOM_API_KEY, BETTER_STACK_API_KEY, or DATADOG_API_KEY');
         return;
     }
 
     // Validate service-specific requirements
     if (service === 'axiom' && !dataset) {
-        console.warn('[Logging] Axiom requires AXIOM_DATASET environment variable');
+        logger.warn('[Logging] Axiom requires AXIOM_DATASET environment variable');
         return;
     }
 
     if (service === 'better-stack' && !source) {
-        console.warn('[Logging] Better Stack requires BETTER_STACK_SOURCE environment variable');
+        logger.warn('[Logging] Better Stack requires BETTER_STACK_SOURCE environment variable');
         return;
     }
 
@@ -52,9 +53,9 @@ export function initializeLogging(): void {
             flushInterval: parseInt(process.env.EXTERNAL_LOGGING_FLUSH_INTERVAL || '5000', 10),
         });
 
-        console.log(`[Logging] External logging initialized: ${service}`);
+        logger.info(`[Logging] External logging initialized: ${service}`);
     } catch (error) {
-        console.error('[Logging] Failed to initialize external logging:', error);
+        logger.error('[Logging] Failed to initialize external logging:', error);
     }
 }
 

@@ -13,6 +13,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -52,7 +53,7 @@ async function handlePostback(request: NextRequest, method: string) {
         const secret = searchParams.get('secret') || searchParams.get('key');
         
         if (secret !== POSTBACK_SECRET) {
-            console.warn('[Postback] Invalid secret attempted');
+            logger.warn('[Postback] Invalid secret attempted');
             return NextResponse.json(
                 { error: 'Invalid authentication' },
                 { status: 401 }
@@ -96,7 +97,7 @@ async function handlePostback(request: NextRequest, method: string) {
         }
         
         // 4. Log the postback
-        console.log(`[Postback] Received: click=${payload.click_id}, amount=${payload.amount}, status=${payload.status}`);
+        logger.info(`[Postback] Received: click=${payload.click_id}, amount=${payload.amount}, status=${payload.status}`);
         
         // 5. Update the click record if we have click_id
         if (payload.click_id) {
@@ -113,7 +114,7 @@ async function handlePostback(request: NextRequest, method: string) {
                 .eq('id', payload.click_id);
             
             if (updateError) {
-                console.error('[Postback] Update failed:', updateError);
+                logger.error('[Postback] Update failed:', updateError);
             }
         }
         
@@ -157,7 +158,7 @@ async function handlePostback(request: NextRequest, method: string) {
         }
         
         const processingTime = Date.now() - startTime;
-        console.log(`[Postback] Processed in ${processingTime}ms`);
+        logger.info(`[Postback] Processed in ${processingTime}ms`);
         
         // 8. Return success (networks expect specific responses)
         return NextResponse.json({
@@ -168,7 +169,7 @@ async function handlePostback(request: NextRequest, method: string) {
         });
         
     } catch (error) {
-        console.error('[Postback] Error:', error);
+        logger.error('[Postback] Error:', error);
         return NextResponse.json(
             { error: 'Internal server error' },
             { status: 500 }

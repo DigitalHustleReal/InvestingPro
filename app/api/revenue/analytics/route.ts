@@ -4,6 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { getRevenueMetrics } from '@/lib/analytics/revenue-tracker';
 import { requireAdmin } from '@/lib/auth/admin-auth';
 
@@ -48,7 +49,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json(metrics);
 
     } catch (error: any) {
-        console.error('Error fetching revenue analytics:', error);
+        logger.error('Error fetching revenue analytics:', error);
         
         return NextResponse.json(
             {

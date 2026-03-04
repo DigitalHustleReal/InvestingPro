@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 
 // Use service role for server-side operations
@@ -30,7 +31,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        console.log(`Server-side upload: ${filePath} (${file.size} bytes)`);
+        logger.info(`Server-side upload: ${filePath} (${file.size} bytes)`);
 
         // 1. Upload to Supabase Storage using Admin Client
         const { data: uploadData, error: uploadError } = await supabaseAdmin.storage
@@ -42,7 +43,7 @@ export async function POST(request: NextRequest) {
             });
 
         if (uploadError) {
-            console.error('Storage upload error:', uploadError);
+            logger.error('Storage upload error:', uploadError);
             return NextResponse.json(
                 { error: `Storage error: ${uploadError.message}` },
                 { status: 500 }
@@ -75,7 +76,7 @@ export async function POST(request: NextRequest) {
             .single();
 
         if (dbError) {
-            console.error('Database insertion error:', dbError);
+            logger.error('Database insertion error:', dbError);
             // We don't necessarily need to rollback storage if DB fails, 
             // but we should report the error.
             return NextResponse.json(
@@ -91,7 +92,7 @@ export async function POST(request: NextRequest) {
             mediaItem: dbData
         });
     } catch (error: any) {
-        console.error('API Upload error:', error);
+        logger.error('API Upload error:', error);
         return NextResponse.json(
             { error: error.message },
             { status: 500 }

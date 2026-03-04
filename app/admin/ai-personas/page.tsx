@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { logger } from '@/lib/logger';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -77,7 +78,7 @@ export default function AIPersonaDashboard() {
                 );
 
             if (perfError) {
-                console.error('Error fetching personas:', perfError);
+                logger.error('Error fetching personas:', perfError);
                 return [];
             }
 

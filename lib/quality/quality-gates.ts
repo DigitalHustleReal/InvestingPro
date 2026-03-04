@@ -12,6 +12,7 @@
  */
 
 import { scoreContent, QualityScore } from './content-scorer';
+import { logger } from '@/lib/logger';
 import { checkPlagiarism, PlagiarismResult } from './plagiarism-checker';
 import { generateMetaDescription, generateMetaDescriptionQuick, MetaDescriptionResult } from '../seo/meta-generator';
 import { generateAltText, generateAltTextQuick, AltTextResult } from '../seo/alt-text-generator';
@@ -49,10 +50,10 @@ export async function runQualityGates(
   const warnings: string[] = [];
   const recommendations: string[] = [];
   
-  console.log('\n🔍 Running Quality Gates...\n');
+  logger.info('\n🔍 Running Quality Gates...\n');
   
   // 1. Content Quality Scoring
-  console.log('  [1/4] Quality Scoring...');
+  logger.info('  [1/4] Quality Scoring...');
   const quality = scoreContent(
     article.title,
     article.content,
@@ -66,7 +67,7 @@ export async function runQualityGates(
   recommendations.push(...quality.recommendations);
   
   // 2. Plagiarism Check
-  console.log('  [2/4] Plagiarism Detection...');
+  logger.info('  [2/4] Plagiarism Detection...');
   const plagiarism = await checkPlagiarism(
     article.content,
     article.title,
@@ -83,7 +84,7 @@ export async function runQualityGates(
   warnings.push(...plagiarism.warnings);
   
   // 3. Meta Description Generation/Validation
-  console.log('  [3/4] Meta Description...');
+  logger.info('  [3/4] Meta Description...');
   let meta: MetaDescriptionResult;
   
   if (!article.metaDescription) {
@@ -96,7 +97,7 @@ export async function runQualityGates(
           article.primaryKeyword
         );
       } catch (error) {
-        console.warn('    AI generation failed, using fallback');
+        logger.warn('    AI generation failed, using fallback');
         const quickMeta = generateMetaDescriptionQuick(article.title, article.content);
         meta = {
           metaDescription: quickMeta,
@@ -137,7 +138,7 @@ export async function runQualityGates(
   recommendations.push(...meta.suggestions);
   
   // 4. Alt Text Generation
-  console.log('  [4/4] Alt Text Generation...');
+  logger.info('  [4/4] Alt Text Generation...');
   let altText: AltTextResult;
   
   if (useAI) {
@@ -148,7 +149,7 @@ export async function runQualityGates(
         article.primaryKeyword
       );
     } catch (error) {
-      console.warn('    AI generation failed, using fallback');
+      logger.warn('    AI generation failed, using fallback');
       const quickAlt = generateAltTextQuick(article.title, article.imageContext || 'hero image');
       altText = {
         altText: quickAlt,
@@ -177,7 +178,7 @@ export async function runQualityGates(
   const canPublish = quality.canPublish && !plagiarism.isPlagiarized;
   const overallScore = Math.round((quality.overall * 0.7) + ((plagiarism.isPlagiarized ? 0 : 100) * 0.3));
   
-  console.log('\n✅ Quality Gates Complete!\n');
+  logger.info('\n✅ Quality Gates Complete!\n');
   
   return {
     canPublish,

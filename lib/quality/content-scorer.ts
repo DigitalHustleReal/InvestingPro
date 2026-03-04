@@ -378,17 +378,17 @@ export function testScorer() {
   
   const score = scoreContent(sampleTitle, sampleContent, sampleMeta);
   
-  console.log('\n📊 QUALITY SCORE TEST\n');
-  console.log('='.repeat(60));
-  console.log(`Overall Score: ${score.overall}/100 ${score.canPublish ? '✅ PASS' : '❌ FAIL'}`);
-  console.log(`  - Readability: ${score.readability}/100 (Grade ${score.details.readability.gradeLevel})`);
-  console.log(`  - SEO: ${score.seo}/100`);
-  console.log(`  - Structure: ${score.structure}/100`);
-  console.log('\n📋 Recommendations:');
+  logger.info('\n📊 QUALITY SCORE TEST\n');
+  logger.info('='.repeat(60));
+  logger.info(`Overall Score: ${score.overall}/100 ${score.canPublish ? '✅ PASS' : '❌ FAIL'}`);
+  logger.info(`  - Readability: ${score.readability}/100 (Grade ${score.details.readability.gradeLevel})`);
+  logger.info(`  - SEO: ${score.seo}/100`);
+  logger.info(`  - Structure: ${score.structure}/100`);
+  logger.info('\n📋 Recommendations:');
   score.recommendations.forEach((rec, i) => {
-    console.log(`  ${i + 1}. ${rec}`);
+    logger.info(`  ${i + 1}. ${rec}`);
   });
-  console.log('='.repeat(60) + '\n');
+  logger.info('='.repeat(60) + '\n');
   
   return score;
 }

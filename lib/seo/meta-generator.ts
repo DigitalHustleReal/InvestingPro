@@ -6,6 +6,7 @@
  */
 
 import OpenAI from 'openai';
+import { logger } from '@/lib/logger';
 
 export interface MetaDescriptionResult {
   metaDescription: string;
@@ -61,7 +62,7 @@ Meta description:`;
       return validateMetaDescription(generated, keyword);
     }
   } catch (error) {
-    console.warn('AI generation failed, using fallback:', error);
+    logger.warn('AI generation failed, using fallback:', error);
   }
   
   // Fallback: Generate from content
@@ -165,8 +166,8 @@ export function generateMetaDescriptionQuick(
  * Test meta description generator
  */
 export function testMetaGenerator() {
-  console.log('\n🏷️ META DESCRIPTION GENERATOR TEST\n');
-  console.log('='.repeat(60));
+  logger.info('\n🏷️ META DESCRIPTION GENERATOR TEST\n');
+  logger.info('='.repeat(60));
   
   const testCases = [
     {
@@ -181,10 +182,10 @@ export function testMetaGenerator() {
   
   testCases.forEach((test, idx) => {
     const result = generateMetaDescriptionQuick(test.title, test.content);
-    console.log(`\nTest ${idx + 1}: ${test.title}`);
-    console.log(`  Generated: "${result}"`);
-    console.log(`  Length: ${result.length} chars ${result.length >= 120 && result.length <= 160 ? '✅' : '❌'}`);
+    logger.info(`\nTest ${idx + 1}: ${test.title}`);
+    logger.info(`  Generated: "${result}"`);
+    logger.info(`  Length: ${result.length} chars ${result.length >= 120 && result.length <= 160 ? '✅' : '❌'}`);
   });
   
-  console.log('\n' + '='.repeat(60) + '\n');
+  logger.info('\n' + '='.repeat(60) + '\n');
 }

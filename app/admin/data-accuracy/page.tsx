@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import { logger } from '@/lib/logger';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -58,7 +59,7 @@ export default function DataAccuracyPage() {
                 .limit(100);
             
             if (error) {
-                console.error('Error fetching scraper runs:', error);
+                logger.error('Error fetching scraper runs:', error);
                 return [];
             }
             return data || [];

@@ -9,6 +9,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { 
   contentGapAnalyzer, 
   analyzeContentGaps, 
@@ -98,7 +99,7 @@ export async function GET(request: NextRequest) {
       { status: 400 }
     );
   } catch (error) {
-    console.error('Error in strategy gaps API:', error);
+    logger.error('Error in strategy gaps API:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to analyze content gaps' },
       { status: 500 }
@@ -193,7 +194,7 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     );
   } catch (error) {
-    console.error('Error in strategy gaps POST:', error);
+    logger.error('Error in strategy gaps POST:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to process request' },
       { status: 500 }

@@ -1,5 +1,6 @@
 
 import { createClient } from '@/lib/supabase/client';
+import { logger } from '@/lib/logger';
 
 export type ArticleStatus = 'draft' | 'published' | 'archived';
 
@@ -48,7 +49,7 @@ export class ArticleService {
         const { data, error } = await query.range(offset, offset + limit - 1);
         
         if (error) {
-            console.error('Error fetching articles:', error);
+            logger.error('Error fetching articles:', error);
             return [];
         }
         

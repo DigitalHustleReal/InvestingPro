@@ -58,7 +58,7 @@ export default function FeaturedTools() {
                         </h2>
                         <p className="text-lg text-slate-500 dark:text-slate-600 font-medium max-w-xl leading-relaxed">
                             Professional instruments for precision wealth planning.
-                            Zero bias, 100% data-driven.
+                            Transparent methodology, 100% data-driven.
                         </p>
                     </div>
                     <Link href="/calculators">

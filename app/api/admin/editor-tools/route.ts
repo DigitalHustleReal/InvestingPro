@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { autoOptimizeArticle } from '@/lib/automation/seo-optimizer';
 import { proofreadContent } from '@/lib/automation/copy-editor';
 
@@ -40,7 +41,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
 
     } catch (error: any) {
-        console.error('Editor Tool Error:', error);
+        logger.error('Editor Tool Error:', error);
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }

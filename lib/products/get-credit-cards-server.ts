@@ -1,5 +1,6 @@
 
 import { createClient } from '@/lib/supabase/static';
+import { logger } from '@/lib/logger';
 import { RichProduct } from "@/types/rich-product";
 
 /**
@@ -13,7 +14,7 @@ export async function getCreditCardsServer(): Promise<RichProduct[]> {
     const { data, error } = await supabase.from('credit_cards').select('*');
 
     if (error) {
-        console.error('SERVER FETCH ERROR: credit_cards', error);
+        logger.error('SERVER FETCH ERROR: credit_cards', error);
         return [];
     }
 

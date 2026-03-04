@@ -6,6 +6,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/server';
 
 export const dynamic = 'force-dynamic';
@@ -44,7 +45,7 @@ export async function POST(request: NextRequest) {
             });
         
         if (error) {
-            console.error('Failed to track A/B event:', error);
+            logger.error('Failed to track A/B event:', error);
             // Return success anyway - don't expose errors to client
             return NextResponse.json({ success: true });
         }
@@ -52,7 +53,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ success: true });
         
     } catch (error) {
-        console.error('Error in A/B tracking:', error);
+        logger.error('Error in A/B tracking:', error);
         // Return success anyway - don't block user experience
         return NextResponse.json({ success: true });
     }

@@ -18,6 +18,7 @@
  */
 
 import axios from 'axios';
+import { logger } from '@/lib/logger';
 import * as cheerio from 'cheerio';
 import { createClient } from '@supabase/supabase-js';
 
@@ -102,10 +103,10 @@ async function getCachedResults(keyword: string): Promise<ResearchBrief | null> 
 
         if (error || !data || !(data as any).data) return null;
 
-        console.log(`✅ SERP Cache HIT for "${keyword}"`);
+        logger.info(`✅ SERP Cache HIT for "${keyword}"`);
         return (data as any).data as ResearchBrief;
     } catch (error) {
-        console.log(`ℹ️ SERP Cache MISS for "${keyword}"`);
+        logger.info(`ℹ️ SERP Cache MISS for "${keyword}"`);
         return null;
     }
 }
@@ -121,9 +122,9 @@ async function cacheResults(keyword: string, brief: ResearchBrief): Promise<void
             cached_at: new Date().toISOString()
         }, { onConflict: 'keyword' });
 
-        console.log(`💾 Cached SERP results for "${keyword}"`);
+        logger.info(`💾 Cached SERP results for "${keyword}"`);
     } catch (error) {
-        console.error('Failed to cache SERP results:', error);
+        logger.error('Failed to cache SERP results:', error);
     }
 }
 
@@ -136,7 +137,7 @@ async function fetchFromSerpApi(keyword: string): Promise<ResearchBrief> {
         throw new Error('SerpApi key not configured');
     }
 
-    console.log(`🔍 Fetching SERP data from SerpApi for "${keyword}"...`);
+    logger.info(`🔍 Fetching SERP data from SerpApi for "${keyword}"...`);
 
     const response = await axios.get('https://serpapi.com/search', {
         params: {
@@ -191,7 +192,7 @@ async function fetchFromSerpApi(keyword: string): Promise<ResearchBrief> {
 // ============================================================================
 
 async function fetchViaScraping(keyword: string): Promise<ResearchBrief> {
-    console.log(`🕷️ Scraping Google for "${keyword}" (fallback mode)...`);
+    logger.info(`🕷️ Scraping Google for "${keyword}" (fallback mode)...`);
     
     // Basic DIY scraping (simplified - production would use Puppeteer)
     const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(keyword)}&num=10&hl=en&gl=in`;
@@ -308,7 +309,7 @@ async function analyzeTopResults(results: SerpResult[]) {
 // ============================================================================
 
 export async function serpAnalyzer(keyword: string): Promise<ResearchBrief> {
-    console.log(`\n🔍 Starting SERP Analysis for: "${keyword}"`);
+    logger.info(`\n🔍 Starting SERP Analysis for: "${keyword}"`);
 
     // STEP 1: Check cache first
     const cached = await getCachedResults(keyword);
@@ -322,8 +323,8 @@ export async function serpAnalyzer(keyword: string): Promise<ResearchBrief> {
         await cacheResults(keyword, brief);
         return brief;
     } catch (error: any) {
-        console.log('⚠️ SerpApi failed:', error.message);
-        console.log('Falling back to DIY scraping...');
+        logger.info('⚠️ SerpApi failed:', error.message);
+        logger.info('Falling back to DIY scraping...');
     }
 
     // STEP 3: Fall back to scraping
@@ -332,11 +333,11 @@ export async function serpAnalyzer(keyword: string): Promise<ResearchBrief> {
         await cacheResults(keyword, brief);
         return brief;
     } catch (error: any) {
-        console.log('⚠️ DIY scraping failed:', error.message);
+        logger.info('⚠️ DIY scraping failed:', error.message);
     }
 
     // STEP 4: Return basic brief if all else fails
-    console.log('⚠️ All SERP methods failed, returning generic brief');
+    logger.info('⚠️ All SERP methods failed, returning generic brief');
     return {
         keyword,
         top_results: [],
@@ -369,7 +370,7 @@ export async function batchAnalyze(keywords: string[]): Promise<Record<string, R
             // Rate limiting: wait 1 second between requests
             await new Promise(resolve => setTimeout(resolve, 1000));
         } catch (error) {
-            console.error(`Failed to analyze "${keyword}":`, error);
+            logger.error(`Failed to analyze "${keyword}":`, error);
         }
     }
     

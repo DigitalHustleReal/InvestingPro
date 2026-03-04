@@ -1,4 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
+import { logger } from '@/lib/logger';
 
 /**
  * ✍️ COPY EDITOR AGENT (The "Grammarly Killer")
@@ -40,7 +41,7 @@ export async function proofreadContent(markdown: string): Promise<string> {
 
         return response.text || markdown;
     } catch (error) {
-        console.error("Proofreading Failed", error);
+        logger.error("Proofreading Failed", error);
         return markdown; // Safety net: return original
     }
 }

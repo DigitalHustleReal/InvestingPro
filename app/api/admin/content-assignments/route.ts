@@ -5,6 +5,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/server';
 
 // GET - List content assignments
@@ -59,7 +60,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(assignments);
   } catch (error) {
-    console.error('[API] Content assignments error:', error);
+    logger.error('[API] Content assignments error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch assignments' },
       { status: 500 }

@@ -10,6 +10,7 @@
  */
 
 import OpenAI from 'openai'
+import { logger } from '@/lib/logger';
 import { externalInfoFetch } from '../api/external-client'
 
 // Lazy initialization - only create when needed
@@ -56,7 +57,7 @@ export async function generateFeaturedImage(articleTitle: string, category: stri
     
     return response.data[0]?.url || null
   } catch (error) {
-    console.error('Error generating featured image:', error)
+    logger.error('Error generating featured image:', error)
     return null
   }
 }
@@ -80,7 +81,7 @@ export async function generateArticleIllustration(concept: string, style: 'chart
     
     return response.data[0]?.url || null
   } catch (error) {
-    console.error('Error generating illustration:', error)
+    logger.error('Error generating illustration:', error)
     return null
   }
 }
@@ -179,7 +180,7 @@ export async function downloadAndSaveImage(imageUrl: string, fileName: string): 
       })
     
     if (error) {
-      console.error('Error uploading to Supabase:', error)
+      logger.error('Error uploading to Supabase:', error)
       return null
     }
     
@@ -190,7 +191,7 @@ export async function downloadAndSaveImage(imageUrl: string, fileName: string): 
     
     return publicUrlData.publicUrl
   } catch (error) {
-    console.error('Error downloading/saving image:', error)
+    logger.error('Error downloading/saving image:', error)
     return null
   }
 }
@@ -225,7 +226,7 @@ export async function generateArticleWithImages(
       bodyWithImages
     }
   } catch (error) {
-    console.error('Error generating article with images:', error)
+    logger.error('Error generating article with images:', error)
     return {
       featuredImage: null,
       bodyWithImages: bodyHtml

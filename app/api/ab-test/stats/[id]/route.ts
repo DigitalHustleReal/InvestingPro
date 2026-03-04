@@ -6,6 +6,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/server';
 import { calculateStatisticalSignificance } from '@/lib/analytics/ab-testing';
 
@@ -148,7 +149,7 @@ export async function GET(
         });
         
     } catch (error) {
-        console.error('Error fetching A/B test stats:', error);
+        logger.error('Error fetching A/B test stats:', error);
         return NextResponse.json(
             { error: 'Internal server error' },
             { status: 500 }

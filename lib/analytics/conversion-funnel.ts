@@ -5,6 +5,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 import { env } from '@/lib/env';
 
 const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
@@ -135,7 +136,7 @@ export async function getConversionFunnel(
         };
 
     } catch (error) {
-        console.error('Error calculating conversion funnel:', error);
+        logger.error('Error calculating conversion funnel:', error);
         throw error;
     }
 }

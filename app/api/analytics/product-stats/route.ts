@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -94,7 +95,7 @@ export async function GET(request: NextRequest) {
       avgCTR: totals.totalViews > 0 ? ((totals.totalClicks / totals.totalViews) * 100).toFixed(2) : 0
     });
   } catch (error) {
-    console.error('Stats error:', error);
+    logger.error('Stats error:', error);
     return NextResponse.json({ error: 'Failed to fetch stats' }, { status: 500 });
   }
 }

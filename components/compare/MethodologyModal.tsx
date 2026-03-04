@@ -30,7 +30,7 @@ export function MethodologyModal() {
                         Comparison Methodology
                     </DialogTitle>
                     <DialogDescription className="text-base text-slate-500">
-                        Our goal is to provide unbiased, data-driven recommendations. Here is how our scoring engine works.
+                        Our goal is to provide transparent, data-driven recommendations. Here is how our scoring engine works.
                     </DialogDescription>
                 </DialogHeader>
 

@@ -94,7 +94,7 @@ export async function searchUnsplashImages(
         const data: UnsplashSearchResponse = await response.json();
         return data;
     } catch (error) {
-        console.error('Error fetching Unsplash images:', error);
+        logger.error('Error fetching Unsplash images:', error);
         throw error;
     }
 }

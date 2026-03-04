@@ -35,7 +35,7 @@ const categoryCards = [
 ];
 
 const trustBadges = [
-    { icon: CheckCircle2, text: '100% Unbiased', color: 'emerald' },
+    { icon: CheckCircle2, text: 'Independent Research', color: 'emerald' },
     { icon: Shield, text: 'Data Security', color: 'primary' },
     { icon: Sparkles, text: 'AI-Powered', color: 'primary' },
 ];

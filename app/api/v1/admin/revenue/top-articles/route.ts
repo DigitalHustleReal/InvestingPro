@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 import { env } from '@/lib/env';
 import { requireAdmin } from '@/lib/auth/admin-auth';
@@ -60,7 +61,7 @@ export async function GET(request: NextRequest) {
             .lte('conversion_date', endDate);
 
         if (conversionsError) {
-            console.error('Error fetching conversions:', conversionsError);
+            logger.error('Error fetching conversions:', conversionsError);
             return NextResponse.json(
                 { error: 'Failed to fetch conversion data' },
                 { status: 500 }
@@ -109,7 +110,7 @@ export async function GET(request: NextRequest) {
             .in('id', articleIds);
 
         if (articlesError) {
-            console.error('Error fetching articles:', articlesError);
+            logger.error('Error fetching articles:', articlesError);
             return NextResponse.json(
                 { error: 'Failed to fetch article data' },
                 { status: 500 }
@@ -156,7 +157,7 @@ export async function GET(request: NextRequest) {
         });
 
     } catch (error: any) {
-        console.error('Top articles revenue error:', error);
+        logger.error('Top articles revenue error:', error);
         
         if (error.message?.includes('permission denied') || error.message?.includes('RLS')) {
             return NextResponse.json(

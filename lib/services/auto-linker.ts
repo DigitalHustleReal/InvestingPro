@@ -15,6 +15,7 @@
  */
 
 import { createClient } from '@/lib/supabase/client';
+import { logger } from '@/lib/logger';
 import * as cheerio from 'cheerio';
 
 interface GlossaryTerm {
@@ -70,7 +71,7 @@ export class AutoLinker {
     });
 
     this.initialized = true;
-    console.log(`✅ AutoLinker initialized with ${Object.keys(this.glossaryIndex).length} term variations`);
+    logger.info(`✅ AutoLinker initialized with ${Object.keys(this.glossaryIndex).length} term variations`);
   }
 
   /**
@@ -92,7 +93,7 @@ export class AutoLinker {
     } = options;
 
     if (!this.initialized) {
-      console.warn('AutoLinker not initialized. Call initialize() first.');
+      logger.warn('AutoLinker not initialized. Call initialize() first.');
       return html;
     }
 

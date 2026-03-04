@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ArticleService, type ArticleContent, type ArticleMetadata } from '@/lib/cms/article-service';
-import { createClient } from '@/lib/supabase/server';
+import { requireAdminApi } from '@/lib/auth/require-admin-api';
 import { logger } from '@/lib/logger';
 
 /**
@@ -9,13 +9,8 @@ import { logger } from '@/lib/logger';
  */
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient();
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    
-    if (authError || !user) {
-      logger.warn('Unauthorized article creation attempt');
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const { user, supabase, error: authError } = await requireAdminApi();
+    if (authError) return authError;
 
     const body = await request.json();
     const { content, metadata } = body;
@@ -68,12 +63,8 @@ export async function POST(request: NextRequest) {
  */
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
-    
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const { user, supabase, error: authError } = await requireAdminApi();
+    if (authError) return authError;
 
     const searchParams = request.nextUrl.searchParams;
     const status = (searchParams.get('status') as any) || undefined;

@@ -11,6 +11,7 @@
  */
 
 import { createServerClient } from '@supabase/ssr';
+import { logger } from '@/lib/logger';
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
@@ -33,14 +34,14 @@ export async function GET(request: Request) {
 
   const errorLoginPage = source === 'platform' ? '/login' : '/admin/login';
 
-  console.log('[AUTH CALLBACK] Received:', { 
+  logger.info('[AUTH CALLBACK] Received:', { 
     hasCode: !!code, hasTokenHash: !!token_hash, type, 
     source, redirect, error: error || 'none' 
   });
 
   // Handle auth errors
   if (error) {
-    console.error('[AUTH CALLBACK] Auth error:', error, errorDescription);
+    logger.error('[AUTH CALLBACK] Auth error:', error, errorDescription);
     return NextResponse.redirect(
       `${origin}${errorLoginPage}?error=${encodeURIComponent(errorDescription || error)}`
     );
@@ -81,7 +82,7 @@ export async function GET(request: Request) {
   if (code) {
     const { data, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
     if (exchangeError) {
-      console.error('[AUTH CALLBACK] Code exchange error:', exchangeError);
+      logger.error('[AUTH CALLBACK] Code exchange error:', exchangeError);
       return NextResponse.redirect(
         `${origin}${errorLoginPage}?error=${encodeURIComponent(exchangeError.message)}`
       );
@@ -96,7 +97,7 @@ export async function GET(request: Request) {
       type: type as any,
     });
     if (verifyError) {
-      console.error('[AUTH CALLBACK] Magic link verification error:', verifyError);
+      logger.error('[AUTH CALLBACK] Magic link verification error:', verifyError);
       return NextResponse.redirect(
         `${origin}${errorLoginPage}?error=${encodeURIComponent(verifyError.message)}`
       );
@@ -146,7 +147,7 @@ export async function GET(request: Request) {
     if (source === 'admin') {
       // Admin login: only admins allowed
       if (!isSystemAdmin) {
-        console.warn(`[AUTH CALLBACK] Non-admin (${session.user.email}) tried admin login`);
+        logger.warn(`[AUTH CALLBACK] Non-admin (${session.user.email}) tried admin login`);
         await supabase.auth.signOut();
         return NextResponse.redirect(
           `${origin}/admin/login?error=${encodeURIComponent('Access denied. Admin privileges required.')}`
@@ -168,7 +169,7 @@ export async function GET(request: Request) {
       }
     }
 
-    console.log(`[AUTH CALLBACK] ✅ ${session.user.email} (${userRole}) → ${finalRedirect}`);
+    logger.info(`[AUTH CALLBACK] ✅ ${session.user.email} (${userRole}) → ${finalRedirect}`);
     
     // Build redirect response WITH session cookies
     const response = NextResponse.redirect(`${origin}${finalRedirect}`);
@@ -182,7 +183,7 @@ export async function GET(request: Request) {
   }
 
   // No session — send back to the login page they came from
-  console.warn('[AUTH CALLBACK] No session established');
+  logger.warn('[AUTH CALLBACK] No session established');
   return NextResponse.redirect(
     `${origin}${errorLoginPage}?error=${encodeURIComponent('Login failed. Please try again.')}`
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { logger } from '@/lib/logger';
 import { 
   BarChart3, 
   TrendingUp, 
@@ -49,7 +50,7 @@ export default function ProductAnalyticsPage() {
       const json = await res.json();
       setData(json);
     } catch (error) {
-      console.error('Failed to fetch analytics:', error);
+      logger.error('Failed to fetch analytics:', error);
     }
     setLoading(false);
   };

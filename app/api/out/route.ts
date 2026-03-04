@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
 import { env } from '@/lib/env';
 
@@ -114,7 +115,7 @@ export async function GET(request: NextRequest) {
         const { error: logError } = await supabase.from('affiliate_clicks').insert(clickData);
 
         if (logError) {
-            console.error("Failed to log click:", logError);
+            logger.error("Failed to log click:", logError);
             // Don't block redirect on logging error - allow user to continue
         }
 
@@ -122,7 +123,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.redirect(finalUrl);
 
     } catch (error) {
-        console.error("Click Tracking Error catch:", error);
+        logger.error("Click Tracking Error catch:", error);
         return new NextResponse("Internal Server Error", { status: 500 });
     }
 }

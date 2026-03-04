@@ -4,6 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { getWebVitalsMetrics } from '@/lib/performance/web-vitals';
 import { analyzeBundle, checkBundleBudget } from '@/lib/performance/bundle-analyzer';
 import { requireAdmin } from '@/lib/auth/admin-auth';
@@ -87,7 +88,7 @@ export async function GET(request: NextRequest) {
         });
 
     } catch (error: any) {
-        console.error('Error fetching performance metrics:', error);
+        logger.error('Error fetching performance metrics:', error);
         
         return NextResponse.json(
             {

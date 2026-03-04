@@ -3,6 +3,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/server';
 
 export async function POST(
@@ -49,7 +50,7 @@ export async function POST(
 
     return NextResponse.json({ success: true, message: 'Content rejected with feedback' });
   } catch (error) {
-    console.error('[API] Reject error:', error);
+    logger.error('[API] Reject error:', error);
     return NextResponse.json(
       { error: 'Failed to reject content' },
       { status: 500 }

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { logger } from '@/lib/logger';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -66,7 +67,7 @@ export default function WorkflowsPage() {
 
             const { data, error } = await query;
             if (error) {
-                console.error('Error fetching workflows:', error);
+                logger.error('Error fetching workflows:', error);
                 return [];
             }
             return data as WorkflowItem[];

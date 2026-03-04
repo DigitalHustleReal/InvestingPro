@@ -11,6 +11,7 @@
  */
 
 import { v2 as cloudinary } from 'cloudinary';
+import { logger } from '@/lib/logger';
 
 // Configure Cloudinary
 cloudinary.config({
@@ -58,7 +59,7 @@ export async function uploadFromUrl(
   options: UploadOptions = {}
 ): Promise<UploadResult> {
   if (!isConfigured) {
-    console.warn('[CLOUDINARY] Not configured, skipping upload');
+    logger.warn('[CLOUDINARY] Not configured, skipping upload');
     return { success: false, error: 'Cloudinary not configured' };
   }
 
@@ -88,7 +89,7 @@ export async function uploadFromUrl(
       bytes: result.bytes,
     };
   } catch (error) {
-    console.error('[CLOUDINARY] Upload error:', error);
+    logger.error('[CLOUDINARY] Upload error:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Upload failed',
@@ -127,7 +128,7 @@ export async function uploadFromBase64(
       bytes: result.bytes,
     };
   } catch (error) {
-    console.error('[CLOUDINARY] Upload error:', error);
+    logger.error('[CLOUDINARY] Upload error:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Upload failed',
@@ -201,7 +202,7 @@ export async function deleteImage(publicId: string): Promise<boolean> {
     await cloudinary.uploader.destroy(publicId);
     return true;
   } catch (error) {
-    console.error('[CLOUDINARY] Delete error:', error);
+    logger.error('[CLOUDINARY] Delete error:', error);
     return false;
   }
 }

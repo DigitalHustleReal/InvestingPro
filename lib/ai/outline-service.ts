@@ -1,6 +1,7 @@
 
 
 import { api } from '@/lib/api';
+import { logger } from '@/lib/logger';
 
 
 export interface OutlineSection {
@@ -54,12 +55,12 @@ export async function generateOutline(topic: string, context?: string): Promise<
             }
             throw new Error("Invalid output format");
         } catch (e) {
-            console.error("JSON Parse Error", e, result.content);
+            logger.error("JSON Parse Error", e, result.content);
             throw new Error("Failed to parse AI response");
         }
 
     } catch (error) {
-        console.error("Outline Generation Error:", error);
+        logger.error("Outline Generation Error:", error);
         // Fallback outline if AI fails
         return [
             { level: 2, "title": "Introduction", "description": "Hook the reader and explain the problem." },

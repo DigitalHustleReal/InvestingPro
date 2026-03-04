@@ -1,4 +1,5 @@
 import { aiService } from '../ai-service';
+import { logger } from '@/lib/logger';
 
 export interface RawReview {
   userName: string;
@@ -61,7 +62,7 @@ export class ReviewModerator {
         moderatedContent: result.moderatedContent || review.content
       };
     } catch (error) {
-      console.error('Moderation failed, returning raw review:', error);
+      logger.error('Moderation failed, returning raw review:', error);
       return {
         ...review,
         isSpam: false,

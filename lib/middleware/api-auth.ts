@@ -6,6 +6,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/server';
 import { isAdmin, isEditor } from '@/lib/auth/admin-auth';
 
@@ -95,7 +96,7 @@ export function withAuth(
       // 4. Call handler with authenticated user
       return await handler(req, user);
     } catch (error) {
-      console.error('[API Auth] Error:', error);
+      logger.error('[API Auth] Error:', error);
       
       return NextResponse.json(
         { 

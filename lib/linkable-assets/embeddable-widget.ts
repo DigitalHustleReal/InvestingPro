@@ -304,7 +304,7 @@ export async function trackWidgetEmbed(
   eventType: 'impression' | 'interaction' | 'completion'
 ): Promise<void> {
   // In production, this would send to analytics
-  console.log('Widget embed tracked:', { calculatorSlug, referrer, eventType });
+  logger.info('Widget embed tracked:', { calculatorSlug, referrer, eventType });
 }
 
 // =============================================================================

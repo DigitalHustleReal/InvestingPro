@@ -25,6 +25,7 @@
  */
 
 import * as cheerio from 'cheerio';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 
 // ============================================================================
@@ -414,7 +415,7 @@ async function getRecommendedInternalLinks(
             .slice(0, 5);
             
     } catch (error) {
-        console.error('Failed to get internal link recommendations:', error);
+        logger.error('Failed to get internal link recommendations:', error);
         return recommendations;
     }
 }
@@ -526,8 +527,8 @@ export async function optimizeSEO(
     primaryKeyword: string,
     currentUrl?: string
 ): Promise<SEOOptimizationResult> {
-    console.log(`\n🔍 Starting SEO optimization analysis...`);
-    console.log(`   Primary Keyword: "${primaryKeyword}"`);
+    logger.info(`\n🔍 Starting SEO optimization analysis...`);
+    logger.info(`   Primary Keyword: "${primaryKeyword}"`);
     
     // Run all analyses
     const keywordOpt = analyzeKeywordOptimization(html, primaryKeyword, currentUrl);
@@ -569,10 +570,10 @@ export async function optimizeSEO(
     const suggestedTitle = generateOptimizedTitle(html, primaryKeyword);
     const suggestedDescription = generateOptimizedDescription(html, primaryKeyword);
     
-    console.log(`✅ SEO Analysis Complete`);
-    console.log(`   Overall Score: ${overallScore}/100 (${grade})`);
-    console.log(`   Critical Issues: ${critical.length}`);
-    console.log(`   Quick Wins: ${quickWins.length}`);
+    logger.info(`✅ SEO Analysis Complete`);
+    logger.info(`   Overall Score: ${overallScore}/100 (${grade})`);
+    logger.info(`   Critical Issues: ${critical.length}`);
+    logger.info(`   Quick Wins: ${quickWins.length}`);
     
     return {
         overall_score: overallScore,

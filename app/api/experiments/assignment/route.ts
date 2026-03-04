@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 
 /**
  * Experiment Assignment API
@@ -26,11 +27,11 @@ export async function POST(request: NextRequest) {
         //     assigned_at: new Date()
         // });
 
-        console.log('Experiment assignment:', { experimentId, variantId, userId });
+        logger.info('Experiment assignment:', { experimentId, variantId, userId });
 
         return NextResponse.json({ success: true });
     } catch (error) {
-        console.error('Assignment tracking error:', error);
+        logger.error('Assignment tracking error:', error);
         return NextResponse.json(
             { error: 'Failed to track assignment' },
             { status: 500 }

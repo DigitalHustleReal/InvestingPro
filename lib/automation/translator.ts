@@ -1,4 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
+import { logger } from '@/lib/logger';
 import slugify from 'slugify';
 
 /**
@@ -85,7 +86,7 @@ export async function translateArticle(
         };
 
     } catch (error) {
-        console.error("Translation Failed", error);
+        logger.error("Translation Failed", error);
         throw new Error(`Failed to translate to ${targetLang}`);
     }
 }

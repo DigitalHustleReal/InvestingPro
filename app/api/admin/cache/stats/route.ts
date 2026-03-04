@@ -4,6 +4,7 @@
  */
 
 import { NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,7 +21,7 @@ export async function GET() {
             timestamp: new Date().toISOString(),
         });
     } catch (error) {
-        console.error('Error fetching cache stats:', error);
+        logger.error('Error fetching cache stats:', error);
         return NextResponse.json(
             { 
                 hits: 0,

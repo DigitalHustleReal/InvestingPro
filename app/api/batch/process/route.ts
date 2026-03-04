@@ -5,6 +5,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 import OpenAI from 'openai';
 import { AutoFeaturedImageService } from '@/lib/media/auto-featured-image';
@@ -52,7 +53,7 @@ export async function POST(request: NextRequest) {
         const item = items[0];
         const config = item.content_batches.config || {};
 
-        console.log(`⚙️ Processing item: ${item.keyword} (Batch: ${item.batch_id})`);
+        logger.info(`⚙️ Processing item: ${item.keyword} (Batch: ${item.batch_id})`);
 
         // Mark as processing
         await supabase
@@ -97,7 +98,7 @@ export async function POST(request: NextRequest) {
                 contentData = JSON.parse(contentRaw || '{}');
             } catch (e) {
                 // Fallback if JSON fails (rare with GPT-4)
-                console.error("JSON parse failed, assuming raw markdown");
+                logger.error("JSON parse failed, assuming raw markdown");
                 contentData = {
                     title: item.keyword, // Fallback title
                     markdown: contentRaw,
@@ -121,7 +122,7 @@ export async function POST(request: NextRequest) {
                     });
                     if (imgResult) featuredImage = imgResult.url;
                 } catch (e) {
-                    console.error('Image auto-select failed', e);
+                    logger.error('Image auto-select failed', e);
                 }
             }
 
@@ -172,7 +173,7 @@ export async function POST(request: NextRequest) {
             });
 
         } catch (genError: any) {
-            console.error('Generation failed:', genError);
+            logger.error('Generation failed:', genError);
             
             // Mark item as failed
             await supabase
@@ -189,7 +190,7 @@ export async function POST(request: NextRequest) {
         }
 
     } catch (error: any) {
-        console.error('Batch worker error:', error);
+        logger.error('Batch worker error:', error);
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }

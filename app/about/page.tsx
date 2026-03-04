@@ -90,8 +90,8 @@ export default async function AboutPage() {
               <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center text-primary-600 dark:text-primary-400 mb-6">
                 <Shield className="w-6 h-6" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Unbiased Reviews</h3>
-              <p className="text-slate-600 dark:text-slate-300">We don't accept payment for reviews. If a product is bad, we say it's bad. Our "Match Score" is powered by impartial algorithms.</p>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Independent Reviews</h3>
+              <p className="text-slate-600 dark:text-slate-300">We don't accept payment for reviews. If a product is bad, we say it's bad. Our "Match Score" is powered by transparent algorithms.</p>
             </div>
 
             <div className="p-8 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
@@ -167,6 +167,15 @@ export default async function AboutPage() {
               </Button>
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Independence Disclaimer */}
+      <section className="py-8 bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-xs text-slate-500 dark:text-slate-500 leading-relaxed">
+            InvestingPro.in is an independent platform owned and operated in India. It is not affiliated with, endorsed by, or associated in any way with Investing.com, InvestingPro™ by Investing.com, or any of their parent companies, subsidiaries, or affiliates. All trademarks belong to their respective owners.
+          </p>
         </div>
       </section>
     </div>

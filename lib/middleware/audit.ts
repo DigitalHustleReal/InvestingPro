@@ -5,6 +5,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { logAuditEvent, extractIPAddress, extractUserAgent } from '@/lib/audit/audit-logger';
 import { createClient } from '@/lib/supabase/server';
 
@@ -88,7 +89,7 @@ export function withAudit(
                     tags: auditConfig.tags || ['admin'],
                 }).catch((error) => {
                     // Log error but don't fail the request
-                    console.error('Failed to log audit event', error);
+                    logger.error('Failed to log audit event', error);
                 });
             }
         }

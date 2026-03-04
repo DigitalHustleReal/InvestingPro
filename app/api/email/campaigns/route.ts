@@ -4,6 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { getEmailCampaigns } from '@/lib/email/analytics';
 import { requireAdmin } from '@/lib/auth/admin-auth';
 
@@ -58,7 +59,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ campaigns });
 
     } catch (error: any) {
-        console.error('Error fetching email campaigns:', error);
+        logger.error('Error fetching email campaigns:', error);
         
         return NextResponse.json(
             {

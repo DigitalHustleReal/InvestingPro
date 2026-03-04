@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createServiceClient } from '@/lib/supabase/service';
 
 /**
@@ -32,7 +33,7 @@ export async function GET(req: NextRequest) {
 
         return NextResponse.json({ article: data });
     } catch (error) {
-        console.error('Preview fetch error:', error);
+        logger.error('Preview fetch error:', error);
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
 }

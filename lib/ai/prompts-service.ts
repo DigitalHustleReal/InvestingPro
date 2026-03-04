@@ -6,6 +6,7 @@
  */
 
 import { createClient } from '@/lib/supabase/server';
+import { logger } from '@/lib/logger';
 
 export interface PromptConfig {
   id: string;
@@ -32,7 +33,7 @@ export async function getPrompt(slug: string): Promise<PromptConfig | null> {
     .rpc('get_prompt', { prompt_slug: slug });
   
   if (error || !data || data.length === 0) {
-    console.error('[PROMPTS] Error fetching prompt:', error?.message || 'Not found');
+    logger.error('[PROMPTS] Error fetching prompt:', error?.message || 'Not found');
     return null;
   }
   
@@ -170,7 +171,7 @@ export async function listPrompts(category?: string): Promise<any[]> {
   const { data, error } = await query;
   
   if (error) {
-    console.error('[PROMPTS] Error listing prompts:', error);
+    logger.error('[PROMPTS] Error listing prompts:', error);
     return [];
   }
   

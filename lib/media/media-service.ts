@@ -4,6 +4,7 @@
  */
 
 import { createClient } from '@/lib/supabase/client';
+import { logger } from '@/lib/logger';
 import { ImageOptimizer } from './image-optimizer';
 
 export interface MediaFile {
@@ -315,7 +316,7 @@ export class MediaService {
             .remove([media.file_path]);
 
         if (storageError) {
-            console.error('Storage deletion failed:', storageError);
+            logger.error('Storage deletion failed:', storageError);
             // Continue anyway - database cleanup is more important
         }
 
@@ -339,7 +340,7 @@ export class MediaService {
         });
 
         if (error) {
-            console.error('Failed to track media usage:', error);
+            logger.error('Failed to track media usage:', error);
         }
     }
 

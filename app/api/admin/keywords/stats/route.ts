@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/client";
+import { logger } from '@/lib/logger';
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
@@ -39,7 +40,7 @@ export async function GET(request: Request) {
             timeRange
         });
     } catch (error: any) {
-        console.error('Error fetching keyword stats:', error);
+        logger.error('Error fetching keyword stats:', error);
         return NextResponse.json({ 
             totalKeywords: 0, 
             activeKeywords: 0, 

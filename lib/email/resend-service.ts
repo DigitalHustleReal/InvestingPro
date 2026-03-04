@@ -11,6 +11,7 @@
  */
 
 import { Resend } from 'resend';
+import { logger } from '@/lib/logger';
 
 let resendClient: Resend | null = null;
 
@@ -43,7 +44,7 @@ export interface EmailTemplate {
  */
 export async function sendEmail(options: SendEmailOptions) {
   if (!process.env.RESEND_API_KEY) {
-    console.warn('[EMAIL] Resend API key not configured, skipping email');
+    logger.warn('[EMAIL] Resend API key not configured, skipping email');
     return { success: false, error: 'API key not configured' };
   }
 
@@ -62,13 +63,13 @@ export async function sendEmail(options: SendEmailOptions) {
     });
 
     if (error) {
-      console.error('[EMAIL] Failed to send:', error);
+      logger.error('[EMAIL] Failed to send:', error);
       return { success: false, error };
     }
 
     return { success: true, data };
   } catch (error) {
-    console.error('[EMAIL] Exception:', error);
+    logger.error('[EMAIL] Exception:', error);
     return { success: false, error };
   }
 }

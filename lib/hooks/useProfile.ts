@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from 'react';
+import { logger } from '@/lib/logger';
 import { createClient } from "@/lib/supabase/client";
 import { apiClient as api } from "@/lib/api-client";
 import { OnboardingData } from "@/components/profile/ProfileOnboarding";
@@ -73,7 +74,7 @@ export function useProfile() {
           }
         });
       } catch (err) {
-        console.error("Failed to sync profile data to Supabase", err);
+        logger.error("Failed to sync profile data to Supabase", err);
       }
     }
   };

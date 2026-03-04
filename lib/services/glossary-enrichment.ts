@@ -6,6 +6,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 import { api } from '@/lib/api';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -123,7 +124,7 @@ Return ONLY valid JSON with this structure:
 
     return result as EnrichedContent;
   } catch (error) {
-    console.error(`Error enriching term "${basicTerm.term}":`, error);
+    logger.error(`Error enriching term "${basicTerm.term}":`, error);
     
     // Fallback to basic enrichment
     return {
@@ -188,12 +189,12 @@ export async function enrichSingleTerm(slug: string): Promise<void> {
     throw new Error(`Term not found: ${slug}`);
   }
 
-  console.log(`🔄 Enriching: ${term.term}...`);
+  logger.info(`🔄 Enriching: ${term.term}...`);
   
   const enriched = await enrichGlossaryTerm(term);
   await updateTermWithEnrichedContent(term.id, enriched);
   
-  console.log(`✅ Enriched: ${term.term}`);
+  logger.info(`✅ Enriched: ${term.term}`);
 }
 
 /**
@@ -210,7 +211,7 @@ export async function enrichAllTerms(batchSize: number = 5): Promise<void> {
     throw new Error('Failed to fetch terms');
   }
 
-  console.log(`📊 Found ${terms.length} terms to enrich\n`);
+  logger.info(`📊 Found ${terms.length} terms to enrich\n`);
 
   let enriched = 0;
   let failed = 0;
@@ -219,18 +220,18 @@ export async function enrichAllTerms(batchSize: number = 5): Promise<void> {
   for (let i = 0; i < terms.length; i += batchSize) {
     const batch = terms.slice(i, i + batchSize);
     
-    console.log(`\n📦 Processing batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(terms.length / batchSize)}`);
+    logger.info(`\n📦 Processing batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(terms.length / batchSize)}`);
     
     await Promise.all(
       batch.map(async (term) => {
         try {
-          console.log(`  🔄 ${term.term}...`);
+          logger.info(`  🔄 ${term.term}...`);
           const enrichedContent = await enrichGlossaryTerm(term);
           await updateTermWithEnrichedContent(term.id, enrichedContent);
-          console.log(`  ✅ ${term.term}`);
+          logger.info(`  ✅ ${term.term}`);
           enriched++;
         } catch (error) {
-          console.error(`  ❌ ${term.term}:`, error);
+          logger.error(`  ❌ ${term.term}:`, error);
           failed++;
         }
       })
@@ -238,15 +239,15 @@ export async function enrichAllTerms(batchSize: number = 5): Promise<void> {
 
     // Wait between batches to respect rate limits
     if (i + batchSize < terms.length) {
-      console.log('  ⏳ Waiting 5 seconds before next batch...');
+      logger.info('  ⏳ Waiting 5 seconds before next batch...');
       await new Promise(resolve => setTimeout(resolve, 5000));
     }
   }
 
-  console.log('\n═══════════════════════════════════════');
-  console.log('📊 ENRICHMENT COMPLETE');
-  console.log('═══════════════════════════════════════');
-  console.log(`✅ Successfully enriched: ${enriched} terms`);
-  console.log(`❌ Failed: ${failed} terms`);
-  console.log(`📚 Total: ${terms.length} terms`);
+  logger.info('\n═══════════════════════════════════════');
+  logger.info('📊 ENRICHMENT COMPLETE');
+  logger.info('═══════════════════════════════════════');
+  logger.info(`✅ Successfully enriched: ${enriched} terms`);
+  logger.info(`❌ Failed: ${failed} terms`);
+  logger.info(`📚 Total: ${terms.length} terms`);
 }

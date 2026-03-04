@@ -11,6 +11,7 @@
 "use client";
 
 import React, { useState, useEffect, startTransition } from 'react';
+import { logger } from '@/lib/logger';
 import { useRouter, useParams } from 'next/navigation';
 import AdminLayout from '@/components/admin/AdminLayout';
 import ArticleInspector from '@/components/admin/ArticleInspector';
@@ -209,7 +210,7 @@ export default function EditArticlePage() {
                     }),
                 });
             } catch (revalidateError) {
-                console.error('Revalidation failed:', revalidateError);
+                logger.error('Revalidation failed:', revalidateError);
             }
             
             // Invalidate all queries

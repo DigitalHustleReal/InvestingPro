@@ -1,5 +1,6 @@
 
 import { productService, Product } from './product-service';
+import { logger } from '@/lib/logger';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { createClient } from '@/lib/supabase/client';
 
@@ -20,15 +21,15 @@ export async function getComparisonVerdict(p1: Product, p2: Product): Promise<st
             .single();
 
         if (cached) {
-            console.log(`⚡ Serving cached verdict for ${slugKey}`);
+            logger.info(`⚡ Serving cached verdict for ${slugKey}`);
             return cached.verdict_content;
         }
     } catch (e) {
-        console.warn('Cache lookup failed, falling back to live generation:', e);
+        logger.warn('Cache lookup failed, falling back to live generation:', e);
     }
 
     // 3. Generate Fresh Verdict
-    console.log(`🤖 Generating fresh verdict for ${slugKey}...`);
+    logger.info(`🤖 Generating fresh verdict for ${slugKey}...`);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = `
@@ -66,11 +67,11 @@ export async function getComparisonVerdict(p1: Product, p2: Product): Promise<st
                 provider: 'gemini'
             });
             
-        if (error) console.error('Failed to cache verdict:', error);
+        if (error) logger.error('Failed to cache verdict:', error);
 
         return verdict;
     } catch (error) {
-        console.error("AI Verdict Error:", error);
+        logger.error("AI Verdict Error:", error);
         return "Comparison verdict currently unavailable. Please check back later.";
     }
 }

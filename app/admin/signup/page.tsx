@@ -27,6 +27,10 @@ import {
 
 export default function AdminSignupPage() {
   const router = useRouter();
+
+  // Gate: Admin signup is disabled by default. Set NEXT_PUBLIC_ADMIN_SIGNUP_ENABLED=true to open registration.
+  const signupEnabled = process.env.NEXT_PUBLIC_ADMIN_SIGNUP_ENABLED === 'true';
+
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -158,6 +162,32 @@ export default function AdminSignupPage() {
   }
 
   return (
+    <>
+    {!signupEnabled ? (
+      <div className="min-h-screen bg-surface-darkest dark:bg-surface-darkest flex items-center justify-center p-4 relative overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary-500/10 blur-[150px]" />
+        </div>
+        <div className="w-full max-w-md relative z-10">
+          <div className="bg-surface-darker/50 dark:bg-surface-darker/50 backdrop-blur-xl border border-border dark:border-border rounded-2xl p-8 text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-warning-500/20 mb-4">
+              <Shield className="w-8 h-8 text-warning-400" />
+            </div>
+            <h2 className="text-xl font-semibold text-foreground dark:text-foreground mb-2">Registration Closed</h2>
+            <p className="text-muted-foreground dark:text-muted-foreground mb-6">
+              Admin registration is currently disabled. Contact your administrator for access.
+            </p>
+            <Link
+              href="/admin/login"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-foreground dark:text-foreground font-semibold rounded-xl transition-all hover:from-primary-600 hover:to-primary-700"
+            >
+              Go to Login
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </div>
+    ) : (
     <div className="min-h-screen bg-surface-darkest dark:bg-surface-darkest flex items-center justify-center p-4 relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -324,5 +354,7 @@ export default function AdminSignupPage() {
         </p>
       </div>
     </div>
+    )}
+    </>
   );
 }

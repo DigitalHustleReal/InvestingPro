@@ -88,7 +88,7 @@ class EventBus {
     if (handlers) {
       const promises = Array.from(handlers).map(handler => 
         Promise.resolve(handler(payload)).catch(error => {
-          console.error(`Error in event handler for ${event}:`, error);
+          logger.error(`Error in event handler for ${event}:`, error);
         })
       );
       
@@ -127,7 +127,7 @@ class EventBus {
         });
       }
     } catch (error) {
-      console.error('Failed to send event to analytics:', error);
+      logger.error('Failed to send event to analytics:', error);
     }
   }
 

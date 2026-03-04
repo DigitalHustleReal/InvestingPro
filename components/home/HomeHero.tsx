@@ -60,7 +60,7 @@ export default function HomeHero({ selectedCategory: propSelectedCategory, onCat
                         Find your perfect financial product in minutes
                     </h1>
                     <p className="text-xl lg:text-2xl text-white/90 max-w-3xl mx-auto mb-8">
-                        Compare credit cards, loans, investments, insurance, and banking products from top Indian providers. Make informed decisions with unbiased data.
+                        Compare credit cards, loans, investments, insurance, and banking products from top Indian providers. Make informed decisions with transparent, independent data.
                     </p>
                 </div>
 
@@ -117,7 +117,7 @@ export default function HomeHero({ selectedCategory: propSelectedCategory, onCat
                     </div>
                     <div>
                         <div className="text-3xl font-bold mb-1">100%</div>
-                        <div className="text-sm text-white/80">Unbiased Data</div>
+                        <div className="text-sm text-white/80">Independent Data</div>
                     </div>
                 </div>
             </div>

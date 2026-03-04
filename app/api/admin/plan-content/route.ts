@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { planContentCalendar } from '@/lib/automation/research-strategist';
 
 export async function POST(req: NextRequest) {
@@ -19,7 +20,7 @@ export async function POST(req: NextRequest) {
         });
 
     } catch (error: any) {
-        console.error('Strategist Error:', error);
+        logger.error('Strategist Error:', error);
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }

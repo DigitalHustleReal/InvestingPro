@@ -79,6 +79,7 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
                 step="500"
                 value={monthlyInvestment}
                 onChange={(e) => setMonthlyInvestment(Number(e.target.value))}
+                aria-label="Monthly investment amount"
                 className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-primary-600"
               />
               <div className="flex items-center gap-2">
@@ -106,6 +107,7 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
                 max="30"
                 value={years}
                 onChange={(e) => setYears(Number(e.target.value))}
+                aria-label="Investment duration in years"
                 className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-primary-600"
               />
               <div className="flex items-center gap-2">
@@ -136,6 +138,7 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
                 step="0.5"
                 value={expectedReturn}
                 onChange={(e) => setExpectedReturn(Number(e.target.value))}
+                aria-label="Expected annual return percentage"
                 className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-primary-600"
               />
               <div className="flex items-center gap-2">

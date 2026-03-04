@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { 
   getAllDataStudies, 
   getStudiesByCategory, 
@@ -105,7 +106,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Data studies API error:', error);
+    logger.error('Data studies API error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch data studies' },
       { status: 500 }

@@ -10,6 +10,7 @@
  */
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { logger } from '@/lib/logger';
 import OpenAI from 'openai';
 import Anthropic from '@anthropic-ai/sdk';
 import { Mistral } from '@mistralai/mistralai';
@@ -725,5 +726,5 @@ export const aiService = new AIService();
  * const article = await aiService.generateArticle('Best Credit Cards', ['credit cards', 'rewards']);
  * 
  * // Check status
- * console.log(aiService.getStatus());
+ * logger.info(aiService.getStatus());
  */

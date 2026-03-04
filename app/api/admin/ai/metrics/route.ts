@@ -4,6 +4,7 @@
  */
 
 import { NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { aiService } from '@/lib/ai-service';
 
 export const dynamic = 'force-dynamic';
@@ -19,7 +20,7 @@ export async function GET() {
             timestamp: new Date().toISOString(),
         });
     } catch (error) {
-        console.error('Error fetching AI metrics:', error);
+        logger.error('Error fetching AI metrics:', error);
         return NextResponse.json(
             { 
                 providers: {},

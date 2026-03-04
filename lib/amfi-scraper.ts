@@ -4,6 +4,7 @@
  */
 
 import { fetchText } from './api/external-client';
+import { logger } from '@/lib/logger';
 import { z } from 'zod';
 
 // Schema for AMFI fund data
@@ -171,23 +172,23 @@ export async function getEquityFunds(): Promise<AMFIFund[]> {
 export async function exampleUsage() {
   // Get all funds
   const allFunds = await getAllMutualFunds();
-  console.log(`Total funds: ${allFunds.length}`);
+  logger.info(`Total funds: ${allFunds.length}`);
   
   // Search for SBI funds
   const sbiFunds = await searchMutualFunds('SBI');
-  console.log(`SBI funds: ${sbiFunds.length}`);
+  logger.info(`SBI funds: ${sbiFunds.length}`);
   
   // Get ELSS funds
   const elssFunds = await getELSSFunds();
-  console.log(`ELSS funds: ${elssFunds.length}`);
+  logger.info(`ELSS funds: ${elssFunds.length}`);
   
   // Get specific fund
   const fund = await getFundByCode('119551');
-  console.log('Specific fund:', fund);
+  logger.info('Specific fund:', fund);
   
   // Get top funds
   const topFunds = await getTopFunds(5);
-  console.log('Top 5 funds by NAV:', topFunds);
+  logger.info('Top 5 funds by NAV:', topFunds);
 }
 
 export default {

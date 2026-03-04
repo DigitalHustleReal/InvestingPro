@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { logger } from '@/lib/logger';
 import Link from 'next/link';
 import { AlertTriangle, RefreshCcw, LayoutDashboard, Bug, ArrowLeft } from 'lucide-react';
 
@@ -18,7 +19,7 @@ export default function AdminError({
     reset: () => void;
 }) {
     useEffect(() => {
-        console.error('[Admin Error Boundary]', error);
+        logger.error('[Admin Error Boundary]', error);
     }, [error]);
 
     // Extract module name from the error stack or message

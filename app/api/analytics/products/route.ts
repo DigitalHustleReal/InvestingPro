@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -165,7 +166,7 @@ export async function GET(request: NextRequest) {
       products: Object.values(productStatsMap),
     });
   } catch (error: any) {
-    console.error('Product analytics error:', error);
+    logger.error('Product analytics error:', error);
     return NextResponse.json({ 
       error: 'Failed to fetch product stats',
       details: error.message 

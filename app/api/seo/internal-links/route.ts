@@ -4,6 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -58,7 +59,7 @@ export async function POST(request: NextRequest) {
         });
 
     } catch (error: any) {
-        console.error('Internal linking error:', error);
+        logger.error('Internal linking error:', error);
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }

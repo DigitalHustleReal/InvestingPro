@@ -6,6 +6,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/server';
 
 export const dynamic = 'force-dynamic';
@@ -35,7 +36,7 @@ export async function GET(request: NextRequest) {
             .single();
         
         if (error && error.code !== 'PGRST116') { // PGRST116 = no rows found
-            console.error('Error fetching A/B test:', error);
+            logger.error('Error fetching A/B test:', error);
             return NextResponse.json({ test: null });
         }
         
@@ -56,7 +57,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ test });
         
     } catch (error) {
-        console.error('Error in active A/B test:', error);
+        logger.error('Error in active A/B test:', error);
         return NextResponse.json({ test: null });
     }
 }

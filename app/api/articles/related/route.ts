@@ -5,6 +5,7 @@
  */
 
 import { NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { getRelatedArticles, getRelatedByCategory, getTrendingArticles } from '@/lib/cms/related-articles';
 
 export async function GET(request: Request) {
@@ -38,7 +39,7 @@ export async function GET(request: Request) {
             count: articles.length
         });
     } catch (error) {
-        console.error('Related articles error:', error);
+        logger.error('Related articles error:', error);
         return NextResponse.json(
             { success: false, error: 'Failed to get related articles' },
             { status: 500 }

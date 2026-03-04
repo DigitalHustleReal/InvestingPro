@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 import { env } from '@/lib/env';
 import { requireAdmin } from '@/lib/auth/admin-auth';
@@ -57,7 +58,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json(metrics);
 
     } catch (error: any) {
-        console.error('Revenue dashboard error:', error);
+        logger.error('Revenue dashboard error:', error);
         
         // Return more specific error messages
         if (error.message?.includes('permission denied') || error.message?.includes('RLS')) {

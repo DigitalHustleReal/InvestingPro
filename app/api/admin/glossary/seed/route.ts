@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 
 // Use service role for admin operations (bypasses RLS)
@@ -174,20 +175,20 @@ export async function POST(request: NextRequest) {
           });
 
         if (error) {
-          console.error(`❌ Error adding "${term.term}":`, JSON.stringify(error, null, 2));
+          logger.error(`❌ Error adding "${term.term}":`, JSON.stringify(error, null, 2));
           errorCount++;
         } else {
-          console.log(`✅ Added: ${term.term}`);
+          logger.info(`✅ Added: ${term.term}`);
           successCount++;
           categoryCount[term.category] = (categoryCount[term.category] || 0) + 1;
         }
       } catch (err) {
-        console.error(`❌ Exception for "${term.term}":`, err);
+        logger.error(`❌ Exception for "${term.term}":`, err);
         errorCount++;
       }
     }
 
-    console.log(`\n📊 Seeding complete: ${successCount} success, ${errorCount} errors`);
+    logger.info(`\n📊 Seeding complete: ${successCount} success, ${errorCount} errors`);
 
     return NextResponse.json({
       success: successCount > 0,
@@ -198,7 +199,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error('Fatal error:', error);
+    logger.error('Fatal error:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to seed glossary' },
       { status: 500 }

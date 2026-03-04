@@ -41,7 +41,7 @@ export async function trackWebVitals(vitals: WebVitals, url: string): Promise<vo
 
         // Log web vitals for debugging (only in development)
         if (process.env.NODE_ENV === 'development') {
-            console.log('[Web Vitals]', { url, vitals });
+            logger.info('[Web Vitals]', { url, vitals });
         }
 
         // In production, you can extend this to:
@@ -64,7 +64,7 @@ export async function trackWebVitals(vitals: WebVitals, url: string): Promise<vo
         // This is non-critical analytics that can fail silently
         if (process.env.NODE_ENV === 'development') {
             // Only use console.warn in dev, never logger (which might have dependencies)
-            console.warn('[Web Vitals] Tracking error (non-critical, safely ignored):', error);
+            logger.warn('[Web Vitals] Tracking error (non-critical, safely ignored):', error);
         }
         // Explicitly return to ensure no error propagation
         return;

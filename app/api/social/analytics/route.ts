@@ -4,6 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { getSocialMediaMetrics } from '@/lib/social-media/analytics';
 import { requireAdmin } from '@/lib/auth/admin-auth';
 
@@ -59,7 +60,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ metrics });
 
     } catch (error: any) {
-        console.error('Error fetching social media analytics:', error);
+        logger.error('Error fetching social media analytics:', error);
         
         return NextResponse.json(
             {

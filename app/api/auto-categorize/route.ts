@@ -4,6 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import OpenAI from 'openai';
 
 const openai = new OpenAI({
@@ -33,12 +34,12 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'Title required' }, { status: 400 });
         }
 
-        console.log('🤖 Auto-categorizing:', title);
+        logger.info('🤖 Auto-categorizing:', title);
 
         // Use AI to categorize
         const category = await categorizeWithAI(title, excerpt, content);
         
-        console.log('✅ Suggested category:', category);
+        logger.info('✅ Suggested category:', category);
 
         return NextResponse.json({
             category,
@@ -47,7 +48,7 @@ export async function POST(request: NextRequest) {
         });
 
     } catch (error: any) {
-        console.error('Auto-categorization error:', error);
+        logger.error('Auto-categorization error:', error);
         
         // Fallback to basic keyword matching
         const fallbackCategory = fallbackCategorization(
@@ -102,7 +103,7 @@ Respond with ONLY the category slug (e.g., "credit-cards"), nothing else.`;
         return fallbackCategorization(title);
 
     } catch (error) {
-        console.error('AI categorization failed:', error);
+        logger.error('AI categorization failed:', error);
         return fallbackCategorization(title);
     }
 }

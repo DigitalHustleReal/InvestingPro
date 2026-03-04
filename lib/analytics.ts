@@ -107,7 +107,7 @@ class AnalyticsService {
 
         // Log in development
         if (process.env.NODE_ENV === 'development') {
-            console.log('[Analytics]', event, properties);
+            logger.info('[Analytics]', event, properties);
         }
     }
 
@@ -124,7 +124,7 @@ class AnalyticsService {
             });
         } catch (error) {
             // Silently fail - don't break UX for analytics
-            console.error('Analytics error:', error);
+            logger.error('Analytics error:', error);
         }
     }
 

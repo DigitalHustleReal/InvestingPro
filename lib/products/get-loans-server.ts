@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/static';
+import { logger } from '@/lib/logger';
 import { RichProduct } from "@/types/rich-product";
 
 /**
@@ -11,7 +12,7 @@ export async function getLoansServer(): Promise<RichProduct[]> {
     const { data, error } = await supabase.from('loans').select('*');
 
     if (error) {
-        console.error('SERVER FETCH ERROR: loans', error);
+        logger.error('SERVER FETCH ERROR: loans', error);
         return [];
     }
 

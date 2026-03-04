@@ -49,6 +49,7 @@ export default function MiniRewardsCalculator({
           step="5000"
           value={monthlySpend}
           onChange={(e) => setMonthlySpend(parseInt(e.target.value))}
+          aria-label="Monthly spending amount"
           className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-success-600"
         />
         <div className="flex justify-between text-xs text-slate-500 dark:text-slate-600 mt-1">

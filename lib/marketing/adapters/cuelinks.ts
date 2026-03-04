@@ -1,4 +1,5 @@
 import { AffiliateAdapter, AffiliateProduct } from '../types';
+import { logger } from '@/lib/logger';
 
 export class CuelinksAdapter implements AffiliateAdapter {
   providerName = 'Cuelinks';
@@ -14,7 +15,7 @@ export class CuelinksAdapter implements AffiliateAdapter {
   }
 
   async fetchProducts(category: string): Promise<AffiliateProduct[]> {
-    console.log(`[Cuelinks] Fetching offers for ${category}...`);
+    logger.info(`[Cuelinks] Fetching offers for ${category}...`);
     
     // In a real implementation:
     // const response = await fetch(`https://api.cuelinks.com/v2/campaigns?cat=${category}&apikey=${this.apiKey}`);

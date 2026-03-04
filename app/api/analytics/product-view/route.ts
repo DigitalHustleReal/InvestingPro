@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -54,14 +55,14 @@ export async function POST(request: NextRequest) {
       .insert(viewData);
 
     if (error) {
-      console.error('View tracking error:', error);
+      logger.error('View tracking error:', error);
       // Don't fail the request - analytics shouldn't break UX
       return NextResponse.json({ tracked: false }, { status: 200 });
     }
 
     return NextResponse.json({ tracked: true, sessionId: viewData.session_id });
   } catch (error) {
-    console.error('View tracking error:', error);
+    logger.error('View tracking error:', error);
     return NextResponse.json({ tracked: false }, { status: 200 });
   }
 }

@@ -1,4 +1,5 @@
 import { NextRequest } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 import OpenAI from 'openai';
 import axios from 'axios';
@@ -76,7 +77,7 @@ export async function POST(request: NextRequest) {
       return Response.json({ error: 'productId required' }, { status: 400 });
     }
     
-    console.log(`🎨 Auto-generating image for product: ${productId}`);
+    logger.info(`🎨 Auto-generating image for product: ${productId}`);
     
     // Fetch product
     const { data: product, error } = await supabase
@@ -91,7 +92,7 @@ export async function POST(request: NextRequest) {
     
     // Skip if already has non-default image
     if (product.image_url && !product.image_url.includes('default')) {
-      console.log(`✅ Product already has image: ${product.image_url}`);
+      logger.info(`✅ Product already has image: ${product.image_url}`);
       return Response.json({ 
         message: 'Already has image', 
         imageUrl: product.image_url,
@@ -101,10 +102,10 @@ export async function POST(request: NextRequest) {
     
     // Build prompt
     const prompt = buildProductPrompt(product);
-    console.log(`📝 Prompt: ${prompt.substring(0, 100)}...`);
+    logger.info(`📝 Prompt: ${prompt.substring(0, 100)}...`);
     
     // Generate image with DALL-E 3
-    console.log(`⏳ Calling DALL-E 3...`);
+    logger.info(`⏳ Calling DALL-E 3...`);
     const response = await openai.images.generate({
       model: 'dall-e-3',
       prompt: prompt,
@@ -118,12 +119,12 @@ export async function POST(request: NextRequest) {
       throw new Error('No image URL returned from OpenAI');
     }
     
-    console.log(`✅ Image generated successfully`);
+    logger.info(`✅ Image generated successfully`);
     
     // Download and save locally
-    console.log(`💾 Downloading and saving...`);
+    logger.info(`💾 Downloading and saving...`);
     const localPath = await downloadAndSaveImage(imageUrl, product);
-    console.log(`✅ Saved to: ${localPath}`);
+    logger.info(`✅ Saved to: ${localPath}`);
     
     // Log cost for dashboard visibility
     try {
@@ -137,7 +138,7 @@ export async function POST(request: NextRequest) {
         metadata: { productName: product.name }
       });
     } catch (costErr) {
-      console.warn('⚠️ Failed to log image cost:', costErr);
+      logger.warn('⚠️ Failed to log image cost:', costErr);
     }
     
     // Update product in database
@@ -150,11 +151,11 @@ export async function POST(request: NextRequest) {
       .eq('id', productId);
     
     if (updateError) {
-      console.error(`❌ Database update failed:`, updateError);
+      logger.error(`❌ Database update failed:`, updateError);
       throw updateError;
     }
     
-    console.log(`✅ Product updated successfully`);
+    logger.info(`✅ Product updated successfully`);
     
     return Response.json({ 
       success: true, 
@@ -166,7 +167,7 @@ export async function POST(request: NextRequest) {
     });
     
   } catch (error: any) {
-    console.error('❌ Image generation failed:', error);
+    logger.error('❌ Image generation failed:', error);
     return Response.json({ 
       error: 'Generation failed', 
       details: error.message,

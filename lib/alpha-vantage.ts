@@ -5,6 +5,7 @@
 
 // Load environment variables
 import * as fs from 'fs';
+import { logger } from '@/lib/logger';
 import * as path from 'path';
 
 function loadEnvFile() {
@@ -165,22 +166,22 @@ export async function exampleUsage() {
     try {
         // Get Reliance stock quote
         const reliance = await getStockQuote('RELIANCE.BSE');
-        console.log('Reliance Price:', reliance.price);
+        logger.info('Reliance Price:', reliance.price);
         
         // Get USD to INR rate
         const usdInr = await getForexRate('USD', 'INR');
-        console.log('USD/INR Rate:', usdInr.rate);
+        logger.info('USD/INR Rate:', usdInr.rate);
         
         // Get TCS historical prices (last 100 days)
         const tcsHistory = await getDailyPrices('TCS.BSE', 'compact');
-        console.log('TCS Historical Data:', tcsHistory.slice(0, 5));
+        logger.info('TCS Historical Data:', tcsHistory.slice(0, 5));
         
         // Get company overview
         const infy = await getCompanyOverview('INFY');
-        console.log('Infosys Overview:', infy);
+        logger.info('Infosys Overview:', infy);
         
     } catch (error: any) {
-        console.error('Error:', error.message);
+        logger.error('Error:', error.message);
     }
 }
 

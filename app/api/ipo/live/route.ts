@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { ipoDataService } from '@/lib/data/ipo-service';
 
 export const runtime = 'edge';
@@ -23,7 +24,7 @@ export async function GET(request: Request) {
             source: data[0]?.dataSource || 'unknown'
         });
     } catch (error) {
-        console.error('Error in /api/ipo/live:', error);
+        logger.error('Error in /api/ipo/live:', error);
         
         return NextResponse.json({
             success: false,
@@ -49,7 +50,7 @@ export async function POST(request: Request) {
             recordsUpdated: data.length
         });
     } catch (error) {
-        console.error('Error refreshing IPO cache:', error);
+        logger.error('Error refreshing IPO cache:', error);
         
         return NextResponse.json({
             success: false,

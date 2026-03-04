@@ -65,7 +65,7 @@ export default function HeroSplit() {
                     </div>
                     <div className="flex items-center gap-2 text-slate-600 dark:text-slate-600">
                         <Shield className="w-4 h-4 text-blue-500" />
-                        <span>Unbiased Research</span>
+                        <span>Independent Research</span>
                     </div>
                     <div className="flex items-center gap-2 text-slate-600 dark:text-slate-600">
                         <Clock className="w-4 h-4 text-amber-500" />
@@ -134,7 +134,7 @@ export default function HeroSplit() {
                                 {[
                                     "Find the perfect card in 2 minutes",
                                     "Save up to ₹50,000/year on fees",
-                                    "Zero ads, zero bias"
+                                    "Zero ads, fully transparent"
                                 ].map((benefit, i) => (
                                     <div key={i} className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
                                         <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />

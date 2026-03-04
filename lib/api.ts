@@ -853,7 +853,7 @@ The AI was unable to reach a provider, so we've generated this professional outl
                 const { data, error } = await supabase.from('credit_cards').select('*');
                 
                 if (error) {
-                    console.error('Error fetching credit cards:', error);
+                    logger.error('Error fetching credit cards:', error);
                     return [];
                 }
 
@@ -1094,7 +1094,7 @@ The AI was unable to reach a provider, so we've generated this professional outl
                         .order('term', { ascending: true });
                     return data || [];
                 } catch (error) {
-                    console.error('Error fetching glossary by category:', error);
+                    logger.error('Error fetching glossary by category:', error);
                     return [];
                 }
             }
@@ -1113,7 +1113,7 @@ The AI was unable to reach a provider, so we've generated this professional outl
                     .order('created_at', { ascending: false });
                 
                 if (error) {
-                    console.error("Error fetching reviews", error);
+                    logger.error("Error fetching reviews", error);
                     return [];
                 }
                 return data || [];
@@ -1132,7 +1132,7 @@ The AI was unable to reach a provider, so we've generated this professional outl
                 const { data, error } = await query.order('created_at', { ascending: false });
                 
                 if (error) {
-                    console.error("Error filtering reviews", error);
+                    logger.error("Error filtering reviews", error);
                     return [];
                 }
                 return data || [];

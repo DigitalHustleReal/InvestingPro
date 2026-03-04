@@ -10,6 +10,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/server';
 import { confidenceScorer, ConfidenceThresholds, CategoryRule } from '@/lib/automation/confidence-scorer';
 import { autoPublisher, AutoPublishConfig } from '@/lib/automation/auto-publisher';
@@ -80,7 +81,7 @@ export async function GET() {
       presets: getAutonomyPresets(),
     });
   } catch (error) {
-    console.error('Error getting autonomy config:', error);
+    logger.error('Error getting autonomy config:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to get configuration' },
       { status: 500 }
@@ -155,7 +156,7 @@ export async function POST(request: NextRequest) {
       config: configToSave,
     });
   } catch (error) {
-    console.error('Error updating autonomy config:', error);
+    logger.error('Error updating autonomy config:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to update configuration' },
       { status: 500 }
@@ -247,7 +248,7 @@ export async function PATCH(request: NextRequest) {
       { status: 400 }
     );
   } catch (error) {
-    console.error('Error in PATCH autonomy config:', error);
+    logger.error('Error in PATCH autonomy config:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to update setting' },
       { status: 500 }

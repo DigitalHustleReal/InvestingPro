@@ -1,4 +1,5 @@
 import { BaseScraper } from './BaseScraper';
+import { logger } from '@/lib/logger';
 import axios from 'axios';
 import { z } from 'zod';
 
@@ -24,7 +25,7 @@ export class MutualFundScraper extends BaseScraper<MutualFundData> {
   schema = MutualFundSchema;
 
   async scrape(): Promise<MutualFundData[]> {
-    console.log(`📡 Fetching NAV data from ${this.sourceUrl}...`);
+    logger.info(`📡 Fetching NAV data from ${this.sourceUrl}...`);
     
     const response = await axios.get(this.sourceUrl);
     const rawText = response.data;
@@ -124,7 +125,7 @@ export class MutualFundScraper extends BaseScraper<MutualFundData> {
             });
 
         if (error) {
-            console.error(`Error saving chunk ${i}-${i+chunkSize}:`, error);
+            logger.error(`Error saving chunk ${i}-${i+chunkSize}:`, error);
             // Don't throw, just log, so partially successful run continues
             // Or tracked by invalid count
         }

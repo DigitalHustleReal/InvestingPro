@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 
 // Initialize Supabase
@@ -82,7 +83,7 @@ export async function GET() {
       .limit(50);
 
     if (error) {
-      console.error('Error fetching scraper status:', error);
+      logger.error('Error fetching scraper status:', error);
     }
 
     // Group by scraper_id to get latest status
@@ -120,7 +121,7 @@ export async function GET() {
     });
 
   } catch (error) {
-    console.error('Error in GET /api/scrapers/status:', error);
+    logger.error('Error in GET /api/scrapers/status:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to fetch scraper status' },
       { status: 500 }
@@ -170,7 +171,7 @@ export async function POST(request: Request) {
           .single();
 
         if (insertError) {
-          console.error(`Error logging scraper start for ${scraper.id}:`, insertError);
+          logger.error(`Error logging scraper start for ${scraper.id}:`, insertError);
           results.push({
             scraperId: scraper.id,
             success: false,
@@ -181,7 +182,7 @@ export async function POST(request: Request) {
 
         // Trigger the actual scraper (async, don't wait)
         triggerScraperAsync(scraper, run.id, supabase).catch(err => {
-          console.error(`Error running scraper ${scraper.id}:`, err);
+          logger.error(`Error running scraper ${scraper.id}:`, err);
         });
 
         results.push({
@@ -193,7 +194,7 @@ export async function POST(request: Request) {
         });
 
       } catch (error) {
-        console.error(`Error triggering scraper ${scraper.id}:`, error);
+        logger.error(`Error triggering scraper ${scraper.id}:`, error);
         results.push({
           scraperId: scraper.id,
           success: false,
@@ -209,7 +210,7 @@ export async function POST(request: Request) {
     });
 
   } catch (error) {
-    console.error('Error in POST /api/scrapers/trigger:', error);
+    logger.error('Error in POST /api/scrapers/trigger:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to trigger scrapers' },
       { status: 500 }
@@ -285,7 +286,7 @@ async function triggerScraperAsync(scraper: any, runId: string, supabase: any) {
       .eq('id', runId);
 
   } catch (error) {
-    console.error(`Error in scraper ${scraper.id}:`, error);
+    logger.error(`Error in scraper ${scraper.id}:`, error);
     
     // Update with error status
     await supabase

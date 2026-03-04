@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/client';
+import { logger } from '@/lib/logger';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface MediaItem {
@@ -61,7 +62,7 @@ export class MediaService {
             });
 
         if (error) {
-            console.error('List error:', error);
+            logger.error('List error:', error);
             throw error;
         }
 
@@ -89,7 +90,7 @@ export class MediaService {
             .remove([path]);
 
         if (error) {
-            console.error('Delete error:', error);
+            logger.error('Delete error:', error);
             return false;
         }
         return true;

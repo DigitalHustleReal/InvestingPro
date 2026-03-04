@@ -32,6 +32,11 @@ export default function TermsOfServicePage() {
                 These Terms constitute a legally binding agreement between you and InvestingPro. By creating an account or using our services, 
                 you represent that you are at least 18 years of age and have the legal capacity to enter into this agreement.
               </p>
+              <p className="text-slate-700 dark:text-slate-300 font-medium bg-slate-100 dark:bg-slate-800 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                <strong>Independence Notice:</strong> InvestingPro.in is an independent platform owned and operated in India. 
+                It is not affiliated with, endorsed by, or associated in any way with Investing.com, InvestingPro™ by Investing.com, 
+                or any of their parent companies, subsidiaries, or affiliates. All trademarks belong to their respective owners.
+              </p>
             </section>
 
             <section>
@@ -155,7 +160,7 @@ export default function TermsOfServicePage() {
               </p>
               <p className="text-slate-700 dark:text-slate-300">
                 Our affiliate relationships do not influence our editorial content or product comparisons. We maintain editorial independence 
-                and provide honest, unbiased information. For more details, see our{' '}
+                and provide honest, transparent information. For more details, see our{' '}
                 <Link href="/affiliate-disclosure" className="text-primary-600 hover:text-primary-700 underline">
                   Affiliate Disclosure
                 </Link>.
@@ -224,7 +229,7 @@ export default function TermsOfServicePage() {
               </p>
               <p className="text-slate-700 dark:text-slate-300">
                 Any disputes arising out of or relating to these Terms or your use of the Platform shall be subject to the exclusive 
-                jurisdiction of the courts located in [Your City], India. You consent to the personal jurisdiction of such courts.
+                jurisdiction of the courts located in New Delhi, India. You consent to the personal jurisdiction of such courts.
               </p>
             </section>
 

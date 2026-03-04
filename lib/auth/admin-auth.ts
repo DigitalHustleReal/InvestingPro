@@ -6,6 +6,7 @@
  */
 
 import { createClient } from '@/lib/supabase/server';
+import { logger } from '@/lib/logger';
 import { cache } from 'react';
 
 /**
@@ -25,13 +26,13 @@ export const isAdmin = cache(async (userId: string): Promise<boolean> => {
       .single();
 
     if (error) {
-      console.error('[Admin Auth] Error checking admin status:', error);
+      logger.error('[Admin Auth] Error checking admin status:', error);
       return false;
     }
 
     return data?.role === 'admin';
   } catch (error) {
-    console.error('[Admin Auth] Unexpected error:', error);
+    logger.error('[Admin Auth] Unexpected error:', error);
     return false;
   }
 });

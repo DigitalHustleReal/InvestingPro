@@ -5,6 +5,7 @@
  */
 
 import { StockPhotoService } from './stock-photo-service';
+import { logger } from '@/lib/logger';
 import { generateFeaturedImage } from '../ai/image-generator';
 import { mediaService, MediaFile } from './media-service';
 
@@ -48,7 +49,7 @@ export class AutoFeaturedImageService {
                 ? keywords
                 : this.extractKeywords(title, category);
 
-            console.log('🎨 Auto-selecting featured image for:', { title, searchKeywords });
+            logger.info('🎨 Auto-selecting featured image for:', { title, searchKeywords });
 
             // Try different strategies in order
             if (preferAI) {
@@ -71,10 +72,10 @@ export class AutoFeaturedImageService {
             const libraryImage = await this.searchLibrary(searchKeywords);
             if (libraryImage) return libraryImage;
 
-            console.warn('❌ Could not find or generate featured image');
+            logger.warn('❌ Could not find or generate featured image');
             return null;
         } catch (error) {
-            console.error('Auto featured image selection failed:', error);
+            logger.error('Auto featured image selection failed:', error);
             return null;
         }
     }
@@ -108,7 +109,7 @@ export class AutoFeaturedImageService {
                 // Track usage
                 this.trackUsedImage(selectedPhoto.downloadUrl);
 
-                console.log(`✅ Selected ${selectedPhoto.source} image for keyword: "${keyword}"`);
+                logger.info(`✅ Selected ${selectedPhoto.source} image for keyword: "${keyword}"`);
 
                 return {
                     url: selectedPhoto.url,
@@ -116,7 +117,7 @@ export class AutoFeaturedImageService {
                     keyword
                 };
             } catch (error) {
-                console.error(`Failed to search "${keyword}":`, error);
+                logger.error(`Failed to search "${keyword}":`, error);
                 continue;
             }
         }
@@ -151,12 +152,12 @@ export class AutoFeaturedImageService {
                         altText: title
                     });
                 } catch (uploadError) {
-                    console.error('Failed to save AI image to library:', uploadError);
+                    logger.error('Failed to save AI image to library:', uploadError);
                 }
             }
 
             this.trackUsedImage(imageUrl);
-            console.log('✅ Generated AI image with DALL-E 3');
+            logger.info('✅ Generated AI image with DALL-E 3');
 
             return {
                 url: imageUrl,
@@ -164,7 +165,7 @@ export class AutoFeaturedImageService {
                 keyword: title
             };
         } catch (error) {
-            console.error('AI image generation failed:', error);
+            logger.error('AI image generation failed:', error);
             return null;
         }
     }
@@ -190,7 +191,7 @@ export class AutoFeaturedImageService {
                 const selected = availableResults[randomIndex];
 
                 this.trackUsedImage(selected.publicUrl);
-                console.log(`✅ Found library image for keyword: "${keyword}"`);
+                logger.info(`✅ Found library image for keyword: "${keyword}"`);
 
                 return {
                     url: selected.publicUrl,
@@ -199,7 +200,7 @@ export class AutoFeaturedImageService {
                 };
             }
         } catch (error) {
-            console.error('Library search failed:', error);
+            logger.error('Library search failed:', error);
         }
 
         return null;

@@ -1,4 +1,5 @@
 import { NextRequest } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 import OpenAI from 'openai';
 import axios from 'axios';
@@ -67,7 +68,7 @@ export async function GET(request: NextRequest) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    console.log('\n🤖 CRON: Checking for products without images...');
+    logger.info('\n🤖 CRON: Checking for products without images...');
     
     // Find products without images (limit 5 per run to avoid timeout)
     const { data: products, error } = await supabase
@@ -81,21 +82,21 @@ export async function GET(request: NextRequest) {
     }
     
     if (!products || products.length === 0) {
-      console.log('✅ All products have images!');
+      logger.info('✅ All products have images!');
       return Response.json({ 
         message: 'All products have images',
         generated: 0
       });
     }
     
-    console.log(`📊 Found ${products.length} products needing images\n`);
+    logger.info(`📊 Found ${products.length} products needing images\n`);
     
     let generated = 0;
     const results = [];
     
     for (const product of products) {
       try {
-        console.log(`🎨 Generating for: ${product.name}`);
+        logger.info(`🎨 Generating for: ${product.name}`);
         
         const prompt = buildPrompt(product);
         const response = await openai.images.generate({
@@ -116,7 +117,7 @@ export async function GET(request: NextRequest) {
           .update({ image_url: localPath })
           .eq('id', product.id);
         
-        console.log(`✅ Success: ${localPath}`);
+        logger.info(`✅ Success: ${localPath}`);
         generated++;
         results.push({ productId: product.id, success: true, imageUrl: localPath });
         
@@ -126,12 +127,12 @@ export async function GET(request: NextRequest) {
         }
         
       } catch (error: any) {
-        console.error(`❌ Failed for ${product.name}:`, error.message);
+        logger.error(`❌ Failed for ${product.name}:`, error.message);
         results.push({ productId: product.id, success: false, error: error.message });
       }
     }
     
-    console.log(`\n📈 CRON Complete: ${generated}/${products.length} generated\n`);
+    logger.info(`\n📈 CRON Complete: ${generated}/${products.length} generated\n`);
     
     return Response.json({ 
       generated,
@@ -142,7 +143,7 @@ export async function GET(request: NextRequest) {
     });
     
   } catch (error: any) {
-    console.error('❌ CRON failed:', error);
+    logger.error('❌ CRON failed:', error);
     return Response.json({ 
       error: 'Cron job failed', 
       details: error.message 

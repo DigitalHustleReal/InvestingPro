@@ -8,6 +8,7 @@
  */
 
 import { inngest } from '../inngest-client';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 
 // Initialize Supabase client for cron jobs (not server-only)
@@ -29,7 +30,7 @@ export const autoContentGenerator = inngest.createFunction(
   },
   { cron: '0 */2 * * *' }, // Every 2 hours
   async ({ event, step }) => {
-    console.log('🤖 Auto Content Generator Started');
+    logger.info('🤖 Auto Content Generator Started');
 
     // Step 1: Check how many articles generated today
     const articlesGeneratedToday = await step.run('check-daily-count', async () => {
@@ -42,13 +43,13 @@ export const autoContentGenerator = inngest.createFunction(
         .select('*', { count: 'exact', head: true })
         .gte('created_at', today.toISOString());
 
-      console.log(`📊 Articles generated today: ${count || 0}`);
+      logger.info(`📊 Articles generated today: ${count || 0}`);
       return count || 0;
     });
 
     // Limit to 10 articles per day
     if (articlesGeneratedToday >= 10) {
-      console.log('✅ Daily quota reached (10 articles). Skipping this run.');
+      logger.info('✅ Daily quota reached (10 articles). Skipping this run.');
       return { 
         success: true, 
         message: 'Daily quota reached',
@@ -71,7 +72,7 @@ export const autoContentGenerator = inngest.createFunction(
       const categoryIndex = articlesGeneratedToday % (categories?.length || 5);
       const selectedCategory = categories?.[categoryIndex] || { slug: 'credit-cards', name: 'Credit Cards' };
 
-      console.log(`📝 Selected category: ${selectedCategory.name}`);
+      logger.info(`📝 Selected category: ${selectedCategory.name}`);
 
       return {
         category: selectedCategory.slug,
@@ -89,12 +90,12 @@ export const autoContentGenerator = inngest.createFunction(
         // Generate article using the comprehensive pipeline
         const result = await generateArticleCore(
           `Best ${contentPlan.categoryName} for 2026`, // Topic based on category
-          (msg: string) => console.log(msg), // Log function
+          (msg: string) => logger.info(msg), // Log function
           { dryRun: false } // Options
         );
 
         if (result.success && result.article) {
-          console.log(`✅ Article generated: ${result.article.title}`);
+          logger.info(`✅ Article generated: ${result.article.title}`);
           
           return {
             success: true as const,
@@ -109,7 +110,7 @@ export const autoContentGenerator = inngest.createFunction(
           };
         }
       } catch (error) {
-        console.error('❌ Article generation failed:', error);
+        logger.error('❌ Article generation failed:', error);
         return {
           success: false as const,
           error: error instanceof Error ? error.message : 'Unknown error',
@@ -134,7 +135,7 @@ export const autoContentGenerator = inngest.createFunction(
       });
     });
 
-    console.log('🎉 Auto Content Generator Completed');
+    logger.info('🎉 Auto Content Generator Completed');
 
     return {
       success: article.success,

@@ -18,7 +18,7 @@ const requiredOneOf = [
 export function validateEnv() {
     // Only validate in production or when explicitly enabled
     if (process.env.NODE_ENV !== 'production' && !process.env.VALIDATE_ENV) {
-        console.log('⚠️  Environment validation skipped (development mode)');
+        logger.info('⚠️  Environment validation skipped (development mode)');
         return;
     }
     
@@ -46,9 +46,9 @@ export function validateEnv() {
         throw new Error(errorMessage);
     }
     
-    console.log('✅ Environment variables validated');
-    console.log(`   - Database: ${process.env.NEXT_PUBLIC_SUPABASE_URL?.substring(0, 30)}...`);
-    console.log(`   - AI Providers: ${aiProviders.filter(key => process.env[key]).join(', ')}`);
+    logger.info('✅ Environment variables validated');
+    logger.info(`   - Database: ${process.env.NEXT_PUBLIC_SUPABASE_URL?.substring(0, 30)}...`);
+    logger.info(`   - AI Providers: ${aiProviders.filter(key => process.env[key]).join(', ')}`);
 }
 
 /**

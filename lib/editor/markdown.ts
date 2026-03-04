@@ -16,6 +16,7 @@
  */
 
 import { Editor } from '@tiptap/core';
+import { logger } from '@/lib/logger';
 import TurndownService from 'turndown';
 import { marked } from 'marked';
 import { generateHTML } from '@tiptap/html';
@@ -60,7 +61,7 @@ export function markdownToHTML(markdown: string): string {
         const html = marked.parse(markdown) as string;
         return html || '';
     } catch (error) {
-        console.error('Error converting markdown to HTML:', error);
+        logger.error('Error converting markdown to HTML:', error);
         return '';
     }
 }
@@ -83,7 +84,7 @@ export function htmlToMarkdown(html: string): string {
         const markdown = turndownService.turndown(html);
         return markdown || '';
     } catch (error) {
-        console.error('Error converting HTML to markdown:', error);
+        logger.error('Error converting HTML to markdown:', error);
         return '';
     }
 }
@@ -101,7 +102,7 @@ export function tiptapToHTML(editor: Editor): string {
     try {
         return editor.getHTML();
     } catch (error) {
-        console.error('Error converting TipTap to HTML:', error);
+        logger.error('Error converting TipTap to HTML:', error);
         return '';
     }
 }

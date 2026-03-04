@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/client';
+import { logger } from '@/lib/logger';
 import { NAVIGATION_CONFIG, NavigationCategory } from './config';
 
 /**
@@ -32,7 +33,7 @@ export async function getNavigation(): Promise<NavigationCategory[]> {
         return NAVIGATION_CONFIG;
 
     } catch (error) {
-        console.error("Navigation Fetch Failed", error);
+        logger.error("Navigation Fetch Failed", error);
         return NAVIGATION_CONFIG;
     }
 }

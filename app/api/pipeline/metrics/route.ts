@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 
 /**
  * GET /api/pipeline/metrics
@@ -56,7 +57,7 @@ export async function GET(request: NextRequest) {
 
         return NextResponse.json(metrics);
     } catch (error: any) {
-        console.error('Error fetching pipeline metrics:', error);
+        logger.error('Error fetching pipeline metrics:', error);
         return NextResponse.json(
             { error: 'Failed to fetch pipeline metrics' },
             { status: 500 }

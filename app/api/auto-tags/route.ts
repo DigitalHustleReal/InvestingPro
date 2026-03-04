@@ -4,6 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import OpenAI from 'openai';
 
 const openai = new OpenAI({
@@ -18,12 +19,12 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'Title required' }, { status: 400 });
         }
 
-        console.log('🏷️ Auto-tagging:', title);
+        logger.info('🏷️ Auto-tagging:', title);
 
         // Use AI to extract tags
         const tags = await extractTagsWithAI(title, excerpt, content, maxTags);
         
-        console.log('✅ Generated tags:', tags);
+        logger.info('✅ Generated tags:', tags);
 
         return NextResponse.json({
             tags,
@@ -32,7 +33,7 @@ export async function POST(request: NextRequest) {
         });
 
     } catch (error: any) {
-        console.error('Auto-tagging error:', error);
+        logger.error('Auto-tagging error:', error);
         
         // Fallback to keyword extraction
         const fallbackTags = extractKeywords(
@@ -99,7 +100,7 @@ Example: investment-strategy,portfolio-diversification,risk-management`;
         return tags.length > 0 ? tags : extractKeywords(`${title} ${excerpt}`);
 
     } catch (error) {
-        console.error('AI tag extraction failed:', error);
+        logger.error('AI tag extraction failed:', error);
         return extractKeywords(`${title} ${excerpt}`);
     }
 }

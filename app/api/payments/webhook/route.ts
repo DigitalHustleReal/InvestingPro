@@ -5,6 +5,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import stripeService from '@/lib/payments/stripe-service';
 import { createClient } from '@/lib/supabase/server';
 
@@ -37,7 +38,7 @@ export async function POST(request: NextRequest) {
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object;
-        console.log('[WEBHOOK] Checkout completed:', session.id);
+        logger.info('[WEBHOOK] Checkout completed:', session.id);
         
         // Update user subscription status in database
         const customerId = session.customer as string;
@@ -59,7 +60,7 @@ export async function POST(request: NextRequest) {
 
       case 'customer.subscription.updated': {
         const subscription = event.data.object;
-        console.log('[WEBHOOK] Subscription updated:', subscription.id);
+        logger.info('[WEBHOOK] Subscription updated:', subscription.id);
         
         await supabase
           .from('user_profiles')
@@ -74,7 +75,7 @@ export async function POST(request: NextRequest) {
 
       case 'customer.subscription.deleted': {
         const subscription = event.data.object;
-        console.log('[WEBHOOK] Subscription cancelled:', subscription.id);
+        logger.info('[WEBHOOK] Subscription cancelled:', subscription.id);
         
         await supabase
           .from('user_profiles')
@@ -90,19 +91,19 @@ export async function POST(request: NextRequest) {
 
       case 'invoice.payment_failed': {
         const invoice = event.data.object;
-        console.log('[WEBHOOK] Payment failed:', invoice.id);
+        logger.info('[WEBHOOK] Payment failed:', invoice.id);
         
         // Could send email notification here
         break;
       }
 
       default:
-        console.log('[WEBHOOK] Unhandled event type:', event.type);
+        logger.info('[WEBHOOK] Unhandled event type:', event.type);
     }
 
     return NextResponse.json({ received: true });
   } catch (error) {
-    console.error('[WEBHOOK] Error:', error);
+    logger.error('[WEBHOOK] Error:', error);
     return NextResponse.json(
       { error: 'Webhook processing failed' },
       { status: 500 }

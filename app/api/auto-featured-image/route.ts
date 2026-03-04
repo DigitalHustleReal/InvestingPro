@@ -5,6 +5,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 import { contentAwareRecommender } from '@/lib/media/content-aware-recommender';
 
@@ -22,7 +23,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'Title is required' }, { status: 400 });
         }
 
-        console.log('🎨 Auto-selecting featured image...', { title, keywords, category });
+        logger.info('🎨 Auto-selecting featured image...', { title, keywords, category });
 
         // PRIORITY 1: Content-Aware Media Library Search (Enhanced)
         try {
@@ -37,7 +38,7 @@ export async function POST(request: NextRequest) {
 
             if (recommendations.length > 0) {
                 const bestMatch = recommendations[0];
-                console.log('✅ Found content-aware match in Media Library!', {
+                logger.info('✅ Found content-aware match in Media Library!', {
                     score: bestMatch.relevanceScore,
                     reasons: bestMatch.matchReasons
                 });
@@ -67,7 +68,7 @@ export async function POST(request: NextRequest) {
                 });
             }
         } catch (error) {
-            console.warn('Content-aware recommendation failed, falling back to basic search:', error);
+            logger.warn('Content-aware recommendation failed, falling back to basic search:', error);
         }
 
         // FALLBACK: Basic Media Library Search
@@ -75,11 +76,11 @@ export async function POST(request: NextRequest) {
             ? keywords 
             : extractKeywords(title, category);
 
-        console.log('📋 Keywords:', searchKeywords);
+        logger.info('📋 Keywords:', searchKeywords);
 
         const libraryResult = await searchMediaLibrary(searchKeywords);
         if (libraryResult) {
-            console.log('✅ Found in Media Library (basic search)!');
+            logger.info('✅ Found in Media Library (basic search)!');
             
             const stockResult = await searchStockPhotos(searchKeywords, request);
             
@@ -92,12 +93,12 @@ export async function POST(request: NextRequest) {
             });
         }
 
-        console.log('📁 No images in media library, checking stock photos...');
+        logger.info('📁 No images in media library, checking stock photos...');
 
         // PRIORITY 2: Search Stock Photos (free)
         const stockResult = await searchStockPhotos(searchKeywords, request);
         if (stockResult) {
-            console.log('✅ Found on stock photo sites!');
+            logger.info('✅ Found on stock photo sites!');
             return NextResponse.json({
                 url: stockResult.url,
                 source: stockResult.source,
@@ -106,12 +107,12 @@ export async function POST(request: NextRequest) {
             });
         }
 
-        console.log('📸 No stock photos found, trying AI generation...');
+        logger.info('📸 No stock photos found, trying AI generation...');
 
         // PRIORITY 3: Generate with AI (paid - last resort)
         const aiResult = await generateWithAI(title, category);
         if (aiResult) {
-            console.log('✅ Generated with AI!');
+            logger.info('✅ Generated with AI!');
             return NextResponse.json({
                 url: aiResult.url,
                 source: 'ai-generated',
@@ -126,7 +127,7 @@ export async function POST(request: NextRequest) {
         }, { status: 404 });
         
     } catch (error: any) {
-        console.error('❌ Auto featured image error:', error);
+        logger.error('❌ Auto featured image error:', error);
         return NextResponse.json({
             error: error.message || 'Failed to select image'
         }, { status: 500 });
@@ -146,7 +147,7 @@ async function searchMediaLibrary(keywords: string[]) {
                 .limit(5);
 
             if (error) {
-                console.error('Media library search error:', error);
+                logger.error('Media library search error:', error);
                 continue;
             }
 
@@ -163,7 +164,7 @@ async function searchMediaLibrary(keywords: string[]) {
             }
         }
     } catch (error) {
-        console.error('Media library search failed:', error);
+        logger.error('Media library search failed:', error);
     }
     
     return null;
@@ -194,7 +195,7 @@ async function searchStockPhotos(keywords: string[], request: NextRequest) {
                 };
             }
         } catch (error) {
-            console.error(`Stock photo search failed for "${keyword}":`, error);
+            logger.error(`Stock photo search failed for "${keyword}":`, error);
             continue;
         }
     }
@@ -209,7 +210,7 @@ async function generateWithAI(title: string, category: string) {
     try {
         // Check if OpenAI key is configured
         if (!process.env.OPENAI_API_KEY) {
-            console.log('⚠️ OpenAI API key not configured');
+            logger.info('⚠️ OpenAI API key not configured');
             return null;
         }
 
@@ -223,7 +224,7 @@ async function generateWithAI(title: string, category: string) {
             };
         }
     } catch (error) {
-        console.error('AI generation failed:', error);
+        logger.error('AI generation failed:', error);
     }
     
     return null;

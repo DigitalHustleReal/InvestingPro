@@ -56,7 +56,7 @@ export class StockImageService {
     async getFeaturedImage(topic: string, context: string = 'finance'): Promise<ImageResult> {
         // 1. Smart Keyword Extraction
         const searchTerm = this.extractSearchTerm(topic);
-        console.log(`🖼️ Searching images for: "${searchTerm}" (derived from "${topic}")`);
+        logger.info(`🖼️ Searching images for: "${searchTerm}" (derived from "${topic}")`);
 
         // 2. Try Pixabay (Best for general illustrations)
         if (this.pixabayKey) {
@@ -64,7 +64,7 @@ export class StockImageService {
                 const img = await this.searchPixabay(searchTerm);
                 if (img) return img;
             } catch (e) {
-                console.error('Pixabay search failed:', e);
+                logger.error('Pixabay search failed:', e);
             }
         }
 
@@ -74,7 +74,7 @@ export class StockImageService {
                 const img = await this.searchUnsplash(searchTerm);
                 if (img) return img;
             } catch (e) {
-                console.error('Unsplash search failed:', e);
+                logger.error('Unsplash search failed:', e);
             }
         }
         
@@ -84,7 +84,7 @@ export class StockImageService {
                 const img = await this.searchPexels(searchTerm, context);
                 if (img) return img;
             } catch (e) {
-                console.error('Pexels search failed:', e);
+                logger.error('Pexels search failed:', e);
             }
         }
 
@@ -99,7 +99,7 @@ export class StockImageService {
         }
         
         // 6. Fallback to AI (Pollinations - Flux Model)
-        console.log('⚠️ Stock images not found. Falling back to AI Generation (Flux).');
+        logger.info('⚠️ Stock images not found. Falling back to AI Generation (Flux).');
         return this.generateAIImage(searchTerm); // Use searchTerm, not full topic
     }
 

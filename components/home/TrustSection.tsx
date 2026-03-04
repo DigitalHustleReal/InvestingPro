@@ -126,7 +126,7 @@ export default function TrustSection() {
                         Why Trust <span className="text-primary-600 dark:text-primary-400">InvestingPro?</span>
                     </h2>
                     <p className="text-lg text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
-                        We're an independent research platform, not a SEBI registered advisor. We help you make informed decisions with unbiased data.
+                        We're an independent research platform, not a SEBI registered advisor. We help you make informed decisions with transparent, data-driven insights.
                     </p>
                 </div>
 

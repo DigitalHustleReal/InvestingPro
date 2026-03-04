@@ -4,6 +4,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 import { env } from '@/lib/env';
 
 const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
@@ -172,7 +173,7 @@ export async function getRevenueMetrics(
         };
 
     } catch (error) {
-        console.error('Error calculating revenue metrics:', error);
+        logger.error('Error calculating revenue metrics:', error);
         throw error;
     }
 }

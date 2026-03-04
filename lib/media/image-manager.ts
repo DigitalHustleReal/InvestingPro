@@ -1,5 +1,6 @@
 
 import { createClient } from '@/lib/supabase/client';
+import { logger } from '@/lib/logger';
 import { generateFeaturedImage, downloadAndSaveImage } from '@/lib/ai/image-generator';
 import axios from 'axios';
 
@@ -24,29 +25,29 @@ export class ImageManager {
      * Main entry point: Get best image for an article
      */
     static async selectImage(topic: string, category: string): Promise<ImageSelectionResult | null> {
-        console.log(`🖼️ Image Manager: Finding image for "${topic}"...`);
+        logger.info(`🖼️ Image Manager: Finding image for "${topic}"...`);
 
         // 1. Check Media Library
         const libraryImage = await this.checkMediaLibrary(topic, category);
         if (libraryImage) {
-            console.log("   ✅ Found in Media Library");
+            logger.info("   ✅ Found in Media Library");
             return { url: libraryImage, source: 'library' };
         }
 
         // 2. Check Free API (Unsplash)
         const unsplashImage = await this.searchUnsplash(topic, category);
         if (unsplashImage) {
-            console.log("   ✅ Found on Unsplash");
+            logger.info("   ✅ Found on Unsplash");
             return { url: unsplashImage, source: 'unsplash', credit: 'Photo by Unsplash' };
         }
 
         // 3. Generate with FREE AI (Pollinations.ai)
-        console.log("   🎨 Generating with FREE AI (Pollinations)...");
+        logger.info("   🎨 Generating with FREE AI (Pollinations)...");
         try {
             const { imageService } = await import('@/lib/images/stock-image-service');
             const aiResult = await imageService.getFeaturedImage(topic, category);
             if (aiResult && aiResult.source === 'pollinations') {
-                console.log("   ✅ Generated with Pollinations.ai");
+                logger.info("   ✅ Generated with Pollinations.ai");
                 return { 
                     url: aiResult.url, 
                     source: 'ai',
@@ -54,12 +55,12 @@ export class ImageManager {
                 };
             }
         } catch (err) {
-            console.warn("   ⚠️ Pollinations.ai failed", err);
+            logger.warn("   ⚠️ Pollinations.ai failed", err);
         }
 
         // 4. Generate with PREMIUM AI (DALL-E 3) - LAST RESORT
         if (process.env.GENERATE_IMAGES === 'true' && process.env.OPENAI_API_KEY) {
-            console.log("   💎 Generating with PREMIUM AI (DALL-E 3)...");
+            logger.info("   💎 Generating with PREMIUM AI (DALL-E 3)...");
             const aiUrl = await generateFeaturedImage(topic, category);
             if (aiUrl) {
                 // Save AI image to our storage to persist it
@@ -72,7 +73,7 @@ export class ImageManager {
             }
         }
 
-        console.log("   ⚠️ No image found in any source.");
+        logger.info("   ⚠️ No image found in any source.");
         return null;
     }
 
@@ -135,7 +136,7 @@ export class ImageManager {
             return placeholders[category];
 
         } catch (e) {
-            console.error("Unsplash search failed", e);
+            logger.error("Unsplash search failed", e);
             return null;
         }
     }

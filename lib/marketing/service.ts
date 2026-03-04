@@ -1,4 +1,5 @@
 import { AffiliateAdapter, AffiliateProduct } from './types';
+import { logger } from '@/lib/logger';
 
 export class AffiliateManager {
   private adapters: AffiliateAdapter[] = [];
@@ -22,7 +23,7 @@ export class AffiliateManager {
       if (result.status === 'fulfilled') {
         products.push(...result.value);
       } else {
-        console.error(`Failed to fetch from ${this.adapters[index].providerName}:`, result.reason);
+        logger.error(`Failed to fetch from ${this.adapters[index].providerName}:`, result.reason);
       }
     });
 

@@ -22,6 +22,7 @@
  */
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { logger } from '@/lib/logger';
 import OpenAI from 'openai';
 import Anthropic from '@anthropic-ai/sdk';
 import { createClient } from '@supabase/supabase-js';
@@ -369,7 +370,7 @@ async function logAIUsage(response: AIResponse, taskType: TaskType) {
             timestamp: response.timestamp
         });
     } catch (error) {
-        console.error('Failed to log AI usage:', error);
+        logger.error('Failed to log AI usage:', error);
     }
 }
 
@@ -382,16 +383,16 @@ export class AIOrchestrator {
      * Execute AI request with automatic provider selection and failover
      */
     async execute(request: AIRequest): Promise<AIResponse> {
-        console.log(`\n🤖 AI Request: ${request.taskType}`);
+        logger.info(`\n🤖 AI Request: ${request.taskType}`);
         
         const providers = selectBestProvider(request);
-        console.log(`   Trying providers: ${providers.join(' → ')}`);
+        logger.info(`   Trying providers: ${providers.join(' → ')}`);
         
         let lastError: Error | null = null;
         
         for (const provider of providers) {
             try {
-                console.log(`   🔄 Attempting with ${provider}...`);
+                logger.info(`   🔄 Attempting with ${provider}...`);
                 
                 let response: AIResponse;
                 
@@ -413,13 +414,13 @@ export class AIOrchestrator {
                 updateProviderHealth(provider, true, response.latencyMs);
                 await logAIUsage(response, request.taskType);
                 
-                console.log(`   ✅ Success with ${provider}`);
-                console.log(`   Tokens: ${response.tokensUsed}, Cost: $${response.costUSD.toFixed(4)}, Latency: ${response.latencyMs}ms`);
+                logger.info(`   ✅ Success with ${provider}`);
+                logger.info(`   Tokens: ${response.tokensUsed}, Cost: $${response.costUSD.toFixed(4)}, Latency: ${response.latencyMs}ms`);
                 
                 return response;
                 
             } catch (error: any) {
-                console.log(`   ❌ ${provider} failed: ${error.message}`);
+                logger.info(`   ❌ ${provider} failed: ${error.message}`);
                 lastError = error;
                 
                 // Update health
@@ -438,13 +439,13 @@ export class AIOrchestrator {
      * Execute multiple requests in parallel with load balancing
      */
     async executeBatch(requests: AIRequest[]): Promise<AIResponse[]> {
-        console.log(`\n🚀 Batch AI Request: ${requests.length} items`);
+        logger.info(`\n🚀 Batch AI Request: ${requests.length} items`);
         
         const results = await Promise.all(
             requests.map(request => this.execute(request))
         );
         
-        console.log(`✅ Batch complete: ${results.length} responses`);
+        logger.info(`✅ Batch complete: ${results.length} responses`);
         
         return results;
     }

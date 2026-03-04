@@ -4,6 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { getContentPerformance, getTopPerformingContent, getContentGaps, getContentRecommendations } from '@/lib/analytics/content-performance';
 import { requireAdmin } from '@/lib/auth/admin-auth';
 
@@ -108,7 +109,7 @@ export async function GET(request: NextRequest) {
         });
 
     } catch (error: any) {
-        console.error('Error fetching content performance:', error);
+        logger.error('Error fetching content performance:', error);
         
         return NextResponse.json(
             {

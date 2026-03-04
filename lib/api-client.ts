@@ -1,5 +1,6 @@
 
 import { createClient } from "@/lib/supabase/client";
+import { logger } from '@/lib/logger';
 
 // Shared Supabase client for client-side operations
 const supabase = createClient();
@@ -52,7 +53,7 @@ export const apiClient = {
                 .order('created_at', { ascending: false });
             
             if (error) {
-                console.error("Error fetching reviews", error);
+                logger.error("Error fetching reviews", error);
                 return [];
             }
             return data || [];
@@ -64,7 +65,7 @@ export const apiClient = {
             });
             const { data, error } = await query;
             if (error) {
-                console.error("Error filtering reviews", error);
+                logger.error("Error filtering reviews", error);
                 return [];
             }
             return data || [];
@@ -113,7 +114,7 @@ export const apiClient = {
                 }
                 const { data, error } = await query;
                 if (error) {
-                    console.error("Error fetching IPOs", error);
+                    logger.error("Error fetching IPOs", error);
                     return [];
                 }
                 return data;
@@ -129,7 +130,7 @@ export const apiClient = {
             list: async () => {
                 const { data, error } = await supabase.from('brokers').select('*').eq('is_active', true);
                 if (error) {
-                    console.error("Error fetching brokers", error);
+                    logger.error("Error fetching brokers", error);
                     return [];
                 }
                 return data;
@@ -259,7 +260,7 @@ export const apiClient = {
                 const { data, error } = await supabase.from('credit_cards').select('*');
                 
                 if (error) {
-                    console.error('Error fetching credit cards:', error);
+                    logger.error('Error fetching credit cards:', error);
                     return [];
                 }
 
@@ -412,7 +413,7 @@ export const apiClient = {
             list: async () => {
                 const { data, error } = await supabase.from('portfolio').select('*').order('created_at', { ascending: false });
                 if (error) {
-                    console.error('Error fetching portfolio:', error);
+                    logger.error('Error fetching portfolio:', error);
                     return [];
                 }
                 return data || [];
@@ -480,7 +481,7 @@ export const apiClient = {
                 const { data, count, error } = await query.range(from, to);
                 
                 if (error) {
-                    console.error('Error fetching mutual funds from Supabase', error);
+                    logger.error('Error fetching mutual funds from Supabase', error);
                     return { data: [], count: 0 };
                 }
 
@@ -547,7 +548,7 @@ export const apiClient = {
                  const { data, error } = await query;
                  
                  if (error) {
-                     console.error('Error fetching affiliate products', error);
+                     logger.error('Error fetching affiliate products', error);
                      return [];
                  }
 
@@ -579,7 +580,7 @@ export const apiClient = {
                         .order('term', { ascending: true });
                     return data || [];
                 } catch (error) {
-                    console.error('Error fetching glossary by category:', error);
+                    logger.error('Error fetching glossary by category:', error);
                     return [];
                 }
             },
@@ -597,7 +598,7 @@ export const apiClient = {
                     .select('*')
                     .order('created_at', { ascending: false });
                 if (error) {
-                    console.error('Error fetching ad placements', error);
+                    logger.error('Error fetching ad placements', error);
                     return [];
                 }
                 return data || [];
@@ -609,7 +610,7 @@ export const apiClient = {
                 });
                 const { data, error } = await query;
                 if (error) {
-                    console.error('Error filtering ad placements', error);
+                    logger.error('Error filtering ad placements', error);
                     return [];
                 }
                 return data || [];
@@ -633,7 +634,7 @@ export const apiClient = {
                 }
                 const { data, error } = await query;
                 if (error) {
-                    console.error('Error fetching rates', error);
+                    logger.error('Error fetching rates', error);
                     return [];
                 }
                 return data || [];

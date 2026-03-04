@@ -25,14 +25,14 @@ export class StockPhotoService {
             const response = await fetch(`/api/stock-photos?query=${encodeURIComponent(query)}&page=${page}`);
             
             if (!response.ok) {
-                console.error('Stock photo search failed:', response.statusText);
+                logger.error('Stock photo search failed:', response.statusText);
                 return [];
             }
             
             const data = await response.json();
             return data.photos || [];
         } catch (error) {
-            console.error('Stock photo search error:', error);
+            logger.error('Stock photo search error:', error);
             return [];
         }
     }

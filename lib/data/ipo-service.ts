@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/client';
+import { logger } from '@/lib/logger';
 
 export interface IPOData {
     id: string;
@@ -47,7 +48,7 @@ export class IPODataService {
             await this.refreshCache();
             return await this.getCachedData();
         } catch (error) {
-            console.error('Error fetching IPO data:', error);
+            logger.error('Error fetching IPO data:', error);
             // Return mock data as fallback
             return this.getMockData();
         }
@@ -68,7 +69,7 @@ export class IPODataService {
             .limit(20);
 
         if (error) {
-            console.error('Error fetching cached IPO data:', error);
+            logger.error('Error fetching cached IPO data:', error);
             return [];
         }
 
@@ -110,7 +111,7 @@ export class IPODataService {
         } catch (error) {
             status = 'failed';
             errorMessage = error instanceof Error ? error.message : 'Unknown error';
-            console.error('Error refreshing IPO cache:', error);
+            logger.error('Error refreshing IPO cache:', error);
         } finally {
             // Log the sync attempt
             await this.logSync(status, recordsUpdated, errorMessage, Date.now() - startTime);
@@ -248,7 +249,7 @@ export class IPODataService {
                     triggered_by: 'manual' // or 'cron' when automated
                 });
         } catch (error) {
-            console.error('Error logging sync:', error);
+            logger.error('Error logging sync:', error);
         }
     }
 

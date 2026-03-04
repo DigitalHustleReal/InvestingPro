@@ -1,5 +1,6 @@
 
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 
 // Types for Prompt
 export interface Prompt {
@@ -41,7 +42,7 @@ class PromptService {
             const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
             
             if (!url || !key) {
-                console.warn('⚠️ PromptService: Supabase credentials missing');
+                logger.warn('⚠️ PromptService: Supabase credentials missing');
                 // We don't throw here to allow non-DB dependent methods to work, 
                 // but createClient might fail or be useless.
             }
@@ -69,7 +70,7 @@ class PromptService {
             .single();
 
         if (error) {
-            // console.warn(`Note: Prompt '${slug}' not found in DB, using fallback.`);
+            // logger.warn(`Note: Prompt '${slug}' not found in DB, using fallback.`);
             return null;
         }
 

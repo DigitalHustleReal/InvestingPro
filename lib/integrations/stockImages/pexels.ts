@@ -84,7 +84,7 @@ export async function searchPexelsImages(
         const data: PexelsSearchResponse = await response.json();
         return data;
     } catch (error) {
-        console.error('Error fetching Pexels images:', error);
+        logger.error('Error fetching Pexels images:', error);
         throw error;
     }
 }
@@ -119,7 +119,7 @@ export async function getCuratedPhotos(
         const data: PexelsSearchResponse = await response.json();
         return data;
     } catch (error) {
-        console.error('Error fetching curated Pexels images:', error);
+        logger.error('Error fetching curated Pexels images:', error);
         throw error;
     }
 }

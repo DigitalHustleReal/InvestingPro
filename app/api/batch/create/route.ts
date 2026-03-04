@@ -4,6 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -21,7 +22,7 @@ export async function POST(request: NextRequest) {
             }, { status: 400 });
         }
 
-        console.log(`📦 Creating batch "${name}" with ${keywords.length} keywords`);
+        logger.info(`📦 Creating batch "${name}" with ${keywords.length} keywords`);
 
         // 1. Create the Batch record
         const { data: batch, error: batchError } = await supabase
@@ -57,7 +58,7 @@ export async function POST(request: NextRequest) {
         });
 
     } catch (error: any) {
-        console.error('Batch creation error:', error);
+        logger.error('Batch creation error:', error);
         return NextResponse.json({
             error: error.message || 'Failed to create batch'
         }, { status: 500 });

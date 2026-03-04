@@ -6,6 +6,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/server';
 
 // Verify cron secret to prevent unauthorized access
@@ -62,7 +63,7 @@ export async function GET(request: NextRequest) {
     });
 
     // Log strategy results
-    console.log('[CRON] Content strategy analysis:', {
+    logger.info('[CRON] Content strategy analysis:', {
       totalArticles: stats?.length || 0,
       categoryCounts,
       gaps,
@@ -78,7 +79,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('[CRON] Content strategy error:', error);
+    logger.error('[CRON] Content strategy error:', error);
     return NextResponse.json(
       { error: 'Content strategy analysis failed' },
       { status: 500 }

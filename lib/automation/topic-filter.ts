@@ -12,6 +12,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 import { checkForDuplicates } from '../quality/duplicate-detector';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
@@ -65,9 +66,9 @@ export async function filterUniqueTopics(
     const filteredTopics: string[] = [];
     const filterReasons: { [topic: string]: string } = {};
     
-    console.log(`🔍 Filtering ${topics.length} topics for uniqueness...`);
-    console.log(`   Category: ${category}`);
-    console.log(`   Max to return: ${maxTopics || 'unlimited'}\n`);
+    logger.info(`🔍 Filtering ${topics.length} topics for uniqueness...`);
+    logger.info(`   Category: ${category}`);
+    logger.info(`   Max to return: ${maxTopics || 'unlimited'}\n`);
     
     for (const topic of topics) {
         // Stop if we've reached max
@@ -90,33 +91,33 @@ export async function filterUniqueTopics(
             if (dupCheck.recommendation === 'BLOCK') {
                 filteredTopics.push(topic);
                 filterReasons[topic] = dupCheck.reason;
-                console.log(`   ❌ Filtered: "${topic}"`);
-                console.log(`      Reason: ${dupCheck.reason}`);
+                logger.info(`   ❌ Filtered: "${topic}"`);
+                logger.info(`      Reason: ${dupCheck.reason}`);
                 if (dupCheck.similar_articles.length > 0) {
-                    console.log(`      Similar to: "${dupCheck.similar_articles[0].title}"`);
+                    logger.info(`      Similar to: "${dupCheck.similar_articles[0].title}"`);
                 }
             } else if (dupCheck.recommendation === 'WARN') {
                 // Include with warning
                 uniqueTopics.push(topic);
-                console.log(`   ⚠️  Included with warning: "${topic}"`);
-                console.log(`      ${dupCheck.reason}`);
+                logger.info(`   ⚠️  Included with warning: "${topic}"`);
+                logger.info(`      ${dupCheck.reason}`);
             } else {
                 uniqueTopics.push(topic);
-                console.log(`   ✅ Unique: "${topic}"`);
+                logger.info(`   ✅ Unique: "${topic}"`);
             }
             
         } catch (error: any) {
             // If duplicate check fails, be conservative and include
-            console.log(`   ⚠️  Check failed for "${topic}" - including anyway`);
-            console.log(`      Error: ${error.message}`);
+            logger.info(`   ⚠️  Check failed for "${topic}" - including anyway`);
+            logger.info(`      Error: ${error.message}`);
             uniqueTopics.push(topic);
         }
     }
     
-    console.log(`\n📊 Filter Results:`);
-    console.log(`   Total checked: ${topics.length}`);
-    console.log(`   Unique topics: ${uniqueTopics.length}`);
-    console.log(`   Filtered out: ${filteredTopics.length}`);
+    logger.info(`\n📊 Filter Results:`);
+    logger.info(`   Total checked: ${topics.length}`);
+    logger.info(`   Unique topics: ${uniqueTopics.length}`);
+    logger.info(`   Filtered out: ${filteredTopics.length}`);
     
     return {
         unique_topics: uniqueTopics,
@@ -159,16 +160,16 @@ export async function smartFilterTopics(
     category: string = 'mutual-funds',
     maxTopics?: number
 ): Promise<TopicFilterResult> {
-    console.log('🧠 Smart Topic Filter - Two-Stage Process\n');
+    logger.info('🧠 Smart Topic Filter - Two-Stage Process\n');
     
     // Stage 1: Filter exact title matches
-    console.log('📋 Stage 1: Filtering exact title matches...');
+    logger.info('📋 Stage 1: Filtering exact title matches...');
     const { unique: afterExactFilter, existing } = await filterByExactTitle(topics);
-    console.log(`   Removed ${existing.length} exact matches`);
-    console.log(`   Remaining: ${afterExactFilter.length} topics\n`);
+    logger.info(`   Removed ${existing.length} exact matches`);
+    logger.info(`   Remaining: ${afterExactFilter.length} topics\n`);
     
     // Stage 2: Duplicate detection on remaining topics
-    console.log('🔍 Stage 2: Checking for semantic duplicates...');
+    logger.info('🔍 Stage 2: Checking for semantic duplicates...');
     const result = await filterUniqueTopics(afterExactFilter, category, maxTopics);
     
     // Combine filter reasons

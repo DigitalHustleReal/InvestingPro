@@ -13,6 +13,7 @@
  */
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { logger } from '@/lib/logger';
 
 // ============================================================================
 // TYPES & INTERFACES
@@ -69,7 +70,7 @@ async function generateWithAI(
         throw new Error('Gemini API not configured');
     }
     
-    console.log(`🤖 Generating alt text with AI for: ${imageUrl}`);
+    logger.info(`🤖 Generating alt text with AI for: ${imageUrl}`);
     
     // Use Gemini Vision model
     const model = client.getGenerativeModel({ model: 'gemini-1.5-flash' });
@@ -115,7 +116,7 @@ Requirements:
         // Validate and optimize
         const optimizedAlt = optimizeAltText(altText, keyword);
         
-        console.log(`✅ Generated alt text: "${optimizedAlt}"`);
+        logger.info(`✅ Generated alt text: "${optimizedAlt}"`);
         
         return {
             alt_text: optimizedAlt,
@@ -126,7 +127,7 @@ Requirements:
             generated_at: new Date().toISOString()
         };
     } catch (error: any) {
-        console.error('AI vision failed:', error.message);
+        logger.error('AI vision failed:', error.message);
         throw error;
     }
 }
@@ -136,7 +137,7 @@ Requirements:
 // ============================================================================
 
 function generateFromFilename(filename: string, keyword?: string): AltTextResult {
-    console.log(`📝 Generating alt text from filename: ${filename}`);
+    logger.info(`📝 Generating alt text from filename: ${filename}`);
     
     // Extract meaningful parts from filename
     const nameWithoutExt = filename.replace(/\.[^/.]+$/, '');
@@ -169,7 +170,7 @@ function generateFromFilename(filename: string, keyword?: string): AltTextResult
         altText = altText.substring(0, MAX_ALT_LENGTH - 3) + '...';
     }
     
-    console.log(`✅ Generated alt text from filename: "${altText}"`);
+    logger.info(`✅ Generated alt text from filename: "${altText}"`);
     
     return {
         alt_text: altText,
@@ -270,14 +271,14 @@ export async function generateImageAltText(
 ): Promise<AltTextResult> {
     const { context, keyword, filename, useAI = true } = options;
     
-    console.log(`\n🖼️ Generating alt text for image...`);
+    logger.info(`\n🖼️ Generating alt text for image...`);
     
     // Try AI generation first if enabled and API available
     if (useAI && GEMINI_API_KEY) {
         try {
             return await generateWithAI(imageUrl, context, keyword);
         } catch (error: any) {
-            console.log('⚠️ AI generation failed, falling back to filename method');
+            logger.info('⚠️ AI generation failed, falling back to filename method');
         }
     }
     
@@ -336,7 +337,7 @@ export async function generateAltTextBatch(
             // Rate limiting for API calls
             await new Promise(resolve => setTimeout(resolve, 500));
         } catch (error) {
-            console.error(`Failed to generate alt text for ${image.url}:`, error);
+            logger.error(`Failed to generate alt text for ${image.url}:`, error);
             
             // Add fallback result
             results.push({

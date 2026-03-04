@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 
 // Define types for better type safety
 export interface RevenueMetrics {
@@ -44,14 +45,14 @@ export class RevenueService {
             });
 
             if (error) {
-                console.error('RevenueService: RPC error', error);
+                logger.error('RevenueService: RPC error', error);
                 throw error;
             }
 
             // Return the data directly as it matches the interface
             return data as RevenueMetrics;
         } catch (error) {
-            console.error('RevenueService: Failed to get dashboard metrics', error);
+            logger.error('RevenueService: Failed to get dashboard metrics', error);
             // Fallback to empty structure if RPC fails (prevent page crash)
             return {
                 totalRevenue: { current: 0, previous: 0, growth: 0 },

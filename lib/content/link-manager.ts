@@ -1,5 +1,6 @@
 
 import * as cheerio from 'cheerio';
+import { logger } from '@/lib/logger';
 import { GOLDEN_KEYWORDS, GoldenKeyword } from './golden-keywords';
 
 /**
@@ -120,7 +121,7 @@ export function enrichContent(html: string): string {
     try {
         enriched = autoLinker.injectLinks(enriched);
     } catch (e) {
-        console.error("AutoLinker failed", e);
+        logger.error("AutoLinker failed", e);
         // Fallback: return original (widget-enriched) html
     }
 

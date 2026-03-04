@@ -6,6 +6,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/server';
 
 export async function GET(request: NextRequest) {
@@ -55,7 +56,7 @@ export async function GET(request: NextRequest) {
       needsAttention: lowPerformers?.length || 0,
     };
 
-    console.log('[CRON] Analytics sync:', analytics);
+    logger.info('[CRON] Analytics sync:', analytics);
 
     return NextResponse.json({
       success: true,
@@ -63,7 +64,7 @@ export async function GET(request: NextRequest) {
       analytics,
     });
   } catch (error) {
-    console.error('[CRON] Analytics sync error:', error);
+    logger.error('[CRON] Analytics sync error:', error);
     return NextResponse.json(
       { error: 'Analytics sync failed' },
       { status: 500 }

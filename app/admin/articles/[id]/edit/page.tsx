@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from 'react';
+import { logger } from '@/lib/logger';
 import { useRouter, useParams } from 'next/navigation';
 import AdminLayout from '@/components/admin/AdminLayout';
 import ArticleInspector from '@/components/admin/ArticleInspector';
@@ -148,7 +149,7 @@ export default function EditArticlePage() {
         },
         onSaveError: (error) => {
             // Log but don't show toast for auto-save errors
-            console.error('Auto-save failed:', error);
+            logger.error('Auto-save failed:', error);
         },
     });
 
@@ -237,7 +238,7 @@ export default function EditArticlePage() {
                     }),
                 });
             } catch (revalidateError) {
-                console.error('Revalidation failed:', revalidateError);
+                logger.error('Revalidation failed:', revalidateError);
             }
             
             setLastSaved(new Date());
@@ -383,7 +384,7 @@ export default function EditArticlePage() {
         const errors = validateForm(validationValues, articleValidationRules);
         if (Object.keys(errors).length > 0) {
             setValidationErrors(errors);
-            console.error('Validation errors:', errors); // Debugging
+            logger.error('Validation errors:', errors); // Debugging
             toast.error('Please fix the form errors before saving');
             return;
         }
@@ -413,7 +414,7 @@ export default function EditArticlePage() {
         const errors = validateForm(validationValues, articleValidationRules);
         if (Object.keys(errors).length > 0) {
             setValidationErrors(errors);
-            console.error('Validation errors:', errors);
+            logger.error('Validation errors:', errors);
             toast.error('Please fix the form errors before publishing');
             return;
         }

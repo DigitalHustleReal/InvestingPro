@@ -179,6 +179,7 @@ export default function CreditCardRewardsCalculator() {
                     max="50000"
                     step="500"
                     className="w-full mt-2 h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary-600"
+                    aria-label={`Monthly ${cat.label} spending`}
                   />
                 </div>
               ))}

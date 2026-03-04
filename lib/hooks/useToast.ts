@@ -1,5 +1,6 @@
 
 import * as React from "react"
+import { logger } from '@/lib/logger';
 
 export type Toast = {
   id: string
@@ -15,7 +16,7 @@ export interface ToastActionElement {
 export const useToast = () => {
   return {
     toast: (props: Omit<Toast, "id">) => {
-      console.log("Toast triggered", props)
+      logger.info("Toast triggered", props)
       return { id: "1", dismiss: () => {} }
     },
     dismiss: (toastId?: string) => {},

@@ -11,6 +11,7 @@
  */
 
 import Stripe from 'stripe';
+import { logger } from '@/lib/logger';
 
 const stripe = process.env.STRIPE_SECRET_KEY 
   ? new Stripe(process.env.STRIPE_SECRET_KEY)
@@ -65,7 +66,7 @@ export const SUBSCRIPTION_PLANS = {
  */
 export async function createCustomer(email: string, name?: string, userId?: string) {
   if (!stripe) {
-    console.warn('[STRIPE] Not configured');
+    logger.warn('[STRIPE] Not configured');
     return null;
   }
 
@@ -79,7 +80,7 @@ export async function createCustomer(email: string, name?: string, userId?: stri
     });
     return customer;
   } catch (error) {
-    console.error('[STRIPE] Create customer error:', error);
+    logger.error('[STRIPE] Create customer error:', error);
     throw error;
   }
 }
@@ -115,7 +116,7 @@ export async function createCheckoutSession(
     });
     return session;
   } catch (error) {
-    console.error('[STRIPE] Create checkout session error:', error);
+    logger.error('[STRIPE] Create checkout session error:', error);
     throw error;
   }
 }
@@ -135,7 +136,7 @@ export async function createPortalSession(customerId: string, returnUrl: string)
     });
     return session;
   } catch (error) {
-    console.error('[STRIPE] Create portal session error:', error);
+    logger.error('[STRIPE] Create portal session error:', error);
     throw error;
   }
 }
@@ -153,7 +154,7 @@ export async function getSubscriptions(customerId: string) {
     });
     return subscriptions.data;
   } catch (error) {
-    console.error('[STRIPE] Get subscriptions error:', error);
+    logger.error('[STRIPE] Get subscriptions error:', error);
     return [];
   }
 }
@@ -172,7 +173,7 @@ export async function cancelSubscription(subscriptionId: string) {
     });
     return subscription;
   } catch (error) {
-    console.error('[STRIPE] Cancel subscription error:', error);
+    logger.error('[STRIPE] Cancel subscription error:', error);
     throw error;
   }
 }
@@ -185,7 +186,7 @@ export function verifyWebhookSignature(
   signature: string
 ): Stripe.Event | null {
   if (!stripe || !process.env.STRIPE_WEBHOOK_SECRET) {
-    console.warn('[STRIPE] Webhook secret not configured');
+    logger.warn('[STRIPE] Webhook secret not configured');
     return null;
   }
 
@@ -196,7 +197,7 @@ export function verifyWebhookSignature(
       process.env.STRIPE_WEBHOOK_SECRET
     );
   } catch (error) {
-    console.error('[STRIPE] Webhook signature verification failed:', error);
+    logger.error('[STRIPE] Webhook signature verification failed:', error);
     return null;
   }
 }

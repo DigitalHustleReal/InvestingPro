@@ -1,4 +1,5 @@
 import { revalidatePath, revalidateTag } from 'next/cache';
+import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
 
 /**
@@ -36,7 +37,7 @@ export async function POST(request: NextRequest) {
             now: Date.now(),
         });
     } catch (error) {
-        console.error('Revalidation error:', error);
+        logger.error('Revalidation error:', error);
         return NextResponse.json(
             { error: 'Failed to revalidate', details: error instanceof Error ? error.message : 'Unknown error' },
             { status: 500 }

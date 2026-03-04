@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { logger } from '@/lib/logger';
 
 /**
  * Environment Variable Validation
@@ -59,7 +60,7 @@ const _serverEnv = serverSchema.safeParse(process.env);
 if (!_serverEnv.success) {
     if (process.env.NODE_ENV === 'production') {
        // Log error but don't hard crash yet, let the specific service helper throw
-       console.error("❌ Invalid Environment Variables:", _serverEnv.error.format());
+       logger.error("❌ Invalid Environment Variables:", _serverEnv.error.format());
     }
 }
 
@@ -94,7 +95,7 @@ export function validateEnvOnStartup(): void {
     const onVercel = !!process.env.VERCEL;
     const hasAnyEnv = !!(process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.OPENAI_API_KEY);
     if (onVercel && !hasAnyEnv) {
-        console.log('✅ Env validation skipped (Vercel first deploy – add env in dashboard and redeploy)');
+        logger.info('✅ Env validation skipped (Vercel first deploy – add env in dashboard and redeploy)');
         return;
     }
 
@@ -156,23 +157,23 @@ export function validateEnvOnStartup(): void {
         const errorMsg = `\n❌ Environment Validation:\n${errors.map(e => `   - ${e}`).join('\n')}\n`;
 
         if (isProduction && strictMode) {
-            console.error(errorMsg);
+            logger.error(errorMsg);
             throw new Error(`Production startup blocked: ${errors.length} missing environment variables (REQUIRE_STRICT_ENV=1)`);
         }
         // Deploy-first: log but do not throw so build and first request succeed
-        console.warn(errorMsg);
-        console.warn('⚠️  Add these in Vercel → Settings → Environment Variables, then redeploy.\n');
+        logger.warn(errorMsg);
+        logger.warn('⚠️  Add these in Vercel → Settings → Environment Variables, then redeploy.\n');
     }
 
     if (warnings.length > 0) {
-        console.warn(`\n⚠️  Environment Warnings:\n${warnings.map(w => `   - ${w}`).join('\n')}\n`);
+        logger.warn(`\n⚠️  Environment Warnings:\n${warnings.map(w => `   - ${w}`).join('\n')}\n`);
     }
 
     const configuredProviders = aiProviders.filter(key => process.env[key]);
-    console.log('✅ Environment validated (deploy-first: missing vars only block if REQUIRE_STRICT_ENV=1)');
-    console.log(`   Database: ${process.env.NEXT_PUBLIC_SUPABASE_URL ? process.env.NEXT_PUBLIC_SUPABASE_URL.substring(0, 40) + '...' : 'Not set'}`);
-    console.log(`   AI Providers: ${configuredProviders.length > 0 ? configuredProviders.join(', ') : 'None'}`);
-    console.log(`   Mode: ${process.env.NODE_ENV || 'development'}\n`);
+    logger.info('✅ Environment validated (deploy-first: missing vars only block if REQUIRE_STRICT_ENV=1)');
+    logger.info(`   Database: ${process.env.NEXT_PUBLIC_SUPABASE_URL ? process.env.NEXT_PUBLIC_SUPABASE_URL.substring(0, 40) + '...' : 'Not set'}`);
+    logger.info(`   AI Providers: ${configuredProviders.length > 0 ? configuredProviders.join(', ') : 'None'}`);
+    logger.info(`   Mode: ${process.env.NODE_ENV || 'development'}\n`);
 }
 
 /**

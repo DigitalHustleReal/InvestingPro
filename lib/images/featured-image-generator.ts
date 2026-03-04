@@ -23,6 +23,7 @@
  */
 
 import sharp from 'sharp';
+import { logger } from '@/lib/logger';
 import axios from 'axios';
 import path from 'path';
 import fs from 'fs/promises';
@@ -105,7 +106,7 @@ async function createFeaturedImage(
 ): Promise<GeneratedImage> {
     const formatConfig = FORMATS[format];
     
-    console.log(`🎨 Creating ${formatConfig.name} (${formatConfig.width}x${formatConfig.height})`);
+    logger.info(`🎨 Creating ${formatConfig.name} (${formatConfig.width}x${formatConfig.height})`);
     
     try {
         // Resize and crop source image
@@ -161,7 +162,7 @@ async function createFeaturedImage(
                 }
             } catch (error) {
                 // Logo not available, skip
-                console.log('ℹ️ Logo not found, skipping');
+                logger.info('ℹ️ Logo not found, skipping');
             }
         }
         
@@ -268,9 +269,9 @@ export class FeaturedImageGenerator {
      * Generate featured image(s) from source
      */
     async generate(options: FeaturedImageOptions): Promise<GeneratedImage[]> {
-        console.log(`\n🖼️ Generating featured images...`);
-        console.log(`   Source: ${options.source_image_url}`);
-        console.log(`   Title: "${options.title}"`);
+        logger.info(`\n🖼️ Generating featured images...`);
+        logger.info(`   Source: ${options.source_image_url}`);
+        logger.info(`   Title: "${options.title}"`);
         
         // Download source image
         const sourceBuffer = await downloadImage(options.source_image_url);
@@ -294,9 +295,9 @@ export class FeaturedImageGenerator {
                 );
                 results.push(generated);
                 
-                console.log(`✅ Generated ${format} image`);
+                logger.info(`✅ Generated ${format} image`);
             } catch (error) {
-                console.error(`Failed to generate ${format} image:`, error);
+                logger.error(`Failed to generate ${format} image:`, error);
             }
         }
         
@@ -320,7 +321,7 @@ export class FeaturedImageGenerator {
             const filepath = path.join(outputDir, image.filename);
             await fs.writeFile(filepath, image.buffer);
             savedPaths.push(filepath);
-            console.log(`💾 Saved: ${filepath}`);
+            logger.info(`💾 Saved: ${filepath}`);
         }
         
         return savedPaths;
@@ -400,7 +401,7 @@ export async function batchGenerateFeaturedImages(
             // Rate limiting
             await new Promise(resolve => setTimeout(resolve, 1000));
         } catch (error) {
-            console.error(`Failed to generate for "${article.title}":`, error);
+            logger.error(`Failed to generate for "${article.title}":`, error);
             results[article.title] = [];
         }
     }

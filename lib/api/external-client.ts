@@ -81,7 +81,7 @@ export async function externalInfoFetch(url: string, options: RequestOptions = {
         } catch (error: unknown) {
             lastError = error;
             const errorMessage = error instanceof Error ? error.message : String(error);
-            console.warn(`Attempt ${i + 1}/${retries + 1} failed for ${url}:`, errorMessage);
+            logger.warn(`Attempt ${i + 1}/${retries + 1} failed for ${url}:`, errorMessage);
 
             // Don't retry if aborted (timeout) and it was the last try
             if (i === retries) break;
@@ -98,7 +98,7 @@ export async function externalInfoFetch(url: string, options: RequestOptions = {
     
     if (state.failureCount >= CIRCUIT_BREAKER_THRESHOLD) {
         state.status = 'OPEN';
-        console.error(`Circuit Breaker TRIPPED for ${key}`);
+        logger.error(`Circuit Breaker TRIPPED for ${key}`);
     }
 
     throw lastError;

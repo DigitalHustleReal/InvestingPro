@@ -59,7 +59,7 @@ export function StatsBar() {
           <StatItem
             icon={Shield}
             value="100%"
-            label="Unbiased Reviews"
+            label="Independent Reviews"
             iconColor="bg-secondary-600"
           />
         </div>

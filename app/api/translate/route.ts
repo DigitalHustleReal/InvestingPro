@@ -5,6 +5,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 import OpenAI from 'openai';
 
@@ -50,7 +51,7 @@ export async function POST(request: NextRequest) {
             throw new Error('Article not found');
         }
 
-        console.log(`🌐 Translating "${article.title}" to ${langName}...`);
+        logger.info(`🌐 Translating "${article.title}" to ${langName}...`);
 
         // 2. Translate Content using GPT-4
         // We do this in one pass for context, requesting JSON output
@@ -93,7 +94,7 @@ export async function POST(request: NextRequest) {
         try {
             translatedData = JSON.parse(rawContent || '{}');
         } catch (e) {
-            console.error("Translation JSON parse error", e);
+            logger.error("Translation JSON parse error", e);
             throw new Error("Failed to parse translation response");
         }
 
@@ -125,7 +126,7 @@ export async function POST(request: NextRequest) {
 
         if (saveError) throw saveError;
 
-        console.log(`✅ Translation Complete: ${newArticle.id}`);
+        logger.info(`✅ Translation Complete: ${newArticle.id}`);
 
         return NextResponse.json({
             success: true,
@@ -136,7 +137,7 @@ export async function POST(request: NextRequest) {
         });
 
     } catch (error: any) {
-        console.error('Translation error:', error);
+        logger.error('Translation error:', error);
         return NextResponse.json({ 
             error: error.message || 'Translation failed' 
         }, { status: 500 });

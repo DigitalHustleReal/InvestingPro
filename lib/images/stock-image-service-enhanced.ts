@@ -22,6 +22,7 @@
  */
 
 import { fetchJson } from '../api/external-client';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 
 // ============================================================================
@@ -113,7 +114,7 @@ async function getCachedResults(query: string): Promise<ImageResult[] | null> {
 
         if (error || !data) return null;
 
-        console.log(`✅ Image cache HIT for "${query}"`);
+        logger.info(`✅ Image cache HIT for "${query}"`);
         return data.results as ImageResult[];
     } catch (error) {
         return null;
@@ -131,9 +132,9 @@ async function cacheResults(query: string, results: ImageResult[]): Promise<void
             cached_at: new Date().toISOString()
         }, { onConflict: 'query' });
 
-        console.log(`💾 Cached image results for "${query}"`);
+        logger.info(`💾 Cached image results for "${query}"`);
     } catch (error) {
-        console.error('Failed to cache image results:', error);
+        logger.error('Failed to cache image results:', error);
     }
 }
 
@@ -186,7 +187,7 @@ function optimizeFinancialQuery(query: string, context?: string): string {
 async function searchPexels(options: SearchOptions): Promise<ImageResult[]> {
     if (!PEXELS_API_KEY) return [];
     
-    console.log(`🔍 Searching Pexels for: "${options.query}"`);
+    logger.info(`🔍 Searching Pexels for: "${options.query}"`);
     
     try {
         const params = new URLSearchParams({
@@ -220,7 +221,7 @@ async function searchPexels(options: SearchOptions): Promise<ImageResult[]> {
             relevance_score: 85 // Pexels has good relevance
         }));
     } catch (error: any) {
-        console.error('Pexels search failed:', error.message);
+        logger.error('Pexels search failed:', error.message);
         return [];
     }
 }
@@ -232,7 +233,7 @@ async function searchPexels(options: SearchOptions): Promise<ImageResult[]> {
 async function searchUnsplash(options: SearchOptions): Promise<ImageResult[]> {
     if (!UNSPLASH_ACCESS_KEY) return [];
     
-    console.log(`🔍 Searching Unsplash for: "${options.query}"`);
+    logger.info(`🔍 Searching Unsplash for: "${options.query}"`);
     
     try {
         const params = new URLSearchParams({
@@ -265,7 +266,7 @@ async function searchUnsplash(options: SearchOptions): Promise<ImageResult[]> {
             relevance_score: 90 // Unsplash has excellent relevance
         }));
     } catch (error: any) {
-        console.error('Unsplash search failed:', error.message);
+        logger.error('Unsplash search failed:', error.message);
         return [];
     }
 }
@@ -277,7 +278,7 @@ async function searchUnsplash(options: SearchOptions): Promise<ImageResult[]> {
 async function searchPixabay(options: SearchOptions): Promise<ImageResult[]> {
     if (!PIXABAY_API_KEY) return [];
     
-    console.log(`🔍 Searching Pixabay for: "${options.query}"`);
+    logger.info(`🔍 Searching Pixabay for: "${options.query}"`);
     
     try {
         const params = new URLSearchParams({
@@ -313,7 +314,7 @@ async function searchPixabay(options: SearchOptions): Promise<ImageResult[]> {
             relevance_score: 75 // Pixabay is good but sometimes less relevant
         }));
     } catch (error: any) {
-        console.error('Pixabay search failed:', error.message);
+        logger.error('Pixabay search failed:', error.message);
         return [];
     }
 }
@@ -385,7 +386,7 @@ export class StockImageService {
      * Search for images across all providers with smart ranking
      */
     async search(options: SearchOptions): Promise<ImageResult[]> {
-        console.log(`\n📸 Searching for images: "${options.query}"`);
+        logger.info(`\n📸 Searching for images: "${options.query}"`);
         
         // Optimize query for better results
         const optimizedQuery = optimizeFinancialQuery(options.query, options.context);
@@ -408,7 +409,7 @@ export class StockImageService {
         const allResults = [...pexelsResults, ...unsplashResults, ...pixabayResults];
         
         if (allResults.length === 0) {
-            console.log('⚠️ No images found from any provider');
+            logger.info('⚠️ No images found from any provider');
             return [];
         }
         
@@ -418,7 +419,7 @@ export class StockImageService {
         // Cache results
         await cacheResults(optimizedQuery, bestResults);
         
-        console.log(`✅ Found ${bestResults.length} images (${pexelsResults.length} Pexels, ${unsplashResults.length} Unsplash, ${pixabayResults.length} Pixabay)`);
+        logger.info(`✅ Found ${bestResults.length} images (${pexelsResults.length} Pexels, ${unsplashResults.length} Unsplash, ${pixabayResults.length} Pixabay)`);
         
         return bestResults;
     }

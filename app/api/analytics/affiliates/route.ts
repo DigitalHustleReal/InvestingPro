@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -133,7 +134,7 @@ export async function GET(request: NextRequest) {
       partners: Object.values(partnerStatsMap),
     });
   } catch (error: any) {
-    console.error('Affiliate analytics error:', error);
+    logger.error('Affiliate analytics error:', error);
     return NextResponse.json({ 
       error: 'Failed to fetch affiliate stats',
       details: error.message 

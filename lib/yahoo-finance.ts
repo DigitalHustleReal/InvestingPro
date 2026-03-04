@@ -4,6 +4,7 @@
  */
 
 import yahooFinance from 'yahoo-finance2';
+import { logger } from '@/lib/logger';
 
 /**
  * Get stock quote for Indian stocks
@@ -147,19 +148,19 @@ export async function getCompanyProfile(symbol: string, exchange: 'NSE' | 'BSE' 
 export async function exampleUsage() {
   // Get Reliance stock quote
   const reliance = await getIndianStockQuote('RELIANCE', 'NSE');
-  console.log('Reliance:', reliance);
+  logger.info('Reliance:', reliance);
   
   // Get historical data
   const history = await getHistoricalPrices('TCS', 'NSE', '2024-01-01', new Date(), '1d');
-  console.log('TCS History:', history.slice(0, 5));
+  logger.info('TCS History:', history.slice(0, 5));
   
   // Search for stocks
   const search = await searchStocks('Infosys');
-  console.log('Search Results:', search);
+  logger.info('Search Results:', search);
   
   // Get multiple quotes
   const quotes = await getMultipleQuotes(['RELIANCE', 'TCS', 'INFY'], 'NSE');
-  console.log('Multiple Quotes:', quotes);
+  logger.info('Multiple Quotes:', quotes);
 }
 
 export default {

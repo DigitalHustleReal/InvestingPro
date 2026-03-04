@@ -24,6 +24,7 @@
  */
 
 import OpenAI from 'openai';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 import axios from 'axios';
 import { getThemePalette } from '../theme/brand-theme';
@@ -108,7 +109,7 @@ async function getCachedGeneration(prompt: string): Promise<AIImageResult | null
 
         if (error || !data) return null;
 
-        console.log(`✅ AI image cache HIT for prompt`);
+        logger.info(`✅ AI image cache HIT for prompt`);
         return { ...data.result, cached: true };
     } catch (error) {
         return null;
@@ -126,9 +127,9 @@ async function cacheGeneration(prompt: string, result: AIImageResult): Promise<v
             cached_at: new Date().toISOString()
         }, { onConflict: 'prompt' });
 
-        console.log(`💾 Cached AI image generation`);
+        logger.info(`💾 Cached AI image generation`);
     } catch (error) {
-        console.error('Failed to cache AI generation:', error);
+        logger.error('Failed to cache AI generation:', error);
     }
 }
 
@@ -187,7 +188,7 @@ async function generateWithDALLE3(options: GenerationOptions): Promise<AIImageRe
         throw new Error('OpenAI API key not configured');
     }
     
-    console.log(`🎨 Generating image with DALL-E 3...`);
+    logger.info(`🎨 Generating image with DALL-E 3...`);
     
     const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
     
@@ -197,7 +198,7 @@ async function generateWithDALLE3(options: GenerationOptions): Promise<AIImageRe
         options.brand_guidelines
     );
     
-    console.log(`📝 Optimized prompt: "${optimizedPrompt.substring(0, 100)}..."`);
+    logger.info(`📝 Optimized prompt: "${optimizedPrompt.substring(0, 100)}..."`);
     
     try {
         const response = await openai.images.generate({
@@ -229,11 +230,11 @@ async function generateWithDALLE3(options: GenerationOptions): Promise<AIImageRe
             cached: false
         };
         
-        console.log(`✅ DALL-E 3 generated image ($${cost})`);
+        logger.info(`✅ DALL-E 3 generated image ($${cost})`);
         
         return result;
     } catch (error: any) {
-        console.error('DALL-E 3 generation failed:', error.message);
+        logger.error('DALL-E 3 generation failed:', error.message);
         throw error;
     }
 }
@@ -247,7 +248,7 @@ async function generateWithStability(options: GenerationOptions): Promise<AIImag
         throw new Error('Stability AI API key not configured');
     }
     
-    console.log(`🎨 Generating image with Stability AI...`);
+    logger.info(`🎨 Generating image with Stability AI...`);
     
     // This is a placeholder - would implement Stability AI API call
     // For now, throw error to fall back to DALL-E
@@ -263,14 +264,14 @@ export class AIImageGenerator {
      * Generate an image using AI
      */
     async generate(options: GenerationOptions): Promise<AIImageResult> {
-console.log(`\n🎨 AI Image Generation Request`);
-        console.log(`   Prompt: "${options.prompt}"`);
-        console.log(`   Style: ${options.style || 'professional'}`);
+logger.info(`\n🎨 AI Image Generation Request`);
+        logger.info(`   Prompt: "${options.prompt}"`);
+        logger.info(`   Style: ${options.style || 'professional'}`);
         
         // Check cache first
         const cached = await getCachedGeneration(options.prompt);
         if (cached) {
-            console.log(`💰 Using cached result - saved $${COSTS.dalle3_standard}`);
+            logger.info(`💰 Using cached result - saved $${COSTS.dalle3_standard}`);
             return cached;
         }
         
@@ -280,7 +281,7 @@ console.log(`\n🎨 AI Image Generation Request`);
             await cacheGeneration(options.prompt, result);
             return result;
         } catch (error: any) {
-            console.log('⚠️ DALL-E 3 failed, trying Stability AI...');
+            logger.info('⚠️ DALL-E 3 failed, trying Stability AI...');
         }
         
         // Try Stability AI (fallback)
@@ -289,7 +290,7 @@ console.log(`\n🎨 AI Image Generation Request`);
             await cacheGeneration(options.prompt, result);
             return result;
         } catch (error: any) {
-            console.error('⚠️ All AI providers failed');
+            logger.error('⚠️ All AI providers failed');
             throw new Error('AI image generation failed: ' + error.message);
         }
     }
@@ -322,7 +323,7 @@ console.log(`\n🎨 AI Image Generation Request`);
                 // Rate limiting
                 await new Promise(resolve => setTimeout(resolve, 2000));
             } catch (error) {
-                console.error(`Failed to generate variation ${i + 1}:`, error);
+                logger.error(`Failed to generate variation ${i + 1}:`, error);
             }
         }
         

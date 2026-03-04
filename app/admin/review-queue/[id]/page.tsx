@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import { logger } from '@/lib/logger';
 import { useParams, useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { createClient } from '@/lib/supabase/client';
@@ -79,7 +80,7 @@ export default function ReviewArticlePage() {
             router.push('/admin/review-queue');
 
         } catch (err: any) {
-            console.error(err);
+            logger.error(err);
             toast.error('Failed to update article: ' + err.message);
         }
     };

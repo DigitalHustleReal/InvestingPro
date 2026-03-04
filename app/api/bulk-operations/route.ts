@@ -4,6 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 import { invalidateAllArticlesCache } from '@/lib/cache/cache-invalidation';
 
@@ -28,7 +29,7 @@ export async function POST(request: NextRequest) {
             }, { status: 400 });
         }
 
-        console.log(`🔄 Bulk ${action} on ${articleIds.length} articles`);
+        logger.info(`🔄 Bulk ${action} on ${articleIds.length} articles`);
 
         let result;
 
@@ -82,7 +83,7 @@ export async function POST(request: NextRequest) {
         });
 
     } catch (error: any) {
-        console.error('Bulk operation error:', error);
+        logger.error('Bulk operation error:', error);
         return NextResponse.json({
             error: error.message || 'Bulk operation failed'
         }, { status: 500 });

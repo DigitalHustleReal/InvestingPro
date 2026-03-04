@@ -104,6 +104,7 @@ export default function InsuranceCoverageCalculator() {
                 max="500000"
                 step="5000"
                 className="w-full mt-2 h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-primary-600"
+                aria-label="Monthly income amount"
               />
             </div>
 
@@ -131,6 +132,7 @@ export default function InsuranceCoverageCalculator() {
                 max="300000"
                 step="2500"
                 className="w-full mt-2 h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-primary-600"
+                aria-label="Monthly expenses amount"
               />
             </div>
 

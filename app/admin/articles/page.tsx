@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, Suspense } from 'react';
+import { logger } from '@/lib/logger';
 import AdminLayout from '@/components/admin/AdminLayout';
 import AdminPageContainer from '@/components/admin/AdminPageContainer';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -27,7 +28,7 @@ function AdminArticlesContent() {
                 // Pass true to include all statuses AND includeDeleted=true to see trashed articles
                 return await api.entities.Article.list(undefined, 500, true);
             } catch (error: any) {
-                console.error('Failed to load articles:', error);
+                logger.error('Failed to load articles:', error);
                 toast.error('Failed to load articles');
                 return [];
             }

@@ -1,4 +1,5 @@
 import { authorAI } from './author-ai';
+import { logger } from '@/lib/logger';
 import { editorAI } from './editor-ai';
 
 /**
@@ -22,7 +23,7 @@ export class ContentPipeline {
         qualityScore: number;
         approved: boolean;
     }> {
-        console.log(`\n📝 Starting glossary generation: "${term}"`);
+        logger.info(`\n📝 Starting glossary generation: "${term}"`);
         
         const authorDrafts = [];
         const editorReviews = [];
@@ -30,12 +31,12 @@ export class ContentPipeline {
         let revisionCount = 0;
         
         // Step 1: Author creates initial draft
-        console.log('   Author: Writing initial draft...');
+        logger.info('   Author: Writing initial draft...');
         currentDraft = await authorAI.writeGlossaryTerm(term, category);
         authorDrafts.push({ version: 1, content: currentDraft });
         
         // Step 2: Editor reviews
-        console.log('   Editor: Reviewing draft...');
+        logger.info('   Editor: Reviewing draft...');
         let editorFeedback = await editorAI.reviewGlossaryTerm(currentDraft);
         editorReviews.push({ version: 1, feedback: editorFeedback });
         
@@ -46,14 +47,14 @@ export class ContentPipeline {
             (editorFeedback.criticalIssues.length > 0 || editorFeedback.majorImprovements.length > 0)
         ) {
             revisionCount++;
-            console.log(`   Author: Revising (attempt ${revisionCount})...`);
+            logger.info(`   Author: Revising (attempt ${revisionCount})...`);
             
             // Use editor's improved version as next draft
             currentDraft = editorFeedback.editedVersion;
             authorDrafts.push({ version: revisionCount + 1, content: currentDraft });
             
             // Editor re-reviews
-            console.log('   Editor: Re-reviewing...');
+            logger.info('   Editor: Re-reviewing...');
             editorFeedback = await editorAI.reviewGlossaryTerm(currentDraft);
             editorReviews.push({ version: revisionCount + 1, feedback: editorFeedback });
         }
@@ -65,7 +66,7 @@ export class ContentPipeline {
         // Calculate quality score
         const qualityScore = this.calculateQualityScore(editorFeedback);
         
-        console.log(`   ✅ Complete! Revisions: ${revisionCount}, Score: ${qualityScore}/100`);
+        logger.info(`   ✅ Complete! Revisions: ${revisionCount}, Score: ${qualityScore}/100`);
         
         return {
             finalContent,

@@ -1,4 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
+import { logger } from '@/lib/logger';
 import Groq from 'groq-sdk';
 import { Mistral } from '@mistralai/mistralai';
 import OpenAI from 'openai';
@@ -100,7 +101,7 @@ async function getArticlePrompt(
         };
     } catch (error) {
         // Fallback to old system if dynamic builder fails
-        console.warn('Dynamic prompt builder failed, falling back to legacy system:', error);
+        logger.warn('Dynamic prompt builder failed, falling back to legacy system:', error);
     }
     
     // Fallback: Try to fetch from DB
@@ -296,7 +297,7 @@ async function generateWithAI(
 
         // Final safety check
         if (!extractedContent) {
-            console.error('🔴 GEN FAILURE DEBUG: Result keys: ' + (result ? Object.keys(result).join(', ') : 'null'));
+            logger.error('🔴 GEN FAILURE DEBUG: Result keys: ' + (result ? Object.keys(result).join(', ') : 'null'));
             throw new Error("AI engine failed to produce content");
         }
         

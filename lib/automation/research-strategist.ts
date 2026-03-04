@@ -1,4 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 import slugify from 'slugify';
 
@@ -58,7 +59,7 @@ async function generateStrategy(topic: string): Promise<any[]> {
     try {
         return JSON.parse(text);
     } catch (e) {
-        console.error("Failed to parse strategy JSON", e);
+        logger.error("Failed to parse strategy JSON", e);
         return [];
     }
 }
@@ -67,7 +68,7 @@ async function generateStrategy(topic: string): Promise<any[]> {
  * Main Function: Plan and Populate Calendar
  */
 export async function planContentCalendar(topic: string, daysToSpread: number = 30) {
-    console.log(`🕵️ Strategist: Planning content for '${topic}'...`);
+    logger.info(`🕵️ Strategist: Planning content for '${topic}'...`);
     
     // 1. Get Ideas
     const ideas = await generateStrategy(topic);
@@ -76,7 +77,7 @@ export async function planContentCalendar(topic: string, daysToSpread: number = 
         throw new Error("Strategist failed to generate ideas.");
     }
     
-    console.log(`   ✅ Generated ${ideas.length} ideas.`);
+    logger.info(`   ✅ Generated ${ideas.length} ideas.`);
 
     // 2. Schedule them
     const results = [];
@@ -120,9 +121,9 @@ export async function planContentCalendar(topic: string, daysToSpread: number = 
             .single();
 
         if (error) {
-            console.error(`   ❌ Failed to schedule: ${idea.title}`, error);
+            logger.error(`   ❌ Failed to schedule: ${idea.title}`, error);
         } else {
-            console.log(`   📅 Scheduled: ${idea.title} for ${scheduleDate.toDateString()}`);
+            logger.info(`   📅 Scheduled: ${idea.title} for ${scheduleDate.toDateString()}`);
             results.push(data);
         }
     }

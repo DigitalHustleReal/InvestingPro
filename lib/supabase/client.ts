@@ -1,4 +1,5 @@
 import { createBrowserClient as supabaseCreateBrowserClient } from '@supabase/ssr'
+import { logger } from '@/lib/logger';
 
 // Singleton instance for the browser
 let browserClient: any = null;
@@ -15,11 +16,12 @@ export function createClient() {
     // If environment variables are missing, return a mock client that handles errors gracefully
     if (!supabaseUrl || !supabaseAnonKey || supabaseUrl === 'undefined' || supabaseAnonKey === 'undefined') {
         if (typeof window !== 'undefined') {
-            console.warn('Supabase credentials missing. Using mock client.');
+            logger.warn('Supabase credentials missing. Using mock client.');
         }
 
         // Return a mock client that won't crash but will return empty results
-        const mockResponse = { data: [], error: null, count: 0 };
+        const mockError = { message: 'Supabase not configured', code: 'MOCK_CLIENT' };
+        const mockResponse = { data: [], error: mockError, count: 0 };
         const mockClient = {
             from: () => ({
                 select: () => ({ 

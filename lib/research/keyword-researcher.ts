@@ -22,6 +22,7 @@
  */
 
 import axios from 'axios';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 import { serpAnalyzer } from '../research/serp-analyzer';
 
@@ -105,7 +106,7 @@ async function getCachedKeywordData(keyword: string): Promise<KeywordData | null
 
         if (error || !data || !(data as any).data) return null;
 
-        console.log(`✅ Keyword cache HIT for "${keyword}"`);
+        logger.info(`✅ Keyword cache HIT for "${keyword}"`);
         return (data as any).data as KeywordData;
     } catch (error) {
         return null;
@@ -123,9 +124,9 @@ async function cacheKeywordData(keyword: string, data: KeywordData): Promise<voi
             cached_at: new Date().toISOString()
         }, { onConflict: 'keyword' });
 
-        console.log(`💾 Cached keyword data for "${keyword}"`);
+        logger.info(`💾 Cached keyword data for "${keyword}"`);
     } catch (error) {
-        console.error('Failed to cache keyword data:', error);
+        logger.error('Failed to cache keyword data:', error);
     }
 }
 
@@ -135,7 +136,7 @@ async function cacheKeywordData(keyword: string, data: KeywordData): Promise<voi
 
 async function getGoogleSuggestions(keyword: string): Promise<string[]> {
     try {
-        console.log(`🔍 Fetching Google suggestions for "${keyword}"...`);
+        logger.info(`🔍 Fetching Google suggestions for "${keyword}"...`);
         
         const response = await axios.get('http://suggestqueries.google.com/complete/search', {
             params: {
@@ -147,10 +148,10 @@ async function getGoogleSuggestions(keyword: string): Promise<string[]> {
         });
 
         const suggestions = response.data[1] || [];
-        console.log(`✅ Found ${suggestions.length} suggestions`);
+        logger.info(`✅ Found ${suggestions.length} suggestions`);
         return suggestions.slice(0, 10);
     } catch (error) {
-        console.error('Google Suggest failed:', error);
+        logger.error('Google Suggest failed:', error);
         return [];
     }
 }
@@ -162,7 +163,7 @@ async function getGoogleSuggestions(keyword: string): Promise<string[]> {
 async function getRelatedSearches(keyword: string): Promise<string[]> {
     try {
         if (!SERPAPI_KEY) {
-            console.log('SerpApi not configured, skipping related searches');
+            logger.info('SerpApi not configured, skipping related searches');
             return [];
         }
 
@@ -179,7 +180,7 @@ async function getRelatedSearches(keyword: string): Promise<string[]> {
         const relatedSearches = response.data.related_searches || [];
         return relatedSearches.map((r: any) => r.query).slice(0, 10);
     } catch (error) {
-        console.log('Related searches unavailable');
+        logger.info('Related searches unavailable');
         return [];
     }
 }
@@ -366,7 +367,7 @@ function getContentType(intent: string, relatedCount: number): string {
 // ============================================================================
 
 export async function researchKeyword(primaryKeyword: string): Promise<KeywordResearchResult> {
-    console.log(`\n🔑 Starting keyword research for: "${primaryKeyword}"`);
+    logger.info(`\n🔑 Starting keyword research for: "${primaryKeyword}"`);
     
     // Check cache
     const cached = await getCachedKeywordData(primaryKeyword);
@@ -445,11 +446,11 @@ export async function researchKeyword(primaryKeyword: string): Promise<KeywordRe
         ...contentGaps.slice(0, 2)
     ];
     
-    console.log(`✅ Keyword research complete`);
-    console.log(`   Difficulty: ${keywordData.difficulty}/100`);
-    console.log(`   Opportunity: ${keywordData.opportunity_score}/100`);
-    console.log(`   Clusters: ${clusters.length}`);
-    console.log(`   Long-tail opportunities: ${longTail.length}`);
+    logger.info(`✅ Keyword research complete`);
+    logger.info(`   Difficulty: ${keywordData.difficulty}/100`);
+    logger.info(`   Opportunity: ${keywordData.opportunity_score}/100`);
+    logger.info(`   Clusters: ${clusters.length}`);
+    logger.info(`   Long-tail opportunities: ${longTail.length}`);
     
     return {
         primary_keyword: primaryKeyword,
@@ -478,7 +479,7 @@ export async function batchResearchKeywords(
             // Rate limiting
             await new Promise(resolve => setTimeout(resolve, 2000));
         } catch (error) {
-            console.error(`Failed to research "${keyword}":`, error);
+            logger.error(`Failed to research "${keyword}":`, error);
         }
     }
     
@@ -493,7 +494,7 @@ export async function findKeywordOpportunities(
     seedKeyword: string,
     maxDifficulty: number = 40
 ): Promise<KeywordData[]> {
-    console.log(`\n🎯 Finding low-competition opportunities for "${seedKeyword}"...`);
+    logger.info(`\n🎯 Finding low-competition opportunities for "${seedKeyword}"...`);
     
     // Get suggestions and related keywords
     const [suggestions, related] = await Promise.all([
@@ -528,7 +529,7 @@ export async function findKeywordOpportunities(
     // Sort by opportunity score
     opportunities.sort((a, b) => b.opportunity_score - a.opportunity_score);
     
-    console.log(`✅ Found ${opportunities.length} opportunities`);
+    logger.info(`✅ Found ${opportunities.length} opportunities`);
     
     return opportunities.slice(0, 20);
 }

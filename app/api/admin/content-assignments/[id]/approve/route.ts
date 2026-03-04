@@ -3,6 +3,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/server';
 
 export async function POST(
@@ -39,7 +40,7 @@ export async function POST(
 
     return NextResponse.json({ success: true, message: 'Content approved' });
   } catch (error) {
-    console.error('[API] Approve error:', error);
+    logger.error('[API] Approve error:', error);
     return NextResponse.json(
       { error: 'Failed to approve content' },
       { status: 500 }

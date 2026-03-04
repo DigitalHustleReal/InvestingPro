@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { logger } from '@/lib/logger';
 import AdminLayout from '@/components/admin/AdminLayout';
 import AdminPageContainer from '@/components/admin/AdminPageContainer';
 import { useQuery } from '@tanstack/react-query';
@@ -35,7 +36,7 @@ export default function AdminDashboardPage() {
             // Fallback: If RPC fails or returns all zeros (signaling RLS filter or sync issue), 
             // perform a direct count for integrity verification
             if (error || (data && data.total_articles === 0)) {
-                console.warn('Dashboard stats RPC returned zero or error, falling back to direct count:', error);
+                logger.warn('Dashboard stats RPC returned zero or error, falling back to direct count:', error);
                 const { count: totalArticles } = await supabase
                     .from('articles')
                     .select('*', { count: 'exact', head: true });

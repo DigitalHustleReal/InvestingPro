@@ -4,6 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { getConversionFunnel } from '@/lib/analytics/conversion-funnel';
 import { getUserSegments, getEngagementMetrics, getTrafficSources } from '@/lib/analytics/user-behavior';
 import { getRevenueMetrics } from '@/lib/analytics/revenue-tracker';
@@ -146,7 +147,7 @@ export async function GET(request: NextRequest) {
         });
 
     } catch (error: any) {
-        console.error('Error fetching growth metrics:', error);
+        logger.error('Error fetching growth metrics:', error);
         
         return NextResponse.json(
             {

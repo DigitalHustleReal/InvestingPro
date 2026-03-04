@@ -1,4 +1,5 @@
 import OpenAI from 'openai';
+import { logger } from '@/lib/logger';
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY || '',
@@ -227,7 +228,7 @@ Example: "💡 Pro Tip: Keep credit card usage below 30% of limit. If you have �
         twitter: any[];
         instagram: any[];
     }> {
-        console.log(`\n📅 Generating weekly content for ${persona.toUpperCase()}...`);
+        logger.info(`\n📅 Generating weekly content for ${persona.toUpperCase()}...`);
         
         const topics = [
             'Credit Card Rewards Optimization',
@@ -279,10 +280,10 @@ Example: "💡 Pro Tip: Keep credit card usage below 30% of limit. If you have �
             }
         }
         
-        console.log('✅ Weekly content generated!');
-        console.log(`   LinkedIn: ${linkedin.length} posts`);
-        console.log(`   Twitter: ${twitter.length} threads`);
-        console.log(`   Instagram: ${instagram.length} carousels`);
+        logger.info('✅ Weekly content generated!');
+        logger.info(`   LinkedIn: ${linkedin.length} posts`);
+        logger.info(`   Twitter: ${twitter.length} threads`);
+        logger.info(`   Instagram: ${instagram.length} carousels`);
         
         return { linkedin, twitter, instagram };
     }

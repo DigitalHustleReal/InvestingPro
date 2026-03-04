@@ -6,6 +6,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/server';
 import redisService from '@/lib/cache/redis-service';
 
@@ -35,7 +36,7 @@ export async function GET(request: NextRequest) {
     }
 
     // 3. Log cleanup summary
-    console.log('[CRON] Cleanup completed:', results);
+    logger.info('[CRON] Cleanup completed:', results);
 
     return NextResponse.json({
       success: true,
@@ -43,7 +44,7 @@ export async function GET(request: NextRequest) {
       cleanup: results,
     });
   } catch (error) {
-    console.error('[CRON] Cleanup error:', error);
+    logger.error('[CRON] Cleanup error:', error);
     return NextResponse.json(
       { error: 'Cleanup failed' },
       { status: 500 }

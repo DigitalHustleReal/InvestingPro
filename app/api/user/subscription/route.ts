@@ -5,6 +5,7 @@
  */
 
 import { NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/server';
 
 export async function GET() {
@@ -45,7 +46,7 @@ export async function GET() {
       hasStripeCustomer: !!profile.stripe_customer_id,
     });
   } catch (error) {
-    console.error('[API] Subscription check error:', error);
+    logger.error('[API] Subscription check error:', error);
     return NextResponse.json({
       plan: 'free',
       status: 'active',

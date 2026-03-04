@@ -1,5 +1,6 @@
 
 import OpenAI from "openai";
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 import slugify from 'slugify';
 
@@ -27,7 +28,7 @@ export interface ProductData {
  * Generates structured product data using AI knowledge base
  */
 export async function generateProductData(productName: string): Promise<ProductData> {
-    console.log(`🤖 Researching Product: "${productName}"...`);
+    logger.info(`🤖 Researching Product: "${productName}"...`);
 
     const prompt = `
     ROLE: You are a financial product analyst in India.

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -149,7 +150,7 @@ export async function GET(request: NextRequest) {
       brands: Object.values(brandStatsMap),
     });
   } catch (error: any) {
-    console.error('Brand analytics error:', error);
+    logger.error('Brand analytics error:', error);
     return NextResponse.json({ 
       error: 'Failed to fetch brand stats',
       details: error.message 
