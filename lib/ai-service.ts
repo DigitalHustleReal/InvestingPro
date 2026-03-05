@@ -15,7 +15,6 @@ import OpenAI from 'openai';
 import Anthropic from '@anthropic-ai/sdk';
 import { Mistral } from '@mistralai/mistralai';
 import Groq from 'groq-sdk';
-import { logger } from './logger';
 import { CircuitBreaker, retry } from './utils/retry';
 import { calculateCostFromTokens, logAICost } from './ai/cost-tracker';
 import { BudgetGovernorAgent, BudgetStatus } from './agents/budget-governor-agent';
