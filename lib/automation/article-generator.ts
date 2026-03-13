@@ -554,9 +554,21 @@ export async function generateArticleCore(
     // GOOGLE-ALIGNED QUALITY THRESHOLDS (Updated from arbitrary values)
     // ============================================================================
     const MAX_RETRIES = 3;
-    const QUALITY_THRESHOLD = 75;  // STRICTER: Raised to 75 for high-quality finance content
-    const EEAT_THRESHOLD = 50; // New: E-E-A-T must be at least 50/100
-    const PLAGIARISM_THRESHOLD = 30; // FIXED: Lowered from 50 - Google allows 15-30% for citations
+    const EEAT_THRESHOLD = 50;
+    const PLAGIARISM_THRESHOLD = 30;
+
+    // DYNAMIC QUALITY THRESHOLD: adjusts based on content type, KD, and retry attempt
+    function getDynamicQualityThreshold(topicStr: string, kd: number, attempt: number): number {
+        let base = 70;
+        const t = topicStr.toLowerCase();
+        if (/crash|correction|rally|rbi.*(cut|hike|rate)|budget|nifty|market down|rupee/i.test(t)) base = 55;
+        else if (/guide|how to|step.by.step|complete|explained/i.test(t)) base = 75;
+        else if (/\bvs\b|\bversus\b|compare|comparison/i.test(t)) base = 72;
+        else if (/\bbest\b|\btop\b|\blist\b/i.test(t)) base = 65;
+        if (kd <= 20) base = Math.min(80, base + 5);
+        else if (kd >= 60) base = Math.max(45, base - 10);
+        return Math.max(40, Math.round(base - (attempt - 1) * 8));
+    }
 
     // Retry loop for auto-correction
     for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
@@ -774,6 +786,8 @@ export async function generateArticleCore(
         logFn(`   🔍 Uniqueness: ${100 - uniquenessCheck.similarityScore}%`);
 
             // Quality gates with auto-correction logic
+            const QUALITY_THRESHOLD = getDynamicQualityThreshold(topic, difficultyScore, attempt);
+            logFn(`   \uD83C\uDFAF Dynamic Quality Threshold: ${QUALITY_THRESHOLD}/100 (attempt ${attempt}/${MAX_RETRIES})`);
             const qualityFailed = qualityScore.total_score < QUALITY_THRESHOLD;
             const eeatFailed = qualityScore.eeat_score < EEAT_THRESHOLD;
             const plagiarismFailed = uniquenessCheck.isPlagiarized && uniquenessCheck.similarityScore > PLAGIARISM_THRESHOLD;

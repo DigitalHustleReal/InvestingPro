@@ -1,0 +1,327 @@
+{
+  "search_metadata": {
+    "id": "69b33a81eb2bd110623786cf",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/pEnK1fr-RUXi-9D8DhbKkg/69b33a81eb2bd110623786cf.json",
+    "pixel_position_endpoint": "https://serpapi.com/searches/pEnK1fr-RUXi-9D8DhbKkg/69b33a81eb2bd110623786cf.json_with_pixel_position",
+    "created_at": "2026-03-12 22:13:21 UTC",
+    "processed_at": "2026-03-12 22:13:21 UTC",
+    "google_url": "https://www.google.com/search?q=site%3Ainvestingpro.in&oq=site%3Ainvestingpro.in&sourceid=chrome&ie=UTF-8",
+    "raw_html_file": "https://serpapi.com/searches/pEnK1fr-RUXi-9D8DhbKkg/69b33a81eb2bd110623786cf.html",
+    "total_time_taken": 3.47
+  },
+  "search_parameters": {
+    "engine": "google",
+    "q": "site:investingpro.in",
+    "google_domain": "google.com",
+    "device": "desktop"
+  },
+  "search_information": {
+    "query_displayed": "site:investingpro.in",
+    "total_results": 56,
+    "time_taken_displayed": 0.26,
+    "organic_results_state": "Results for exact spelling"
+  },
+  "organic_results": [
+    {
+      "position": 1,
+      "title": "InvestingPro - Smart Financial Decisions Made Simple",
+      "link": "https://www.investingpro.in/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.investingpro.in/&ved=2ahUKEwjG45H9sJuTAxXOHNAFHbo_Jb0QFnoECCEQAQ",
+      "displayed_link": "https://www.investingpro.in",
+      "favicon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsIMmcnjzn-6Zrw4XQfhd97M.png",
+      "snippet": "Compare credit cards, loans, mutual funds, and government schemes. Get AI-powered recommendations, expert reviews, and instant applications.",
+      "snippet_highlighted_words": [
+        "Compare credit cards, loans, mutual funds, and government schemes"
+      ],
+      "about_this_result": {
+        "source": {
+          "description": "Compare credit cards, loans, mutual funds, and government schemes. Get AI-powered recommendations, expert reviews, and instant applications.",
+          "source_info_link": "https://www.investingpro.in/",
+          "icon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsI6ClaWCgzcQdEhpnyH2TFRUacJyvNJbOryWhSqhiRrn.png"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search?q=About+https://www.investingpro.in/&tbm=ilp",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.investingpro.in%2F",
+      "source": "investingpro.in"
+    },
+    {
+      "position": 2,
+      "title": "Blog - InvestingPro - Smart Financial Decisions Made Simple",
+      "link": "https://www.investingpro.in/blog",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.investingpro.in/blog&ved=2ahUKEwjG45H9sJuTAxXOHNAFHbo_Jb0QFnoECB8QAQ",
+      "displayed_link": "https://www.investingpro.in › blog",
+      "favicon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsPl5fu9lT1ilWIpWmL13GvI.png",
+      "snippet": "Stay updated with the latest investment tips, financial guides, and market analysis. Expert articles on mutual funds, stocks, insurance, and more.",
+      "snippet_highlighted_words": [
+        "Stay updated with the latest investment tips, financial guides, and market analysis"
+      ],
+      "about_this_result": {
+        "source": {
+          "description": "Stay updated with the latest investment tips, financial guides, and market analysis. Expert articles on mutual funds, stocks, insurance, and more.",
+          "source_info_link": "https://www.investingpro.in/blog",
+          "icon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsH4ldGdGx-2lFJ_0Y569fOnEzHeluQGqu40Amdk2m7Ge.png"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search?q=About+https://www.investingpro.in/blog&tbm=ilp",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.investingpro.in%2Fblog",
+      "source": "investingpro.in"
+    },
+    {
+      "position": 3,
+      "title": "Disclaimer - InvestingPro",
+      "link": "https://www.investingpro.in/disclaimer",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.investingpro.in/disclaimer&ved=2ahUKEwjG45H9sJuTAxXOHNAFHbo_Jb0QFnoECCIQAQ",
+      "displayed_link": "https://www.investingpro.in › disclaimer",
+      "favicon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsMM8mTRKtI-XhjKEoKccuw8.png",
+      "date": "Dec 31, 2025",
+      "snippet": "IMPORTANT NOTICE. InvestingPro is an information and comparison platform ONLY. We do NOT provide investment advice, financial advisory ...",
+      "snippet_highlighted_words": [
+        "InvestingPro is an information and comparison platform ONLY"
+      ],
+      "about_this_result": {
+        "source": {
+          "description": "IMPORTANT NOTICE. InvestingPro is an information and comparison platform ONLY. We do NOT provide investment advice, financial advisory ...",
+          "source_info_link": "https://www.investingpro.in/disclaimer",
+          "icon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsA9O36Ts7m7moODmd2UHTIQBVTVx-7ytKdKvqzvfoGNU.png"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search?q=About+https://www.investingpro.in/disclaimer&tbm=ilp",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.investingpro.in%2Fdisclaimer",
+      "source": "investingpro.in"
+    },
+    {
+      "position": 4,
+      "title": "Our Ranking Methodology - InvestingPro",
+      "link": "https://www.investingpro.in/methodology",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.investingpro.in/methodology&ved=2ahUKEwjG45H9sJuTAxXOHNAFHbo_Jb0QFnoECB4QAQ",
+      "displayed_link": "https://www.investingpro.in › methodology",
+      "favicon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsDiw31Hvk3fSoA-Bm9bcTh4.png",
+      "snippet": "Transparent, data-driven ranking methodology for credit cards, mutual funds, and personal loans. Learn how we calculate scores and rankings.",
+      "snippet_highlighted_words": [
+        "Transparent, data-driven ranking methodology"
+      ],
+      "about_this_result": {
+        "source": {
+          "description": "Transparent, data-driven ranking methodology for credit cards, mutual funds, and personal loans. Learn how we calculate scores and rankings.",
+          "source_info_link": "https://www.investingpro.in/methodology",
+          "icon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsCZ4Xi5kK0H36stRFRMQM2AIxMg4e7k3_tKgijyPYAMf.png"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search?q=About+https://www.investingpro.in/methodology&tbm=ilp",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.investingpro.in%2Fmethodology",
+      "source": "investingpro.in"
+    },
+    {
+      "position": 5,
+      "title": "Smart Financial Decisions Made Simple - InvestingPro",
+      "link": "https://www.investingpro.in/loans",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.investingpro.in/loans&ved=2ahUKEwjG45H9sJuTAxXOHNAFHbo_Jb0QFnoECBwQAQ",
+      "displayed_link": "https://www.investingpro.in › loans",
+      "favicon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsNtWVZQrpW4X-xrgkZjjTAs.png",
+      "snippet": "Compare credit cards, loans, mutual funds, and government schemes. Get AI-powered recommendations and expert reviews to make smarter financial decisions.",
+      "snippet_highlighted_words": [
+        "Compare credit cards, loans, mutual funds, and government schemes"
+      ],
+      "about_this_result": {
+        "source": {
+          "description": "Compare credit cards, loans, mutual funds, and government schemes. Get AI-powered recommendations and expert reviews to make smarter financial decisions.",
+          "source_info_link": "https://www.investingpro.in/loans",
+          "icon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsCUydQ31hkPvCyz_KRYKr5vS1rIbu3BobUJ0xwyWBRaq.png"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search?q=About+https://www.investingpro.in/loans&tbm=ilp",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.investingpro.in%2Floans",
+      "source": "investingpro.in"
+    },
+    {
+      "position": 6,
+      "title": "Smart Financial Decisions Made Simple - InvestingPro",
+      "link": "https://www.investingpro.in/calculators",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.investingpro.in/calculators&ved=2ahUKEwjG45H9sJuTAxXOHNAFHbo_Jb0QFnoECCMQAQ",
+      "displayed_link": "https://www.investingpro.in › calculators",
+      "favicon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsLdTl_nLY0eWCCgI35qLgX4.png",
+      "date": "Feb 23, 2026",
+      "snippet": "Use our comprehensive suite of free financial calculators to plan your investments, loans, taxes, and retirement. All calculators include ...",
+      "snippet_highlighted_words": [
+        "Use our comprehensive suite of free financial calculators"
+      ],
+      "about_this_result": {
+        "source": {
+          "description": "Use our comprehensive suite of free financial calculators to plan your investments, loans, taxes, and retirement. All calculators include ...",
+          "source_info_link": "https://www.investingpro.in/calculators",
+          "icon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsI-aHZ9obXZPa_6cggLZbXtqIU2mv227b9WnqF2UZsSl.png"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search?q=About+https://www.investingpro.in/calculators&tbm=ilp",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.investingpro.in%2Fcalculators",
+      "source": "investingpro.in"
+    },
+    {
+      "position": 7,
+      "title": "Accessibility Statement - InvestingPro",
+      "link": "https://www.investingpro.in/accessibility",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.investingpro.in/accessibility&ved=2ahUKEwjG45H9sJuTAxXOHNAFHbo_Jb0QFnoECCAQAQ",
+      "displayed_link": "https://www.investingpro.in › accessibility",
+      "favicon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsPSp5ZuAXbKsb1fo7vLDRRs.png",
+      "date": "Jan 10, 2026",
+      "snippet": "InvestingPro is committed to ensuring digital accessibility for people with disabilities. We are continually improving the user experience ...",
+      "about_this_result": {
+        "source": {
+          "description": "InvestingPro is committed to ensuring digital accessibility for people with disabilities. We are continually improving the user experience ...",
+          "source_info_link": "https://www.investingpro.in/accessibility",
+          "icon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsCSiJBD71nsN3vWTUdm_4ZvgkKuvmJO7Xfga_q-z7q7U.png"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search?q=About+https://www.investingpro.in/accessibility&tbm=ilp",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.investingpro.in%2Faccessibility",
+      "source": "investingpro.in"
+    },
+    {
+      "position": 8,
+      "title": "India's Decision-Making Platform for Smart Financial Choices",
+      "link": "https://www.investingpro.in/about",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.investingpro.in/about&ved=2ahUKEwjG45H9sJuTAxXOHNAFHbo_Jb0QFnoECDgQAQ",
+      "displayed_link": "https://www.investingpro.in › about",
+      "favicon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsEgTPluDoxvUvxzUPvvkEgY.png",
+      "snippet": "Learn how InvestingPro helps millions of Indians make better financial decisions with real-time comparisons, expert insights, and instant application links ...",
+      "snippet_highlighted_words": [
+        "InvestingPro helps millions of Indians make better financial decisions"
+      ],
+      "about_this_result": {
+        "source": {
+          "description": "Learn how InvestingPro helps millions of Indians make better financial decisions with real-time comparisons, expert insights, and instant application links ...",
+          "source_info_link": "https://www.investingpro.in/about",
+          "icon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsNGIM4cY128DQTwPstO_5AIVvfHYHqMPCT7KvUXKwOqw.png"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search?q=About+https://www.investingpro.in/about&tbm=ilp",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.investingpro.in%2Fabout",
+      "source": "investingpro.in"
+    },
+    {
+      "position": 9,
+      "title": "Smart Financial Decisions Made Simple - InvestingPro",
+      "link": "https://www.investingpro.in/compare",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.investingpro.in/compare&ved=2ahUKEwjG45H9sJuTAxXOHNAFHbo_Jb0QFnoECDUQAQ",
+      "displayed_link": "https://www.investingpro.in › compare",
+      "favicon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsFh2mIp8Rh5QQBE4ySHHAnU.png",
+      "snippet": "Compare credit cards, loans, mutual funds, and government schemes. Get AI-powered recommendations and expert reviews to make smarter financial decisions.",
+      "snippet_highlighted_words": [
+        "Compare credit cards, loans, mutual funds, and government schemes"
+      ],
+      "about_this_result": {
+        "source": {
+          "description": "Compare credit cards, loans, mutual funds, and government schemes. Get AI-powered recommendations and expert reviews to make smarter financial decisions.",
+          "source_info_link": "https://www.investingpro.in/compare",
+          "icon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsKB7kP1ImURQbyNm2KtgrTUdp38vyWQMwlNyvdP6M1fU.png"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search?q=About+https://www.investingpro.in/compare&tbm=ilp",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Fwww.investingpro.in%2Fcompare",
+      "source": "investingpro.in"
+    },
+    {
+      "position": 10,
+      "title": "Calculate SIP Returns with Inflation Adjustment - InvestingPro",
+      "link": "https://investingpro.in/calculators/sip",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://investingpro.in/calculators/sip&ved=2ahUKEwjG45H9sJuTAxXOHNAFHbo_Jb0QFnoECDwQAQ",
+      "displayed_link": "https://investingpro.in › ... › Calculators › SIP Calculator",
+      "favicon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsCwy0xG9zH63PGvWHaB-_ik.png",
+      "date": "Mar 3, 2026",
+      "snippet": "Calculate returns on your SIP investments with our free SIP calculator. Includes inflation adjustment to show real returns and help you plan ...",
+      "snippet_highlighted_words": [
+        "free SIP calculator"
+      ],
+      "about_this_result": {
+        "source": {
+          "description": "Calculate returns on your SIP investments with our free SIP calculator. Includes inflation adjustment to show real returns and help you plan ...",
+          "source_info_link": "https://investingpro.in/calculators/sip",
+          "icon": "https://serpapi.com/searches/69b33a81eb2bd110623786cf/images/U1iYfrt8_JXCGX23NLqMsLpI0Gi7xv5ZZVs0qJAtqNwEFOEs94uTrp7QdAodSenC.png"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search?q=About+https://investingpro.in/calculators/sip&tbm=ilp",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&q=About+https%3A%2F%2Finvestingpro.in%2Fcalculators%2Fsip",
+      "source": "investingpro.in"
+    }
+  ],
+  "pagination": {
+    "current": 1,
+    "next": "https://www.google.com/search?q=site:investingpro.in&sca_esv=0969567df9557e92&ei=hDqzacaRD865wN4Puv-U6Qs&start=10&sa=N&sstk=Af77f_dEp4m25LWlX07ETm25MhhqkrA9V697_jkfKp2x6i_tjJv1q7AGF9zmP1KbwJ3bL3ijIuPx5vz4innqDeZQfc_MNOBEHAx7Kw&ved=2ahUKEwjG45H9sJuTAxXOHNAFHbo_Jb0Q8NMDegQIEBAK",
+    "other_pages": {
+      "2": "https://www.google.com/search?q=site:investingpro.in&sca_esv=0969567df9557e92&ei=hDqzacaRD865wN4Puv-U6Qs&start=10&sa=N&sstk=Af77f_dEp4m25LWlX07ETm25MhhqkrA9V697_jkfKp2x6i_tjJv1q7AGF9zmP1KbwJ3bL3ijIuPx5vz4innqDeZQfc_MNOBEHAx7Kw&ved=2ahUKEwjG45H9sJuTAxXOHNAFHbo_Jb0Q8tMDegQIEBAE",
+      "3": "https://www.google.com/search?q=site:investingpro.in&sca_esv=0969567df9557e92&ei=hDqzacaRD865wN4Puv-U6Qs&start=20&sa=N&sstk=Af77f_dEp4m25LWlX07ETm25MhhqkrA9V697_jkfKp2x6i_tjJv1q7AGF9zmP1KbwJ3bL3ijIuPx5vz4innqDeZQfc_MNOBEHAx7Kw&ved=2ahUKEwjG45H9sJuTAxXOHNAFHbo_Jb0Q8tMDegQIEBAG",
+      "4": "https://www.google.com/search?q=site:investingpro.in&sca_esv=0969567df9557e92&ei=hDqzacaRD865wN4Puv-U6Qs&start=30&sa=N&sstk=Af77f_dEp4m25LWlX07ETm25MhhqkrA9V697_jkfKp2x6i_tjJv1q7AGF9zmP1KbwJ3bL3ijIuPx5vz4innqDeZQfc_MNOBEHAx7Kw&ved=2ahUKEwjG45H9sJuTAxXOHNAFHbo_Jb0Q8tMDegQIEBAI"
+    }
+  },
+  "serpapi_pagination": {
+    "current": 1,
+    "next_link": "https://serpapi.com/search.json?device=desktop&engine=google&google_domain=google.com&q=site%3Ainvestingpro.in&start=10",
+    "next": "https://serpapi.com/search.json?device=desktop&engine=google&google_domain=google.com&q=site%3Ainvestingpro.in&start=10",
+    "other_pages": {
+      "2": "https://serpapi.com/search.json?device=desktop&engine=google&google_domain=google.com&q=site%3Ainvestingpro.in&start=10",
+      "3": "https://serpapi.com/search.json?device=desktop&engine=google&google_domain=google.com&q=site%3Ainvestingpro.in&start=20",
+      "4": "https://serpapi.com/search.json?device=desktop&engine=google&google_domain=google.com&q=site%3Ainvestingpro.in&start=30"
+    }
+  }
+}

@@ -358,14 +358,17 @@ export const apiClient = {
                 return await response.json();
             },
             update: async (id: string, updates: any) => {
-                const { data, error } = await supabase
-                    .from('articles')
-                    .update(updates)
-                    .eq('id', id)
-                    .select()
-                    .single();
-                if (error) throw error;
-                return data;
+                // Route through admin API to bypass RLS trigger issues
+                const response = await fetch(`/api/admin/articles/${id}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ metadata: updates }),
+                });
+                if (!response.ok) {
+                    const error = await response.json().catch(() => ({ message: 'Failed to update article' }));
+                    throw new Error(error.error?.message || error.error || error.message || 'Failed to update article');
+                }
+                return await response.json();
             },
             getById: async (id: string) => {
                 const { data, error } = await supabase
@@ -385,8 +388,11 @@ export const apiClient = {
                 if (error) throw error;
                 return data;
             },
-            delete: async (id: string) => {
-                const response = await fetch(`/api/admin/articles/${id}`, {
+            delete: async (id: string, permanent: boolean = true) => {
+                const url = permanent
+                    ? `/api/admin/articles/${id}?permanent=true`
+                    : `/api/admin/articles/${id}`;
+                const response = await fetch(url, {
                     method: 'DELETE'
                 });
                 if (!response.ok) {
@@ -580,7 +586,7 @@ export const apiClient = {
                         .order('term', { ascending: true });
                     return data || [];
                 } catch (error) {
-                    logger.error('Error fetching glossary by category:', error);
+                    logger.error('Error fetching glossary by category:', error as Error);
                     return [];
                 }
             },

@@ -89,7 +89,7 @@ interface ArticlesTableProps {
     onNewArticle?: () => void;
     onGenerate?: () => void;
     onEdit?: (id: string) => void;
-    onDelete?: (id: string) => void;
+    onDelete?: (id: string, permanent?: boolean) => void;
     onPublish?: (id: string) => void;
     onBulkPublish?: (ids: string[]) => Promise<void>;
     onBulkArchive?: (ids: string[]) => Promise<void>;
@@ -594,7 +594,7 @@ export default function ArticlesTable({
                                                             </button>
                                                             <span className="text-slate-300 dark:text-slate-700">|</span>
                                                             <button 
-                                                                onClick={() => { if(confirm('Permanently delete?')) onDelete?.(article.id) }}
+                                                                onClick={() => { if(confirm('Permanently delete? This cannot be undone.')) onDelete?.(article.id, true) }}
                                                                 className="text-rose-600 hover:text-rose-700"
                                                             >
                                                                 Delete Permanently
@@ -627,7 +627,7 @@ export default function ArticlesTable({
                                                                 <>
                                                                     <span className="text-slate-300 dark:text-slate-700">|</span>
                                                                     <button 
-                                                                        onClick={() => { if(confirm('Move to Trash?')) onDelete(article.id) }}
+                                                                        onClick={() => { if(confirm('Move to Trash?')) onDelete(article.id, false) }}
                                                                         className="text-rose-600 hover:text-rose-700"
                                                                     >
                                                                         Trash

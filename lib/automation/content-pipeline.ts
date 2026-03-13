@@ -15,6 +15,7 @@ import { TrendAgent, type TrendItem } from '@/lib/agents/trend-agent';
 import { researchKeyword, findKeywordOpportunities, type KeywordResearchResult, type KeywordData } from '@/lib/research/keyword-researcher';
 import { createClient } from '@supabase/supabase-js';
 import { logger } from '@/lib/logger';
+import { keywordBrain, type RankedKeyword } from '@/lib/seo/keyword-brain';
 
 // ============================================================================
 // TYPES
@@ -129,7 +130,7 @@ export async function runContentPipeline(
                 const logger = new PipelineLogger('content_factory');
                 // We use a simplified update here to avoid full 'start' logic
                 const supabase = getSupabase();
-                await supabase
+                await (supabase as any)
                     .from('pipeline_runs')
                     .update({
                         status: stage === 'generating' ? 'running' : stage === 'complete' ? 'completed' : stage === 'error' ? 'failed' : 'running',
@@ -184,62 +185,47 @@ export async function runContentPipeline(
         // ====================================================================
         // STAGE 2: KEYWORD RESEARCH
         // ====================================================================
-        emitStage('keyword_research', 'Performing keyword research and opportunity scoring...');
+        emitStage('keyword_research', 'Running Keyword Intelligence Brain — scoring KD, volume, and rankability...');
         
         let scoredTopics: ScoredTopic[] = [];
+        let brainResults: RankedKeyword[] = [];
 
         if (options.mode === 'keyword' && options.seedKeyword) {
-            // Keyword mode: expand from seed keyword
+            // Keyword mode: use the Brain to expand seed keyword
             try {
-                const keywordResult = await researchKeyword(options.seedKeyword);
+                emitStage('keyword_research', `🧠 Brain expanding "${options.seedKeyword}" via Google Autocomplete...`);
                 
-                // Add the primary keyword
-                scoredTopics.push({
-                    topic: keywordResult.primary_keyword,
-                    category: options.category || 'investing-basics',
-                    difficulty: keywordResult.keyword_data.difficulty,
-                    opportunity_score: keywordResult.keyword_data.opportunity_score,
-                    source: 'keyword',
-                    keyword_data: keywordResult.keyword_data
+                brainResults = await keywordBrain.expandAndSelect(options.seedKeyword, {
+                    count: options.count * 3, // Get 3x candidates then filter
+                    category: options.category,
+                    minOpportunityScore: options.minOpportunityScore || 30,
                 });
 
-                // Add recommended topics from keyword research
-                for (const topic of keywordResult.recommended_topics) {
+                for (const ranked of brainResults) {
                     scoredTopics.push({
-                        topic,
+                        topic: ranked.title, // Use the properly formatted TITLE, not the raw keyword
                         category: options.category || 'investing-basics',
-                        difficulty: 40, // Estimated
-                        opportunity_score: 65,
-                        source: 'content_gap'
-                    });
-                }
-
-                // Add long-tail opportunities
-                for (const kw of keywordResult.long_tail_opportunities.slice(0, 5)) {
-                    scoredTopics.push({
-                        topic: kw.keyword,
-                        category: options.category || 'investing-basics',
-                        difficulty: kw.difficulty,
-                        opportunity_score: kw.opportunity_score,
+                        difficulty: ranked.keywordDifficulty,
+                        opportunity_score: ranked.opportunityScore,
                         source: 'keyword',
-                        keyword_data: kw
                     });
+                    emitStage('keyword_research',
+                        `🔍 [${ranked.writeDecision.toUpperCase()}] "${ranked.keyword}" → KD:${ranked.keywordDifficulty} Vol:${ranked.searchVolume.toLocaleString()} Gap:${ranked.rankabilityGap > 0 ? '+' : ''}${ranked.rankabilityGap} — ${ranked.writeReason}`,
+                        { kd: ranked.keywordDifficulty, volume: ranked.searchVolume, gap: ranked.rankabilityGap }
+                    );
                 }
 
-                emitStage('keyword_research', `Expanded seed keyword into ${scoredTopics.length} potential topics`, {
-                    difficulty: keywordResult.keyword_data.difficulty,
-                    opportunity: keywordResult.keyword_data.opportunity_score,
-                    clusters: keywordResult.clusters.length,
-                    long_tail: keywordResult.long_tail_opportunities.length
+                emitStage('keyword_research', `🧠 Brain selected ${scoredTopics.length} keyword opportunities (from ${brainResults.length} candidates)`, {
+                    kd_range: brainResults.length > 0 ? `${Math.min(...brainResults.map(r => r.keywordDifficulty))}–${Math.max(...brainResults.map(r => r.keywordDifficulty))}` : 'N/A',
+                    avg_volume: brainResults.length > 0 ? Math.round(brainResults.reduce((s, r) => s + r.searchVolume, 0) / brainResults.length) : 0,
+                    metric_source: brainResults[0]?.metricSource || 'heuristic',
                 });
             } catch (e) {
                 const msg = e instanceof Error ? e.message : String(e);
-                errors.push(`Keyword research failed: ${msg}`);
-                emitStage('keyword_research', `⚠️ Keyword research failed: ${msg}`);
-                
-                // Fallback: use the seed keyword directly
+                errors.push(`Brain keyword research failed: ${msg}`);
+                emitStage('keyword_research', `⚠️ Brain failed: ${msg}. Falling back.`);
                 scoredTopics.push({
-                    topic: options.seedKeyword,
+                    topic: keywordBrain.formatTitle(options.seedKeyword, 'informational', options.category || 'general'),
                     category: options.category || 'investing-basics',
                     difficulty: 50,
                     opportunity_score: 50,
@@ -247,47 +233,54 @@ export async function runContentPipeline(
                 });
             }
         } else {
-            // Auto/Trending mode: research top trends
-            const topTrends = trends.slice(0, Math.min(trends.length, options.count * 2));
+            // Auto/Trending mode: score each trend topic with the Brain
+            const topTrends = trends.slice(0, Math.min(trends.length, options.count * 3));
             
+            emitStage('keyword_research', `🧠 Brain analyzing ${topTrends.length} trends for rankability...`);
+
             for (let i = 0; i < topTrends.length; i++) {
                 const trend = topTrends[i];
-                emitStage('keyword_research', `Researching keyword: "${trend.topic}" (${i + 1}/${topTrends.length})`, null, {
+                emitStage('keyword_research', `Scoring: "${trend.topic}" (${i + 1}/${topTrends.length})`, null, {
                     current: i + 1,
                     total: topTrends.length
                 });
 
                 try {
-                    // Quick difficulty estimation (don't do full research for each trend)
-                    const opportunities = await findKeywordOpportunities(
-                        trend.topic,
-                        options.maxKeywordDifficulty || 50
-                    );
-                    
-                    // Add the trend itself
-                    scoredTopics.push({
-                        topic: trend.topic,
+                    const decision = await keywordBrain.shouldWrite(trend.topic, {
                         category: trend.category,
-                        difficulty: 50,
-                        opportunity_score: trend.trendScore,
-                        source: 'trend'
                     });
 
-                    // Add keyword opportunities
-                    for (const opp of opportunities.slice(0, 3)) {
+                    if (decision.write) {
                         scoredTopics.push({
-                            topic: opp.keyword,
+                            topic: decision.title, // Formatted title from brain
                             category: trend.category,
-                            difficulty: opp.difficulty,
-                            opportunity_score: opp.opportunity_score,
-                            source: 'keyword',
-                            keyword_data: opp
+                            difficulty: 0, // Brain already approved
+                            opportunity_score: decision.score,
+                            source: 'trend'
                         });
+                        emitStage('keyword_research',
+                            `✅ WRITE: "${decision.title}" — ${decision.reason}`);
+                    } else {
+                        emitStage('keyword_research',
+                            `⏭️ SKIP: "${trend.topic}" — ${decision.reason}`);
+                        
+                        // Try alternatives if the brain found some
+                        if (decision.alternatives && decision.alternatives.length > 0) {
+                            emitStage('keyword_research',
+                                `💡 Alternative: "${decision.alternatives[0]}" suggested instead`);
+                            scoredTopics.push({
+                                topic: keywordBrain.formatTitle(decision.alternatives[0], 'informational', trend.category),
+                                category: trend.category,
+                                difficulty: 30,
+                                opportunity_score: 55,
+                                source: 'keyword'
+                            });
+                        }
                     }
                 } catch (e) {
-                    // Just use the trend topic directly
+                    // Fall back to trend topic with formatted title
                     scoredTopics.push({
-                        topic: trend.topic,
+                        topic: keywordBrain.formatTitle(trend.topic, 'informational', trend.category),
                         category: trend.category,
                         difficulty: 50,
                         opportunity_score: trend.trendScore,
@@ -295,34 +288,27 @@ export async function runContentPipeline(
                     });
                 }
 
-                // Small delay between keyword research calls
+                // Small rate-limit delay
                 if (i < topTrends.length - 1) {
-                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    await new Promise(resolve => setTimeout(resolve, 500));
                 }
             }
             
-            emitStage('keyword_research', `Researched ${topTrends.length} trends, found ${scoredTopics.length} potential topics`);
+            emitStage('keyword_research', `🧠 Brain approved ${scoredTopics.length}/${topTrends.length} topics for generation`);
         }
 
         // ====================================================================
         // STAGE 3: TOPIC SELECTION (Score, Rank, Filter)
         // ====================================================================
-        emitStage('topic_selection', 'Ranking and selecting best topics...');
+        emitStage('topic_selection', 'Finalizing topic selection from Brain-scored results...');
 
-        // Sort by opportunity score (higher = better)
-        scoredTopics.sort((a, b) => {
-            // Composite score: high opportunity + low difficulty
-            const scoreA = a.opportunity_score - (a.difficulty * 0.3);
-            const scoreB = b.opportunity_score - (b.difficulty * 0.3);
-            return scoreB - scoreA;
-        });
+        // Brain already scored and ranked these — just sort by opportunity score
+        scoredTopics.sort((a, b) => b.opportunity_score - a.opportunity_score);
 
-        // Filter by thresholds
-        const minOpportunity = options.minOpportunityScore || 40;
-        const filtered = scoredTopics.filter(t => t.opportunity_score >= minOpportunity);
-        const selectedTopics = (filtered.length > 0 ? filtered : scoredTopics).slice(0, options.count);
+        // The brain already filtered by rankability — take the best N
+        const selectedTopics = scoredTopics.slice(0, options.count);
 
-        emitStage('topic_selection', `Selected ${selectedTopics.length} topics for generation`, {
+        emitStage('topic_selection', `✅ ${selectedTopics.length} article topics selected`, {
             selected: selectedTopics.map(t => ({
                 topic: t.topic,
                 difficulty: t.difficulty,

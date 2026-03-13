@@ -1,6 +1,7 @@
 /**
  * Bulk Operations API
  * Perform operations on multiple articles at once
+ * Uses service-role client to bypass RLS triggers.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -129,15 +130,51 @@ async function bulkArchive(articleIds: string[]) {
     return { count: data?.length || 0 };
 }
 
+/**
+ * bulkDelete:
+ * - Articles already in trash (deleted_at IS NOT NULL) → hard delete permanently
+ * - Articles not yet in trash → soft delete (set deleted_at)
+ * 
+ * This correctly handles "Empty Trash" (all selected are trashed → all get hard-deleted)
+ * and "Move to Trash" from article list (none are trashed → all get soft-deleted).
+ */
 async function bulkDelete(articleIds: string[]) {
-    const { data, error } = await supabase
+    // Check which articles are already trashed
+    const { data: existing, error: fetchError } = await supabase
         .from('articles')
-        .delete()
-        .in('id', articleIds)
-        .select();
+        .select('id, deleted_at')
+        .in('id', articleIds);
 
-    if (error) throw error;
-    return { count: data?.length || 0 };
+    if (fetchError) throw fetchError;
+
+    const alreadyTrashed = (existing || []).filter((a: any) => a.deleted_at).map((a: any) => a.id);
+    const notYetTrashed = (existing || []).filter((a: any) => !a.deleted_at).map((a: any) => a.id);
+
+    let count = 0;
+
+    // Hard delete articles already in trash (Empty Trash)
+    if (alreadyTrashed.length > 0) {
+        const { data, error } = await supabase
+            .from('articles')
+            .delete()
+            .in('id', alreadyTrashed)
+            .select();
+        if (error) throw error;
+        count += data?.length || 0;
+    }
+
+    // Soft delete articles not yet trashed (Move to Trash)
+    if (notYetTrashed.length > 0) {
+        const { data, error } = await supabase
+            .from('articles')
+            .update({ deleted_at: new Date().toISOString() })
+            .in('id', notYetTrashed)
+            .select();
+        if (error) throw error;
+        count += data?.length || 0;
+    }
+
+    return { count };
 }
 
 async function bulkUpdateCategory(articleIds: string[], category: string) {

@@ -122,130 +122,53 @@ export default function LoansClient({ initialLoans }: LoansClientProps) {
 
     return (
         <>
-            <div className="bg-slate-50 dark:bg-slate-950 pt-24 pb-12">
+            <div className="bg-slate-50 dark:bg-slate-950 pt-16 pb-8">
                 <div className="container mx-auto px-4">
                     <AutoBreadcrumbs />
                     
-                    {/* Split Hero Section */}
-                    <div className="flex flex-col lg:flex-row gap-8 items-center mb-12">
-                        <div className="flex-1">
-                            <CategoryHero
-                                title="Compare Best Loans in India"
-                                subtitle="Lowest Interest Rates. Instant Approval."
-                                description="Compare 30+ lenders for Personal, Home, and Car loans. Get digital approval in 5 minutes with lowest interest rates starting from 8.50%."
-                                primaryCta={{
-                                    text: "Compare Loans",
-                                    href: "#compare"
-                                }}
-                                secondaryCta={{
-                                    text: "Calculate EMI",
-                                    href: "#emi-calculator"
-                                }}
-                                stats={[
-                                    { label: "Lenders", value: "30+" },
-                                    { label: "Starting ROI", value: "8.50%" },
-                                    { label: "Disbursal", value: "24hrs" }
-                                ]}
-                                badge="Lowest Interest Rates • Instant Approval • Digital Process"
-                                variant="primary"
-                                className="mb-0 w-full" 
-                            />
-                        </div>
-                        <div className="shrink-0 w-full lg:w-auto flex justify-center lg:block">
-                            <InlineEligibilityWidget />
-                        </div>
+                    {/* Hero Section */}
+                    <div className="mt-4 mb-8">
+                        <CategoryHero
+                            title="Compare Best Loans in India"
+                            subtitle="Lowest Interest Rates. Instant Approval."
+                            description="Compare 30+ lenders for Personal, Home, and Car loans. Get digital approval in 5 minutes with lowest interest rates starting from 8.50%."
+                            primaryCta={{
+                                text: "Compare Loans",
+                                href: "#compare"
+                            }}
+                            secondaryCta={{
+                                text: "Calculate EMI",
+                                href: "#emi-calculator"
+                            }}
+                            stats={[
+                                { label: "Lenders", value: "30+" },
+                                { label: "Starting ROI", value: "8.50%" },
+                                { label: "Disbursal", value: "24hrs" }
+                            ]}
+                            badge="Lowest Interest Rates • Instant Approval • Digital Process"
+                            variant="primary"
+                            className="w-full"
+                        />
                     </div>
 
-                    {/* Search Bar */}
-                    <div className="max-w-xl mx-auto mb-12 relative group z-20">
+                    {/* Integrated Search Bar */}
+                    <div className="max-w-3xl mx-auto relative group z-20">
                         <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
                             <Search className="h-5 w-5 text-stone-400 group-focus-within:text-primary-600 transition-colors" />
                         </div>
                         <Input
                             placeholder="Search lenders (e.g. 'HDFC', 'SBI Home Loan')..."
-                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-600 focus:border-primary-500 shadow-xl"
+                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-600 focus:border-primary-500 shadow-lg"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             aria-label="Search loans by lender name"
                         />
                     </div>
-
-                    {/* EMI Calculator Widget */}
-                    <div id="emi-calculator" className="max-w-md mx-auto mb-12">
-                        <Card className="rounded-[2.5rem] bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xl shadow-primary-500/10 overflow-hidden relative">
-                            <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-success-400 via-primary-500 to-secondary-500" />
-                            
-                            <CardContent className="p-8">
-                                <div className="flex items-center justify-between mb-8">
-                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                                        <Calculator className="w-5 h-5 text-primary-500" />
-                                        Quick EMI Estimator
-                                    </h3>
-                                    <Badge variant="outline" className="text-xs border-slate-200 dark:border-slate-700">Live Rates</Badge>
-                                </div>
-
-                                {/* Amount Slider */}
-                                <div className="mb-8">
-                                    <div className="flex justify-between mb-4">
-                                        <label htmlFor="loan-amount" className="text-sm font-medium text-slate-500 uppercase tracking-wider">Loan Amount</label>
-                                        <span className="text-lg font-bold text-slate-900 dark:text-white">{formatRupee(amount)}</span>
-                                    </div>
-                                    <input
-                                        id="loan-amount"
-                                        type="range"
-                                        min="50000"
-                                        max="5000000"
-                                        step="10000"
-                                        value={amount}
-                                        onChange={(e) => setAmount(Number(e.target.value))}
-                                        className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-success-500"
-                                        aria-label="Loan amount slider"
-                                    />
-                                </div>
-
-                                {/* Tenure Slider */}
-                                <div className="mb-8">
-                                    <div className="flex justify-between mb-4">
-                                        <label htmlFor="loan-tenure" className="text-sm font-medium text-slate-500 uppercase tracking-wider">Tenure (Years)</label>
-                                        <span className="text-lg font-bold text-slate-900 dark:text-white">{tenure} Years</span>
-                                    </div>
-                                    <input
-                                        id="loan-tenure"
-                                        type="range"
-                                        min="1"
-                                        max="30"
-                                        step="1"
-                                        value={tenure}
-                                        onChange={(e) => setTenure(Number(e.target.value))}
-                                        className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-secondary-500"
-                                        aria-label="Loan tenure slider"
-                                    />
-                                </div>
-
-                                {/* Result Box */}
-                                <div className="bg-slate-50 dark:bg-slate-800 rounded-2xl p-6 mb-6">
-                                    <div className="text-center">
-                                        <div className="text-sm text-slate-500 dark:text-slate-600 mb-1">Monthly Approx EMI</div>
-                                        <div className="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
-                                            {formatRupee(emi)}
-                                        </div>
-                                        <div className="text-xs text-primary-600 dark:text-primary-400 font-medium mt-2">
-                                            @ {rate}% Interest Rate
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <Button className="w-full h-12 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all">
-                                    Check My Eligibility
-                                </Button>
-                            </CardContent>
-                        </Card>
-                    </div>
                 </div>
             </div>
 
             {/* --- MAIN CONTENT SCRENER --- */}
-            <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20 pb-20">
+            <div id="compare" className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 mt-12 relative z-20 pb-20">
                 <div className="flex flex-col lg:flex-row gap-8 items-start">
                     
                     {/* Filter Sidebar */}
@@ -254,6 +177,39 @@ export default function LoansClient({ initialLoans }: LoansClientProps) {
                          
                          {/* Marketing Widgets in Sidebar (Desktop only - Mobile uses MobileEngagementBar) */}
                          <div className="mt-8 space-y-6">
+                            {/* Simple Sidebar EMI Calculator */}
+                            <Card className="hidden lg:block bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] overflow-hidden">
+                                <div className="h-1.5 w-full bg-gradient-to-r from-success-400 via-primary-500 to-secondary-500" />
+                                <CardContent className="p-6">
+                                    <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                                        <Calculator className="w-4 h-4 text-primary-500" />
+                                        Quick EMI
+                                    </h3>
+                                    
+                                    <div className="space-y-4 mb-6">
+                                        <div>
+                                            <div className="flex justify-between text-xs font-semibold text-slate-500 mb-2">
+                                                <span>Amount</span>
+                                                <span className="text-slate-900 dark:text-white">{formatRupee(amount)}</span>
+                                            </div>
+                                            <input type="range" min="50000" max="5000000" step="10000" value={amount} onChange={(e) => setAmount(Number(e.target.value))} className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-success-500" />
+                                        </div>
+                                        <div>
+                                            <div className="flex justify-between text-xs font-semibold text-slate-500 mb-2">
+                                                <span>Tenure</span>
+                                                <span className="text-slate-900 dark:text-white">{tenure} Yrs</span>
+                                            </div>
+                                            <input type="range" min="1" max="30" step="1" value={tenure} onChange={(e) => setTenure(Number(e.target.value))} className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-secondary-500" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-4 text-center">
+                                        <div className="text-[10px] uppercase font-bold text-slate-500 mb-1">Monthly Approx EMI</div>
+                                        <div className="text-2xl font-black text-slate-900 dark:text-white">{formatRupee(emi)}</div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+
                             {/* Documents Checklist Widget */}
                             <Card className="hidden lg:block bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem]">
                                 <CardContent className="p-6">

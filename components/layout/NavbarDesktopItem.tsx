@@ -27,20 +27,8 @@ const NavbarDesktopItem = React.memo(function NavbarDesktopItem({
     pathname, 
     onCategoryClick 
 }: NavbarDesktopItemProps) {
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [activeIntentIndex, setActiveIntentIndex] = useState(0);
     
-    // Stable handlers to prevent unnecessary child re-renders
-    const handleMouseEnter = useCallback(() => {
-        setIsDropdownOpen(true);
-    }, []);
-
-    const handleMouseLeave = useCallback(() => {
-        setTimeout(() => {
-            setIsDropdownOpen(false);
-        }, DROPDOWN_CLOSE_DELAY);
-    }, []);
-
     const handleIntentHover = useCallback((index: number) => {
         setActiveIntentIndex(index);
     }, []);
@@ -52,27 +40,19 @@ const NavbarDesktopItem = React.memo(function NavbarDesktopItem({
         <NavigationMenuItem className="navigation-menu-item">
             <NavigationMenuTrigger 
                 className={`gap-1 text-slate-700 dark:text-slate-300 hover:text-secondary-600 dark:hover:text-secondary-400 data-[state=open]:text-secondary-600 dark:data-[state=open]:text-secondary-400 font-semibold text-base tracking-tight font-sans bg-transparent hover:bg-transparent focus:bg-transparent transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2 ${
-                    (isCurrentPath || isDropdownOpen)
+                    isCurrentPath
                     ? 'text-secondary-600 dark:text-secondary-400 font-bold' 
                     : ''
                 }`}
                 onClick={() => onCategoryClick(category.slug)}
-                onMouseEnter={handleMouseEnter}
             >
                 {category.name}
             </NavigationMenuTrigger>
             
-            <NavigationMenuContent 
-                isOpen={isDropdownOpen}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-            >
+            <NavigationMenuContent>
                 <div 
                     className="w-[900px] p-6 bg-white dark:bg-slate-900 shadow-xl rounded-xl border border-slate-100 dark:border-slate-800"
-                    onMouseLeave={() => {
-                        setActiveIntentIndex(0);
-                        handleMouseLeave();
-                    }}
+                    onMouseLeave={() => setActiveIntentIndex(0)}
                 >
                     <div className="grid grid-cols-3 gap-8">
                         {/* Column 1: Intents */}

@@ -12,6 +12,7 @@
 import { BaseAgent, AgentContext, AgentResult } from './base-agent';
 import { GhostScraper, TrendSignal } from '@/lib/scraper/ghost_scraper';
 import { logger } from '@/lib/logger';
+import { detectAllEvents, eventsToTrendItems } from './market-event-watcher';
 
 export interface TrendItem {
     topic: string;
@@ -36,41 +37,68 @@ export class TrendAgent extends BaseAgent {
      */
     async detectTrends(context?: AgentContext): Promise<TrendItem[]> {
         const startTime = Date.now();
+        const allTrends: TrendItem[] = [];
         
         try {
-            logger.info('TrendAgent: Detecting trends (Google Trends priority)...');
+            logger.info('TrendAgent: Running Market Event Watcher (primary source)...');
             
-            // Use GhostScraper which already prioritizes Google Trends
-            const trendSignals = await GhostScraper.scanTrends();
+            // ── SOURCE 1: Real Market Events (PRIMARY) ──────────────────────────
+            // Checks Nifty/Sensex via Yahoo Finance, scans RSS headlines,
+            // and applies seasonal calendar — generates event-driven content angles
+            try {
+                const events = await detectAllEvents();
+                const eventTopics = eventsToTrendItems(events);
+                
+                logger.info(`TrendAgent: ${eventTopics.length} event-driven topics from MarketEventWatcher`);
+                
+                for (const item of eventTopics) {
+                    allTrends.push({
+                        topic: item.topic,
+                        category: item.category,
+                        source: 'economic-calendar',
+                        trendScore: item.urgency,
+                        relevanceScore: Math.min(100, item.urgency + 5),
+                        keywords: this.extractKeywords(item.topic),
+                        timestamp: new Date(),
+                        growthRate: item.urgency,
+                    });
+                }
+            } catch (error) {
+                logger.warn('TrendAgent: MarketEventWatcher failed', error as Error);
+            }
             
-            // Convert TrendSignal to TrendItem
-            // IMPORTANT: Filter out stock market topics - we're personal finance only
-            const trends: TrendItem[] = trendSignals
-                .filter(signal => signal.topic) // Filter out null topics
-                .filter(signal => this.isPersonalFinanceTopic(signal.topic)) // Filter stock market topics
-                .map(signal => this.convertSignalToTrendItem(signal));
+            // ── SOURCE 2: Google Trends / GhostScraper (SUPPLEMENTARY) ─────────
+            try {
+                const trendSignals = await GhostScraper.scanTrends();
+                const googleTrends: TrendItem[] = trendSignals
+                    .filter(signal => signal.topic)
+                    .filter(signal => this.isPersonalFinanceTopic(signal.topic))
+                    .map(signal => this.convertSignalToTrendItem(signal));
+                
+                logger.info(`TrendAgent: ${googleTrends.length} topics from Google Trends / RSS`);
+                allTrends.push(...googleTrends);
+            } catch (error) {
+                logger.warn('TrendAgent: GhostScraper failed', error as Error);
+            }
             
-            logger.info(`TrendAgent: Filtered to ${trends.length} personal finance topics`);
-            
-            // If no trends from external sources, use default finance topics
-            if (trends.length === 0) {
-                logger.info('TrendAgent: No external trends found, using default topics');
+            // ── FALLBACK: Static Defaults (only if BOTH sources fail) ───────────
+            if (allTrends.length === 0) {
+                logger.info('TrendAgent: All external sources failed, using static defaults');
                 return this.getDefaultTrends();
             }
             
-            // Score and sort trends
-            const scoredTrends = this.scoreTrends(trends);
+            // Score and sort (event-driven topics already have high urgency scores)
+            const scoredTrends = this.scoreTrends(allTrends);
             const sortedTrends = scoredTrends.sort((a, b) => {
-                const scoreA = (a.trendScore * 0.6) + (a.relevanceScore * 0.4);
-                const scoreB = (b.trendScore * 0.6) + (b.relevanceScore * 0.4);
+                const scoreA = (a.trendScore * 0.7) + (a.relevanceScore * 0.3);
+                const scoreB = (b.trendScore * 0.7) + (b.relevanceScore * 0.3);
                 return scoreB - scoreA;
             });
             
             const executionTime = Date.now() - startTime;
-            
             await this.logExecution(
                 'trend_detection',
-                { sources: ['google-trends', 'rss'] },
+                { sources: ['market-events', 'google-trends', 'rss'] },
                 { trends: sortedTrends.length },
                 executionTime,
                 true,
@@ -78,25 +106,14 @@ export class TrendAgent extends BaseAgent {
                 context
             );
             
-            logger.info(`TrendAgent: Detected ${sortedTrends.length} trends`);
-            
-            return sortedTrends.slice(0, 20); // Top 20 trends
+            logger.info(`TrendAgent: ${sortedTrends.length} total trends (event-driven first)`);
+            return sortedTrends.slice(0, 20);
             
         } catch (error) {
             const executionTime = Date.now() - startTime;
-            logger.warn('TrendAgent: External trends failed, using defaults', error as Error);
-            
-            await this.logExecution(
-                'trend_detection',
-                {},
-                {},
-                executionTime,
-                false,
-                error instanceof Error ? error.message : String(error),
-                context
-            );
-            
-            // Return default trends instead of empty
+            logger.warn('TrendAgent: Full detection failed, using defaults', error as Error);
+            await this.logExecution('trend_detection', {}, {}, executionTime, false,
+                error instanceof Error ? error.message : String(error), context);
             return this.getDefaultTrends();
         }
     }
