@@ -106,6 +106,10 @@
     {
       "path": "/api/cron/archive-data",
       "schedule": "30 22 * * 6"
+    },
+    {
+      "path": "/api/cron/sync-legal-products",
+      "schedule": "30 0 * * *"
     }
   ]
 }
