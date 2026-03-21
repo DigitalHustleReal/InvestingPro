@@ -8,7 +8,28 @@
  * The shortcodes expand to beautiful styled HTML components via:
  *   lib/content/shortcodes.ts → processShortcodes()
  *   app/articles/[slug]/article-content.css → visual styles
+ *
+ * Writing styles (from financialExpertPrompts.ts):
+ *   'investopedia' — authoritative, educational, regulatory depth
+ *   'nerdwallet'   — practical, comparison-focused, decision-making help
+ *   'hybrid'       — (default) combines depth + actionability
  */
+
+export type WritingStyle = 'investopedia' | 'nerdwallet' | 'hybrid'
+
+// ─── Expert Persona Headers (injected before base prompt) ────────────────────
+
+function getPersonaHeader(style: WritingStyle, topic: string): string {
+  switch (style) {
+    case 'investopedia':
+      return `You are a senior financial educator and analyst with 20+ years of experience, writing for InvestingPro.in — India's Investopedia equivalent. Your writing is authoritative, educational, and technically rigorous. You cite RBI/SEBI/AMFI regulatory sources, include relevant formulas and calculations, and maintain academic precision while remaining accessible to Indian retail investors. Every fact is verifiable. No speculation or predictions. Topic: ${topic}\n\n`
+    case 'nerdwallet':
+      return `You are a financial comparison expert and consumer advocate with 15+ years of experience, writing for InvestingPro.in — India's NerdWallet equivalent. Your writing is practical, conversational, and decision-focused. You help readers compare options side-by-side, highlight costs and fees, and identify which product suits which user scenario. Topic: ${topic}\n\n`
+    case 'hybrid':
+    default:
+      return `You are a senior financial writer for InvestingPro.in combining Investopedia's educational depth with NerdWallet's practical focus. You provide authoritative analysis AND actionable guidance — helping readers both understand concepts deeply and make better financial decisions. Topic: ${topic}\n\n`
+  }
+}
 
 // ─── Shortcode Reference (included in every prompt) ────────────────────────
 
@@ -113,10 +134,10 @@ export function buildBasePrompt(params: {
   templateType: string
   wordCount: { min: number; max: number }
   requiredSections: string[]
+  style?: WritingStyle
 }): string {
-  return `You are a senior financial writer for InvestingPro.in — India's leading personal finance comparison platform.
-
-Your content is read by ${params.targetAudience}. It must be accurate, compliant, and visually engaging.
+  const personaHeader = getPersonaHeader(params.style ?? 'hybrid', params.topic)
+  return `${personaHeader}Your content is read by ${params.targetAudience}. It must be accurate, compliant, and visually engaging.
 
 ## ARTICLE BRIEF
 Topic: ${params.topic}
@@ -170,6 +191,7 @@ export function getCreditCardPrompt(params: {
   keywords: string[]
   cardNames?: string[]
   groundingContext?: string
+  style?: WritingStyle
 }) {
   return buildBasePrompt({
     topic: params.topic,
@@ -181,6 +203,7 @@ export function getCreditCardPrompt(params: {
       : '',
     templateType: 'Credit Card Comparison Guide',
     wordCount: { min: 2000, max: 3500 },
+    style: params.style,
     requiredSections: [
       '[key-takeaways] block with 4-5 points',
       'Introduction: Why this matters for Indian cardholders (hook + problem)',
@@ -201,6 +224,7 @@ export function getMutualFundPrompt(params: {
   topic: string
   keywords: string[]
   groundingContext?: string
+  style?: WritingStyle
 }) {
   return buildBasePrompt({
     topic: params.topic,
@@ -212,6 +236,7 @@ export function getMutualFundPrompt(params: {
       : '',
     templateType: 'Mutual Fund Guide',
     wordCount: { min: 2500, max: 4000 },
+    style: params.style,
     requiredSections: [
       '[key-takeaways] block with 5-6 points',
       'Introduction: The case for mutual funds over FDs/gold',
@@ -234,6 +259,7 @@ export function getInsurancePrompt(params: {
   topic: string
   keywords: string[]
   groundingContext?: string
+  style?: WritingStyle
 }) {
   return buildBasePrompt({
     topic: params.topic,
@@ -245,6 +271,7 @@ export function getInsurancePrompt(params: {
       : '',
     templateType: 'Insurance Guide',
     wordCount: { min: 2000, max: 3500 },
+    style: params.style,
     requiredSections: [
       '[key-takeaways] block',
       'Why insurance is not optional (hook with statistics)',
@@ -265,6 +292,7 @@ export function getPersonalFinancePrompt(params: {
   topic: string
   keywords: string[]
   groundingContext?: string
+  style?: WritingStyle
 }) {
   return buildBasePrompt({
     topic: params.topic,
@@ -276,6 +304,7 @@ export function getPersonalFinancePrompt(params: {
       : '',
     templateType: 'Personal Finance Guide',
     wordCount: { min: 2000, max: 3500 },
+    style: params.style,
     requiredSections: [
       '[key-takeaways] block',
       'Why this matters now (hook with relatable Indian scenario)',
@@ -296,7 +325,7 @@ export function getPersonalFinancePrompt(params: {
 
 export function getPromptForCategory(
   category: string,
-  params: { topic: string; keywords: string[]; groundingContext?: string }
+  params: { topic: string; keywords: string[]; groundingContext?: string; style?: WritingStyle }
 ): string {
   switch (category) {
     case 'credit-cards':

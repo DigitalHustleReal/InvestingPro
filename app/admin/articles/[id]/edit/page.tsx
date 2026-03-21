@@ -488,6 +488,7 @@ export default function EditArticlePage() {
             showInspector={showInspector}
             onInspectorClose={() => setShowInspector(false)}
             inspectorContent={
+                <>
                 <ArticleInspector
                     article={{
                         ...article,
@@ -523,6 +524,7 @@ export default function EditArticlePage() {
                 <div className="mt-4 px-1">
                     <ShortcodeCheatsheet />
                 </div>
+                </>
             }
         >
             <div className="flex flex-col h-screen bg-slate-50 dark:bg-surface-darkest dark:bg-surface-darkest transition-colors duration-300">
