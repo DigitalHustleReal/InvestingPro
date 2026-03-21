@@ -1,219 +1,552 @@
-import React from 'react';
-import { productService } from '@/lib/products/product-service';
-import { getComparisonVerdict } from '@/lib/products/comparison-service';
-import { createServiceClient } from '@/lib/supabase/service';
-import SEOHead from '@/components/common/SEOHead';
-import { Badge } from '@/components/ui/badge';
-import { Star, Check, X, ShieldCheck, ArrowLeftRight, TrendingUp, AlertCircle, Sparkles } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import Link from 'next/link';
-import ReactMarkdown from 'react-markdown';
-import ComparisonPDFButton from '@/components/products/ComparisonPDFButton';
+/**
+ * Product Comparison Page — Server Component with ISR
+ *
+ * URL format: /compare/hdfc-regalia-vs-axis-magnus
+ *
+ * Features:
+ *   - Hero face-off with scores
+ *   - Full feature comparison matrix (winner per row)
+ *   - AI verdict (cached in DB or generated on-the-fly)
+ *   - "Best for" scenarios
+ *   - Related comparisons
+ *   - Programmatic SEO: 1 URL = 1 cached page
+ */
 
-export default async function VersusPage({ 
-    params 
-}: { 
-    params: Promise<{ combination: string }> 
-}) {
-    const { combination } = await params;
-    
-    // 1. Parse URL Segment (e.g. hdfc-regalia-vs-axis-magnus)
-    const parts = combination.split('-vs-');
-    if (parts.length !== 2) {
-        return (
-            <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
-                <AlertCircle className="w-12 h-12 text-slate-300 mb-4" />
-                <h1 className="text-xl font-bold mb-2">Invalid Comparison</h1>
-                <p className="text-slate-500 mb-6">Please use the format: /compare/product-a-vs-product-b</p>
-                <Link href="/products"><Button>Browse Products</Button></Link>
-            </div>
-        );
-    }
+import { Suspense } from 'react'
+import { notFound } from 'next/navigation'
+import { Metadata } from 'next'
+import Link from 'next/link'
+import Image from 'next/image'
+import { productService } from '@/lib/products/product-service'
+import { getComparisonVerdict } from '@/lib/products/comparison-service'
+import { createServiceClient } from '@/lib/supabase/service'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/Button'
+import {
+  ArrowLeftRight, ShieldCheck, Trophy, CheckCircle2, XCircle,
+  AlertCircle, Star, TrendingUp, Users, Zap, Target, ExternalLink
+} from 'lucide-react'
+import ReactMarkdown from 'react-markdown'
+import ComparisonPDFButton from '@/components/products/ComparisonPDFButton'
+import { cn } from '@/lib/utils'
 
-    // 2. Check if we have pre-generated content (Programmatic SEO)
-    const supabase = createServiceClient();
-    const { data: versusPage } = await supabase
-        .from('versus_pages')
-        .select('*')
-        .eq('slug', combination)
-        .single();
+export const revalidate = 86400 // Cache comparison pages for 24h
 
-    let verdict = '';
-    let p1: any, p2: any;
-    let isProgrammatic = false;
+export async function generateMetadata({
+  params,
+}: {
+  params: { combination: string }
+}): Promise<Metadata> {
+  const parts = params.combination.split('-vs-')
+  if (parts.length !== 2) return { title: 'Compare Products | InvestingPro' }
 
-    if (versusPage) {
-        // Use pre-generated content
-        isProgrammatic = true;
-        verdict = versusPage.verdict;
-        
-        // Fetch products
-        [p1, p2] = await Promise.all([
-            productService.getProductBySlug(versusPage.product1_id),
-            productService.getProductBySlug(versusPage.product2_id)
-        ]);
-        
-        // Update view count
-        await supabase
-            .from('versus_pages')
-            .update({ 
-                view_count: (versusPage.view_count || 0) + 1,
-                last_viewed_at: new Date().toISOString()
-            })
-            .eq('id', versusPage.id);
-    } else {
-        // Generate on-the-fly (fallback)
-        [p1, p2] = await Promise.all([
-            productService.getProductBySlug(parts[0]),
-            productService.getProductBySlug(parts[1])
-        ]);
+  const [p1, p2] = await Promise.all([
+    productService.getProductBySlug(parts[0]),
+    productService.getProductBySlug(parts[1]),
+  ])
 
-        if (!p1 || !p2) {
-            return (
-                <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
-                    <X className="w-12 h-12 text-danger-300 mb-4" />
-                    <h1 className="text-xl font-bold mb-2">Product Not Found</h1>
-                    <p className="text-slate-500 mb-6">One or both products don't exist in our database.</p>
-                    <Link href="/products"><Button>Go Back</Button></Link>
-                </div>
-            );
-        }
+  if (!p1 || !p2) return { title: 'Compare Products | InvestingPro' }
 
-        // Category safety check
-        if (p1.category !== p2.category) {
-            return (
-                <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
-                    <AlertCircle className="w-12 h-12 text-amber-500 mb-4" />
-                    <h1 className="text-xl font-bold mb-2">Incompatible Comparison</h1>
-                    <p className="text-slate-500 mb-6">
-                        Comparing a <strong>{p1.category.replace('_', ' ')}</strong> with a <strong>{p2.category.replace('_', ' ')}</strong> isn't helpful.
-                    </p>
-                    <Link href="/products"><Button variant="outline">Browse {p1.category.replace('_', ' ')}s</Button></Link>
-                </div>
-            );
-        }
-
-        // Generate AI verdict on-the-fly
-        verdict = await getComparisonVerdict(p1, p2);
-    }
-
-    return (
-        <div className="min-h-screen bg-slate-50 pt-24 pb-20">
-            <SEOHead 
-                title={versusPage?.title || `${p1.name} vs ${p2.name} Comparison (2026): Which is better?`}
-                description={versusPage?.meta_description || `Side-by-side comparison of ${p1.name} and ${p2.name}. Features, fees, rewards, and expert verdict.`}
-            />
-
-            <div className="max-w-6xl mx-auto px-4">
-                {/* Header */}
-                <div className="text-center mb-12">
-                    <div className="flex items-center justify-center gap-4 sm:gap-12 mb-8">
-                        <div className="flex flex-col items-center gap-3">
-                            <div className="w-24 h-24 bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex items-center justify-center">
-                                <img src={p1.image_url} alt={p1.name} className="max-w-full max-h-full object-contain" />
-                            </div>
-                            <span className="font-bold text-sm text-slate-700">{p1.name}</span>
-                        </div>
-                        
-                        <div className="w-12 h-12 bg-slate-200 rounded-full flex items-center justify-center shadow-inner">
-                            <ArrowLeftRight className="w-5 h-5 text-slate-500" />
-                        </div>
-
-                        <div className="flex flex-col items-center gap-3">
-                            <div className="w-24 h-24 bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex items-center justify-center">
-                                <img src={p2.image_url} alt={p2.name} className="max-w-full max-h-full object-contain" />
-                            </div>
-                            <span className="font-bold text-sm text-slate-700">{p2.name}</span>
-                        </div>
-                    </div>
-                    
-                    <h1 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4 leading-tight">
-                        {p1.name} vs {p2.name}
-                    </h1>
-                    <div className="flex items-center justify-center gap-4 mt-6 flex-wrap">
-                         <Badge className="bg-teal-50 text-teal-700 border-teal-100 px-3">
-                            Category: {p1.category.replace('_', ' ')}
-                         </Badge>
-                         {isProgrammatic && (
-                            <Badge className="bg-primary-50 text-primary-700 border-primary-100 flex items-center gap-1">
-                                <Sparkles className="w-3 h-3" />
-                                Programmatic SEO
-                            </Badge>
-                         )}
-                         <Badge variant="outline" className="text-slate-400">
-                            Updated {new Date().toLocaleDateString()}
-                         </Badge>
-                         <ComparisonPDFButton 
-                            targetId="versus-report" 
-                            productNames={[p1.name, p2.name]} 
-                         />
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8" id="versus-report">
-                    {/* Verdict Section */}
-                    <div className="lg:col-span-2 space-y-8">
-                        <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm relative overflow-hidden">
-                            <div className="absolute top-0 left-0 w-2 h-full bg-teal-500"></div>
-                            <div className="flex items-center gap-3 mb-6">
-                                <ShieldCheck className="w-8 h-8 text-teal-600 p-1 bg-teal-50 rounded-lg" />
-                                <h2 className="text-2xl font-bold text-slate-900">The InvestingPro Verdict</h2>
-                            </div>
-                            <div className="prose prose-slate prose-lg max-w-none prose-headings:text-slate-900 prose-strong:text-teal-700 leading-relaxed">
-                                <ReactMarkdown>{verdict}</ReactMarkdown>
-                            </div>
-                        </div>
-
-                        {/* Mobile Specs */}
-                        <div className="lg:hidden space-y-6">
-                            <ProductSpecs p={p1} />
-                            <ProductSpecs p={p2} />
-                        </div>
-                    </div>
-
-                    {/* Sidebar Specs (Desktop) */}
-                    <div className="hidden lg:flex flex-col gap-6 sticky top-24 h-fit">
-                        <ProductSpecs p={p1} />
-                        <ProductSpecs p={p2} />
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+  return {
+    title: `${p1.name} vs ${p2.name} (2026): Which Is Better? | InvestingPro`,
+    description: `Full side-by-side comparison of ${p1.name} and ${p2.name}. Fees, rewards, eligibility, expert verdict, and our recommendation.`,
+    alternates: { canonical: `/compare/${params.combination}` },
+  }
 }
 
-function ProductSpecs({ p }: { p: any }) {
-    return (
-        <div className="bg-white p-6 rounded-xl border border-slate-200">
-            <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-teal-600" /> {p.name}
-            </h3>
-            <div className="space-y-4">
-                <div className="flex items-center gap-2 mb-3">
-                    <div className="flex">
-                        {[...Array(5)].map((_, i) => (
-                            <Star 
-                                key={i} 
-                                className={`w-4 h-4 ${i < Math.floor(p.rating || 0) ? 'fill-amber-400 text-amber-400' : 'text-slate-200'}`}
-                            />
-                        ))}
-                    </div>
-                    <span className="text-sm font-semibold">{p.rating}/5</span>
-                </div>
-                
-                {Object.entries(p.features || {}).slice(0, 6).map(([key, val]) => (
-                    <div key={key} className="flex justify-between border-b border-slate-50 pb-2">
-                        <span className="text-sm text-slate-400 capitalize">{key.replace(/_/g, ' ')}</span>
-                        <span className="text-sm font-semibold">{val as string}</span>
-                    </div>
-                ))}
-                
-                <div className="pt-4">
-                    <Link href={p.official_link || '#'} target="_blank">
-                        <Button className="w-full bg-teal-600">Apply for {p.provider_name}</Button>
-                    </Link>
-                </div>
+export default async function ComparisonPage({
+  params,
+}: {
+  params: { combination: string }
+}) {
+  const { combination } = params
+  const parts = combination.split('-vs-')
+
+  if (parts.length !== 2) {
+    return <InvalidComparison message="Use format: /compare/product-a-vs-product-b" />
+  }
+
+  const supabase = createServiceClient()
+
+  // Check for pre-generated programmatic SEO content
+  const { data: versusPage } = await supabase
+    .from('versus_pages')
+    .select('*')
+    .eq('slug', combination)
+    .single()
+
+  let verdict = ''
+  let p1: any, p2: any
+
+  if (versusPage) {
+    ;[p1, p2] = await Promise.all([
+      productService.getProductBySlug(versusPage.product1_id),
+      productService.getProductBySlug(versusPage.product2_id),
+    ])
+    verdict = versusPage.verdict
+
+    // Update view count (fire & forget)
+    supabase
+      .from('versus_pages')
+      .update({ view_count: (versusPage.view_count || 0) + 1, last_viewed_at: new Date().toISOString() })
+      .eq('id', versusPage.id)
+      .then(() => {})
+      .catch(() => {})
+  } else {
+    ;[p1, p2] = await Promise.all([
+      productService.getProductBySlug(parts[0]),
+      productService.getProductBySlug(parts[1]),
+    ])
+
+    if (!p1 || !p2) {
+      return (
+        <InvalidComparison message="One or both products don't exist in our database." />
+      )
+    }
+
+    if (p1.category !== p2.category) {
+      return (
+        <InvalidComparison
+          message={`Comparing a ${p1.category.replace('_', ' ')} with a ${p2.category.replace('_', ' ')} isn't meaningful.`}
+        />
+      )
+    }
+
+    verdict = await getComparisonVerdict(p1, p2)
+  }
+
+  if (!p1 || !p2) notFound()
+
+  const comparisonRows = buildComparisonRows(p1, p2)
+  const winner = determineWinner(p1, p2, comparisonRows)
+  const scenarios = buildBestForScenarios(p1, p2)
+
+  return (
+    <div className="min-h-screen bg-background">
+      <div className="max-w-6xl mx-auto px-4 py-10 sm:py-16" id="versus-report">
+
+        {/* ── Hero Face-Off ─────────────────────────────────────── */}
+        <div className="text-center mb-12">
+          <div className="flex items-center justify-center gap-6 sm:gap-16 mb-8">
+            <ProductHero p={p1} isWinner={winner === 'p1'} />
+            <div className="flex flex-col items-center gap-2">
+              <div className="w-12 h-12 rounded-full bg-muted border border-border flex items-center justify-center">
+                <ArrowLeftRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+              <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">VS</span>
             </div>
+            <ProductHero p={p2} isWinner={winner === 'p2'} />
+          </div>
+
+          <h1 className="text-3xl sm:text-5xl font-black text-foreground mb-4 leading-tight">
+            {p1.name} vs {p2.name}
+          </h1>
+          <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
+            Detailed side-by-side comparison based on fees, rewards, benefits, and real user data.
+          </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Badge variant="outline" className="text-xs">
+              {p1.category?.replace('_', ' ')}
+            </Badge>
+            <Badge variant="outline" className="text-xs text-muted-foreground">
+              Updated {new Date().toLocaleDateString('en-IN', { month: 'short', year: 'numeric' })}
+            </Badge>
+            <ComparisonPDFButton targetId="versus-report" productNames={[p1.name, p2.name]} />
+          </div>
         </div>
-    );
+
+        {/* ── Quick Score Summary ────────────────────────────────── */}
+        <div className="grid grid-cols-2 gap-4 mb-12">
+          <ScoreCard p={p1} isWinner={winner === 'p1'} label="Overall Score" />
+          <ScoreCard p={p2} isWinner={winner === 'p2'} label="Overall Score" />
+        </div>
+
+        {/* ── Feature Comparison Matrix ──────────────────────────── */}
+        <div className="mb-12 rounded-2xl border border-border overflow-hidden">
+          <div className="bg-muted/40 px-6 py-4 border-b border-border flex items-center gap-2">
+            <TrendingUp className="w-5 h-5 text-primary" />
+            <h2 className="text-lg font-bold text-foreground">Feature-by-Feature Comparison</h2>
+          </div>
+
+          {/* Matrix header */}
+          <div className="grid grid-cols-[1fr_1fr_1fr] bg-muted/20 border-b border-border">
+            <div className="px-5 py-3 text-xs font-bold text-muted-foreground uppercase tracking-widest">Feature</div>
+            <div className="px-5 py-3 text-xs font-bold text-center border-l border-border">
+              <span className="text-foreground">{p1.name}</span>
+            </div>
+            <div className="px-5 py-3 text-xs font-bold text-center border-l border-border">
+              <span className="text-foreground">{p2.name}</span>
+            </div>
+          </div>
+
+          {/* Matrix rows */}
+          {comparisonRows.map((row, idx) => (
+            <ComparisonRow key={idx} row={row} idx={idx} />
+          ))}
+        </div>
+
+        {/* ── AI Verdict ─────────────────────────────────────────── */}
+        <div className="mb-12 bg-gradient-to-br from-primary/5 to-primary/0 border border-primary/20 rounded-2xl p-6 sm:p-8 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-1.5 h-full bg-primary rounded-l-2xl" />
+          <div className="flex items-center gap-3 mb-5 ml-2">
+            <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
+              <ShieldCheck className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-foreground">InvestingPro Expert Verdict</h2>
+              <p className="text-xs text-muted-foreground">Based on SEBI-compliant analysis • Affiliate disclosed</p>
+            </div>
+          </div>
+          <div className="ml-2 prose prose-slate dark:prose-invert max-w-none prose-p:text-muted-foreground prose-strong:text-primary prose-headings:text-foreground">
+            <ReactMarkdown>{verdict}</ReactMarkdown>
+          </div>
+        </div>
+
+        {/* ── Best For Scenarios ──────────────────────────────────── */}
+        {scenarios.length > 0 && (
+          <div className="mb-12">
+            <div className="flex items-center gap-2 mb-6">
+              <Target className="w-5 h-5 text-primary" />
+              <h2 className="text-xl font-bold text-foreground">Who Should Get Which?</h2>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {scenarios.map((s, i) => (
+                <BestForCard key={i} scenario={s} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── Apply CTAs ─────────────────────────────────────────── */}
+        <div className="grid sm:grid-cols-2 gap-4 mb-12">
+          <ApplyCTA p={p1} />
+          <ApplyCTA p={p2} />
+        </div>
+
+        {/* ── Related comparisons ────────────────────────────────── */}
+        <Suspense fallback={null}>
+          <RelatedComparisons category={p1.category} excludeSlug={combination} supabase={supabase} />
+        </Suspense>
+
+        {/* SEBI disclaimer */}
+        <div className="mt-10 p-4 bg-muted/30 rounded-xl border border-border">
+          <p className="text-xs text-muted-foreground text-center leading-relaxed">
+            <strong>Disclaimer:</strong> This comparison is for informational purposes only.
+            Product details may change; verify on official bank websites before applying.
+            InvestingPro may earn affiliate commission on approved applications.
+            Not SEBI registered investment advice.
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ─── Sub-components ───────────────────────────────────────────────────────────
+
+function ProductHero({ p, isWinner }: { p: any; isWinner: boolean }) {
+  return (
+    <div className="flex flex-col items-center gap-3">
+      {isWinner && (
+        <div className="flex items-center gap-1 text-amber-600 text-xs font-bold">
+          <Trophy className="w-3.5 h-3.5 fill-amber-500" />
+          WINNER
+        </div>
+      )}
+      <div
+        className={cn(
+          'w-20 h-20 sm:w-28 sm:h-28 rounded-2xl bg-background border-2 p-3 shadow-sm flex items-center justify-center transition-all',
+          isWinner ? 'border-primary shadow-primary/20 shadow-lg' : 'border-border'
+        )}
+      >
+        {p.image_url ? (
+          <img src={p.image_url} alt={p.name} className="max-w-full max-h-full object-contain" />
+        ) : (
+          <div className="text-2xl font-black text-muted-foreground">{p.name[0]}</div>
+        )}
+      </div>
+      <div className="text-center">
+        <div className="font-bold text-sm text-foreground">{p.name}</div>
+        <div className="text-xs text-muted-foreground">{p.provider_name}</div>
+      </div>
+    </div>
+  )
+}
+
+function ScoreCard({ p, isWinner, label }: { p: any; isWinner: boolean; label: string }) {
+  const score = Math.round((p.rating || 3.5) * 20) // convert 5-star to 100
+  return (
+    <div
+      className={cn(
+        'rounded-2xl border p-5 text-center transition-all',
+        isWinner
+          ? 'border-primary bg-primary/5 shadow-sm shadow-primary/10'
+          : 'border-border bg-muted/20'
+      )}
+    >
+      {isWinner && (
+        <div className="text-xs font-bold text-primary mb-1 flex items-center justify-center gap-1">
+          <Trophy className="w-3 h-3 fill-primary" /> Recommended
+        </div>
+      )}
+      <div className="text-4xl font-black text-foreground mb-1">{score}</div>
+      <div className="text-xs text-muted-foreground mb-2">{label} / 100</div>
+      <div className="w-full bg-muted rounded-full h-1.5">
+        <div
+          className={cn('h-1.5 rounded-full transition-all', isWinner ? 'bg-primary' : 'bg-muted-foreground/40')}
+          style={{ width: `${score}%` }}
+        />
+      </div>
+      <div className="mt-3 flex items-center justify-center gap-0.5">
+        {[...Array(5)].map((_, i) => (
+          <Star
+            key={i}
+            className={cn(
+              'w-3.5 h-3.5',
+              i < Math.floor(p.rating || 0) ? 'fill-amber-400 text-amber-400' : 'text-muted-foreground/30'
+            )}
+          />
+        ))}
+        <span className="ml-1 text-xs font-semibold text-muted-foreground">{p.rating}/5</span>
+      </div>
+    </div>
+  )
+}
+
+interface CompRow {
+  feature: string
+  v1: string
+  v2: string
+  winner: 'p1' | 'p2' | 'tie' | null
+  category?: string
+}
+
+function ComparisonRow({ row, idx }: { row: CompRow; idx: number }) {
+  return (
+    <div
+      className={cn(
+        'grid grid-cols-[1fr_1fr_1fr] border-b border-border last:border-0',
+        idx % 2 === 0 ? 'bg-background' : 'bg-muted/20'
+      )}
+    >
+      <div className="px-5 py-4 text-sm font-medium text-muted-foreground flex items-center gap-2">
+        {row.category && (
+          <span className="text-[10px] font-bold uppercase text-muted-foreground/50 tracking-widest w-full">
+            {row.category}
+          </span>
+        )}
+        {!row.category && row.feature}
+      </div>
+      <CellValue value={row.v1} isWinner={row.winner === 'p1'} />
+      <CellValue value={row.v2} isWinner={row.winner === 'p2'} />
+    </div>
+  )
+}
+
+function CellValue({ value, isWinner }: { value: string; isWinner: boolean }) {
+  return (
+    <div
+      className={cn(
+        'px-5 py-4 text-sm text-center border-l border-border flex items-center justify-center gap-2',
+        isWinner ? 'text-green-700 dark:text-green-400 font-semibold bg-green-50/50 dark:bg-green-900/10' : 'text-foreground'
+      )}
+    >
+      {isWinner && <CheckCircle2 className="w-3.5 h-3.5 text-green-600 flex-shrink-0" />}
+      {value || '—'}
+    </div>
+  )
+}
+
+function BestForCard({ scenario }: { scenario: { product: string; reason: string; icon: string } }) {
+  return (
+    <div className="flex gap-4 p-5 rounded-xl border border-border bg-muted/20 hover:border-primary/30 transition-colors">
+      <div className="text-2xl flex-shrink-0">{scenario.icon}</div>
+      <div>
+        <div className="font-bold text-sm text-foreground mb-1">Choose {scenario.product}</div>
+        <div className="text-sm text-muted-foreground leading-relaxed">{scenario.reason}</div>
+      </div>
+    </div>
+  )
+}
+
+function ApplyCTA({ p }: { p: any }) {
+  return (
+    <div className="rounded-2xl border border-border p-5 flex flex-col gap-4">
+      <div className="flex items-center gap-3">
+        {p.image_url && (
+          <div className="w-10 h-10 rounded-lg bg-background border border-border p-1.5 flex items-center justify-center">
+            <img src={p.image_url} alt={p.name} className="max-w-full max-h-full object-contain" />
+          </div>
+        )}
+        <div>
+          <div className="font-bold text-sm text-foreground">{p.name}</div>
+          <div className="text-xs text-muted-foreground">{p.provider_name}</div>
+        </div>
+      </div>
+      <Link href={p.affiliate_link || p.official_link || '#'} target="_blank" rel="noopener noreferrer nofollow">
+        <Button className="w-full gap-2" size="sm">
+          Apply for {p.name}
+          <ExternalLink className="w-3.5 h-3.5" />
+        </Button>
+      </Link>
+      <p className="text-[10px] text-muted-foreground text-center">
+        Opens official {p.provider_name} website
+      </p>
+    </div>
+  )
+}
+
+async function RelatedComparisons({
+  category,
+  excludeSlug,
+  supabase,
+}: {
+  category: string
+  excludeSlug: string
+  supabase: any
+}) {
+  const { data: related } = await supabase
+    .from('versus_pages')
+    .select('slug, product1_name, product2_name')
+    .eq('category', category)
+    .neq('slug', excludeSlug)
+    .order('view_count', { ascending: false })
+    .limit(6)
+
+  if (!related?.length) return null
+
+  return (
+    <div className="mb-8">
+      <div className="flex items-center gap-2 mb-4">
+        <Users className="w-5 h-5 text-primary" />
+        <h3 className="text-lg font-bold text-foreground">Related Comparisons</h3>
+      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        {related.map((r: any) => (
+          <Link key={r.slug} href={`/compare/${r.slug}`}>
+            <div className="rounded-xl border border-border p-3 hover:border-primary/40 hover:bg-muted/30 transition-all text-sm text-center">
+              <span className="font-medium text-foreground text-xs">{r.product1_name}</span>
+              <span className="text-muted-foreground mx-1 text-xs">vs</span>
+              <span className="font-medium text-foreground text-xs">{r.product2_name}</span>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function InvalidComparison({ message }: { message: string }) {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center gap-4">
+      <AlertCircle className="w-12 h-12 text-muted-foreground/40" />
+      <h1 className="text-xl font-bold text-foreground">Invalid Comparison</h1>
+      <p className="text-muted-foreground max-w-md">{message}</p>
+      <Link href="/products">
+        <Button>Browse Products</Button>
+      </Link>
+    </div>
+  )
+}
+
+// ─── Comparison Logic ─────────────────────────────────────────────────────────
+
+function buildComparisonRows(p1: any, p2: any): CompRow[] {
+  const f1 = p1.features || {}
+  const f2 = p2.features || {}
+  const rows: CompRow[] = []
+
+  const row = (feature: string, v1: string, v2: string, lowerIsBetter = false): CompRow => {
+    const n1 = parseFloat(v1.replace(/[^0-9.]/g, ''))
+    const n2 = parseFloat(v2.replace(/[^0-9.]/g, ''))
+    let winner: CompRow['winner'] = null
+    if (!isNaN(n1) && !isNaN(n2) && n1 !== n2) {
+      winner = lowerIsBetter ? (n1 < n2 ? 'p1' : 'p2') : (n1 > n2 ? 'p1' : 'p2')
+    }
+    return { feature, v1: v1 || '—', v2: v2 || '—', winner }
+  }
+
+  // Universal rows
+  if (f1.annual_fee || f2.annual_fee)
+    rows.push(row('Annual Fee', f1.annual_fee || '—', f2.annual_fee || '—', true))
+  if (f1.joining_fee || f2.joining_fee)
+    rows.push(row('Joining Fee', f1.joining_fee || '—', f2.joining_fee || '—', true))
+  if (f1.interest_rate || f2.interest_rate)
+    rows.push(row('Interest Rate', f1.interest_rate || '—', f2.interest_rate || '—', true))
+  if (f1.reward_rate || f2.reward_rate)
+    rows.push(row('Reward Rate', f1.reward_rate || '—', f2.reward_rate || '—', false))
+  if (f1.welcome_bonus || f2.welcome_bonus)
+    rows.push(row('Welcome Bonus', f1.welcome_bonus || 'None', f2.welcome_bonus || 'None', false))
+  if (f1.lounge_access || f2.lounge_access)
+    rows.push(row('Lounge Access', f1.lounge_access || 'None', f2.lounge_access || 'None', false))
+  if (f1.min_income || f2.min_income)
+    rows.push(row('Min. Income', f1.min_income || '—', f2.min_income || '—', true))
+  if (f1.min_credit_score || f2.min_credit_score)
+    rows.push(row('Min. Credit Score', String(f1.min_credit_score || '—'), String(f2.min_credit_score || '—'), true))
+
+  // Mutual fund specific
+  if (f1.nav || f2.nav)
+    rows.push(row('NAV', `₹${f1.nav || '—'}`, `₹${f2.nav || '—'}`, false))
+  if (f1.expense_ratio || f2.expense_ratio)
+    rows.push(row('Expense Ratio', f1.expense_ratio || '—', f2.expense_ratio || '—', true))
+  if (f1.returns_1y || f2.returns_1y)
+    rows.push(row('1Y Returns', f1.returns_1y || '—', f2.returns_1y || '—', false))
+  if (f1.returns_3y || f2.returns_3y)
+    rows.push(row('3Y CAGR', f1.returns_3y || '—', f2.returns_3y || '—', false))
+
+  // Fallback: show first 5 features from JSONB
+  if (rows.length === 0) {
+    const allKeys = [...new Set([...Object.keys(f1), ...Object.keys(f2)])].slice(0, 6)
+    for (const key of allKeys) {
+      rows.push(row(key.replace(/_/g, ' '), String(f1[key] ?? '—'), String(f2[key] ?? '—')))
+    }
+  }
+
+  return rows
+}
+
+function determineWinner(p1: any, p2: any, rows: CompRow[]): 'p1' | 'p2' | 'tie' {
+  let p1wins = 0, p2wins = 0
+  for (const r of rows) {
+    if (r.winner === 'p1') p1wins++
+    if (r.winner === 'p2') p2wins++
+  }
+  // Weight by overall rating too
+  if ((p1.rating || 0) > (p2.rating || 0)) p1wins++
+  else if ((p2.rating || 0) > (p1.rating || 0)) p2wins++
+
+  if (p1wins > p2wins) return 'p1'
+  if (p2wins > p1wins) return 'p2'
+  return 'tie'
+}
+
+function buildBestForScenarios(
+  p1: any,
+  p2: any
+): { product: string; reason: string; icon: string }[] {
+  const f1 = p1.features || {}
+  const f2 = p2.features || {}
+  const scenarios = []
+
+  // Generic heuristics — expand per category
+  const fee1 = parseFloat(String(f1.annual_fee || '9999').replace(/[^0-9.]/g, ''))
+  const fee2 = parseFloat(String(f2.annual_fee || '9999').replace(/[^0-9.]/g, ''))
+
+  if (!isNaN(fee1) && !isNaN(fee2)) {
+    if (fee1 < fee2) {
+      scenarios.push({ product: p1.name, reason: 'Lower annual fees — ideal for budget-conscious users who want value without high costs.', icon: '💰' })
+      scenarios.push({ product: p2.name, reason: 'Higher fee but more premium perks like lounge access and higher reward rates — best for frequent spenders.', icon: '✈️' })
+    } else if (fee2 < fee1) {
+      scenarios.push({ product: p2.name, reason: 'Lower annual fees — ideal for budget-conscious users who want value without high costs.', icon: '💰' })
+      scenarios.push({ product: p1.name, reason: 'Higher fee but more premium perks — best for power users who maximize rewards.', icon: '✈️' })
+    }
+  }
+
+  if (scenarios.length === 0) {
+    scenarios.push({ product: p1.name, reason: `Best if ${p1.provider_name} is your primary bank.`, icon: '🏦' })
+    scenarios.push({ product: p2.name, reason: `Best if ${p2.provider_name} is your primary bank.`, icon: '🏦' })
+  }
+
+  return scenarios.slice(0, 4)
 }

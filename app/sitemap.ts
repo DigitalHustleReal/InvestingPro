@@ -74,11 +74,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             }
         }
 
-        // Calculator pages
+        // Calculator pages — all 23 tools
         const calculators = [
             'sip', 'emi', 'fd', 'tax', 'retirement', 'ppf', 'nps',
-            'lumpsum', 'swp', 'goal-planning', 'inflation-adjusted-returns', 'gst'
+            'lumpsum', 'swp', 'goal-planning', 'inflation-adjusted-returns', 'gst',
+            'compound-interest', 'simple-interest', 'rd', 'mis', 'kvp', 'nsc',
+            'scss', 'ssy', 'portfolio-rebalancing', 'home-loan-vs-sip',
+            'financial-health-score',
         ];
+        // Calculators hub page
+        sitemap.push({
+            url: `${baseUrl}/calculators`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        });
         for (const calc of calculators) {
             sitemap.push({
                 url: `${baseUrl}/calculators/${calc}`,
@@ -194,11 +204,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         const staticPages = [
             { path: '/blog', priority: 0.8, frequency: 'weekly' as const },
             { path: '/compare', priority: 0.8, frequency: 'weekly' as const },
+            { path: '/pricing', priority: 0.8, frequency: 'monthly' as const },
+            { path: '/guides', priority: 0.8, frequency: 'weekly' as const },
+            { path: '/glossary', priority: 0.8, frequency: 'weekly' as const },
+            { path: '/about', priority: 0.7, frequency: 'monthly' as const },
             { path: '/methodology', priority: 0.7, frequency: 'monthly' as const },
             { path: '/editorial-policy', priority: 0.7, frequency: 'monthly' as const },
+            { path: '/how-we-make-money', priority: 0.7, frequency: 'monthly' as const },
+            { path: '/contact-us', priority: 0.6, frequency: 'monthly' as const },
             { path: '/disclaimer', priority: 0.6, frequency: 'monthly' as const },
-            { path: '/privacy', priority: 0.6, frequency: 'monthly' as const },
-            { path: '/terms', priority: 0.6, frequency: 'monthly' as const },
+            { path: '/privacy-policy', priority: 0.6, frequency: 'monthly' as const },
+            { path: '/terms-of-service', priority: 0.6, frequency: 'monthly' as const },
+            { path: '/affiliate-disclosure', priority: 0.6, frequency: 'monthly' as const },
         ];
 
         for (const page of staticPages) {
