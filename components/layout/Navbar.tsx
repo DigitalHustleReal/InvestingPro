@@ -59,7 +59,7 @@ function SearchButton({ variant = 'desktop' }: { variant?: 'desktop' | 'mobile' 
             aria-label="Search products and guides"
         >
             <Search className="w-4 h-4 text-primary-700 dark:text-primary-500 flex-shrink-0" />
-            <span className="text-sm text-slate-600 dark:text-slate-600 flex-1 text-left truncate">Search...</span>
+            <span className="text-sm text-slate-600 dark:text-slate-400 flex-1 text-left truncate">Search...</span>
             <kbd className="hidden xl:inline-flex px-1.5 py-0.5 text-[10px] bg-white dark:bg-slate-700 rounded border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-600 font-mono">⌘K</kbd>
         </button>
     );

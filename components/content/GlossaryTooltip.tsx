@@ -33,7 +33,7 @@ export function GlossaryTooltip({ term, definition, category, children }: Glossa
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500">{category || 'Definition'}</span>
           </div>
           <p className="font-bold text-slate-900 dark:text-white mb-1">{term}</p>
-          <p className="text-sm text-slate-600 dark:text-slate-600 leading-relaxed mb-3">
+          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
             {definition}
           </p>
 

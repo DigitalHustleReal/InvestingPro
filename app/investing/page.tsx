@@ -189,7 +189,7 @@ export default function InvestingPage() {
                                 <span className="bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text text-transparent">With Confidence</span>
                             </h1>
                             
-                            <p className="text-xl text-slate-600 dark:text-slate-600 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
+                            <p className="text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
                                 Access 5,000+ top-rated Mutual Funds, Stocks, and Tax Saving schemes.
                                 Data-driven insights to maximize your <span className="font-semibold text-slate-900 dark:text-white">CAGR</span>.
                             </p>
@@ -289,7 +289,7 @@ export default function InvestingPage() {
             <main className="container mx-auto px-4 py-16">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">Explore Investment Avenues</h2>
-                    <p className="text-slate-600 dark:text-slate-600">Diversify your portfolio with the best asset classes.</p>
+                    <p className="text-slate-600 dark:text-slate-400">Diversify your portfolio with the best asset classes.</p>
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-24">
@@ -298,7 +298,7 @@ export default function InvestingPage() {
                             <Card className="hover:border-primary-500 dark:hover:border-primary-500 transition-all cursor-pointer group hover:-translate-y-1 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
                                 <CardContent className="p-6 flex flex-col items-center text-center">
                                     <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 group-hover:bg-primary-50 dark:group-hover:bg-primary-900/20 flex items-center justify-center mb-4 transition-colors">
-                                        <type.icon className="w-6 h-6 text-slate-600 dark:text-slate-600 group-hover:text-primary-600 dark:group-hover:text-primary-400" />
+                                        <type.icon className="w-6 h-6 text-slate-600 dark:text-slate-400 group-hover:text-primary-600 dark:group-hover:text-primary-400" />
                                     </div>
                                     <div className="font-bold text-slate-900 dark:text-white mb-1">{type.label}</div>
                                     <div className="text-xs text-primary-600 dark:text-primary-400 font-semibold">High Growth</div>
@@ -321,7 +321,7 @@ export default function InvestingPage() {
                         <div className="flex items-center justify-between mb-8">
                     <div>
                         <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Top Rated Funds</h2>
-                        <p className="text-slate-600 dark:text-slate-600">Handpicked by SEBI-registered analysts.</p>
+                        <p className="text-slate-600 dark:text-slate-400">Handpicked by SEBI-registered analysts.</p>
                     </div>
                     <Link href="/mutual-funds">
                          <Button variant="outline" className="border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">View All</Button>
@@ -385,7 +385,7 @@ export default function InvestingPage() {
                                     </div>
                                     
                                     {/* Description */}
-                                    <p className="text-sm text-slate-600 dark:text-slate-600 mb-4 line-clamp-2">
+                                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-2">
                                         {product.description}
                                     </p>
                                     
@@ -421,7 +421,7 @@ export default function InvestingPage() {
                         </div>
                         <div>
                             <h2 className="text-3xl font-bold text-slate-900 dark:text-white">Investing Knowledge Hub</h2>
-                            <p className="text-slate-600 dark:text-slate-600 mt-1">Master the art of wealth creation.</p>
+                            <p className="text-slate-600 dark:text-slate-400 mt-1">Master the art of wealth creation.</p>
                         </div>
                     </div>
 
@@ -485,7 +485,7 @@ export default function InvestingPage() {
                                                 </div>
                                                 <div>
                                                     <h4 className="font-bold text-slate-900 dark:text-white mb-1">{type.title}</h4>
-                                                    <p className="text-sm text-slate-600 dark:text-slate-600 leading-relaxed">{type.desc}</p>
+                                                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{type.desc}</p>
                                                 </div>
                                             </div>
                                         ))}

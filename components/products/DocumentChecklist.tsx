@@ -41,7 +41,7 @@ export default function DocumentChecklist({ documents, productName, className }:
           <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />
           <h3 className="font-bold text-slate-900 dark:text-white">Required Documents</h3>
         </div>
-        <span className="text-sm font-semibold text-slate-600 dark:text-slate-600">
+        <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
           {checkedDocs.size}/{documents.length} ready
         </span>
       </div>
@@ -90,7 +90,7 @@ export default function DocumentChecklist({ documents, productName, className }:
                   </span>
                 )}
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-600">
+              <p className="text-xs text-slate-600 dark:text-slate-400">
                 {doc.description}
               </p>
             </div>

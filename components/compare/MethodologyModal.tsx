@@ -41,7 +41,7 @@ export function MethodologyModal() {
                         </div>
                         <div>
                             <h3 className="font-bold text-slate-900 dark:text-white mb-1">1. Trust Score (40%)</h3>
-                            <p className="text-sm text-slate-600 dark:text-slate-600">
+                            <p className="text-sm text-slate-600 dark:text-slate-400">
                                 We prioritize safety above all. We analyze regulatory standing, data privacy policies, and historical complaints. A score above 90 indicates "Bank-Grade Security".
                             </p>
                         </div>
@@ -53,7 +53,7 @@ export function MethodologyModal() {
                         </div>
                         <div>
                             <h3 className="font-bold text-slate-900 dark:text-white mb-1">2. Feature Coverage (30%)</h3>
-                            <p className="text-sm text-slate-600 dark:text-slate-600">
+                            <p className="text-sm text-slate-600 dark:text-slate-400">
                                 We count the number of premium features (e.g., Lounge Access, Zero Forex Markup) relative to the category standard. More useful features = Higher score.
                             </p>
                         </div>
@@ -65,7 +65,7 @@ export function MethodologyModal() {
                         </div>
                         <div>
                             <h3 className="font-bold text-slate-900 dark:text-white mb-1">3. Value Analysis (30%)</h3>
-                            <p className="text-sm text-slate-600 dark:text-slate-600">
+                            <p className="text-sm text-slate-600 dark:text-slate-400">
                                 We weigh the Annual Fee against the Reward Rate. A card that offers high rewards for a low fee scores highest in this metric.
                             </p>
                         </div>

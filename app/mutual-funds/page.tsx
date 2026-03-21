@@ -441,7 +441,7 @@ export default function MutualFundsPage() {
                         <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                             Plan Your SIP Journey
                         </h2>
-                        <p className="text-lg text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
+                        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                             Calculate how much your systematic investment can grow over time
                         </p>
                     </div>
@@ -457,7 +457,7 @@ export default function MutualFundsPage() {
                     <div className="text-center mb-16">
                         <Badge className="mb-4 bg-primary- text-primary- border-primary-">Investor's Guide</Badge>
                         <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Wealth Creation Made Simple</h2>
-                        <p className="text-xl text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
+                        <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                             You don't need to be an expert to beat inflation. Understand the basics of asset allocation.
                         </p>
                     </div>
@@ -474,7 +474,7 @@ export default function MutualFundsPage() {
                                     <item.icon className="w-6 h-6 text-primary-" />
                                 </div>
                                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{item.title}</h3>
-                                <p className="text-slate-600 dark:text-slate-600 leading-relaxed">{item.desc}</p>
+                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -520,7 +520,7 @@ export default function MutualFundsPage() {
                                         {faq.q}
                                         <ArrowRight className="w-4 h-4 text-slate-600 group-open:rotate-90 transition-transform" />
                                     </summary>
-                                    <p className="mt-4 text-slate-600 dark:text-slate-600 leading-relaxed pl-0">{faq.a}</p>
+                                    <p className="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed pl-0">{faq.a}</p>
                                 </details>
                             ))}
                         </div>

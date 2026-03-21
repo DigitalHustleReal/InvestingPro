@@ -343,7 +343,7 @@ export default function CategoryDiscovery() {
                     <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-slate-900 dark:text-white mb-4">
                         Explore by Category
                     </h2>
-                    <p className="text-lg text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
+                    <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                         Everything you need to manage your wealth — guides, calculators, and comparisons
                     </p>
                 </motion.div>
@@ -370,17 +370,17 @@ export default function CategoryDiscovery() {
                 {/* Bottom CTA */}
                 <div className="text-center">
                     <div className="inline-flex items-center gap-6 px-8 py-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-lg">
-                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-600">
+                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
                             <FileText className="w-4 h-4 text-blue-500" />
                             <span><strong className="text-slate-900 dark:text-white">500+</strong> Guides</span>
                         </div>
                         <div className="w-px h-6 bg-slate-200 dark:bg-slate-700" />
-                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-600">
+                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
                             <Calculator className="w-4 h-4 text-emerald-500" />
                             <span><strong className="text-slate-900 dark:text-white">15+</strong> Calculators</span>
                         </div>
                         <div className="w-px h-6 bg-slate-200 dark:bg-slate-700" />
-                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-600">
+                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
                             <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
                             <span><strong className="text-slate-900 dark:text-white">4.8</strong> Rating</span>
                         </div>

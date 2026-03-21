@@ -7,6 +7,8 @@ import { CalculatorSchema, FAQSchema, OrganizationSchema } from "@/components/se
 import { GoalPlanningCalculator } from "@/components/calculators/GoalPlanningCalculator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Info } from "lucide-react";
+import FinancialDisclaimer from '@/components/legal/FinancialDisclaimer';
+import SocialShareButtons from '@/components/common/SocialShareButtons';
 
 export default function GoalPlanningCalculatorPage() {
     const faqs = [
@@ -62,7 +64,7 @@ export default function GoalPlanningCalculatorPage() {
                     <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
                         Financial Goal Planning Calculator
                     </h1>
-                    <p className="text-xl text-slate-600 dark:text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                    <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
                         Plan your financial goals - house, car, education, retirement. Calculate how much to invest monthly to achieve your dreams.
                     </p>
                 </div>
@@ -90,7 +92,7 @@ export default function GoalPlanningCalculatorPage() {
                                         <span className="text-primary-600 font-bold">Q{idx + 1}.</span>
                                         <span>{faq.question}</span>
                                     </h3>
-                                    <p className="text-slate-600 dark:text-slate-600 leading-relaxed ml-8">
+                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed ml-8">
                                         {faq.answer}
                                     </p>
                                 </div>
@@ -98,6 +100,16 @@ export default function GoalPlanningCalculatorPage() {
                         </div>
                     </CardContent>
                 </Card>
+            </div>
+
+            {/* Share & Disclaimer */}
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+                <SocialShareButtons
+                    title="Financial Goal Planning Calculator India | InvestingPro"
+                    url="https://investingpro.in/calculators/goal-planning"
+                    description="Free financial goal planning calculator india - use this free tool from InvestingPro"
+                />
+                <FinancialDisclaimer variant="compact" className="mt-4" />
             </div>
         </div>
     );

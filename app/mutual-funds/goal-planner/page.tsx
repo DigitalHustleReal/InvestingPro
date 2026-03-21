@@ -232,7 +232,7 @@ export default function GoalPlannerPage() {
                                                     "px-3 py-1.5 rounded-lg text-sm font-medium transition-colors",
                                                     targetAmount === amt
                                                         ? "bg-primary-600 text-white"
-                                                        : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-600 hover:bg-slate-200"
+                                                        : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200"
                                                 )}
                                             >
                                                 {formatCurrency(amt)}
@@ -390,7 +390,7 @@ export default function GoalPlannerPage() {
                                                 {/* Reasons */}
                                                 <div className="mt-4 flex flex-wrap gap-2">
                                                     {rec.reasons.map((reason, i) => (
-                                                        <div key={i} className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-600">
+                                                        <div key={i} className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-400">
                                                             <CheckCircle2 className="w-3.5 h-3.5 text-green-500" />
                                                             {reason}
                                                         </div>

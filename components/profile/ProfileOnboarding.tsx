@@ -208,7 +208,7 @@ export default function ProfileOnboarding({ open, onOpenChange, onComplete }: Pr
                   <div className="p-2 bg-white dark:bg-slate-900 rounded-xl text-primary-600 shadow-sm flex-shrink-0">
                     <Sparkles size={20} />
                   </div>
-                  <p className="text-sm text-slate-600 dark:text-slate-600 leading-relaxed">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                     Most premium cards require a score of <span className="font-bold text-primary-700 dark:text-primary-400">750+</span>. 
                     Don't worry if yours is lower, we'll suggest cards to help you rebuild.
                   </p>
@@ -244,7 +244,7 @@ export default function ProfileOnboarding({ open, onOpenChange, onComplete }: Pr
                       </div>
                       <span className={cn(
                         "font-bold text-sm",
-                        formData.goals.includes(goal.id) ? "text-primary-900 dark:text-white" : "text-slate-600 dark:text-slate-600"
+                        formData.goals.includes(goal.id) ? "text-primary-900 dark:text-white" : "text-slate-600 dark:text-slate-400"
                       )}>
                         {goal.label}
                       </span>

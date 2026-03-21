@@ -72,7 +72,7 @@ export default function ScorePreferenceToggle({ currentWeights, onWeightChange }
                                 "flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-sm font-medium transition-all duration-300 border",
                                 isActive 
                                     ? "bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-500/20 scale-105" 
-                                    : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-600 border-transparent hover:bg-slate-100 dark:hover:bg-slate-700"
+                                    : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-transparent hover:bg-slate-100 dark:hover:bg-slate-700"
                             )}
                         >
                             <Icon className={cn("w-4 h-4", isActive ? "text-white" : "text-slate-500 dark:text-slate-600")} />

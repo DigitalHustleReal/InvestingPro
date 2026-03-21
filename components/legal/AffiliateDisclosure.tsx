@@ -34,7 +34,7 @@ export default function AffiliateDisclosure({
 
   if (variant === 'inline') {
     return (
-      <p className={`text-xs text-slate-600 dark:text-slate-600 ${className}`}>
+      <p className={`text-xs text-slate-600 dark:text-slate-400 ${className}`}>
         <strong>Affiliate Disclosure:</strong> We may earn a commission if you apply through our links. 
         This doesn't affect our recommendations or the price you pay.{' '}
         <Link href="/affiliate-disclosure" className="underline hover:text-primary-600 transition-colors font-medium">

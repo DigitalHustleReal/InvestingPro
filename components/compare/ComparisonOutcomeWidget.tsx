@@ -122,7 +122,7 @@ export default function ComparisonOutcomeWidget({ products }: ComparisonOutcomeW
 
             {/* Final Call */}
             <div className="bg-slate-50 dark:bg-slate-900/50 p-4 border-t border-slate-200 dark:border-slate-800 text-center">
-                <p className="text-sm text-slate-600 dark:text-slate-600">
+                <p className="text-sm text-slate-600 dark:text-slate-400">
                     <strong>Our Pick:</strong> Choose <span className="text-slate-900 dark:text-white font-bold">{overallWinner?.name}</span> if you spend over ₹20k/month. 
                     Choose <span className="text-slate-900 dark:text-white font-bold">{overallWinner?.id === p1.id ? p2.name : p1.name}</span> for lower maintenance.
                 </p>

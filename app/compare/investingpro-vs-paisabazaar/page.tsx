@@ -92,7 +92,7 @@ export default function InvestingProVsPaisabazaarPage() {
                                     <strong className="text-slate-900 dark:text-white">InvestingPro</strong> focuses on <strong className="text-primary-600 dark:text-primary-400">helping you decide</strong> with advanced decision engines, personalized recommendations, and instant application - no agent calls required.
                                 </p>
                                 <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed mt-3">
-                                    <strong className="text-slate-900 dark:text-white">Paisabazaar</strong> focuses on <strong className="text-slate-600 dark:text-slate-600">helping you buy</strong> with agent-assisted sales, form submissions, and callback support.
+                                    <strong className="text-slate-900 dark:text-white">Paisabazaar</strong> focuses on <strong className="text-slate-600 dark:text-slate-400">helping you buy</strong> with agent-assisted sales, form submissions, and callback support.
                                 </p>
                             </div>
                         </div>
@@ -114,7 +114,7 @@ export default function InvestingProVsPaisabazaarPage() {
                                     <tr>
                                         <th className="px-6 py-4 text-left text-sm font-bold text-slate-900 dark:text-white">Feature</th>
                                         <th className="px-6 py-4 text-center text-sm font-bold text-primary-600 dark:text-primary-400">InvestingPro</th>
-                                        <th className="px-6 py-4 text-center text-sm font-bold text-slate-600 dark:text-slate-600">Paisabazaar</th>
+                                        <th className="px-6 py-4 text-center text-sm font-bold text-slate-600 dark:text-slate-400">Paisabazaar</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
@@ -177,7 +177,7 @@ export default function InvestingProVsPaisabazaarPage() {
                     <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 border-2 border-slate-200 dark:border-slate-800">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg">
-                                <Target className="w-5 h-5 text-slate-600 dark:text-slate-600" />
+                                <Target className="w-5 h-5 text-slate-600 dark:text-slate-400" />
                             </div>
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white">Choose Paisabazaar If</h3>
                         </div>
@@ -190,7 +190,7 @@ export default function InvestingProVsPaisabazaarPage() {
                                 "You prefer traditional sales process"
                             ].map((point, idx) => (
                                 <li key={idx} className="flex items-start gap-3">
-                                    <Check className="w-5 h-5 text-slate-600 dark:text-slate-600 mt-0.5 shrink-0" />
+                                    <Check className="w-5 h-5 text-slate-600 dark:text-slate-400 mt-0.5 shrink-0" />
                                     <span className="text-slate-700 dark:text-slate-300">{point}</span>
                                 </li>
                             ))}

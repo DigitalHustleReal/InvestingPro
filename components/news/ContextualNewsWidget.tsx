@@ -104,7 +104,7 @@ export default function ContextualNewsWidget({ category, title }: ContextualNews
                                 <Link href={item.url} className="block">
                                     <div className="flex gap-2 mb-2">
                                         {item.tags?.slice(0, 2).map(tag => (
-                                            <Badge key={tag} variant="secondary" className="text-[10px] px-1.5 py-0 h-5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-600 font-medium">
+                                            <Badge key={tag} variant="secondary" className="text-[10px] px-1.5 py-0 h-5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium">
                                                 {tag}
                                             </Badge>
                                         ))}

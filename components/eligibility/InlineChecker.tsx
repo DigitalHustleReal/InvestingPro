@@ -66,7 +66,7 @@ export default function InlineChecker({
 
       {!showResult ? (
         <>
-          <p className="text-sm text-slate-600 dark:text-slate-600 mb-4">
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
             Get instant eligibility results in 10 seconds
           </p>
 
@@ -184,7 +184,7 @@ export default function InlineChecker({
                 <p className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Why?</p>
                 <ul className="space-y-2">
                   {result.reasons.map((reason, index) => (
-                    <li key={index} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-600">
+                    <li key={index} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
                       <AlertCircle className="w-4 h-4 text-primary-500 flex-shrink-0 mt-0.5" />
                       {reason}
                     </li>

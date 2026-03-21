@@ -21,7 +21,7 @@ export default function HomeContextualProducts({ selectedCategory }: HomeContext
                         <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                             Explore Financial Products
                         </h2>
-                        <p className="text-xl text-slate-600 dark:text-slate-600">
+                        <p className="text-xl text-slate-600 dark:text-slate-400">
                             Compare top picks side-by-side across all categories
                         </p>
                     </div>
@@ -38,7 +38,7 @@ export default function HomeContextualProducts({ selectedCategory }: HomeContext
                                             <TrendingUp className="w-5 h-5 text-primary-600" />
                                             <h3 className="text-lg font-bold text-slate-900 dark:text-white">{category.name}</h3>
                                         </div>
-                                        <p className="text-sm text-slate-600 dark:text-slate-600 mb-4">{category.description}</p>
+                                        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">{category.description}</p>
                                         <div className="space-y-2 mb-4">
                                             {topCollections.map((collection) => (
                                                 <Link

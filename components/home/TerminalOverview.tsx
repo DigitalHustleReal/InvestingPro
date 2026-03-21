@@ -17,7 +17,7 @@ const wealthOpportunities = [
 
 export default function TerminalOverview() {
     return (
-        <section className="py-24 bg-white relative overflow-hidden">
+        <section className="py-24 bg-white dark:bg-slate-950 relative overflow-hidden">
             {/* Background elements */}
             <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-500/20 to-transparent" />
             <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-secondary-500/10 to-transparent" />
@@ -29,10 +29,10 @@ export default function TerminalOverview() {
                             <Sparkles size={14} />
                             Featured Tools
                         </Badge>
-                        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight leading-tight mb-4">
+                        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight mb-4">
                             Smart Product <span className="text-primary-500">Comparison</span>
                         </h2>
-                        <p className="text-slate-600 font-medium text-lg leading-relaxed">
+                        <p className="text-slate-600 dark:text-slate-400 font-medium text-lg leading-relaxed">
                             Expert-driven analysis and transparent comparisons across credit cards, loans, and insurance.
                             Find the best financial products tailored to your needs.
                         </p>

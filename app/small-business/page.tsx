@@ -130,7 +130,7 @@ export default function SmallBusinessPage() {
                                 
                                 <ul className="space-y-3 mb-8 relative z-10">
                                     {loan.features.map((f, i) => (
-                                        <li key={i} className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-600">
+                                        <li key={i} className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
                                             <CheckCircle2 className="w-4 h-4 text-primary-500 flex-shrink-0" />
                                             {f}
                                         </li>
@@ -230,10 +230,10 @@ export default function SmallBusinessPage() {
                     </p>
                     <div className="flex flex-wrap justify-center gap-12 opacity-40 hover:opacity-100 transition-all duration-500 grayscale">
                         {/* Partner logos placeholder */}
-                        <div className="font-bold text-3xl text-slate-600 dark:text-slate-600">SBI</div>
-                        <div className="font-bold text-3xl text-slate-600 dark:text-slate-600">SIDBI</div>
-                        <div className="font-bold text-3xl text-slate-600 dark:text-slate-600">NSIC</div>
-                        <div className="font-bold text-3xl text-slate-600 dark:text-slate-600">NABARD</div>
+                        <div className="font-bold text-3xl text-slate-600 dark:text-slate-400">SBI</div>
+                        <div className="font-bold text-3xl text-slate-600 dark:text-slate-400">SIDBI</div>
+                        <div className="font-bold text-3xl text-slate-600 dark:text-slate-400">NSIC</div>
+                        <div className="font-bold text-3xl text-slate-600 dark:text-slate-400">NABARD</div>
                     </div>
                 </div>
             </section>

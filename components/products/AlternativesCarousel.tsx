@@ -69,13 +69,13 @@ export default function AlternativesCarousel({ products, currentProductSlug, cla
                   {product.bestFor && (
                     <div className="flex items-center gap-2 text-xs">
                       <TrendingUp className="w-3 h-3 text-success-600 dark:text-success-400" />
-                      <span className="text-slate-600 dark:text-slate-600">
+                      <span className="text-slate-600 dark:text-slate-400">
                         Best for {product.bestFor}
                       </span>
                     </div>
                   )}
                   {product.specs?.annualFee && (
-                    <div className="text-xs text-slate-600 dark:text-slate-600">
+                    <div className="text-xs text-slate-600 dark:text-slate-400">
                       Annual Fee: <span className="font-semibold text-slate-900 dark:text-white">{product.specs.annualFee}</span>
                     </div>
                   )}

@@ -167,7 +167,7 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
                                 />
                             ))}
                         </div>
-                        <span className="text-xs font-bold text-slate-600 dark:text-slate-600">
+                        <span className="text-xs font-bold text-slate-600 dark:text-slate-400">
                             {(typeof rating === 'number' ? rating : Number(rating) || 4.5).toFixed(1)}
                         </span>
                     </div>

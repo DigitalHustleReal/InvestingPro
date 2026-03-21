@@ -1,57 +1,138 @@
-﻿"use client";
-
+import type { Metadata } from 'next';
 import React from 'react';
 import { HomeLoanVsSIPCalculator } from '@/components/calculators/HomeLoanVsSIPCalculator';
-import SEOHead from '@/components/common/SEOHead';
-import { ChevronLeft } from 'lucide-react';
-import Link from 'next/link';
+import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
+import FinancialDisclaimer from '@/components/legal/FinancialDisclaimer';
+import SocialShareButtons from '@/components/common/SocialShareButtons';
+import { Card, CardContent } from '@/components/ui/card';
+import { CheckCircle2, TrendingUp, Home, AlertTriangle } from 'lucide-react';
+
+export const metadata: Metadata = {
+    title: 'Home Loan vs SIP Calculator 2026 — Should You Prepay or Invest? | InvestingPro',
+    description: 'Compare home loan prepayment vs SIP investment returns. Find the optimal strategy for your financial situation. Free calculator for Indian homeowners.',
+    keywords: 'home loan vs SIP calculator, prepay home loan or invest in SIP, home loan prepayment calculator India, SIP vs loan comparison',
+    alternates: { canonical: 'https://investingpro.in/calculators/home-loan-vs-sip' },
+};
 
 export default function HomeLoanVsSIPPage() {
     return (
-        <div className="min-h-screen bg-slate-50 pt-24 pb-20 px-4 md:px-8">
-            <SEOHead 
-                title="Home Loan vs SIP Calculator (2026) | Prepay or Invest?"
-                description="Should you prepay your home loan or invest in SIP? Our advanced calculator helps you decide by comparing interest outflows vs potential equity returns."
-            />
+        <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <AutoBreadcrumbs />
 
-            <div className="max-w-6xl mx-auto">
-                <Link href="/calculators" className="inline-flex items-center text-sm text-slate-500 hover:text-primary-600 mb-8 font-medium transition-colors">
-                    <ChevronLeft className="w-4 h-4 mr-1" /> Back to Tools
-                </Link>
-
-                <div className="mb-12">
-                    <h1 className="text-4xl font-bold text-slate-900 mb-4">Home Loan vs <span className="text-primary-600">SIP Analysis</span></h1>
-                    <p className="text-lg text-slate-500 max-w-2xl">
-                        Optimize your financial journey. Use this tool to realize the opportunity cost of prepaying low-interest loans versus long-term wealth creation.
+                {/* Hero */}
+                <div className="mt-6 mb-10">
+                    <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-3">
+                        Home Loan vs SIP — <span className="text-primary-600 dark:text-primary-400">Which is smarter?</span>
+                    </h1>
+                    <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+                        Got an extra ₹10,000/month? Should you prepay your home loan or invest in mutual fund SIPs?
+                        This calculator runs the numbers so you don't have to guess.
                     </p>
                 </div>
 
-                <div className="bg-white p-6 md:p-10 rounded-[2rem] border border-slate-200 shadow-sm">
+                {/* Calculator */}
+                <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 md:p-10 shadow-sm">
                     <HomeLoanVsSIPCalculator />
                 </div>
 
-                <div className="mt-16 prose prose-slate max-w-none">
-                    <h2 className="text-2xl font-bold text-slate-900 border-b pb-4">Understanding the "Prepay vs Invest" Dilemma</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-8">
-                        <div>
-                            <h3 className="text-xl font-bold text-primary-600 mb-4">Case for Prepayment</h3>
-                            <p className="text-slate-600">
-                                Prepaying a loan gives you a <strong>guaranteed return</strong> equal to the loan interest rate. 
-                                It reduces your debt burden and gives you psychological peace of mind. If your loan interest rate 
-                                is high (e.g. &gt;10%), prepayment is usually the safer bet.
-                            </p>
-                        </div>
-                        <div>
-                            <h3 className="text-xl font-bold text-primary-600 mb-4">Case for SIP</h3>
-                            <p className="text-slate-600">
-                                Investing in equity SIPs historically yields 12-15% over long periods (10+ years). 
-                                If your loan rate is low (8-9%) and you are disciplined, you create a <strong>positive arbitrage</strong> 
-                                which can significantly increase your terminal net worth.
-                            </p>
-                        </div>
+                {/* Case cards */}
+                <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
+                        <CardContent className="p-6">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="w-9 h-9 rounded-xl bg-success-DEFAULT/10 flex items-center justify-center">
+                                    <Home className="w-4 h-4 text-success-DEFAULT" />
+                                </div>
+                                <h3 className="font-bold text-slate-900 dark:text-white">Prepay When...</h3>
+                            </div>
+                            <ul className="space-y-2">
+                                {[
+                                    "Your loan interest rate is above 9%",
+                                    "You want guaranteed, risk-free savings",
+                                    "You're in 30% tax bracket (no interest deduction benefit)",
+                                    "Less than 10 years remaining on loan",
+                                    "You sleep better with less debt",
+                                ].map((p) => (
+                                    <li key={p} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+                                        <CheckCircle2 className="w-4 h-4 text-success-DEFAULT flex-shrink-0 mt-0.5" />
+                                        {p}
+                                    </li>
+                                ))}
+                            </ul>
+                        </CardContent>
+                    </Card>
+
+                    <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
+                        <CardContent className="p-6">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="w-9 h-9 rounded-xl bg-primary-500/10 flex items-center justify-center">
+                                    <TrendingUp className="w-4 h-4 text-primary-500" />
+                                </div>
+                                <h3 className="font-bold text-slate-900 dark:text-white">Invest in SIP When...</h3>
+                            </div>
+                            <ul className="space-y-2">
+                                {[
+                                    "Loan interest ≤ 8.5% (home loan deduction available)",
+                                    "You have 15+ year investment horizon",
+                                    "You are disciplined — won't withdraw the SIP",
+                                    "You benefit from Section 24 interest deduction",
+                                    "Historical equity returns (12–14%) > loan rate",
+                                ].map((p) => (
+                                    <li key={p} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+                                        <CheckCircle2 className="w-4 h-4 text-primary-500 flex-shrink-0 mt-0.5" />
+                                        {p}
+                                    </li>
+                                ))}
+                            </ul>
+                        </CardContent>
+                    </Card>
+                </div>
+
+                {/* FAQ */}
+                <div className="mt-12">
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+                        Frequently Asked Questions
+                    </h2>
+                    <div className="space-y-4">
+                        {[
+                            {
+                                q: "What rate of return should I assume for SIP?",
+                                a: "Historically, Nifty 50 index funds have returned ~12% CAGR over 15+ year periods. For conservative planning use 10–11%. For large-cap equity mutual funds, 10–12% is reasonable. Never assume past returns will repeat.",
+                            },
+                            {
+                                q: "Does prepaying a home loan save tax?",
+                                a: "Prepaying reduces your outstanding loan, which reduces future interest. Since Section 24(b) allows deduction of up to ₹2L on home loan interest for self-occupied property, prepaying reduces this deduction — it's a trade-off. For investment property, full interest is deductible.",
+                            },
+                            {
+                                q: "What's the breakeven loan rate vs SIP return?",
+                                a: "If your SIP is expected to deliver 12% and you are in the 30% tax bracket, your effective loan rate threshold is roughly 8.4% (12% × (1 – 0.30)). Below this rate, SIP wins. Above it, prepayment wins.",
+                            },
+                            {
+                                q: "Can I do both — prepay and invest in SIP?",
+                                a: "Absolutely. Many advisors recommend a hybrid approach: make one or two extra EMI payments per year (reduces tenure) while continuing SIPs. This balances debt reduction with wealth creation.",
+                            },
+                        ].map(({ q, a }, i) => (
+                            <Card key={i} className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
+                                <CardContent className="p-6">
+                                    <h3 className="font-semibold text-slate-900 dark:text-white mb-2">{q}</h3>
+                                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{a}</p>
+                                </CardContent>
+                            </Card>
+                        ))}
                     </div>
                 </div>
+
+                {/* Share & Disclaimer */}
+                <div className="mt-10 space-y-4">
+                    <SocialShareButtons
+                        title="Home Loan vs SIP Calculator 2026 | InvestingPro"
+                        url="https://investingpro.in/calculators/home-loan-vs-sip"
+                        description="Should you prepay your home loan or invest in SIP? Run the numbers free."
+                    />
+                    <FinancialDisclaimer variant="compact" />
+                </div>
             </div>
-        </div>
+        </main>
     );
 }

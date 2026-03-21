@@ -125,7 +125,7 @@ export default function TrustSection() {
                     <h2 className="text-3xl lg:text-4xl font-bold mb-6 text-slate-900 dark:text-white">
                         Why Trust <span className="text-primary-600 dark:text-primary-400">InvestingPro?</span>
                     </h2>
-                    <p className="text-lg text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
+                    <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                         We're an independent research platform, not a SEBI registered advisor. We help you make informed decisions with transparent, data-driven insights.
                     </p>
                 </div>
@@ -220,7 +220,7 @@ export default function TrustSection() {
                                 <div className="text-sm font-semibold text-primary-600 dark:text-primary-400 mb-3 uppercase tracking-wider">
                                     {point.label}
                                 </div>
-                                <p className="text-sm text-slate-600 dark:text-slate-600 leading-relaxed">
+                                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                                     {point.description}
                                 </p>
                             </motion.div>
@@ -296,19 +296,19 @@ export default function TrustSection() {
                 {/* Trust Badges */}
                 <div className="mt-12 pt-12 border-t border-slate-200 dark:border-slate-800">
                     <div className="flex flex-wrap items-center justify-center gap-8">
-                        <div className="flex items-center gap-2 text-slate-600 dark:text-slate-600">
+                        <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                             <CheckCircle2 className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                             <span className="text-sm">Independent Research</span>
                         </div>
-                        <div className="flex items-center gap-2 text-slate-600 dark:text-slate-600">
+                        <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                             <CheckCircle2 className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                             <span className="text-sm">No Paid Promotions</span>
                         </div>
-                        <div className="flex items-center gap-2 text-slate-600 dark:text-slate-600">
+                        <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                             <CheckCircle2 className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                             <span className="text-sm">Data-Driven Analysis</span>
                         </div>
-                        <div className="flex items-center gap-2 text-slate-600 dark:text-slate-600">
+                        <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                             <CheckCircle2 className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                             <span className="text-sm">Regular Updates</span>
                         </div>

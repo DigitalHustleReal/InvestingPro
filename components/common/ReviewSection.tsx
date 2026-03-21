@@ -249,7 +249,7 @@ export default function ReviewSection({ productId }: { productId: string }) {
                                 <h4 className="font-semibold text-slate-900 dark:text-white mb-2">{review.title}</h4>
                             )}
 
-                            <p className="text-slate-600 dark:text-slate-600 mb-4">{review.review_text}</p>
+                            <p className="text-slate-600 dark:text-slate-400 mb-4">{review.review_text}</p>
 
                             {((review.pros && review.pros.length > 0) || (review.cons && review.cons.length > 0)) && (
                                 <div className="grid md:grid-cols-2 gap-4 mb-4">
@@ -260,7 +260,7 @@ export default function ReviewSection({ productId }: { productId: string }) {
                                             </p>
                                             <ul className="space-y-1 text-sm">
                                                 {review.pros.map((pro, idx) => (
-                                                    <li key={idx} className="text-slate-600 dark:text-slate-600">• {pro}</li>
+                                                    <li key={idx} className="text-slate-600 dark:text-slate-400">• {pro}</li>
                                                 ))}
                                             </ul>
                                         </div>
@@ -272,7 +272,7 @@ export default function ReviewSection({ productId }: { productId: string }) {
                                             </p>
                                             <ul className="space-y-1 text-sm">
                                                 {review.cons.map((con, idx) => (
-                                                    <li key={idx} className="text-slate-600 dark:text-slate-600">• {con}</li>
+                                                    <li key={idx} className="text-slate-600 dark:text-slate-400">• {con}</li>
                                                 ))}
                                             </ul>
                                         </div>

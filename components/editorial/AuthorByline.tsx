@@ -58,7 +58,7 @@ export function AuthorByline({
                         {author.name}
                     </span>
                 </div>
-                <p className="text-xs text-slate-600 dark:text-slate-600">
+                <p className="text-xs text-slate-600 dark:text-slate-400">
                     {author.title}
                 </p>
                 {author.credentials && (
@@ -93,7 +93,7 @@ export function AuthorByline({
                 )}
                 
                 {lastUpdated && (
-                    <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-600">
+                    <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
                         <Clock className="w-4 h-4" />
                         <span>
                             Updated {lastUpdated}

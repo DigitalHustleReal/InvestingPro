@@ -30,18 +30,22 @@ export default function NewsletterWidget({
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         if (!email) return;
-        
+
         setStatus('loading');
 
         try {
-            // Simulated API call
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            const res = await fetch('/api/newsletter', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, source: 'widget' }),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message || 'Subscription failed');
             setStatus('success');
             setMessage("You're on the list!");
             setEmail('');
-
         } catch (error) {
             setStatus('error');
             setMessage('Failed to subscribe. Please try again.');

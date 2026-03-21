@@ -105,7 +105,7 @@ export default function CategoryHero({
                     </h1>
 
                     {/* Description */}
-                    <p className="text-lg md:text-xl text-slate-600 dark:text-slate-600 mb-8 max-w-3xl leading-relaxed">
+                    <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-8 max-w-3xl leading-relaxed">
                         {description}
                     </p>
 

@@ -7,6 +7,8 @@ import { CalculatorSchema, FAQSchema, OrganizationSchema } from "@/components/se
 import { NPSCalculator } from "@/components/calculators/NPSCalculator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Info } from "lucide-react";
+import FinancialDisclaimer from '@/components/legal/FinancialDisclaimer';
+import SocialShareButtons from '@/components/common/SocialShareButtons';
 
 export default function NPSCalculatorPage() {
     const faqs = [
@@ -62,7 +64,7 @@ export default function NPSCalculatorPage() {
                     <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
                         NPS Calculator - National Pension System
                     </h1>
-                    <p className="text-xl text-slate-600 dark:text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                    <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
                         Calculate your NPS retirement corpus and monthly pension. Plan your retirement with tax-efficient NPS investments.
                     </p>
                 </div>
@@ -90,7 +92,7 @@ export default function NPSCalculatorPage() {
                                         <span className="text-primary-600 font-bold">Q{idx + 1}.</span>
                                         <span>{faq.question}</span>
                                     </h3>
-                                    <p className="text-slate-600 dark:text-slate-600 leading-relaxed ml-8">
+                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed ml-8">
                                         {faq.answer}
                                     </p>
                                 </div>
@@ -98,6 +100,16 @@ export default function NPSCalculatorPage() {
                         </div>
                     </CardContent>
                 </Card>
+            </div>
+
+            {/* Share & Disclaimer */}
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+                <SocialShareButtons
+                    title="NPS Calculator India - National Pension System Returns | InvestingPro"
+                    url="https://investingpro.in/calculators/nps"
+                    description="Free nps calculator india - national pension system returns - use this free tool from InvestingPro"
+                />
+                <FinancialDisclaimer variant="compact" className="mt-4" />
             </div>
         </div>
     );

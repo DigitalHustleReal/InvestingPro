@@ -79,6 +79,56 @@
   --prose-borders: #334155;     /* slate-700 */
 }
 
+/* ── Dark mode overrides for hardcoded-color elements ─────────────────────── */
+
+.dark .warning-box {
+  background: linear-gradient(135deg, rgba(120, 53, 15, 0.3) 0%, rgba(146, 64, 14, 0.2) 100%);
+  border-left-color: #f59e0b;
+}
+
+.dark .warning-box h4 {
+  color: #fbbf24; /* amber-400 */
+}
+
+.dark .warning-box p {
+  color: #fde68a; /* amber-200 */
+}
+
+.dark .key-takeaways li::before {
+  background: #1e293b; /* slate-800 */
+  color: #34d399; /* emerald-400 */
+}
+
+.dark .prose blockquote {
+  color: #94a3b8; /* slate-400 */
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.08) 0%, transparent 100%);
+}
+
+.dark .prose thead {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+}
+
+.dark .pro-tip {
+  background: linear-gradient(135deg, rgba(30, 64, 175, 0.2) 0%, rgba(30, 64, 175, 0.1) 100%);
+}
+
+.dark .pro-tip h4 {
+  color: #93c5fd; /* blue-300 */
+}
+
+.dark .pro-tip p {
+  color: #bfdbfe; /* blue-200 */
+}
+
+.dark .quick-verdict {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.8) 100%);
+}
+
+.dark .quick-verdict h3,
+.dark .quick-verdict strong {
+  color: #38bdf8; /* sky-400 */
+}
+
 /* Article Container */
 .prose {
   max-width: 75ch; /* Optimal reading width */

@@ -345,7 +345,7 @@ function TaxSEOContentSection() {
                     <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">
                         Income Tax Calculator India 2024-25 - Compare Old vs New Tax Regime
                     </h2>
-                    <p className="text-lg text-slate-600 dark:text-slate-600 leading-relaxed mb-6">
+                    <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
                         Use our free income tax calculator to compare Old vs New tax regime and calculate your tax liability for FY 2025-26. 
                         Our tax calculator helps you determine which regime saves you more money based on your income, deductions, and age. 
                         Make an informed decision about which tax regime to choose for optimal tax savings.
@@ -450,7 +450,7 @@ function TaxSEOContentSection() {
                         ].map((faq, idx) => (
                             <div key={idx} className="border-b border-slate-200 dark:border-slate-700 pb-6 last:border-0">
                                 <h3 className="font-bold text-slate-900 dark:text-slate-100 mb-2 text-lg">{faq.q}</h3>
-                                <p className="text-slate-600 dark:text-slate-600 leading-relaxed">{faq.a}</p>
+                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{faq.a}</p>
                             </div>
                         ))}
                     </div>

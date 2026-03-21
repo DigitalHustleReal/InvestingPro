@@ -122,7 +122,7 @@ export default function HowWeMakeMoneyPage() {
 
                     <div className="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 my-8">
                         <div className="flex items-start gap-3">
-                            <AlertCircle className="w-5 h-5 text-slate-600 dark:text-slate-600 flex-shrink-0 mt-1" />
+                            <AlertCircle className="w-5 h-5 text-slate-600 dark:text-slate-400 flex-shrink-0 mt-1" />
                             <div>
                                 <h3 className="text-lg font-bold text-stone-900 dark:text-white mt-0 mb-2">
                                     Important Note

@@ -42,7 +42,7 @@ export default function ComparisonCTA({
           <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
             Compare Before You Decide
           </h3>
-          <p className="text-sm text-slate-600 dark:text-slate-600 mb-4">
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
             See how {currentProductName} stacks up against similar cards. Compare fees, rewards, and benefits side-by-side.
           </p>
 

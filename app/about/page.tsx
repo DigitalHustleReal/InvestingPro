@@ -82,7 +82,7 @@ export default async function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">What Sets Us Apart</h2>
-            <p className="text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">We follow a strict editorial methodology to ensure every recommendation is backed by data, not commission.</p>
+            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">We follow a strict editorial methodology to ensure every recommendation is backed by data, not commission.</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -118,7 +118,7 @@ export default async function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Meet Our Experts</h2>
-            <p className="text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">The humans behind the data. Our team brings decades of experience from major financial institutions.</p>
+            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">The humans behind the data. Our team brings decades of experience from major financial institutions.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">

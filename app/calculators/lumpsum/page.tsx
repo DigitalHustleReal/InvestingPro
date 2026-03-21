@@ -10,6 +10,8 @@ import { LumpsumCalculatorWithInflation } from "@/components/calculators/Lumpsum
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { Info, TrendingUp, Zap, CheckCircle2 } from "lucide-react";
+import FinancialDisclaimer from '@/components/legal/FinancialDisclaimer';
+import SocialShareButtons from '@/components/common/SocialShareButtons';
 
 export default function LumpsumCalculatorPage() {
     const breadcrumbs = [
@@ -134,7 +136,7 @@ export default function LumpsumCalculatorPage() {
                     <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
                         Lumpsum Investment Calculator
                     </h1>
-                    <p className="text-xl text-slate-600 dark:text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                    <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
                         Calculate returns on one-time lumpsum investments with inflation adjustment. Plan your investment goals with accurate projections.
                     </p>
                 </div>
@@ -265,7 +267,7 @@ export default function LumpsumCalculatorPage() {
                                         <span className="text-primary-600 font-bold">Q{idx + 1}.</span>
                                         <span>{faq.question}</span>
                                     </h3>
-                                    <p className="text-slate-600 dark:text-slate-600 leading-relaxed ml-8">
+                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed ml-8">
                                         {faq.answer}
                                     </p>
                                 </div>
@@ -273,6 +275,16 @@ export default function LumpsumCalculatorPage() {
                         </div>
                     </CardContent>
                 </Card>
+            </div>
+
+            {/* Share & Disclaimer */}
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+                <SocialShareButtons
+                    title="Lumpsum Investment Calculator India 2026 | InvestingPro"
+                    url="https://investingpro.in/calculators/lumpsum"
+                    description="Free lumpsum investment calculator india 2026 - use this free tool from InvestingPro"
+                />
+                <FinancialDisclaimer variant="compact" className="mt-4" />
             </div>
         </div>
     );

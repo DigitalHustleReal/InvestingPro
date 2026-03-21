@@ -58,7 +58,7 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
         </div>
         <div>
           <h3 className="text-xl font-bold text-slate-900 dark:text-white">SIP Calculator</h3>
-          <p className="text-sm text-slate-600 dark:text-slate-600">Plan your wealth creation journey</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400">Plan your wealth creation journey</p>
         </div>
       </div>
 
@@ -89,7 +89,7 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
                   onChange={(e) => setMonthlyInvestment(Number(e.target.value))}
                   className="flex-1 px-4 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white rounded-lg font-mono text-lg font-semibold focus:ring-2 focus:ring-primary-600 focus:border-transparent"
                 />
-                <span className="text-slate-600 dark:text-slate-600 font-medium">/month</span>
+                <span className="text-slate-600 dark:text-slate-400 font-medium">/month</span>
               </div>
             </div>
           </div>
@@ -119,7 +119,7 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
                   max="30"
                   className="flex-1 px-4 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white rounded-lg font-mono text-lg font-semibold focus:ring-2 focus:ring-primary-600 focus:border-transparent"
                 />
-                <span className="text-slate-600 dark:text-slate-600 font-medium">years</span>
+                <span className="text-slate-600 dark:text-slate-400 font-medium">years</span>
               </div>
             </div>
           </div>
@@ -151,7 +151,7 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
                   step="0.5"
                   className="flex-1 px-4 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white rounded-lg font-mono text-lg font-semibold focus:ring-2 focus:ring-primary-600 focus:border-transparent"
                 />
-                <span className="text-slate-600 dark:text-slate-600 font-medium">% p.a.</span>
+                <span className="text-slate-600 dark:text-slate-400 font-medium">% p.a.</span>
               </div>
             </div>
           </div>
@@ -175,7 +175,7 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
             {/* Total Invested */}
             <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700">
               <div>
-                <p className="text-xs text-slate-600 dark:text-slate-600 mb-1">Amount Invested</p>
+                <p className="text-xs text-slate-600 dark:text-slate-400 mb-1">Amount Invested</p>
                 <p className="text-xl font-bold font-mono text-slate-900 dark:text-white">
                   {formatINR(results.totalInvested, { compact: true })}
                 </p>
@@ -223,7 +223,7 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
                 {((results.returns / results.futureValue) * 100).toFixed(0)}%
               </div>
             </div>
-            <div className="flex justify-between mt-2 text-xs text-slate-600 dark:text-slate-600">
+            <div className="flex justify-between mt-2 text-xs text-slate-600 dark:text-slate-400">
               <span>• Your Investment</span>
               <span>Returns •</span>
             </div>

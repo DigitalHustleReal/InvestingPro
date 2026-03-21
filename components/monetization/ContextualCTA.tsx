@@ -146,7 +146,7 @@ export default function ContextualCTA({
                     <h4 className="font-bold text-slate-900 dark:text-white">
                         Start investing with {links[0]?.partner.name}
                     </h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-600 mt-1">
+                    <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
                         {links[0]?.name}
                     </p>
                 </div>

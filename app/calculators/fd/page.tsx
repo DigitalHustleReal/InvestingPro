@@ -7,6 +7,8 @@ import { FDCalculator } from "@/components/calculators/FDCalculator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Info, TrendingUp, Zap, CheckCircle2 } from "lucide-react";
 import { SEOArticle } from "@/components/calculators/SEOArticle";
+import FinancialDisclaimer from '@/components/legal/FinancialDisclaimer';
+import SocialShareButtons from '@/components/common/SocialShareButtons';
 
 export default function FDCalculatorPage() {
     const structuredData = {
@@ -64,7 +66,7 @@ export default function FDCalculatorPage() {
             />
             
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-6">
-                <nav className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-600">
+                <nav className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
                     <Link href="/" className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Home</Link>
                     <span>/</span>
                     <Link href="/calculators" className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Calculators</Link>
@@ -78,7 +80,7 @@ export default function FDCalculatorPage() {
                     <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
                         FD Calculator - Fixed Deposit Maturity & Interest Calculator
                     </h1>
-                    <p className="text-xl text-slate-600 dark:text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                    <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
                         Calculate Fixed Deposit (FD) maturity amount and interest earned. Compare different compounding frequencies and see inflation-adjusted returns.
                     </p>
                 </div>
@@ -174,7 +176,7 @@ export default function FDCalculatorPage() {
                             <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl font-mono text-center text-lg font-bold text-primary-700 dark:text-primary-400 border border-slate-200 dark:border-slate-700">
                                 A = P Ã— (1 + r/n)<sup>(n Ã— t)</sup>
                             </div>
-                            <div className="grid grid-cols-2 gap-4 text-sm text-slate-600 dark:text-slate-600">
+                            <div className="grid grid-cols-2 gap-4 text-sm text-slate-600 dark:text-slate-400">
                                 <div><span className="font-bold text-slate-900 dark:text-white">A</span> = Maturity Amount</div>
                                 <div><span className="font-bold text-slate-900 dark:text-white">P</span> = Principal Amount</div>
                                 <div><span className="font-bold text-slate-900 dark:text-white">r</span> = Annual Interest Rate (decimal)</div>
@@ -192,7 +194,7 @@ export default function FDCalculatorPage() {
                             <Info className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                             FD Calculator - Frequently Asked Questions (FAQs)
                         </CardTitle>
-                        <p className="text-slate-600 dark:text-slate-600 mt-2">Find answers to the most common questions about FD calculator and fixed deposits in India</p>
+                        <p className="text-slate-600 dark:text-slate-400 mt-2">Find answers to the most common questions about FD calculator and fixed deposits in India</p>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-8">
@@ -310,7 +312,16 @@ export default function FDCalculatorPage() {
                     </CardContent>
                 </Card>
             </div>
+
+            {/* Share & Disclaimer */}
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+                <SocialShareButtons
+                    title="FD Calculator India 2026 - Fixed Deposit Returns | InvestingPro"
+                    url="https://investingpro.in/calculators/fd"
+                    description="Free fd calculator india 2026 - fixed deposit returns - use this free tool from InvestingPro"
+                />
+                <FinancialDisclaimer variant="compact" className="mt-4" />
+            </div>
         </div>
     );
 }
-

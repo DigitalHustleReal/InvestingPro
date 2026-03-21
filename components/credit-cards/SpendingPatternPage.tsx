@@ -98,7 +98,7 @@ export default function SpendingPatternPage({
                     {recommendations.length === 0 ? (
                         <Card>
                             <CardContent className="py-12 text-center">
-                                <p className="text-slate-600 dark:text-slate-600">
+                                <p className="text-slate-600 dark:text-slate-400">
                                     No specific recommendations found for this spending pattern. 
                                     Try our <Link href="/credit-cards/recommendations/spending-based" className="text-primary-600 dark:text-primary-400 hover:underline">custom recommendation tool</Link>.
                                 </p>
@@ -122,14 +122,14 @@ export default function SpendingPatternPage({
                                                         #{idx + 1} Best Match
                                                     </span>
                                                 </div>
-                                                <p className="text-sm text-slate-600 dark:text-slate-600 mb-3">
+                                                <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
                                                     {rec.card.provider || rec.card.bank}
                                                 </p>
                                                 <div className="flex items-center gap-4 text-sm mb-4">
-                                                    <span className="text-slate-600 dark:text-slate-600">
+                                                    <span className="text-slate-600 dark:text-slate-400">
                                                         Estimated Rewards: <strong className="text-success-600 dark:text-success-400">{formatCurrency(rec.estimatedRewards)}/month</strong>
                                                     </span>
-                                                    <span className="text-slate-600 dark:text-slate-600">
+                                                    <span className="text-slate-600 dark:text-slate-400">
                                                         Match Score: <strong className="text-primary-600 dark:text-primary-400">{rec.score.toFixed(0)}</strong>
                                                     </span>
                                                 </div>
@@ -140,7 +140,7 @@ export default function SpendingPatternPage({
                                             <h4 className="font-semibold text-slate-900 dark:text-white mb-2">Why This Card:</h4>
                                             <ul className="space-y-1">
                                                 {rec.reasons.map((reason, i) => (
-                                                    <li key={i} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-600">
+                                                    <li key={i} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
                                                         <CheckCircle2 className="w-4 h-4 text-success-600 dark:text-success-400 mt-0.5 shrink-0" />
                                                         {reason}
                                                     </li>

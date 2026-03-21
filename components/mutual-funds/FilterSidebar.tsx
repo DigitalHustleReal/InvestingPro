@@ -80,7 +80,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border ${
                                     filters.categories.includes(cat)
                                         ? 'bg-slate-900 dark:bg-primary-500 text-white border-slate-900 dark:border-primary-500 shadow-lg shadow-slate-900/20'
-                                        : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-600 border-slate-200 dark:border-slate-700 hover:border-slate-300'
+                                        : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-300'
                                 }`}
                             >
                                 {cat}
@@ -150,7 +150,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                                     checked={filters.amcs.includes(amc)}
                                     onCheckedChange={() => toggleArrayItem('amcs', amc)}
                                 />
-                                <Label htmlFor={`amc-${amc}`} className="text-sm text-slate-600 dark:text-slate-600">
+                                <Label htmlFor={`amc-${amc}`} className="text-sm text-slate-600 dark:text-slate-400">
                                     {amc} Mutual Fund
                                 </Label>
                             </div>

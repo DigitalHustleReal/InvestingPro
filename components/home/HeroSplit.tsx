@@ -59,15 +59,15 @@ export default function HeroSplit() {
                     animate={{ opacity: 1, y: 0 }}
                     className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 mb-12 text-xs sm:text-sm relative z-20"
                 >
-                    <div className="flex items-center gap-2 text-slate-600 dark:text-slate-600">
+                    <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                         <BadgeCheck className="w-4 h-4 text-emerald-500" />
                         <span>100% Free Forever</span>
                     </div>
-                    <div className="flex items-center gap-2 text-slate-600 dark:text-slate-600">
+                    <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                         <Shield className="w-4 h-4 text-blue-500" />
                         <span>Independent Research</span>
                     </div>
-                    <div className="flex items-center gap-2 text-slate-600 dark:text-slate-600">
+                    <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                         <Clock className="w-4 h-4 text-amber-500" />
                         <span>Updated Daily</span>
                     </div>
@@ -123,7 +123,7 @@ export default function HeroSplit() {
                             </h1>
                             
                             {/* Quantified expertise - what makes us credible */}
-                            <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-600 max-w-xl leading-relaxed mt-6 mx-auto lg:mx-0">
+                            <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed mt-6 mx-auto lg:mx-0">
                                 We analyzed <span className="font-bold text-slate-900 dark:text-white">500+ credit cards</span>, 
                                 <span className="font-bold text-slate-900 dark:text-white"> 2,000+ mutual funds</span>, and 
                                 <span className="font-bold text-slate-900 dark:text-white"> 50+ loan products</span> so you don't have to.
@@ -244,7 +244,7 @@ export default function HeroSplit() {
                                                 <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                                                     Find Your Perfect Credit Card
                                                 </h3>
-                                                <p className="text-slate-600 dark:text-slate-600 text-sm mb-4">
+                                                <p className="text-slate-600 dark:text-slate-400 text-sm mb-4">
                                                     Compare 500+ cards from 30+ banks. Get personalized recommendations based on your spending habits.
                                                 </p>
                                                 

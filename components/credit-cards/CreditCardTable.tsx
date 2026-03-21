@@ -146,7 +146,7 @@ export function CreditCardTable({ cards }: CreditCardTableProps) {
                                 />
                             ))}
                         </div>
-                        <span className="text-xs font-bold text-slate-600 dark:text-slate-600">
+                        <span className="text-xs font-bold text-slate-600 dark:text-slate-400">
                             {finalRating.toFixed(1)}
                         </span>
                     </div>

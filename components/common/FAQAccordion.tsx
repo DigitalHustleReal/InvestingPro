@@ -54,7 +54,7 @@ export default function FAQAccordion({ title = "Frequently Asked Questions", ite
             <AccordionTrigger className="text-left font-semibold text-slate-800 dark:text-slate-200 hover:no-underline hover:text-primary-600 dark:hover:text-primary-400 py-4">
               {item.question}
             </AccordionTrigger>
-            <AccordionContent className="text-slate-600 dark:text-slate-600 leading-relaxed pb-4">
+            <AccordionContent className="text-slate-600 dark:text-slate-400 leading-relaxed pb-4">
               <div dangerouslySetInnerHTML={{ __html: item.answer }} />
             </AccordionContent>
           </AccordionItem>

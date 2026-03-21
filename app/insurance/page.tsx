@@ -236,7 +236,7 @@ export default function InsurancePage() {
                                         )}
                                     </div>
                                     {!hasCalculated ? (
-                                        <p className="text-sm text-slate-600 dark:text-slate-600">
+                                        <p className="text-sm text-slate-600 dark:text-slate-400">
                                             Answer these quick questions to see your coverage gaps
                                         </p>
                                     ) : (() => {
@@ -310,13 +310,13 @@ export default function InsurancePage() {
                                                 <h4 className="font-bold text-slate-900 dark:text-white mb-3">Recommended Actions:</h4>
                                                 <ul className="space-y-2">
                                                     {!answers.hasHealthInsurance && (
-                                                        <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-600">
+                                                        <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
                                                             <AlertTriangle className="w-4 h-4 text-danger-500 mt-0.5 shrink-0" />
                                                             <span><strong>Critical:</strong> Get Health Insurance immediately</span>
                                                         </li>
                                                     )}
                                                     {!answers.hasLifeInsurance && answers.hasDependents && (
-                                                        <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-600">
+                                                        <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
                                                             <AlertTriangle className="w-4 h-4 text-accent-500 mt-0.5 shrink-0" />
                                                             <span><strong>Urgent:</strong> Term Insurance for family protection</span>
                                                         </li>
@@ -389,7 +389,7 @@ export default function InsurancePage() {
                                     className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
                                         viewMode === 'table'
                                             ? 'bg-primary-600 text-white'
-                                            : 'text-slate-600 dark:text-slate-600 hover:text-slate-900 dark:hover:text-white'
+                                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                                     }`}
                                 >
                                     <TableIcon className="w-4 h-4" />
@@ -400,7 +400,7 @@ export default function InsurancePage() {
                                     className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
                                         viewMode === 'grid'
                                             ? 'bg-primary-600 text-white'
-                                            : 'text-slate-600 dark:text-slate-600 hover:text-slate-900 dark:hover:text-white'
+                                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                                     }`}
                                 >
                                     <LayoutGrid className="w-4 h-4" />
@@ -448,7 +448,7 @@ export default function InsurancePage() {
                     <h2 className="text-3xl md:text-4xl font-bold text=slate-900 dark:text-white mb-4">
                         How Much Coverage Do You Need?
                     </h2>
-                    <p className="text-lg text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
+                    <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                         Calculate your ideal insurance coverage using the Human Life Value (HLV) method
                     </p>
                 </div>
@@ -463,7 +463,7 @@ export default function InsurancePage() {
                     <div className="text-center mb-16">
                         <Badge className="mb-4 bg-secondary-50 text-secondary-700 border-secondary-100">Protection Academy</Badge>
                         <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Demystifying Insurance Claims</h2>
-                        <p className="text-xl text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
+                        <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                             Insurance is not an investmentâ€”it's risk management. Learn how to choose coverage that actually pays out.
                         </p>
                     </div>
@@ -480,7 +480,7 @@ export default function InsurancePage() {
                                     <item.icon className="w-6 h-6 text-secondary-600" />
                                 </div>
                                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{item.title}</h3>
-                                <p className="text-slate-600 dark:text-slate-600 leading-relaxed">{item.desc}</p>
+                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -527,7 +527,7 @@ export default function InsurancePage() {
                                         {faq.q}
                                         <ArrowRight className="w-4 h-4 text-slate-600 group-open:rotate-90 transition-transform" />
                                     </summary>
-                                    <p className="mt-4 text-slate-600 dark:text-slate-600 leading-relaxed pl-0">{faq.a}</p>
+                                    <p className="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed pl-0">{faq.a}</p>
                                 </details>
                             ))}
                         </div>

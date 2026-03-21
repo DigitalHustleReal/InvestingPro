@@ -3,6 +3,8 @@ import { Metadata } from 'next';
 import PortfolioRebalancingCalculator from '@/components/calculators/PortfolioRebalancingCalculator';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 import { Calculator } from 'lucide-react';
+import FinancialDisclaimer from '@/components/legal/FinancialDisclaimer';
+import SocialShareButtons from '@/components/common/SocialShareButtons';
 
 export const metadata: Metadata = {
   title: 'Portfolio Rebalancing Calculator - Asset Allocation Tool | InvestingPro',
@@ -23,7 +25,7 @@ export default function RebalancingPage() {
            <h1 className="text-4xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">
              Portfolio Rebalancing Tool
            </h1>
-           <p className="text-lg text-slate-600 dark:text-slate-600 leading-relaxed">
+           <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
              Maintain your risk discipline. Our tool calculates exactly what you need to buy or sell to get your portfolio back on track.
            </p>
         </div>
@@ -43,6 +45,16 @@ export default function RebalancingPage() {
             </ul>
         </div>
       </div>
+
+            {/* Share & Disclaimer */}
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+                <SocialShareButtons
+                    title="Portfolio Rebalancing Calculator | InvestingPro"
+                    url="https://investingpro.in/calculators/portfolio-rebalancing"
+                    description="Free portfolio rebalancing calculator - use this free tool from InvestingPro"
+                />
+                <FinancialDisclaimer variant="compact" className="mt-4" />
+            </div>
     </div>
   );
 }
