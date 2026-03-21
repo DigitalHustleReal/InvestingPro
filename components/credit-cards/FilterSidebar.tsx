@@ -161,7 +161,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                                     checked={filters.issuers.includes(issuer)}
                                     onCheckedChange={() => toggleArrayItem('issuers', issuer)}
                                 />
-                                <Label htmlFor={`issuer-${issuer}`} className="text-sm text-slate-600 dark:text-slate-600 cursor-pointer">
+                                <Label htmlFor={`issuer-${issuer}`} className="text-sm text-slate-600 dark:text-slate-400 cursor-pointer">
                                     {issuer} Bank
                                 </Label>
                             </div>

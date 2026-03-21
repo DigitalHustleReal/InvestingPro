@@ -254,7 +254,7 @@ export default function BestForBadge({
         <span>{badge.label}</span>
       </div>
       {showDescription && (
-        <p className="text-xs text-slate-600 dark:text-slate-600 mt-2">{badge.description}</p>
+        <p className="text-xs text-slate-600 dark:text-slate-400 mt-2">{badge.description}</p>
       )}
     </div>
   );

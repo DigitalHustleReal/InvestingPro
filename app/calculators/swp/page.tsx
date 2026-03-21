@@ -7,6 +7,8 @@ import { generateBreadcrumbSchema } from '@/lib/linking/breadcrumbs';
 import { SWPCalculator } from "@/components/calculators/SWPCalculator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Info, TrendingUp, Zap, CheckCircle2, TrendingDown } from "lucide-react";
+import FinancialDisclaimer from '@/components/legal/FinancialDisclaimer';
+import SocialShareButtons from '@/components/common/SocialShareButtons';
 
 export default function SWPCalculatorPage() {
     const breadcrumbs = [
@@ -440,7 +442,16 @@ export default function SWPCalculatorPage() {
                     </CardContent>
                 </Card>
             </div>
+
+            {/* Share & Disclaimer */}
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+                <SocialShareButtons
+                    title="SWP Calculator - Systematic Withdrawal Plan | InvestingPro"
+                    url="https://investingpro.in/calculators/swp"
+                    description="Free swp calculator - systematic withdrawal plan - use this free tool from InvestingPro"
+                />
+                <FinancialDisclaimer variant="compact" className="mt-4" />
+            </div>
         </div>
     );
 }
-

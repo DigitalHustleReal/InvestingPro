@@ -154,7 +154,7 @@ export default function SIPCalculatorPage() {
                     <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
                         SIP Calculator - Calculate Systematic Investment Plan Returns
                     </h1>
-                    <p className="text-xl text-slate-600 dark:text-slate-600 max-w-3xl mx-auto leading-relaxed mb-4">
+                    <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed mb-4">
                         Calculate returns on your SIP investments with our free SIP calculator. Includes inflation adjustment to show real returns and help you plan your financial goals.
                     </p>
                     
@@ -207,7 +207,7 @@ export default function SIPCalculatorPage() {
                             <Info className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                             Official Resources & Guidelines
                         </CardTitle>
-                        <p className="text-slate-600 dark:text-slate-600 mt-2">Refer to these authoritative sources for official information about SIP investments and mutual funds in India.</p>
+                        <p className="text-slate-600 dark:text-slate-400 mt-2">Refer to these authoritative sources for official information about SIP investments and mutual funds in India.</p>
                     </CardHeader>
                     <CardContent>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -222,7 +222,7 @@ export default function SIPCalculatorPage() {
                                 </div>
                                 <div>
                                     <p className="font-bold text-slate-900 dark:text-white">SEBI</p>
-                                    <p className="text-xs text-slate-600 dark:text-slate-600">Securities and Exchange Board of India</p>
+                                    <p className="text-xs text-slate-600 dark:text-slate-400">Securities and Exchange Board of India</p>
                                 </div>
                             </a>
                             <a
@@ -250,7 +250,7 @@ export default function SIPCalculatorPage() {
                                 </div>
                                 <div>
                                     <p className="font-bold text-slate-900 dark:text-white">RBI</p>
-                                    <p className="text-xs text-slate-600 dark:text-slate-600">Reserve Bank of India</p>
+                                    <p className="text-xs text-slate-600 dark:text-slate-400">Reserve Bank of India</p>
                                 </div>
                             </a>
                         </div>

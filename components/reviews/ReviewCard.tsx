@@ -109,7 +109,7 @@ export default function ReviewCard({ review, onHelpful, onNotHelpful }: ReviewCa
 
       {/* Helpful Actions */}
       <div className="flex items-center gap-4 pt-4 border-t border-slate-200 dark:border-slate-700">
-        <p className="text-sm text-slate-600 dark:text-slate-600">Was this helpful?</p>
+        <p className="text-sm text-slate-600 dark:text-slate-400">Was this helpful?</p>
         <div className="flex items-center gap-2">
           <button
             onClick={() => onHelpful?.(review.id)}

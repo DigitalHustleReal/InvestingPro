@@ -96,7 +96,7 @@ export default function AppTracker() {
             {app.status === 'under_review' && (
               <div className="mt-6 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700 flex items-start gap-3">
                 <Clock className="w-4 h-4 text-amber-500 mt-0.5" />
-                <p className="text-xs text-slate-600 dark:text-slate-600 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                   The bank is currently verifying your documents. This usually takes <span className="font-bold">2-3 business days</span>. 
                   We'll notify you on WhatsApp once there's an update.
                 </p>

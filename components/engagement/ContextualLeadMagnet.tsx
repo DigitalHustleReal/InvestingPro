@@ -209,7 +209,7 @@ export function ContextualLeadMagnet({
         <div className="text-center py-6">
           <CheckCircle className="w-12 h-12 text-success-500 mx-auto mb-3" />
           <h3 className="text-lg font-semibold text-slate-900 dark:text-white">You're all set!</h3>
-          <p className="text-sm text-slate-600 dark:text-slate-600 mt-1">Check your inbox for the download link.</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Check your inbox for the download link.</p>
         </div>
       </div>
     );
@@ -317,7 +317,7 @@ export function ContextualLeadMagnet({
         </div>
       </div>
 
-      <p className="text-sm text-slate-600 dark:text-slate-600 mb-4">
+      <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
         {offer.description}
       </p>
 

@@ -213,7 +213,7 @@ export default function DecisionHelper({ category, variant = 'full', className }
                 {category !== 'all' && (
                     <div className="px-6 pb-6">
                         <div className="p-4 rounded-2xl bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-950 dark:to-secondary-950 border border-primary-100 dark:border-primary-900">
-                            <p className="text-sm text-slate-600 dark:text-slate-600 mb-3">
+                            <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
                                 <Zap className="w-4 h-4 inline mr-1 text-primary-500" />
                                 <strong>Pro Tip:</strong> Use our decision tools to make informed choices without endless browsing.
                             </p>

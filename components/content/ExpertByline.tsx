@@ -99,7 +99,7 @@ export function ExpertByline({
         {/* Title */}
         <p 
           className={cn(
-            "text-slate-600 dark:text-slate-600",
+            "text-slate-600 dark:text-slate-400",
             isCompact ? "text-xs" : "text-sm"
           )}
           itemProp="jobTitle"
@@ -194,7 +194,7 @@ export function ExpertReviewByline(
           )}
           
           {reviewDate && (
-            <div className="flex items-center gap-1 text-xs text-slate-600 dark:text-slate-600">
+            <div className="flex items-center gap-1 text-xs text-slate-600 dark:text-slate-400">
               <Calendar className="w-3 h-3" aria-hidden="true" />
               Reviewed: {reviewDate.toLocaleDateString('en-IN', {
                 year: 'numeric',

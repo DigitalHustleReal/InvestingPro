@@ -332,7 +332,7 @@ export default function ComparisonPage() {
                                                 }}
                                                 className="absolute -top-2 -right-2 p-1 bg-slate-200 dark:bg-slate-800 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                                             >
-                                                <X className="w-3 h-3 text-slate-600 dark:text-slate-600" />
+                                                <X className="w-3 h-3 text-slate-600 dark:text-slate-400" />
                                             </button>
 
                                             <div className="h-32 flex items-center justify-center mb-4 p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
@@ -398,7 +398,7 @@ export default function ComparisonPage() {
 
                                         return (
                                             <tr key={field.key} className="group hover:bg-slate-50 dark:hover:bg-slate-900/30 transition-colors">
-                                                <td className="p-4 py-6 text-sm font-medium text-slate-600 dark:text-slate-600 bg-white dark:bg-slate-950 sticky left-0 z-10 border-r border-slate-100 dark:border-slate-800 group-hover:bg-slate-50 dark:group-hover:bg-slate-900/30">
+                                                <td className="p-4 py-6 text-sm font-medium text-slate-600 dark:text-slate-400 bg-white dark:bg-slate-950 sticky left-0 z-10 border-r border-slate-100 dark:border-slate-800 group-hover:bg-slate-50 dark:group-hover:bg-slate-900/30">
                                                     {field.label}
                                                     {field.help && <AlertCircle className="w-3 h-3 inline ml-1 text-slate-300" />}
                                                 </td>

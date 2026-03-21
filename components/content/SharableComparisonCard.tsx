@@ -197,7 +197,7 @@ export default function SharableComparisonCard({
                     <table className="w-full border-collapse">
                         <thead>
                             <tr className="border-b-2 border-slate-200 dark:border-slate-700">
-                                <th className="text-left p-3 text-sm font-semibold text-slate-600 dark:text-slate-600 w-1/3">
+                                <th className="text-left p-3 text-sm font-semibold text-slate-600 dark:text-slate-400 w-1/3">
                                     Feature
                                 </th>
                                 <th className="text-center p-3 text-sm font-semibold text-slate-900 dark:text-white w-1/3">

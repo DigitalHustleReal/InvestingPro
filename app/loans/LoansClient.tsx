@@ -216,7 +216,7 @@ export default function LoansClient({ initialLoans }: LoansClientProps) {
                                     <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4">Required Documents</h3>
                                     <ul className="space-y-3">
                                         {['PAN Card', 'Aadhaar Card', 'Last 3 Months Salary Slips', '6 Months Bank Statement'].map((doc, i) => (
-                                            <li key={i} className="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-600">
+                                            <li key={i} className="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                                 <div className="w-5 h-5 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 mt-0.5">
                                                     <span className="text-xs font-bold text-slate-500">{i+1}</span>
                                                 </div>
@@ -248,7 +248,7 @@ export default function LoansClient({ initialLoans }: LoansClientProps) {
                                     className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
                                         viewMode === 'table'
                                             ? 'bg-primary-600 text-white'
-                                            : 'text-slate-600 dark:text-slate-600 hover:text-slate-900 dark:hover:text-white'
+                                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                                     }`}
                                     aria-label="Switch to table view"
                                 >
@@ -260,7 +260,7 @@ export default function LoansClient({ initialLoans }: LoansClientProps) {
                                     className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
                                         viewMode === 'grid'
                                             ? 'bg-primary-600 text-white'
-                                            : 'text-slate-600 dark:text-slate-600 hover:text-slate-900 dark:hover:text-white'
+                                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                                     }`}
                                     aria-label="Switch to grid view"
                                 >
@@ -313,7 +313,7 @@ export default function LoansClient({ initialLoans }: LoansClientProps) {
                     <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                         Complete EMI Calculator with Amortization
                     </h2>
-                    <p className="text-lg text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
+                    <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                         Calculate your loan EMI with detailed month-by-month and year-by-year payment breakdown
                     </p>
                 </div>
@@ -328,7 +328,7 @@ export default function LoansClient({ initialLoans }: LoansClientProps) {
                     <div className="text-center mb-16">
                         <Badge className="mb-4 bg-primary-50 text-primary-700 border-primary-100">Loan Knowledge Base</Badge>
                         <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Everything You Need to Know About Loans</h2>
-                        <p className="text-xl text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
+                        <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                             Don't just sign the papers. Understand the fine print, interest calculations, and hidden charges.
                         </p>
                     </div>
@@ -345,7 +345,7 @@ export default function LoansClient({ initialLoans }: LoansClientProps) {
                                     <item.icon className="w-6 h-6 text-primary-600" />
                                 </div>
                                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{item.title}</h3>
-                                <p className="text-slate-600 dark:text-slate-600 leading-relaxed">{item.desc}</p>
+                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -392,7 +392,7 @@ export default function LoansClient({ initialLoans }: LoansClientProps) {
                                         {faq.q}
                                         <ArrowRight className="w-4 h-4 text-slate-600 group-open:rotate-90 transition-transform" />
                                     </summary>
-                                    <p className="mt-4 text-slate-600 dark:text-slate-600 leading-relaxed pl-0">{faq.a}</p>
+                                    <p className="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed pl-0">{faq.a}</p>
                                 </details>
                             ))}
                         </div>

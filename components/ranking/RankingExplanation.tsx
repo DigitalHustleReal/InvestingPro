@@ -71,7 +71,7 @@ export default function RankingExplanation({
                 <div className="flex items-start justify-between">
                     <div>
                         <CardTitle className="text-2xl mb-2 dark:text-white">Ranking Score</CardTitle>
-                        <p className="text-sm text-slate-600 dark:text-slate-600">
+                        <p className="text-sm text-slate-600 dark:text-slate-400">
                             Transparent, data-driven ranking based on verified information
                         </p>
                     </div>
@@ -195,7 +195,7 @@ export default function RankingExplanation({
                 {/* Methodology Link */}
                 {methodology && (
                     <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
-                        <p className="text-xs text-slate-600 dark:text-slate-600 mb-2">
+                        <p className="text-xs text-slate-600 dark:text-slate-400 mb-2">
                             <strong>Note:</strong> Rankings are calculated using a transparent, weighted methodology.
                             Rankings are not influenced by monetization or affiliate relationships.
                         </p>

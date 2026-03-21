@@ -93,7 +93,7 @@ export default function AdSlot({
                             </div>
                         )}
                         
-                        <p className="text-sm text-slate-600 dark:text-slate-600 mb-4">
+                        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
                             {product.description}
                         </p>
 
@@ -168,7 +168,7 @@ export function PromotionCard({
                 </div>
                 <div className="flex-1">
                     <h4 className="font-bold text-slate-900 dark:text-white mb-1">{title}</h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-600 mb-4">{description}</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">{description}</p>
                     <SmartCTA
                         variant="primary"
                         size="sm"

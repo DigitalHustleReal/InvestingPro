@@ -56,7 +56,7 @@ export default function ApplicationStats({
           <p className="text-2xl font-black text-slate-900 dark:text-white">
             {stats.applications.toLocaleString('en-IN')}
           </p>
-          <p className="text-xs text-slate-600 dark:text-slate-600 mt-1">applications</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">applications</p>
         </div>
 
         {/* Approval Rate */}
@@ -68,7 +68,7 @@ export default function ApplicationStats({
           <p className="text-2xl font-black text-success-600 dark:text-success-400">
             {stats.approvalRate}%
           </p>
-          <p className="text-xs text-slate-600 dark:text-slate-600 mt-1">avg. approval</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">avg. approval</p>
         </div>
 
         {/* Processing Time */}
@@ -80,7 +80,7 @@ export default function ApplicationStats({
           <p className="text-lg font-black text-slate-900 dark:text-white">
             {stats.processingTime}
           </p>
-          <p className="text-xs text-slate-600 dark:text-slate-600 mt-1">avg. time</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">avg. time</p>
         </div>
       </div>
 

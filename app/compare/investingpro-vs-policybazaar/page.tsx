@@ -92,7 +92,7 @@ export default function InvestingProVsPolicybazaarPage() {
                                     <strong className="text-slate-900 dark:text-white">InvestingPro</strong> specializes in <strong className="text-primary-600 dark:text-primary-400">credit cards and mutual funds</strong> with deep decision-making tools, personalized recommendations, and instant application links.
                                 </p>
                                 <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed mt-3">
-                                    <strong className="text-slate-900 dark:text-white">Policybazaar</strong> specializes in <strong className="text-slate-600 dark:text-slate-600">insurance products</strong> (life, health, motor) with agent-assisted sales and comprehensive insurance coverage.
+                                    <strong className="text-slate-900 dark:text-white">Policybazaar</strong> specializes in <strong className="text-slate-600 dark:text-slate-400">insurance products</strong> (life, health, motor) with agent-assisted sales and comprehensive insurance coverage.
                                 </p>
                             </div>
                         </div>
@@ -114,7 +114,7 @@ export default function InvestingProVsPolicybazaarPage() {
                                     <tr>
                                         <th className="px-6 py-4 text-left text-sm font-bold text-slate-900 dark:text-white">Feature</th>
                                         <th className="px-6 py-4 text-center text-sm font-bold text-primary-600 dark:text-primary-400">InvestingPro</th>
-                                        <th className="px-6 py-4 text-center text-sm font-bold text-slate-600 dark:text-slate-600">Policybazaar</th>
+                                        <th className="px-6 py-4 text-center text-sm font-bold text-slate-600 dark:text-slate-400">Policybazaar</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
@@ -177,7 +177,7 @@ export default function InvestingProVsPolicybazaarPage() {
                     <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 border-2 border-slate-200 dark:border-slate-800">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg">
-                                <Target className="w-5 h-5 text-slate-600 dark:text-slate-600" />
+                                <Target className="w-5 h-5 text-slate-600 dark:text-slate-400" />
                             </div>
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white">Choose Policybazaar If</h3>
                         </div>
@@ -190,7 +190,7 @@ export default function InvestingProVsPolicybazaarPage() {
                                 "You want insurance-specific tools and calculators"
                             ].map((point, idx) => (
                                 <li key={idx} className="flex items-start gap-3">
-                                    <Check className="w-5 h-5 text-slate-600 dark:text-slate-600 mt-0.5 shrink-0" />
+                                    <Check className="w-5 h-5 text-slate-600 dark:text-slate-400 mt-0.5 shrink-0" />
                                     <span className="text-slate-700 dark:text-slate-300">{point}</span>
                                 </li>
                             ))}

@@ -37,7 +37,7 @@ export default function RiskResult({ score, profile, onRetake }: RiskResultProps
                     <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
                         {profile.label} Investor
                     </h2>
-                    <p className="text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
+                    <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                         {profile.description}
                     </p>
                 </div>

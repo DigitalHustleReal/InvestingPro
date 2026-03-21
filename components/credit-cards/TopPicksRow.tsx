@@ -121,7 +121,7 @@ export default function TopPicksRow() {
                             
                             <ul className="space-y-2 mb-6 flex-1">
                                 {card.benefits.map((benefit: string, i: number) => (
-                                    <li key={i} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-600 font-medium leading-relaxed">
+                                    <li key={i} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
                                         <Check className="w-3.5 h-3.5 text-success-500 mt-0.5 shrink-0" />
                                         {benefit}
                                     </li>

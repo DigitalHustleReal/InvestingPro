@@ -123,7 +123,7 @@ export default function SignupPage() {
             <CheckCircle className="w-8 h-8 text-success-600 dark:text-success-400" />
           </div>
           <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">Check your email</h2>
-          <p className="text-slate-600 dark:text-slate-600 mb-6">
+          <p className="text-slate-600 dark:text-slate-400 mb-6">
             We've sent a confirmation link to <strong className="text-slate-900 dark:text-white">{email}</strong>
           </p>
           <Link
@@ -189,7 +189,7 @@ export default function SignupPage() {
           </div>
 
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Create your account</h2>
-          <p className="text-slate-600 dark:text-slate-600 mb-8">It's free and takes less than a minute</p>
+          <p className="text-slate-600 dark:text-slate-400 mb-8">It's free and takes less than a minute</p>
 
           {/* Error Display */}
           {error && (
@@ -310,7 +310,7 @@ export default function SignupPage() {
           </p>
 
           {/* Login Link */}
-          <p className="text-center text-slate-600 dark:text-slate-600 text-sm mt-6">
+          <p className="text-center text-slate-600 dark:text-slate-400 text-sm mt-6">
             Already have an account?{' '}
             <Link href="/login" className="text-primary-600 hover:text-primary-500 font-medium">
               Sign in

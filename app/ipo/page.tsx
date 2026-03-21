@@ -101,7 +101,7 @@ export default function IPOPage() {
     };
 
     const getGMPColor = (gmp?: number) => {
-        if (!gmp) return 'text-slate-600 dark:text-slate-600';
+        if (!gmp) return 'text-slate-600 dark:text-slate-400';
         if (gmp > 0) return 'text-primary-600 dark:text-primary-400';
         return 'text-danger-600 dark:text-danger-400';
     };
@@ -125,7 +125,7 @@ export default function IPOPage() {
             <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
                 <div className="text-center">
                     <RefreshCw className="w-12 h-12 text-primary-500 animate-spin mx-auto mb-4" />
-                    <p className="text-slate-600 dark:text-slate-600">Loading IPO data...</p>
+                    <p className="text-slate-600 dark:text-slate-400">Loading IPO data...</p>
                 </div>
             </div>
         );
@@ -139,7 +139,7 @@ export default function IPOPage() {
                     <CardContent className="p-8 text-center">
                         <AlertCircle className="w-12 h-12 text-danger-500 mx-auto mb-4" />
                         <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Failed to Load Data</h3>
-                        <p className="text-slate-600 dark:text-slate-600 mb-4">
+                        <p className="text-slate-600 dark:text-slate-400 mb-4">
                             {error instanceof Error ? error.message : 'Unknown error occurred'}
                         </p>
                         <Button onClick={() => refetch()} className="bg-primary-600 hover:bg-primary-700">
@@ -179,7 +179,7 @@ export default function IPOPage() {
                             <span className="bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text text-transparent">GMP Tracker</span>
                         </h1>
                         
-                        <p className="text-xl text-slate-600 dark:text-slate-600 mb-10 max-w-3xl mx-auto leading-relaxed">
+                        <p className="text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed">
                             Track Grey Market Premium (GMP), subscription status, and get data-driven listing predictions 
                             for all upcoming and current IPOs in India.
                         </p>
@@ -256,7 +256,7 @@ export default function IPOPage() {
                                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
                                     No IPOs Found
                                 </h3>
-                                <p className="text-slate-600 dark:text-slate-600">
+                                <p className="text-slate-600 dark:text-slate-400">
                                     No {activeTab !== 'all' ? activeTab : ''} IPOs available at the moment.
                                 </p>
                             </CardContent>
@@ -408,7 +408,7 @@ export default function IPOPage() {
                         <CardContent className="p-8">
                             <Sparkles className="w-8 h-8 text-primary-500 mb-4" />
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">What is Grey Market Premium (GMP)?</h3>
-                            <p className="text-slate-600 dark:text-slate-600 text-sm leading-relaxed">
+                            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
                                 GMP is the price at which IPO shares trade in the unofficial "grey market" before listing. 
                                 A positive GMP suggests strong demand, but it's not a guarantee of listing day gains.
                             </p>
@@ -419,7 +419,7 @@ export default function IPOPage() {
                         <CardContent className="p-8">
                             <BarChart3 className="w-8 h-8 text-primary-500 mb-4" />
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Understanding Subscription Data</h3>
-                            <p className="text-slate-600 dark:text-slate-600 text-sm leading-relaxed">
+                            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
                                 QIB (banks/funds), NII (wealthy investors), and Retail subscription numbers help gauge 
                                 demand across investor segments. Higher subscription often indicates confidence.
                             </p>

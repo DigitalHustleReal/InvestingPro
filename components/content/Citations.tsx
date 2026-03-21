@@ -68,7 +68,7 @@ export function CitationList({ citations, title = "Sources & Citations", classNa
     return (
         <div className={`citations-list border-t border-slate-200 dark:border-slate-800 pt-8 mt-12 ${className}`}>
             <div className="flex items-center gap-2 mb-6">
-                <FileText className="w-5 h-5 text-slate-600 dark:text-slate-600" />
+                <FileText className="w-5 h-5 text-slate-600 dark:text-slate-400" />
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                     {title}
                 </h3>
@@ -89,7 +89,7 @@ export function CitationList({ citations, title = "Sources & Citations", classNa
                                 <div className="mb-1">
                                     <span className="font-medium">{citation.title}</span>
                                     {citation.source && (
-                                        <span className="text-slate-600 dark:text-slate-600">
+                                        <span className="text-slate-600 dark:text-slate-400">
                                             {' '}— {citation.source}
                                         </span>
                                     )}
@@ -115,7 +115,7 @@ export function CitationList({ citations, title = "Sources & Citations", classNa
             </ol>
             
             <div className="mt-6 p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
-                <p className="text-xs text-slate-600 dark:text-slate-600">
+                <p className="text-xs text-slate-600 dark:text-slate-400">
                     <strong>Note:</strong> All sources are verified for accuracy and credibility. 
                     Citations are updated regularly to ensure information remains current.
                 </p>
@@ -164,7 +164,7 @@ export function SourceCard({ citation, showNumber = true }: SourceCardProps) {
                             {citation.title}
                         </h4>
                     </div>
-                    <p className="text-sm text-slate-600 dark:text-slate-600 mb-2">
+                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
                         {citation.source}
                     </p>
                     <a

@@ -34,7 +34,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
 
       {/* Visual Breadcrumb */}
       <nav aria-label="Breadcrumb" className="mb-6">
-        <ol className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-600">
+        <ol className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
           {/* Home Icon */}
           <li>
             <Link 

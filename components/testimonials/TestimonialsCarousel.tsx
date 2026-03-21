@@ -97,7 +97,7 @@ export default function TestimonialsCarousel({
         <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
           What Our Users Say
         </h2>
-        <p className="text-lg text-slate-600 dark:text-slate-600">
+        <p className="text-lg text-slate-600 dark:text-slate-400">
           Join thousands of satisfied users making smarter financial decisions
         </p>
       </div>
@@ -149,7 +149,7 @@ export default function TestimonialsCarousel({
                 {currentTestimonial?.name}
               </p>
               {currentTestimonial?.role && (
-                <p className="text-sm text-slate-600 dark:text-slate-600">
+                <p className="text-sm text-slate-600 dark:text-slate-400">
                   {currentTestimonial.role}
                   {currentTestimonial?.company && ` at ${currentTestimonial.company}`}
                 </p>

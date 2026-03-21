@@ -233,7 +233,7 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                     {/* Content */}
                     <div className="text-center mb-6">
                         <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{step.title}</h2>
-                        <p className="text-slate-600 dark:text-slate-600">{step.description}</p>
+                        <p className="text-slate-600 dark:text-slate-400">{step.description}</p>
                     </div>
 
                     <div className="mb-8">

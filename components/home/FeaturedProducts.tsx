@@ -67,7 +67,7 @@ export default function FeaturedProducts() {
                         <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
                             Top Rated Financial Products
                         </h2>
-                        <p className="text-lg text-slate-600 dark:text-slate-600 max-w-2xl">
+                        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
                             Handpicked recommendations verified by our experts for maximum value and reliability.
                         </p>
                     </div>
@@ -112,7 +112,7 @@ export default function FeaturedProducts() {
                                         <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                                             {product.name}
                                         </h3>
-                                        <p className="text-sm text-slate-600 dark:text-slate-600 mb-4 font-medium">
+                                        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 font-medium">
                                             by {product.provider_name}
                                         </p>
                                         
@@ -125,7 +125,7 @@ export default function FeaturedProducts() {
                                             <div className="flex items-center gap-2">
                                                 <TrendingUp className="w-4 h-4 text-success-500" />
                                                 <span className="font-bold text-slate-900 dark:text-white">{product.trust_score}/100</span>
-                                                <span className="text-xs text-slate-600 dark:text-slate-600">Trust Score</span>
+                                                <span className="text-xs text-slate-600 dark:text-slate-400">Trust Score</span>
                                             </div>
                                             <div className="w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center group-hover:bg-primary-600 group-hover:text-white transition-all">
                                                 <ArrowRight className="w-4 h-4" />

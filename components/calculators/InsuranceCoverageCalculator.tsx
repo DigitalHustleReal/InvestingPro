@@ -223,15 +223,15 @@ export default function InsuranceCoverageCalculator() {
               
               <div className="p-4 bg-slate-100 dark:bg-slate-800/50 rounded-xl">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-xs text-slate-600 dark:text-slate-600">Future Income Replacement</span>
+                  <span className="text-xs text-slate-600 dark:text-slate-400">Future Income Replacement</span>
                   <span className="text-sm font-bold text-slate-900 dark:text-white">{formatCurrency(result.coverageBreakdown.futureIncome)}</span>
                 </div>
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-xs text-slate-600 dark:text-slate-600">Existing Loans</span>
+                  <span className="text-xs text-slate-600 dark:text-slate-400">Existing Loans</span>
                   <span className="text-sm font-bold text-slate-900 dark:text-white">{formatCurrency(result.coverageBreakdown.loans)}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-xs text-slate-600 dark:text-slate-600">Dependent Support ({dependents})</span>
+                  <span className="text-xs text-slate-600 dark:text-slate-400">Dependent Support ({dependents})</span>
                   <span className="text-sm font-bold text-slate-900 dark:text-white">{formatCurrency(result.coverageBreakdown.dependents)}</span>
                 </div>
               </div>

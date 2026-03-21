@@ -26,7 +26,7 @@ function StatItem({ icon: Icon, value, label, iconColor }: StatItemProps) {
       <p className="text-3xl md:text-4xl font-bold font-mono text-slate-900 dark:text-white mb-1">
         {value}
       </p>
-      <p className="text-sm text-slate-600 dark:text-slate-600">
+      <p className="text-sm text-slate-600 dark:text-slate-400">
         {label}
       </p>
     </div>

@@ -6,6 +6,8 @@ import { generateSchema } from '@/lib/linking/schema';
 import { generateBreadcrumbSchema } from '@/lib/linking/breadcrumbs';
 import { FAQSchema } from "@/components/seo/SchemaMarkup";
 import { Breadcrumb } from "@/components/common/Breadcrumb";
+import FinancialDisclaimer from '@/components/legal/FinancialDisclaimer';
+import SocialShareButtons from '@/components/common/SocialShareButtons';
 
 export const metadata: Metadata = {
     title: 'RD Calculator 2026 - Recurring Deposit Maturity Amount | InvestingPro',
@@ -123,7 +125,7 @@ export default function RDCalculatorPage() {
                 <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">
                     RD <span className="text-primary-600">Calculator</span>
                 </h1>
-                <p className="text-lg text-slate-600 dark:text-slate-600 max-w-2xl mb-8 leading-relaxed">
+                <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mb-8 leading-relaxed">
                     Calculate the maturity value of your Recurring Deposit (RD) with our accurate calculator. 
                     Uses quarterly compounding logic followed by SBI, HDFC, ICICI, and other Indian banks.
                 </p>
@@ -134,11 +136,11 @@ export default function RDCalculatorPage() {
                 <div className="mt-16 grid gap-8 md:grid-cols-2">
                     <div className="prose prose-slate dark:prose-invert max-w-none">
                         <h2 className="text-2xl font-bold text-slate-900 dark:text-white">What is a Recurring Deposit?</h2>
-                        <p className="text-slate-600 dark:text-slate-600">
+                        <p className="text-slate-600 dark:text-slate-400">
                             A Recurring Deposit (RD) is a special kind of Term Deposit offered by banks which helps people with regular incomes to deposit a fixed amount every month into their Recurring Deposit account and earn interest at the rate applicable to Fixed Deposits.
                         </p>
                         <h3 className="text-xl font-bold text-slate-900 dark:text-white mt-6">Key Features</h3>
-                        <ul className="list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-600">
+                        <ul className="list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-400">
                             <li><strong>Disciplined Savings:</strong> Helps in building a habit of saving small amounts monthly.</li>
                             <li><strong>Guaranteed Returns:</strong> Interest rates are fixed for the entire tenure.</li>
                             <li><strong>Flexible Tenure:</strong> Usually ranges from 6 months to 10 years.</li>
@@ -146,6 +148,16 @@ export default function RDCalculatorPage() {
                         </ul>
                     </div>
                 </div>
+            </div>
+
+            {/* Share & Disclaimer */}
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+                <SocialShareButtons
+                    title="RD Calculator India - Recurring Deposit Returns | InvestingPro"
+                    url="https://investingpro.in/calculators/rd"
+                    description="Free rd calculator india - recurring deposit returns - use this free tool from InvestingPro"
+                />
+                <FinancialDisclaimer variant="compact" className="mt-4" />
             </div>
         </div>
     );

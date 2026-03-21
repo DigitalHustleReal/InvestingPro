@@ -80,7 +80,7 @@ export default function FAQAccordion({
           </h2>
         )}
         {subtitle && (
-          <p className="text-lg text-slate-600 dark:text-slate-600 mb-8">
+          <p className="text-lg text-slate-600 dark:text-slate-400 mb-8">
             {subtitle}
           </p>
         )}
@@ -103,7 +103,7 @@ export default function FAQAccordion({
       {/* FAQ Items */}
       <div className="space-y-4">
         {filteredFAQs.length === 0 ? (
-          <p className="text-center text-slate-600 dark:text-slate-600 py-8">
+          <p className="text-center text-slate-600 dark:text-slate-400 py-8">
             No FAQs found matching your search.
           </p>
         ) : (

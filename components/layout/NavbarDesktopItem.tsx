@@ -68,7 +68,7 @@ const NavbarDesktopItem = React.memo(function NavbarDesktopItem({
                                             className={`group flex items-center justify-between px-3 py-2.5 rounded-lg transition-all cursor-pointer ${
                                                 isActive 
                                                     ? 'bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400' 
-                                                    : 'text-slate-600 dark:text-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
+                                                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
                                             }`}
                                         >
                                             <div className="flex flex-col">

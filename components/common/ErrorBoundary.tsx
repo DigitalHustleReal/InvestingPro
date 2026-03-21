@@ -77,7 +77,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
                         <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
                             Something went wrong
                         </h1>
-                        <p className="text-slate-600 dark:text-slate-600 mb-6">
+                        <p className="text-slate-600 dark:text-slate-400 mb-6">
                             We encountered an unexpected error. Please try again or contact support if the problem persists.
                         </p>
                         {process.env.NODE_ENV === 'development' && this.state.error && (

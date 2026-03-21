@@ -103,7 +103,7 @@ export default function SearchPage() {
                     <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white mb-4">
                         Search Articles
                     </h1>
-                    <p className="text-slate-600 dark:text-slate-600 mb-8">
+                    <p className="text-slate-600 dark:text-slate-400 mb-8">
                         Find guides, tutorials, and insights on personal finance
                     </p>
                     
@@ -130,7 +130,7 @@ export default function SearchPage() {
                                     "rounded-full text-sm",
                                     category === cat.value
                                         ? "bg-primary-500 text-white hover:bg-primary-600"
-                                        : "bg-white dark:bg-white/5 text-slate-600 dark:text-slate-600 hover:bg-slate-100 dark:hover:bg-white/10"
+                                        : "bg-white dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/10"
                                 )}
                             >
                                 {cat.label}
@@ -175,7 +175,7 @@ export default function SearchPage() {
                                                         <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-1">
                                                             {result.title}
                                                         </h3>
-                                                        <p className="text-sm text-slate-600 dark:text-slate-600 line-clamp-2 mt-2">
+                                                        <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mt-2">
                                                             {result.excerpt}
                                                         </p>
                                                         <div className="flex items-center gap-4 mt-3 text-xs text-slate-500">

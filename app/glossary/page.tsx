@@ -87,7 +87,7 @@ export default function GlossaryPage() {
                         <h1 className="text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">
                             Financial Glossary
                         </h1>
-                        <p className="text-lg text-slate-600 dark:text-slate-600 mb-6">
+                        <p className="text-lg text-slate-600 dark:text-slate-400 mb-6">
                             {filteredTerms.length} terms to help you understand the financial world
                         </p>
 
@@ -129,7 +129,7 @@ export default function GlossaryPage() {
                                             className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-between group ${
                                                 activeCategory === cat
                                                 ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400'
-                                                : 'text-slate-600 dark:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800'
+                                                : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
                                             }`}
                                         >
                                             <span className="flex items-center gap-2">
@@ -142,7 +142,7 @@ export default function GlossaryPage() {
                                             <span className={`text-xs px-2 py-0.5 rounded-full ${
                                                 activeCategory === cat
                                                 ? 'bg-primary-100 dark:bg-primary-800 text-primary-700 dark:text-primary-300'
-                                                : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-600'
+                                                : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400'
                                             }`}>
                                                 {count}
                                             </span>
@@ -219,7 +219,7 @@ export default function GlossaryPage() {
                                                                             {term.category}
                                                                         </Badge>
                                                                     </div>
-                                                                    <p className="text-sm text-slate-600 dark:text-slate-600 line-clamp-2">
+                                                                    <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
                                                                         {term.definition}
                                                                     </p>
                                                                 </div>

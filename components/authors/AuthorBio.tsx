@@ -101,12 +101,12 @@ export default function AuthorBio({
                         )}
                     </div>
                     {author.role && (
-                        <p className="text-sm text-slate-600 dark:text-slate-600 mt-0.5">
+                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-0.5">
                             {author.role}
                         </p>
                     )}
                     {author.bio && (
-                        <p className="text-sm text-slate-600 dark:text-slate-600 mt-1 line-clamp-2">
+                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 line-clamp-2">
                             {author.bio}
                         </p>
                     )}
@@ -178,7 +178,7 @@ export default function AuthorBio({
 
                     {/* Experience */}
                     {author.years_of_experience && (
-                        <p className="text-sm text-slate-600 dark:text-slate-600 mb-3">
+                        <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
                             {author.years_of_experience}+ years of experience
                         </p>
                     )}
@@ -219,7 +219,7 @@ export default function AuthorBio({
                                 className="p-2 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                                 aria-label="LinkedIn"
                             >
-                                <Linkedin className="w-4 h-4 text-slate-600 dark:text-slate-600" />
+                                <Linkedin className="w-4 h-4 text-slate-600 dark:text-slate-400" />
                             </a>
                         )}
                         {author.twitter_url && (
@@ -230,7 +230,7 @@ export default function AuthorBio({
                                 className="p-2 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                                 aria-label="Twitter"
                             >
-                                <Twitter className="w-4 h-4 text-slate-600 dark:text-slate-600" />
+                                <Twitter className="w-4 h-4 text-slate-600 dark:text-slate-400" />
                             </a>
                         )}
                         {author.website_url && (
@@ -241,7 +241,7 @@ export default function AuthorBio({
                                 className="p-2 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                                 aria-label="Website"
                             >
-                                <Globe className="w-4 h-4 text-slate-600 dark:text-slate-600" />
+                                <Globe className="w-4 h-4 text-slate-600 dark:text-slate-400" />
                             </a>
                         )}
                     </div>

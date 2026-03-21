@@ -12,6 +12,8 @@ import { generateSchema } from '@/lib/linking/schema';
 import { generateCanonicalUrl } from '@/lib/linking/canonical';
 import { generateBreadcrumbSchema } from '@/lib/linking/breadcrumbs';
 import Link from "next/link";
+import FinancialDisclaimer from '@/components/legal/FinancialDisclaimer';
+import SocialShareButtons from '@/components/common/SocialShareButtons';
 
 export default function GSTCalculatorPage() {
     // Generate automated schema
@@ -145,7 +147,7 @@ export default function GSTCalculatorPage() {
                         <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
                             GST Calculator India - Calculate Goods and Services Tax
                         </h2>
-                        <div className="prose prose-slate max-w-none">
+                        <div className="prose prose-slate dark:prose-invert max-w-none">
                             <p className="text-lg text-slate-600 leading-relaxed mb-6">
                                 GST (Goods and Services Tax) is a comprehensive indirect tax levied on the supply of goods and services in India. 
                                 Our free GST calculator helps you calculate GST for any amount, whether you need to add GST to a base amount 
@@ -284,7 +286,16 @@ export default function GSTCalculatorPage() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
                 <AutoInternalLinks context={linkingContext} />
             </div>
+
+            {/* Share & Disclaimer */}
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+                <SocialShareButtons
+                    title="GST Calculator India - Calculate GST Inclusive/Exclusive | InvestingPro"
+                    url="https://investingpro.in/calculators/gst"
+                    description="Free gst calculator india - calculate gst inclusive/exclusive - use this free tool from InvestingPro"
+                />
+                <FinancialDisclaimer variant="compact" className="mt-4" />
+            </div>
         </div>
     );
 }
-

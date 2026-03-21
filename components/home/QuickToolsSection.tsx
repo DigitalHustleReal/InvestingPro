@@ -164,12 +164,12 @@ function HeroSIPCalculator() {
                             <div className="mt-4 space-y-2">
                                 <div className="flex items-center gap-2 text-xs font-bold">
                                     <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                                    <span className="text-slate-600 dark:text-slate-600">Wealth Gain:</span>
+                                    <span className="text-slate-600 dark:text-slate-400">Wealth Gain:</span>
                                     <span className="text-emerald-600 dark:text-emerald-400">₹{(result.gains/100000).toFixed(1)}L</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-xs font-bold">
                                     <div className="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-600" />
-                                    <span className="text-slate-600 dark:text-slate-600">Total Invested:</span>
+                                    <span className="text-slate-600 dark:text-slate-400">Total Invested:</span>
                                     <span className="text-slate-900 dark:text-white">₹{(result.invested/100000).toFixed(1)}L</span>
                                 </div>
                             </div>
@@ -270,7 +270,7 @@ export default function QuickToolsSection() {
                     <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
                         Calculate Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">Financial Future</span>
                     </h2>
-                    <p className="text-lg text-slate-600 dark:text-slate-600">
+                    <p className="text-lg text-slate-600 dark:text-slate-400">
                         Powerful tools to help you plan, save, and grow your wealth.
                     </p>
                 </div>

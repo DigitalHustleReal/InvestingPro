@@ -69,6 +69,7 @@ const footerLinks = {
     ],
     company: [
         { name: "About Us", page: "About" },
+        { name: "Pricing — Pro Plan", href: "/pricing" },
         { name: "Contact Support", href: "/contact-us" },
         { name: "How We Make Money", page: "Disclosure" },
         { name: "Methodology", page: "Methodology" },
@@ -104,7 +105,7 @@ export function Footer() {
     };
 
     return (
-        <footer className="bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-600 border-t border-slate-200 dark:border-slate-900">
+        <footer className="bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400 border-t border-slate-200 dark:border-slate-900">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 {/* PROMINENT Trust & Transparency Banner - FTC Compliance */}
                 <div className="mb-16 p-8 rounded-xl border-2 border-primary-600/30 bg-gradient-to-r from-primary-100/30 via-slate-100/50 to-slate-100/30 dark:from-primary-950/30 dark:via-slate-900/50 dark:to-slate-900/30 relative overflow-hidden">
@@ -158,7 +159,7 @@ export function Footer() {
                     <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                         <div className="text-center md:text-left max-w-xl">
                             <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3">Master Your Money</h3>
-                            <p className="text-slate-600 dark:text-slate-600 text-lg">Join 25,000+ investors getting the best IPO insights delivered weekly.</p>
+                            <p className="text-slate-600 dark:text-slate-400 text-lg">Join 25,000+ investors getting the best IPO insights delivered weekly.</p>
                         </div>
                         <div className="w-full md:w-auto min-w-[340px] bg-white/10 p-1.5 rounded-xl backdrop-blur-sm border border-white/20">
                             <NewsletterWidget variant="minimal" className="w-full" />
@@ -197,7 +198,7 @@ export function Footer() {
                                     { name: "Travel Cards", href: "/credit-cards?filter=travel" },
                                 ].map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm md:text-sm text-slate-600 dark:text-slate-600 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm md:text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -211,7 +212,7 @@ export function Footer() {
                                     { name: "Check Eligibility", href: "/loans/calculators/eligibility" },
                                 ].map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-600 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -225,7 +226,7 @@ export function Footer() {
                                     { name: "Fixed Deposits", href: "/fixed-deposits" },
                                 ].map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-600 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -238,7 +239,7 @@ export function Footer() {
                                     { name: "Small Business Finance", href: "/small-business" },
                                 ].map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-600 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -252,7 +253,7 @@ export function Footer() {
                             <ul className="space-y-2">
                                 {displayCalculators.map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-600 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -263,7 +264,7 @@ export function Footer() {
                                 <ul className="space-y-2">
                                     {displayComparisons.map((link, i) => (
                                         <li key={i}>
-                                            <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-600 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                            <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
                                         </li>
                                     ))}
                                 </ul>
@@ -274,7 +275,7 @@ export function Footer() {
                             <ul className="space-y-2">
                                 {footerData.resources.map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-600 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -288,7 +289,7 @@ export function Footer() {
                             <ul className="space-y-2">
                                 {footerLinks.company.map((link, i) => (
                                     <li key={i}>
-                                    <Link href={link.href || getHref(link.page)} className="text-sm text-slate-600 dark:text-slate-600 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                    <Link href={link.href || getHref(link.page)} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -298,7 +299,7 @@ export function Footer() {
                             <ul className="space-y-2">
                                 {footerLinks.legal.map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-600 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -316,7 +317,7 @@ export function Footer() {
                                 <span className="w-1.5 h-1.5 bg-warning-500 rounded-full"></span>
                                 Important Legal Disclaimer
                             </h5>
-                            <div className={`space-y-3 text-xs text-slate-600 dark:text-slate-600 leading-relaxed ${!disclaimerExpanded ? 'line-clamp-3' : ''}`}>
+                            <div className={`space-y-3 text-xs text-slate-600 dark:text-slate-400 leading-relaxed ${!disclaimerExpanded ? 'line-clamp-3' : ''}`}>
                                 <p>
                                     <strong className="text-slate-800 dark:text-slate-300">InvestingPro.in is NOT a SEBI registered investment advisor, financial advisor, or stockbroker.</strong> We are an independent research, education, and discovery platform. Our content, tools, calculators, and product comparisons are provided for informational and educational purposes only.
                                 </p>

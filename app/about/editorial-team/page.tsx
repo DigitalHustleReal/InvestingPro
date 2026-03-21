@@ -90,7 +90,7 @@ export default function EditorialTeamPage() {
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">
               Expertise You Can Trust
             </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-600 leading-relaxed">
+            <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
               We are a team of journalists, CAs, bankers, and analysts obsessed with one mission: 
               <strong> Making you wealthier, faster.</strong> Our content is fact-checked, unbiased, and data-driven.
             </p>
@@ -186,7 +186,7 @@ export default function EditorialTeamPage() {
                         <CardTitle className="text-xl font-bold group-hover:text-primary-600 transition-colors">{member.name}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-slate-600 dark:text-slate-600 text-sm mb-4 line-clamp-3">
+                        <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-3">
                             {member.bio}
                         </p>
                         <Separator className="my-4" />

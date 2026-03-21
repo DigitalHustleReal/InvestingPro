@@ -110,7 +110,7 @@ export function SmartText({ children, className = "" }: SmartTextProps) {
   }, [children, terms, loading]);
 
   return (
-    <p className={`text-slate-600 dark:text-slate-600 leading-relaxed ${className}`}>
+    <p className={`text-slate-600 dark:text-slate-400 leading-relaxed ${className}`}>
         {processedContent}
     </p>
   );

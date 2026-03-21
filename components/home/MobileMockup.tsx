@@ -35,7 +35,7 @@ export default function MobileMockup() {
                     {/* Mobile Homepage Preview */}
                     <div className="bg-white dark:bg-slate-900 h-[600px] overflow-y-auto">
                         {/* Status Bar */}
-                        <div className="bg-slate-50 dark:bg-slate-800 px-4 py-2 flex items-center justify-between text-xs text-slate-600 dark:text-slate-600">
+                        <div className="bg-slate-50 dark:bg-slate-800 px-4 py-2 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
                             <span>9:41</span>
                             <div className="flex items-center gap-1">
                                 <div className="w-4 h-2 border border-slate-400 rounded-sm">
@@ -63,15 +63,15 @@ export default function MobileMockup() {
                             <div className="grid grid-cols-3 gap-2 text-center">
                                 <div>
                                     <div className="text-lg font-bold text-slate-900 dark:text-white">500+</div>
-                                    <div className="text-xs text-slate-600 dark:text-slate-600">Cards</div>
+                                    <div className="text-xs text-slate-600 dark:text-slate-400">Cards</div>
                                 </div>
                                 <div>
                                     <div className="text-lg font-bold text-slate-900 dark:text-white">2K+</div>
-                                    <div className="text-xs text-slate-600 dark:text-slate-600">Funds</div>
+                                    <div className="text-xs text-slate-600 dark:text-slate-400">Funds</div>
                                 </div>
                                 <div>
                                     <div className="text-lg font-bold text-slate-900 dark:text-white">15+</div>
-                                    <div className="text-xs text-slate-600 dark:text-slate-600">Tools</div>
+                                    <div className="text-xs text-slate-600 dark:text-slate-400">Tools</div>
                                 </div>
                             </div>
                         </div>
@@ -133,7 +133,7 @@ export default function MobileMockup() {
                                         className="bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-3 border border-emerald-200 dark:border-emerald-800 text-center"
                                     >
                                         <div className="text-lg font-bold text-emerald-600 dark:text-emerald-400">{tool}</div>
-                                        <div className="text-xs text-slate-600 dark:text-slate-600">Calculator</div>
+                                        <div className="text-xs text-slate-600 dark:text-slate-400">Calculator</div>
                                     </div>
                                 ))}
                             </div>
@@ -145,7 +145,7 @@ export default function MobileMockup() {
                                 {['Home', 'Compare', 'Tools', 'Guides'].map((item) => (
                                     <div key={item} className="flex flex-col items-center gap-1">
                                         <div className="w-5 h-5 bg-slate-300 dark:bg-slate-600 rounded" />
-                                        <span className="text-xs text-slate-600 dark:text-slate-600">{item}</span>
+                                        <span className="text-xs text-slate-600 dark:text-slate-400">{item}</span>
                                     </div>
                                 ))}
                             </div>

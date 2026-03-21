@@ -199,7 +199,7 @@ export function BulkUploader() {
                                         <p className="font-medium text-slate-900 dark:text-white truncate">
                                             {item.file.name}
                                         </p>
-                                        <p className="text-sm text-slate-600 dark:text-slate-600">
+                                        <p className="text-sm text-slate-600 dark:text-slate-400">
                                             {(item.file.size / 1024 / 1024).toFixed(2)} MB
                                         </p>
 

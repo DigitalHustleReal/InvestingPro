@@ -3,6 +3,8 @@ import React from 'react';
 import { Metadata } from 'next';
 import { FinancialHealthCalculator } from '@/components/calculators/FinancialHealthCalculator';
 import { Badge } from "@/components/ui/badge";
+import FinancialDisclaimer from '@/components/legal/FinancialDisclaimer';
+import SocialShareButtons from '@/components/common/SocialShareButtons';
 
 // Prevent prerendering to avoid circular import issues
 export const dynamic = 'force-dynamic';
@@ -35,7 +37,7 @@ export default function FinancialHealthPage() {
       
       <FinancialHealthCalculator />
 
-      <div className="mt-12 prose prose-slate max-w-none">
+      <div className="mt-12 prose prose-slate dark:prose-invert max-w-none">
         <h2>What affects your Financial Health Score?</h2>
         <p>
             Our proprietary scoring model evaluates four critical pillars of personal finance:
@@ -47,6 +49,16 @@ export default function FinancialHealthPage() {
             <li><strong>Protection & Assets (40%):</strong> Do you have insurance and are you building net worth?</li>
         </ul>
       </div>
+
+            {/* Share & Disclaimer */}
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+                <SocialShareButtons
+                    title="Financial Health Score Calculator | InvestingPro"
+                    url="https://investingpro.in/calculators/financial-health-score"
+                    description="Free financial health score calculator - use this free tool from InvestingPro"
+                />
+                <FinancialDisclaimer variant="compact" className="mt-4" />
+            </div>
     </div>
   );
 }

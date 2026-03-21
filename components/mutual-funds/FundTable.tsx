@@ -166,7 +166,7 @@ export function FundTable({ funds }: FundTableProps) {
             key: 'aum',
             header: 'AUM (Cr)',
             accessor: (row) => (
-                <span className="text-sm font-bold text-slate-600 dark:text-slate-600 tabular-nums">
+                <span className="text-sm font-bold text-slate-600 dark:text-slate-400 tabular-nums">
                     ₹{formatCompactNumber(row.aum)}
                 </span>
             ),

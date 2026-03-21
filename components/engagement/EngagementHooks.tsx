@@ -249,7 +249,7 @@ export default function EngagementHooks({
                                     <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
                                         Get Weekly Financial Insights
                                     </h4>
-                                    <p className="text-sm text-slate-600 dark:text-slate-600 mb-3">
+                                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
                                         Join 10,000+ readers getting expert financial tips every week.
                                     </p>
                                     <div className="flex items-center gap-2">
@@ -285,7 +285,7 @@ export default function EngagementHooks({
                                     <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
                                         Calculate Your {category?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())} Options
                                     </h4>
-                                    <p className="text-sm text-slate-600 dark:text-slate-600 mb-3">
+                                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
                                         Use our free calculator to see your personalized results.
                                     </p>
                                     <div className="flex items-center gap-2">
@@ -323,7 +323,7 @@ export default function EngagementHooks({
                                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
                                     Before You Go...
                                 </h3>
-                                <p className="text-sm text-slate-600 dark:text-slate-600 mb-4">
+                                <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
                                     Save this article for later or explore related content.
                                 </p>
                             </div>

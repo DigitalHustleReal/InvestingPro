@@ -264,7 +264,7 @@ export default function BankingPage() {
                                 {/* Table Footer */}
                                 <div className="bg-slate-50 dark:bg-slate-800/50 px-6 py-4 border-t border-slate-200 dark:border-slate-700">
                                     <div className="flex items-center justify-between text-sm">
-                                        <div className="flex items-center gap-2 text-slate-600 dark:text-slate-600">
+                                        <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                                             <Clock className="w-4 h-4" />
                                             Last updated: 3 hours ago
                                         </div>
@@ -295,7 +295,7 @@ export default function BankingPage() {
                                         <div className="text-2xl font-bold text-slate-900 dark:text-white">
                                             {stat.value}
                                         </div>
-                                        <div className="text-xs text-slate-600 dark:text-slate-600 mt-1">
+                                        <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">
                                             {stat.label}
                                         </div>
                                     </div>
@@ -313,7 +313,7 @@ export default function BankingPage() {
                         <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                             High-Yield Savings Accounts
                         </h2>
-                        <p className="text-lg text-slate-600 dark:text-slate-600 max-w-2xl mx-auto">
+                        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                             Earn up to 7% interest on your savings with zero balance options
                         </p>
                     </div>
@@ -326,7 +326,7 @@ export default function BankingPage() {
                                     <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">
                                         {account.bank}
                                     </h3>
-                                    <p className="text-sm text-slate-600 dark:text-slate-600 mb-4">
+                                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
                                         {account.account}
                                     </p>
 
@@ -349,7 +349,7 @@ export default function BankingPage() {
                                     </div>
 
                                     <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
-                                        <div className="text-sm text-slate-600 dark:text-slate-600 mb-3">
+                                        <div className="text-sm text-slate-600 dark:text-slate-400 mb-3">
                                             Min Balance: <span className="font-bold text-slate-900 dark:text-white">{account.minBalance}</span>
                                         </div>
                                         <Button className="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100">
@@ -371,7 +371,7 @@ export default function BankingPage() {
                         <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                             Explore All Banking Products
                         </h2>
-                        <p className="text-lg text-slate-600 dark:text-slate-600">
+                        <p className="text-lg text-slate-600 dark:text-slate-400">
                             Compare and choose the best banking solutions for your needs
                         </p>
                     </div>
@@ -391,7 +391,7 @@ export default function BankingPage() {
                                         <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
                                             {category.label}
                                         </h3>
-                                        <p className="text-sm text-slate-600 dark:text-slate-600 mb-3">
+                                        <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
                                             {category.description}
                                         </p>
                                         {category.count && (

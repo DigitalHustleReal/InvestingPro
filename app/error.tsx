@@ -48,7 +48,7 @@ export default function GlobalError({
           {guidance.title}
         </h1>
         
-        <p className="text-slate-600 dark:text-slate-600 mb-6 leading-relaxed">
+        <p className="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
           {guidance.detail}
         </p>
 

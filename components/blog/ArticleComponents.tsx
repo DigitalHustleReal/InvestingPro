@@ -64,7 +64,7 @@ export function Callout({ type, title, children, className }: CalloutProps) {
       icon: Info,
       bgColor: 'bg-slate-50 dark:bg-slate-900',
       borderColor: 'border-slate-400 dark:border-slate-600',
-      iconColor: 'text-slate-600 dark:text-slate-600',
+      iconColor: 'text-slate-600 dark:text-slate-400',
       titleColor: 'text-slate-900 dark:text-slate-100',
       defaultTitle: 'Definition'
     },
@@ -134,14 +134,14 @@ export function StatBox({ label, value, trend, trendDirection }: {
 }) {
   return (
     <div className="bg-white dark:bg-slate-800 border-2 border-primary-200 dark:border-primary-700 rounded-lg p-4 text-center">
-      <p className="text-sm text-slate-600 dark:text-slate-600 mb-1">{label}</p>
+      <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">{label}</p>
       <p className="text-3xl font-bold text-primary-600 dark:text-primary-400">{value}</p>
       {trend && (
         <p className={cn(
           'text-xs mt-1 font-medium',
           trendDirection === 'up' && 'text-success-600 dark:text-success-400',
           trendDirection === 'down' && 'text-danger-600 dark:text-danger-400',
-          trendDirection === 'neutral' && 'text-slate-600 dark:text-slate-600'
+          trendDirection === 'neutral' && 'text-slate-600 dark:text-slate-400'
         )}>
           {trend}
         </p>
@@ -240,13 +240,13 @@ export function QuickFacts({ facts }: { facts: Array<{ label: string; value: str
   return (
     <div className="my-6 bg-slate-50 dark:bg-slate-800/50 border border-slate-300 dark:border-slate-700 rounded-lg p-5">
       <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-        <Info className="w-5 h-5 text-slate-600 dark:text-slate-600" />
+        <Info className="w-5 h-5 text-slate-600 dark:text-slate-400" />
         Quick Facts
       </h4>
       <dl className="space-y-2">
         {facts.map((fact, index) => (
           <div key={index} className="flex justify-between items-center py-2 border-b border-slate-200 dark:border-slate-700 last:border-0">
-            <dt className="text-sm text-slate-600 dark:text-slate-600">{fact.label}</dt>
+            <dt className="text-sm text-slate-600 dark:text-slate-400">{fact.label}</dt>
             <dd className="font-semibold text-slate-900 dark:text-white">{fact.value}</dd>
           </div>
         ))}

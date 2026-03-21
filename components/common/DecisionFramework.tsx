@@ -133,7 +133,7 @@ export default function DecisionFramework({
                                                 "flex items-center gap-2 px-3 py-1.5 rounded-lg transition-colors cursor-pointer",
                                                 isActive && "bg-primary-600 dark:bg-primary-700 text-white",
                                                 isCompleted && !isActive && "bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300",
-                                                !isActive && !isCompleted && "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-600"
+                                                !isActive && !isCompleted && "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                                             )}
                                             onClick={() => handleStageClick(stage.id)}
                                         >
@@ -209,7 +209,7 @@ export default function DecisionFramework({
                     <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
                         Your Decision Journey
                     </h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-600">
+                    <p className="text-sm text-slate-600 dark:text-slate-400">
                         Follow these steps to make the best financial decision
                     </p>
                 </div>
@@ -267,7 +267,7 @@ export default function DecisionFramework({
                                             </Badge>
                                         )}
                                     </div>
-                                    <p className="text-sm text-slate-600 dark:text-slate-600">
+                                    <p className="text-sm text-slate-600 dark:text-slate-400">
                                         {stage.description}
                                     </p>
                                 </div>
@@ -284,7 +284,7 @@ export default function DecisionFramework({
                                 <p className="text-sm font-medium text-slate-900 dark:text-white mb-1">
                                     Next Step
                                 </p>
-                                <p className="text-xs text-slate-600 dark:text-slate-600">
+                                <p className="text-xs text-slate-600 dark:text-slate-400">
                                     {nextAction.cta}
                                 </p>
                             </div>

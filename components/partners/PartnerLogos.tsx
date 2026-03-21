@@ -72,7 +72,7 @@ export default function PartnerLogos({
               </h2>
             )}
             {subtitle && (
-              <p className="text-lg text-slate-600 dark:text-slate-600">
+              <p className="text-lg text-slate-600 dark:text-slate-400">
                 {subtitle}
               </p>
             )}

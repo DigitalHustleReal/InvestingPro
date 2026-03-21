@@ -255,7 +255,7 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
                                     viewMode === 'table'
                                         ? 'bg-primary-600 text-white'
-                                        : 'text-slate-600 dark:text-slate-600 hover:text-slate-900 dark:hover:text-white'
+                                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                                 }`}
                             >
                                 <TableIcon className="w-4 h-4" />
@@ -266,7 +266,7 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
                                     viewMode === 'grid'
                                         ? 'bg-primary-600 text-white'
-                                        : 'text-slate-600 dark:text-slate-600 hover:text-slate-900 dark:hover:text-white'
+                                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                                 }`}
                             >
                                 <LayoutGrid className="w-4 h-4" />

@@ -129,7 +129,7 @@ export default function SharableStatCard({
             case 'decrease':
                 return 'text-danger-600 dark:text-danger-400';
             default:
-                return 'text-slate-600 dark:text-slate-600';
+                return 'text-slate-600 dark:text-slate-400';
         }
     };
 
@@ -180,7 +180,7 @@ export default function SharableStatCard({
     if (variant === 'minimal') {
         return (
             <div className={cn("inline-flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg", className)}>
-                <span className="text-sm font-medium text-slate-600 dark:text-slate-600">{title}:</span>
+                <span className="text-sm font-medium text-slate-600 dark:text-slate-400">{title}:</span>
                 <span className="text-sm font-bold text-slate-900 dark:text-white">{formatValue(value)}</span>
                 {showShare && (
                     <button
@@ -206,7 +206,7 @@ export default function SharableStatCard({
             className
         )}>
             <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-medium text-slate-600 dark:text-slate-600 flex items-center justify-between">
+                <CardTitle className="text-sm font-medium text-slate-600 dark:text-slate-400 flex items-center justify-between">
                     <span className="flex items-center gap-2">
                         {Icon && <Icon className="w-4 h-4" />}
                         {title}
