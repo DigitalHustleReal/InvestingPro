@@ -113,6 +113,7 @@ export default function NewArticlePage() {
                         featured_image: data.featured_image,
                         read_time: data.read_time,
                         language: data.language || 'en',
+                        author_id: data.author_id || undefined,
                     },
                 }),
             });
@@ -173,6 +174,7 @@ export default function NewArticlePage() {
                         featured_image: data.featured_image,
                         read_time: data.read_time,
                         language: data.language || 'en',
+                        author_id: data.author_id || undefined,
                     },
                 }),
             });

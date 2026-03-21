@@ -1,23 +1,13 @@
 import { NextResponse } from 'next/server';
 import { logger } from '@/lib/logger';
 import { generateArticle } from '@/lib/ai/article-writer';
-import { createClient } from '@/lib/supabase/server';
+import { requireAdminApi } from '@/lib/auth/require-admin-api';
 
 export async function POST(req: Request) {
     try {
-        // 1. Auth Check
-        const supabase = await createClient();
-        const { data: { user } } = await supabase.auth.getUser();
-        
-        // Skip auth check in development (matching middleware behavior)
-        const isProduction = process.env.NODE_ENV === 'production';
-        if (!user && isProduction) {
-            return NextResponse.json({ error: 'Unauthorized: Please log in to access admin tools' }, { status: 401 });
-        }
-        
-        // TODO: Check for admin role
-        // const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
-        // if (profile?.role !== 'admin') ...
+        // 1. Auth Check — requires authenticated admin role
+        const { error } = await requireAdminApi();
+        if (error) return error;
 
         // 2. Parse Request
         const body = await req.json();
