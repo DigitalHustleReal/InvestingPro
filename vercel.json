@@ -110,6 +110,10 @@
     {
       "path": "/api/cron/sync-legal-products",
       "schedule": "30 0 * * *"
+    },
+    {
+      "path": "/api/cron/update-intelligence",
+      "schedule": "0 2 * * *"
     }
   ]
 }
