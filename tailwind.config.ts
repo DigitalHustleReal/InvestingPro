@@ -93,19 +93,18 @@ const config: Config = {
                 light: '#E2E8F0',       // slate-200 (Light mode border)
             },
             
-            // Functional Colors
+            // Functional Colors — primary aligned to CSS variable --primary (188 100% 43% = #06B6D4)
             primary: {
-                DEFAULT: '#14B8A6',     // teal-500
-                hover: '#0D9488',       // teal-600
-                light: '#2DD4BF',       // teal-400
-                // Legacy support (will be removed later, kept for build safety)
-                50: '#F0FDFB',
-                100: '#CCFBF1',
-                200: '#99F6E4',
-                300: '#5EEAD4',
-                400: '#2DD4BF',
-                500: '#14B8A6',
-                600: '#0D9488',
+                DEFAULT: '#06B6D4',     // cyan-500 — matches --primary CSS var
+                hover: '#0891B2',       // cyan-600
+                light: '#22D3EE',       // cyan-400
+                50: '#ECFEFF',
+                100: '#CFFAFE',
+                200: '#A5F3FC',
+                300: '#67E8F9',
+                400: '#22D3EE',
+                500: '#06B6D4',
+                600: '#0891B2',
                 700: '#0F766E',
                 800: '#115E59',
                 900: '#134E4A',
@@ -204,8 +203,8 @@ const config: Config = {
                 'lg': '0 10px 20px -3px rgb(0 0 0 / 0.12), 0 4px 6px -4px rgb(0 0 0 / 0.08)',
                 'xl': '0 20px 40px -5px rgb(0 0 0 / 0.15), 0 8px 16px -8px rgb(0 0 0 / 0.1)',
                 '2xl': '0 30px 60px -12px rgb(0 0 0 / 0.2), 0 12px 24px -12px rgb(0 0 0 / 0.15)',
-                'primary': '0 4px 12px rgba(20, 184, 166, 0.15)',
-                'primary-lg': '0 8px 24px rgba(20, 184, 166, 0.25)',
+                'primary': '0 4px 12px rgba(6, 182, 212, 0.15)',
+                'primary-lg': '0 8px 24px rgba(6, 182, 212, 0.25)',
             },
             animation: {
                 'fade-in': 'fadeIn 0.5s ease-in',

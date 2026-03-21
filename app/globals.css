@@ -57,9 +57,22 @@
     --input: 222 47% 18%;
     --ring: 188 100% 43%;                       /* Cyan Ring */
 
-    /* Legacy Theme Support Redirects (to prevent breakage) */
+    /*
+     * Legacy color aliases — these map to semantic tokens above.
+     * Prefer the semantic tokens (--primary, --accent, --border, etc.) in new code.
+     * Migration guide:
+     *   wt-nav    → bg-background / bg-surface-darker
+     *   wt-gold   → bg-accent / text-accent (amber/gold highlight)
+     *   wt-bg     → bg-background
+     *   wt-card   → bg-card
+     *   wt-surface → bg-muted
+     *   wt-border → border-border
+     *   wt-text   → text-foreground
+     *   wt-text-muted → text-muted-foreground
+     */
     --wt-nav: var(--background);
     --wt-gold: var(--accent);
+    --wt-gold-hover: var(--accent-hover, var(--accent));
     --wt-bg: var(--background);
     --wt-card: var(--card);
     --wt-surface: var(--muted);

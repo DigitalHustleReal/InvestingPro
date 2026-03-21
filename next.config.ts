@@ -7,7 +7,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   typescript: {
-    ignoreBuildErrors: true,
+    // Set to false to surface TypeScript errors during builds.
+    // Re-enable temporarily only if blocking a critical deploy.
+    ignoreBuildErrors: false,
   },
   // Satisfy Next 16 when webpack is used via --webpack flag (avoids Turbopack/webpack conflict message)
   turbopack: {},

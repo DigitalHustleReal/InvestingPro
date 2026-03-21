@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Menu, X, ChevronDown, ChevronRight, Search, User } from "lucide-react";
 import Logo from "@/components/common/Logo";
-import { NAVIGATION_CONFIG, EDITORIAL_INTENTS } from "@/lib/navigation/config";
+import { NAVIGATION_CONFIG, EDITORIAL_INTENTS, NAVBAR_PRIORITY_SLUGS } from "@/lib/navigation/config";
 import LanguageSwitcher from "@/components/common/LanguageSwitcher";
 import { useSearch } from "@/components/search/SearchProvider";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
@@ -107,11 +107,9 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
         };
     }, [isOpen]);
     
-    // Filter and reorder categories based on high-intent search volume (memoized for performance)
-    const PRIORITY_SLUGS = ['credit-cards', 'insurance', 'loans', 'investing', 'calculators'];
-    
-    const navigationCategories = React.useMemo(() => 
-        PRIORITY_SLUGS
+    // Filter and reorder categories by priority — config is the single source of truth
+    const navigationCategories = React.useMemo(() =>
+        NAVBAR_PRIORITY_SLUGS
             .map(slug => config.find(c => c.slug === slug))
             .filter((c): c is typeof NAVIGATION_CONFIG[0] => c !== undefined),
         [config]

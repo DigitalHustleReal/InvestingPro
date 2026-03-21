@@ -1,43 +1,6 @@
 /**
  * Trust & Transparency Utilities
- * Generates trust-building timestamps and verification data
  */
-
-/**
- * Generate a realistic "last updated" timestamp
- * Randomizes within 1-5 days ago to show freshness
- */
-export function generateLastUpdated(seedId?: string): Date {
-    // Use product ID as seed for consistency (same product = same random offset)
-    const seed = seedId ? hashString(seedId) : Math.random();
-    
-    // Random offset between 1-5 days
-    const daysAgo = 1 + (seed % 5);
-    
-    // Random hours/minutes for more realism
-    const hoursOffset = Math.floor((seed * 24) % 24);
-    const minutesOffset = Math.floor((seed * 60) % 60);
-    
-    const timestamp = new Date();
-    timestamp.setDate(timestamp.getDate() - daysAgo);
-    timestamp.setHours(timestamp.getHours() - hoursOffset);
-    timestamp.setMinutes(timestamp.getMinutes() - minutesOffset);
-    
-    return timestamp;
-}
-
-/**
- * Simple string hash for deterministic randomization
- */
-function hashString(str: string): number {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-        const char = str.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash; // Convert to 32-bit integer
-    }
-    return Math.abs(hash) / 2147483647; // Normalize to 0-1
-}
 
 /**
  * Format relative time for display

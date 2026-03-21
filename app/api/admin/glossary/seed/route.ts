@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';
+import { requireAdminApi } from '@/lib/auth/require-admin-api';
 
 // Use service role for admin operations (bypasses RLS)
 const getServiceRoleClient = () => {
@@ -136,6 +137,10 @@ const GLOSSARY_TERMS = [
 
 export async function POST(request: NextRequest) {
   try {
+    // Auth Check — requires authenticated admin role
+    const { error: authError } = await requireAdminApi();
+    if (authError) return authError;
+
     const supabase = getServiceRoleClient();
     
     let successCount = 0;

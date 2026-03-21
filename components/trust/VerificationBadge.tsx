@@ -3,7 +3,7 @@
 import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import { CheckCircle, Clock, AlertCircle, Shield } from 'lucide-react';
-import { getVerificationBadge, formatRelativeTime, generateLastUpdated } from '@/lib/trust/trust-utils';
+import { getVerificationBadge, formatRelativeTime } from '@/lib/trust/trust-utils';
 
 interface VerificationBadgeProps {
     verificationStatus: string;
@@ -20,9 +20,7 @@ export default function VerificationBadge({
     showDescription = false,
     size = 'md'
 }: VerificationBadgeProps) {
-    // Generate deterministic "last updated" if not provided
-    const verifiedDate = lastVerified || generateLastUpdated(productId);
-    const badge = getVerificationBadge(verificationStatus, verifiedDate);
+    const badge = getVerificationBadge(verificationStatus, lastVerified);
     
     const IconComponent = {
         check: CheckCircle,
@@ -57,9 +55,11 @@ export default function VerificationBadge({
                 <div className="flex-1 min-w-0">
                     <div className="font-bold text-sm mb-0.5">{badge.label}</div>
                     <div className="text-xs opacity-80 leading-relaxed">{badge.description}</div>
-                    <div className="text-[10px] font-medium mt-1 opacity-60">
-                        {formatRelativeTime(verifiedDate)}
-                    </div>
+                    {lastVerified && (
+                        <div className="text-[10px] font-medium mt-1 opacity-60">
+                            {formatRelativeTime(lastVerified)}
+                        </div>
+                    )}
                 </div>
             </div>
         );
@@ -86,9 +86,13 @@ interface LastUpdatedProps {
     variant?: 'subtle' | 'prominent';
 }
 
-export function LastUpdated({ productId, timestamp, variant = 'subtle' }: LastUpdatedProps) {
-    const updatedDate = timestamp || generateLastUpdated(productId);
-    const relativeTime = formatRelativeTime(updatedDate);
+export function LastUpdated({ timestamp, variant = 'subtle' }: Omit<LastUpdatedProps, 'productId'> & { timestamp?: Date }) {
+    if (!timestamp) {
+        // Show nothing when no real timestamp is available — never fabricate dates
+        return null;
+    }
+
+    const relativeTime = formatRelativeTime(timestamp);
 
     if (variant === 'prominent') {
         return (

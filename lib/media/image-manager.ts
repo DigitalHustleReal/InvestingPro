@@ -44,7 +44,7 @@ export class ImageManager {
         // 3. Generate with FREE AI (Pollinations.ai)
         logger.info("   🎨 Generating with FREE AI (Pollinations)...");
         try {
-            const { imageService } = await import('@/lib/images/stock-image-service');
+            const { imageService } = await import('@/lib/images/stock-image-service-enhanced');
             const aiResult = await imageService.getFeaturedImage(topic, category);
             if (aiResult && aiResult.source === 'pollinations') {
                 logger.info("   ✅ Generated with Pollinations.ai");

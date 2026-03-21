@@ -636,10 +636,11 @@ export class ArticleService {
             ai_generated: false, // Set explicitly for manual creation
         };
 
-        // Try insert with retry for slug conflicts
+        // Try insert with retry for slug conflicts — uses clean sequential suffixes (-2, -3, ...)
+        const baseSlug = slug;
         let attempts = 0;
-        const maxAttempts = 3;
-        
+        const maxAttempts = 10;
+
         while (attempts < maxAttempts) {
             const { data, error } = await supabase
                 .from('articles')
@@ -656,15 +657,12 @@ export class ArticleService {
                 };
             }
 
-            // Handle duplicate slug
+            // Handle duplicate slug with clean sequential suffix
             if (error.code === '23505' || error.message?.includes('duplicate key')) {
-                if (attempts < maxAttempts - 1) {
-                    const suffix = `${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
-                    slug = `${this.generateSlug(metadata.title)}-${suffix}`;
-                    articleData.slug = slug;
-                    attempts++;
-                    continue;
-                }
+                attempts++;
+                slug = `${baseSlug}-${attempts + 1}`;
+                articleData.slug = slug;
+                continue;
             }
 
             logger.error('Failed to create article', error);
