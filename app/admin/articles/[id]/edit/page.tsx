@@ -5,6 +5,7 @@ import { logger } from '@/lib/logger';
 import { useRouter, useParams } from 'next/navigation';
 import AdminLayout from '@/components/admin/AdminLayout';
 import ArticleInspector from '@/components/admin/ArticleInspector';
+import ShortcodeCheatsheet from '@/components/admin/ShortcodeCheatsheet';
 import ArticleEditor from '@/components/admin/ArticleEditor';
 import { Input } from '@/components/ui/input';
 import type { ArticleData } from '@/lib/cms/article-service';
@@ -518,6 +519,10 @@ export default function EditArticlePage() {
                     }}
                     saving={saving || isAutoSaving}
                 />
+                {/* Visual shortcode reference — paste into editor for rich components */}
+                <div className="mt-4 px-1">
+                    <ShortcodeCheatsheet />
+                </div>
             }
         >
             <div className="flex flex-col h-screen bg-slate-50 dark:bg-surface-darkest dark:bg-surface-darkest transition-colors duration-300">

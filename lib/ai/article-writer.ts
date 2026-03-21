@@ -1,24 +1,25 @@
 
 import { api } from '@/lib/api';
 import { logger } from '@/lib/logger';
-import { 
-    AIDataSource, 
-    AIContentMetadata, 
-    calculateConfidence, 
-    createChangeLog, 
-    ALLOWED_AI_OPERATIONS 
+import {
+    AIDataSource,
+    AIContentMetadata,
+    calculateConfidence,
+    createChangeLog,
+    ALLOWED_AI_OPERATIONS
 } from './constraints';
 import { logAICost, calculateCostFromTokens } from './cost-tracker';
-
 import { linkInjector } from '@/lib/services/link-injector';
+import { getPromptForCategory } from './rich-content-prompts';
 
 export interface GeneratedArticle {
     title: string;
-    content: string; // Markdown
+    content: string; // Markdown with shortcodes
     excerpt: string;
     seo_title: string;
     seo_description: string;
     tags: string[];
+    schema_faq?: { question: string; answer: string }[];
     ai_metadata: AIContentMetadata;
     // Cost tracking info (from AI provider)
     provider?: string;
@@ -36,11 +37,13 @@ export interface GeneratedArticle {
 export interface GenerateArticleParams {
     topic: string;
     keywords: string[];
+    category?: string;       // e.g. 'credit-cards', 'mutual-funds', 'insurance'
     tone?: string;
     targetAudience?: string;
     sourceContent?: string;
     sourceUrl?: string;
-    articleId?: string; // Optional: for cost attribution after article creation
+    articleId?: string;      // Optional: for cost attribution after article creation
+    useRichPrompt?: boolean; // Default true — use category-specific rich prompts
 }
 
 /**
@@ -49,53 +52,46 @@ export interface GenerateArticleParams {
 export async function generateArticle({
     topic,
     keywords,
+    category = 'personal-finance',
     tone = 'educational',
     targetAudience = 'Indian Investors',
     sourceContent,
     sourceUrl,
-    articleId
+    articleId,
+    useRichPrompt = true,
 }: GenerateArticleParams): Promise<GeneratedArticle> {
-    
+
     const groundingContext = sourceContent
-        ? `\nGROUNDING MATERIAL (Primary Source):\n"""\n${sourceContent.substring(0, 8000)}\n"""\nINSTRUCTION: Base your analysis and facts primarily on the grounding material above. Cite it where appropriate.`
+        ? `\nGROUNDING MATERIAL (Primary Source):\n"""\n${sourceContent.substring(0, 8000)}\n"""\nINSTRUCTION: Base your analysis and facts on the grounding material above. Cite it in [fact-box] components.`
         : '';
 
-    // Construct a specialized prompt for high-quality financial content
-    const prompt = `You are an expert financial writer for InvestingPro.in, India's leading financial comparison platform.
-    
-    Task: Write a comprehensive, SEO-optimized article.
-    
-    Topic: ${topic}
-    Keywords: ${keywords.join(', ')}
-    Tone: ${tone}
-    Target Audience: ${targetAudience}
-    ${groundingContext}
-    
-    Requirements:
-    1. Structure:
-       - H1 Title (Catchy, Keyword-rich)
-       - Introduction (Hook + Problem Statement)
-       - Key Concepts / Main Body (Use H2, H3, Lists, Tables where appropriate)
-       - Pros & Cons (if applicable)
-       - Conclusion (Summary + Call to Action)
-       - FAQs (3-5 questions)
-    
-    2. Formatting:
-       - Use standard Markdown.
-       - Use bolding for emphasis.
-       - Use specific Indian context (₹ currency, Indian laws, Indian examples).
-    
-    3. Output Format:
-       - Return a JSON object with the following fields:
-         {
-           "title": "The H1 Title",
-           "content": "The full markdown content string (excluding title)",
-           "excerpt": "A 2-sentence summary for the card preview",
-           "seo_title": "Title tag (under 60 chars)",
-           "seo_description": "Meta description (under 160 chars)",
-           "tags": ["tag1", "tag2", "tag3"]
-         }
-    `;
+    // Use category-specific rich prompt (produces stunning formatted content)
+    const prompt = useRichPrompt
+        ? getPromptForCategory(category, { topic, keywords, groundingContext })
+        : `You are an expert financial writer for InvestingPro.in, India's leading financial comparison platform.
+
+Task: Write a comprehensive, SEO-optimized article.
+
+Topic: ${topic}
+Keywords: ${keywords.join(', ')}
+Tone: ${tone}
+Target Audience: ${targetAudience}
+${groundingContext}
+
+Requirements:
+1. Structure: H1 Title, Introduction (Hook + Problem), Key Concepts, Pros & Cons, Conclusion, FAQs (5 Q&As)
+2. Formatting: Standard Markdown, bold for emphasis, Indian context (₹ currency, Indian laws, Indian examples)
+3. Output Format:
+   Return a JSON object:
+   {
+     "title": "The H1 Title",
+     "content": "The full markdown content string (excluding title)",
+     "excerpt": "A 2-sentence summary for the card preview",
+     "seo_title": "Title tag (under 60 chars)",
+     "seo_description": "Meta description (under 160 chars)",
+     "tags": ["tag1", "tag2", "tag3"]
+   }
+`;
 
     const dataSources: AIDataSource[] = [
         { 
@@ -127,7 +123,7 @@ export async function generateArticle({
         if (result.title && result.content) {
             // Inject affiliate links before returning
             const contentWithLinks = await linkInjector.injectLinks(result.content || '');
-            
+
             return {
                 title: result.title || topic,
                 content: contentWithLinks || '',
@@ -135,6 +131,8 @@ export async function generateArticle({
                 seo_title: result.seo_title || result.title || topic,
                 seo_description: result.seo_description || result.excerpt || '',
                 tags: result.tags || [],
+                // schema_faq is generated by rich prompts — store for FAQ schema markup
+                schema_faq: result.schema_faq || [],
                 provider: result.provider,
                 model: result.model,
                 usage: result.usage,

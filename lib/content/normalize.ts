@@ -13,6 +13,7 @@
 
 import { marked } from 'marked';
 import { logger } from '@/lib/logger';
+import { processShortcodes } from './shortcodes';
 
 /**
  * Allowed HTML elements for TipTap
@@ -46,7 +47,9 @@ export function normalizeArticleBody(input: string | null | undefined): string {
     if (isJSON(trimmed)) {
         html = jsonToHTML(trimmed);
     } else if (isMarkdown(trimmed)) {
-        html = markdownToHTML(trimmed);
+        // Process shortcodes BEFORE markdown-to-HTML so they survive parsing
+        const withShortcodes = processShortcodes(trimmed);
+        html = markdownToHTML(withShortcodes);
     } else if (isHTML(trimmed)) {
         html = trimmed;
     } else {
@@ -187,8 +190,22 @@ function plaintextToHTML(text: string): string {
  */
 function cleanHTML(html: string): string {
     try {
-        // Allowed classes for visual components
-        const ALLOWED_CLASSES = ['key-takeaways', 'pro-tip', 'warning-box'];
+        // Allowed classes for visual components (all CSS components in article-content.css)
+        const ALLOWED_CLASSES = [
+            // Core visual boxes
+            'key-takeaways', 'pro-tip', 'warning-box', 'quick-verdict',
+            // Metric cards
+            'metrics-grid', 'metric-card', 'metric-label', 'metric-value', 'metric-description',
+            // Comparison grid
+            'comparison-grid', 'comparison-card',
+            // Portfolio allocation
+            'allocation-container', 'allocation-item', 'allocation-bar', 'allocation-bar-fill',
+            'item-label', 'item-value',
+            // Badges
+            'badge', 'badge-success', 'badge-info', 'badge-warning',
+            // Tailwind utility classes used in shortcode output
+            'text-primary', 'font-medium', 'my-8', 'p-4',
+        ];
         
         // Step 1: Remove most attributes but preserve allowed classes
         let cleaned = html;
