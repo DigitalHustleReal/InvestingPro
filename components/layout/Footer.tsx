@@ -76,8 +76,6 @@ const footerLinks = {
     ]
 };
 
-import MobileAppComingSoon from '@/components/home/MobileAppComingSoon';
-
 export function Footer() {
     const [showScrollTop, setShowScrollTop] = React.useState(false);
     const [disclaimerExpanded, setDisclaimerExpanded] = React.useState(false);
@@ -107,7 +105,6 @@ export function Footer() {
 
     return (
         <footer className="bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-600 border-t border-slate-200 dark:border-slate-900">
-            <MobileAppComingSoon />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 {/* PROMINENT Trust & Transparency Banner - FTC Compliance */}
                 <div className="mb-16 p-8 rounded-xl border-2 border-primary-600/30 bg-gradient-to-r from-primary-100/30 via-slate-100/50 to-slate-100/30 dark:from-primary-950/30 dark:via-slate-900/50 dark:to-slate-900/30 relative overflow-hidden">

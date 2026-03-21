@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
             if (!keyword) return NextResponse.json({ error: 'Keyword or Title required' }, { status: 400 });
             
             // Lazy import to avoid circular dep if any (though unlikely here)
-            const { imageService } = await import('@/lib/images/stock-image-service');
+            const { imageService } = await import('@/lib/images/stock-image-service-enhanced');
             const imageResult = await imageService.getFeaturedImage(keyword);
             
             return NextResponse.json({ 

@@ -545,6 +545,12 @@ export const NAVIGATION_CONFIG: NavigationCategory[] = [
 ];
 
 /**
+ * Primary navigation categories shown in desktop navbar (in order).
+ * Single source of truth — do not hardcode this list elsewhere.
+ */
+export const NAVBAR_PRIORITY_SLUGS = ['credit-cards', 'insurance', 'loans', 'investing', 'calculators'] as const;
+
+/**
  * Get category by slug
  */
 export function getCategoryBySlug(slug: string): NavigationCategory | undefined {

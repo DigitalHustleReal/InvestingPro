@@ -11,7 +11,7 @@ import { analyzeContentQuality, generateQualityReport } from '@/lib/quality/cont
 import { checkPlagiarism } from '@/lib/quality/plagiarism-checker';
 import { generateImageAltText } from '@/lib/quality/image-alt-generator';
 import { generateArticleSchema, extractFAQsFromContent } from '@/lib/seo/schema-generator';
-import { imageService } from '@/lib/images/stock-image-service';
+import { imageService } from '@/lib/images/stock-image-service-enhanced';
 // NOTE: eventPublisher and workflow imports made lazy to avoid server-only chain in scripts
 // import { eventPublisher, EventType } from '@/lib/events';
 // import { triggerArticlePublishingWorkflow } from '@/lib/workflows/hooks/article-workflow-hooks';

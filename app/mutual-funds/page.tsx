@@ -89,6 +89,11 @@ export default function MutualFundsPage() {
 
     const [totalCount, setTotalCount] = useState(0);
 
+    // Reset to page 1 whenever filters/search/sort change
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [sortBy, searchTerm, selectedCategory, filters]);
+
     useEffect(() => {
         loadFunds();
     }, [currentPage, sortBy, searchTerm, selectedCategory]);
@@ -142,37 +147,22 @@ export default function MutualFundsPage() {
         }
     };
 
-    // Apply Advanced Filters
+    // Sidebar filters applied client-side (search/category/sort are handled server-side)
     const filteredFunds = (Array.isArray(funds) ? funds : []).filter(fund => {
-        const matchesSearch = (fund.name || "").toLowerCase().includes(searchTerm.toLowerCase());
-        
-        // Category Filter
-        const matchesCategory = filters.categories.length === 0 || 
-            filters.categories.includes(fund.category || "") || 
-            (filters.categories.includes("Equity") && fund.type === "Equity"); // Simple mapping fallback
-
-        // Risk Filter
-        const matchesRisk = filters.riskLevels.length === 0 || 
+        // Risk Filter (sidebar)
+        const matchesRisk = filters.riskLevels.length === 0 ||
             filters.riskLevels.includes(fund.risk || "");
 
-        // Returns Filter (Min 3Y)
+        // Returns Filter — min 3Y threshold (sidebar slider)
         const matchesReturns = (fund.returns_3y || 0) >= filters.minReturns;
 
-        // Expense Ratio Filter
+        // Expense Ratio Filter (sidebar slider)
         const matchesExpense = (fund.expense_ratio || 0) <= filters.maxExpenseRatio;
 
-        return matchesSearch && matchesCategory && matchesRisk && matchesReturns && matchesExpense;
-    }).sort((a, b) => {
-         if (sortBy === "returns_1y") return (b.returns_1y || 0) - (a.returns_1y || 0);
-         if (sortBy === "returns_3y") return (b.returns_3y || 0) - (a.returns_3y || 0);
-         if (sortBy === "returns_5y") return (b.returns_5y || 0) - (a.returns_5y || 0);
-         if (sortBy === "rating") return (b.rating || 0) - (a.rating || 0);
-         return 0;
+        return matchesRisk && matchesReturns && matchesExpense;
     });
 
-
     const totalPages = Math.ceil(totalCount / itemsPerPage);
-    const paginatedFunds = funds; // Already paginated from server
 
     const structuredData = {
         "@context": "https://schema.org",
@@ -211,7 +201,7 @@ export default function MutualFundsPage() {
                      
                      {/* Premium Authoritative Hero */}
                      <CategoryHero
-                         title="Compare 1000+ Mutual Funds"
+                         title={`Compare ${totalCount > 0 ? `${totalCount}+` : ''} Mutual Funds`}
                          subtitle="Make Smart Investment Decisions"
                          description="Get personalized fund recommendations based on your investment goals, risk profile, and timeline. Compare funds side-by-side and start SIP instantly with our affiliate partners."
                          primaryCta={{
@@ -223,7 +213,7 @@ export default function MutualFundsPage() {
                              href: "#compare"
                          }}
                          stats={[
-                             { label: "Funds Compared", value: "1000+" },
+                             { label: "Funds Compared", value: totalCount > 0 ? `${totalCount}+` : "—" },
                              { label: "Goal-Based Matching", value: "Yes" },
                              { label: "Instant SIP Setup", value: "Active" }
                          ]}
@@ -311,7 +301,7 @@ export default function MutualFundsPage() {
                             <div className="py-20 flex flex-col items-center gap-4">
                                 <LoadingSpinner text="Decrypting fund performance metrics..." />
                             </div>
-                        ) : paginatedFunds.length === 0 ? (
+                        ) : filteredFunds.length === 0 ? (
                             <EmptyState 
                                 title="No Funds Found" 
                                 description="Adjust your filters to broaden your search." 
@@ -328,10 +318,10 @@ export default function MutualFundsPage() {
                             />
                         ) : (
                              viewMode === 'table' ? (
-                                <FundTable funds={paginatedFunds} />
+                                <FundTable funds={filteredFunds} />
                             ) : (
                                 <div className="grid md:grid-cols-2 xl:grid-cols-2 gap-6">
-                                     {paginatedFunds.map((fund, index) => (
+                                     {filteredFunds.map((fund, index) => (
                                          <Card
                                             key={index}
                                             className="rounded-[2.5rem] border-0 shadow-xl shadow-slate-200/50 dark:shadow-slate-900/50 bg-white dark:bg-slate-800 overflow-hidden hover:shadow-2xl transition-all duration-300 group/card relative"

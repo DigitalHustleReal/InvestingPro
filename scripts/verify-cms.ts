@@ -11,7 +11,7 @@
  */
 
 
-import { imageService } from '@/lib/images/stock-image-service';
+import { imageService } from '@/lib/images/stock-image-service-enhanced';
 import { analyzeContentQuality } from '@/lib/quality/content-quality-scorer';
 import 'dotenv/config';
 
