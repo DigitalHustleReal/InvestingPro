@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* iPhone safe area support for bottom nav */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .pb-safe {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
 /* ============================================================================
    SEMANTIC COLOR SYSTEM - CSS Variables
    ============================================================================
@@ -11,65 +18,63 @@
 
 @layer base {
   :root {
-    /* Unified Dark System Base */
-    --background: 222 47% 7%;                    /* Deepest Navy #070B14 */
-    --foreground: 210 40% 98%;                  /* White/Slate-50 */
-    
-    /* Card/Surface Colors */
-    --card: 222 47% 10%;                        /* #0D121F - Dark Card */
-    --card-foreground: 210 40% 98%;             /* White/Slate-50 */
-    
-    --popover: 222 47% 7%;
-    --popover-foreground: 210 40% 98%;
-    
-    --muted: 222 47% 15%;                       /* Muted Navy Surface */
-    --muted-foreground: 215 20% 65%;            /* Slate-400 (Secondary Text) */
-    
-    /* Brand Colors - IP Cyan */
-    --primary: 188 100% 43%;                    /* Cyan #06B6D4 */
-    --primary-foreground: 222 47% 7%;           /* Navy (Opposite Cyan) */
-    --primary-dark: 188 100% 35%;               /* Deeper Cyan */
-    
-    --secondary: 217 91% 60%;                   /* Blue #3B82F6 */
-    --secondary-foreground: 210 40% 98%;        /* White */
-    
-    --accent: 45 93% 47%;                       /* Gold #fbb614 */
-    --accent-foreground: 222 47% 7%;            /* Dark */
-    
-    /* Semantic Status Colors (High Contrast) */
-    --success: 161 84% 39%;                     /* Emerald #10B981 */
-    --success-foreground: 210 40% 98%;
-    
-    --warning: 38 92% 50%;                      /* Amber #f59e0b */
-    --warning-foreground: 210 40% 98%;
-    
-    --error: 0 84% 60%;                         /* Rose/Red #f43f5e */
-    --error-foreground: 210 40% 98%;
-    
-    --info: 188 100% 43%;                       /* Cyan (same as primary) */
-    --info-foreground: 210 40% 98%;
-    
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    
-    /* UI Elements */
-    --border: 222 47% 18%;                      /* Muted Navy Border */
-    --input: 222 47% 18%;
-    --ring: 188 100% 43%;                       /* Cyan Ring */
+    /* =====================================================================
+       LIGHT MODE (Default) — Forest Green Brand System
+       "India's Most Trusted Finance Platform" — trust, growth, money
+       ===================================================================== */
 
-    /*
-     * Legacy color aliases — these map to semantic tokens above.
-     * Prefer the semantic tokens (--primary, --accent, --border, etc.) in new code.
-     * Migration guide:
-     *   wt-nav    → bg-background / bg-surface-darker
-     *   wt-gold   → bg-accent / text-accent (amber/gold highlight)
-     *   wt-bg     → bg-background
-     *   wt-card   → bg-card
-     *   wt-surface → bg-muted
-     *   wt-border → border-border
-     *   wt-text   → text-foreground
-     *   wt-text-muted → text-muted-foreground
-     */
+    /* Base Surfaces */
+    --background: 0 0% 100%;                    /* Pure White */
+    --foreground: 222 47% 11%;                  /* Deep Navy text */
+
+    /* Card/Surface Colors */
+    --card: 0 0% 98%;                           /* Near-white card */
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;                       /* Light slate surface */
+    --muted-foreground: 215 16% 47%;            /* Medium gray — accessible */
+
+    /* Brand Primary — Forest Green (trust, money, growth) */
+    --primary: 142 76% 29%;                     /* #166534 Deep Forest Green */
+    --primary-foreground: 0 0% 100%;            /* White text on green */
+    --primary-dark: 142 72% 23%;               /* #14532D Deeper Green */
+    --primary-light: 142 69% 40%;              /* #16A34A Emerald Green (CTAs) */
+    --primary-pale: 141 79% 93%;               /* #DCFCE7 Mint (badge bg) */
+
+    /* Secondary */
+    --secondary: 210 40% 96%;                   /* Light gray bg */
+    --secondary-foreground: 222 47% 11%;        /* Dark text */
+
+    /* Accent — Indian Gold/Saffron (premium, Indian identity) */
+    --accent: 38 92% 43%;                       /* #D97706 Amber/Gold */
+    --accent-foreground: 222 47% 11%;           /* Dark text on gold */
+    --accent-pale: 48 96% 89%;                  /* #FEF3C7 Amber pale */
+
+    /* Semantic Status Colors */
+    --success: 142 69% 40%;                     /* Emerald #16A34A */
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 43%;                      /* Amber #D97706 */
+    --warning-foreground: 0 0% 100%;
+
+    --error: 0 72% 51%;                         /* Red #DC2626 */
+    --error-foreground: 0 0% 100%;
+
+    --info: 217 91% 60%;                        /* Blue #3B82F6 */
+    --info-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* UI Elements */
+    --border: 214 32% 91%;                      /* Light slate border */
+    --input: 214 32% 91%;
+    --ring: 142 76% 29%;                        /* Green focus ring */
+
+    /* Legacy aliases — map to semantic tokens */
     --wt-nav: var(--background);
     --wt-gold: var(--accent);
     --wt-gold-hover: var(--accent-hover, var(--accent));
@@ -81,18 +86,82 @@
     --wt-text-muted: var(--muted-foreground);
     --wt-text-dim: 215 16% 47%;
   }
-  
+
   .dark {
-    --background: 222 47% 7%;                   /* Deepest Navy #070B14 */
-    --foreground: 210 40% 98%;
+    /* =====================================================================
+       DARK MODE — Green-tinted deep dark (Zerodha-inspired)
+       ===================================================================== */
+
+    --background: 150 47% 7%;                   /* #0A1F14 Green-tinted dark */
+    --foreground: 210 40% 98%;                  /* Near-white text */
+
+    --card: 150 47% 10%;                        /* Slightly lighter green-dark */
+    --card-foreground: 210 40% 98%;
+
+    --popover: 150 47% 7%;
+    --popover-foreground: 210 40% 98%;
+
+    --muted: 150 47% 15%;                       /* Muted green-dark surface */
+    --muted-foreground: 215 20% 65%;            /* Readable secondary text */
+
+    --primary: 142 69% 40%;                     /* #16A34A Emerald (CTA in dark) */
+    --primary-foreground: 0 0% 100%;
+    --primary-dark: 142 76% 29%;               /* #166534 on dark bg */
+    --primary-light: 142 71% 55%;              /* Lighter emerald hover */
+    --primary-pale: 142 55% 20%;               /* Dark mint surface */
+
+    --secondary: 150 47% 18%;                   /* Dark green-tinted surface */
+    --secondary-foreground: 210 40% 98%;
+
+    --accent: 38 92% 50%;                       /* Gold stays vibrant in dark */
+    --accent-foreground: 222 47% 7%;
+    --accent-pale: 38 80% 20%;                  /* Dark gold surface */
+
+    --success: 142 69% 40%;                     /* Emerald */
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;                      /* Amber */
+    --warning-foreground: 222 47% 7%;
+
+    --error: 0 84% 60%;                         /* Rose/Red */
+    --error-foreground: 0 0% 100%;
+
+    --info: 217 91% 60%;                        /* Blue */
+    --info-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 150 47% 18%;                      /* Green-tinted border */
+    --input: 150 47% 18%;
+    --ring: 142 69% 40%;                        /* Emerald ring */
+
+    /* Legacy aliases */
+    --wt-nav: var(--background);
+    --wt-gold: var(--accent);
+    --wt-gold-hover: var(--accent-hover, var(--accent));
+    --wt-bg: var(--background);
+    --wt-card: var(--card);
+    --wt-surface: var(--muted);
+    --wt-border: var(--border);
+    --wt-text: var(--foreground);
+    --wt-text-muted: var(--muted-foreground);
+    --wt-text-dim: 215 16% 47%;
   }
 }
 
 @layer base {
   body {
-    @apply font-sans selection:bg-primary-500/30 selection:text-white;
+    @apply font-sans bg-background text-foreground;
+    @apply selection:bg-green-200 selection:text-green-900;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Tabular numerals everywhere — critical for financial figures */
+    font-variant-numeric: tabular-nums;
+  }
+
+  .dark body {
+    @apply selection:bg-green-800/50 selection:text-green-100;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -132,90 +201,140 @@
            focus:rounded-lg focus:font-semibold focus:shadow-lg;
   }
 
-  /* Sleek Dark Scrollbar */
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-
-  ::-webkit-scrollbar-track {
-    @apply bg-slate-950;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    @apply bg-slate-800 rounded-full border-2 border-slate-950 hover:bg-slate-700 transition-colors;
-  }
 }
 
 @layer components {
+  /* =========================================================================
+     GLASS CARD — Light/Dark aware
+     ========================================================================= */
   .glass-card {
-    @apply backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all duration-300;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.05);
+    @apply backdrop-blur-xl transition-all duration-300 rounded-2xl;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(22, 101, 52, 0.12);         /* green-tinted border */
+    box-shadow: 0 4px 24px rgba(22, 101, 52, 0.06);
   }
 
   .glass-card:hover {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 100%);
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.08), 0 12px 40px rgba(0,0,0,0.6);
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(22, 163, 74, 0.25);
+    box-shadow: 0 8px 32px rgba(22, 101, 52, 0.12);
+  }
+
+  .dark .glass-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.04), 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .dark .glass-card:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.04) 100%);
+    border-color: rgba(255, 255, 255, 0.18);
+    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.07), 0 12px 40px rgba(0, 0, 0, 0.5);
   }
 
   .bento-card {
-    @apply glass-card rounded-2xl overflow-hidden relative;
+    @apply glass-card overflow-hidden relative;
   }
 
+  /* =========================================================================
+     BRAND GRADIENT TEXT
+     ========================================================================= */
   .premium-gradient-text {
-    @apply bg-gradient-to-br from-white via-slate-200 to-slate-500 bg-clip-text text-transparent;
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #166534 0%, #16A34A 50%, #4ADE80 100%);
   }
 
-  /* Admin Glassmorphism Theme Utilities - DEPRECATED/LEGACY (Refactored to Safe CSS) */
+  .dark .premium-gradient-text {
+    background-image: linear-gradient(135deg, #4ADE80 0%, #16A34A 50%, #166534 100%);
+  }
+
+  /* =========================================================================
+     GREEN TRUST BADGE — "India's trusted platform" signals
+     ========================================================================= */
+  .trust-badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium;
+    background: hsl(var(--primary-pale));
+    color: hsl(var(--primary));
+    border: 1px solid hsl(var(--primary) / 0.2);
+  }
+
+  /* =========================================================================
+     ADMIN UTILITIES (kept for compatibility — scoped to admin layout)
+     ========================================================================= */
   .admin-glass {
     @apply backdrop-blur-xl;
-    /* bg-admin-glass */
     border: 1px solid rgb(229 231 235 / 0.2);
   }
-  
+
   .admin-glass-card {
     @apply backdrop-blur-xl rounded-2xl shadow-lg;
-    background-color: rgba(255, 255, 255, 0.8); /* Fallback */
-    border: 1px solid rgba(229, 231 235, 0.2);
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(229, 231, 235, 0.2);
   }
-  
+
   .admin-glass-hover {
     @apply transition-all duration-300;
   }
   .admin-glass-hover:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
-  
+
   .admin-gradient-text {
-     /* animate-gradient-text logic moved or simplified */
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(to right, #0ea5e9, #38bdf8);
+    background-image: linear-gradient(to right, #16A34A, #4ADE80);
   }
-  
+
   .admin-input {
     @apply rounded-lg transition-all duration-200;
-    /* bg-admin-input */
     background-color: transparent;
     border: 1px solid rgb(229 231 235 / 0.5);
   }
-  
+
   .admin-button-primary {
     @apply text-white rounded-lg font-medium transition-all duration-200 shadow-lg;
-    background-color: #14B8A6; /* Teal-500 — brand primary */
+    background-color: #166534;
   }
-  
+
   .admin-button-ghost {
     @apply rounded-lg transition-all duration-200 border border-transparent;
     background-color: transparent;
   }
   .admin-button-ghost:hover {
-     background-color: rgba(241, 245, 249, 0.5); /* slate-100/50 */
+    background-color: rgba(241, 245, 249, 0.5);
   }
 
+  /* =========================================================================
+     SCROLLBAR — Green tinted
+     ========================================================================= */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
 
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-100;
+  }
+
+  .dark ::-webkit-scrollbar-track {
+    background: hsl(150 47% 5%);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(142 30% 70%);
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(142 69% 40%);
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: hsl(150 30% 25%);
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: hsl(142 69% 40%);
+  }
 }
 
 

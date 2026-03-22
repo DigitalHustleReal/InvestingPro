@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import Script from "next/script";
 import "./globals.css";
 import ConditionalTopBar from "@/components/layout/ConditionalTopBar";
+import BottomMobileNav from "@/components/layout/BottomMobileNav";
 import AdminShell from "@/components/layout/AdminShell";
 import { cn } from "@/lib/utils";
 import Analytics from "@/components/common/Analytics";
@@ -103,7 +104,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: '#0f172a',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#166534' },
+    { media: '(prefers-color-scheme: dark)', color: '#0A1F14' },
+  ],
 };
 
 export default async function RootLayout({
@@ -138,12 +142,12 @@ export default async function RootLayout({
         outfit.variable,
         serif.variable,
         mono.variable,
-        "min-h-screen flex flex-col bg-slate-950 text-slate-50 antialiased selection:bg-cyan-500/30 selection:text-cyan-50"
+        "min-h-screen flex flex-col bg-background text-foreground antialiased"
       )}>
         <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />
         <ThemeProvider
             attribute="class"
-            defaultTheme="dark"
+            defaultTheme="light"
             enableSystem={false}
             disableTransitionOnChange
           >
@@ -167,7 +171,7 @@ export default async function RootLayout({
 
                   <AdminShell>
                     <ConditionalTopBar initialConfig={navConfig} />
-                    <main id="main-content" className="flex-grow" tabIndex={-1}>
+                    <main id="main-content" className="flex-grow pb-16 md:pb-0" tabIndex={-1}>
                       <PageErrorBoundary pageName="Root Layout">
                         <ConditionalPublicElements>
                           {children}
@@ -178,6 +182,7 @@ export default async function RootLayout({
                   <ConditionalPublicFloating>
                     <CompareBar />
                     <WhatsAppButton />
+                    <BottomMobileNav />
                   </ConditionalPublicFloating>
                   {/* 
                      AUTOMATED AFFILIATE SCRIPT (Cuelinks / Skimlinks)
