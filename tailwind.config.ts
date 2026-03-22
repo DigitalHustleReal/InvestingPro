@@ -45,19 +45,34 @@ const config: Config = {
                 950: '#020617',
             },
             
-            // Brand Colors (SaaS Theme)
-            sky: {
-                50: '#f0f9ff',
-                100: '#e0f2fe',
-                200: '#bae6fd',
-                300: '#7dd3fc',
-                400: '#38bdf8',
-                500: '#0ea5e9',
-                600: '#0284c7',
-                700: '#0369a1',
-                800: '#075985',
-                900: '#0c4a6e',
-                950: '#082f49',
+            // Brand Colors — Forest Green (trust, money, growth)
+            green: {
+                50: '#F0FDF4',
+                100: '#DCFCE7',
+                200: '#BBF7D0',
+                300: '#86EFAC',
+                400: '#4ADE80',
+                500: '#22C55E',
+                600: '#16A34A',
+                700: '#15803D',
+                800: '#166534',
+                900: '#14532D',
+                950: '#052E16',
+            },
+
+            // Amber/Gold — Indian identity, premium signals
+            amber: {
+                50: '#FFFBEB',
+                100: '#FEF3C7',
+                200: '#FDE68A',
+                300: '#FCD34D',
+                400: '#FBBF24',
+                500: '#F59E0B',
+                600: '#D97706',
+                700: '#B45309',
+                800: '#92400E',
+                900: '#78350F',
+                950: '#451A03',
             },
             
             // Admin Theme - SEMANTIC & SAFE
@@ -93,21 +108,22 @@ const config: Config = {
                 light: '#E2E8F0',       // slate-200 (Light mode border)
             },
             
-            // Functional Colors — primary aligned to CSS variable --primary (188 100% 43% = #06B6D4)
+            // Functional Colors — primary aligned to CSS variable --primary (Forest Green)
             primary: {
-                DEFAULT: '#06B6D4',     // cyan-500 — matches --primary CSS var
-                hover: '#0891B2',       // cyan-600
-                light: '#22D3EE',       // cyan-400
-                50: '#ECFEFF',
-                100: '#CFFAFE',
-                200: '#A5F3FC',
-                300: '#67E8F9',
-                400: '#22D3EE',
-                500: '#06B6D4',
-                600: '#0891B2',
-                700: '#0F766E',
-                800: '#115E59',
-                900: '#134E4A',
+                DEFAULT: '#166534',     // green-800 — matches --primary CSS var (light mode)
+                hover: '#15803D',       // green-700
+                light: '#16A34A',       // green-600 (Emerald — CTAs)
+                pale: '#DCFCE7',        // green-100 (badge bg)
+                50: '#F0FDF4',
+                100: '#DCFCE7',
+                200: '#BBF7D0',
+                300: '#86EFAC',
+                400: '#4ADE80',
+                500: '#22C55E',
+                600: '#16A34A',
+                700: '#15803D',
+                800: '#166534',
+                900: '#14532D',
             },
             
             secondary: {
@@ -203,8 +219,9 @@ const config: Config = {
                 'lg': '0 10px 20px -3px rgb(0 0 0 / 0.12), 0 4px 6px -4px rgb(0 0 0 / 0.08)',
                 'xl': '0 20px 40px -5px rgb(0 0 0 / 0.15), 0 8px 16px -8px rgb(0 0 0 / 0.1)',
                 '2xl': '0 30px 60px -12px rgb(0 0 0 / 0.2), 0 12px 24px -12px rgb(0 0 0 / 0.15)',
-                'primary': '0 4px 12px rgba(6, 182, 212, 0.15)',
-                'primary-lg': '0 8px 24px rgba(6, 182, 212, 0.25)',
+                'primary': '0 4px 12px rgba(22, 101, 52, 0.15)',
+                'primary-lg': '0 8px 24px rgba(22, 101, 52, 0.25)',
+                'green-glow': '0 0 20px rgba(22, 163, 74, 0.3)',
             },
             animation: {
                 'fade-in': 'fadeIn 0.5s ease-in',
