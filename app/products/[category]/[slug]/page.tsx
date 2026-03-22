@@ -49,7 +49,7 @@ export default function ProductDetailPage() {
     if (isLoading) {
         return (
             <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-                <Loader2 className="w-8 h-8 animate-spin text-teal-600" />
+                <Loader2 className="w-8 h-8 animate-spin text-emerald-600" />
             </div>
         );
     }
@@ -95,7 +95,7 @@ export default function ProductDetailPage() {
 
                     <div className="flex flex-col md:flex-row gap-8 items-start">
                         {/* Product Icon */}
-                        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-xl text-3xl">
+                        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-xl text-3xl">
                             {category === 'credit_card' && '💳'}
                             {category === 'mutual_fund' && '📈'}
                             {category === 'loan' && '💰'}
@@ -106,7 +106,7 @@ export default function ProductDetailPage() {
                         {/* Product Info */}
                         <div className="flex-1">
                             <div className="flex items-center gap-3 mb-2">
-                                <Badge className="bg-teal-500/20 text-teal-400 border-0">{categoryLabel}</Badge>
+                                <Badge className="bg-emerald-500/20 text-emerald-400 border-0">{categoryLabel}</Badge>
                                 {product.verification_status === 'verified' && (
                                     <Badge className="bg-success-500/20 text-success-400 border-0 flex items-center gap-1">
                                         <Shield className="w-3 h-3" /> Verified
@@ -123,8 +123,8 @@ export default function ProductDetailPage() {
                             {/* Trust Score */}
                             <div className="flex items-center gap-4">
                                 {product.trust_score && product.trust_score > 0 && (
-                                    <div className="flex items-center gap-2 bg-teal-500/10 px-4 py-2 rounded-xl">
-                                        <TrendingUp className="w-5 h-5 text-teal-400" />
+                                    <div className="flex items-center gap-2 bg-emerald-500/10 px-4 py-2 rounded-xl">
+                                        <TrendingUp className="w-5 h-5 text-emerald-400" />
                                         <span className="text-xl font-bold text-white">{product.trust_score}</span>
                                         <span className="text-slate-400">/100</span>
                                     </div>
@@ -142,7 +142,7 @@ export default function ProductDetailPage() {
                         <div className="flex flex-col gap-3 md:items-end">
                             {(product.official_link || product.affiliate_link) && (
                                 <a href={product.official_link || product.affiliate_link} target="_blank" rel="noopener noreferrer">
-                                    <Button size="lg" className="bg-teal-600 hover:bg-teal-700 w-full md:w-auto">
+                                    <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 w-full md:w-auto">
                                         <Globe className="w-4 h-4 mr-2" /> Visit Website
                                     </Button>
                                 </a>
@@ -198,15 +198,15 @@ export default function ProductDetailPage() {
                     {/* Sidebar */}
                     <div className="space-y-6">
                         {/* CTA Card */}
-                        <Card className="bg-gradient-to-br from-teal-600 to-teal-700 border-0 text-white">
+                        <Card className="bg-gradient-to-br from-emerald-600 to-emerald-700 border-0 text-white">
                             <CardContent className="p-6 text-center">
                                 <h3 className="text-xl font-bold mb-2">Interested?</h3>
-                                <p className="text-teal-100 text-sm mb-6">
+                                <p className="text-emerald-100 text-sm mb-6">
                                     Learn more about {product.name}
                                 </p>
                                 {(product.official_link || product.affiliate_link) ? (
                                     <a href={product.official_link || product.affiliate_link} target="_blank" rel="noopener noreferrer">
-                                        <Button className="w-full bg-white text-teal-700 hover:bg-teal-50">
+                                        <Button className="w-full bg-white text-emerald-700 hover:bg-emerald-50">
                                             <Globe className="w-4 h-4 mr-2" /> Visit Website
                                         </Button>
                                     </a>

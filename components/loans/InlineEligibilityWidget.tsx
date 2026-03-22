@@ -106,7 +106,7 @@ export function InlineEligibilityWidget() {
                                 <span className="ml-auto text-xs font-bold text-success-600">10.25%</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <div className="w-6 h-6 bg-sky-600 rounded-full flex items-center justify-center text-white text-[8px] font-bold">S</div>
+                                <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white text-[8px] font-bold">S</div>
                                 <span className="text-sm font-bold">SBI Loan</span>
                                 <span className="ml-auto text-xs font-bold text-success-600">10.50%</span>
                             </div>

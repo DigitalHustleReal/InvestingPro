@@ -41,7 +41,7 @@ const getWidgetsForCategory = (category: string): MiniWidget[] => {
             label: 'CIBIL Score',
             value: '750+',
             subtext: 'Check Free',
-            color: 'bg-gradient-to-r from-emerald-500 to-teal-500'
+            color: 'bg-gradient-to-r from-emerald-500 to-emerald-500'
         });
     }
     
@@ -252,7 +252,7 @@ function CibilExpandedContent() {
             </div>
             
             {/* CTA */}
-            <Button className="w-full h-14 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold text-base">
+            <Button className="w-full h-14 rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-600 text-white font-bold text-base">
                 Check Your Score Free
                 <ChevronRight className="w-5 h-5 ml-2" />
             </Button>

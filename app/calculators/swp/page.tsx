@@ -269,7 +269,7 @@ export default function SWPCalculatorPage() {
                                     <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-bold flex-shrink-0">4</div>
                                     <div>
                                         <h4 className="font-bold text-lg mb-1">Growth</h4>
-                                        <p className="text-slate-600">Since your withdrawal (₹4.8L/year) is less than returns (10% of 50L = ₹5L/year), your original corpus actually <span className="font-bold text-teal-600">GROWS</span> over time despite withdrawals.</p>
+                                        <p className="text-slate-600">Since your withdrawal (₹4.8L/year) is less than returns (10% of 50L = ₹5L/year), your original corpus actually <span className="font-bold text-emerald-600">GROWS</span> over time despite withdrawals.</p>
                                     </div>
                                 </div>
                             </div>

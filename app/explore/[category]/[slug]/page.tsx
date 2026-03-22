@@ -61,9 +61,9 @@ async function IntentPageContent({
                             <Link
                                 key={collection.href}
                                 href={collection.href}
-                                className="block p-6 bg-white rounded-lg border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all"
+                                className="block p-6 bg-white rounded-lg border border-slate-200 hover:border-emerald-500 hover:shadow-lg transition-all"
                             >
-                                <h3 className="text-lg font-semibold text-slate-900 mb-2 hover:text-teal-600">
+                                <h3 className="text-lg font-semibold text-slate-900 mb-2 hover:text-emerald-600">
                                     {collection.name}
                                 </h3>
                                 {collection.description && (
@@ -79,7 +79,7 @@ async function IntentPageContent({
                     <div className="mt-8 pt-8 border-t border-slate-200">
                         <Link
                             href={`/${categorySlug}`}
-                            className="text-teal-600 hover:text-teal-700 font-medium"
+                            className="text-emerald-600 hover:text-emerald-700 font-medium"
                         >
                             ← Back to {category.name}
                         </Link>

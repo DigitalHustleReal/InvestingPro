@@ -145,7 +145,7 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     icon: Car,
     color: 'text-secondary-700',
     bgColor: 'bg-secondary-50',
-    borderColor: 'border-cyan-200',
+    borderColor: 'border-green-200',
     description: 'New/used cars, low down payment, flexible EMI'
   },
   'gold-loan': {

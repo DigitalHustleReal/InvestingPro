@@ -24,7 +24,7 @@ export default function TrustScoreWidget({
     // Keep vibrant gradient colors - only avoid red
     const colorClasses = {
         emerald: 'from-primary-500 to-primary-700',
-        teal: 'from-primary-500 to-cyan-500',
+        teal: 'from-primary-500 to-green-500',
         amber: 'from-accent-500 to-orange-500' // Amber instead of red/rose
     };
 

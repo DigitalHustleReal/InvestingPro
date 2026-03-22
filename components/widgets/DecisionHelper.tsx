@@ -42,7 +42,7 @@ const categoryTools = {
             description: 'Know your approval probability before applying',
             icon: Shield,
             href: '/credit-cards/smart-compare#approval',
-            color: 'from-emerald-500 to-teal-600',
+            color: 'from-emerald-500 to-emerald-600',
         },
         {
             id: 'break-even',
@@ -60,7 +60,7 @@ const categoryTools = {
             description: 'Check approval probability across 30+ lenders',
             icon: Shield,
             href: '/loans/eligibility-checker',
-            color: 'from-emerald-500 to-teal-600',
+            color: 'from-emerald-500 to-emerald-600',
             badge: 'Instant Check'
         },
         {
