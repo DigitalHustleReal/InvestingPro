@@ -5,31 +5,31 @@
   "crons": [
     {
       "path": "/api/cron/check-data-freshness",
-      "schedule": "0 * * * *"
+      "schedule": "0 12 * * *"
     },
     {
       "path": "/api/cron/publish-scheduled",
-      "schedule": "*/15 * * * *"
+      "schedule": "0 13 * * *"
     },
     {
       "path": "/api/cron/email-sequences",
-      "schedule": "*/30 * * * *"
+      "schedule": "0 14 * * *"
     },
     {
       "path": "/api/cron/content-distribution",
-      "schedule": "30 * * * *"
+      "schedule": "0 15 * * *"
     },
     {
       "path": "/api/cron/analytics-sync",
-      "schedule": "0 */6 * * *"
+      "schedule": "0 16 * * *"
     },
     {
       "path": "/api/cron/process-pipeline",
-      "schedule": "0 */2 * * *"
+      "schedule": "0 17 * * *"
     },
     {
       "path": "/api/cron/check-data-changes",
-      "schedule": "0 */4 * * *"
+      "schedule": "0 19 * * *"
     },
     {
       "path": "/api/cron/check-rankings-drops",
