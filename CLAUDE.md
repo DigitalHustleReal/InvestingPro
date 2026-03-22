@@ -1,7 +1,7 @@
 # InvestingPro.in — Claude Code Context
 
 > **Read this first, every session. This saves you from re-reading 200+ files.**
-> Last updated: March 22, 2026
+> Last updated: March 22, 2026 — SEO Intelligence Brief + CMS Power-Up + Article Schema Plan added
 
 ---
 
@@ -282,6 +282,284 @@ After merging, Vercel should reach READY state on master.
 4. When in doubt about a file, read it BEFORE editing it
 5. Run `npm run validate` before any commit
 ```
+
+---
+
+---
+
+## 13. SEO & Market Intelligence — Strategic Master Plan (March 2026)
+
+> Source: Full SEO Command Centre brief — 270+ keywords, 6 Indian competitors, 8 global platforms benchmarked.
+
+### The Honest Reality
+- BankBazaar: 200K+ indexed pages, 8.5M visits/month, DR74, 17-year head start
+- Paisabazaar: 9.6M visits/month, Auth Score 75, CIBIL score is their #1 traffic driver
+- ClearTax: Auth Score 86, owns tax — do NOT try to beat them at tax filing
+- CardExpert: 679K visits, 7:31 avg session — dangerous CC specialist, single founder
+- **InvestingPro's edge:** Cross-vertical (tax → ELSS → MF → loans), AI tools, advisor experience (not just a directory), first-mover on features nobody in India has built
+
+### The 3 Moves That Matter Most (Do These First)
+1. **Editorial independence page** — "How We Rank" + one-liner on every product list. Zero cost. Own "honest platform" position before anyone else.
+2. **Weekly email newsletter** — InvestingPro Weekly (5 tips, Monday 9am). MoneySavingExpert has 9M subscribers. Zero Indian platform has this. Insurance against Google algorithm changes.
+3. **CIBIL Score Simulator** — Credit Karma's most-engaged feature. Nobody in India has built this properly. Leads directly to product recommendations. First-mover window open now.
+
+### P0 Keyword Pages Needed (Build in this order)
+**Credit Cards (11 P0 pages):**
+- `/credit-cards` — master ranked list, filterable (150K–300K/mo)
+- `/credit-cards/cashback` (90K–150K/mo)
+- `/credit-cards/travel` (80K–120K/mo)
+- `/credit-cards/lifetime-free` (60K–100K/mo)
+- `/credit-cards/fuel` (20K–40K/mo)
+- `/credit-cards/lounge-access` (28K–55K/mo)
+- `/credit-cards/upi-rupay` (18K–35K/mo) — Low KD, fast win
+- `/credit-cards/dining` (12K–25K/mo)
+- `/credit-cards/ott-subscriptions` — **ZERO competition, first mover, build now**
+- `/credit-cards/rent-payment` — **ZERO competition**
+- `/credit-cards/electricity-bill` — **ZERO competition**
+
+**Mutual Funds (6 P0 pages):**
+- `/mutual-funds/best-sip` (150K–250K/mo)
+- `/mutual-funds/elss` (80K–130K/mo — crosslink Section 80C)
+- `/mutual-funds/large-cap`, `/mid-cap`, `/small-cap`
+- Index vs Active Fund guide (12K–24K/mo, Low KD — rank in 6mo)
+
+**Calculators (6 P0 tools — already partially built):**
+- EMI Calculator (5M–10M/mo) — must be best UX in market
+- SIP Calculator (1M–2.5M/mo, +71% YoY)
+- Income Tax Calculator old vs new regime (800K–1.5M/mo)
+- Home Loan EMI Calculator (1.5M–3M/mo)
+- PPF Calculator (500K–900K/mo)
+- **SWP Calculator** (+423% YoY, near-zero competition — BUILD NOW)
+
+**Loans (4 P0 pages):**
+- `/loans/home-loan` with live rate table (120K–200K/mo)
+- `/loans/personal-loan` with live comparison (90K–150K/mo)
+- CIBIL Score hub (2M–5M/mo — Paisabazaar's #1 traffic driver)
+- Home Loan Balance Transfer (30K–55K/mo — timely with RBI cuts)
+
+**Tax (4 P0 pages):**
+- Old vs New Tax Regime with interactive calculator (500K–900K/mo)
+- Section 80C deductions comprehensive guide (300K–600K/mo)
+- Tax-saving investment comparison hub (80K–150K/mo)
+- Best tax-saving FD guide (20K–40K/mo)
+
+### Programmatic SEO Opportunities (BankBazaar Playbook)
+- **IFSC Code Lookup** — BankBazaar gets 1.29M visits/month from 80K+ auto-generated pages. RBI publishes the database. One-time build, evergreen traffic. Potential: 500K–1M visits/month.
+- **Bank Holidays India** — Simple yearly data, dozens of pages, zero competition. 50K–200K seasonal visits/year.
+- **PIN Code + Branch Finder** — 50K+ hyper-local pages from RBI public data. 200K–500K/month potential.
+- **Card vs Card Comparator** — HDFC Millennia vs SBI SimplyCLICK-type pages. 1,000 pairs ranked = 50K+/month. Highest purchase intent.
+
+### Global Features to Build for India (Phased)
+
+**Phase Now — 0-6 weeks, zero code cost:**
+- [ ] "How We Rank" editorial independence page (NerdWallet model)
+- [ ] Named author photos + credentials on every article
+- [ ] "Last verified: [date]" on all rate tables + product listings
+- [ ] Remove any quiz gates on category pages — show products first, filter inline
+
+**Phase Soon — 1-3 months:**
+- [ ] InvestingPro Weekly email (Resend already in stack — just needs template + subscribe flow)
+- [ ] Approval probability badges on product cards: "CIBIL 740 → Likely ✓ / Possible ~ / Unlikely ✗"
+- [ ] Rate Watch alerts (email/WhatsApp when FD rates or home loan rates change)
+- [ ] Affordability Score calculator on loan pages: "Your safe EMI headroom = ₹X/month"
+
+**Phase Build — 3-9 months:**
+- [ ] CIBIL Score Simulator (Credit Karma model, India-specific 300–900 scale)
+- [ ] AI 3-line summary on every product card (Anthropic API already in stack)
+- [ ] InvestingPro Masterclass — 8 free short finance education videos, each with product CTA
+- [ ] InvestingPro Rewards Club — points for comparing + applying (Amazon vouchers, not travel days)
+
+**Phase Year 2+ — Platform shift:**
+- [ ] Account Aggregator integration (India's Open Banking equivalent — ClearScore model)
+- [ ] Goal-based planning engine ("Buy house in 5 years" → SIP + CIBIL + loan path)
+- [ ] B2B API / "InvestingPro Everywhere" white-label widget (ClearScore Everywhere model)
+- [ ] Named financial expert anchor (Martin Lewis model for India)
+
+### Competitors' Gaps InvestingPro Can Exploit Right Now
+| Competitor | Their Weakness | InvestingPro's Counter |
+|---|---|---|
+| Paisabazaar | SWP calculator weak, no AI tools | SWP calc + SmartAdvisor |
+| BankBazaar | Weak MF coverage, no AI | MF vertical depth + AI summary |
+| CardExpert | CC only, no cross-vertical | Full vertical + tax crosslinks |
+| GoodReturns | Personal finance is thin | Beat every category page |
+| ClearTax | Tax only, no product reco | 80C → ELSS → MF crosslink chain |
+
+### Features to SKIP (Do Not Build Now)
+- Full robo-advisory (requires SEBI registration)
+- Tax filing (ClearTax too entrenched, 86 Authority Score)
+- International expansion (stay India-first)
+- Ultra-HNI wealth management (wrong audience)
+- Banking license play (5+ years, regulatory)
+
+---
+
+## 14. Article Page Schema — What Needs to Be Added
+
+> Current schema is strong but missing fields that SEO intelligence and advisor UX require.
+> DO NOT change DB schema yet — this is the research plan. Discuss before any migration.
+
+### Current Schema (What Exists)
+`id, slug, title, excerpt, body_html, body_markdown, category, tags, status, seo_title, seo_description, featured_image, read_time, author_id, quality_score, ai_generated, ai_metadata, views, published_at, created_at, updated_at`
+
+### Missing Fields Required for Full Platform Vision
+
+**Editorial Trust Fields (Phase Now — zero cost, just CMS UI fields):**
+- `last_rate_verified_at` TIMESTAMP — "Rate data last verified: [date]" shown on page
+- `expert_quote` TEXT — "Editor says..." / founder voice per article (Martin Lewis model)
+- `review_methodology` TEXT — how products on this page were selected + scored
+- `affiliate_disclosure_text` TEXT — per-article custom disclosure (vs global)
+
+**Content Classification Fields (Phase Soon):**
+- `content_subtype` TEXT — `'guide' | 'comparison' | 'tool-page' | 'news' | 'glossary' | 'pillar' | 'programmatic'`
+- `seasonal_peak_month` INTEGER(1-12) — which month this page gets 3-5x traffic (e.g., 3 = March for tax content)
+- `target_keyword` TEXT — primary keyword this page is optimised for
+- `keyword_priority` TEXT — `'p0' | 'p1' | 'p2'` — from the SEO brief above
+- `search_volume_est` TEXT — e.g. "150K–300K" — from keyword research
+
+**SEO & Structured Data Fields (Phase Soon):**
+- `schema_markup` JSONB — JSON-LD (Article, FAQPage, HowTo, Product) — `blog_posts` has this, `articles` does not
+- `faq_items` JSONB — array of {question, answer} for FAQPage schema (quick featured snippet wins)
+- `canonical_url` TEXT — exists on blog_posts but NOT articles table
+- `breadcrumb_path` JSONB — structured breadcrumb for BreadcrumbList schema
+
+**Product Integration Fields (Phase Soon):**
+- `embedded_calculator` TEXT — which calculator slug to embed inline (e.g., `'sip-calculator'`)
+- `featured_products` UUID[] — product IDs to highlight in article (typed cross-link)
+- `approval_rules_ref` TEXT — which product category approval-probability rules apply here
+
+**Engagement & Email Fields (Phase Soon):**
+- `newsletter_featured` BOOLEAN — should this article appear in next InvestingPro Weekly?
+- `rate_alert_category` TEXT — which rate-watch category this article belongs to (e.g., `'home-loan-rates'`)
+
+**Performance Fields (Existing analytics but not on article record):**
+- `organic_rank_position` INTEGER — current Google position for target keyword (for admin visibility)
+- `organic_click_through_rate` DECIMAL — from Search Console (manual input or API)
+
+### Priority: What to Add First
+1. `last_rate_verified_at` + `target_keyword` + `keyword_priority` — highest editorial value, simplest to add
+2. `schema_markup` + `faq_items` — direct SEO impact (rich snippets)
+3. `content_subtype` + `seasonal_peak_month` — enables content calendar automation
+4. `embedded_calculator` + `featured_products` — enables cross-vertical linking strategy
+
+---
+
+## 15. No-Coder Platform Management — What the Admin CMS Needs
+
+> Goal: A non-technical founder/editor can manage the full platform without a developer.
+> Current state: Admin panel is powerful but 70% of the right workflows aren't exposed in the UI.
+
+### What a Non-Coder Needs to Do Daily (Manual Operations)
+
+**Content Management:**
+- Create/edit articles with all SEO fields visible (not buried in JSONB)
+- Upload featured image, set author, set category + tags, set target keyword
+- Set `last_rate_verified_at` with a one-click "verified today" button
+- Schedule article publication (date + time picker)
+- Mark article as "featured in newsletter" checkbox
+- See which articles need rate verification (table filter: `last_rate_verified_at > 30 days ago`)
+
+**Product/Rate Management:**
+- Update product affiliate links when they change
+- Update FD/loan/CC rates from a simple table (no JSON editing)
+- Mark products as active/inactive
+- Set approval probability rules per card (CIBIL score threshold = eligible/unlikely)
+- Add new products without touching code
+
+**SEO Management:**
+- Edit `seo_title`, `seo_description`, `target_keyword` per article from list view
+- See `keyword_priority` (P0/P1/P2) as a column in article table
+- One-click "add FAQ" section with Q&A editor (generates FAQPage schema automatically)
+- Bulk-edit meta descriptions for a category
+
+**Email/Newsletter:**
+- Compose InvestingPro Weekly from a simple drag-drop template
+- Select "featured articles" from checkbox in article list
+- Schedule send time
+- See subscriber count + open rate
+
+**Content Calendar:**
+- See which seasonal P0 pages need to be published 60 days before their peak month
+- Drag articles to calendar dates
+- Filter by `seasonal_peak_month` to plan tax season content in January
+
+### What Can/Should Be Automated (Automation Operations)
+
+**Daily Automation (already partially built — verify/complete):**
+- AI content generation from keyword prompts (Content Factory — `app/admin/content-factory/`)
+- Auto-categorize articles using TaxonomyService keyword matching
+- Auto-generate `read_time` from word count
+- Auto-generate slug from title
+- Rate alert emails when tracked products change (needs: rate change detection cron)
+
+**Weekly Automation (needs building):**
+- Pull articles marked `newsletter_featured=true` → compile InvestingPro Weekly draft
+- Scan articles where `last_rate_verified_at > 30 days` → send admin reminder email
+- Generate SERP ranking report for P0 keywords → add to admin dashboard
+- Social media repurposing: convert article to tweet thread / LinkedIn post (SocialPostManager exists)
+
+**Monthly Automation (needs building):**
+- Programmatic page generation for IFSC codes / Bank Holidays / PIN Codes (from RBI public data)
+- Card vs Card comparison pages (from products table cross-join)
+- AI-refresh stale articles (older than 90 days, `ai_generated=true`) — update stats, rates, dates
+
+**Seasonal Automation (needs building):**
+- 60 days before `seasonal_peak_month`: trigger content reminder for that article cluster
+- January: trigger tax-season content checklist (80C, ELSS, old vs new regime articles)
+- RBI monetary policy dates: trigger home loan rate comparison page update
+
+### Admin Panel Gaps (Screens That Need Building)
+These are workflows missing from the current 38-section admin panel:
+
+| Missing Screen | Why Needed | Priority |
+|---|---|---|
+| Rate Table Manager | Update FD/loan/CC rates without SQL | P0 — needed now |
+| SEO Inline Editor | Edit meta fields from article list, not just inside editor | P0 — daily use |
+| Newsletter Builder | Compose + schedule InvestingPro Weekly | P0 — new feature |
+| Rate Alert Manager | Set which products trigger email alerts + thresholds | P1 |
+| Approval Rules Editor | Set CIBIL score rules per product category | P1 |
+| Content Calendar (seasonal) | View articles by `seasonal_peak_month` | P1 |
+| SERP Rank Tracker | See current Google position for target keywords | P1 |
+| Programmatic SEO Manager | Bulk-generate IFSC/PIN/Holiday pages | P2 |
+| Masterclass Video Manager | Upload/order 8 education videos per module | P2 |
+| Rewards Club Admin | Award/redeem points for users | P2 (Year 2) |
+
+### Non-Coder Rule for Every New Admin Feature
+```
+1. Every data field must have a human-readable label (not snake_case)
+2. Every JSONB field must be rendered as a form (never raw JSON editing)
+3. Every action must have confirmation + undo
+4. Every table must have search + filter + sort
+5. Status badges must use plain English (Published / Draft / Needs Review)
+6. Dates must show relative time ("3 days ago") + absolute (hover tooltip)
+```
+
+---
+
+## 16. CMS Multi-Platform Vision (Future — Research Complete, Don't Build Yet)
+
+> Researched March 22, 2026. Build only after InvestingPro.in is fully stable and ranking.
+
+### The Architecture Plan (When Ready)
+- Add `tenant_id UUID` FK to: `articles`, `products`, `authors`, `categories`, `tags`, `media`
+- Wire existing `tenants` + `tenant_settings` + `tenant_feature_flags` tables (schema exists, unused)
+- Move category taxonomy from hardcoded `lib/navigation/categories.ts` to `category_definitions` DB table
+- Move product type enum to `product_type_schemas` DB table (with JSONB feature schema per type)
+- `tenants.theme_config JSONB` → dynamic CSS variables per site (white-label)
+- Headless API: `/api/v1/{tenant}/` with `tenant_api_keys` auth
+
+### Niche Packs Ready to Seed (SQL seed files, no code)
+- **Indian Finance Pack** — current platform (8 categories, 30+ subcategories)
+- **US Finance Pack** — Checking, 401k, Roth IRA, mortgage, student loans
+- **UK Finance Pack** — ISAs, SIPPs, mortgages, current accounts
+- **Real Estate Pack** — Buy, rent, invest, REITs, mortgage calculators
+- **Health Insurance Pack** — ACA plans, Medicare, HSA, deductibles
+
+### Rule: Do NOT start multi-platform work until
+- [ ] All P0 keyword pages are live and ranking
+- [ ] InvestingPro Weekly has 10K+ subscribers
+- [ ] CIBIL Simulator is live
+- [ ] Programmatic SEO (IFSC/Holidays) is live
+- [ ] TypeScript strict-mode errors are resolved
 
 ---
 
