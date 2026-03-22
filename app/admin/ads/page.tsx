@@ -19,12 +19,12 @@ export default function AdsPage() {
     const activeAds = adPlacements.filter((ad: any) => ad.status === 'active').length;
     const pausedAds = adPlacements.filter((ad: any) => ad.status === 'paused').length;
 
-    const getStatusVariant = (status: string): 'default' | 'success' | 'warning' | 'danger' => {
+    const getStatusVariant = (status: string): 'neutral' | 'completed' | 'warning' | 'error' => {
         switch (status) {
-            case 'active': return 'success';
+            case 'active': return 'completed';
             case 'paused': return 'warning';
-            case 'inactive': return 'danger';
-            default: return 'default';
+            case 'inactive': return 'error';
+            default: return 'neutral';
         }
     };
 
@@ -100,7 +100,7 @@ export default function AdsPage() {
                                                     </code>
                                                 </td>
                                                 <td className="px-4 py-4">
-                                                    <StatusBadge variant={getStatusVariant(ad.status)}>
+                                                    <StatusBadge status={getStatusVariant(ad.status)}>
                                                         {ad.status}
                                                     </StatusBadge>
                                                 </td>
