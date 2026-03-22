@@ -75,21 +75,47 @@ const config: Config = {
                 950: '#451A03',
             },
             
-            // Admin Theme - SEMANTIC & SAFE
-            background: {
-                primary: '#0F172A',     // slate-900 (Main BG)
-                secondary: '#1E293B',   // slate-800 (Cards/Panels)
-                tertiary: '#334155',    // slate-700 (Hovers)
-                page: '#fafaf9',        // stone-50 (Public Light BG)
+            // Semantic surface tokens — CSS variable mapped (shadcn/ui pattern)
+            background: 'hsl(var(--background))',
+            foreground: 'hsl(var(--foreground))',
+
+            card: {
+                DEFAULT: 'hsl(var(--card))',
+                foreground: 'hsl(var(--card-foreground))',
             },
-            
+
+            popover: {
+                DEFAULT: 'hsl(var(--popover))',
+                foreground: 'hsl(var(--popover-foreground))',
+            },
+
+            muted: {
+                DEFAULT: 'hsl(var(--muted))',
+                foreground: 'hsl(var(--muted-foreground))',
+            },
+
+            accent: {
+                DEFAULT: 'hsl(var(--accent))',
+                foreground: 'hsl(var(--accent-foreground))',
+                pale: 'hsl(var(--accent-pale))',
+            },
+
+            destructive: {
+                DEFAULT: 'hsl(var(--destructive))',
+                foreground: 'hsl(var(--destructive-foreground))',
+            },
+
+            input: 'hsl(var(--input))',
+            ring: 'hsl(var(--ring))',
+
+            // Admin Theme surface aliases (kept for backward compat)
             surface: {
-                DEFAULT: 'rgba(30, 41, 59, 0.5)',  // slate-800/50
-                hover: 'rgba(51, 65, 85, 0.3)',    // slate-700/30
-                card: '#ffffff',                   // Public/Light Card
-                dark: '#1E293B',                   // slate-800 (Panel) - Matches background.secondary
-                darker: '#0F172A',                 // slate-900 (Input/Deeper) - Matches background.primary
-                darkest: '#020617',                // slate-950 (Body/Deepest)
+                DEFAULT: 'rgba(30, 41, 59, 0.5)',
+                hover: 'rgba(51, 65, 85, 0.3)',
+                card: '#ffffff',
+                dark: '#1E293B',
+                darker: '#0F172A',
+                darkest: '#020617',
             },
             
             text: {
@@ -102,7 +128,7 @@ const config: Config = {
             },
             
             border: {
-                DEFAULT: 'rgba(255, 255, 255, 0.1)',
+                DEFAULT: 'hsl(var(--border))',
                 strong: 'rgba(255, 255, 255, 0.2)',
                 subtle: 'rgba(255, 255, 255, 0.05)',
                 light: '#E2E8F0',       // slate-200 (Light mode border)
@@ -110,7 +136,8 @@ const config: Config = {
             
             // Functional Colors — primary aligned to CSS variable --primary (Forest Green)
             primary: {
-                DEFAULT: '#166534',     // green-800 — matches --primary CSS var (light mode)
+                DEFAULT: 'hsl(var(--primary))',
+                foreground: 'hsl(var(--primary-foreground))',
                 hover: '#15803D',       // green-700
                 light: '#16A34A',       // green-600 (Emerald — CTAs)
                 pale: '#DCFCE7',        // green-100 (badge bg)
@@ -127,7 +154,8 @@ const config: Config = {
             },
             
             secondary: {
-                DEFAULT: '#1E293B',     // slate-800
+                DEFAULT: 'hsl(var(--secondary))',
+                foreground: 'hsl(var(--secondary-foreground))',
                 hover: '#334155',       // slate-700
                 // Legacy support
                 500: '#1B5E99',
